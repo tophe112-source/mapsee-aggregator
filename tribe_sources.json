@@ -20762,6 +20762,521 @@
         "street_hint": "9 Vinzenzstraße"
       },
       "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Down Syndrome Limerick",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://downsyndromelimerick.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Down Syndrome Limerick",
+        "address": "Castletroy Park Retail Park",
+        "city": "Limerick",
+        "lat": 52.6671696,
+        "lon": -8.5748777
+      },
+      "_metro": "Limerick, Ireland"
+    },
+    {
+      "name": "Milford Care Centre",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://milfordcarecentre.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Milford Care Centre",
+        "city": "Limerick",
+        "country": "IE",
+        "lat": 52.6707915,
+        "lon": -8.5721699
+      },
+      "_metro": "Limerick, Ireland"
+    },
+    {
+      "name": "Neue Kammerspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://neuekammerspiele.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Neue Kammerspiele",
+        "address": "18 Karl-Marx-Straße",
+        "city": "Kleinmachnow",
+        "postal_code": "14532",
+        "country": "DE",
+        "lat": 52.4176037,
+        "lon": 13.2263724
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Brotfabrik",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://brotfabrik-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brotfabrik",
+        "address": "1",
+        "city": "Berlin",
+        "postal_code": "13086",
+        "country": "DE",
+        "lat": 52.5525596,
+        "lon": 13.4305846
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Arena Halle",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.arena.berlin",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arena Halle",
+        "address": "4 Eichenstraße",
+        "city": "Berlin",
+        "postal_code": "12435",
+        "country": "DE",
+        "lat": 52.49694,
+        "lon": 13.4540533
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Theater im Palais",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theater-im-palais.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater im Palais",
+        "address": "1 Am Festungsgraben",
+        "city": "Berlin",
+        "postal_code": "10117",
+        "country": "DE",
+        "lat": 52.5185239,
+        "lon": 13.3954981
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Ruderverein Berlin von 1878",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rvb1878.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruderverein Berlin von 1878",
+        "address": "2,2A Brandensteinweg",
+        "city": "Berlin",
+        "postal_code": "13595",
+        "country": "DE",
+        "lat": 52.5109192,
+        "lon": 13.2101239
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Galerie Mutter Fourage",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://mutterfourage.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galerie Mutter Fourage",
+        "address": "15a Chausseestraße",
+        "city": "Berlin",
+        "postal_code": "14109",
+        "country": "DE",
+        "lat": 52.4165206,
+        "lon": 13.1459292
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Berliner U-Bahn-Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://ag-berliner-u-bahn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Berliner U-Bahn-Museum",
+        "address": "Rossitter Platz",
+        "city": "Berlin",
+        "postal_code": "14052",
+        "country": "DE",
+        "lat": 52.5173541,
+        "lon": 13.2499733
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Buchhandlung Paul + Paula",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://buchpaula.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung Paul + Paula",
+        "address": "121 Pfarrstraße",
+        "city": "Berlin",
+        "postal_code": "10317",
+        "country": "DE",
+        "lat": 52.5043879,
+        "lon": 13.4765431
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Aikido für Kinder Tanden Dojo",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tanden-aikido.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aikido für Kinder Tanden Dojo",
+        "lat": 52.5464752,
+        "lon": 13.4161267
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "freier zusammenschluss von studentInnenschaften",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fzs.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "freier zusammenschluss von studentInnenschaften",
+        "lat": 52.5365524,
+        "lon": 13.3775363
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Judo Club 03 Berlin e.V. Hauptdojo",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://jc03.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Judo Club 03 Berlin e.V. Hauptdojo",
+        "address": "1 Ribnitzer Straße",
+        "city": "Berlin",
+        "postal_code": "13051",
+        "country": "DE",
+        "lat": 52.5721756,
+        "lon": 13.5032448
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "VDSF LV Berlin-Brandenburg e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vdsfberlinbrandenburg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VDSF LV Berlin-Brandenburg e.V.",
+        "address": "46 Hugo-Cassirer-Straße",
+        "city": "Berlin",
+        "postal_code": "13587",
+        "country": "DE",
+        "lat": 52.5596875,
+        "lon": 13.2191249
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Eisenbahn-Sportverein Schmöckwitz",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rudern-schmoeckwitz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eisenbahn-Sportverein Schmöckwitz",
+        "lat": 52.3783891,
+        "lon": 13.6513924
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Evangelisch-Freikirchliche Gemeinde \"Zoar\"",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://efg-zoar.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelisch-Freikirchliche Gemeinde \"Zoar\"",
+        "address": "9 Cantianstraße",
+        "city": "Berlin",
+        "postal_code": "10437",
+        "country": "DE",
+        "lat": 52.5445845,
+        "lon": 13.4114087
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Urbanraum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://urbanraum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Urbanraum",
+        "address": "93 Urbanstraße",
+        "city": "Berlin",
+        "postal_code": "10967",
+        "lat": 52.4892273,
+        "lon": 13.4230332
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Samurai Museum Berlin",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://samuraimuseum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Samurai Museum Berlin",
+        "address": "68 Auguststraße",
+        "city": "Berlin",
+        "postal_code": "10117",
+        "country": "DE",
+        "lat": 52.5268086,
+        "lon": 13.3953314
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Spreewerkstätten",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.alte-muenze-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spreewerkstätten",
+        "lat": 52.5151377,
+        "lon": 13.4100789
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "SV RW Schönow e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rot-weiss-schoenow.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SV RW Schönow e.V.",
+        "address": "25a Schönerlinder Straße",
+        "city": "Bernau bei Berlin",
+        "postal_code": "16321",
+        "lat": 52.674228,
+        "lon": 13.5302412
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Haus der Sinne",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://hausdersinne-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus der Sinne",
+        "address": "10 Ystader Straße",
+        "city": "Berlin",
+        "postal_code": "10437",
+        "lat": 52.5490912,
+        "lon": 13.4040123
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "GRÜNE LIGA Berlin e.V.",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.grueneliga-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "GRÜNE LIGA Berlin e.V.",
+        "address": "8 Prenzlauer Allee",
+        "city": "Berlin",
+        "postal_code": "10405",
+        "country": "DE",
+        "lat": 52.5297654,
+        "lon": 13.4187803
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "August Bebel Institut",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://august-bebel-institut.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "August Bebel Institut",
+        "address": "163 Müllerstraße",
+        "city": "Berlin",
+        "postal_code": "13353",
+        "country": "DE",
+        "lat": 52.5435733,
+        "lon": 13.3632696
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kulturraum Mainzer 7",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mainzer7.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturraum Mainzer 7",
+        "address": "7 Mainzer Straße",
+        "city": "Berlin",
+        "postal_code": "12053",
+        "lat": 52.4837992,
+        "lon": 13.4272717
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.shotokan-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 52.553799,
+        "lon": 13.4174976
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Internetwerkstatt Netti",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://netti.berlin",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Internetwerkstatt Netti",
+        "address": "11 Friedrich-Wilhelm-Platz",
+        "city": "Berlin",
+        "postal_code": "12161",
+        "lat": 52.4717329,
+        "lon": 13.3295999
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kunsthof e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://kunsthofkoepenick.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunsthof e.V.",
+        "lat": 52.4466047,
+        "lon": 13.5746739
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Blasmusikfreunde Köpenick e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://bfk-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blasmusikfreunde Köpenick e.V.",
+        "lat": 52.41161,
+        "lon": 13.5882902
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Petersburg Art Space",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://pas-berlin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Petersburg Art Space",
+        "lat": 52.5247638,
+        "lon": 13.3202048
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Zilles Stubentheater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://zilles-stubentheater.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zilles Stubentheater",
+        "address": "4 Jägerstraße",
+        "city": "Berlin",
+        "postal_code": "12555",
+        "lat": 52.4457454,
+        "lon": 13.5778827
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Leibniz-Sozietät der Wissenschaften zu Berlin",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://leibnizsozietaet.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leibniz-Sozietät der Wissenschaften zu Berlin",
+        "address": "58-59 Luisenstraße",
+        "city": "Berlin",
+        "postal_code": "10117",
+        "lat": 52.5257837,
+        "lon": 13.3796655
+      },
+      "_metro": "Berlin, Germany"
     }
   ],
   "_not_included": {

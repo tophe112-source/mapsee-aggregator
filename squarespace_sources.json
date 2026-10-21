@@ -2876,6 +2876,22 @@
         "lon": 5.4804283
       },
       "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "The Lovers & Leaders Space",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.theloversandleaders.org/events-experiences",
+      "max_events": 200,
+      "venue": {
+        "name": "The Lovers & Leaders Space",
+        "address": "101 Torstraße",
+        "city": "Berlin",
+        "postal_code": "10119",
+        "lat": 52.5299425,
+        "lon": 13.4040626
+      },
+      "_metro": "Berlin, Germany"
     }
   ],
   "_not_included": {

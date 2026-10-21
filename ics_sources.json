@@ -34916,5 +34916,195 @@
       "pin_unnamed": false
     },
     "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Theater an der Parkaue",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.parkaue.de/kalender-eintrag/1961/ical-2026-10-25-1961.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Museum für Kommunikation",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar+jsonld-event",
+    "url": "https://www.mfk-berlin.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Quasimodo",
+    "category": "music",
+    "_found": "osm:music_venue -> events-manager",
+    "url": "https://quasimodo.club/events/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Komische Oper Berlin",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.komische-oper-berlin.de/kalender-eintrag/1299/ical-2026-10-23-1299.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Periplaneta",
+    "category": "learning",
+    "_found": "osm:books -> my-calendar",
+    "url": "https://www.periplaneta.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Art.13 Tango Berlin",
+    "category": "fitness",
+    "_found": "osm:dance -> events-manager",
+    "url": "https://www.art13tango.de/events/tangobewegung-wuerzburg-november-2026/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Verein Seglerhaus am Wannsee",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/0a46ce4aed4d4aabafda99b25984326a@vsaw.de/02f1c812356b4c8e92a018c3020b038411455846721397179677/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Huxleys Neue Welt",
+    "category": "music",
+    "_found": "osm:music_venue -> events-manager",
+    "url": "https://huxleysneuewelt.de/events/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "UNI.T",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.udk-berlin.de/veranstaltung/icalendar/nicht-mein-feuer-20261022/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany",
+    "crawl_delay": 30.0
+  },
+  {
+    "name": "Mouse & Bear Books",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/91786724f4c7268410a2bc0a23d52ebe57bd91b9d49ba9f88ba11890d0fb34b6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Hole⁴⁴",
+    "category": "music",
+    "_found": "osm:music_venue -> events-manager",
+    "url": "https://hole-berlin.de/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Indonesisches Weisheits- & Kulturzentrum",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_54b4297a5c0ddcec4b6e13c0ba253b156e56eb2528b6ec4a2de2414373563ed3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Adventgemeinde Spandau",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0b3qhbnd5mtjm6cddtb3fjm76k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Pyramidengarten",
+    "category": "outdoors",
+    "_found": "osm:garden -> events-manager",
+    "url": "https://pyramidengarten-berlin.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Zebrano-Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/0677cee150d3483ebba006877d2f7121@ZebranoTheater.onmicrosoft.com/cf8bbe4d014645639bdcfeb1e2dd19f56216733156399538885/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "American Church in Berlin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1v6jphh5kt5044c1plr4sv4p2m4kp2dq%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Tempelhof Museum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://museen-tempelhof-schoeneberg.de/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Greenpeace Berlin",
+    "category": "community",
+    "_found": "osm:ngo -> events-manager",
+    "url": "https://greenpeace.berlin/termine/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "MACHmit! Museum für Kinder",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/presse%40machmitmuseum.de/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Schützengilde 1418 zu Bernau e. V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40sgi1418.de/public/basic.ics",
+    "geocode_suffix": ", Bernau bei Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Autonomes Frauenzentrum",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://frauenzentrum-potsdam.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Potsdam",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
   }
 ]

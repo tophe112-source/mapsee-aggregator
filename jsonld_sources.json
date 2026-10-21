@@ -10598,6 +10598,415 @@
         "street_hint": "12 Alpenstraße"
       },
       "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Capitol - Das Kulturkino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.capitol-kw.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.capitol\\-kw\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capitol - Das Kulturkino",
+        "address": "16 Bahnhofstraße",
+        "city": "Königs Wusterhausen",
+        "postal_code": "15711",
+        "country": "DE",
+        "lat": 52.2967404,
+        "lon": 13.6299064
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Filmpalast Bernau",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmpalast-bernau.de/programm"
+      ],
+      "link_pattern": "https://filmpalast\\-bernau\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmpalast Bernau",
+        "address": "1 Börnicker Chaussee",
+        "city": "Bernau bei Berlin",
+        "postal_code": "16321",
+        "lat": 52.6762466,
+        "lon": 13.5959286
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Die Stachelschweine",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://diestachelschweine.de/programme"
+      ],
+      "link_pattern": "https://diestachelschweine\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Die Stachelschweine",
+        "address": "9-12 Tauentzienstraße",
+        "city": "Berlin",
+        "postal_code": "10789",
+        "country": "DE",
+        "lat": 52.5043712,
+        "lon": 13.3374894
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Wollschläger",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://buchwoll.buchkatalog.de/Veranstaltungen"
+      ],
+      "link_pattern": "https://buchwoll\\.buchkatalog\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wollschläger",
+        "address": "28 Morgensternstraße",
+        "city": "Berlin",
+        "postal_code": "12207",
+        "country": "DE",
+        "lat": 52.4274051,
+        "lon": 13.3241248
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Museum Pankow",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.berlin.de/tickets/"
+      ],
+      "link_pattern": "https://www\\.berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Pankow",
+        "address": "8 Heynstraße",
+        "city": "Berlin",
+        "postal_code": "13187",
+        "country": "DE",
+        "lat": 52.5642198,
+        "lon": 13.4024579
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Autorenbuchhandlung Berlin",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://autorenbuchhandlung.buchkatalog.de"
+      ],
+      "link_pattern": "https://autorenbuchhandlung\\.buchkatalog\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Autorenbuchhandlung Berlin",
+        "address": "599-600 Else-Ury-Bogen",
+        "city": "Berlin",
+        "postal_code": "10623",
+        "country": "DE",
+        "lat": 52.5050987,
+        "lon": 13.3209973
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Tempodrom",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.tempodrom.de/"
+      ],
+      "link_pattern": "https://www\\.tempodrom\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tempodrom",
+        "address": "10 Möckernstraße",
+        "city": "Berlin",
+        "postal_code": "10963",
+        "country": "DE",
+        "lat": 52.5016098,
+        "lon": 13.381181
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Chen-Taichi-Berlin",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.taiji-mit-system.de/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Chen-Taichi-Berlin",
+        "lat": 52.4867086,
+        "lon": 13.318198
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Privatclub",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://privatclub-berlin.de/"
+      ],
+      "link_pattern": "https://privatclub\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Privatclub",
+        "address": "85-86 Skalitzer Straße",
+        "city": "Berlin",
+        "postal_code": "10997",
+        "country": "DE",
+        "lat": 52.5000715,
+        "lon": 13.4348491
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Maxxim Club",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.maxxim-berlin.de/partys"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Maxxim Club",
+        "address": "15 Joachimsthaler Straße",
+        "city": "Berlin",
+        "postal_code": "10719",
+        "country": "DE",
+        "lat": 52.5019061,
+        "lon": 13.3308361
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Familienladen \"Seifenblase\"",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.kjv.de/kalender/"
+      ],
+      "link_pattern": "https://www\\.kjv\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Familienladen \"Seifenblase\"",
+        "address": "114 Karl-Marx-Straße",
+        "city": "Wildau",
+        "postal_code": "15745",
+        "lat": 52.3200406,
+        "lon": 13.6354079
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Urban Art Kids",
+      "category": "arts",
+      "_found": "osm:gallery -> modern-events+jsonld-event",
+      "listing": [
+        "https://urbanartkids.com/events-und-termine/"
+      ],
+      "link_pattern": "https://urbanartkids\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Urban Art Kids",
+        "address": "7 Sesenheimer Straße",
+        "city": "Berlin",
+        "postal_code": "10627",
+        "country": "DE",
+        "lat": 52.5096614,
+        "lon": 13.3077018
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kulturhaus \"Johannes R. Becher\"",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "http://www.fv-kulturhaus-jrbecher.de/veranstaltungen/2217406/2026/10/21/beratertag-lotsendienst.html"
+      ],
+      "link_pattern": "https://www\\.fv\\-kulturhaus\\-jrbecher\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturhaus \"Johannes R. Becher\"",
+        "address": "67 Havelländer Weg",
+        "city": "Falkensee",
+        "postal_code": "14612",
+        "country": "DE",
+        "lat": 52.5803643,
+        "lon": 13.0744186
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Schlossplatztheater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://schlossplatztheater.de/events/"
+      ],
+      "link_pattern": "https://schlossplatztheater\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schlossplatztheater",
+        "address": "31 Alt-Köpenick",
+        "city": "Berlin",
+        "postal_code": "12555",
+        "lat": 52.4454641,
+        "lon": 13.5747437
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "FSV Blau-Weiß Mahlsdorf/Waldesruh e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.bwmw.club/event-directory/"
+      ],
+      "link_pattern": "https://www\\.bwmw\\.club/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "FSV Blau-Weiß Mahlsdorf/Waldesruh e.V.",
+        "address": "40 Waldesruher Straße",
+        "city": "Hoppegarten",
+        "lat": 52.4737368,
+        "lon": 13.616838
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "L'écritoire",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://lecritoire.de/aktuelle-veranstaltungen/"
+      ],
+      "link_pattern": "https://lecritoire\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "L'écritoire",
+        "address": "20 Schönwalder Straße",
+        "city": "Berlin",
+        "postal_code": "13347",
+        "lat": 52.5418625,
+        "lon": 13.371578
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Dart Palast Berlin",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://dartpalast.de/kalender"
+      ],
+      "link_pattern": "https://dartpalast\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dart Palast Berlin",
+        "address": "173-175 Oranienburger Straße",
+        "city": "Berlin",
+        "postal_code": "13437",
+        "lat": 52.5996839,
+        "lon": 13.3312732
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Revier Südost",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.reviersuedost.de/programm"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Revier Südost",
+        "address": "137 Schnellerstraße",
+        "city": "Berlin",
+        "postal_code": "12439",
+        "country": "DE",
+        "lat": 52.4599968,
+        "lon": 13.5052662
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Lakeside Convention Center",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event+ics",
+      "listing": [
+        "https://tegeler-seeterrassen.de/aktuelle-veranstaltungen"
+      ],
+      "link_pattern": "https://tegeler\\-seeterrassen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lakeside Convention Center",
+        "address": "1 Wilkestraße",
+        "city": "Berlin",
+        "postal_code": "13507",
+        "country": "DE",
+        "lat": 52.588653,
+        "lon": 13.2746135
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Verwalterhaus",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://verwalterhaus.berlin/veranstaltungen/trees-for-peace"
+      ],
+      "link_pattern": "https://verwalterhaus\\.berlin/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Verwalterhaus",
+        "address": "1 Prenzlauer Allee",
+        "postal_code": "10405",
+        "lat": 52.5271781,
+        "lon": 13.4163674
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Die Heilsarmee Berlin-Südwest",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/berlinsuedwest/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Die Heilsarmee Berlin-Südwest",
+        "address": "12 Fregestraße",
+        "city": "Berlin",
+        "postal_code": "12159",
+        "lat": 52.470012,
+        "lon": 13.3365661
+      },
+      "_metro": "Berlin, Germany"
     }
   ],
   "_not_included": {
