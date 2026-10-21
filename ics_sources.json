@@ -35106,5 +35106,235 @@
     "geocode_suffix": ", Potsdam",
     "limit": 300,
     "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "EineWeltHaus",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.einewelthaus.de/events/categories/film/?ical=1",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "venue": {
+      "name": "EineWeltHaus",
+      "city": "München",
+      "postal_code": "80336",
+      "country": "DE",
+      "lat": 48.1379269,
+      "lon": 11.552935,
+      "street_hint": "80 Schwanthalerstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Bibliothek, Max-Planck-Institut für ausländisches und internationales Privatrecht",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.mpipriv.de/events/46710/2247519.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Bibliothek, Max-Planck-Institut für ausländisches und internationales Privatrecht",
+      "lat": 53.5627859,
+      "lon": 9.9947759,
+      "pin_unnamed": false
+    },
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Mädchentreff Mümmelmannsberg",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://trockendock-hamburg.de/site/assets/files/4700/event.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "venue": {
+      "name": "Mädchentreff Mümmelmannsberg",
+      "city": "Hamburg",
+      "postal_code": "22115",
+      "lat": 53.5236674,
+      "lon": 10.1527071,
+      "street_hint": "20a Heideblöck",
+      "aliases": [
+        "Lass 1000 Steine rollen! Mümmelmannsberg"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Zentrale Bibliothek Frauenforschung, Gender & Queer Studies",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.zgd-hamburg.de/de/event_application_form_slots/25389718.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "venue": {
+      "name": "Zentrale Bibliothek Frauenforschung, Gender & Queer Studies",
+      "city": "Hamburg",
+      "postal_code": "20146",
+      "country": "DE",
+      "lat": 53.5700485,
+      "lon": 9.9765875,
+      "street_hint": "4 Monetastraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "ReeWie-Haus",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/175tsalm144gtei8ds9dda23es%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "venue": {
+      "name": "ReeWie-Haus",
+      "city": "Hamburg",
+      "postal_code": "22523",
+      "country": "DE",
+      "lat": 53.6152869,
+      "lon": 9.9091887,
+      "street_hint": "58 Wiebischenkamp",
+      "pin_unnamed": false
+    },
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Liebig257",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gbmm81u06va529ombdd8tkk1gg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "venue": {
+      "name": "Liebig257",
+      "city": "Köln",
+      "postal_code": "50739",
+      "lat": 50.9585317,
+      "lon": 6.9405879,
+      "street_hint": "257 Liebigstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Katholische Öffentliche Bücherei",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i8djnhim52a911t7tnil8ilv28%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "venue": {
+      "name": "Katholische Öffentliche Bücherei",
+      "city": "Köln",
+      "postal_code": "51109",
+      "country": "DE",
+      "lat": 50.9456289,
+      "lon": 7.0797876,
+      "street_hint": "944 Olpener Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Deutsche Nationalbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.dnb.de/DE/Kulturell/Veranstaltungskalender/TagDerBibliotheken/20261024_TagDerBibliothekenF_event.ics?view=dnbwebicsdownload",
+    "geocode_suffix": ", Frankfurt am Main",
+    "limit": 300,
+    "venue": {
+      "name": "Deutsche Nationalbibliothek",
+      "city": "Frankfurt am Main",
+      "postal_code": "60322",
+      "lat": 50.1312059,
+      "lon": 8.6832855,
+      "street_hint": "1 Adickesallee",
+      "aliases": [
+        "DNB"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Frankfurt, Germany",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Haus der Möglichkeiten",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d5b0eqo3gkbicpv72m3cvqh7v8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brandis",
+    "limit": 300,
+    "venue": {
+      "name": "Haus der Möglichkeiten",
+      "city": "Brandis",
+      "postal_code": "04821",
+      "lat": 51.3377673,
+      "lon": 12.6171329,
+      "street_hint": "16 Zeititzer Weg",
+      "pin_unnamed": false
+    },
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Stadtbücherei Zweigstelle Scharnhauser Park",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://stadtbuecherei-ostfildern.de/wp-content/uploads/tagderbibliotheken-2026-10-22.ics",
+    "geocode_suffix": ", Ostfildern",
+    "limit": 300,
+    "venue": {
+      "name": "Stadtbücherei Zweigstelle Scharnhauser Park",
+      "city": "Ostfildern",
+      "postal_code": "73760",
+      "country": "DE",
+      "lat": 48.7219396,
+      "lon": 9.2714808,
+      "street_hint": "1 Gerhard-Koch-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Linux Cafe",
+    "category": "community",
+    "_found": "osm:social_centre -> events-manager",
+    "url": "https://reparaturcafe-esslingen.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Esslingen am Neckar",
+    "limit": 300,
+    "venue": {
+      "name": "Linux Cafe",
+      "city": "Esslingen am Neckar",
+      "postal_code": "73728",
+      "country": "DE",
+      "lat": 48.7397914,
+      "lon": 9.3113418,
+      "street_hint": "46 Küferstraße",
+      "aliases": [
+        "Makers Inn"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Württembergische Landesbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/allgemeine-fuehrung-4.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "venue": {
+      "name": "Württembergische Landesbibliothek",
+      "city": "Stuttgart",
+      "postal_code": "70173",
+      "country": "DE",
+      "lat": 48.777267,
+      "lon": 9.1852171,
+      "street_hint": "8 Konrad-Adenauer-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
   }
 ]

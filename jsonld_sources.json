@@ -11007,6 +11007,45 @@
         "lon": 13.3365661
       },
       "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Stadtbibliothek Langenfeld",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://stadtbibliothek.langenfeld.de/Veranstaltungen.htm/Veranstaltungen/Buechertroedel.html"
+      ],
+      "link_pattern": "https://stadtbibliothek\\.langenfeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbibliothek Langenfeld",
+        "city": "Langenfeld",
+        "postal_code": "40764",
+        "lat": 51.1088829,
+        "lon": 6.9498455,
+        "street_hint": "129 Hauptstraße"
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Muckerhaus",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.muckerhaus.de/veranstaltungen/1620658/2026/10/21/hausaufgabenhilfe.html"
+      ],
+      "link_pattern": "https://www\\.muckerhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Muckerhaus",
+        "city": "Darmstadt",
+        "postal_code": "64291",
+        "country": "DE",
+        "lat": 49.9124791,
+        "lon": 8.6661926,
+        "street_hint": "112a Messeler Straße"
+      },
+      "_metro": "Frankfurt, Germany"
     }
   ],
   "_not_included": {
