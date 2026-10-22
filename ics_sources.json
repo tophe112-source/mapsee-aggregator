@@ -35336,5 +35336,230 @@
       "pin_unnamed": false
     },
     "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Kiezraum BadPankStraße",
+    "category": "community",
+    "_found": "osm:ngo -> my-calendar",
+    "url": "https://badpank-mitte.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Arsenal",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://www.arsenal-berlin.de/kino/filmreihe/icalendar/mary-poppins-5866/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Friedrich-Ebert-Stiftung",
+    "category": "community",
+    "_found": "osm:ngo -> ics",
+    "url": "https://www.fes.de/veranstaltungen/veranstaltungsdetail/290689.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Stadtkirche St. Laurentius",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b8d88a5ec0cc649f35061df65e4d11350875bf36242373f4f94b69b0cde2cab5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "SA-Gefängnis Papestraße",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://gedenkort-papestrasse.de/fuehrungen-veranstaltungen/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Bibelgemeinde Barnim",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tg3k2jv1g8cr0tnfsp7oc7eecc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Panketal",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Ruder-Club Tegel 1886 e.V.",
+    "category": "community",
+    "_found": "osm:pitch -> my-calendar",
+    "url": "https://www.rctegel.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Informationsort Schwerbelastungskörper",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://schwerbelastungskoerper.de/veranstaltungen/saisonende/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Eckstein Gemeinde Berlin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://r.elvanto.eu/fullcalendar/d9bdfba0-bf74-4ee7-96a8-5cc2b743412e/admin-services.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Kletterturm Kahleberg",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kletterturmwart%40dav-potsdam.de/public/basic.ics",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Vereinsheim Kleingartenanlage Am Heidekampgraben",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://kga-am-heidekampgraben.de/?eme_ical=public",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Metropol",
+    "category": "music",
+    "_found": "osm:nightclub -> events-manager",
+    "url": "https://metropol-berlin.de/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "LTTC Rot-Weiß",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://www.rot-weiss-berlin.de/index.php?option=com_dpcalendar&task=ical.download&id=g-1",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Landeskirchliche Gemeinschaft Westend",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40lkg-westend.de/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Korporative Schützengilde Werneuchen von 1848 e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j5pihudiimgrkokjmic4gg43uo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Werneuchen",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Segelgemeinschaft Rauchfangswerder e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://ical.one.com/ical/8b298848f3164ba590b4772de736e977/SGR.ics",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Evangelisch-Lutherische Kirche Zum Heiligen Kreuz",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/04e60c25ff722b433ecc54224a810f0b7720f366e9fc416a64def35183635cac%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Theater am Park",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.tap-biesdorf.de/events/143/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Münchner Kammerspiele",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.muenchner-kammerspiele.de/en/programm/42863-wokey-wokey/52731.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Sankt Nikolaus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pfarramt%40st-nikolaus-neuried.de/public/basic.ics",
+    "geocode_suffix": ", Neuried",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Sendlinger Kultuschmiede e.V.",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://www.sendlinger-kulturschmiede.de/aktuelle-veranstaltung/?ical=1",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Oberangertheater",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rhk2q20p9m801rkq6gbonrq7ro%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Kulturladen Westend",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8ea4729a7ca10cdc0e1fc1e134046a86168b517f018c21ad435761c3fa1b99bd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "BdP Stamm Goten München",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l3utgacsva0pdgh6tc6vpgnp9g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Galli Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://galli-muenchen.de/praeventionstheater/?ical=1",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
   }
 ]

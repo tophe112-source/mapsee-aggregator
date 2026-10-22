@@ -2892,6 +2892,37 @@
         "lon": 13.4040626
       },
       "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Chapters",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.chaptersberlin.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Chapters",
+        "address": "60 Wilsnacker Straße",
+        "postal_code": "10559",
+        "lat": 52.5276917,
+        "lon": 13.3513082
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Hermsdorfer Sport-Club 1906 e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.hsc-berlin.de/termine",
+      "max_events": 200,
+      "venue": {
+        "name": "Hermsdorfer Sport-Club 1906 e.V.",
+        "address": "11-13, 15a Boumannstraße",
+        "city": "Berlin",
+        "postal_code": "13467",
+        "lat": 52.6098755,
+        "lon": 13.3076495
+      },
+      "_metro": "Berlin, Germany"
     }
   ],
   "_not_included": {

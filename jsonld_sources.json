@@ -11046,6 +11046,728 @@
         "street_hint": "112a Messeler Straße"
       },
       "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kulturhaus \"Johannes R. Becher\"",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "http://www.fv-kulturhaus-jrbecher.de/veranstaltungen/2985902/2026/10/23/17.-europ.-filmfestival-der-generationen.html"
+      ],
+      "link_pattern": "https://www\\.fv\\-kulturhaus\\-jrbecher\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturhaus \"Johannes R. Becher\"",
+        "address": "67 Havelländer Weg",
+        "city": "Falkensee",
+        "postal_code": "14612",
+        "country": "DE",
+        "lat": 52.5803643,
+        "lon": 13.0744186
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Tanzclub Bernau",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://www.tanzclub-bernau.de/veranstaltungen/2943050/2026/11/07/boogiefete.html"
+      ],
+      "link_pattern": "https://www\\.tanzclub\\-bernau\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tanzclub Bernau",
+        "address": "3 Weinbergstraße",
+        "city": "Bernau bei Berlin",
+        "postal_code": "16321",
+        "lat": 52.6766668,
+        "lon": 13.5817449
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.lkg-woltersdorf.de/veranstaltungen/2347906/2026/10/31/lutherfest.html"
+      ],
+      "link_pattern": "https://www\\.lkg\\-woltersdorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+        "address": "9 Werderstraße",
+        "city": "Woltersdorf",
+        "postal_code": "15569",
+        "lat": 52.4470663,
+        "lon": 13.7602482
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Showfenster",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.showfenster-show.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Showfenster",
+        "address": "94 Letteallee",
+        "postal_code": "13409",
+        "lat": 52.5633944,
+        "lon": 13.3772792
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Marinekameradschaft 1990 Berlin - Köpenick e.V.\"",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.mk-koepenick.de/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Marinekameradschaft 1990 Berlin - Köpenick e.V.\"",
+        "address": "Grünauer Straße",
+        "city": "Berlin",
+        "postal_code": "12555",
+        "lat": 52.4442253,
+        "lon": 13.5705882
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Waldbühne",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.waldbuehne-berlin.de/"
+      ],
+      "link_pattern": "https://www\\.waldbuehne\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Waldbühne",
+        "address": "1 Am Glockenturm",
+        "city": "Berlin",
+        "postal_code": "14053",
+        "country": "DE",
+        "lat": 52.5155825,
+        "lon": 13.22941
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kunsthaus sans titre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.sans-titre.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kunsthaus sans titre",
+        "address": "18 Französische Straße",
+        "city": "Potsdam",
+        "postal_code": "14467",
+        "country": "DE",
+        "lat": 52.3987176,
+        "lon": 13.0621772
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Neuapostolische Gemeinde Berlin-Tegel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "http://berlin-tegel.nak-nordost.de/db/629497/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://berlin\\-tegel\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Gemeinde Berlin-Tegel",
+        "address": "39 Medebacher Weg",
+        "city": "Berlin",
+        "postal_code": "13507",
+        "country": "DE",
+        "lat": 52.5894342,
+        "lon": 13.2781511
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Astra-Filmpalast",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.astra-filmpalast.de:443/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.astra\\-filmpalast\\.de:443/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Astra-Filmpalast",
+        "address": "69 Sterndamm",
+        "city": "Berlin",
+        "postal_code": "12487",
+        "country": "DE",
+        "lat": 52.4464652,
+        "lon": 13.5073052
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Alexander-Newsky-Kapelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://r-o-k.de/gottesdienste/"
+      ],
+      "link_pattern": "https://r\\-o\\-k\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Alexander-Newsky-Kapelle",
+        "address": "14 Russische Kolonie",
+        "city": "Potsdam",
+        "postal_code": "14469",
+        "country": "DE",
+        "lat": 52.4152443,
+        "lon": 13.0576673
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Lindenpark",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events",
+      "listing": [
+        "https://lindenpark.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://lindenpark\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lindenpark",
+        "address": "76-78 Stahnsdorfer Straße",
+        "city": "Potsdam",
+        "postal_code": "14482",
+        "country": "DE",
+        "lat": 52.391769,
+        "lon": 13.1169163
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BBAG - Bildung, Begegnung, Austausch - gemeinsam e.V.",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.bbag-ev.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.bbag\\-ev\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BBAG - Bildung, Begegnung, Austausch - gemeinsam e.V.",
+        "address": "8b Schulstraße",
+        "city": "Potsdam",
+        "postal_code": "14482",
+        "country": "DE",
+        "lat": 52.3902879,
+        "lon": 13.0911017
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Thalia Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://thalia-berlin.de/programm"
+      ],
+      "link_pattern": "https://thalia\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Thalia Kino",
+        "address": "71a Kaiser-Wilhelm-Straße",
+        "city": "Berlin",
+        "postal_code": "12247",
+        "country": "DE",
+        "lat": 52.4350134,
+        "lon": 13.3449565
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kirche am Südstern",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.kirche-am-suedstern.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kirche am Südstern",
+        "address": "1 Südstern",
+        "city": "Berlin",
+        "postal_code": "10961",
+        "country": "DE",
+        "lat": 52.489238,
+        "lon": 13.4063164
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.johannesstift-diakonie.de/presse-aktuelles"
+      ],
+      "link_pattern": "https://www\\.johannesstift\\-diakonie\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "lat": 52.562417,
+        "lon": 13.1563116
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "House of Music",
+      "category": "music",
+      "_found": "osm:music_venue -> wix",
+      "listing": [
+        "https://www.houseofmusic.berlin/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/details-registrierung/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "House of Music",
+        "address": "99 Revaler Straße",
+        "city": "Berlin",
+        "postal_code": "10245",
+        "country": "DE",
+        "lat": 52.5066611,
+        "lon": 13.4537266
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Evangeline-Booth-Haus",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evangeline-Booth-Haus",
+        "address": "17-21 Goethestraße",
+        "city": "Berlin",
+        "postal_code": "14163",
+        "country": "DE",
+        "lat": 52.4408473,
+        "lon": 13.2325079
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Sportfreunde Kladow",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.sf-kladow.de/termine/"
+      ],
+      "link_pattern": "https://www\\.sf\\-kladow\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sportfreunde Kladow",
+        "address": "53 Gößweinsteiner Gang",
+        "city": "Berlin",
+        "postal_code": "14089",
+        "country": "DE",
+        "lat": 52.4518354,
+        "lon": 13.1277427
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Philharmonie",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.berliner-philharmoniker.de/konzerte/kalender/57048/"
+      ],
+      "link_pattern": "https://www\\.berliner\\-philharmoniker\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Philharmonie",
+        "address": "1 Herbert-von-Karajan-Straße",
+        "city": "Berlin",
+        "postal_code": "10785",
+        "country": "DE",
+        "lat": 52.5099913,
+        "lon": 13.3695934
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kino Ottobrunn",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://kino-ottobrunn.de/programm"
+      ],
+      "link_pattern": "https://kino\\-ottobrunn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kino Ottobrunn",
+        "address": "72 Ottostraße",
+        "city": "Ottobrunn",
+        "postal_code": "85521",
+        "country": "DE",
+        "lat": 48.0621953,
+        "lon": 11.6767642
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Gröbenlichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://groebenlichtspiele.de/programm"
+      ],
+      "link_pattern": "https://groebenlichtspiele\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gröbenlichtspiele",
+        "address": "2 Puchheimer Straße",
+        "city": "Gröbenzell",
+        "postal_code": "82194",
+        "country": "DE",
+        "lat": 48.1923143,
+        "lon": 11.3716837
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Echo e.V.",
+      "category": "community",
+      "_found": "osm:ngo -> modern-events+jsonld-event",
+      "listing": [
+        "https://echoev.de/kalender/"
+      ],
+      "link_pattern": "https://echoev\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Echo e.V.",
+        "address": "100 Helsinkistraße",
+        "city": "München",
+        "postal_code": "81829",
+        "country": "DE",
+        "lat": 48.1282632,
+        "lon": 11.6885862
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Filmeck Gräfelfing",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmeck.com/programm"
+      ],
+      "link_pattern": "https://filmeck\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmeck Gräfelfing",
+        "lat": 48.1203817,
+        "lon": 11.4277713
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kinocenter Wolfratshausen",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.kino-wolfratshausen.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.kino\\-wolfratshausen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kinocenter Wolfratshausen",
+        "address": "10 Bahnhofstraße",
+        "city": "Wolfratshausen",
+        "postal_code": "82515",
+        "country": "DE",
+        "lat": 47.9148446,
+        "lon": 11.422377
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Cadillac & Veranda",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://cadillac.movieplace.de/programm?filter=today"
+      ],
+      "link_pattern": "https://cadillac\\.movieplace\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cadillac & Veranda",
+        "address": "12 Rosenkavalierplatz",
+        "city": "München",
+        "postal_code": "81925",
+        "lat": 48.1510573,
+        "lon": 11.6197878
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Diver's Indoor Tauchsportzentrum",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.divers-indoor.de/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Diver's Indoor Tauchsportzentrum",
+        "address": "15a Dorfstraße",
+        "city": "Oberding",
+        "postal_code": "85445",
+        "country": "DE",
+        "lat": 48.3087597,
+        "lon": 11.8640534
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Haarer Kinos",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://haar.kino-ottobrunn.de/programm"
+      ],
+      "link_pattern": "https://haar\\.kino\\-ottobrunn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Haarer Kinos",
+        "address": "97 Jagdfeldring",
+        "city": "Haar",
+        "postal_code": "85540",
+        "country": "DE",
+        "lat": 48.1083015,
+        "lon": 11.7226252
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Pacha",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.pacha-muenchen.de/programm/event831/index_ger.html"
+      ],
+      "link_pattern": "https://www\\.pacha\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pacha",
+        "address": "5 Maximiliansplatz",
+        "city": "München",
+        "postal_code": "80333",
+        "country": "DE",
+        "lat": 48.142124,
+        "lon": 11.5697566
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Armbrust-Schützengilde Winzerer Fähndl e.V.",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://winzererfaehndl.de/events/"
+      ],
+      "link_pattern": "https://winzererfaehndl\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Armbrust-Schützengilde Winzerer Fähndl e.V.",
+        "lat": 48.1725258,
+        "lon": 11.3975906
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Museum Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.museum-lichtspiele.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.museum\\-lichtspiele\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Lichtspiele",
+        "address": "2 Lilienstraße",
+        "city": "München",
+        "postal_code": "81669",
+        "country": "DE",
+        "lat": 48.1309634,
+        "lon": 11.5874863
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Filmstation",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmstation.de/programm"
+      ],
+      "link_pattern": "https://filmstation\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmstation",
+        "address": "11 Römerstraße",
+        "city": "Gilching",
+        "postal_code": "82205",
+        "country": "DE",
+        "lat": 48.1075101,
+        "lon": 11.3018565
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Theater im Roßstall",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://germeringer-rossstall.de/"
+      ],
+      "link_pattern": "https://germeringer\\-rossstall\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Theater im Roßstall",
+        "address": "8 Augsburger Straße",
+        "city": "Germering",
+        "postal_code": "82110",
+        "country": "DE",
+        "lat": 48.1374385,
+        "lon": 11.3607487
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "NY.Club",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.nyclub.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/details-registrierung/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "NY.Club",
+        "address": "3 Elisenstraße",
+        "city": "München",
+        "postal_code": "80335",
+        "country": "DE",
+        "lat": 48.1414277,
+        "lon": 11.5627629
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Martial Arts Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://martial-arts-center.de/veranstaltungen/veranstaltungen.php"
+      ],
+      "link_pattern": "https://martial\\-arts\\-center\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Martial Arts Center",
+        "address": "9 Wörthstraße",
+        "city": "München",
+        "postal_code": "81667",
+        "lat": 48.1317243,
+        "lon": 11.599155
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Einstein Kultur",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.einsteinkultur.de"
+      ],
+      "link_pattern": "https://www\\.einsteinkultur\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Einstein Kultur",
+        "address": "42 Einsteinstraße",
+        "city": "München",
+        "postal_code": "81675",
+        "lat": 48.1354457,
+        "lon": 11.6006511
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Werk 7",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.eventfabrik-muenchen.de/events/"
+      ],
+      "link_pattern": "https://www\\.eventfabrik\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Werk 7",
+        "lat": 48.1237245,
+        "lon": 11.6062125
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "TonHalle",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.eventfabrik-muenchen.de/event/"
+      ],
+      "link_pattern": "https://www\\.eventfabrik\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "TonHalle",
+        "address": "24 Atelierstraße",
+        "city": "München",
+        "postal_code": "81671",
+        "lat": 48.1239134,
+        "lon": 11.6069127
+      },
+      "_metro": "Munich, Germany"
     }
   ],
   "_not_included": {

@@ -21277,6 +21277,699 @@
         "lon": 13.3796655
       },
       "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kanusportvereinigung Havelbrüder e.V. Berlin",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ksvh.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kanusportvereinigung Havelbrüder e.V. Berlin",
+        "address": "15 Eiswerderstraße",
+        "city": "Berlin",
+        "postal_code": "13585",
+        "lat": 52.5500134,
+        "lon": 13.2199181
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Tibetisch-buddhistisches Zentrum",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tibetzentrum-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tibetisch-buddhistisches Zentrum",
+        "address": "10 Habsburgerstraße",
+        "postal_code": "10781",
+        "lat": 52.4955312,
+        "lon": 13.352663
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "D64 - Zentrum für Digitalen Fortschritt",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event",
+      "base_url": "https://d-64.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "D64 - Zentrum für Digitalen Fortschritt",
+        "address": "5 Chausseestraße",
+        "postal_code": "10115",
+        "lat": 52.5281055,
+        "lon": 13.3871439
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Forum Umwelt & Entwicklung",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://forumue.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Forum Umwelt & Entwicklung",
+        "address": "19-20 Marienstraße",
+        "city": "Berlin",
+        "postal_code": "10117",
+        "country": "DE",
+        "lat": 52.5225339,
+        "lon": 13.3834584
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Neue Synagoge",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://centrumjudaicum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Neue Synagoge",
+        "address": "28-30 Oranienburger Straße",
+        "city": "Berlin",
+        "postal_code": "10117",
+        "country": "DE",
+        "lat": 52.5249867,
+        "lon": 13.3943198
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BTTC GrünWeiss",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bttc-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BTTC GrünWeiss",
+        "lat": 52.4144105,
+        "lon": 13.3320213
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Ruder-Union Arkona Berlin -1879- e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ru-arkona.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruder-Union Arkona Berlin -1879- e.V.",
+        "address": "71 Scharfe Lanke",
+        "city": "Berlin",
+        "postal_code": "13595",
+        "country": "DE",
+        "lat": 52.5062675,
+        "lon": 13.1882143
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Sankt Canisius",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sanktcanisius.berlin",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sankt Canisius",
+        "address": "28 Witzlebenstraße",
+        "city": "Berlin",
+        "postal_code": "14057",
+        "country": "DE",
+        "lat": 52.5077251,
+        "lon": 13.2940526
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Potsdamer Ruder Club - Germania",
+      "category": "community",
+      "_found": "osm:club -> tribe+mylisting+modern-events+jsonld-event+ics",
+      "base_url": "https://prcg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Potsdamer Ruder Club - Germania",
+        "address": "46 Am Großen Wannsee",
+        "city": "Berlin",
+        "postal_code": "14109",
+        "country": "DE",
+        "lat": 52.4297378,
+        "lon": 13.1655545
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "DEVA-Schießstand",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.deva-institut.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "DEVA-Schießstand",
+        "address": "12 Stahnsdorfer Damm",
+        "city": "Berlin",
+        "country": "DE",
+        "lat": 52.4145865,
+        "lon": 13.1752815
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Tanztangente",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tanztangente.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanztangente",
+        "lat": 52.4606396,
+        "lon": 13.3214854
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Figurentheater Grashüpfer",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theater-treptower-park.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Figurentheater Grashüpfer",
+        "address": "16a Puschkinallee",
+        "city": "Berlin",
+        "postal_code": "12435",
+        "lat": 52.4916729,
+        "lon": 13.4661812
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "yaam",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://yaam.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "yaam",
+        "address": "3 An der Schillingbrücke",
+        "city": "Berlin",
+        "postal_code": "10243",
+        "country": "DE",
+        "lat": 52.5091814,
+        "lon": 13.4306684
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "ESV Lok Berlin-Schöneweide",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://esvlokschoeneweide.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ESV Lok Berlin-Schöneweide",
+        "lat": 52.4478544,
+        "lon": 13.5247973
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Friedhofskapelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://zepsch.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Friedhofskapelle",
+        "address": "31 Elbestraße",
+        "city": "Panketal",
+        "postal_code": "16341",
+        "lat": 52.6600538,
+        "lon": 13.5389651
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "SAV Frühauf Wannsee e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sav-wannsee.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SAV Frühauf Wannsee e.V.",
+        "address": "69 Königstraße",
+        "city": "Berlin",
+        "postal_code": "14109",
+        "country": "DE",
+        "lat": 52.4196632,
+        "lon": 13.1735011
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Evangelisch-Lutherische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://selk-mitte.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelisch-Lutherische Kirche",
+        "address": "53 Annenstraße",
+        "city": "Berlin",
+        "postal_code": "10179",
+        "country": "DE",
+        "lat": 52.5068836,
+        "lon": 13.4155893
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Martin-Luther-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mlg-neukoelln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Martin-Luther-Kirche",
+        "address": "50 Fuldastraße",
+        "city": "Berlin",
+        "postal_code": "12045",
+        "country": "DE",
+        "lat": 52.4843186,
+        "lon": 13.4360899
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Ss. Eucharistia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://sanctissimaeucharistia.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ss. Eucharistia",
+        "address": "28 Ruhlsdorfer Straße",
+        "city": "Teltow",
+        "postal_code": "14513",
+        "country": "DE",
+        "lat": 52.3972408,
+        "lon": 13.2685166
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Seesportclub Berlin-Grünau e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sscbg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seesportclub Berlin-Grünau e.V.",
+        "address": "11 Rohrwallallee",
+        "city": "Berlin",
+        "postal_code": "12527",
+        "country": "DE",
+        "lat": 52.3959069,
+        "lon": 13.6359395
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Museum Alexandrowka",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "http://alexandrowka.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum Alexandrowka",
+        "address": "2 Russische Kolonie",
+        "city": "Potsdam",
+        "postal_code": "14469",
+        "country": "DE",
+        "lat": 52.4117133,
+        "lon": 13.0568745
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "All Saints",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://all-saints.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All Saints",
+        "address": "46 Hüttenweg",
+        "city": "Berlin",
+        "postal_code": "14195",
+        "country": "DE",
+        "lat": 52.4560508,
+        "lon": 13.2667109
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BSC Rehberge 1945 e.V. Abt. Tennis",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://bscrehberge-tennis.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BSC Rehberge 1945 e.V. Abt. Tennis",
+        "lat": 52.5496287,
+        "lon": 13.3390788
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Prinzessinnengarten Kollektiv",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event",
+      "base_url": "https://prinzessinnengarten-kollektiv.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Prinzessinnengarten Kollektiv",
+        "lat": 52.4685757,
+        "lon": 13.4254337
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Haus Natur und Umwelt",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://hnu-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus Natur und Umwelt",
+        "lat": 52.4638348,
+        "lon": 13.5425413
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "1. FC Lübars",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://1fc-luebars.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "1. FC Lübars",
+        "address": "68 Schluchseestraße",
+        "postal_code": "13469",
+        "lat": 52.6082049,
+        "lon": 13.3382588
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kirchheimer Sport-Club e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://kirchheimer-sc.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kirchheimer Sport-Club e.V.",
+        "address": "24 Florianstraße",
+        "city": "Kirchheim bei München",
+        "postal_code": "85551",
+        "country": "DE",
+        "lat": 48.1743294,
+        "lon": 11.7611641
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Hospizkreis Ottobrunn",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hospizkreis-ottobrunn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hospizkreis Ottobrunn",
+        "address": "21 Friedenstraße",
+        "city": "Ottobrunn",
+        "postal_code": "85521",
+        "country": "DE",
+        "lat": 48.0666353,
+        "lon": 11.6635133
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Buddha-Haus München",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://buddhahaus-muenchen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buddha-Haus München",
+        "address": "4 Klarastraße",
+        "lat": 48.1481887,
+        "lon": 11.542588
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "JUZ Kirchheim",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://juz-kirchheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JUZ Kirchheim",
+        "address": "30 Hauptstraße",
+        "city": "Kirchheim",
+        "postal_code": "85551",
+        "country": "DE",
+        "lat": 48.1684459,
+        "lon": 11.7546221
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Hundefreunde Dachau",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hundefreunde-dachau.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hundefreunde Dachau",
+        "address": "35 Roßwachtstraße",
+        "city": "Dachau",
+        "postal_code": "85221",
+        "country": "DE",
+        "lat": 48.2726093,
+        "lon": 11.4538333
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Tanzsportclub Savoy München e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+modern-events+jsonld-event+ics",
+      "base_url": "https://www.savoy-muenchen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzsportclub Savoy München e.V.",
+        "address": "71 Neumarkter Straße",
+        "city": "München",
+        "postal_code": "81673",
+        "country": "DE",
+        "lat": 48.1327619,
+        "lon": 11.6253308
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Spectaculum Mundi",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.vokal-total-festival.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spectaculum Mundi",
+        "address": "100 Graubündener Straße",
+        "city": "München",
+        "postal_code": "81475",
+        "lat": 48.0943278,
+        "lon": 11.4821103
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Pimpernel",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://pimpernel.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pimpernel",
+        "address": "56 Müllerstraße",
+        "city": "München",
+        "postal_code": "80469",
+        "country": "DE",
+        "lat": 48.1323398,
+        "lon": 11.5672627
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "glitch – Queerfeministischer Buchladen",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://glitchbookstore.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "glitch – Queerfeministischer Buchladen",
+        "address": "70 Barer Straße",
+        "city": "München",
+        "postal_code": "80799",
+        "country": "DE",
+        "lat": 48.1517865,
+        "lon": 11.5739138
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "BOB’s Rock & Bowl",
+      "category": "community",
+      "_found": "osm:restaurant -> tribe+jsonld-event+ics",
+      "base_url": "https://bobs.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BOB’s Rock & Bowl",
+        "address": "5 Stockacher Straße",
+        "city": "München",
+        "postal_code": "81243",
+        "country": "DE",
+        "lat": 48.1500245,
+        "lon": 11.4424804
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "xhope",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://xhope.church",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "xhope",
+        "lat": 48.2008475,
+        "lon": 11.3244103
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Shabd",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://santmat-verein.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shabd",
+        "address": "10 Hermann-Lingg-Straße",
+        "city": "München",
+        "postal_code": "80336",
+        "country": "DE",
+        "lat": 48.1381277,
+        "lon": 11.5510864
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Münchner Bücherkiste",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event",
+      "base_url": "https://www.pfennigparade.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Münchner Bücherkiste",
+        "address": "85 a Hanauer Straße",
+        "city": "München",
+        "postal_code": "80993",
+        "lat": 48.1841028,
+        "lon": 11.5296972
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "St.Maria",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.katholisch-in-starnberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St.Maria",
+        "address": "1 Kirchplatz",
+        "city": "Starnberg",
+        "postal_code": "82319",
+        "lat": 47.9980131,
+        "lon": 11.3416266
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Glyptothek",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.antike-am-koenigsplatz.mwn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Glyptothek",
+        "address": "3 Königsplatz",
+        "city": "München",
+        "postal_code": "80333",
+        "lat": 48.146565,
+        "lon": 11.5658278
+      },
+      "_metro": "Munich, Germany"
     }
   ],
   "_not_included": {
