@@ -1,5 +1,63 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **A COMMUNITY SOURCE EARNS ITS PLACE AFTER THE PUBLIC ROW, NOT THE FEED COUNT.**
+  On 2026-10-22, **3** new sources passed production-UA/robots verification and
+  actual adapter -> EventStore -> `build_rows`: **411** retained dated listings,
+  all with source links and coordinates. These are local validation counts, not
+  a claim that the new rows have reached production; the existing daily jobs
+  ingest the committed configs. Same-day records may already have ended.
+  - Bike Works, Seattle: **20** events in a **60-day** window from **1** API
+    page (**112,494** response bytes): **12** volunteer repair parties, **4**
+    Open Shop sessions and **4** reuse sales. Default `community` promotes the
+    12 repair parties to `volunteer` without misfiling the other 8. All 20 use
+    the warehouse's publisher-linked Google Maps *place target* coordinate,
+    not its viewport center; the fallback names only Bike Works Warehouse.
+    The final rows retain the repair parties' **18+**, application and
+    orientation requirements. Open Shop's stated sliding-scale price remains.
+  - Spartanburg County Public Libraries: **398 VEVENTs -> 378 unique rows** at
+    **10** branches, October 22-March 17. The official homepage embeds Trumba
+    `scpl_events`; https://www.spartanburglibraries.org/Locations supplies all
+    10 addresses. Exact LOCATION overrides use **8** Census exact-address
+    matches plus OSM library ways **687406436** (Cowpens, exact address) and
+    **679127695** (Landrum, exact address). The source's branch names alone are
+    insufficient: Middle Tyger's first named-place match was about **570 m**
+    from its published 170 Groce Road address match. The anchored systemwide
+    closure filter removes **2** notices while preserving holiday crafts and
+    caregiving programs. Final categories: **289 learning / 51 kids / 38 fitness**.
+  - Grove Community Garden, Eugene: **36 VEVENTs / 33 future dates**, capped at
+    the soonest **13** (October 25-January 17), Sunday **14:00-16:00 Pacific**
+    across the DST change. Its GEO **30.246447,-92.006407** is in Louisiana;
+    the exact LOCATION override uses the named garden's OSM way **1463243588**
+    and publisher address **1605 Moss Street**. The publisher warns its recurring
+    posting can miss cancellations. Source-config `attendance_note` prepends
+    that instruction so it survives the sync's **800-character** prose cap;
+    the original prose stays in the store and identity/link stay unchanged.
+  - The full sync path matters too: address geocoding moved Grove's verified
+    garden point about **251 m** north and Landrum's building point about
+    **116 m**. The **11** verified ICS venue blocks now opt into the existing
+    `coords_exact` contract; the ICS reader propagates it only from the selected
+    venue block when explicitly `true`. Other calendars keep their existing
+    geocoding behavior. Tests run the adapter through the real row builder with
+    a deliberately wrong geocoder to prove both paths. The final live-geocoder
+    validation keeps **391** curated points untouched and matches the remaining
+    **20** Bike Works rows through **2** address variants in **1** batch request;
+    its warehouse street-point refinement is **52.2 m**. All **411** rows survive.
+  Holds: FamilyWorks lists a November 26 playgroup despite its published
+  Thanksgiving closure; Wilsonville category 27 gives **1,314/1,405** future
+  entries a **23:59** end; Parks Tacoma's API returns **403** (not retried).
+  Repair Bank mixes warehouse, transfer-station and corporate sessions without
+  collection-level event locations. Long Beach's Trumba feed has **411**
+  VEVENTs but its **18** distinct physical locations remain unverified; do not
+  count those as added. Scratch evidence is `.catalog-probe/oct22-*` locally.
+
+- **A RELATIVE TEST DATE NEEDS THE OFFSET FOR THAT DATE.** On 2026-10-22 the
+  Google Calendar test's `today + 13 days` is November 4, after Los Angeles
+  changes to **UTC-8**. Its hardcoded **UTC-7** fixture represented **09:00**
+  local while expecting **10:00**, the only failure in the **87-script** local
+  gate. `test_gcal.py` now builds its source and parity-export timestamps with
+  `ZoneInfo`, and explicitly checks summer **-07:00** and winter **-08:00**.
+  The production conversion was correct and is unchanged.
+
 - **THE COVERAGE REPORT NEEDS ONLY THE METRO BOXES AT A VENUE'S LATITUDE.**
   Measured 2026-10-17: indexing the **261** swept metro boxes by integer
   latitude narrows a surveyed point to about **4** candidate boxes, then runs

@@ -35780,5 +35780,186 @@
       "pin_unnamed": false
     },
     "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "University of Oregon - Grove Community Garden Work Parties (Eugene)",
+    "url": "https://calendar.uoregon.edu/event/grove-community-garden-workparty.ics",
+    "category": "volunteer",
+    "geocode_suffix": ", Eugene, OR",
+    "limit": 13,
+    "_metro": "Eugene, OR",
+    "_found": "manual:2026-10-22 Localist event iCal link",
+    "location_overrides": [
+      {
+        "location": "Grove Community Garden",
+        "venue": {
+          "name": "Grove Community Garden",
+          "address": "1605 Moss Street",
+          "city": "Eugene",
+          "region": "OR",
+          "postal_code": "97403",
+          "country": "US",
+          "lat": 44.0398546,
+          "lon": -123.0659835,
+          "coords_exact": true
+        }
+      }
+    ],
+    "crawl_delay": 1,
+    "attendance_note": "Before going: check the organizer's newsletter or Instagram for updates. The organizer says this recurring calendar may not reflect cancellations or rescheduling; links are on the event page.",
+    "_note": "2026-10-22: official event page welcomes the public/families, with no advance signup. Keep the soonest 13 published dates (Oct 25-Jan 17 on review), not an assertion that every date was independently reconfirmed. Exact LOCATION override uses OSM way/1463243588 and publisher address 1605 Moss Street, Eugene; both feed GEO and embedded map incorrectly point to Louisiana. The attendance note preserves the publisher's warning through the 800-character prose cap."
+  },
+  {
+    "name": "Spartanburg County Public Libraries (Spartanburg, SC)",
+    "url": "https://www.trumba.com/calendars/scpl_events.ics?events=2000",
+    "category": "learning",
+    "limit": 2000,
+    "geocode_suffix": ", Spartanburg, SC",
+    "skip_title": "^Spartanburg County Public Libraries (?:Close|Closed)\\b",
+    "location_overrides": [
+      {
+        "location": "Headquarters Library",
+        "venue": {
+          "name": "Headquarters Library",
+          "address": "151 S. Church Street",
+          "city": "Spartanburg",
+          "region": "SC",
+          "postal_code": "29306",
+          "country": "US",
+          "lat": 34.948849117843,
+          "lon": -81.931246669679,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Boiling Springs Library",
+        "venue": {
+          "name": "Boiling Springs Library",
+          "address": "871 Double Bridge Rd",
+          "city": "Boiling Springs",
+          "region": "SC",
+          "postal_code": "29316",
+          "country": "US",
+          "lat": 35.043054627234,
+          "lon": -81.980820065894,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Chesnee Library",
+        "venue": {
+          "name": "Chesnee Library",
+          "address": "100 Pickens Avenue",
+          "city": "Chesnee",
+          "region": "SC",
+          "postal_code": "29323",
+          "country": "US",
+          "lat": 35.138564671641,
+          "lon": -81.860466244739,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Cowpens Library",
+        "venue": {
+          "name": "Cowpens Library",
+          "address": "181 School Street",
+          "city": "Cowpens",
+          "region": "SC",
+          "postal_code": "29330",
+          "country": "US",
+          "lat": 35.019689,
+          "lon": -81.8040591,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Cyrill-Westside Library",
+        "venue": {
+          "name": "Cyrill-Westside Library",
+          "address": "525 Oak Grove Road",
+          "city": "Spartanburg",
+          "region": "SC",
+          "postal_code": "29301",
+          "country": "US",
+          "lat": 34.92062000664,
+          "lon": -82.002264228399,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Inman Library",
+        "venue": {
+          "name": "Inman Library",
+          "address": "50 Mill Street",
+          "city": "Inman",
+          "region": "SC",
+          "postal_code": "29349",
+          "country": "US",
+          "lat": 35.046153945373,
+          "lon": -82.093028731103,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Landrum Library",
+        "venue": {
+          "name": "Landrum Library",
+          "address": "111 East Asbury Drive",
+          "city": "Landrum",
+          "region": "SC",
+          "postal_code": "29356",
+          "country": "US",
+          "lat": 35.1790514,
+          "lon": -82.1738785,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Middle Tyger Library",
+        "venue": {
+          "name": "Middle Tyger Library",
+          "address": "170 Groce Road",
+          "city": "Lyman",
+          "region": "SC",
+          "postal_code": "29365",
+          "country": "US",
+          "lat": 34.944443949813,
+          "lon": -82.122001856968,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Pacolet Library",
+        "venue": {
+          "name": "Pacolet Library",
+          "address": "390 West Main Street",
+          "city": "Pacolet",
+          "region": "SC",
+          "postal_code": "29372",
+          "country": "US",
+          "lat": 34.902033593419,
+          "lon": -81.767707863896,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Woodruff Library",
+        "venue": {
+          "name": "Woodruff Library",
+          "address": "270 East Hayne Street",
+          "city": "Woodruff",
+          "region": "SC",
+          "postal_code": "29388",
+          "country": "US",
+          "lat": 34.739832927433,
+          "lon": -82.033944888904,
+          "coords_exact": true
+        }
+      }
+    ],
+    "_metro": "Spartanburg, South Carolina",
+    "_found": "manual:2026-10-22 official home page embeds Trumba webName=scpl_events",
+    "_note": "Official home-page Trumba calendar; trumba.com robots.txt allows the feed. Exact LOCATION pins use the official branch-directory addresses; coordinates use Census Public_AR_Current exact matches (8/10) plus OSM address match for Landrum and named library match for Cowpens (Census no-match). Only systemwide closure notices are skipped; public programmes remain."
   }
 ]

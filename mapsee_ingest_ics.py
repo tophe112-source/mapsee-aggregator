@@ -13,10 +13,12 @@ Config per source (JSON list):
     name             provenance label (source = "ics:<name>")
     url              the .ics feed
     category         optional fixed Mapsee category KEY
+    attendance_note  optional publisher-verified attendance instruction, prepended
+                     to each normalized description before the sync's prose cap
     geocode_suffix   appended to LOCATION for Photon lookups (", Seattle, WA")
     limit            max future events to keep (default 500)
     venue            optional {name, address, city, region, postal_code, country,
-                     lat, lon, aliases, street_hint, pin_unnamed} used for a
+                     lat, lon, aliases, street_hint, pin_unnamed, coords_exact} used for a
                      VEVENT that carries neither LOCATION nor GEO (unless
                      `pin_unnamed` is false: until a calendar's bare titles
                      have been read, see _pins_unnamed), and for one whose
@@ -35,6 +37,8 @@ Config per source (JSON list):
                      the sync (no Census re-geocode; city, region and country
                      alone send nothing to it); `aliases` and `street_hint`
                      are only ever matched, never geocoded or written to a row.
+                     A verified venue point with an address can explicitly set
+                     `coords_exact: true` to bypass Census re-geocoding too.
 
 Events need coordinates to land on the map: a VEVENT GEO property wins;
 otherwise the LOCATION string is geocoded via Photon (OSM) — one polite
@@ -1086,6 +1090,14 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if desc:                                      # ICS descriptions are often HTML-ish — keep them short + plain
             desc = re.sub(r"<[^>]+>", " ", desc)
             desc = re.sub(r"\s+", " ", desc).strip() or None
+        attendance_note = src.get("attendance_note")
+        if isinstance(attendance_note, str) and attendance_note.strip():
+            # The sync caps prose at 800 characters. A publisher's short,
+            # verified instruction (for example, how to confirm a recurring
+            # event that may be cancelled) belongs before that cap, while the
+            # source's own description remains intact after it in the store.
+            note = attendance_note.strip()
+            desc = f"{note}\n\n{desc}" if desc else note
         url = _event_url(ev, src)
         uid = (ev.get("UID", ("", {}))[0] or "").strip()
         nev = NormalizedEvent(
@@ -1096,6 +1108,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             start_local=start_local, start_utc=start_utc,
             end_local=end_local, end_utc=end_utc,
             venue_name=loc, latitude=lat, longitude=lon,
+            coords_exact=(venue or {}).get("coords_exact") is True,
             address=(venue or {}).get("address"),
             city=(venue or {}).get("city"), region=(venue or {}).get("region"),
             country=(venue or {}).get("country"), postal_code=(venue or {}).get("postal_code"),

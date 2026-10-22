@@ -22040,6 +22040,32 @@
         "street_hint": "3-4 Windthorststraße"
       },
       "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Bike Works - Repair Parties and Open Shop (Seattle)",
+      "base_url": "https://bikeworks.org",
+      "category": "community",
+      "timezone": "America/Los_Angeles",
+      "within_days": 60,
+      "per_page": 50,
+      "max_pages": 4,
+      "crawl_delay": 2,
+      "_metro": "Seattle, United States",
+      "_found": "manual:2026-10-22 publisher event calendar",
+      "_note": "2026-10-22: 20 unique upcoming events in 60 days; volunteer repair parties require age 18+, application and orientation. Open Shop uses sliding-scale admission when specified. Preserve event pages and attendance requirements. Warehouse point comes from the publisher's Open Shop Google Maps place link (3d/4d target, not viewport center). Names restrict the fallback to this warehouse.",
+      "venue": {
+        "name": "Bike Works Warehouse",
+        "names": [
+          "Bike Works Warehouse"
+        ],
+        "address": "3715 S Hudson St",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98118",
+        "country": "US",
+        "lat": 47.5569028,
+        "lon": -122.2851816
+      }
     }
   ],
   "_not_included": {

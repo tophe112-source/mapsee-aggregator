@@ -47593,6 +47593,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bikeworks.org": {
+    "checked": 20261022,
+    "name": "Bike Works - Repair Parties and Open Shop (Seattle)",
+    "reason": "20 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "bikoclub.net": {
     "checked": 20260922,
     "name": "Circolo Arci Biko",
@@ -69995,6 +70002,13 @@
     "reason": "5 events / 5 future instance(s)",
     "status": "ok",
     "type": "localist"
+  },
+  "calendar.uoregon.edu/event/grove-community-garden-workparty.ics": {
+    "checked": 20261022,
+    "name": "University of Oregon - Grove Community Garden Work Parties (Eugene)",
+    "reason": "36 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
   },
   "calendar.up.edu": {
     "checked": 20261018,
@@ -427577,6 +427591,13 @@
     "checked": 20261018,
     "name": "San Antonio City Calendar",
     "reason": "500 vevents / 499 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/scpl_events.ics?events=2000": {
+    "checked": 20261022,
+    "name": "Spartanburg County Public Libraries (Spartanburg, SC)",
+    "reason": "398 vevents / 398 future",
     "status": "ok",
     "type": "ics"
   },

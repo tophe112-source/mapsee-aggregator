@@ -31,6 +31,7 @@ import os
 import sys
 import tempfile
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from unittest.mock import patch
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -112,23 +113,39 @@ d8 = (D + timedelta(days=8)).isoformat()
 d15 = (D + timedelta(days=15)).isoformat()
 d3 = (D + timedelta(days=3)).isoformat()
 d5 = (D + timedelta(days=5)).isoformat()
+LA_ZONE = ZoneInfo("America/Los_Angeles")
+EDMONTON_ZONE = ZoneInfo("America/Edmonton")
+
+
+def local_iso(day, clock, zone):
+    """A source API timestamp with the correct seasonal UTC offset."""
+    return datetime.fromisoformat(f"{day}T{clock}").replace(tzinfo=zone).isoformat(timespec="seconds")
+
+
+def dt_utc(s):
+    return datetime.fromisoformat(s).astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
 META = {"summary": "Judkins Park Neighbors", "timeZone": "America/Los_Angeles"}
 ITEMS = [
     {"id": "bbq1", "iCalUID": "bbq1@google.com", "status": "confirmed", "summary": "Fall BBQ, burgers; drinks",
      "location": "Judkins Park Picnic Shelter, Seattle", "description": "Bring a side <b>to share</b>",
-     "start": {"dateTime": f"{d}T14:00:00-07:00"}, "end": {"dateTime": f"{d}T17:00:00-07:00"}},
-    # 9:30pm in Edmonton is 03:30 UTC the NEXT day: the fingerprint's date is UTC's.
+     "start": {"dateTime": local_iso(d, "14:00:00", LA_ZONE)},
+     "end": {"dateTime": local_iso(d, "17:00:00", LA_ZONE)}},
+    # 9:30pm in Edmonton is on the NEXT UTC day: the fingerprint's date is UTC's.
     {"id": "late1", "iCalUID": "late1@google.com", "status": "confirmed", "summary": "Midnight Movie",
-     "location": "Garneau Theatre, Edmonton", "start": {"dateTime": f"{d}T21:30:00-06:00"},
-     "end": {"dateTime": f"{d}T23:30:00-06:00"}},
+     "location": "Garneau Theatre, Edmonton",
+     "start": {"dateTime": local_iso(d, "21:30:00", EDMONTON_ZONE)},
+     "end": {"dateTime": local_iso(d, "23:30:00", EDMONTON_ZONE)}},
     {"id": "fair1", "iCalUID": "fair1@google.com", "status": "confirmed", "summary": "Harvest Fair",
      "location": "Judkins Park", "start": {"date": d3}, "end": {"date": d5}},
     # A weekly series: the API expands it; the export has one VEVENT with an RRULE.
     *[{"id": f"walk_{x.replace('-', '')}", "iCalUID": "walk@google.com", "recurringEventId": "walk",
        "status": "confirmed", "summary": "Park Cleanup", "location": "Judkins Park",
-       "originalStartTime": {"dateTime": f"{x}T10:00:00-07:00", "timeZone": "America/Los_Angeles"},
-       "start": {"dateTime": f"{x}T10:00:00-07:00", "timeZone": "America/Los_Angeles"},
-       "end": {"dateTime": f"{x}T12:00:00-07:00", "timeZone": "America/Los_Angeles"}} for x in (d1, d8, d15)],
+       "originalStartTime": {"dateTime": local_iso(x, "10:00:00", LA_ZONE),
+                             "timeZone": "America/Los_Angeles"},
+       "start": {"dateTime": local_iso(x, "10:00:00", LA_ZONE), "timeZone": "America/Los_Angeles"},
+       "end": {"dateTime": local_iso(x, "12:00:00", LA_ZONE), "timeZone": "America/Los_Angeles"}} for x in (d1, d8, d15)],
     {"id": "priv", "iCalUID": "priv@google.com", "status": "confirmed", "visibility": "private",
      "start": {"dateTime": f"{d}T09:00:00-07:00"}, "end": {"dateTime": f"{d}T10:00:00-07:00"}},
     {"id": "gone", "iCalUID": "gone@google.com", "status": "cancelled", "summary": "Called off",
@@ -138,9 +155,25 @@ ITEMS = [
 ]
 text = G.to_ics(META, ITEMS)
 check("a one-off event is written in UTC, as the export writes it",
-      f"DTSTART:{d.replace('-', '')}T210000Z" in text, text[:400])
+      f"DTSTART:{dt_utc(local_iso(d, '14:00:00', LA_ZONE))}" in text, text[:400])
 check("an instance of a series is written in its own zone",
       f"DTSTART;TZID=America/Los_Angeles:{d1.replace('-', '')}T100000" in text)
+
+for season, day, offset in (("summer", "2026-07-15", "-07:00"),
+                            ("winter", "2026-12-15", "-08:00")):
+    start = local_iso(day, "10:00:00", LA_ZONE)
+    end = local_iso(day, "12:00:00", LA_ZONE)
+    series_instance = {"id": f"walk-{season}", "iCalUID": "walk@google.com",
+                       "recurringEventId": "walk", "status": "confirmed",
+                       "summary": "Park Cleanup", "location": "Judkins Park",
+                       "start": {"dateTime": start, "timeZone": "America/Los_Angeles"},
+                       "end": {"dateTime": end, "timeZone": "America/Los_Angeles"}}
+    seasonal = G.to_ics(META, [series_instance])
+    check(f"a {season} series fixture carries Los Angeles' correct UTC offset",
+          start.endswith(offset) and end.endswith(offset), (start, end))
+    check(f"a {season} series instance stays at 10am local",
+          f"DTSTART;TZID=America/Los_Angeles:{day.replace('-', '')}T100000" in seasonal,
+          seasonal)
 check("an all-day event is a DATE, and its end stays exclusive",
       f"DTSTART;VALUE=DATE:{d3.replace('-', '')}" in text and f"DTEND;VALUE=DATE:{d5.replace('-', '')}" in text)
 evs = ICS.parse_ics(text)
@@ -157,16 +190,14 @@ check("...and the same UID on the next run", walk == [e["UID"][0] for e in ICS.p
 
 
 # --- 3. parity: the same events, through the export and through the API ----------
-def dt_utc(s):
-    return datetime.fromisoformat(s).astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-
-
 EXPORT = "\r\n".join([
     "BEGIN:VCALENDAR", "VERSION:2.0", "X-WR-TIMEZONE:America/Los_Angeles",
-    "BEGIN:VEVENT", f"DTSTART:{dt_utc(d + 'T14:00:00-07:00')}", f"DTEND:{dt_utc(d + 'T17:00:00-07:00')}",
+    "BEGIN:VEVENT", f"DTSTART:{dt_utc(local_iso(d, '14:00:00', LA_ZONE))}",
+    f"DTEND:{dt_utc(local_iso(d, '17:00:00', LA_ZONE))}",
     "UID:bbq1@google.com", "SUMMARY:Fall BBQ\\, burgers\\; drinks", "LOCATION:Judkins Park Picnic Shelter\\, Seattle",
     "STATUS:CONFIRMED", "END:VEVENT",
-    "BEGIN:VEVENT", f"DTSTART:{dt_utc(d + 'T21:30:00-06:00')}", f"DTEND:{dt_utc(d + 'T23:30:00-06:00')}",
+    "BEGIN:VEVENT", f"DTSTART:{dt_utc(local_iso(d, '21:30:00', EDMONTON_ZONE))}",
+    f"DTEND:{dt_utc(local_iso(d, '23:30:00', EDMONTON_ZONE))}",
     "UID:late1@google.com", "SUMMARY:Midnight Movie", "LOCATION:Garneau Theatre\\, Edmonton",
     "STATUS:CONFIRMED", "END:VEVENT",
     "BEGIN:VEVENT", f"DTSTART;VALUE=DATE:{d3.replace('-', '')}", f"DTEND;VALUE=DATE:{d5.replace('-', '')}",

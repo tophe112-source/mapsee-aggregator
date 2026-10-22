@@ -576,6 +576,145 @@ with patch.object(ICS, "_fetch_ics", return_value=(NEWEST_FIRST_ICS, "200")), \
                                                       "Grocery Giveaway 2092"],
           [r.name for r in order_store.rows])
 
+
+# --- publisher-verified attendance notes survive the public prose cap -------
+# The Grove calendar's important cancellation caveat is near the END of a long
+# recurring-event description. The database row caps prose at 800 characters,
+# so a source-authored, concise attendance_note must precede that cap without
+# replacing the publisher's original text or changing the event's identity.
+from mapsee_supabase_sync import build_rows, to_row
+
+ATTENDANCE_NOTE = "Check the organizer's newsletter or Instagram for same-day cancellations."
+LONG_SOURCE_DESCRIPTION = ("Original volunteer work party details remain source-authored. " * 30
+                           + "Publisher cancellation caveat at the tail.")
+ATTENDANCE_ICS = (
+    "BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:grove-work-party\r\n"
+    "SUMMARY:Grove Community Garden Work Party\r\n"
+    "DTSTART:20991010T210000Z\r\nDTEND:20991010T230000Z\r\n"
+    "GEO:44.0398546;-123.0659835\r\n"
+    "URL:https://calendar.example.test/event/grove-work-party\r\n"
+    "DESCRIPTION:" + LONG_SOURCE_DESCRIPTION + "\r\n"
+    "END:VEVENT\r\nEND:VCALENDAR\r\n"
+)
+
+def _ingest_build_ics_row(directory, *, attendance_note=None):
+    path = os.path.join(directory, "events.json")
+    source = {"name": "Grove Community Garden", "url": "https://calendar.example.test/grove.ics",
+              "category": "volunteer"}
+    if attendance_note is not None:
+        source["attendance_note"] = attendance_note
+    persisted = EventStore(path)
+    with patch.object(ICS, "_fetch_ics", return_value=(ATTENDANCE_ICS, "200")):
+        ICS.ingest_ics(persisted, None, source)
+    persisted.save()
+    record = next(iter(persisted.records.values()))
+    return record, build_rows(path, "host")[0]
+
+with tempfile.TemporaryDirectory() as td:
+    noted_dir = os.path.join(td, "noted")
+    plain_dir = os.path.join(td, "plain")
+    os.makedirs(noted_dir)
+    os.makedirs(plain_dir)
+    noted_record, noted_row = _ingest_build_ics_row(noted_dir, attendance_note=ATTENDANCE_NOTE)
+    plain_record, plain_row = _ingest_build_ics_row(plain_dir)
+    prior_plain_row = to_row(plain_record, "host")
+check("the configured attendance note leads the capped public description",
+      noted_row["description"].startswith(ATTENDANCE_NOTE)
+      and ATTENDANCE_NOTE in noted_row["description"], noted_row["description"][:180])
+check("the note does not replace the original source prose in the normalized store",
+      noted_record["description"] == ATTENDANCE_NOTE + "\n\n" + LONG_SOURCE_DESCRIPTION
+      and "Original volunteer work party details" in noted_row["description"],
+      noted_record.get("description"))
+check("the public row keeps the source event link and stable identity with the note",
+      noted_row["external_id"] == plain_row["external_id"]
+      and noted_record["sources"] == plain_record["sources"]
+      and "Tickets / info: https://calendar.example.test/event/grove-work-party" in noted_row["description"],
+      (noted_row.get("external_id"), plain_row.get("external_id"), noted_record.get("sources")))
+check("omitting attendance_note leaves the existing capped row unchanged",
+      plain_record["description"] == LONG_SOURCE_DESCRIPTION
+      and plain_row == prior_plain_row
+      and "Publisher cancellation caveat at the tail." not in plain_row["description"],
+      (plain_record.get("description"), plain_row.get("description")))
+
+
+# --- exact configured venue pins survive production geocoding ---------------
+# A stale raw GEO can point to another city; an explicitly verified LOCATION
+# override corrects it. When that override opts into coords_exact, build_rows
+# must preserve its point. An otherwise identical, unmarked override keeps the
+# established behavior of allowing the geocoder to improve source coordinates.
+from mapsee_supabase_sync import build_rows
+
+EXACT_PIN_ICS = (
+    "BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:grove-exact-pin\r\n"
+    "SUMMARY:Grove Community Garden Work Party\r\n"
+    "DTSTART:20991010T210000Z\r\nDTEND:20991010T230000Z\r\n"
+    "LOCATION:Grove Community Garden\r\n"
+    "GEO:30.246447;-92.006407\r\n"
+    "URL:https://calendar.example.test/event/grove-exact-pin\r\n"
+    "END:VEVENT\r\nEND:VCALENDAR\r\n"
+)
+VERIFIED_GROVE = {
+    "name": "Grove Community Garden", "address": "1605 Moss Street",
+    "city": "Eugene", "region": "OR", "country": "US",
+    "postal_code": "97403", "lat": 44.0398546, "lon": -123.0659835,
+}
+WRONG_GEOCODE = (30.246447, -92.006407)
+geo_calls = []
+
+
+def _build_exact_pin(directory, *, exact):
+    path = os.path.join(directory, "events.json")
+    venue = dict(VERIFIED_GROVE)
+    if exact:
+        venue["coords_exact"] = True
+    source = {
+        "name": "Grove Community Garden", "url": "https://calendar.example.test/grove.ics",
+        "category": "volunteer",
+        "location_overrides": [{"location": "Grove Community Garden", "venue": venue}],
+    }
+    persisted = EventStore(path)
+    with patch.object(ICS, "_fetch_ics", return_value=(EXACT_PIN_ICS, "200")):
+        ICS.ingest_ics(persisted, None, source)
+    persisted.save()
+    record = next(iter(persisted.records.values()))
+    row = build_rows(path, "host", geo_session=object())[0]
+    return record, row
+
+
+def _wrong_geocode(_session, address_tuples):
+    geo_calls.append(list(address_tuples))
+    return {address: WRONG_GEOCODE for address in address_tuples}
+
+
+with tempfile.TemporaryDirectory() as td, \
+     patch("mapsee_supabase_sync.batch_geocode", side_effect=_wrong_geocode):
+    exact_dir = os.path.join(td, "exact")
+    ordinary_dir = os.path.join(td, "ordinary")
+    os.makedirs(exact_dir)
+    os.makedirs(ordinary_dir)
+    exact_record, exact_row = _build_exact_pin(exact_dir, exact=True)
+    ordinary_record, ordinary_row = _build_exact_pin(ordinary_dir, exact=False)
+check("an exact LOCATION override corrects stale raw GEO in the normalized event",
+      exact_record["latitude"] == VERIFIED_GROVE["lat"]
+      and exact_record["longitude"] == VERIFIED_GROVE["lon"]
+      and exact_record["coords_exact"] is True,
+      (exact_record.get("latitude"), exact_record.get("longitude"), exact_record.get("coords_exact")))
+check("production build_rows bypasses geocoding and preserves opted-in venue coordinates",
+      geo_calls[0] == [] and exact_row["lat"] == VERIFIED_GROVE["lat"]
+      and exact_row["lon"] == VERIFIED_GROVE["lon"],
+      (geo_calls, exact_row.get("lat"), exact_row.get("lon")))
+check("an unmarked venue override retains existing geocoder behavior",
+      ordinary_record["coords_exact"] is False
+      and bool(geo_calls[1])
+      and ordinary_row["lat"] == WRONG_GEOCODE[0]
+      and ordinary_row["lon"] == WRONG_GEOCODE[1],
+      (ordinary_record.get("coords_exact"), geo_calls, ordinary_row.get("lat"), ordinary_row.get("lon")))
+check("coordinate opt-in leaves source event identity and info link unchanged",
+      exact_record["sources"] == ordinary_record["sources"]
+      and exact_row["external_id"] == ordinary_row["external_id"]
+      and "Tickets / info: https://calendar.example.test/event/grove-exact-pin" in exact_row["description"],
+      (exact_record.get("sources"), ordinary_record.get("sources"), exact_row.get("description")))
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")
