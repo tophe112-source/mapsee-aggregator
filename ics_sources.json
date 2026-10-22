@@ -35561,5 +35561,224 @@
     "geocode_suffix": ", Munich, Germany",
     "limit": 300,
     "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Württembergische Landesbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/testvortrag-weggesperrt.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "venue": {
+      "name": "Württembergische Landesbibliothek",
+      "city": "Stuttgart",
+      "postal_code": "70173",
+      "country": "DE",
+      "lat": 48.777267,
+      "lon": 9.1852171,
+      "street_hint": "8 Konrad-Adenauer-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Freiraum",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/694314cfe0a37ba11f44805ed6f695919d567fae0b26fe68638b79d8ae8ae6ee%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Freiraum",
+      "lat": 51.247372,
+      "lon": 6.7931514,
+      "pin_unnamed": false
+    },
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Solidarität International e.V.",
+    "category": "community",
+    "_found": "osm:social_centre -> events-manager",
+    "url": "https://solidaritaet-international.de/ueber-uns/?ical=1",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Solidarität International e.V.",
+      "lat": 51.4277137,
+      "lon": 6.7896702,
+      "street_hint": "89 Grabenstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "SSV Borbach",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i7kba1oru07mfot389h17bjoos%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Witten",
+    "limit": 300,
+    "venue": {
+      "name": "SSV Borbach",
+      "city": "Witten",
+      "postal_code": "58453",
+      "country": "DE",
+      "lat": 51.428176,
+      "lon": 7.3762484,
+      "street_hint": "21 Große Borbach",
+      "aliases": [
+        "Sport-Schützen-Verein Borbach 1919 e.V."
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Stadtbücherei",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.schwelm.de/fileadmin/user_upload/TBS/docs/Abfall/2026_Kalender_von_Abfuhrbezirk_1.ics",
+    "geocode_suffix": ", Schwelm",
+    "limit": 300,
+    "venue": {
+      "name": "Stadtbücherei",
+      "city": "Schwelm",
+      "postal_code": "58332",
+      "lat": 51.2858048,
+      "lon": 7.2953641,
+      "street_hint": "10 Römerstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Satellit der guten Hoffnung",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://theater-oberhausen.de/event/urbane-session-mit-dance-grounds/?ical=1",
+    "geocode_suffix": ", Oberhausen",
+    "limit": 300,
+    "venue": {
+      "name": "Satellit der guten Hoffnung",
+      "city": "Oberhausen",
+      "postal_code": "46045",
+      "lat": 51.4686331,
+      "lon": 6.8575901,
+      "street_hint": "119 Marktstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Mosaik Treff",
+    "category": "community",
+    "_found": "osm:social_centre -> my-calendar+jsonld-event",
+    "url": "https://kultur-vor-ort.com/mosaik/?feed=my-calendar-ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "venue": {
+      "name": "Mosaik Treff",
+      "city": "Bremen",
+      "postal_code": "28237",
+      "lat": 53.1124077,
+      "lon": 8.7555642,
+      "street_hint": "26 Liegnitzstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://lkg-bremen.de/events/ec-hauskreis-2026-10-22/?ical=1",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "venue": {
+      "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+      "city": "Bremen",
+      "postal_code": "28219",
+      "country": "DE",
+      "lat": 53.1049417,
+      "lon": 8.7819284,
+      "street_hint": "197 Waller Heerstraße",
+      "aliases": [
+        "LKG Bremen, EGZ Walle"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Gemeindehaus",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=5e575a12-55b4-4fa9-bab5-465b197bd380",
+    "geocode_suffix": ", Langwedel",
+    "limit": 300,
+    "venue": {
+      "name": "Gemeindehaus",
+      "city": "Langwedel",
+      "postal_code": "27299",
+      "country": "DE",
+      "lat": 52.9960675,
+      "lon": 9.1216526,
+      "street_hint": "6 Am Denkmal",
+      "pin_unnamed": false
+    },
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Änderei",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.google.com/calendar/ical/bj85d742g31mgkblbaiusmk3s8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "venue": {
+      "name": "Änderei",
+      "city": "Dresden",
+      "postal_code": "01159",
+      "country": "DE",
+      "lat": 51.0466045,
+      "lon": 13.697819,
+      "street_hint": "22 Altlöbtau",
+      "pin_unnamed": false
+    },
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Quartierstreff Empelde",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://win-e-v.de/programm-oktober-empelde-2/?ical=1",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Quartierstreff Empelde",
+      "lat": 52.3401261,
+      "lon": 9.6706858,
+      "pin_unnamed": false
+    },
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Quartierstreff Wiesenau",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://win-e-v.de/events/fahrradtour-11/?ical=1",
+    "geocode_suffix": ", Langenhagen",
+    "limit": 300,
+    "venue": {
+      "name": "Quartierstreff Wiesenau",
+      "city": "Langenhagen",
+      "postal_code": "30851",
+      "lat": 52.4246592,
+      "lon": 9.7258751,
+      "street_hint": "11 Freiligrathstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Hannover, Germany"
   }
 ]

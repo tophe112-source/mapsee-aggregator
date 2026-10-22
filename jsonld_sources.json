@@ -11768,6 +11768,177 @@
         "lon": 11.6069127
       },
       "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Stadtbibliothek Neukirchen",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.stadtbuecherei-neukirchen-vluyn.de/veranstaltungen/2900188/2026/10/26/werkstatt-kreatives-schreiben-held-innen.html"
+      ],
+      "link_pattern": "https://www\\.stadtbuecherei\\-neukirchen\\-vluyn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbibliothek Neukirchen",
+        "city": "Neukirchen-Vluyn",
+        "postal_code": "47506",
+        "country": "DE",
+        "lat": 51.4510773,
+        "lon": 6.579238,
+        "street_hint": "5 Missionshof"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Bücherei St. Cyriakus Krefeld-Hüls",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://katholisch-krefeld-nordwest.de/aktuelles/Terminliste/a-event/Keiner-isst-allein-00004/?instancedate=1793359800000"
+      ],
+      "link_pattern": "https://katholisch\\-krefeld\\-nordwest\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bücherei St. Cyriakus Krefeld-Hüls",
+        "lat": 51.3732543,
+        "lon": 6.5109926
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Segel-Kameradschaft Unterbacher See e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://sku.de/termine-und-veranstaltungen/"
+      ],
+      "link_pattern": "https://sku\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Segel-Kameradschaft Unterbacher See e.V.",
+        "city": "Düsseldorf",
+        "postal_code": "40627",
+        "lat": 51.1980648,
+        "lon": 6.890681,
+        "street_hint": "14 Großer Torfbruch"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadt- und Landesbibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_146884.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadt- und Landesbibliothek",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5165234,
+        "lon": 7.4608722,
+        "street_hint": "1-3 Max-von-der-Grün-Platz",
+        "aliases": [
+          "Zentralbibliothek"
+        ]
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Mütterzentrum Dortmund",
+      "category": "community",
+      "_found": "osm:social_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://muetterzentrum-dortmund.de/events/"
+      ],
+      "link_pattern": "https://muetterzentrum\\-dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mütterzentrum Dortmund",
+        "city": "Dortmund",
+        "postal_code": "44149",
+        "country": "DE",
+        "lat": 51.5096268,
+        "lon": 7.4198657,
+        "street_hint": "6 Hospitalstraße"
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Stadtteilbibliothek Scharnhorst",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_146962.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtteilbibliothek Scharnhorst",
+        "city": "Dortmund",
+        "postal_code": "44328",
+        "lat": 51.5512153,
+        "lon": 7.5451592,
+        "street_hint": "15 Mackenrothweg"
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Gemeindezentrum St.-Pauli-Kirchgemeinde",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://kirchspiel-dresden-neustadt.de/veranstaltungen-gottesdienste-konzerte/gottesdienst-325.html"
+      ],
+      "link_pattern": "https://kirchspiel\\-dresden\\-neustadt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindezentrum St.-Pauli-Kirchgemeinde",
+        "lat": 51.075256,
+        "lon": 13.7485828
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Hetzdorfer SV 1990 e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.hetzdorfer-sv.de/veranstaltungen/2637912/2026/11/28/33.-freiberger-adventslauf.html"
+      ],
+      "link_pattern": "https://www\\.hetzdorfer\\-sv\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hetzdorfer SV 1990 e.V.",
+        "city": "Halsbrücke",
+        "postal_code": "09633",
+        "lat": 50.9677763,
+        "lon": 13.4623531,
+        "street_hint": "18 Am Bergschlößchen"
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Centre social et culturel Rosa-Parks",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.centrerosaparks.paris/agenda/"
+      ],
+      "link_pattern": "https://www\\.centrerosaparks\\.paris/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre social et culturel Rosa-Parks",
+        "city": "Paris",
+        "postal_code": "75019",
+        "lat": 48.8982464,
+        "lon": 2.371526,
+        "street_hint": "219 Boulevard Macdonald"
+      },
+      "_metro": "Paris, France"
     }
   ],
   "_not_included": {

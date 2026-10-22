@@ -21970,6 +21970,76 @@
         "lon": 11.5658278
       },
       "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Linkes Zentrum Lilo Hermann",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.linkeszentrumstuttgart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Linkes Zentrum Lilo Hermann",
+        "city": "Stuttgart",
+        "postal_code": "70199",
+        "country": "DE",
+        "lat": 48.7617758,
+        "lon": 9.1568031,
+        "street_hint": "105 Böblinger Straße",
+        "aliases": [
+          "Linkes Zentrum Stuttgart"
+        ]
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "traute",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://traute.ruhr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "traute",
+        "lat": 51.4796997,
+        "lon": 7.2193374
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Offenes Zentrum Dortmund",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.offeneszentrum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Offenes Zentrum Dortmund",
+        "city": "Dortmund",
+        "postal_code": "44145",
+        "lat": 51.5235178,
+        "lon": 7.4694826,
+        "street_hint": "12 Schleswiger Straße"
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "wasmitherz e.V.",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://wasmitherz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "wasmitherz e.V.",
+        "city": "Hannover",
+        "postal_code": "30167",
+        "country": "DE",
+        "lat": 52.3845074,
+        "lon": 9.7287367,
+        "street_hint": "3-4 Windthorststraße"
+      },
+      "_metro": "Hannover, Germany"
     }
   ],
   "_not_included": {

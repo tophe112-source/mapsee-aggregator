@@ -257,8 +257,8 @@
   "stuck": {}
  },
  "osm|community_centre,library,social_centre": {
-  "metro": 121,
-  "metro_key": "DE:Stuttgart",
+  "metro": 130,
+  "metro_key": "FR:Lyon",
   "stuck": {}
  },
  "socrata": {
