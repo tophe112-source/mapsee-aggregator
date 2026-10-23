@@ -11939,6 +11939,671 @@
         "street_hint": "219 Boulevard Macdonald"
       },
       "_metro": "Paris, France"
+    },
+    {
+      "name": "Pacha",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.pacha-muenchen.de/programm/event823/index_ger.html"
+      ],
+      "link_pattern": "https://www\\.pacha\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pacha",
+        "address": "5 Maximiliansplatz",
+        "city": "München",
+        "postal_code": "80333",
+        "country": "DE",
+        "lat": 48.142124,
+        "lon": 11.5697566
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Greenpeace",
+      "category": "community",
+      "_found": "osm:ngo -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://www.greenpeace-muenchen.de/veranstaltung/klimaanpassung-zukunft-unserer-waelder-durch-waldumbau/"
+      ],
+      "link_pattern": "https://www\\.greenpeace\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Greenpeace",
+        "address": "14 Frohschammerstraße",
+        "city": "München",
+        "postal_code": "80807",
+        "country": "DE",
+        "lat": 48.1789021,
+        "lon": 11.5687966
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Pädagogische Aktion/Spielen in der Stadt e. V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://culture-clouds.de/kalender/"
+      ],
+      "link_pattern": "https://culture\\-clouds\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pädagogische Aktion/Spielen in der Stadt e. V.",
+        "address": "7 Saarstraße",
+        "city": "München",
+        "postal_code": "80797",
+        "country": "DE",
+        "lat": 48.164389,
+        "lon": 11.560908
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Experiment Kopfbau",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://unsere-messestadt.de/veranstaltungskalender/"
+      ],
+      "link_pattern": "https://unsere\\-messestadt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Experiment Kopfbau",
+        "address": "1 Werner-Eckert-Straße",
+        "city": "München",
+        "postal_code": "81829",
+        "country": "DE",
+        "lat": 48.1295561,
+        "lon": 11.6835486
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "LeZ",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.lez-muenchen.de/aktuell-im-lez/event-details/bimovie-im-lez.html"
+      ],
+      "link_pattern": "https://www\\.lez\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LeZ",
+        "city": "München",
+        "postal_code": "80469",
+        "country": "DE",
+        "lat": 48.131591,
+        "lon": 11.5716757,
+        "street_hint": "26 Müllerstraße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Nachbarschaftstreff Ramersdorf-Süd",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.nt-ramersdorfsued.de/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Nachbarschaftstreff Ramersdorf-Süd",
+        "address": "111 Balanstraße",
+        "city": "München",
+        "postal_code": "81549",
+        "lat": 48.1076997,
+        "lon": 11.604685
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Lehrbienenstand",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.imker-erding.com/termine"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lehrbienenstand",
+        "lat": 48.2888364,
+        "lon": 11.9075433
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Offene Werkstatt Gilching",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.offene-werkstatt-gilching.de/termine/"
+      ],
+      "link_pattern": "https://www\\.offene\\-werkstatt\\-gilching\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Offene Werkstatt Gilching",
+        "address": "28 Römerstraße",
+        "city": "Gilching",
+        "postal_code": "82205",
+        "country": "DE",
+        "lat": 48.108984,
+        "lon": 11.3006223
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kizztalk Dance Academy",
+      "category": "fitness",
+      "_found": "osm:dance -> wix+jsonld-event",
+      "listing": [
+        "https://www.kizztalk.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kizztalk Dance Academy",
+        "address": "3 Martin-Behaim-Straße",
+        "city": "München",
+        "postal_code": "81373",
+        "country": "DE",
+        "lat": 48.1247077,
+        "lon": 11.5372752
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Alexander Krist Table Magic Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://krist-live.de/show/magie-live-hautnah-2/"
+      ],
+      "link_pattern": "https://krist\\-live\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Alexander Krist Table Magic Theater",
+        "address": "3 Unterer Anger",
+        "city": "München",
+        "postal_code": "80331",
+        "lat": 48.1330853,
+        "lon": 11.5712597
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Museum Brandhorst",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.museum-brandhorst.de/events/eroeffnung-in-my-head/?t=17933004000000"
+      ],
+      "link_pattern": "https://www\\.museum\\-brandhorst\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Brandhorst",
+        "address": "35a Theresienstraße",
+        "city": "München",
+        "postal_code": "80333",
+        "country": "DE",
+        "lat": 48.1481178,
+        "lon": 11.5740913
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kultur im Trafo",
+      "category": "community",
+      "_found": "osm:events_venue -> wp-event-manager",
+      "listing": [
+        "https://kultur-im-trafo.de/programm/"
+      ],
+      "link_pattern": "https://kultur\\-im\\-trafo\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kultur im Trafo",
+        "address": "171a Nymphenburger Straße",
+        "city": "München",
+        "postal_code": "80634",
+        "country": "DE",
+        "lat": 48.1551439,
+        "lon": 11.5311974
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Boogie-Bären München",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://www.boogie-baeren.de/eventleser/wcs-party-24102026"
+      ],
+      "link_pattern": "https://www\\.boogie\\-baeren\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Boogie-Bären München",
+        "address": "16 Gneisenaustraße",
+        "city": "München",
+        "postal_code": "80992",
+        "lat": 48.1785061,
+        "lon": 11.5318162
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "UNEARTHED Arts + Crafts Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://unearthed-gallery.com/pages/events"
+      ],
+      "link_pattern": "https://unearthed\\-gallery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "UNEARTHED Arts + Crafts Gallery",
+        "address": "83 Gabelsbergerstraße",
+        "city": "München",
+        "postal_code": "80333",
+        "country": "DE",
+        "lat": 48.1495042,
+        "lon": 11.5608995
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "female cycling force - Club House",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.femalecyclingforce.com/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/details-registrierung/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "female cycling force - Club House",
+        "address": "84 Baaderstraße",
+        "city": "München",
+        "postal_code": "80469",
+        "lat": 48.1281248,
+        "lon": 11.5744612
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Buch & Café Lentner",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://buchlentner.buchkatalog.de/Veranstaltungen"
+      ],
+      "link_pattern": "https://buchlentner\\.buchkatalog\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Buch & Café Lentner",
+        "address": "16 Balanstraße",
+        "lat": 48.1269257,
+        "lon": 11.5947544
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Sportverein Stadtwerke München e.V.",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.swm-tennis.de/termine"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Sportverein Stadtwerke München e.V.",
+        "address": "81 Neuherbergstraße",
+        "postal_code": "80937",
+        "lat": 48.2095496,
+        "lon": 11.570558
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "TSV Waldtrudering",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.tsv-waldtrudering.de/kalender/"
+      ],
+      "link_pattern": "https://www\\.tsv\\-waldtrudering\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "TSV Waldtrudering",
+        "lat": 48.1148123,
+        "lon": 11.6991484
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Heimathaus Wolfschneiderhof",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.wolfschneiderhof.de/veranstaltungen.html?day=20261011"
+      ],
+      "link_pattern": "https://www\\.wolfschneiderhof\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heimathaus Wolfschneiderhof",
+        "address": "12 Münchener Straße",
+        "city": "Taufkirchen",
+        "postal_code": "82024",
+        "country": "DE",
+        "lat": 48.0463266,
+        "lon": 11.6174797
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Rosenkranz-Königin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.pfarrverband-neubiberg-waldperlach.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.pfarrverband\\-neubiberg\\-waldperlach\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rosenkranz-Königin",
+        "address": "36 Hauptstraße",
+        "city": "Neubiberg",
+        "postal_code": "85579",
+        "country": "DE",
+        "lat": 48.0750573,
+        "lon": 11.6675818
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Stephanuskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stephanuskirche.de/kalenderansicht-monat/"
+      ],
+      "link_pattern": "https://stephanuskirche\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stephanuskirche",
+        "address": "51 Nibelungenstraße",
+        "city": "München",
+        "postal_code": "80639",
+        "country": "DE",
+        "lat": 48.1533184,
+        "lon": 11.5187936
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Christliche Gemeinschaft Charismatisches Zentrum München",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://czm.de/events/"
+      ],
+      "link_pattern": "https://czm\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Christliche Gemeinschaft Charismatisches Zentrum München",
+        "address": "39 Emil-Geis-Straße",
+        "city": "München",
+        "country": "DE",
+        "lat": 48.1007881,
+        "lon": 11.5445081
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "TC Puchheim",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.tc-puchheim.de/event-directory/"
+      ],
+      "link_pattern": "https://www\\.tc\\-puchheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "TC Puchheim",
+        "lat": 48.1805936,
+        "lon": 11.3533046
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Fun & Dance",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://fun-and-dance.de/events/"
+      ],
+      "link_pattern": "https://fun\\-and\\-dance\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fun & Dance",
+        "address": "344 Cuxhavener Straße",
+        "city": "Hamburg",
+        "postal_code": "21149",
+        "lat": 53.4729799,
+        "lon": 9.8526521
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reinbek.nak-nordost.de/db/576121/Termine/Unterrichtssonntag"
+      ],
+      "link_pattern": "https://reinbek\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "38 Jahnstraße",
+        "city": "Reinbek",
+        "postal_code": "21465",
+        "lat": 53.5132714,
+        "lon": 10.2467194
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Pulverfass Travestie Cabaret",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://pulverfasscabaret.de/tickets/?show=pulverlesque"
+      ],
+      "link_pattern": "https://pulverfasscabaret\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pulverfass Travestie Cabaret",
+        "address": "147 Reeperbahn",
+        "city": "Hamburg",
+        "postal_code": "20359",
+        "country": "DE",
+        "lat": 53.5493537,
+        "lon": 9.9585925
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "City Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.citykino-buxtehude.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.citykino\\-buxtehude\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "City Kino",
+        "address": "11 Bahnhofstraße",
+        "city": "Buxtehude",
+        "postal_code": "21614",
+        "lat": 53.4736088,
+        "lon": 9.6955115
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Hansa-Filmstudio",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://bergedorf-kino.de/programm"
+      ],
+      "link_pattern": "https://bergedorf\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hansa-Filmstudio",
+        "lat": 53.4934078,
+        "lon": 10.2073693
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Europa-Union Hamburg e.V.",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event+ics",
+      "listing": [
+        "https://europa-union-hamburg.de/de/event/661"
+      ],
+      "link_pattern": "https://europa\\-union\\-hamburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Europa-Union Hamburg e.V.",
+        "address": "1 Adolphsplatz",
+        "city": "Hamburg",
+        "postal_code": "20457",
+        "country": "DE",
+        "lat": 53.5495682,
+        "lon": 9.9915066
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Affenfaust Galerie",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://affenfaustgalerie.de/shows/"
+      ],
+      "link_pattern": "https://affenfaustgalerie\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Affenfaust Galerie",
+        "address": "43 Paul-Roosen-Straße",
+        "postal_code": "22767",
+        "lat": 53.5532756,
+        "lon": 9.9561977
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Movieplexx Delhi Center",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://movieplexx.de/programm"
+      ],
+      "link_pattern": "https://movieplexx\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Movieplexx Delhi Center",
+        "address": "5 Bremer Straße",
+        "city": "Buchholz in der Nordheide",
+        "postal_code": "21244",
+        "country": "DE",
+        "lat": 53.3273749,
+        "lon": 9.8741716
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Landesjugendorchester Hamburg",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event",
+      "listing": [
+        "https://ljo-hamburg.de/konzert/winterkonzert-2027/"
+      ],
+      "link_pattern": "https://ljo\\-hamburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Landesjugendorchester Hamburg",
+        "lat": 53.5467958,
+        "lon": 9.9722654
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Atlantic Festsäle",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.atlantic.de/events/"
+      ],
+      "link_pattern": "https://www\\.atlantic\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Atlantic Festsäle",
+        "lat": 53.5567608,
+        "lon": 10.0050663
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Die Heilsarmee",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/hamburgkorps/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Die Heilsarmee",
+        "address": "11 Talstraße",
+        "city": "Hamburg",
+        "postal_code": "20359",
+        "country": "DE",
+        "lat": 53.5501583,
+        "lon": 9.9598641
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Vereinsheim Oberalster V.f.W. e. V.",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://oberalstervfw.de/oa-kalender/"
+      ],
+      "link_pattern": "https://oberalstervfw\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Vereinsheim Oberalster V.f.W. e. V.",
+        "address": "43a Wellingsbütteler Landstraße",
+        "city": "Hamburg",
+        "postal_code": "22337",
+        "lat": 53.6293835,
+        "lon": 10.0305376
+      },
+      "_metro": "Hamburg, Germany"
     }
   ],
   "_not_included": {

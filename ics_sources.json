@@ -35961,5 +35961,278 @@
     "_metro": "Spartanburg, South Carolina",
     "_found": "manual:2026-10-22 official home page embeds Trumba webName=scpl_events",
     "_note": "Official home-page Trumba calendar; trumba.com robots.txt allows the feed. Exact LOCATION pins use the official branch-directory addresses; coordinates use Census Public_AR_Current exact matches (8/10) plus OSM address match for Landrum and named library match for Cowpens (Census no-match). Only systemwide closure notices are skipped; public programmes remain."
+  },
+  {
+    "name": "Münchner Kammerspiele",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.muenchner-kammerspiele.de/en/programm/53307-die-giehse/53308.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Münchner Frauenforum",
+    "category": "arts",
+    "_found": "osm:gallery -> events-manager",
+    "url": "https://muenchner-frauenforum.de/kalender/?ical=1",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "H-Team",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://www.h-team-ev.de/aktuelles/?ical=1",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "KULT Tanzschule",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9nh9302humsev7jdsso5nl98to%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Bund der Pfadfinderinnen und Pfadfinder - Stamm Robin Hood",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9bd21a8667fdc62110eff3b78b04814c928dbb0ffd0c61d4a9319fe7f0b42207%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottobrunn",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Heimatmuseum Kirchseeon",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://calendar.google.com/calendar/ical/lpdtn4m8vhp37krr4108soarek%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kirchseeon",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "SV Sulzemos e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40svsulzemoos.de/public/basic.ics",
+    "geocode_suffix": ", Sulzemoos",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "MK München",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://mk-muenchen.de/index.php?option=com_dpcalendar&task=ical.download&id=441",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Stamm Bussard",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/srpfdmlmubj8p3gdcdsnrtsrjc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Germering",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "St. Michael Perlach",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bbm44fnbda3mugrstft2cu5f1o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Schützenverein Eichenlaub Lohhof e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/vorstand%40eichenlaub-lohhof.de/public/basic.ics",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Schützenverein Gemütlichkeit Eching 1906 e. V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vnblkt9ll741678op9g1p7v104%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Irish Folk Pub Dart Club München e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i9uc6g1h5dpb18l2sihubj69gc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "DPSG Stamm Columbus",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/721acb104177c1d4a08cc7b7ffba56f919c6d4456beef25e1d92303a76e7ec6f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Neukeferloh",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "St. Gabriel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://www.sanktgabriel.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Kanu-Club Turngemeinde München e.V.",
+    "category": "community",
+    "_found": "osm:club -> my-calendar+jsonld-event",
+    "url": "https://tg-muenchen.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Stammesheim Stamm Skythen",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/j57v1fpqrljqmjj12apqo2a274%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Icking",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Sportschule Sinawali",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> my-calendar",
+    "url": "https://sinawali.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "The English Theatre of Hamburg",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager+modern-events",
+    "url": "https://eth-hamburg.de/your_events/?ical=1",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Ev. Jugend Buchholz",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i3mvb8gl6eftfu2ei5ni4067c0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Buchholz in der Nordheide",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Attraktor e.V.",
+    "category": "community",
+    "_found": "osm:hackerspace -> ics",
+    "url": "https://wiki.attraktor.org/calendar.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Gehörlosenverband Hamburg e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/glvhh.de_kaebj2korocktpsat7sb9rlrh4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Mädchentreff Mümmelmannsberg",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://trockendock-hamburg.de/site/assets/files/4695/event.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "venue": {
+      "name": "Mädchentreff Mümmelmannsberg",
+      "city": "Hamburg",
+      "postal_code": "22115",
+      "lat": 53.5236674,
+      "lon": 10.1527071,
+      "street_hint": "20a Heideblöck",
+      "aliases": [
+        "Lass 1000 Steine rollen! Mümmelmannsberg"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Deutsches Rotes Kreuz",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rf56i0hei60uq3ocfg2uk1a9jo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tornesch",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Freie Arbeiter*innen-Union Hamburg",
+    "category": "community",
+    "_found": "osm:ngo -> events-manager",
+    "url": "https://hamburg.fau.org/deutsch/termine/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Welcome Werkstatt",
+    "category": "community",
+    "_found": "osm:hackerspace -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6krpdfq033a6s4f34hifmjuphdk72nm1%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Bucerius Kunst Forum",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://www.buceriuskunstforum.de/uploads/tx_bucerius/1793440800_e32db2009a84a39bd5290211f8e33b93.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "prismeo LAB | EVENTS | STUDIO",
+    "category": "community",
+    "_found": "osm:events_venue -> ics",
+    "url": "https://prismeo.de/programm/feed.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "F&W Fördern & Wohnen AöR",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.foerdernundwohnen.de/25-jahre-tanztheater-locavida.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
   }
 ]

@@ -22066,6 +22066,642 @@
         "lat": 47.5569028,
         "lon": -122.2851816
       }
+    },
+    {
+      "name": "Kallmann-Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://kallmann-museum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kallmann-Museum",
+        "address": "3b Schloßstraße",
+        "city": "Ismaning",
+        "postal_code": "85737",
+        "country": "DE",
+        "lat": 48.2284985,
+        "lon": 11.6722355
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Schlossmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://schlossmuseum-ismaning.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schlossmuseum",
+        "lat": 48.2285292,
+        "lon": 11.6729545
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "ADAC - Sport- und Kulturverein e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sportundkulturverein.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ADAC - Sport- und Kulturverein e.V.",
+        "address": "19 Hansastraße",
+        "city": "München",
+        "postal_code": "80686",
+        "country": "DE",
+        "lat": 48.1336357,
+        "lon": 11.5282463
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "ESV Abteilung Kanu-Sport",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://esvkanu.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ESV Abteilung Kanu-Sport",
+        "address": "27 Zentralländstraße",
+        "city": "München",
+        "postal_code": "81379",
+        "lat": 48.095625,
+        "lon": 11.5475552
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kinderkunsthaus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.kinderkunsthaus.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kinderkunsthaus",
+        "address": "21 Römerstraße",
+        "city": "München",
+        "postal_code": "80801",
+        "country": "DE",
+        "lat": 48.1602787,
+        "lon": 11.5771059
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.miaev.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "39b Bergerwaldstraße",
+        "city": "München",
+        "postal_code": "81825",
+        "country": "DE",
+        "lat": 48.1139843,
+        "lon": 11.6591006
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kunstverein Erding e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://kunstverein-erding.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunstverein Erding e.V.",
+        "address": "12 Am Rätschenbach",
+        "lat": 48.307127,
+        "lon": 11.9090991
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Haderner Herz",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.efg-muenchen-hadern.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haderner Herz",
+        "address": "21 Ludlstraße",
+        "lat": 48.1256329,
+        "lon": 11.4954634
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Evangelische Gemeinschaft",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://gemeinschaft-muenchen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelische Gemeinschaft",
+        "address": "20 Möhlstraße",
+        "lat": 48.1434237,
+        "lon": 11.600272
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kunstlabor 2",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kunstlabor.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunstlabor 2",
+        "address": "90 Dachauer Straße",
+        "city": "München",
+        "postal_code": "80335",
+        "country": "DE",
+        "lat": 48.1508501,
+        "lon": 11.5585879
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Country Gringos",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://country-gringos.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Country Gringos",
+        "address": "Fasanenweg",
+        "city": "Moosinning",
+        "postal_code": "85452",
+        "lat": 48.2763955,
+        "lon": 11.8259564
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Akasha Academy",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.akasha-academy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Akasha Academy",
+        "address": "68 Stöberlstraße",
+        "lat": 48.1380367,
+        "lon": 11.4940312
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "SV Arget",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://svarget.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SV Arget",
+        "lat": 47.949352,
+        "lon": 11.6678616
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Bayerische Fischerjugend",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://fischer-jugend.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bayerische Fischerjugend",
+        "lat": 48.251363,
+        "lon": 11.5578198
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Treffpunkt Philosophie",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://treffpunkt-philosophie.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Treffpunkt Philosophie",
+        "address": "91 Schwanthalerstraße",
+        "postal_code": "80336",
+        "lat": 48.1373988,
+        "lon": 11.5519576
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Jugend- und Campuskirche Vom guten Hirten",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://bdkj-muenchen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugend- und Campuskirche Vom guten Hirten",
+        "address": "85 Preysingstraße",
+        "lat": 48.1324144,
+        "lon": 11.6021548
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "TC Finsing e. V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://tennisclub-finsing.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TC Finsing e. V.",
+        "address": "9 Am Steinfeld",
+        "city": "Finsing",
+        "postal_code": "85464",
+        "country": "DE",
+        "lat": 48.2164259,
+        "lon": 11.8073712
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Zachäuskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://holzkirchen-evangelisch.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zachäuskirche",
+        "lat": 47.9766938,
+        "lon": 11.6507988
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "St. Joachim",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://stjoachim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Joachim",
+        "address": "22 Maisinger Platz",
+        "city": "München",
+        "lat": 48.0926833,
+        "lon": 11.5206806
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "HochX Theater und Live Art",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://theater-hochx.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HochX Theater und Live Art",
+        "address": "37 Entenbachstraße",
+        "city": "München",
+        "postal_code": "81541",
+        "country": "DE",
+        "lat": 48.1223624,
+        "lon": 11.5776986
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Performing Arts Studios",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://pa-studios.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Performing Arts Studios",
+        "address": "22 Bergmannstraße",
+        "city": "München",
+        "postal_code": "80339",
+        "lat": 48.1375684,
+        "lon": 11.5369061
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Olympia Reitanlage",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://olympiareitanlage.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Olympia Reitanlage",
+        "lat": 48.1455604,
+        "lon": 11.6684685
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Stiftungsgut der Edith-Haberland- Wagner Stiftung",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://ehw-stiftungsgut.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stiftungsgut der Edith-Haberland- Wagner Stiftung",
+        "lat": 48.1364432,
+        "lon": 11.40348
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kilimanschanzo",
+      "category": "community",
+      "_found": "osm:pitch -> tribe+jsonld-event",
+      "base_url": "https://www.kilimanschanzo.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kilimanschanzo",
+        "lat": 53.5618309,
+        "lon": 9.9600986
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Spicy's Gewürzmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.spicys.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spicy's Gewürzmuseum",
+        "address": "34 Am Sandtorkai",
+        "city": "Hamburg",
+        "postal_code": "20457",
+        "country": "DE",
+        "lat": 53.5431509,
+        "lon": 9.9883872
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Archäologisches Museum Hamburg",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://amh.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Archäologisches Museum Hamburg",
+        "address": "5 Harburger Rathausplatz",
+        "city": "Hamburg",
+        "postal_code": "21073",
+        "lat": 53.4586855,
+        "lon": 9.9792684
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "LICHTHOF Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lichthof-theater.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LICHTHOF Theater",
+        "address": "15B Mendelssohnstraße",
+        "city": "Hamburg",
+        "postal_code": "22761",
+        "lat": 53.5633446,
+        "lon": 9.9149861
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Markthalle Hamburg",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://markthalle-hamburg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Markthalle Hamburg",
+        "address": "11 Klosterwall",
+        "city": "Hamburg",
+        "postal_code": "20095",
+        "lat": 53.5493696,
+        "lon": 10.0067575
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Geschichtswerkstatt Barmbek",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://geschichtswerkstatt-barmbek.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Geschichtswerkstatt Barmbek",
+        "postal_code": "22305",
+        "lat": 53.5868169,
+        "lon": 10.0417492
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Evangelische Studierendengemeinde Hamburg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.esg-hamburg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelische Studierendengemeinde Hamburg",
+        "address": "43 Grindelallee",
+        "city": "Hamburg",
+        "postal_code": "20146",
+        "lat": 53.5659651,
+        "lon": 9.9810895
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Traditionsschiffhafen Sandtorkai",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://stiftung-hamburg-maritim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Traditionsschiffhafen Sandtorkai",
+        "address": "60/68 Am Sandtorkai",
+        "city": "Hamburg",
+        "postal_code": "20457",
+        "lat": 53.5424065,
+        "lon": 9.9893293
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "SMC Albatros Ellerau e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.smc-albatros-ellerau.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SMC Albatros Ellerau e.V.",
+        "address": "2 Højerweg",
+        "city": "Ellerau",
+        "postal_code": "25479",
+        "lat": 53.7526685,
+        "lon": 9.9206575
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Die Kleine Fleth-Philharmonie",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://fleth-philharmonie.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Die Kleine Fleth-Philharmonie",
+        "lat": 53.4773736,
+        "lon": 9.6989064
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "FC St. Pauli - Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fcstpauli-museum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FC St. Pauli - Museum",
+        "address": "1",
+        "city": "Hamburg",
+        "postal_code": "20359",
+        "lat": 53.5546486,
+        "lon": 9.9690494
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Halle 424",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://halle424.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Halle 424",
+        "address": "43 Stockmeyerstraße",
+        "city": "Hamburg",
+        "postal_code": "20457",
+        "lat": 53.542662,
+        "lon": 10.0094275
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "ELIM Servicebüro im EMMAPLAMBECKHAUS",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://elim-diakonie.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ELIM Servicebüro im EMMAPLAMBECKHAUS",
+        "address": "18b Marommer Straße",
+        "city": "Norderstedt",
+        "postal_code": "22850",
+        "country": "DE",
+        "lat": 53.6902566,
+        "lon": 9.9885856
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Turnerheim",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://rellinger-turnverein.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Turnerheim",
+        "address": "14 Hohle Straße",
+        "city": "Rellingen",
+        "postal_code": "25462",
+        "country": "DE",
+        "lat": 53.6523297,
+        "lon": 9.8261634
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Fußballanlage Siemershöh",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://scala-sportclub.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fußballanlage Siemershöh",
+        "address": "118a Langenhorner Chaussee",
+        "city": "Hamburg",
+        "postal_code": "22415",
+        "lat": 53.6421817,
+        "lon": 10.0148438
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Sankt Erich",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.mariendomhamburg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sankt Erich",
+        "address": "40 Marckmannstraße",
+        "city": "Hamburg",
+        "postal_code": "20539",
+        "country": "DE",
+        "lat": 53.5360044,
+        "lon": 10.0379852
+      },
+      "_metro": "Hamburg, Germany"
     }
   ],
   "_not_included": {
