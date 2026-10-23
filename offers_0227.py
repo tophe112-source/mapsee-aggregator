@@ -1,4 +1,4 @@
-"""The product's offer tags, for the adapters' tests: ../mapsee migration
+r"""The product's offer tags, for the adapters' tests: ../mapsee migration
 0227's public.event_offers(), VENDORED VERBATIM from its Python twin
 ../mapsee/tools/measure_deals.py (rx, every pattern, body_text, not_this_price
 and classify; lines 120-270 of that file on 2026-10-12, mapsee 2de7f72).
