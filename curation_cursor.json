@@ -257,9 +257,11 @@
   "stuck": {}
  },
  "osm|community_centre,library,social_centre": {
-  "metro": 130,
-  "metro_key": "FR:Lyon",
-  "stuck": {}
+  "metro": 133,
+  "metro_key": "FR:Bordeaux",
+  "stuck": {
+   "FR:Bordeaux": 1
+  }
  },
  "socrata": {
   "art events": 0,

@@ -36234,5 +36234,23 @@
     "geocode_suffix": ", Hamburg",
     "limit": 300,
     "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Casal Català",
+    "category": "community",
+    "_found": "osm:social_centre -> events-manager",
+    "url": "https://www.casalcatalatolosa.cat/tag/concert/?ical=1",
+    "geocode_suffix": ", Toulouse",
+    "limit": 300,
+    "venue": {
+      "name": "Casal Català",
+      "city": "Toulouse",
+      "postal_code": "31300",
+      "lat": 43.6002047,
+      "lon": 1.434213,
+      "street_hint": "7 Rue des Novars",
+      "pin_unnamed": false
+    },
+    "_metro": "Toulouse, France"
   }
 ]

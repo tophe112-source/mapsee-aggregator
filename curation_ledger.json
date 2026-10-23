@@ -1918,8 +1918,10 @@
     "type": "osm-venue"
   },
   "aagp-provence.com/library.htm": {
-    "checked": 20261006,
+    "cal_url": "https://www.aagp-provence.com/activities.htm",
+    "checked": 20261023,
     "name": "Anglo-American Group of Provence Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3332,8 +3334,10 @@
     "type": "osm-venue"
   },
   "abricoop.fr/les-4-vents": {
-    "checked": 20261006,
+    "cal_url": "https://www.abricoop.fr/calendrier/",
+    "checked": 20261023,
     "name": "?",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10606,6 +10610,15 @@
     "status": "fail",
     "type": "tribe"
   },
+  "alliancesetcultures.org/raymond-iv": {
+    "cal_url": "https://www.alliancesetcultures.org/wp-content/uploads/2026/09/Agenda-OCTOBRE-2026-Site.pdf",
+    "checked": 20261023,
+    "name": "Centre Social et Culturel Raymond IV",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "allianskyrkanialta.se": {
     "checked": 20260905,
     "name": "Allianskyrkan i \u00c4lta",
@@ -15096,15 +15109,17 @@
     "type": "osm-venue"
   },
   "animation-marseille.ifac.asso.fr/spip.php?rubrique54": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre Fissiaux",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
   },
   "animation-marseille.ifac.asso.fr/spip.php?rubrique58": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Maison Pour Tous - Centre Social Tivoli",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -23150,8 +23165,9 @@
     "type": "osm-venue"
   },
   "asso-baussenque.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social Baussenque",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -23171,8 +23187,9 @@
     "type": "osm-venue"
   },
   "asso.alternaweb.org/apis/centre-de-loisirs-coin-joli": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre de Loisirs Coin Joli",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23187,6 +23204,24 @@
   "assoarmu.wordpress.com": {
     "checked": 20261006,
     "name": "Centre Social l'Achoppe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "assoaves.fr/le-bartas": {
+    "cal_url": "https://assoaves.fr/programme-janvier-fevrier.html",
+    "checked": 20261023,
+    "name": "Centre social Le Bartas",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "assoaves.fr/les-salyens": {
+    "cal_url": "https://assoaves.fr/programme-janvier-fevrier.html",
+    "checked": 20261023,
+    "name": "AVES Centre Social les Salyens",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23210,6 +23245,15 @@
     "name": "Associa\u00e7\u00e3o Santa Rita de C\u00e1ssia",
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "association-marhaban.org": {
+    "cal_url": "https://association-marhaban.org/evenements/",
+    "checked": 20261023,
+    "name": "Marhaban",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
     "type": "osm-venue"
   },
   "association-st-camille.ch": {
@@ -25315,8 +25359,9 @@
     "type": "civic-city"
   },
   "auchatnoir.noblogs.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Au Chat Noir",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -41606,8 +41651,10 @@
     "type": "osm-venue"
   },
   "biblio-st-raphael.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.biblio-st-raphael.fr/events.php",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que Saint-Raphael - salle Joseph Rey",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47255,8 +47302,9 @@
     "type": "osm-venue"
   },
   "bibliotheque-brax31.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Biblioth\u00e8que municipal de Brax",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47444,8 +47492,10 @@
     "type": "osm-venue"
   },
   "bibliotheque.enac.fr": {
-    "checked": 20261006,
+    "cal_url": "https://learninghub.enac.fr/agenda/",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que de l'ENAC",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47490,8 +47540,9 @@
     "type": "osm-venue"
   },
   "bibliotheque.mairie-balma.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que municipale",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47592,8 +47643,9 @@
     "type": "osm-venue"
   },
   "bibliotheque.saintclarderiviere.fr/opac_css": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "?",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -47636,29 +47688,46 @@
     "type": "osm-venue"
   },
   "bibliotheque.toulouse.fr": {
-    "checked": 20261006,
+    "cal_url": "https://bibliotheque.toulouse.fr/agenda",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que de quartier - Saint-Cyprien",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheque.toulouse.fr/22-bibliotheques/bibliotheque-detude-et-du-patrimoine": {
-    "checked": 20261006,
+    "cal_url": "https://bibliotheque.toulouse.fr/agenda",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que municipale d'\u00e9tude et du patrimoine",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bibliotheque.toulouse.fr/22-bibliotheques/fabre": {
+    "cal_url": "https://bibliotheque.toulouse.fr/agenda",
+    "checked": 20261023,
+    "name": "M\u00e9diath\u00e8que Fabre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheque.toulouse.fr/22-bibliotheques/mediatheque-jose-cabanis": {
-    "checked": 20261006,
+    "cal_url": "https://bibliotheque.toulouse.fr/agenda",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Jos\u00e9 Cabanis",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheque.toulouse.fr/bibliotheques/reseau-des-bibliotheques-de-quartier2/mediatheque-saint-exupery": {
-    "checked": 20261006,
+    "cal_url": "https://bibliotheque.toulouse.fr/agenda",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que Antoine de Saint-Exup\u00e9ry",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -48214,8 +48283,9 @@
     "type": "osm-venue"
   },
   "bibliotheques.marseille.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Biblioth\u00e8que municipale des Cinq Avenues",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -48259,36 +48329,43 @@
     "type": "osm-venue"
   },
   "bibliotheques.univ-tlse2.fr/accueil-bibliotheques/bibliotheques/bibliotheques-du-campus-mirail/bibliotheque-universitaire-centrale": {
-    "checked": 20261006,
+    "cal_url": "https://bibliotheques.univ-tlse2.fr/accueil-bibliotheques/actualites/calendrier-bu-centrale-2026-2027",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que Universitaire Centrale",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheques.univ-tlse2.fr/accueil-bibliotheques/bibliotheques/bibliotheques-du-campus-mirail/centre-de-ressources-de-psychologie-louise-michel": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre de ressources de Psychologie Louise Michel",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheques.univ-tlse2.fr/accueil-bibliotheques/bibliotheques/bibliotheques-du-campus-mirail/centre-de-ressources-des-langues": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre de Ressources des Langues",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheques.univ-tlse2.fr/accueil-bibliotheques/bibliotheques/bibliotheques-du-campus-mirail/centre-de-ressources-lettres-arts-philosophie": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre de ressources Lettres Arts Philosophie (CLAP)",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "bibliotheques.univ-tlse2.fr/accueil-bibliotheques/bibliotheques/bibliotheques-du-campus-mirail/centre-de-ressources-olympe-de-gouges": {
-    "checked": 20261006,
+    "cal_url": "https://bibliotheques.univ-tlse2.fr/accueil-bibliotheques/infos-pratiques/bibliotheques/agenda-du-crog",
+    "checked": 20261023,
     "name": "Centre de ressources Olympe de Gouges",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -52426,8 +52503,10 @@
     "type": "osm-venue"
   },
   "bm-lyon.fr/16-bibliotheques-et-un-bibliobus/bibliotheque-de-la-part-dieu": {
-    "checked": 20261006,
+    "cal_url": "https://www.bm-lyon.fr/agenda",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que municipale de Lyon",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -52692,8 +52771,9 @@
     "type": "osm-venue"
   },
   "bmvr.marseille.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Biblioth\u00e8que de l'Alcazar",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -62533,6 +62613,46 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bu.univ-amu.fr/fr/bibliotheques-universitaires/bu-bernard-bois": {
+    "checked": 20261023,
+    "name": "Biblioth\u00e8que universitaire Bernard du Bois",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bu.univ-amu.fr/fr/bibliotheques-universitaires/bu-canebiere": {
+    "checked": 20261023,
+    "name": "Biblioth\u00e8que Universitaire Canebi\u00e8re",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bu.univ-amu.fr/fr/bibliotheques-universitaires/bu-fenouilleres": {
+    "checked": 20261023,
+    "name": "Les Fenouill\u00e8res - Biblioth\u00e8que Universitaire",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bu.univ-amu.fr/fr/bibliotheques-universitaires/bu-luminy": {
+    "checked": 20261023,
+    "name": "Biblioth\u00e8que Universitaire de Luminy",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bu.univ-amu.fr/fr/bibliotheques-universitaires/bu-saint-jeromeinspe-de-marseille": {
+    "checked": 20261023,
+    "name": "Biblioth\u00e8que universitaire de Saint-J\u00e9r\u00f4me",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "bu.univ-cotedazur.fr/fr/bibliotheques/bu-droit-et-science-politique": {
     "checked": 20261006,
     "name": "BU Droit-Science Politique",
@@ -62595,8 +62715,10 @@
     "type": "osm-venue"
   },
   "bu.univ-lyon3.fr": {
-    "checked": 20261006,
+    "cal_url": "https://bu.univ-lyon3.fr/calendrier",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que universitaire de la Manufacture",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -67711,6 +67833,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "c-oc.org/ieo/provenca": {
+    "checked": 20261023,
+    "name": "Section D\u00e9partementale de l'Institut d'Etudes Occitanes : Bouches-du-Rh\u00f4ne",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "c12space.com": {
     "checked": 20260911,
     "name": "C12",
@@ -68104,6 +68234,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cabries.fr/agenda": {
+    "checked": 20261023,
+    "name": "Maison des Arts",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "cabriosport.de": {
     "checked": 20261023,
@@ -77097,6 +77234,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "casalcatalatolosa.cat/tag/concert/?ical=1": {
+    "checked": 20261023,
+    "name": "Casal Catal\u00e0",
+    "reason": "275 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "casaldebarridiagonalmar.blogspot.com.es": {
     "checked": 20260922,
     "name": "Casal de Barri Diagonal Mar",
@@ -77771,8 +77915,10 @@
     "type": "osm-venue"
   },
   "castagora.bibenligne.fr": {
-    "checked": 20261006,
+    "cal_url": "https://castagora.bibenligne.fr/au-programme",
+    "checked": 20261023,
     "name": "Castagora",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -79835,16 +79981,20 @@
     "type": "tribe"
   },
   "ccocl13.fr/index.php?page=cco-bernard-du-bois": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre Social Bernard du Bois-Velten",
-    "reason": "osm probe: no-calendar",
+    "offsite_url": "https://www.instagram.com/centre.de.culture.ouvriere/",
+    "probe": 2,
+    "reason": "osm probe: offsite:instagram.com",
     "status": "fail",
     "type": "osm-venue"
   },
   "ccocl13.fr/index.php?page=centre-social-ste-marthe": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social Sainte-Marthe - La Paternelle",
-    "reason": "osm probe: no-calendar",
+    "offsite_url": "https://www.instagram.com/centre.de.culture.ouvriere/",
+    "probe": 2,
+    "reason": "osm probe: offsite:instagram.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -80145,6 +80295,14 @@
   "cdcgvnbrisbane.net": {
     "checked": 20261007,
     "name": "Vietnamese Catholic Community Archdiocese of Brisbane",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cdef31.org": {
+    "checked": 20261023,
+    "name": "Centre D\u00e9partemental de l\u2019Enfance et de la Famille",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -81422,8 +81580,10 @@
     "type": "osm-venue"
   },
   "centrefleg.com": {
-    "checked": 20261006,
+    "cal_url": "https://centrefleg.com/evenement/",
+    "checked": 20261023,
     "name": "Centre Edmond Fleg",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -81518,8 +81678,10 @@
     "type": "osm-venue"
   },
   "centrelgbtqiamarseille.org": {
-    "checked": 20261006,
+    "cal_url": "https://centrelgbtqiamarseille.org/agenda/",
+    "checked": 20261023,
     "name": "Centre LGBTQIA+ Marseille",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -81705,15 +81867,18 @@
     "type": "osm-venue"
   },
   "centresocial-stgabriel.org": {
-    "checked": 20261006,
+    "cal_url": "https://www.centresocial-stgabriel.org/programme-des-vacances/",
+    "checked": 20261023,
     "name": "Centre social Saint-Gabriel",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "centresocialfraisvallon.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social de Frais Vallon",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -81735,8 +81900,9 @@
     "type": "osm-venue"
   },
   "centresocialrouguiere.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social Rougui\u00e8re",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -82700,8 +82866,9 @@
     "type": "osm-venue"
   },
   "cerclestjulien.unblog.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Cercle Saint-Julien",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -83619,8 +83786,10 @@
     "type": "osm-venue"
   },
   "ch-le-vinatier.reseaudoc.fr/?opac_view=3": {
-    "checked": 20261006,
+    "cal_url": "https://ch-le-vinatier.reseaudoc.fr/index.php?lvl=cmspage&amp;pageid=21&amp;id_rubrique=107&amp;opac_view=3",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que du Vinatier",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -84370,8 +84539,10 @@
     "type": "osm-venue"
   },
   "charly-mjc.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.charly-mjc.fr/activit%C3%A9s-hebdomadaires-2026-2027/",
+    "checked": 20261023,
     "name": "MJC Charly",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -88109,8 +88280,10 @@
     "type": "osm-venue"
   },
   "chuzelles.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.chuzelles.fr/agenda",
+    "checked": 20261023,
     "name": "La Blanchonni\u00e8re",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -91118,8 +91291,10 @@
     "type": "osm-venue"
   },
   "cira-marseille.info": {
-    "checked": 20261006,
+    "cal_url": "https://www.cira-marseille.info/category/calendriers/",
+    "checked": 20261023,
     "name": "Centre International de Recherches sur l'Anarchisme",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -91166,8 +91341,9 @@
     "type": "osm-venue"
   },
   "circolido.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre Municipal des Arts du Cirque Le Lido",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -98853,8 +99029,9 @@
     "type": "jsonld"
   },
   "cle.univ-lyon1.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre de Loisirs \u00c9ducatifs",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -107477,6 +107654,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cpe.asso.fr": {
+    "checked": 20261023,
+    "name": "Centre Populaire d'Enseignemen",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "cpf.pt": {
     "checked": 20260901,
     "name": "Centro Portugu\u00eas de Fotografia",
@@ -108431,8 +108616,9 @@
     "type": "osm-venue"
   },
   "crfcb.univ-amu.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre R\u00e9gional de Formation aux Carri\u00e8res des Biblioth\u00e8ques",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -109400,8 +109586,9 @@
     "type": "osm-venue"
   },
   "csairbel.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social Air Bel",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -109482,8 +109669,9 @@
     "type": "osm-venue"
   },
   "cscapelette.over-blog.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social de la Capelette",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -109728,8 +109916,9 @@
     "type": "osm-venue"
   },
   "cslagarde13.net": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social et culturel La Garde",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -110383,8 +110572,9 @@
     "type": "osm-venue"
   },
   "culte.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Maison des Associations",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -135992,8 +136182,10 @@
     "type": "osm-venue"
   },
   "ehess.fr/fr/centre-documentation-en-sciences-sociales-vieille-charit%C3%A9": {
-    "checked": 20261006,
+    "cal_url": "https://www.ehess.fr/jcms/lpa_25567",
+    "checked": 20261023,
     "name": "Centre de documentation en Sciences Sociales",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -140396,8 +140588,9 @@
     "type": "ics"
   },
   "entente.ndm.pagesperso-orange.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Entente Notre-Dame du Mont",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -140568,8 +140761,10 @@
     "type": "osm-venue"
   },
   "envt.fr/bibliotheque": {
-    "checked": 20261006,
+    "cal_url": "https://envt.fr/international/partir-a-letranger/etudiant-prog-echange/",
+    "checked": 20261023,
     "name": "1.4 Biblioth\u00e8que de l'Ecole Nationale V\u00e9t\u00e9rinaire de Toulouse",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -142221,9 +142416,11 @@
     "type": "osm-venue"
   },
   "es13.com": {
-    "checked": 20261006,
+    "cal_url": "https://www.es13.com/wp-content/uploads/2026/02/CONCERTS-BILLETTERIE-3.jpg",
+    "checked": 20261023,
     "name": "ES13",
     "offsite_url": "https://www.instagram.com/reel/DavKPJrlf5Q/",
+    "probe": 2,
     "reason": "osm probe: offsite:instagram.com",
     "status": "fail",
     "type": "osm-venue"
@@ -142874,8 +143071,10 @@
     "type": "osm-venue"
   },
   "espacedelaconfluence.fr": {
-    "checked": 20261006,
+    "cal_url": "https://espacedelaconfluence.fr/concert-kpop/",
+    "checked": 20261023,
     "name": "Espace de la Confluence",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -143461,6 +143660,22 @@
   "espoir-cfdj.fr/service/savea-75": {
     "checked": 20260829,
     "name": "Espoir CFDJ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "espoir31.org": {
+    "checked": 20261023,
+    "name": "Centre de Fages",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "espoir31.org/laccompagnement-social-des-gens-du-voyage": {
+    "checked": 20261023,
+    "name": "ESPOIR Tsigane Solidarit\u00e9",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -163236,6 +163451,15 @@
     "status": "ok",
     "type": "ics"
   },
+  "frouzins-ici.fr": {
+    "cal_url": "https://frouzins-ici.fr/books/calendrier-des-ateliers-velo",
+    "checked": 20261023,
+    "name": "Frouzins Initiatives Citoyennes (FIC)",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "froya.kommune.no": {
     "checked": 20261020,
     "name": "Fr\u00f8ya Municipality",
@@ -168303,8 +168527,9 @@
     "type": "osm-venue"
   },
   "gan-mordekhai.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre Socio-\u00e9ducatif du Barrry",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -177867,6 +178092,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "grandouesttoulousain.fr": {
+    "cal_url": "https://www.grandouesttoulousain.fr/agenda",
+    "checked": 20261023,
+    "name": "Maison des habitants de L\u00e9guevin",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "grandpalais-immersif.fr": {
     "checked": 20260829,
     "name": "Grand Palais immersif",
@@ -182563,6 +182797,14 @@
     "status": "fail",
     "type": "ics"
   },
+  "habitatjeunes.ucrm.fr": {
+    "checked": 20261023,
+    "name": "R\u00e9sidence San Francisco UCRM",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "habk.be/locaties/regio-rotselaar": {
     "checked": 20260911,
     "name": "HABK Rotselaar",
@@ -185082,8 +185324,10 @@
     "type": "osm-venue"
   },
   "hangardelacepiere.org": {
-    "checked": 20261006,
+    "cal_url": "https://hangardelacepiere.org/events/to-na-rua/",
+    "checked": 20261023,
     "name": "Le Hangar de la C\u00e9pi\u00e8re",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -206289,6 +206533,31 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "ieo-creo-provence.org": {
+    "cal_url": "https://ieo-creo-provence.org/editions/",
+    "checked": 20261023,
+    "name": "Section R\u00e9gionale de l'Institut d'Etudes Occitanes : Provence-Alpes-C\u00f4te d\u2019Azur",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ieo-oc.org": {
+    "checked": 20261023,
+    "name": "Institut d\u2019Etudes Occitanes",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ieo-opm.com": {
+    "checked": 20261023,
+    "name": "Section R\u00e9gionale de l'Institut d'Etudes Occitanes : IEO Occitanie, Pyr\u00e9nn\u00e9es - ",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "iepoble9.org": {
     "checked": 20260915,
     "name": "Esgl\u00e9sia evang\u00e8lica Poblenou",
@@ -210307,8 +210576,10 @@
     "type": "osm-venue"
   },
   "inspe.univ-toulouse.fr/accueil/bibliotheques/bibliotheque-site-de-toulouse-croix-de-pierre": {
-    "checked": 20261006,
+    "cal_url": "https://inspe.univ-toulouse.fr/accueil/scolarite/calendriers",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que site de Toulouse Croix de Pierre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -212637,8 +212908,10 @@
     "type": "osm-venue"
   },
   "iris-ojja.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.iris-ojja.fr/le-programme/",
+    "checked": 20261023,
     "name": "Les Iris",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -212950,8 +213223,10 @@
     "type": "osm-venue"
   },
   "isae-supaero.fr/fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.isae-supaero.fr/liste-des-evenements/",
+    "checked": 20261023,
     "name": "B\u00e2timent 85 - A\u00e9roth\u00e8que - biblioth\u00e8que universitaire",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -231317,8 +231592,9 @@
     "type": "osm-venue"
   },
   "kiosque13.noblogs.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Le Kiosque",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -244293,9 +244569,11 @@
     "type": "osm-venue"
   },
   "la-dar.org": {
-    "checked": 20261006,
+    "cal_url": "https://la-dar.org/agenda/",
+    "checked": 20261023,
     "name": "La Dar",
     "offsite_url": "https://www.facebook.com/DarLamifa/events",
+    "probe": 2,
     "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
     "type": "osm-venue"
@@ -245201,8 +245479,10 @@
     "type": "jsonld"
   },
   "lacinemathequedetoulouse.com/bibliotheque/presentation": {
-    "checked": 20261006,
+    "cal_url": "https://www.lacinemathequedetoulouse.com/programmation/rdvs/ceci-n-est-pas-un-film",
+    "checked": 20261023,
     "name": "Bilbioth\u00e8que de la Cin\u00e9math\u00e8que de Toulouse",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -245729,10 +246009,11 @@
     "type": "osm-venue"
   },
   "lacydon.wifeo.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Cour de la Major",
-    "reason": "osm probe: unreachable (RobotsUnreachable)",
-    "status": "unreachable",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
     "type": "osm-venue"
   },
   "ladanibacka.se": {
@@ -245975,6 +246256,15 @@
   "lafabriquedetalents.com": {
     "checked": 20260828,
     "name": "La Fabrique de Talents",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lafabriquesolidaire.org": {
+    "cal_url": "https://lafabriquesolidaire.org/agenda/",
+    "checked": 20261023,
+    "name": "Fabrique Solidaire des Minimes",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -247141,22 +247431,25 @@
     "type": "osm-venue"
   },
   "laligue13.fr/centre-social-mpt-vallee-de-l-huveaune": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social - Maison pour tous Vall\u00e9e de l'Huveaune",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
   },
   "laligue13.fr/centre-social-saint-joseph-fontainieu": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social Saint-Jospeh Fontainieu",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
   },
   "laligue13.fr/kleber": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Maison pour tous Kl\u00e9ber",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -250690,15 +250983,19 @@
     "type": "ics"
   },
   "lavernose-lacasse.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.lavernose-lacasse.fr/index.php/culture-loisirs/evenements",
+    "checked": 20261023,
     "name": "Salle Polyvalente de Lavernose-Lacasse",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "lavernose-lacasse.fr/index.php/notre-village/la-mairie/location-de-salles": {
-    "checked": 20261006,
+    "cal_url": "https://www.lavernose-lacasse.fr/index.php/culture-loisirs/evenements",
+    "checked": 20261023,
     "name": "Salle des f\u00eates",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -252072,8 +252369,10 @@
     "type": "osm-venue"
   },
   "lecabanon-miribel.org": {
-    "checked": 20261006,
+    "cal_url": "https://www.lecabanon-miribel.org/programme-vacances-fin-dannee-2025/",
+    "checked": 20261023,
     "name": "Le Cabanon",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -252150,8 +252449,10 @@
     "type": "osm-venue"
   },
   "lechappee.rillieuxlapape.fr": {
-    "checked": 20261006,
+    "cal_url": "https://lechappee.rillieuxlapape.fr/evenements/",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que L'Echapp\u00e9e",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -253768,6 +254069,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lemillepattes.net": {
+    "checked": 20261023,
+    "name": "DUNE",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "leministere.ca/evenements": {
     "checked": 20261006,
     "name": "Le Minist\u00e8re",
@@ -254124,15 +254433,17 @@
     "type": "osm-venue"
   },
   "leolagrange-mptsaintlouis.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Maison Pour Tous Centre social Saint-Louis",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "leolagrange-mptsaintmauront.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre social Saint-Mauront National",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -254479,8 +254790,9 @@
     "type": "osm-venue"
   },
   "leptitcamaieu.org": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Le P\u2019tit cama\u00efeu",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -254609,6 +254921,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "les-ateliers-ecocitoyens.fr": {
+    "checked": 20261023,
+    "name": "Mars'Impact",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "les-boverattes.com/agenda": {
     "checked": 20260920,
@@ -254908,6 +255227,14 @@
   "lescombieres.ch": {
     "checked": 20260920,
     "name": "Brasserie des ComBi\u00e8re",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lescompagnonsdusaga.org": {
+    "checked": 20261023,
+    "name": "Les Compagnons du SAGA",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -255533,6 +255860,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "letipi.org": {
+    "cal_url": "https://kovacek.org/",
+    "checked": 20261023,
+    "name": "Le Tipi",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "letnikinospilberk.cz": {
     "checked": 20260904,
     "name": "Letn\u00ed kino \u0160pilberk",
@@ -255752,6 +256088,14 @@
   "levalentino.club": {
     "checked": 20260919,
     "name": "Le Valentino",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "levallon-toulouse.com": {
+    "checked": 20261023,
+    "name": "Le Vallon",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -262884,8 +263228,9 @@
     "type": "civic-city"
   },
   "linksta.cc/@aumonerie-insa-toulouse": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Aum\u00f4nerie INSA Toulouse",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -269245,8 +269590,9 @@
     "type": "osm-venue"
   },
   "mabibliothequeocb.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "OCB Montolivet",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271076,8 +271422,10 @@
     "type": "osm-venue"
   },
   "mairie-anse.fr/618-ansolia.htm": {
-    "checked": 20261006,
+    "cal_url": "https://www.mairie-anse.fr/162-agenda.htm",
+    "checked": 20261023,
     "name": "Ansolia",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271104,8 +271452,10 @@
     "type": "osm-venue"
   },
   "mairie-caillouxsurfontaines.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.mairie-caillouxsurfontaines.fr/systeme/agenda/",
+    "checked": 20261023,
     "name": "La Valloni\u00e8re",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271210,8 +271560,9 @@
     "type": "osm-venue"
   },
   "mairie-marseille6-8.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre Municipal d'Animation Falque",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271232,8 +271583,10 @@
     "type": "ics"
   },
   "mairie-ondes31.fr/fr/culture-et-loisirs/bibliotheque.html": {
-    "checked": 20261006,
+    "cal_url": "https://mairie-ondes31.fr/fr/environnement/agenda-21.html",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que de Ondes",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271269,8 +271622,10 @@
     "type": "osm-venue"
   },
   "mairie-seilh.fr/mes-demarches/location-reservation-de-salle/location-espace-ferrat": {
-    "checked": 20261006,
+    "cal_url": "https://www.mairie-seilh.fr/mon-quotidien/securite-prevention/objets-trouves",
+    "checked": 20261023,
     "name": "Espace Ferrat",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271292,22 +271647,28 @@
     "type": "osm-venue"
   },
   "mairie-tournefeuille.fr/maison-de-quartier-de-paderne": {
-    "checked": 20261006,
+    "cal_url": "https://www.mairie-tournefeuille.fr/evenements/",
+    "checked": 20261023,
     "name": "Maison de quartier de Paderne",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "mairie-tournefeuille.fr/maison-de-quartier-de-pahin": {
-    "checked": 20261006,
+    "cal_url": "https://www.mairie-tournefeuille.fr/evenements/",
+    "checked": 20261023,
     "name": "Maison de quartier de Pahin",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "mairie-tournefeuille.fr/maison-de-quartier-de-quefets": {
-    "checked": 20261006,
+    "cal_url": "https://www.mairie-tournefeuille.fr/evenements/",
+    "checked": 20261023,
     "name": "Maison de quartier de Qu\u00e9fets",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -271640,8 +272001,10 @@
     "type": "osm-venue"
   },
   "maisondesessarts.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.maisondesessarts.fr/rubrique3.html",
+    "checked": 20261023,
     "name": "Maison de quartier des Essarts",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -272076,8 +272439,10 @@
     "type": "osm-venue"
   },
   "majc-marseille.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.majc-marseille.fr/index.php/nos-activites/compte-rendu",
+    "checked": 20261023,
     "name": "Maison Arm\u00e9nienne de la Jeunesse et de la Culture",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -275551,15 +275916,26 @@
     "type": "ics"
   },
   "marseille1-7.fr/culture-et-loisirs/animation": {
-    "checked": 20261006,
+    "cal_url": "https://www.marseille1-7.fr/les-activites-et-loisirs/",
+    "checked": 20261023,
     "name": "Centre d'animation du Roucas Blanc",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "marseille1112.fr/lieux/cma-montolivet": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Centre Municipal d'Animation Montolivet",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "marseille9-10.fr/animation/maisons-de-quartier-240.html": {
+    "checked": 20261023,
+    "name": "Maison de Quartier Redon Marie 9-10e",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -276384,8 +276760,9 @@
     "type": "osm-venue"
   },
   "massabielle.asso.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Maison Bernadette",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279410,8 +279787,9 @@
     "type": "osm-venue"
   },
   "mediatheque-grigny69.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que L\u00e9o Ferr\u00e9",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279462,8 +279840,9 @@
     "type": "osm-venue"
   },
   "mediatheque-ludotheque.mairie-bruguieres.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Biblioth\u00e8que - M\u00e9diath\u00e8que",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279514,8 +279893,9 @@
     "type": "osm-venue"
   },
   "mediatheque-villefranche.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Pierre Mend\u00e8s-France",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279574,8 +279954,10 @@
     "type": "osm-venue"
   },
   "mediatheque.charbonniereslesbains.com": {
-    "checked": 20261006,
+    "cal_url": "https://mediatheque.charbonniereslesbains.com/user/login?referer=https%3A%2F%2Fmediatheque.charbonniereslesbains.com%2Fau-programme",
+    "checked": 20261023,
     "name": "M\u00e9diatheque",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -279612,8 +279994,10 @@
     "type": "osm-venue"
   },
   "mediatheque.fonsorbes.fr": {
-    "checked": 20261006,
+    "cal_url": "https://mediatheque.fonsorbes.fr/evenements",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -279689,8 +280073,9 @@
     "type": "osm-venue"
   },
   "mediatheque.mairie-muret.fr/exploitation": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Fran\u00e7ois Mitterrand",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279703,15 +280088,18 @@
     "type": "osm-venue"
   },
   "mediatheque.mairie-pinsaguel.com": {
-    "checked": 20261006,
+    "cal_url": "https://mediatheque.mairie-pinsaguel.com/au-programme",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Salou Casa\u00efs",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "mediatheque.merville31.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que de Merville - Au Fil des Mots",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279724,8 +280112,10 @@
     "type": "osm-venue"
   },
   "mediatheque.mondonville.fr": {
-    "checked": 20261006,
+    "cal_url": "https://mediatheque.mondonville.fr/dans-l-a",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -279752,15 +280142,17 @@
     "type": "osm-venue"
   },
   "mediatheque.plaisancedutouch.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Jos\u00e9phine Baker",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
   },
   "mediatheque.ramonville.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Simone de Beauvoir",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -279891,8 +280283,10 @@
     "type": "osm-venue"
   },
   "mediatheque.ville-gardanne.fr": {
-    "checked": 20261006,
+    "cal_url": "https://mediatheque.ville-gardanne.fr/doc/AGENDA/2313",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Nelson Mandela",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -280061,8 +280455,9 @@
     "type": "osm-venue"
   },
   "mediatheques-de-lhers.fr/biblio/bibiliotheque-de-labastide-beauvoirYTVmNjEzMmUtM2MwYi00OTNhLTk1YWMtY2UwMTQ3MWY3M2Yy": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Biblioth\u00e8que de Labastide-Beauvoir",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -280362,8 +280757,9 @@
     "type": "osm-venue"
   },
   "mediathequesaintsa.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que de Saint-Savournin",
+    "probe": 2,
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -281592,8 +281988,10 @@
     "type": "osm-venue"
   },
   "memoire-sexualites.org": {
-    "checked": 20261006,
+    "cal_url": "https://www.memoire-sexualites.org/agenda/",
+    "checked": 20261023,
     "name": "M\u00e9moire des sexualit\u00e9s",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -285354,8 +285752,10 @@
     "type": "civic-city"
   },
   "millebabords.org": {
-    "checked": 20261006,
+    "cal_url": "https://www.millebabords.org/spip.php?article23394",
+    "checked": 20261023,
     "name": "Mille B\u00e2bords",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -285948,8 +286348,10 @@
     "type": "osm-venue"
   },
   "mionnay.fr/vivre-a-mionnay/salle-polyvalente-location": {
-    "checked": 20261006,
+    "cal_url": "https://www.mionnay.fr/decouvertes-tourisme/agenda-des-evenements/",
+    "checked": 20261023,
     "name": "Salle polyvalente de Mionnay",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -287146,8 +287548,10 @@
     "type": "osm-venue"
   },
   "mjc-leguevin.org": {
-    "checked": 20261006,
+    "cal_url": "https://www.mjc-leguevin.org/2026/05/29/programme-juin/",
+    "checked": 20261023,
     "name": "Maison des Jeunes et de la Culture",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -287229,8 +287633,10 @@
     "type": "osm-venue"
   },
   "mjcancely.fr": {
-    "checked": 20261006,
+    "cal_url": "http://www.mjcancely.fr/activites/",
+    "checked": 20261023,
     "name": "MJC Ancely",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -287250,8 +287656,10 @@
     "type": "osm-venue"
   },
   "mjcbron.fr": {
-    "checked": 20261006,
+    "cal_url": "https://mjcbron.fr/agenda/",
+    "checked": 20261023,
     "name": "MJC Louis Aragon",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -287273,8 +287681,10 @@
     "type": "osm-venue"
   },
   "mjccroixdaurade.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.mjccroixdaurade.fr/agenda/",
+    "checked": 20261023,
     "name": "MJC Croix Daurade",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -287363,8 +287773,10 @@
     "type": "tribe"
   },
   "mjcroguet.fr": {
-    "checked": 20261006,
+    "cal_url": "https://www.mjcroguet.fr/event/",
+    "checked": 20261023,
     "name": "MJC Roguet Saint-Cyprien",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -287386,8 +287798,10 @@
     "type": "ics"
   },
   "mjcstjust.org": {
-    "checked": 20261006,
+    "cal_url": "https://mjcstjust.org/agenda-octobre/",
+    "checked": 20261023,
     "name": "MJC St Just",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -299399,8 +299813,10 @@
     "type": "osm-venue"
   },
   "museum.toulouse.fr/les-bibliotheques": {
-    "checked": 20261006,
+    "cal_url": "https://museum.toulouse-metropole.fr/agenda/",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que Emile Cartailhac",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -319019,8 +319435,9 @@
     "type": "osm-venue"
   },
   "odyssud.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Odyssud",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -320004,8 +320421,9 @@
     "type": "osm-venue"
   },
   "ojja.com/pages-stsa/Accueil.html": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "\u0152uvre de la jeunesse Jean-Joseph Allemand",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -333875,8 +334293,10 @@
     "type": "osm-venue"
   },
   "paroissemontluel.fr": {
-    "checked": 20261006,
+    "cal_url": "https://paroissemontluel.fr/wp-content/uploads/2026/10/2026-10-11-Agenda-liturgique.pdf",
+    "checked": 20261023,
     "name": "Paroisse Catholique de Montluel",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -335030,8 +335450,10 @@
     "type": "osm-venue"
   },
   "parvisprotestantisme.fr": {
-    "checked": 20261006,
+    "cal_url": "https://parvis.templegrignan.fr/concerts-spectacles/",
+    "checked": 20261023,
     "name": "Le Parvis du protestantisme",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -335951,8 +336373,9 @@
     "type": "osm-venue"
   },
   "paulhava.free.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "\u0152uvre de jeunesse Paul Hava",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -338391,8 +338814,10 @@
     "type": "osm-venue"
   },
   "petitsfreresdespauvres.fr/nos-implantations/les-petits-freres-des-pauvres-de-marseille-2-1": {
-    "checked": 20261006,
+    "cal_url": "https://www.petitsfreresdespauvres.fr/sinformer/evenements/",
+    "checked": 20261023,
     "name": "Campagne Le Manier",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -354816,8 +355241,10 @@
     "type": "osm-venue"
   },
   "radar.squat.net/fr/toulouse/local-piquemil": {
-    "checked": 20261006,
+    "cal_url": "https://radar.squat.net/fr/events",
+    "checked": 20261023,
     "name": "Local Piquemil",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -360828,8 +361255,10 @@
     "type": "osm-venue"
   },
   "reseau-rebond.fr/bibliotheque-de-lissieu": {
-    "checked": 20261006,
+    "cal_url": "https://reseau-rebond.fr/agenda-test",
+    "checked": 20261023,
     "name": "Biblioth\u00e8que municipale",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -370996,8 +371425,9 @@
     "type": "osm-venue"
   },
   "saint-eloi-chateau-gombert.com": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Groupe Saint-\u00c9loi de Ch\u00e2teau-Gombert",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -372405,8 +372835,9 @@
     "type": "osm-venue"
   },
   "salle-festive.edan.io": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Salle Festive",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -382659,8 +383090,10 @@
     "type": "osm-venue"
   },
   "secretariatsocialccr.org/fraternite-de-la-belle-de-mai": {
-    "checked": 20261006,
+    "cal_url": "https://secretariatsocialccr.org/agenda-2/",
+    "checked": 20261023,
     "name": "La Fraternit\u00e9",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -433973,8 +434406,9 @@
     "type": "osm-venue"
   },
   "thetemple.fr": {
-    "checked": 20261006,
+    "checked": 20261023,
     "name": "Le Temple",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -439022,6 +439456,14 @@
     "reason": "211 vevents / 211 future",
     "status": "ok",
     "type": "ics"
+  },
+  "toulouse.ufcquechoisir.fr": {
+    "checked": 20261023,
+    "name": "UFC-Que Choisir Toulouse",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "tounji.net": {
     "checked": 20260925,
@@ -451848,8 +452290,10 @@
     "type": "civic-city"
   },
   "valdesaone.bibenligne.fr/quincieux": {
-    "checked": 20261006,
+    "cal_url": "https://mediatheques-valdesaone.fr/a-vos-agendas",
+    "checked": 20261023,
     "name": "M\u00e9diath\u00e8que Esqale",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -454136,8 +454580,10 @@
     "type": "osm-venue"
   },
   "velosenville.org": {
-    "checked": 20261006,
+    "cal_url": "https://www.velosenville.org/index.php/evenementiel/fdv",
+    "checked": 20261023,
     "name": "Collectif V\u00e9los en Ville",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -454195,15 +454641,19 @@
     "type": "osm-venue"
   },
   "venerque.fr/espace-socio-culturel": {
-    "checked": 20261006,
+    "cal_url": "https://www.venerque.fr/agenda/",
+    "checked": 20261023,
     "name": "Espace Socio-culturel Terraviva",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "venissieux.fr/blog/projet/equipement-annie-steiner": {
-    "checked": 20261006,
+    "cal_url": "https://venissieux.fr/nos-services/prevention-securite/",
+    "checked": 20261023,
     "name": "\u00c9quipement Annie Steiner",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -467807,8 +468257,10 @@
     "type": "osm-venue"
   },
   "welcomedesk.univ-toulouse.fr/actualites/ouverture-turbine-nouveau-lieu-dedie-lengagement-etudiant": {
-    "checked": 20261006,
+    "cal_url": "https://welcomedesk.univ-toulouse.fr/evenements?field_thematique_target_id%5B%5D=1089",
+    "checked": 20261023,
     "name": "La Turbine",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -477993,6 +478445,15 @@
   "yesup.kr": {
     "checked": 20260902,
     "name": "\uc608\uc232\uad50\ud68c",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "yeswecamp.org/le-gr1": {
+    "cal_url": "https://yeswecamp.org/category/type-dusages/evenement-culturel-et-artistique/",
+    "checked": 20261023,
+    "name": "Le GR1",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
