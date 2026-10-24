@@ -27,17 +27,29 @@ shared hosting, and several of them say so in robots.txt: The Comedy Bureau asks
 10s, the Georgia Native Plant Society asks 150s. `crawl_delay` defaults to a
 polite 2s and every configured value is honoured between page requests. A source
 whose robots.txt disallows the API does not belong in the config at all.
+
+THREE SITES AT ONCE, NEVER TWO ON ONE HOST. On 2026-10-23 the step read 586 of
+1,408 sites before its 80-minute deadline (8.2 s a site), and it stopped at the
+deadline in 15 of 15 runs, so a site was read every ~2.4 days. The 1,408 sites are
+on 1,408 hosts and most of a site's time is its own Crawl-delay (1,328 ask 2 s,
+54 ask 10 s, 9 ask 30 s or more), so `--workers` (3, as PerfectMind) reads three
+hosts at once and each host still sees one request at a time, Crawl-delay apart.
+A worker only reads: the store is written in the main thread, which hands each
+worker its own Session.
 """
 from __future__ import annotations
 
 import argparse
+import concurrent.futures as cf
 import html as html_mod
 import json
 import os
 import re
 import sys
+import threading
 import time
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlsplit
 
@@ -52,6 +64,24 @@ from mapsee_admission import admission_description, normalize_admission_facts
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 _TAG = re.compile(r"<[^>]+>")
+
+# Sites read at once (`--workers`, or TRIBE_WORKERS). Each is its own host.
+DEFAULT_WORKERS = 3
+
+# The store and cursor are written together at most this often, and at the end:
+# the step stops at its deadline every run, and a store saved only at the end is
+# lost whole the day the step's cap ends it.
+SAVE_EVERY_SECONDS = 120
+
+_SAY = threading.Lock()
+
+
+def _say(line: str) -> None:
+    # Whole lines, flushed: three workers print at once, and a block-buffered log
+    # cannot say which site took the time (the 10-23 ICS log printed its first
+    # line ~33 min into the step).
+    with _SAY:
+        print(line, flush=True)
 
 
 def _clean(s: Optional[str]) -> Optional[str]:
@@ -156,6 +186,18 @@ def _known_admission_ids_for_site(store: EventStore, base_url: str) -> set:
             if owns_current or owns_legacy or legacy_free:
                 known.add(str(source_id))
     return known
+
+
+def site_admission_ids(store: EventStore, site: Dict[str, Any]) -> set:
+    """The ids `ingest_site` may refresh on a `free_only` site, read from the store.
+
+    In the main thread, before the site goes to a worker: the store is not
+    thread-safe. A site on the same host never starts until the last one's rows
+    are written, so it sees them, as it did when every site ran in turn.
+    """
+    if not site.get("free_only"):
+        return set()
+    return _known_admission_ids_for_site(store, (site.get("base_url") or "").rstrip("/"))
 
 
 def _block_stands_in(v: Dict[str, Any], vd: Dict[str, Any]) -> bool:
@@ -285,10 +327,25 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     return nev
 
 
-def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
+def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
+                deadline: float = 0.0,
+                stop: Optional[threading.Event] = None) -> List[NormalizedEvent]:
+    """Read one site and return its events. The caller writes them.
+
+    It never touches the store, which is not thread-safe: `admission_ids` is
+    `site_admission_ids`, read by the caller first, and `session` is this
+    worker's own, because a requests.Session is not thread-safe either.
+
+    `deadline` (epoch seconds, 0 = none) is checked before every page after the
+    first, and a page that could not start before it is not waited for: Haydon
+    Wick's 15 pages at 30 s are ~7 min of sleeping, which is how a step with an
+    80-minute deadline ran 86.9 (2026-10-23). The rows already read are returned.
+    `stop` is set when the run is interrupted, and ends the site the same way.
+    """
+    started = time.monotonic()
     base = (site.get("base_url") or "").rstrip("/")
     if not base:
-        print(f"[tribe] {site.get('name','?')}: no base_url"); return 0
+        _say(f"[tribe] {site.get('name','?')}: no base_url"); return []
     api = f"{base}/wp-json/tribe/events/v1/events"
     delay = float(site.get("crawl_delay", 2))
     per_page = int(site.get("per_page", 50))
@@ -327,30 +384,40 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             skip_title = re.compile(site["skip_title"], re.I)
         except (re.error, TypeError) as exc:
             raise ValueError(f"{site.get('name', '?')}: invalid skip_title regex: {exc}") from exc
-    kept = 0
+    events: List[NormalizedEvent] = []
     malformed = 0
     governance = 0
     excluded = 0
     admission_excluded = 0
     title_filtered = 0
     online = 0
+    cut = ""
     is_civic = str(site.get("_found", "")).startswith("civic:")
-    refreshable_admission_ids = (_known_admission_ids_for_site(store, base)
-                                 if site.get("free_only") else set())
+    refreshable_admission_ids = admission_ids if site.get("free_only") else frozenset()
     for page in range(1, max_pages + 1):
+        if page > 1:
+            if deadline and time.time() + delay >= deadline:
+                cut = f"stopped at the deadline before page {page}"; break
+            if delay:                                      # robots.txt Crawl-delay
+                if stop is None:
+                    time.sleep(delay)
+                elif stop.wait(delay):
+                    cut = f"interrupted before page {page}"; break
+        if stop is not None and stop.is_set():
+            cut = f"interrupted before page {page}"; break
         try:
             r = session.get(api, params=dict(params, page=page), timeout=45)
         except Exception as exc:
-            print(f"[tribe] {site.get('name')} p{page} failed: {exc}"); break
+            _say(f"[tribe] {site.get('name')} p{page} failed: {exc}"); break
         # The plugin answers a page past the end with 404 + rest_post_invalid_page_number.
         if r.status_code == 404:
             break
         if r.status_code != 200:
-            print(f"[tribe] {site.get('name')} p{page} HTTP {r.status_code}"); break
+            _say(f"[tribe] {site.get('name')} p{page} HTTP {r.status_code}"); break
         try:
             body = r.json()
         except Exception as exc:
-            print(f"[tribe] {site.get('name')} p{page} bad JSON: {exc}"); break
+            _say(f"[tribe] {site.get('name')} p{page} bad JSON: {exc}"); break
         rows = body.get("events") or []
         if not rows:
             break
@@ -384,8 +451,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                 nev = to_event(ev, site)
             except Exception as exc:                       # noqa: BLE001
                 if not malformed:
-                    print(f"[tribe] {site.get('name')}: skipping unreadable record "
-                          f"{ev.get('id')!r} ({type(exc).__name__}: {exc})")
+                    _say(f"[tribe] {site.get('name')}: skipping unreadable record "
+                         f"{ev.get('id')!r} ({type(exc).__name__}: {exc})")
                 malformed += 1
                 continue
             # A TOWN HALL'S CALENDAR IS TWO CALENDARS, here as in the ics adapter:
@@ -403,21 +470,20 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                 online += 1
                 continue
             if nev:
-                store.upsert(nev)
-                kept += 1
+                events.append(nev)
         if page >= int(body.get("total_pages") or page):
             break
-        if delay:
-            time.sleep(delay)                              # robots.txt Crawl-delay
-    print(f"[tribe] {site.get('name')}: kept {kept} events"
-          + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
-          + (f" ({governance} town-hall row(s) refused)" if governance else "")
-          + (f" ({title_filtered} title-filtered)" if title_filtered else "")
-          + (f" ({online} online with no place refused)" if online else "")
-          + (f" ({excluded} outside configured categories)" if excluded else "")
-          + (f" ({admission_excluded} outside explicit-free admission scope)"
-             if admission_excluded else ""))
-    return kept
+    _say(f"[tribe] {site.get('name')}: kept {len(events)} events"
+         + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
+         + (f" ({governance} town-hall row(s) refused)" if governance else "")
+         + (f" ({title_filtered} title-filtered)" if title_filtered else "")
+         + (f" ({online} online with no place refused)" if online else "")
+         + (f" ({excluded} outside configured categories)" if excluded else "")
+         + (f" ({admission_excluded} outside explicit-free admission scope)"
+            if admission_excluded else "")
+         + (f" ({cut})" if cut else "")
+         + f" in {time.monotonic() - started:.1f}s")
+    return events
 
 
 def _load_cursor(path: str) -> Optional[str]:
@@ -437,22 +503,43 @@ def _save_cursor(path: str, base_url: Optional[str]) -> None:
     os.replace(tmp, path)
 
 
+def _save_store(store) -> None:
+    """store.save(), written beside the file and moved over it.
+
+    The store is the civic group's shared feeds_events.json and is now written
+    every SAVE_EVERY_SECONDS: a step killed mid-write must leave the last whole
+    copy, not half of one, as `_save_cursor` already does for its own file.
+    """
+    path = getattr(store, "path", None)
+    if path is None:
+        store.save()
+        return
+    final = Path(path)
+    tmp = final.with_name(final.name + ".tmp")
+    store.path = tmp
+    try:
+        store.save()
+    finally:
+        store.path = final
+    os.replace(tmp, final)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import 'The Events Calendar' sites into the Mapsee store.")
     ap.add_argument("--config", required=True)
     ap.add_argument("--store", default="mapsee_events.json")
     ap.add_argument("--only", help="ingest just this site name (substring match)")
     # THE STEP'S CLOCK, NOT THIS PROCESS'S — the same deadline `mapsee_sweep_global`
-    # takes, and for the reason in docs/agents/ci-and-jobs.md: `store.save()` below
-    # runs ONCE, after the loop, so a step cancelled by `timeout-minutes` kills this
-    # process before it and the whole run goes in the bin. It did: 532 sites at ~6.8 s
-    # is ~60 min against a 60-minute cap, and run 35339055917 was cancelled at exactly
-    # 60m00s having reported "kept" for 495 of them — an hour of runner time that
-    # wrote nothing, and a red workflow. The workflow stamps an epoch deadline at step
-    # start; this starts no further site once it has passed, so the save still happens
-    # and the sites that did run are kept. 0 = no deadline (local runs).
+    # takes, and for the reason in docs/agents/ci-and-jobs.md: a store saved only
+    # after the loop is lost whole when `timeout-minutes` kills the process first.
+    # It was: 532 sites at ~6.8 s is ~60 min against a 60-minute cap, and run
+    # 35339055917 was cancelled at exactly 60m00s having reported "kept" for 495 of
+    # them — an hour of runner time that wrote nothing, and a red workflow. The
+    # workflow stamps an epoch deadline at step start; this starts no further site,
+    # and no further page of a site, once it has passed, and the store and cursor
+    # are also written every SAVE_EVERY_SECONDS. 0 = no deadline (local runs).
     ap.add_argument("--deadline", type=float, default=0.0,
-                    help="epoch seconds; start no site at or after this (0 = none)")
+                    help="epoch seconds; start no site, and no page, at or after this (0 = none)")
     # A DEADLINE WITHOUT A CURSOR STARVES THE SAME TAIL EVERY DAY. Run
     # 36317891716 (2026-09-27) stopped at the deadline "before Autodromo Nazionale
     # di Monza: 65 of 673 sites not started", and because every run began at site
@@ -462,43 +549,131 @@ def main(argv=None) -> int:
     # jsonld adapters resume. Local runs (no deadline) are unchanged.
     ap.add_argument("--cursor", default=os.environ.get("TRIBE_CURSOR", "tribe_cursor.json"),
                     help="with --deadline: file naming the site to start at")
+    ap.add_argument("--workers", type=int, default=os.environ.get("TRIBE_WORKERS", DEFAULT_WORKERS),
+                    help="sites read at once, never two on one host (1 = one at a time)")
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
-    session = requests.Session()
-    session.headers.update({"User-Agent": UA, "Accept": "application/json"})
     store = EventStore(a.store)
     total = 0
     sites = [s for s in cfg.get("sites", [])
              if not (a.only and a.only.lower() not in str(s.get("name", "")).lower())]
     done = 0
-    stopped = False
+    stopped = interrupted = False
     if a.deadline and sites:
         start_at = _load_cursor(a.cursor)
         start = next((i for i, s in enumerate(sites) if s.get("base_url") == start_at), 0)
         sites = sites[start:] + sites[:start]
         if start:
-            print(f"[tribe] resuming at {sites[0].get('name','?')} (site {start + 1} of {len(sites)})")
-    for site in sites:
-        # Checked BEFORE the site is counted: a site never started must not appear
-        # in the "done" line, which is the only line anyone reads.
-        if a.deadline and time.time() >= a.deadline:
-            # `::warning::` first, or the runner never annotates it.
-            print(f"::warning::[tribe] deadline reached before {site.get('name','?')}: "
-                  f"{len(sites) - done} of {len(sites)} sites not started this run", flush=True)
-            _save_cursor(a.cursor, site.get("base_url"))
-            stopped = True
-            break
-        done += 1
+            _say(f"[tribe] resuming at {sites[0].get('name','?')} (site {start + 1} of {len(sites)})")
+    workers = max(1, a.workers)
+    # One request at a time per HOST, as when every site ran in turn: a second site
+    # on a busy host waits, and the next site in list order goes instead. A site
+    # with no host of its own (no base_url) holds nobody up.
+    hosts = [_http_host(s.get("base_url")) or f"#{i}" for i, s in enumerate(sites)]
+    local, sessions, stop = threading.local(), [], threading.Event()
+
+    def _read(site: Dict[str, Any], ids) -> tuple:
+        t0 = time.monotonic()
+        session = getattr(local, "session", None)
+        if session is None:
+            session = local.session = requests.Session()
+            session.headers.update({"User-Agent": UA, "Accept": "application/json"})
+            sessions.append(session)
         try:
-            total += ingest_site(store, session, site)
-        except Exception as exc:
-            print(f"[tribe] {site.get('name','?')} FAILED: {exc}")
-    store.save()
-    print(f"[tribe] done: +{total} events from {done} of {len(sites)} sites; "
-          f"store now holds {len(store.records)} unique events."
-          + (" (stopped at the step deadline)" if stopped else ""))
-    return 0
+            return ingest_site(session, site, ids, a.deadline, stop), None, time.monotonic() - t0
+        except Exception as exc:                          # noqa: BLE001
+            return [], exc, time.monotonic() - t0
+
+    waiting = list(range(len(sites)))     # not started, in list order
+    pending: Dict[cf.Future, int] = {}
+    busy: set = set()
+    finished = [False] * len(sites)
+    began = time.monotonic()
+    last_save = time.time()
+    cursor_path = a.cursor if a.deadline else None
+
+    def _cursor() -> Optional[str]:
+        # The first site, in list order, that has not finished: a site after it
+        # that did finish is read again next run, which is cheaper than skipping
+        # one. A site the deadline cut short HAS finished: it starts from page one
+        # whenever it runs, and one too slow ever to finish must not hold the
+        # cursor and starve the tail, as site one did until 2026-09-27. When every
+        # site finished, where this run began, so the next run begins there too.
+        return next((sites[i].get("base_url") for i, f in enumerate(finished) if not f),
+                    sites[0].get("base_url") if sites else None)
+
+    pool = cf.ThreadPoolExecutor(max_workers=workers, thread_name_prefix="tribe")
+    clean = False
+    try:
+        while True:
+            while waiting and len(pending) < workers and not stopped:
+                # Checked BEFORE the site is counted: a site never started must not
+                # appear in the "done" line, which is the only line anyone reads.
+                if a.deadline and time.time() >= a.deadline:
+                    # `::warning::` first, or the runner never annotates it.
+                    _say(f"::warning::[tribe] deadline reached before {sites[waiting[0]].get('name','?')}: "
+                         f"{len(waiting)} of {len(sites)} sites not started this run")
+                    stopped = True
+                    break
+                k = next((k for k, i in enumerate(waiting) if hosts[i] not in busy), None)
+                if k is None:
+                    break
+                i = waiting.pop(k)
+                done += 1
+                try:
+                    ids = site_admission_ids(store, sites[i])
+                except Exception as exc:                  # noqa: BLE001
+                    _say(f"[tribe] {sites[i].get('name','?')} FAILED: {exc}")
+                    finished[i] = True
+                    continue
+                busy.add(hosts[i])
+                pending[pool.submit(_read, sites[i], ids)] = i
+            if not pending:
+                break
+            ready, _ = cf.wait(pending, return_when=cf.FIRST_COMPLETED)
+            for fut in sorted(ready, key=pending.get):
+                i = pending.pop(fut)
+                events, error, secs = fut.result()
+                # Written HERE, in the main thread, and before the host is free, so
+                # the next site on it sees these rows (site_admission_ids).
+                try:
+                    if error is not None:
+                        raise error
+                    for ev in events:
+                        store.upsert(ev)
+                    total += len(events)
+                except Exception as exc:                  # noqa: BLE001
+                    _say(f"[tribe] {sites[i].get('name','?')} FAILED: {exc} in {secs:.1f}s")
+                finished[i] = True
+                busy.discard(hosts[i])
+            if time.time() - last_save >= SAVE_EVERY_SECONDS:
+                _save_store(store)
+                if cursor_path:
+                    _save_cursor(cursor_path, _cursor())
+                last_save = time.time()
+        clean = True
+    except KeyboardInterrupt:
+        # A site still reading is not finished, so the cursor stays on it; its
+        # rows are not written.
+        interrupted = True
+        _say("::warning::[tribe] interrupted: saving the sites already read")
+    finally:
+        if not clean:
+            stop.set()                    # the workers stop before their next page
+        pool.shutdown(wait=clean, cancel_futures=True)
+        if clean:
+            for session in sessions:
+                session.close()
+    _save_store(store)
+    if cursor_path:
+        _save_cursor(cursor_path, _cursor())
+    _say(f"[tribe] done: +{total} events from {done} of {len(sites)} sites "
+         f"({workers} at once, {(time.monotonic() - began) / 60:.1f} min); "
+         f"store now holds {len(store.records)} unique events."
+         + (" (stopped at the step deadline)" if stopped else "")
+         + (" (interrupted)" if interrupted else ""))
+    return 130 if interrupted else 0
 
 
 if __name__ == "__main__":

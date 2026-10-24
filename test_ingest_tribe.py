@@ -27,6 +27,7 @@ Pure functions and literal payloads: no network, no store, no database.
 import io
 import json
 import os
+import re
 import sys
 import tempfile
 from copy import deepcopy
@@ -204,6 +205,15 @@ class _Store:
         self.seen.append(ev)
 
 
+def ingest(store, session, site):
+    """One site, the way main() runs it: the store is read before the site and
+    written after it, never by the reader itself (it runs in a worker thread)."""
+    events = T.ingest_site(session, site, T.site_admission_ids(store, site))
+    for ev in events:
+        store.upsert(ev)
+    return len(events)
+
+
 class _CalendarSession(_Session):
     def get(self, *a, **k):
         self.params = dict(k["params"])
@@ -221,7 +231,7 @@ for calendar_zone, expected_start, expected_end in (
         calendar_site["timezone"] = calendar_zone
     with patch.object(T, "datetime") as mocked_clock, redirect_stdout(io.StringIO()):
         mocked_clock.now.return_value = clock
-        T.ingest_site(_Store(), calendar_session, calendar_site)
+        ingest(_Store(), calendar_session, calendar_site)
     check("calendar window keeps the current publisher-local day" if calendar_zone else
           "unconfigured publishers retain the UTC window",
           calendar_session.params["start_date"] == expected_start and
@@ -246,8 +256,8 @@ def _spy_to_event(raw, site):
 
 scope_log = io.StringIO()
 with patch.object(T, "to_event", side_effect=_spy_to_event), redirect_stdout(scope_log):
-    scope_kept = T.ingest_site(scope_store, _Session(scoped_rows),
-                               dict(SITE, crawl_delay=0, free_only=True, currency="USD"))
+    scope_kept = ingest(scope_store, _Session(scoped_rows),
+                        dict(SITE, crawl_delay=0, free_only=True, currency="USD"))
 check("free_only keeps only the explicit universal-zero row",
       scope_kept == 1 and [e.source_id for e in scope_store.seen] == ["41"],
       [e.source_id for e in scope_store.seen])
@@ -266,7 +276,7 @@ def persisted_free_site_refresh(updated_row, initial_overrides=None):
         initial = row(id=541, start_date="2099-08-19 06:30:00", cost="Free",
                       **(initial_overrides or {}))
         store = T.EventStore(path)
-        T.ingest_site(store, _Session([initial]), site)
+        ingest(store, _Session([initial]), site)
         store.save()
         store = T.EventStore(path)
         initial_fp = next(iter(store.records))
@@ -280,7 +290,7 @@ def persisted_free_site_refresh(updated_row, initial_overrides=None):
             return real(raw, config)
 
         with patch.object(T, "to_event", side_effect=spy), redirect_stdout(io.StringIO()):
-            kept = T.ingest_site(store, _Session([updated_row]), site)
+            kept = ingest(store, _Session([updated_row]), site)
         store.save()
         rows = build_rows(path, "fixture-host")
         refreshed = store.records[initial_fp]
@@ -342,7 +352,7 @@ with tempfile.TemporaryDirectory(prefix="tribe-ownerless-admission-refresh-") as
     raw_free = row(id=547, start_date="2099-08-19 06:30:00", cost="Free",
                    website=external_ticket)
     store = T.EventStore(path)
-    T.ingest_site(store, _Session([raw_free]), site)
+    ingest(store, _Session([raw_free]), site)
     fp = next(iter(store.records))
     del store.records[fp]["_admission_source"]
     store.save()
@@ -358,7 +368,7 @@ with tempfile.TemporaryDirectory(prefix="tribe-ownerless-admission-refresh-") as
         return real(raw, config)
 
     with patch.object(T, "to_event", side_effect=ownerless_spy), redirect_stdout(io.StringIO()):
-        T.ingest_site(store, _Session([raw_unknown]), site)
+        ingest(store, _Session([raw_unknown]), site)
     ownerless_record = store.records[fp]
 check("legacy source-ref publisher refreshes ownerless free facts behind external ticket URLs",
       mapped == [547]
@@ -388,8 +398,8 @@ with tempfile.TemporaryDirectory(prefix="tribe-free-host-scope-") as tmp:
         return real(raw, config)
 
     with patch.object(T, "to_event", side_effect=host_spy), redirect_stdout(io.StringIO()):
-        T.ingest_site(store, _Session([row(id=542, cost=None)]),
-                      dict(SITE, crawl_delay=0, free_only=True))
+        ingest(store, _Session([row(id=542, cost=None)]),
+               dict(SITE, crawl_delay=0, free_only=True))
 check("same Tribe ID from another publisher host cannot bypass free_only",
       mapped == [], mapped)
 
@@ -410,7 +420,7 @@ with tempfile.TemporaryDirectory(prefix="tribe-owner-host-conflict-") as tmp:
     store = T.EventStore(path)
     old_fp = next(iter(store.records))
     with redirect_stdout(io.StringIO()):
-        collision_kept = T.ingest_site(store, _Session([free_from_b]), site_b)
+        collision_kept = ingest(store, _Session([free_from_b]), site_b)
     store.save()
     collision_row = next((r for r in build_rows(path, "fixture-host")
                           if r["external_id"] == old_fp), None)
@@ -453,11 +463,11 @@ with tempfile.TemporaryDirectory(prefix="tribe-scoped-source-ids-") as tmp:
                 url="https://lockleazent.co.uk/events/harbour-jazz-evening/",
                 website="https://tickets.example.test/harbour-jazz-evening")
     store = T.EventStore(path)
-    T.ingest_site(store, _Session([first]), site_a)
+    ingest(store, _Session([first]), site_a)
     store.save()
     store = T.EventStore(path)
-    T.ingest_site(store, _Session([second]), site_b)
-    T.ingest_site(store, _Session([third]), site_c)
+    ingest(store, _Session([second]), site_b)
+    ingest(store, _Session([third]), site_c)
     rekeyed_total = store.stats["rekeyed"]
     store.save()
     store = T.EventStore(path)
@@ -511,8 +521,8 @@ with tempfile.TemporaryDirectory(prefix="tribe-legacy-unbound-id-") as tmp:
                  start_date="2099-08-20 18:00:00",
                  url="https://new-calendar.example/events/community-talk/")
     with redirect_stdout(io.StringIO()):
-        T.ingest_site(store, _Session([second]),
-                      dict(SITE, base_url="https://new-calendar.example", crawl_delay=0))
+        ingest(store, _Session([second]),
+               dict(SITE, base_url="https://new-calendar.example", crawl_delay=0))
     persisted_names = sorted(rec["name"] for rec in store.records.values())
     unbound_rekeys = store.stats["rekeyed"]
 check("legacy external-ticket Tribe IDs stay unbound and cannot steal unrelated events",
@@ -532,10 +542,10 @@ with tempfile.TemporaryDirectory(prefix="tribe-same-host-rekey-") as tmp:
                 url="https://same-calendar.example/events/program/")
     expected_moved_fp = T.to_event(moved, site).fingerprint
     store = T.EventStore(path)
-    T.ingest_site(store, _Session([original]), site)
+    ingest(store, _Session([original]), site)
     store.save()
     store = T.EventStore(path)
-    T.ingest_site(store, _Session([moved]), site)
+    ingest(store, _Session([moved]), site)
     rekeyed_total = store.stats["rekeyed"]
     store.save()
     store = T.EventStore(path)
@@ -554,9 +564,9 @@ poison = row(id=99, start_date={"date": "2026-08-19 06:30:00"})
 store = _Store()
 buf = io.StringIO()
 with redirect_stdout(buf):
-    kept = T.ingest_site(store, _Session([row(id=1), poison, row(id=2, title="Second Ride",
-                                                                start_date="2026-08-26 06:30:00")]),
-                         dict(SITE, crawl_delay=0))
+    kept = ingest(store, _Session([row(id=1), poison, row(id=2, title="Second Ride",
+                                                         start_date="2026-08-26 06:30:00")]),
+                  dict(SITE, crawl_delay=0))
 out = buf.getvalue()
 check("a poison record does not take the other events with it", kept == 2, kept)
 check("the surviving events are the good ones", len(store.seen) == 2, len(store.seen))
@@ -629,15 +639,15 @@ civic_rows = [row(id=1, title="City Council Meeting"), row(id=2, title="Fall Fes
               row(id=3, title="CLOSED: Borough Building"), row(id=4, title="Closed Captioned Movie Night")]
 store = _Store()
 with redirect_stdout(io.StringIO()) as buf:
-    kept = T.ingest_site(store, _Session(civic_rows),
-                         dict(SITE, crawl_delay=0, _found="civic:city -> tribe (hand-curated)"))
+    kept = ingest(store, _Session(civic_rows),
+                  dict(SITE, crawl_delay=0, _found="civic:city -> tribe (hand-curated)"))
 check("a civic source refuses its town-hall rows and keeps its programme",
       sorted(e.name for e in store.seen) == ["Closed Captioned Movie Night", "Fall Festival"],
       [e.name for e in store.seen])
 check("...and says how many it refused", "2 town-hall row(s) refused" in buf.getvalue(), buf.getvalue())
 store = _Store()
 with redirect_stdout(io.StringIO()):
-    kept = T.ingest_site(store, _Session(civic_rows), dict(SITE, crawl_delay=0))
+    kept = ingest(store, _Session(civic_rows), dict(SITE, crawl_delay=0))
 check("a non-civic source keeps every row", kept == 4, kept)
 
 # --- skip_title, as in ics and jsonld -----------------------------------------
@@ -647,13 +657,13 @@ parish_rows = [row(id=1, title="Planning & Highways Meeting"), row(id=2, title="
                row(id=3, title="Finance & Policy meeting"), row(id=4, title="Meeting Point Walk")]
 store = _Store()
 with redirect_stdout(io.StringIO()) as buf:
-    kept = T.ingest_site(store, _Session(parish_rows), dict(SITE, crawl_delay=0, skip_title=r"\bMeeting$"))
+    kept = ingest(store, _Session(parish_rows), dict(SITE, crawl_delay=0, skip_title=r"\bMeeting$"))
 check("skip_title drops the titles it matches, case-insensitively, and only those",
       kept == 2 and sorted(e.name for e in store.seen) == ["Meeting Point Walk", "Memory Café"],
       [e.name for e in store.seen])
 check("...and says how many", "2 title-filtered" in buf.getvalue(), buf.getvalue())
 try:
-    T.ingest_site(_Store(), _Session(parish_rows), dict(SITE, crawl_delay=0, skip_title="(unclosed"))
+    ingest(_Store(), _Session(parish_rows), dict(SITE, crawl_delay=0, skip_title="(unclosed"))
     refused = False
 except ValueError:
     refused = True
@@ -667,12 +677,12 @@ online_rows = [row(id=1, title="Virtual Discussion Group", description=zoom, ven
                row(id=2, title="Book Talk", description=zoom, venue={"venue": "Zoom"}),
                row(id=3, title="Watch Party", description=zoom),                 # has a street
                row(id=4, title="Hybrid Shabbat", venue=[],
-                   description="<p>In-person in the hall, or on Zoom.</p>"),
+            description="<p>In-person in the hall, or on Zoom.</p>"),
                row(id=5, title="Pickleball", venue=[])]                            # says nothing
 store = _Store()
 with redirect_stdout(io.StringIO()) as buf:
-    kept = T.ingest_site(store, _Session(online_rows),
-                         dict(SITE, crawl_delay=0, venue={"name": "The J", "lat": 37.5, "lon": -122.2}))
+    kept = ingest(store, _Session(online_rows),
+                  dict(SITE, crawl_delay=0, venue={"name": "The J", "lat": 37.5, "lon": -122.2}))
 check("an online-only row with no place of its own, or a place called Zoom, is refused",
       sorted(e.name for e in store.seen) == ["Hybrid Shabbat", "Pickleball", "Watch Party"],
       [e.name for e in store.seen])
@@ -703,22 +713,24 @@ class _MainStore:
         pass
 
 
-def run_main(tmp, clock_steps):
+def run_main(tmp, clock_steps, *extra, workers="1"):
     order, clock = [], [1000.0]
 
-    def fake_ingest(_store, _session, site):
+    def fake_ingest(_session, site, _ids, _deadline, _stop):
         order.append(site["name"])
         clock[0] += clock_steps
-        return 1
+        return []
 
     with patch.object(T, "EventStore", _MainStore), patch.object(T, "ingest_site", fake_ingest), \
          patch.object(T.time, "time", lambda: clock[0]), patch.object(T.requests, "Session"), \
          redirect_stdout(io.StringIO()):
         T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", os.path.join(tmp, "s.json"),
-                "--deadline", "1015", "--cursor", os.path.join(tmp, "cursor.json")])
+                "--deadline", "1015", "--cursor", os.path.join(tmp, "cursor.json"),
+                "--workers", workers, *extra])
     return order
 
 
+# One worker is the old loop, site for site.
 with tempfile.TemporaryDirectory() as tmp:
     json.dump({"sites": sites}, open(os.path.join(tmp, "cfg.json"), "w"))
     first = run_main(tmp, 10)            # a, b; the clock passes 1015 before c
@@ -732,6 +744,10 @@ with tempfile.TemporaryDirectory() as tmp:
     json.dump({"sites": sites}, open(os.path.join(tmp, "cfg.json"), "w"))
     json.dump({"site": "https://gone.example"}, open(os.path.join(tmp, "cursor.json"), "w"))
     check("a cursor naming a removed site starts at the top", run_main(tmp, 1) == ["a", "b", "c", "d"])
+with tempfile.TemporaryDirectory() as tmp:
+    json.dump({"sites": sites}, open(os.path.join(tmp, "cfg.json"), "w"))
+    check("--only reads its one site with one worker or three",
+          run_main(tmp, 1, "--only", "C") == ["c"] == run_main(tmp, 1, "--only", "C", workers="3"))
 
 # A publisher can ignore the category query. Private sessions must be rejected
 # before a source's venue fallback turns them into plausible public map pins.
@@ -762,8 +778,8 @@ pages = [
 session = _CategorySession(pages)
 store = _Store()
 with redirect_stdout(io.StringIO()) as buf:
-    kept = T.ingest_site(store, session, dict(SITE_CA, crawl_delay=0,
-                                             include_categories=[123, "community-open"]))
+    kept = ingest(store, session, dict(SITE_CA, crawl_delay=0,
+                                       include_categories=[123, "community-open"]))
 check("an ignored category query cannot publish private or unlabelled sessions",
       kept == 2 and [e.source_id for e in store.seen] == ["1", "4"],
       [e.source_id for e in store.seen])
@@ -779,18 +795,253 @@ check("excluded rows are counted without trying to normalize a private poison re
 session = _CategorySession([[row(id=1), row(id=2, categories=[])]])
 store = _Store()
 with redirect_stdout(io.StringIO()):
-    T.ingest_site(store, session, dict(SITE, crawl_delay=0))
+    ingest(store, session, dict(SITE, crawl_delay=0))
 check("existing unfiltered sources keep their events and omit the category query",
       len(store.seen) == 2 and "categories" not in session.params[0], session.params)
 for invalid in ([], "123", [None], [True], [""], ["public,private"]):
     session = _CategorySession(pages)
     try:
-        T.ingest_site(_Store(), session, dict(SITE, include_categories=invalid))
+        ingest(_Store(), session, dict(SITE, include_categories=invalid))
         refused = False
     except ValueError:
         refused = True
     check(f"invalid category scope {invalid!r} fails before any request",
           refused and not session.params)
+
+# --- three sites at once, never two on one host (2026-10-23) ------------------
+# 586 of 1,408 sites fit in the 80-minute deadline one at a time, at 8.2 s a
+# site, most of it each site's own Crawl-delay; the step stopped at the deadline
+# in 15 of 15 runs. Workers only read: the store is written in the main thread.
+import threading
+from types import SimpleNamespace
+from urllib.parse import urlsplit
+
+# The deadline is checked before every page, and a page that could not start
+# before it is not slept for: Haydon Wick's 15 pages at 30 s are ~7 min, which
+# is how an 80-minute deadline became an 86.9-minute step.
+paged = [[row(id=n, title=f"Ride {n}")] for n in (1, 2, 3)]
+for deadline, want_pages, want_sleeps in ((1005.0, [1], []), (2000.0, [1, 2, 3], [10.0, 10.0])):
+    session, slept = _CategorySession(paged), []
+    with patch.object(T.time, "time", lambda: 1000.0), patch.object(T.time, "sleep", slept.append), \
+         redirect_stdout(io.StringIO()) as buf:
+        got = T.ingest_site(session, dict(SITE, crawl_delay=10), deadline=deadline)
+    asked = [p["page"] for p in session.params]
+    if deadline < 2000:
+        check("a deadline inside the Crawl-delay ends the site with the page it has, unslept",
+              asked == want_pages and slept == want_sleeps and [e.name for e in got] == ["Ride 1"],
+              (asked, slept, [e.name for e in got]))
+        check("...and its line says where it stopped",
+              "kept 1 events (stopped at the deadline before page 2) in " in buf.getvalue(), buf.getvalue())
+    else:
+        check("with time left every page is read, Crawl-delay apart, and none slept after the last",
+              asked == want_pages and slept == want_sleeps and len(got) == 3, (asked, slept, len(got)))
+stopped_early = threading.Event()
+stopped_early.set()
+session = _CategorySession(paged)
+with redirect_stdout(io.StringIO()):
+    got = T.ingest_site(session, dict(SITE, crawl_delay=0), stop=stopped_early)
+check("an interrupted run's worker makes no further request", got == [] and session.params == [],
+      session.params)
+
+
+def run_pool(tmp, config_sites, fake, *extra, store=None, clock=None):
+    json.dump({"sites": config_sites}, open(os.path.join(tmp, "cfg.json"), "w"))
+    with patch.object(T, "EventStore", store or _MainStore), patch.object(T, "ingest_site", fake), \
+         patch.object(T.time, "time", (lambda: clock[0]) if clock else T.time.time), \
+         patch.object(T.requests, "Session"), redirect_stdout(io.StringIO()) as buf:
+        rc = T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", os.path.join(tmp, "s.json"),
+              "--cursor", os.path.join(tmp, "cursor.json"), *extra])
+    return rc, buf.getvalue()
+
+
+# Two calendars on one host are never read at once; the next site in list order
+# goes instead, and the three distinct hosts ARE read at once (the barrier
+# breaks if they are not).
+hosted = [dict(SITE, name="a", base_url="https://one.example"),
+          dict(SITE, name="b", base_url="https://ONE.example/second-calendar"),
+          dict(SITE, name="c", base_url="https://two.example"),
+          dict(SITE, name="d", base_url="https://three.example")]
+together, guard = threading.Barrier(3, timeout=5), threading.Lock()
+live, overlap, starts = {}, [], []
+
+
+def host_fake(_session, site, _ids, _deadline, _stop):
+    host = T._http_host(site["base_url"])
+    with guard:
+        starts.append(site["name"])
+        if live.get(host):
+            overlap.append(site["name"])
+        live[host] = live.get(host, 0) + 1
+    try:
+        if site["name"] != "b":
+            together.wait()
+    finally:
+        with guard:
+            live[host] -= 1
+    return []
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    rc, out = run_pool(tmp, hosted, host_fake, "--workers", "3")
+check("three hosts are read at once", not together.broken and sorted(starts[:3]) == ["a", "c", "d"],
+      (together.broken, starts))
+check("...and a second calendar on a busy host waits for it", starts[3:] == ["b"] and not overlap,
+      (starts, overlap))
+check("the done line says how many at once", "from 4 of 4 sites (3 at once," in out, out)
+
+
+# Sites finish out of order. The cursor saved with the store is the first site
+# in list order that has not finished, even while later ones have, and no site
+# starts once the deadline has passed.
+class _RecStore(_MainStore):
+    last = None
+
+    def __init__(self, path):
+        super().__init__(path)
+        self.names, self.saves = [], 0
+        _RecStore.last = self
+
+    def upsert(self, ev):
+        self.names.append(ev.name)
+
+    def save(self):
+        self.saves += 1
+
+
+letters = [dict(SITE, name=n, base_url=f"https://{n}.example") for n in "abcde"]
+clock, go, saves = [1000.0], threading.Event(), []
+
+
+def ooo_fake(_session, site, _ids, _deadline, _stop):
+    if site["name"] == "b":
+        clock[0] += 200                  # b finishes first, a checkpoint later
+    elif site["name"] == "d":
+        clock[0] += 400                  # past the deadline at 1500
+        go.set()
+    else:
+        go.wait(5)                       # a and c are still reading
+    return [SimpleNamespace(name=site["name"])]
+
+
+real_save_cursor = T._save_cursor
+
+
+def spy_cursor(path, base_url):
+    saves.append((base_url, list(_RecStore.last.names), _RecStore.last.saves))
+    real_save_cursor(path, base_url)
+
+
+with tempfile.TemporaryDirectory() as tmp, patch.object(T, "_save_cursor", spy_cursor):
+    rc, out = run_pool(tmp, letters, ooo_fake, "--workers", "3", "--deadline", "1500",
+                store=_RecStore, clock=clock)
+    final = json.load(open(os.path.join(tmp, "cursor.json")))
+check("a checkpoint while a is still reading names a, though b has finished",
+      saves[:1] == [("https://a.example", ["b"], 1)], saves)
+check("...and every checkpoint names the first site not yet written",
+      all(url == f"https://{next(n for n in 'abcde' if n not in done)}.example"
+          for url, done, _ in saves), saves)
+check("no site starts after the deadline", sorted(_RecStore.last.names) == ["a", "b", "c", "d"]
+      and "deadline reached before e: 1 of 5 sites not started" in out, (_RecStore.last.names, out))
+check("the end saves the store and names the first site never started",
+      final == {"site": "https://e.example"} and saves[-1][2] == _RecStore.last.saves, (final, saves))
+check("the checkpoints come no more often than SAVE_EVERY_SECONDS",
+      _RecStore.last.saves == 3, _RecStore.last.saves)          # 1200, 1600 and the end
+
+
+# An interrupt saves what was read; the site still reading is not finished, so
+# the cursor stays on it, and its worker stops before another request.
+class _InterruptedStore(_RecStore):
+    def upsert(self, ev):
+        if ev.name == "b":
+            raise KeyboardInterrupt
+        super().upsert(ev)
+
+
+a_stopped, a_out = [], threading.Event()
+
+
+def interrupt_fake(_session, site, _ids, _deadline, stop):
+    if site["name"] == "a":
+        a_stopped.append(stop.wait(5))
+        a_out.set()
+    return [SimpleNamespace(name=site["name"])]
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    rc, out = run_pool(tmp, letters, interrupt_fake, "--workers", "2",
+                "--deadline", str(T.time.time() + 3600),
+                store=_InterruptedStore)
+    a_out.wait(5)
+    final = json.load(open(os.path.join(tmp, "cursor.json")))
+check("an interrupt saves the store and keeps the cursor on the site still reading",
+      rc == 130 and final == {"site": "https://a.example"} and _RecStore.last.saves == 1,
+      (rc, final, _RecStore.last.saves))
+check("...stops that site's worker, and starts nothing more",
+      a_stopped == [True] and "from 2 of 5 sites" in out, (a_stopped, out))
+
+
+# The whole path, real reader and real store: one Session per worker thread,
+# every site's events written, the per-site time on every line, the store moved
+# into place whole, and `free_only` still sees the rows the store holds.
+class _ThreadSession:
+    made = []
+
+    def __init__(self, rows=None):
+        self.headers, self.threads, self.closed, self.rows = {}, set(), False, rows
+        _ThreadSession.made.append(self)
+
+    def get(self, url, *, params, **kwargs):
+        self.threads.add(threading.get_ident())
+        rows = self.rows or [row(id=7, title=f"Ride from {urlsplit(url).hostname}",
+                          start_date="2099-08-19 06:30:00")]
+
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return {"events": rows, "total_pages": 1}
+        return Response()
+
+    def close(self):
+        self.closed = True
+
+
+six = [dict(SITE, name=f"site {n}", base_url=f"https://s{n}.example", crawl_delay=0) for n in range(6)]
+with tempfile.TemporaryDirectory() as tmp:
+    json.dump({"sites": six}, open(os.path.join(tmp, "cfg.json"), "w"))
+    store_path = os.path.join(tmp, "store.json")
+    with patch.object(T.requests, "Session", _ThreadSession), redirect_stdout(io.StringIO()) as buf:
+        rc = T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", store_path, "--workers", "3"])
+    names = sorted(r["name"] for r in T.EventStore(store_path).records.values())
+    leftovers = sorted(f for f in os.listdir(tmp) if f.endswith(".tmp"))
+kept_lines = [ln for ln in buf.getvalue().splitlines() if ": kept " in ln]
+check("every site's events reach the store", rc == 0 and names == sorted(
+      f"Ride from s{n}.example" for n in range(6)), names)
+check("each worker has its own Session, and closes it",
+      0 < len(_ThreadSession.made) <= 3 and all(len(s.threads) <= 1 and s.closed for s in _ThreadSession.made),
+      [(len(s.threads), s.closed) for s in _ThreadSession.made])
+check("every site's line ends with its time",
+      len(kept_lines) == 6 and all(re.search(r"kept 1 events in \d+\.\ds$", ln) for ln in kept_lines),
+      kept_lines)
+check("the store is written beside itself and moved into place", leftovers == [], leftovers)
+
+with tempfile.TemporaryDirectory() as tmp:
+    site = dict(SITE, crawl_delay=0, free_only=True, currency="USD")
+    json.dump({"sites": [site]}, open(os.path.join(tmp, "cfg.json"), "w"))
+    store_path = os.path.join(tmp, "store.json")
+    for cost in ("Free", "12.50"):
+        rows = [row(id=541, start_date="2099-08-19 06:30:00", cost=cost)]
+        with patch.object(T.requests, "Session", lambda: _ThreadSession(rows)), \
+             redirect_stdout(io.StringIO()) as buf:
+            T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", store_path])
+    details = [r.get("source_details") for r in T.EventStore(store_path).records.values()]
+check("main reads a free_only site's known rows first, so a turn to paid still lands",
+      len(details) == 1 and details[0].get("free") is False and "kept 1 events" in buf.getvalue(),
+      (details, buf.getvalue()))
+
+with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {"TRIBE_WORKERS": "1"}):
+    rc, out = run_pool(tmp, sites, lambda *a: [])
+check("TRIBE_WORKERS sets the default", "(1 at once," in out, out)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
