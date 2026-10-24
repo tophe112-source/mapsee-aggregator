@@ -7,20 +7,32 @@ well-formed and wrong, or cost the publisher hundreds of requests a day:
   * THE PIN. The Tüftelwerk Luzern page carries (85.0511, -180), the map
     tiles' corner, 4,596 km from its café. A pin is believed only within
     max_km of the session's own postcode and town; so is the café's pin and so
-    is a geocoded street ("Photon answers every question").
+    is a geocoded street ("Photon answers every question"). Le Vilebrequin's
+    Delémont page says Rue Emile-Boéchat 34 and carries LARC's pin (Passage des
+    Ponts 2, 0.42 km off): a page pin that is ANOTHER café's, on a page whose
+    Ort is its own café's address, gives way to the café's pin.
+  * THE TOWN NODE. Photon, asked for "Kuhstall, 7503 Samedan", answers with
+    Samedan itself; a "street" on the town's own point is no street.
   * THE ADDRESS. "Bernstrasse 9  Nouvo" is the café's "Bernstrasse 9";
     "Therwilerstrasse 18" is NOT the café's "Therwilerstrasse 16"; an empty Ort
     is the café's own place, a street-less Ort in another town is nowhere.
   * THE NAME. Two cafés' bare "Repair Café" on one day in one town are two
-    rows; "flicken" and "am Standort Badenerstrasse 658" become their café.
+    rows, and so are one café's sessions in two towns on one day (FRC Genève
+    in Meyrin and in Genève); "flicken" and "am Standort Badenerstrasse 658"
+    become their café. A post edited to another date carries its old
+    fingerprint, so the sync moves the row instead of adding one.
   * THE CURSOR. 1,866 sitemap URLs, mostly history: a page is fetched once per
     lastmod, never when its lastmod is older than the floor, newest first, and
     the walk resumes where a budget or a deadline stopped it.
   * THE CONTACT BOX. A volunteer's mobile number and e-mail are never copied.
+  * THE CONDUCT. A bot challenge or a 403 ends the run with no row; five 5xx
+    in a row stop the walk; a redirect off the site is not followed.
 
 No network: the pages are the real markup of repair-cafe.ch (2026-10-24),
 trimmed to the event section and its map script, with the volunteers' names,
-numbers and addresses replaced by placeholders. event_murten_abgesagt.html is
+numbers and addresses replaced by placeholders (event_delemont_vilebrequin_
+template_pin.html is the 2026-12-05 page as served on 2026-10-24, pin and
+all). event_murten_abgesagt.html is
 event_murten_voranmeldung.html with its title changed to "ABGESAGT: ...", and
 the sitemap fixtures carry a few lastmods moved so that each side of the floor
 is exercised.
@@ -121,8 +133,8 @@ check("the index yields only the repairevent sitemaps", idx == [
 sm2 = R.parse_sitemap(fx("repairevent-sitemap2.xml"))
 check("a sitemap yields (url, lastmod); hreflang alternates are not URLs", sm2[0] == (
     EV + "am-standort-badenerstrasse-658-31/", "2025-10-24T12:32:44+00:00") and len(sm2) == 3, sm2)
-check("the café map: 7 cafés, a /standorte/ site among them",
-      len(BOOK) == 7 and "https://www.repair-cafe.ch/standorte/repair-cafe-in-der-stad-zug/" in BOOK, sorted(BOOK))
+check("the café map: 8 cafés, a /standorte/ site among them",
+      len(BOOK) == 8 and "https://www.repair-cafe.ch/standorte/repair-cafe-in-der-stad-zug/" in BOOK, sorted(BOOK))
 m = BOOK.get(MURTEN, {})
 check("a café carries its pin, address, postcode and next dates",
       m.get("pin") == [46.930214, 7.1165429] and m.get("venue") == "Bernstrasse 9" and m.get("postcode") == "3280"
@@ -210,6 +222,86 @@ notes = {}
 pt, how = R.place(dict(esch, pin=None), None, lambda q, s: esch_geo(q, s) or (47.2414855, 8.9259191), 8.0, 3.0, notes)
 check("but a STREET Photon puts 6.1 km away is not (one village over is its failure)",
       pt is None and notes.get("the geocoder answered outside the town (not used)"), (pt, how, notes))
+# Delémont (2026-10-24): the Vilebrequin page for 5 Dec 2026 says "Le
+# Vilebrequin, Rue Emile-Boéchat 34" and carries [47.36297, 7.34710], which is
+# the café map's pin for LARC (Passage des Ponts 2). Photon puts no. 34 at
+# [47.36019, 7.35050], 30 m from the Vilebrequin café's pin and 402 m from
+# the page's. The page's pin is 0.25 km from the town point: the town guard
+# alone passes it.
+VILEBREQUIN = "https://www.repair-cafe.ch/repaircafe/repair-cafe-au-vilebrequin-a-delemont/"
+LARC = "https://www.repair-cafe.ch/repaircafe/repair-cafe-delemont/"
+vil = R.parse_event_page(fx("event_delemont_vilebrequin_template_pin.html"))
+check("the Vilebrequin page is read: its own café, its Ort, LARC's pin",
+      (vil.get("cafe_url"), vil.get("line1"), vil.get("date")) == (VILEBREQUIN, "Le Vilebrequin, Rue Emile-Boéchat 34",
+                                                                  "2026-12-05")
+      and R.km(tuple(vil["pin"]), tuple(BOOK[LARC]["pin"])) < 0.001, vil)
+notes = {}
+pt, how = R.place(vil, BOOK.get(VILEBREQUIN), fake_geocode(), 8.0, 3.0, notes, others=BOOK.values())
+check("a page pin that is another café's (LARC's), on a page whose Ort is its own café's address, gives way to "
+      "the café's pin", how == "café pin" and pt == (47.3602508, 7.3508929)
+      and notes.get("event page's pin is another café's, its Ort its own café's (not used)") == 1, (pt, how, notes))
+pt, how = R.place(vil, BOOK.get(VILEBREQUIN), fake_geocode(), 8.0, 3.0)
+check("(without the café map's other pins the page's pin would have been believed)", how == "event pin", (pt, how))
+larc_page = R.parse_event_page(fx("event_delemont_inscription.html"))
+pt, how = R.place(larc_page, BOOK.get(LARC), fake_geocode(), 8.0, 3.0, others=BOOK.values())
+check("LARC's own page carries LARC's pin: its own café's pin is not another's", how == "event pin", (pt, how))
+pt, how = R.place(dict(vil, line1="LARC, Passage des Ponts 2"), BOOK.get(VILEBREQUIN), fake_geocode(), 8.0, 3.0,
+                  others=BOOK.values())
+check("a Vilebrequin session held AT LARC (its Ort says so) keeps LARC's pin", how == "event pin", (pt, how))
+# Hinwil (2026-10-24, five sessions): page and café pins 0.37 km apart and
+# neither is another café's; Photon's Untere Bahnhofstrasse 17 is 25 m from
+# the page's pin and 353 m from the café's. A disagreement alone settles nothing.
+# What the rule does NOT touch. Two cafés at one address: a page pin that is
+# the other's, with the Ort naming that address too, is the right pin.
+shared = {"pin": [47.3640, 7.3520], "venue": "Le Vilebrequin, Rue Emile-Boéchat 34", "postcode": "2800",
+          "city": "Delémont"}
+pt, how = R.place(dict(vil, pin=shared["pin"]), BOOK.get(VILEBREQUIN), fake_geocode(), 8.0, 3.0,
+                  others=list(BOOK.values()) + [shared])
+check("a page pin that is another café's AT THE SAME ADDRESS (a shared building) is kept", how == "event pin"
+      and pt == (47.3640, 7.3520), (pt, how))
+near_other = {"pin": [47.36110, 7.35060], "venue": "Rue de la Maltière 10", "postcode": "2800", "city": "Delémont"}
+pt, how = R.place(dict(vil, pin=near_other["pin"]), BOOK.get(VILEBREQUIN), fake_geocode(), 8.0, 3.0,
+                  others=list(BOOK.values()) + [near_other])
+check("page and café pins within 0.2 km agree: nothing to settle, even on another café's pin", how == "event pin"
+      and pt == (47.36110, 7.35060), (pt, how))
+pt, how = R.place(dict(vil, line1="Halle des expositions, Route de Bâle 20"), BOOK.get(VILEBREQUIN), fake_geocode(),
+                  8.0, 3.0, others=BOOK.values())
+check("the rule speaks only when the Ort is the session's own café's address (here it names neither café)",
+      how == "event pin", (pt, how))
+pt, how = R.place({"line1": "Salle communale", "postcode": "1284", "town": "Chancy", "pin": [46.1500, 5.8800]}, None,
+                  lambda q, s: (46.1500, 5.9710) if q == "1284 Chancy" else None, 8.0, 3.0)
+check("a pin 7 km from its town but across the border (west of Switzerland's box) is not used",
+      pt is None and how == "street not found in its town", (pt, how))
+hinwil_cafe = {"pin": [47.2993227, 8.8427233], "venue": "Pfarreisaal Kath. Kirche, Untere Bahnhofstrasse 17",
+               "postcode": "8340", "city": "Hinwil"}
+hinwil = {"line1": "Pfarreisaal der Katholischen Kirche, Untere Bahnhofstrasse 17", "postcode": "8340",
+          "town": "Hinwil", "pin": [47.3017239, 8.839365]}
+pt, how = R.place(hinwil, hinwil_cafe, lambda q, s: (47.3004302, 8.8414124) if q == "8340 Hinwil" else None,
+                  8.0, 3.0, others=[hinwil_cafe] + list(BOOK.values()))
+check("Hinwil: page and café pins 0.37 km apart, neither another café's -> the page's pin, as before",
+      how == "event pin" and pt == (47.3017239, 8.839365), (pt, how))
+
+# Samedan (2026-10-24): "Kuhstall, 7503 Samedan, Schweiz" comes back from
+# Photon as osm place=village "Samedan", byte-identical to "7503 Samedan".
+SAMEDAN = (46.5332403, 9.874586)
+engiadin = {"pin": [46.529166, 9.8664647], "venue": "San Bastiaun 52", "postcode": "7503", "city": "Samedan"}
+kuh = {"date": "2026-11-25", "line1": "Kuhstall", "postcode": "7503", "town": "Samedan", "pin": None}
+notes = {}
+pt, how = R.place(kuh, engiadin, lambda q, s: SAMEDAN, 8.0, 3.0, notes, others=[engiadin])
+check("Photon's answer for a venue it does not know is the town's own point: refused, the session unplaced",
+      pt is None and how == "street not found in its town"
+      and notes.get("the geocoder answered with the town itself (not used)") == 1, (pt, how, notes))
+pt, how = R.place(dict(kuh, line1="Kuhstall, Cho d'Punt 10"), engiadin,
+                  lambda q, s: SAMEDAN if q in ("7503 Samedan", "Kuhstall, Cho d'Punt 10") else (46.5355, 9.8790),
+                  8.0, 3.0)
+check("the town's point for the whole line, then the street itself is tried and kept",
+      how == "geocoded street" and pt == (46.5355, 9.8790), (pt, how))
+# Gams: Photon knows "Oberstufenzentrum Widem" (Schulhaus Widem), 0.14 km from
+# the village node: a street-less venue that IS found is kept.
+pt, how = R.place({"line1": "Oberstufenzentrum Widem", "postcode": "9473", "town": "Gams", "pin": None}, None,
+                  lambda q, s: (47.2054106, 9.4421264) if q == "9473 Gams" else (47.2052217, 9.4403015), 8.0, 3.0)
+check("a venue Photon does find, 0.14 km from the town's point, is kept", how == "geocoded street", (pt, how))
+
 dbl = R.parse_event_page(fx("event_murten_voranmeldung.html").replace(">3280 Murten", ">3280 3280 Murten"))
 dash = R.parse_event_page(fx("event_murten_voranmeldung.html").replace(">3280 Murten", ">3280 - Murten"))
 check("a postcode typed twice ('9642 9642 Ebnat-Kappel') or with a dash ('1880 - Bex') leaves the town alone",
@@ -241,6 +333,18 @@ check("two cafés' bare 'Repair Café' on one day in Zürich: named for their ca
       (e1.name, e2.name))
 moved = R.build_event(EV + "a/", dict(k1, line1="Seestrasse 1"), None, (47.37, 8.53), SITE)
 check("a corrected street keeps the fingerprint (title, day, café, town)", moved.fingerprint == e1.fingerprint)
+# FRC Genève runs sessions at Minoteries (Genève), Chambésy and Meyrin under
+# one organiser link; make_fingerprint reads its city argument only when the
+# place is empty, so the town must be IN the place.
+frc = dict(bott, cafe_name="Repair Café FRC Genève", date="2026-11-07")
+gm = R.build_event(EV + "frc-meyrin/", dict(frc, line1="Aula de l'école des Boudines", postcode="1217", town="Meyrin"),
+                   None, (46.23, 6.08), SITE)
+gg = R.build_event(EV + "frc-minoteries/", dict(frc, line1="Rue des Minoteries 3", postcode="1205", town="Genève"),
+                   None, (46.19, 6.14), SITE)
+check("one café, one day, two towns: one name, two fingerprints",
+      gm.name == gg.name == "Repair Café FRC Genève" and gm.fingerprint != gg.fingerprint, (gm.fingerprint, gg.fingerprint))
+check("the fingerprint is (title, day, café and town)", gm.fingerprint == R.make_fingerprint(
+    "Repair Café FRC Genève", "2026-11-07", "Repair Café FRC Genève Meyrin", "Meyrin"), gm.fingerprint)
 names = {("flicken", "Tüftelwerk Luzern"): "Tüftelwerk Luzern",
          ("am Standort Badenerstrasse 658", "Repair Café GZ Loogarten"): "Repair Café GZ Loogarten",
          ("Repair Café Aarau mit Kleider-Tauschbörse «Share the Schrank»", "Repair Café Aarau"):
@@ -264,7 +368,8 @@ check("a title that is only a place is quoted in the description, under the caf�
 reg = {"Nur auf Voranmeldung: Anna Muster": True, "Voranmeldung ist nicht nötig.": False,
        "Il faut s’inscrire au préalable 10 jours avant": True, "Entrée libre, sans inscription.": False,
        "Iscrizione obbligatoria allo 091 000 00 00": True, "Ohne Anmeldung, einfach vorbeikommen": False,
-       "Bitte vorgängig anmelden": True, "Kommen Sie einfach vorbei.": False}
+       "Bitte vorgängig anmelden": True, "Kommen Sie einfach vorbei.": False,
+       "Keine Voranmeldung nötig, einfach vorbeikommen.": False}
 for text, want in reg.items():
     check(f"registration_required({text!r}) is {want}", R.registration_required(text) == want)
 check("clean_text cuts +41, 0xx and e-mail forms",
@@ -355,13 +460,14 @@ class Clock:
         self.t += s
 
 
-def run(pages, cursor, max_pages=None, fetch_until=None, robots=None, deadline=None):
+def run(pages, cursor, max_pages=None, fetch_until=None, robots=None, deadline=None, geo=None, save=None):
     s = FakeSession(pages)
     clock = Clock()
     client = R.Client(s, 1.0, deadline, robots=robots, clock=clock, sleep=clock.sleep)
     out, offs = [], []
-    rep = R.read_site(SITE, client, cursor, TODAY, fake_geocode(), out.append,
-                      lambda e, why: offs.append((e, why)), max_pages=max_pages, fetch_until=fetch_until)
+    rep = R.read_site(SITE, client, cursor, TODAY, geo or fake_geocode(), out.append,
+                      lambda e, why: offs.append((e, why)), max_pages=max_pages, fetch_until=fetch_until,
+                      save=save)
     return rep, out, offs, s.asked, clock
 
 
@@ -441,6 +547,138 @@ check("a 403 is a refusal: one request, no row, never retried", len(asked) == 1 
       and "HTTP 403" in (rep["stopped"] or ""), (asked, rep["stopped"]))
 
 
+print("== conduct on a fake host")
+WARM = json.dumps(cur)                       # a warm cursor: three rows to write
+challenge = dict(SITEMAP_PAGES)
+challenge["https://www.repair-cafe.ch/sitemap_index.xml"] = (
+    "<html><head><title>Just a moment...</title></head><body>Checking your browser</body></html>")
+rep, out, offs, asked, _ = run(challenge, json.loads(WARM))
+check("a 200 that is a bot challenge is a refusal: REFUSED, one request, no row (not even from the cursor)",
+      len(asked) == 1 and not out and (rep["stopped"] or "").startswith("REFUSED")
+      and "bot challenge" in rep["stopped"], (asked, rep["stopped"], len(out)))
+challenge_page = dict(SITEMAP_PAGES)
+challenge_page[EV + "repair-cafe-murten-morat-4/"] = Resp(200, '<html><script src="/cdn-cgi/challenge-platform/x.js">'
+                                                               '</script></html>')
+rep, out, offs, asked, _ = run(challenge_page, {"version": 1, "pages": {}, "cafes": {}})
+check("a challenge on a session page ends the walk there: nothing after it is asked, no row",
+      asked[-1] == EV + "repair-cafe-murten-morat-4/" and len(asked) == 5 and not out
+      and (rep["stopped"] or "").startswith("REFUSED"), (asked, rep["stopped"]))
+down = dict(SITEMAP_PAGES)
+for u in list(down):
+    if "/repairevent/" in u:
+        down[u] = Resp(503, "Service Unavailable")
+rep, out, offs, asked, _ = run(down, {"version": 1, "pages": {}, "cafes": {}})
+check("five 5xx in a row stop the walk: 4 sitemap/map requests + 5 pages, the 6th never asked",
+      len(asked) == 9 and "5 requests in a row failed" in (rep["stopped"] or "")
+      and EV + "repair-aktion-im-parktheater-2/" not in asked
+      and rep["notes"].get("new or changed pages left for the next run (the host stopped answering)") == 2,
+      (len(asked), rep["stopped"], rep["notes"]))
+flaky = dict(SITEMAP_PAGES)
+flaky[EV + "repair-cafe-murten-morat-4/"] = Resp(503, "busy")
+rep, out, offs, asked, _ = run(flaky, {"version": 1, "pages": {}, "cafes": {}})
+check("one 5xx costs one page, retried next run; the walk goes on",
+      len(asked) == 10 and rep["fetched"] == 5 and rep["stopped"] is None and rep["notes"].get(
+          "session page not read (retried next run)") == 1, (len(asked), rep["stopped"], rep["notes"]))
+away = dict(SITEMAP_PAGES)
+away[EV + "repair-cafe-murten-morat-4/"] = Resp(301, "", {"Location": "https://elsewhere.example/repairevent/x/"})
+away[EV + "repair-cafe-murten-morat/"] = Resp(301, "", {"Location": "/repairevent/repair-cafe-murten-morat-neu/"})
+away[EV + "repair-cafe-murten-morat-neu/"] = fx("event_murten_no_street.html")
+cur_away = {"version": 1, "pages": {}, "cafes": {}}
+rep, out, offs, asked, _ = run(away, cur_away)
+check("a redirect off the site is not followed (and the page is retried next run); one on the site is",
+      not any("elsewhere.example" in u for u in asked) and EV + "repair-cafe-murten-morat-neu/" in asked
+      and EV + "repair-cafe-murten-morat-4/" not in cur_away["pages"] and EV + "repair-cafe-murten-morat/" in cur_away["pages"],
+      asked)
+
+print("== what a run writes")
+far_page = dict(SITEMAP_PAGES)
+far_page[EV + "repair-cafe-murten-morat-4/"] = fx("event_murten_voranmeldung.html").replace("Sa, 24.10.2026", "Mi, 12.05.2027")
+rep, out, offs, asked, _ = run(far_page, {"version": 1, "pages": {}, "cafes": {}})
+check("a session 200 days out (past the 180-day horizon) is remembered, counted, and not written",
+      not any(e.source_id.endswith("murten-morat-4") for e in out) and len(out) == 2
+      and rep["notes"].get("upcoming, beyond the horizon (written when it comes inside)") == 1, (len(out), rep["notes"]))
+no_ort = dict(SITEMAP_PAGES)
+no_ort[EV + "repair-cafe-murten-morat-4/"] = fx("event_murten_voranmeldung.html").replace(
+    "<br/>Bernstrasse 9  Nouvo</div>", "<br/></div>").replace(">3280 Murten", ">")
+check("(the fixture has an empty Ort)", (lambda q: (q.get("line1"), q.get("postcode"), q.get("town")) == ("", "", ""))(
+    R.parse_event_page(no_ort[EV + "repair-cafe-murten-morat-4/"])))
+rep, out, offs, asked, _ = run(no_ort, {"version": 1, "pages": {}, "cafes": {}})
+e_no = next((e for e in out if e.source_id.endswith("murten-morat-4")), None)
+check("an empty Ort is the café's own address: written on the café's pin, in its town",
+      e_no is not None and (e_no.latitude, e_no.longitude, e_no.city, e_no.postal_code) == (46.930214, 7.1165429, "Murten", "3280")
+      and rep["notes"].get("no Ort on the page: the café's own address") == 1, (e_no, rep["notes"]))
+twice = dict(SITEMAP_PAGES)
+twice["https://www.repair-cafe.ch/repairevent-sitemap2.xml"] = fx("repairevent-sitemap2.xml").replace(
+    "</urlset>", "<url><loc>" + EV + "repair-cafe-murten-morat-4b/</loc><lastmod>2026-10-23T09:40:00+00:00</lastmod></url>\n</urlset>")
+twice[EV + "repair-cafe-murten-morat-4b/"] = fx("event_murten_voranmeldung.html")
+rep, out, offs, asked, _ = run(twice, {"version": 1, "pages": {}, "cafes": {}})
+check("two posts, one café, one day, one town (Weesen's double posting): written once",
+      EV + "repair-cafe-murten-morat-4b/" in asked and len(out) == 3
+      and len([e for e in out if e.source_id.startswith("repairevent/repair-cafe-murten-morat-4")]) == 1
+      and rep["notes"].get("two posts, one café, one day (the first is kept)") == 1, ([e.source_id for e in out], rep["notes"]))
+two_towns = dict(twice)
+two_towns[EV + "repair-cafe-murten-morat-4b/"] = fx("event_murten_voranmeldung.html").replace(
+    "<br/>Bernstrasse 9  Nouvo</div>", "<br/>Bundesgasse 3</div>").replace(">3280 Murten", ">3011 Bern")
+rep, out, offs, asked, _ = run(two_towns, {"version": 1, "pages": {}, "cafes": {}},
+                               geo=lambda q, sfx: (46.948, 7.447) if q == "3011 Bern" else
+                               (46.9467, 7.4440) if q == "Bundesgasse 3" else fake_geocode()(q, sfx))
+check("one café, one day, two towns (Murten and Bern): both written",
+      len([e for e in out if e.source_id.startswith("repairevent/repair-cafe-murten-morat-4")]) == 2
+      and not rep["notes"].get("two posts, one café, one day (the first is kept)"), ([e.source_id for e in out], rep["notes"]))
+saves = []
+_every = R.SAVE_EVERY
+R.SAVE_EVERY = 2
+try:
+    rep, out, offs, asked, _ = run(SITEMAP_PAGES, {"version": 1, "pages": {}, "cafes": {}}, save=lambda: saves.append(1))
+finally:
+    R.SAVE_EVERY = _every
+check("the cursor is saved every SAVE_EVERY pages during the walk (6 pages, every 2: 3 saves)",
+      rep["fetched"] == 6 and len(saves) == 3, (rep["fetched"], len(saves)))
+
+print("== a post edited to another date moves its row")
+cur_d = {"version": 1, "pages": {}, "cafes": {}}
+rep, out, offs, asked, _ = run(SITEMAP_PAGES, cur_d)
+fp_24 = next(e.fingerprint for e in out if e.source_id.endswith("murten-morat-4"))
+check("the cursor records the key each row was written under",
+      cur_d["pages"][EV + "repair-cafe-murten-morat-4/"].get("fp") == fp_24
+      and not any(e.legacy_fingerprints for e in out), cur_d["pages"][EV + "repair-cafe-murten-morat-4/"])
+redated = dict(SITEMAP_PAGES)
+redated["https://www.repair-cafe.ch/repairevent-sitemap2.xml"] = fx("repairevent-sitemap2.xml").replace(
+    "2026-10-23T09:35:33+00:00", "2026-10-24T07:00:00+00:00")
+redated[EV + "repair-cafe-murten-morat-4/"] = fx("event_murten_voranmeldung.html").replace("Sa, 24.10.2026", "Sa, 31.10.2026")
+rep, out, offs, asked, _ = run(redated, cur_d)
+e31 = next(e for e in out if e.source_id.endswith("murten-morat-4"))
+check("re-dated 24.10 -> 31.10: read again, a new key, and the old key carried as a legacy fingerprint",
+      EV + "repair-cafe-murten-morat-4/" in asked and e31.start_local.startswith("2026-10-31")
+      and e31.fingerprint != fp_24 and e31.legacy_fingerprints == [fp_24]
+      and rep["notes"].get("re-dated or re-titled since its row was written: legacy fingerprint sent (the sync moves the row)") == 1,
+      (e31.start_local, e31.legacy_fingerprints))
+rep, out, offs, asked, _ = run(redated, cur_d)
+e31b = next(e for e in out if e.source_id.endswith("murten-morat-4"))
+check("the next run (nothing fetched) still carries it, so a failed move is tried again",
+      len(asked) == 4 and e31b.fingerprint == e31.fingerprint and e31b.legacy_fingerprints == [fp_24], e31b.legacy_fingerprints)
+check("the other rows carry none", all(not e.legacy_fingerprints for e in out if not e.source_id.endswith("murten-morat-4")))
+retitled = dict(redated)
+retitled["https://www.repair-cafe.ch/repairevent-sitemap2.xml"] = fx("repairevent-sitemap2.xml").replace(
+    "2026-10-23T09:35:33+00:00", "2026-10-25T07:00:00+00:00")
+retitled[EV + "repair-cafe-murten-morat-4/"] = redated[EV + "repair-cafe-murten-morat-4/"].replace(
+    '!important;">Repair Café Murten-Morat</h2>', '!important;">Repair Café Murten-Morat mit Velo-Flickstation</h2>')
+rep, out, offs, asked, _ = run(retitled, cur_d)
+e31t = next(e for e in out if e.source_id.endswith("murten-morat-4"))
+check("then re-titled: both earlier keys are carried",
+      e31t.name == "Repair Café Murten-Morat mit Velo-Flickstation"
+      and e31t.legacy_fingerprints == [fp_24, e31.fingerprint], (e31t.name, e31t.legacy_fingerprints))
+off_d = dict(retitled)
+off_d["https://www.repair-cafe.ch/repairevent-sitemap2.xml"] = fx("repairevent-sitemap2.xml").replace(
+    "2026-10-23T09:35:33+00:00", "2026-10-26T07:00:00+00:00")
+off_d[EV + "repair-cafe-murten-morat-4/"] = retitled[EV + "repair-cafe-murten-morat-4/"].replace(
+    '!important;">Repair Café Murten-Morat mit', '!important;">ABGESAGT: Repair Café Murten-Morat mit')
+rep, out, offs, asked, _ = run(off_d, cur_d)
+check("then called off: the tombstone names the live key and every earlier one",
+      len(offs) == 1 and offs[0][0].fingerprint == e31t.fingerprint
+      and offs[0][0].legacy_fingerprints == [fp_24, e31.fingerprint], [(o[0].fingerprint, o[0].legacy_fingerprints) for o in offs])
+
+
 print("== the geocoder's budget and deadline")
 import mapsee_ingest_ics as ics
 calls = []
@@ -493,8 +731,10 @@ class AllowAll:
 
 
 class MainSession(FakeSession):
+    PAGES = SITEMAP_PAGES
+
     def __init__(self):
-        super().__init__(SITEMAP_PAGES)
+        super().__init__(self.PAGES)
 
 
 cfg_path = os.path.join(TMP, "cfg.json")
@@ -511,7 +751,13 @@ try:
     saved_cursor = json.load(open(cursor_path, encoding="utf-8"))
     dry_store, dry_cursor = os.path.join(TMP, "dry_store.json"), os.path.join(TMP, "dry_cursor.json")
     rc2 = R.main(["--config", cfg_path, "--store", dry_store, "--cursor", dry_cursor, "--max-minutes", "0", "--dry-run"])
+    # The next day's run, the Murten post re-dated: a fresh store, as in CI.
+    MainSession.PAGES = redated
+    store2 = os.path.join(TMP, "store2.json")
+    rc3 = R.main(["--config", cfg_path, "--store", store2, "--cursor", cursor_path, "--max-minutes", "0"])
+    saved_store2 = json.load(open(store2, encoding="utf-8"))
 finally:
+    MainSession.PAGES = SITEMAP_PAGES
     _requests.Session, _robots_txt.Robots, ics.make_location_geocoder, R.time.sleep = _saved
 recs = saved_store.get("events") or []
 check("main writes the 3 upcoming sessions to the store and the 6 pages to the cursor",
@@ -521,6 +767,13 @@ check("every stored row is placed, exact, and links its session page",
           for r in recs), recs[:1])
 check("a dry run writes neither store nor cursor", rc2 == 0 and not os.path.exists(dry_store)
       and not os.path.exists(dry_cursor))
+old_key = next(r["fingerprint"] for r in recs if r["sources"][0]["url"].endswith("murten-morat-4/"))
+new_rec = next(r for r in saved_store2.get("events") or [] if r["sources"][0]["url"].endswith("murten-morat-4/"))
+check("the store hands the sync the re-dated row's old key (legacy_fingerprints), the others none",
+      rc3 == 0 and new_rec["start_local"].startswith("2026-10-31") and new_rec["fingerprint"] != old_key
+      and new_rec.get("legacy_fingerprints") == [old_key]
+      and all("legacy_fingerprints" not in r for r in saved_store2["events"] if r is not new_rec),
+      (new_rec.get("start_local"), new_rec.get("legacy_fingerprints")))
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

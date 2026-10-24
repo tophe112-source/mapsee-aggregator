@@ -13,6 +13,11 @@ ics_cursor.json
 ics_cursor.json.tmp
 jsonld_cursor.json
 jsonld_cursor.json.tmp
+# repair-cafe.ch's page cursor (mapsee_ingest_repaircafe_ch): Actions cache
+# only, like the two above. Lost, it costs a cold walk of ~1,300 pages spread
+# over three runs, never a wrong row.
+repaircafe_ch_cursor.json
+repaircafe_ch_cursor.json.tmp
 # The rec group's absence baselines (mapsee_supabase_sync --retire-absent):
 # Actions cache only. A local run leaves them behind; they are never history.
 rec_absence_manifest.json

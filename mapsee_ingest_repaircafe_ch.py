@@ -57,11 +57,12 @@ are under the floor; the newest 500 of the other 1,276 (lastmod back to
 2026-02-04) took 534 requests over two runs at one a second and held 244
 upcoming sessions and 255 past ones (1 page with no Datum). The upcoming share
 falls with lastmod: 64 of 69 modified in October, 93 of 132 in September, 30
-of 173 in February-April. 141 sessions from 94 cafés fall inside 180 days,
-every one placed (92 by the page's pin, 38 by the café's, 11 by a geocoded
-street); 102 more are further out, one as far as 2036 (a typo, left for the
-horizon to reach); one double posting (Weesen, two posts, one session) is
-written once. The café map lists 199 next dates inside the horizon and 111 of
+of 173 in February-April. 141 sessions from 94 cafés fall inside 180 days
+and 140 are placed (91 by the page's pin, 39 by the café's, 10 by a geocoded
+street); the other is "Kuhstall, 7503 Samedan", which Photon answers with the
+village itself (see PLACEMENT). 102 more are further out, one as far as 2036
+(a typo, left for the horizon to reach); one double posting (Weesen, two
+posts, one session) is written once. The café map lists 199 next dates inside the horizon and 111 of
 them were written; the rest sit in the 776 older pages the next runs read. A
 warm run then cost 7 requests and 0.3 minutes.
 
@@ -71,6 +72,12 @@ row's own URL and hides it on a 404, which is the evidence the notes accept.
 A TITLE that calls a session off (notice_reason: "ABGESAGT", "annulé", ...) is
 a tombstone for the session's own fingerprint (EventStore.cancel, notice=True).
 Prose is never read as a cancellation.
+A POST EDITED TO ANOTHER DATE OR TITLE has a new lastmod, so it is read again,
+and a new fingerprint. The cursor keeps the fingerprint each page's row was
+written under (`fp`) and hands the old ones on as legacy_fingerprints, so the
+sync's rekey_legacy moves the row to its new date instead of leaving the old
+one on the map beside it (an upsert cannot delete, --only-new never touches the
+old row, and prune_cancelled finds its page alive). A tombstone names them too.
 
 PLACEMENT, WITH THE TOWN AS THE GUARD
 -------------------------------------
@@ -80,11 +87,18 @@ The REFERENCE is the session's own postcode and town, geocoded by Photon
 through mapsee_ingest_ics.make_location_geocoder (the shared cache, the
 GEOCODE_MAX_NEW budget, one lookup a second) and required to be in
 Switzerland/Liechtenstein. Then, first that lands within `max_km` of it:
-  1. the session page's own map pin (about half the pages carry one);
+  1. the session page's own map pin (about half the pages carry one), unless
+     its Ort is its own café's address and the pin is ANOTHER café's (a
+     template's pin: Le Vilebrequin in Delémont carries LARC's, 0.42 km off;
+     see borrowed_pin);
   2. the café's pin from the café map (/reparieren/, 291 cafés in one page),
      when the session is at the café's own address, or its Ort gives only a
      postcode and town (an empty Ort is read as the café's own address);
-  3. the session's street, geocoded by Photon in its own postcode and town.
+  3. the session's street, geocoded by Photon in its own postcode and town;
+     an answer within 50 m of the town's own point is the town, not the
+     street (Photon, asked for a venue it does not know, returns what the
+     postcode and town alone return: "Kuhstall, 7503 Samedan" is the village
+     node, "Kuhstallhalle, 8048 Zürich" Altstetten station).
 Anything else is left unplaced, counted and named. Measured on the first 300
 pages: page pins sat a median 0.31 km from Photon's point for their town (max
 2.82), café pins 0.52 (max 3.35), geocoded streets 0.34 (max 1.00). Eschenbach
@@ -100,9 +114,11 @@ Title: the café's name, or the session's own title when that is the café's
 name with something added ("Repair Café Aarau mit Kleider-Tauschbörse «Share
 the Schrank»"); a bare "Repair Café", a slogan ("reparieren statt
 wegwerfen"), a place ("am Standort Badenerstrasse 658") or "Reparaturtreff"
-is quoted in the description instead. Fingerprint: (title, date, café, town), so
-two cafés' "Repair Café" on one day in Zürich stay two rows and a corrected
-street keeps the row. "Nur auf Voranmeldung" and its French and Italian
+is quoted in the description instead. Fingerprint: (title, date, café and
+town), so two cafés' "Repair Café" on one day in Zürich stay two rows, one
+café's sessions in two towns on one day stay two (five cafés post in more than
+one town: FRC Genève in Genève, Chambésy and Meyrin), and a corrected street
+keeps the row. "Nur auf Voranmeldung" and its French and Italian
 equivalents put "Registration required: see the event page." first. The
 contact box (a volunteer's name, mobile number and e-mail) is not copied, and
 phone numbers and e-mail addresses are cut out of the café's own text.
@@ -125,7 +141,7 @@ import sys
 import time
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 from urllib.parse import urljoin, urlsplit
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
@@ -146,6 +162,15 @@ TEXT_KEEP = 1200                # characters of a café's own text kept in the c
 CH_BOX = (45.78, 47.86, 5.90, 10.55)
 # Swiss postal codes 9485-9498 are Liechtenstein's.
 LI_POSTCODES = range(9485, 9499)
+# Two pins this close are one pin (a page template's pin copied from another café).
+SAME_PIN_KM = 0.03
+# A session at its café's address whose page pin is further than this from the
+# café's pin: the pins disagree, and borrowed_pin asks whose the page's is.
+PINS_DISAGREE_KM = 0.2
+# A geocoded street this close to the town's own point is the town's point.
+TOWN_NODE_KM = 0.05
+# The fingerprints a session's row was written under before, kept per page.
+LEGACY_KEEP = 8
 
 _TAG = re.compile(r"<[^>]+>")
 _BR = re.compile(r"(?i)<br\s*/?>|</p>|</div>|</li>")
@@ -399,15 +424,48 @@ _COUNTRY_WORD = {"CH": "Schweiz", "LI": "Liechtenstein"}
 Geocode = Callable[[str, str], Optional[Tuple[float, float]]]
 
 
+def borrowed_pin(pin: List[float], line1: str, cafe: Optional[Dict[str, Any]],
+                 others: Optional[Iterable[Dict[str, Any]]]) -> bool:
+    """Is the session page's pin ANOTHER café's, copied with a page template,
+    while its Ort says the session is at its own café's address? Measured
+    2026-10-24 on the 160 upcoming pages that carry a pin and whose café has
+    one: 7 sessions at their own café's address carry a pin more than
+    `PINS_DISAGREE_KM` from the café's, and only one of those pins is another
+    café's - Le Vilebrequin in Delémont (Rue Emile-Boéchat 34) carrying the
+    pin of LARC (Passage des Ponts 2), 0.42 km off, as its past pages do too.
+    Photon puts no. 34 30 m from the Vilebrequin café's pin and 402 m from the
+    page's. The other six (Hinwil 0.37 km five times, Stans 0.22 km) are not
+    another café's pin, and Hinwil's page pin is the right one (25 m from
+    Photon's no. 17, the café pin 353 m), so a disagreement alone settles
+    nothing; a pin that is another café's settles it."""
+    if not (pin and cafe and cafe.get("pin") and line1 and others):
+        return False
+    if not same_place(line1, cafe.get("venue") or ""):
+        return False
+    p = (float(pin[0]), float(pin[1]))
+    if km(p, tuple(cafe["pin"])) <= PINS_DISAGREE_KM:
+        return False
+    for other in others:
+        op = other.get("pin")
+        if op and km(p, tuple(op)) <= SAME_PIN_KM and not same_place(line1, other.get("venue") or ""):
+            return True
+    return False
+
+
 def place(page: Dict[str, Any], cafe: Optional[Dict[str, Any]], geocode: Geocode,
-          pin_km: float, street_km: float, notes: Optional[Dict[str, int]] = None
+          pin_km: float, street_km: float, notes: Optional[Dict[str, int]] = None,
+          others: Optional[Iterable[Dict[str, Any]]] = None
           ) -> Tuple[Optional[Tuple[float, float]], str]:
     """((lat, lon), how) or (None, why not). A publisher's pin (the page's or
     the café's) must lie within `pin_km` of the session's own postcode and
     town as Photon places them, a geocoded street within `street_km`: the
     publisher's failure is a pin in the wrong country or at the map's corner,
     Photon's a same-named street one village over (every village has a
-    Dorfstrasse), so the street is held closer."""
+    Dorfstrasse), so the street is held closer. `others` is the café map's
+    every café, so a page pin that is another café's is known for one
+    (borrowed_pin). A geocoded answer within `TOWN_NODE_KM` of the town's own
+    point is the town, not the street: Photon, asked for a venue it does not
+    know, answers with the place it was told it is in."""
     def note(k: str) -> None:
         if notes is not None:
             notes[k] = notes.get(k, 0) + 1
@@ -429,9 +487,12 @@ def place(page: Dict[str, Any], cafe: Optional[Dict[str, Any]], geocode: Geocode
     street = split_line(line1)[1]
     pin = page.get("pin")
     if pin:
-        if near(pin, pin_km):
+        if not near(pin, pin_km):
+            note("event page's own pin is not in its town (not used)")
+        elif borrowed_pin(pin, line1, cafe, others):
+            note("event page's pin is another café's, its Ort its own café's (not used)")
+        else:
             return (pin[0], pin[1]), "event pin"
-        note("event page's own pin is not in its town (not used)")
     if cafe and cafe.get("pin"):
         same_town = (cafe.get("postcode") == pc) if (pc and cafe.get("postcode")) else \
             (_fold(cafe.get("city")) == _fold(town))
@@ -448,6 +509,13 @@ def place(page: Dict[str, Any], cafe: Optional[Dict[str, Any]], geocode: Geocode
         for q in tried:
             p = geocode(q, suffix)
             if p is None:
+                continue
+            if km(tuple(p), ref) <= TOWN_NODE_KM:
+                # Measured 2026-10-24: "Kuhstall, 7503 Samedan", "Kuhstallhalle,
+                # 8048 Zürich" and "Kuhstall, 1205 Genève" each came back as
+                # exactly what the postcode and town alone return (a village
+                # node, Altstetten station, a library): the town, not the venue.
+                note("the geocoder answered with the town itself (not used)")
                 continue
             if near(p, street_km):
                 return (p[0], p[1]), "geocoded street"
@@ -556,7 +624,11 @@ def build_event(url: str, page: Dict[str, Any], cafe: Optional[Dict[str, Any]],
     if body:
         parts.append(body)
     pc, town = page.get("postcode") or "", page.get("town") or ""
-    fp_place = cafe_name or venue or page.get("line1") or ""
+    # The café AND the town: make_fingerprint reads its city argument only when
+    # the place is empty, so a town passed only there would never count. FRC
+    # Genève posts sessions in Genève, Chambésy and Meyrin under one organiser
+    # link; two of them on one Saturday are two rows.
+    fp_place = " ".join(x for x in (cafe_name or venue or page.get("line1") or "", town) if x)
     ev = NormalizedEvent(
         source=SOURCE,
         source_id=source_id_of(url),
@@ -639,7 +711,10 @@ def select_pages(rows: List[Tuple[str, str]], pages: Dict[str, Dict[str, Any]], 
 
 def remember(pages: Dict[str, Dict[str, Any]], url: str, lastmod: str, parsed: Dict[str, Any],
              today: date) -> None:
-    """A past session keeps its date only; an upcoming one its whole page."""
+    """A past session keeps its date only; an upcoming one its whole page, and
+    the fingerprints its row was written under (`fp`, `legacy`), so a re-dated
+    or re-titled session moves its row (see identity)."""
+    old = pages.get(url) or {}
     entry: Dict[str, Any] = {"lastmod": lastmod, "checked": today.isoformat()}
     if parsed.get("why"):
         entry["why"] = parsed["why"]
@@ -650,7 +725,30 @@ def remember(pages: Dict[str, Dict[str, Any]], url: str, lastmod: str, parsed: D
             # (an Actions cache file) stays small: ~1.4 KB a session.
             entry["page"] = dict(parsed, text=(parsed.get("text") or "")[:TEXT_KEEP])
             entry["v"] = PARSER_VERSION
+    for k in ("fp", "legacy"):
+        if old.get(k):       # kept through a failed parse too: its row is still there
+            entry[k] = old[k]
     pages[url] = entry
+
+
+def identity(entry: Dict[str, Any], fp: str, record: bool = True) -> List[str]:
+    """The fingerprints this page's row was written under before, other than
+    `fp`, for NormalizedEvent.legacy_fingerprints: the sync's rekey_legacy then
+    MOVES the row to `fp` instead of inserting a second one beside it. The
+    fingerprint is (title, day, café, town), so a café that edits its post's
+    date or title gives the session a new one; without this the row on the old
+    date stays on the map (--only-new never touches it, and prune_cancelled
+    finds the page alive). `record` notes `fp` as the row's key now; a
+    tombstone does not."""
+    olds = [x for x in (entry.get("legacy") or []) + [entry.get("fp")] if x and x != fp]
+    olds = list(dict.fromkeys(olds))[-LEGACY_KEEP:]
+    if record:
+        entry["fp"] = fp
+        if olds:
+            entry["legacy"] = olds
+        else:
+            entry.pop("legacy", None)
+    return olds
 
 
 # --------------------------------------------------------------------------- #
@@ -672,9 +770,11 @@ class Client:
 
     def __init__(self, session, pause: float, deadline: Optional[float], robots=None,
                  clock: Callable[[], float] = time.monotonic,
-                 sleep: Callable[[float], None] = time.sleep, max_failures: int = 5):
+                 sleep: Optional[Callable[[float], None]] = None, max_failures: int = 5):
         self.session, self.pause, self.deadline = session, max(1.0, pause), deadline
-        self.clock, self.sleep, self.robots = clock, sleep, robots
+        # time.sleep looked up now, not when the module loaded, so a harness
+        # that stubs it (test_ingest_repaircafe_ch's main() runs) is obeyed.
+        self.clock, self.sleep, self.robots = clock, sleep or time.sleep, robots
         self.requests = self.errors = 0
         self.max_failures = max_failures
         self._in_row = 0
@@ -812,7 +912,8 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
                 try:
                     body = client.get(url, deadline=fetch_until)
                 except Stop as exc:
-                    _count(notes, "new or changed pages left for the next run (deadline)", len(todo) - i)
+                    why = "deadline" if "deadline" in str(exc) else "the host stopped answering"
+                    _count(notes, f"new or changed pages left for the next run ({why})", len(todo) - i)
                     rep["stopped"] = str(exc)
                     break
                 if body is None:
@@ -865,12 +966,15 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
             # row the live title wrote (same café, day and town), never a row.
             live_title = strip_notice(pg.get("title"))
             ev = build_event(url, pg, cafe, None, site, title=live_title or "")
+            # The row may be filed under what the page said before (another
+            # date or title): the tombstone names those keys too.
+            ev.legacy_fingerprints = identity(entry, ev.fingerprint, record=False)
             if cancel is not None:
                 cancel(ev, (pg.get("title") or "")[:80])
             rep["cancelled"] += 1
             continue
         point, how = place(pg, cafe, geocode, float(site.get("pin_km", 8.0)),
-                           float(site.get("street_km", 3.0)), notes)
+                           float(site.get("street_km", 3.0)), notes, others=book.values())
         if point is None:
             if how in ("town not found by the geocoder", "street not found in its town") and \
                     geocode_unasked is not None and geocode_unasked():
@@ -882,9 +986,13 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
         ev = build_event(url, pg, cafe, point, site)
         if ev.fingerprint in seen_fp:
             _count(notes, "two posts, one café, one day (the first is kept)")
-            print(f"[{SOURCE}] same title, café and day as {seen_fp[ev.fingerprint]}: {url} - not written twice")
+            print(f"[{SOURCE}] same title, café, town and day as {seen_fp[ev.fingerprint]}: {url} - not written twice")
             continue
         seen_fp[ev.fingerprint] = url
+        ev.legacy_fingerprints = identity(entry, ev.fingerprint)
+        if ev.legacy_fingerprints:
+            _count(notes, "re-dated or re-titled since its row was written: "
+                          "legacy fingerprint sent (the sync moves the row)")
         _count(rep["placed_by"], how)
         rep["kept"] += 1
         if pg.get("cafe_url"):

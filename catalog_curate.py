@@ -2641,7 +2641,10 @@ _ROBOTS_EXTRA = ("fair_sources.json", "market_sources.json", "openactive_sources
                  "glenecho_sources.json", "drupal_fullcalendar_sources.json",
                  "revize_sources.json", "perfectmind_sources.json", "lcsd_sources.json",
                  # The walks (2026-10-11). Each also asks robots.txt itself.
-                 "ava_sources.json", "rallybound_sources.json", "luminate_sources.json")
+                 "ava_sources.json", "rallybound_sources.json", "luminate_sources.json",
+                 # Swiss repair cafés' session pages (2026-10-24), read from
+                 # the publisher's own sitemaps; it asks robots.txt itself too.
+                 "repaircafe_ch_sources.json")
 
 
 def _walk_urls(o):
