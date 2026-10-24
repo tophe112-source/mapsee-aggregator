@@ -23,7 +23,12 @@ well-formed and wrong, or cost the publisher hundreds of requests a day:
     become their café. A post edited to another date carries its old
     fingerprint, so the sync moves the row instead of adding one; when the new
     date is not written this run (past, beyond the horizon, unplaced), the old
-    date's row is tombstoned instead, every run until that day is past.
+    date's row is tombstoned instead, every run until that day is past. A key
+    another post writes live is never sent as a legacy one: through the sync's
+    rekey_legacy it hid a double posting's real session from the third run on.
+  * THE LIFT. A run that read every changed page is whole for lifting only
+    (absence False): a session the café puts back on is lifted by the sync, a
+    run that left a page unread records no whole read, and none is absence.
   * THE CURSOR. 1,866 sitemap URLs, mostly history: a page is fetched once per
     lastmod, never when its lastmod is older than the floor, newest first, and
     the walk resumes where a budget or a deadline stopped it.
@@ -538,6 +543,7 @@ check("both Murten sessions are written, on the café's pin",
       and rep["placed_by"] == {"café pin": 2}, (rep["placed_by"], [e.source_id for e in out]))
 check("the rest is left for the next run and counted",
       rep["notes"].get("new or changed pages left for the next run (max pages)") == 4, rep["notes"])
+check("a run that left pages for the next is not a whole read", rep["complete"] is False, rep["complete"])
 rep, out, offs, asked, _ = run(SITEMAP_PAGES, cur)
 check("the next run fetches only the 4 not yet read, newest first", asked[4:] == [
     EV + "am-standort-badenerstrasse-658-31/", EV + "repair-cafe-stans-reparieren-statt-fortwerfen/",
@@ -546,6 +552,8 @@ check("and writes all 3 upcoming sessions again from the cursor (Loogarten's 27 
       sorted(e.source_id for e in out) == ["repairevent/am-standort-badenerstrasse-658-31",
                                            "repairevent/repair-cafe-murten-morat", "repairevent/repair-cafe-murten-morat-4"],
       [e.source_id for e in out])
+check("one that fetched every new or changed page is, from today to the horizon",
+      rep["complete"] is True and rep["window"] == (TODAY, date(2027, 4, 22)), (rep["complete"], rep["window"]))
 check("past sessions are remembered by date, not written",
       cur["pages"][EV + "repair-aktion-im-parktheater-2/"].get("date") == "2024-05-25"
       and "page" not in cur["pages"][EV + "repair-aktion-im-parktheater-2/"])
@@ -569,6 +577,13 @@ cur3 = json.loads(json.dumps(cur))
 rep, out, offs, asked, _ = run(part, cur3)
 check("a sitemap not read drops nothing from the cursor", set(cur3["pages"]) == set(cur["pages"]) and len(out) == 3,
       rep["notes"])
+check("  ...and the run is not whole", rep["complete"] is False)
+miss = dict(SITEMAP_PAGES)
+del miss[EV + "repair-cafe-stans-reparieren-statt-fortwerfen/"]
+rep, out, offs, asked, _ = run(miss, {"version": 1, "pages": {}, "cafes": {}})
+check("a session page not read (a 404) leaves the run not whole, though every other row is written",
+      rep["complete"] is False and rep["notes"].get("session page not read (retried next run)") == 1 and len(out) == 3,
+      (rep["complete"], rep["notes"], len(out)))
 off = dict(SITEMAP_PAGES)
 off["https://www.repair-cafe.ch/repairevent-sitemap2.xml"] = fx("repairevent-sitemap2.xml").replace(
     "2026-10-23T09:35:33+00:00", "2026-10-24T07:00:00+00:00")
@@ -586,6 +601,7 @@ rep, out, offs, asked, clock = run(SITEMAP_PAGES, cur5, fetch_until=3.5)
 check("a fetch deadline stops the page walk (the sitemaps and map are read first) and the rest waits",
       rep["fetched"] == 0 and rep["notes"].get("new or changed pages left for the next run (deadline)") == 6
       and cur5["pages"] == {}, (rep["fetched"], rep["notes"]))
+check("  ...and that run is not whole", rep["complete"] is False)
 
 
 class NoRobots:
@@ -596,6 +612,7 @@ class NoRobots:
 rep, out, offs, asked, _ = run(SITEMAP_PAGES, json.loads(json.dumps(cur)), robots=NoRobots())
 check("robots.txt refusing: no request, no row, the run says REFUSED", not asked and not out
       and (rep["stopped"] or "").startswith("REFUSED"), (asked, rep["stopped"]))
+check("  ...and is not whole", rep["complete"] is False)
 forbidden = dict(SITEMAP_PAGES)
 forbidden["https://www.repair-cafe.ch/sitemap_index.xml"] = Resp(403, "Forbidden")
 rep, out, offs, asked, _ = run(forbidden, json.loads(json.dumps(cur)))
@@ -824,6 +841,82 @@ check("retire_moved keeps a same-day key and moves only another day's",
       == (1, {"keys": [["b", "2026-11-07", "y"]], "dead": [["c", "2026-11-01", "z"], ["a", "2026-10-31", "x"]]}))
 
 
+print("== a double posting whose kept post is re-dated: the other post keeps the old day's row")
+# Through the sync's real rekey_legacy over a fake events table. Before the fix
+# post -4 sent the 24.10 key as a legacy one while -4b wrote it live, and from
+# the third run the sync hid -4b's real session (hidden_at alone: never lifted).
+import mapsee_supabase_sync as S
+
+M4B = EV + "repair-cafe-murten-morat-4b/"
+TABLE = {}                      # external_id -> hidden?
+
+
+def with_4b(pages):
+    out = dict(pages)
+    out[SM2] = out[SM2].replace("</urlset>", "<url><loc>" + M4B + "</loc>"
+                                "<lastmod>2026-10-23T09:40:00+00:00</lastmod></url>\n</urlset>")
+    out[M4B] = fx("event_murten_voranmeldung.html")
+    return out
+
+
+class TablePatch:
+    def patch(self, url, headers=None, data=None, timeout=None):
+        from urllib.parse import parse_qs, urlsplit
+        old, body = parse_qs(urlsplit(url).query)["external_id"][0][3:], json.loads(data)
+        if "external_id" in body:
+            TABLE[body["external_id"]] = TABLE.pop(old)
+        else:
+            TABLE[old] = True
+        return Resp(204)
+
+
+cur_dp = {"version": 1, "pages": {}, "cafes": {}}
+dp = []
+_fis = S.fetch_import_state
+S.fetch_import_state = lambda session, url, key, ids, fields=(), detail=None: {i: None for i in ids if i in TABLE}
+try:
+    moved_31 = with_4b(edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Sa, 31.10.2026"}))
+    for pages in (with_4b(SITEMAP_PAGES), moved_31, moved_31, moved_31):
+        rep, out, offs, asked, _ = run(pages, cur_dp)
+        S.rekey_legacy(TablePatch(), "https://x.supabase.co", "k",
+                       {e.fingerprint: list(e.legacy_fingerprints) for e in out if e.legacy_fingerprints})
+        for e in out:                                    # --only-new: insert what is not there
+            TABLE.setdefault(e.fingerprint, False)
+        dp.append((rep, {e.source_id.rsplit("/", 1)[-1]: e for e in out}, offs, dict(TABLE)))
+finally:
+    S.fetch_import_state = _fis
+fp_24 = dp[0][1]["repair-cafe-murten-morat-4"].fingerprint
+check("run 1: -4 and -4b both on 24.10, written once (-4 sorts first)",
+      "repair-cafe-murten-morat-4b" not in dp[0][1] and dp[0][3] == {e.fingerprint: False for e in dp[0][1].values()},
+      list(dp[0][1]))
+r2 = dp[1][1]
+check("run 2, -4 re-dated to 31.10: -4b writes 24.10 live, and -4 does NOT send 24.10 as a legacy key",
+      r2["repair-cafe-murten-morat-4b"].fingerprint == fp_24
+      and r2["repair-cafe-murten-morat-4"].start_local.startswith("2026-10-31")
+      and r2["repair-cafe-murten-morat-4"].legacy_fingerprints == [] and not dp[1][2]
+      and dp[1][0]["notes"].get("an old key another post is written under this run: left to that post") == 1,
+      (r2["repair-cafe-murten-morat-4"].legacy_fingerprints, dp[1][0]["notes"]))
+check("  ...and the key moves to -4's dead list (held by -4b's live write, not -4's key any more)",
+      [k[0] for k in cur_dp["pages"][M4]["keys"]] == [r2["repair-cafe-murten-morat-4"].fingerprint]
+      and [k[0] for k in cur_dp["pages"][M4].get("dead") or []] == [fp_24]
+      and [k[0] for k in cur_dp["pages"][M4B]["keys"]] == [fp_24], (cur_dp["pages"][M4], cur_dp["pages"][M4B]))
+check("no run sends a legacy key some row of that run is written under",
+      all(not (set(e.legacy_fingerprints) & {x.fingerprint for x in rows.values()})
+          for _rep, rows, _o, _t in dp for e in rows.values()))
+check("runs 2-4: the 24.10 and the 31.10 rows are both in the table and neither is hidden",
+      all(t.get(fp_24) is False and t.get(rows["repair-cafe-murten-morat-4"].fingerprint) is False
+          for _rep, rows, _o, t in dp[1:]), [{k[:8]: v for k, v in t.items()} for *_x, t in dp])
+# Then the cafe deletes -4b. Nobody lists 24.10 any more, so -4's dead key is
+# tombstoned: the old day was -4's row, inserted from -4's page, and its link
+# still answers, so nothing else would ever take it off the map.
+rep5, out5, offs5, _a5, _ = run(edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Sa, 31.10.2026"}), cur_dp)
+check("run 5, -4b deleted: the 24.10 row is called off as moved, and 31.10 stays live",
+      fp_24 in [o[0].fingerprint for o in offs5]
+      and any(e.fingerprint != fp_24 and e.source_id.endswith("murten-morat-4") for e in out5)
+      and all(e.fingerprint != fp_24 for e in out5),
+      ([o[0].fingerprint[:8] for o in offs5], [e.fingerprint[:8] for e in out5]))
+
+
 print("== the geocoder's budget and deadline")
 import mapsee_ingest_ics as ics
 calls = []
@@ -949,6 +1042,82 @@ check("moved past the horizon: the store holds a tombstone for the 31.10 row (an
       tombs)
 check("a crash inside the run still saves the cursor it had (rc 1: the only site failed)",
       rc5 == 1 and EV + "fetched-before-the-crash/" in (crash_saved.get("pages") or {}), (rc5, list(crash_saved)))
+
+
+print("== a whole read may lift what this adapter called off, and is never absence")
+# The sync lifts a cancellation (cancelled_at == hidden_at, ours) only for a row
+# a source read WHOLE this run writes live and this store does not tombstone
+# (mapsee_supabase_sync main, test_cancellations.py). Read the store as it does.
+from datetime import datetime, timezone
+from mapsee_ingest import EventStore
+
+
+def liftable(path, fp):
+    inputs = S.cancellation_inputs(path)
+    live = set().union(*inputs["units"].values()) if inputs["units"] else set()
+    return fp in live and fp not in inputs["tombstones"]
+
+
+def lastmod_to(stamp, page):
+    out = dict(SITEMAP_PAGES)
+    out[SM2] = fx("repairevent-sitemap2.xml").replace("2026-10-23T09:35:33+00:00", stamp)
+    out[M4] = page
+    return out
+
+
+def main_run(pages, store, cursor, *extra):
+    MainSession.PAGES = pages
+    path = os.path.join(TMP, store)
+    code = R.main(["--config", cfg_path, "--store", path, "--cursor", os.path.join(TMP, cursor),
+                   "--max-minutes", "0", *extra])
+    return code, path, json.load(open(path, encoding="utf-8"))
+
+
+stale = os.path.join(TMP, "lift_stale.json")
+st = EventStore(stale)
+st.mark_complete(R.SOURCE, TODAY, date(2027, 4, 22), absence=False)
+st.save()
+_requests.Session, _robots_txt.Robots = MainSession, AllowAll
+ics.make_location_geocoder = lambda session, suffix: (
+    lambda loc: TOWNS.get(loc, (None, None)) if suffix in (", Schweiz", ", Liechtenstein") else (None, None))
+R.time.sleep = lambda s: None
+try:
+    l1 = main_run(SITEMAP_PAGES, "lift1.json", "lift_cursor.json")
+    l2 = main_run(lastmod_to("2026-10-24T05:00:00+00:00", fx("event_murten_abgesagt.html")), "lift2.json", "lift_cursor.json")
+    l3 = main_run(lastmod_to("2026-10-24T06:00:00+00:00", fx("event_murten_voranmeldung.html")), "lift3.json",
+                  "lift_cursor.json")
+    # The main() sequence above left its cursor with the post moved past the
+    # horizon (24.10 and 31.10 both tombstoned); the café corrects it to 24.10.
+    l4 = main_run(edited(SITEMAP_PAGES, 4), "lift4.json", os.path.basename(cursor_path))
+    lp = main_run(SITEMAP_PAGES, os.path.basename(stale), "lift_cold_cursor.json", "--max-pages", "1")
+finally:
+    MainSession.PAGES = SITEMAP_PAGES
+    _requests.Session, _robots_txt.Robots, ics.make_location_geocoder, R.time.sleep = _saved
+k_live = next(r["fingerprint"] for r in l1[2]["events"] if r["sources"][0]["url"] == M4)
+read = (l1[2].get("complete_reads") or {}).get(R.SOURCE) or {}
+check("a whole run is recorded as a complete read for LIFTING only (absence False), from today to the horizon",
+      l1[0] == 0 and read.get("absence") is False and read.get("from", "").startswith("2026-10-24")
+      and read.get("to", "").startswith("2027-04-2"), read)
+check("  ...so the sync counts its live rows as listed by a source read whole",
+      all(liftable(l1[1], r["fingerprint"]) for r in l1[2]["events"]) and len(l1[2]["events"]) == 3)
+inputs = S.cancellation_inputs(l1[1])
+prev = {R.SOURCE: {"source": R.SOURCE, "id_prefix": "", "from": read.get("from"), "to": read.get("to"),
+                   "starts": {"gone": "2026-11-21T09:00:00Z"}}}
+_at = datetime(2026, 10, 24, 6, 0, tzinfo=timezone.utc)
+check("  ...and never as an absence baseline: a session the last read had and this one has not is not absent",
+      S.absent_fingerprints(prev, inputs, now=_at)[0] == {}, S.absent_fingerprints(prev, inputs, now=_at)[0])
+check("ABGESAGT: the session is tombstoned by its title and the store holds no live row of it, so nothing lifts it",
+      [t["fingerprint"] for t in l2[2].get("tombstones") or []] == [k_live] and not liftable(l2[1], k_live)
+      and (l2[2].get("complete_reads") or {}).get(R.SOURCE), l2[2].get("tombstones"))
+check("the café takes ABGESAGT out again: the same key is written live by a whole read, so the sync lifts it "
+      "(read in passing, it stayed hidden)",
+      l3[0] == 0 and liftable(l3[1], k_live) and not l3[2].get("tombstones"), (l3[2].get("tombstones"), l3[1]))
+l4_tombs = sorted(t["fingerprint"] for t in l4[2].get("tombstones") or [])
+check("a post moved past the horizon and corrected back to 24.10: 24.10 is live and liftable, 31.10 stays called off",
+      l4[0] == 0 and liftable(l4[1], old_key) and l4_tombs == [new_rec["fingerprint"]]
+      and not liftable(l4[1], new_rec["fingerprint"]), (l4_tombs, old_key))
+check("a run that is not whole (max 1 page) records no complete read, and drops one an earlier run left in its store",
+      lp[0] == 0 and R.SOURCE not in (lp[2].get("complete_reads") or {}), lp[2].get("complete_reads"))
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

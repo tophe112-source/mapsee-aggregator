@@ -95,6 +95,16 @@ not happening, as a JSON-LD EventRescheduled's previousStartDate does. A dead
 key is never moved: rekey_legacy would carry a cancelled row onto the live key.
 A new title on the same day is never a tombstone; its key waits to be moved.
 A title notice's tombstone names every key.
+A KEY ANOTHER POST IS WRITTEN UNDER THIS RUN is that post's row, and is never
+sent as a legacy key nor kept in this page's `keys`: rekey_legacy, finding it
+live and the moved row's new key taken, hides it with hidden_at alone, which
+nothing lifts (a double posting whose kept post is re-dated: the other post's
+real session was hidden from the third run on, review 2026-10-24).
+A RUN THAT READ EVERY CHANGED PAGE (all sitemaps, no page left unread, no stop)
+is marked whole for LIFTING only, as OpenActive is (mark_complete(absence=
+False)): the sync lifts one of our cancellations when that read writes its key
+live again (a café that takes ABGESAGT out, a date corrected back), 30 h after
+it at the soonest, and never reads a key it no longer writes as absence.
 
 PLACEMENT, WITH THE TOWN AS THE GUARD
 -------------------------------------
@@ -198,6 +208,9 @@ TOWN_NODE_KM = 0.05
 # The keys a page's row was written under before, kept per page.
 LEGACY_KEEP = 8
 MOVED_REASON = "moved to another date by its page"
+# A run with any of these notes left a new or changed page unread: not whole.
+INCOMPLETE_NOTES = ("new or changed pages left for the next run (max pages)",
+                    "session page not read (retried next run)")
 
 _TAG = re.compile(r"<[^>]+>")
 _BR = re.compile(r"(?i)<br\s*/?>|</p>|</div>|</li>")
@@ -819,7 +832,8 @@ def identity(entry: Dict[str, Any], fp: str, day: str, name: str, record: bool =
     new one; without this the row on the old date stays on the map (an upsert
     cannot delete, --only-new never touches it, and prune_cancelled finds the
     page alive). `keys` is [[fingerprint, day, name], ...], the newest last.
-    `record` notes `fp` as the row's key now; a tombstone does not."""
+    `record` notes `fp` as the row's key now; a tombstone does not. read_site
+    then drops any key another post is written under this run (its row)."""
     keys = [k for k in entry.get("keys") or [] if k[0] != fp]
     olds = [k[0] for k in keys][-LEGACY_KEEP:]
     if record:
@@ -839,8 +853,9 @@ def retire_moved(entry: Dict[str, Any], day: str) -> int:
     Datum is the publisher saying that day is not happening, as a JSON-LD
     EventRescheduled's previousStartDate is (cancelled-events.md). A dead key
     is never sent as a legacy one again: rekey_legacy would carry a cancelled
-    row onto the live key, and only a source read whole may lift it. A key for
-    the same day (a new title, not a new date) waits for its row to move."""
+    row onto the live key, hidden there until a whole read lifts it (30 h at
+    the soonest). A key for the same day (a new title, not a new date) waits
+    for its row to move."""
     keys = entry.get("keys") or []
     off = [k for k in keys if k[1] != day]
     if not off:
@@ -982,7 +997,8 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
     horizon = today + timedelta(days=int(site.get("within_days", 180)))
     rep: Dict[str, Any] = {"sitemap_urls": 0, "fetched": 0, "kept": 0, "cancelled": 0, "moved_off": 0,
                            "placed_by": {}, "unplaced": {}, "refused": {}, "notes": {},
-                           "selection": {}, "stopped": None, "map_dates": None}
+                           "selection": {}, "stopped": None, "map_dates": None,
+                           "complete": False, "window": (today, horizon)}
     notes = rep["notes"]
     rows: Optional[List[Tuple[str, str]]] = None
     try:
@@ -1063,6 +1079,7 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
     lo, hi = today.isoformat(), horizon.isoformat()
     seen_fp: Dict[str, str] = {}
     kept_dates = set()
+    written: List[Tuple[str, NormalizedEvent]] = []
 
     def write(url: str, entry: Dict[str, Any]) -> bool:
         """Write (or call off by its title) the page's session. True when the
@@ -1110,14 +1127,11 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
             return False
         seen_fp[ev.fingerprint] = url
         ev.legacy_fingerprints = identity(entry, ev.fingerprint, pg["date"], ev.name)
-        if ev.legacy_fingerprints:
-            _count(notes, "re-dated or re-titled since its row was written: "
-                          "legacy fingerprint sent (the sync moves the row)")
         _count(rep["placed_by"], how)
         rep["kept"] += 1
         if pg.get("cafe_url"):
             kept_dates.add((pg["cafe_url"], pg["date"]))
-        emit(ev)
+        written.append((url, ev))            # emitted once every post's key this run is known
         return True
 
     dead_keys: List[Tuple[str, List[str]]] = []
@@ -1134,6 +1148,31 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
             dead_keys.extend((url, k) for k in dead)
         else:
             entry.pop("dead", None)
+    # A key some post is written under THIS run is that post's row, never
+    # another's legacy key: rekey_legacy, finding it live and the moved row's
+    # key already taken, hides it with hidden_at alone, which nothing lifts.
+    # A double posting whose kept post is re-dated hands its old day to the
+    # other post (Murten -4 and -4b in the tests: the 24.10 row was hidden from
+    # the third run on). The key moves from this page's `keys` to its `dead`:
+    # the page left that day, and only the other post's live write holds it, so
+    # the dead-key loop skips it while that post lists it and tombstones it the
+    # run nobody does (dropping it outright left the 24.10 row live, on -4's
+    # link, after -4b was deleted).
+    for url, ev in written:
+        taken = {k for k in ev.legacy_fingerprints if k in seen_fp}
+        if taken:
+            ev.legacy_fingerprints = [k for k in ev.legacy_fingerprints if k not in taken]
+            entry = pages[url]
+            gave = [k for k in entry.get("keys") or [] if k[0] in taken]
+            entry["keys"] = [k for k in entry.get("keys") or [] if k[0] not in taken]
+            dead = {k[0]: k for k in entry.get("dead") or []}
+            dead.update({k[0]: k for k in gave})
+            entry["dead"] = list(dead.values())
+            _count(notes, "an old key another post is written under this run: left to that post")
+        if ev.legacy_fingerprints:
+            _count(notes, "re-dated or re-titled since its row was written: "
+                          "legacy fingerprint sent (the sync moves the row)")
+        emit(ev)
     # Every run while the old day is to come, so a sync that failed once is not
     # the end of it; never a key some post is written under this run.
     for url, k in dead_keys:
@@ -1147,6 +1186,10 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
     want = {(u, d) for u, c in book.items() for d in c.get("next") or [] if lo <= d <= hi}
     if want:
         rep["map_dates"] = (len(want & kept_dates), len(want))
+    # 6. Whole: every sitemap read and every new or changed page fetched, so each
+    # row written is what its page says at its current lastmod (see main).
+    rep["complete"] = rows is not None and rep["stopped"] is None and \
+        not any(notes.get(k) for k in INCOMPLETE_NOTES)
     return rep
 
 
@@ -1237,7 +1280,7 @@ def main(argv=None) -> int:
     deadline = started + a.max_minutes * 60 if a.max_minutes else None
     store = None if a.dry_run else EventStore(a.store)
     today = _today_local()
-    total, failed, sites, dumped = 0, 0, 0, []
+    total, failed, sites, dumped, reads = 0, 0, 0, [], []
     for site in cfg.get("sites", []):
         if site.get("skip"):
             continue
@@ -1282,6 +1325,7 @@ def main(argv=None) -> int:
                             geocode_unasked=unasked)
         except Exception as exc:                          # noqa: BLE001
             failed += 1
+            reads.append(None)
             print(f"[{SOURCE}] {site.get('name', '?')} FAILED: {type(exc).__name__}: {exc}", flush=True)
             continue
         finally:
@@ -1292,6 +1336,18 @@ def main(argv=None) -> int:
         _report(rep)
         print(f"[{SOURCE}] {client.requests} request(s) to the site", flush=True)
         total += rep["kept"]
+        reads.append(rep["window"] if rep["complete"] else None)
+    # WHOLE FOR LIFTING ONLY (OpenActive's absence=False). A tombstone this
+    # adapter wrote (a title saying ABGESAGT, a date the page left) is lifted by
+    # the sync only for a source read whole, so without this a session the café
+    # puts back on stays hidden until its day. Never compared for absence: a
+    # post that leaves the sitemap is prune_cancelled's to judge by its 404.
+    if store is not None and reads and all(reads):
+        store.mark_complete(SOURCE, max(w[0] for w in reads), min(w[1] for w in reads), absence=False)
+        store.save()
+        print(f"[{SOURCE}] read whole: a session listed live again may lift its cancellation", flush=True)
+    elif store is not None and store.complete_reads.pop(SOURCE, None) is not None:
+        store.save()                   # a store kept from an earlier run: its whole read is not this one
     if not a.dry_run:                                     # a dry run leaves the shared cache alone
         try:
             from mapsee_ingest_ics import _GEO_CACHE, _save_geo_cache
