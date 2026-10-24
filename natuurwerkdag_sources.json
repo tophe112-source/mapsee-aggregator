@@ -1,0 +1,30 @@
+{
+  "_comment": "The Natuurwerkdag's volunteer jobs (klussen), read by mapsee_ingest_natuurwerkdag.py. The finder page /klussen/ decides which jobs exist and when and where (one request, every card plus the site's own map points); jobs-sitemap.xml only says which job pages changed (lastmod); a job page only adds its description, meeting point, the organiser's kids flag and whether sign-up has closed. Pages are cached by lastmod in --cache, which is also the resume cursor.",
+  "_conduct": "Checked 2026-10-24 with our own User-Agent: https://www.natuurwerkdag.nl/robots.txt is 'User-agent: * / Allow: /' with no Crawl-delay. The site publishes no terms of use: https://www.natuurwerkdag.nl/disclaimer/ disclaims accuracy and liability only, and https://www.natuurwerkdag.nl/privacyverklaring-en-cookies/ covers participants' data. The adapter copies no person: not the organiser's e-mail (a data-email attribute), not the site manager named in the quote block, and no description sentence that gives an e-mail address, a phone number or a named contact.",
+  "sites": [
+    {
+      "name": "Natuurwerkdag",
+      "_found": "manual:2026-10-24 discovery agent: jobs-sitemap.xml lists 551 klussen, robots.txt Allow: /, the 'jobs' post type is not in /wp-json/wp/v2/types, no Event JSON-LD and no iCal. The Netherlands had no curated volunteer source.",
+      "_measured": "2026-10-24: /klussen/ lists 530 jobs in one 2 MB page (FacetWP pager total_rows 530): 417 on Saturday 7 November 2026 and 113 on Friday 6 November, 514 with a clock. 523 carry a map point, equal to the job page's own data-lat/lng on 15 of 15 sampled; 6 have no point anywhere and 1 title carries a wp-admin URL, so 523 pass the listing checks. jobs-sitemap.xml lists 551: the 21 extra are hidden shells (one is 'test Marije') whose only date is another job's. Of 22 listed job pages read: 3 full (sign-up closed), 14 'Geschikt voor kinderen', 1 description sentence giving a named person's mobile number (dropped), 0 disagreeing with the listing. No point lies more than 71 km from the median of its province's jobs. The sitemap lastmod moved on 4-26 jobs a day from 2026-10-12 to 10-23. Live run on a scratch store (--max-minutes 0.75): 42 requests in 46 s, 40 pages read, 518 rows kept (517 records: one double posting), 6 no point, 1 URL title, 5 full; a second run (--max-minutes 0.25) served those 40 from the cache for 0 requests and read the next 9 (11 requests). Of those 49 pages: 7 full, 35 kids, 45 with a meeting point, 0 contact sentences.",
+      "listing": "https://www.natuurwerkdag.nl/klussen/",
+      "sitemap": "https://www.natuurwerkdag.nl/jobs-sitemap.xml",
+      "category": "volunteer",
+      "categories": ["outdoors"],
+      "promoter": "Natuurwerkdag (LandschappenNL)",
+      "country": "NL",
+      "signup_line": "A Natuurwerkdag volunteer job: sign up on its page at natuurwerkdag.nl.",
+      "within_days": 60,
+      "pause": 1.0,
+      "max_failures_in_row": 5,
+      "_refresh_comment": "A cached page is read again when its lastmod moves, when its date/clock/point disagrees with the listing, or after refresh_days - at most max_refresh_per_run of those per run, oldest first, so the first run's 523 reads do not all come due on one day. Full jobs are the reason for the age refresh: a sign-up does not move lastmod.",
+      "refresh_days": 7,
+      "max_refresh_per_run": 60,
+      "bbox": [50.70, 3.20, 53.70, 7.30],
+      "province_radius_km": 110,
+      "province_min_peers": 5,
+      "max_titles_per_point": 2,
+      "description_chars": 700,
+      "meeting_chars": 200
+    }
+  ]
+}
