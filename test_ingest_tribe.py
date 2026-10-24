@@ -32,6 +32,7 @@ import sys
 import tempfile
 from copy import deepcopy
 from contextlib import redirect_stdout
+from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -713,11 +714,15 @@ class _MainStore:
         pass
 
 
+handed = []                              # the deadline main gives each site
+
+
 def run_main(tmp, clock_steps, *extra, workers="1"):
     order, clock = [], [1000.0]
 
-    def fake_ingest(_session, site, _ids, _deadline, _stop):
+    def fake_ingest(_session, site, _ids, deadline, _stop):
         order.append(site["name"])
+        handed.append(deadline)
         clock[0] += clock_steps
         return []
 
@@ -748,6 +753,10 @@ with tempfile.TemporaryDirectory() as tmp:
     json.dump({"sites": sites}, open(os.path.join(tmp, "cfg.json"), "w"))
     check("--only reads its one site with one worker or three",
           run_main(tmp, 1, "--only", "C") == ["c"] == run_main(tmp, 1, "--only", "C", workers="3"))
+# The step's deadline reaches every site's reader, or a site goes on sleeping
+# toward pages past it (the 86.9-minute step of 2026-10-23).
+check("every site's reader is handed the step's deadline",
+      handed and set(handed) == {1015.0}, sorted(set(handed)))
 
 # A publisher can ignore the category query. Private sessions must be rejected
 # before a source's venue fallback turns them into plausible public map pins.
@@ -830,11 +839,13 @@ for deadline, want_pages, want_sleeps in ((1005.0, [1], []), (2000.0, [1, 2, 3],
         check("a deadline inside the Crawl-delay ends the site with the page it has, unslept",
               asked == want_pages and slept == want_sleeps and [e.name for e in got] == ["Ride 1"],
               (asked, slept, [e.name for e in got]))
-        check("...and its line says where it stopped",
-              "kept 1 events (stopped at the deadline before page 2) in " in buf.getvalue(), buf.getvalue())
+        check("...and its line says where it stopped, as does what it hands back",
+              "kept 1 events (stopped at the deadline before page 2) in " in buf.getvalue()
+              and got.cut == "stopped at the deadline before page 2", (buf.getvalue(), got.cut))
     else:
         check("with time left every page is read, Crawl-delay apart, and none slept after the last",
-              asked == want_pages and slept == want_sleeps and len(got) == 3, (asked, slept, len(got)))
+              asked == want_pages and slept == want_sleeps and len(got) == 3 and got.cut == "",
+              (asked, slept, len(got), got.cut))
 stopped_early = threading.Event()
 stopped_early.set()
 session = _CategorySession(paged)
@@ -842,6 +853,50 @@ with redirect_stdout(io.StringIO()):
     got = T.ingest_site(session, dict(SITE, crawl_delay=0), stop=stopped_early)
 check("an interrupted run's worker makes no further request", got == [] and session.params == [],
       session.params)
+check("...and says it was cut, so main keeps the cursor on it", got.cut == "interrupted before page 1",
+      got.cut)
+
+
+# A page this cannot read ends the site and keeps the pages before it, as the
+# rows upserted as they came did until 2026-10-23: an exception that left the
+# reader would take every page with it, under main's "FAILED" line.
+class _BodySession:
+    def __init__(self, bodies):
+        self.bodies, self.asked = bodies, []
+
+    def get(self, url, *, params, **kwargs):
+        self.asked.append(params["page"])
+        body = self.bodies[params["page"] - 1]
+
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return body
+        return Response()
+
+
+first = {"events": [row(id=1, title="Ride 1"), row(id=2, title="Ride 2")], "total_pages": 3}
+for label, second, want in (
+        ("a total_pages that is not a number", {"events": [row(id=3, title="Ride 3")],
+                                                "total_pages": "3 pages"}, ["Ride 1", "Ride 2", "Ride 3"]),
+        ("a body that is JSON null", None, ["Ride 1", "Ride 2"]),
+        ("a body that is a list", [row(id=3)], ["Ride 1", "Ride 2"])):
+    session = _BodySession([first, second, {"events": [row(id=9, title="Ride 9")], "total_pages": 3}])
+    with redirect_stdout(io.StringIO()) as buf:
+        got = T.ingest_site(session, dict(SITE, crawl_delay=0))
+    check(f"{label} on page 2 keeps the pages before it and asks no further",
+          [e.name for e in got] == want and session.asked == [1, 2] and got.cut == ""
+          and "test p2 unreadable page: " in buf.getvalue(),
+          ([e.name for e in got], session.asked, got.cut, buf.getvalue()))
+session = _BodySession([{"events": [["not", "a", "record"], "nor this", row(id=5, title="Ride 5")],
+                         "total_pages": 1}])
+with redirect_stdout(io.StringIO()) as buf:
+    got = T.ingest_site(session, dict(SITE, crawl_delay=0))
+check("a record that is not an object costs that record, and its line still prints",
+      [e.name for e in got] == ["Ride 5"]
+      and "skipping unreadable record <list> (AttributeError" in buf.getvalue()
+      and "(2 unreadable record(s) skipped)" in buf.getvalue(), buf.getvalue())
 
 
 def run_pool(tmp, config_sites, fake, *extra, store=None, clock=None):
@@ -948,6 +1003,110 @@ check("the checkpoints come no more often than SAVE_EVERY_SECONDS",
       _RecStore.last.saves == 3, _RecStore.last.saves)          # 1200, 1600 and the end
 
 
+# A SITE THE DEADLINE CUT SHORT IS NOT FINISHED. Counted as finished, a cut site
+# never held the cursor, so once every site started before the deadline the
+# cursor stayed where the run began and the same tail lost its later pages every
+# run (a stand-in server, 6 sites and 3 workers: three runs, the same three sites
+# "stopped at the deadline before page 3"). The real reader, through main: the
+# step's deadline reaches it, so c's page 2 is never asked for, and its page 1
+# is still written. Each request moves the step's clock on 2 s.
+class _HostPages:
+    asked, clock = [], [1000.0]
+
+    def __init__(self, pages):
+        self.headers, self.pages = {}, pages
+
+    def get(self, url, *, params, **kwargs):
+        host, page = urlsplit(url).hostname, params["page"]
+        _HostPages.asked.append((host[0], page))
+        _HostPages.clock[0] += 2
+        rows, total = [row(id=page, title=f"{host[0]} p{page}", start_date="2099-08-19 06:30:00")], self.pages[host]
+
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return {"events": rows, "total_pages": total}
+        return Response()
+
+    def close(self):
+        pass
+
+
+cut_pages = {"a.example": 1, "b.example": 1, "c.example": 2, "d.example": 1}
+
+
+def cut_run(tmp):
+    _HostPages.asked, _HostPages.clock[0] = [], 1000.0
+    cfg = [dict(SITE, name=h[0], base_url=f"https://{h}", crawl_delay=10) for h in cut_pages]
+    json.dump({"sites": cfg}, open(os.path.join(tmp, "cfg.json"), "w"))
+    store_path = os.path.join(tmp, "store.json")
+    with patch.object(T.requests, "Session", lambda: _HostPages(cut_pages)), \
+         patch.object(T.time, "time", lambda: _HostPages.clock[0]), redirect_stdout(io.StringIO()) as buf:
+        T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", store_path,
+                "--cursor", os.path.join(tmp, "cursor.json"), "--deadline", "1005", "--workers", "1"])
+    names = sorted(r["name"] for r in T.EventStore(store_path).records.values())
+    return json.load(open(os.path.join(tmp, "cursor.json"))), names, buf.getvalue()
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    # a 1002, b 1004, c starts at 1004 and its page 1 ends at 1006; d never starts.
+    first = cut_run(tmp)
+    first_asked = list(_HostPages.asked)
+    # From c: c is cut again, but it HAD the whole step; d, a run, b never starts.
+    second = cut_run(tmp)
+    second_asked = list(_HostPages.asked)
+check("a site the deadline cut short keeps the cursor, though a later site never started",
+      first[0] == {"site": "https://c.example"}, first[0])
+check("...its page 2 is never asked for, and its page 1 is written",
+      first_asked == [("a", 1), ("b", 1), ("c", 1)] and first[1] == ["a p1", "b p1", "c p1"],
+      (first_asked, first[1]))
+check("...and the done line says the deadline stopped the step",
+      "from 3 of 4 sites" in first[2] and "(stopped at the step deadline) (1 site(s) cut short)" in first[2],
+      first[2])
+check("the next run starts at the cut site",
+      second_asked[:1] == [("c", 1)] and "resuming at c (site 3 of 4)" in second[2], (second_asked, second[2]))
+check("...and a site cut short with the whole step in front of it lets the cursor go on",
+      second_asked == [("c", 1), ("d", 1), ("a", 1)] and second[0] == {"site": "https://b.example"},
+      (second_asked, second[0]))
+
+
+# EVERY SITE STARTED, AND THE LAST ONES IN FLIGHT WERE CUT. That is the case that
+# stalled: no site was refused a start, so nothing but the cut sites themselves
+# could move the cursor, and the run's done line said nothing of a deadline.
+def cut_fake(cut_names, seen):
+    def fake(_session, site, _ids, _deadline, _stop):
+        seen.append(site["name"])
+        got = T.SiteEvents([SimpleNamespace(name=site["name"])])
+        if site["name"] in cut_names:
+            got.cut = "stopped at the deadline before page 3"
+        return got
+    return fake
+
+
+six_letters = [dict(SITE, name=n, base_url=f"https://{n}.example") for n in "abcdef"]
+with tempfile.TemporaryDirectory() as tmp:
+    seen_cut, seen_next = [], []
+    _, cut_out = run_pool(tmp, six_letters, cut_fake({"d", "e", "f"}, seen_cut), "--workers", "3",
+                          "--deadline", str(T.time.time() + 3600), store=_RecStore)
+    cut_cursor = json.load(open(os.path.join(tmp, "cursor.json")))
+    cut_written = sorted(_RecStore.last.names)
+    _, next_out = run_pool(tmp, six_letters, cut_fake(set(), seen_next), "--workers", "3",
+                           "--deadline", str(T.time.time() + 3600), store=_RecStore)
+    next_cursor = json.load(open(os.path.join(tmp, "cursor.json")))
+check("every site started and the last three in flight were cut: the cursor names the first of them",
+      sorted(seen_cut) == list("abcdef") and cut_cursor == {"site": "https://d.example"}
+      and cut_written == list("abcdef"), (seen_cut, cut_cursor, cut_written))
+check("...and the done line says the deadline stopped the step, though every site started",
+      "from 6 of 6 sites" in cut_out and "(stopped at the step deadline) (3 site(s) cut short)" in cut_out
+      and "not started" not in cut_out, cut_out)
+check("the next run starts at the first cut site and skips none of them",
+      "resuming at d (site 4 of 6)" in next_out and sorted(seen_next) == list("abcdef")
+      and "(stopped at the step deadline)" not in next_out, (seen_next, next_out))
+check("...and having read every site whole, leaves the cursor where it began",
+      next_cursor == {"site": "https://d.example"}, next_cursor)
+
+
 # An interrupt saves what was read; the site still reading is not finished, so
 # the cursor stays on it, and its worker stops before another request.
 class _InterruptedStore(_RecStore):
@@ -1024,6 +1183,41 @@ check("every site's line ends with its time",
       len(kept_lines) == 6 and all(re.search(r"kept 1 events in \d+\.\ds$", ln) for ln in kept_lines),
       kept_lines)
 check("the store is written beside itself and moved into place", leftovers == [], leftovers)
+
+
+# ...and a save that dies half-way leaves the last whole store, which is what the
+# move is for: the store is now written every SAVE_EVERY_SECONDS, not once.
+class _HalfStore:
+    def __init__(self, path, dies):
+        self.path, self.dies, self.wrote_to = Path(path), dies, []
+
+    def save(self):
+        self.wrote_to.append(self.path.name)
+        self.path.write_text('{"events": [' if self.dies else '{"events": []}', encoding="utf-8")
+        if self.dies:
+            raise OSError("No space left on device")
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    store_path = os.path.join(tmp, "feeds_events.json")
+    open(store_path, "w").write('{"events": [{"name": "kept"}]}')
+    half = _HalfStore(store_path, dies=True)
+    try:
+        T._save_store(half)
+        raised = False
+    except OSError:
+        raised = True
+    survived = open(store_path).read()
+    whole = _HalfStore(store_path, dies=False)
+    T._save_store(whole)
+    replaced = open(store_path).read()
+    leftovers = sorted(f for f in os.listdir(tmp) if f.endswith(".tmp"))
+check("a save that dies half-way leaves the last whole store",
+      raised and half.wrote_to == ["feeds_events.json.tmp"] and survived == '{"events": [{"name": "kept"}]}'
+      and half.path == Path(store_path), (raised, half.wrote_to, survived, half.path))
+check("...and the next whole save takes its place",
+      whole.wrote_to == ["feeds_events.json.tmp"] and replaced == '{"events": []}' and leftovers == [],
+      (whole.wrote_to, replaced, leftovers))
 
 with tempfile.TemporaryDirectory() as tmp:
     site = dict(SITE, crawl_delay=0, free_only=True, currency="USD")

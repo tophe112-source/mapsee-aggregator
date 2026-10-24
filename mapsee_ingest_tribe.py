@@ -327,9 +327,22 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     return nev
 
 
+class SiteEvents(list):
+    """The events `ingest_site` read from one site, and `cut`: why it stopped
+    before the site's last page, "" when it did not.
+
+    Only OUR clock cuts a site (the deadline, or an interrupt), and a cut site is
+    not finished: the next run starts at it (main's cursor). A publisher's own
+    failure on a later page (a 500, bad JSON, a page this cannot read) ends the
+    site too, keeping the pages before it, but that is the site's answer for
+    the day and is not a cut.
+    """
+    cut = ""
+
+
 def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
                 deadline: float = 0.0,
-                stop: Optional[threading.Event] = None) -> List[NormalizedEvent]:
+                stop: Optional[threading.Event] = None) -> SiteEvents:
     """Read one site and return its events. The caller writes them.
 
     It never touches the store, which is not thread-safe: `admission_ids` is
@@ -339,13 +352,15 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
     `deadline` (epoch seconds, 0 = none) is checked before every page after the
     first, and a page that could not start before it is not waited for: Haydon
     Wick's 15 pages at 30 s are ~7 min of sleeping, which is how a step with an
-    80-minute deadline ran 86.9 (2026-10-23). The rows already read are returned.
-    `stop` is set when the run is interrupted, and ends the site the same way.
+    80-minute deadline ran 86.9 (2026-10-23). The rows already read are returned,
+    with `cut` set. `stop` is set when the run is interrupted, and ends the site
+    the same way.
     """
     started = time.monotonic()
+    events = SiteEvents()
     base = (site.get("base_url") or "").rstrip("/")
     if not base:
-        _say(f"[tribe] {site.get('name','?')}: no base_url"); return []
+        _say(f"[tribe] {site.get('name','?')}: no base_url"); return events
     api = f"{base}/wp-json/tribe/events/v1/events"
     delay = float(site.get("crawl_delay", 2))
     per_page = int(site.get("per_page", 50))
@@ -384,7 +399,6 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
             skip_title = re.compile(site["skip_title"], re.I)
         except (re.error, TypeError) as exc:
             raise ValueError(f"{site.get('name', '?')}: invalid skip_title regex: {exc}") from exc
-    events: List[NormalizedEvent] = []
     malformed = 0
     governance = 0
     excluded = 0
@@ -418,61 +432,76 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
             body = r.json()
         except Exception as exc:
             _say(f"[tribe] {site.get('name')} p{page} bad JSON: {exc}"); break
-        rows = body.get("events") or []
-        if not rows:
-            break
-        for ev in rows:
-            # Per EVENT, not per site. The site-level try in main() means one
-            # unreadable record costs the whole calendar (see _obj), and it
-            # reports as a site failure, which reads like the host was down.
-            # Counted and printed rather than swallowed: a silent skip is how a
-            # shape change eats a source one record at a time.
-            try:
-                if included is not None:
-                    cats = ev.get("categories")
-                    keys = {str(c[k]).strip().lower()
-                            for c in (cats if isinstance(cats, list) else [])
-                            if isinstance(c, dict) for k in ("id", "slug")
-                            if c.get(k) is not None}
-                    if included.isdisjoint(keys):
-                        excluded += 1
-                        continue
-                if site.get("free_only"):
-                    title = _clean(ev.get("title")) or ""
-                    description = _clean(ev.get("description")) or ""
-                    facts = normalize_admission_facts(
-                        ev.get("cost"), currency_hint=site.get("currency"),
-                        context=f"{title} {description}")
-                    source_id = str(ev.get("id") or ev.get("global_id") or "")
-                    if (not facts or facts.get("free") is not True) and (
-                            source_id not in refreshable_admission_ids):
-                        admission_excluded += 1
-                        continue
-                nev = to_event(ev, site)
-            except Exception as exc:                       # noqa: BLE001
-                if not malformed:
-                    _say(f"[tribe] {site.get('name')}: skipping unreadable record "
-                         f"{ev.get('id')!r} ({type(exc).__name__}: {exc})")
-                malformed += 1
-                continue
-            # A TOWN HALL'S CALENDAR IS TWO CALENDARS, here as in the ics adapter:
-            # Sherwood, OR carried a City Council Meeting and Dormont, PA six
-            # "CLOSED:" rows beside its programme (2026-09-27). Same phrases,
-            # same gate: only a source whose `_found` says it is a town hall's.
-            if nev and is_civic and (CIVIC_TITLE_RX.search(nev.name or "")
-                                     or CIVIC_HOLIDAY_RX.match((nev.name or "").strip())):
-                governance += 1
-                continue
-            if nev and skip_title and skip_title.search(nev.name or ""):
-                title_filtered += 1
-                continue
-            if nev and online_with_no_place(ev, nev.name, nev.description):
-                online += 1
-                continue
-            if nev:
-                events.append(nev)
-        if page >= int(body.get("total_pages") or page):
-            break
+        # A PAGE THIS CANNOT READ ENDS THE SITE, NOT THE PAGES BEFORE IT. Rows
+        # were upserted as they came until 2026-10-23, so a page-2 body that is
+        # a list or JSON null kept page 1, and a page-2 `total_pages` of "3
+        # pages" kept pages 1 and 2 (its rows were in before the int() raised).
+        # Now that the events go back to the caller, an exception that left here
+        # would take every page with it, under the "FAILED" line that reads like
+        # the host was down: the "3 pages" site kept 0 of its 3 rows. Like a 500
+        # or bad JSON, it is the site's answer for the day, not a cut: the
+        # cursor moves past it.
+        try:
+            rows = body.get("events") or []
+            if not rows:
+                break
+            for ev in rows:
+                # Per EVENT, not per page: the page's own try would end the whole
+                # calendar at one unreadable record (see _obj), as main()'s did.
+                # Counted and printed rather than swallowed: a silent skip is how a
+                # shape change eats a source one record at a time.
+                try:
+                    if included is not None:
+                        cats = ev.get("categories")
+                        keys = {str(c[k]).strip().lower()
+                                for c in (cats if isinstance(cats, list) else [])
+                                if isinstance(c, dict) for k in ("id", "slug")
+                                if c.get(k) is not None}
+                        if included.isdisjoint(keys):
+                            excluded += 1
+                            continue
+                    if site.get("free_only"):
+                        title = _clean(ev.get("title")) or ""
+                        description = _clean(ev.get("description")) or ""
+                        facts = normalize_admission_facts(
+                            ev.get("cost"), currency_hint=site.get("currency"),
+                            context=f"{title} {description}")
+                        source_id = str(ev.get("id") or ev.get("global_id") or "")
+                        if (not facts or facts.get("free") is not True) and (
+                                source_id not in refreshable_admission_ids):
+                            admission_excluded += 1
+                            continue
+                    nev = to_event(ev, site)
+                except Exception as exc:                       # noqa: BLE001
+                    if not malformed:
+                        # Not ev.get: a record that is not an object raises there too.
+                        ref = (repr(ev.get("id")) if isinstance(ev, dict)
+                               else f"<{type(ev).__name__}>")
+                        _say(f"[tribe] {site.get('name')}: skipping unreadable record "
+                             f"{ref} ({type(exc).__name__}: {exc})")
+                    malformed += 1
+                    continue
+                # A TOWN HALL'S CALENDAR IS TWO CALENDARS, here as in the ics adapter:
+                # Sherwood, OR carried a City Council Meeting and Dormont, PA six
+                # "CLOSED:" rows beside its programme (2026-09-27). Same phrases,
+                # same gate: only a source whose `_found` says it is a town hall's.
+                if nev and is_civic and (CIVIC_TITLE_RX.search(nev.name or "")
+                                         or CIVIC_HOLIDAY_RX.match((nev.name or "").strip())):
+                    governance += 1
+                    continue
+                if nev and skip_title and skip_title.search(nev.name or ""):
+                    title_filtered += 1
+                    continue
+                if nev and online_with_no_place(ev, nev.name, nev.description):
+                    online += 1
+                    continue
+                if nev:
+                    events.append(nev)
+            if page >= int(body.get("total_pages") or page):
+                break
+        except Exception as exc:                           # noqa: BLE001
+            _say(f"[tribe] {site.get('name')} p{page} unreadable page: "
+                 f"{type(exc).__name__}: {exc}"); break
     _say(f"[tribe] {site.get('name')}: kept {len(events)} events"
          + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
          + (f" ({governance} town-hall row(s) refused)" if governance else "")
@@ -483,6 +512,7 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
             if admission_excluded else "")
          + (f" ({cut})" if cut else "")
          + f" in {time.monotonic() - started:.1f}s")
+    events.cut = cut
     return events
 
 
@@ -583,12 +613,13 @@ def main(argv=None) -> int:
         try:
             return ingest_site(session, site, ids, a.deadline, stop), None, time.monotonic() - t0
         except Exception as exc:                          # noqa: BLE001
-            return [], exc, time.monotonic() - t0
+            return SiteEvents(), exc, time.monotonic() - t0
 
     waiting = list(range(len(sites)))     # not started, in list order
     pending: Dict[cf.Future, int] = {}
     busy: set = set()
     finished = [False] * len(sites)
+    cut_short = 0
     began = time.monotonic()
     last_save = time.time()
     cursor_path = a.cursor if a.deadline else None
@@ -596,10 +627,8 @@ def main(argv=None) -> int:
     def _cursor() -> Optional[str]:
         # The first site, in list order, that has not finished: a site after it
         # that did finish is read again next run, which is cheaper than skipping
-        # one. A site the deadline cut short HAS finished: it starts from page one
-        # whenever it runs, and one too slow ever to finish must not hold the
-        # cursor and starve the tail, as site one did until 2026-09-27. When every
-        # site finished, where this run began, so the next run begins there too.
+        # one. A site the deadline cut short has NOT finished (see below). When
+        # every site finished, where this run began, so the next run begins there.
         return next((sites[i].get("base_url") for i, f in enumerate(finished) if not f),
                     sites[0].get("base_url") if sites else None)
 
@@ -635,6 +664,7 @@ def main(argv=None) -> int:
             for fut in sorted(ready, key=pending.get):
                 i = pending.pop(fut)
                 events, error, secs = fut.result()
+                cut = "" if error is not None else getattr(events, "cut", "")
                 # Written HERE, in the main thread, and before the host is free, so
                 # the next site on it sees these rows (site_admission_ids).
                 try:
@@ -645,7 +675,19 @@ def main(argv=None) -> int:
                     total += len(events)
                 except Exception as exc:                  # noqa: BLE001
                     _say(f"[tribe] {sites[i].get('name','?')} FAILED: {exc} in {secs:.1f}s")
-                finished[i] = True
+                # A SITE THE DEADLINE CUT SHORT IS NOT FINISHED. Its rows are written,
+                # and the cursor stays on it, so the next run starts there and reads
+                # it whole with the step in front of it. Counted as finished, a cut
+                # site never held the cursor; once every site had started before the
+                # deadline it did not move at all, and the same tail lost its later
+                # pages every run (6 sites, 3 workers, 3 runs of 6 s: the same three
+                # stopped "before page 3" each time). The one exception is the site
+                # this run began at: it HAD the whole step, and holding the cursor
+                # for ever would starve the tail, as site one did until 2026-09-27.
+                # Today's slowest is ~7.5 min (Haydon Wick, 15 pages at 30 s).
+                if cut:
+                    cut_short += 1
+                finished[i] = not cut or i == 0
                 busy.discard(hosts[i])
             if time.time() - last_save >= SAVE_EVERY_SECONDS:
                 _save_store(store)
@@ -671,7 +713,8 @@ def main(argv=None) -> int:
     _say(f"[tribe] done: +{total} events from {done} of {len(sites)} sites "
          f"({workers} at once, {(time.monotonic() - began) / 60:.1f} min); "
          f"store now holds {len(store.records)} unique events."
-         + (" (stopped at the step deadline)" if stopped else "")
+         + (" (stopped at the step deadline)" if stopped or cut_short else "")
+         + (f" ({cut_short} site(s) cut short)" if cut_short else "")
          + (" (interrupted)" if interrupted else ""))
     return 130 if interrupted else 0
 
