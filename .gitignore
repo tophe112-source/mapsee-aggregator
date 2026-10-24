@@ -19,6 +19,10 @@ rec_absence_manifest.json
 facility_hours_manifest.json
 geocode_cache.warm.json
 geo_budget.json
+# The sync's Census answers and Spotify artist pages: Actions cache only.
+census_cache.json
+census_cache.json.tmp
+spotify_cache.json
 feeds_events.json
 *.verified.json
 
