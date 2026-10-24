@@ -99,6 +99,26 @@ def main():
     checks.append((S._anchor_all_day("not-a-date", None, *SEATTLE) == ("not-a-date", None),
                    "an unparseable value is left alone, not guessed at"))
 
+    # ---- 7. An end at or before the start is no end (2026-10-23: 33 of 5,880
+    # live rows). berlin.de's JSON-LD ended a 16:30 handball match at 00:00Z
+    # that morning, so it left the map 15.5 h before it began.
+    r = row(name="Füchse Berlin - HSG Wetzlar", category="arts", latitude=BERLIN[0],
+            longitude=BERLIN[1], start_utc="2026-10-25T15:30:00Z", end_utc="2026-10-25T00:00:00Z")
+    checks.append((r["ends_at"] == "2026-10-25T18:30:00Z",
+                   f"an end before the start gives the category's +3 h instead ({r['ends_at']})"))
+    end = S._compute_end("2026-10-24T02:30:00Z", "2026-10-24T02:30:00Z", "community")
+    checks.append((end == "2026-10-24T04:30:00Z",
+                   f"an end AT the start (Town Hall Seattle) gives community's +2 h ({end})"))
+    end = S._compute_end("2026-10-24T20:00:00+02:00", "2026-10-24T18:00:00Z", "music")
+    checks.append((end == "2026-10-24T23:00:00+02:00",
+                   f"...compared as instants, not as text ({end})"))
+    end = S._compute_end("2026-10-24T21:00:00Z", "2026-10-25T02:00:00Z", "party")
+    checks.append((end == "2026-10-25T02:00:00Z",
+                   f"a real overnight end the next day is kept as given ({end})"))
+    end = S._compute_end("2026-10-24T21:00:00", "2026-10-24T09:00:00", "party")
+    checks.append((end == "2026-10-24T09:00:00",
+                   f"a naive pair is passed through as before, not guessed at ({end})"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1
