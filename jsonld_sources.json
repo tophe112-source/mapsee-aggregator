@@ -12745,6 +12745,1846 @@
       "_metro": "Bucharest, Romania",
       "_found": "manual:2026-10-23 Wikidata museums/cultural institutions in Romania -> homepage probe (Modern Events Calendar)",
       "_note": "The open-air Village Museum's own programme: craft fairs (Târgul de Sfântul Dumitru 23-25 Oct), children's exhibitions, folk events. MEC event pages carry Event JSON-LD with the museum and 'Șoseaua Kiseleff, nr. 28-30'; the adapter's MEC rule turns '12:00:00+03:00' into the 09:00 the page prints (checked on targul-de-sfantul-dumitru-6: page 'Time 9:00 - 19:00'). /calendar-evenimente/ is a FullCalendar AJAX view, so the homepage block (13 /events/ links) is the listing. Dry run 2026-10-23: 4 kept of 13 pages (the rest past). skip_title drops the museum-education conference, calls for applications and camp registrations. Venue point: Wikidata Q1956214 (P625). Entry is by museum ticket."
+    },
+    {
+      "name": "Kleines Theater Schillerstraße",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://kleines-theater-schillerstrasse.de/programm"
+      ],
+      "link_pattern": "https://kleines\\-theater\\-schillerstrasse\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kleines Theater Schillerstraße",
+        "lat": 53.4331973,
+        "lon": 10.3724819
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "KulturKlinker Barmbek",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://kulturklinker-barmbek.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://kulturklinker\\-barmbek\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "KulturKlinker Barmbek",
+        "address": "28A Lorichsstraße",
+        "postal_code": "22307",
+        "lat": 53.6024232,
+        "lon": 10.0440351
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Gruenspan",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.gruenspan.de/programm/"
+      ],
+      "link_pattern": "https://www\\.gruenspan\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gruenspan",
+        "lat": 53.5618528,
+        "lon": 9.9721898
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Grüner Jäger",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.gruener-jaeger-stpauli.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Grüner Jäger",
+        "address": "36 Neuer Pferdemarkt",
+        "city": "Hamburg",
+        "postal_code": "20359",
+        "country": "DE",
+        "lat": 53.5567097,
+        "lon": 9.9636777
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Fabrik",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://fabrik.de/programm"
+      ],
+      "link_pattern": "https://fabrik\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fabrik",
+        "address": "36 Barnerstraße",
+        "city": "Hamburg",
+        "postal_code": "22765",
+        "country": "DE",
+        "lat": 53.5567278,
+        "lon": 9.9292071
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Halle 7",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://feverup.com/m/273926"
+      ],
+      "link_pattern": "https://feverup\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Halle 7",
+        "address": "26 Waidmannstraße",
+        "city": "Hamburg",
+        "postal_code": "22769",
+        "lat": 53.569298,
+        "lon": 9.9387698
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Pfingstgemeinde Hamburg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.pg-hamburg.de/events-der-woche/"
+      ],
+      "link_pattern": "https://www\\.pg\\-hamburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pfingstgemeinde Hamburg",
+        "address": "30 Eimsbütteler Straße",
+        "city": "Hamburg",
+        "postal_code": "22769",
+        "country": "DE",
+        "lat": 53.5656352,
+        "lon": 9.956234
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hamburg-eppendorf.nak-nordost.de/db/618146/Termine/60-Senioren-Gottesdienst-fuer-den-Bezirk-HH-Nord"
+      ],
+      "link_pattern": "https://hamburg\\-eppendorf\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "17 Curschmannstraße",
+        "lat": 53.5859598,
+        "lon": 9.9787165
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Christuskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.kirchengemeinde-eidelstedt.de/termine/1474258-makeover-fur-den-jugendraum"
+      ],
+      "link_pattern": "https://www\\.kirchengemeinde\\-eidelstedt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Christuskirche",
+        "address": "22 Halstenbeker Weg",
+        "city": "Hamburg",
+        "postal_code": "22523",
+        "country": "DE",
+        "lat": 53.6149134,
+        "lon": 9.8904232
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hamburg-lurup.nak-nordost.de/db/637871/Termine/Laternenfest"
+      ],
+      "link_pattern": "https://hamburg\\-lurup\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "238 Rugenbarg",
+        "city": "Hamburg",
+        "postal_code": "22549",
+        "country": "DE",
+        "lat": 53.5858153,
+        "lon": 9.8701115
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Burg Seevetal",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.burg-seevetal.de/portal/veranstaltungen/shrek-the-musical-13679-10.html"
+      ],
+      "link_pattern": "https://www\\.burg\\-seevetal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Burg Seevetal",
+        "lat": 53.3868858,
+        "lon": 9.9799922
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hamburg-barmbek.nak-nordost.de/db/612743/Termine/Unterrichtssonntag"
+      ],
+      "link_pattern": "https://hamburg\\-barmbek\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "2 Schwalbenstraße",
+        "city": "Hamburg",
+        "postal_code": "22305",
+        "country": "DE",
+        "lat": 53.5888729,
+        "lon": 10.0471898
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Buchholz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://nordheide.nak-nordost.de/db/629132/Termine/Gottesdienst-fuer-die-Gemeinden"
+      ],
+      "link_pattern": "https://nordheide\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Buchholz",
+        "address": "1 Mittelstraße",
+        "city": "Buchholz in der Nordheide",
+        "postal_code": "21244",
+        "country": "DE",
+        "lat": 53.3357704,
+        "lon": 9.8785506
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Theater Zeppelin",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://hoheluftschiff.de/stueck/der-besuch/"
+      ],
+      "link_pattern": "https://hoheluftschiff\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Theater Zeppelin",
+        "address": "27 Kaiser-Friedrich-Ufer",
+        "city": "Hamburg",
+        "postal_code": "20253",
+        "lat": 53.5776234,
+        "lon": 9.9741707
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Segelclub Vierlande SC4",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.sc4.de/termine/"
+      ],
+      "link_pattern": "https://www\\.sc4\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Segelclub Vierlande SC4",
+        "address": "228 Ochsenwerder Elbdeich",
+        "city": "Hamburg",
+        "postal_code": "21037",
+        "lat": 53.4476837,
+        "lon": 10.1047715
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Forum Baltikum-Dittchenbühne e.V.",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.dittchenbuehne.de/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Forum Baltikum-Dittchenbühne e.V.",
+        "address": "50 Hermann-Sudermann-Allee",
+        "city": "Elmshorn",
+        "postal_code": "25335",
+        "lat": 53.7688285,
+        "lon": 9.6815278
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Museum Altes Land",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.jork.de/regional/veranstaltungen/generationen-und-technik-treffpunkt-fahrradwerkstatt-am-schulzentrum-904012109-20380.html"
+      ],
+      "link_pattern": "https://www\\.jork\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Altes Land",
+        "address": "49 Westerjork",
+        "city": "Jork",
+        "postal_code": "21635",
+        "country": "DE",
+        "lat": 53.5343972,
+        "lon": 9.6721416
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Schützenverein Rönneburg und Umgegend von 1897 e. V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "http://www.schuetzenverein-roenneburg.de/veranstaltungen/2930692/2026/10/31/schnitzeljagd.html"
+      ],
+      "link_pattern": "https://www\\.schuetzenverein\\-roenneburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schützenverein Rönneburg und Umgegend von 1897 e. V.",
+        "address": "15 Küstersweg",
+        "city": "Hamburg",
+        "postal_code": "21079",
+        "lat": 53.4366846,
+        "lon": 10.0039507
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Metropolis",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://metropolis-koeln.de/programm"
+      ],
+      "link_pattern": "https://metropolis\\-koeln\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Metropolis",
+        "address": "19 Ebertplatz",
+        "city": "Köln",
+        "postal_code": "50668",
+        "country": "DE",
+        "lat": 50.9510833,
+        "lon": 6.9582126
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Zoom Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.zoomkino.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.zoomkino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zoom Kino",
+        "postal_code": "50321",
+        "lat": 50.8272151,
+        "lon": 6.9052211
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Off Broadway",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.off-broadway.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.off\\-broadway\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Off Broadway",
+        "address": "24 Zülpicher Straße",
+        "city": "Köln",
+        "postal_code": "50674",
+        "country": "DE",
+        "lat": 50.9296765,
+        "lon": 6.9378969
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Orangerie",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.orangerie-theater.de/programm/ich/"
+      ],
+      "link_pattern": "https://www\\.orangerie\\-theater\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Orangerie",
+        "address": "25 Volksgartenstraße",
+        "lat": 50.9213464,
+        "lon": 6.9494241
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "WOKI",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.woki.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.woki\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "WOKI",
+        "address": "1-7 Bertha-von-Suttner-Platz",
+        "city": "Bonn",
+        "postal_code": "53111",
+        "lat": 50.7377213,
+        "lon": 7.1016984
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Scala Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.scala-cinema-lev.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.scala\\-cinema\\-lev\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Scala Cinema",
+        "address": "9 Uhlandstraße",
+        "city": "Leverkusen",
+        "postal_code": "51379",
+        "lat": 51.062926,
+        "lon": 7.004729
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Essigfabrik",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://essig-fabrik.de/programm/"
+      ],
+      "link_pattern": "https://essig\\-fabrik\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Essigfabrik",
+        "address": "110 Siegburger Straße",
+        "city": "Köln",
+        "postal_code": "50679",
+        "country": "DE",
+        "lat": 50.9247115,
+        "lon": 6.9780785
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Club Bahnhof Ehrenfeld",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.clubbahnhofehrenfeld.de/events"
+      ],
+      "link_pattern": "https://www\\.clubbahnhofehrenfeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Club Bahnhof Ehrenfeld",
+        "address": "65-67 Bartholomäus-Schink-Straße",
+        "city": "Köln",
+        "postal_code": "50825",
+        "country": "DE",
+        "lat": 50.9516879,
+        "lon": 6.915989
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Mehr Demokratie",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event",
+      "listing": [
+        "https://nrw.mehr-demokratie.de/service-beratung/termine/einzelansicht-termine/sprechen-zuhoeren-heimat-7807"
+      ],
+      "link_pattern": "https://nrw\\.mehr\\-demokratie\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mehr Demokratie",
+        "lat": 50.8843198,
+        "lon": 7.0546491
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "manulit",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.manulit.de/Veranstaltungen"
+      ],
+      "link_pattern": "https://www\\.manulit\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "manulit",
+        "address": "37 Limburger Straße",
+        "city": "Köln",
+        "postal_code": "50672",
+        "lat": 50.9401893,
+        "lon": 6.9382134
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "NightWash Club",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://nightwash-club.de/events/"
+      ],
+      "link_pattern": "https://nightwash\\-club\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "NightWash Club",
+        "address": "25 Hohenstaufenring",
+        "city": "Köln",
+        "postal_code": "50674",
+        "lat": 50.9312659,
+        "lon": 6.9403575
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Schwimmverein Langenfeld 1912 e.V.",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.sv-langenfeld.de/events/"
+      ],
+      "link_pattern": "https://www\\.sv\\-langenfeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schwimmverein Langenfeld 1912 e.V.",
+        "lat": 51.1154817,
+        "lon": 6.9410102
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "handtverlesen",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.handtverlesen.de/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/details-registrierung/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "handtverlesen",
+        "address": "93 Rochusstraße",
+        "city": "Köln",
+        "postal_code": "50827",
+        "lat": 50.9605496,
+        "lon": 6.9021947
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Brunosaal",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://brunosaal.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://brunosaal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brunosaal",
+        "address": "65 Klettenberggürtel",
+        "city": "Köln",
+        "postal_code": "50939",
+        "lat": 50.9113553,
+        "lon": 6.9250474
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Urania im Spiegelpalast",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://urania-spiegelpalast.koeln/spielplan"
+      ],
+      "link_pattern": "https://urania\\-spiegelpalast\\.koeln/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Urania im Spiegelpalast",
+        "address": "173 Riehler Straße",
+        "city": "Köln",
+        "postal_code": "50735",
+        "lat": 50.958028,
+        "lon": 6.971952
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Capitol Kinocenter",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.capitol-siegburg.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.capitol\\-siegburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capitol Kinocenter",
+        "address": "20 Augustastraße",
+        "city": "Siegburg",
+        "postal_code": "53721",
+        "country": "DE",
+        "lat": 50.8029122,
+        "lon": 7.2008025
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Wildpark im Tannenbusch",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://www.sdw-dormagen.de/veranstaltungen/2846057/2026/11/05/gute-laune-bewegungen-im-wald-block-5.html"
+      ],
+      "link_pattern": "https://www\\.sdw\\-dormagen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wildpark im Tannenbusch",
+        "address": "Im Tannenbusch",
+        "city": "Dormagen",
+        "postal_code": "41540",
+        "country": "DE",
+        "lat": 51.0805657,
+        "lon": 6.7889066
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Matthäus-Gemeindehaus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wp-event-manager+modern-events+jsonld-event",
+      "listing": [
+        "https://www.kirche-leverkusen-mitte.de/veranstaltungen/aktuelle-veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.kirche\\-leverkusen\\-mitte\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Matthäus-Gemeindehaus",
+        "address": "2 Karl-Bosch-Straße",
+        "city": "Leverkusen",
+        "postal_code": "51373",
+        "lat": 51.0307188,
+        "lon": 7.001416
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kinder- und Jugendmuseum EnergieStadt",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://naturgut-ophoven.de/kurse-buchen/veranstaltungsprogramm/"
+      ],
+      "link_pattern": "https://naturgut\\-ophoven\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kinder- und Jugendmuseum EnergieStadt",
+        "address": "4 Talstraße",
+        "postal_code": "51379",
+        "lat": 51.0700576,
+        "lon": 7.0139082
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "TTC Rot-Gold Köln e.V.",
+      "category": "fitness",
+      "_found": "osm:dance -> wix",
+      "listing": [
+        "https://www.ttcrotgoldkoeln.de/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "TTC Rot-Gold Köln e.V.",
+        "address": "1031 Venloer Straße",
+        "city": "Köln",
+        "postal_code": "50829",
+        "country": "DE",
+        "lat": 50.9664052,
+        "lon": 6.8803551
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Rex am Ring",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://rex-koeln.de/programm"
+      ],
+      "link_pattern": "https://rex\\-koeln\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rex am Ring",
+        "address": "60 Hohenzollernring",
+        "city": "Köln",
+        "postal_code": "50672",
+        "country": "DE",
+        "lat": 50.9400436,
+        "lon": 6.9402188
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "St. Martinus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.st-michael-dormagen.de/aktuelles/veranstaltungen/detail/Gottes-Zeit-ist-die-allerbeste-Zeit-2026.11.01/"
+      ],
+      "link_pattern": "https://www\\.st\\-michael\\-dormagen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Martinus",
+        "city": "Dormagen",
+        "postal_code": "41541",
+        "country": "DE",
+        "lat": 51.1208264,
+        "lon": 6.8492282
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Weisshaus Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.weisshaus-kino.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.weisshaus\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Weisshaus Kino",
+        "address": "255 Luxemburger Straße",
+        "city": "Köln",
+        "postal_code": "50939",
+        "country": "DE",
+        "lat": 50.9168011,
+        "lon": 6.9291313
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Solinger Leichtathletik-Club 1951 e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.solinger-lc.de/kalender.html"
+      ],
+      "link_pattern": "https://www\\.solinger\\-lc\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Solinger Leichtathletik-Club 1951 e.V.",
+        "address": "19 Steinberg",
+        "city": "Solingen",
+        "postal_code": "42659",
+        "country": "DE",
+        "lat": 51.1598168,
+        "lon": 7.1184211
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Johann-Dahmen-Sportanlage Holzheim",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events",
+      "listing": [
+        "https://www.sg-holzheim.de/kanu/"
+      ],
+      "link_pattern": "https://www\\.sg\\-holzheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Johann-Dahmen-Sportanlage Holzheim",
+        "address": "30 Reuschenberger Straße",
+        "city": "Neuss",
+        "postal_code": "41472",
+        "country": "DE",
+        "lat": 51.1579492,
+        "lon": 6.674677
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "DİTİB Osman Gazi Moschee",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.ditib-monheim.de/events/"
+      ],
+      "link_pattern": "https://www\\.ditib\\-monheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "DİTİB Osman Gazi Moschee",
+        "address": "52 Niederstraße",
+        "city": "Monheim am Rhein",
+        "postal_code": "40789",
+        "country": "DE",
+        "lat": 51.0993873,
+        "lon": 6.8928734
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Sankt Mariä Geburt",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event+ics",
+      "listing": [
+        "https://www.katholische-kirche-lohmar.de/m-event-2/Infoabend-Firmkurs-2027-2026.11.24/?instancedate=1795541400000"
+      ],
+      "link_pattern": "https://www\\.katholische\\-kirche\\-lohmar\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sankt Mariä Geburt",
+        "lat": 50.8352936,
+        "lon": 7.2764444
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "St. Hubertus-Schützenbruderschaft Sinnersdorf e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.schuetzen-sinnersdorf.de/veranstaltungen/2852642/2027/03/06/bezirkssch%C3%BCtzentag-2027.html"
+      ],
+      "link_pattern": "https://www\\.schuetzen\\-sinnersdorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Hubertus-Schützenbruderschaft Sinnersdorf e.V.",
+        "address": "4 Willi-Schumacher-Weg",
+        "city": "Pulheim",
+        "postal_code": "50259",
+        "country": "DE",
+        "lat": 51.0243493,
+        "lon": 6.8105188
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Live Music Hall",
+      "category": "music",
+      "_found": "osm:music_venue -> wix",
+      "listing": [
+        "https://www.livemusichall.de/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Live Music Hall",
+        "address": "30 Lichtstraße",
+        "city": "Köln",
+        "postal_code": "50825",
+        "country": "DE",
+        "lat": 50.9493411,
+        "lon": 6.9094587
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Alte Schlossfabrik",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://alteschlossfabrik.de/public-events/"
+      ],
+      "link_pattern": "https://alteschlossfabrik\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Alte Schlossfabrik",
+        "address": "Burgtal",
+        "city": "Solingen",
+        "postal_code": "42659",
+        "country": "DE",
+        "lat": 51.1464197,
+        "lon": 7.1558003
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Clarenbachkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://clarenbachgemeinde.de/wer-macht-mit-beim-lebendigen-adventskalender-in-braunsfeld-muengersdorf/"
+      ],
+      "link_pattern": "https://clarenbachgemeinde\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Clarenbachkirche",
+        "lat": 50.937877,
+        "lon": 6.894322
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Heilig Kreuz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.katholisch-bergheim.de/aktuelles/veranstaltungen/detail/Orgel-2026.10.24/?instancedate=1792850400000"
+      ],
+      "link_pattern": "https://www\\.katholisch\\-bergheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heilig Kreuz",
+        "address": "21 Fischbachstraße",
+        "city": "Bergheim",
+        "postal_code": "50127",
+        "country": "DE",
+        "lat": 50.9349241,
+        "lon": 6.6984354
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Sankt Engelbert",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.sankt-engelbert-und-sankt-bonifatius.de/aktuelles/veranstaltungen/detail/Kindermesse/?instancedate=1794731400000"
+      ],
+      "link_pattern": "https://www\\.sankt\\-engelbert\\-und\\-sankt\\-bonifatius\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sankt Engelbert",
+        "address": "30 Riehler Gürtel",
+        "city": "Köln",
+        "postal_code": "50735",
+        "country": "DE",
+        "lat": 50.9655607,
+        "lon": 6.9744573
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Médiathèque Alfred Jarry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.mediathequealfredjarry.fr/agenda/animations-a-venir"
+      ],
+      "link_pattern": "https://www\\.mediathequealfredjarry\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Médiathèque Alfred Jarry",
+        "lat": 48.1537267,
+        "lon": -1.5804689
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Exploratoire",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.exploratoire.com/programmation"
+      ],
+      "link_pattern": "https://www\\.exploratoire\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Exploratoire",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.1049724,
+        "lon": -1.6772296,
+        "street_hint": "2 Cours des Alliés"
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Beaches Sandbox",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://beachessandbox.com/event/2026/10/24/1792852200/xpress-lift/577037"
+      ],
+      "link_pattern": "https://beachessandbox\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Beaches Sandbox",
+        "city": "Toronto",
+        "region": "ON",
+        "postal_code": "M4E 1E5",
+        "lat": 43.6704588,
+        "lon": -79.2974357,
+        "street_hint": "2181 Queen Street East"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Lem Si Ho Tong",
+      "category": "community",
+      "_found": "osm:social_centre -> wix",
+      "listing": [
+        "https://www.lshttoronto.ca/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lem Si Ho Tong",
+        "lat": 43.6554418,
+        "lon": -79.3843827,
+        "street_hint": "121 Dundas Street West"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bibliothèque Hélène-Charbonneau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/les-jeux-video-du-dimanche-116963"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Hélène-Charbonneau",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.553483,
+        "lon": -73.6626049,
+        "street_hint": "10300 Rue Lajeunesse"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Saint-Charles",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/eveil-musical-3-4-ans-119197"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Saint-Charles",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.4791571,
+        "lon": -73.5635716,
+        "street_hint": "1050 Rue d'Hibernia"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Parc-Extension",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bingo-116007"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Parc-Extension",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3N 1K2",
+        "lat": 45.5314163,
+        "lon": -73.6289844,
+        "street_hint": "421 Rue Saint-Roch"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Badminton Québec",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.badmintonquebec.com/training-calendar"
+      ],
+      "link_pattern": "https://www\\.badmintonquebec\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Badminton Québec",
+        "city": "Montréal",
+        "postal_code": "H1V 1E7",
+        "lat": 45.5612883,
+        "lon": -73.5422806,
+        "street_hint": "4930 Rue Hochelaga"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre des Loisirs de Saint-Laurent",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/corps-et-vins-maison-verso-118442"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre des Loisirs de Saint-Laurent",
+        "region": "QC",
+        "postal_code": "H4L 5K3",
+        "lat": 45.5141591,
+        "lon": -73.6908893,
+        "street_hint": "1375 Rue Grenet"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Notre-Dame-de-Grâce",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/apres-midi-cinema-120296"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Notre-Dame-de-Grâce",
+        "lat": 45.4755031,
+        "lon": -73.6143992,
+        "street_hint": "3755 Botrel"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Roxboro",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/yoga-sur-chaise-117355"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Roxboro",
+        "city": "Montréal",
+        "postal_code": "H8Y 1G8",
+        "lat": 45.5026224,
+        "lon": -73.8145453,
+        "street_hint": "110 Rue Cartier"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Père-Ambroise",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/voiture-air-6-10-ans-114660"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Père-Ambroise",
+        "city": "Montréal",
+        "postal_code": "H2L 3C9",
+        "lat": 45.5227932,
+        "lon": -73.5626849,
+        "street_hint": "2093 Rue de la Visitation"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Frontenac",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-3-6-ans-115316"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Frontenac",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2K 1W7",
+        "lat": 45.5329177,
+        "lon": -73.5517134,
+        "street_hint": "2550 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Michel",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118777"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Michel",
+        "city": "Montréal",
+        "postal_code": "H2A 3L6",
+        "lat": 45.5621974,
+        "lon": -73.6020202,
+        "street_hint": "7601 Rue François-Perrault"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Charleroi",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/parlons-francais-118588"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Charleroi",
+        "city": "Montréal",
+        "postal_code": "H1H 1V2",
+        "lat": 45.5965067,
+        "lon": -73.6315415,
+        "street_hint": "4740 Rue De Charleroi"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jean-Corbeil",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/rencontre-litteraire-avec-kim-thuy-le-succes-de-mes-echecs-119292"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jean-Corbeil",
+        "city": "Montréal",
+        "postal_code": "H1K 3X9",
+        "lat": 45.6030237,
+        "lon": -73.5587928,
+        "street_hint": "7500 Avenue Goncourt"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Cartierville",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-du-dimanche-116937"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Cartierville",
+        "city": "Montréal",
+        "postal_code": "H4J 2N7",
+        "lat": 45.5301968,
+        "lon": -73.7159741,
+        "street_hint": "12225 Rue Grenet"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque De Salaberry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-decouvre-116798"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque De Salaberry",
+        "city": "Montréal",
+        "postal_code": "H4J 1H1",
+        "lat": 45.5346141,
+        "lon": -73.7038342,
+        "street_hint": "4170 Rue De Salaberry"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Henri",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ateliers-decriture-116094"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Henri",
+        "city": "Montréal",
+        "postal_code": "H4C 1S9",
+        "lat": 45.4726461,
+        "lon": -73.5891097,
+        "street_hint": "4707 Rue Notre-Dame Ouest"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Réjean-Ducharme",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/didi-raconte-115420"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Réjean-Ducharme",
+        "city": "Montréal",
+        "postal_code": "H3J 1L8",
+        "lat": 45.4836019,
+        "lon": -73.5750672,
+        "street_hint": "2450 Rue Workman"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marie-Uguay",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-contes-116081"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marie-Uguay",
+        "city": "Montréal",
+        "postal_code": "H4E 3E6",
+        "lat": 45.4576905,
+        "lon": -73.5954481,
+        "street_hint": "6052 Boulevard Monk"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de La Petite-Patrie",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/zoolecture-118402"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de La Petite-Patrie",
+        "city": "Montréal",
+        "postal_code": "H2G 2P8",
+        "lat": 45.5474061,
+        "lon": -73.5982926,
+        "street_hint": "6707 Avenue De Lorimier"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Langelier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/collimage-dhalloween-116756"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Langelier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1N 1C5",
+        "lat": 45.5816816,
+        "lon": -73.544147,
+        "street_hint": "6473 Rue Sherbrooke Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Mercier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ma-recette-mon-recit-115865"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Mercier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955039,
+        "lon": -73.5236768,
+        "street_hint": "8105 Rue Hochelaga"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Serge-Bouchard",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cours-dechecs-115719"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Serge-Bouchard",
+        "city": "Montréal",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6680518,
+        "lon": -73.494856,
+        "street_hint": "14 001 Rue Notre-Dame Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rivière-des-Prairies",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lombre-du-monstre-115648"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rivière-des-Prairies",
+        "city": "Montréal",
+        "postal_code": "H1E 3J7",
+        "lat": 45.6499172,
+        "lon": -73.5790735,
+        "street_hint": "9001 Boulevard Perras"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Benny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/3d-mania-115452"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Benny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4B 1H3",
+        "lat": 45.4663823,
+        "lon": -73.6309558,
+        "street_hint": "6400 Avenue de Monkland"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Éliane-Labastrou",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lamour-10-sous-120947"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Éliane-Labastrou",
+        "lat": 45.4886567,
+        "lon": -73.8823134
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Le Prevost",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-lego-118758"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Le Prevost",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2R 2S5",
+        "lat": 45.5438649,
+        "lon": -73.6145722,
+        "street_hint": "7355 Avenue Christophe-Colomb"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Julio-Jean-Pierre",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cordes-ludotek-art-109144"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Julio-Jean-Pierre",
+        "city": "Montréal",
+        "postal_code": "H1G 3W1",
+        "lat": 45.616093,
+        "lon": -73.6206211,
+        "street_hint": "12002 Boulevard Rolland"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Pierrefonds",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/chante-lis-et-cree-116556"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Pierrefonds",
+        "city": "Pierrefonds",
+        "postal_code": "H9A 1A6",
+        "lat": 45.4960289,
+        "lon": -73.8475197,
+        "street_hint": "13555 Boulevard de Pierrefonds",
+        "aliases": [
+          "Pierrefonds Public Library"
+        ]
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Interculturelle",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebes-contes-118717"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Interculturelle",
+        "lat": 45.5032164,
+        "lon": -73.636872
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque L’Octogone",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-117698"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque L’Octogone",
+        "city": "Montréal",
+        "lat": 45.4242983,
+        "lon": -73.6235267,
+        "street_hint": "1080 Avenue Dollard"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rosemont",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cine-club-118069"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rosemont",
+        "city": "Montréal",
+        "postal_code": "H1Y 1M4",
+        "lat": 45.5519275,
+        "lon": -73.582342,
+        "street_hint": "3131 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Côte-des-Neiges",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/hatha-yoga-pour-adultes-117227"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Côte-des-Neiges",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1Y2",
+        "lat": 45.4959105,
+        "lon": -73.6222404,
+        "street_hint": "5290 Chemin de la Côte-des-Neiges"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Robert-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/depannage-informatique-116855"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Robert-Bourassa",
+        "city": "Outremont",
+        "region": "QC",
+        "lat": 45.5178839,
+        "lon": -73.6084316,
+        "street_hint": "41 Avenue Saint-Just"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Mordecai-Richler",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cine-partage-sante-mentale-114438"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Mordecai-Richler",
+        "postal_code": "H2V 4G7",
+        "lat": 45.5216337,
+        "lon": -73.6017018,
+        "street_hint": "5434 Avenue du Parc"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Henri-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/petits-monstres-4-7-ans-119616"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Henri-Bourassa",
+        "city": "Montréal",
+        "lat": 45.6046301,
+        "lon": -73.6250091,
+        "street_hint": "5400 Boulevard Henri-Bourassa"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Boisé",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lis-avec-poilu-119647"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Boisé",
+        "city": "Montréal",
+        "postal_code": "H4R 1T4",
+        "lat": 45.5042664,
+        "lon": -73.7050752,
+        "street_hint": "2727 Boulevard Thimens"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marc-Favreau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ruche-dart-yelema-118671"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marc-Favreau",
+        "city": "Montréal",
+        "postal_code": "H2S 0C4",
+        "lat": 45.5318321,
+        "lon": -73.5971276,
+        "street_hint": "500 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Vieux-Saint-Laurent",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/creation-textile-120269"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Vieux-Saint-Laurent",
+        "city": "Montréal",
+        "region": "Quebec",
+        "postal_code": "H4L 2H2",
+        "lat": 45.5126504,
+        "lon": -73.6764136,
+        "street_hint": "1380 Rue de l'Église"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre communautaire Painter",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/halloween-au-parc-painter-121140"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre communautaire Painter",
+        "lat": 45.5292215,
+        "lon": -73.6759656
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jacqueline-de-Repentigny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/initiation-au-iphone-116408"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jacqueline-de-Repentigny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4H 1H6",
+        "lat": 45.448547,
+        "lon": -73.5778979,
+        "street_hint": "5955 Rue Bannantyne"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Claude-Léveillée",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/double-faute-nacho-con-salsa-116468"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Claude-Léveillée",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5416425,
+        "lon": -73.6134293,
+        "street_hint": "911 Rue Jean-Talon Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque d'Hochelaga",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/completement-switch-6-12-ans-117330"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque d'Hochelaga",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1W 2Y6",
+        "lat": 45.5423301,
+        "lon": -73.5455697,
+        "street_hint": "1870 Rue Davidson"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Maisonneuve",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-code-116900"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Maisonneuve",
+        "city": "Montréal",
+        "postal_code": "H1V 1J9",
+        "lat": 45.5506235,
+        "lon": -73.5405648,
+        "street_hint": "4120 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
     }
   ],
   "_not_included": {

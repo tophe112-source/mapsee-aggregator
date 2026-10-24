@@ -3004,6 +3004,37 @@
       "_metro": "Charlotte, United States",
       "_found": "manual:2026-10-23 running specialty-store sweep -> charlotterunning.com, server: Squarespace, /events is an events collection",
       "_note": "Measured 2026-10-23: 41 upcoming of 71 articles. The venue block deliberately carries NO address or point, only the city: Squarespace glues street and city together and the adapter splits a map link only when it ends in the config's city, so the 17 Charlotte rows keep their own street (Monday Night Run Club and The Sole Run Club at 1412 East Boulevard, The Track Project at 5535 Ballantyne Commons Parkway) and the 24 at the Mooresville, Fort Mill, Rock Hill and Troutman stores are skipped as unplaceable instead of being pinned to a Charlotte shop. Dry run: kept 17 of 41."
+    },
+    {
+      "name": "Box-Gym S.C. Colonia 06 e.V.",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.sc-colonia06.de/termine",
+      "max_events": 200,
+      "venue": {
+        "name": "Box-Gym S.C. Colonia 06 e.V.",
+        "lat": 50.9351537,
+        "lon": 6.874243
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kensington Legion",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.kensingtonlegion.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kensington Legion",
+        "postal_code": "T2N 3R5",
+        "lat": 51.0527865,
+        "lon": -114.1045694,
+        "street_hint": "1918 Kensington Road NW",
+        "aliases": [
+          "Royal Canadian Legion Number 264"
+        ]
+      },
+      "_metro": "Calgary, Canada"
     }
   ],
   "_not_included": {

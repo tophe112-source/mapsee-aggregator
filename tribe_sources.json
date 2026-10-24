@@ -23296,6 +23296,1010 @@
       "_metro": "Jasło, Poland",
       "_found": "manual:2026-10-23 Wikidata (Q64700499) -> homepage probe -> The Events Calendar REST",
       "_note": "The town's culture house and its Kino Syrena (same building). REST: 15 upcoming, none with a venue; block address and point from Wikidata Q64700499. A blood-donation drive, jam session, kids' jazz singalong, Saturday family mornings ('Sobota na Kołłątaja 1'), cabaret and touring concerts. Dry run 2026-10-23: 14 kept and placed."
+    },
+    {
+      "name": "WSV Overfreunde Hamburg e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.overfreunde.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "WSV Overfreunde Hamburg e.V.",
+        "lat": 53.5853654,
+        "lon": 9.9911629
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Der Kinderschutzbund, Kreisverband Stormarn e.V. - Geschäftsstelle",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://dksb-stormarn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Der Kinderschutzbund, Kreisverband Stormarn e.V. - Geschäftsstelle",
+        "address": "25 Rathausplatz",
+        "city": "Ahrensburg",
+        "postal_code": "22926",
+        "country": "DE",
+        "lat": 53.6732553,
+        "lon": 10.2374983
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Circle Club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://circle-hamburg.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Circle Club",
+        "lat": 53.5825283,
+        "lon": 10.0102652
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Kirche Bargteheide",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://indekark.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kirche Bargteheide",
+        "lat": 53.7281474,
+        "lon": 10.2564597
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Johann-Gerhard-Oncken-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.oncken-gemeinde.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Johann-Gerhard-Oncken-Kirche",
+        "address": "99-101 Grindelallee",
+        "postal_code": "20146",
+        "lat": 53.5685033,
+        "lon": 9.9795596
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "RC Protesia von 1907 e. V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://rc-protesia.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RC Protesia von 1907 e. V.",
+        "address": "79 Osterbekstraße",
+        "lat": 53.5821368,
+        "lon": 10.0215884
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Heilig Kreuz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://heilig-kreuz-volksdorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heilig Kreuz",
+        "address": "181 Farmsener Landstraße",
+        "city": "Hamburg",
+        "postal_code": "22359",
+        "lat": 53.6504624,
+        "lon": 10.1605995
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "TSC Casino Oberalster",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://tsc-casino-oberalster.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TSC Casino Oberalster",
+        "address": "2 Duvenstedter Markt",
+        "city": "Hamburg",
+        "postal_code": "22397",
+        "country": "DE",
+        "lat": 53.7045556,
+        "lon": 10.1056352
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Dietrich-Bonhoeffer-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://altbarmbek-dulsberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dietrich-Bonhoeffer-Kirche",
+        "address": "26 Dulsberg-Süd",
+        "lat": 53.5859371,
+        "lon": 10.0730584
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Stadtteilarchiv Ottensen e.V.",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://stadtteilarchiv-ottensen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtteilarchiv Ottensen e.V.",
+        "address": "28 Zeißstraße",
+        "city": "Hamburg",
+        "postal_code": "22765",
+        "country": "DE",
+        "lat": 53.5551413,
+        "lon": 9.9297315
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Julius Köbner Kapelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://efg-hamburg-hamm.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Julius Köbner Kapelle",
+        "address": "77 Sievekingsallee",
+        "city": "Hamburg",
+        "postal_code": "20535",
+        "lat": 53.5609571,
+        "lon": 10.0591965
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Christliche Wissenschaft K.d.ö.R. Vierte Kirche Christi",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://christliche-wissenschaft.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christliche Wissenschaft K.d.ö.R. Vierte Kirche Christi",
+        "address": "40 Brauhausstraße",
+        "city": "Hamburg",
+        "postal_code": "22041",
+        "country": "DE",
+        "lat": 53.5728918,
+        "lon": 10.0597529
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Ruderclub Allemannia",
+      "category": "community",
+      "_found": "osm:marina -> tribe+jsonld-event+ics",
+      "base_url": "https://rc-allemannia.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruderclub Allemannia",
+        "lat": 53.5594679,
+        "lon": 10.0072332
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Otto-von-Bismarck-Stiftung",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bismarck-stiftung.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Otto-von-Bismarck-Stiftung",
+        "address": "2 Am Bahnhof",
+        "city": "Friedrichsruh",
+        "postal_code": "21521",
+        "country": "DE",
+        "lat": 53.5280426,
+        "lon": 10.3411137
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Wassermühle Karoxbostel",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.wassermuehle-karoxbostel.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wassermühle Karoxbostel",
+        "address": "51 Karoxbosteler Chaussee",
+        "city": "Seevetal",
+        "postal_code": "21218",
+        "lat": 53.3944783,
+        "lon": 10.0066072
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Elmshorner Ruder-Club von 1909 e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.erc09.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Elmshorner Ruder-Club von 1909 e.V.",
+        "address": "30 Wisch",
+        "city": "Elmshorn",
+        "postal_code": "25336",
+        "lat": 53.7498164,
+        "lon": 9.6360248
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "St. Michael",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://st-michael-stelle.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Michael",
+        "city": "Stelle",
+        "postal_code": "21435",
+        "country": "DE",
+        "lat": 53.3805836,
+        "lon": 10.1122936
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Lawn-Tennis-Club Elmshorn e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ltc-elmshorn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lawn-Tennis-Club Elmshorn e.V.",
+        "lat": 53.7636145,
+        "lon": 9.6730528
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Der Hamburger und Germania Ruder Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://der-club.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Der Hamburger und Germania Ruder Club",
+        "address": "21 Alsterufer",
+        "city": "Hamburg",
+        "postal_code": "20354",
+        "lat": 53.560811,
+        "lon": 9.9973877
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Theaterschiff",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theaterschiff.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theaterschiff",
+        "lat": 53.5466763,
+        "lon": 9.9899446
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Frei:kirche Stelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://frei-kirche.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Frei:kirche Stelle",
+        "address": "11 Harburger Straße",
+        "city": "Stelle",
+        "postal_code": "21435",
+        "country": "DE",
+        "lat": 53.3853545,
+        "lon": 10.1080183
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Osterkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kirche-kummerfeld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Osterkirche",
+        "address": "2 Langenbargen",
+        "city": "Kummerfeld",
+        "postal_code": "25495",
+        "lat": 53.6940269,
+        "lon": 9.7941581
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Hamburger Hospiz im Helenenstift",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hamburger-hospiz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hamburger Hospiz im Helenenstift",
+        "address": "12 Helenenstraße",
+        "city": "Hamburg",
+        "postal_code": "22765",
+        "country": "DE",
+        "lat": 53.5581083,
+        "lon": 9.9467417
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Loft",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.loftkoeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Loft",
+        "lat": 50.9513317,
+        "lon": 6.9243372
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kanusportfreunde Köln",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://ksk-team.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kanusportfreunde Köln",
+        "lat": 50.9367715,
+        "lon": 6.9691393
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Begegnungszentrum Porz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sgk.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Begegnungszentrum Porz",
+        "address": "43-45 Theodor-Heuss-Straße",
+        "postal_code": "51149",
+        "lat": 50.897665,
+        "lon": 7.0678244
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Scala-Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://scala.koeln",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scala-Theater",
+        "lat": 50.9394289,
+        "lon": 6.9399663
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Zen Dojo Bonn e.V.",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://zen-bonn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zen Dojo Bonn e.V.",
+        "address": "167 Heerstraße",
+        "city": "Bonn",
+        "postal_code": "53111",
+        "country": "DE",
+        "lat": 50.7365858,
+        "lon": 7.0891077
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "European Choral Association - Europa Cantat",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://europeanchoralassociation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "European Choral Association - Europa Cantat",
+        "address": "59a Weberstraße",
+        "city": "Bonn",
+        "postal_code": "53113",
+        "lat": 50.7257639,
+        "lon": 7.1030293
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Tanzschule Tanzraum",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://tanzschule-tanzraum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzschule Tanzraum",
+        "postal_code": "50677",
+        "lat": 50.9272437,
+        "lon": 6.944045
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "VGS",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.vgs-koeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VGS",
+        "lat": 50.9489478,
+        "lon": 6.8762576
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kunsthafen im Rhenania",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://kunsthafen.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunsthafen im Rhenania",
+        "address": "28 Bayenstraße",
+        "city": "Köln",
+        "postal_code": "50678",
+        "lat": 50.92811,
+        "lon": 6.9635319
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "La Danza Tanzzentrum",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://la-danza.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Danza Tanzzentrum",
+        "address": "29 Engelbertstraße",
+        "city": "Köln",
+        "postal_code": "50674",
+        "lat": 50.931913,
+        "lon": 6.938707
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Diakonisches Werk",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://diakonischeswerk-bonn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Diakonisches Werk",
+        "address": "125 Kaiserstraße",
+        "city": "Bonn",
+        "lat": 50.7251575,
+        "lon": 7.1078874
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Lew Kopelew Forum",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://kopelew-forum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lew Kopelew Forum",
+        "lat": 50.9371987,
+        "lon": 6.9466954
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "King Georg Jazz Club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://kinggeorg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "King Georg Jazz Club",
+        "lat": 50.9509948,
+        "lon": 6.9563819
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Schiff Modell Club Bonn",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://smc-bonn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schiff Modell Club Bonn",
+        "lat": 50.7159951,
+        "lon": 7.1342019
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Schießkeller",
+      "category": "community",
+      "_found": "osm:pitch -> tribe+ics",
+      "base_url": "https://sgnh.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schießkeller",
+        "lat": 51.1173532,
+        "lon": 6.6794597
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kulturkinder e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kulturkinder.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturkinder e.V.",
+        "lat": 50.9564341,
+        "lon": 6.9125286
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Bonner Turnverein 1860 e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.btv1860.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bonner Turnverein 1860 e.V.",
+        "address": "9 Riesstraße",
+        "city": "Bonn",
+        "postal_code": "53113",
+        "lat": 50.7306509,
+        "lon": 7.1043874
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "FREI_BAD",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hoernemann-walbrodt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FREI_BAD",
+        "address": "19 Beueler Straße",
+        "city": "Bonn",
+        "postal_code": "53229",
+        "lat": 50.7564843,
+        "lon": 7.1464406
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Alte VHS",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.alte-vhs.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alte VHS",
+        "lat": 50.739474,
+        "lon": 7.1034806
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "St.Andreas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://dominikaner-koeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St.Andreas",
+        "address": "1 Andreaskloster",
+        "city": "Köln",
+        "postal_code": "50667",
+        "country": "DE",
+        "lat": 50.9419526,
+        "lon": 6.9548971
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Studio Trafique",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://studio-trafique.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Studio Trafique",
+        "address": "292 Merheimer Straße",
+        "city": "Köln",
+        "postal_code": "50733",
+        "country": "DE",
+        "lat": 50.9696929,
+        "lon": 6.9470956
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "KanuSportGemeinschaft e.V. Köln",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ksg-koeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "KanuSportGemeinschaft e.V. Köln",
+        "address": "32 Alfred-Schütte-Allee",
+        "city": "Köln",
+        "postal_code": "51105",
+        "country": "DE",
+        "lat": 50.918172,
+        "lon": 6.9797839
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Museum Insel Hombroich",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.inselhombroich.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum Insel Hombroich",
+        "lat": 51.1446651,
+        "lon": 6.657703
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Markuskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+mylisting+modern-events+jsonld-event+ics",
+      "base_url": "https://kirche-porz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Markuskirche",
+        "address": "38 Martin-Luther-Straße",
+        "city": "Köln",
+        "postal_code": "51145",
+        "country": "DE",
+        "lat": 50.8877658,
+        "lon": 7.0774966
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "BSV Roleber 1919",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://bsvroleber.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BSV Roleber 1919",
+        "address": "181 Siebengebirgsstraße",
+        "city": "Bonn",
+        "postal_code": "53229",
+        "country": "DE",
+        "lat": 50.7436663,
+        "lon": 7.188797
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Buchhandlung am Markt",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://bam-hennef.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung am Markt",
+        "address": "22 Adenauerplatz",
+        "city": "Hennef (Sieg)",
+        "postal_code": "53773",
+        "lat": 50.7746892,
+        "lon": 7.2850423
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Mühlenbachhalle",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bv-vilich-mueldorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mühlenbachhalle",
+        "address": "2 Wilfried-Hatzfeld-Straße",
+        "city": "Bonn",
+        "postal_code": "53229",
+        "country": "DE",
+        "lat": 50.755622,
+        "lon": 7.1467699
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "St. Nikolaus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.nikolaus-und-joseph.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Nikolaus",
+        "address": "9 Nikolausstraße",
+        "city": "Bergisch Gladbach",
+        "postal_code": "51429",
+        "country": "DE",
+        "lat": 50.9673465,
+        "lon": 7.1578596
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Dr. Berthold-Breidenbach-Haus",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+mylisting+modern-events",
+      "base_url": "https://www.weltersbach.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dr. Berthold-Breidenbach-Haus",
+        "address": "9 Weltersbach",
+        "city": "Leichlingen",
+        "postal_code": "42799",
+        "country": "DE",
+        "lat": 51.1093054,
+        "lon": 7.0804555
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Frauenmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://frauenmuseum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Frauenmuseum",
+        "address": "10 Im Krausfeld",
+        "city": "Bonn",
+        "postal_code": "53111",
+        "country": "DE",
+        "lat": 50.7407736,
+        "lon": 7.0923584
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Evangelisch-Freikirchliche Gemeinde",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://efg-nievenheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelisch-Freikirchliche Gemeinde",
+        "address": "4;6 Poststraße",
+        "city": "Dormagen",
+        "postal_code": "41542",
+        "country": "DE",
+        "lat": 51.1150543,
+        "lon": 6.7692587
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Erlöserkirche Brückberg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.ev-kirche-siegburg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Erlöserkirche Brückberg",
+        "lat": 50.8056591,
+        "lon": 7.1899512
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Burg der Schlaraffia Castrum Bonnense",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://castrum-bonnense.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burg der Schlaraffia Castrum Bonnense",
+        "address": "17 Schedestraße",
+        "city": "Bonn",
+        "postal_code": "53113",
+        "country": "DE",
+        "lat": 50.7223913,
+        "lon": 7.1106784
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Lutherkirche Nippes",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lutherkirche-nippes.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lutherkirche Nippes",
+        "address": "85 Siebachstraße",
+        "city": "Köln",
+        "postal_code": "50733",
+        "country": "DE",
+        "lat": 50.9616234,
+        "lon": 6.9490205
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kölner Rugby Park",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rugby-koeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kölner Rugby Park",
+        "lat": 50.9022078,
+        "lon": 6.9149206
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Samariterkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ev-roki.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Samariterkirche",
+        "address": "9 Grünweg",
+        "city": "Rommerskirchen",
+        "postal_code": "41569",
+        "country": "DE",
+        "lat": 51.0353835,
+        "lon": 6.6930253
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Josef-Barten-Halle",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://schuetzenheim-duennwald.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Josef-Barten-Halle",
+        "lat": 51.0038373,
+        "lon": 7.0445535
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "L'artelier Malin",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://larenardiere.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'artelier Malin",
+        "lat": 48.556188,
+        "lon": 6.441707
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "FaithFinder",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://faithfinder.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FaithFinder",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2T 0L8",
+        "lat": 51.0353892,
+        "lon": -114.0848685,
+        "street_hint": "1011 Royal Ave SW"
+      },
+      "_metro": "Calgary, Canada"
     }
   ],
   "_not_included": {
