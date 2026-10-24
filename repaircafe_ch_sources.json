@@ -1,0 +1,27 @@
+{
+  "_comment": "Every Swiss repair café's dated sessions, read from repair-cafe.ch by mapsee_ingest_repaircafe_ch.py. The platform is run by the Stiftung für Konsumentenschutz with FRC and ACSI; each café posts one 'repairevent' page per session (Datum, Uhrzeit, Ort). Read the adapter's header before changing anything here.",
+  "_found": "manual:2026-10-24 repair-cafe.ch (Stiftung für Konsumentenschutz / FRC / ACSI). robots.txt with our User-Agent: 'User-agent: * / Disallow:' (Yoast), no Crawl-delay. No terms of use exist; the Impressum (https://www.repair-cafe.ch/impressum/) makes each café responsible for its own sub-pages and promises removal of unlawful content on notice. WP REST /wp/v2/repairevent carries no date (acf: []), no Event JSON-LD, no iCal: the date is only on the rendered page.",
+  "_measured": "2026-10-24: the two repairevent sitemaps list 1,866 session URLs (1,000 + 866); 590 last modified more than 18 months ago are never fetched. 24 pages sampled across the lastmod range: all 12 modified before 2025-10 were past sessions, 5 of the 12 since were upcoming. Real run on a scratch store and cursor, newest lastmod first: 500 pages (lastmod back to 2026-02-04) in 534 requests over two runs, 244 upcoming and 255 past sessions, 1 page with no Datum. 141 sessions from 94 cafés inside 180 days, all placed: 92 by the page's own pin, 38 by the café's pin, 11 by a Photon street inside its town; 102 further out; 1 double posting written once. 111 of the café map's 199 next dates inside the horizon written; the rest are in the 776 older pages still to read. A warm run: 7 requests, 0.3 minutes. mapsee_supabase_sync.derive_categories: 141 community, 121 with the market secondary its 'repair café' rule adds.",
+  "sites": [
+    {
+      "name": "repair-cafe.ch",
+      "base": "https://www.repair-cafe.ch",
+      "sitemap_index": "https://www.repair-cafe.ch/sitemap_index.xml",
+      "cafe_map": "https://www.repair-cafe.ch/reparieren/",
+      "category": "community",
+      "within_days": 180,
+      "_horizon_comment": "Cafés post a year or more ahead (GZ Loogarten to 2027-01, Fraubrunnen to 2027-05). A session past the horizon stays in the cursor and is written, without a request, once it comes inside.",
+      "lastmod_floor_days": 548,
+      "_floor_comment": "A URL last modified more than 18 months ago is never fetched. The widest lastmod-to-session gap measured was 15 months (a series created 2025-10-24 running to 2027-01-27).",
+      "recheck_unparsed_days": 30,
+      "max_pages_per_run": 600,
+      "pin_km": 8,
+      "street_km": 3,
+      "_radius_comment": "Every point must lie inside Switzerland or Liechtenstein and near the session's own postcode and town as Photon places them: the page's own pin and the café's pin within pin_km, a street Photon geocoded within street_km (a same-named street one village over is Photon's failure; a pin at the map's corner the publisher's).",
+      "pause": 1.0,
+      "max_failures_in_row": 5,
+      "geocode_reserve_minutes": 4,
+      "description_chars": 700
+    }
+  ]
+}
