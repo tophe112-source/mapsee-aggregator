@@ -558,9 +558,6 @@ jobs:
           else
             echo "no ava_sources.json - skipping AVA walks"
           fi
-      # Charity walks on RallyBound / Neon Fundraise: the National Kidney
-      # Foundation's Kidney Walks and the CF Foundation's Great Strides. One
-      # request per charity (24 placed walks on 2026-10-11), so it runs daily.
       # THE CZECH TOURIST CLUB (KČT, kct.cz): public hikes from the calendar's
       # inline FullCalendar array, 193 of 241 in 90 days placed on the clubs' own
       # pins (2026-10-24), each pin checked against the town its page names
@@ -578,6 +575,9 @@ jobs:
           else
             echo "no kct_sources.json or kct_places.json - skipping KČT hikes"
           fi
+      # Charity walks on RallyBound / Neon Fundraise: the National Kidney
+      # Foundation's Kidney Walks and the CF Foundation's Great Strides. One
+      # request per charity (24 placed walks on 2026-10-11), so it runs daily.
       - name: Import charity walks on RallyBound (Kidney Walk, Great Strides)
         id: ingest_rallybound
         if: matrix.group == 'local'
@@ -848,13 +848,16 @@ jobs:
         if: matrix.group == 'civic'
         continue-on-error: true
         # 90, not 60, AND A DEADLINE INSIDE IT. tribe_sources.json reached 532 sites
-        # at ~6.8 s each — about 62 minutes — so the 60-minute cap started cancelling
-        # the step, and because `mapsee_ingest_tribe.py` saves ONCE after its loop, a
-        # cancel threw away the whole run: 35339055917 was killed at exactly 60m00s
-        # having already reported "kept" for 495 sites and wrote none of them. The cap
-        # buys the list room to finish; `--deadline` is what makes running out of it
-        # survivable, per the rule in docs/agents/ci-and-jobs.md — the step stamps its
-        # own start, the ingester starts no site past +80 min, and the save still runs.
+        # at ~6.8 s each, so the 60-minute cap started cancelling the step. Back then
+        # `mapsee_ingest_tribe.py` saved once after its loop, so a cancel threw away
+        # the whole run: 35339055917 was killed at exactly 60m00s, having reported
+        # "kept" for 495 sites, and wrote none of them. Since 2026-10-24 it reads
+        # --workers sites at once (TRIBE_WORKERS, default 3), never two on one host.
+        # It checkpoints the store and cursor every 120 s, starts no site and no
+        # page past the deadline, and keeps the rows of a site it cuts short. The
+        # cursor stays on that site, so the next run reads it whole first. The
+        # step stamps its own start, and the ingester stops at +80 min, per the rule
+        # in docs/agents/ci-and-jobs.md.
         timeout-minutes: 90
         run: |
           if [ -f tribe_sources.json ]; then
@@ -884,6 +887,26 @@ jobs:
             python mapsee_ingest_mobilizon.py --config mobilizon_sources.json --store feeds_events.json
           else
             echo "no mobilizon_sources.json — skipping"
+          fi
+      # Every Swiss repair café's sessions, from repair-cafe.ch (Stiftung für
+      # Konsumentenschutz, FRC, ACSI). No feed: one page per session, so the
+      # adapter keeps repaircafe_ch_cursor.json (in the sync-answers cache pair)
+      # and reads each page once per sitemap lastmod. Cold: 1,276 pages at one
+      # a second, ~400 a run (the walk stops at --max-minutes minus 4 to leave
+      # the Photon lookups their time), so 3-4 runs; warm: index, 2 sitemaps,
+      # the café map and the posts changed since (7 requests, 0.3 min measured).
+      # Every row is placed here and written coords_exact: the town is the guard.
+      # A post re-dated to a day not written this run tombstones its old date.
+      - name: Import Swiss repair cafés (repair-cafe.ch)
+        id: ingest_repaircafe_ch
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: |
+          if [ -f repaircafe_ch_sources.json ]; then
+            python mapsee_ingest_repaircafe_ch.py --config repaircafe_ch_sources.json --store feeds_events.json --cursor repaircafe_ch_cursor.json --max-minutes 11
+          else
+            echo "no repaircafe_ch_sources.json - skipping"
           fi
       # 44 LIBRARY SYSTEMS (six on 2026-09-03 with 28,314 upcoming programmes;
       # 38 more on 2026-09-24 with 58,629 kept inside a 90-day horizon, one of
@@ -1097,14 +1120,6 @@ jobs:
           else
             echo "no glenecho_sources.json — skipping"
           fi
-      # MONTREAL'S LOISIRS MONTREAL PROGRAMME (Ville de Montreal open data, CC
-      # BY 4.0): free skates, free swims, pick-up hockey and open gyms that need
-      # no registration - 920 rows in 90 days at 18 sites (read 2026-10-05), on
-      # the City's own coordinates except where most of a site's postal area
-      # disagrees with them (8 of 176 sites refused). 2 datastore requests 10 s
-      # apart (robots.txt's Crawl-delay), 12 s. The worst call is ~106 s
-      # (3 tries x 30 s + backoff + pacing) and no request starts after
-      # --max-minutes 5, so 10 minutes holds it.
       # THE NATUURWERKDAG (natuurwerkdag.nl, LandschappenNL): the Netherlands'
       # national volunteer nature day, ~530 jobs on Friday 6 and Saturday 7
       # November 2026, from the finder page (one request) plus each job's page
@@ -1126,6 +1141,14 @@ jobs:
           else
             echo "no natuurwerkdag_sources.json - skipping"
           fi
+      # MONTREAL'S LOISIRS MONTREAL PROGRAMME (Ville de Montreal open data, CC
+      # BY 4.0): free skates, free swims, pick-up hockey and open gyms that need
+      # no registration - 920 rows in 90 days at 18 sites (read 2026-10-05), on
+      # the City's own coordinates except where most of a site's postal area
+      # disagrees with them (8 of 176 sites refused). 2 datastore requests 10 s
+      # apart (robots.txt's Crawl-delay), 12 s. The worst call is ~106 s
+      # (3 tries x 30 s + backoff + pacing) and no request starts after
+      # --max-minutes 5, so 10 minutes holds it.
       - name: Import Loisirs Montréal free-play sessions (Montreal open data)
         id: ingest_montreal_loisirs
         if: matrix.group == 'rec'
@@ -1257,7 +1280,9 @@ jobs:
       # 239.2 s state read of 130,979 ids on 2026-10-23 (163.5 s, 0 rows on
       # 10-22). `.outcome`, not `.conclusion`: under continue-on-error the
       # conclusion is always success, and a checkpoint that failed, lost rows
-      # or ran out its 20 minutes must still be followed by this sync.
+      # or ran out its 20 minutes must still be followed by this sync. A
+      # cancellation write the checkpoint could not deliver (it warns and exits
+      # 0) is no longer retried here; it waits for the next read of its feed.
       - name: Sync feeds to Supabase (batch-geocoded)
         id: sync
         if: matrix.group != 'ics' || steps.checkpoint.outcome != 'success'
@@ -1626,14 +1651,15 @@ jobs:
       # path list into the cache version, so adding them to an existing pair
       # would have made the first run after the change restore none of its
       # cursors, warm Photon answers or absence manifests.
-      - name: Restore kept Census and Spotify answers (saved at job end)
-        uses: actions/cache@v4
+      - name: Restore kept Census and Spotify answers
+        uses: actions/cache/restore@v4
         with:
           path: |
             census_cache.json
             spotify_cache.json
-          key: sync-answers-extra-${{ github.run_id }}
-          restore-keys: sync-answers-extra-
+          key: sync-answers-extra-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-answers-extra-
       - name: Merge the warm geocode cache UNDER the committed one
         run: |
           python - <<'PY'
@@ -1711,6 +1737,16 @@ jobs:
       - name: Refresh the warm geocode cache
         if: always()
         run: cp geocode_cache.json geocode_cache.warm.json
+      # always(), not actions/cache's post step: that one saves only on success,
+      # and a red Mon/Thu run is the day Census answers are worth keeping.
+      - name: Save kept Census and Spotify answers
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-extra-${{ github.run_id }}-${{ github.run_attempt }}
 
   # ---------------------------------------------------------------------------
   # Hide the second row of one event (mapsee_dedupe_events.py).

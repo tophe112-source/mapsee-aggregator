@@ -36,7 +36,7 @@ class WorkflowContracts(unittest.TestCase):
         expected = {
             'ics': {'ics'},
             'civic': {'opendata', 'tribe', 'gancio', 'mobilizon', 'bibliocommons', 'mapasculturais',
-                      'moshtix', 'ods', 'ckan'},
+                      'moshtix', 'ods', 'ckan', 'repaircafe_ch'},
             'local': {'markets', 'parkrun', 'fairs', 'programs', 'jsonld', 'squarespace',
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu',

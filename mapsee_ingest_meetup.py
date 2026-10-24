@@ -187,9 +187,12 @@ def sweep_centres(us_path: str = os.path.join(_HERE, "metros_us.txt"),
                   ) -> Tuple[Tuple[float, float], ...]:
     """Every point a Meetup leg sweeps, read as the workflow reads metros_us.txt
     (comments and spaces stripped, `lat,lon` lines) and as mapsee_sweep_global
-    reads metros_global.json. All the legs write ONE store (meetup_events.json),
-    so a city point refused by its own metro's sweep must be refused by a
-    neighbour's too (see venue_is_only_a_city). A missing or broken file, or
+    reads metros_global.json. The US and international legs write separate
+    stores, but each leg's circles reach the other's cities (Seattle's 100 mi
+    holds Victoria, Detroit's holds Windsor, Tijuana is 15.6 mi from San Diego)
+    and every centre within one leg overlaps its neighbours, so a city point
+    refused by its own metro's sweep must be refused by any sweep that meets it
+    (see venue_is_only_a_city). A missing or broken file, or
     line, adds nothing; it never stops an import."""
     lines = []
     try:

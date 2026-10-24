@@ -684,7 +684,8 @@ def main(argv=None) -> int:
                 # stopped "before page 3" each time). The one exception is the site
                 # this run began at: it HAD the whole step, and holding the cursor
                 # for ever would starve the tail, as site one did until 2026-09-27.
-                # Today's slowest is ~7.5 min (Haydon Wick, 15 pages at 30 s).
+                # Today's slowest is ~7.5 min (Georgia Native Plant Society, 4 pages at 150 s;
+                # Haydon Wick, 15 pages at 30 s, is ~7).
                 if cut:
                     cut_short += 1
                 finished[i] = not cut or i == 0

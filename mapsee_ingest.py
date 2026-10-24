@@ -292,8 +292,9 @@ def venue_is_only_a_plus_code(name: Optional[str], address: Optional[str]) -> bo
 # Nor is the address: "**Location:** Plenty Gorge (Approximately 40 minutes...)"
 # is not empty. What marks the bare city is the point itself, within about 1 km
 # of a centre we sweep (Meetup's Paris point is 121 m from ours). EVERY centre,
-# not only the one whose sweep met the row: all the Meetup legs write one store,
-# and 24 of the 261 centres lie inside another's radius (Amsterdam 34 km from
+# not only the one whose sweep met the row: a row reaches the map through
+# whichever sweep met it (and at the border the US leg's copy is the one
+# written), and 24 of the 261 centres lie inside another's radius (Amsterdam 34 km from
 # Utrecht's 25 mi sweep, Baltimore and Richmond inside DC's 100 mi one), so a
 # test against the asking centre alone let a neighbour's sweep import the row
 # its own sweep refused. The nearest two centres are 20 km apart, so 1 km never
