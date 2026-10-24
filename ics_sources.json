@@ -36252,5 +36252,248 @@
       "pin_unnamed": false
     },
     "_metro": "Toulouse, France"
+  },
+  {
+    "name": "JazzHall",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.jazzhall.de/ics/cleo-band-from-broadway-to-blue-notes.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Hamburgische Staatsoper",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.die-hamburgische-staatsoper.de/de/programm/details/2147483908-fuehrung-durch-die-staatsoper/502385.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Zum Guten Hirten",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+ics",
+    "url": "https://www.kirche-tangstedt.de/events/gottesdienst-pastor-i-r-gunnar-urbach-musik-von-andrea-paffrath/ical/",
+    "geocode_suffix": ", Tangstedt",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "St. Nikolai",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/ca5384fe-32f9-4118-8699-a34a57030d44.ics",
+    "geocode_suffix": ", Borstel",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "St. Martini",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=79ed4f69-a961-4ce5-9630-bad92c97d253",
+    "geocode_suffix": ", Estebrügge",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "ASV-Overhaken e.V.",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.asv-overhaken.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Segelvereinigung Sinstorf e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/95e6pnhk2b19nugb4qktul0tc8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Loki-Schmidt-Garten",
+    "category": "outdoors",
+    "_found": "osm:garden -> ics",
+    "url": "https://www.bghamburg.de/index.php?option=com_dpcalendar&task=ical.download&id=40",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Museum Ludwig",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.museum-ludwig.de/de/besuch/veranstaltungen/kalender/54743-die-sammlung-leo-schoenecker-ein-filmprogramm-mit-filmen-aus-dem-archiv-schoeneckerschatten-eine-naechtliche-halluzination.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Evangelisch-Freikirchliche Gemeinde Köln-West",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.koelnwest.de/files/2026-12-13-40-jahr-feier-koelnwest.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Till Eulenspiegel",
+    "category": "learning",
+    "_found": "osm:books -> ics",
+    "url": "https://till-eulenspiegel-roesrath.de/ics/veranstaltung_78.ics",
+    "geocode_suffix": ", Rösrath",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Literaturhaus Köln",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://literaturhaus-koeln.de/ics/literaturhaus-koeln-termin-2026-10-28-19-30.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Treffpunkt Hoffnung e.V.",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/aa57d417eae579158626dc911d6a0d37f7d721abfb533513cdebee6a20e70bb2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Evangelische Gemeinschaft Hückeswagen",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/idoeu157r6pdbjtr62sqtuergo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hückeswagen",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "belaro Ballett und Tanzschule",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5n41qakp3hmiut9cf335g6cbhk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bergheim",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Aidshilfe Köln",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar+jsonld-event",
+    "url": "https://www.aidshilfe-koeln.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Budokan Köln",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/btvd078tat6k4fi7umbc36jn5c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Svasthya - Studio für Yoga & Alexander-Technik",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://www.svasthya-bonn.de/?ical=1",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Sportschützen Köln-Stammheim",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6hj7h2af2ik300fjqnp480to30%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "1. Kölner Karateclub Bushido 1961 e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u4bhtm554l8ekbs3rcfgmsp10c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Aero Club Rheidt 1969 e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0d52038dfd77af8a2f186187a20119fd02ca32c43cbe098b1ace695a8565433e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Finkens Garten",
+    "category": "outdoors",
+    "_found": "osm:garden -> events-manager",
+    "url": "https://www.finkensgarten.org/veranstaltungen-in-2025/?ical=1",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Theater&Ehrenfeld",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://theaterehrenfeld.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Grabeskirche St. Bartholomäus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.grabeskirche-koeln.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Sportschützen Beuel 1965 e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_1sjak7j611fdnofk4a3rjh0504%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bonn",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Modellflugplatz Modellfluggemeinschaft Pulheim e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://mfg-pulheim.de/index.php?option=com_dpcalendar&task=ical.download&id=21",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Evangelisch-Freikirchliche Gemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://termine.gzd-online.org/20261025-gottesdienst-am-25.-oktober-um-10:00-uhr.ics",
+    "geocode_suffix": ", Wermelskirchen",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
   }
 ]

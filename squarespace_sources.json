@@ -2939,6 +2939,19 @@
         "street_hint": "62 Klippe"
       },
       "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Box-Gym S.C. Colonia 06 e.V.",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.sc-colonia06.de/termine",
+      "max_events": 200,
+      "venue": {
+        "name": "Box-Gym S.C. Colonia 06 e.V.",
+        "lat": 50.9351537,
+        "lon": 6.874243
+      },
+      "_metro": "Cologne, Germany"
     }
   ],
   "_not_included": {
