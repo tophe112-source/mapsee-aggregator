@@ -174,3 +174,25 @@
   `wall_clock_tzids: ["Europe/Moscow"]` reads it right. Fixed-offset tribe
   zone strings ('UTC-6', 'UTC-8') are harmless: the sync localises a naive
   start from the coordinates, not from that string.
+
+- **AN END AT OR BEFORE THE START IS NO END, AND _compute_end AND time_changed
+  MUST BOTH SAY SO.** An end at or before the start is no end: `_real_end` in
+  mapsee_supabase_sync.py, and BOTH _compute_end and time_changed must call
+  it. Measured 2026-10-23 over 5,880 live rows in 12 metros: 30 ended at their
+  start (Town Hall Seattle 10, Seattle City Council 7, Berlin 10) and 3
+  berlin.de rows on the DST day ended at 00:00Z before a 15:30-19:45Z start.
+  Only _compute_end applied the rule at first, and time_changed then returned
+  True for both shapes once the refresh stored the default (Town Hall 02:30Z
+  stored 04:30Z, berlin.de 00:00Z stored 18:30Z). That means a 'new time' on
+  every daily --only-new run, for good. test_sync_all_day.py section 8 runs
+  time_changed against to_row's own output.
+
+- **SEATGEEK'S "TBD AT <TEAM>" GAMES ARE AT A TIME NOBODY SET (2026-10-23).**
+  4 live rows read "TBD at <team> - World Series (Home Game N)" (Chicago 2,
+  Seattle 2), every one at 03:30 local, and at least 2 of them cannot both
+  happen. These games and any listing flagged date_tbd/time_tbd/datetime_tbd
+  are dropped, never kept as a bare day, which is the same call the owner made
+  for Ticketmaster's tm_has_clock. The log line counts them as "N with no date
+  or time set". The flag names are SeatGeek's documented ones and are
+  unverified against a live record (no SEATGEEK_CLIENT_ID), but the title rule
+  does not need them. `python test_ingest_seatgeek.py`.

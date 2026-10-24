@@ -532,3 +532,37 @@
   family (252 events: varsity games, gym classes) stays unmapped. Indiana types
   everything "Events", so its hikes still need a title rule. Stored rows move
   on Thursday's refresh. `python test_ingest_localist.py`.
+
+- **MEETUP'S KEYWORD SWEEP FILED WINE-AND-PAINT UNDER VOLUNTEER, SO ITS OWN
+  TEXT NOW HAS TO BACK THE GUESS.** Meetup's keyword sweep files fuzzy
+  'volunteer' hits as volunteer. Measured 2026-10-23 over 12 metros: 38 of the
+  door's 75 primary rows were Meetup's, and 27 were wine-and-paint, knitting,
+  beach volley, Toastmasters and a meditation. `_refused_sweep_guess` refuses
+  that guess unless `_volunteer_hit` or `_VOLUNTEER_BACKING_RX` supports it.
+  map_category's guard tuple must name the key, or the branch does nothing.
+  The pattern is `\bvolunteer\w*`, not `\bvolunt\w*`: the shorter one matched
+  'a voluntary donation'.
+
+- **A TICKETMASTER RECORD WITH NO SEGMENT AT A THEATRE IS ARTS & THEATRE; A
+  CHILDREN'S GENRE ADDS KIDS (2026-10-23).** Of 125 'other' Ticketmaster rows
+  near 12 metro centres, 37 sat in a theatre, playhouse, opera house or stage
+  (_TM_THEATRE_VENUE_RX) with the segment missing, Undefined or Miscellaneous.
+  32 of them were shows (New York 28, London 4) and now reach theater. The
+  other 5 were products, and the fetch loop now skips those ("Not an Event
+  Ticket", "VIP Upgrade", parking: 7 rows, 0.12%) BEFORE the status check,
+  because a product carries its show's attraction and its cancellation must
+  not tombstone the show. A "Children's Theatre" or "Children's Music" genre
+  or subGenre (_tm_for_children) adds the kids secondary to 45 rows (Paris 43,
+  Mexico City 2) that were on theater only. "Family" is left out because it
+  labels Madame Tussauds and the London Dungeon. `python
+  test_ingest_tm_no_time.py`.
+
+- **THE MARKET SECONDARY READS "REPAIR CAFÉ" AND NOT ITS SWISS NAMES
+  (2026-10-24).** derive_categories over the 216 rows the full repair-cafe.ch
+  cursor writes: all 216 stay community primary, so there is no wrong
+  promotion. 181 gain `market` (fleabop) from `repair\s+caf[eé]s?` in
+  _MARKET_RX. The other 35 miss it because they are called Reparaturia,
+  Repairmanent, Reparier-Kafi, Reparaturkaffee, Répare Café or Caffè
+  Riparazione, or are titled with the slogan "Reparieren statt wegwerfen".
+  Whether a repair café belongs on the second-hand door is a product call. If
+  it does, the rule needs those names too.

@@ -701,3 +701,19 @@
   beside it still decodes. **4 of 4 mutants caught** on this side (lenient
   decode, one pass, after the entity decode, and the lenient decode again once
   the fixture actually reached the decoder).
+
+- **A LEGACY KEY ANOTHER RECORD WRITES LIVE GETS THAT RECORD'S ROW HIDDEN, FOR
+  GOOD (2026-10-24).** `rekey_legacy` moves a row from a legacy fingerprint to
+  its new one. If the new key already has a row, it hides the legacy row with
+  `hidden_at` alone, which no lift matches. It never asks whether the same
+  store writes that legacy key live. repair-cafe.ch replayed this with a
+  double posting: Murten -4 and -4b on one day, -4 kept, then -4 re-dated to
+  31.10. Run 2 moved the 24.10 row to 31.10 and inserted -4b under 24.10. Run
+  3 printed "moved 0, hid 1 of 1 whose new key already had a row", and -4b's
+  real session stayed hidden on every later run. The adapter now drops any
+  legacy key that a row of the same run is written under, and removes it from
+  that page's cursor `keys`. Over four runs both rows stay shown, and 4 checks
+  fail without the fix (`test_ingest_repaircafe_ch.py`).
+  `cancellation_targets` already drops live keys from a tombstone's legacy
+  list; `rekey_legacy` does not yet, so any adapter that keeps old keys across
+  runs must filter them itself.

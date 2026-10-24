@@ -144,3 +144,15 @@
   adverts. The price is at the door: a number-only advert arriving through
   Meetup, an ICS feed or any other named non-open source now passes the gate;
   none of the 205 linked to one. `test_spam.py` carries the 29 real titles.
+
+- **CUTTING A VOLUNTEER'S NUMBER LEAVES THEIR NAME (repair-cafe.ch,
+  2026-10-24).** Over 321 upcoming session pages, 26 lines of the cafés' own
+  text held a phone number or e-mail address. In 3 of them, cutting the
+  contact left only a private volunteer's name: "Nur auf Voranmeldung:
+  <number> <name>", "<name>: <number>" and "<name>, <number> oder <number>". A
+  label was also left with nothing after it ("Email:").
+  mapsee_ingest_repaircafe_ch's clean_text now drops, from any line that held
+  a contact, a two- or three-word capitalised name and a label left alone.
+  Lines with no contact keep their names ("Repair Café Murten", "Jegliche
+  Haftung"). 6 of 216 descriptions changed, and none still contains a number
+  or an '@'. `python test_ingest_repaircafe_ch.py`.

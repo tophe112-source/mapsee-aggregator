@@ -21,8 +21,9 @@
   THE SECOND.** `cancel-in-progress: false` means a run that finds the group
   busy waits, but GitHub keeps exactly ONE pending run per group and cancels
   any earlier pending one when another arrives. Two things were sized on that
-  2026-09-22. The community walk (`curate-catalog.yml`, daily **09:30 UTC**,
-  `discover osm --kinds community_centre,library --metros 40`) sits six hours
+  2026-09-22. The 09:30 run (`curate-catalog.yml`, daily **09:30 UTC**; the
+  community walk `discover osm --kinds community_centre,library --metros 40`
+  until 2026-10-24, a second full osm pass on the shared cursor since) sits six hours
   after the 03:20 daily and the Wednesday 03:50 gap sweep, which together take
   up to 3 h and already share the queue — a cron in that window would not wait
   behind the Wednesday sweep, it would cancel it. And a whole-catalogue amenity
@@ -58,7 +59,8 @@
   cache, sync, retained store and step-outcome report. Failed adapter processes
   continue to the sync but fail the job at the end. `feed_group` dispatches a
   single group for recovery without rerunning the global sweeps. ICS checkpoints
-  its store and both caches after each attempted source; explicit cache/save
+  its store, both caches and then its cursor at most every 120 s (after each
+  attempted source until 2026-10-24); explicit cache/save
   runs even after failures. IndexNow and database-wide maintenance wait for all
   groups, including the formerly omitted OpenActive job.
 
@@ -399,3 +401,103 @@
   budget proceeds to fail closed exactly as before. `test_sync_db_wait.py`
   simulates 15 s requests: a 60 s budget permits two probes plus 30 s of sleeps,
   not the former three probes plus 45 s of sleeps (90 s elapsed).
+
+- **THE ICS STEP SPENT UP TO 40 OF ITS 220 MINUTES SAVING A 199 MB STORE, SO
+  IT SAVES EVERY TWO MINUTES.** The ICS store is 198.6 MB and 131,065 events,
+  and one save takes 3.1-3.5 s (2026-10-23). Saving it and both caches after
+  every source cost 40.2 min of the 220-min budget on 10-23, 19.0 min on 10-22
+  and 0.6 min on 10-21. main() now saves at most every SAVE_EVERY_SECONDS =
+  120 (PerfectMind's interval), plus at the budget, at the end of the
+  catalogue and on KeyboardInterrupt. The cursor is written only in that
+  checkpoint, after the store, so a kill loses at most 120 s of feeds and the
+  next run re-reads them.
+
+- **Meetup's two legs have two stores, and the US one wins at the border
+  (2026-10-24).** In the old shared meetup_events.json, the always() final
+  sync re-read the state of 51,996 ids in 116.9 s (us_sync: 54.4 s). It also
+  sent 29,890 addresses to Census (us_sync: 14,471) on 2026-10-23, rebuilding
+  ~24.7k US rows us_sync had already written, and each of the 179
+  international metros loaded and rewrote them too (6-13 min a day,
+  10-21..23). The international sweep now writes meetup_global_events.json.
+  The final step syncs the US store again only when `steps.us_sync.outcome !=
+  'success'`. SPLIT STORES DUPLICATE BORDER EVENTS. Three international
+  circles overlap a US one: Tijuana is 15.6 mi from San Diego; Victoria (74.2
+  mi) and Vancouver (121.3 mi) fall within Seattle's 100 mi radius. An event
+  both legs find has one fingerprint but can differ in category and ends_at,
+  because each process keeps the category of the first keyword whose results
+  held it; a reproduced San Diego event came out community/21:00 in one store
+  and party/23:00 in the other. Every Meetup record carries source_details, so
+  needs_detail_sync keeps the stored row on --only-new days too, and
+  skip-unchanged sees a difference. Two copies would therefore BOTH be written
+  EVERY day, not only on Wednesday, and the row's door would switch between
+  the two syncs. The final step therefore drops from the international store
+  every fingerprint the US store holds, live or tombstoned, before syncing it,
+  and keeps its own tombstones. Its log line `Border overlap: N of M` is the
+  measured overlap.
+
+- **The ics group's final sync is skipped after a checkpoint that succeeded
+  (2026-10-24).** Nothing imports after the checkpoint in that group. The
+  final pass wrote 0 rows after a 239.2 s state read of 130,979 ids on
+  2026-10-23 (163.5 s, 0 rows on 10-22). The guard reads
+  `steps.checkpoint.outcome`, not `.conclusion`: under continue-on-error the
+  conclusion is always success, so a failed checkpoint must still be followed
+  by the sync. The feeds job sets PYTHONUNBUFFERED=1. Block-buffered, the ics
+  step printed its first line ~33 minutes in on 10-23.
+
+- **THE DAILY OSM SWEEP STOPPED ON A 3-METRO CAP WITH HALF ITS BUDGET LEFT,
+  AND CKAN COST 2 MINUTES A DAY FOR NOTHING (2026-10-23).** Run 116 read
+  Dublin, Cork and Galway in 25.0 of its 55 osm minutes (08:50:38-09:15:39)
+  and stopped on `OSM_METROS_PER_RUN=3`. Run 114 stopped the same way with
+  about 4.7 minutes left. The other 4 of 6 daily runs ran out of time inside a
+  metro. At 1.29 verified per osm-minute, the roughly 35 unused minutes over 6
+  days were about 45 verified. The 03:20 cron now defaults `--metros` to 40,
+  so the budget decides; dispatches keep 3. ckan took 2.1, 2.1, 2.2, 1.8, 2.5
+  and 1.9 minutes in those 6 daily runs and proposed 0 each time (3,324-4,641
+  datasets no_datastore), the 2026-08-22 finding again. The daily run now
+  reads ckan on Wednesdays only (`date -u +%u` = 3). The Wednesday gap sweep
+  shares the `all)` case and keeps ckan, and so do dispatches. Taking ckan out
+  of `all)` outright would have left unpinned ckan on no schedule, so its
+  per-query cursors would never move. `test_workflow_contracts.py` drives the
+  step's shell for each schedule.
+
+- **THE EVENTS CALENDAR STEP READ 586 OF 1,408 SITES A RUN, ONE AT A TIME, AND
+  A SITE CAME ROUND EVERY ~2.4 DAYS (2026-10-23).** "[tribe] done: +33721
+  events from 586 of 1408 sites (stopped at the step deadline)": the step
+  stopped at its 80-minute deadline in 15 of 15 runs (80.0-86.9 min), at 8.2 s
+  a site. The 1,408 sites are on 1,408 hosts, and most of a site's time is its
+  own Crawl-delay (1,328 at 2 s, 54 at 10 s, 9 at 30 s or more).
+  `mapsee_ingest_tribe.py` now reads `--workers` sites at once (TRIBE_WORKERS,
+  default 3 as in PerfectMind), never two on one base_url host, each worker
+  with its own requests.Session. `ingest_site` returns its events and only the
+  main thread upserts; the free_only admission ids are read from the store
+  before a site starts. The deadline is checked before every page after the
+  first, without sleeping toward a page that could not start in time: Haydon
+  Wick's 15 pages at 30 s are ~7 min, which is how an 80-minute deadline
+  became an 86.9-minute step. The store (written to .tmp and moved into place)
+  and the cursor are saved together at most every 120 s, at the end, and on
+  SIGINT (exit 130). The cursor is the first site in list order that has not
+  finished. Local smoke (8 sites on 4 hosts, 3 pages at 1 s): 21.1 s with one
+  worker, 8.0 s with three, never two requests on one host at once, never less
+  than 1.00 s between a site's pages. The expected effect, about 1,408 sites
+  in ~65 min, is an estimate until the next civic log's done line (now "(3 at
+  once, N min)") measures it. It brings events in fresher; it adds no
+  calendars. `test_ingest_tribe.py` pins out-of-order completion and the
+  cursor, the page-level stop, host exclusivity and interrupts.
+
+- **A SITE THE DEADLINE CUTS SHORT IS NOT FINISHED, OR THE CURSOR STOPS MOVING
+  (2026-10-24).** In the first version of the three-worker tribe step a site
+  cut between pages counted as finished, so once every site had started before
+  the deadline the cursor fell back to where the run began and the same tail
+  lost its later pages every run: a stand-in server (6 sites, 3 workers, 4
+  pages at 1 s, a 6 s deadline) cut site3-5 "before page 3" in 3 of 3 runs
+  with the cursor on site0, and the store stayed at 54 of 72 rows.
+  `ingest_site` now returns a SiteEvents list whose `.cut` names the deadline
+  or an interrupt (never a publisher's 500 or unreadable page); main writes
+  the cut site's rows and leaves it unfinished, so the cursor names the first
+  cut site and the next run reads it whole first. The one exception is the
+  run's first site, which had the whole step: holding the cursor on a site
+  that can never finish would starve the tail as site one did until
+  2026-09-27. Same server after the fix: the cursor went site3, site0, site3
+  and the store held all 72 rows by run 2. The done line says "(stopped at the
+  step deadline) (N site(s) cut short)" whenever a site was cut, even when
+  every site started.

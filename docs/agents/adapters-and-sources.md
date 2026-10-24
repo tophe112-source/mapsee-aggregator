@@ -224,8 +224,13 @@
   endpoint's patience; every one printed "0 venue(s) publish a website" and the
   cursor advanced past all nine — losing Adelaide, Canberra, Dublin and six more
   for **78 runs**, about eleven weeks at three a day. It returns None now, the
-  cursor advances only past metros actually READ, and a metro refused three runs
-  running is skipped LOUDLY rather than wedging the sweep on one bbox for ever.
+  cursor advances only past metros actually READ, and a metro refused on three
+  UTC days running is skipped LOUDLY rather than wedging the sweep on one bbox
+  for ever. Since 2026-10-24 the 03:20 and 09:30 crons walk one `osm` cursor
+  slot, so a strike counts at most once a day (`stuck[metro] = {n, day}`; a
+  bare int is a strike from before). Counted per run, three refusals (day 1
+  14:30, day 2 08:40, day 2 14:30) skipped a metro in about 24 h, and a
+  skipped metro waits 45-130 days for the 261-metro ring to wrap.
   Rate-limiting is the normal failure here: back off between big sweeps rather
   than assuming a quiet endpoint.
 
@@ -680,3 +685,136 @@
   platform (Crawl-delay 20, place is the library name only) all carry correct
   Event JSON-LD and were not proposed (2026-10-23); `mapsee_ingest_jsonld.py`
   paces at about 1 s.
+
+- **SPOTIFY RESOLVED 0 ARTISTS IN 24 OF 24 SYNCS, SO IT ASKS ONLY A NAMED
+  PERFORMER AND STOPS WHEN NOTHING ANSWERS.** Spotify enrichment asks only
+  about lineup[0], never a title. On 2026-10-23, 24 of 24 syncs resolved 0
+  artists. The Meetup job meanwhile grew the cache from 2,908 to 5,728 names,
+  all of them event titles, at 468-580 s per sync. SpotifyResolver stops after
+  25 non-200 answers in a row or 200 lookups without a hit. It caches only a
+  hit or a dated 200-miss (30 days), never the old '' entries written after a
+  403/429.
+
+- **A MEETUP VENUE THAT IS ONLY THE CITY, ON A CITY'S OWN POINT, IS NOT
+  IMPORTED, WHICHEVER SWEEP MEETS IT (2026-10-23).** Live over 5,880 rows near
+  12 metro centres, 24 Meetup rows named for their city (or TBA, "wird noch
+  bekannt gegeben") sat on Meetup's point for that city: Berlin 52.52,13.405
+  x6, Paris x5, Melbourne x4 (3 of them hikes 40 min to 2 h out), Mexico City
+  x3, London x2, New York x2 and Amsterdam x2. The name alone is not the test.
+  5 rows named for their city carry a pin of their own and are kept, and so is
+  "TBD - Chicago" at 703 m out. What marks the bare city is a point within 1
+  km of a centre we sweep (Meetup's Paris point is 121 m from ours). The pin
+  is checked against EVERY centre, the 261 in metros_us.txt plus
+  metros_global.json (`sweep_centres`), not only the centre whose sweep found
+  it. All the legs write one meetup_events.json, and 24 of the 261 centres lie
+  inside another centre's radius. Amsterdam is 34 km from Utrecht's 25 mi
+  sweep, and Baltimore and Richmond are inside DC's 100 mi sweep, so a check
+  against the asking centre alone let a neighbour's sweep import a row its own
+  sweep had refused. The nearest two centres are 20.3 km apart, so 1 km never
+  reaches the wrong city. The name is read first, so only matching rows pay
+  for the 261 distance checks. A city that is nobody's centre is not caught. A
+  CANCELLED row on a city point still goes to store.cancel: the 24 rows stored
+  before the refusal stay on the map until their dates pass, and a
+  cancellation is the only thing that removes them early. `python
+  test_ingest_meetup.py`.
+
+- **A LOCATION THAT IS ONLY THE CALL SOFTWARE IS AN ONLINE SESSION, BUT A ZOOM
+  ROOM IS A DOG GYM.** A LOCATION that is only the call software ("On Zoom",
+  "Teams", "Online (Zoom)", "Zoom (see registration link)") is an online
+  session (ONLINE_LOC_RX in mapsee_ingest_ics, 2026-10-23). In a sample of
+  5,880 place names, the old branches matched 0 of the 10 call-only names and
+  the new ones match 9, with 0 false positives; 8 of them were UW ics rows
+  pinned at the campus geocode. The tenth, a Meetup venue "ZOOM ROOM", is left
+  out on purpose: Zoom Room is a US chain of dog-agility gyms, so "room" is
+  not a suffix. The pattern stops NEW rows only: the stored live ones need a
+  place_name backfill, which does not exist yet.
+
+- **A NATUURWERKDAG TITLE CAN NAME ANOTHER DAY THAN ITS CARD (2026-10-24).**
+  The finder's date filter offers only the two Natuurwerkdag days (Friday 6
+  and Saturday 7 November 2026), so an organiser whose job is on another day
+  says so in the title: card 13751 "Kom 'n weekje eerder helpen op zaterdag 31
+  oktober @ ENCI-groeve" and 23783 "Zaterdag 31 okt.: ..." are both dated
+  Friday 6 November, and the first build wrote 13751 on the 6th, a week after
+  the work. `title_names_another_day` refuses a title whose named weekdays
+  (also inside a word: "Vrijdagmiddag") leave out the card's own day, or whose
+  named day and month ("31 okt.", "31 oktober") are not the card's. It refuses
+  exactly those 2 of 530, and keeps the other 31 titles that name a day, among
+  them "op vrijdagmiddag en zaterdagochtend" on a Friday card. Nothing is
+  re-dated. `python test_ingest_natuurwerkdag.py`.
+
+- **A NATUURWERKDAG JOB CAN BE CLOSED TO THE PUBLIC, AND THE FINDER DOES NOT
+  SAY SO (2026-10-24).** The Friday Junior programme is for primary-school
+  classes (/natuurwerkdag-junior/). 1 of 86 job pages read says "Dit is een
+  besloten klus voor schoolklassen" (Natuurpark Overstegen), and 2 of 530
+  titles name "Natuurwerkdag Junior". `_CLOSED` needs the noun ("besloten
+  klus", "alleen voor schoolklassen/leerlingen"), because real pages say "we
+  hebben besloten ...", "Alleen voor grote klussen wordt een loonwerker
+  ingeschakeld" and "je staat er niet alleen voor". It found 0 false positives
+  on 86 pages. A closed job is refused and NOT mark_seen: mark_seen is for a
+  reason that is ours, and a row the listing wrote before the page was read
+  (the live scratch run kept 514 records while run 2 kept 513) must leave by
+  --retire-absent. A Junior title is never written from the listing alone; it
+  is held, and seen, until its page is read.
+
+- **A DEFAULT-PIN GUARD MUST COUNT PER DAY, AND A GUARD TESTED ONLY AS A PURE
+  FUNCTION IS NOT TESTED (2026-10-24).** On the Natuurwerkdag finder, 15 of
+  501 points carry 2 different titles. 12 of them are one site's Friday and
+  Saturday jobs under two titles ("... (vrijdag)" / "... (zaterdag)"), and the
+  most on one day is 2 (3 points: a morning and an afternoon session, two jobs
+  of one farm, and Polsbroek's probable re-posting 16015/22472, which stays
+  two rows). The first build said "measured max 1" and set 2, which left no
+  headroom. `crowded_points` now counts per point per day, with
+  max_titles_per_point 3. Mutation testing on the first build's test: deleting
+  the loop that writes stale-but-uncapped cached pages, ignoring province
+  outliers, ignoring crowding, accepting an unreadable clock, or skipping the
+  cache-agreement check under a deadline each left all 113 checks green. The
+  loop matters most on day 8, when the first run's ~523 reads all come due at
+  once: without it ~460 rows go unwritten, and --retire-absent would trip its
+  breaker. Every guard is now a fixture card run through read_site
+  (fixtures/natuurwerkdag/listing-guards.html), and 14 mutations each turn the
+  test red.
+
+- **KČT (kct.cz): A START THAT SAYS HOW TO GET THERE IS NOT A PLACE NAME, AND
+  A SEASON IS NOT AN OCCASION (2026-10-24).** 86 of the 408 start/finish texts
+  on 237 event pages are "hvězdicově", "individuální", "libovolné ...", "dle
+  propozic", "z místa bydliště" or carry no capital letter ("rozhledna").
+  Copied as venue_name they became the map label and fed the fingerprint on 11
+  rows. mapsee_ingest_kct.py names a start pin with such a start after its
+  finish (the Cimburk ruin its pin is at), or leaves it unnamed (9 rows), and
+  keys an unnamed row's fingerprint on the district. Two pages ran 210 and 214
+  days ("Jarní Vysočinou": Start 18. 8. 2026, Cíl 20. 3. 2027, a slip for 20
+  March); EventStore only trims spans over 400 days, so they would show as on
+  now until spring. Rows over 7 days are refused: 233 of 237 run 0-3 days, and
+  1,047 of 1,056 future list rows run 7 or fewer. `python test_ingest_kct.py`.
+
+- **A TRIBE SITE'S LINE NOW SAYS HOW LONG IT TOOK, WHERE A DEADLINE CUT IT,
+  AND A PAGE IT COULD NOT READ.** Every `[tribe] <site>: kept N events ...`
+  line, and every FAILED line, ends with " in N.Ns", flushed as it happens, so
+  the slow sources can be named from the log. On 10-21 one 8 KB log flush
+  covered 117.7 min and 54 ICS sources, and nothing in it could say which
+  source took the time. A site the step deadline stops between pages says
+  "(stopped at the deadline before page N)" and keeps the rows it already
+  read. Now that a site's events go back to main instead of being upserted as
+  they come, an exception on page 2+ (a `total_pages` of "3 pages", a body
+  that is JSON null or a list) is caught per page and logged "pN unreadable
+  page": before that catch the "3 pages" case kept 0 of its 3 rows under a
+  FAILED line, where the upsert-as-you-go adapter had kept all 3.
+
+- **A SITEMAP OF 1,866 SESSION PAGES IS READ ONCE PER LASTMOD, AND LASTMOD IS
+  NOT THE DATE (repair-cafe.ch, 2026-10-24).** Every Swiss repair café posts
+  one WordPress `repairevent` page per session. WP REST carries no date (acf:
+  []), and there is no Event JSON-LD or iCal. The "Nächste" listing links the
+  café, not the session, and its ?paged=2 returns page 1 again. Yoast's two
+  repairevent sitemaps list 1,866 URLs. Lastmod is when a post was edited: GZ
+  Loogarten created a series on 2025-10-24 that runs to 2027-01-27 (15 months
+  later), and a bulk re-save on 2025-09-01 touched 360 old posts.
+  `mapsee_ingest_repaircafe_ch.py` keeps a cursor. A page is fetched once per
+  lastmod, newest first, and never when it was last modified over 18 months
+  ago (590 URLs). Upcoming sessions are rebuilt from the cursor every run.
+  Reading all 1,276 other pages took five runs and gave 218 sessions inside
+  180 days: 216 placed, and 176 of the café map's 199 next dates written. A
+  warm run costs 7 requests and 0.3 min. mapsee_prune_cancelled's daily full
+  sweep re-reads 180 of those rows' pages, so the sweep, not the adapter, is
+  most of the load on the host. A parser change must bump PARSER_VERSION,
+  which re-reads only the upcoming pages. `python
+  test_ingest_repaircafe_ch.py`.

@@ -160,5 +160,7 @@ in LOCATION, which the ics adapter joins into one Photon query (10 of ~150
 placed); Today's Family (Hamilton, Ontario, 2,462 drop-in rows) and Libraries
 Unlimited (Devon, 311 rows) are tribe sites whose venues carry an address and
 no geo, which no geocoder reaches outside the US; Tartu Kultuuriaken (152
-upcoming) prints UTC JSON-LD without an offset; KČT's hiking calendar (1,057
-future hikes) is an inline FullCalendar array.
+upcoming) prints UTC JSON-LD without an offset. KČT's hiking calendar (1,057
+future hikes, an inline FullCalendar array) has had its adapter since
+2026-10-24 (`mapsee_ingest_kct.py`), as have the Natuurwerkdag and
+repair-cafe.ch.

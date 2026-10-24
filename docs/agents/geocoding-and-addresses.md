@@ -194,3 +194,73 @@
   ('Dom kulture ..., dvorana, Mestni trg 4') come back empty. A venue block
   with `aliases` and a `street_hint` placed 14 of 14 rows in Slovenske Konjice
   and 16 in Kutno without Photon.
+
+- **A 9,000-address Census request outlasted its 180 s timeout, and a
+  different 9,000 pins flipped every day.** Meetup's US leg lost its first
+  chunk every run 2026-10-21..23 (10-21: 0 matched in 180.3 s) while a
+  5,471-address chunk took 76.1 s; civic's 2,073 ran at 22 ms an address. A
+  set's order changes per process, so the dead chunk's rows moved between
+  Census's point and the source's: 9,424 (US leg) and 13,203 (final) Meetup
+  rows differed on lat/lon on 10-23, 28,926 extra_sources rows on 10-22.
+  `batch_geocode` sends 2,500 at a time, retries a failed chunk once as two
+  halves (and goes on at the half size when both answer), and stops once
+  failed requests would pass `CENSUS_FAIL_BUDGET` = 360 s. Without the budget,
+  a fake that timed out at 2,500 and answered one half of 1,250 cost 18
+  requests and ~1,780 s for 14,500 addresses; with it, 3 requests and ~298 s.
+  Every answer is kept in `census_cache.json` (a match a year, a miss 30
+  days), so an address whose chunk fails keeps its last answer. A STORED row
+  at an address Census has never answered waits at most `CENSUS_HOLD_HOURS` =
+  18 h, marked `PENDING` in the file so a second sync on it holds the row too
+  (it used to read "Census answered nothing this run" and write the source's
+  pin); a NEW row is written on the source's pin (holding it kept 5,000 of
+  7,500 new rows off the map in a mid-run failure). The file persists in a
+  cache pair of its own (actions/cache, always() saved) in the feeds,
+  extra_sources, meetup, ticketmaster and races jobs.
+
+- **A backslash ending a field makes the Census batch refuse the whole
+  request.** Measured live 2026-10-24: a 2-row CSV with `400 Broad St\` got
+  HTTP 400 "Malformed input file" (the backslash escapes the comma after it);
+  the same rows without it got 200 with both matched, and `400 Bro\ad St`
+  matched 400 Broad St, so Census drops a backslash anyway. The same day's
+  review probe found newlines, quotes, NUL, tabs, emoji, CJK and 300-character
+  streets all answered 200. Before `_census_post` stripped backslashes, one
+  such venue held 1,250, 625 and 313 rows back on three runs and was never
+  written. A 4xx other than 408/429 is now a refusal: its addresses keep their
+  last answer or the source's pin and are never held, because asking again
+  gets the same answer.
+
+- **A PIN INSIDE ITS DISTRICT CAN STILL BE 20-36 KM FROM THE TOWN ITS OWN PAGE
+  NAMES (KČT, 2026-10-24).** Czech districts reach ~40 km from their town, so
+  a 50 km district-radius guard let through 5 of 193 organiser pins:
+  "Prachatice žst." on a bog by Nové Hutě (29.6 km), Kozákov's finish at
+  Dětenice in another district (27.0), Hrejkovice in Písek (23.0), Brušperk at
+  Vyšní Lhoty (20.1), Zábřeh at Borotín in another district (35.7).
+  mapsee_ingest_kct.py now checks the pin against the municipality or part its
+  place text names (kct_places.json, 15,048 names from Wikidata P31 Q5153359 +
+  P2788, built by kct_places_build.py), measured from the place's EDGE (point
+  plus the radius of a circle of its P2046 area). The five lie 18.3-32.4 km
+  beyond the edge; the 114 good ones at most 6.9 (median 2.3 inside); measured
+  from the point alone, the widest good one is 10.0 km from Kyjov. Same-name
+  villages are the trap: without skipping a name followed by nad/pod/u/v/na,
+  "Suchdol n.Luž." matched a Suchdol 37 km away, "Nové Město n/Met" one 28 km
+  away and Prague's Ládví a Praha-východ village 28 km away. Wikidata hills
+  and quarters checked 16 more pins and refused 2 good ones ("Kamenná bouda",
+  a different Homolka). `python test_ingest_kct.py`.
+
+- **PHOTON ANSWERS A VENUE IT DOES NOT KNOW WITH THE TOWN, AND IN A CITY THE
+  TOWN'S OWN NODE IS NOT THE POSTCODE'S ANSWER (repair-cafe.ch, 2026-10-24).**
+  "Kuhstall, 7503 Samedan" and "Schulhaus, 7416 Almens" came back
+  byte-identical to the postcode-and-town answer, the village node.
+  "Kuhstallhalle, 8048 Zürich" came back as Altstetten station, which is also
+  what "8048 Zürich" alone returns. But "Luzern, Schweiz" is place=city 0.48
+  km from "6003 Luzern", and "Genève" is 0.34 km from "1205 Genève". So a
+  guard that compares a geocoded answer only with the postcode point lets the
+  city node through as a street. mapsee_ingest_repaircafe_ch refuses an answer
+  within 50 m of either point. The 16 Photon placements on the full cursor lie
+  0.14 to 1.2 km from their town's own node, so the rule costs none of them.
+  Do not simply refuse every venue name with no street: Photon found 3 of the
+  5 street-less names on the cursor, 22, 21 and 377 m from their cafés' pins,
+  and the other 2 were the village node. A town name alone can be ambiguous:
+  "Saas, Schweiz" answers Saas-Fee, 169 km from 7247 Saas. That only matters
+  if the town-alone point is trusted, not when it is used to refuse. `python
+  test_ingest_repaircafe_ch.py`.

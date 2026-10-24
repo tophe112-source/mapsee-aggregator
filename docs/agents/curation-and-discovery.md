@@ -263,7 +263,7 @@
   venues** (Brussels alone 422, Warsaw 262, Helsinki 261), 2,391 of them
   known-dead and skipped without a request, **20 candidates, 7 verified and
   merged** (Lokalhus Syd, Sellon kirjasto, KVIC Brno-Vinohrady ...). So the
-  daily 09:30 cron's 40 is a ceiling the budget cuts to ~30, the unread nine
+  walk's 40 (the 09:30 cron ran it until 2026-10-24) is a ceiling the budget cuts to ~30, the unread nine
   come round next run, and the globe takes about nine runs. An unknown kind raises,
   because a pin that silently matched nothing would report a clean empty sweep
   (the parkrun shape).
@@ -1593,3 +1593,135 @@
   79, 74 of 74). Re-merging from the ledger would bring the mirrors back. A
   candidate a reviewer refused leaves no status of its own, so the reason lives
   only in a `_not_included` entry or a commit message.
+
+- **A CIVIC TURN OUTSIDE THE US ENDS EARLY, SO THE US NOW USES THE REST OF ITS
+  TEN MINUTES (2026-10-23).** Runs 114, 116, 118, 121 and 123 were non-US
+  turns (MX, NO, FI, JP, AT). They took 3.6, 7.1, 2.6, 3.7 and 6.3 of their 10
+  minutes and walked 344 cities, for 4 candidates and 0 verified. The one US
+  turn since the rotation began (run 108) read 55 cities in the 10 minutes,
+  about 11 s a city, and verified 31 (29 ics, 2 tribe). The US sorts last
+  thinnest-first, so it gets one turn in about 30. Before the rotation, the
+  walk had given 1,228 configs from 2,140 US cities (0.57 a city); run 108
+  gave 0.56. Configs: 1,228 civic-found sources carry a US suffix and 20 do
+  not. `_discover_civic` now gives the time a non-US turn leaves (at least 60
+  s, `CIVIC_TOPUP_MIN_S`) to one US batch from `offsets['US']`, until the
+  deadline. The cursor still names the country whose turn it was. A cursor
+  naming the US would restart the ring at the thinnest country every run,
+  because the US is last in the order. Expect about +15 verified a day, and
+  about 12 after junk. Per 31 verified, run 108's junk was 2 police calendars,
+  2 rental/reservation calendars, 1 project page, and 5 feeds with a single
+  VEVENT. 3,573 US cities remain (offset 2,197 of 5,770).
+  `test_discover_civic.py` section 9 drives it.
+
+- **THE COMMUNITY WALK HAD WRAPPED ONTO ITS OWN OLD ROWS, SO 09:30 IS NOW A
+  SECOND FULL-SWEEP PASS (2026-10-23).** Runs 115, 117, 120, 122 and 124 were
+  pinned to community_centre, library and social_centre. They verified 60 in
+  234.5 osm-minutes (15.4 an hour). Over the same period, the daily full sweep
+  verified 430 in 334 (77 an hour). The walk had wrapped: Kansas City 205 on
+  10-12, Bordeaux 133 now. 86.5% of its 6,087 probes re-asked keys the ledger
+  already held. Re-asking rows an older probe version wrote verifies about
+  1.0% (99 per 9,898), against 3.0-4.7% per probe on new ground. Per venue,
+  centres are not the problem: 5.22% vs 3.87% for other kinds in 10 fully
+  walked metros. The 09:30 cron now runs osm over every kind, 40 metros, on
+  the shared `osm` cursor. The `osm|community_centre,library,social_centre`
+  slot stays in curation_cursor.json, so a dispatch with osm_kinds can resume
+  it. The gain depends on the ground. DE metros 117-128 are new (6,840 of
+  7,007 .de rows are probe v2). Metros 129-178 (FR, CA, AU, GB) are mostly
+  lapsed v1 rows (.fr 1,217/1,855, .ca 685/711, .au 1,034/1,078, .uk
+  1,165/1,319), so expect parity with the old walk there. The US non-centre
+  kinds at 179-260 are new again.
+
+- **A CONTACT-SENTENCE RATE FROM ONE SAMPLE CAN BE ZERO AND STILL WRONG
+  (2026-10-24).** The Natuurwerkdag's first live run read 49 job pages and
+  dropped 0 contact sentences, and _measured said so. The review's 15 other
+  pages had 3: a named person with a mobile on 2, an organisation's e-mail on
+  1. Over all 86 distinct pages read that day, 4 carry one. Record a privacy
+  filter's yield over the widest sample there is, not over the run that
+  happened to be logged. natuurwerkdag_sources.json is also in
+  catalog_curate._ROBOTS_EXTRA, as the HTML adapters reading a publisher's own
+  pages are.
+
+- **EVERY HOMEPAGE THE WALK ASKS IS WRITTEN DOWN, SO A RESUMED METRO DOES NOT
+  PAY FOR IT TWICE (2026-10-23).** 2,002 of 7,044 probes in daily runs 118,
+  121 and 123 (28%) left no ledger row, so a metro the deadline cut short
+  asked them again. Berlin's second visit (run 121) spent about 500 of its
+  2,443 probes on run 118's homes, and its `configured` tally went from 46 to
+  158. Now a probe that produced a candidate writes the home `found` with
+  `cal_key`, the candidate's ledger key (the hash for a held calendar). A 4xx
+  other than 429, a Crawl-delay past the cap, or a find no candidate could be
+  made of writes `probed`. Both are osm-venue rows, parked
+  UNREACHABLE_TTL_DAYS (7) by `_probed_recently`, and written only where the
+  home has no row or an osm-venue one, never over a verify's. A `found` home
+  whose cal_key is configured or declined is skipped as `configured` with no
+  TTL (the community walk re-probed 91-170 such homes a run). A challenge, a
+  429 and a 5xx are still not written. verify, coverage_snapshot and the
+  health check read only ok/fail/empty/refused, so the new rows only raise the
+  ledger total, as `unreachable` did. `python test_discover_osm.py`.
+
+- **A JSONLD FIND IS PROPOSED ONLY WHEN ITS LISTING SHOWS AN EVENT
+  (2026-10-23).** 'no schema.org Event blocks found' was 154 failures in 6
+  daily runs, about 26 a run. In a sample of 16, all 16 were builder or plugin
+  labels with 0 matching links. `events_evidence` is the page's own Event
+  block, Wix events in its warmup data, or a link the candidate's
+  `link_pattern` matches (`jsonld_link_pattern`, absolute and on the listing's
+  host, as verify reads it). It is read off the page that becomes listing[0],
+  not the page in hand: the homepage when Wix switches to it, the first
+  followed page in the ok-homepage branch, and True when `_prefer_listing`
+  walked up to a parent. A reviewer's read of the configured OSM jsonld
+  sources without an Event block found 35 of 35 readable ones pass: 11
+  wp-event-manager and 5 modern-events on the link pattern (3-49 links each),
+  and 20 of 59 sampled Wix on wix_events (3-110 each). A find without evidence
+  is tallied `jsonld-without-events(<labels>)` and parked `osm probe:
+  no-calendar` for DEAD_TTL, so a later PROBE_VERSION re-asks it.
+
+- **AN OLDER PROBE'S VERDICT LAPSES AT 60 DAYS, NOT THE DAY THE PROBE IMPROVED
+  (2026-10-23).** Lapsing every v1 no-calendar/offsite row at once sent both
+  walks back over ground they had read: 86.5% of the community walk's 6,087
+  probes in runs 115, 117, 120, 122 and 124 re-asked a key the ledger already
+  had. Re-asked v1 rows verified 1.0% (99 of 9,898), against 3.0-4.7% per
+  probe on new ground. `PROBE_REASK_DAYS = 60` in `_dead_recently` re-parks
+  26,174 of the 28,947 v1 rows on the 2026-10-24 ledger; the other 2,773 are
+  60-89 days old and stay lapsed. verify asks the same predicate, so a v1 row
+  under 60 days old is known-dead to both. The note 'A VERDICT THE PROBE
+  REACHED RECORDS WHICH PROBE REACHED IT' now holds from day 60, not from the
+  bump.
+
+- **A PARKED HOMEPAGE MUST NOT COST THE CALENDAR IT FOUND (2026-10-24).** The
+  walk stops STARTING probes at --limit and lets the running ones settle, so
+  it returns up to OSM_PROBE_WORKERS - 1 finds past the limit, and settle has
+  already parked each one's homepage `found` for a week. cmd_discover then cut
+  the list at the limit: with --limit 2 and 4 workers it found 5, parked 5 and
+  wrote 2, and the resumed metro skipped the other 3 as probed-recently, so
+  they waited for the walk's next lap. The osm backend's finds are now written
+  out whole (at most 303 at CI's 300); the other backends are still cut. The
+  same review closed three smaller costs. A held calendar's row names it by
+  `_held_key` hash, so the configured skip also asks the hash of every
+  configured or declined Google iCal key; without it, a held calendar the
+  owner added by hand had its home asked again every week. A jsonld find with
+  no event is parked only where the homepage's row is the walk's. A lapsed
+  offsite row keeps its organizer link (760 osm-venue offsite rows carry one
+  on the 2026-10-24 ledger, 301 v1 and 459 v2) when the re-probe answers a
+  4xx, a Crawl-delay, a timeout or an unusable find: `ledger --offsite` lists
+  a link only under an offsite reason, so the row is left as it is and
+  unparked. A fresh no-calendar or offsite verdict, or a find, still replaces
+  it. `python test_discover_osm.py`.
+
+- **A CIVIC TOP-UP ASKS WIKIDATA ONLY FOR AS LONG AS IT HAS (2026-10-24).**
+  The US top-up can start with 60 s of the 10-minute civic budget left.
+  `cities()` waits up to 200 s a request, and a 429/503 adds 75 s and another
+  200 s, so one unbounded ask could run the backstop about 8.7 min over, in a
+  daily job measured at 69.6-73.7 of its 90 minutes. The top-up's ask is now
+  bounded by the time left less 30 s (at least 20; the US answers in 1.9 s). A
+  DMO ask is bounded by the time left under its own 45 s, and none is made
+  past the deadline, where the walk reads no city. A turn keeps the 200 s,
+  which Canada's 117 s answer needs. Not yet bounded: `_sparql`'s single
+  Retry-After sleep (up to 75 s, in catalog_discover_civic.py).
+
+- **`catalog_curate.py robots` reads only CONFIG and `_ROBOTS_EXTRA`
+  (2026-10-24).** kct_sources.json was in neither, so the report listed 0
+  kct.cz requests of 5,586. It is in `_ROBOTS_EXTRA` now (5,587). 16 other
+  `*_sources.json` are still in neither: affiliate, barcelona, bibliocommons,
+  bikereg, facility_hours, linkedevents, montreal_loisirs, osm_amenity,
+  osm_food, osm_secondhand, phl_parks, program, recital, restaurant,
+  runsignup, toronto_rec. A config whose adapter reads a publisher's own pages
+  belongs in `_ROBOTS_EXTRA`; a documented API does not.

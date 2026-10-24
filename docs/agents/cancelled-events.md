@@ -297,3 +297,93 @@
   row was claimed) is un-hidden by the next run's `kept_rows_pass`, filtered on
   `duplicate_of=eq.<kept row>` and `cancelled_at=is.null`, because it is then
   the only row that keeps the event in that door.
+
+- **A NEW REFUSAL MUST NOT RUN BEFORE THE STATUS CHECK (2026-10-24).**
+  SeatGeek's undecided() ("TBD at/vs" games and
+  date_tbd/time_tbd/datetime_tbd) first ran before the status was read. A game
+  stored at 19:10 that SeatGeek then marked postponed with time_tbd was
+  skipped as undecided: 0 tombstones where the previous code wrote 1, so the
+  row for a game that was not happening stayed on the map. Ticketmaster's loop
+  reads the status before tm_has_clock for the same reason: a postponed show
+  often loses its time while the row we stored still has one. Now only a LIVE
+  listing is refused. A cancelled or postponed one is built as its live row
+  was and tombstoned under the stored fingerprint (dt_local[:10] keys the
+  date, so a time moved to 03:30 keeps the key). Meetup's city-point refusal
+  is ordered the same way. `python test_ingest_seatgeek.py` (a real
+  EventStore, day 1 stored then day 2 postponed), `python
+  test_ingest_meetup.py`.
+
+- **A LEADING OFF-WORD CAN BE FENCED BY '/' OR AN EMOJI (2026-10-23).**
+  notice_reason now treats '/' and the symbol and emoji blocks as separators
+  after a leading CANCELLED/ANNULÉ. 2 of 5,880 live titles change: "🔴 Annulé 🔴
+  ☀️ PROMENADE..." and "ANNULÉ // La Louuve". "Cancelled, the Musical" and
+  "Cancelled? A comedy night" stay events. `python test_cancellations.py`.
+
+- **A SKIP ADDED AFTER ROWS WERE WRITTEN MUST NOT SWALLOW THEIR CANCELLATION
+  (2026-10-24).** In mapsee_ingest_ics, ONLINE_LOC_RX's `continue` ran before
+  the STATUS:CANCELLED tombstone. When 0c1f953 taught the pattern "On Zoom", 8
+  University of Washington rows were already stored and pinned at the campus
+  geocode. An upsert cannot delete, so they stayed. Because the cancellation
+  was skipped too, nothing could ever hide them: the ics sync has no
+  --retire-absent, prune_cancelled never hides on prose, and
+  mapsee_retire_online_events reads the title and blurb, not place_name. On a
+  scratch feed, 87a2832 tombstoned a cancelled "On Zoom" VEVENT and 0c1f953
+  wrote nothing. The rule now: any refusal on a row's own text applies to a
+  live VEVENT only, and a cancelled one still reaches store.cancel, keyed as
+  the stored row was (4 of 4 fingerprints matched 87a2832's live keys). A
+  tombstone for a row never written matches no external_id and changes
+  nothing.
+
+- **A POST EDITED TO ANOTHER DAY MOVES ITS ROW WHEN THE NEW DAY IS WRITTEN,
+  AND TOMBSTONES THE OLD DAY WHEN IT IS NOT (repair-cafe.ch, 2026-10-24).**
+  The fingerprint is (title, day, café, town), so a re-dated session gets a
+  new key, and the old day's row would otherwise stay on the map. The
+  adapter's cursor keeps each key a page's row was written under, with its
+  day. If the new row is written this run, the old keys go with it as
+  legacy_fingerprints and rekey_legacy moves the row (same id, same /e/ link).
+  If the new day is past, beyond the horizon or unplaced, every key for
+  another day is tombstoned with notice=False, as jsonld does for
+  EventRescheduled. The tombstone is sent again every run until that day is
+  past. A dead key is never moved again: rekey_legacy would carry the
+  cancelled row onto the live key, and only a source read whole may lift a
+  cancellation. A new title on the same day is never a tombstone. A key that
+  another post is written under this run is never tombstoned. Known gap, not
+  measured (no re-dated page was seen among 321 upcoming): a post edited back
+  to its first day stays hidden. 29 guard mutations each fail `python
+  test_ingest_repaircafe_ch.py`.
+
+- **A ZOOM SESSION CALLED OFF ONLY IN ITS TITLE IS TOMBSTONED, NOT SKIPPED AS
+  ONLINE (2026-10-24).** An ics VEVENT at a LOCATION that is only a call,
+  called off ONLY in its title, is tombstoned by the adapter, not skipped as
+  online (7cfc387). The store's notice rule tombstones "Seminar" when a feed
+  retitles it "CANCELLED - Seminar", but it runs in upsert, and the
+  ONLINE_LOC_RX skip runs before upsert. 4b0da90 let only STATUS:CANCELLED
+  past that skip. On a scratch feed ("Seminar" written at "On Zoom" with the
+  pattern patched out, then retitled with no STATUS), 3fc7a38 counted it "1
+  online" and the row stayed live; "Teams" did the same, and the "Main
+  Library" control was tombstoned. Now, when strip_notice leaves an event name
+  and the LOCATION is online, mapsee_ingest_ics strips the title before the
+  title-keyed rules, geocodes and fetches nothing, and calls store.cancel(...,
+  "cancelled in the title", notice=True). The tombstone key equals the live
+  row's for 5 of 5 online spellings. A placed notice still goes through
+  upsert. A closure notice or a bare "CANCELLED" names no event and stays an
+  online skip.
+
+- **REPAIR-CAFE.CH IS WHOLE FOR LIFTING ONLY, AS OPENACTIVE IS (2026-10-24).**
+  The adapter cancels a session in two ways: a title notice ("ABGESAGT: ...")
+  and a date the page left (the old day's key becomes dead). Until now it
+  never called `mark_complete`, so a session the café put back on stayed
+  hidden: the sync left it "cancelled ... only a complete read lifts". Cases:
+  ABGESAGT taken out again, a date corrected back from past the horizon, or a
+  double posting's other post unplaced on the run its sibling moved away. A
+  run is now `mark_complete(SOURCE, today, horizon, absence=False)` when it
+  read every repairevent sitemap and fetched every new or changed page, with
+  no stop and no page left unread. Each row written then matches its page at
+  its current lastmod. The sync lifts only our own equal-stamp cancellation of
+  a key that read writes live again, 30 h after it at the soonest, never one
+  this store still tombstones. The read is never an absence baseline: a post
+  that leaves the sitemap is still `prune_cancelled`'s to judge by its 404. A
+  run that is not whole records none, and drops one a kept store carried. 5
+  mutations each fail `test_ingest_repaircafe_ch.py`, which reads the saved
+  store through the sync's own `cancellation_inputs` and
+  `absent_fingerprints`.
