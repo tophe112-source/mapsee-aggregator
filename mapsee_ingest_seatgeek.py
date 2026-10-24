@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone, timedelta
@@ -96,6 +97,23 @@ def _iso_utc(s: Optional[str]) -> Optional[str]:
 # an absent or unknown status is a live listing, exactly as before.
 CANCELLED_STATUSES = {"cancelled", "canceled", "postponed"}
 
+# A game that may never happen, at a time nobody set. Live 2026-10-23: 4 rows
+# "TBD at <team> - World Series (Home Game N)" (Chicago 2, Seattle 2), every one
+# at 03:30 local, and at least 2 of them cannot both happen. Dropped, never kept
+# as a bare day: the owner's call for Ticketmaster (tm_has_clock) is the same,
+# because an all-day row sorts above every real event. The three *_tbd flags
+# are read as SeatGeek names them; that a live record carries them is
+# unverified here (no SEATGEEK_CLIENT_ID), and the title rule does not need them.
+_CONTINGENT_RX = re.compile(r"^\s*TBD\s+(?:at|vs\.?)\s", re.I)
+_TBD_FLAGS = ("date_tbd", "time_tbd", "datetime_tbd")
+
+
+def undecided(ev: Dict[str, Any]) -> bool:
+    """A contingent "TBD at/vs" game, or a listing SeatGeek flags as having no
+    date or time yet."""
+    return (bool(_CONTINGENT_RX.match(ev.get("title") or ""))
+            or any(ev.get(k) is True for k in _TBD_FLAGS))
+
 
 def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
     """The live row, or None (a cancelled show too — see to_record)."""
@@ -107,6 +125,8 @@ def to_record(ev: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], Optional[s
     """(event, why it is cancelled); a cancelled one is built exactly as the live
     row was, for EventStore.cancel."""
     title = (ev.get("title") or "").strip()
+    if undecided(ev):
+        return None, None
     status = str(ev.get("status") or "").strip().lower()
     cancelled = f"status:{status}" if status in CANCELLED_STATUSES else None
     if cancelled and notice_reason(title):
@@ -161,7 +181,7 @@ def ingest(store: EventStore, session, client_id, client_secret,
     }
     if client_secret:
         params["client_secret"] = client_secret
-    kept = cancelled = 0
+    kept = cancelled = tbd = 0
     for page in range(1, 8):                               # cap ~700 events/metro
         params["page"] = page
         r = _get(session, params)
@@ -173,6 +193,9 @@ def ingest(store: EventStore, session, client_id, client_secret,
         if not events:
             break
         for ev in events:
+            if undecided(ev):
+                tbd += 1
+                continue
             nev, why = to_record(ev)
             if nev is None:
                 continue
@@ -184,7 +207,8 @@ def ingest(store: EventStore, session, client_id, client_secret,
         meta = data.get("meta") or {}
         if page * int(meta.get("per_page") or 100) >= int(meta.get("total") or 0):
             break
-    print(f"[seatgeek] {lat},{lon}: kept {kept}, {cancelled} cancelled/postponed")
+    print(f"[seatgeek] {lat},{lon}: kept {kept}, {cancelled} cancelled/postponed, "
+          f"{tbd} with no date or time set")
     return kept
 
 

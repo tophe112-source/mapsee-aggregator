@@ -72,6 +72,7 @@ import dataclasses
 import hashlib
 import json
 import logging
+import math
 import os
 import random
 import re
@@ -280,6 +281,47 @@ def venue_is_only_a_plus_code(name: Optional[str], address: Optional[str]) -> bo
     return looks_like_plus_code(name) and looks_like_plus_code(address)
 
 
+# A venue box that holds only the city, or "to be announced". Meetup answers it
+# with its own point for the city, which is a pin nobody is standing at. Live
+# 2026-10-23 (5,880 rows near 12 metro centres), 24 Meetup rows named for their
+# city or "wird noch bekannt gegeben" sat on that point: Berlin 52.52,13.405 x6,
+# Paris x5, Melbourne x4 (Plenty Gorge x2 and Cathedral Ranges, hikes 40 min to
+# 2 h out), Mexico City x3, London x2, New York x2, Amsterdam x2. The NAME is
+# not enough: 5 rows called after their city carry a precise pin (a Coulée
+# Verte walk at 48.8457,2.3648, 1.5 km from the centre, is one) and are kept.
+# Nor is the address: "**Location:** Plenty Gorge (Approximately 40 minutes...)"
+# is not empty. What marks the bare city is the point itself, within about 1 km
+# of the centre the sweep asked about (Meetup's Paris point is 121 m from ours).
+# A name that says more than the city ("Melbourne CBD", "Berlino") is kept.
+_TBA_VENUE_RX = re.compile(r"^(?:tba|tbc|tbd|to be (?:announced|confirmed|determined)|"
+                           r"wird noch bekannt gegeben)$")
+CITY_POINT_RADIUS_M = 1000.0
+
+
+def _metres(a: Tuple[float, float], b: Tuple[float, float]) -> float:
+    la1, lo1, la2, lo2 = map(math.radians, (a[0], a[1], b[0], b[1]))
+    h = (math.sin((la2 - la1) / 2) ** 2
+         + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2)
+    return 2 * 6371000.0 * math.asin(min(1.0, math.sqrt(h)))
+
+
+def venue_is_only_a_city(name: Optional[str], city: Optional[str], lat: Any, lon: Any,
+                         centre: Optional[Tuple[float, float]]) -> bool:
+    """The venue is the city (or "TBA") AND the pin is the city's own point.
+
+    Both halves, like venue_is_only_a_plus_code. With no centre to compare
+    against there is no telling a centroid from a real pin, so nothing is
+    refused. The whole name, never a part: "TBD - Chicago" is a book club 703 m
+    from Chicago's centre, on a pin of its own, and stays."""
+    lat, lon = _to_float(lat), _to_float(lon)
+    n = normalize_text(name)
+    if not centre or lat is None or lon is None or not n:
+        return False
+    if n != normalize_text(city) and not _TBA_VENUE_RX.match(n):
+        return False
+    return _metres((lat, lon), (float(centre[0]), float(centre[1]))) <= CITY_POINT_RADIUS_M
+
+
 # A NOTICE IS NOT AN EVENT, AND ITS TITLE SAYS WHICH ONE IT IS. Calendars carry
 # two kinds, both well-formed rows with real dates that nothing downstream can
 # tell from an event:
@@ -309,11 +351,16 @@ _CLOSURE_TITLE_RX = re.compile(
 # "**CANCELED** Chair Yoga"), all of them cancellations when read, plus
 # 【開催中止】 on a Tokushima museum's tour that its feed still publishes as
 # CONFIRMED.
+# The separator after a leading word may also be '/' or a symbol or emoji
+# block (arrows, dingbats, U+1F000-U+1FAFF): live 2026-10-23, 2 of 5,880 titles,
+# "🔴 Annulé 🔴 ☀️ PROMENADE..." and "ANNULÉ // La Louuve". Not punctuation in
+# general: "Cancelled, the Musical" and "Cancelled? A comedy night" are events.
 _OFF_WORDS = (r"cancel+ed|postponed|abgesagt|entf[äa]llt|f[äa]llt\s+aus|verschoben|"
               r"annul[ée]e?s?|cancelad[oa]s?|suspendid[oa]s?|aplazad[oa]s?|geannuleerd|"
               r"afgelast|annullat[oa]")
 _CANCELLED_TITLE_RX = re.compile(
-    rf"^\W*(?:{_OFF_WORDS})\s*(?:$|[:\-–—|!)\]*])|"
+    rf"^\W*(?:{_OFF_WORDS})\s*(?:$|[:\-–—|!)\]*/]|"
+    r"[\u2190-\u21ff\u2300-\u23ff\u2460-\u27bf\u2900-\u2bff\U0001F000-\U0001FAFF])|"
     rf"[\-–—:(\[|*]\s*(?:{_OFF_WORDS})\W*$|"
     r"【\s*(?:開催)?中止\s*】|^\s*中止\s*[:：]",
     re.I)
@@ -1440,12 +1487,49 @@ def pick_best_image(images: Iterable[Dict[str, Any]]) -> Optional[str]:
     return max(sized, key=_w).get("url")            # everything is small: take the widest
 
 
+def _primary_classification(raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    classifications = raw.get("classifications", []) or []
+    return (next((c for c in classifications if c.get("primary")), None)
+            or (classifications[0] if classifications else None))
+
+
 def _primary_segment(raw: Dict[str, Any]) -> Optional[str]:
     """Ticketmaster top-level segment: Music / Sports / Arts & Theatre / Film / Miscellaneous."""
-    classifications = raw.get("classifications", []) or []
-    primary = (next((c for c in classifications if c.get("primary")), None)
-               or (classifications[0] if classifications else None))
+    primary = _primary_classification(raw)
     return (primary.get("segment") or {}).get("name") if primary else None
+
+
+# A show Ticketmaster gave no segment, in a theatre. Live 2026-10-23, 125 of
+# 5,880 rows were 'other', 123 from TM Discovery (ticketmaster 84, universe 33,
+# ticketweb 6); 37 sat in a theatre or on a stage: 32 shows (New York 28 -
+# Broadway houses, New World Stages - and London 4) and 5 products, which
+# _TM_NOT_A_TICKET_RX drops first. A venue default, so only where TM said nothing.
+_TM_NO_SEGMENT = (None, "", "Undefined", "Miscellaneous")
+_TM_THEATRE_VENUE_RX = re.compile(r"\b(?:theat(?:re|er)s?|playhouse|opera\s+house|stages?)\b", re.I)
+
+# Ticketmaster's own genre for a children's show adds the kids door. Live
+# 2026-10-23: 45 rows (Paris 43, Mexico City 2: Le Livre de la Jungle, Shrek Le
+# Musical, Hansel y Gretel) said "Children's Theatre", all on theater and 0 on
+# kids. Not "Family": 12 attractions.ticketmaster.co.uk rows carry it, Madame
+# Tussauds and the London Dungeon among them. Genre or subGenre, either one.
+_TM_KIDS_GENRES = frozenset({"children's theatre", "children's music"})
+
+
+def _tm_for_children(raw: Dict[str, Any]) -> bool:
+    primary = _primary_classification(raw) or {}
+    return any(((primary.get(k) or {}).get("name") or "").replace("\u2019", "'").strip().lower()
+               in _TM_KIDS_GENRES for k in ("genre", "subGenre"))
+
+
+# A product, not a show: "WAMU Theater Amplified Access: MONSTA X (Not an Event
+# Ticket)", "THIS IS NOT AN EVENT TICKET: PERSONALIZED SIGNED TOUR POSTER". Live
+# 2026-10-23, 7 of 5,880 rows (0.12%), all Ticketmaster: WAMU Theater x3, The
+# Chicago Theatre x2, Brooklyn Bowl, a RAI Theater "VIP Upgrade". The narrow half
+# of mapsee_dedupe_events.NOT_AN_EVENT, plus parking, which is safe in code that
+# reads only Ticketmaster (Moshtix has a band called "4 HR PARKING").
+_TM_NOT_A_TICKET_RX = re.compile(
+    r"not an? (?:\w+ ){0,2}ticket|not an event|\bvip upgrade\b|^\s*parking\b|"
+    r"\bparking\s+(?:pass|lot|garage|voucher)\b", re.I)
 
 
 def _fmt_price(price_ranges) -> Optional[str]:
@@ -1523,6 +1607,8 @@ def parse_ticketmaster_event(raw: Dict[str, Any]) -> NormalizedEvent:
     loc = v.get("location", {}) or {}
 
     segment = _primary_segment(raw)              # Ticketmaster segment -> Mapsee category
+    if segment in _TM_NO_SEGMENT and _TM_THEATRE_VENUE_RX.search(v.get("name") or ""):
+        segment = "Arts & Theatre"
     ev = NormalizedEvent(
         source="ticketmaster",
         source_id=str(raw.get("id")),
@@ -1540,6 +1626,7 @@ def parse_ticketmaster_event(raw: Dict[str, Any]) -> NormalizedEvent:
         country=(v.get("country", {}) or {}).get("countryCode"),
         postal_code=v.get("postalCode"),
         category=segment,
+        categories=["kids"] if _tm_for_children(raw) else [],
         promoter=(raw.get("promoter") or {}).get("name"),
         lineup=lineup,
         poster_image_url=pick_best_image(raw.get("images", [])),
@@ -1628,6 +1715,7 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
     processed = 0
     no_clock = 0
     cancelled = 0
+    not_a_ticket = 0
     page = 0
     while True:
         data = http_get(session, DISCOVERY_URL, limiter, dict(base, size=page_size, page=page)).json()
@@ -1635,6 +1723,11 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
         if not events:
             break
         for raw in events:
+            # Before the status check: a product carries its show's attraction,
+            # so often the show's fingerprint, and its cancellation is not the show's.
+            if _TM_NOT_A_TICKET_RX.search(raw.get("name") or ""):
+                not_a_ticket += 1
+                continue
             ev = parse_ticketmaster_event(raw)
             if not ev.source_id or ev.source_id == "None":
                 continue
@@ -1654,8 +1747,8 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
         total_pages = int(info.get("totalPages", 0) or 0)
         current = int(info.get("number", page) or 0)
         log.info("[ticketmaster] page %d/%s (%d processed, %d skipped with no start time, "
-                 "%d cancelled or postponed)", current + 1, total_pages or "?", processed, no_clock,
-                 cancelled)
+                 "%d cancelled or postponed, %d not a ticket)", current + 1, total_pages or "?",
+                 processed, no_clock, cancelled, not_a_ticket)
         if current + 1 >= total_pages:
             break
         if (page + 1) * page_size >= MAX_RESULT_WINDOW:

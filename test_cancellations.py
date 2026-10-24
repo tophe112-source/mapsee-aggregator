@@ -195,6 +195,17 @@ check("strip_notice keeps the event's own words",
       [ING.strip_notice(t) for t in ("Chess Club CANCELLED", "***ABGESAGT***  Pflanzen-Flohmarkt   ***ABGESAGT***",
                                      "(CANCELADO) Habitar la voz", "CANCELLED", "NATURE CENTER CLOSED")],
       ["Chess Club", "Pflanzen-Flohmarkt", "Habitar la voz", None, None])
+# '/' or an emoji after a leading word separates it too: live 2026-10-23, 2 of
+# 5,880 titles. A comma or a question mark does not: those two are events.
+for title, want, own in [
+    ("🔴 Annulé 🔴 ☀️ PROMENADE 🌳 COULEE VERTE & APÉRO-PiCNiC 😊💬🌊 LAC DAUMESNiL ⛵",
+     "cancelled in the title", "PROMENADE 🌳 COULEE VERTE & APÉRO-PiCNiC 😊💬🌊 LAC DAUMESNiL"),
+    ("ANNULÉ // La Louuve", "cancelled in the title", "La Louuve"),
+    ("Cancelled, the Musical", None, None),
+    ("Cancelled? A comedy night", None, None),
+]:
+    check(f"notice_reason({title[:30]!r}) and the title it names",
+          (ING.notice_reason(title), ING.strip_notice(title)), (want, own))
 
 print()
 print("EventStore.mark_complete: a whole read, and its window rounded inward")
