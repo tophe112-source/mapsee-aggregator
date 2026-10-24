@@ -36,7 +36,9 @@ What is pinned is what the first real sweeps got wrong:
   * A REFUSED OVERPASS ASK ENDS THE RUN, so it is asked eight times: 6 of the
     community walk's 13 runs ended on a metro refused four times running. But
     inside a patience, since an ask can hang 200 s and eight of those would
-    run past the caller's deadline.
+    run past the caller's deadline. A refused metro is struck at most once a
+    UTC day, because two crons walk one cursor since 2026-10-23: three
+    refusals in two days do not skip it, a third day's does.
   * THE WALK PROBES FOUR VENUES AT ONCE AND NEVER TWO ON ONE HOST. It is
     time-bound (950-1,450 probes per 55-minute run, one at a time), and venues
     share hosts more than it looks: 19 of Winnipeg's 30 are on one library
@@ -1299,6 +1301,7 @@ def main():
     homepage_park(C)
     homepage_park_edges(C)
     centre_calendars(C)
+    overpass_strikes(C)
 
     print()
     if FAILURES:
@@ -1357,6 +1360,60 @@ SIMCAL = ('<link rel="stylesheet" href="/wp-content/plugins/google-calendar-even
           '<a href="https://www.google.com/calendar/event?eid=XzYwcjMyZTlrODkyMzZiOWo4ZDJqYWI5azZwMTM2Ymlw'
           'NzUyamFiYTY3NHJqMmdobDY0czM2aGk1OGsgZXhhbXBsZWFydHNhc3NvY2lhdGlvbkBt&#038;ctz=Europe/Vienna" '
           'target="_blank" >Weitere Details anzeigen</a></li></div>')
+
+
+
+def overpass_strikes(C):
+    """A metro Overpass refuses is struck at most once a UTC day (review,
+    2026-10-24). Since 2026-10-23 the 03:20 and 09:30 crons walk one `osm`
+    slot, so a strike a run skipped a metro after about 24 h (day 1 14:30,
+    day 2 08:40, day 2 14:30), and a skipped metro waits 45-130 days for the
+    ring to wrap. The threshold stays three, and three means three days."""
+    import contextlib
+    import io
+    import os
+    from unittest.mock import patch
+    print()
+    print("an Overpass refusal is one strike a day, however many runs ask")
+    answer = [None]
+    real = (osm.overpass_venues, osm.metros, C._save_ledger)
+    C._save_ledger = lambda led: None
+    osm.metros = lambda: [{"name": n, "country": "DE", "bbox": (0, 0, 1, 1)}
+                          for n in ("Hamburg", "Bremen")]
+    osm.overpass_venues = lambda sess, bbox, lab, **kw: answer[0]
+
+    def walk(cur, day, venues=None):
+        answer[0] = venues
+        said = io.StringIO()
+        with patch.dict(os.environ, {"MAPSEE_TODAY": day}), contextlib.redirect_stdout(said):
+            C._discover_osm(C._session(), set(), {}, 500, cur, metros_per_run=1, workers=1)
+        return said.getvalue()
+    try:
+        cur = {"metro_key": "DE:Hamburg"}
+        walk(cur, "20261022")
+        walk(cur, "20261023")
+        said = walk(cur, "20261023")
+        check("three refusals in two calendar days leave the metro UNREAD, not skipped",
+              (cur["metro_key"], cur["stuck"].get("DE:Hamburg"), "SKIPPING" in said),
+              ("DE:Hamburg", {"n": 2, "day": 20261023}, False))
+        check_true("...and the second refusal of a day says it was not counted",
+                   "already counted today" in said)
+        said = walk(cur, "20261024")
+        check("a refusal on a third day still skips it, loudly",
+              (cur["metro_key"], "DE:Hamburg" in cur["stuck"], "SKIPPING" in said),
+              ("DE:Bremen", False, True))
+        old = {"metro_key": "DE:Hamburg", "stuck": {"DE:Hamburg": 1}}
+        walk(old, "20261024")
+        check("a bare count from before is a strike on an earlier day",
+              (old["metro_key"], old["stuck"].get("DE:Hamburg")),
+              ("DE:Hamburg", {"n": 2, "day": 20261024}))
+        gap = {"metro_key": "DE:Hamburg"}
+        walk(gap, "20261022")
+        walk(gap, "20261023", venues=[])
+        check("an answer clears the count, so 'running' still means running",
+              (gap["metro_key"], gap["stuck"]), ("DE:Bremen", {}))
+    finally:
+        (osm.overpass_venues, osm.metros, C._save_ledger) = real
 
 
 def _days_ago(C, n):

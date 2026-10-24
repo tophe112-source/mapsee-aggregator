@@ -481,6 +481,11 @@ class WorkflowContracts(unittest.TestCase):
         answers, so a Wednesday can be asked for on any day."""
         workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
         step = next(s for s in workflow['jobs']['curate']['steps'] if s.get('name') == 'Discover, verify and merge')
+        # A schedule the tests inject must be one the workflow has, or an
+        # edited cron line leaves every case passing on a run that never comes.
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        when = context.get('github.event.schedule')
+        assert when is None or when in crons, f"{when!r} is not one of curate-catalog's crons {crons}"
 
         def expr(m):
             for term in m[1].split('||'):
@@ -558,6 +563,32 @@ class WorkflowContracts(unittest.TestCase):
         # where it was once the rows an older probe wrote have lapsed.
         cursor = json.loads((ROOT / 'curation_cursor.json').read_text(encoding='utf-8'))
         self.assertIn('osm|community_centre,library,social_centre', cursor)
+
+    def test_curate_compares_only_its_own_crons_and_runs_one_at_a_time(self):
+        # The 03:20 and 09:30 crons walk one `osm` cursor slot (2026-10-23).
+        # Only the group keeps them apart: two at once would probe one metro
+        # from two runners, and _merge_cursors lets the later snapshot's `osm`
+        # dict win, so a run that advanced two metros is rewound to one.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        self.assertEqual(workflow['concurrency'], {'group': 'curate-catalog', 'cancel-in-progress': False})
+        crons = {c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']}
+
+        def strings(o):
+            if isinstance(o, dict):
+                for v in o.values():
+                    yield from strings(v)
+            elif isinstance(o, list):
+                for v in o:
+                    yield from strings(v)
+            elif isinstance(o, str):
+                yield o
+        said = set()
+        for s in strings(workflow['jobs']):
+            said.update(re.findall(r'github\.event\.schedule\s*\}\}"\s*=\s*"([^"]+)"', s))
+            said.update(re.findall(r"github\.event\.schedule\s*==\s*'([^']+)'", s))
+        # Today: '20 3 * * *' (daily), '50 3 * * 3' (gap) and '30 9 * * *' (second pass).
+        self.assertEqual(len(said), 3, said)
+        self.assertLessEqual(said, crons)
 
     @unittest.skipUnless(shutil.which('bash'), 'needs bash')
     def test_curate_dispatches_keep_their_defaults_and_osm_workers_reaches_the_walk(self):

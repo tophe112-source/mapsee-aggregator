@@ -525,12 +525,18 @@ class _Clock:
 
 
 def _civic_run(cursor, deadline_s=600.0, per_run=10, unread=(), empty=(),
-               hit=(), limit=300, city_s=11.0):
-    """One _discover_civic call against fakes -> (found, probed qids, batches asked)."""
-    clock, probed, asked = _Clock(), [], []
+               hit=(), limit=300, city_s=11.0, wd_s=0.0, log=None):
+    """One _discover_civic call against fakes -> (found, probed qids, batches asked).
 
-    def cities(session, country, limit=200, offset=0):
+    `wd_s` is what a Wikidata ask costs on the clock; `log`, when given,
+    collects each ask's timeout and each DMO ask's."""
+    clock, probed, asked = _Clock(), [], []
+    log = {} if log is None else log
+
+    def cities(session, country, limit=200, offset=0, **kw):
         asked.append((country, offset))
+        log.setdefault("timeout", []).append((country, kw.get("timeout")))
+        clock.now += wd_s
         if country in unread:
             raise RuntimeError("504 Gateway Timeout")
         if country in empty:
@@ -552,7 +558,11 @@ def _civic_run(cursor, deadline_s=600.0, per_run=10, unread=(), empty=(),
                       "url": f"{place['url']}calendar.ics"}], {"status": "ok"})
         return [], {"status": "no-calendar"}
 
-    fakes = {"cities": cities, "probe": probe, "dmo_nominations": lambda _s, _p: {}}
+    def dmo(_s, places, **kw):
+        log.setdefault("dmo", []).append((places[0]["qid"][:2], kw.get("timeout")))
+        return {}
+
+    fakes = {"cities": cities, "probe": probe, "dmo_nominations": dmo}
     real = {k: getattr(civ, k) for k in fakes}
     real_c = (_C.time, _C._robots_probe_session, _C._save_ledger)
     try:
@@ -652,6 +662,22 @@ try:
     _civic_run(cur, empty=("US",))
     check(_C._civic_offsets(cur)["US"] == 0 and cur["country"] == "JP",
           "a top-up past the end of the US wraps the US to the top, and only the US")
+
+    # The top-up's Wikidata ask waits no longer than the time it has (review,
+    # 2026-10-24: up to 200 s a request from 60 s left), and a turn's keeps
+    # cities()'s own 200 s. Each ask costs 30 s here: JP's ask and 10 cities
+    # leave 60 s of 200, the US ask 30 more.
+    log = {}
+    _civic_run(_cur("CA"), deadline_s=200, wd_s=30, log=log)
+    check(log["timeout"] == [("JP", None), ("US", 30)],
+          f"a top-up's Wikidata ask is bounded by the time left less 30 s ({log['timeout']})")
+    check(log["dmo"] == [("JP", 45), ("US", 30)],
+          f"...and a DMO ask by the time left when that is under its own 45 s ({log['dmo']})")
+    log, cur = {}, _cur("CA")
+    _f, probed, _a = _civic_run(cur, deadline_s=600, wd_s=700, log=log)
+    check(log.get("dmo") is None and probed == [] and _C._civic_offsets(cur)["JP"] == 400,
+          f"a Wikidata ask that ends past the deadline asks no DMO: the walk reads no city "
+          f"and the offset stays ({log.get('dmo')}, {probed})")
 finally:
     civ.CITY_CLASSES = _real
     _C._coverage_rows = _real_rows
