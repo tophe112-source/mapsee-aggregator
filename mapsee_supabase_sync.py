@@ -2253,41 +2253,331 @@ def _addr_parts(rec: Dict[str, Any]):
     return (line1, (rec.get("city") or "").strip(), (rec.get("region") or "").strip())
 
 
-def batch_geocode(session, addr_tuples):
-    """Geocode many US addresses at once with the free, key-less US Census BATCH
-    geocoder (up to 10k per request) — Ticketmaster's own venue lat/long is often
-    imprecise (it placed The Showbox ~0.5 mi off). Input: list of (street, city,
-    state). Returns {(street, city, state): (lat, lon)} for confident matches."""
+# Census is TIGER: it answers a US address, and a foreign one only by landing
+# on a US town of the same name. 2 of 218 London, Sydney and Dublin Meetup
+# venues matched ('3 Mincing Lane, London' -> London KY, '2 Canter Way' ->
+# London OH) and 8 of 483 of Ticketmaster's international ones (2026-10-23).
+# Meetup writes 'gb'/'us' in lower case. Puerto Rico is sent as before.
+CENSUS_COUNTRIES = frozenset({"", "us", "usa", "united states", "united states of america",
+                              "pr", "puerto rico"})
+
+
+def _census_parts(rec: Dict[str, Any]):
+    """_addr_parts for a record in the US or naming no country; None for any
+    other, which keeps the coordinates its source gave."""
+    country = rec.get("country")
+    if isinstance(country, dict):                     # a schema.org Country
+        country = country.get("name")
+    if str(country or "").replace(".", "").strip().lower() not in CENSUS_COUNTRIES:
+        return None
+    return _addr_parts(rec)
+
+
+# A 9,000-ADDRESS REQUEST OUTLASTED THE 180 s READ TIMEOUT, AND A DIFFERENT
+# 9,000 PINS FLIPPED EACH DAY. Meetup's US leg lost its first chunk every run
+# 2026-10-21..23 (10-21: 0 matched in 180.3 s) while the 5,471-address second
+# chunk took 76.1 s; civic's 2,073 ran at 22 ms an address. A set's order
+# changes every run, so the rows in the dead chunk moved between Census's
+# point and the source's: 9,424 (US leg) and 13,203 (final) Meetup rows
+# differed on lat/lon on 10-23, and 28,926 extra_sources rows on 10-22, when
+# its one 5,188-address chunk timed out. 2,500 is ~55 s at 22 ms an address.
+CENSUS_URL = "https://geocoding.geo.census.gov/geocoder/locations/addressbatch"
+CENSUS_CHUNK = 2500
+CENSUS_MIN_CHUNK = 625                  # the smallest a slow Census makes a chunk
+CENSUS_TIMEOUT = 180                    # a full chunk's; a retried half gets half of it
+# WHAT A FAILING CENSUS MAY COST ONE CALL. Stopping only once a chunk AND both
+# its halves failed let a Census that times out at 2,500 but answers one half
+# of 1,250 cost 180 + 90 + 90 s a chunk and go on: 18 requests and ~1,780 s for
+# Meetup's ~14,500 US addresses in a fake doing exactly that (2026-10-24), when
+# the 9,000 chunks' worst was 2 x 180 s. Failed requests now spend at most
+# this: a request is not sent when its timeout would take them past it, and
+# nothing is sent after that one.
+CENSUS_FAIL_BUDGET = 2 * CENSUS_TIMEOUT
+# Every answer a sync run gets is kept (census_cache.json, carried by
+# actions/cache), so an address is asked once, and one whose chunk fails keeps
+# its LAST answer instead of taking the source's pin. A miss is asked again
+# after 30 days, a match after a year; an entry not asked again for twice that
+# is dropped. main() passes the path: a direct build_rows/batch_geocode call
+# (a test's fake Census) reads and writes no file.
+CENSUS_CACHE_PATH = os.environ.get("CENSUS_CACHE", "census_cache.json")
+CENSUS_MISS_DAYS = 30
+CENSUS_MATCH_DAYS = 365
+CENSUS_MISS = "NO_MATCH"
+# A STORED ROW AT AN ADDRESS CENSUS HAS NEVER ANSWERED WAITS, BUT NOT LONG. Its
+# pin may be Census's from before the cache knew the address, so when the
+# address's chunk fails, main() holds the row back instead of writing the
+# source's pin (a NEW row has no pin to keep and is written on the source's).
+# The hold is marked in the cache as [PENDING, its first failure] and lasts
+# CENSUS_HOLD_HOURS, the syncs of one job and one day: a later sync on the
+# same file holds it again, where it used to read "Census answered nothing
+# this run" and write the source's pin (2026-10-24, two calls on one file),
+# and after that the row takes the source's pin. Nothing is held when Census
+# answered nothing and the cache knows nothing (an outage on a cold cache, a
+# retired endpoint): that is the source's pin, as before.
+CENSUS_PENDING = "PENDING"
+CENSUS_HOLD_HOURS = 18
+
+
+class CensusAnswers(dict):
+    """{(street, city, state): (lat, lon)}. `held` holds the addresses whose
+    chunk failed and that Census has never answered, within CENSUS_HOLD_HOURS
+    of the first failure: main() holds their STORED rows back for that long
+    rather than write the source's pin."""
+    held: frozenset = frozenset()
+
+
+def _census_key(addr) -> str:
+    return "|".join(addr)
+
+
+def _census_entry(entry):
+    """(answer, ts) for a cache entry: the answer (lat, lon), CENSUS_MISS or
+    CENSUS_PENDING (a hold's mark, not an answer); None for anything else."""
+    try:
+        if len(entry) == 2 and entry[0] in (CENSUS_MISS, CENSUS_PENDING):
+            return entry[0], float(entry[1])
+        if len(entry) == 3:
+            lat, lon, ts = (float(v) for v in entry)
+            return (lat, lon), ts
+    except (TypeError, ValueError):
+        pass
+    return None
+
+
+def _census_ttl(answer) -> float:
+    return (CENSUS_MATCH_DAYS if isinstance(answer, tuple) else CENSUS_MISS_DAYS) * 86400
+
+
+def _load_census_cache(path):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            cache = json.load(fh)
+    except (OSError, ValueError):
+        return {}
+    return cache if isinstance(cache, dict) else {}
+
+
+def _save_census_cache(path, cache, now) -> None:
+    kept = {}
+    for key, entry in cache.items():
+        got = _census_entry(entry)
+        if got and got[1] > now - 2 * _census_ttl(got[0]):
+            kept[key] = entry
+    tmp = path + ".tmp"
+    try:
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(kept, fh, ensure_ascii=False, separators=(",", ":"))
+        os.replace(tmp, path)                         # atomic: a killed run cannot corrupt it
+    except OSError as error:
+        print(f"::warning::Census answers not saved to {path} ({error}); "
+              f"the next run asks again.", flush=True)
+
+
+def _census_post(session, chunk, base, timeout):
+    """One batch request: (answers, status, refused). `answers` is {address:
+    (lat, lon) or CENSUS_MISS} for the addresses Census answered, or None when
+    the request failed: an exception or timeout, a non-200, or a 200 that
+    answered none of them. `refused` is True for a 4xx other than 408 and 429,
+    which asking again would not change."""
     import io
     import csv
-    result: Dict[Any, Any] = {}
-    keys = list(addr_tuples)
-    for start in range(0, len(keys), 9000):
-        chunk = keys[start:start + 9000]
-        buf = io.StringIO()
-        writer = csv.writer(buf)
-        idmap = {}
-        for j, (street, city, state) in enumerate(chunk):
-            rid = str(start + j)
-            idmap[rid] = (street, city, state)
-            writer.writerow([rid, street, city, state, ""])   # id, street, city, state, zip(blank)
-        try:
-            r = session.post(
-                "https://geocoding.geo.census.gov/geocoder/locations/addressbatch",
-                files={"addressFile": ("addrs.csv", buf.getvalue())},
-                data={"benchmark": "Public_AR_Current"},
-                timeout=180,
-            )
-            if r.status_code != 200:
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    idmap = {}
+    for j, addr in enumerate(chunk):
+        rid = str(base + j)
+        idmap[rid] = addr
+        # A BACKSLASH ENDING A FIELD ESCAPES THE COMMA AFTER IT, and Census
+        # answers the whole request HTTP 400 "Malformed input file" ('400 Broad
+        # St\' measured live 2026-10-24); one inside a field it drops ('400
+        # Bro\ad St' matched 400 Broad St). So none is sent.
+        writer.writerow([rid, *(str(f).replace("\\", "") for f in addr), ""])  # id, street, city, state, zip(blank)
+    got = {}
+    try:
+        r = session.post(CENSUS_URL,
+                         files={"addressFile": ("addrs.csv", buf.getvalue())},
+                         data={"benchmark": "Public_AR_Current"},
+                         timeout=timeout)
+        if r.status_code != 200:
+            refused = 400 <= r.status_code < 500 and r.status_code not in (408, 429)
+            return None, f"HTTP {r.status_code}", refused
+        for row in csv.reader(io.StringIO(r.text)):
+            # id, input, Match/No_Match/Tie, type, matched_addr, "lon,lat", tiger, side
+            addr = idmap.get(row[0]) if len(row) >= 3 else None
+            if addr is None:
                 continue
-            for row in csv.reader(io.StringIO(r.text)):
-                # id, input, Match/No_Match/Tie, type, matched_addr, "lon,lat", tiger, side
-                if len(row) >= 6 and row[2] == "Match" and "," in row[5]:
-                    lon, lat = row[5].split(",")[:2]
-                    if row[0] in idmap:
-                        result[idmap[row[0]]] = (float(lat), float(lon))
-        except Exception:
+            if row[2] == "Match" and len(row) >= 6 and "," in row[5]:
+                lon, lat = row[5].split(",")[:2]
+                try:
+                    got[addr] = (float(lat), float(lon))
+                except ValueError:
+                    continue                          # unanswered, not a miss
+            elif row[2] in ("No_Match", "Tie"):
+                got[addr] = CENSUS_MISS
+    except Exception as error:                        # noqa: BLE001 - a timeout, a reset, a bad body
+        return None, type(error).__name__, False
+    return (got, "HTTP 200", False) if got else (None, "HTTP 200, no address answered", False)
+
+
+def _matched(got) -> int:
+    return sum(1 for answer in (got or {}).values() if answer != CENSUS_MISS)
+
+
+def batch_geocode(session, addr_tuples, cache_path=None, now=None, clock=None):
+    """Geocode many US addresses at once with the free, key-less US Census BATCH
+    geocoder — Ticketmaster's own venue lat/long is often imprecise (it placed
+    The Showbox ~0.5 mi off). Input: (street, city, state) tuples. Returns a
+    CensusAnswers {(street, city, state): (lat, lon)} of confident matches,
+    cached or fresh.
+
+    With `cache_path`, an address answered within its TTL comes from that file
+    and is not sent. The rest go in chunks of CENSUS_CHUNK. A chunk that fails
+    is retried once as two halves; when both halves answer, the chunks after it
+    go at the half size (not below CENSUS_MIN_CHUNK), and when neither does,
+    nothing more is sent. Failed requests spend at most CENSUS_FAIL_BUDGET
+    seconds (`clock`, time.monotonic by default). An unanswered address writes
+    no answer and keeps its last one; one never answered is in `.held` (see
+    CENSUS_HOLD_HOURS) or keeps its source pin."""
+    keys = list(dict.fromkeys(addr_tuples))
+    result = CensusAnswers()
+    if not keys:
+        return result
+    now = time.time() if now is None else now
+    clock = clock or time.monotonic
+    cache = _load_census_cache(cache_path) if cache_path else {}
+    warm = any(_census_entry(entry) for entry in cache.values())
+    last, pending, send = {}, {}, []                  # last: every cached answer, fresh or stale
+    for addr in keys:
+        got = _census_entry(cache.get(_census_key(addr)))
+        if got and got[0] == CENSUS_PENDING:
+            pending[addr] = got[1]
+            send.append(addr)
             continue
+        if got:
+            last[addr] = got[0]
+        if got and got[1] > now - _census_ttl(got[0]):
+            if got[0] != CENSUS_MISS:
+                result[addr] = got[0]
+        else:
+            send.append(addr)
+    print(f"Census: {len(keys)} US address(es); {len(keys) - len(send)} answered from "
+          f"{cache_path or 'no cache'}, {len(send)} to send in chunk(s) of up to "
+          f"{CENSUS_CHUNK}.", flush=True)
+
+    spent = 0.0                                       # seconds the failed requests took
+
+    def post(part, base, wait, label):
+        nonlocal spent
+        t0 = clock()
+        got, status, refused = _census_post(session, part, base, wait)
+        took = clock() - t0
+        if got is None:
+            spent += took
+        print(f"{label}: {len(part)} addresses, {status}, {_matched(got)} matched in "
+              f"{took:.1f}s.", flush=True)
+        return got, refused
+
+    answered, unanswered, refused, unsent = {}, [], [], []
+    size, wait = CENSUS_CHUNK, CENSUS_TIMEOUT
+    pos = n = failed_chunks = 0
+    stop = False
+    while pos < len(send):
+        chunk = send[pos:pos + size]
+        base, pos, n = pos, pos + len(chunk), n + 1
+        if stop or spent + wait > CENSUS_FAIL_BUDGET:
+            stop = True
+            unsent.extend(chunk)
+            continue
+        got, no = post(chunk, base, wait, f"  Census chunk {n} ({pos} of {len(send)})")
+        parts = [(chunk, got, no)]
+        if got is None:
+            mid = (len(chunk) + 1) // 2
+            parts = []
+            for h, half in enumerate((chunk[:mid], chunk[mid:])):
+                if not half:
+                    continue
+                if stop or spent + wait / 2 > CENSUS_FAIL_BUDGET:
+                    stop = True
+                    unsent.extend(half)
+                    continue
+                got, no = post(half, base + h * mid, wait / 2, f"    retry, half {h + 1}")
+                parts.append((half, got, no))
+            if any(got is None for _, got, _ in parts) or stop:
+                failed_chunks += 1
+            if parts and all(got is not None for _, got, _ in parts) and not stop:
+                # Census answers half a chunk in time but not a whole one: slow,
+                # not down. The chunks after this one go at the half size.
+                if size // 2 >= CENSUS_MIN_CHUNK:
+                    size, wait = size // 2, wait / 2
+                    print(f"  Census is slow, not down (a chunk failed, both its halves answered): "
+                          f"chunks of {size} from here, {wait:.0f}s each.", flush=True)
+            elif parts and all(got is None for _, got, _ in parts):
+                stop = True                           # a chunk and its halves unanswered: down
+        for part, got, no in parts:
+            if got is None:
+                (refused if no else unanswered).extend(part)
+            else:
+                answered.update(got)
+                unanswered.extend(addr for addr in part if addr not in got)
+    unanswered.extend(unsent)
+
+    stamp = int(now)
+    for addr, answer in answered.items():
+        if answer == CENSUS_MISS:
+            cache[_census_key(addr)] = [CENSUS_MISS, stamp]
+        else:
+            cache[_census_key(addr)] = [answer[0], answer[1], stamp]
+            result[addr] = answer
+    if send:
+        print(f"Census: {_matched(answered)} of {len(send)} sent address(es) matched, "
+              f"{len(answered) - _matched(answered)} answered no match.", flush=True)
+
+    # A FAILED CHUNK WRITES NO ANSWER AND MOVES NO PIN: each of its addresses
+    # keeps its last answer, cached match or cached miss.
+    for addr in unanswered + refused:
+        answer = last.get(addr)
+        if answer not in (None, CENSUS_MISS):
+            result[addr] = answer
+    # One Census has never answered is held (CENSUS_HOLD_HOURS) when this run
+    # or the cache shows Census answering this flow at all, and when asking
+    # again could change the answer: a refusal could not.
+    evidence = bool(answered) or warm
+    held, lapsed, marked = set(), 0, 0
+    never = [addr for addr in unanswered if addr not in last]
+    for addr in never if evidence else ():
+        since = pending.get(addr)
+        if since is None:
+            cache[_census_key(addr)] = [CENSUS_PENDING, stamp]
+            marked += 1
+            held.add(addr)
+        elif now - since < CENSUS_HOLD_HOURS * 3600:
+            held.add(addr)
+        else:
+            lapsed += 1
+    result.held = frozenset(held)
+    if cache_path and (answered or marked):
+        _save_census_cache(cache_path, cache, now)
+
+    if unanswered or refused:
+        missing = unanswered + refused
+        kept = sum(1 for addr in missing if last.get(addr) not in (None, CENSUS_MISS))
+        missed = sum(1 for addr in missing if last.get(addr) == CENSUS_MISS)
+        bare = len(missing) - kept - missed - len(held)
+        why = []
+        if lapsed:
+            why.append(f"{lapsed} held for {CENSUS_HOLD_HOURS} h already")
+        if refused:
+            why.append(f"{sum(1 for a in refused if a not in last)} in a request Census refused")
+        if never and not evidence:
+            why.append(f"{len(never)} because Census answered nothing and the cache knows nothing")
+        print(f"::warning::Census geocoder: {failed_chunks} chunk(s) failed after a retry as two "
+              f"halves" + (f", {len(unsent)} address(es) not sent (failed requests took "
+                           f"{spent:.0f}s of {CENSUS_FAIL_BUDGET}s, or Census was down)"
+                           if unsent else "")
+              + f"; of {len(missing)} unanswered address(es), {kept} keep their cached match, "
+              f"{missed} their cached miss, {len(held)} never answered are held (stored rows "
+              f"wait, at most {CENSUS_HOLD_HOURS} h), and {bare} take their source pin"
+              + (f" ({'; '.join(why)})" if why else "") + ".", flush=True)
     return result
 
 
@@ -2339,12 +2629,15 @@ def _enrich_music_links(recs: List[Dict[str, Any]], session, cache_path: Optiona
 
 
 def build_rows(store_path: str, host_id: str, geo_session=None, keep=None,
-               store_data=None) -> List[Dict[str, Any]]:
+               store_data=None, census_cache=None, census_held=None) -> List[Dict[str, Any]]:
     """Store -> event rows. `keep`, when given, filters the placeable records
     BEFORE the Spotify lookups, the Census batch and to_row, which is where
     --only-new's existence check belongs: see main(). `store_data` is an
     optional parsed snapshot shared by main(); standalone callers still read
-    and parse `store_path` here."""
+    and parse `store_path` here. `census_cache` is the Census answers file
+    (main() passes CENSUS_CACHE_PATH; see batch_geocode). `census_held`, a set,
+    receives the fingerprints of the rows at an address batch_geocode holds;
+    they are built on the source's pin, and main() drops the stored ones."""
     import time
     data = store_data if store_data is not None else json.loads(open(store_path, encoding="utf-8").read())
     recs = []
@@ -2400,25 +2693,41 @@ def build_rows(store_path: str, host_id: str, geo_session=None, keep=None,
         # condition: a generator expression's loop variable does NOT leak into
         # the enclosing comprehension, so `not r.get(...)` there is a NameError.
         # It cost a whole area's pull — Portland fetched every candidate, then
-        # died at the sync.
+        # died at the sync. A non-US address is not sent either (_census_parts).
         parts_of = {i: p for i, p, ex in
-                    ((i, _addr_parts(r), bool(r.get("coords_exact")))
+                    ((i, _census_parts(r), bool(r.get("coords_exact")))
                      for i, r in enumerate(recs))
                     if p and not ex}
         exact = sum(1 for r in recs if r.get("coords_exact"))
         if exact:
             print(f"Kept {exact} source-exact coordinates (not geocoded).")
+        abroad = sum(1 for r in recs if not r.get("coords_exact")
+                     and _addr_parts(r) and _census_parts(r) is None)
+        if abroad:
+            print(f"Kept {abroad} non-US rows off the Census batch (it answers US addresses only).")
         unique = list({p for p in parts_of.values()})
         t0 = time.monotonic()
-        coords = batch_geocode(geo_session, unique)
-        applied = 0
+        coords = (batch_geocode(geo_session, unique, cache_path=census_cache) if census_cache
+                  else batch_geocode(geo_session, unique))
+        waiting = getattr(coords, "held", frozenset())
+        applied, at_held = 0, set()
         for i, p in parts_of.items():
             c = coords.get(p)
             if c:
                 recs[i]["latitude"], recs[i]["longitude"] = c[0], c[1]
                 applied += 1
+            elif p in waiting:
+                at_held.add(recs[i]["fingerprint"])
         print(f"Geocoded {applied}/{len(recs)} rows ({len(coords)} unique addresses matched "
-              f"of {len(unique)} sent) in {time.monotonic() - t0:.1f}s.", flush=True)
+              f"of {len(unique)}, cached or sent) in {time.monotonic() - t0:.1f}s.", flush=True)
+        # Built on the source's pin. A STORED one may hold Census's, so main()
+        # does not write it this run; a new one has no pin to keep.
+        if at_held:
+            if census_held is not None:
+                census_held.update(at_held)
+            print(f"{len(at_held)} row(s) at an address whose Census chunk failed and that it has "
+                  f"never answered: " + ("main() holds back the stored ones." if census_held is not None
+                                         else "written on the source's pin."), flush=True)
 
     rows, dropped = [], 0
     for rec in recs:
@@ -4110,14 +4419,28 @@ def main() -> None:
               f"geocoding.", flush=True)
         return fresh
 
+    census_held: set = set()
     rows = build_rows(a.store, host_id, geo, keep=keep_new if a.only_new else None,
-                      store_data=store_data)
+                      store_data=store_data, census_cache=CENSUS_CACHE_PATH, census_held=census_held)
     del store_data  # release the full source snapshot before the remaining DB work
     if held:
         rows = [r for r in rows if r["external_id"] not in held]
     print(f"Prepared {len(rows)} event rows from {a.store}.")
     if state is None:                                 # refresh day: build first, then read, as before
         state = read_state([r["external_id"] for r in rows])
+
+    # A STORED row at an address Census has never answered, whose chunk failed,
+    # may hold Census's pin from an earlier run: it is not written this run
+    # (batch_geocode's hold, CENSUS_HOLD_HOURS at most). A NEW row has no pin to
+    # keep, and a moved one must be written: both go on the source's pin, so a
+    # failed chunk no longer keeps that day's new events off the map.
+    if census_held:
+        at = {r["external_id"] for r in rows if r["external_id"] in census_held}
+        wait = {eid for eid in at if eid in state and eid not in moved}
+        if wait:
+            rows = [r for r in rows if r["external_id"] not in wait]
+        print(f"Census hold: {len(wait)} stored row(s) held back; {len(at) - len(wait)} new or "
+              f"moved row(s) written on their source's pin.", flush=True)
 
     claimed = {eid for eid, is_claimed in state.items() if is_claimed}
     if claimed:

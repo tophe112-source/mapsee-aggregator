@@ -293,6 +293,8 @@ jobs:
             tribe_cursor.json
             rec_absence_manifest.json
             facility_hours_manifest.json
+            census_cache.json
+            spotify_cache.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             geocode-cache-feeds-${{ matrix.group }}-
@@ -1165,6 +1167,8 @@ jobs:
             tribe_cursor.json
             rec_absence_manifest.json
             facility_hours_manifest.json
+            census_cache.json
+            spotify_cache.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Retain the feed store and step outcomes
         if: always()
@@ -1427,6 +1431,8 @@ jobs:
           path: |
             geocode_cache.warm.json
             ics_feed_cache.json
+            census_cache.json
+            spotify_cache.json
           key: geocode-cache-extra-${{ github.run_id }}
           restore-keys: geocode-cache-
       - name: Merge the warm geocode cache UNDER the committed one
