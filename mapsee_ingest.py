@@ -291,8 +291,15 @@ def venue_is_only_a_plus_code(name: Optional[str], address: Optional[str]) -> bo
 # Verte walk at 48.8457,2.3648, 1.5 km from the centre, is one) and are kept.
 # Nor is the address: "**Location:** Plenty Gorge (Approximately 40 minutes...)"
 # is not empty. What marks the bare city is the point itself, within about 1 km
-# of the centre the sweep asked about (Meetup's Paris point is 121 m from ours).
-# A name that says more than the city ("Melbourne CBD", "Berlino") is kept.
+# of a centre we sweep (Meetup's Paris point is 121 m from ours). EVERY centre,
+# not only the one whose sweep met the row: all the Meetup legs write one store,
+# and 24 of the 261 centres lie inside another's radius (Amsterdam 34 km from
+# Utrecht's 25 mi sweep, Baltimore and Richmond inside DC's 100 mi one), so a
+# test against the asking centre alone let a neighbour's sweep import the row
+# its own sweep refused. The nearest two centres are 20 km apart, so 1 km never
+# reaches the wrong one. A city that is nobody's centre is not caught: its
+# point cannot be told from a pin. A name that says more than the city
+# ("Melbourne CBD", "Berlino") is kept.
 _TBA_VENUE_RX = re.compile(r"^(?:tba|tbc|tbd|to be (?:announced|confirmed|determined)|"
                            r"wird noch bekannt gegeben)$")
 CITY_POINT_RADIUS_M = 1000.0
@@ -306,20 +313,23 @@ def _metres(a: Tuple[float, float], b: Tuple[float, float]) -> float:
 
 
 def venue_is_only_a_city(name: Optional[str], city: Optional[str], lat: Any, lon: Any,
-                         centre: Optional[Tuple[float, float]]) -> bool:
-    """The venue is the city (or "TBA") AND the pin is the city's own point.
+                         centres: Iterable[Tuple[float, float]]) -> bool:
+    """The venue is the city (or "TBA") AND the pin is a city's own point: within
+    CITY_POINT_RADIUS_M of any of `centres`, every point a sweep asks about.
 
     Both halves, like venue_is_only_a_plus_code. With no centre to compare
     against there is no telling a centroid from a real pin, so nothing is
     refused. The whole name, never a part: "TBD - Chicago" is a book club 703 m
-    from Chicago's centre, on a pin of its own, and stays."""
+    from Chicago's centre, on a pin of its own, and stays. The name is read
+    first, so the distances are paid only by the rare row it matches."""
     lat, lon = _to_float(lat), _to_float(lon)
     n = normalize_text(name)
-    if not centre or lat is None or lon is None or not n:
+    if lat is None or lon is None or not n:
         return False
     if n != normalize_text(city) and not _TBA_VENUE_RX.match(n):
         return False
-    return _metres((lat, lon), (float(centre[0]), float(centre[1]))) <= CITY_POINT_RADIUS_M
+    return any(_metres((lat, lon), (float(c[0]), float(c[1]))) <= CITY_POINT_RADIUS_M
+               for c in centres or ())
 
 
 # A NOTICE IS NOT AN EVENT, AND ITS TITLE SAYS WHICH ONE IT IS. Calendars carry

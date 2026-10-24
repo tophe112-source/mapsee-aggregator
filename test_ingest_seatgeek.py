@@ -13,6 +13,11 @@ happen. The adapter read neither SeatGeek's title nor its *_tbd flags. They are
 dropped, never kept as a bare day: the owner's call for Ticketmaster
 (tm_has_clock, docs/agents/dates-and-timezones.md) is the same, because an
 all-day row sorts above every real event.
+
+Only a LIVE listing is refused. A postponed game often loses its time while the
+row stored last month still has one, so a cancelled or postponed listing is a
+tombstone however undecided it now is (Ticketmaster's loop reads the status
+before tm_has_clock for the same reason).
 """
 import io
 import os
@@ -64,9 +69,19 @@ for flag in ("date_tbd", "time_tbd", "datetime_tbd"):
 check("  no flags at all is a listing, exactly as before", SG.to_event(game("n")) is None, False)
 check("  a refused listing is refused whole, never kept as a bare day",
       SG.to_record(game("d", time_tbd=True)), (None, None))
-check("  ...and a cancelled one is refused the same way (every refusal applies to it)",
-      SG.to_record(game("c", "TBD at Seattle Mariners - World Series (Home Game 1)", status="cancelled")),
-      (None, None))
+# The status is read FIRST, as Ticketmaster's loop reads it before tm_has_clock:
+# a postponed game often loses its time while the row stored last month still
+# has one, and an upsert cannot delete it.
+WS1 = "TBD at Seattle Mariners - World Series (Home Game 1)"
+nev, why = SG.to_record(game("c", WS1, status="cancelled"))
+check("  ...but a cancelled contingent game is a tombstone, under the fingerprint its row was stored by",
+      (nev is not None and nev.fingerprint == SG.make_fingerprint(WS1, SOON, "T-Mobile Park", "Seattle"), why),
+      (True, "status:cancelled"))
+live_fp = SG.to_record(game("p"))[0].fingerprint
+for flag in ("date_tbd", "time_tbd", "datetime_tbd"):
+    nev, why = SG.to_record(game("p", status="postponed", **{flag: True}))
+    check(f"  a postponed game with {flag} is a tombstone under the stored row's fingerprint",
+          (nev is not None and nev.fingerprint == live_fp, why), (True, "status:postponed"))
 
 
 class _Resp:
@@ -108,6 +123,28 @@ with redirect_stdout(out):
     kept = SG.ingest(store, _Session(body), "id", None, "47.6", "-122.3", 25, 30)
 check("  stores only the game with a date and a time", (store.rows, kept), (["live"], 1))
 check("  and its log line counts the two it dropped", "2 with no date or time set" in out.getvalue(), True)
+
+# Through the real EventStore: day 1 stores the game at 19:10; day 2 SeatGeek
+# says postponed and has dropped the time. The stored row must be tombstoned,
+# not left on the map because the listing is now undecided.
+import tempfile                                            # noqa: E402
+from mapsee_ingest import EventStore                       # noqa: E402
+
+real = EventStore(os.path.join(tempfile.mkdtemp(), "seatgeek_events.json"))
+with redirect_stdout(io.StringIO()):
+    SG.ingest(real, _Session({"events": [game("991")], "meta": {"per_page": 100, "total": 1}}),
+              "id", None, "47.6", "-122.3", 25, 30)
+check("  day 1: the game is stored", (len(real.records), len(real.tombstones)), (1, 0))
+out = io.StringIO()
+with redirect_stdout(out):
+    SG.ingest(real, _Session({"events": [game("991", status="postponed", time_tbd=True,
+                                              datetime_local=SOON + "T03:30:00")],
+                              "meta": {"per_page": 100, "total": 1}}),
+              "id", None, "47.6", "-122.3", 25, 30)
+check("  day 2: postponed with time_tbd tombstones the stored row",
+      (len(real.records), len(real.tombstones)), (0, 1))
+check("  and is counted as postponed, not as undecided",
+      "1 cancelled/postponed, 0 with no date or time set" in out.getvalue(), True)
 
 print()
 if FAILS:

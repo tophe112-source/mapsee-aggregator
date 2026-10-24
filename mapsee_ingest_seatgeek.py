@@ -104,6 +104,9 @@ CANCELLED_STATUSES = {"cancelled", "canceled", "postponed"}
 # because an all-day row sorts above every real event. The three *_tbd flags
 # are read as SeatGeek names them; that a live record carries them is
 # unverified here (no SEATGEEK_CLIENT_ID), and the title rule does not need them.
+# Only a LIVE listing is refused: a postponed show often loses its time while
+# the row we stored last month still has one (Ticketmaster's loop reads the
+# status before tm_has_clock for the same reason), and an upsert cannot delete.
 _CONTINGENT_RX = re.compile(r"^\s*TBD\s+(?:at|vs\.?)\s", re.I)
 _TBD_FLAGS = ("date_tbd", "time_tbd", "datetime_tbd")
 
@@ -115,6 +118,12 @@ def undecided(ev: Dict[str, Any]) -> bool:
             or any(ev.get(k) is True for k in _TBD_FLAGS))
 
 
+def _status_off(ev: Dict[str, Any]) -> Optional[str]:
+    """Why SeatGeek says the listing is off, or None for a live one."""
+    status = str(ev.get("status") or "").strip().lower()
+    return f"status:{status}" if status in CANCELLED_STATUSES else None
+
+
 def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
     """The live row, or None (a cancelled show too — see to_record)."""
     nev, cancelled = to_record(ev)
@@ -123,12 +132,12 @@ def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
 
 def to_record(ev: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
     """(event, why it is cancelled); a cancelled one is built exactly as the live
-    row was, for EventStore.cancel."""
+    row was, for EventStore.cancel — even when it has lost its date or time
+    (see _CONTINGENT_RX): the status is read first."""
     title = (ev.get("title") or "").strip()
-    if undecided(ev):
+    cancelled = _status_off(ev)
+    if undecided(ev) and not cancelled:
         return None, None
-    status = str(ev.get("status") or "").strip().lower()
-    cancelled = f"status:{status}" if status in CANCELLED_STATUSES else None
     if cancelled and notice_reason(title):
         title = strip_notice(title) or ""              # stored under the old title
     dt_local = ev.get("datetime_local")
@@ -193,7 +202,7 @@ def ingest(store: EventStore, session, client_id, client_secret,
         if not events:
             break
         for ev in events:
-            if undecided(ev):
+            if undecided(ev) and not _status_off(ev):     # a TBD cancellation still tombstones
                 tbd += 1
                 continue
             nev, why = to_record(ev)
