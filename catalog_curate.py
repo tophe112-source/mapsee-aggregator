@@ -54,6 +54,7 @@ Usage:
   python catalog_curate.py discover [socrata|ckan|mobilizon|osm|civic] [--limit 400]
          [--out candidates.json] [--metros N]      # --metros: osm only
          [--kinds community_centre,library]        # osm only: pin the walk to these OSM kinds
+         [--workers N]                             # osm only: venues probed at once (default OSM_PROBE_WORKERS)
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -1629,6 +1630,23 @@ def _civic_next_country(cursor, civic):
     return country
 
 
+# THE US TOPS UP A TURN THAT ENDS EARLY, and the rotation does not change. The
+# US sorts last in the thinnest-first order, so it gets one turn in ~30, and it
+# is where the yield is. Measured 2026-10-23: the non-US turns of runs 114-123
+# (MX, NO, FI, JP, AT) used 2.6-7.1 of their 10 minutes and verified 0 from 344
+# cities; the one US turn (run 108) read 55 cities in the 10 minutes and
+# verified 31. So the minutes a turn leaves go to the US, from the US's own
+# offset. The cursor still NAMES the country whose TURN it was: a cursor naming
+# the US would restart the ring at the thinnest country every run.
+#
+# One batch and no more: 3-7 minutes at about 11 s a US city (run 108) is 16-40
+# cities, inside one batch of CIVIC_CITIES_PER_RUN. And only with a deadline,
+# since without one there is no "time left" to spend; CIVIC_TOPUP_MIN_S keeps it
+# from asking Wikidata for a batch it has no time to read.
+CIVIC_TOPUP_COUNTRY = "US"
+CIVIC_TOPUP_MIN_S = 60
+
+
 def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                     deadline=0.0):
     """Propose whole-town calendars. See catalog_discover_civic.py.
@@ -1644,6 +1662,8 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     WHICH country is a rotation, not a setting: see _civic_next_country. The
     offsets are per country and the cursor NAMES the one it just swept, so
     adding a country to CITY_CLASSES never re-aims a walk already in progress.
+    A turn that ends before its deadline is topped up from the US's own offset:
+    see CIVIC_TOPUP_COUNTRY.
 
     It walks past the end rather than stopping: `discover civic` on a wrapped
     cursor starts again at the top, where the ledger's 90-day TTL means the
@@ -1654,8 +1674,46 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
 
     country = _civic_next_country(cursor, civic)
     per_run = int(cities_per_run or CIVIC_CITIES_PER_RUN)
-    offset = int(_civic_offsets(cursor).get(country) or 0)
     found, skipped = {}, {}
+
+    # ROBOTS.TXT BINDS THIS WALK TOO, as it does the venue walk (see
+    # _WalkRobots). Until 2026-10-05 a city's pages were fetched with the plain
+    # session and nothing asked first. Wikidata is a documented API and keeps
+    # that session; every page of a city's or a board's own site goes through
+    # this one.
+    probe_s = _robots_probe_session(getattr(session, "headers", None))
+
+    _civic_batch(civic, session, probe_s, cursor, country, per_run, deadline,
+                 limit, seen_keys, led, found, skipped)
+    # THE ROTATION ADVANCES WHETHER OR NOT THE BATCH WAS READ. The cursor's
+    # `country` is "whose turn has been taken", not "whose batch was read":
+    # leaving it behind means the next run picks the same country, and a
+    # country WDQS is currently refusing — it answered 502/504 for hours on
+    # 2026-09-19 — would hold every civic run in the repo for as long as it
+    # kept refusing. Its offset is untouched, so nothing is skipped; it simply
+    # comes round again.
+    cursor["country"] = country
+
+    top = CIVIC_TOPUP_COUNTRY
+    left = (deadline - time.time()) if deadline else 0.0
+    if (country != top and top in civic.CITY_CLASSES
+            and left >= CIVIC_TOPUP_MIN_S and len(found) < limit):
+        print(f"  {country}'s turn left {left / 60:.1f} min: {top} tops it up "
+              f"from its own offset")
+        _civic_batch(civic, session, probe_s, cursor, top, per_run, deadline,
+                     limit, seen_keys, led, found, skipped)
+    _save_ledger(led)
+    return found, skipped
+
+
+def _civic_batch(civic, session, probe_s, cursor, country, per_run, deadline,
+                 limit, seen_keys, led, found, skipped):
+    """Walk one batch of `country`'s cities from its own offset, into `found`.
+
+    Moves that country's offset and nothing else in the cursor: whose TURN it
+    was is the caller's to record, because a top-up walks a country whose turn
+    it is not."""
+    offset = int(_civic_offsets(cursor).get(country) or 0)
 
     def bump(k):
         skipped[k] = skipped.get(k, 0) + 1
@@ -1666,23 +1724,13 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
         # UNREAD, NOT EMPTY. Wikidata answers 504 on a query it decides is too
         # expensive, and advancing the OFFSET past a batch we never saw would
         # skip those cities until the walk wraps.
-        #
-        # THE ROTATION ADVANCES ANYWAY, and the two are different things. The
-        # cursor's `country` is "whose turn has been taken", not "whose batch was
-        # read": leaving it behind means the next run picks the same country, and
-        # a country WDQS is currently refusing — it answered 502/504 for hours on
-        # 2026-09-19 — would hold every civic run in the repo for as long as it
-        # kept refusing. Its offset is untouched, so nothing is skipped; it
-        # simply comes round again.
         print(f"  wikidata {country} offset {offset}: {type(exc).__name__} — "
-              f"batch UNREAD, offset stays, the rotation moves on")
-        cursor["country"] = country
-        return found, skipped
+              f"batch UNREAD, offset stays")
+        return
     if not places:
         print(f"  {country}: offset {offset} is past the end — wrapping to the top")
         _civic_offsets(cursor)[country] = 0
-        cursor["country"] = country
-        return found, skipped
+        return
     print(f"  {country}: {len(places)} cities from offset {offset} "
           f"(pop {places[0]['population']} -> {places[-1]['population']})")
 
@@ -1694,13 +1742,6 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
         noms = {}
     if noms:
         print(f"  {len(noms)} of them name a tourism board on Wikipedia")
-
-    # ROBOTS.TXT BINDS THIS WALK TOO, as it does the venue walk (see
-    # _WalkRobots). Until 2026-10-05 a city's pages were fetched with the plain
-    # session and nothing asked first. Wikidata is a documented API and keeps
-    # that session; every page of a city's or a board's own site goes through
-    # this one.
-    probe_s = _robots_probe_session(getattr(session, "headers", None))
 
     read = 0
     for place in places:
@@ -1775,7 +1816,6 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 bump(status.split(":")[0])
         read += 1
 
-    cursor["country"] = country
     # BY ROWS, NOT BY CITIES — see catalog_civic.cities. And only past the ones
     # actually read: a batch cut short by the deadline leaves the cursor before
     # its tail, exactly as the metro walk does.
@@ -1795,8 +1835,6 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     _civic_offsets(cursor)[country] = nxt
     if read < len(places):
         print(f"  advanced {read}/{len(places)} cities; the rest come round again")
-    _save_ledger(led)
-    return found, skipped
 
 
 def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
@@ -2317,7 +2355,7 @@ def _pinned_slot(all_cursors, kinds):
 
 
 def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
-                 metros=None, max_minutes=0.0, kinds=()):
+                 metros=None, max_minutes=0.0, kinds=(), workers=None):
     """`only` pins the sweep to specific lens categories.
 
     Without it the budget is spent thinnest-category-first across every query,
@@ -2378,7 +2416,7 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
             found, skipped = _discover_osm(
                 session, seen_keys, led, limit, cursor, metros_per_run=metros,
                 deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0,
-                kinds=kinds)
+                kinds=kinds, workers=workers)
     elif backend == "civic":
         # Geographic like osm, and for the same reason category-pinning does not
         # apply: what a town programmes is not knowable from its population.
@@ -4528,8 +4566,15 @@ def main(argv):
         if "--kinds" in argv:
             kinds = tuple(k.strip() for k in argv[argv.index("--kinds") + 1].split(",")
                           if k.strip())
+        # osm only: venues probed at once. Absent keeps OSM_PROBE_WORKERS (4);
+        # the flag is for the owner's A/B of 8 against 4 on one metro
+        # (2026-10-23: the host gate slept 37-53% of worker time in runs 108,
+        # 121 and 123), not a new default.
+        workers = (int(argv[argv.index("--workers") + 1])
+                   if "--workers" in argv else None)
         return cmd_discover(limit=lim, out=out, backend=backend, only=only,
-                            metros=metros, max_minutes=mm, kinds=kinds)
+                            metros=metros, max_minutes=mm, kinds=kinds,
+                            workers=workers)
     if cmd == "cityclass":
         # Every configured country, or the ones named: `cityclass CH DE`.
         return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))

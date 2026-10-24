@@ -93,32 +93,36 @@ on:
     # loop — not this number. Moving it buys nothing; the number is here so the
     # two runs land on the same day, which is all it was ever doing.
     - cron: "50 3 * * 3"
-    # Daily 09:30 UTC — THE COMMUNITY WALK: `discover osm` pinned to
-    # community_centre,library,social_centre over 40 metros, so every civic
-    # building the amenity adapter now pins gets asked for its own programme.
-    # The full osm sweep does 3 metros a day and had reached metro 42 of 261
-    # (Milan) after a month with the whole US sorted last. The first estimate
-    # (a pinned metro ~75 s, Hong Kong's 43 venues, so 40 fit and the globe
-    # takes a week) held only over ground the full sweep had already probed:
-    # past it, a metro costs one live probe per venue the ledger has not
-    # settled, 2.3-3.5 s each, at 155-516 venues a metro, so a run reads 3-7
-    # metros and `40` never bound in 13 runs (2026-09-22..10-03;
-    # docs/agents/curation-and-discovery.md). The shared ledger still makes a
-    # repeat visit nearly free (a dead probe is not re-asked for 90 days, a
-    # merged source never) EXCEPT once after the probe learns something: a
-    # no-calendar or offsite row an older probe version wrote is asked again
-    # (catalog_discover_osm.PROBE_VERSION, 2 since 2026-10-12). Its own cursor
-    # slot (`osm|community_centre,library,social_centre`), so it never moves
-    # the full sweep's place. social_centre joined on 2026-10-12; a widened
-    # walk starts where the narrower one had got to (catalog_curate
-    # _pinned_slot), not back at the top. 09:30 because it is the one run
-    # here that queries Overpass 40 times, and every Overpass-tiling job
-    # (osm-food Tue 05:10, osm-secondhand Sat 05:10, osm-amenities Sun 05:40)
-    # and the 06:17 ingest are finished by then — and it is six hours clear of
-    # the two crons above, which matters more than it looks: the concurrency
-    # queue holds ONE pending run, and a third arriving while the daily is
-    # running and the Wednesday sweep is queued would cancel the Wednesday
-    # sweep, not wait behind it.
+    # Daily 09:30 UTC — A SECOND PASS OF THE FULL OSM SWEEP: `discover osm`
+    # over every programme-venue kind, 40 metros, continuing the shared `osm`
+    # cursor where the 03:20 run left it. The concurrency group runs the two
+    # one at a time, and `ref:` on checkout starts this one from the cursor the
+    # first one committed: the second pass begins where the first stopped,
+    # inside a metro its budget cut short if it was, and the ledger keeps it
+    # from asking any venue twice.
+    #
+    # Until 2026-10-23 this slot was THE COMMUNITY WALK, osm pinned to
+    # community_centre,library,social_centre in its own cursor slot, and it had
+    # become the slowest ground here. Measured over runs 115-124: 60 verified
+    # in 234.5 osm-minutes (15.4 an hour) against the daily sweep's 430 in 334
+    # (77 an hour), because the walk had wrapped and 86.5% of its 6,087 probes
+    # re-asked rows an older probe version wrote, which verify at 1.0% against
+    # 3.0-4.7% on new ground. Centres are not lost: they are among the full
+    # sweep's kinds. Its slot (`osm|community_centre,library,social_centre`)
+    # stays in curation_cursor.json, so a dispatch with `osm_kinds` — or this
+    # block, once those rows have lapsed — resumes it where it was.
+    #
+    # Expect the gain to move with the ground: new in DE (metros 117-128),
+    # about parity across FR, CA, AU and GB (129-178, mostly rows an older
+    # probe wrote), new again for the US non-centre kinds (179-260).
+    #
+    # 09:30 because a 40-metro pass can query Overpass 40 times, and every
+    # Overpass-tiling job (osm-food Tue 05:10, osm-secondhand Sat 05:10,
+    # osm-amenities Sun 05:40) and the 06:17 ingest are finished by then — and
+    # it is six hours clear of the two crons above, which matters more than it
+    # looks: the concurrency queue holds ONE pending run, and a third arriving
+    # while the daily is running and the Wednesday sweep is queued would cancel
+    # the Wednesday sweep, not wait behind it.
     - cron: "30 9 * * *"
   workflow_dispatch:
     inputs:
@@ -126,7 +130,7 @@ on:
         description: "How many candidates to probe PER BACKEND (each costs a live request)"
         default: "300"
       backend:
-        description: "Which catalog to sweep. 'all' is what the schedule runs."
+        description: "Which catalog to sweep. 'all' is what the schedule runs (the 03:20 daily reads ckan on Wednesdays only)."
         type: choice
         options: [all, socrata, ckan, mobilizon, civic, osm]
         default: all
@@ -138,6 +142,9 @@ on:
         default: ""
       osm_metros:
         description: "osm only: metros to walk this run (blank = 3). A kind-pinned walk is cheap enough for 20+."
+        default: ""
+      osm_workers:
+        description: "osm only: venues probed at once (blank = OSM_PROBE_WORKERS, 4). For an A/B on one metro, dispatch with dry_run, which commits no cursor."
         default: ""
       dry_run:
         description: "Verify only — do not merge or commit"
@@ -270,19 +277,31 @@ jobs:
       - name: Discover, verify and merge
         env:
           CATS: ${{ steps.target.outputs.cats }}
+          # Through env, not interpolated into the script: it ends up in argv.
+          OSM_WORKERS: ${{ inputs.osm_workers }}
         run: |
           set +e
-          # The 09:30 cron is the community walk (see the schedule block): osm
-          # only, pinned to the three kinds, 40 metros. A dispatch that names
-          # osm_kinds is the same walk by hand.
+          # The 09:30 cron is the full sweep's second pass (see the schedule
+          # block): osm only, every kind, 40 metros, on the shared cursor. A
+          # dispatch that names osm_kinds is the pinned community walk by hand,
+          # on its own cursor slot.
           OSM_KINDS="${{ inputs.osm_kinds }}"
           OSM_METROS="${{ inputs.osm_metros }}"
           BACKEND_WANT="${{ inputs.backend || 'all' }}"
           if [ "${{ github.event.schedule }}" = "30 9 * * *" ]; then
             BACKEND_WANT="osm"
-            OSM_KINDS="community_centre,library,social_centre"
+            OSM_KINDS=""
             OSM_METROS="40"
-            echo "The community walk: osm pinned to $OSM_KINDS, $OSM_METROS metros"
+            echo "The second full-sweep pass: osm, every kind, $OSM_METROS metros"
+          fi
+          # THE DAILY SWEEP RUNS TO ITS BUDGET, NOT TO THREE METROS. The cap
+          # bound in 2 of the 6 daily runs measured 2026-10-23: run 116 read
+          # Dublin, Cork and Galway in 25.0 of its 55 minutes and stopped with
+          # about 30 left, run 114 with about 4.7. The cursor moves only past
+          # metros read to the end, so 40 is a ceiling and the budget decides.
+          # A dispatch keeps OSM_METROS_PER_RUN's 3 unless it names osm_metros.
+          if [ "${{ github.event.schedule }}" = "20 3 * * *" ] && [ -z "$OSM_METROS" ]; then
+            OSM_METROS="40"
           fi
           case "$BACKEND_WANT" in
             # THE TWO CRAWLERS GO LAST, cheapest catalog reads first. osm and
@@ -297,7 +316,18 @@ jobs:
             # dense metro is hundreds of venue fetches) and it holds the
             # --max-minutes deadline for exactly that reason. Putting the
             # bounded crawl first means a bad Overpass day cannot starve it.
-            all) BACKENDS="socrata ckan mobilizon civic osm" ;;
+            #
+            # ckan READS ON WEDNESDAYS ONLY IN THE DAILY RUN. Measured 2026-10-23:
+            # 1.8-2.5 minutes in each of 6 daily runs and 0 candidates every
+            # time (3,324-4,641 datasets no_datastore), the 2026-08-22 finding
+            # again. Its cursor is cheap, so one unpinned read a week keeps it
+            # moving. The Wednesday gap sweep, which pins it to the thin
+            # categories, and every dispatch read it as before.
+            all)
+              BACKENDS="socrata ckan mobilizon civic osm"
+              if [ "${{ github.event.schedule }}" = "20 3 * * *" ] && [ "$(date -u +%u)" != "3" ]; then
+                BACKENDS="socrata mobilizon civic osm"
+              fi ;;
             *)   BACKENDS="$BACKEND_WANT" ;;
           esac
           LIMIT="${{ inputs.limit || '300' }}"
@@ -356,10 +386,22 @@ jobs:
             if [ "$b" = "osm" ] && [ -n "$OSM_METROS" ]; then
               BUDGET="$BUDGET --metros $OSM_METROS"
             fi
+            # osm only: venues probed at once, for the owner's A/B of 8 against
+            # the default 4 on one metro (the host gate slept 37-53% of worker
+            # time in runs 108, 121 and 123). Blank keeps OSM_PROBE_WORKERS.
+            # Digits only: anything else would be split into extra argv.
+            if [ "$b" = "osm" ] && [ -n "$OSM_WORKERS" ]; then
+              case "$OSM_WORKERS" in
+                *[!0-9]*) echo "::warning::osm_workers is not a number - ignored" ;;
+                *) BUDGET="$BUDGET --workers $OSM_WORKERS" ;;
+              esac
+            fi
             # civic gets a deadline too, and a smaller one. It is bounded by its
             # city count where osm is not, so this is a backstop against a slow
             # host rather than the knob that sizes the run — CIVIC_CITIES_PER_RUN
-            # is that. Ten leaves osm the budget it was measured to need.
+            # is that. Ten leaves osm the budget it was measured to need. A
+            # non-US turn that ends early now spends the rest of its ten on the
+            # US (catalog_curate.CIVIC_TOPUP_COUNTRY), so expect the full ten.
             [ "$b" = "civic" ] && BUDGET="--max-minutes 10"
             if [ "$b" = "socrata" ]; then
               python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"

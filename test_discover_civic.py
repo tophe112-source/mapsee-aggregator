@@ -498,23 +498,163 @@ try:
           f"every country is swept before any is swept twice ({walk[:4]})")
     check(walk[4:8] == walk[:4],
           f"...and then it is plain round-robin ({walk[4:8]} vs {walk[:4]})")
-    # A country WDQS is refusing must not wedge the walk either. The cursor's
-    # `country` is whose TURN has been taken, not whose batch was read — it is
-    # set on the unread path too, and only the offset stays behind.
-    src = _io.open("catalog_curate.py", encoding="utf-8").read()
-    unread = src.split("batch UNREAD")[1].split("return found, skipped")[0]
-    check('cursor["country"] = country' in unread,
-          "an unread batch still takes its turn, so a refusing country cannot "
-          "hold every civic run")
-    check("_civic_offsets(cursor)[country]" not in unread,
-          "...and its offset is untouched, so none of its cities are skipped")
-
     # A country that has gone from CITY_CLASSES must not wedge the walk.
     stale = {"country": "ZZ", "offsets": {"US": 40}, "visited": ["US"]}
     check(_C._civic_next_country(stale, civ) in civ.CITY_CLASSES,
           "a cursor naming a country that has been removed restarts in the list")
 finally:
     civ.CITY_CLASSES = _real
+
+# ---------------------------------------------- 9. a short turn, topped up by the US
+# Driven through the real _discover_civic, with Wikidata, the probes and the
+# clock faked. A turn that ends before its deadline spends the rest on the US,
+# from the US's own offset (2026-10-23: the non-US turns of runs 114-123 used
+# 2.6-7.1 of their 10 minutes and verified 0 from 344 cities; run 108's US turn
+# verified 31 from 55). The rotation must not notice: the cursor names the
+# country whose TURN it was, because the US sorts last and a cursor naming it
+# restarts the ring at the thinnest country.
+import types as _types
+
+
+class _Clock:
+    def __init__(self):
+        self.now = 1_000_000.0
+
+    def time(self):
+        return self.now
+
+
+def _civic_run(cursor, deadline_s=600.0, per_run=10, unread=(), empty=(),
+               hit=(), limit=300, city_s=11.0):
+    """One _discover_civic call against fakes -> (found, probed qids, batches asked)."""
+    clock, probed, asked = _Clock(), [], []
+
+    def cities(session, country, limit=200, offset=0):
+        asked.append((country, offset))
+        if country in unread:
+            raise RuntimeError("504 Gateway Timeout")
+        if country in empty:
+            return [], 0
+        # Two rows a city, as a batch with duplicates reads, so an offset moved
+        # by CITIES rather than ROWS comes out wrong.
+        return [{"qid": f"{country}{offset + 2 * i}", "name": f"{country} town {i}",
+                 "city": f"{country} town {i}",
+                 "region": "WA" if country == "US" else None,
+                 "url": f"https://{country.lower()}{offset + 2 * i}.example.gov/",
+                 "population": 50000 - i, "_row": 2 * i}
+                for i in range(limit)], 2 * limit
+
+    def probe(_s, place):
+        clock.now += city_s                  # ~11 s a US city, run 108
+        probed.append(place["qid"])
+        if place["qid"] in hit:
+            return ([{"type": "ics", "name": f"{place['name']} events",
+                      "url": f"{place['url']}calendar.ics"}], {"status": "ok"})
+        return [], {"status": "no-calendar"}
+
+    fakes = {"cities": cities, "probe": probe, "dmo_nominations": lambda _s, _p: {}}
+    real = {k: getattr(civ, k) for k in fakes}
+    real_c = (_C.time, _C._robots_probe_session, _C._save_ledger)
+    try:
+        for k, v in fakes.items():
+            setattr(civ, k, v)
+        _C.time = clock
+        _C._robots_probe_session = lambda _h: _types.SimpleNamespace(refusals=[])
+        _C._save_ledger = lambda _led: None
+        found, _skipped = _C._discover_civic(
+            None, set(), {}, limit, cursor, cities_per_run=per_run,
+            deadline=(clock.now + deadline_s) if deadline_s else 0.0)
+    finally:
+        for k, v in real.items():
+            setattr(civ, k, v)
+        _C.time, _C._robots_probe_session, _C._save_ledger = real_c
+    return found, probed, asked
+
+
+def _cur(after):
+    return {"country": after, "offsets": {"JP": 400, "US": 2197},
+            "visited": ["CA", "JP", "BR", "US"]}
+
+
+_real_rows = _C._coverage_rows
+try:
+    # Thinnest first on an empty catalog is CITY_CLASSES' own order, so the
+    # US sorts last here as it does live.
+    civ.CITY_CLASSES = {"CA": (("Q1",), "Q16", "ca"), "JP": (("Q2",), "Q17", "jp"),
+                        "BR": (("Q3",), "Q155", "br"),
+                        "US": (("Q1093829",), None, "us")}
+    _C._coverage_rows = lambda: []
+
+    cur = _cur("CA")
+    found, probed, asked = _civic_run(cur, hit={"US2197"})
+    check(asked == [("JP", 400), ("US", 2197)],
+          f"JP's turn ended with time left, and the US topped it up from its own "
+          f"offset ({asked})")
+    offs = _C._civic_offsets(cur)
+    check(offs["JP"] == 420 and offs["US"] == 2217,
+          f"...each country's offset moved by the ROWS its batch read "
+          f"(JP {offs['JP']}, US {offs['US']})")
+    check(cur["country"] == "JP",
+          f"...and the cursor still names the country whose turn it was "
+          f"({cur['country']})")
+    check(_C._civic_next_country(cur, civ) == "BR",
+          "...so the rotation goes on to BR, not back to the thinnest (CA)")
+    us = [c for c in found.values() if c["url"].startswith("https://us2197.")]
+    check(len(us) == 1 and us[0]["_metro"] == "US town 0, WA",
+          f"...and what the top-up found is proposed with its own town "
+          f"({[c.get('_metro') for c in us]})")
+
+    cur = _cur("CA")
+    _f, probed, asked = _civic_run(cur, per_run=40)
+    n_us = sum(1 for q in probed if q.startswith("US"))
+    check(0 < n_us < 40 and _C._civic_offsets(cur)["US"] == 2197 + 2 * n_us,
+          f"a top-up the deadline cuts short stops before the first UNREAD "
+          f"city's own row ({n_us} read, offset {_C._civic_offsets(cur)['US']})")
+
+    cur = _cur("BR")
+    _f, _p, asked = _civic_run(cur)
+    check(asked == [("US", 2197)] and cur["country"] == "US",
+          f"the US's own turn is not topped up by itself ({asked})")
+
+    cur = _cur("CA")
+    _f, _p, asked = _civic_run(cur, deadline_s=0)
+    check(asked == [("JP", 400)],
+          f"no deadline, no time left to spend: no top-up ({asked})")
+
+    cur = _cur("CA")
+    _f, _p, asked = _civic_run(cur, deadline_s=150)
+    check(asked == [("JP", 400)],
+          f"40 s left is under CIVIC_TOPUP_MIN_S: no top-up ({asked})")
+
+    cur = _cur("CA")
+    _f, _p, asked = _civic_run(cur, limit=1, hit={"JP400"})
+    check(asked == [("JP", 400)],
+          f"a turn that filled the candidate limit is not topped up ({asked})")
+
+    # A country WDQS is refusing must not wedge the walk. The cursor's
+    # `country` is whose TURN has been taken, not whose batch was read.
+    cur = _cur("CA")
+    _f, _p, asked = _civic_run(cur, unread=("JP",))
+    check(cur["country"] == "JP",
+          "an unread batch still takes its turn, so a refusing country cannot "
+          "hold every civic run")
+    check(_C._civic_offsets(cur)["JP"] == 400,
+          "...and its offset is untouched, so none of its cities are skipped")
+    check(asked[-1] == ("US", 2197) and _C._civic_offsets(cur)["US"] == 2217,
+          "...and the time it left still goes to the US")
+
+    cur = _cur("CA")
+    _civic_run(cur, unread=("US",))
+    check(_C._civic_offsets(cur)["US"] == 2197 and cur["country"] == "JP",
+          "an unread top-up leaves the US's offset where it was, and the turn JP's")
+
+    cur = _cur("CA")
+    _civic_run(cur, empty=("US",))
+    check(_C._civic_offsets(cur)["US"] == 0 and cur["country"] == "JP",
+          "a top-up past the end of the US wraps the US to the top, and only the US")
+finally:
+    civ.CITY_CLASSES = _real
+    _C._coverage_rows = _real_rows
 
 # ---------------------------------------------- report
 bad = [l for ok, l in checks if not ok]
