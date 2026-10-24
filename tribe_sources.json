@@ -23674,6 +23674,38 @@
         "lon": 7.0445535
       },
       "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "L'artelier Malin",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://larenardiere.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'artelier Malin",
+        "lat": 48.556188,
+        "lon": 6.441707
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "FaithFinder",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://faithfinder.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FaithFinder",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2T 0L8",
+        "lat": 51.0353892,
+        "lon": -114.0848685,
+        "street_hint": "1011 Royal Ave SW"
+      },
+      "_metro": "Calgary, Canada"
     }
   ],
   "_not_included": {

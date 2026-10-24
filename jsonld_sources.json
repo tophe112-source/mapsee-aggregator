@@ -13574,6 +13574,876 @@
         "lon": 6.9744573
       },
       "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Médiathèque Alfred Jarry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.mediathequealfredjarry.fr/agenda/animations-a-venir"
+      ],
+      "link_pattern": "https://www\\.mediathequealfredjarry\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Médiathèque Alfred Jarry",
+        "lat": 48.1537267,
+        "lon": -1.5804689
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Exploratoire",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.exploratoire.com/programmation"
+      ],
+      "link_pattern": "https://www\\.exploratoire\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Exploratoire",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.1049724,
+        "lon": -1.6772296,
+        "street_hint": "2 Cours des Alliés"
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Beaches Sandbox",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://beachessandbox.com/event/2026/10/24/1792852200/xpress-lift/577037"
+      ],
+      "link_pattern": "https://beachessandbox\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Beaches Sandbox",
+        "city": "Toronto",
+        "region": "ON",
+        "postal_code": "M4E 1E5",
+        "lat": 43.6704588,
+        "lon": -79.2974357,
+        "street_hint": "2181 Queen Street East"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Lem Si Ho Tong",
+      "category": "community",
+      "_found": "osm:social_centre -> wix",
+      "listing": [
+        "https://www.lshttoronto.ca/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lem Si Ho Tong",
+        "lat": 43.6554418,
+        "lon": -79.3843827,
+        "street_hint": "121 Dundas Street West"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bibliothèque Hélène-Charbonneau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/les-jeux-video-du-dimanche-116963"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Hélène-Charbonneau",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.553483,
+        "lon": -73.6626049,
+        "street_hint": "10300 Rue Lajeunesse"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Saint-Charles",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/eveil-musical-3-4-ans-119197"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Saint-Charles",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.4791571,
+        "lon": -73.5635716,
+        "street_hint": "1050 Rue d'Hibernia"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Parc-Extension",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bingo-116007"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Parc-Extension",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3N 1K2",
+        "lat": 45.5314163,
+        "lon": -73.6289844,
+        "street_hint": "421 Rue Saint-Roch"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Badminton Québec",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.badmintonquebec.com/training-calendar"
+      ],
+      "link_pattern": "https://www\\.badmintonquebec\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Badminton Québec",
+        "city": "Montréal",
+        "postal_code": "H1V 1E7",
+        "lat": 45.5612883,
+        "lon": -73.5422806,
+        "street_hint": "4930 Rue Hochelaga"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre des Loisirs de Saint-Laurent",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/corps-et-vins-maison-verso-118442"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre des Loisirs de Saint-Laurent",
+        "region": "QC",
+        "postal_code": "H4L 5K3",
+        "lat": 45.5141591,
+        "lon": -73.6908893,
+        "street_hint": "1375 Rue Grenet"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Notre-Dame-de-Grâce",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/apres-midi-cinema-120296"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Notre-Dame-de-Grâce",
+        "lat": 45.4755031,
+        "lon": -73.6143992,
+        "street_hint": "3755 Botrel"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Roxboro",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/yoga-sur-chaise-117355"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Roxboro",
+        "city": "Montréal",
+        "postal_code": "H8Y 1G8",
+        "lat": 45.5026224,
+        "lon": -73.8145453,
+        "street_hint": "110 Rue Cartier"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Père-Ambroise",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/voiture-air-6-10-ans-114660"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Père-Ambroise",
+        "city": "Montréal",
+        "postal_code": "H2L 3C9",
+        "lat": 45.5227932,
+        "lon": -73.5626849,
+        "street_hint": "2093 Rue de la Visitation"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Frontenac",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-3-6-ans-115316"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Frontenac",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2K 1W7",
+        "lat": 45.5329177,
+        "lon": -73.5517134,
+        "street_hint": "2550 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Michel",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118777"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Michel",
+        "city": "Montréal",
+        "postal_code": "H2A 3L6",
+        "lat": 45.5621974,
+        "lon": -73.6020202,
+        "street_hint": "7601 Rue François-Perrault"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Charleroi",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/parlons-francais-118588"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Charleroi",
+        "city": "Montréal",
+        "postal_code": "H1H 1V2",
+        "lat": 45.5965067,
+        "lon": -73.6315415,
+        "street_hint": "4740 Rue De Charleroi"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jean-Corbeil",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/rencontre-litteraire-avec-kim-thuy-le-succes-de-mes-echecs-119292"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jean-Corbeil",
+        "city": "Montréal",
+        "postal_code": "H1K 3X9",
+        "lat": 45.6030237,
+        "lon": -73.5587928,
+        "street_hint": "7500 Avenue Goncourt"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Cartierville",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-du-dimanche-116937"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Cartierville",
+        "city": "Montréal",
+        "postal_code": "H4J 2N7",
+        "lat": 45.5301968,
+        "lon": -73.7159741,
+        "street_hint": "12225 Rue Grenet"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque De Salaberry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-decouvre-116798"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque De Salaberry",
+        "city": "Montréal",
+        "postal_code": "H4J 1H1",
+        "lat": 45.5346141,
+        "lon": -73.7038342,
+        "street_hint": "4170 Rue De Salaberry"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Henri",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ateliers-decriture-116094"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Henri",
+        "city": "Montréal",
+        "postal_code": "H4C 1S9",
+        "lat": 45.4726461,
+        "lon": -73.5891097,
+        "street_hint": "4707 Rue Notre-Dame Ouest"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Réjean-Ducharme",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/didi-raconte-115420"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Réjean-Ducharme",
+        "city": "Montréal",
+        "postal_code": "H3J 1L8",
+        "lat": 45.4836019,
+        "lon": -73.5750672,
+        "street_hint": "2450 Rue Workman"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marie-Uguay",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-contes-116081"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marie-Uguay",
+        "city": "Montréal",
+        "postal_code": "H4E 3E6",
+        "lat": 45.4576905,
+        "lon": -73.5954481,
+        "street_hint": "6052 Boulevard Monk"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de La Petite-Patrie",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/zoolecture-118402"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de La Petite-Patrie",
+        "city": "Montréal",
+        "postal_code": "H2G 2P8",
+        "lat": 45.5474061,
+        "lon": -73.5982926,
+        "street_hint": "6707 Avenue De Lorimier"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Langelier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/collimage-dhalloween-116756"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Langelier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1N 1C5",
+        "lat": 45.5816816,
+        "lon": -73.544147,
+        "street_hint": "6473 Rue Sherbrooke Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Mercier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ma-recette-mon-recit-115865"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Mercier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955039,
+        "lon": -73.5236768,
+        "street_hint": "8105 Rue Hochelaga"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Serge-Bouchard",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cours-dechecs-115719"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Serge-Bouchard",
+        "city": "Montréal",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6680518,
+        "lon": -73.494856,
+        "street_hint": "14 001 Rue Notre-Dame Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rivière-des-Prairies",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lombre-du-monstre-115648"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rivière-des-Prairies",
+        "city": "Montréal",
+        "postal_code": "H1E 3J7",
+        "lat": 45.6499172,
+        "lon": -73.5790735,
+        "street_hint": "9001 Boulevard Perras"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Benny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/3d-mania-115452"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Benny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4B 1H3",
+        "lat": 45.4663823,
+        "lon": -73.6309558,
+        "street_hint": "6400 Avenue de Monkland"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Éliane-Labastrou",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lamour-10-sous-120947"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Éliane-Labastrou",
+        "lat": 45.4886567,
+        "lon": -73.8823134
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Le Prevost",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-lego-118758"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Le Prevost",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2R 2S5",
+        "lat": 45.5438649,
+        "lon": -73.6145722,
+        "street_hint": "7355 Avenue Christophe-Colomb"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Julio-Jean-Pierre",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cordes-ludotek-art-109144"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Julio-Jean-Pierre",
+        "city": "Montréal",
+        "postal_code": "H1G 3W1",
+        "lat": 45.616093,
+        "lon": -73.6206211,
+        "street_hint": "12002 Boulevard Rolland"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Pierrefonds",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/chante-lis-et-cree-116556"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Pierrefonds",
+        "city": "Pierrefonds",
+        "postal_code": "H9A 1A6",
+        "lat": 45.4960289,
+        "lon": -73.8475197,
+        "street_hint": "13555 Boulevard de Pierrefonds",
+        "aliases": [
+          "Pierrefonds Public Library"
+        ]
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Interculturelle",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebes-contes-118717"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Interculturelle",
+        "lat": 45.5032164,
+        "lon": -73.636872
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque L’Octogone",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-117698"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque L’Octogone",
+        "city": "Montréal",
+        "lat": 45.4242983,
+        "lon": -73.6235267,
+        "street_hint": "1080 Avenue Dollard"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rosemont",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cine-club-118069"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rosemont",
+        "city": "Montréal",
+        "postal_code": "H1Y 1M4",
+        "lat": 45.5519275,
+        "lon": -73.582342,
+        "street_hint": "3131 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Côte-des-Neiges",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/hatha-yoga-pour-adultes-117227"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Côte-des-Neiges",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1Y2",
+        "lat": 45.4959105,
+        "lon": -73.6222404,
+        "street_hint": "5290 Chemin de la Côte-des-Neiges"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Robert-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/depannage-informatique-116855"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Robert-Bourassa",
+        "city": "Outremont",
+        "region": "QC",
+        "lat": 45.5178839,
+        "lon": -73.6084316,
+        "street_hint": "41 Avenue Saint-Just"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Mordecai-Richler",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cine-partage-sante-mentale-114438"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Mordecai-Richler",
+        "postal_code": "H2V 4G7",
+        "lat": 45.5216337,
+        "lon": -73.6017018,
+        "street_hint": "5434 Avenue du Parc"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Henri-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/petits-monstres-4-7-ans-119616"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Henri-Bourassa",
+        "city": "Montréal",
+        "lat": 45.6046301,
+        "lon": -73.6250091,
+        "street_hint": "5400 Boulevard Henri-Bourassa"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Boisé",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lis-avec-poilu-119647"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Boisé",
+        "city": "Montréal",
+        "postal_code": "H4R 1T4",
+        "lat": 45.5042664,
+        "lon": -73.7050752,
+        "street_hint": "2727 Boulevard Thimens"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marc-Favreau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ruche-dart-yelema-118671"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marc-Favreau",
+        "city": "Montréal",
+        "postal_code": "H2S 0C4",
+        "lat": 45.5318321,
+        "lon": -73.5971276,
+        "street_hint": "500 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Vieux-Saint-Laurent",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/creation-textile-120269"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Vieux-Saint-Laurent",
+        "city": "Montréal",
+        "region": "Quebec",
+        "postal_code": "H4L 2H2",
+        "lat": 45.5126504,
+        "lon": -73.6764136,
+        "street_hint": "1380 Rue de l'Église"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre communautaire Painter",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/halloween-au-parc-painter-121140"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre communautaire Painter",
+        "lat": 45.5292215,
+        "lon": -73.6759656
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jacqueline-de-Repentigny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/initiation-au-iphone-116408"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jacqueline-de-Repentigny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4H 1H6",
+        "lat": 45.448547,
+        "lon": -73.5778979,
+        "street_hint": "5955 Rue Bannantyne"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Claude-Léveillée",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/double-faute-nacho-con-salsa-116468"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Claude-Léveillée",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5416425,
+        "lon": -73.6134293,
+        "street_hint": "911 Rue Jean-Talon Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque d'Hochelaga",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/completement-switch-6-12-ans-117330"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque d'Hochelaga",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1W 2Y6",
+        "lat": 45.5423301,
+        "lon": -73.5455697,
+        "street_hint": "1870 Rue Davidson"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Maisonneuve",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-code-116900"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Maisonneuve",
+        "city": "Montréal",
+        "postal_code": "H1V 1J9",
+        "lat": 45.5506235,
+        "lon": -73.5405648,
+        "street_hint": "4120 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
     }
   ],
   "_not_included": {

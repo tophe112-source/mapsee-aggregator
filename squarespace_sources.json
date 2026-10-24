@@ -2952,6 +2952,24 @@
         "lon": 6.874243
       },
       "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kensington Legion",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.kensingtonlegion.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kensington Legion",
+        "postal_code": "T2N 3R5",
+        "lat": 51.0527865,
+        "lon": -114.1045694,
+        "street_hint": "1918 Kensington Road NW",
+        "aliases": [
+          "Royal Canadian Legion Number 264"
+        ]
+      },
+      "_metro": "Calgary, Canada"
     }
   ],
   "_not_included": {

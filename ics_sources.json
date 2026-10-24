@@ -36495,5 +36495,219 @@
     "geocode_suffix": ", Wermelskirchen",
     "limit": 300,
     "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Allende !",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.monsenbaroeul.fr/node/3964/field_date/full/0/addtocal.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "venue": {
+      "name": "Allende !",
+      "lat": 50.6415498,
+      "lon": 3.1117245,
+      "pin_unnamed": false
+    },
+    "_metro": "Lille, France",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Centre culturel canadien japonais (CCCJ)",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tfedmo512976gj9sjr8b91vrh8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montréal, QC",
+    "limit": 300,
+    "venue": {
+      "name": "Centre culturel canadien japonais (CCCJ)",
+      "city": "Montréal",
+      "region": "QC",
+      "lat": 45.551455,
+      "lon": -73.6219291,
+      "street_hint": "8155 Rue Rousselot",
+      "pin_unnamed": false
+    },
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Royal Canadian Legion Branch 119",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40legion119.ca/public/basic.ics",
+    "geocode_suffix": ", Port Moody, BC",
+    "limit": 300,
+    "venue": {
+      "name": "Royal Canadian Legion Branch 119",
+      "city": "Port Moody",
+      "region": "BC",
+      "postal_code": "V3H 1Z1",
+      "lat": 49.2775739,
+      "lon": -122.855771,
+      "street_hint": "2529 Clarke Street",
+      "aliases": [
+        "RCL"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Miskanawah East",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vjep53h08h19i480nkofve6g58%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, AB",
+    "limit": 300,
+    "venue": {
+      "name": "Miskanawah East",
+      "city": "Calgary",
+      "region": "AB",
+      "postal_code": "T2E 7C7",
+      "lat": 51.0793732,
+      "lon": -114.0058132,
+      "street_hint": "2335 30 Avenue NE",
+      "pin_unnamed": false
+    },
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Parkallen Community Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_253088c55e6578c67586eea2da788d7d05de1334cc254d83953ea2158a49e612%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "venue": {
+      "name": "Parkallen Community Hall",
+      "city": "Edmonton",
+      "postal_code": "T6H 5W2",
+      "lat": 53.5025491,
+      "lon": -113.5171102,
+      "street_hint": "6510 111 Street NW",
+      "pin_unnamed": false
+    },
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Bonnie Doon Community Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2copkhts8k2heji1fo8ti4jn6o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "venue": {
+      "name": "Bonnie Doon Community Hall",
+      "city": "Edmonton",
+      "postal_code": "T6C 3T7",
+      "lat": 53.5279668,
+      "lon": -113.4704196,
+      "street_hint": "9240 93 Street NW",
+      "pin_unnamed": false
+    },
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Idylwylde Community Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_d85f4e7bc040b048d5bc3945e6506ff6cc8f43592638ad8bfba94c71e685380b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "venue": {
+      "name": "Idylwylde Community Centre",
+      "city": "Edmonton",
+      "postal_code": "T6C 2W1",
+      "lat": 53.5229595,
+      "lon": -113.4516601,
+      "street_hint": "8631 81 Street North-west",
+      "aliases": [
+        "Idylwylde Community League"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Holyrood Community League",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/holyroodcommunity.org_sivhh3g9dlq4p60j1fdlqeahl8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "venue": {
+      "name": "Holyrood Community League",
+      "city": "Edmonton",
+      "lat": 53.531322,
+      "lon": -113.451885,
+      "street_hint": "9411 Holyrood Road NW",
+      "pin_unnamed": false
+    },
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Valour Community Centre Orioles Site",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7f1d6e6ef2ebd88d72ee87850a9d70f4f66225f5ece9bc62af6be0de51a10b31%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "Valour Community Centre Orioles Site",
+      "lat": 49.8906295,
+      "lon": -97.1711097,
+      "street_hint": "448 Burnell Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "White Ridge Community Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/whyteridge.ca_88osi3lt4p392r9ml45thsboqo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "White Ridge Community Centre",
+      "lat": 49.8132935,
+      "lon": -97.2150036,
+      "street_hint": "170 Fleetwood Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Caledonia Lions Community Centre",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5f9c079e29f019c286ed459ff67bd43d0eae05100ee23fce141825c9b9c7051c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hamilton, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "Caledonia Lions Community Centre",
+      "lat": 43.0642556,
+      "lon": -79.9560167,
+      "street_hint": "100 Haddington Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "DIYode Workshop",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c9d5c5c365985e1ed1ac12b22a0a730a59f38ce706fa8eaf3f4ec90123105246%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "DIYode Workshop",
+      "postal_code": "N1E 6A5",
+      "lat": 43.5568141,
+      "lon": -80.218443,
+      "street_hint": "700 York Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Kitchener, Canada"
   }
 ]
