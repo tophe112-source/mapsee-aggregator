@@ -138,6 +138,21 @@ def _volunteer_hit(rec: Dict[str, Any]) -> bool:
     return bool(_VOLUNTEER_CALL_RX.search(_strip_urls(desc)))
 
 
+# What BACKS a keyword sweep's `volunteer` guess - see _refused_sweep_guess. The
+# _KIDS_BACKING_RX shape: wider than _volunteer_hit because it can only KEEP a
+# guess the sweep already made, never create one. Measured 2026-10-23 over the
+# 12 metros: 38 Meetup rows were volunteer-primary, 31 failed _volunteer_hit,
+# and 4 of those were real ("Friends in Need" x2 feeding the hungry, "NYC
+# Feeding Program", "Creating Care Packages" for houseless neighbours). Not
+# bare `volunt`: "a voluntary donation" kept an Evening Meditation.
+_VOLUNTEER_BACKING_RX = re.compile(
+    r"\bvolunteer\w*|\bfeed(?:ing)?\s+the\s+(?:hungry|homeless|needy)"
+    r"|\bhand(?:ing)?\s+out\s+(?:meals|food)|\bcare\s+packages?\b"
+    r"|\b(?:houseless|homeless|unhoused|rough\s+sleepers?)\b|\bfood\s+bank\b|\blitter\b"
+    r"|\bclean[\s-]?up\b|bénévol\w*|freiwillig\w*|ehrenamt\w*|voluntari[oa]\w*|ボランティア",
+    re.I)
+
+
 # Comedy / standup / film / theater booked at a MUSIC venue inherit that venue
 # feed's hardcoded "music" category. High-precision title signals move them onto
 # the 'theater' layer. Kept tight (e.g. "comedy night/show", not a bare "comedy"
@@ -1465,12 +1480,18 @@ def _refused_sweep_guess(rec: Dict[str, Any], key: str) -> bool:
     singles dinners, seven speed-dating nights, a pirate-boat party,
     family-constellation therapy. Denver, Austin, Toronto, Madrid, Amsterdam and
     London the same.
+
+    `volunteer` too, measured 2026-10-23 over 12 metros: 27 of the door's 75
+    primary rows were Meetup's "volunteer" sweep returning a wine-and-paint
+    afternoon, a knitting workshop, beach volley, Toastmasters, a meditation.
     """
     if not _from_keyword_sweep(rec):
         return False
     text = _classify_text(rec, _DESC_SCAN_CHARS)
     if key == "market":
         return not _MARKET_RX.search(text)
+    if key == "volunteer":
+        return not (_volunteer_hit(rec) or _VOLUNTEER_BACKING_RX.search(text))
     if key == "kids":
         title = _strip_urls(rec.get("name") or "")
         if _NOT_FOR_KIDS_RX.search(title) or _ABOUT_KIDS_RX.search(title) \
@@ -1511,8 +1532,10 @@ def map_category(rec: Dict[str, Any]) -> str:
     # 'community' rather than 'other', because these are Meetup socials and the
     # promotion rules below can still move them onto a better layer from there.
     #
-    # `kids` too, and for the same reason - see _refused_sweep_guess.
-    if key in ("market", "kids") and _refused_sweep_guess(rec, key):
+    # `kids` and `volunteer` too, and for the same reason - see
+    # _refused_sweep_guess. The branch there does nothing unless the key is in
+    # this tuple: on 2026-10-23 "WINE & PAINT" still derived volunteer without it.
+    if key in ("market", "kids", "volunteer") and _refused_sweep_guess(rec, key):
         key = "community"
     if key in _PROMOTABLE_TO_VOLUNTEER:
         # URL-stripped like every other description read: a Meetup group slug

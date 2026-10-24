@@ -677,6 +677,52 @@ for name, desc, src, want in KIDS_SWEEP_CASES:
     print(f"{'ok ' if ok else 'FAIL'} [{src[:12]:<12}] {name[:44]:<46} -> {got}"
           f"{'' if ok else f'   (wanted {want})'}")
 
+# Meetup's "volunteer" sweep is fuzzy too. On 2026-10-23, 38 Meetup rows in 12
+# metros were volunteer-primary and 31 named no volunteering at all. Every title
+# below is one of them; the 27 leave the door, the 4 real ones stay.
+# (name, description, source, want_primary), each with the sweep's `volunteer`.
+_MEDITATION = ("An easy way to take time out: a 30-minute guided meditation. This is a free "
+               "in-person meditation. If you would like to make a voluntary donation, please click here.")
+VOLUNTEER_SWEEP_CASES = [(t, "", "meetup", "community") for t in (
+    "WINE & PAINT", "Knitting Workshop 🧶", "2v2 Intermediate+ Beach Volley 💪",
+    "Free DrinkWatchTalk short movie evening October 25 19:00",
+    "Touch and Move: Kontakt improvisieren, Community schaffen",
+    "Toastmasters Public Speaking - Practice effective Communication",
+    "Wolf Huddle – monthly circle (live)",
+    "Unapologetically Childfree @ Mercato Metropolitano, London, UK",
+    "East London Outdoor Volleyball :)", "🇬🇧🇪🇸🇫🇷🇯🇵🇮🇹 Global Language Social 🇩🇪🇰🇷🇧🇷🇨🇳🌎",
+    "WHITTLE A SPOON", "CLH Weekend Pub Social 🍻 🥘", "October Supper Club",
+    "[FREE] Weekly English Class & Community Meetup", "\"Pay-As-You-Feel\" Walking Tour of Melbourne",
+    "How To Improve Any Relationship! Free Meetup Class", "How to Improve Relationships with others!",
+    "Personal Values & Integrity, The Importance Of.", "WHAT DOES IT TAKE TO BE SUCCESSFUL?",
+    "How To Get Motivated", "Outdoor Badminton/Pickleball in Central Park",
+    "Let's Meet Up and Improve Your FRENCH! 🙂",
+    "One Cup of Happiness: A Business Built on Altruism たった一杯で幸せに-利他から始まるビジネス",
+    "🎓👫 Student International Exchange Meetup 🌍 学生国際交流会",
+    "🎀💝 Women’s International English Meetup", "🔰 初心者限定 英会話会 ➕ 🗾 NIHONGO Practice Meetup")] + [
+    # "a voluntary donation" is not volunteering: bare `volunt` kept this one
+    ("Evening Meditation", _MEDITATION, "meetup", "community"),
+    # the real ones, backed by their own text and not by a call to volunteer
+    ("FRIENDS in NEED Meetup - Manhattan",
+     "Tompkins Square Park to feed the hungry. You can join us in the humanitarian act of "
+     "helping to hand out meals to the needy.", "meetup", "volunteer"),
+    ("Friends in Need Foundation", "Tompkins Square Park to feed the hungry.", "meetup", "volunteer"),
+    ("NYC Feeding Program @ Tompkins Square Park",
+     "Feeding program occurs every Saturday. Time: 11:30 am (volunteers arrive by 11:15 am)",
+     "meetup", "volunteer"),
+    ("Creating Care Packages", "We put together care packages for our houseless community.",
+     "meetup", "volunteer"),
+    # a source that STATED volunteer is never second-guessed
+    ("WINE & PAINT", "", "ics", "volunteer"),
+]
+for name, desc, src, want in VOLUNTEER_SWEEP_CASES:
+    got = map_category(_rec(name, desc, cat="volunteer", src=src))
+    ok = got == want
+    if not ok:
+        ifails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} [{src[:12]:<12}] {name[:44]:<46} -> {got}"
+          f"{'' if ok else f'   (wanted {want})'}")
+
 # A REFUSED GUESS MUST NOT COME BACK AS A SECONDARY. The market demotion shipped
 # in map_category alone and derive_categories carried "the source's own key"
 # forward, so the Berlin Magic night was ('community', ['market', ...]) and still
@@ -687,6 +733,8 @@ LEAK_CASES = [
     ("E-Commerce over Breakfast Berlin", "A curated meetup for e-commerce operators.", "market", "market"),
     ("Shut Up & Write!® NYC", "Write together, in silence, for an hour.", "kids", "kids"),
     ("CITAS RÁPIDAS BARCELONA Solteros/as de 48 a 59 años", "", "kids", "kids"),
+    ("WINE & PAINT", "", "volunteer", "volunteer"),
+    ("Evening Meditation", _MEDITATION, "volunteer", "volunteer"),
 ]
 for name, desc, cat, gone in LEAK_CASES:
     p, e = derive_categories(_rec(name, desc, cat=cat, src="meetup"))
@@ -715,7 +763,8 @@ for name, cat, desc, want in TITLE_ONLY_CASES:
     if not ok:
         ifails.append(name)
     print(f"{'ok ' if ok else 'FAIL'} {'kids ' + ('from the title' if want else 'never from a price'):<28} {name[:34]:<36} -> {p} + {sorted(e or [])}")
-total = len(INTL_KIDS_CASES) + len(KIDS_SWEEP_CASES) + len(LEAK_CASES) + 1 + len(TITLE_ONLY_CASES)
+total = (len(INTL_KIDS_CASES) + len(KIDS_SWEEP_CASES) + len(VOLUNTEER_SWEEP_CASES) + len(LEAK_CASES)
+         + 1 + len(TITLE_ONLY_CASES))
 print()
 print(f"{total-len(ifails)}/{total} passed")
 
