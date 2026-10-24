@@ -1838,15 +1838,20 @@ def broadcast_for(rec: Dict[str, Any], category_key: Optional[str]):
     return tuple(sorted(rules, key=lambda r: not r[2]))
 
 
+def _headliner(rec: Dict[str, Any]) -> Optional[str]:
+    """lineup[0], when the source named a performer at all."""
+    lu = rec.get("lineup") or []
+    if isinstance(lu, list) and lu and str(lu[0]).strip():
+        return str(lu[0]).strip()
+    return None
+
+
 def _pick_artist(rec: Dict[str, Any]) -> Optional[str]:
     """Best guess at the performer to build listen links from: the headliner
     (lineup[0]) if present, else the event title. Not the promoter — that's the
     booking company, not the act."""
-    lu = rec.get("lineup") or []
-    if isinstance(lu, list) and lu and str(lu[0]).strip():
-        return str(lu[0]).strip()
     name = (rec.get("name") or "").strip()
-    return name or None
+    return _headliner(rec) or name or None
 
 
 def _host_name(rec: Dict[str, Any]) -> str:
@@ -2273,38 +2278,51 @@ def batch_geocode(session, addr_tuples):
     return result
 
 
-def _enrich_music_links(recs: List[Dict[str, Any]], session) -> None:
+def _enrich_music_links(recs: List[Dict[str, Any]], session, cache_path: Optional[str] = None) -> None:
     """Upgrade music events to EXACT Spotify artist pages when a Spotify app
     credential is set (SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET). No-op without
     creds — to_row still emits Spotify/YouTube search deep-links. Resolutions are
-    cached by artist name (spotify_cache.json) so a name is queried at most once."""
+    cached by artist name (spotify_cache.json); see SpotifyResolver for what is
+    kept and for how long.
+
+    Only for a record whose source NAMED a performer (lineup[0]). A title is not
+    an artist: Meetup records carry no lineup, so every one of the ~5,700 names
+    its job asked on 2026-10-23 was an event title, and a working fuzzy
+    type=artist search would pin some stranger's page to it as "exact". The
+    search deep-links in to_row are unchanged."""
     cid = os.environ.get("SPOTIFY_CLIENT_ID", "").strip()
     secret = os.environ.get("SPOTIFY_CLIENT_SECRET", "").strip()
     if not (cid and secret):
         return
-    cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "spotify_cache.json")
+    cache_path = cache_path or os.path.join(os.path.dirname(os.path.abspath(__file__)), "spotify_cache.json")
     try:
         cache = json.loads(open(cache_path, encoding="utf-8").read()) if os.path.exists(cache_path) else {}
     except Exception:
         cache = {}
+    if not isinstance(cache, dict):
+        cache = {}
     resolver = SpotifyResolver(cid, secret, session, cache)
-    resolved = 0
+    resolved = no_lineup = 0
     for rec in recs:
         if map_category(rec) != "music" or rec.get("spotify_url"):
             continue                                   # non-music, or TM already gave an exact link
-        artist = _pick_artist(rec)
+        artist = _headliner(rec)
         if not artist:
+            no_lineup += 1
             continue
         u = resolver.artist_url(artist)
         if u:
             rec["spotify_url"] = u
             resolved += 1
+    resolver.prune()
     try:
         with open(cache_path, "w", encoding="utf-8") as fh:
             json.dump(cache, fh, ensure_ascii=False)
     except Exception:
         pass
-    print(f"Spotify: resolved {resolved} exact artist pages ({len(cache)} names cached).")
+    print(f"Spotify: resolved {resolved} exact artist pages from {resolver.lookups} lookups "
+          f"(statuses {dict(resolver.statuses)}; {no_lineup} music rows without a lineup "
+          f"not asked; {len(cache)} names cached).")
 
 
 def build_rows(store_path: str, host_id: str, geo_session=None, keep=None,
