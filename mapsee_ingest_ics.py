@@ -151,6 +151,11 @@ _FEED_CACHE = _load_feed_cache()
 
 CURSOR_PATH = _os.environ.get("ICS_CURSOR", "ics_cursor.json")
 
+# The store, both caches and the cursor are written together between sources at
+# most this often, and always when the run stops (main). The interval
+# mapsee_ingest_perfectmind uses for its own group's feeds_events.json.
+SAVE_EVERY_SECONDS = 120
+
 
 class BudgetExpired(Exception):
     def __init__(self, offset, kept=0):
@@ -447,6 +452,29 @@ def _pins_unnamed(venue) -> bool:
     return _venue_pin(venue) and venue.get("pin_unnamed", True) is not False
 
 
+# Photon requests this process has sent, and how many came back with no point
+# (an empty answer or an error). Neither is cached, so the same miss is paid
+# again on every run, up to GEOCODE_MAX_NEW (5,000 in CI) at ~1.1 s each; each
+# source's line prints its own share (_took).
+_PHOTON = {"lookups": 0, "misses": 0}
+
+
+def _photon_count() -> Tuple[int, int]:
+    return _PHOTON["lookups"], _PHOTON["misses"]
+
+
+def _took(started: float, photon: Tuple[int, int]) -> str:
+    """The tail of a source's log line: its seconds, and its Photon requests if any.
+
+    perf_counter, not monotonic: the budget tests drive time.monotonic with a
+    list of values, and a clock read here would use one of them up."""
+    lookups, misses = _PHOTON["lookups"] - photon[0], _PHOTON["misses"] - photon[1]
+    out = f" in {time.perf_counter() - started:.1f}s"
+    if lookups:
+        out += f"; {lookups} Photon lookup(s), {misses} missed"
+    return out
+
+
 def make_location_geocoder(session, suffix: str):
     cache = _GEO_CACHE
 
@@ -478,6 +506,7 @@ def make_location_geocoder(session, suffix: str):
             return cache[key]
         if not geocode_allowed():                    # over this run's budget → retry next run
             return (None, None)
+        _PHOTON["lookups"] += 1
         try:
             time.sleep(1.1)                          # photon fair use ~1 req/s
             r = session.get("https://photon.komoot.io/api/",
@@ -486,6 +515,7 @@ def make_location_geocoder(session, suffix: str):
             f = (r.json().get("features") or [None])[0]
             out = (f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0]) if f else (None, None)
         except Exception:                            # noqa: BLE001
+            _PHOTON["misses"] += 1
             return (None, None)                      # NOT cached — see below
         # ONLY A HIT IS CACHED. This is the rule mapsee_ingest_markets._geocode
         # already arrived at, on the same shared, COMMITTED file: a miss stored
@@ -501,6 +531,8 @@ def make_location_geocoder(session, suffix: str):
         # is bounded by geocode_allowed().
         if out[0] is not None:
             cache[key] = out
+        else:
+            _PHOTON["misses"] += 1
         return out
     return geocode
 
@@ -904,6 +936,7 @@ def _start_key(ev) -> str:
 
 
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
+    started, photon = time.perf_counter(), _photon_count()
     details_reader = None
     if src.get("details") == "ramart":
         from mapsee_event_details import ramart_reader
@@ -1036,7 +1069,18 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # see ONLINE_LOC_RX. Before GEO is read, because Communico gives these
         # rows the owning branch's coordinates (or 0;0, which the geocoder then
         # guesses at).
-        if loc and ONLINE_LOC_RX.search(loc):
+        # EXCEPT A CANCELLATION, which goes on to store.cancel below. Every branch
+        # of the pattern was added after rows it matches had been written ("On
+        # Zoom" on 2026-10-24, with 8 UW rows already pinned), and an upsert
+        # cannot delete, so this skip leaves a stored row exactly as it was. If
+        # the cancelled VEVENT were skipped too, the publisher's STATUS:CANCELLED
+        # would be the one word about that row nobody reads: the ics sync has no
+        # --retire-absent, and prune_cancelled never hides on prose. The record
+        # below is keyed as it was before the pattern matched (title, date and
+        # this same LOCATION text), and a tombstone places nothing, so it costs
+        # no geocode and no page fetch. A tombstone for a row never written
+        # matches no external_id and changes nothing.
+        if loc and ONLINE_LOC_RX.search(loc) and not is_cancelled:
             online += 1
             continue
         elsewhere = False
@@ -1193,7 +1237,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f"; {online} online (a virtual room, not a place)"
     if skipped_title:
         note += f"; {skipped_title} title-filtered"
-    print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
+    print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}{_took(started, photon)}",
+          flush=True)
     return kept - start_kept
 
 
@@ -1251,9 +1296,19 @@ def _all_placeholders(loc: str, rx: "re.Pattern[str]" = PLACEHOLDER_LOC_RX) -> b
 # BUT placeholder words, so "Virtual - Virtual Room - Adult Programming" passed
 # it and landed on a bank. Checked before GEO, and the row is skipped. Bare
 # "Online" and "Virtual" match too. "Virtual Reality Lab - Room 2" does not.
+# A LOCATION that is only the call's software is the same thing: "On Zoom",
+# "Teams", "Online (Zoom)", "Zoom (see registration link)". In a sample of 5,880
+# place names (2026-10-23) the first two branches matched 0 of the 10 that were
+# only a call and the last two match 9, with 0 false positives; 8 were University
+# of Washington ics rows pinned at the campus geocode. The tenth, a Meetup venue
+# "ZOOM ROOM", is left out on purpose: Zoom Room is a US chain of dog-agility
+# gyms, so "Zoom Room - Fremont" is a place and "room" is not a suffix here.
 ONLINE_LOC_RX = re.compile(
     r"^\s*(?:online|virtual)(?:\s+(?:branch|library|room|programs?|events?))?\s*(?:$|[-\u2013\u2014|:,])|"
-    r"(?:[-\u2013\u2014|]\s*|\(\s*)(?:online|virtual)(?:\s+(?:room|event|program|class))?\s*\)?\s*$",
+    r"(?:[-\u2013\u2014|]\s*|\(\s*)(?:online|virtual)(?:\s+(?:room|event|program|class))?\s*\)?\s*$|"
+    r"^\s*(?:on\s+|via\s+)?(?:zoom|ms\s+teams|microsoft\s+teams|teams|google\s+meet|webex)\b"
+    r"(?:\s+(?:meeting|call|webinar|link))?\s*(?:$|[-\u2013\u2014|:,(])|"
+    r"^\s*(?:online|virtual)\s*\(\s*(?:via\s+)?(?:zoom|teams|microsoft teams|google meet|webex)\s*\)\s*$",
     re.I)
 
 
@@ -1308,57 +1363,74 @@ def main(argv=None) -> int:
     attempted = 0
     delays = _crawl_delays(sources)
     last_hit: Dict[str, float] = {}
-    for step in range(len(sources)):
-        index = (start + step) % len(sources)
-        src = sources[index]
-        if deadline is not None and time.monotonic() >= deadline:
-            print(f"[ics] budget reached after {attempted} sources; next: {src['name']}")
-            break
-        host = _host(src.get("url", ""))
-        if host in delays and host in last_hit:
-            wait = last_hit[host] + delays[host] - time.monotonic()
-            if wait > 0:
-                # A wait that would outlast the budget is the budget: the
-                # cursor already names this source, so the next run starts here.
-                if deadline is not None and time.monotonic() + wait >= deadline:
-                    print(f"[ics] budget reached waiting out {host}'s crawl delay; next: {src['name']}")
-                    break
-                time.sleep(wait)
-        last_hit[host] = time.monotonic()
-        offset = cursor.get("offset", 0) if step == 0 and index == start else 0
-        kept_before = cursor.get("kept", 0) if step == 0 and index == start else 0
-        complete = False
-        partial_offset = None
-        try:
-            total += ingest_ics(store, session, src, start_offset=offset,
-                                start_kept=kept_before, deadline=deadline)
-            complete = True
-        except BudgetExpired as exc:
-            partial_offset = exc.offset
-            partial_kept = exc.kept
-        except Exception as exc:
-            print(f"[ics] {src.get('name', '?')} FAILED: {exc}")
-            complete = True  # a refused source must not pin the cursor forever
-        finally:
-            # One source is the unit of recoverable work.  The Actions cache is
-            # uploaded only after the process exits, but its files used to be
-            # written only after every source: cancelling a long run discarded
-            # every Photon result learned so far and made the next run repay the
-            # same 1.1s lookups.  Keep the event store beside those caches at the
-            # same boundary so a caller can safely sync a deliberately bounded
-            # or interrupted run.
-            store.save()
-            _save_geo_cache(_GEO_CACHE)
-            _save_feed_cache(_FEED_CACHE)
-        if partial_offset is not None:
-            if deadline is not None:
-                _save_cursor(a.cursor, src["url"], partial_offset, partial_kept)
-            print(f"[ics] budget reached inside {src['name']} at VEVENT {partial_offset}; resuming there next run")
-            break
-        if complete:
+    # Where the next run starts, as of the last source this one finished: the
+    # cursor written at the next checkpoint. None until then, so a run stopped
+    # inside its first source leaves the cursor it started from.
+    resume: Optional[Tuple[str, int, int]] = None
+    dirty = False                                   # the store has rows no checkpoint wrote
+    last_save = time.monotonic()
+
+    def checkpoint():
+        # The Actions cache is uploaded only after the process exits, so these
+        # files are what a cancelled or bounded run leaves for the sync and the
+        # next run: the event store, the Photon results and the feed bodies.
+        # The cursor goes LAST and only here, so it never names a source past
+        # what the saved store holds.
+        nonlocal dirty, last_save
+        store.save()
+        _save_geo_cache(_GEO_CACHE)
+        _save_feed_cache(_FEED_CACHE)
+        if deadline is not None and resume is not None:
+            _save_cursor(a.cursor, *resume)
+        dirty, last_save = False, time.monotonic()
+
+    try:
+        for step in range(len(sources)):
+            index = (start + step) % len(sources)
+            src = sources[index]
+            if deadline is not None and time.monotonic() >= deadline:
+                print(f"[ics] budget reached after {attempted} sources; next: {src['name']}")
+                break
+            host = _host(src.get("url", ""))
+            if host in delays and host in last_hit:
+                wait = last_hit[host] + delays[host] - time.monotonic()
+                if wait > 0:
+                    # A wait that would outlast the budget is the budget: the
+                    # cursor already names this source, so the next run starts here.
+                    if deadline is not None and time.monotonic() + wait >= deadline:
+                        print(f"[ics] budget reached waiting out {host}'s crawl delay; next: {src['name']}")
+                        break
+                    time.sleep(wait)
+            last_hit[host] = time.monotonic()
+            offset = cursor.get("offset", 0) if step == 0 and index == start else 0
+            kept_before = cursor.get("kept", 0) if step == 0 and index == start else 0
+            dirty = True
+            started, photon = time.perf_counter(), _photon_count()
+            try:
+                total += ingest_ics(store, session, src, start_offset=offset,
+                                    start_kept=kept_before, deadline=deadline)
+            except BudgetExpired as exc:
+                resume = (src["url"], exc.offset, exc.kept)
+                print(f"[ics] budget reached inside {src['name']} at VEVENT {exc.offset}; resuming there next run")
+                break
+            except Exception as exc:
+                # A refused source must not pin the cursor forever.
+                print(f"[ics] {src.get('name', '?')} FAILED: {exc}{_took(started, photon)}", flush=True)
             attempted += 1
-            if deadline is not None:
-                _save_cursor(a.cursor, sources[(index + 1) % len(sources)]["url"])
+            resume = (sources[(index + 1) % len(sources)]["url"], 0, 0)
+            # NOT after every source. At full size this store is 198.6 MB and
+            # 131,065 events, and one save takes 3.1-3.5 s; saved after every
+            # source it cost 40.2 min of the 220-min budget on 2026-10-23 and
+            # 19.0 on 10-22, time not spent reading feeds. A kill that gets no
+            # checkpoint below loses at most this interval, and the cursor,
+            # written with the store, re-reads it.
+            if time.monotonic() - last_save >= SAVE_EVERY_SECONDS:
+                checkpoint()
+    finally:
+        # The budget, the end of the catalog, a failure, and the SIGINT a
+        # cancelled Actions step receives (KeyboardInterrupt).
+        if dirty:
+            checkpoint()
     print(f"[ics] done: +{total} events processed; store now holds {len(store.records)} unique events.")
     return 0
 

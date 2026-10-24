@@ -41,6 +41,9 @@ def ingest(_store, _session, src, **_budget):
     return 3
 
 
+import io  # noqa: E402
+from contextlib import redirect_stdout  # noqa: E402
+
 with patch.object(ICS.json, "loads", return_value=sources), \
      patch.object(ICS.requests, "Session", create=True), \
      patch.object(ICS, "EventStore", return_value=store), \
@@ -49,13 +52,131 @@ with patch.object(ICS.json, "loads", return_value=sources), \
      patch.object(ICS, "_save_feed_cache", side_effect=lambda _cache: cache_saves.append("feed")), \
      patch.object(ICS, "_load_cursor", return_value={}), \
      patch.object(ICS, "_save_cursor"), \
-     patch("builtins.open"):
+     patch("builtins.open"), \
+     redirect_stdout(io.StringIO()) as out:
     rc = ICS.main(["--config", "unused.json", "--store", "unused-store.json"])
 
 check("main succeeds when one source fails", rc == 0, rc)
-check("event store checkpoints after every attempted source", store.saves == 2, store.saves)
-check("both caches checkpoint after every attempted source",
-      cache_saves == ["geo", "feed", "geo", "feed"], cache_saves)
+check("a run shorter than SAVE_EVERY_SECONDS saves the store and both caches once, at exit",
+      store.saves == 1 and cache_saves == ["geo", "feed"], (store.saves, cache_saves))
+check("a FAILED source's line says how long it took",
+      "[ics] bad FAILED: feed refused in 0.0s" in out.getvalue(), out.getvalue())
+
+
+# --- the store, both caches and the cursor checkpoint TOGETHER, at most every ---
+# SAVE_EVERY_SECONDS. One save of the 198.6 MB store took 3.1-3.5 s, and saving
+# after every source cost 40.2 min of the 220-min budget on 2026-10-23. The
+# cursor is only ever written after the store, so it never names a source the
+# saved store does not hold; the budget, the end, and a cancelled step's SIGINT
+# always checkpoint.
+class ClockStore(Store):
+    def save(self):
+        super().save()
+        saved.append(("store", clock_now[0]))
+
+
+saved = []
+clock_now = [0.0]
+gated_sources = [{"name": f"s{i}", "url": f"https://example.test/s{i}.ics"} for i in range(7)]
+
+
+def run_gated(ingest_fn, argv=("--max-minutes", "4"), srcs=gated_sources):
+    """main() over `srcs` with a fake clock; every ingest takes 50 s."""
+    saved.clear()
+    clock_now[0] = 0.0
+    gstore = ClockStore("unused.json")
+
+    def timed(store_, session_, src, **kw):
+        clock_now[0] += 50
+        return ingest_fn(store_, session_, src, **kw)
+
+    with patch.object(ICS.json, "loads", return_value=srcs), \
+         patch.object(ICS.requests, "Session", create=True), \
+         patch.object(ICS, "EventStore", return_value=gstore), \
+         patch.object(ICS, "ingest_ics", side_effect=timed), \
+         patch.object(ICS, "_save_geo_cache", side_effect=lambda _c: saved.append(("geo", clock_now[0]))), \
+         patch.object(ICS, "_save_feed_cache", side_effect=lambda _c: saved.append(("feed", clock_now[0]))), \
+         patch.object(ICS, "_load_cursor", return_value={}), \
+         patch.object(ICS, "_save_cursor",
+                      side_effect=lambda _p, url, offset=0, kept=0: saved.append(
+                          ("cursor", url.rsplit("/", 1)[-1], offset, kept))), \
+         patch.object(ICS.time, "monotonic", side_effect=lambda: clock_now[0]), \
+         patch("builtins.open"), \
+         redirect_stdout(io.StringIO()):
+        return ICS.main(["--config", "unused.json", "--store", "unused-store.json", *argv])
+
+
+def store_saves():
+    return [e[1] for e in saved if e[0] == "store"]
+
+
+def cursor_follows_store(log):
+    """Every cursor write comes straight after a store save and both caches."""
+    return all([k[0] for k in log[i - 3:i]] == ["store", "geo", "feed"]
+               for i, entry in enumerate(log) if entry[0] == "cursor")
+
+
+def ok_or_refused(_store, _session, src, **_kw):
+    if src["name"] == "s1":
+        raise RuntimeError("feed refused")
+    return 1
+
+
+check("SAVE_EVERY_SECONDS is the interval PerfectMind uses for its store",
+      ICS.SAVE_EVERY_SECONDS == 120, ICS.SAVE_EVERY_SECONDS)
+rc = run_gated(ok_or_refused)
+store_times = store_saves()
+cursors = [e[1:] for e in saved if e[0] == "cursor"]
+# s0 ends at 50 s, s1 (FAILED) 100, s2 150 -> checkpoint; s3 200, s4 250;
+# at s5 the 240 s budget is spent -> checkpoint.
+check("a budgeted run saves at most once per interval, and once more at the budget",
+      rc == 0 and store_times == [150, 250], (rc, saved))
+check("...each checkpoint writes the store, both caches and then the cursor",
+      cursors == [("s3.ics", 0, 0), ("s5.ics", 0, 0)] and cursor_follows_store(saved)
+      and len(saved) == 8, saved)
+
+# Six sources, 300 s: the interval's save after the last one is the exit's save.
+rc = run_gated(lambda *_a, **_k: 1, argv=(), srcs=gated_sources[:6])
+check("an unbudgeted pass saves on the interval, does not save twice at the end, and writes no cursor",
+      rc == 0 and store_saves() == [150, 300]
+      and not [e for e in saved if e[0] == "cursor"], (rc, saved))
+
+
+def stops_inside_s2(_store, _session, src, **_kw):
+    if src["name"] == "s2":
+        raise ICS.BudgetExpired(7, 2)
+    return 1
+
+
+rc = run_gated(stops_inside_s2)
+check("a budget reached inside a source checkpoints at once with its VEVENT offset",
+      rc == 0 and [e[0] for e in saved] == ["store", "geo", "feed", "cursor"]
+      and saved[-1] == ("cursor", "s2.ics", 7, 2), (rc, saved))
+
+
+def interrupted_at(name):
+    def ingest_fn(_store, _session, src, **_kw):
+        if src["name"] == name:
+            raise KeyboardInterrupt
+        return 1
+    return ingest_fn
+
+
+try:
+    run_gated(interrupted_at("s3"))
+    interrupted = False
+except KeyboardInterrupt:
+    interrupted = True
+check("a cancelled step's SIGINT checkpoints, and the cursor re-reads the source it was in",
+      interrupted and store_saves() == [150, 200]
+      and saved[-1] == ("cursor", "s3.ics", 0, 0) and cursor_follows_store(saved), (interrupted, saved))
+try:
+    run_gated(interrupted_at("s0"))
+    interrupted = False
+except KeyboardInterrupt:
+    interrupted = True
+check("...and inside the first source it saves the store but leaves the cursor it started from",
+      interrupted and [e[0] for e in saved] == ["store", "geo", "feed"], (interrupted, saved))
 
 
 # --- a source's `venue` pins the VEVENT that names no place at all -----------
@@ -234,11 +355,68 @@ check("'In the Community - Lincoln Park' names a place, so it is geocoded",
 for loc in ("Online - Virtual Room", "Virtual -", "Virtual Branch - Virtual Room 3",
             "Virtual Library - Virtual Room 1", "Online", "Virtual", "Main Library (Online)",
             "Westlake Porter Public Library - Online", "ONLINE, Gorey Library",
-            "Online, Melbourne, VIC, Australia"):
+            "Online, Melbourne, VIC, Australia",
+            # A LOCATION that is only the call's software (2026-10-23: 8 UW rows
+            # pinned at the campus geocode, 0 matched before).
+            "On Zoom", "Teams", "Online (Zoom)", "Zoom (see registration link)", "via Zoom",
+            "Zoom Meeting", "Microsoft Teams", "MS Teams - link sent on registration",
+            "Google Meet", "Webex", "Virtual (via Webex)", "Zoom webinar: link in description"):
     check(f"online: {loc!r}", bool(ICS.ONLINE_LOC_RX.search(loc)))
 for loc in ("Virtual Reality Lab - Room 2", "Online Learning Center, 5 Elm St", "Main Library - Room 2",
-            "Zoom Room at Central Library"):
+            "Zoom Room at Central Library",
+            # Zoom Room is a US chain of dog-agility gyms: a place, so no "room" suffix.
+            "Zoom Room - Fremont", "Zoom Room", "Teamsters Local 117 Hall",
+            "Google Meetinghouse Road Park"):
     check(f"not online: {loc!r}", not ICS.ONLINE_LOC_RX.search(loc))
+
+# ...but a CANCELLED online session still reaches store.cancel. The 8 UW rows
+# were written, pinned at the campus geocode, before the pattern knew "On Zoom",
+# and an upsert cannot delete: skipping the cancellation too left such a row
+# live, at its old time, until its date passed (review, 2026-10-24).
+import re  # noqa: E402
+from mapsee_ingest import EventStore as _OnlineStore  # noqa: E402
+
+
+def _zoom_feed(status):
+    return ("BEGIN:VCALENDAR\r\n"
+            "BEGIN:VEVENT\r\nUID:u1\r\nSUMMARY:Seminar\r\nDTSTART:20991020T170000Z\r\n"
+            f"LOCATION:On Zoom\r\n{status}END:VEVENT\r\n"
+            "BEGIN:VEVENT\r\nUID:u2\r\nSUMMARY:Office Hours\r\nDTSTART:20991021T170000Z\r\n"
+            "LOCATION:On Zoom\r\nEND:VEVENT\r\n"
+            "END:VCALENDAR\r\n")
+
+
+def _campus_geocoder(_session, _suffix):
+    def geocode(loc):
+        geocode_calls.append(loc)
+        return 47.6553, -122.3035
+    return geocode
+
+
+from mapsee_ingest import make_fingerprint as _fp  # noqa: E402
+zoom_key = _fp("Seminar", "2099-10-20", "On Zoom")
+with tempfile.TemporaryDirectory() as _d:
+    zstore = _OnlineStore(os.path.join(_d, "s.json"))
+    # Yesterday: the pattern did not know Zoom yet, so the row was geocoded and written.
+    with patch.object(ICS, "_fetch_ics", return_value=(_zoom_feed(""), "200")), \
+         patch.object(ICS, "make_location_geocoder", side_effect=_campus_geocoder), \
+         patch.object(ICS, "ONLINE_LOC_RX", re.compile(r"(?!)")), \
+         redirect_stdout(io.StringIO()):
+        ICS.ingest_ics(zstore, None, {"name": "uw", "url": "x"})
+    stored_before = zoom_key in zstore.records
+    geocode_calls.clear()
+    # Today: the pattern knows it, and the publisher cancels the seminar.
+    with patch.object(ICS, "_fetch_ics", return_value=(_zoom_feed("STATUS:CANCELLED\r\n"), "200")), \
+         patch.object(ICS, "make_location_geocoder", side_effect=_campus_geocoder), \
+         redirect_stdout(io.StringIO()) as out:
+        ICS.ingest_ics(zstore, None, {"name": "uw", "url": "x"})
+    tomb = zstore.tombstones.get(zoom_key)
+check("a cancelled 'On Zoom' VEVENT tombstones the row written before the pattern knew Zoom",
+      stored_before and zoom_key not in zstore.records and tomb is not None and tomb["source_id"] == "u1",
+      (stored_before, sorted(zstore.tombstones)))
+check("...without a geocode, and the live online sibling is still skipped and counted",
+      geocode_calls == [] and "1 cancelled (STATUS:CANCELLED), tombstoned" in out.getvalue()
+      and "1 online (a virtual room, not a place)" in out.getvalue(), (geocode_calls, out.getvalue()))
 
 
 # --- several feeds on one host wait out that host's Crawl-delay ---------------
@@ -714,6 +892,51 @@ check("coordinate opt-in leaves source event identity and info link unchanged",
       and exact_row["external_id"] == ordinary_row["external_id"]
       and "Tickets / info: https://calendar.example.test/event/grove-exact-pin" in exact_row["description"],
       (exact_record.get("sources"), ordinary_record.get("sources"), exact_row.get("description")))
+
+# --- a source's line counts the Photon requests it paid for, and the misses ----
+# Misses are not cached, so the same one is paid on every run (up to the 5,000
+# GEOCODE_MAX_NEW budget at ~1.1 s each); until this a run's log could not say
+# which source spent them.
+class PhotonSession:
+    def __init__(self):
+        self.queries = []
+
+    def get(self, _url, params, timeout):
+        self.queries.append(params["q"])
+        hit = params["q"].startswith("Qx Photon Test Hall")
+        return type("R", (), {
+            "raise_for_status": lambda self: None,
+            "json": lambda self: {"features": [{"geometry": {"coordinates": [-122.3, 47.6]}}] if hit else []},
+        })()
+
+
+PHOTON_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:p1\r\nSUMMARY:Talk\r\nDTSTART:20991010T170000Z\r\n"
+    "LOCATION:Qx Photon Test Hall\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:p2\r\nSUMMARY:Walk\r\nDTSTART:20991011T170000Z\r\n"
+    "LOCATION:Qx Photon Nowhere\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:p3\r\nSUMMARY:Talk again\r\nDTSTART:20991012T170000Z\r\n"
+    "LOCATION:Qx Photon Test Hall\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+photon_session = PhotonSession()
+with patch.object(ICS, "_fetch_ics", return_value=(PHOTON_ICS, "200")), \
+     patch.object(ICS, "geocode_allowed", return_value=True), \
+     patch.object(ICS.time, "sleep"), \
+     patch.dict(ICS._GEO_CACHE, {}), \
+     redirect_stdout(io.StringIO()) as out:
+    ICS.ingest_ics(VenueStore(), photon_session, {"name": "photon", "url": "x"})
+check("a source's line says how long it took and how many Photon lookups it sent, and missed",
+      "[ics] photon: kept 2 of 3 VEVENTs" in out.getvalue()
+      and " in 0.0s; 2 Photon lookup(s), 1 missed" in out.getvalue()
+      and len(photon_session.queries) == 2, (out.getvalue(), photon_session.queries))
+with patch.object(ICS, "_fetch_ics", return_value=(PHOTON_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_no_hit_geocoder), \
+     redirect_stdout(io.StringIO()) as out:
+    ICS.ingest_ics(VenueStore(), None, {"name": "cached", "url": "x"})
+check("...and a source that sent none says nothing about Photon",
+      "in 0.0s" in out.getvalue() and "Photon" not in out.getvalue(), out.getvalue())
 
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")

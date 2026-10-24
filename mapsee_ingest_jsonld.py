@@ -133,6 +133,28 @@ def _save_geo_cache():
         pass
 
 
+# Photon requests this process has sent, and how many found no point. A miss is
+# not cached, so it is paid again every run; each site's line prints its own
+# share (_took), as mapsee_ingest_ics's lines do.
+_PHOTON = {"lookups": 0, "misses": 0}
+
+
+def _photon_count() -> Tuple[int, int]:
+    return _PHOTON["lookups"], _PHOTON["misses"]
+
+
+def _took(started: float, photon: Tuple[int, int]) -> str:
+    """The tail of a site's log line: its seconds, and its Photon requests if any.
+
+    perf_counter, not monotonic: the budget tests drive time.monotonic with a
+    list of values, and a clock read here would use one of them up."""
+    lookups, misses = _PHOTON["lookups"] - photon[0], _PHOTON["misses"] - photon[1]
+    out = f" in {time.perf_counter() - started:.1f}s"
+    if lookups:
+        out += f"; {lookups} Photon lookup(s), {misses} missed"
+    return out
+
+
 def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
     """One polite Photon lookup per unique query. ONLY A HIT IS CACHED.
 
@@ -148,6 +170,7 @@ def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
         return (v[0], v[1]) if v else (None, None)
     if not geocode_allowed():                        # over this run's budget → retry next run
         return (None, None)
+    _PHOTON["lookups"] += 1
     try:
         r = session.get("https://photon.komoot.io/api/", params={"q": query, "limit": 1}, timeout=20)
         r.raise_for_status()                         # a 502 is not an empty result
@@ -159,6 +182,7 @@ def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
             return lat, lon
     except Exception:                                # noqa: BLE001
         pass
+    _PHOTON["misses"] += 1
     time.sleep(1.1)
     return None, None
 
@@ -735,6 +759,7 @@ def store_item(store: EventStore, item: Dict[str, Any], page_url: str, category:
 
 def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offset=0,
                 start_inline=0, deadline=None) -> int:
+    started, photon = time.perf_counter(), _photon_count()
     name = site.get("name", "?")
     # link_pattern is optional: single-page venue sites (Wix etc.) embed every
     # Event block on the LISTING page itself, and their detail links often go
@@ -803,7 +828,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
           + (f"; {tally['cancelled']} cancelled/postponed/moved online (tombstoned)"
              if tally.get("cancelled") else "")
           + (f"; {tally['rescheduled']} old date(s) of a rescheduled event tombstoned"
-             if tally.get("rescheduled") else ""))
+             if tally.get("rescheduled") else "")
+          + _took(started, photon), flush=True)
     return kept
 
 
@@ -840,6 +866,7 @@ def main(argv=None) -> int:
         inline_offset = cursor.get("inline_offset", 0) if step == 0 and index == start else 0
         complete = False
         partial_offset = None
+        started, photon = time.perf_counter(), _photon_count()
         try:                                              # one site failing must not abort the sweep
             total += ingest_site(store, session, site, start_offset=offset,
                                  start_inline=inline_offset, deadline=deadline)
@@ -848,7 +875,7 @@ def main(argv=None) -> int:
             partial_offset = exc.offset
             partial_inline = exc.inline_offset
         except Exception as exc:
-            print(f"[jsonld] {site.get('name','?')} FAILED: {exc}")
+            print(f"[jsonld] {site.get('name','?')} FAILED: {exc}{_took(started, photon)}", flush=True)
             complete = True
         finally:
             store.save()
