@@ -1153,12 +1153,21 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
     # key already taken, hides it with hidden_at alone, which nothing lifts.
     # A double posting whose kept post is re-dated hands its old day to the
     # other post (Murten -4 and -4b in the tests: the 24.10 row was hidden from
-    # the third run on). The key leaves this page's `keys` for good.
+    # the third run on). The key moves from this page's `keys` to its `dead`:
+    # the page left that day, and only the other post's live write holds it, so
+    # the dead-key loop skips it while that post lists it and tombstones it the
+    # run nobody does (dropping it outright left the 24.10 row live, on -4's
+    # link, after -4b was deleted).
     for url, ev in written:
         taken = {k for k in ev.legacy_fingerprints if k in seen_fp}
         if taken:
             ev.legacy_fingerprints = [k for k in ev.legacy_fingerprints if k not in taken]
-            pages[url]["keys"] = [k for k in pages[url].get("keys") or [] if k[0] not in taken]
+            entry = pages[url]
+            gave = [k for k in entry.get("keys") or [] if k[0] in taken]
+            entry["keys"] = [k for k in entry.get("keys") or [] if k[0] not in taken]
+            dead = {k[0]: k for k in entry.get("dead") or []}
+            dead.update({k[0]: k for k in gave})
+            entry["dead"] = list(dead.values())
             _count(notes, "an old key another post is written under this run: left to that post")
         if ev.legacy_fingerprints:
             _count(notes, "re-dated or re-titled since its row was written: "

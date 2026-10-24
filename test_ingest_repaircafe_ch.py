@@ -896,15 +896,25 @@ check("run 2, -4 re-dated to 31.10: -4b writes 24.10 live, and -4 does NOT send 
       and r2["repair-cafe-murten-morat-4"].legacy_fingerprints == [] and not dp[1][2]
       and dp[1][0]["notes"].get("an old key another post is written under this run: left to that post") == 1,
       (r2["repair-cafe-murten-morat-4"].legacy_fingerprints, dp[1][0]["notes"]))
-check("  ...and the key leaves -4's cursor entry for good (it is -4b's row now)",
+check("  ...and the key moves to -4's dead list (held by -4b's live write, not -4's key any more)",
       [k[0] for k in cur_dp["pages"][M4]["keys"]] == [r2["repair-cafe-murten-morat-4"].fingerprint]
-      and [k[0] for k in cur_dp["pages"][M4B]["keys"]] == [fp_24], (cur_dp["pages"][M4]["keys"], cur_dp["pages"][M4B]))
+      and [k[0] for k in cur_dp["pages"][M4].get("dead") or []] == [fp_24]
+      and [k[0] for k in cur_dp["pages"][M4B]["keys"]] == [fp_24], (cur_dp["pages"][M4], cur_dp["pages"][M4B]))
 check("no run sends a legacy key some row of that run is written under",
       all(not (set(e.legacy_fingerprints) & {x.fingerprint for x in rows.values()})
           for _rep, rows, _o, _t in dp for e in rows.values()))
 check("runs 2-4: the 24.10 and the 31.10 rows are both in the table and neither is hidden",
       all(t.get(fp_24) is False and t.get(rows["repair-cafe-murten-morat-4"].fingerprint) is False
           for _rep, rows, _o, t in dp[1:]), [{k[:8]: v for k, v in t.items()} for *_x, t in dp])
+# Then the cafe deletes -4b. Nobody lists 24.10 any more, so -4's dead key is
+# tombstoned: the old day was -4's row, inserted from -4's page, and its link
+# still answers, so nothing else would ever take it off the map.
+rep5, out5, offs5, _a5, _ = run(edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Sa, 31.10.2026"}), cur_dp)
+check("run 5, -4b deleted: the 24.10 row is called off as moved, and 31.10 stays live",
+      fp_24 in [o[0].fingerprint for o in offs5]
+      and any(e.fingerprint != fp_24 and e.source_id.endswith("murten-morat-4") for e in out5)
+      and all(e.fingerprint != fp_24 for e in out5),
+      ([o[0].fingerprint[:8] for o in offs5], [e.fingerprint[:8] for e in out5]))
 
 
 print("== the geocoder's budget and deadline")
