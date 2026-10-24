@@ -4,7 +4,10 @@
     "url": "https://www.trumba.com/calendars/seattlegov-city-wide.ics",
     "category": "community",
     "geocode_suffix": ", Seattle, WA",
-    "limit": 500
+    "limit": 500,
+    "_found": "civic:city -> ics (hand-curated)",
+    "skip_title": "\\b(?:committee|commission(?:ers)?|council|(?:advisory|preservation|standards|district)\\s+board|review\\s+panel)\\b",
+    "_why_skip_title": "2026-10-23: about 142 of the feed's 461 future VEVENTs (31%) are governance sessions. This regex catches 103 and CIVIC_TITLE_RX (switched on by the civic: _found) 76, together all 142 with no non-meeting title among them (all read). Visible before: 11 of Seattle's 500 rows, 7 of them zero-length 'Select Budget Committee' sessions listed twice at the same minute."
   },
   {
     "name": "Seattle Parks and Recreation",
@@ -27124,15 +27127,6 @@
     "geocode_suffix": ", Cáceres, Spain",
     "limit": 300,
     "_metro": "Cáceres, Spain"
-  },
-  {
-    "name": "Paróquia Nossa Senhora do Carmo da Aclimação",
-    "category": "community",
-    "_found": "osm:place_of_worship -> gcal-embed",
-    "url": "https://calendar.google.com/calendar/ical/nsdocarmo.com.br_6tp00foh2ic2h9oo2me43ijbk4%40group.calendar.google.com/public/basic.ics",
-    "geocode_suffix": ", São Paulo, Brazil",
-    "limit": 300,
-    "_metro": "São Paulo, Brazil"
   },
   {
     "name": "Paróquia Sagrado Coração de Jesus",

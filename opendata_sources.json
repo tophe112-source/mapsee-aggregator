@@ -162,7 +162,7 @@
     "url": "https://data.cityofchicago.org/resource/w22p-bfyb.json",
     "app_token": null,
     "category": "kids",
-    "where": "start_date_and_time > '{now}'",
+    "where": "start_date_and_time > '{now}' AND org_name != 'Chicago Public Library'",
     "order": "start_date_and_time",
     "limit": 1000,
     "map": {
@@ -174,7 +174,8 @@
       "venue": "org_name",
       "geo": "location",
       "url": "registration_url"
-    }
+    },
+    "_why_where": "2026-10-23: 11,095 of 13,237 future rows (84%) are org_name 'Chicago Public Library', clockless kids copies (naive midnight -> all day) of programmes BiblioCommons chipublib already carries with their times: 42 of Chicago's 500 visible rows, 31 of 34 duplicating a timed BiblioCommons row the same day, adult ones ('Puzzlemania for Adults') among them on the kids door. Excluded at the source, as vsdy-d8k7 was."
   },
   {
     "name": "HS Outreach (internal.open.piercecountywa.gov)",

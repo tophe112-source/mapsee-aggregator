@@ -91,6 +91,19 @@ class OpenDataTests(TestCase):
         if any(s.get('slug')=='chipublib' for s in biblio['sites']):
             self.assertEqual([s['name'] for s in sources if 'vsdy-d8k7' in s.get('url','')],[])
 
+    def test_my_chi_leaves_chicago_public_library_to_bibliocommons(self):
+        # 2026-10-23: 11,095 of My CHI's 13,237 future rows (84%) were CPL's own
+        # programmes, written clockless (a naive midnight is all day) - 42 of
+        # Chicago's 500 visible rows, 31 of 34 sampled twins of a timed
+        # BiblioCommons row. The same twin rule as vsdy-d8k7, kept in the query.
+        sources=json.loads(Path('opendata_sources.json').read_text())
+        biblio=json.loads(Path('bibliocommons_sources.json').read_text())
+        if any(s.get('slug')=='chipublib' for s in biblio['sites']):
+            my_chi=[s for s in sources if 'w22p-bfyb' in s.get('url','')]
+            self.assertEqual(len(my_chi),1)
+            self.assertIn("org_name != 'Chicago Public Library'", my_chi[0]['where'])
+            self.assertIn("{now}", my_chi[0]['where'])
+
     def test_merge_does_not_restore_retired_chicago_duplicate_while_primary_exists(self):
         import tempfile
         duplicate = {'type':'opendata','name':'Chicago Public Library Events',

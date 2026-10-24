@@ -249,4 +249,27 @@ assert (other_branch.venue_name, other_branch.address, other_branch.city,
 )
 assert geocode_calls == [], geocode_calls
 
+# Seattle City Calendar carries the city's governance sessions beside its
+# programme: about 142 of 461 future VEVENTs on 2026-10-23, 7 of the 11 seen on
+# the map zero-length 'Select Budget Committee' rows. skip_title plus the civic
+# rules (switched on by its civic: _found) refuse them; the programme stays.
+import re
+seattle = [s for s in json.loads(Path("ics_sources.json").read_text(encoding="utf-8"))
+           if s.get("name") == "Seattle City Calendar"]
+assert len(seattle) == 1, seattle
+seattle = seattle[0]
+assert str(seattle.get("_found", "")).startswith("civic:"), seattle.get("_found")
+seattle_skip = re.compile(seattle["skip_title"], re.I)
+
+def seattle_refuses(title):
+    return bool(seattle_skip.search(title) or ICS.CIVIC_TITLE_RX.search(title)
+                or ICS.CIVIC_HOLIDAY_RX.match(title.strip()))
+
+for title in ("Select Budget Committee", "Council Briefing", "Seattle Transit Advisory Board",
+              "Construction Codes Advisory Board", "Landmarks Preservation Board"):
+    assert seattle_refuses(title), title
+for title in ("Waterfront Park Firepit Socials", "Green Lake Litter Patrol",
+              "Dia de los Muertos Celebration", "Family Movie Night"):
+    assert not seattle_refuses(title), title
+
 print("ICS source overrides passed")

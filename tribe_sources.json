@@ -12062,23 +12062,6 @@
       "_metro": "Pretoria, South Africa"
     },
     {
-      "name": "Buurtteam Rivierenbuurt",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://www.buurtteamamsterdam.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Buurtteam Rivierenbuurt",
-        "address": "13A Lekstraat",
-        "city": "Amsterdam",
-        "postal_code": "1079EK",
-        "lat": 52.3449498,
-        "lon": 4.9063521
-      },
-      "_metro": "Amsterdam, Netherlands"
-    },
-    {
       "name": "Scouting Holendrecht",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -18748,23 +18731,6 @@
       "_metro": "Amsterdam, Netherlands"
     },
     {
-      "name": "?",
-      "category": "community",
-      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
-      "base_url": "https://hvoquerido.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "?",
-        "address": "14 Plantage Muidergracht",
-        "city": "Amsterdam",
-        "postal_code": "1018TV",
-        "lat": 52.3646621,
-        "lon": 4.912969
-      },
-      "_metro": "Amsterdam, Netherlands"
-    },
-    {
       "name": "Kerk van Zunderdorp",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
@@ -23411,6 +23377,8 @@
     "https://ohiowildlifecenter.org": "Ohio Wildlife Center (Columbus) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 11 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
     "https://hdsouth.org": "HD South - Gilbert Historical Museum (Gilbert) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
     "https://madenewomaha.com": "Made New Makerspace - public community events - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
-    "https://www.kinsale.ie": "Kinsale - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa."
+    "https://www.kinsale.ie": "Kinsale - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.buurtteamamsterdam.nl": "Retired 2026-10-24. The OSM walk found it on one buurtteam office (Lekstraat 13A) and pinned the whole organisation's calendar there: 92 live rows on one point carrying 54 different place names (Nieuwendam and the Bijlmer at Lekstraat), mostly social-service 'spreekuur' hours, some by appointment. Streets are present but no coordinates. 28% of Amsterdam's visible rows came from this and hvoquerido.nl.",
+    "https://hvoquerido.nl": "Retired 2026-10-24. A care organisation's client activities, found by the OSM walk on one social facility (Plantage Muidergracht 14) and pinned there: 49 live rows on one point with 16 different place names, one 'Online (via Teams)'. Not a public programme, and not that building's."
   }
 }
