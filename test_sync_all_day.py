@@ -99,6 +99,47 @@ def main():
     checks.append((S._anchor_all_day("not-a-date", None, *SEATTLE) == ("not-a-date", None),
                    "an unparseable value is left alone, not guessed at"))
 
+    # ---- 7. An end at or before the start is no end (2026-10-23: 33 of 5,880
+    # live rows). berlin.de's JSON-LD ended a 16:30 handball match at 00:00Z
+    # that morning, so it left the map 15.5 h before it began.
+    r = row(name="Füchse Berlin - HSG Wetzlar", category="arts", latitude=BERLIN[0],
+            longitude=BERLIN[1], start_utc="2026-10-25T15:30:00Z", end_utc="2026-10-25T00:00:00Z")
+    checks.append((r["ends_at"] == "2026-10-25T18:30:00Z",
+                   f"an end before the start gives the category's +3 h instead ({r['ends_at']})"))
+    end = S._compute_end("2026-10-24T02:30:00Z", "2026-10-24T02:30:00Z", "community")
+    checks.append((end == "2026-10-24T04:30:00Z",
+                   f"an end AT the start (Town Hall Seattle) gives community's +2 h ({end})"))
+    end = S._compute_end("2026-10-24T20:00:00+02:00", "2026-10-24T18:00:00Z", "music")
+    checks.append((end == "2026-10-24T23:00:00+02:00",
+                   f"...compared as instants, not as text ({end})"))
+    end = S._compute_end("2026-10-24T21:00:00Z", "2026-10-25T02:00:00Z", "party")
+    checks.append((end == "2026-10-25T02:00:00Z",
+                   f"a real overnight end the next day is kept as given ({end})"))
+    end = S._compute_end("2026-10-24T21:00:00", "2026-10-24T09:00:00", "party")
+    checks.append((end == "2026-10-24T09:00:00",
+                   f"a naive pair is passed through as before, not guessed at ({end})"))
+
+    # ---- 8. ...and time_changed reads it the same way. Once the Wednesday
+    # refresh stores the default end, comparing the source's raw end with it
+    # would read as a new time on every daily --only-new run, for good.
+    for label, cat, start, end_, lat, lon in [
+        ("an end AT the start (Town Hall)", "community", "2026-10-28T02:30:00Z", "2026-10-28T02:30:00Z", *SEATTLE),
+        ("an end before the start (berlin.de)", "arts", "2026-10-25T15:30:00Z", "2026-10-25T00:00:00Z", *BERLIN),
+    ]:
+        rec = {"name": "x", "category": cat, "latitude": lat, "longitude": lon,
+               "fingerprint": "fp", "start_utc": start, "end_utc": end_}
+        r = S.to_row(rec, HOST)
+        stored = {"starts_at": r["starts_at"], "ends_at": r["ends_at"]}
+        checks.append((S.time_changed(rec, stored) is False,
+                       f"{label}, stored with its default end {r['ends_at']}, is not a time change"))
+        moved = dict(rec, start_utc="2026-10-28T03:30:00Z" if cat == "community" else "2026-10-25T16:30:00Z")
+        checks.append((S.time_changed(moved, stored) is True,
+                       f"...but the same row an hour later still is"))
+    rec = {"name": "x", "category": "community", "latitude": SEATTLE[0], "longitude": SEATTLE[1],
+           "fingerprint": "fp", "start_utc": "2026-10-28T02:30:00Z", "end_utc": "2026-10-28T05:00:00Z"}
+    checks.append((S.time_changed(rec, {"starts_at": "2026-10-28T02:30:00Z", "ends_at": "2026-10-28T04:30:00Z"}) is True,
+                   "a REAL end after the start that moved is still a time change"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

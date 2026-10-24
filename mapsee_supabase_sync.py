@@ -138,6 +138,21 @@ def _volunteer_hit(rec: Dict[str, Any]) -> bool:
     return bool(_VOLUNTEER_CALL_RX.search(_strip_urls(desc)))
 
 
+# What BACKS a keyword sweep's `volunteer` guess - see _refused_sweep_guess. The
+# _KIDS_BACKING_RX shape: wider than _volunteer_hit because it can only KEEP a
+# guess the sweep already made, never create one. Measured 2026-10-23 over the
+# 12 metros: 38 Meetup rows were volunteer-primary, 31 failed _volunteer_hit,
+# and 4 of those were real ("Friends in Need" x2 feeding the hungry, "NYC
+# Feeding Program", "Creating Care Packages" for houseless neighbours). Not
+# bare `volunt`: "a voluntary donation" kept an Evening Meditation.
+_VOLUNTEER_BACKING_RX = re.compile(
+    r"\bvolunteer\w*|\bfeed(?:ing)?\s+the\s+(?:hungry|homeless|needy)"
+    r"|\bhand(?:ing)?\s+out\s+(?:meals|food)|\bcare\s+packages?\b"
+    r"|\b(?:houseless|homeless|unhoused|rough\s+sleepers?)\b|\bfood\s+bank\b|\blitter\b"
+    r"|\bclean[\s-]?up\b|bénévol\w*|freiwillig\w*|ehrenamt\w*|voluntari[oa]\w*|ボランティア",
+    re.I)
+
+
 # Comedy / standup / film / theater booked at a MUSIC venue inherit that venue
 # feed's hardcoded "music" category. High-precision title signals move them onto
 # the 'theater' layer. Kept tight (e.g. "comedy night/show", not a bare "comedy"
@@ -1465,12 +1480,18 @@ def _refused_sweep_guess(rec: Dict[str, Any], key: str) -> bool:
     singles dinners, seven speed-dating nights, a pirate-boat party,
     family-constellation therapy. Denver, Austin, Toronto, Madrid, Amsterdam and
     London the same.
+
+    `volunteer` too, measured 2026-10-23 over 12 metros: 27 of the door's 75
+    primary rows were Meetup's "volunteer" sweep returning a wine-and-paint
+    afternoon, a knitting workshop, beach volley, Toastmasters, a meditation.
     """
     if not _from_keyword_sweep(rec):
         return False
     text = _classify_text(rec, _DESC_SCAN_CHARS)
     if key == "market":
         return not _MARKET_RX.search(text)
+    if key == "volunteer":
+        return not (_volunteer_hit(rec) or _VOLUNTEER_BACKING_RX.search(text))
     if key == "kids":
         title = _strip_urls(rec.get("name") or "")
         if _NOT_FOR_KIDS_RX.search(title) or _ABOUT_KIDS_RX.search(title) \
@@ -1511,8 +1532,10 @@ def map_category(rec: Dict[str, Any]) -> str:
     # 'community' rather than 'other', because these are Meetup socials and the
     # promotion rules below can still move them onto a better layer from there.
     #
-    # `kids` too, and for the same reason - see _refused_sweep_guess.
-    if key in ("market", "kids") and _refused_sweep_guess(rec, key):
+    # `kids` and `volunteer` too, and for the same reason - see
+    # _refused_sweep_guess. The branch there does nothing unless the key is in
+    # this tuple: on 2026-10-23 "WINE & PAINT" still derived volunteer without it.
+    if key in ("market", "kids", "volunteer") and _refused_sweep_guess(rec, key):
         key = "community"
     if key in _PROMOTABLE_TO_VOLUNTEER:
         # URL-stripped like every other description read: a Meetup group slug
@@ -1815,15 +1838,20 @@ def broadcast_for(rec: Dict[str, Any], category_key: Optional[str]):
     return tuple(sorted(rules, key=lambda r: not r[2]))
 
 
+def _headliner(rec: Dict[str, Any]) -> Optional[str]:
+    """lineup[0], when the source named a performer at all."""
+    lu = rec.get("lineup") or []
+    if isinstance(lu, list) and lu and str(lu[0]).strip():
+        return str(lu[0]).strip()
+    return None
+
+
 def _pick_artist(rec: Dict[str, Any]) -> Optional[str]:
     """Best guess at the performer to build listen links from: the headliner
     (lineup[0]) if present, else the event title. Not the promoter — that's the
     booking company, not the act."""
-    lu = rec.get("lineup") or []
-    if isinstance(lu, list) and lu and str(lu[0]).strip():
-        return str(lu[0]).strip()
     name = (rec.get("name") or "").strip()
-    return name or None
+    return _headliner(rec) or name or None
 
 
 def _host_name(rec: Dict[str, Any]) -> str:
@@ -1974,10 +2002,37 @@ _DURATION_H = {
 }
 
 
+def _real_end(starts_at: Optional[str], end: Optional[str]) -> Optional[str]:
+    """The source's end, or None when it is no end at all.
+
+    AN END AT OR BEFORE THE START IS NO END. Measured 2026-10-23 over 5,880
+    live rows in 12 metros: 30 ended at the minute they started (Seattle 17:
+    Town Hall 10, the City Council's calendar 7; Berlin 10), so they left the
+    map as they began, and 3 berlin.de rows on the DST day ended at 00:00Z
+    before a 15:30-19:45Z start, gone 15.5-19.75 h early. Only when both stamps
+    carry a zone; a naive or unparseable pair is passed through as before.
+
+    ONE RULE, TWO READERS: _compute_end writes a default end in its place, and
+    time_changed must then not compare it, or every such row reads as a new
+    time on every daily --only-new run once the refresh has stored the default."""
+    if not end:
+        return None
+    try:
+        st = datetime.fromisoformat(str(starts_at).strip().replace("Z", "+00:00"))
+        en = datetime.fromisoformat(str(end).strip().replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return end
+    if st.tzinfo is not None and en.tzinfo is not None and en <= st:
+        return None
+    return end
+
+
 def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: str) -> Optional[str]:
     """The event's end time: the source's REAL end when we have one, otherwise
     start + a category-typical duration (an educated guess). Robust to date-only
-    and non-ISO times, which fall back to an all-day (end-of-day) end."""
+    and non-ISO times, which fall back to an all-day (end-of-day) end. An end
+    at or before the start is no end (_real_end)."""
+    real_end = _real_end(starts_at, real_end)
     if real_end:
         return real_end
     if not starts_at:
@@ -2236,38 +2291,51 @@ def batch_geocode(session, addr_tuples):
     return result
 
 
-def _enrich_music_links(recs: List[Dict[str, Any]], session) -> None:
+def _enrich_music_links(recs: List[Dict[str, Any]], session, cache_path: Optional[str] = None) -> None:
     """Upgrade music events to EXACT Spotify artist pages when a Spotify app
     credential is set (SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET). No-op without
     creds — to_row still emits Spotify/YouTube search deep-links. Resolutions are
-    cached by artist name (spotify_cache.json) so a name is queried at most once."""
+    cached by artist name (spotify_cache.json); see SpotifyResolver for what is
+    kept and for how long.
+
+    Only for a record whose source NAMED a performer (lineup[0]). A title is not
+    an artist: Meetup records carry no lineup, so every one of the ~5,700 names
+    its job asked on 2026-10-23 was an event title, and a working fuzzy
+    type=artist search would pin some stranger's page to it as "exact". The
+    search deep-links in to_row are unchanged."""
     cid = os.environ.get("SPOTIFY_CLIENT_ID", "").strip()
     secret = os.environ.get("SPOTIFY_CLIENT_SECRET", "").strip()
     if not (cid and secret):
         return
-    cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "spotify_cache.json")
+    cache_path = cache_path or os.path.join(os.path.dirname(os.path.abspath(__file__)), "spotify_cache.json")
     try:
         cache = json.loads(open(cache_path, encoding="utf-8").read()) if os.path.exists(cache_path) else {}
     except Exception:
         cache = {}
+    if not isinstance(cache, dict):
+        cache = {}
     resolver = SpotifyResolver(cid, secret, session, cache)
-    resolved = 0
+    resolved = no_lineup = 0
     for rec in recs:
         if map_category(rec) != "music" or rec.get("spotify_url"):
             continue                                   # non-music, or TM already gave an exact link
-        artist = _pick_artist(rec)
+        artist = _headliner(rec)
         if not artist:
+            no_lineup += 1
             continue
         u = resolver.artist_url(artist)
         if u:
             rec["spotify_url"] = u
             resolved += 1
+    resolver.prune()
     try:
         with open(cache_path, "w", encoding="utf-8") as fh:
             json.dump(cache, fh, ensure_ascii=False)
     except Exception:
         pass
-    print(f"Spotify: resolved {resolved} exact artist pages ({len(cache)} names cached).")
+    print(f"Spotify: resolved {resolved} exact artist pages from {resolver.lookups} lookups "
+          f"(statuses {dict(resolver.statuses)}; {no_lineup} music rows without a lineup "
+          f"not asked; {len(cache)} names cached).")
 
 
 def build_rows(store_path: str, host_id: str, geo_session=None, keep=None,
@@ -3152,7 +3220,10 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
         return False
     if ours != theirs:
         return True
-    if end and "ends_at" in detail:                   # only a REAL end; a default follows start
+    # Only a REAL end; a default follows start. That includes an end at or
+    # before the start, which to_row replaces with a default (_real_end).
+    end = _real_end(start, end)
+    if end and "ends_at" in detail:
         ours, theirs = _utc(end), _utc(detail.get("ends_at"))
         return ours is not None and theirs is not None and ours != theirs
     return False
