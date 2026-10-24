@@ -28,6 +28,8 @@ the rest of the pipeline is unaffected.
 from __future__ import annotations
 
 import argparse
+import functools
+import json
 import os
 import re
 import sys
@@ -42,7 +44,7 @@ except ImportError:  # pragma: no cover
 
 from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint,
                            looks_online_only, venue_is_only_a_plus_code,
-                           notice_reason, strip_notice)
+                           venue_is_only_a_city, notice_reason, strip_notice)
 from mapsee_admission import normalize_admission_facts, admission_description
 
 GQL = "https://api.meetup.com/gql-ext"
@@ -156,25 +158,84 @@ _MEETUP_GROUP_NAME_PLACEHOLDERS = {"", "group", "meetup", "meetup group", "unkno
                                   "unnamed", "no name", "n/a", "none", "null"}
 
 
-def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[NormalizedEvent]:
+def to_event(ev: Dict[str, Any], category: str = "community",
+             centre: Optional[Tuple[float, float]] = None) -> Optional[NormalizedEvent]:
     """The live row, or None — a cancelled event is None here too; to_record
     is what tells the two apart."""
-    nev, cancelled = to_record(ev, category)
+    nev, cancelled = to_record(ev, category, centre)
     return None if cancelled else nev
 
 
-def to_record(ev: Dict[str, Any], category: str = "community"
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_LATLON_RX = re.compile(r"^-?[0-9.]+,-?[0-9.]+$")
+
+
+def _point(text: str) -> Optional[Tuple[float, float]]:
+    s = re.sub(r"\s", "", text)
+    if not _LATLON_RX.match(s):
+        return None
+    try:
+        la, lo = s.split(",")
+        return float(la), float(lo)
+    except ValueError:
+        return None
+
+
+@functools.lru_cache(maxsize=None)
+def sweep_centres(us_path: str = os.path.join(_HERE, "metros_us.txt"),
+                  global_path: str = os.path.join(_HERE, "metros_global.json")
+                  ) -> Tuple[Tuple[float, float], ...]:
+    """Every point a Meetup leg sweeps, read as the workflow reads metros_us.txt
+    (comments and spaces stripped, `lat,lon` lines) and as mapsee_sweep_global
+    reads metros_global.json. All the legs write ONE store (meetup_events.json),
+    so a city point refused by its own metro's sweep must be refused by a
+    neighbour's too (see venue_is_only_a_city). A missing or broken file, or
+    line, adds nothing; it never stops an import."""
+    lines = []
+    try:
+        with open(us_path, encoding="utf-8") as fh:
+            lines += [line.split("#", 1)[0] for line in fh]
+    except (OSError, ValueError):
+        pass
+    try:
+        with open(global_path, encoding="utf-8") as fh:
+            countries = json.load(fh).get("countries") or []
+        lines += [str((m or {}).get("latlong") or "")
+                  for c in countries if isinstance(c, dict) for m in (c.get("metros") or [])]
+    except (OSError, ValueError, AttributeError):
+        pass
+    return tuple(p for p in map(_point, lines) if p)
+
+
+def only_a_city(ev: Dict[str, Any], centre: Optional[Tuple[float, float]] = None) -> bool:
+    """The venue is the city or "TBA", pinned on a city's own point: the sweep's
+    `centre` or any other centre a Meetup leg sweeps (see venue_is_only_a_city)."""
+    v = ev.get("venue") or {}
+    centres = ((centre,) if centre else ()) + sweep_centres()
+    return venue_is_only_a_city(v.get("name"), v.get("city"), v.get("lat"), v.get("lon"), centres)
+
+
+def _called_off(ev: Dict[str, Any]) -> Optional[str]:
+    """Why Meetup says the event is off ("status:CANCELLED"), or None."""
+    status = str(ev.get("status") or "").strip().lower()
+    return f"status:{status.upper()}" if status in CANCELLED_STATUSES else None
+
+
+def to_record(ev: Dict[str, Any], category: str = "community",
+              centre: Optional[Tuple[float, float]] = None
               ) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
     """(event, why it is cancelled). With a reason, the event is the record the
     live row WOULD have been — every refusal below still applies, so the
     fingerprint is the one a stored row can actually carry — and it goes to
-    EventStore.cancel, never to upsert."""
+    EventStore.cancel, never to upsert. `centre` is the point the sweep asked
+    about; it is checked beside every other sweep centre (sweep_centres), and
+    away from all of them a bare-city venue cannot be told from a real pin."""
     title = (ev.get("title") or "").strip()
     start = ev.get("dateTime")
     if not title or not start:
         return None, None
     status = str(ev.get("status") or "").strip().lower()
-    cancelled = f"status:{status.upper()}" if status in CANCELLED_STATUSES else None
+    cancelled = _called_off(ev)
     if status in DEAD_STATUSES and not cancelled:
         return None, None                                  # draft/blocked/past — not on
     if cancelled and notice_reason(title):
@@ -213,6 +274,11 @@ def to_record(ev: Dict[str, Any], category: str = "community"
         return None, None                                  # a Zoom call is not somewhere to go
     if venue_is_only_a_plus_code(v.get("name"), v.get("address")):
         return None, None                                  # a dropped pin is not a venue
+    # A LIVE row only: this refusal is newer than the rows on the city point we
+    # already stored, and an upsert cannot delete, so a cancellation of one
+    # still has to reach its tombstone (as SeatGeek's undecided games do).
+    if only_a_city(ev, centre) and not cancelled:
+        return None, None                                  # the city's own point is not a venue
     # The native record's complete prose can veto conditional free entry even
     # when no ticket prices are published. Retain that before sync truncation.
     admission = normalize_admission_facts(None, context=f"{title} {desc or ''}")
@@ -255,9 +321,11 @@ def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: i
     end = (now + timedelta(days=within_days)).strftime("%Y-%m-%dT%H:%M:%SZ")
     headers = {"Authorization": f"Bearer {token}"} if token else {}
     kept = seen = 0
+    centre = (float(lat), float(lon))
     # DISTINCT fingerprints: the keyword sweep overlaps (9,700 hits for 1,022
     # rows over Seattle on 2026-10-05) and one cancelled event came back 3 times.
     cancelled: set = set()
+    unplaced: set = set()                                  # distinct ids, for the same reason
     for kw, category in keywords:
         r = session.post(
             GQL,
@@ -276,7 +344,11 @@ def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: i
         edges = (((data.get("data") or {}).get("eventSearch") or {}).get("edges")) or []
         seen += len(edges)
         for e in edges:
-            nev, why = to_record(e.get("node") or {}, category)
+            node = e.get("node") or {}
+            if only_a_city(node, centre) and not _called_off(node):
+                unplaced.add(str(node.get("id")))
+                continue
+            nev, why = to_record(node, category, centre)
             if nev is None:
                 continue
             if why:
@@ -288,7 +360,8 @@ def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: i
                 kept += 1
         time.sleep(0.3)                                    # be polite across the keyword sweep
     print(f"[meetup] {lat},{lon}: kept {kept} of {seen} across {len(keywords)} keywords"
-          f"; {len(cancelled)} cancelled by the organiser")
+          f"; {len(cancelled)} cancelled by the organiser"
+          f"; {len(unplaced)} with only the city for a venue")
     return kept
 
 

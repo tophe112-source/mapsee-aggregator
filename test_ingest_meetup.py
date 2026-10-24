@@ -29,14 +29,17 @@ MOST OF WHAT IS PINNED HERE IS THE HYBRID SIDE, because that is the expensive
 direction to get wrong: refusing a congregation that streams its service is a
 working venue removed from the map, and nothing downstream would ever say so.
 """
+import io
 import os
 import sys
+from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from mapsee_ingest import (looks_online_only, looks_like_plus_code,
                            venue_is_only_a_plus_code)
+import mapsee_ingest_meetup as MEETUP
 from mapsee_ingest_meetup import to_event
 
 FAILS = []
@@ -166,6 +169,130 @@ check("a Plus Code name with a real street address is untouched too",
       venue_is_only_a_plus_code("JP7Q+33", "2800 Torrey Pines Scenic Dr"), False)
 check("a venue with no address at all is not condemned by the missing half",
       venue_is_only_a_plus_code("The Royal Room", None), False)
+
+print()
+print("a venue that is only the city, on the city's own point, is not a place")
+# Live 2026-10-23: 24 Meetup rows named for their city (or "wird noch bekannt
+# gegeben") sat on Meetup's point for it, Berlin 52.52,13.405 x6. The point is
+# what decides: 5 rows named for their city carry a pin of their own and stay.
+BERLIN, PARIS, MEXICO, CHICAGO = (52.52, 13.405), (48.8566, 2.3522), (19.4326, -99.1332), \
+    (41.8781, -87.6298)
+DATING = node(title="Berlins großes Ü35 Speed Dating Event",
+              venue={"name": "Berlin", "address": None, "city": "Berlin",
+                     "lat": 52.520008, "lon": 13.404954})
+check("Berlin speed dating on Berlin's own point is refused",
+      to_event(DATING, centre=BERLIN), None)
+check("  ...and so is 'wird noch bekannt gegeben' on it",
+      to_event(node(venue={"name": "wird noch bekannt gegeben", "address": "Zentrum",
+                           "city": "Berlin", "lat": 52.520008, "lon": 13.404954}),
+               centre=BERLIN), None)
+check("  ...and Meetup's Paris point, 121 m from the sweep's",
+      to_event(node(venue={"name": "Paris", "address": "Paris, France", "city": "Paris",
+                           "lat": 48.857547, "lon": 2.351376}), centre=PARIS), None)
+# The address is not the test: a hike 40 minutes out still names itself there.
+check("  ...and a hike whose address is prose about where it really is",
+      to_event(node(title="Plenty Gorge",
+                    venue={"name": "Melbourne", "city": "Melbourne",
+                           "address": "**Location:** Plenty Gorge (Approximately 40 minutes from Melbourne)",
+                           "lat": -37.81363, "lon": 144.96306}), centre=(-37.8136, 144.9631)), None)
+check("'Paris' on a pin of its own (the Coulée Verte, 1.5 km out) is kept",
+      to_event(node(venue={"name": "Paris", "address": "Paris, France", "city": "Paris",
+                           "lat": 48.8457, "lon": 2.3648}), centre=PARIS) is None, False)
+check("'Mexico City' on C. Río Lerma is kept",
+      to_event(node(venue={"name": "Mexico City", "address": "C. Río Lerma 156, Cuauhtémoc",
+                           "city": "Mexico City", "lat": 19.431648, "lon": -99.16334}),
+               centre=MEXICO) is None, False)
+check("'TBD - Chicago' is more than a TBA phrase, on a pin 703 m out: kept",
+      to_event(node(venue={"name": "TBD - Chicago", "city": "Chicago",
+                           "lat": 41.88425, "lon": -87.63245}), centre=CHICAGO) is None, False)
+check("'Melbourne CBD' says more than the city: kept",
+      to_event(node(venue={"name": "Melbourne CBD", "city": "Melbourne",
+                           "lat": -37.81361, "lon": 144.96306}), centre=(-37.8136, 144.9631)) is None,
+      False)
+# Every Meetup leg writes ONE store, and 24 of the 261 centres lie inside another
+# centre's sweep: the pin is tested against every centre, not only the asker's.
+AMSTERDAM, UTRECHT, BALTIMORE, DC = (52.3676, 4.9041), (52.0907, 5.1214), \
+    (39.2904, -76.6122), (38.9072, -77.0369)
+AMS_POINT = node(title="Amsterdam Casual Coffee Club", id="ams",
+                 venue={"name": "Amsterdam", "address": None, "city": "Amsterdam",
+                        "lat": 52.367573, "lon": 4.904139})
+check("Amsterdam's own point met by Utrecht's sweep (34 km away) is refused too",
+      to_event(AMS_POINT, centre=UTRECHT), None)
+check("  ...and Baltimore's met by DC's 100 mi sweep",
+      to_event(node(venue={"name": "Baltimore", "address": None, "city": "Baltimore",
+                           "lat": 39.2905, "lon": -76.6121}), centre=DC), None)
+check("  ...and Berlin's by a caller that names no centre at all",
+      to_event(DATING), None)
+check("a bare city that is nobody's sweep centre cannot be told from a pin: kept",
+      to_event(node(venue={"name": "Amersfoort", "address": None, "city": "Amersfoort",
+                           "lat": 52.1561, "lon": 5.3878}), centre=UTRECHT) is None, False)
+# This refusal is newer than the rows already stored on city points, and an
+# upsert cannot delete: a cancelled one must still reach its tombstone.
+_nev, _why = MEETUP.to_record(dict(DATING, status="CANCELLED"), centre=BERLIN)
+check("a CANCELLED row on the city point is a tombstone under the key it was stored by",
+      (_nev is not None and _nev.fingerprint == MEETUP.make_fingerprint(
+          DATING["title"], DATING["dateTime"][:10], "Berlin"), _why),
+      (True, "status:CANCELLED"))
+_centres = MEETUP.sweep_centres()
+check("the centres are both legs' files: metros_us.txt and metros_global.json",
+      all(p in _centres for p in (BALTIMORE, DC, (47.6062, -122.3321), AMSTERDAM, UTRECHT, BERLIN)),
+      True)
+check("  ...and a missing file adds none, without stopping the import",
+      MEETUP.sweep_centres("/nonexistent/metros_us.txt", "/nonexistent/metros_global.json"), ())
+
+
+class _Resp:
+    status_code, text = 200, ""
+
+    def __init__(self, body):
+        self.body = body
+
+    def json(self):
+        return self.body
+
+
+class _Session:
+    def __init__(self, body):
+        self.body = body
+
+    def post(self, *_a, **_k):
+        return _Resp(self.body)
+
+
+class _Store:
+    def __init__(self):
+        self.rows, self.tombstones = [], []
+
+    def upsert(self, ev):
+        self.rows.append(ev.source_id)
+
+    def cancel(self, ev, why):
+        self.tombstones.append(ev.source_id)
+        return "cancelled"
+
+
+MEETUP.time.sleep = lambda *_a, **_k: None
+_store, _out = _Store(), io.StringIO()
+_body = {"data": {"eventSearch": {"edges": [{"node": n} for n in (
+    dict(DATING, id="city"), dict(DATING, id="city"), node(id="room"))]}}}
+with redirect_stdout(_out):
+    MEETUP.ingest(_store, _Session(_body), "", "52.52", "13.405", 25, 200, [("social", "community")], 90)
+check("the sweep keeps the real room and not the city point", _store.rows, ["room"])
+check("  ...and its log line counts the city once, however often the sweep met it",
+      "; 1 with only the city for a venue" in _out.getvalue(), True)
+_store, _out = _Store(), io.StringIO()
+_body = {"data": {"eventSearch": {"edges": [{"node": n} for n in (AMS_POINT, node(id="room"))]}}}
+with redirect_stdout(_out):
+    MEETUP.ingest(_store, _Session(_body), "", "52.0907", "5.1214", 25, 200, [("social", "community")], 90)
+check("Utrecht's sweep, meeting Amsterdam's city point, keeps only the room", _store.rows, ["room"])
+check("  ...and counts the city point", "; 1 with only the city for a venue" in _out.getvalue(), True)
+_store, _out = _Store(), io.StringIO()
+_body = {"data": {"eventSearch": {"edges": [{"node": dict(AMS_POINT, status="CANCELLED")}]}}}
+with redirect_stdout(_out):
+    MEETUP.ingest(_store, _Session(_body), "", "52.3676", "4.9041", 25, 200, [("social", "community")], 90)
+check("a cancelled city-point row is tombstoned by its own city's sweep, not counted as a city",
+      (_store.rows, _store.tombstones, "; 0 with only the city for a venue" in _out.getvalue()),
+      ([], ["ams"], True))
 
 print()
 print("the retire pass and the ingest must never disagree")
