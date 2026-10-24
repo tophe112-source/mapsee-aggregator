@@ -236,6 +236,78 @@
       "_metro": "Campinas, Brazil",
       "_found": "manual:2026-10-03 gancio.org/instances",
       "_note": "The hackerspace's own Gancio, with 16 upcoming events. 11 are at the space (Rua Araribóia 121): a Rust course, open coworking days, CoffeeOps talks, a Home Assistant community day and the 15th-birthday barbecue. 3 are online council meetings."
+    },
+    {
+      "name": "Botep - Bergamo social centres (Bergamo, Italy)",
+      "base_url": "https://botep.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Bergamo",
+      "default_country": "IT",
+      "_metro": "Bergamo, Italy",
+      "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
+      "_note": "Gancio instance for Bergamo's social centres and circoli. 2026-10-23, production UA, 180-day window: 37 upcoming events, 34 with place.latitude/longitude (all inside lat 45.67-45.84, lon 9.54-9.72), at Club Ricreativo Pignolo, CSA Paci Paciana, Circolino della Malpensata. Titles: open mic, concerts, recycling and textile workshops (laboratorio), Critical Mass, benefit dinners, a student presidio. Mixed, so community. robots.txt Allow: /."
+    },
+    {
+      "name": "aleale - agenda alternative de Montpellier (Montpellier, France)",
+      "base_url": "https://www.aleale.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Montpellier",
+      "default_country": "FR",
+      "_metro": "Montpellier, France",
+      "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
+      "_note": "Gancio instance for Montpellier associations. 2026-10-23: 30 upcoming, 29 with coordinates (Montpellier/Frontignan). Food-recovery rounds (Récup' alimentaire AJAP, twice weekly), collective gardening at Agropolis, hackerspace drop-in, self-defence workshops, choir, film debates, an associative grocery; also a few demonstrations (Manifestation ... Acte II). Mixed, so community. robots.txt Allow: /."
+    },
+    {
+      "name": "Convoca Roma (Rome, Italy)",
+      "base_url": "https://roma.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Roma",
+      "default_country": "IT",
+      "_metro": "Rome, Italy",
+      "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
+      "_note": "The Rome node of the convoca.la Gancio family (Barcelona, Madrid, Malaga, Girona, Eivissa already configured). 2026-10-23: 26 upcoming, 17 with coordinates inside Rome/Fiumicino. Organic market in Certosa, second-hand market (riusa rigenera ripara), free chess course, a mountain hike, burraco tournament, Critical Mass, social-centre concerts. community. robots.txt Allow: /."
+    },
+    {
+      "name": "Balotta - Bologna community agenda (Bologna, Italy)",
+      "base_url": "https://balotta.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Bologna",
+      "default_country": "IT",
+      "_metro": "Bologna, Italy",
+      "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
+      "_note": "Gancio instance for Bologna's self-run spaces. 2026-10-23: 58 upcoming, only 18 with coordinates (31%; the rest have an address but no point, and the sync places nothing outside the US without one). Mostly DIY concerts (tag musica 17), plus a popular food store (Spaccio Popolare Autogestito), hack meetups, theatre, chess. Mixed, so community. Overlap with the configured opendata.comune.bologna.it cultural agenda is unlikely (grassroots venues), not measured. robots.txt Allow: /."
+    },
+    {
+      "name": "Convoca Mallorca (Palma, Spain)",
+      "base_url": "https://mallorca.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Palma",
+      "default_country": "ES",
+      "_metro": "Palma, Spain",
+      "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
+      "_note": "convoca.la Gancio node for Mallorca. 2026-10-23: 14 upcoming, 11 with coordinates (Palma, Felanitx, Pollenca). Catalan conversation groups, book club, glosa (improvised verse) workshop, local seed-planting workshop, writing workshop, open assemblies at Ateneu Popular La Fonera. community. robots.txt Allow: /."
+    },
+    {
+      "name": "Flying High Bonn - linke Termine (Bonn, Germany)",
+      "base_url": "https://flyinghigh-bonn.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Bonn",
+      "default_country": "DE",
+      "_metro": "Bonn, Germany",
+      "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
+      "_note": "Gancio instance for Bonn. Not a copy of the configured bonn.jetzt: 1 of 31 title+start pairs shared (2026-10-23). 31 upcoming, 29 with coordinates (Kult 41, Alte VHS, Oscar-Romero-Haus). Book club, juggling, dice tournament, open art space for autistic people, a homelessness city walk, choir, improv, concerts; 5 are open plenaries of political groups. Mixed, so community. robots.txt Allow: /."
     }
   ],
   "_tried_and_dead": {

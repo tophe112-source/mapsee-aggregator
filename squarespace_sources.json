@@ -2939,6 +2939,71 @@
         "street_hint": "62 Klippe"
       },
       "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Keep Durham Beautiful - cleanups and invasive plant removal (Durham, NC)",
+      "category": "volunteer",
+      "collection": "https://www.keepdurhambeautiful.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Keep Durham Beautiful",
+        "city": "Durham",
+        "region": "NC",
+        "country": "US"
+      },
+      "_metro": "Durham, United States",
+      "_found": "manual:2026-10-23 volunteer seed (Keep America Beautiful affiliates) -> Squarespace events collection",
+      "_note": "2026-10-23 dry run: 16 of 17 upcoming kept, every one with its own street address in Durham (Briggs Ave Preserve, Sandy Creek Park, Old Chapel Hill Rd Park, Maplewood Cemetery...): neighbourhood cleanups, invasive plant removal workdays, a trash-trap cleanout. Multi-site, so the venue block carries the city only (the Greening of Detroit shape): it lets the map-link street split on 'Durham' and pins nothing at the office; the month-long 'Durham Big Sweep' umbrella (location 'Durham, NC') is dropped as unplaceable, which is right."
+    },
+    {
+      "name": "Sustainability Trust - Te Aro Zero Waste repair cafe, sewing and clean-ups (Wellington, NZ)",
+      "category": "community",
+      "collection": "https://sustaintrust.org.nz/our-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Te Aro Zero Waste (Sustainability Trust)",
+        "address": "2 Forresters Lane, Te Aro",
+        "city": "Wellington",
+        "postal_code": "6011",
+        "country": "NZ",
+        "lat": -41.2942803,
+        "lon": 174.7817841
+      },
+      "_metro": "Wellington, New Zealand",
+      "_found": "manual:2026-10-23 volunteer seed (repair cafes with fixed venues) -> Squarespace events collection",
+      "_note": "2026-10-23 dry run: 3 of 3 upcoming kept, all at the Te Aro Zero Waste centre the page names (map link '2 Forresters Lane Wellington, Wellington, 6011 New Zealand'): a monthly Repair Cafe, a monthly community clean-up that starts there, and Just Sew. Single venue, so the block pins at the OSM node for Sustainability Trust (node/5842477205). NZ address, no Census, so the block is the only placement."
+    },
+    {
+      "name": "Reflection Riding Arboretum & Nature Center (Chattanooga)",
+      "category": "outdoors",
+      "collection": "https://reflectionriding.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Reflection Riding Arboretum & Nature Center",
+        "address": "400 Garden Road",
+        "city": "Chattanooga",
+        "region": "TN",
+        "postal_code": "37419",
+        "country": "US"
+      },
+      "_metro": "Chattanooga, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> reflectionriding.org, server: Squarespace, /events is an events collection",
+      "_note": "Measured 2026-10-23 on the bare collection page (parse_articles, as the adapter reads it): 34 upcoming of 64 articles, 33 at 400 Garden Road (Woodland Walks, Wild Wonders animal encounters, Owl Odyssey, Project ReWild, Winged Wisdom raptor talks, campfire concerts, Free Tree ReLeaf giveaway). One (MAINx24 Chili Championship, 326 East Main Street) is off site and takes the block's point, since this adapter has no skip_title. Venue point: the Welcome Center (OSM way 194053985). robots.txt: stock Squarespace, the bare collection page allowed. Dry run kept 34."
+    },
+    {
+      "name": "Charlotte Running Company - store group runs (Dilworth and Ballantyne, Charlotte)",
+      "category": "running",
+      "collection": "https://www.charlotterunning.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Charlotte Running Company",
+        "city": "Charlotte",
+        "region": "NC",
+        "country": "US"
+      },
+      "_metro": "Charlotte, United States",
+      "_found": "manual:2026-10-23 running specialty-store sweep -> charlotterunning.com, server: Squarespace, /events is an events collection",
+      "_note": "Measured 2026-10-23: 41 upcoming of 71 articles. The venue block deliberately carries NO address or point, only the city: Squarespace glues street and city together and the adapter splits a map link only when it ends in the config's city, so the 17 Charlotte rows keep their own street (Monday Night Run Club and The Sole Run Club at 1412 East Boulevard, The Track Project at 5535 Ballantyne Commons Parkway) and the 24 at the Mooresville, Fort Mill, Rock Hill and Troutman stores are skipped as unplaceable instead of being pinned to a Charlotte shop. Dry run: kept 17 of 41."
     }
   ],
   "_not_included": {

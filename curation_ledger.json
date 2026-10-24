@@ -9740,6 +9740,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aleale.org": {
+    "checked": 20261024,
+    "name": "aleale - agenda alternative de Montpellier (Montpellier, France)",
+    "reason": "20/20 future",
+    "status": "ok",
+    "type": "gancio"
+  },
   "alearchitect.com": {
     "checked": 20260819,
     "name": "Ale Architect Brewery & Taproom",
@@ -30589,6 +30596,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "balotta.org": {
+    "checked": 20261024,
+    "name": "Balotta - Bologna community agenda (Bologna, Italy)",
+    "reason": "18/20 future",
+    "status": "ok",
+    "type": "gancio"
+  },
   "balsamine.be": {
     "checked": 20260911,
     "name": "Th\u00e9\u00e2tre de la Balsamine",
@@ -41268,6 +41282,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bhwp.org": {
+    "checked": 20261024,
+    "name": "Bowman's Hill Wildflower Preserve - Gentle Wild Yoga in the preserve (New Hope, PA)",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "bi-bak.de/bi-bakino": {
     "checked": 20261021,
     "name": "bi\u00b4bak",
@@ -41315,6 +41336,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bib-der-dinge-bochum.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261024,
+    "name": "Bibliothek der Dinge Bochum - offene Werkst\u00e4tten und Repair Caf\u00e9 (Bochum, Germany)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
   },
   "bib-lagorgue.net/bib-lagorgue.net": {
     "checked": 20261006,
@@ -56356,6 +56384,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "botep.org": {
+    "checked": 20261024,
+    "name": "Botep - Bergamo social centres (Bergamo, Italy)",
+    "reason": "20/20 future",
+    "status": "ok",
+    "type": "gancio"
   },
   "botesa.nl": {
     "checked": 20261018,
@@ -84538,6 +84573,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "charlotterunning.com/events": {
+    "checked": 20261024,
+    "name": "Charlotte Running Company - store group runs (Dilworth and Ballantyne, Charlotte)",
+    "reason": "41/71 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "charly-mjc.fr": {
     "cal_url": "https://www.charly-mjc.fr/activit%C3%A9s-hebdomadaires-2026-2027/",
     "checked": 20261023,
@@ -86082,6 +86124,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "childrens-museum.org": {
+    "checked": 20261024,
+    "name": "Children's Museum of New Hampshire (Dover, NH)",
+    "reason": "355 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "childrensgrouplink.ie": {
     "cal_url": "https://www.childrensgrouplink.ie/Programmes.php",
     "checked": 20261020,
@@ -86118,6 +86167,13 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "childrensmuseumofrichmond.org": {
+    "checked": 20261024,
+    "name": "Children's Museum of Richmond - Downtown and Chesterfield (Richmond, VA)",
+    "reason": "95 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "childrenyouth.poleungkuk.org.hk/en/page.aspx?pageid=345": {
     "checked": 20261016,
@@ -101742,6 +101798,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cmhouston.org/events": {
+    "checked": 20261024,
+    "name": "Children's Museum Houston - Free Family Night and programs (Houston, TX)",
+    "reason": "1/4 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "cmk-muenchen.de": {
     "cal_url": "https://www.cmk-muenchen.de/kajak-aktivit%C3%A4ten/ausfahrten/",
     "checked": 20261023,
@@ -101786,6 +101849,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cmom.org": {
+    "checked": 20261024,
+    "name": "Children's Museum of Manhattan - drop-in programs and performances (New York)",
+    "reason": "214 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "cmpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20261018,
     "name": "Clinton-Macomb Public Library (Detroit)",
@@ -101806,6 +101876,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cmpr.edu": {
+    "checked": 20261024,
+    "name": "Conservatorio de M\u00fasica de Puerto Rico - conciertos (San Juan, Puerto Rico)",
+    "reason": "43 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "cmr.edu.in/leap": {
     "checked": 20260927,
@@ -110135,6 +110212,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ctbirding.org": {
+    "checked": 20261024,
+    "name": "Connecticut Ornithological Association - statewide bird walks, field trips and hawk watches (Connecticut)",
+    "reason": "80 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "ctclearinghouse.org": {
     "checked": 20261012,
     "name": "Connecticut Clearinghouse",
@@ -112221,6 +112305,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cylburn.org": {
+    "checked": 20261024,
+    "name": "Cylburn Arboretum - tree walks, nature education drop-ins and weed warriors (Baltimore)",
+    "reason": "28 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "cymgb.org/events": {
     "checked": 20261009,
@@ -114859,6 +114950,27 @@
     "status": "ok",
     "type": "tribe"
   },
+  "davenportlibrary.libcal.com/ical_subscribe.php?cid=9084": {
+    "checked": 20261024,
+    "name": "Davenport Public Library - Main Branch (Davenport, IA)",
+    "reason": "87 vevents / 75 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "davenportlibrary.libcal.com/ical_subscribe.php?cid=9085": {
+    "checked": 20261024,
+    "name": "Davenport Public Library - Fairmount Street Branch (Davenport, IA)",
+    "reason": "255 vevents / 206 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "davenportlibrary.libcal.com/ical_subscribe.php?cid=9086": {
+    "checked": 20261024,
+    "name": "Davenport Public Library - Eastern Avenue Branch (Davenport, IA)",
+    "reason": "259 vevents / 204 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "daventry.org": {
     "checked": 20261010,
     "name": "?",
@@ -115366,6 +115478,62 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMDYiLCIyMzE4IiwiMjMxOSIsIjIzMjQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261024,
+    "name": "DC Public Library - Bellevue (William O. Lockridge), Northeast, Parklands-Turner, Southeast (Washington, DC)",
+    "reason": "350 vevents / 350 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTAiLCIyMzIwIiwiMjMwNCIsIjIzMDciLCIyMzMwIiwiMjMyOCIsIjIzMjIiLCIyMzIxIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261024,
+    "name": "DC Public Library - Deanwood, Petworth, Benning (Dorothy I. Height), Capitol View, Northwest One, West End, Shaw (Watha T. Daniel), Rosedale (Washington, DC)",
+    "reason": "156 vevents / 156 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTIiLCIyMzE0IiwiMjMyMyIsIjIzMDgiLCIyMzI2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261024,
+    "name": "DC Public Library - Francis A. Gregory, Lamond-Riggs/Lillian J. Huff, Shepherd Park (Juanita E. Thornton), Chevy Chase, Takoma Park (Washington, DC)",
+    "reason": "279 vevents / 279 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTMiLCIyMzA5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261024,
+    "name": "DC Public Library - Georgetown, Cleveland Park (Washington, DC)",
+    "reason": "367 vevents / 367 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTYiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261024,
+    "name": "DC Public Library - MLK Central (Washington, DC)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMjciLCIyMzE3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261024,
+    "name": "DC Public Library - Tenley-Friendship, Mt. Pleasant (Washington, DC)",
+    "reason": "372 vevents / 372 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMjkiLCIyMzA1Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261024,
+    "name": "DC Public Library - Woodridge, Anacostia (Washington, DC)",
+    "reason": "356 vevents / 356 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMzEiLCIyOTQzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261024,
+    "name": "DC Public Library - Palisades, Southwest (Washington, DC)",
+    "reason": "370 vevents / 370 future",
+    "status": "ok",
+    "type": "ics"
   },
   "dclibrary.org/anacostia": {
     "checked": 20261010,
@@ -137132,9 +137300,9 @@
     "type": "osm-venue"
   },
   "ekmkeger.hu": {
-    "checked": 20261004,
-    "name": "Egri Kultur\u00e1lis \u00e9s M\u0171v\u00e9szeti K\u00f6zpont (EKMK, Eger community houses)",
-    "reason": "23/25 sampled events future",
+    "checked": 20261024,
+    "name": "EKMK Egri Kultur\u00e1lis \u00e9s M\u0171v\u00e9szeti K\u00f6zpont - community houses programme (Eger, Hungary)",
+    "reason": "16/59 sampled events future",
     "status": "ok",
     "type": "jsonld"
   },
@@ -147633,6 +147801,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "explorenature.org": {
+    "checked": 20261024,
+    "name": "Irvine Nature Center - family programs and Free Fridays (Owings Mills, MD)",
+    "reason": "33 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "exploreoneonta.com": {
     "checked": 20260917,
     "name": "Oneonta",
@@ -156853,6 +157028,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fitchburgwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20261024,
+    "name": "Fitchburg Public Library - Kids (Madison, WI)",
+    "reason": "43 vevents / 43 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "fitchburgwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
     "checked": 20261018,
     "name": "Fitchburg Senior Center",
@@ -158166,6 +158348,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "flyinghigh-bonn.org": {
+    "checked": 20261024,
+    "name": "Flying High Bonn - linke Termine (Bonn, Germany)",
+    "reason": "19/20 future",
+    "status": "ok",
+    "type": "gancio"
   },
   "flyingpetrels.nl": {
     "cal_url": "https://flyingpetrels.nl/onze-club/schedules/",
@@ -168387,6 +168576,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "gam.cl/es/calendario": {
+    "checked": 20261024,
+    "name": "GAM - Centro Gabriela Mistral (Santiago, Chile)",
+    "reason": "1/2 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "gamaconcept.co": {
     "checked": 20260909,
     "name": "Gama Concept",
@@ -174527,6 +174723,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "glenhelen.org": {
+    "checked": 20261024,
+    "name": "Glen Helen Nature Preserve - hikes, birding and Trailside Museum programmes (Yellow Springs, OH)",
+    "reason": "26 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "glenhousenz.co.nz": {
     "checked": 20261013,
@@ -193233,6 +193436,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "henrylibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
+    "checked": 20261024,
+    "name": "Henry County Library System (Atlanta, GA)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "henrylibraries.org": {
     "checked": 20260927,
     "name": "Fairview Branch Library",
@@ -197043,6 +197253,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hirvensalmi.fi/tapahtumat/lista/?ical=1": {
+    "checked": 20261024,
+    "name": "Hirvensalmen kunta - municipal events (Hirvensalmi, Finland)",
+    "reason": "23 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
   },
   "hirvikatu10.net": {
     "checked": 20260904,
@@ -216609,6 +216826,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jdkjaslo.pl": {
+    "checked": 20261024,
+    "name": "Jasielski Dom Kultury (Jas\u0142o, Poland)",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "jdlib.sen.go.kr": {
     "checked": 20261016,
     "name": "\uc11c\uc6b8\ud2b9\ubcc4\uc2dc\uad50\uc721\uccad \uc815\ub3c5\ub3c4\uc11c\uad00",
@@ -226748,6 +226972,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "kcktolmin.si": {
+    "checked": 20261024,
+    "name": "Knji\u017enica Cirila Kosma\u010da Tolmin - Tolmin library events (Tolmin, Slovenia)",
+    "reason": "53 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "kcl.ac.uk/visit/maughan-library": {
     "checked": 20261009,
     "name": "Maughan Library",
@@ -227206,6 +227437,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kdk.net.pl/events/lista/?ical=1": {
+    "checked": 20261024,
+    "name": "Kutnowski Dom Kultury and Centrum Teatru, Muzyki i Ta\u0144ca (Kutno, Poland)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "kdkjudo.org": {
     "checked": 20260924,
     "name": "Kodokan Dojo",
@@ -227334,6 +227572,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "keepdurhambeautiful.org/events": {
+    "checked": 20261024,
+    "name": "Keep Durham Beautiful - cleanups and invasive plant removal (Durham, NC)",
+    "reason": "17/47 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "keepknoxvillebeautiful.org/upcoming-events": {
     "checked": 20260928,
     "name": "keepknoxvillebeautiful.org",
@@ -227367,6 +227612,13 @@
     "name": "keepphxbeautiful.org",
     "reason": "probe 2026-09-28: Wix events page with no server-rendered event slugs; jsonld adapter reads nothing",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "keepphxbeautiful.org/events-calendar": {
+    "checked": 20261024,
+    "name": "Keep Phoenix Beautiful - community garden volunteer days (Phoenix, AZ)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "keeptempebeautiful.org": {
@@ -235614,6 +235866,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "knjiznica-slovenskekonjice.si/dogodki/list/?ical=1": {
+    "checked": 20261024,
+    "name": "Knji\u017enica Slovenske Konjice - town culture programme (Slovenske Konjice, Lo\u010de, Zre\u010de)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "knma.org/whats-on": {
     "checked": 20261018,
     "name": "Kiran Nadar Museum of Art (New Delhi, India)",
@@ -242052,6 +242311,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kultuurivara.ee": {
+    "checked": 20261024,
+    "name": "Kuressaare kultuurikeskus - Kuressaare Cultural Centre (Saaremaa, Estonia)",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "kumabook.com/shop/keihanna": {
     "checked": 20260925,
     "name": "ACADEMIA",
@@ -243121,6 +243387,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kurikankirjastot.fi/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261024,
+    "name": "Kurikan kirjastot - Kurikka, Jalasj\u00e4rvi and Jurva libraries (Kurikka, Finland)",
+    "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
   },
   "kurinchikumaran.org.nz": {
     "checked": 20261013,
@@ -256603,6 +256876,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lgnc.org": {
+    "checked": 20261024,
+    "name": "Lehigh Gap Nature Center - guided hikes, ecology club, speaker series (Slatington, PA)",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "lgp.cz": {
     "checked": 20260904,
     "name": "Galerie Leica",
@@ -267093,6 +267373,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "lowicka.pl": {
+    "checked": 20261024,
+    "name": "Centrum \u0141owicka - Mokot\u00f3w culture centre (Warsaw)",
+    "reason": "29 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "lowkick-berlin.de": {
     "checked": 20261021,
     "name": "Lowkick",
@@ -269408,6 +269695,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "ma-rheinau.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261024,
+    "name": "Quartiermanagement Mannheim-Rheinau - Veranstaltungen (Mannheim, Germany)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
   },
   "ma.krakow.pl": {
     "checked": 20261018,
@@ -272909,6 +273203,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mallorca.convoca.la": {
+    "checked": 20261024,
+    "name": "Convoca Mallorca (Palma, Spain)",
+    "reason": "13/14 future",
+    "status": "ok",
+    "type": "gancio"
   },
   "mallory.ura-vb.org.hk": {
     "checked": 20260831,
@@ -282801,6 +283102,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "merseyforest.org.uk/events/list/?ical=1": {
+    "checked": 20261024,
+    "name": "The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "merseysidebmx.co.uk": {
     "checked": 20260819,
     "name": "Merseyside BMX Club",
@@ -285140,6 +285448,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mikaeli.fi": {
+    "checked": 20261024,
+    "name": "Mikaeli - Mikkeli concert and congress hall (Mikkeli, Finland)",
+    "reason": "40 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "mikaelikyrkan.nu": {
     "checked": 20260905,
@@ -293534,6 +293849,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "movinshoes.com": {
+    "checked": 20261024,
+    "name": "Movin' Shoes - free weekly group runs from the shop (Madison, WI)",
+    "reason": "73 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "mowbraybaptist.za.org": {
     "checked": 20260930,
     "name": "Mowbray Baptist Church",
@@ -294294,6 +294616,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mschildrensmuseum.org": {
+    "checked": 20261024,
+    "name": "Mississippi Children's Museum - Jackson and Meridian",
+    "reason": "338 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "msclaremont.tidyhq.com/public/events.ics": {
     "checked": 20261018,
@@ -295754,6 +296083,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "muhos.fi/tapahtumat/lista/?ical=1": {
+    "checked": 20261024,
+    "name": "Muhoksen kunta - municipal events (Muhos, Finland)",
+    "reason": "26 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
   },
   "muiderkerk.nl": {
     "checked": 20261016,
@@ -300491,6 +300827,13 @@
     "status": "empty",
     "type": "squarespace"
   },
+  "museumofplay.org": {
+    "checked": 20261024,
+    "name": "The Strong National Museum of Play - family programs (Rochester, NY)",
+    "reason": "70 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "museumofscottishfireheritage.org": {
     "checked": 20260819,
     "name": "Museum of Scottish Fire Heritage",
@@ -301648,6 +301991,13 @@
     "name": "De Muzenval",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "muzeul-satului.ro": {
+    "checked": 20261024,
+    "name": "Muzeul Na\u021bional al Satului Dimitrie Gusti - fairs and events (Bucharest)",
+    "reason": "1/3 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "muzeum-mat.cssf.opoka.org.pl": {
@@ -311352,6 +311702,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "njmasters.com": {
+    "checked": 20261024,
+    "name": "North Jersey Masters - Saturday and Sunday group runs at the Glen Rock Duck Pond (Bergen County, NJ)",
+    "reason": "31 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "njwcc.com": {
     "checked": 20261010,
@@ -323464,6 +323821,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/16452582/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261024,
+    "name": "V\u00e9lOOise - bike repair workshops and rides (OpenAgenda) (Oise, France)",
+    "reason": "367 vevents / 367 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "openagenda.com/agendas/17430951/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261018,
     "name": "Rive Droite / Bordeaux M\u00e9tropole (Floirac, France)",
@@ -323545,6 +323909,13 @@
     "checked": 20261018,
     "name": "Rennes quartiers Ouest (OpenAgenda) (Rennes, France)",
     "reason": "171 vevents / 114 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/31848826/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261024,
+    "name": "R\u00e9gion de Nyon - agenda (OpenAgenda) (Nyon, Vaud, Switzerland)",
+    "reason": "848 vevents / 544 future",
     "status": "ok",
     "type": "ics"
   },
@@ -323667,6 +324038,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/65333215/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261024,
+    "name": "Espace Parent-Enfant d'Issy-les-Moulineaux (OpenAgenda) (Issy-les-Moulineaux, France)",
+    "reason": "62 vevents / 62 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "openagenda.com/agendas/65550273/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261018,
     "name": "Martigues - L'agenda (OpenAgenda) (Martigues, France)",
@@ -323678,6 +324056,13 @@
     "checked": 20261018,
     "name": "Plakatak - agenda du P\u00e9yi Nord Martinique (OpenAgenda)",
     "reason": "1087 vevents / 331 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/67897743/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261024,
+    "name": "SKED - Breton language and culture, Brest (OpenAgenda) (Brest, France)",
+    "reason": "63 vevents / 54 future",
     "status": "ok",
     "type": "ics"
   },
@@ -323832,6 +324217,20 @@
     "checked": 20261018,
     "name": "Saint-Orens-de-Gameville - agenda (OpenAgenda) (Saint-Orens-de-Gameville, France)",
     "reason": "132 vevents / 80 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/93047675/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261024,
+    "name": "Repair Caf\u00e9 - shared repair agenda (OpenAgenda) (France)",
+    "reason": "81 vevents / 67 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/93993811/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261024,
+    "name": "Ville de Vernier - agenda (OpenAgenda) (Vernier, Geneva, Switzerland)",
+    "reason": "216 vevents / 191 future",
     "status": "ok",
     "type": "ics"
   },
@@ -328225,6 +328624,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ouwg.org.uk/events/?ical=1": {
+    "checked": 20261024,
+    "name": "Oxford Urban Wildlife Group - Boundary Brook Nature Reserve work parties (Oxford, UK)",
+    "reason": "466 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
   },
   "ouwschool.nl": {
     "cal_url": "https://www.ouwschool.nl/Activiteiten/",
@@ -333873,6 +334279,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "parksevents.westchestercountyny.gov": {
+    "checked": 20261024,
+    "name": "Westchester County Parks - programs and events (Westchester, NY)",
+    "reason": "340 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "parkside.lna-sante.com": {
     "checked": 20260911,
@@ -345249,6 +345662,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "plantainclan.com/eventos": {
+    "checked": 20261024,
+    "name": "Planta Incl\u00e1n - teatro, cine y m\u00fasica (Parque Patricios, Buenos Aires)",
+    "reason": "11/12 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "plantation.paris": {
     "checked": 20260829,
     "name": "Plantation Paris",
@@ -356152,6 +356572,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "randallsisland.org/events/list/?ical=1": {
+    "checked": 20261024,
+    "name": "Randall's Island Park Alliance - farm volunteer days, cleanups and park events (New York, NY)",
+    "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "randers.dk": {
     "checked": 20261006,
     "name": "Randers Municipality",
@@ -356440,6 +356867,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "raskb.com": {
+    "checked": 20261024,
+    "name": "Royal Asiatic Society Korea Branch - lectures (Seoul)",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "raskb.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20261004,
@@ -356788,6 +357222,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rautalampi.fi/tapahtumakalenteri/?ical=1": {
+    "checked": 20261024,
+    "name": "Rautalammin kunta - municipal events (Rautalampi, Finland)",
+    "reason": "30 vevents / 26 future",
+    "status": "ok",
+    "type": "ics"
   },
   "ravensburg1465.de": {
     "cal_url": "https://ravensburg1465.de/veranstaltungen-2022/",
@@ -359234,6 +359675,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "reflectionriding.org/events": {
+    "checked": 20261024,
+    "name": "Reflection Riding Arboretum & Nature Center (Chattanooga)",
+    "reason": "34/64 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "refleks.nl": {
     "checked": 20261017,
     "name": "Refleks",
@@ -361097,6 +361545,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "repaircafe-utrecht.nl/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261024,
+    "name": "Repair Caf\u00e9 Utrecht - all city repair caf\u00e9s (Utrecht, Netherlands)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
   },
   "repaircafe.nyc/upcoming-events": {
     "checked": 20261018,
@@ -366395,6 +366850,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "roma.convoca.la": {
+    "checked": 20261024,
+    "name": "Convoca Roma (Rome, Italy)",
+    "reason": "19/20 future",
+    "status": "ok",
+    "type": "gancio"
+  },
   "roma.fssp.it": {
     "checked": 20260921,
     "name": "Santissima Trinit\u00e0 dei Pellegrini ai Catinari",
@@ -369250,6 +369712,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "runwildmissoula.org": {
+    "checked": 20261024,
+    "name": "Run Wild Missoula - social group runs and community races (Missoula, MT)",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "ruoholahti.munstadi.fi": {
     "checked": 20261016,
     "name": "Ruoholahden nuorisotalo Koralli",
@@ -370990,6 +371459,13 @@
     "reason": "20 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "sactree.org": {
+    "checked": 20261024,
+    "name": "Sacramento Tree Foundation - community tree plantings (Sacramento, CA)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "sadacosta.com": {
     "checked": 20260901,
@@ -375814,6 +376290,13 @@
     "reason": "19 vevents / 19 future",
     "status": "ok",
     "type": "ics"
+  },
+  "santafechildrensmuseum.org": {
+    "checked": 20261024,
+    "name": "Santa Fe Children's Museum (Santa Fe, NM)",
+    "reason": "111 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "santafefarmersmarket.com": {
     "checked": 20261018,
@@ -388787,6 +389270,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sichildrensmuseum.org": {
+    "checked": 20261024,
+    "name": "Staten Island Children's Museum (Staten Island, NY)",
+    "reason": "50 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sicktodeath.org": {
     "checked": 20260819,
     "name": "Sick To Death",
@@ -389480,6 +389970,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "silverlakenaturecenter.org": {
+    "checked": 20261024,
+    "name": "Silver Lake Nature Center - free Saturday bird walks, hikes and nature programmes (Bristol, PA)",
+    "reason": "34 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "silverlakenaturecenter.org/?post_type=tribe_events&tribe_events_cat=volunteer&ical=1&eventDisplay=list": {
     "checked": 20260928,
@@ -412781,6 +413278,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "striders.net": {
+    "checked": 20261024,
+    "name": "Howard County Striders - free weekly group runs (Columbia / Ellicott City, MD)",
+    "reason": "113 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "strikefirst.de": {
     "cal_url": "https://strikefirst.de/stayaway/",
     "checked": 20261021,
@@ -416101,6 +416605,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sustaintrust.org.nz/our-events": {
+    "checked": 20261024,
+    "name": "Sustainability Trust - Te Aro Zero Waste repair cafe, sewing and clean-ups (Wellington, NZ)",
+    "reason": "3/33 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "suterena.com": {
     "checked": 20260907,
@@ -425624,6 +426135,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "teatrodellago.cl": {
+    "checked": 20261024,
+    "name": "Teatro del Lago (Frutillar, Chile)",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "teatrodellalimonaia.it": {
     "checked": 20260923,
     "name": "Teatro della Limonaia",
@@ -433219,6 +433737,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "thelibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
+    "checked": 20261024,
+    "name": "Springfield-Greene County Library District (Springfield, MO)",
+    "reason": "368 vevents / 368 future",
+    "status": "ok",
+    "type": "ics"
   },
   "thelight.org.nz": {
     "checked": 20261013,
@@ -440914,6 +441439,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "treefolks.org/events": {
+    "checked": 20261024,
+    "name": "TreeFolks - tree plantings, nursery workdays and seed collecting (Austin, TX)",
+    "reason": "12/12 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "treefresno.org/schedule": {
     "checked": 20260924,
@@ -450281,6 +450813,13 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "uprrp.edu": {
+    "checked": 20261024,
+    "name": "Universidad de Puerto Rico, Recinto de R\u00edo Piedras - actividades (San Juan, Puerto Rico)",
+    "reason": "26 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "ups-s.com/index.html": {
     "cal_url": "https://ups-s.com/program/",
     "checked": 20261018,
@@ -455613,6 +456152,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "vesanto.fi/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261024,
+    "name": "Vesannon kunta - municipal events (Vesanto, Finland)",
+    "reason": "30 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
   },
   "vesilahdenkylatalo.fi": {
     "checked": 20260904,
@@ -466750,6 +467296,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "wawa-online.org/events-1": {
+    "checked": 20261024,
+    "name": "West Atlanta Watershed Alliance - habitat restoration and service days, nature programs (Atlanta, GA)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "wawel.krakow.pl/wystawa-stala/skarbiec-koronny": {
     "checked": 20260909,
     "name": "Skarbiec Koronny",
@@ -467083,6 +467636,13 @@
     "checked": 20261018,
     "name": "Williamson County Public Library - Franklin Children's (Nashville, TN)",
     "reason": "50 vevents / 50 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wcpltn.org/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20261024,
+    "name": "Williamson County Public Library - Franklin Teen Department (Nashville, TN)",
+    "reason": "19 vevents / 19 future",
     "status": "ok",
     "type": "ics"
   },
@@ -467924,6 +468484,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wehrnaturecenter.com": {
+    "checked": 20261024,
+    "name": "Wehr Nature Center - birders, guided hikes, forest bathing and family nature clubs (Franklin, WI)",
+    "reason": "63 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "weichmann-stiftung.de": {
     "cal_url": "https://www.weichmann-stiftung.de/angebot/veranstaltungen/",
@@ -470756,6 +471323,13 @@
     "reason": "10/25 sampled events future",
     "status": "ok",
     "type": "jsonld"
+  },
+  "whitememorialcc.org": {
+    "checked": 20261024,
+    "name": "White Memorial Conservation Center - guided hikes, owl prowls and family nature programmes (Litchfield, CT)",
+    "reason": "38 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "whiteoakconferencecenter.com": {
     "checked": 20261010,
@@ -479445,6 +480019,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "yorkshiredales.org.uk": {
+    "checked": 20261024,
+    "name": "Yorkshire Dales National Park - what's on in the Dales (Skipton, Hawes, Reeth, Settle)",
+    "reason": "105 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "yorkville.il.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261018,
     "name": "Yorkville \u2014 City Events",
@@ -483750,6 +484331,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "zvejurumai.lt": {
+    "checked": 20261024,
+    "name": "\u017dvej\u0173 r\u016bmai - Klaip\u0117da city cultural centre (Klaip\u0117da, Lithuania)",
+    "reason": "54 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "zvertigobouldergym.wixsite.com/zvert": {
     "checked": 20260910,

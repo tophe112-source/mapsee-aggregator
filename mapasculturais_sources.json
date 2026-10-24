@@ -30,6 +30,36 @@
    "_measured": "2026-10-03: 8,123 occurrences in total, and the same 8,123 come back with _startsOn=GTE(today), so the filter is ignored. A full walk (41 pages at limit 200) found 86 future named occurrences, 66 of them placeable (154 dated pins inside 42 days) across 66 distinct events. At the adapter's default limit 100 and max_pages 40 it reads only the oldest 4,000 rows, which hold 0 future occurrences, so limit 200 / max_pages 45 is load-bearing.",
    "_note": "Santo André's municipal cultural register, live with 66 placeable future events: the city choir, a thrift fair, a stencil workshop in a square, the Older People's Month celebration, open capoeira and theatre classes at CEUs, a cineclub and library saraus.",
    "default_city": "Santo André"
+  },
+  {
+   "name": "Mapa Cultural de Apucarana (PR)",
+   "slug": "apucarana",
+   "base_url": "https://cultura.apucarana.pr.gov.br",
+   "category": "community",
+   "default_region": "PR",
+   "default_country": "Brazil",
+   "default_city": "Apucarana",
+   "horizon_days": 42,
+   "limit": 100,
+   "max_pages": 10,
+   "_metro": "Apucarana, Brazil",
+   "_found": "manual:2026-10-23 mapasculturais/mapasculturais README installation list (34 municipal hosts), one /api/eventOccurrence/find probe each",
+   "_measured": "2026-10-23: robots.txt 404. The whole archive is 36 occurrences across 25 events (one unfiltered read), and _startsOn is ignored here as everywhere, so limit 100 x max_pages 10 walks it in full. The adapter kept 7-8 placeable rows inside 42 days, all with exact space coordinates: the '2º Apuca Kids' children's festival (cinema in the CEU square, street days, a didactic concert). The register is young; its history suggests 1-4 events a month after the festival."
+  },
+  {
+   "name": "Mapa Cultural de Itatiba (SP)",
+   "slug": "itatiba",
+   "base_url": "https://mapacultural.itatiba.sp.gov.br",
+   "category": "community",
+   "default_region": "SP",
+   "default_country": "Brazil",
+   "default_city": "Itatiba",
+   "horizon_days": 42,
+   "limit": 100,
+   "max_pages": 10,
+   "_metro": "Campinas, Brazil",
+   "_found": "manual:2026-10-23 mapasculturais/mapasculturais README installation list (34 municipal hosts), one /api/eventOccurrence/find probe each",
+   "_measured": "2026-10-23: robots.txt 404. The whole archive is 97 occurrences across 74 events, posted steadily (Apr 9, May 17, Jun 19, Jul 16, Aug 18, Sep 15), and _startsOn is ignored, so limit 100 x max_pages 10 walks it in full. The adapter kept 9-10 placeable rows inside 42 days with exact coordinates (Museu Histórico Municipal, Biblioteca Municipal), but only 2 distinct events today: a daily museum exhibition and a cinema workshop."
   }
  ],
  "_null_island": "0,0 IS THE COMMONEST COORDINATE IN THIS SOURCE and it is a string, so it passes a presence check. 55 of the 345 genuinely-future occurrences carry {\"latitude\": \"0\", \"longitude\": \"0\"} — a space whose registrant never dragged the map pin. \"0\" is truthy, so an audit that asks `if loc.get('latitude')` counts every one of them as placed; the first pass of this very audit reported Ceará at 328/329 when the real figure is 281. parse_location rejects them, which is why two instances that look live are in _not_included below: they answer, they have future events, and not one of those events can be drawn.",

@@ -36252,5 +36252,582 @@
       "pin_unnamed": false
     },
     "_metro": "Toulouse, France"
+  },
+  {
+    "name": "The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK)",
+    "url": "https://merseyforest.org.uk/events/list/?ical=1",
+    "category": "outdoors",
+    "geocode_suffix": "",
+    "limit": 300,
+    "location_overrides": [
+      {
+        "location": "Whitby Park Community Garden, Whitby Park Lodge Whitby Park, Stanney Ln, Ellesmere Port , Liverpool, CH65 6QY, United Kingdom",
+        "venue": {
+          "name": "Whitby Park Community Garden",
+          "address": "Whitby Park Lodge, Stanney Lane",
+          "city": "Ellesmere Port",
+          "postal_code": "CH65 6QY",
+          "country": "GB",
+          "lat": 53.2720553,
+          "lon": -2.9036689
+        }
+      },
+      {
+        "location": "Vickersway Park, Vickersway Park, Vickers Way, Northwich, CW9 5PG, United Kingdom",
+        "venue": {
+          "name": "Vickersway Park",
+          "address": "Vickers Way",
+          "city": "Northwich",
+          "postal_code": "CW9 5PG",
+          "country": "GB",
+          "lat": 53.2565702,
+          "lon": -2.5062744
+        }
+      }
+    ],
+    "_metro": "Liverpool, United Kingdom",
+    "_found": "manual:2026-10-23 volunteer seed (UK community forests) -> The Events Calendar iCal list export",
+    "_note": "2026-10-23: Natural Health Service sessions at six Cheshire West sites, every one free and 'everybody welcome' / drop-in in its own description: Health Walks, Healthy Conservation (practical conservation volunteering: balsam pulling, litter removal, path repair, tree planting), Gardening for All, Mindful Contact with Nature. REST holds 998 future rows but no geo (UK), so read as the iCal list export, which carries 30 rows (about three weeks) and rolls forward daily. Photon placed 4 of the 6 LOCATIONs bare; the two it missed (the 'Liverpool' in Whitby Park Community Garden's string is wrong, it is Ellesmere Port) are pinned by exact location_overrides at the OSM park polygons (way/326714003, way/1001429137). Default outdoors because every row is an outdoor nature session; the classifier promotes Healthy Conservation to volunteer; Health Walks gain no fitness secondary (0 of 9) and 3 Mindful Contact with Nature rows do (checked with derive_categories). robots.txt allows /events/; the HTML pages challenge other User-Agents but not ours."
+  },
+  {
+    "name": "Randall's Island Park Alliance - farm volunteer days, cleanups and park events (New York, NY)",
+    "url": "https://randallsisland.org/events/list/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "utc_is_wall_clock": true,
+    "_metro": "New York, United States",
+    "_found": "manual:2026-10-23 volunteer seed (NYC park conservancies) -> The Events Calendar iCal list export",
+    "_note": "The WordPress site is left on UTC: the REST API says timezone 'UTC+0' and the iCal stamps DTSTART;TZID=UTC:20261025T100000 for the 10:00 'Close the Farm Volunteer Day', so it is proposed as ics with utc_is_wall_clock (the DC Greens shape), not tribe. 12 upcoming: Urban Farm volunteer days, the Fall Cleanup, wild oyster survey, Team RIVER restoration volunteering, youth track programme, Halloween Boo Bash, workshops; 7 carry GEO. Team RIVER rows (4) say 'Location: Volunteers will be notified after registration', so they must stay unplaceable: do NOT add a venue block. Mixed calendar, so community; the volunteer rows promote."
+  },
+  {
+    "name": "Oxford Urban Wildlife Group - Boundary Brook Nature Reserve work parties (Oxford, UK)",
+    "url": "https://www.ouwg.org.uk/events/?ical=1",
+    "category": "outdoors",
+    "geocode_suffix": ", Oxford, UK",
+    "limit": 300,
+    "utc_is_wall_clock": true,
+    "_metro": "Oxford, United Kingdom",
+    "_found": "manual:2026-10-23 volunteer seed (UK urban wildlife groups) -> Events Manager iCal (?ical=1)",
+    "_note": "2026-10-23 dry run: 14 upcoming of 466 VEVENTs, every one at Boundary Brook Nature Reserve (42 Boundary Brook Road, OX4 4AN) with its own GEO (51.739077,-1.231469): weekly Thursday and Saturday volunteer conservation work parties (coppicing, grassland, path clearance), nature bathing and meditation sessions, two hedgelaying training days. The site stamps its wall clock as UTC: the listing says 10:30 am and the iCal says 20261029T103000Z, and in June the same Thursday session is 20260604T103000Z, i.e. 11:30 BST if read as UTC, so utc_is_wall_clock. Default outdoors (every row is outdoors on the reserve); derive_categories promotes the work parties to volunteer (checked). Attendance: no experience needed; the group asks non-members to join (5 GBP a year) and to book through each event page."
+  },
+  {
+    "name": "Ville de Vernier - agenda (OpenAgenda) (Vernier, Geneva, Switzerland)",
+    "url": "https://openagenda.com/agendas/93993811/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", Vernier, Switzerland",
+    "limit": 300,
+    "_metro": "Geneva, Switzerland",
+    "_found": "manual:2026-10-23 OpenAgenda agenda search ('Genève') -> official agenda -> events.v2.ics",
+    "_note": "Official agenda of Vernier (Geneva's second town). NOT inside the communes' agenda 52853891: 0 of its 70 future events shared (2026-10-23). 191 future timings, 129 in 90 days, 50 distinct titles, all with GEO (Avanchets, Châtelaine, Cointrin). Craft workshops, BénéVernier volunteer-cooked community meals, family nature outings, storytelling, caregiver support group, a first-aid course, concerts and an exhibition. community.",
+    "skip_title": "^(Cours Sauveteur|Cours BLS|Guichet énergie|Rendez-vous du Maire|Petit-déjeuner des entreprises)"
+  },
+  {
+    "name": "Région de Nyon - agenda (OpenAgenda) (Nyon, Vaud, Switzerland)",
+    "url": "https://openagenda.com/agendas/31848826/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", Nyon, Switzerland",
+    "limit": 600,
+    "skip_title": "^Cours hebdomadaires de robotique|^Galerie Au Temps qui Passe",
+    "_metro": "Geneva, Switzerland",
+    "_found": "manual:2026-10-23 OpenAgenda agenda search ('Vaud') -> official agenda -> events.v2.ics",
+    "_note": "Official regional agenda (Nyon tourism region, Vaud). 1 of 72 future events shared with the Geneva communes' agenda. 552 future timings, 396 in 90 days, 70 distinct titles, all with GEO. Flea market (Puces de Nyon), storytelling for children, cinema evenings, castle events, theatre, exhibitions. A weekly paid robotics/video-game course for children is 172 of the 552 timings, so it is skipped by title. community."
+  },
+  {
+    "name": "VélOOise - bike repair workshops and rides (OpenAgenda) (Oise, France)",
+    "url": "https://openagenda.com/agendas/16452582/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", Oise, France",
+    "limit": 400,
+    "_metro": "Compiègne, France",
+    "_found": "manual:2026-10-23 OpenAgenda agenda search ('repair café') -> events.v2.ics",
+    "_note": "Agenda of VélOOise, the Oise cycling association. 2026-10-23: 367 future timings (79 in 90 days), all with GEO, across Nogent-sur-Oise, Compiègne, Senlis, Pont-Sainte-Maxence, Lamorlaye, Chaumont-en-Vexin. Free self-repair bike workshops (atelier d'auto-réparation, 223 at Nogent), group rides (balade à vélo), a children's bike workshop, short talks. Mixed, so community. No configured source in the Oise."
+  },
+  {
+    "name": "Repair Café - shared repair agenda (OpenAgenda) (France)",
+    "url": "https://openagenda.com/agendas/93047675/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", France",
+    "limit": 100,
+    "_metro": "Lille, France",
+    "_found": "manual:2026-10-23 OpenAgenda agenda search ('repair café') -> official agenda -> events.v2.ics",
+    "_note": "Official shared 'Repair Café' agenda that aggregates repair cafés' own agendas. 2026-10-23: 67 future timings, 54 distinct events, 38 distinct titles, all with GEO: Pévèle and Lille area (Templeuve, Bourghelles, Carembault, Lille), Toulouse's Café Bricol' sessions, Valenciennes. 27 of the 54 are also in the configured Café Bricol' Toulouse agenda (82840782); the other 27, in the Nord, are not configured anywhere. Repair cafés are visitor events, so community."
+  },
+  {
+    "name": "SKED - Breton language and culture, Brest (OpenAgenda) (Brest, France)",
+    "url": "https://openagenda.com/agendas/67897743/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", Brest, France",
+    "limit": 100,
+    "_metro": "Brest, France",
+    "_found": "manual:2026-10-23 OpenAgenda city search ('Brest') -> events.v2.ics",
+    "_note": "Agenda of SKED, Brest's Breton language and culture federation. 2026-10-23: 55 future timings (29 in 90 days), 14 distinct titles, all with GEO (Brest, Ploumoguer, Brasparts). Breton conversation cafés (Banne Breizh, Café breton), playing in Breton with your children, music awakening in Breton, Trégor dance workshop, a veillée, documentary screenings; weekend courses are a minority. community."
+  },
+  {
+    "name": "Espace Parent-Enfant d'Issy-les-Moulineaux (OpenAgenda) (Issy-les-Moulineaux, France)",
+    "url": "https://openagenda.com/agendas/65333215/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", Issy-les-Moulineaux, France",
+    "limit": 100,
+    "_metro": "Paris, France",
+    "_found": "manual:2026-10-23 OpenAgenda agenda search ('parentalité') -> official agenda -> events.v2.ics",
+    "_note": "Official agenda of Issy-les-Moulineaux's parent-child centre. 2026-10-23: 62 future timings (23 in 90 days), 18 distinct titles, all with GEO (one address, avenue du Général Leclerc). Parent-baby dance, singing with your 3-6 year old, infant first-aid, parents' evenings on screens, adolescence and vaccination. Families with young children, but talks for parents too, so community and the classifier promotes the children's rows.",
+    "skip_title": "^Les parents et les écrans$|^Communiquer en famille"
+  },
+  {
+    "name": "Repair Café Utrecht - all city repair cafés (Utrecht, Netherlands)",
+    "url": "https://repaircafe-utrecht.nl/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands",
+    "_found": "manual:2026-10-23 web search (repair café + buurthuis, Dutch) -> The Events Calendar subscribe link",
+    "_note": "One Events Calendar for Utrecht's ~20 neighbourhood repair cafés (Het Zand, Lombok, Transwijk-Bijnkershoek, Leidsche Rijn, Zuilen, Lunetten, Hoograven, the library). REST API 2026-10-23: 56 upcoming, 49 with a street address, 0 with geo_lat, so ics (Photon on LOCATION with the suffix) rather than tribe: the iCal list export carries 30 VEVENTs, 29 with LOCATION ('Repair Café Het Zand, Pauwoogvlinder 20, Utrecht, 3544 DB'). TZID=Europe/Amsterdam. Same shape as the configured Repair Café Frankfurt. robots.txt allows."
+  },
+  {
+    "name": "Quartiermanagement Mannheim-Rheinau - Veranstaltungen (Mannheim, Germany)",
+    "url": "https://ma-rheinau.de/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Mannheim, Germany",
+    "limit": 300,
+    "_metro": "Mannheim, Germany",
+    "_found": "manual:2026-10-23 web search (Quartiersmanagement 'Anstehende Veranstaltungen') -> The Events Calendar subscribe link",
+    "_note": "Neighbourhood-management office of Mannheim-Rheinau. REST API 2026-10-23: 32 upcoming at ~15 places (Versöhnungskirche, Stadtbibliothek Rheinau, Nachbarschaftshaus, Marktplatz), 29 with address, 0 with geo, so ics with the suffix; the iCal list export has 30 VEVENTs, 30 with LOCATION ('Versöhnungsirche, Schwabenheimer Str. 2-6, Mannheim, 68219'). Neighbourhood clean-up (Putzaktion), St Martin's lantern procession, Halloween at the Nachbarschaftshaus, writing group, dance meet-up, a generations film festival, concerts, a talk against far-right slogans. community. TZID=Europe/Berlin.",
+    "skip_title": "Bezirksbeiratssitzung"
+  },
+  {
+    "name": "Bibliothek der Dinge Bochum - offene Werkstätten und Repair Café (Bochum, Germany)",
+    "url": "https://bib-der-dinge-bochum.de/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Bochum, Germany",
+    "limit": 300,
+    "_metro": "Bochum, Germany",
+    "_found": "manual:2026-10-23 web search (Repair Café 'Kalender abonnieren') -> The Events Calendar subscribe link",
+    "_note": "Library of things with open workshops. REST API 2026-10-23: 39 upcoming, 37 at its one venue (Hauptstandort, Knüwerweg 2, 44789 Bochum), no geo_lat. A tribe entry would need a venue block with coordinates, and nominatim.openstreetmap.org/robots.txt disallows /search (as photon.komoot.io/robots.txt disallows /), so none was looked up here: ics lets production's own Photon step place the one address (28 of the 30 iCal VEVENTs carry it as LOCATION). Open wood, electronics, sewing, screen-print and children's sewing workshops, Repair Café No 46, a Crazy-Machine build. community. TZID=Europe/Berlin."
+  },
+  {
+    "name": "Williamson County Public Library - Franklin Teen Department (Nashville, TN)",
+    "url": "https://www.wcpltn.org/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "category": "kids",
+    "geocode_suffix": ", Franklin, TN",
+    "limit": 300,
+    "venue": {
+      "name": "Williamson County Public Library - Main Library Franklin",
+      "address": "1314 Columbia Ave",
+      "city": "Franklin",
+      "region": "TN",
+      "postal_code": "37064",
+      "country": "US",
+      "lat": 35.9145985,
+      "lon": -86.8737829,
+      "street_hint": "1314 Columbia Avenue"
+    },
+    "_metro": "Nashville, United States",
+    "_found": "civic:city -> civicplus (hand-curated) manual:2026-10-23 re-read of configured CivicPlus /iCalendar.aspx category lists",
+    "_note": "2026-10-23: 19 upcoming, 8 distinct teen titles (D&D groups, writers' group, chess, crochet club, movie afternoon), all at 'Main Library Franklin > <room> - 1314 Columbia Avenue', which the venue block's street_hint pins (Census exact match) without a Photon lookup. Shares 0 future UIDs with the three WCPL categories already configured (27, 28, 14).",
+    "crawl_delay": 10
+  },
+  {
+    "name": "Fitchburg Public Library - Kids (Madison, WI)",
+    "url": "https://www.fitchburgwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "category": "kids",
+    "geocode_suffix": ", Fitchburg, WI",
+    "limit": 300,
+    "skip_title": "Library Closed",
+    "venue": {
+      "name": "Fitchburg Public Library",
+      "address": "5530 Lacy Rd",
+      "city": "Fitchburg",
+      "region": "WI",
+      "postal_code": "53711",
+      "country": "US",
+      "lat": 43.0012925,
+      "lon": -89.4246184,
+      "street_hint": "5530 Lacy Road"
+    },
+    "location_overrides": [
+      {
+        "location": "- Fitchburg WI 53711",
+        "venue": {
+          "name": "Fitchburg Public Library",
+          "address": "5530 Lacy Rd",
+          "city": "Fitchburg",
+          "region": "WI",
+          "postal_code": "53711",
+          "country": "US",
+          "lat": 43.0012925,
+          "lon": -89.4246184,
+          "coords_exact": true
+        }
+      }
+    ],
+    "_metro": "Madison, United States",
+    "_found": "civic:city -> civicplus (hand-curated) manual:2026-10-23 re-read of configured CivicPlus /iCalendar.aspx category lists",
+    "_note": "2026-10-23: 43 upcoming, 28 distinct children's titles (Preschool Storytime 8, Saturday Storytime 5, Spanish storytime, READ to a Dog, Lego Club, Pumpkin Party); 32 at 'Library - 5530 Lacy Road Fitchburg WI 53711'. The venue block (Census exact match) pins rows whose LOCATION carries 5530 Lacy Road; the override pins the 6 library programmes whose LOCATION is only the city line '- Fitchburg WI 53711' (Lapsit Storytime, Graphic Novel Book Club, Movie and Hot Cocoa), which a geocoder would put on the town centroid; Hosto Hoci Park rows (Spanish storytime) carry their own street and are geocoded. Only the Senior Center category (25) was configured for this city. skip_title drops a staff in-service closure.",
+    "crawl_delay": 10
+  },
+  {
+    "name": "Henry County Library System (Atlanta, GA)",
+    "url": "https://henrylibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Henry County, GA",
+    "limit": 500,
+    "url_home": "https://henrylibraries.libnet.info/events",
+    "_metro": "Atlanta, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico events-page Subscribe feed",
+    "_note": "2026-10-23: 500 VEVENTs (Communico's cap) reaching 2027-01-14, 83 days; 224 distinct titles; GEO on 500 of 500. Children's programming dominates the top titles (Toddler Storytime 47, Preschool Storytime 43, Baby Storytime 21, Toddler Playdate 11, Literary LEGOs). henrylibraries.org was an OSM 'no-calendar'; the calendar is on the vendor host, whose robots.txt allows /feeds.",
+    "skip_title": "Mobile Clinic|@ Heritage Senior Center"
+  },
+  {
+    "name": "Springfield-Greene County Library District (Springfield, MO)",
+    "url": "https://thelibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Springfield, MO",
+    "limit": 500,
+    "url_home": "https://thelibrary.libnet.info/events",
+    "_metro": "Springfield, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico events-page Subscribe feed",
+    "_note": "2026-10-23: 379 VEVENTs, under the cap; 173 distinct titles; GEO on 377 (2 carry 0;0). Racing to Read Storytime 65, Tiny Tots Storytime 35, Pajama Storytime 11, teen nights, maker space, nature adventures.",
+    "skip_title": "^Libraries Clos(?:ed|ing)\\b|^Test(?: \\d+)?$"
+  },
+  {
+    "name": "DC Public Library - MLK Central (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTYiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2316): 500 VEVENTs returned, 286 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Tenley-Friendship, Mt. Pleasant (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMjciLCIyMzE3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2327,2317): 373 VEVENTs returned, 158 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Georgetown, Cleveland Park (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTMiLCIyMzA5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2313,2309): 367 VEVENTs returned, 203 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Woodridge, Anacostia (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMjkiLCIyMzA1Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2329,2305): 358 VEVENTs returned, 172 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Palisades, Southwest (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMzEiLCIyOTQzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2331,2943): 372 VEVENTs returned, 172 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Bellevue (William O. Lockridge), Northeast, Parklands-Turner, Southeast (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMDYiLCIyMzE4IiwiMjMxOSIsIjIzMjQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2306,2318,2319,2324): 355 VEVENTs returned, 278 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Francis A. Gregory, Lamond-Riggs/Lillian J. Huff, Shepherd Park (Juanita E. Thornton), Chevy Chase, Takoma Park (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTIiLCIyMzE0IiwiMjMyMyIsIjIzMDgiLCIyMzI2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "location_overrides": [
+      {
+        "location": "Lamond-Riggs/Lillian J. Huff Neighborhood Library - Meeting Room 1 (10-100 Person Capacity)",
+        "venue": {
+          "name": "Lamond-Riggs/Lillian J. Huff Neighborhood Library",
+          "address": "5401 South Dakota Ave NE",
+          "city": "Washington",
+          "region": "DC",
+          "postal_code": "20011",
+          "country": "US",
+          "lat": 38.954799,
+          "lon": -76.9995296,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Lamond-Riggs/Lillian J. Huff Neighborhood Library -",
+        "venue": {
+          "name": "Lamond-Riggs/Lillian J. Huff Neighborhood Library",
+          "address": "5401 South Dakota Ave NE",
+          "city": "Washington",
+          "region": "DC",
+          "postal_code": "20011",
+          "country": "US",
+          "lat": 38.954799,
+          "lon": -76.9995296,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Lamond-Riggs/Lillian J. Huff Neighborhood Library - Conference Room (6-12 Person Capacity)",
+        "venue": {
+          "name": "Lamond-Riggs/Lillian J. Huff Neighborhood Library",
+          "address": "5401 South Dakota Ave NE",
+          "city": "Washington",
+          "region": "DC",
+          "postal_code": "20011",
+          "country": "US",
+          "lat": 38.954799,
+          "lon": -76.9995296,
+          "coords_exact": true
+        }
+      }
+    ],
+    "_why": "Communico's own location record for Lamond-Riggs (2314) has no address and lat 0, so its 66 rows carry GEO:0;0. The overrides pin its three exact LOCATION strings to the branch: 5401 South Dakota Ave. NE (dclibrary.org/lamond), Census Public_AR_Current exact match.",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2312,2314,2323,2308,2326): 280 VEVENTs returned, 243 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "DC Public Library - Deanwood, Petworth, Benning (Dorothy I. Height), Capitol View, Northwest One, West End, Shaw (Watha T. Daniel), Rosedale (Washington, DC)",
+    "url": "https://dclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIzMTAiLCIyMzIwIiwiMjMwNCIsIjIzMDciLCIyMzMwIiwiMjMyOCIsIjIzMjIiLCIyMzIxIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 500,
+    "url_home": "https://dclibrary.libnet.info/events",
+    "skip_title": "\\bBook Sale\\b|\\bReservation$|Video Visitation|Tutoring with|Notary Public|^Virtual ESL|\\(Virtual\\)|Certification Service|^We Care\\b|^Mental Health Drop-In|@ La Cosecha|Coat Drive|Story Time at (?:Goethe-Institut|Reservoir Recreation Center)",
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-23 web search ('libnet.info/events') -> communico /feeds with a location filter (ids from api.communico.co/v1/dclibrary/locations)",
+    "_note": "Measured 2026-10-23: the all-branch DCPL feed returns Communico's 500-VEVENT cap reaching only 17 days (2026-10-23..11-09), so the 26 physical locations are split into 8 groups by their own per-location feed size. This group (location ids 2310,2320,2304,2307,2330,2328,2322,2321): 158 VEVENTs returned, 131 in the next 90 days. The 'Virtual Program' location (3098) is left out of every group. skip_title (same on all 8 groups) drops standing and booking rows measured in the dry run: a Friends Book Sale repeated 168 times through 2030, sewing-machine and Cricut reservations, DC Jail video visitation slots, tutoring appointments and notary office hours. robots.txt allows /feeds; api.communico.co has no robots.txt (404). DCPL was not configured under any host before."
+  },
+  {
+    "name": "Davenport Public Library - Main Branch (Davenport, IA)",
+    "url": "https://davenportlibrary.libcal.com/ical_subscribe.php?cid=9084",
+    "category": "learning",
+    "geocode_suffix": ", Davenport, IA",
+    "limit": 300,
+    "skip_title": "Formal Wear Dropoff",
+    "venue": {
+      "name": "Davenport Public Library - Main Branch",
+      "aliases": [
+        "Main"
+      ],
+      "address": "321 Main St",
+      "city": "Davenport",
+      "region": "IA",
+      "postal_code": "52801",
+      "country": "US",
+      "lat": 41.5231079,
+      "lon": -90.5755047
+    },
+    "url_home": "https://davenportlibrary.libcal.com/calendar?cid=9084",
+    "_metro": "Davenport, United States",
+    "_found": "manual:2026-10-23 davenportlibrary.com home page -> LibCal tenant davenportlibrary -> calendar list (one calendar per branch)",
+    "_note": "2026-10-23: plain cid=9084 ('Main' branch calendar, not an audience view): 76 upcoming, 24 distinct titles. LOCATION is '<room>, Main', which no geocoder can place, so the venue block (Census Public_AR_Current exact match for 321 Main St) with alias 'Main' pins rows naming the branch. skip_title drops the 15 'Formal Wear Dropoff' donation windows per branch (the giveaway itself stays).",
+    "crawl_delay": 10
+  },
+  {
+    "name": "Davenport Public Library - Fairmount Street Branch (Davenport, IA)",
+    "url": "https://davenportlibrary.libcal.com/ical_subscribe.php?cid=9085",
+    "category": "learning",
+    "geocode_suffix": ", Davenport, IA",
+    "limit": 300,
+    "skip_title": "Formal Wear Dropoff|^Early Voting$",
+    "venue": {
+      "name": "Davenport Public Library - Fairmount Street Branch",
+      "aliases": [
+        "Fairmount"
+      ],
+      "address": "3000 N Fairmount St",
+      "city": "Davenport",
+      "region": "IA",
+      "postal_code": "52804",
+      "country": "US",
+      "lat": 41.5499007,
+      "lon": -90.6297234
+    },
+    "url_home": "https://davenportlibrary.libcal.com/calendar?cid=9085",
+    "_metro": "Davenport, United States",
+    "_found": "manual:2026-10-23 davenportlibrary.com home page -> LibCal tenant davenportlibrary -> calendar list (one calendar per branch)",
+    "_note": "2026-10-23: plain cid=9085 ('Fairmount' branch calendar, not an audience view): 207 upcoming, 56 distinct titles. LOCATION is '<room>, Fairmount', which no geocoder can place, so the venue block (Census Public_AR_Current exact match for 3000 N Fairmount St) with alias 'Fairmount' pins rows naming the branch. skip_title drops the 15 'Formal Wear Dropoff' donation windows per branch (the giveaway itself stays).",
+    "crawl_delay": 10
+  },
+  {
+    "name": "Davenport Public Library - Eastern Avenue Branch (Davenport, IA)",
+    "url": "https://davenportlibrary.libcal.com/ical_subscribe.php?cid=9086",
+    "category": "learning",
+    "geocode_suffix": ", Davenport, IA",
+    "limit": 300,
+    "skip_title": "Formal Wear Dropoff",
+    "venue": {
+      "name": "Davenport Public Library - Eastern Avenue Branch",
+      "aliases": [
+        "Eastern"
+      ],
+      "address": "6000 Eastern Ave",
+      "city": "Davenport",
+      "region": "IA",
+      "postal_code": "52807",
+      "country": "US",
+      "lat": 41.5815564,
+      "lon": -90.5513665
+    },
+    "url_home": "https://davenportlibrary.libcal.com/calendar?cid=9086",
+    "_metro": "Davenport, United States",
+    "_found": "manual:2026-10-23 davenportlibrary.com home page -> LibCal tenant davenportlibrary -> calendar list (one calendar per branch)",
+    "_note": "2026-10-23: plain cid=9086 ('Eastern' branch calendar, not an audience view): 204 upcoming, 45 distinct titles. LOCATION is '<room>, Eastern', which no geocoder can place, so the venue block (Census Public_AR_Current exact match for 6000 Eastern Ave) with alias 'Eastern' pins rows naming the branch. skip_title drops the 15 'Formal Wear Dropoff' donation windows per branch (the giveaway itself stays).",
+    "crawl_delay": 10
+  },
+  {
+    "name": "Knjižnica Slovenske Konjice - town culture programme (Slovenske Konjice, Loče, Zreče)",
+    "url": "https://www.knjiznica-slovenskekonjice.si/dogodki/list/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Slovenia",
+    "limit": 300,
+    "venue": {
+      "name": "Dom kulture Slovenske Konjice",
+      "aliases": [
+        "Dom kulture Slovenske Konjice, dvorana"
+      ],
+      "street_hint": "Mestni trg 4",
+      "address": "Mestni trg 4",
+      "city": "Slovenske Konjice",
+      "postal_code": "3210",
+      "country": "SI",
+      "lat": 46.3397549,
+      "lon": 15.4247247,
+      "pin_unnamed": false
+    },
+    "_metro": "Slovenske Konjice, Slovenia",
+    "_found": "manual:2026-10-23 Wikidata libraries in Slovenia (Q12803193) -> The Events Calendar 'Subscribe' link (list view iCal)",
+    "_note": "The library runs the town's whole culture programme: concerts on Mestni trg, children's theatre, book talks, a travelogue in Zreče. The list-view export (the subscribe link on /dogodki/) carried 30 VEVENTs, all upcoming, every LOCATION with a street and town. Dry run 2026-10-23 without a venue: 15 placed by Photon (Mestni trg 4, Kulturni dom Loče Stari trg 15, Žička kartuzija, Zreče) and 15 dropped: Photon cannot read 'Dom kulture Slovenske Konjice, dvorana, Mestni trg 4, ...'. The venue block names that hall (alias + street_hint 'Mestni trg 4') with the point Photon returned for the feed's own 'Mestni trg 4, Slovenske Konjice, 3210' in the same run; not a surveyed point. pin_unnamed false: every row has a LOCATION."
+  },
+  {
+    "name": "Muhoksen kunta - municipal events (Muhos, Finland)",
+    "url": "https://muhos.fi/tapahtumat/lista/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Finland",
+    "limit": 300,
+    "skip_title": "(?i)valtuuston kokous|lautakunnan kokous|hallituksen kokous",
+    "_metro": "Oulu, Finland",
+    "_found": "manual:2026-10-23 Wikidata (Koivu ja Tähti culture centre, Q56402919) -> muhos.fi The Events Calendar 'lista' iCal link",
+    "_note": "The municipality's calendar: cinema nights and concerts at the Koivu ja Tähti culture centre (Muhostie 2), library yarn club and book sale, Halloween swim at the pool, a council meeting (skipped). 26 VEVENTs, TZID=Europe/Helsinki. Dry run 2026-10-23: 18 placed by Photon from the feed's own street addresses (Muhostie 2 at 64.8097,25.9869; Veturitie 9), 6 dropped (4 with an empty LOCATION)."
+  },
+  {
+    "name": "Vesannon kunta - municipal events (Vesanto, Finland)",
+    "url": "https://vesanto.fi/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Finland",
+    "limit": 300,
+    "wall_clock_tzids": [
+      "Europe/Moscow"
+    ],
+    "_metro": "Kuopio, Finland",
+    "_found": "manual:2026-10-23 Wikidata (Vesanto Library, Q69752755) -> vesanto.fi The Events Calendar subscribe (webcal) link",
+    "_note": "A village's whole community calendar: knitting café, memory café, seniors' digital help and morning gym in the library room (Kirjastokammari, Keskustie 13), heart club, forest-group outings, Christmas concerts, a nature-photo day. The WordPress site is set to a fixed UTC+3, which The Events Calendar exports as TZID=Europe/Moscow over the Finnish wall clock (REST start_date 12:00 = DTSTART;TZID=Europe/Moscow:...T120000); wall_clock_tzids reads those as floating local time so the sync zones them from the Finnish coordinates (otherwise every row is an hour early from 25 Oct). Dry run: 30 VEVENTs, 21 placed by Photon from street addresses, 8 dropped (5 empty LOCATION, 3 Photon misses).",
+    "location_overrides": [
+      {
+        "location": "Kirjaston Taidekomero",
+        "venue": {
+          "name": "Vesannon kirjasto",
+          "address": "Keskustie 13",
+          "city": "Vesanto",
+          "postal_code": "72300",
+          "country": "FI",
+          "lat": 62.93012,
+          "lon": 26.40744
+        }
+      }
+    ]
+  },
+  {
+    "name": "Hirvensalmen kunta - municipal events (Hirvensalmi, Finland)",
+    "url": "https://www.hirvensalmi.fi/tapahtumat/lista/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Finland",
+    "limit": 300,
+    "skip_title": "syyskokous|kevätkokous|vuosikokous|valtuuston kokous|päiväkahvit",
+    "_metro": "Mikkeli, Finland",
+    "_found": "manual:2026-10-23 Wikidata (Hirvensalmi Library, Q67897626) -> hirvensalmi.fi The Events Calendar 'lista' iCal link",
+    "_note": "Free open-gym hours at the school centre (Koulutie 5), a carers' peer-support group at the municipal office, craft and course days at the Puulan Manuelli workshop (Junnankuja 25), Martat coffee mornings, Christmas opening. 23 VEVENTs, TZID=Europe/Helsinki; dry run 22 placed by Photon (one 'Mäntyharju' row pins at that town). skip_title drops associations' statutory meetings."
+  },
+  {
+    "name": "Rautalammin kunta - municipal events (Rautalampi, Finland)",
+    "url": "https://www.rautalampi.fi/tapahtumakalenteri/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Finland",
+    "limit": 300,
+    "skip_title": "valtuuston kokous|lautakunnan kokous|hallituksen kokous|buffet",
+    "_metro": "Kuopio, Finland",
+    "_found": "manual:2026-10-23 Wikidata (Rautalampi Library, Q67940567) -> rautalampi.fi The Events Calendar iCal link",
+    "_note": "Village café evenings, a food distribution day ('Ruokajakelu'), library concerts and author visits, church choir concerts, Christmas markets in Kerkonkoski, a youth CV workshop, public hearings. 30 VEVENTs (TZID=Europe/Helsinki), dry run 25 placed by Photon, 1 council meeting title-filtered, 4 dropped. Two late-night shows at the local Neste/hotel bar are in it too."
+  },
+  {
+    "name": "Kutnowski Dom Kultury and Centrum Teatru, Muzyki i Tańca (Kutno, Poland)",
+    "url": "https://kdk.net.pl/events/lista/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Poland",
+    "limit": 300,
+    "venue": {
+      "name": "Kutnowski Dom Kultury",
+      "aliases": [
+        "KDK",
+        "Sala widowiskowo-kinowa KDK",
+        "Sala Tarasowa KDK"
+      ],
+      "street_hint": "Żółkiewskiego 4",
+      "address": "ul. Żółkiewskiego 4",
+      "city": "Kutno",
+      "country": "PL",
+      "lat": 52.235689,
+      "lon": 19.355769,
+      "pin_unnamed": false
+    },
+    "_metro": "Kutno, Poland",
+    "_found": "manual:2026-10-23 Wikidata (Q16913515) -> kdk.net.pl/events The Events Calendar 'lista' iCal link",
+    "_note": "Two municipal stages: KDK (ul. Żółkiewskiego 4) and the Centrum Teatru, Muzyki i Tańca (Teatralna 1). As ics rather than tribe because REST venues carry no geo and there are two buildings: Photon places CTMiT from the feed's street (52.2301,19.362), and the venue block (Wikidata Q16913515's point) takes the KDK halls, whose LOCATION strings Photon scattered over 300 m. Dry run 2026-10-23: 30 of 30 placed (16 by the venue block); 1 row whose LOCATION is only 'Kutno, Kutno, łódzkie, 99-300, Polska' lands on the town centroid. Workshops, children's theatre, Polish-song auditions, ticketed plays (PLN 15-60).",
+    "skip_title": "ogólnopolski festiwal"
+  },
+  {
+    "name": "Kurikan kirjastot - Kurikka, Jalasjärvi and Jurva libraries (Kurikka, Finland)",
+    "url": "https://www.kurikankirjastot.fi/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "learning",
+    "geocode_suffix": ", Finland",
+    "limit": 300,
+    "skip_title": "(?i)peruutus|peruttu",
+    "_metro": "Seinäjoki, Finland",
+    "_found": "manual:2026-10-23 Wikidata (Kurikka Library, Q20250033) -> kurikankirjastot.fi The Events Calendar subscribe (webcal) link",
+    "_note": "Three branch libraries: reading-dog evenings, story times, reading circle, library cinema, digital-skills drop-ins, a game-making workshop. 27 VEVENTs; dry run 2026-10-23 placed 16 by Photon from each branch's own street (main library Seurapuistikko 2 at 62.6193,22.3979, matching Wikidata Q20250033's 62.61945,22.39783; Jalasjärvi Keskustie 24; Jurva Koulutie 3) and dropped 11 with no LOCATION. skip_title drops the library's 'Tapahtuman peruutus' (cancellation) notices, posted as events."
   }
 ]

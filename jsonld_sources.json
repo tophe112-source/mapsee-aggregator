@@ -12604,6 +12604,147 @@
         "lon": 10.0305376
       },
       "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Keep Phoenix Beautiful - community garden volunteer days (Phoenix, AZ)",
+      "category": "volunteer",
+      "listing": [
+        "https://www.keepphxbeautiful.org/events-calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 40,
+      "_metro": "Phoenix, United States",
+      "_found": "manual:2026-10-23 volunteer seed (Keep America Beautiful affiliates) -> Wix events app (find_calendar wix_route /event-details/{})",
+      "_note": "2026-10-23 dry run: 12 of 12 event pages carry schema.org Event JSON-LD with a street address at one of two community gardens (Pierson Community Garden, 1822 W Pierson St; Mountain View Community Garden, 9901 N 7th Ave), 2nd/3rd-Saturday volunteer mornings starting 09:00 (08:00 from March) MST, plus one free garden workshop ('How to Water Efficiently!'). 11 of 12 are volunteer days, so the default is volunteer. Two venues, so no venue block."
+    },
+    {
+      "name": "TreeFolks - tree plantings, nursery workdays and seed collecting (Austin, TX)",
+      "category": "volunteer",
+      "listing": [
+        "https://www.treefolks.org/events/"
+      ],
+      "max_events": 60,
+      "skip_title": "RootBall",
+      "venue": {
+        "city": "Austin",
+        "region": "TX",
+        "country": "US"
+      },
+      "_metro": "Austin, United States",
+      "_found": "manual:2026-10-23 volunteer seed (tree-planting orgs) -> Modern Events Calendar listing with inline Event JSON-LD",
+      "_note": "2026-10-23 dry run: 12 Events inline on /events/ (MEC; the adapter's MEC wall-clock fix turns 2026-10-24T04:00:00-05:00 into the 09:00 the page shows). skip_title drops the RootBall gala (ticketed). 11 kept: nursery volunteer workdays, sapling sorting, tree plantings (Community First! Village, Montopolis, Flying K Ranch in Leander), a tree-adoption volunteer shift, and 2 free Tree ID lessons for the Central Texas Seed Savers volunteer programme; 9 of 11 are volunteer shifts, and a community default would leave 3 of them unpromoted (checked with derive_categories), so volunteer. The venue block is CITY ONLY on purpose: the five TreeFolks HQ rows print street, city and ZIP in one line ('10803 Platt Ln Austin, Tx 78725') with no city field, so without it they were dropped (6 of 12 kept); with it they reach the Census pass, which matches both such strings (10803 PLATT LN -> 30.2335,-97.6386; 1800 S 5TH ST -> 30.2492,-97.7616). A block with a point would pin the off-site plantings at HQ, so it has none."
+    },
+    {
+      "name": "West Atlanta Watershed Alliance - habitat restoration and service days, nature programs (Atlanta, GA)",
+      "category": "community",
+      "listing": [
+        "https://www.wawa-online.org/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 40,
+      "_metro": "Atlanta, United States",
+      "_found": "manual:2026-10-23 volunteer seed (Atlanta watershed groups) -> Wix events app (find_calendar wix_route /events/{})",
+      "_note": "2026-10-23 dry run: 20 event slugs, 19 kept (one detail page answered 429 under the adapter's 1 s pacing; the next run picks it up), every one with a street address in southwest Atlanta: Proctor Creek Habitat Restoration Days (121 Rockmart Dr SW), Mid Week Volunteer Service and Service Saturdays at the Outdoor Activity Center (1442 Richland Rd SW), Saturday open houses of the OAC's old-growth forest, a homeschool nature programme, yoga at Cascade Springs Nature Preserve, S'mores and Stars. Mixed, so community: derive_categories promotes the restoration and mid-week service days to volunteer, the homeschool days to kids, the yoga to fitness (checked); 'Service Saturdays' stays community. Two-plus venues, so no venue block.",
+      "skip_title": "^O-Camp"
+    },
+    {
+      "name": "Children's Museum Houston - Free Family Night and programs (Houston, TX)",
+      "category": "kids",
+      "listing": [
+        "https://www.cmhouston.org/events"
+      ],
+      "link_pattern": "(?<=href=\")/events/[a-z0-9-]+(?=\")",
+      "max_events": 60,
+      "skip_title": "Golf|Luncheon|Members|Museums on Us",
+      "venue": {
+        "name": "Children's Museum Houston",
+        "address": "1500 Binz St",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77004",
+        "country": "US",
+        "lat": 29.7231384,
+        "lon": -95.3852963
+      },
+      "_metro": "Houston, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar jsonld (Webflow event pages)",
+      "_note": "2026-10-23: the events page links ~40 event pages; each carries one schema.org Event with UTC startDate (2026-11-19T23:00:00.000Z = 5 pm CST, matching the page's '5:00 pm') and location only as an @id reference to the museum, so the venue block places them. Free Family Night Thursdays (free admission 5-8 pm), Zumbini, sensory-friendly days, Turkey Jam. skip_title drops the golf fundraiser, a luncheon, the members-only party and the 'Bank of America Museums on Us' page, which program_sources.json already lists as a visit window. Dry run 2026-10-23: 22 events kept from 34 pages, 22 placed, all 22 on kids by the sync's derive_categories."
+    },
+    {
+      "name": "GAM - Centro Gabriela Mistral (Santiago, Chile)",
+      "category": "community",
+      "listing": [
+        "https://gam.cl/es/calendario/"
+      ],
+      "link_pattern": "https://gam\\.cl/es/que-hacer-en-gam/(?:actividades|ideasypensamiento|teatro|musica-clasica|musica-popular|artesvisuales|danza|stand-up-comedy|familiar|circo|cine)/[a-z0-9\\-]+/",
+      "max_events": 150,
+      "venue": {
+        "name": "Centro Gabriela Mistral (GAM)",
+        "address": "Av. Libertador Bernardo O'Higgins 227",
+        "city": "Santiago",
+        "region": "Región Metropolitana",
+        "country": "CL",
+        "lat": -33.4393115,
+        "lon": -70.6399272
+      },
+      "_metro": "Santiago, Chile",
+      "_found": "manual:2026-10-23 hand list of Santiago cultural centres; /es/calendario/ has no JSON-LD but every activity page carries a schema.org Event",
+      "skip_title": "Summit|Seminario Internacional|^Formaci[oó]n "
+    },
+    {
+      "name": "Planta Inclán - teatro, cine y música (Parque Patricios, Buenos Aires)",
+      "category": "arts",
+      "listing": [
+        "https://plantainclan.com/eventos/"
+      ],
+      "link_pattern": "https://plantainclan\\.com/eventos/(?!feed/)[a-z0-9\\-]+/?",
+      "max_events": 100,
+      "venue": {
+        "name": "Planta Inclán",
+        "address": "Inclán 2661",
+        "city": "Buenos Aires",
+        "region": "CABA",
+        "country": "AR",
+        "lat": -34.6300006,
+        "lon": -58.4017284
+      },
+      "_metro": "Buenos Aires, Argentina",
+      "_found": "manual:2026-10-23 OSM community_centre walk of Buenos Aires (metro not in metros_global) -> modern-events+jsonld-event"
+    },
+    {
+      "name": "EKMK Egri Kulturális és Művészeti Központ - community houses programme (Eger, Hungary)",
+      "category": "community",
+      "listing": [
+        "https://ekmkeger.hu/"
+      ],
+      "link_pattern": "https://ekmkeger.hu/esemenyek/[a-z0-9-]+/",
+      "max_events": 60,
+      "_metro": "Eger, Hungary",
+      "_found": "manual:2026-10-23 ledger row ekmkeger.hu (ok 2026-10-04, never merged) re-verified -> Modern Events Calendar Event JSON-LD pages",
+      "_note": "Eger's municipal culture centre (EKMK) runs several community houses; every event page names its house and address ('EKMK Bartakovics Béla Közösségi Ház', 'Eger, Knézich Károly u. 8.'; 'EKMK Forrás Gyermek és Ifjúsági Ház', 'Eger, Bartók Béla tér 6.'), which the adapter's Photon lookup placed at 47.9050,20.3763 and 47.8976,20.3703 on the 2026-10-23 dry run. Homepage lists 25 /esemenyek/ links (the /esemenyek/ archive page only 10). Dry run: 27 kept, 17 unique upcoming to 2026-12-14 (club talks, concerts, kids' programmes, a storytelling meet). One exhibition is published as 7 daily occurrences. robots.txt disallows only /wp-admin/. No venue block on purpose: the events are spread over at least two houses."
+    },
+    {
+      "name": "Muzeul Național al Satului Dimitrie Gusti - fairs and events (Bucharest)",
+      "category": "community",
+      "listing": [
+        "https://muzeul-satului.ro/"
+      ],
+      "link_pattern": "https://muzeul-satului.ro/events/[a-z0-9-]+/",
+      "max_events": 40,
+      "skip_title": "(?i)conferin|apel de candidaturi|[îi]nscrieri",
+      "venue": {
+        "name": "Muzeul Național al Satului „Dimitrie Gusti”",
+        "address": "Șoseaua Pavel D. Kiseleff 28-30",
+        "city": "București",
+        "country": "RO",
+        "lat": 44.471904,
+        "lon": 26.077597
+      },
+      "_metro": "Bucharest, Romania",
+      "_found": "manual:2026-10-23 Wikidata museums/cultural institutions in Romania -> homepage probe (Modern Events Calendar)",
+      "_note": "The open-air Village Museum's own programme: craft fairs (Târgul de Sfântul Dumitru 23-25 Oct), children's exhibitions, folk events. MEC event pages carry Event JSON-LD with the museum and 'Șoseaua Kiseleff, nr. 28-30'; the adapter's MEC rule turns '12:00:00+03:00' into the 09:00 the page prints (checked on targul-de-sfantul-dumitru-6: page 'Time 9:00 - 19:00'). /calendar-evenimente/ is a FullCalendar AJAX view, so the homepage block (13 /events/ links) is the listing. Dry run 2026-10-23: 4 kept of 13 pages (the rest past). skip_title drops the museum-education conference, calls for applications and camp registrations. Venue point: Wikidata Q1956214 (P625). Entry is by museum ticket."
     }
   ],
   "_not_included": {

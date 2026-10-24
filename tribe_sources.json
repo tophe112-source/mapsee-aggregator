@@ -22702,6 +22702,634 @@
         "lon": 10.0379852
       },
       "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Sacramento Tree Foundation - community tree plantings (Sacramento, CA)",
+      "category": "community",
+      "base_url": "https://sactree.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Sacramento, United States",
+      "_found": "manual:2026-10-23 volunteer seed (tree-planting orgs) -> tribe REST",
+      "_note": "2026-10-23 dry run: 3 upcoming, 3 with a street address in Sacramento (timezone America/Los_Angeles): two volunteer tree plantings ('Volunteers will be digging into soil...') that derive_categories promotes to volunteer, and a free native-shrub giveaway at Urban Wood Rescue, so community. The calendar is the planting season's: small in October."
+    },
+    {
+      "name": "Children's Museum of Manhattan - drop-in programs and performances (New York)",
+      "base_url": "https://cmom.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Children's Museum of Manhattan",
+        "address": "212 W 83rd St",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10024",
+        "country": "US",
+        "lat": 40.7857903,
+        "lon": -73.9767249
+      },
+      "_metro": "New York, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
+      "_note": "2026-10-23: 217 events in 120 days, 54 distinct titles, every one a children's programme (plugin categories drop-in-programs 203, performances-shows 15, sign-up-workshops 12). Venues are rooms (PlayWorks, Inside Art, Makerspace) with no address or geo, so the venue block (Census Public_AR_Current exact match for 212 W 83rd St) places them. Programmes are included with museum admission."
+    },
+    {
+      "name": "Staten Island Children's Museum (Staten Island, NY)",
+      "base_url": "https://sichildrensmuseum.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "Members Only",
+      "_metro": "New York, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
+      "_note": "2026-10-23: 51 events in 120 days, 20 distinct titles; all 51 carry the museum's own venue with street address and geo (1000 Richmond Terrace) and the plugin category event-for-kids. skip_title drops the one members-only party."
+    },
+    {
+      "name": "The Strong National Museum of Play - family programs (Rochester, NY)",
+      "base_url": "https://www.museumofplay.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "\\b18\\+|College Night|for Seniors|\\bClosure\\b|Museum Closed|Late Open|^Canstruction",
+      "venue": {
+        "name": "The Strong National Museum of Play",
+        "address": "1 Manhattan Square Dr",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14607",
+        "country": "US",
+        "lat": 43.152542,
+        "lon": -77.6016833
+      },
+      "_metro": "Rochester, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
+      "_note": "2026-10-23: 71 events in 69 days, 24 distinct titles: Play Lab drop-ins, storytime club, toddler trick-or-treat, LEGO workshops. skip_title removes the adults-only rows (Night Out 18+, College Night, Museum Mondays for Seniors) and the closure/hours notices, which is what makes the rest a children's calendar. Rooms (Play Lab, Adams Atrium) carry no address; the block places them. Coordinates: Census Public_AR_Census2020 match for 1 Manhattan Square Dr (Public_AR_Current has no match; Nominatim answered 429 and was not retried)."
+    },
+    {
+      "name": "Children's Museum of Richmond - Downtown and Chesterfield (Richmond, VA)",
+      "base_url": "https://www.childrensmuseumofrichmond.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "^Clos(?:ed|ing)\\b",
+      "_metro": "Richmond, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
+      "_note": "2026-10-23: 96 events in 120 days, 20 distinct titles (toddler programme, process art, Baby Artsplay, sensory-friendly nights); 90 carry one of the two locations' street address. No venue block: two sites, so the 6 rows with no venue stay unplaced. skip_title drops 4 closure/early-closing notices.",
+      "crawl_delay": 10
+    },
+    {
+      "name": "Santa Fe Children's Museum (Santa Fe, NM)",
+      "base_url": "https://santafechildrensmuseum.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "MUSEUM CLOSED|Winter Workshops",
+      "venue": {
+        "name": "Santa Fe Children's Museum",
+        "names": [
+          "Santa Fe Children's Museum",
+          "Santa Fe Children’s Museum"
+        ],
+        "address": "1050 Old Pecos Trail",
+        "city": "Santa Fe",
+        "region": "NM",
+        "postal_code": "87505",
+        "country": "US",
+        "lat": 35.6739443,
+        "lon": -105.9368027
+      },
+      "_metro": "Santa Fe, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
+      "_note": "2026-10-23: 112 events in 120 days; 34 are 'MUSEUM CLOSED' (skipped). The rest: Seeds & Sprouts, Wee Wednesday, Fine Art Friday, Animal Meet & Greet, STEAM Saturday and a Pajama Storytime the museum runs at Southside Library (own address and geo). The block carries `names`, so only rows naming the museum or nothing take its point (Census exact match)."
+    },
+    {
+      "name": "Children's Museum of New Hampshire (Dover, NH)",
+      "base_url": "https://childrens-museum.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "MUSEUM OPEN|Birthday Parties|^CLOSED\\b|week class",
+      "_metro": "Dover, United States",
+      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
+      "_note": "2026-10-23: 356 events in 120 days, every one at the museum's own venue with street address (6 Washington Street). 176 of the first 300 are not events (MUSEUM OPEN 83, Birthday Parties Available 75, CLOSED 18), which skip_title removes; what remains is the programme: Science Friday, Wacky Art Wednesdays, Cultural Crafts, Toddler Tinker Time, Baby Storytime, Early Birds Playgroup."
+    },
+    {
+      "name": "Mississippi Children's Museum - Jackson and Meridian",
+      "base_url": "https://mschildrensmuseum.org",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "^Closed for|ToyBox|Black Friday",
+      "_metro": "Jackson, United States",
+      "_found": "manual:2026-10-23 web search ('children\\'s museum' calendar export) -> tribe REST",
+      "_note": "2026-10-23: 340 events in 120 days, 38 distinct titles (Rocky's Book Club, Wonder Wednesday, Read With Me, ABC Come Play With Me, Art Smart, sensory-friendly hours); 218 of the first 300 carry one of the two museums' street addresses (2145 Museum Blvd, Jackson; 403 22nd Ave, Meridian). Two sites, so no venue block: the 82 venue-less rows stay unplaced. skip_title drops closures and the gift-shop sales."
+    },
+    {
+      "name": "Westchester County Parks - programs and events (Westchester, NY)",
+      "base_url": "https://parksevents.westchestercountyny.gov",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "skip_title": "^Evolution\\. 250 Years of Military Gear$|Home Show",
+      "_metro": "New York, United States",
+      "_found": "manual:2026-10-23 web search ('Westchester Children\\'s Museum Pop-up') -> tribe REST",
+      "_note": "2026-10-23: 341 events in 120 days, 108 distinct titles across Lasdon Park, Muscoot Farm, Hilltop Hanover Farm, Croton Point and the nature centres: farm chores and nature walks for kids, Littles at Lasdon, bird walks, farmers market, the Children's Museum pop-up. Mixed by construction (a parks department), so community and the classifier promotes. 272 of the first 300 carry a street address. skip_title drops a daily exhibit row (64) and a commercial home show."
+    },
+    {
+      "name": "Irvine Nature Center - family programs and Free Fridays (Owings Mills, MD)",
+      "base_url": "https://www.explorenature.org",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 5,
+      "skip_title": "^NO TALES|PRIVATE EVENT",
+      "venue": {
+        "name": "Irvine Nature Center",
+        "address": "11201 Garrison Forest Rd",
+        "city": "Owings Mills",
+        "region": "MD",
+        "postal_code": "21117",
+        "country": "US",
+        "lat": 39.4331203,
+        "lon": -76.7677063
+      },
+      "_metro": "Baltimore, United States",
+      "_found": "manual:2026-10-23 web search ('Export .ics file' nature center) -> tribe REST",
+      "_note": "2026-10-23: 35 events in 120 days: Tales & Tails story time (9, free), FREE FRIDAYS (8), owl prowls, pajama party, homeschool, plus adult make-and-take and 'Eat, Drink & Learn' evenings, so community, not kids. 33 name no venue; single-site, so the block (Census exact) places them. skip_title drops 3 'NO TALES & TAILS' cancellation notices and a private event.",
+      "crawl_delay": 10
+    },
+    {
+      "name": "Connecticut Ornithological Association - statewide bird walks, field trips and hawk watches (Connecticut)",
+      "base_url": "https://www.ctbirding.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 5,
+      "default_region": "CT",
+      "default_country": "US",
+      "_metro": "Hartford, United States",
+      "_found": "manual:2026-10-23 web search for Audubon walks with an iCal export -> ctbirding.org/eventscal (COA's statewide birding calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 123 future events (82 inside 120 days), timezone America/New_York. The COA calendar republishes the walks of New Haven Bird Club, CT Audubon's centres (Pomfret, Milford Point, Bent of the River, RTP Estuary Center), Greenwich Audubon, the Audubon Shop, Hartford and Menunkatuck Audubon and Friends of Greenwich Point: bird walks, hawk watches, owl banding, field trips. 104 carry a street address (no geo; the Census pass places them), 8 a venue name only, 11 none (a few Zoom talks the adapter's online rule drops). robots.txt asks Crawl-delay 5. Overlaps Hartford Audubon's own calendar (hartfordaudubon.org, not configured) - configure only this one.",
+      "skip_title": "^White Memorial\\b"
+    },
+    {
+      "name": "Yorkshire Dales National Park - what's on in the Dales (Skipton, Hawes, Reeth, Settle)",
+      "base_url": "https://www.yorkshiredales.org.uk",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "GB",
+      "_metro": "Skipton, United Kingdom",
+      "_found": "manual:2026-10-23 UK national-park authority sweep (outdoors had 0 UK sources) -> yorkshiredales.org.uk/events -> tribe REST",
+      "_note": "Measured 2026-10-23: 142 future events (118 inside 120 days), timezone Europe/London. A mixed community what's-on for the National Park: dark-skies walks and night hikes, Malham Tarn trails, village-hall concerts, Skipton Town Hall, farmers' and craft markets, museum workshops at the Dales Countryside Museum. 113 of 142 venues carry geo_lat/geo_lng; the 29 without cannot be placed outside the US and are dropped at the sync, so about 95 reach the map. Mixed, so community (derive_categories: 141 community, 1 kids)."
+    },
+    {
+      "name": "Glen Helen Nature Preserve - hikes, birding and Trailside Museum programmes (Yellow Springs, OH)",
+      "base_url": "https://glenhelen.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Yellow Springs",
+      "default_region": "OH",
+      "default_country": "US",
+      "_metro": "Dayton, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> glenhelen.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 40 future events (26 inside 120 days), every one with a street address (Trailside Museum 505 Corry St, Grinnell Mill, Cascades Parking Lot, Vernet Ecological Center): Saturday Trailside turtle feedings, full-moon hikes, fall migration birding, Glen Kids, nature journaling. derive_categories: 37 outdoors, 3 kids."
+    },
+    {
+      "name": "Wehr Nature Center - birders, guided hikes, forest bathing and family nature clubs (Franklin, WI)",
+      "base_url": "https://www.wehrnaturecenter.com",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Franklin",
+      "default_region": "WI",
+      "default_country": "US",
+      "venue": {
+        "name": "Wehr Nature Center",
+        "address": "9701 West College Avenue",
+        "city": "Franklin",
+        "region": "WI",
+        "postal_code": "53132",
+        "country": "US",
+        "lat": 42.9250998,
+        "lon": -88.0361037,
+        "names": [
+          "Wehr Nature Center"
+        ]
+      },
+      "_metro": "Milwaukee, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> wehrnaturecenter.com (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 85 future events (62 inside 120 days), timezone America/Chicago. 76 name the venue 'Wehr Nature Center' with no street or geo, 6 none ('Hike for Health' starts at the centre), 3 an address; the venue block is the centre itself (OSM way 664179635, Nominatim 9701 W College Ave). Wehr Birders, guided forest bathing, flow yoga, Hike for Health, Nature Nauts, Little Wonders, Teen Conservation Club, owl prowls. derive_categories: 74 outdoors, 10 kids, 1 volunteer. skip_title drops the weekly 'Free Parking Thursday' rows, a parking offer and not an event. The block lists `names`, so the two Owl Prowls at Grant Park Clubhouse (100 Hawthorne Ave, South Milwaukee) and the science night at King Community Center (1531 W Vliet St) keep their own street for the Census pass instead of taking Wehr's point.",
+      "skip_title": "^Free Parking|^Free Parking|for Youth Groups"
+    },
+    {
+      "name": "Silver Lake Nature Center - free Saturday bird walks, hikes and nature programmes (Bristol, PA)",
+      "base_url": "https://silverlakenaturecenter.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 5,
+      "crawl_delay": 10,
+      "default_city": "Bristol",
+      "default_region": "PA",
+      "default_country": "US",
+      "venue": {
+        "name": "Silver Lake Nature Center",
+        "address": "1306 Bath Road",
+        "city": "Bristol",
+        "region": "PA",
+        "postal_code": "19007",
+        "country": "US",
+        "lat": 40.1138016,
+        "lon": -74.8632255
+      },
+      "_metro": "Philadelphia, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> silverlakenaturecenter.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 35 future events, all inside 120 days. 9 carry the centre's own address (1306 Bath Rd / the Earthship at 1006 Bath Rd), 25 no venue; the weekly 'FREE Saturday Morning Bird Walks', yoga in nature, volunteer workdays and hikes all meet at the centre, so the block (OSM way 1070316256, tourism=nature_centre) is where they are. robots.txt Crawl-delay 10. The ledger's earlier fail was the volunteer-category iCal (0 rows), not this route.",
+      "skip_title": "Closure"
+    },
+    {
+      "name": "Cylburn Arboretum - tree walks, nature education drop-ins and weed warriors (Baltimore)",
+      "base_url": "https://cylburn.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Baltimore",
+      "default_region": "MD",
+      "default_country": "US",
+      "venue": {
+        "name": "Cylburn Arboretum",
+        "address": "4915 Greenspring Avenue",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21209",
+        "country": "US",
+        "lat": 39.3542699,
+        "lon": -76.6523196
+      },
+      "_metro": "Baltimore, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> cylburn.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 34 future events (29 inside 120 days). 22 carry 4915 Greenspring Ave; 12 (Strolling Through Nature, Nature Education Center drop-ins, Garden Drop-in, pop-up displays) name no venue and happen on the grounds, which the block (OSM way 1264562843, leisure=garden) covers. Free public arboretum run by the City and the Cylburn Arboretum Friends."
+    },
+    {
+      "name": "White Memorial Conservation Center - guided hikes, owl prowls and family nature programmes (Litchfield, CT)",
+      "base_url": "https://whitememorialcc.org",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Litchfield",
+      "default_region": "CT",
+      "default_country": "US",
+      "skip_title": "^(?:THANKSGIVING|CHRISTMAS|New Year.s Day)$|Shade Swamp|Historic Trees of Litchfield|Apple Hill|Christmas Bird Count|Children.s Free Week",
+      "venue": {
+        "name": "White Memorial Conservation Center",
+        "address": "80 Whitehall Road",
+        "city": "Litchfield",
+        "region": "CT",
+        "postal_code": "06759",
+        "country": "US",
+        "lat": 41.724058,
+        "lon": -73.2127552
+      },
+      "_metro": "Hartford, United States",
+      "_found": "manual:2026-10-23 COA calendar listed White Memorial walks -> whitememorialcc.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 41 future events (38 inside 120 days); 35 name no venue and 6 the centre without geo. Descriptions say 'Meet in the Museum' or a trailhead on the 4,000-acre property (Little Pond boardwalk, Cranberry Pond, Catlin Woods), so the centre (OSM way 943637864) is the block. skip_title drops the closure days (THANKSGIVING, CHRISTMAS, New Year's Day) and the four rows that meet off the property (Shade Swamp Sanctuary in Farmington, the Litchfield town tree tour, Apple Hill in Morris, the Christmas Bird Count circle). Mixed (hikes, kids' clubs, a star party, a concert), so community: derive_categories 33 community, 6 kids, 2 party."
+    },
+    {
+      "name": "Howard County Striders - free weekly group runs (Columbia / Ellicott City, MD)",
+      "base_url": "https://www.striders.net",
+      "category": "running",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "MD",
+      "default_country": "US",
+      "skip_title": "Trivia Night|Board Meeting",
+      "_metro": "Baltimore, United States",
+      "_found": "manual:2026-10-23 RRCA club directory walk (rrca.org/club/*, 947 clubs) -> striders.net (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 637 future events (114 inside 120 days), timezone America/New_York, every one with a street address (35 with geo, the rest Census-placeable). Inside 120 days: 94 free weekly group runs from coffee shops, a swim centre, a library branch, a brewery and two running stores (Mad City/Africa Group Run, Bagel Run, Miller Monday Group Run, Manor Hill Tavern Beer Run, Feet First Fun Run, Rehab2Perform Group Run), 2 races and 1 training-programme night. skip_title drops the 17 weekly trivia nights (a social, not a run) and board meetings. robots.txt: 'User-Agent: * Disallow:' (allow all)."
+    },
+    {
+      "name": "North Jersey Masters - Saturday and Sunday group runs at the Glen Rock Duck Pond (Bergen County, NJ)",
+      "base_url": "https://njmasters.com",
+      "category": "running",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_region": "NJ",
+      "default_country": "US",
+      "venue": {
+        "name": "Glen Rock Duck Pond",
+        "names": [
+          "Glen Rock Duck pond",
+          "Glen Rock Duck Pond"
+        ],
+        "city": "Glen Rock",
+        "region": "NJ",
+        "postal_code": "07452",
+        "country": "US",
+        "lat": 40.961094,
+        "lon": -74.1081876
+      },
+      "_metro": "New York, United States",
+      "_found": "manual:2026-10-23 RRCA club directory walk (rrca.org/club/*) -> njmasters.com (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 31 events inside 120 days, timezone America/New_York: 20 weekend group runs (Saturday 'GROUP RUN - SOCIAL', 3-6 miles in pace groups, and the Sunday long run) whose venue is 'Glen Rock Duck pond' with no street or geo; their descriptions say 'All ages, all abilities, all welcome' and 'Meet in the second parking area by the pavilion'. The block (OSM way 981477148, Glen Rock Duck Pond) lists `names`, so it fills only those rows: the Thursday tempo workouts at Dunkerhook Park (street name only) and the Tuesday track sessions at Ben Franklin Middle School (335 N Van Dien Ave, Ridgewood) keep their own place. robots.txt blocks only MJ12bot.",
+      "skip_title": "Tempo Workout"
+    },
+    {
+      "name": "Movin' Shoes - free weekly group runs from the shop (Madison, WI)",
+      "base_url": "https://movinshoes.com",
+      "category": "running",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Madison",
+      "default_region": "WI",
+      "default_country": "US",
+      "_metro": "Madison, United States",
+      "_found": "manual:2026-10-23 running specialty-store sweep -> movinshoes.com (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 442 future events (72 inside 120 days). 68 are the shop's four free weekly runs from 528 South Park St (Sunday Social Run, Monday Group Run, Tuesday Fast Steady Run, Thursday Women's Group Run), each with the street address; 4 'Brewery Run' rows name no venue and stay unplaceable (no venue block on purpose - they meet at a brewery). WordPress timezone is the fixed 'UTC-6'; harmless, because the sync localises the wall-clock start from the coordinates (_to_utc_if_naive). robots.txt allows /wp-json/."
+    },
+    {
+      "name": "Bowman's Hill Wildflower Preserve - Gentle Wild Yoga in the preserve (New Hope, PA)",
+      "base_url": "https://bhwp.org",
+      "category": "fitness",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "New Hope",
+      "default_region": "PA",
+      "default_country": "US",
+      "_metro": "Philadelphia, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> bhwp.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 104 future events through 2028 and every one is the weekly 'Gentle “Wild” Yoga' class led by the preserve's volunteer naturalist (17 inside 120 days), so the calendar is pure fitness. Venue 'Bowman's Hill Wildflower Preserve', 1635 River Road, no geo (Census-placeable). Booking is through FareHarbor (the event's website link); no price in the API."
+    },
+    {
+      "name": "Lehigh Gap Nature Center - guided hikes, ecology club, speaker series (Slatington, PA)",
+      "base_url": "https://lgnc.org",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Slatington",
+      "default_region": "PA",
+      "default_country": "US",
+      "venue": {
+        "name": "Lehigh Gap Nature Center",
+        "address": "8844 Paint Mill Road",
+        "city": "Slatington",
+        "region": "PA",
+        "postal_code": "18080",
+        "country": "US",
+        "lat": 40.7841565,
+        "lon": -75.6090353
+      },
+      "_metro": "Allentown, United States",
+      "_found": "manual:2026-10-23 nature-centre homepage sweep -> lgnc.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 23 future events (17 inside 120 days), none with a venue; every programme is at the centre's Osprey House (OSM way 415194154, tourism=nature_centre, 8844 Paint Mill Rd), so the block places them: the 10K Trail Run and 2-Mile Scamper, 'Take A Hike' Day guided hike, Ecology Club, Nature-minded Senior Sessions, the speaker series and a book club. Mixed nature and talks, so community.",
+      "skip_title": "Senior Sessions"
+    },
+    {
+      "name": "Run Wild Missoula - social group runs and community races (Missoula, MT)",
+      "base_url": "https://www.runwildmissoula.org",
+      "category": "running",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Missoula",
+      "default_region": "MT",
+      "default_country": "US",
+      "skip_title": "Office Closed",
+      "_metro": "Missoula, United States",
+      "_found": "manual:2026-10-23 RRCA club directory walk (rrca.org/club/*) -> runwildmissoula.org (The Events Calendar) -> tribe REST",
+      "_note": "Measured 2026-10-23: 14 events inside 120 days, timezone America/Denver, 11 with a street address in Missoula: the club's free social runs (Sole Mates from Caras Park, Dry Miles from the Pie Hole, Beer Runs from Bayern and Great Burn breweries, Queer Run), the Skeleton Skedaddle 5K, the Mount Jumbo Elk Ramble 15K, the Turkey Day 8K and a mountain-running film night. skip_title drops the office-closure row; the Queer Run and one Beer Run name no venue and stay unplaceable."
+    },
+    {
+      "name": "Conservatorio de Música de Puerto Rico - conciertos (San Juan, Puerto Rico)",
+      "base_url": "https://cmpr.edu",
+      "category": "music",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "PR",
+      "default_country": "PR",
+      "skip_title": "^Eventos Especiales$|Openhouse|Open House|[–-] (?:lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo), \\d{1,2} de ",
+      "venue": {
+        "name": "Conservatorio de Música de Puerto Rico",
+        "address": "951 Ave. Ponce de León",
+        "city": "San Juan",
+        "region": "PR",
+        "postal_code": "00907",
+        "country": "PR",
+        "lat": 18.4544886,
+        "lon": -66.0792225
+      },
+      "_metro": "San Juan, Puerto Rico",
+      "_found": "manual:2026-10-23 hand list of San Juan cultural institutions, fingerprinted (tribe+ics on cmpr.edu/eventos/)"
+    },
+    {
+      "name": "Universidad de Puerto Rico, Recinto de Río Piedras - actividades (San Juan, Puerto Rico)",
+      "base_url": "https://www.uprrp.edu",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "PR",
+      "default_country": "PR",
+      "include_categories": [
+        "actividades"
+      ],
+      "skip_title": "^(?:Último|Ultimo|Primer) día|Infosession|Webinar|Orientación de Programa|Taller El proceso para solicitar|Casa Abierta|Feria de Orientaci[oó]n",
+      "venue": {
+        "name": "Universidad de Puerto Rico, Recinto de Río Piedras",
+        "city": "San Juan",
+        "region": "PR",
+        "postal_code": "00931",
+        "country": "PR",
+        "lat": 18.4027697,
+        "lon": -66.0493902,
+        "names": [
+          "Recinto de Rio Piedras",
+          "Recinto de Río Piedras",
+          "Centro Universitario",
+          "Teatro UPR",
+          "Museo de Historia",
+          "Escuela de Derecho",
+          "Biblioteca",
+          "Plaza Universitaria",
+          "Facultad",
+          "Anfiteatro",
+          "Anf",
+          "Vestíbulo",
+          "AMO",
+          "REB"
+        ]
+      },
+      "_metro": "San Juan, Puerto Rico",
+      "_found": "manual:2026-10-23 hand list of San Juan cultural institutions, fingerprinted (tribe on uprrp.edu/calendario-de-actividades/)"
+    },
+    {
+      "name": "Royal Asiatic Society Korea Branch - lectures (Seoul)",
+      "base_url": "https://raskb.com",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "KR",
+      "skip_title": "^\\[(?:Cultural Excursion|Special Event)\\]",
+      "venue": {
+        "name": "FastFive Tower",
+        "address": "24 Namdaemun-ro 9-gil",
+        "city": "Seoul",
+        "region": "Seoul",
+        "postal_code": "04522",
+        "country": "KR",
+        "lat": 37.5670765,
+        "lon": 126.9810587,
+        "names": [
+          "FastFive Tower",
+          "FastFive"
+        ]
+      },
+      "_metro": "Seoul, South Korea",
+      "_found": "manual:2026-10-23 ledger ok (ics) but never configured; read through the tribe REST instead"
+    },
+    {
+      "name": "Teatro del Lago (Frutillar, Chile)",
+      "base_url": "https://teatrodellago.cl",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Frutillar",
+      "default_region": "Los Lagos",
+      "default_country": "CL",
+      "timezone": "America/Santiago",
+      "venue": {
+        "name": "Teatro del Lago",
+        "address": "Avenida Bernardo Philippi 1000",
+        "city": "Frutillar",
+        "region": "Los Lagos",
+        "postal_code": "5690000",
+        "country": "CL",
+        "lat": -41.1394537,
+        "lon": -73.0252738,
+        "names": [
+          "Teatro del Lago",
+          "Espacio Tronador"
+        ]
+      },
+      "_metro": "Puerto Montt, Chile",
+      "_found": "manual:2026-10-23 hand list of Chilean cultural centres, fingerprinted (tribe+ics on /agenda-eventos/)",
+      "skip_title": "Licitaci[oó]n"
+    },
+    {
+      "name": "Žvejų rūmai - Klaipėda city cultural centre (Klaipėda, Lithuania)",
+      "base_url": "https://zvejurumai.lt",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Žvejų rūmai",
+        "address": "Taikos pr. 70",
+        "city": "Klaipėda",
+        "postal_code": "93202",
+        "country": "LT",
+        "lat": 55.68222222,
+        "lon": 21.16138889
+      },
+      "_metro": "Klaipėda, Lithuania",
+      "_found": "manual:2026-10-23 Wikidata cultural centres in Lithuania (Q16479157) -> homepage probe -> The Events Calendar REST",
+      "_note": "Klaipėda municipality's culture centre (address from the site footer: Taikos pr. 70, 93202 Klaipėda). REST answered 55 upcoming events in 120 days (theatre, concerts, children's theatre festival 'Jaunatis', stand-up), all in its two halls ('Didžioji salė', 'Teatro salė') with no address or geo, so the venue block pins them at Wikidata Q16479157's point. Mostly ticketed (EUR 6.50-101). Site timezone reads UTC+0 but start_date is the wall clock (19:00 shows); the adapter reads it as local and the sync localises from the point. robots.txt allows /wp-json/."
+    },
+    {
+      "name": "Kuressaare kultuurikeskus - Kuressaare Cultural Centre (Saaremaa, Estonia)",
+      "base_url": "https://www.kultuurivara.ee",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kuressaare kultuurikeskus",
+        "address": "Tallinna 6",
+        "city": "Kuressaare",
+        "country": "EE",
+        "lat": 58.25291,
+        "lon": 22.48699
+      },
+      "_metro": "Kuressaare, Estonia",
+      "_found": "manual:2026-10-23 Wikidata cultural centres in Estonia (Q65260637) -> homepage probe -> The Events Calendar REST",
+      "_note": "The town's municipal culture house. REST: 8 upcoming events (theatre, concerts, a stand-up show), every one at venue 'Kuressaare kultuurikeskus, Tallinna 6' with no geo; venue point from Wikidata Q65260637 (P625). All ticketed (EUR 5-39); timezone Europe/Tallinn. Estonia had 2 curated sources."
+    },
+    {
+      "name": "Knjižnica Cirila Kosmača Tolmin - Tolmin library events (Tolmin, Slovenia)",
+      "base_url": "https://www.kcktolmin.si",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Knjižnica Tolmin",
+        "names": [
+          "Knjižnica Tolmin",
+          "Knjižnica Cirila Kosmača Tolmin"
+        ],
+        "address": "Tumov drevored 6",
+        "city": "Tolmin",
+        "postal_code": "5220",
+        "country": "SI",
+        "lat": 46.1832459,
+        "lon": 13.7316908
+      },
+      "_metro": "Tolmin, Slovenia",
+      "_found": "manual:2026-10-23 Wikidata libraries in Slovenia (Q49129455) -> homepage probe -> The Events Calendar REST",
+      "_note": "REST: 57 upcoming events (children's storytimes 'Pravljice z Lisico Mico', reading clubs, travelogues 'Povratna vozovnica', lectures), all free library programmes. Venues carry names only (no address or geo). The venue block is RESTRICTED by `names` to the Tolmin library, so its 28 rows pin there and the 29 at the Bovec and Kobarid branches stay coordless and are dropped rather than pinned 20 km away. The point is Photon's answer for 'Knjižnica Tolmin, Slovenia' in the ics adapter's dry run (address Tumov drevored 6 is the library's own, from its footer); Wikidata Q49129455 has no P625. The site's only linked iCal (/dogodki/?ical=1) is the month view (24 VEVENTs, 6 upcoming), which is why this is tribe."
+    },
+    {
+      "name": "Mikaeli - Mikkeli concert and congress hall (Mikkeli, Finland)",
+      "base_url": "https://mikaeli.fi",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mikaeli",
+        "address": "Sointukatu 1",
+        "city": "Mikkeli",
+        "postal_code": "50100",
+        "country": "FI",
+        "lat": 61.69093,
+        "lon": 27.25336
+      },
+      "_metro": "Mikkeli, Finland",
+      "_found": "manual:2026-10-23 Wikidata (Q56400253) -> homepage probe -> The Events Calendar REST",
+      "_note": "The city's concert hall: REST 41 upcoming (Mikkeli City Orchestra, touring concerts, entertainment, 6 for children), none with a venue, so the block (address and point from Wikidata Q56400253) pins all of them. Mostly ticketed. A cancelled show says so in its title ('/ peruttu'), which EventStore's notice rule refuses.",
+      "skip_title": "\\bperuttu\\b|\\bperuutettu\\b"
+    },
+    {
+      "name": "Centrum Łowicka - Mokotów culture centre (Warsaw)",
+      "base_url": "https://lowicka.pl",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centrum Łowicka",
+        "address": "ul. Łowicka 21",
+        "city": "Warszawa",
+        "postal_code": "02-502",
+        "country": "PL",
+        "lat": 52.199992,
+        "lon": 21.005381
+      },
+      "_metro": "Warsaw, Poland",
+      "_found": "manual:2026-10-23 Wikidata (Q140288071) -> homepage probe -> The Events Calendar REST",
+      "_note": "Mokotów district's culture centre (address from its footer: ul. Łowicka 21, 02-502 Warszawa). REST: 29 upcoming events in 120 days, none with a venue, so the block pins them at Wikidata Q140288071's point. Neighbours' breakfast, seniors' club concert, civil-protection workshop, family cooking-and-art Sundays, a chess blitz, theatre; most marked 'Bezpłatne' (free), a few PLN 30. Dry run 2026-10-23: 29 kept, all placed. The probe's earlier guess www.centrumlowicka.pl does not exist; the site is lowicka.pl.",
+      "skip_title": "sieciowanie"
+    },
+    {
+      "name": "Jasielski Dom Kultury (Jasło, Poland)",
+      "base_url": "https://jdkjaslo.pl",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jasielski Dom Kultury",
+        "address": "ul. Hugona Kołłątaja 1",
+        "city": "Jasło",
+        "postal_code": "38-200",
+        "country": "PL",
+        "lat": 49.744327,
+        "lon": 21.472755
+      },
+      "_metro": "Jasło, Poland",
+      "_found": "manual:2026-10-23 Wikidata (Q64700499) -> homepage probe -> The Events Calendar REST",
+      "_note": "The town's culture house and its Kino Syrena (same building). REST: 15 upcoming, none with a venue; block address and point from Wikidata Q64700499. A blood-donation drive, jam session, kids' jazz singalong, Saturday family mornings ('Sobota na Kołłątaja 1'), cabaret and touring concerts. Dry run 2026-10-23: 14 kept and placed."
     }
   ],
   "_not_included": {
