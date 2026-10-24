@@ -63,6 +63,15 @@ What is pinned is what the first real sweeps got wrong:
     discovered personal address is held, and is in no committed or public
     output; the programme words, the third follow, the platform link on a
     followed page and the probe version in the ledger are pinned too.
+  * A HOMEPAGE THE WALK ASKED IS WRITTEN DOWN (2026-10-23). 2,002 of 7,044
+    probes in three daily runs left no ledger row, so a resumed metro asked
+    them again (Berlin's second visit: about 500 of 2,443 probes). A find, a
+    4xx, a Crawl-delay past the cap and an unusable find park the homepage a
+    week (`found`, `probed`), never over a verify's row, and a home whose
+    calendar is configured is not asked again; a challenge, a 429 and a 5xx
+    are still not written. A jsonld listing that shows no event is a
+    no-calendar verdict, not a candidate that fails verify (154 such failures
+    in six daily runs). An older probe's verdict lapses at 60 days, not at once.
 """
 import json
 import re
@@ -1120,9 +1129,13 @@ def main():
           ("unreachable", []))
     check("a challenge on robots.txt is a challenge: tallied, not written",
           ("cf.example" in led7, sk7.get("bot-challenge")), (False, 1))
-    check("a Crawl-delay past the cap skips the page rather than asking it sooner",
-          ([u for u in sent if "slow.example" in u], "slow.example" in led7,
-           sk7.get("robots-crawl-delay")), ([], False, 1))
+    check("a Crawl-delay past the cap skips the page rather than asking it sooner, and "
+          "parks it `probed` for the week, which verify never reads",
+          ([u for u in sent if "slow.example" in u], (led7.get("slow.example") or {}).get("status"),
+           C._dead_recently(led7, "slow.example"), sk7.get("robots-crawl-delay")),
+          ([], "probed", False, 1))
+    check("...with the delay it asked for in the reason",
+          "Crawl-delay: 120" in (led7.get("slow.example") or {}).get("reason", ""), True)
     check("an origin with no robots.txt (404) is read as it always was",
           ((led7.get("open.example") or {}).get("status"),
            "https://open.example/" in sent), ("fail", True))
@@ -1278,6 +1291,8 @@ def main():
           "whichever probe finishes first", named, [["First Centre"], ["First Centre"]])
     check("...and the collision is tallied", sk9.get("same-calendar"), 1)
 
+    jsonld_evidence()
+    homepage_park(C)
     centre_calendars(C)
 
     print()
@@ -1339,6 +1354,12 @@ SIMCAL = ('<link rel="stylesheet" href="/wp-content/plugins/google-calendar-even
           'target="_blank" >Weitere Details anzeigen</a></li></div>')
 
 
+def _days_ago(C, n):
+    """The ledger's YYYYMMDD for `n` days before the walk's today."""
+    import datetime
+    return int((C._as_date(C._today_int()) - datetime.timedelta(days=n)).strftime("%Y%m%d"))
+
+
 class _Site:
     """A whole site from a dict of pages; anything else is unreachable."""
 
@@ -1355,6 +1376,176 @@ class _Site:
             status_code, url, text = 200, u, page
             headers = {"Content-Type": "text/html"}
         return _R()
+
+
+def jsonld_evidence():
+    """A jsonld find reaches verify only when the page that becomes its
+    listing shows the adapter an event (2026-10-23: 154 'no schema.org Event
+    blocks found' in 6 daily runs; 35 of 35 readable configured OSM jsonld
+    sources without an Event block pass the same test)."""
+    print()
+    print("a jsonld find is proposed only when its listing shows the adapter an event")
+    v = {"name": "Royal Room", "url": "https://rr.example", "kind": "music_venue",
+         "lat": 47.5, "lon": -122.3}
+    home = '<a href="/events/">Events</a>'
+
+    def probe(pages):
+        site = _Site(dict({"https://rr.example": home}, **pages))
+        return site, osm.find_calendar(site, "https://rr.example")
+
+    site, f = probe({"https://rr.example/events/": WPEM})
+    check("a plugin's listing with no Event block and no event link has no evidence",
+          (f["status"], f["adapter"], f["extra"].get("events_evidence")), ("ok", "jsonld", False))
+    check("...so it is not proposed, and the probe says why",
+          (osm.to_candidate(v, f), osm.why_no_candidate(f)),
+          (None, "jsonld-without-events(wp-event-manager)"))
+    check("...at no extra request", site.asked, ["https://rr.example", "https://rr.example/events/"])
+    linked = WPEM.replace("</body>", '<a href="https://rr.example/event/trio-reunion/">Trio</a></body>')
+    _s, f = probe({"https://rr.example/events/": linked})
+    c = osm.to_candidate(v, f)
+    check("one that links its events on its own host is proposed",
+          (f["extra"].get("events_evidence"), c and c["listing"]), (True, ["https://rr.example/events/"]))
+    check("...by the link_pattern it ships with, the one verify follows",
+          bool(c and re.search(c["link_pattern"], linked)), True)
+    _s, f = probe({"https://rr.example/events/": WPEM.replace(
+        "</body>", '<a href="/event/trio-reunion/">Trio</a></body>')})
+    check("a relative event link is not evidence: verify matches the pattern on the page as written",
+          f["extra"].get("events_evidence"), False)
+    _s, f = probe({"https://rr.example/events/": WPEM.replace(
+        "</body>", '<script type="application/ld+json">{"@context":"https://schema.org",'
+                   '"@type":"Event","name":"Trio","startDate":"2026-11-20T20:00"}</script></body>')})
+    check("an Event block on the listing is evidence on its own",
+          (f["extra"].get("events_evidence"), bool(osm.to_candidate(v, f))), (True, True))
+
+    print("  ...read off the page that BECOMES the listing, not the one in hand")
+    _s, f = probe({"https://rr.example/events/": WIX_SEA_MONSTER})
+    check("a Wix listing whose warmup data carries events", f["extra"].get("events_evidence"), True)
+    _s, f = probe({"https://rr.example/events/": WIX_NO_EVENTS})
+    check("a Wix page with no events, from a homepage with none, has none",
+          (f["extra"].get("events_evidence"), osm.why_no_candidate(f)),
+          (False, "jsonld-without-events(wix)"))
+    site = _Site({"https://www.teatrodelburatto.com/": WIX_HOME_PROGRAMME,
+                  "https://www.teatrodelburatto.com/programma": WIX_NO_EVENTS})
+    f = osm.find_calendar(site, "https://www.teatrodelburatto.com/")
+    check("the homepage a Wix page with no events gives way to is read for its own events",
+          (f["cal_url"], f["extra"].get("events_evidence")), ("https://www.teatrodelburatto.com/", True))
+    shows = '<a href="/shows/trio-reunion">Trio</a><a href="/shows/jazz-night">Jazz</a>'
+    site = _Site({"https://rr.example": '<a href="/shows/trio-reunion">Events</a>',
+                  "https://rr.example/shows/trio-reunion": WPEM, "https://rr.example/shows/": shows})
+    f = osm.find_calendar(site, "https://rr.example")
+    check("a parent _prefer_listing walked up to is evidence: the label came from an event page",
+          (f["cal_url"], f["extra"].get("events_evidence")), ("https://rr.example/shows/", True))
+    # ok-homepage: the plugin is on the homepage, and the listing is the first
+    # page the walk followed, whose body is gone by the time it is proposed.
+    plugin_home = WPEM.replace("</body>", '<a href="/whats-on/">Events</a></body>')
+    season = '<p>Our season</p><a href="https://rr.example/events/trio-reunion">Trio</a>'
+    for page, want in ((season, True), ("<p>Our season, in prose</p>", False)):
+        site = _Site({"https://rr.example": plugin_home, "https://rr.example/whats-on/": page})
+        f = osm.find_calendar(site, "https://rr.example")
+        check(f"  the first followed page as the listing, {'with' if want else 'without'} an event link",
+              (f["status"], f["cal_url"], f["extra"].get("events_evidence")),
+              ("ok-homepage", "https://rr.example/whats-on/", want))
+    for extra, want in (('<a href="https://rr.example/event/trio-reunion">Trio</a>', True), ("", False)):
+        site = _Site({"https://rr.example": plugin_home.replace("</body>", extra + "</body>")})
+        f = osm.find_calendar(site, "https://rr.example")
+        check(f"  the homepage as the listing when nothing it links answers, "
+              f"{'with' if want else 'without'} an event link",
+              (f["status"], f["cal_url"], f["extra"].get("events_evidence")),
+              ("ok-homepage", "https://rr.example", want))
+    check("a find built by hand, with no evidence read, is shaped as before",
+          bool(osm.to_candidate(v, {"adapter": "jsonld", "labels": ["wp-event-manager"],
+                                    "cal_url": "https://rr.example/events/"})), True)
+
+
+def homepage_park(C):
+    """Every homepage the walk asks is written down, except where the answer
+    was about the moment rather than the site. Measured 2026-10-23: 2,002 of
+    7,044 probes in runs 118, 121 and 123 left no ledger row, and Berlin's
+    second visit spent about 500 of 2,443 probes re-asking the first's homes."""
+    import contextlib
+    import io
+    print()
+    print("a homepage the walk asked is parked a week, whatever it answered")
+    ics = {"status": "ok", "adapter": "ics", "labels": ["ics"]}
+    answers = {
+        "https://found.example": dict(ics, cal_url="https://found.example/events/", ics="/events.ics"),
+        "https://configured.example": dict(ics, cal_url="https://configured.example/events/", ics="/cal.ics"),
+        "https://gone.example": {"status": "http404"},
+        "https://forbidden.example": {"status": "http403"},
+        "https://plugin.example": {"status": "ok", "adapter": "mylisting", "labels": ["mylisting"],
+                                   "cal_url": "https://plugin.example/explore/"},
+        "https://emptyld.example": {"status": "ok", "adapter": "jsonld", "labels": ["wp-event-manager"],
+                                    "cal_url": "https://emptyld.example/events/",
+                                    "extra": {"events_evidence": False}},
+        "https://busy.example": {"status": "http429"},
+        "https://down.example": {"status": "http503"},
+        "https://wall.example": {"status": "bot-challenge"},
+        "https://audited.example": {"status": "http404"},
+        "https://rooted.example": dict(ics, cal_url="https://rooted.example/", ics="/all.ics"),
+    }
+    seen = {C._canon("https://configured.example/cal.ics")}
+    led = {"audited.example": {"checked": _days_ago(C, 100), "status": "fail", "type": "jsonld",
+                               "reason": "http 404"},
+           "rooted.example": {"checked": _days_ago(C, 100), "status": "empty", "type": "tribe",
+                              "reason": "3 events / 0 future"}}
+    verify_rows = {k: dict(r) for k, r in led.items()}
+
+    def walk():
+        asked = []
+        real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+        C._save_ledger = lambda led: None
+        osm.metros = lambda: [{"name": "Parkton", "country": "GB", "bbox": (0, 0, 1, 1)}]
+        osm.overpass_venues = lambda sess, bbox, lab, **kw: [{"url": u, "name": u[8:]} for u in answers]
+        osm.find_calendar = lambda sess, url: asked.append(url) or dict(answers[url])
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                found, sk = C._discover_osm(C._session(), set(seen), led, 500, {},
+                                            metros_per_run=1, workers=1)
+        finally:
+            (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
+        return sorted(asked), found, sk
+
+    _a, found, sk = walk()
+    status = {k[:-8]: led[k].get("status") for k in led}
+    check("a find, a 4xx and an unusable find are written down; a 429, a 5xx and a challenge are not",
+          status, {"found": "found", "configured": "found", "gone": "probed", "forbidden": "probed",
+                   "plugin": "probed", "emptyld": "fail", "audited": "fail", "rooted": "empty"})
+    check("...a `found` row names its candidate's key, proposed or already configured",
+          (led["found.example"].get("cal_key"), led["configured.example"].get("cal_key"),
+           sorted(found), sk.get("configured")),
+          ("found.example/events.ics", "configured.example/cal.ics",
+           ["found.example/events.ics", "rooted.example/all.ics"], 1))
+    check("...a `probed` row says what it was",
+          [led[k]["reason"] for k in ("gone.example", "plugin.example")],
+          ["osm probe: http404", "osm probe: found-but-unusable: no-config-shape(mylisting)"])
+    check("...and neither is dead to verify, which reads only fail, empty and refused",
+          [C._dead_recently(led, k) for k in ("found.example", "gone.example", "plugin.example")],
+          [False, False, False])
+    check("a jsonld find with nothing on its listing is a no-calendar verdict, parked for DEAD_TTL",
+          ({k: led["emptyld.example"].get(k) for k in ("reason", "probe", "cal_url")},
+           C._dead_recently(led, "emptyld.example"),
+           sk.get("found-but-unusable: jsonld-without-events(wp-event-manager)")),
+          ({"reason": "osm probe: no-calendar", "probe": osm.PROBE_VERSION,
+            "cal_url": "https://emptyld.example/events/"}, True, 1))
+    check("a verify's row under the homepage's key is never overwritten, whatever the probe found",
+          {k: led[k] for k in verify_rows}, verify_rows)
+
+    asked, _f, sk = walk()
+    check("the next run asks only what was not written down, and the verify rows' homes",
+          asked, ["https://audited.example", "https://busy.example", "https://down.example",
+                  "https://rooted.example", "https://wall.example"])
+    check("...and says why it skipped the rest",
+          (sk.get("probed-recently"), sk.get("configured"), sk.get("known-dead")), (4, 1, 1))
+
+    for k, r in led.items():
+        if r.get("status") in ("found", "probed"):
+            r["checked"] = _days_ago(C, C.UNREACHABLE_TTL_DAYS)
+    asked, _f, sk = walk()
+    check("after the week every one is asked again, except a home whose calendar is configured",
+          [u[8:-8] for u in asked],
+          ["audited", "busy", "down", "forbidden", "found", "gone", "plugin", "rooted", "wall"])
+    check("...which stays answered for as long as it is", (sk.get("configured"), sk.get("probed-recently")),
+          (1, None))
 
 
 def centre_calendars(C):
@@ -1454,7 +1645,8 @@ def centre_calendars(C):
     osm.overpass_venues = lambda sess, bbox, lab, **kw: [dict(PH_VENUE)]
     osm.find_calendar = lambda sess, url: real_fc(
         _Site({"https://polishhome.org": PH_HOME, "https://polishhome.org/calendar/": PH_CAL}), url)
-    led, out = {"polishhome.org": {"checked": C._today_int(), "name": "Polish Home Association",
+    led, out = {"polishhome.org": {"checked": _days_ago(C, C.PROBE_REASK_DAYS),
+                                   "name": "Polish Home Association",
                                    "reason": "osm probe: no-calendar", "status": "fail",
                                    "type": "osm-venue"}}, io.StringIO()
     try:
@@ -1462,28 +1654,49 @@ def centre_calendars(C):
             found, sk = C._discover_osm(C._session(), set(), led, 500, {}, metros_per_run=1, workers=1)
     finally:
         (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
-    check("a no-calendar row an older probe wrote YESTERDAY no longer parks the centre",
+    check("a no-calendar row an older probe wrote 60 days ago no longer parks the centre",
           [cc.get("url") for cc in found.values()], [G.ical_url(PH_ID)])
-    check("...and the homepage's row now says what this probe saw, parking nothing",
-          {k: led["polishhome.org"].get(k) for k in ("status", "reason", "probe")},
-          {"status": "found", "reason": "osm probe: found ics", "probe": osm.PROBE_VERSION})
+    check("...and the homepage's row now says what this probe saw, and which calendar",
+          {k: led["polishhome.org"].get(k) for k in ("status", "reason", "probe", "cal_key", "checked")},
+          {"status": "found", "reason": "osm probe: found ics", "probe": osm.PROBE_VERSION,
+           "cal_key": C._canon(G.ical_url(PH_ID)), "checked": C._today_int()})
     check("...so neither the walk nor verify treats it as dead", C._dead_recently(led, "polishhome.org"), False)
     check("...and a group calendar is proposed as it is, with no _home", "_home" in next(iter(found.values())), False)
-    stamped = dict(led["polishhome.org"], checked=20261001)
-    led2 = {"polishhome.org": dict(stamped)}
-    C._save_ledger = lambda led: None
-    osm.metros = lambda: [{"name": "Seattle", "country": "US", "country_name": "United States",
-                           "bbox": (0, 0, 1, 1)}]
-    osm.overpass_venues = lambda sess, bbox, lab, **kw: [dict(PH_VENUE)]
-    osm.find_calendar = lambda sess, url: real_fc(
-        _Site({"https://polishhome.org": PH_HOME, "https://polishhome.org/calendar/": PH_CAL}), url)
-    try:
-        with contextlib.redirect_stdout(io.StringIO()):
-            C._discover_osm(C._session(), set(), led2, 500, {}, metros_per_run=1, workers=1)
-    finally:
-        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
-    check("...and a `found` row is left as it was on the next pass (no ledger churn)",
-          led2["polishhome.org"], stamped)
+
+    def _again(ledger, seen=frozenset()):
+        asked = []
+        C._save_ledger = lambda led: None
+        osm.metros = lambda: [{"name": "Seattle", "country": "US", "country_name": "United States",
+                               "bbox": (0, 0, 1, 1)}]
+        osm.overpass_venues = lambda sess, bbox, lab, **kw: [dict(PH_VENUE)]
+        osm.find_calendar = lambda sess, url: asked.append(url) or real_fc(
+            _Site({"https://polishhome.org": PH_HOME, "https://polishhome.org/calendar/": PH_CAL}), url)
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                again, sk_again = C._discover_osm(C._session(), set(seen), ledger, 500, {},
+                                                  metros_per_run=1, workers=1)
+        finally:
+            (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
+        return asked, again, sk_again
+    # A `found` home is parked for a week: a metro the deadline cut short is
+    # resumed the next run, and Berlin's second visit spent ~500 of its 2,443
+    # probes re-asking homes the first had answered (2026-10-23).
+    fresh = dict(led["polishhome.org"])
+    led2 = {"polishhome.org": dict(fresh)}
+    asked, again, sk2 = _again(led2)
+    check("a `found` home is not asked again within the week, and the row is left as it was",
+          (asked, again, sk2.get("probed-recently"), led2["polishhome.org"]), ([], {}, 1, fresh))
+    led2 = {"polishhome.org": dict(fresh, checked=_days_ago(C, C.UNREACHABLE_TTL_DAYS))}
+    asked, again, _sk = _again(led2)
+    check("...after the week it is asked again, and the week starts again",
+          (asked, list(again), led2["polishhome.org"]["checked"]),
+          (["https://polishhome.org"], [C._canon(G.ical_url(PH_ID))], C._today_int()))
+    # Once its calendar is configured the home is answered for as long as it
+    # is: the community walk's post-probe `configured` tally was 91-170 a run.
+    led2 = {"polishhome.org": dict(fresh, checked=_days_ago(C, 200))}
+    asked, again, sk2 = _again(led2, seen={C._canon(G.ical_url(PH_ID))})
+    check("a `found` home whose calendar is configured is never asked again, however old",
+          (asked, again, sk2.get("configured"), sk2.get("probed-recently")), ([], {}, 1, None))
     check("...and the key is in none of the log, the candidates or the ledger",
           [FAKE_SITE_KEY in s for s in (out.getvalue(), json.dumps(found), json.dumps(led))],
           [False, False, False])
@@ -1668,25 +1881,33 @@ def centre_calendars(C):
     print("the ledger says which probe gave up, so a better one asks again")
     old_row = {"checked": C._today_int(), "name": "Hall", "reason": "osm probe: no-calendar",
                "status": "fail", "type": "osm-venue"}
-    led = {"old.example": dict(old_row), "new.example": dict(old_row, probe=osm.PROBE_VERSION),
-           "off.example": dict(old_row, reason="osm probe: offsite:eventbrite"),
+    aged = _days_ago(C, C.PROBE_REASK_DAYS)
+    led = {"old.example": dict(old_row, checked=aged), "new.example": dict(old_row, probe=osm.PROBE_VERSION),
+           "off.example": dict(old_row, reason="osm probe: offsite:eventbrite", checked=aged),
            "ver.example": {"checked": C._today_int(), "status": "fail", "type": "jsonld",
                            "reason": "no schema.org Event blocks found"}}
     led.update({"offnew.example": dict(old_row, reason="osm probe: offsite:eventbrite", probe=osm.PROBE_VERSION),
-                "ref.example": dict(old_row, reason="osm probe: robots.txt Disallow: /", status="refused")})
-    check("a no-calendar row an older probe wrote has lapsed", C._dead_recently(led, "old.example"), False)
+                "ref.example": dict(old_row, reason="osm probe: robots.txt Disallow: /", status="refused"),
+                "young.example": dict(old_row, checked=_days_ago(C, C.PROBE_REASK_DAYS - 1)),
+                "youngoff.example": dict(old_row, reason="osm probe: offsite:eventbrite",
+                                         checked=_days_ago(C, 12))})
+    check("a no-calendar row an older probe wrote has lapsed at 60 days", C._dead_recently(led, "old.example"), False)
     check("...one this probe wrote has not", C._dead_recently(led, "new.example"), True)
     check("...an offsite verdict an older probe wrote has lapsed too: the probe reads more before "
           "it says offsite", C._dead_recently(led, "off.example"), False)
     check("...but not one this probe wrote, a robots.txt refusal or a verify's",
           [C._dead_recently(led, k) for k in ("offnew.example", "ref.example", "ver.example")], [True, True, True])
+    # Re-asked v1 rows verified 1.0% (99 of 9,898) against 3.0-4.7% per probe
+    # on new ground (2026-10-23), so the new ground goes first.
+    check("...nor an older probe's verdict younger than 60 days: new ground goes first",
+          [C._dead_recently(led, k) for k in ("young.example", "youngoff.example")], [True, True])
     real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
     asked = []
     C._save_ledger = lambda led: None
     osm.metros = lambda: [{"name": "Hallton", "country": "GB", "bbox": (0, 0, 1, 1)}]
     osm.overpass_venues = lambda sess, bbox, lab, **kw: [
         {"url": f"https://{h}", "name": h, "kind": "community_centre"}
-        for h in ("old.example", "new.example", "home.example", "redir.example")]
+        for h in ("old.example", "new.example", "young.example", "home.example", "redir.example")]
     GEMBED = "https://calendar.google.com/calendar/embed?src=someone%40gmail.com"
 
     def _fc(sess, url):
@@ -1716,7 +1937,7 @@ def centre_calendars(C):
     print("verify asks the walk's question, so a lapsed row does not drop the walk's find")
     hall = {"type": "tribe", "name": "Hall", "category": "community", "base_url": "https://hall.example.org",
             "_found": "osm:community_centre -> tribe"}
-    lapsed = {"checked": C._today_int() - 10, "name": "Hall", "status": "fail",
+    lapsed = {"checked": _days_ago(C, C.PROBE_REASK_DAYS), "name": "Hall", "status": "fail",
               "reason": "osm probe: no-calendar", "type": "osm-venue"}
     vled = {"hall.example.org": dict(lapsed)}
     tmp2 = tempfile.mkdtemp(prefix="osm-verify-")
@@ -1740,6 +1961,9 @@ def centre_calendars(C):
           ("known-dead" in said, [e["name"] for e in passed]), (False, ["Hall"]))
     said, _p = _verify([hall], {"hall.example.org": dict(lapsed, probe=osm.PROBE_VERSION)})
     check("...while one this probe wrote still is", "known-dead" in said, True)
+    said, _p = _verify([hall], {"hall.example.org": dict(lapsed, checked=_days_ago(C, 10))})
+    check("...and so is an older probe's under 60 days old, as the walk would have said",
+          "known-dead" in said, True)
 
     print()
     print("a personal address is held, and is in nothing committed or public")
@@ -1779,6 +2003,10 @@ def centre_calendars(C):
           (True, True, False))
     said, _p = _verify(hc, hled, api_key="test-key")
     check("verify does not ask again for one the owner already has", "held for the owner" in said, True)
+    check("the homepage's `found` row names the held calendar by its hash, never its address",
+          (hled.get("ada.example") or {}).get("cal_key"), hkey)
+    # Past the homepage's week, so the walk reaches the held list at all.
+    hled["ada.example"]["checked"] = _days_ago(C, C.UNREACHABLE_TTL_DAYS)
     osm.metros = lambda: [{"name": "Vienna", "country": "AT", "country_name": "Austria", "bbox": (0, 0, 1, 1)}]
     osm.overpass_venues = lambda sess, bbox, lab, **kw: [
         {"name": "An Arts Association", "url": "https://ada.example", "kind": "community_centre",
