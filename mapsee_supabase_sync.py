@@ -2002,26 +2002,39 @@ _DURATION_H = {
 }
 
 
-def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: str) -> Optional[str]:
-    """The event's end time: the source's REAL end when we have one, otherwise
-    start + a category-typical duration (an educated guess). Robust to date-only
-    and non-ISO times, which fall back to an all-day (end-of-day) end.
+def _real_end(starts_at: Optional[str], end: Optional[str]) -> Optional[str]:
+    """The source's end, or None when it is no end at all.
 
     AN END AT OR BEFORE THE START IS NO END. Measured 2026-10-23 over 5,880
     live rows in 12 metros: 30 ended at the minute they started (Seattle 17:
     Town Hall 10, the City Council's calendar 7; Berlin 10), so they left the
     map as they began, and 3 berlin.de rows on the DST day ended at 00:00Z
     before a 15:30-19:45Z start, gone 15.5-19.75 h early. Only when both stamps
-    carry a zone; a naive or unparseable pair is passed through as before."""
+    carry a zone; a naive or unparseable pair is passed through as before.
+
+    ONE RULE, TWO READERS: _compute_end writes a default end in its place, and
+    time_changed must then not compare it, or every such row reads as a new
+    time on every daily --only-new run once the refresh has stored the default."""
+    if not end:
+        return None
+    try:
+        st = datetime.fromisoformat(str(starts_at).strip().replace("Z", "+00:00"))
+        en = datetime.fromisoformat(str(end).strip().replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return end
+    if st.tzinfo is not None and en.tzinfo is not None and en <= st:
+        return None
+    return end
+
+
+def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: str) -> Optional[str]:
+    """The event's end time: the source's REAL end when we have one, otherwise
+    start + a category-typical duration (an educated guess). Robust to date-only
+    and non-ISO times, which fall back to an all-day (end-of-day) end. An end
+    at or before the start is no end (_real_end)."""
+    real_end = _real_end(starts_at, real_end)
     if real_end:
-        try:
-            st = datetime.fromisoformat(str(starts_at).strip().replace("Z", "+00:00"))
-            en = datetime.fromisoformat(str(real_end).strip().replace("Z", "+00:00"))
-            inverted = st.tzinfo is not None and en.tzinfo is not None and en <= st
-        except (TypeError, ValueError):
-            inverted = False
-        if not inverted:
-            return real_end
+        return real_end
     if not starts_at:
         return None
     s = str(starts_at).strip()
@@ -3207,7 +3220,10 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
         return False
     if ours != theirs:
         return True
-    if end and "ends_at" in detail:                   # only a REAL end; a default follows start
+    # Only a REAL end; a default follows start. That includes an end at or
+    # before the start, which to_row replaces with a default (_real_end).
+    end = _real_end(start, end)
+    if end and "ends_at" in detail:
         ours, theirs = _utc(end), _utc(detail.get("ends_at"))
         return ours is not None and theirs is not None and ours != theirs
     return False

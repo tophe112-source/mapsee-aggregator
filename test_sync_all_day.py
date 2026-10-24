@@ -119,6 +119,27 @@ def main():
     checks.append((end == "2026-10-24T09:00:00",
                    f"a naive pair is passed through as before, not guessed at ({end})"))
 
+    # ---- 8. ...and time_changed reads it the same way. Once the Wednesday
+    # refresh stores the default end, comparing the source's raw end with it
+    # would read as a new time on every daily --only-new run, for good.
+    for label, cat, start, end_, lat, lon in [
+        ("an end AT the start (Town Hall)", "community", "2026-10-28T02:30:00Z", "2026-10-28T02:30:00Z", *SEATTLE),
+        ("an end before the start (berlin.de)", "arts", "2026-10-25T15:30:00Z", "2026-10-25T00:00:00Z", *BERLIN),
+    ]:
+        rec = {"name": "x", "category": cat, "latitude": lat, "longitude": lon,
+               "fingerprint": "fp", "start_utc": start, "end_utc": end_}
+        r = S.to_row(rec, HOST)
+        stored = {"starts_at": r["starts_at"], "ends_at": r["ends_at"]}
+        checks.append((S.time_changed(rec, stored) is False,
+                       f"{label}, stored with its default end {r['ends_at']}, is not a time change"))
+        moved = dict(rec, start_utc="2026-10-28T03:30:00Z" if cat == "community" else "2026-10-25T16:30:00Z")
+        checks.append((S.time_changed(moved, stored) is True,
+                       f"...but the same row an hour later still is"))
+    rec = {"name": "x", "category": "community", "latitude": SEATTLE[0], "longitude": SEATTLE[1],
+           "fingerprint": "fp", "start_utc": "2026-10-28T02:30:00Z", "end_utc": "2026-10-28T05:00:00Z"}
+    checks.append((S.time_changed(rec, {"starts_at": "2026-10-28T02:30:00Z", "ends_at": "2026-10-28T04:30:00Z"}) is True,
+                   "a REAL end after the start that moved is still a time change"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1
