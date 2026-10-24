@@ -3751,6 +3751,8 @@ _ISO_COUNTRY = {
     "AR": "Argentina", "AW": "Aruba", "CL": "Chile", "DO": "Dominican Republic",
     "IL": "Israel", "LV": "Latvia", "MQ": "Martinique", "PR": "Puerto Rico",
     "RO": "Romania",
+    # The 2026-10-23 targeted batch: Kuressaare kultuurikeskus (Saaremaa).
+    "EE": "Estonia",
 }
 # The same table read the other way, for a suffix that spells the country out.
 # Built rather than written, so the two can never disagree.
