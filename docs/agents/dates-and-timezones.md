@@ -164,3 +164,13 @@
   four rides on 8/1, leaving a "Silent Auction Gala" on 11/8, which was written
   as an 11/8 fitness event. A race with typed sub-events none of which is
   upcoming is refused (1 of 3,274). `python test_ingest_runsignup.py`.
+
+- **MORE WORDPRESS SITES STAMP THE WALL CLOCK AS UTC, AND ONE AS MOSCOW.**
+  2026-10-23: Randall's Island Park Alliance (tribe REST timezone 'UTC+0';
+  the 10:00 volunteer day is `DTSTART;TZID=UTC:...T100000`) and Oxford Urban
+  Wildlife Group (Events Manager: 10:30 on the page is 103000Z in June and in
+  October) both take `utc_is_wall_clock`. Vesanto's site is set to a fixed
+  UTC+3, so its export says `TZID=Europe/Moscow` over Finnish wall-clock time;
+  `wall_clock_tzids: ["Europe/Moscow"]` reads it right. Fixed-offset tribe
+  zone strings ('UTC-6', 'UTC-8') are harmless: the sync localises a naive
+  start from the coordinates, not from that string.

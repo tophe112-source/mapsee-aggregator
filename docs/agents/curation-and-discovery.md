@@ -1555,3 +1555,41 @@
   contain an @gmail.com id. amenity=social_centre is a selector now, and the
   pinned community walk (community_centre, library, social_centre) kept its place
   (US:Kansas City, 205 of 261).
+
+- **A HAND-TARGETED BATCH PAYS WHERE THE SWEEP CANNOT REACH, AND A DIRECTORY IS
+  THE INPUT THAT PAYS.** 2026-10-23: six agents, one thin cell each (volunteer,
+  kids, running/outdoors, continental Europe, Latin America/Asia-Pacific,
+  Eastern Europe/MEA), each candidate then read by a second agent told to refute
+  it. 97 proposed, 87 kept, 85 passed `verify` plus 2 Mapas Culturais registers.
+  Yield per input: about 300 volunteer-organisation homepages gave 10 (3%); the
+  RRCA club directory (947 club pages, 821 hosts) gave 6 run clubs, because the
+  norm is a club with no venue (NY Flyers 0 of 50 events with one, Mountain
+  Club of Maryland 0 of 158); 85 children's-museum and science-centre homepages
+  gave 22 fingerprints and 8 survivors once the titles were read (standing daily
+  rows, planetarium shows, stale exports); 57 zoos, aquaria and botanic gardens
+  gave nothing worth a row (Lincoln Park Zoo 53 of 58 'Fall Fest'); Wikidata
+  institutions with an official website (library Q7075, cultural centre
+  Q1329623, P856) gave 3,066 hosts in no config or ledger, about 70
+  fingerprints and 15 sources. Homepages picked by hand: 1 in 300. Small Finnish
+  municipalities run their whole calendar on The Events Calendar (4 of 4 found
+  were in no ledger row), so the civic walk has not reached Finland's ~300.
+
+- **MOST OPENAGENDA AGENDAS ARE DEAD, AND A LIVE ONE IS OFTEN ONE SERVICE.**
+  2026-10-23: 451 of 541 agendas matched by keyword (83%) and 87 of 96 found by
+  city name had no future event. Of the live ones, '14e quartiers populaires'
+  is 128 of 192 timings at France Services desks. Count distinct titles, not
+  timings. Agendas overlap: the Association des communes genevoises agenda
+  holds 963 of the City of Geneva's 1,119 events, all 21 of Onex's and all 38
+  of the libraries', while Vernier (0 of 70) and Nyon (1 of 72) are not in it.
+  The search API (`openagenda.com/api/agendas?search=`) answers keyless and
+  robots.txt allows it; the export is `/agendas/<id>/events.v2.ics`.
+
+- **A LEDGER `ok` ROW THAT NO CONFIG HOLDS IS USUALLY A DECISION, NOT LOST
+  WORK.** 2026-10-24: 268 ok rows had no config key. 154 are declined in a
+  `_not_included`; 71 were configured once and removed by a later commit (46 by
+  the split of capped library feeds into branch groups); 43 were never
+  configured, mostly hand decisions of the 2026-10-04 batch (Restarters'
+  `group-area/<place>` spellings mirror its `network/<id>` feeds 29 of 29, 79 of
+  79, 74 of 74). Re-merging from the ledger would bring the mirrors back. A
+  candidate a reviewer refused leaves no status of its own, so the reason lives
+  only in a `_not_included` entry or a commit message.

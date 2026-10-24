@@ -132,3 +132,33 @@ beside a 5.00 km My Map; RaceJoy's KML says "Route For: 5K").
 | RaceJoy (`triperta-web1.racejoy.com`) | **allowed, terms unread** | robots.txt 404; the KML name is read from inline JavaScript on a legacy host. 0 of 20 random non-walk races had a RaceJoy course page |
 | MapMyRun, Strava, OnTheGoMap, AllTrails, Garmin Connect, Plotaroute | **refused or barred** | Strava: robots disallows `/routes/*/export` and its API agreement bars showing other users' data. MapMyRun: the terms sit behind a robots-disallowed login and the API's terms forbid extraction. OnTheGoMap and AllTrails: terms forbid automated use. Garmin: `Disallow: /modern/`. Plotaroute: Cloudflare 403 |
 | A trail DERIVED from the listing's words (OSM) | **not built** | 17 of 224 walks name a trail; under a strict name-and-radius gate 5 pass and only 2 could be drawn as the walk; 23 of 40 walks that name no trail sit within 2 km of an unrelated hiking route. Overpass reset every connection from the sandbox |
+
+Volunteer, kids, outdoors and thin-country sources, surveyed 2026-10-23 by
+six agents (production User-Agent, robots.txt read first, at most one request
+a second per host, nothing retried after a refusal). What was added is in
+`curation-and-discovery.md`; this is what refused, and what needs an adapter.
+
+| Platform | Result | What it means |
+|---|---|---|
+| The Conservation Volunteers (tcv.org.uk) | **terms forbid republishing** | robots allows `/events/`, but the terms limit material to "your own private use" and forbid republishing. The UK's largest practical-volunteering calendar |
+| UK national park authorities (Peak District, Exmoor, Dartmoor, North York Moors, Broads) | **bot challenge on robots.txt** | every one challenges `/robots.txt` itself. Wildlife Trusts, Royal Parks, Butterfly Conservation, RSPB and South Downs have no usable feed (no Event JSON-LD, or date only). UK outdoors stays thin |
+| reparatur-initiativen.de (anstiftung, Germany's repair initiatives) | **robots.txt answers 403** | permission cannot be established; its nationwide `events.ics` is mirrored by blog.vonmorgen.org, which was not read in its place |
+| natuurpunt.be, ivn.nl | **challenge; `Disallow: /*?`** | natuurpunt challenges robots.txt; ivn.nl's rule covers every `?ical=1` and REST query on all branch sites |
+| ClubExpress (cycling clubs) | **HTTP 403** | 118-byte refusal to the production UA |
+| Tree Trust, Western Reserve Land Conservancy, Scissortail Park, Lake Erie Nature & Science Center, Airlie Gardens | **robots.txt refuses the feed path** | `Disallow: /*?` covers both the Tribe REST query and `?ical=1`; riverlegacy.org disallows `/wp-json/` |
+| DSE Runners (SF) | **robots.txt refuses** | `Disallow: /*controller=ai1ec_exporter_controller*`, the All-in-One Event Calendar export |
+| Mapa da Cultura, Cultura Viva, Rede das Artes (Brazil, federal) | **bot challenge** | `/api/eventOccurrence/find` answers a Cloudflare 403; Belo Horizonte answers 403 'Acesso Bloqueado'; Iguatu `Disallow: /` |
+| National CKAN portals of Chile, Argentina, Uruguay, Bogotá | **robots.txt refuses `/api/`** | not proposed; the ckan exemption is the owner's call per portal |
+| Digiregion 'Obecní síť' Czech village sites | **terms forbid reuse; unplaceable** | footer 'Použití obsahu bez svolení autora zakázáno'; 7 of 7 and 9 of 9 VEVENTs have an empty LOCATION |
+| Galaxy Digital 'Get Connected', Better Impact, Humanitix | **not probed for terms; no adapter** | rich in dated volunteer shifts with places (volunteer.portland.gov's 'Rose City Bluff Restoration' every Sunday 9:30); each needs its terms read and an adapter |
+
+Leads that need an adapter option, not a config (measured 2026-10-23):
+Texas Parks & Wildlife's iCal holds 563 state-park programmes inside 120 days
+with no LOCATION, but every URL carries the park slug, so a URL-prefix-to-venue
+option would place them; Shift2Bikes' 184 rides put 'Name\nStreet, City\nnotes'
+in LOCATION, which the ics adapter joins into one Photon query (10 of ~150
+placed); Today's Family (Hamilton, Ontario, 2,462 drop-in rows) and Libraries
+Unlimited (Devon, 311 rows) are tribe sites whose venues carry an address and
+no geo, which no geocoder reaches outside the US; Tartu Kultuuriaken (152
+upcoming) prints UTC JSON-LD without an offset; KČT's hiking calendar (1,057
+future hikes) is an inline FullCalendar array.

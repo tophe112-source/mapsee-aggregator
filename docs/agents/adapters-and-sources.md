@@ -652,3 +652,31 @@
   turned out to be elsewhere. The Urban League feed was misfiled as Rainier Beach
   Community Center (0 of its 30 VEVENTs are there). `python
   test_ics_venue_location.py`.
+
+- **COMMUNICO'S FEED IGNORES ITS OWN `days` FILTER, SO THE 500 CAP IS SPENT ON
+  WHATEVER COMES BACK.** 2026-10-23: per-location `/feeds?data=` exports return
+  rows through 2030 (Palisades: 168 'Friends Book Sale' rows), and DC Public
+  Library's all-branch feed reached 17 days. Eight feeds filtered by location
+  id (ids from `api.communico.co/v1/<tenant>/locations`, which answers;
+  `/ages` answers 405) kept 2,438 rows where one feed kept 500. A location
+  record can carry GEO 0;0 (Lamond-Riggs, 66 rows), which `location_overrides`
+  fixes.
+
+- **A FEED THAT REUSES ONE UID FOR A WHOLE SERIES LOSES ALL BUT ONE DATE.**
+  Repair Cafe Toronto's iCal puts 9 dates under one UID with no RECURRENCE-ID;
+  the store keys rows on the UID, so 31 kept VEVENTs became 18 rows
+  (2026-10-23). Not proposed until the adapter keys a repeated UID by its date.
+
+- **TWO GANCIO CONFIGS CAN BE ONE CALENDAR, AND THE ADAPTER COUNTS IT TWICE.**
+  rheinmain.social and fomo.rheinmain.social both redirect to
+  events.rheinmain.social: 145 of 145 title+start pairs identical on
+  2026-10-23, written under two source_ids because rows are keyed on
+  `base_url`. One retired 2026-10-24. Follow a candidate's redirect before
+  merging it.
+
+- **THE JSON-LD ADAPTER HAS NO CRAWL-DELAY, SO A SITE THAT ASKS FOR ONE IS
+  CLOSED TO IT.** Askim Kulturhus (Crawl-delay 10, 53 program pages, 50
+  upcoming), Ælvespeilet (Crawl-delay 5, 57) and the bibliotek.io library
+  platform (Crawl-delay 20, place is the library name only) all carry correct
+  Event JSON-LD and were not proposed (2026-10-23); `mapsee_ingest_jsonld.py`
+  paces at about 1 s.

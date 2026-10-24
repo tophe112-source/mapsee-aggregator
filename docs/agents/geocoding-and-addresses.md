@@ -183,3 +183,14 @@
   title/date/original-LOCATION fingerprint stay intact. This is one confirmed
   room string, not a rule for all 15 branches; do not infer an address for a
   different branch or room.
+
+- **ABROAD, PHOTON ANSWERS A BARE SUBURB OR A PROVINCE-CITY WITH ANOTHER CITY,
+  AND A VENUE BLOCK WITH ALIASES IS THE FIX.** 2026-10-23: '53 Wellington
+  Street, Hamilton East, Hamilton 3216, New Zealand' came back in Wellington
+  and '43 Church Road, Pukete, Hamilton 3200' in Vancouver (2 of 6 rows); in
+  Córdoba, a province and a city, 'Maipú 671' landed about 180 km away (4 of 17
+  rows more than 10 km off); Barranquilla venue names put 5 events on a
+  hardware shop. Strings that name a hall and a room before the street
+  ('Dom kulture ..., dvorana, Mestni trg 4') come back empty. A venue block
+  with `aliases` and a `street_hint` placed 14 of 14 rows in Slovenske Konjice
+  and 16 in Kutno without Photon.
