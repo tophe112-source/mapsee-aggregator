@@ -72,6 +72,10 @@ What is pinned is what the first real sweeps got wrong:
     are still not written. A jsonld listing that shows no event is a
     no-calendar verdict, not a candidate that fails verify (154 such failures
     in six daily runs). An older probe's verdict lapses at 60 days, not at once.
+    And a parked home costs nothing else (review, 2026-10-24): every find is
+    written out, past --limit too (3 of 5 were cut with --limit 2 and four
+    workers), a held calendar configured by hand answers its home, and a
+    lapsed offsite row keeps its organizer link through a 4xx or a timeout.
 """
 import json
 import re
@@ -1293,6 +1297,7 @@ def main():
 
     jsonld_evidence()
     homepage_park(C)
+    homepage_park_edges(C)
     centre_calendars(C)
 
     print()
@@ -1546,6 +1551,129 @@ def homepage_park(C):
           ["audited", "busy", "down", "forbidden", "found", "gone", "plugin", "rooted", "wall"])
     check("...which stays answered for as long as it is", (sk.get("configured"), sk.get("probed-recently")),
           (1, None))
+
+
+def homepage_park_edges(C):
+    """What a parked homepage must not cost. Review, 2026-10-24: with
+    --limit 2 and 4 workers the walk found 5 calendars, parked all 5 homes
+    and cmd_discover wrote 2, so 3 were never verified and the resumed metro
+    skipped them; a jsonld park wrote over a verify's row; and a 403 on a
+    lapsed offsite verdict erased the organizer link `ledger --offsite`
+    lists."""
+    import contextlib
+    import io
+    import os
+    import tempfile
+    print()
+    print("a parked homepage costs no calendar, no verify row and no offsite link")
+
+    def walk(venues, answer, led, seen=(), declined=()):
+        asked = []
+        real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger, C._not_included)
+        C._save_ledger = lambda led: None
+        C._not_included = lambda fname: set(declined) if fname == "ics_sources.json" else set()
+        osm.metros = lambda: [{"name": "Parkton", "country": "GB", "bbox": (0, 0, 1, 1)}]
+        osm.overpass_venues = lambda sess, bbox, lab, **kw: [{"url": u, "name": u[8:]} for u in venues]
+        osm.find_calendar = lambda sess, url: asked.append(url) or dict(answer(url))
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                _f, sk = C._discover_osm(C._session(), set(seen), led, 500, {},
+                                         metros_per_run=1, workers=1)
+        finally:
+            (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger,
+             C._not_included) = real
+        return asked, sk
+
+    # THE WALK'S FINDS ARE WRITTEN OUT WHOLE. It stops starting probes at the
+    # limit and the four already running settle, every one parking its home.
+    venues = [f"https://v{i}.example" for i in range(8)]
+    led, tmp = {}, tempfile.mkdtemp(prefix="osm-limit-")
+    out = os.path.join(tmp, "cand-osm.json")
+
+    def discover(limit):
+        real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger, C._load_ledger,
+                C._config_keys, C.curated_categories, C._load_cursor, C._save_cursor,
+                C.OSM_PROBE_WORKERS)
+        C._save_ledger = lambda l: None
+        C._load_ledger = lambda: led
+        C._config_keys = lambda: set()
+        C.curated_categories = lambda session=None: ["music"]
+        C._load_cursor = lambda: {}
+        C._save_cursor = lambda cur: None
+        C.OSM_PROBE_WORKERS = 4
+        osm.metros = lambda: [{"name": "Parkton", "country": "GB", "bbox": (0, 0, 1, 1)}]
+        osm.overpass_venues = lambda sess, bbox, lab, **kw: [{"url": u, "name": u[8:]} for u in venues]
+        osm.find_calendar = lambda sess, url: {"status": "ok", "adapter": "ics", "labels": ["ics"],
+                                               "cal_url": url + "/events/", "ics": "/events.ics"}
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                C.cmd_discover(limit=limit, out=out, backend="osm", metros=1)
+        finally:
+            (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger, C._load_ledger,
+             C._config_keys, C.curated_categories, C._load_cursor, C._save_cursor,
+             C.OSM_PROBE_WORKERS) = real
+        return [C._canon(C._key_of(c)) for c in json.load(open(out, encoding="utf-8"))]
+
+    first = discover(2)
+    parked = sorted(r["cal_key"] for r in led.values() if r.get("status") == "found")
+    check_true(f"the walk can settle past --limit 2 with four probes running ({len(first)} found)",
+               2 < len(first) <= 2 + 4 - 1)
+    check("...and every calendar whose home it parked is written out for verify",
+          sorted(first), parked)
+    second = discover(500)
+    check("...so the resumed metro and the first run between them propose every calendar once",
+          sorted(first + second), sorted(f"v{i}.example/events.ics" for i in range(8)))
+
+    # A home whose calendar is DECLINED stays answered, as a configured one does.
+    led = {"declined.example": {"checked": _days_ago(C, C.UNREACHABLE_TTL_DAYS), "status": "found",
+                                "type": "osm-venue", "cal_key": "declined.example/cal.ics",
+                                "reason": "osm probe: found ics", "name": "declined.example"}}
+    asked, sk = walk(["https://declined.example"], lambda u: {"status": "no-calendar"}, led,
+                     declined={"declined.example/cal.ics"})
+    check("a home whose calendar is declined is not asked again, past its week",
+          (asked, sk.get("configured")), ([], 1))
+    asked, sk = walk(["https://declined.example"], lambda u: {"status": "no-calendar"}, led)
+    check("...until it is no longer declined", (asked, sk.get("configured")),
+          (["https://declined.example"], None))
+
+    # A jsonld find with nothing on is parked only where the row is the walk's.
+    stale = {"checked": _days_ago(C, C.DEAD_TTL + 10), "status": "fail", "type": "jsonld",
+             "reason": "http 404"}
+    led = {"verified.example": dict(stale)}
+    _a, sk = walk(["https://verified.example"],
+                  lambda u: {"status": "ok-homepage", "adapter": "jsonld", "labels": ["wp-event-manager"],
+                             "cal_url": u + "/whats-on/", "extra": {"events_evidence": False}}, led)
+    check("a jsonld find with no event never writes over a verify's row under the home's key",
+          (led["verified.example"], sk.get("found-but-unusable: jsonld-without-events(wp-event-manager)")),
+          (stale, 1))
+
+    # A LAPSED OFFSITE VERDICT KEEPS ITS LINK through an answer about the
+    # moment or an unusable find; a fresh verdict still replaces it.
+    off = {"checked": _days_ago(C, C.PROBE_REASK_DAYS + 1), "status": "fail", "type": "osm-venue",
+           "probe": 1, "reason": "osm probe: offsite:eventbrite", "name": "Hall",
+           "offsite_url": "https://www.eventbrite.com/o/hall-123"}
+    kept = []
+    for answer in ({"status": "http403"}, {"status": "unreachable", "note": "ConnectTimeout"},
+                   {"status": "robots-crawl-delay"},
+                   {"status": "ok", "adapter": "mylisting", "labels": ["mylisting"],
+                    "cal_url": "https://off.example/explore/"},
+                   {"status": "ok", "adapter": "jsonld", "labels": ["wp-event-manager"],
+                    "cal_url": "https://off.example/events/", "extra": {"events_evidence": False}}):
+        led = {"off.example": dict(off)}
+        walk(["https://off.example"], lambda u, a=answer: a, led)
+        kept.append(led["off.example"] == off)
+    check("a lapsed offsite row survives a 4xx, a timeout, a Crawl-delay and an unusable find",
+          kept, [True] * 5)
+    led = {"off.example": dict(off)}
+    walk(["https://off.example"], lambda u: {"status": "no-calendar"}, led)
+    check("...but a fresh no-calendar verdict replaces it",
+          (led["off.example"]["reason"], "offsite_url" in led["off.example"]),
+          ("osm probe: no-calendar", False))
+    led = {"off.example": dict(off)}
+    walk(["https://off.example"], lambda u: {"status": "ok", "adapter": "ics", "labels": ["ics"],
+                                             "cal_url": u + "/events/", "ics": "/events.ics"}, led)
+    check("...and so does a find of a calendar of its own",
+          (led["off.example"]["status"], "offsite_url" in led["off.example"]), ("found", False))
 
 
 def centre_calendars(C):
@@ -2019,6 +2147,24 @@ def centre_calendars(C):
     finally:
         (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
     check("...nor does the walk propose it again", (again, sk2.get("held")), ({}, 1))
+    # The owner adds it by hand: the config names its URL, the homepage's row
+    # only the hash, and the home is answered from then on, not asked weekly.
+    hled["ada.example"]["checked"] = _days_ago(C, C.UNREACHABLE_TTL_DAYS)
+    hasked = []
+    osm.metros = lambda: [{"name": "Vienna", "country": "AT", "country_name": "Austria", "bbox": (0, 0, 1, 1)}]
+    osm.overpass_venues = lambda sess, bbox, lab, **kw: [
+        {"name": "An Arts Association", "url": "https://ada.example", "kind": "community_centre",
+         "lat": 48.2, "lon": 16.37}]
+    osm.find_calendar = lambda sess, url: hasked.append(url) or real_fc(ada, url)
+    C._save_ledger = lambda led: None
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            _f3, sk3 = C._discover_osm(C._session(), {C._canon(hc[0]["url"])}, hled, 500, {},
+                                       metros_per_run=1, workers=1)
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
+    check("once the owner configures a held calendar by hand, its home is answered, not asked weekly",
+          (hasked, sk3.get("configured"), sk3.get("probed-recently")), ([], 1, None))
     fled = {}
     said, _p = _verify(hc, fled, api_key="test-key", ok=(False, "0 vevents / 0 future"))
     check("a held calendar that fails verify is parked under the same hashed key",
