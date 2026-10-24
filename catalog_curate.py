@@ -2640,6 +2640,9 @@ _ROBOTS_EXTRA = ("fair_sources.json", "market_sources.json", "openactive_sources
                  # pages or CMS endpoint (each also asks robots.txt itself).
                  "glenecho_sources.json", "drupal_fullcalendar_sources.json",
                  "revize_sources.json", "perfectmind_sources.json", "lcsd_sources.json",
+                 # The Natuurwerkdag's finder and job pages (2026-10-24): an HTML
+                 # read of a publisher's own pages, which also asks robots.txt itself.
+                 "natuurwerkdag_sources.json",
                  # The walks (2026-10-11). Each also asks robots.txt itself.
                  "ava_sources.json", "rallybound_sources.json", "luminate_sources.json")
 

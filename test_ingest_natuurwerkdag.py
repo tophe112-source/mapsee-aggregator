@@ -8,20 +8,33 @@ well-formed and wrong:
     another job in "Meer in de buurt". A shell must parse as no job at all,
     and a page is read only for a job the listing shows.
   * THE YEAR AND THE WEEKDAY are the page's own. A weekday naming another day
-    refuses the date; nothing is re-dated. Last year's card is past.
+    refuses the date; nothing is re-dated. Last year's card is past. A TITLE
+    that names another day than its card ("Kom 'n weekje eerder helpen op
+    zaterdag 31 oktober" on a Friday 6 November card, 2 of 530 live) is refused
+    too; one that names its own day among others is not.
   * THE POINT is the organiser's own pin from the listing's map. No pin, a pin
     outside the Netherlands, one far from its province's other jobs, or one
     shared by different jobs is refused - and the refused job is still
     `seen`, so the rec sync's absence check cannot cancel it.
   * PEOPLE. A sentence with an e-mail address, a phone number or a named
-    contact goes (1 of 22 real pages had "Contact: <name>, 06-..."), and the
-    organiser's data-email attribute is never read.
-  * FULL is not cancelled: refused and seen, never a tombstone.
+    contact goes (4 of 86 real pages had one: a named person's mobile on 3, an
+    organisation's e-mail on 1), and the organiser's data-email attribute is
+    never read.
+  * FULL is not cancelled: refused and seen, never a tombstone. CLOSED ("Dit is
+    een besloten klus voor schoolklassen", 1 of 86 live pages) is refused and
+    NOT seen: a row the listing wrote before its page was read must leave by
+    absence. A "Natuurwerkdag Junior" title is never written from the listing
+    alone; it is held, and seen.
+  * EVERY GUARD IS WIRED: a province outlier, a default pin, an unreadable
+    clock and a title naming another day are fixture cards that must be
+    refused by read_site and seen - not just pure functions that pass.
   * IDENTITY. "<title> HH:MM" | day | place, the recipe EventStore's notice
     rule can prove, so "GEANNULEERD: <title>" tombstones the job.
   * THE BUDGET. A deadline cut leaves every listed job written (from the
-    listing), the read still complete, and the cache holding what was read;
-    the next run reads only what it had not.
+    listing, or from a cached page that still agrees), the read still complete,
+    and the cache holding what was read; the next run reads only what it had
+    not. Pages past refresh_days beyond the per-run cap are still WRITTEN from
+    the cache: on day 8 the first run's whole read comes due at once.
   * main() on the REAL config, because a config that parses is not a config
     that loads (docs/agents/adapters-and-sources.md).
 
@@ -76,6 +89,12 @@ PAGES = {
     BASE + "bosrand-opschonen-2/": fx("job-106.html"),
     BASE + "hoogstamboomgaard-snoeien/": fx("job-110.html"),
     BASE + "junior-bollen-planten/": fx("job-111-shell.html"),
+}
+GUARDS = fx("listing-guards.html")
+GUARD_PAGES = {
+    BASE + "schooltuin-winterklaar/": fx("job-211.html"),
+    BASE + "junior-knotwilgen/": fx("job-212.html"),
+    BASE + "takken-ruimen-schuur/": fx("job-111-shell.html"),
 }
 
 
@@ -235,8 +254,58 @@ same = [{"post_id": "a", "title": "Bosrand", "lat": 52.0, "lon": 5.0},
         {"post_id": "b", "title": "Bosrand", "lat": 52.0, "lon": 5.0}]
 check("point: one title twice on one point (Fri+Sat, a double posting) is one site",
       N.crowded_points(same, 2) == set())
-three = [{"post_id": k, "title": k, "lat": 52.0, "lon": 5.0} for k in "abc"]
-check("point: three different jobs on one point is a default pin", N.crowded_points(three, 2) == {"a", "b", "c"})
+SAT, FRI = "Zaterdag 7 november 2026", "Vrijdag 6 november 2026"
+four = [{"post_id": k, "title": k, "lat": 52.0, "lon": 5.0, "date_text": SAT} for k in "abcd"]
+check("point: four different jobs on one point on one day is a default pin",
+      N.crowded_points(four, SITE["max_titles_per_point"]) == {"a", "b", "c", "d"})
+check("point: three on one day is not (measured max 2 on one day; one of headroom)",
+      N.crowded_points(four[:3], SITE["max_titles_per_point"]) == set())
+# Live 2026-10-24: 12 sites post a Friday and a Saturday job under two titles, and
+# A Rocha adds an afternoon session - one site, never a pin.
+shifts = [{"post_id": "f", "title": "Dierenvoedselbos winterklaar (vrijdag)", "lat": 52.0, "lon": 5.0, "date_text": FRI},
+          {"post_id": "s", "title": "Dierenvoedselbos winterklaar (zaterdag)", "lat": 52.0, "lon": 5.0, "date_text": SAT},
+          {"post_id": "m", "title": "Dierenvoedselbos (middageditie)", "lat": 52.0, "lon": 5.0, "date_text": SAT},
+          {"post_id": "x", "title": "Nog een klus op zaterdag", "lat": 52.0, "lon": 5.0, "date_text": SAT}]
+check("point: a site's Friday and Saturday jobs under different titles, plus two more sessions, is one site",
+      N.crowded_points(shifts, SITE["max_titles_per_point"]) == set())
+
+# --------------------------------------------------------------------------- #
+# A title that names a day (pure)
+
+FRI6, SAT7 = date(2026, 11, 6), date(2026, 11, 7)
+for title, d0, want in [
+        ("Warm draaien voor de natuurwerkdagen? Kom ’n weekje eerder helpen op zaterdag 31 oktober @ ENCI-groeve",
+         FRI6, True),
+        ("Zaterdag 31 okt.: Scouting Rijssen aan de slag rond Schaapskooi De Borkeld.", FRI6, True),
+        ("Help op 31 oktober bij de poel", FRI6, True),
+        ("Snoeien (zaterdag)", FRI6, True),
+        ("Red het Mierenreservaat. Vrijdagmiddag 6 november.", FRI6, False),
+        ("Biodivers bloemenveld stadspark Frankendael winterklaar (vrijdag)", FRI6, False),
+        ("Bloembollen planten op vrijdagmiddag en zaterdagochtend", FRI6, False),
+        ("Kom zaterdag 7 november snoeien aan het Jaagpad langs de Oude Rijn in Harmelen", SAT7, False),
+        ("Samen maken we op 6 november de paden meer toegankelijker", FRI6, False),
+        ("Start meerbomen.nu campagne 2026/2027 Houtwijkerveldbuurt park", SAT7, False),
+        ("16 vleermuiskasten ophangen in Bietenspoor Ovezande", SAT7, False),
+        ("Red het Mierenreservaat, zaterdagmiddag!", SAT7, False)]:
+    got = N.title_names_another_day(title, d0)
+    check(f"title day {'refused' if want else 'kept'}: {title[:60]!r}", bool(got) == want, got)
+
+# --------------------------------------------------------------------------- #
+# Closed to the public (pure)
+
+for text, want in [("Dit is een besloten klus voor schoolklassen.", True),
+                   ("Deze klus is besloten.", True),
+                   ("Alleen voor leerlingen van De Regenboog.", True),
+                   ("Uitsluitend bedoeld voor schoolklassen uit Doetinchem.", True),
+                   ("We hebben besloten de takken te laten liggen.", False),
+                   ("Alleen voor grote klussen wordt een loonwerker ingeschakeld.", False),
+                   ("Geen zorgen, je staat er niet alleen voor!", False),
+                   ("Er komen 500 kinderen van de basisschool voor een natuurles naar onze tuin.", False)]:
+    check(f"closed {'yes' if want else 'no'}: {text!r}", bool(N._CLOSED.search(text)) == want)
+check("junior: 'Natuurwerkdag junior' and 'Natuurwerkdag Junior!' are the Junior programme",
+      all(N._JUNIOR.search(t) for t in ("Natuurwerkdag junior de Groene Knoop in Natuurpark Overstegen",
+                                        "Natuurwerkdag Junior! Bollen planten op Landgoed Buitengewoon"))
+      and not N._JUNIOR.search("Speelhof Hoogerzael : Groot onderhoud Natuurspeelterrein en Schooltuinen"))
 
 # --------------------------------------------------------------------------- #
 # A whole read, no cache
@@ -244,12 +313,13 @@ check("point: three different jobs on one point is a default pin", N.crowded_poi
 web = Web()
 rep, rows, seen, cache = run(web)
 ids = by_id(rows)
-check("run: 101, 105, 106, 110? no - 110 disagrees; 111 from the listing",
-      sorted(ids) == ["101", "105", "106", "111"], sorted(ids))
+check("run: 101, 105, 106; 110 disagrees; 111 is a Junior job whose page carries no job (held)",
+      sorted(ids) == ["101", "105", "106"], sorted(ids))
 check("run: refused and counted", rep["refused"] == {
     "no point on the site's map": 1, "title carries a URL": 1, "point outside the Netherlands": 1,
     "weekday disagrees with the date": 1, "full: sign-up closed": 1,
-    "page and listing disagree on the date": 1}, rep["refused"])
+    "page and listing disagree on the date": 1, "Natuurwerkdag Junior, held until its page is read": 1},
+      rep["refused"])
 check("run: last year's card is past, not refused", rep["notes"].get("past") == 1, rep["notes"])
 check("run: NOT complete - a listed card that cannot be dated (109) may be a job already written",
       rep["complete"] is False)
@@ -260,13 +330,12 @@ check("run: no page is read for a refused card, a past one or a sitemap-only she
                                       BASE + "knotwilgen-vorig-jaar/", BASE + "test-pagina/",
                                       BASE + "ringpark-voorbeeld/", BASE + "verkeerde-weekdag/")), web.log)
 fp = lambda c, clock: N.fingerprint_for(c["title"], N.parse_date(c["date_text"])[0], clock, c.get("place"))
-check("run: full, no point, URL title and disagreement are seen; the weekday card cannot be",
+check("run: full, no point, URL title, disagreement and the held Junior job are seen; the weekday card cannot be",
       set(seen) == {fp(cards["102"], None), fp(cards["103"], ((10, 0), (15, 0))),
                     fp(cards["104"], ((10, 0), (14, 30))), fp(cards["108"], ((10, 0), (12, 0))),
-                    fp(cards["110"], ((9, 0), (13, 0)))}, len(seen))
-check("run: the shell is written from the listing and not cached",
-      ids["111"].description.endswith(SITE["signup_line"]) and BASE + "junior-bollen-planten/" not in cache["pages"],
-      ids["111"].description)
+                    fp(cards["110"], ((9, 0), (13, 0))), fp(cards["111"], ((13, 0), (15, 0)))}, len(seen))
+check("run: the shell is not cached, and its Junior job is not written from the listing",
+      "111" not in ids and BASE + "junior-bollen-planten/" not in cache["pages"], sorted(ids))
 check("run: the disagreeing page is not cached (read again next run)",
       BASE + "hoogstamboomgaard-snoeien/" not in cache["pages"])
 check("run: what was read is cached with the sitemap's lastmod",
@@ -277,6 +346,59 @@ check("run: a full job's page is cached too (so it is not re-read daily)",
 check("run: the double posting is printed and counted",
       rep["notes"].get("same title, place, day and start as another post (a double posting?)") == 1, rep["notes"])
 check("run: four contact sentences counted", rep["notes"].get("contact sentences dropped") == 4, rep["notes"])
+
+# --------------------------------------------------------------------------- #
+# Every guard reaches read_site: the guards listing (fixtures/listing-guards.html)
+
+G = {c["post_id"]: c for c in N.parse_listing(GUARDS)["cards"]}
+gweb = Web(routes={SITE["listing"]: Resp(200, GUARDS), SITE["sitemap"]: Resp(200, SITEMAP),
+                   **{u: Resp(200, t) for u, t in GUARD_PAGES.items()}})
+grep_, grows, gseen, gcache = run(gweb)
+gids = by_id(grows)
+gfp = lambda pid, clock: N.fingerprint_for(G[pid]["title"], N.parse_date(G[pid]["date_text"])[0], clock,
+                                           G[pid]["place"])
+check("guards: 203 and 204 (a title naming its own day), 212 (Junior, page read) and 213 (shell) are written",
+      sorted(gids) == ["203", "204", "212", "213"], sorted(gids))
+check("guards: each refusal is wired and counted", grep_["refused"] == {
+    "title names another day than its date": 2, "point far from its province's other jobs": 1,
+    "point shared by several different jobs (a default pin)": 4, "unreadable clock": 1,
+    "closed to the public (besloten / schools only)": 1}, grep_["refused"])
+check("guards: every refused card is seen, so --retire-absent cannot read it as gone - but the closed one",
+      set(gseen) == {gfp("201", ((9, 30), (12, 30))), gfp("202", ((9, 0), (17, 0))), gfp("205", ((10, 0), (13, 0))),
+                     gfp("206", ((9, 0), (12, 0))), gfp("207", ((9, 0), (12, 0))), gfp("208", ((10, 0), (13, 0))),
+                     gfp("209", ((13, 0), (16, 0))), gfp("210", None)}, len(gseen))
+check("guards: no refused card's page is requested; the closed one's is (only a page can say so)",
+      not any(BASE + s + "/" in gweb.log for s in ("warm-draaien-groeve", "scouting-schaapskooi", "utrecht-in-groningen",
+                                                    "standaardpin-a", "standaardpin-d", "hooi-harken"))
+      and BASE + "schooltuin-winterklaar/" in gweb.log, gweb.log)
+check("guards: an unreadable clock is never a date-only row", "210" not in gids)
+check("guards: the closed page is cached with its flag, so tomorrow refuses it without a request",
+      gcache["pages"][BASE + "schooltuin-winterklaar/"]["detail"]["closed"] is True)
+check("guards: a Junior job whose page was read and is open is written, kids from its page; 'besloten' as "
+      "'decided' does not close it", gids["212"].categories == ["outdoors", "kids"]
+      and "besloten de takken" in gids["212"].description, (gids["212"].categories, gids["212"].description))
+check("guards: a non-Junior job whose page is a shell is written from the listing",
+      gids["213"].description == "Tasks: Afval opruimen.\n" + SITE["signup_line"], gids["213"].description)
+check("guards: the read is complete (13 of the pager's 13, every card identified)", grep_["complete"] is True)
+gweb2 = Web(routes={SITE["listing"]: Resp(200, GUARDS), SITE["sitemap"]: Resp(200, SITEMAP)})
+grep2, grows2, gseen2, _ = run(gweb2, cache=gcache)
+check("guards: from the cache the next day, the closed job is refused again, unseen, for no request",
+      BASE + "schooltuin-winterklaar/" not in gweb2.log and "211" not in by_id(grows2)
+      and gfp("211", ((9, 30), (12, 0))) not in gseen2
+      and grep2["refused"].get("closed to the public (besloten / schools only)") == 1, (gweb2.log, grep2["refused"]))
+# The live case (2026-10-24 scratch run): a job written from the listing on day 1,
+# its page read on day 2. Full stays (seen: still happening); closed must leave.
+gweb3 = Web(routes={SITE["listing"]: Resp(200, GUARDS), SITE["sitemap"]: Resp(200, SITEMAP),
+                    **{u: Resp(200, t) for u, t in GUARD_PAGES.items()}})
+grep3, grows3, _, gcache3 = run(gweb3, deadline=3.5)
+check("guards: cut before its page, the closed job is written from the listing (nothing yet says closed)",
+      "211" in by_id(grows3) and BASE + "schooltuin-winterklaar/" not in gweb3.log, (sorted(by_id(grows3)), gweb3.log))
+grep4, grows4, gseen4, _ = run(Web(routes=gweb3.routes), cache=gcache3)
+check("guards: the next day its page says closed - not written and NOT seen, so the absence check retires that row",
+      "211" not in by_id(grows4) and gfp("211", ((9, 30), (12, 0))) not in gseen4
+      and grep4["complete"] is True, (sorted(by_id(grows4)), grep4["complete"]))
+check("guards: the Junior job's page from the cache still writes it",
+      "212" in by_id(grows2) and BASE + "junior-knotwilgen/" not in gweb2.log)
 
 # --------------------------------------------------------------------------- #
 # The row
@@ -309,8 +431,6 @@ date_only = N.build_event(dict(cards["102"], date=date(2026, 11, 6), clock=None)
 check("row: a job with no clock is a bare-date row, plain recipe",
       (date_only.start_local, date_only.start_utc, date_only.end_local) == ("2026-11-06", None, None)
       and date_only.fingerprint == make_fingerprint("Heide schonen op het Proefveld", "2026-11-06", "Proefdorp"))
-check("row: listing-only rows carry no kids flag they were not told",
-      ids["111"].categories == ["outdoors"], ids["111"].categories)
 
 tmp = tempfile.mkdtemp(prefix="nwd-test-")
 try:
@@ -318,7 +438,7 @@ try:
     for r in rows:
         st.upsert(r)
     check("store: the double posting is ONE record with both posts as sources",
-          len(st.records) == 3 and len(st.records[ids["105"].fingerprint]["sources"]) == 2, len(st.records))
+          len(st.records) == 2 and len(st.records[ids["105"].fingerprint]["sources"]) == 2, len(st.records))
     notice = N.build_event(dict(c101, title="GEANNULEERD: Wilgen knotten bij de Voorbeeldplas"), None, SITE)
     got = st.upsert(notice)
     check("store: 'GEANNULEERD: <title>' tombstones the job it names (notice_fingerprint proves the recipe)",
@@ -333,9 +453,10 @@ try:
     rec["source"] = ev.source
     check("sync: primary volunteer, secondaries outdoors and kids",
           derive_categories(rec) == ("volunteer", ["outdoors", "kids"]), derive_categories(rec))
-    rec111 = ids["111"].as_record("2026-10-24T00:00:00Z")
-    check("sync: a listing-only row is volunteer too", derive_categories(rec111)[0] == "volunteer",
-          derive_categories(rec111))
+    listing_only = N.build_event(dict(cards["105"], date=date(2026, 11, 6), clock=((9, 30), (16, 0))), None, SITE)
+    rec105 = listing_only.as_record("2026-10-24T00:00:00Z")
+    check("sync: a listing-only row is volunteer too", derive_categories(rec105)[0] == "volunteer",
+          derive_categories(rec105))
 except ImportError as exc:                     # pragma: no cover
     check("sync importable", False, exc)
 
@@ -366,10 +487,15 @@ rep, rows, seen, cache = run(web, deadline=3.5)
 ids = by_id(rows)
 check("budget: listing, sitemap and 2 pages, then the deadline",
       rep["requests"] == 4 and rep["stopped"] == "run deadline reached", (rep["requests"], rep["stopped"]))
-check("budget: every listed job is still written - unread pages from the listing",
-      sorted(ids) == ["101", "105", "106", "110", "111"] and rep["details"] == {"read": 2, "cached": 0,
-                                                                                "listing only": 4},
-      (sorted(ids), rep["details"]))
+check("budget: every listed job is still written - unread pages from the listing - but the Junior one",
+      sorted(ids) == ["101", "105", "106", "110"] and rep["details"] == {"read": 2, "cached": 0,
+                                                                         "listing only": 4}
+      and rep["refused"].get("Natuurwerkdag Junior, held until its page is read") == 1
+      and fp(cards["111"], ((13, 0), (15, 0))) in seen,
+      (sorted(ids), rep["details"], rep["refused"]))
+check("budget: listing-only rows carry no kids flag they were not told, and no description",
+      ids["105"].categories == ["outdoors"] and ids["105"].description == "Tasks: Boompjes/struiken verwijderen.\n"
+      + SITE["signup_line"], (ids["105"].categories, ids["105"].description))
 check("budget: the read is still complete (the listing decides which jobs exist)", rep["complete"] is True)
 check("budget: the cache holds the two pages read", sorted(cache["pages"]) ==
       [BASE + "heide-schonen-proefveld/", BASE + "wilgen-knotten-voorbeeldplas/"], sorted(cache["pages"]))
@@ -400,10 +526,16 @@ for u in aged["pages"]:
     aged["pages"][u]["read"] = (TODAY - timedelta(days=8)).isoformat()
 aged["pages"][BASE + "bosrand-opschonen/"]["read"] = (TODAY - timedelta(days=9)).isoformat()
 web4 = Web()
-rep4, _, _, _ = run(web4, cache=aged, site=dict(SITE, max_refresh_per_run=1))
+rep4, rows4, seen4, _ = run(web4, cache=aged, site=dict(SITE, max_refresh_per_run=1))
 check("age: past refresh_days, the OLDEST read is refreshed first, one per run here",
       [u for u in web4.log if u.startswith(BASE)].count(BASE + "bosrand-opschonen/") == 1
       and BASE + "wilgen-knotten-voorbeeldplas/" not in web4.log, web4.log)
+check("age: the stale pages past the cap are still WRITTEN, from the cache (day 8: the whole first read is due)",
+      sorted(by_id(rows4)) == ["101", "105", "106"] and rep4["details"] == {"read": 1, "cached": 3, "listing only": 1}
+      and by_id(rows4)["106"].description.startswith("Meeting point:"),
+      (sorted(by_id(rows4)), rep4["details"]))
+check("age: a stale full page past the cap is refused and seen, not dropped",
+      fp(cards["102"], None) in seen4 and rep4["refused"].get("full: sign-up closed") == 1, rep4["refused"])
 
 wrong = json.loads(json.dumps(cache2))
 wrong["pages"][BASE + "bosrand-opschonen-2/"]["detail"]["clock"] = "08:00-12:00"
@@ -411,6 +543,18 @@ web5 = Web()
 run(web5, cache=wrong)
 check("cache: a cached page that disagrees with the listing is read again",
       BASE + "bosrand-opschonen-2/" in web5.log and BASE + "bosrand-opschonen/" not in web5.log, web5.log)
+
+wrong2 = json.loads(json.dumps(cache2))
+wrong2["pages"][BASE + "bosrand-opschonen/"]["detail"]["clock"] = "08:00-12:00"
+web6 = Web()
+rep6, rows6, _, _ = run(web6, cache=wrong2, deadline=2.5)
+r105 = by_id(rows6).get("105")
+check("cache: cut by the deadline, a cached page that disagrees is NOT used - the row is the listing's",
+      rep6["stopped"] == "run deadline reached" and BASE + "bosrand-opschonen/" not in web6.log
+      and r105 is not None and not r105.description.startswith("Meeting point:")
+      and r105.description == "Tasks: Boompjes/struiken verwijderen.\n" + SITE["signup_line"]
+      and by_id(rows6)["106"].description.startswith("Meeting point:"),
+      (rep6["stopped"], web6.log, r105 and r105.description))
 
 check("cache: jobs gone from the finder leave the cache", N.load_cache(None)["pages"] == {})
 gone = json.loads(json.dumps(cache2))
@@ -426,8 +570,8 @@ rep, rows, _, cache = run(web)
 check("403: a refusal on a page stops the reading; no further page is requested",
       rep["stopped"].startswith("REFUSED - HTTP 403") and web.log[-1] == BASE + "bosrand-opschonen/",
       (rep["stopped"], web.log))
-check("403: the jobs already decided are still written (unread ones from the listing)",
-      sorted(by_id(rows)) == ["101", "105", "106", "110", "111"], sorted(by_id(rows)))
+check("403: the jobs already decided are still written (unread ones from the listing, but the Junior one)",
+      sorted(by_id(rows)) == ["101", "105", "106", "110"], sorted(by_id(rows)))
 
 
 class NoRobots:
@@ -441,10 +585,12 @@ check("robots: a refused listing writes nothing and is not complete",
       rows == [] and web.log == [] and rep["complete"] is False and rep["stopped"].startswith("REFUSED - robots"),
       (rep["stopped"], web.log))
 
-web = Web(overrides={SITE["listing"]: Resp(200, LISTING.replace('"total_rows": 11', '"total_rows": 12'))})
+# On the CLEAN finder (complete as it stands), so only the pager can make it incomplete.
+web = Web(overrides={SITE["listing"]: Resp(200, CLEAN.replace('"total_rows": 10', '"total_rows": 11'))})
 rep, rows, _, _ = run(web)
 check("pager: fewer cards than total_rows is NOT complete (no absence may be read from it)",
-      rep["complete"] is False and len(rows) == 4, (rep["complete"], len(rows)))
+      rep["complete"] is False and len(rows) == 3
+      and rep["notes"].get("listing shows 10 cards of the pager's 11") == 1, (rep["complete"], len(rows), rep["notes"]))
 web = Web(overrides={SITE["listing"]: Resp(200, "<html><body>nieuw thema</body></html>")})
 rep, rows, _, _ = run(web)
 check("markup: a listing with no cards is not complete and writes nothing",
@@ -452,11 +598,11 @@ check("markup: a listing with no cards is not complete and writes nothing",
 web = Web(overrides={SITE["sitemap"]: Resp(500, "oops")})
 rep, rows, _, _ = run(web)
 check("sitemap: a failed sitemap costs the lastmods, not the run",
-      len(rows) == 4 and rep["notes"].get("sitemap not read (pages re-read by age only)") == 1, rep["notes"])
+      len(rows) == 3 and rep["notes"].get("sitemap not read (pages re-read by age only)") == 1, rep["notes"])
 web = Web(overrides={BASE + "bosrand-opschonen/": OSError("timed out")})
 rep, rows, _, _ = run(web)
 check("network: one timeout costs one page (written from the listing)",
-      sorted(by_id(rows)) == ["101", "105", "106", "111"] and rep["notes"].get("network error, page skipped") == 1,
+      sorted(by_id(rows)) == ["101", "105", "106"] and rep["notes"].get("network error, page skipped") == 1,
       (sorted(by_id(rows)), rep["notes"]))
 
 # --------------------------------------------------------------------------- #
@@ -480,14 +626,14 @@ try:
     code = N.main(["--config", os.path.join(HERE, "natuurwerkdag_sources.json"), "--store", store_p,
                    "--cache", cache_p, "--max-minutes", "0"], session_factory=factory, sleep=lambda s: None)
     data = json.load(open(store_p, encoding="utf-8"))
-    check("main: exits 0 and writes the store (3 records: the double posting merged)",
-          code == 0 and len(data["events"]) == 3, (code, len(data.get("events", []))))
+    check("main: exits 0 and writes the store (2 records: the double posting merged, the Junior job held)",
+          code == 0 and len(data["events"]) == 2, (code, len(data.get("events", []))))
     check("main: robots.txt is read first, with our User-Agent",
           webs[0].log[0] == "https://www.natuurwerkdag.nl/robots.txt"
           and webs[0].headers.get("User-Agent") == N.USER_AGENT, (webs[0].log[:2], webs[0].headers))
     check("main: a complete read is marked for the absence check",
           "natuurwerkdag" in (data.get("complete_reads") or {}), data.get("complete_reads"))
-    check("main: full / unplaceable / disagreeing jobs are 'seen'", len(data.get("seen") or []) == 5,
+    check("main: full / unplaceable / disagreeing / held jobs are 'seen'", len(data.get("seen") or []) == 6,
           data.get("seen"))
     saved = json.load(open(cache_p, encoding="utf-8"))
     check("main: the cache file is written", saved["version"] == N.CACHE_VERSION and len(saved["pages"]) == 4,

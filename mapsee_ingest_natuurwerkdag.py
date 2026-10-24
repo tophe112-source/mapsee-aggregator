@@ -25,8 +25,9 @@ liability, and its privacy statement covers participants' data. So this reads
 the public pages at one request a second and copies NO person: the organiser's
 e-mail sits in a `data-email` attribute and the "quote" block names a site
 manager - neither is read - and any description sentence that gives an e-mail
-address, a phone number or a named contact is dropped (1 of 22 sampled pages
-carried "Contact: <name>, 06-..."). The job page's own question form is the way
+address, a phone number or a named contact is dropped (4 of the 86 job pages
+read on 2026-10-24 carried one: a named person with a mobile number on three,
+an organisation's e-mail on one). The job page's own question form is the way
 to reach an organiser, and it is the row's link.
 
 THE LISTING IS THE AUTHORITY, NOT THE SITEMAP
@@ -46,14 +47,16 @@ WHAT A DETAIL PAGE ADDS, AND WHY IT IS CACHED
 --------------------------------------------
 The description ("Wat ga je doen?", "Onze impact", "Praktische informatie"),
 the meeting point ("Verzamelen bij ..."), the organiser's "Geschikt voor
-kinderen" flag and whether sign-up has closed. 530 pages are ~175 MB and ~9
-minutes at one a second, for facts that rarely move, so each read is kept in
---cache (an Actions cache file, like the ICS cursor) with the sitemap's lastmod
-for that URL. A page is read again when its lastmod moves (20-26 a day in the
-week before 2026-10-24), when its cached date/clock/point disagrees with the
-listing, when it was never read, or when its read is `refresh_days` old (at
-most `max_refresh_per_run` of those per run, oldest first, so a whole first
-read does not come due again on one day). Read order is exactly that, so a
+kinderen" flag, whether sign-up has closed, and whether the job is closed to
+the public ("Dit is een besloten klus voor schoolklassen"). 530 pages are ~175
+MB and ~9 minutes at one a second, for facts that rarely move, so each read is
+kept in --cache (an Actions cache file, like the ICS cursor) with the sitemap's
+lastmod for that URL. A page is read again when its lastmod moves (20-26 a day
+in the week before 2026-10-24), when its cached date/clock/point disagrees
+with the listing, when it was never read, or when its read is `refresh_days`
+old (at most `max_refresh_per_run` of those per run, oldest first, so a whole
+first read does not come due again on one day - the rest are written from the
+cache meanwhile). Read order is exactly that, so a
 run cut by --max-minutes resumes with what it had not read: the cache IS the
 cursor. Without the cache file every run reads every page, and is still
 inside a 12-minute budget.
@@ -70,18 +73,40 @@ REFUSED, AND COUNTED
     a Dutch job that does not bring its own point;
   * a point outside the Netherlands' box, one more than `province_radius_km`
     from the median of its own province's jobs (measured: the farthest is 71
-    km, Bergen op Zoom in Noord-Brabant), or one shared by more than
-    `max_titles_per_point` different titles (a default pin; measured max 1);
+    km, Bergen op Zoom in Noord-Brabant), or one carrying more than
+    `max_titles_per_point` (3) different titles on ONE DAY (a default pin).
+    Measured: 15 of 501 points carry 2 titles - 12 of them a site's Friday and
+    Saturday jobs under two titles ("... (vrijdag)" / "... (zaterdag)") - and 3
+    carry 2 on one day (A Rocha's morning and afternoon, two jobs of one farm
+    in Voorst, and Polsbroek's posts 16015 and 22472, which read like one job
+    posted twice but name different titles and clocks, so they stay two rows);
   * a title carrying a URL (1: "Ringpark Oosterbhttps://.../wp-admin/
     post.php?post=5965&action=editoer", which also has no point);
   * a weekday that disagrees with its date (0 seen) - nothing is re-dated;
+  * a title that names another day than its card's date (2 of 530: "Kom 'n
+    weekje eerder helpen op zaterdag 31 oktober" and "Zaterdag 31 okt.: ..."
+    on cards dated Friday 6 November). The finder's date filter offers only the
+    two Natuurwerkdag days, so an organiser whose job is on another day says so
+    in the title. A weekday counts inside a word ("Vrijdagmiddag"); a title
+    naming its own day among others ("op vrijdagmiddag en zaterdagochtend" on
+    a Friday card) is kept, as are the other 31 titles that name a day;
   * a detail page whose date, clock or point disagrees with the listing (0 of
     15) - not written this run, not cached, read again next run;
   * a full job: the page's form says "Het maximale aantal deelnemers is
-    bereikt. Het is helaas niet meer mogelijk om je in te schrijven." (3 of 22
-    listed pages read). Full is not cancelled, so it is never a tombstone.
-Every refused job that has a date is `mark_seen`, so the rec sync's absence
-check (--retire-absent) never reads "full" or "no point" as "gone".
+    bereikt. Het is helaas niet meer mogelijk om je in te schrijven." (13 of 86
+    pages read). Full is not cancelled, so it is never a tombstone;
+  * a job closed to the public: its page says "besloten klus" or "alleen voor
+    schoolklassen / leerlingen" (1 of 86: the Natuurwerkdag Junior job in
+    Natuurpark Overstegen, "Dit is een besloten klus voor schoolklassen").
+    The Friday Junior programme is for primary-school classes
+    (/natuurwerkdag-junior/) and the finder has no facet that marks it, so a
+    title naming "Natuurwerkdag Junior" (2 of 530) is never written from the
+    listing alone: it waits, seen, until its page has been read. A closed job
+    is NOT seen: it is the publisher saying the job is not public, so a row
+    the listing wrote before its page was read leaves through absence.
+Every refused or held job that has a date is `mark_seen`, so the rec sync's
+absence check (--retire-absent) never reads "full" or "no point" as "gone" -
+all but a closed one (above).
 
 CANCELLATIONS
 -------------
@@ -104,15 +129,18 @@ where the sign-up form is. Two posts with the same title, place, day and start
 one point) are one occasion posted twice: one fingerprint, merged by the
 store, and printed every run.
 
-MEASURED 2026-10-24 (live, scratch store): run 1 with --max-minutes 0.75
-made 42 requests in 46 s (listing, sitemap, 40 pages; robots.txt apart) and
-kept 518 of 530 listed - 517 records, the Maarn pair being one - with 6 no
-point, 1 URL title and 5 full refused; 483 rows came from the listing alone
-and the read was complete. Run 2 (--max-minutes 0.25) took those 40 from the
-cache for no request and read the next 9: 11 requests. Of the 49 pages, 7 are
-full, 35 carry the kids flag and 45 a meeting point. All 515 written rows
-reach derive_categories as volunteer (484 + outdoors, 31 + outdoors and kids).
-A whole first read is ~525 requests, ~9 minutes at one a second.
+MEASURED 2026-10-24 (live, scratch store, with the review's fixes): run 1
+with --max-minutes 0.75 made 41 requests in 46 s (listing, sitemap, 39 pages;
+robots.txt apart) and kept 515 of 530 listed - 514 records, the Maarn pair
+being one - refusing 6 no point, 5 full, 2 titles naming another day and 1 URL
+title, and holding 1 Junior job whose page the budget had not reached; 482
+rows came from the listing alone and the read was complete. Run 2
+(--max-minutes 0.25) took those 39 from the cache for no request and read the
+next 11 (13 requests; 2 more full). The 514 stored rows reach derive_categories
+as volunteer (482 + outdoors, 32 + outdoors and kids). Of the 86 job pages read
+in all that day (these runs' 50, a first sample of 22, 15 more in review): 13
+full, 56 kids, 70 a meeting point, 4 a contact sentence, 1 closed to the
+public. A whole first read is ~525 requests, ~9 minutes at one a second.
 
 HTTP: our own User-Agent, robots.txt checked per host before the first
 request, one request per `pause` seconds (Crawl-delay honoured if larger), a
@@ -144,7 +172,7 @@ USER_AGENT = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 DEFAULT_MAX_MINUTES = 12.0
 DEFAULT_WITHIN_DAYS = 60
 DEFAULT_CACHE = "natuurwerkdag_cache.json"
-CACHE_VERSION = 1
+CACHE_VERSION = 2         # 2: a detail carries "closed" (2026-10-24 review)
 SAVE_EVERY = 40           # rows between store saves, so a cancelled step keeps its work
 CACHE_SAVE_EVERY = 25     # detail reads between cache saves, for the same reason
 DESCRIPTION_MAX = 800     # mapsee_supabase_sync's cap; our lines lead so they survive it
@@ -152,12 +180,21 @@ DESCRIPTION_MAX = 800     # mapsee_supabase_sync's cap; our lines lead so they s
 _MONTHS = {m: i for i, m in enumerate(
     ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
      "september", "oktober", "november", "december"], start=1)}
+_MONTH_NAMES = list(_MONTHS)
 _WEEKDAYS = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"]
 
 _TAG = re.compile(r"<[^>]+>")
 _DATE_RX = re.compile(r"^\s*(?:([a-z]+)\s+)?(\d{1,2})\s+([a-z]+)\s+(\d{4})\s*$", re.I)
 _CLOCK_RX = re.compile(r"^\s*(\d{1,2})[:.](\d{2})\s*(?:-|–|—|tot)\s*(\d{1,2})[:.](\d{2})\s*(?:uur)?\s*$", re.I)
 _URL_IN_TITLE = re.compile(r"https?://|/wp-admin/", re.I)
+# A day named in a title: a weekday, also inside a word ("Vrijdagmiddag"), or a
+# day and a month ("31 okt.", "31 oktober", "6 november").
+_TITLE_WEEKDAY = re.compile(r"(maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag)", re.I)
+_TITLE_DAY_MONTH = re.compile(
+    r"\b([0-3]?\d)\s*(januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|"
+    r"november|december|jan|feb|mrt|apr|jun|jul|aug|sept|sep|okt|nov|dec)\b", re.I)
+_MONTH_KEY = {"jan": 1, "feb": 2, "maa": 3, "mrt": 3, "apr": 4, "mei": 5, "jun": 6, "jul": 7, "aug": 8,
+              "sep": 9, "okt": 10, "nov": 11, "dec": 12}
 
 # Listing markup (FacetWP loop, read 2026-10-24).
 _FWP_JSON = re.compile(r"FWP_JSON\s*=\s*(\{.*?\});\s*\n", re.S)
@@ -177,6 +214,19 @@ _CONTENT = re.compile(r'(?s)<section[^>]*class="section section-jobs-content">(.
 _WYSIWYG = re.compile(r'(?s)<div class="wysiwyg-content"[^>]*>(.*?)</div>')
 _FORM = re.compile(r'(?s)id="form" class="section section-jobs-form">(.*?)</section>')
 _FULL = re.compile(r"maximale aantal deelnemers is bereikt|niet meer mogelijk om je in te schrijven", re.I)
+# A job closed to the public: "Dit is een besloten klus voor schoolklassen." (1 of
+# 86 pages read 2026-10-24). "besloten" alone is also "decided" ("we hebben
+# besloten ..."), and "alleen voor" alone is ordinary prose ("Alleen voor grote
+# klussen wordt een loonwerker ingeschakeld", "je staat er niet alleen voor"),
+# both seen on real pages - so each needs the noun that makes it a closed job.
+_CLOSED = re.compile(
+    r"\bbesloten\s+(?:klus|activiteit|bijeenkomst|groep|evenement|natuurwerkdag|werkdag|sessie)\b"
+    r"|\b(?:klus|activiteit)\s+is\s+besloten\b"
+    r"|\b(?:alleen|uitsluitend|enkel)\s+(?:bedoeld\s+|toegankelijk\s+|open\s+)?voor\s+(?:de\s+|onze\s+|eigen\s+)*"
+    r"(?:school\w*|scholen|leerlingen|scholieren|klassen|groep(?:en)?\s+[1-8])\b", re.I)
+# The Friday Junior programme (primary-school classes). The finder does not mark
+# it, so such a title is written only once its page has been read.
+_JUNIOR = re.compile(r"natuurwerkdag[\s-]+junior", re.I)
 _ANCHOR_BLOCK = re.compile(r"(?s)<a\b[^>]*>.*?</a>")
 
 # People. A sentence that gives an e-mail address or a phone number, or names
@@ -293,6 +343,25 @@ def parse_date(text: Optional[str]) -> Tuple[Optional[date], Optional[str]]:
     return d, None
 
 
+def title_names_another_day(title: Optional[str], d: date) -> Optional[str]:
+    """What day the title names that is not `d`, or None. A title that names
+    weekdays must name d's among them, and one that names a day and month must
+    name d's: "Kom 'n weekje eerder helpen op zaterdag 31 oktober" on a card
+    dated Friday 6 November is a job on another day, and is not re-dated."""
+    t = title or ""
+    days = {_WEEKDAYS.index(w.lower()) for w in _TITLE_WEEKDAY.findall(t)}
+    if days and d.weekday() not in days:
+        return "/".join(_WEEKDAYS[i] for i in sorted(days))
+    named = set()
+    for day, mon in _TITLE_DAY_MONTH.findall(t):
+        month = _MONTH_KEY.get(mon.lower()[:3])
+        if month and 1 <= int(day) <= 31:
+            named.add((int(day), month))
+    if named and (d.day, d.month) not in named:
+        return ", ".join(f"{dd} {_MONTH_NAMES[mm - 1]}" for dd, mm in sorted(named, key=lambda x: (x[1], x[0])))
+    return None
+
+
 def parse_clock(text: Optional[str]) -> Optional[Tuple[Tuple[int, int], Tuple[int, int]]]:
     """("09:00 - 12:00") -> ((9, 0), (12, 0)); None for no clock or a window
     that does not run forwards inside one day (0 of 514 seen)."""
@@ -404,7 +473,7 @@ def parse_detail(page: str) -> Optional[Dict[str, Any]]:
     rail of OTHER jobs, which is never read).
 
     Returns date (ISO) / clock ("HH:MM-HH:MM") / lat / lon for the agreement
-    check, and meeting / kids / full / text / dropped for the row."""
+    check, and meeting / kids / full / closed / text / dropped for the row."""
     hero = _HERO.search(page)
     summary = _SUMMARY.search(page)
     if not hero and not summary:
@@ -430,6 +499,7 @@ def parse_detail(page: str) -> Optional[Dict[str, Any]]:
     content = _CONTENT.search(page)
     if content:
         text = "\n".join(_paragraphs(w) for w in _WYSIWYG.findall(content.group(1)))
+    closed = bool(_CLOSED.search(text))
     text, dropped = without_contacts(text)
     meeting, gone = without_contacts(items.get("fa-map-marker") or "")
     dropped += gone
@@ -443,6 +513,7 @@ def parse_detail(page: str) -> Optional[Dict[str, Any]]:
         "meeting": meeting.replace("\n", " ").strip() or None,
         "kids": "fa-child" in items,
         "full": bool(form and _FULL.search(_clean(form.group(1)) or "")),
+        "closed": closed,
         "text": text,
         "dropped": dropped,
     }
@@ -474,14 +545,18 @@ def province_outliers(cards: List[Dict[str, Any]], radius_km: float, min_peers: 
 
 
 def crowded_points(cards: List[Dict[str, Any]], max_titles: int) -> set:
-    """Post ids on a point shared by more than max_titles DIFFERENT titles: a
-    default pin, not a site. Same-title posts on one point (a Friday and a
-    Saturday job, a double posting) are one site. Measured max 1 title."""
-    by: Dict[Tuple[float, float], Dict[str, List[str]]] = {}
+    """Post ids on a point carrying more than max_titles DIFFERENT titles on one
+    day: a default pin, not a site. Counted per day because a site's Friday and
+    Saturday jobs often carry two titles ("... (vrijdag)" / "... (zaterdag)").
+    Measured 2026-10-24 over 501 points: 15 carry 2 titles (12 of them a Friday
+    and a Saturday), and the most on one day is 2 (3 points: a morning and an
+    afternoon session, two jobs of one farm, one job posted twice) - so the
+    config's 3 leaves a site room for one more session before it reads as a pin."""
+    by: Dict[Tuple[float, float, str], Dict[str, List[str]]] = {}
     for c in cards:
         if c.get("lat") is None:
             continue
-        key = (round(c["lat"], 6), round(c["lon"], 6))
+        key = (round(c["lat"], 6), round(c["lon"], 6), (c.get("date_text") or "").strip().lower())
         by.setdefault(key, {}).setdefault((c.get("title") or "").lower(), []).append(c["post_id"])
     out = set()
     for titles in by.values():
@@ -582,6 +657,8 @@ def check_card(card: Dict[str, Any], site: Dict[str, Any], today: date, horizon:
         return "card without a title or link"
     if _URL_IN_TITLE.search(card["title"]):
         return "title carries a URL"
+    if title_names_another_day(card["title"], card["date"]):
+        return "title names another day than its date"
     if card.get("lat") is None:
         return "no point on the site's map"
     s, w, n, e = site.get("bbox", [50.70, 3.20, 53.70, 7.30])
@@ -795,6 +872,9 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
             whole = False           # a listed job we could not even identify
         if why in ("point far from its province's other jobs",):
             print(f"[{SOURCE}] {why} ({outliers.get(c['post_id'], 0):.0f} km): {c.get('title')} {c.get('url')}")
+        elif why == "title names another day than its date":
+            print(f"[{SOURCE}] refused ({why}: {title_names_another_day(c['title'], c['date'])} vs "
+                  f"{c.get('date_text')}): {c.get('title')} {c.get('url')}")
         elif why not in ("no point on the site's map",):
             print(f"[{SOURCE}] refused ({why}): {c.get('title')} {c.get('url')}")
 
@@ -824,8 +904,22 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
             lastmods = parse_sitemap(xml)
 
     def write(c: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> None:
-        if detail and detail.get("full"):
-            count("refused", "full: sign-up closed")
+        why = None
+        if detail and detail.get("closed"):
+            why = "closed to the public (besloten / schools only)"
+        elif detail and detail.get("full"):
+            why = "full: sign-up closed"
+        elif detail is None and _JUNIOR.search(c["title"]):
+            why = "Natuurwerkdag Junior, held until its page is read"
+        if why:
+            count("refused", why)
+            if why.startswith("closed"):
+                # The publisher's own word that the job is not public, so NOT seen:
+                # a row the listing wrote before this page was read then leaves the
+                # map through --retire-absent. (mark_seen is for a reason that is
+                # ours; a full job is still happening, a closed one is not ours to show.)
+                print(f"[{SOURCE}] refused ({why}): {c['title']} {c['url']}")
+                return
             seen(fingerprint_for(c["title"], c["date"], c["clock"], c.get("place")))
             return
         nev = build_event(c, detail, site)
