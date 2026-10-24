@@ -1,5 +1,7 @@
 """Offline contracts for the automation that can otherwise fail hours later."""
 from pathlib import Path
+import contextlib
+import io
 import json
 import os
 import re
@@ -8,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import warnings
 import yaml
 from workflow_report import report
 
@@ -467,6 +470,145 @@ class WorkflowContracts(unittest.TestCase):
         code, calls = self._dedupe_calls(mrun, {'APPLY_SWITCH': '', 'MODE': 'unhide', 'DAYS': '21', 'LOOKBACK': '60',
                                                 'STAMP': '2026-10-14T06:41:07+00:00'})
         self.assertEqual((code, calls[0][:3]), (0, ['--unhide', '--stamp', '2026-10-14T06:41:07+00:00']))
+
+    @staticmethod
+    def _curate_discovers(context, dow='1'):
+        """Run curate-catalog's discover step with python and date stubbed:
+        -> (exit code, [(backend, argv of its `discover` call)] in call order).
+
+        `context` maps an expression (`inputs.backend`, `github.event.schedule`,
+        `steps.target.outputs.cats`) to its value; `dow` is what `date -u +%u`
+        answers, so a Wednesday can be asked for on any day."""
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        step = next(s for s in workflow['jobs']['curate']['steps'] if s.get('name') == 'Discover, verify and merge')
+
+        def expr(m):
+            for term in m[1].split('||'):
+                term = term.strip()
+                value = term.strip("'") if term.startswith("'") else str(context.get(term, ''))
+                if value:
+                    return value
+            return ''
+
+        def sub(text):
+            return re.sub(r'\$\{\{\s*(.*?)\s*\}\}', expr, str(text))
+        real_date = shutil.which('date')
+        with tempfile.TemporaryDirectory() as tmp:
+            stubs = Path(tmp, 'bin')
+            stubs.mkdir()
+            (stubs / 'python').write_text('#!/bin/sh\necho "CALL $*"\n')
+            (stubs / 'date').write_text('#!/bin/sh\n'
+                                        f'if [ "$*" = "-u +%u" ]; then echo {dow}; else exec {real_date} "$@"; fi\n')
+            for f in stubs.iterdir():
+                f.chmod(0o755)
+            env = dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}",
+                       GITHUB_STEP_SUMMARY=str(Path(tmp, 'summary.md')))
+            env.update({k: sub(v) for k, v in (step.get('env') or {}).items()})
+            out = subprocess.run(['bash', '--noprofile', '--norc', '-eo', 'pipefail', '-c', sub(step['run'])],
+                                 cwd=tmp, capture_output=True, text=True, env=env)
+        calls = [line.split()[1:] for line in out.stdout.splitlines() if line.startswith('CALL')]
+        found = []
+        for c in calls:
+            if c[1:2] == ['discover']:
+                backend = c[2] if len(c) > 2 and not c[2].startswith('-') else 'socrata'
+                found.append((backend, c))
+        return out.returncode, found
+
+    @staticmethod
+    def _flag(argv, name):
+        return argv[argv.index(name) + 1] if name in argv else None
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_curate_schedules_spend_their_osm_and_ckan_time_where_it_was_measured(self):
+        # 2026-10-23, runs 108-124. ckan took 1.8-2.5 min in each of 6 daily
+        # runs and proposed 0, so the daily run reads it on Wednesdays only.
+        # The 3-metro cap left run 116 about 30 of its 55 minutes, so the
+        # daily run defaults to 40 metros and lets the budget decide. The 09:30
+        # community walk verified 15.4 an hour against the full sweep's 77, so
+        # 09:30 is a second full-sweep pass on the shared cursor.
+        daily = {'github.event.schedule': '20 3 * * *'}
+        code, calls = self._curate_discovers(daily, dow='1')
+        self.assertEqual(code, 0)
+        self.assertEqual([b for b, _ in calls], ['socrata', 'mobilizon', 'civic', 'osm'])
+        osm = dict(calls)['osm']
+        self.assertEqual(self._flag(osm, '--metros'), '40')
+        self.assertEqual(self._flag(osm, '--max-minutes'), '55')
+        self.assertNotIn('--kinds', osm)
+        self.assertNotIn('--workers', osm)
+        self.assertEqual(self._flag(dict(calls)['civic'], '--max-minutes'), '10')
+
+        code, calls = self._curate_discovers(daily, dow='3')
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+
+        # The gap sweep is the Wednesday 03:50 cron and keeps ckan, pinned.
+        gap = {'github.event.schedule': '50 3 * * 3', 'steps.target.outputs.cats': 'running,volunteer'}
+        code, calls = self._curate_discovers(gap, dow='3')
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual(self._flag(dict(calls)['ckan'], '--category'), 'running,volunteer')
+        self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
+
+        code, calls = self._curate_discovers({'github.event.schedule': '30 9 * * *'}, dow='1')
+        self.assertEqual([b for b, _ in calls], ['osm'])
+        osm = calls[0][1]
+        self.assertEqual(self._flag(osm, '--metros'), '40')
+        self.assertNotIn('--kinds', osm)
+        self.assertNotIn('--category', osm)
+
+        # The community walk's slot outlives the change, so it can be resumed
+        # where it was once the rows an older probe wrote have lapsed.
+        cursor = json.loads((ROOT / 'curation_cursor.json').read_text(encoding='utf-8'))
+        self.assertIn('osm|community_centre,library,social_centre', cursor)
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_curate_dispatches_keep_their_defaults_and_osm_workers_reaches_the_walk(self):
+        # A dispatch of 'all' on any day reads ckan, and one of ckan reads
+        # only ckan; a dispatch's osm keeps OSM_METROS_PER_RUN (no --metros)
+        # unless it names osm_metros; osm_kinds is still the pinned walk.
+        code, calls = self._curate_discovers({'inputs.backend': 'all'}, dow='1')
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
+        code, calls = self._curate_discovers({'inputs.backend': 'ckan'}, dow='1')
+        self.assertEqual([b for b, _ in calls], ['ckan'])
+        code, calls = self._curate_discovers({'inputs.backend': 'osm', 'inputs.osm_metros': '5',
+                                              'inputs.osm_kinds': 'community_centre,library'})
+        osm = calls[0][1]
+        self.assertEqual((self._flag(osm, '--metros'), self._flag(osm, '--kinds')),
+                         ('5', 'community_centre,library'))
+        # osm_workers, for the owner's A/B of 8 against 4: digits only, and
+        # nothing else in argv when it is blank or not a number.
+        code, calls = self._curate_discovers({'inputs.backend': 'osm', 'inputs.osm_workers': '8'})
+        argv = calls[0][1]
+        self.assertEqual(self._flag(argv, '--workers'), '8')
+        for bad in ('8 --kinds library', 'eight'):
+            code, calls = self._curate_discovers({'inputs.backend': 'osm', 'inputs.osm_workers': bad})
+            self.assertEqual(code, 0, bad)
+            self.assertNotIn('--workers', calls[0][1], bad)
+            self.assertNotIn('--kinds', calls[0][1], bad)
+        # ...and main() hands it to the walk: the real argv, the real main()
+        # and cmd_discover, with the network and the walk itself stubbed.
+        import catalog_curate as cc
+        seen = []
+        stubs = {'_config_keys': lambda: set(), '_load_ledger': lambda: {}, '_session': lambda: None,
+                 'curated_categories': lambda _s: ['community'], '_load_cursor': lambda: {},
+                 '_save_cursor': lambda _c: None,
+                 '_discover_osm': lambda *a, **k: (seen.append(k), ({}, {}))[1]}
+        real = {k: getattr(cc, k) for k in stubs}
+        try:
+            for k, v in stubs.items():
+                setattr(cc, k, v)
+            daily = dict(self._curate_discovers({'github.event.schedule': '20 3 * * *'})[1])['osm']
+            with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()), \
+                    warnings.catch_warnings():
+                warnings.simplefilter('ignore', ResourceWarning)   # cmd_discover's json.dump(open(...))
+                for call in (argv, daily):
+                    out = call.index('--out') + 1
+                    call = call[:out] + [str(Path(tmp, 'cand-osm.json'))] + call[out + 1:]
+                    self.assertEqual(cc.main(['catalog_curate.py'] + call[1:]), 0)
+        finally:
+            for k, v in real.items():
+                setattr(cc, k, v)
+        self.assertEqual([(k['workers'], k['metros_per_run'], k['kinds']) for k in seen],
+                         [(8, None, ()), (None, 40, ())])
 
 
 if __name__ == '__main__':
