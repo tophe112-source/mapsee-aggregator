@@ -16,7 +16,9 @@
       "base_url": "https://rheinmain.social",
       "category": "community",
       "within_days": 180,
-      "default_country": "DE"
+      "default_country": "DE",
+      "_metro": "Wiesbaden, Germany",
+      "_note": "rheinmain.social and fomo.rheinmain.social both redirect to events.rheinmain.social (301 and 302, 2026-10-24): one calendar. Kept once, under the vaguer community default, since it is a mixed culture calendar (Kreativfabrik and Schlachthof Wiesbaden, NAXOS Frankfurt, Mainz and Darmstadt collectives; many concerts, which the classifier promotes)."
     },
     {
       "name": "Keep Karlsruhe Boring (DE)",
@@ -197,15 +199,6 @@
       "_note": "Gancio calendar of Berlin cycling groups: ADFC and Changing Cities district groups, bike demos, Critical Mass, self-help bike workshop; 40 upcoming, 25 with coordinates (online ones drop). robots.txt allows all."
     },
     {
-      "name": "FOMO RheinMain",
-      "base_url": "https://fomo.rheinmain.social",
-      "category": "music",
-      "within_days": 180,
-      "default_country": "DE",
-      "_metro": "Wiesbaden, Germany",
-      "_note": "Grassroots Gancio for Rhein-Main culture: Kreativfabrik and Schlachthof Wiesbaden, NAXOS Frankfurt, Mainz and Darmstadt collectives; 134 events in 180 days, 93 with coordinates; many concerts ticketed. robots.txt allows all."
-    },
-    {
       "name": "Sprachtreffen.de (language cafés)",
       "base_url": "https://sprachtreffen.de",
       "category": "community",
@@ -316,6 +309,7 @@
     "https://clonmel.town": "302 to whatson.clonmel.town, which 404s /api/events too - verified directly, not inferred. No Gancio API on either host despite being listed as an instance."
   },
   "_not_included": {
-    "https://vagancio.partidopirata.com.ar": "Vagancio - agenda autogestiva (Buenos Aires / La Plata) - a Gancio instance's /api/events. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://vagancio.partidopirata.com.ar/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Gancio's stock robots.txt allows crawling, and 25 of the 26 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from gancio_sources.json at 1fbdfaa; `verify` will then pass it."
+    "https://vagancio.partidopirata.com.ar": "Vagancio - agenda autogestiva (Buenos Aires / La Plata) - a Gancio instance's /api/events. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://vagancio.partidopirata.com.ar/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Gancio's stock robots.txt allows crawling, and 25 of the 26 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from gancio_sources.json at 1fbdfaa; `verify` will then pass it.",
+    "https://fomo.rheinmain.social": "Retired 2026-10-24: the same calendar as the configured rheinmain.social. Both hosts redirect to events.rheinmain.social, and 145 of 145 title+start pairs were identical on 2026-10-23, so every event reached the map twice under two source_ids (the adapter keys rows on base_url)."
   }
 }
