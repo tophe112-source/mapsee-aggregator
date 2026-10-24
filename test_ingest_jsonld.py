@@ -391,6 +391,65 @@ def check_shared_urls():
           [e.source_id for e in rows if e.name != "Yoga"], [MEC_TEA_DANCE["url"]])
 
 
+def check_site_line():
+    # The 10-21 ICS log flushed 8 KB covering 117.7 min and 54 sources, and no
+    # line said which one took the time; JSON-LD's per-site lines are the same.
+    print()
+    print("a site's line says how long it took and what it spent on Photon")
+    listing = "https://venue.example/whatson/"
+
+    def talk(name, place):
+        return {"@context": "https://schema.org", "@type": "Event", "name": name, "startDate": SOON,
+                "url": listing + name.lower(), "location": {"@type": "Place", "name": place}}
+
+    class PhotonPages(_Pages):
+        queries = []
+
+        def get(self, url, timeout=None, params=None):
+            if params is None:
+                return super().get(url, timeout)
+            self.queries.append(params["q"])
+            hit = params["q"].startswith("Qx Photon Test Hall")
+
+            class R:
+                def raise_for_status(self):
+                    pass
+
+                def json(self):
+                    return {"features": [{"geometry": {"coordinates": [-122.3, 47.6]}}] if hit else []}
+            return R()
+
+    pages = PhotonPages({listing: _page("", talk("Talk", "Qx Photon Test Hall"),
+                                        talk("Walk", "Qx Photon Nowhere"),
+                                        talk("Again", "Qx Photon Test Hall"))})
+    with patch.object(mapsee_ingest_jsonld.time, "sleep"), \
+            patch.object(mapsee_ingest_jsonld, "geocode_allowed", return_value=True), \
+            patch.dict(mapsee_ingest_jsonld._geo_cache, {}), \
+            contextlib.redirect_stdout(io.StringIO()) as out:
+        mapsee_ingest_jsonld.ingest_site(_Rows(), pages, {"name": "fixture", "category": "community",
+                                                          "listing": [listing]})
+    check_true("  'kept 2 events from 0 pages in 0.0s; 2 Photon lookup(s), 1 missed'",
+               "[jsonld] fixture: kept 2 events from 0 pages in 0.0s; 2 Photon lookup(s), 1 missed"
+               in out.getvalue() and len(pages.queries) == 2)
+    with patch.object(mapsee_ingest_jsonld.time, "sleep"), \
+            contextlib.redirect_stdout(io.StringIO()) as out:
+        mapsee_ingest_jsonld.ingest_site(_Rows(), _Pages({listing: _page("", talk("Talk", "Hall"))}),
+                                         {"name": "fixture", "category": "community", "listing": [listing],
+                                          "venue": MEC_VENUE})
+    check_true("  a site that sent Photon nothing says only its seconds",
+               "kept 1 events from 0 pages in 0.0s\n" in out.getvalue() and "Photon" not in out.getvalue())
+    with tempfile.TemporaryDirectory() as tmp:
+        cfg = os.path.join(tmp, "sites.json")
+        with open(cfg, "w", encoding="utf-8") as fh:
+            json.dump({"sites": [{"name": "refuser", "listing": [listing]}]}, fh)
+        with patch.object(mapsee_ingest_jsonld, "ingest_site", side_effect=RuntimeError("403 Forbidden")), \
+                patch.object(mapsee_ingest_jsonld, "_save_geo_cache"), \
+                contextlib.redirect_stdout(io.StringIO()) as out:
+            mapsee_ingest_jsonld.main(["--config", cfg, "--store", os.path.join(tmp, "events.json")])
+    check_true("  a FAILED site's line says how long it took",
+               "[jsonld] refuser FAILED: 403 Forbidden in 0.0s" in out.getvalue())
+
+
 def check_meta_description_fallback():
     print()
     print("an opted-in single-event page can lend its own verified metadata description")
@@ -649,6 +708,7 @@ def main():
     check_mec_clock()
     check_shared_urls()
     check_meta_description_fallback()
+    check_site_line()
 
     print()
     if FAILURES:
