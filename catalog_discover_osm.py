@@ -1286,10 +1286,11 @@ MAX_FOLLOW = 3
 # given up on: Polish Home was filed no-calendar on 2026-10-11, parked to
 # 2027-01-09, the day before page_ids could read it. The walk writes this
 # number on every osm-venue row, and a no-calendar or offsite row from an
-# older probe counts as lapsed (catalog_curate._dead_recently), so the next
-# pass over a metro asks again. Bump it when the probe learns to see a
-# calendar it could not see before; that re-asks every such venue once
-# (37,806 no-calendar and 632 offsite rows on 2026-10-12, which lapse by
+# older probe counts as lapsed once it is catalog_curate.PROBE_REASK_DAYS (60)
+# days old (catalog_curate._dead_recently), so a pass over a metro from then
+# on asks again. Bump it when the probe learns to see a calendar it could not
+# see before; that re-asks every such venue as its row reaches 60 days, not at
+# once (37,806 no-calendar and 632 offsite rows on 2026-10-12, which lapse by
 # themselves by 2027-01 anyway: 8,473 + 142 in November, 23,633 + 299 in
 # December, 5,700 + 191 in January).
 #   1  every row written before 2026-10-12 (they carry no number)

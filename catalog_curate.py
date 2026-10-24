@@ -1673,6 +1673,12 @@ def _civic_next_country(cursor, civic):
 # cities, inside one batch of CIVIC_CITIES_PER_RUN. And only with a deadline,
 # since without one there is no "time left" to spend; CIVIC_TOPUP_MIN_S keeps it
 # from asking Wikidata for a batch it has no time to read.
+#
+# AND ITS WIKIDATA ASK IS BOUNDED BY THE TIME IT HAS. A top-up can start with
+# 60 s left and cities() waits up to 200 s a request, so an unbounded ask could
+# run the 10-minute civic backstop ~8.7 min over, out of a daily job measured
+# at 69.6-73.7 of its 90 minutes (2026-10-22, 10-23). The US answers in 1.9 s,
+# so a bound of the time left less 30 s (20 at least) cuts no working answer.
 CIVIC_TOPUP_COUNTRY = "US"
 CIVIC_TOPUP_MIN_S = 60
 
@@ -1731,25 +1737,28 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
         print(f"  {country}'s turn left {left / 60:.1f} min: {top} tops it up "
               f"from its own offset")
         _civic_batch(civic, session, probe_s, cursor, top, per_run, deadline,
-                     limit, seen_keys, led, found, skipped)
+                     limit, seen_keys, led, found, skipped,
+                     wd_timeout=min(200, max(20, int(left) - 30)))
     _save_ledger(led)
     return found, skipped
 
 
 def _civic_batch(civic, session, probe_s, cursor, country, per_run, deadline,
-                 limit, seen_keys, led, found, skipped):
+                 limit, seen_keys, led, found, skipped, wd_timeout=None):
     """Walk one batch of `country`'s cities from its own offset, into `found`.
 
     Moves that country's offset and nothing else in the cursor: whose TURN it
     was is the caller's to record, because a top-up walks a country whose turn
-    it is not."""
+    it is not. `wd_timeout` bounds the Wikidata ask (a top-up's; a turn keeps
+    cities()'s own 200 s, which Canada's 117 s answer needs)."""
     offset = int(_civic_offsets(cursor).get(country) or 0)
 
     def bump(k):
         skipped[k] = skipped.get(k, 0) + 1
 
     try:
-        places, rows = civic.cities(session, country, limit=per_run, offset=offset)
+        places, rows = civic.cities(session, country, limit=per_run, offset=offset,
+                                    **({"timeout": wd_timeout} if wd_timeout else {}))
     except Exception as exc:                                      # noqa: BLE001
         # UNREAD, NOT EMPTY. Wikidata answers 504 on a query it decides is too
         # expensive, and advancing the OFFSET past a batch we never saw would
@@ -1765,9 +1774,13 @@ def _civic_batch(civic, session, probe_s, cursor, country, per_run, deadline,
           f"(pop {places[0]['population']} -> {places[-1]['population']})")
 
     # The DMO stream, batched before the walk: one request per fifty cities, so
-    # asking is cheaper than deciding whether to ask.
+    # asking is cheaper than deciding whether to ask. Not past the deadline,
+    # where the walk below reads no city, and never waiting longer than the
+    # time left (its own timeout is 45 s).
+    left = (deadline - time.time()) if deadline else None
     try:
-        noms = civic.dmo_nominations(session, places)
+        noms = ({} if left is not None and left <= 0 else civic.dmo_nominations(
+            session, places, **({"timeout": max(5, min(45, int(left)))} if left is not None else {})))
     except Exception:                                             # noqa: BLE001
         noms = {}
     if noms:
@@ -2162,20 +2175,32 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         venues = osm.overpass_venues(session, m["bbox"], label,
                                      **({"kinds": kinds} if kinds else {}))
         if venues is None:
-            n = int(stuck.get(key, 0)) + 1
-            stuck[key] = n
+            # ONE STRIKE A DAY. Since 2026-10-23 the 03:20 and 09:30 crons walk
+            # this one slot, so a strike a run reached three in about 24 h
+            # (day 1 14:30, day 2 08:40, day 2 14:30), and a skipped metro is
+            # not read again until the 261-metro ring wraps: 45-130 days at
+            # 1-3 metros a run. The day of the last strike (_today_int, the
+            # runner's UTC date) is kept beside the count; a bare int is a
+            # strike from before, on a day unknown.
+            today, prev = _today_int(), stuck.get(key)
+            n, last = ((int(prev.get("n", 0) or 0), int(prev.get("day", 0) or 0))
+                       if isinstance(prev, dict) else (int(prev or 0), 0))
+            if last != today:
+                n += 1
+            stuck[key] = {"n": n, "day": today}
             if n >= 3:
-                # Never asked three times running is no longer a bad afternoon.
+                # Never asked on three days running is no longer a bad afternoon.
                 # Move past it rather than wedge the sweep on one bbox for ever,
                 # and say so, because a silently skipped metro is what this whole
                 # block exists to prevent.
-                print(f"  {label}: overpass has refused {n} runs running — SKIPPING "
-                      f"this metro and advancing past it")
+                print(f"  {label}: overpass has refused on {n} days running — "
+                      f"SKIPPING this metro and advancing past it")
                 stuck.pop(key, None)
                 read += 1
             else:
+                again = "" if last != today else ", already counted today"
                 print(f"  {label}: overpass did not answer — metro UNREAD, the "
-                      f"cursor stays here (attempt {n}/3)")
+                      f"cursor stays here (day {n}/3{again})")
             break
         stuck.pop(key, None)
         print(f"  {label}: {len(venues)} venue(s) publish a website")
@@ -2778,6 +2803,9 @@ _ROBOTS_EXTRA = ("fair_sources.json", "market_sources.json", "openactive_sources
                  "natuurwerkdag_sources.json",
                  # The walks (2026-10-11). Each also asks robots.txt itself.
                  "ava_sources.json", "rallybound_sources.json", "luminate_sources.json",
+                 # KČT's hikes (2026-10-24): an HTML read of kct.cz's own
+                 # calendar and event pages; it asks robots.txt itself too.
+                 "kct_sources.json",
                  # Swiss repair cafés' session pages (2026-10-24), read from
                  # the publisher's own sitemaps; it asks robots.txt itself too.
                  "repaircafe_ch_sources.json")
