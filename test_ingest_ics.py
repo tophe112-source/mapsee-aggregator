@@ -418,6 +418,43 @@ check("...without a geocode, and the live online sibling is still skipped and co
       geocode_calls == [] and "1 cancelled (STATUS:CANCELLED), tombstoned" in out.getvalue()
       and "1 online (a virtual room, not a place)" in out.getvalue(), (geocode_calls, out.getvalue()))
 
+# ...and so does one the publisher calls off ONLY in its title. Placed, that is
+# the store's notice rule in upsert; online, the skip ran first and the row
+# stayed live (review, 2026-10-24). A bare "CANCELLED" names no event: online.
+def _zoom_titled(summary):
+    return ("BEGIN:VCALENDAR\r\n"
+            f"BEGIN:VEVENT\r\nUID:u1\r\nSUMMARY:{summary}\r\nDTSTART:20991020T170000Z\r\n"
+            "LOCATION:On Zoom\r\nEND:VEVENT\r\n"
+            "BEGIN:VEVENT\r\nUID:u2\r\nSUMMARY:Office Hours\r\nDTSTART:20991021T170000Z\r\n"
+            "LOCATION:On Zoom\r\nEND:VEVENT\r\n"
+            "BEGIN:VEVENT\r\nUID:u3\r\nSUMMARY:CANCELLED\r\nDTSTART:20991022T170000Z\r\n"
+            "LOCATION:On Zoom\r\nEND:VEVENT\r\n"
+            "END:VCALENDAR\r\n")
+
+
+with tempfile.TemporaryDirectory() as _d:
+    tstore = _OnlineStore(os.path.join(_d, "s.json"))
+    with patch.object(ICS, "_fetch_ics", return_value=(_zoom_titled("Seminar"), "200")), \
+         patch.object(ICS, "make_location_geocoder", side_effect=_campus_geocoder), \
+         patch.object(ICS, "ONLINE_LOC_RX", re.compile(r"(?!)")), \
+         redirect_stdout(io.StringIO()):
+        ICS.ingest_ics(tstore, None, {"name": "uw", "url": "x"})
+    stored_before = zoom_key in tstore.records
+    geocode_calls.clear()
+    with patch.object(ICS, "_fetch_ics", return_value=(_zoom_titled("CANCELLED - Seminar"), "200")), \
+         patch.object(ICS, "make_location_geocoder", side_effect=_campus_geocoder), \
+         redirect_stdout(io.StringIO()) as out:
+        ICS.ingest_ics(tstore, None, {"name": "uw", "url": "x"})
+    tomb = tstore.tombstones.get(zoom_key)
+check("'CANCELLED - Seminar' at 'On Zoom', no STATUS, tombstones the 'Seminar' row as a notice",
+      stored_before and zoom_key not in tstore.records and tomb is not None
+      and tomb["source_id"] == "u1" and tomb.get("notice") is True
+      and tomb["reason"] == "cancelled in the title" and len(tstore.tombstones) == 1,
+      (stored_before, tstore.tombstones))
+check("...without a geocode; the live sibling and the bare 'CANCELLED' are counted online",
+      geocode_calls == [] and "1 online and cancelled in the title, tombstoned" in out.getvalue()
+      and "2 online (a virtual room, not a place)" in out.getvalue(), (geocode_calls, out.getvalue()))
+
 
 # --- several feeds on one host wait out that host's Crawl-delay ---------------
 # LibCal libraries publish a calendar per branch, and their robots.txt asks for

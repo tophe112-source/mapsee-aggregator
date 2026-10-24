@@ -994,6 +994,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     governance = 0
     cancelled = 0
     cancelled_unnamed = 0
+    cancelled_title = 0                               # see title_notice
     online = 0
     skipped_title = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
@@ -1021,6 +1022,18 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # lot of municipal software publishes everything, and it is not a
         # cancellation.
         is_cancelled = (ev.get("STATUS", ("", {}))[0] or "").strip().upper() == "CANCELLED"
+        # A TITLE THAT SAYS IT IS OFF, AT A LOCATION THAT IS ONLY A CALL. Anywhere
+        # else the store's notice rule reads "CANCELLED - Seminar" in upsert and
+        # tombstones "Seminar"; the online skip below runs before upsert, so with
+        # no STATUS the row written before ONLINE_LOC_RX knew "On Zoom" stayed live
+        # (review, 2026-10-24: a scratch feed tombstoned it at 87a2832 and not at
+        # 3fc7a38). So it is a cancellation here, made the way that rule makes
+        # one: the event's own title, notice=True. Only for an online LOCATION: a
+        # placed one still takes the store's path, and a closure notice or a bare
+        # "CANCELLED" names no event and stays an online skip.
+        title_notice = (not is_cancelled and bool(strip_notice(title))
+                        and bool(ONLINE_LOC_RX.search(_location(ev) or "")))
+        is_cancelled = is_cancelled or title_notice
         # A publisher that flips STATUS often renames the event too ("CANCELLED -
         # Family Storytime"); the row it cancels was stored as "Family
         # Storytime", so that is the title the record is built with - before skip_title
@@ -1069,17 +1082,17 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # see ONLINE_LOC_RX. Before GEO is read, because Communico gives these
         # rows the owning branch's coordinates (or 0;0, which the geocoder then
         # guesses at).
-        # EXCEPT A CANCELLATION, which goes on to store.cancel below. Every branch
-        # of the pattern was added after rows it matches had been written ("On
-        # Zoom" on 2026-10-24, with 8 UW rows already pinned), and an upsert
-        # cannot delete, so this skip leaves a stored row exactly as it was. If
-        # the cancelled VEVENT were skipped too, the publisher's STATUS:CANCELLED
-        # would be the one word about that row nobody reads: the ics sync has no
-        # --retire-absent, and prune_cancelled never hides on prose. The record
-        # below is keyed as it was before the pattern matched (title, date and
-        # this same LOCATION text), and a tombstone places nothing, so it costs
-        # no geocode and no page fetch. A tombstone for a row never written
-        # matches no external_id and changes nothing.
+        # EXCEPT A CANCELLATION (STATUS, or title_notice above), which goes on to
+        # store.cancel below. Every branch of the pattern was added after rows it
+        # matches had been written ("On Zoom" on 2026-10-24, with 8 UW rows
+        # already pinned), and an upsert cannot delete, so this skip leaves a
+        # stored row exactly as it was. If the cancelled VEVENT were skipped too,
+        # the publisher's word would be the one word about that row nobody
+        # reads: the ics sync has no --retire-absent, and prune_cancelled never
+        # hides on prose. The record below is keyed as it was before the pattern
+        # matched (title, date and this same LOCATION text), and a tombstone
+        # places nothing, so it costs no geocode and no page fetch. A tombstone
+        # for a row never written matches no external_id and changes nothing.
         if loc and ONLINE_LOC_RX.search(loc) and not is_cancelled:
             online += 1
             continue
@@ -1183,7 +1196,12 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             # A collector that only reads rows (mapsee_gcal's smoke read) has no
             # cancel; there the VEVENT is skipped, as it always was.
             cancel = getattr(store, "cancel", None)
-            if cancel is not None and cancel(nev, "STATUS:CANCELLED") == "cancelled":
+            if cancel is None:
+                continue
+            if title_notice:
+                if cancel(nev, "cancelled in the title", notice=True) == "cancelled":
+                    cancelled_title += 1
+            elif cancel(nev, "STATUS:CANCELLED") == "cancelled":
                 cancelled += 1
             continue
         store.upsert(nev)
@@ -1233,6 +1251,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f"; {cancelled} cancelled (STATUS:CANCELLED), tombstoned"
         if cancelled_unnamed:
             note += f", {cancelled_unnamed} more naming no event"
+    if cancelled_title:
+        note += f"; {cancelled_title} online and cancelled in the title, tombstoned"
     if online:
         note += f"; {online} online (a virtual room, not a place)"
     if skipped_title:
