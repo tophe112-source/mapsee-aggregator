@@ -369,6 +369,55 @@ for loc in ("Virtual Reality Lab - Room 2", "Online Learning Center, 5 Elm St", 
             "Google Meetinghouse Road Park"):
     check(f"not online: {loc!r}", not ICS.ONLINE_LOC_RX.search(loc))
 
+# ...but a CANCELLED online session still reaches store.cancel. The 8 UW rows
+# were written, pinned at the campus geocode, before the pattern knew "On Zoom",
+# and an upsert cannot delete: skipping the cancellation too left such a row
+# live, at its old time, until its date passed (review, 2026-10-24).
+import re  # noqa: E402
+from mapsee_ingest import EventStore as _OnlineStore  # noqa: E402
+
+
+def _zoom_feed(status):
+    return ("BEGIN:VCALENDAR\r\n"
+            "BEGIN:VEVENT\r\nUID:u1\r\nSUMMARY:Seminar\r\nDTSTART:20991020T170000Z\r\n"
+            f"LOCATION:On Zoom\r\n{status}END:VEVENT\r\n"
+            "BEGIN:VEVENT\r\nUID:u2\r\nSUMMARY:Office Hours\r\nDTSTART:20991021T170000Z\r\n"
+            "LOCATION:On Zoom\r\nEND:VEVENT\r\n"
+            "END:VCALENDAR\r\n")
+
+
+def _campus_geocoder(_session, _suffix):
+    def geocode(loc):
+        geocode_calls.append(loc)
+        return 47.6553, -122.3035
+    return geocode
+
+
+from mapsee_ingest import make_fingerprint as _fp  # noqa: E402
+zoom_key = _fp("Seminar", "2099-10-20", "On Zoom")
+with tempfile.TemporaryDirectory() as _d:
+    zstore = _OnlineStore(os.path.join(_d, "s.json"))
+    # Yesterday: the pattern did not know Zoom yet, so the row was geocoded and written.
+    with patch.object(ICS, "_fetch_ics", return_value=(_zoom_feed(""), "200")), \
+         patch.object(ICS, "make_location_geocoder", side_effect=_campus_geocoder), \
+         patch.object(ICS, "ONLINE_LOC_RX", re.compile(r"(?!)")), \
+         redirect_stdout(io.StringIO()):
+        ICS.ingest_ics(zstore, None, {"name": "uw", "url": "x"})
+    stored_before = zoom_key in zstore.records
+    geocode_calls.clear()
+    # Today: the pattern knows it, and the publisher cancels the seminar.
+    with patch.object(ICS, "_fetch_ics", return_value=(_zoom_feed("STATUS:CANCELLED\r\n"), "200")), \
+         patch.object(ICS, "make_location_geocoder", side_effect=_campus_geocoder), \
+         redirect_stdout(io.StringIO()) as out:
+        ICS.ingest_ics(zstore, None, {"name": "uw", "url": "x"})
+    tomb = zstore.tombstones.get(zoom_key)
+check("a cancelled 'On Zoom' VEVENT tombstones the row written before the pattern knew Zoom",
+      stored_before and zoom_key not in zstore.records and tomb is not None and tomb["source_id"] == "u1",
+      (stored_before, sorted(zstore.tombstones)))
+check("...without a geocode, and the live online sibling is still skipped and counted",
+      geocode_calls == [] and "1 cancelled (STATUS:CANCELLED), tombstoned" in out.getvalue()
+      and "1 online (a virtual room, not a place)" in out.getvalue(), (geocode_calls, out.getvalue()))
+
 
 # --- several feeds on one host wait out that host's Crawl-delay ---------------
 # LibCal libraries publish a calendar per branch, and their robots.txt asks for
