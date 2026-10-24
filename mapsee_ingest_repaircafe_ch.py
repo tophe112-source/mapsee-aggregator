@@ -51,6 +51,11 @@ a warm run costs the sitemap index, the repairevent sitemaps, the café map and
 the posts changed since the last run (about 4 a day in Sept-Oct 2026).
 Rows are rebuilt from the cursor on every run, so a session read last week is
 still written today without a request.
+mapsee_prune_cancelled.py reads each written row's page again in its daily
+full sweep (07:55, --days 120): 180 of the 216 rows on the full 2026-10-24
+cursor, at its own 0.35 s spacing, since the site sets no Crawl-delay (13
+sessions share 2026-10-31 09:00Z, so their pages are asked one after another).
+That sweep, not this adapter, is most of what Mapsee asks of the host.
 
 MEASURED 2026-10-24 (live, scratch store and cursor): 590 of the 1,866 URLs
 are under the floor; the newest 500 of the other 1,276 (lastmod back to
@@ -62,9 +67,13 @@ and 140 are placed (91 by the page's pin, 39 by the café's, 10 by a geocoded
 street); the other is "Kuhstall, 7503 Samedan", which Photon answers with the
 village itself (see PLACEMENT). 102 more are further out, one as far as 2036
 (a typo, left for the horizon to reach); one double posting (Weesen, two
-posts, one session) is written once. The café map lists 199 next dates inside the horizon and 111 of
-them were written; the rest sit in the 776 older pages the next runs read. A
-warm run then cost 7 requests and 0.3 minutes.
+posts, one session) is written once. The café map lists 199 next dates inside
+the horizon and 111 of them were written; the rest sit in the 776 older pages
+the next runs read. A warm run then cost 7 requests and 0.3 minutes. Read
+whole (all 1,276, in five runs), the cursor gives 218 sessions inside 180 days:
+216 placed (137 by the page's pin, 63 by the café's, 16 by Photon), and
+"Kuhstall" (Samedan) and "Schulhaus" (Almens) left unplaced; 176 of the café
+map's 199 next dates are written.
 
 A POST THAT LEAVES THE SITEMAP is dropped from the cursor and not written
 again; it is not called off here. mapsee_prune_cancelled.py re-probes the
@@ -73,11 +82,19 @@ A TITLE that calls a session off (notice_reason: "ABGESAGT", "annulé", ...) is
 a tombstone for the session's own fingerprint (EventStore.cancel, notice=True).
 Prose is never read as a cancellation.
 A POST EDITED TO ANOTHER DATE OR TITLE has a new lastmod, so it is read again,
-and a new fingerprint. The cursor keeps the fingerprint each page's row was
-written under (`fp`) and hands the old ones on as legacy_fingerprints, so the
-sync's rekey_legacy moves the row to its new date instead of leaving the old
-one on the map beside it (an upsert cannot delete, --only-new never touches the
-old row, and prune_cancelled finds its page alive). A tombstone names them too.
+and a new fingerprint. The cursor keeps the key each page's row was written
+under, with its day (`keys`). When the session's row is written, the old keys
+go with it as legacy_fingerprints, so the sync's rekey_legacy MOVES the row to
+its new date (id and /e/ link kept) instead of leaving the old one on the map
+beside it (an upsert cannot delete, --only-new never touches the old row, and
+prune_cancelled finds its page alive). When it is not written this run (the
+new date is past or beyond the horizon, or not placed), every key for another
+day is tombstoned (EventStore.cancel, not a notice) and kept as `dead`, sent
+again each run until its day is past: the page's own Datum says that day is
+not happening, as a JSON-LD EventRescheduled's previousStartDate does. A dead
+key is never moved: rekey_legacy would carry a cancelled row onto the live key.
+A new title on the same day is never a tombstone; its key waits to be moved.
+A title notice's tombstone names every key.
 
 PLACEMENT, WITH THE TOWN AS THE GUARD
 -------------------------------------
@@ -94,11 +111,18 @@ Switzerland/Liechtenstein. Then, first that lands within `max_km` of it:
   2. the café's pin from the café map (/reparieren/, 291 cafés in one page),
      when the session is at the café's own address, or its Ort gives only a
      postcode and town (an empty Ort is read as the café's own address);
-  3. the session's street, geocoded by Photon in its own postcode and town;
-     an answer within 50 m of the town's own point is the town, not the
-     street (Photon, asked for a venue it does not know, returns what the
-     postcode and town alone return: "Kuhstall, 7503 Samedan" is the village
-     node, "Kuhstallhalle, 8048 Zürich" Altstetten station).
+  3. the session's street (or, with none, its venue's name), geocoded by
+     Photon in its own postcode and town; an answer within 50 m of the
+     town's point is the town, not the place (Photon, asked for a venue it
+     does not know, returns what the postcode and town alone return:
+     "Kuhstall, 7503 Samedan" is the village node, "Kuhstallhalle, 8048
+     Zürich" Altstetten station). The town's point is the postcode-and-town
+     answer and the town's own node ("Luzern" is place=city 0.48 km from
+     "6003 Luzern"). A venue name is not refused outright: Photon found
+     "Oberstufenzentrum Widem" (Gams), "Freizeitwerk Bleichi, Hofmattenweg"
+     (Wohlen) and "Schulgebäude Platanenhof, Sonnenhofstrasse" (Oberuzwil),
+     22, 21 and 377 m from their cafés' pins, and answered the other two,
+     "Kuhstall" and "Schulhaus", with the village node.
 Anything else is left unplaced, counted and named. Measured on the first 300
 pages: page pins sat a median 0.31 km from Photon's point for their town (max
 2.82), café pins 0.52 (max 3.35), geocoded streets 0.34 (max 1.00). Eschenbach
@@ -121,7 +145,9 @@ one town: FRC Genève in Genève, Chambésy and Meyrin), and a corrected street
 keeps the row. "Nur auf Voranmeldung" and its French and Italian
 equivalents put "Registration required: see the event page." first. The
 contact box (a volunteer's name, mobile number and e-mail) is not copied, and
-phone numbers and e-mail addresses are cut out of the café's own text.
+phone numbers and e-mail addresses are cut out of the café's own text, with a
+name left beside them ("Nur auf Voranmeldung: <number> <name>": 3 of the 26
+contact lines on 2026-10-24).
 Category community; the sync's market secondary already reads "repair café".
 
 HTTP: our own User-Agent, robots.txt per host, one request per `pause`
@@ -169,8 +195,9 @@ SAME_PIN_KM = 0.03
 PINS_DISAGREE_KM = 0.2
 # A geocoded street this close to the town's own point is the town's point.
 TOWN_NODE_KM = 0.05
-# The fingerprints a session's row was written under before, kept per page.
+# The keys a page's row was written under before, kept per page.
 LEGACY_KEEP = 8
+MOVED_REASON = "moved to another date by its page"
 
 _TAG = re.compile(r"<[^>]+>")
 _BR = re.compile(r"(?i)<br\s*/?>|</p>|</div>|</li>")
@@ -358,7 +385,10 @@ def parse_event_page(page: str) -> Dict[str, Any]:
         town = re.sub(rf"^(?:{pc}\s*[-–]?\s*)+", "", town).lstrip("-– ").strip()
     out["postcode"], out["town"] = pc, town
     pin = _PIN.search(page) or _ROUTE_PIN.search(box)
-    out["pin"] = [float(pin.group(1)), float(pin.group(2))] if pin else None
+    try:        # "-?[\d.]+" also matches "47.19.": a pin that is no number is no pin
+        out["pin"] = [float(pin.group(1)), float(pin.group(2))] if pin else None
+    except ValueError:
+        out["pin"] = None
     c = _CONTENT.search(box)
     out["text"] = _text(c.group(1), br="\n") if c else ""
     return out
@@ -463,9 +493,14 @@ def place(page: Dict[str, Any], cafe: Optional[Dict[str, Any]], geocode: Geocode
     Photon's a same-named street one village over (every village has a
     Dorfstrasse), so the street is held closer. `others` is the café map's
     every café, so a page pin that is another café's is known for one
-    (borrowed_pin). A geocoded answer within `TOWN_NODE_KM` of the town's own
+    (borrowed_pin). A geocoded answer within `TOWN_NODE_KM` of the town's
     point is the town, not the street: Photon, asked for a venue it does not
-    know, answers with the place it was told it is in."""
+    know, answers with the place it was told it is in. The town's point is
+    both the postcode-and-town answer and the town's own node ("Samedan,
+    Schweiz"), which in a city lies apart from the postcode's; a town Photon
+    cannot find alone (or finds abroad) leaves the first. Measured on the
+    whole 2026-10-24 cursor: the 16 street and venue placements lie 0.14 to
+    1.2 km from their town's own node, so the rule costs none of them."""
     def note(k: str) -> None:
         if notes is not None:
             notes[k] = notes.get(k, 0) + 1
@@ -482,6 +517,16 @@ def place(page: Dict[str, Any], cafe: Optional[Dict[str, Any]], geocode: Geocode
 
     def near(p, limit: float) -> bool:
         return p is not None and in_box(tuple(p)) and km(tuple(p), ref) <= limit
+
+    towns: List[Tuple[float, float]] = [ref]
+
+    def is_town(p: Tuple[float, float]) -> bool:
+        # The town's own node is asked for only when an answer would be
+        # kept, and once per town for ever (the shared cache keeps hits).
+        if len(towns) == 1 and pc:
+            alone = geocode(town, f", {word}")
+            towns.append(alone if alone is not None and in_box(alone) else ref)
+        return any(km(p, t) <= TOWN_NODE_KM for t in towns)
 
     line1 = page.get("line1") or ""
     street = split_line(line1)[1]
@@ -510,16 +555,20 @@ def place(page: Dict[str, Any], cafe: Optional[Dict[str, Any]], geocode: Geocode
             p = geocode(q, suffix)
             if p is None:
                 continue
-            if km(tuple(p), ref) <= TOWN_NODE_KM:
+            if not near(p, street_km):
+                note("the geocoder answered outside the town (not used)")
+                continue
+            if is_town(tuple(p)):
                 # Measured 2026-10-24: "Kuhstall, 7503 Samedan", "Kuhstallhalle,
                 # 8048 Zürich" and "Kuhstall, 1205 Genève" each came back as
                 # exactly what the postcode and town alone return (a village
                 # node, Altstetten station, a library): the town, not the venue.
+                # In a city the town's own node is not the postcode's answer
+                # ("Luzern" 0.48 km from "6003 Luzern", "Genève" 0.34 km from
+                # "1205 Genève"), and is no venue either.
                 note("the geocoder answered with the town itself (not used)")
                 continue
-            if near(p, street_km):
-                return (p[0], p[1]), "geocoded street"
-            note("the geocoder answered outside the town (not used)")
+            return (p[0], p[1]), "geocoded street"
         return None, "street not found in its town"
     return None, "no street, and not at its café's address"
 
@@ -543,7 +592,7 @@ def event_name(title: str, cafe_name: str) -> str:
 
 
 _PHONE = re.compile(r"(?:\+|00)?(?:41|423)?[\s/.-]?\(?0?\d{2}\)?[\s/.-]?\d{3}[\s/.-]?\d{2}[\s/.-]?\d{2}\b")
-# "claire.guntern @ epost.ch" and "name(at)host.ch" are addresses too.
+# "a.muster @ epost.ch" and "name(at)host.ch" are addresses too.
 _MAIL = re.compile(r"[\w.+-]+\s?(?:@|\(at\)|\[at\])\s?[\w-]+(?:\.[\w-]+)+", re.I)
 _REG_NOT = re.compile(
     r"\b(?:keine|ohne)\s+(?:vor)?anmeldung|\b(?:vor)?anmeldung\s+(?:ist\s+)?(?:nicht|kein\w*)\s+"
@@ -562,9 +611,38 @@ def registration_required(text: str) -> bool:
     return bool(_REG.search(_REG_NOT.sub(" ", text or "")))
 
 
+# A person's name: two or three capitalised words ("Anna Muster", "Anne-Marie
+# de Wolf" is not caught, and need not be: it is only looked for on a line
+# whose number or address was just cut).
+_NAME_WORD = r"[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ'’]+(?:-[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ'’]+)?"
+_PERSON = re.compile(rf"(?:(?P<label>[^:]{{1,60}}):)?\s*{_NAME_WORD}(?:\s+{_NAME_WORD}){{1,2}}")
+_DANGLING = re.compile(r"(?:[\s,;:.\-–]|\b(?:oder|und|or|ou|et|o)\b)+$", re.I)
+
+
+def _uncontact(line: str) -> str:
+    """One line without its phone numbers and e-mail addresses, and without
+    the name they belonged to. Measured 2026-10-24 on the 321 upcoming pages:
+    26 lines held a contact, and in 3 a volunteer's name was all that was
+    left of it ("Nur auf Voranmeldung: <number> <name>", "<name>: <number>",
+    "<name>, <number> oder <number>"); a label left alone ("Email:") says
+    nothing either."""
+    cut = _PHONE.sub("", _MAIL.sub("", line))
+    if cut == line:
+        return line
+    probe = _DANGLING.sub("", cut).strip()
+    person = _PERSON.fullmatch(probe)
+    if person:
+        return (person.group("label") or "").strip()
+    if re.fullmatch(r"[\w’'.-]+", probe):
+        return ""
+    return cut
+
+
 def clean_text(text: str, limit: int) -> str:
-    """The café's own words without phone numbers or e-mail addresses."""
-    t = _MAIL.sub("", text or "")
+    """The café's own words without phone numbers, e-mail addresses or the
+    names that went with them."""
+    t = "\n".join(_uncontact(ln) for ln in (text or "").split("\n"))
+    t = _MAIL.sub("", t)
     t = _PHONE.sub("", t)
     t = re.sub(r"[ \t]+([:,.;])", r"\1", t)
     t = re.sub(r"[ \t]{2,}", " ", t)
@@ -711,9 +789,10 @@ def select_pages(rows: List[Tuple[str, str]], pages: Dict[str, Dict[str, Any]], 
 
 def remember(pages: Dict[str, Dict[str, Any]], url: str, lastmod: str, parsed: Dict[str, Any],
              today: date) -> None:
-    """A past session keeps its date only; an upcoming one its whole page, and
-    the fingerprints its row was written under (`fp`, `legacy`), so a re-dated
-    or re-titled session moves its row (see identity)."""
+    """A past session keeps its date only; an upcoming one its whole page. Both
+    keep the keys their rows were written under (`keys`, `dead`; see identity
+    and retire_moved), so a re-dated or re-titled session's old row is moved
+    or called off, never left beside the new one."""
     old = pages.get(url) or {}
     entry: Dict[str, Any] = {"lastmod": lastmod, "checked": today.isoformat()}
     if parsed.get("why"):
@@ -725,30 +804,67 @@ def remember(pages: Dict[str, Dict[str, Any]], url: str, lastmod: str, parsed: D
             # (an Actions cache file) stays small: ~1.4 KB a session.
             entry["page"] = dict(parsed, text=(parsed.get("text") or "")[:TEXT_KEEP])
             entry["v"] = PARSER_VERSION
-    for k in ("fp", "legacy"):
+    for k in ("keys", "dead"):
         if old.get(k):       # kept through a failed parse too: its row is still there
             entry[k] = old[k]
     pages[url] = entry
 
 
-def identity(entry: Dict[str, Any], fp: str, record: bool = True) -> List[str]:
-    """The fingerprints this page's row was written under before, other than
-    `fp`, for NormalizedEvent.legacy_fingerprints: the sync's rekey_legacy then
-    MOVES the row to `fp` instead of inserting a second one beside it. The
-    fingerprint is (title, day, café, town), so a café that edits its post's
-    date or title gives the session a new one; without this the row on the old
-    date stays on the map (--only-new never touches it, and prune_cancelled
-    finds the page alive). `record` notes `fp` as the row's key now; a
-    tombstone does not."""
-    olds = [x for x in (entry.get("legacy") or []) + [entry.get("fp")] if x and x != fp]
-    olds = list(dict.fromkeys(olds))[-LEGACY_KEEP:]
+def identity(entry: Dict[str, Any], fp: str, day: str, name: str, record: bool = True) -> List[str]:
+    """The keys this page's row was written under before, other than `fp`,
+    for NormalizedEvent.legacy_fingerprints: the sync's rekey_legacy then
+    MOVES the row to `fp` (its id, /e/ link and any claim kept) instead of
+    inserting a second one beside it. The fingerprint is (title, day, café,
+    town), so a café that edits its post's date or title gives the session a
+    new one; without this the row on the old date stays on the map (an upsert
+    cannot delete, --only-new never touches it, and prune_cancelled finds the
+    page alive). `keys` is [[fingerprint, day, name], ...], the newest last.
+    `record` notes `fp` as the row's key now; a tombstone does not."""
+    keys = [k for k in entry.get("keys") or [] if k[0] != fp]
+    olds = [k[0] for k in keys][-LEGACY_KEEP:]
     if record:
-        entry["fp"] = fp
-        if olds:
-            entry["legacy"] = olds
+        entry["keys"] = keys[-LEGACY_KEEP:] + [[fp, day, name]]
+        dead = [k for k in entry.get("dead") or [] if k[0] != fp]
+        if dead:
+            entry["dead"] = dead
         else:
-            entry.pop("legacy", None)
+            entry.pop("dead", None)
     return olds
+
+
+def retire_moved(entry: Dict[str, Any], day: str) -> int:
+    """The page now names `day` and its row was not written this run (the new
+    date is past, beyond the horizon, or not placed): every key written for
+    ANOTHER day becomes `dead`, a tombstone for its own row. The page's edited
+    Datum is the publisher saying that day is not happening, as a JSON-LD
+    EventRescheduled's previousStartDate is (cancelled-events.md). A dead key
+    is never sent as a legacy one again: rekey_legacy would carry a cancelled
+    row onto the live key, and only a source read whole may lift it. A key for
+    the same day (a new title, not a new date) waits for its row to move."""
+    keys = entry.get("keys") or []
+    off = [k for k in keys if k[1] != day]
+    if not off:
+        return 0
+    stay = [k for k in keys if k[1] == day]
+    if stay:
+        entry["keys"] = stay
+    else:
+        entry.pop("keys", None)
+    dead = {k[0]: k for k in entry.get("dead") or []}
+    dead.update({k[0]: k for k in off})
+    entry["dead"] = list(dead.values())
+    return len(off)
+
+
+def moved_tombstone(url: str, key: List[str], site: Dict[str, Any]) -> NormalizedEvent:
+    """The record a dead key's row was: same source, source_id, link and
+    fingerprint (the only thing the sync finds the row by)."""
+    fp, day, name = key[0], key[1], (key[2] if len(key) > 2 else "")
+    ev = NormalizedEvent(source=SOURCE, source_id=source_id_of(url), name=name or "",
+                         start_local=day, timezone=TZ_NAME, coords_exact=True,
+                         category=site.get("category", "community"), ticket_url=url)
+    ev.fingerprint = fp
+    return ev
 
 
 # --------------------------------------------------------------------------- #
@@ -853,16 +969,18 @@ def _count(d: Dict[str, int], k: str, n: int = 1) -> None:
 
 def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], today: date,
               geocode: Geocode, emit: Callable[[NormalizedEvent], None],
-              cancel: Optional[Callable[[NormalizedEvent, str], Any]] = None,
+              cancel: Optional[Callable[[NormalizedEvent, str, bool], Any]] = None,
               max_pages: Optional[int] = None, fetch_until: Optional[float] = None,
               save: Optional[Callable[[], None]] = None,
               geocode_unasked: Optional[Callable[[], bool]] = None) -> Dict[str, Any]:
     """Sitemaps -> new or changed session pages -> the cursor -> rows. Never
-    raises on content; returns the report."""
+    raises on content; returns the report. `cancel(ev, reason, notice)`
+    tombstones a row: notice=True for a title that calls the session off,
+    False for a date the page has left."""
     base = site.get("base", BASE).rstrip("/")
     pages: Dict[str, Dict[str, Any]] = cursor.setdefault("pages", {})
     horizon = today + timedelta(days=int(site.get("within_days", 180)))
-    rep: Dict[str, Any] = {"sitemap_urls": 0, "fetched": 0, "kept": 0, "cancelled": 0,
+    rep: Dict[str, Any] = {"sitemap_urls": 0, "fetched": 0, "kept": 0, "cancelled": 0, "moved_off": 0,
                            "placed_by": {}, "unplaced": {}, "refused": {}, "notes": {},
                            "selection": {}, "stopped": None, "map_dates": None}
     notes = rep["notes"]
@@ -945,13 +1063,15 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
     lo, hi = today.isoformat(), horizon.isoformat()
     seen_fp: Dict[str, str] = {}
     kept_dates = set()
-    for url in sorted(pages):
-        entry = pages[url]
+
+    def write(url: str, entry: Dict[str, Any]) -> bool:
+        """Write (or call off by its title) the page's session. True when the
+        page's own row was emitted or tombstoned this run."""
         pg = entry.get("page")
         if not pg or not (lo <= pg["date"] <= hi):
             if pg and pg["date"] > hi:
                 _count(notes, "upcoming, beyond the horizon (written when it comes inside)")
-            continue
+            return False
         cafe = book.get(pg.get("cafe_url") or "")
         if pg.get("cafe_url") and cafe is None:
             _count(notes, "café not on the café map")
@@ -968,11 +1088,11 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
             ev = build_event(url, pg, cafe, None, site, title=live_title or "")
             # The row may be filed under what the page said before (another
             # date or title): the tombstone names those keys too.
-            ev.legacy_fingerprints = identity(entry, ev.fingerprint, record=False)
+            ev.legacy_fingerprints = identity(entry, ev.fingerprint, pg["date"], ev.name, record=False)
             if cancel is not None:
-                cancel(ev, (pg.get("title") or "")[:80])
+                cancel(ev, (pg.get("title") or "")[:80], True)
             rep["cancelled"] += 1
-            continue
+            return True
         point, how = place(pg, cafe, geocode, float(site.get("pin_km", 8.0)),
                            float(site.get("street_km", 3.0)), notes, others=book.values())
         if point is None:
@@ -982,14 +1102,14 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
             _count(rep["unplaced"], how)
             print(f"[{SOURCE}] unplaced ({how}): {pg.get('line1')!r}, {pg.get('postcode')} "
                   f"{pg.get('town')} - {url}")
-            continue
+            return False
         ev = build_event(url, pg, cafe, point, site)
         if ev.fingerprint in seen_fp:
             _count(notes, "two posts, one café, one day (the first is kept)")
             print(f"[{SOURCE}] same title, café, town and day as {seen_fp[ev.fingerprint]}: {url} - not written twice")
-            continue
+            return False
         seen_fp[ev.fingerprint] = url
-        ev.legacy_fingerprints = identity(entry, ev.fingerprint)
+        ev.legacy_fingerprints = identity(entry, ev.fingerprint, pg["date"], ev.name)
         if ev.legacy_fingerprints:
             _count(notes, "re-dated or re-titled since its row was written: "
                           "legacy fingerprint sent (the sync moves the row)")
@@ -998,6 +1118,30 @@ def read_site(site: Dict[str, Any], client: Client, cursor: Dict[str, Any], toda
         if pg.get("cafe_url"):
             kept_dates.add((pg["cafe_url"], pg["date"]))
         emit(ev)
+        return True
+
+    dead_keys: List[Tuple[str, List[str]]] = []
+    for url in sorted(pages):
+        entry = pages[url]
+        day = entry.get("date")
+        if not write(url, entry) and day and retire_moved(entry, day):
+            _count(notes, "re-dated, its new date not written this run: the old date's row called off")
+        if day and day < lo:
+            entry.pop("keys", None)              # a past session's row moves nowhere now
+        dead = [k for k in entry.get("dead") or [] if k[1] >= lo]
+        if dead:
+            entry["dead"] = dead
+            dead_keys.extend((url, k) for k in dead)
+        else:
+            entry.pop("dead", None)
+    # Every run while the old day is to come, so a sync that failed once is not
+    # the end of it; never a key some post is written under this run.
+    for url, k in dead_keys:
+        if k[0] in seen_fp:
+            continue
+        if cancel is not None:
+            cancel(moved_tombstone(url, k, site), MOVED_REASON, False)
+        rep["moved_off"] += 1
 
     # 5. How much of what the café map says is coming did we read?
     want = {(u, d) for u, c in book.items() for d in c.get("next") or [] if lo <= d <= hi}
@@ -1011,7 +1155,8 @@ def _report(rep: Dict[str, Any]) -> None:
     unplaced = sum(rep["unplaced"].values())
     print(f"[{SOURCE}] sitemaps list {rep['sitemap_urls']} session pages; fetched {rep['fetched']} "
           f"this run; kept {rep['kept']} upcoming session(s) ({placed or 'none placed'}); "
-          f"unplaced {unplaced}; cancelled {rep['cancelled']} by their title", flush=True)
+          f"unplaced {unplaced}; cancelled {rep['cancelled']} by their title, "
+          f"{rep.get('moved_off', 0)} old date(s) of a re-dated session", flush=True)
     for w, n in sorted(rep["selection"].items()):
         print(f"[{SOURCE}] selection: {w}: {n}", flush=True)
     for bucket in ("unplaced", "refused", "notes"):
@@ -1127,9 +1272,9 @@ def main(argv=None) -> int:
                 store.save()
                 pending[0] = 0
 
-        def cancel(ev: NormalizedEvent, reason: str) -> None:
-            if store is not None:
-                store.cancel(ev, reason, notice=True)      # the café's own title says it is off
+        def cancel(ev: NormalizedEvent, reason: str, notice: bool) -> None:
+            if store is not None:      # notice: the café's own title says it is off
+                store.cancel(ev, reason, notice=notice)
 
         try:
             rep = read_site(site, client, cursor, today, geocode, emit, cancel,
@@ -1142,7 +1287,7 @@ def main(argv=None) -> int:
         finally:
             if store is not None:
                 store.save()
-        save_progress()
+            save_progress()            # a crash keeps the pages it fetched, as a deadline does
         rep["requests"] = client.requests
         _report(rep)
         print(f"[{SOURCE}] {client.requests} request(s) to the site", flush=True)

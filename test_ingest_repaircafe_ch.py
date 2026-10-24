@@ -12,7 +12,8 @@ well-formed and wrong, or cost the publisher hundreds of requests a day:
     Ponts 2, 0.42 km off): a page pin that is ANOTHER café's, on a page whose
     Ort is its own café's address, gives way to the café's pin.
   * THE TOWN NODE. Photon, asked for "Kuhstall, 7503 Samedan", answers with
-    Samedan itself; a "street" on the town's own point is no street.
+    Samedan itself; a "street" on the town's point is no street, and in a
+    city the town's own node ("Luzern") is apart from the postcode's answer.
   * THE ADDRESS. "Bernstrasse 9  Nouvo" is the café's "Bernstrasse 9";
     "Therwilerstrasse 18" is NOT the café's "Therwilerstrasse 16"; an empty Ort
     is the café's own place, a street-less Ort in another town is nowhere.
@@ -20,11 +21,14 @@ well-formed and wrong, or cost the publisher hundreds of requests a day:
     rows, and so are one café's sessions in two towns on one day (FRC Genève
     in Meyrin and in Genève); "flicken" and "am Standort Badenerstrasse 658"
     become their café. A post edited to another date carries its old
-    fingerprint, so the sync moves the row instead of adding one.
+    fingerprint, so the sync moves the row instead of adding one; when the new
+    date is not written this run (past, beyond the horizon, unplaced), the old
+    date's row is tombstoned instead, every run until that day is past.
   * THE CURSOR. 1,866 sitemap URLs, mostly history: a page is fetched once per
     lastmod, never when its lastmod is older than the floor, newest first, and
     the walk resumes where a budget or a deadline stopped it.
-  * THE CONTACT BOX. A volunteer's mobile number and e-mail are never copied.
+  * THE CONTACT BOX. A volunteer's mobile number and e-mail are never copied,
+    nor the name left beside them once they are cut.
   * THE CONDUCT. A bot challenge or a 403 ends the run with no row; five 5xx
     in a row stop the walk; a redirect off the site is not followed.
 
@@ -117,6 +121,9 @@ check("the corner pin is read as written (and refused later, not here)", lz.get(
 st = R.parse_event_page(fx("event_stans_no_street.html"))
 check("an Ort with no street keeps its postcode and town", (st.get("line1"), st.get("postcode"), st.get("town"))
       == ("", "6370", "Stans"), st)
+check("a pin that is no number ('47.19.') is no pin, not an exception",
+      R.parse_event_page(fx("event_grenchen_pin.html").replace("L.marker([", "L.marker([47.19., 7.39], {}); //[")).get("pin")
+      is None)
 check("not a session page -> a reason, not an exception",
       R.parse_event_page("<html><body>Seite nicht gefunden</body></html>").get("why", "").startswith("no event section"))
 check("a Datum naming two days is refused",
@@ -292,15 +299,49 @@ check("Photon's answer for a venue it does not know is the town's own point: ref
       pt is None and how == "street not found in its town"
       and notes.get("the geocoder answered with the town itself (not used)") == 1, (pt, how, notes))
 pt, how = R.place(dict(kuh, line1="Kuhstall, Cho d'Punt 10"), engiadin,
-                  lambda q, s: SAMEDAN if q in ("7503 Samedan", "Kuhstall, Cho d'Punt 10") else (46.5355, 9.8790),
+                  lambda q, s: SAMEDAN if q in ("7503 Samedan", "Samedan", "Kuhstall, Cho d'Punt 10") else (46.5355, 9.8790),
                   8.0, 3.0)
 check("the town's point for the whole line, then the street itself is tried and kept",
       how == "geocoded street" and pt == (46.5355, 9.8790), (pt, how))
 # Gams: Photon knows "Oberstufenzentrum Widem" (Schulhaus Widem), 0.14 km from
 # the village node: a street-less venue that IS found is kept.
 pt, how = R.place({"line1": "Oberstufenzentrum Widem", "postcode": "9473", "town": "Gams", "pin": None}, None,
-                  lambda q, s: (47.2054106, 9.4421264) if q == "9473 Gams" else (47.2052217, 9.4403015), 8.0, 3.0)
+                  lambda q, s: (47.2054106, 9.4421264) if q in ("9473 Gams", "Gams") else (47.2052217, 9.4403015), 8.0, 3.0)
 check("a venue Photon does find, 0.14 km from the town's point, is kept", how == "geocoded street", (pt, how))
+# Luzern (Photon, 2026-10-24): "Luzern, Schweiz" is place=city at
+# (47.052144, 8.3058123), 0.48 km from "6003 Luzern"; Genève's city node is
+# 0.34 km from "1205 Genève". A venue Photon does not know, answered with the
+# CITY's node, is no nearer the venue than the postcode's answer is.
+LUZ_PC, LUZ_CITY = (47.0504373, 8.3116665), (47.052144, 8.3058123)
+log = []
+
+
+def luzern(answer):
+    def g(q, s):
+        log.append(q)
+        return {"6003 Luzern": LUZ_PC, "Luzern": LUZ_CITY}.get(q, answer)
+    return g
+
+
+notes = {}
+pt, how = R.place({"line1": "Kuhstall", "postcode": "6003", "town": "Luzern", "pin": None}, None, luzern(LUZ_CITY),
+                  8.0, 3.0, notes)
+check("a venue answered with the city's own node (0.48 km from the postcode's answer) is the town: refused",
+      pt is None and how == "street not found in its town" and log.count("Luzern") == 1
+      and notes.get("the geocoder answered with the town itself (not used)") == 1, (pt, how, notes, log))
+log.clear()
+pt, how = R.place({"line1": "Bireggstrasse 36", "postcode": "6003", "town": "Luzern", "pin": None}, None,
+                  luzern((47.0432, 8.3122)), 8.0, 3.0)
+check("a street 1.1 km from the city's node is kept (the 16 placed on 2026-10-24 lie 0.14-1.2 km from theirs)",
+      how == "geocoded street" and pt == (47.0432, 8.3122), (pt, how))
+log.clear()
+pt, how = R.place({"line1": "Bireggstrasse 36", "postcode": "6003", "town": "Luzern", "pin": None}, None,
+                  luzern((47.30, 8.20)), 8.0, 3.0)
+check("the town's own node is asked only for an answer that would be kept", pt is None and "Luzern" not in log, log)
+pt, how = R.place({"line1": "Kuhstall", "postcode": "6003", "town": "Luzern", "pin": None}, None,
+                  lambda q, s: LUZ_PC if q == "6003 Luzern" else None if q == "Luzern" else LUZ_CITY, 8.0, 3.0)
+check("a town Photon cannot find alone leaves the postcode's answer as the town's point", how == "geocoded street",
+      (pt, how))
 
 dbl = R.parse_event_page(fx("event_murten_voranmeldung.html").replace(">3280 Murten", ">3280 3280 Murten"))
 dash = R.parse_event_page(fx("event_murten_voranmeldung.html").replace(">3280 Murten", ">3280 - Murten"))
@@ -322,6 +363,8 @@ check("'Nur auf Voranmeldung' puts 'Registration required' first",
 check("the volunteer's number and e-mail are not copied (the placeholder 079 000 00 00 is cut from the café's text)",
       "079" not in (ev.description or "") and "@" not in (ev.description or "") and "example.ch" not in (ev.description or ""),
       ev.description)
+check("nor the volunteer's name left beside the number ('Nur auf Voranmeldung: 079 000 00 00 Anna Muster')",
+      "Muster" not in (ev.description or "") and (ev.description or "").endswith("Nur auf Voranmeldung"), ev.description)
 ev12 = R.build_event(EV + "repair-cafe-murten-morat/", nost, BOOK.get(MURTEN), (46.930214, 7.1165429), SITE)
 check("10:00 on 12 Dec 2026 is 09:00Z (CET)", ev12.start_utc == "2026-12-12T09:00:00Z", ev12.start_utc)
 check("category community", ev.category == "community")
@@ -375,8 +418,21 @@ for text, want in reg.items():
 check("clean_text cuts +41, 0xx and e-mail forms",
       R.clean_text("Infos: +41 79 123 45 67 oder 044/437 90 20, mail an a.b@c-d.ch. Bis bald!", 500)
       == "Infos: oder, mail an. Bis bald!", R.clean_text("Infos: +41 79 123 45 67 oder 044/437 90 20, mail an a.b@c-d.ch. Bis bald!", 500))
-check("clean_text cuts a spaced or (at) address", R.clean_text("Anmeldung: a.muster @ epost.ch oder b(at)example.ch", 500)
-      == "Anmeldung: oder", R.clean_text("Anmeldung: a.muster @ epost.ch oder b(at)example.ch", 500))
+check("clean_text cuts a spaced or (at) address (and the label left with nothing after it)",
+      R.clean_text("Anmeldung: a.muster @ epost.ch oder b(at)example.ch\nBis bald!", 500) == "Bis bald!",
+      R.clean_text("Anmeldung: a.muster @ epost.ch oder b(at)example.ch\nBis bald!", 500))
+# The three shapes a volunteer's name took on 2026-10-24 once the number was
+# cut (26 contact lines on 321 upcoming pages): the name goes with it.
+for line, want in {"Nur auf Voranmeldung: 079 000 00 00 Anna Muster": "Nur auf Voranmeldung",
+                   "Anna Muster: 079 000 00 00": "", "Anna Muster, 071 000 00 00 oder 079 000 00 00": "",
+                   "Email: info@example.ch": "",
+                   "Ou par courriel info@example.ch": "Ou par courriel",
+                   "Sur inscription préalable, uniquement par tél. au 078 000 00 00 (places limitées)":
+                       "Sur inscription préalable, uniquement par tél. au (places limitées)"}.items():
+    check(f"clean_text({line!r}) -> {want!r}", R.clean_text(line, 500) == want, R.clean_text(line, 500))
+check("a line that held no contact keeps its names ('Jegliche Haftung', 'Repair Café Murten')",
+      R.clean_text("Repair Café Murten\nJegliche Haftung ist ausgeschlossen.", 500)
+      == "Repair Café Murten\nJegliche Haftung ist ausgeschlossen.")
 check("clean_text keeps dates and times", R.clean_text("Samstag, 08.11.2025, 10.00-13.00 Uhr", 500)
       == "Samstag, 08.11.2025, 10.00-13.00 Uhr")
 
@@ -460,14 +516,14 @@ class Clock:
         self.t += s
 
 
-def run(pages, cursor, max_pages=None, fetch_until=None, robots=None, deadline=None, geo=None, save=None):
+def run(pages, cursor, max_pages=None, fetch_until=None, robots=None, deadline=None, geo=None, save=None, today=TODAY):
     s = FakeSession(pages)
     clock = Clock()
     client = R.Client(s, 1.0, deadline, robots=robots, clock=clock, sleep=clock.sleep)
     out, offs = [], []
-    rep = R.read_site(SITE, client, cursor, TODAY, geo or fake_geocode(), out.append,
-                      lambda e, why: offs.append((e, why)), max_pages=max_pages, fetch_until=fetch_until,
-                      save=save)
+    rep = R.read_site(SITE, client, cursor, today, geo or fake_geocode(), out.append,
+                      lambda e, why, notice: offs.append((e, why, notice)), max_pages=max_pages,
+                      fetch_until=fetch_until, save=save)
     return rep, out, offs, s.asked, clock
 
 
@@ -639,8 +695,8 @@ print("== a post edited to another date moves its row")
 cur_d = {"version": 1, "pages": {}, "cafes": {}}
 rep, out, offs, asked, _ = run(SITEMAP_PAGES, cur_d)
 fp_24 = next(e.fingerprint for e in out if e.source_id.endswith("murten-morat-4"))
-check("the cursor records the key each row was written under",
-      cur_d["pages"][EV + "repair-cafe-murten-morat-4/"].get("fp") == fp_24
+check("the cursor records the key each row was written under, with its day and name",
+      cur_d["pages"][EV + "repair-cafe-murten-morat-4/"].get("keys") == [[fp_24, "2026-10-24", "Repair Café Murten-Morat"]]
       and not any(e.legacy_fingerprints for e in out), cur_d["pages"][EV + "repair-cafe-murten-morat-4/"])
 redated = dict(SITEMAP_PAGES)
 redated["https://www.repair-cafe.ch/repairevent-sitemap2.xml"] = fx("repairevent-sitemap2.xml").replace(
@@ -677,6 +733,95 @@ rep, out, offs, asked, _ = run(off_d, cur_d)
 check("then called off: the tombstone names the live key and every earlier one",
       len(offs) == 1 and offs[0][0].fingerprint == e31t.fingerprint
       and offs[0][0].legacy_fingerprints == [fp_24, e31.fingerprint], [(o[0].fingerprint, o[0].legacy_fingerprints) for o in offs])
+
+
+print("== a post edited to a date not written this run calls its old date off")
+SM2 = "https://www.repair-cafe.ch/repairevent-sitemap2.xml"
+M4 = EV + "repair-cafe-murten-morat-4/"
+
+
+def edited(base, n, **repl):
+    """`base` with the Murten post's lastmod moved to the n-th edit and its
+    page's text replaced."""
+    out = dict(base)
+    out[SM2] = fx("repairevent-sitemap2.xml").replace("2026-10-23T09:35:33+00:00", f"2026-10-24T0{n}:00:00+00:00")
+    page = fx("event_murten_voranmeldung.html")
+    for a, b in repl.items():
+        page = page.replace(a.replace("_", " "), b)
+    out[M4] = page
+    return out
+
+
+cur_m = {"version": 1, "pages": {}, "cafes": {}}
+rep, out, offs, asked, _ = run(SITEMAP_PAGES, cur_m)
+fp_24 = next(e.fingerprint for e in out if e.source_id.endswith("murten-morat-4"))
+far = edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Mi, 12.05.2027"})
+rep, out, offs, asked, _ = run(far, cur_m)
+check("re-dated 24.10.2026 -> 12.05.2027 (past the horizon): no row, and the old date's row is tombstoned "
+      "as the page's own evidence (not a title: notice False)",
+      not any(e.source_id.endswith("murten-morat-4") for e in out) and len(offs) == 1
+      and offs[0][0].fingerprint == fp_24 and offs[0][1] == R.MOVED_REASON and offs[0][2] is False
+      and (offs[0][0].source_id, offs[0][0].ticket_url, offs[0][0].start_local, offs[0][0].name)
+      == ("repairevent/repair-cafe-murten-morat-4", M4, "2026-10-24", "Repair Café Murten-Morat")
+      and rep["moved_off"] == 1, [(o[0].fingerprint, o[1], o[2]) for o in offs])
+check("the cursor holds it as dead, not as a key to move", cur_m["pages"][M4].get("dead") == [
+    [fp_24, "2026-10-24", "Repair Café Murten-Morat"]] and not cur_m["pages"][M4].get("keys"), cur_m["pages"][M4])
+rep, out, offs, asked, _ = run(far, cur_m)
+check("the next run (nothing fetched) tombstones it again, in case that sync failed",
+      len(asked) == 4 and [(o[0].fingerprint, o[2]) for o in offs] == [(fp_24, False)], (asked, offs))
+back = edited(SITEMAP_PAGES, 2, **{"Sa,_24.10.2026": "Sa, 31.10.2026"})
+rep, out, offs, asked, _ = run(back, cur_m)
+e31m = next((e for e in out if e.source_id.endswith("murten-morat-4")), None)
+check("edited again, to 31.10 (inside): written with NO legacy key (moving the cancelled row onto the live key "
+      "would hide the session for good), and the 24.10 row is still called off",
+      e31m is not None and e31m.legacy_fingerprints == [] and [o[0].fingerprint for o in offs] == [fp_24],
+      (e31m and e31m.legacy_fingerprints, offs))
+rep, out, offs, asked, _ = run(back, cur_m, today=date(2026, 10, 25))
+check("once the old day is past it is forgotten: no tombstone, nothing dead in the cursor",
+      not offs and "dead" not in cur_m["pages"][M4] and rep["moved_off"] == 0, (offs, cur_m["pages"][M4]))
+
+cur_p = {"version": 1, "pages": {}, "cafes": {}}
+run(SITEMAP_PAGES, cur_p)
+rep, out, offs, asked, _ = run(edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Di, 20.10.2026"}), cur_p)
+check("re-dated into the past (a corrected date): the 24.10 row is called off, the page kept by its date only",
+      [(o[0].fingerprint, o[1]) for o in offs] == [(fp_24, R.MOVED_REASON)]
+      and cur_p["pages"][M4].get("date") == "2026-10-20" and "page" not in cur_p["pages"][M4]
+      and "keys" not in cur_p["pages"][M4], (offs, cur_p["pages"][M4]))
+
+cur_t = {"version": 1, "pages": {}, "cafes": {}}
+run(SITEMAP_PAGES, cur_t)
+retitled_t = edited(SITEMAP_PAGES, 1, **{'!important;">Repair_Café_Murten-Morat</h2>':
+                                         '!important;">Repair Café Murten-Morat mit Velo-Flickstation</h2>'})
+rep, out, offs, asked, _ = run(retitled_t, cur_t, geo=lambda q, sfx: None)
+check("re-TITLED on the same day and not placed this run: nothing is called off (the session is still on)",
+      not offs and not out and cur_t["pages"][M4].get("keys") == [[fp_24, "2026-10-24", "Repair Café Murten-Morat"]],
+      (offs, cur_t["pages"][M4].get("keys")))
+rep, out, offs, asked, _ = run(retitled_t, cur_t)
+e_t = next(e for e in out if e.source_id.endswith("murten-morat-4"))
+check("placed the next run, it carries the old key, so the row moves", e_t.legacy_fingerprints == [fp_24] and not offs,
+      (e_t.legacy_fingerprints, offs))
+
+cur_u = {"version": 1, "pages": {}, "cafes": {}}
+run(SITEMAP_PAGES, cur_u)
+rep, out, offs, asked, _ = run(edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Sa, 31.10.2026"}), cur_u,
+                               geo=lambda q, sfx: None)
+check("re-DATED and not placed this run: the old date is called off all the same (the page says it is not then)",
+      not out and [o[0].fingerprint for o in offs] == [fp_24], (out, offs))
+
+cur_w = {"version": 1, "pages": {}, "cafes": {}}
+run(SITEMAP_PAGES, cur_w)
+both = edited(SITEMAP_PAGES, 1, **{"Sa,_24.10.2026": "Mi, 12.05.2027"})
+both[SM2] = both[SM2].replace("</urlset>", "<url><loc>" + EV + "repair-cafe-murten-morat-4b/</loc>"
+                              "<lastmod>2026-10-24T02:00:00+00:00</lastmod></url>\n</urlset>")
+both[EV + "repair-cafe-murten-morat-4b/"] = fx("event_murten_voranmeldung.html")
+rep, out, offs, asked, _ = run(both, cur_w)
+check("one post moved off 24.10 while another post lists 24.10: that key is written live, never tombstoned",
+      not offs and any(e.fingerprint == fp_24 and e.source_id.endswith("morat-4b") for e in out),
+      ([e.source_id for e in out], offs))
+check("retire_moved keeps a same-day key and moves only another day's",
+      (lambda en: (R.retire_moved(en, "2026-11-07"), en))({"keys": [["a", "2026-10-31", "x"], ["b", "2026-11-07", "y"]],
+                                                         "dead": [["c", "2026-11-01", "z"]]})
+      == (1, {"keys": [["b", "2026-11-07", "y"]], "dead": [["c", "2026-11-01", "z"], ["a", "2026-10-31", "x"]]}))
 
 
 print("== the geocoder's budget and deadline")
@@ -756,6 +901,27 @@ try:
     store2 = os.path.join(TMP, "store2.json")
     rc3 = R.main(["--config", cfg_path, "--store", store2, "--cursor", cursor_path, "--max-minutes", "0"])
     saved_store2 = json.load(open(store2, encoding="utf-8"))
+    # The day after, the post moved again, past the horizon: the 31.10 row is
+    # called off in the store, as the sync reads it.
+    MainSession.PAGES = edited(SITEMAP_PAGES, 3, **{"Sa,_24.10.2026": "Mi, 12.05.2027"})
+    store3 = os.path.join(TMP, "store3.json")
+    rc4 = R.main(["--config", cfg_path, "--store", store3, "--cursor", cursor_path, "--max-minutes", "0"])
+    saved_store3 = json.load(open(store3, encoding="utf-8"))
+    # A crash after pages were fetched: the cursor keeps them all the same.
+    MainSession.PAGES = SITEMAP_PAGES
+    crash_cursor = os.path.join(TMP, "crash_cursor.json")
+    _read_site = R.read_site
+
+    def crashing(site, client, cursor, *a, **k):
+        cursor["pages"][EV + "fetched-before-the-crash/"] = {"lastmod": "x", "checked": "2026-10-24", "date": "2026-11-01"}
+        raise ValueError("boom")
+    R.read_site = crashing
+    try:
+        rc5 = R.main(["--config", cfg_path, "--store", os.path.join(TMP, "store5.json"), "--cursor", crash_cursor,
+                      "--max-minutes", "0"])
+    finally:
+        R.read_site = _read_site
+    crash_saved = json.load(open(crash_cursor, encoding="utf-8")) if os.path.exists(crash_cursor) else {}
 finally:
     MainSession.PAGES = SITEMAP_PAGES
     _requests.Session, _robots_txt.Robots, ics.make_location_geocoder, R.time.sleep = _saved
@@ -774,6 +940,15 @@ check("the store hands the sync the re-dated row's old key (legacy_fingerprints)
       and new_rec.get("legacy_fingerprints") == [old_key]
       and all("legacy_fingerprints" not in r for r in saved_store2["events"] if r is not new_rec),
       (new_rec.get("start_local"), new_rec.get("legacy_fingerprints")))
+tombs = saved_store3.get("tombstones") or []
+check("moved past the horizon: the store holds a tombstone for the 31.10 row (and the 24.10 one), no live row, "
+      "and neither is a title notice",
+      rc4 == 0 and sorted(t["fingerprint"] for t in tombs) == sorted([new_rec["fingerprint"], old_key])
+      and all(t.get("reason") == R.MOVED_REASON and not t.get("notice") for t in tombs)
+      and not any(r["sources"][0]["url"].endswith("murten-morat-4/") for r in saved_store3.get("events") or []),
+      tombs)
+check("a crash inside the run still saves the cursor it had (rc 1: the only site failed)",
+      rc5 == 1 and EV + "fetched-before-the-crash/" in (crash_saved.get("pages") or {}), (rc5, list(crash_saved)))
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
