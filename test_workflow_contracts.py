@@ -1,9 +1,11 @@
 """Offline contracts for the automation that can otherwise fail hours later."""
 from pathlib import Path
+import json
 import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 import yaml
@@ -179,7 +181,174 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('--deadline "${MEETUP_DEADLINE:-0}"', intl['run'])
         final = next(s for s in steps if s.get('name', '').startswith('Sync Meetup events to Supabase'))
         self.assertEqual(final['if'], 'always()')
+        self.assertIn('[ -f meetup_global_events.json ]', final['run'])
         self.assertIn('[ -f meetup_events.json ]', final['run'])
+
+    def test_meetup_legs_keep_their_own_stores_and_the_final_sync_backs_up_the_us_one(self):
+        # One shared store made the always() final sync re-read 51,996 ids in
+        # 116.9 s and re-send 29,890 Census addresses on 2026-10-23, ~24.7k of
+        # them US rows us_sync had already written. The international sweep has
+        # its own store; the final syncs the US one again only when us_sync did
+        # not succeed (a failed us_sync also skips the sweep).
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['meetup']['steps']
+        us = next(s for s in steps if s.get('name') == 'Sweep Meetup across the US metros')
+        us_sync = next(s for s in steps if s.get('id') == 'us_sync')
+        intl = next(s for s in steps if s.get('name') == 'Sweep Meetup across the international metros')
+        final = next(s for s in steps if s.get('name', '').startswith('Sync Meetup events to Supabase'))
+        self.assertLess(steps.index(us), steps.index(us_sync))
+        self.assertLess(steps.index(us_sync), steps.index(intl))
+        self.assertLess(steps.index(intl), steps.index(final))
+        self.assertIn('--store meetup_events.json', us['run'])
+        self.assertIn('--store meetup_events.json --skip-unchanged $ONLY_NEW', us_sync['run'])
+        self.assertIn('--store meetup_global_events.json', intl['run'])
+        self.assertNotIn('meetup_events.json', intl['run'])
+        for step in (us_sync, final):
+            self.assertIn('[ "$(date -u +%u)" = "3" ] && ONLY_NEW=""', step['run'])
+            self.assertIn('[ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""', step['run'])
+        self.assertIn('steps.us_sync.outcome', final['run'])
+        if not shutil.which('bash'):
+            return
+        run = final['run']
+        both = ('meetup_events.json', 'meetup_global_events.json')
+        cases = [  # (us_sync outcome, stores on disk, store whose sync fails) -> stores synced, step ok
+            ('success', both, None, ['meetup_global_events.json'], True),
+            ('success', ('meetup_events.json',), None, [], True),
+            ('failure', ('meetup_events.json',), None, ['meetup_events.json'], True),
+            ('', ('meetup_events.json',), None, ['meetup_events.json'], True),
+            ('cancelled', both, None, list(both), True),
+            ('failure', both, 'meetup_events.json', list(both), False),
+            ('success', both, 'meetup_global_events.json', ['meetup_global_events.json'], False),
+            ('failure', (), None, [], True),
+        ]
+        for outcome, present, failing, synced, ok in cases:
+            for refresh in ('true', 'false'):
+                code, calls, _, _ = self._sync_calls(
+                    run, {'steps.us_sync.outcome': outcome, 'github.event.inputs.full_refresh': refresh},
+                    {name: '{"events": []}' for name in present}, failing)
+                case = (outcome, present, failing, refresh)
+                self.assertEqual([c[c.index('--store') + 1] for c in calls], synced, case)
+                self.assertEqual(code == 0, ok, case)
+                self.assertTrue(all('--skip-unchanged' in c for c in calls), case)
+                if refresh == 'true':
+                    self.assertFalse(any('--only-new' in c for c in calls), case)
+
+    def test_meetup_final_sync_writes_the_us_copy_of_a_border_event(self):
+        # Three international circles overlap a US one (Tijuana 15.6 mi from San
+        # Diego; Victoria and Vancouver inside Seattle's 100 mi). One event both
+        # legs find has one fingerprint and can carry a different category and
+        # ends_at in each store (each process keeps its first keyword's), and
+        # needs_detail_sync keeps every stored Meetup row on --only-new days: two
+        # copies would both be written daily. The US copy wins, as it did in the
+        # shared store; the international store keeps its own tombstones.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['meetup']['steps']
+        run = next(s for s in steps if s.get('name', '').startswith('Sync Meetup events to Supabase'))['run']
+        if not shutil.which('bash'):
+            return
+        ev = lambda fp, cat: {'fingerprint': fp, 'category': cat, 'sources': [{'source': 'meetup', 'source_id': fp}]}
+        us = json.dumps({'_meta': {'version': 1, 'count': 2},
+                         'events': [ev('a', 'community'), ev('border', 'community')],
+                         'tombstones': [{'fingerprint': 'called-off', 'source': 'meetup', 'reason': 'status:CANCELLED'}]})
+        intl = json.dumps({'_meta': {'version': 1, 'count': 4},
+                           'events': [ev('border', 'party'), ev('called-off', 'party'), ev('tj', 'party'),
+                                      ev('mx', 'community')],
+                           'tombstones': [{'fingerprint': 'a', 'source': 'meetup', 'reason': 'status:CANCELLED'}],
+                           'seen': ['unwritten']})
+        fps = lambda store: [r['fingerprint'] for r in store['events']]
+        for outcome, synced in (('success', ['meetup_global_events.json']),
+                                ('failure', ['meetup_events.json', 'meetup_global_events.json'])):
+            exprs = {'steps.us_sync.outcome': outcome, 'github.event.inputs.full_refresh': 'false'}
+            code, calls, snaps, out = self._sync_calls(
+                run, exprs, {'meetup_events.json': us, 'meetup_global_events.json': intl}, None)
+            self.assertEqual(code, 0, outcome)
+            self.assertEqual([c[c.index('--store') + 1] for c in calls], synced, outcome)
+            if outcome == 'failure':                 # the US copy is written first, whole
+                self.assertEqual(fps(snaps[0]), ['a', 'border'])
+            left = snaps[-1]
+            self.assertEqual(fps(left), ['tj', 'mx'], outcome)
+            self.assertEqual(left['_meta']['count'], 2, outcome)
+            self.assertEqual(left['tombstones'], json.loads(intl)['tombstones'], outcome)
+            self.assertEqual(left['seen'], ['unwritten'], outcome)
+            self.assertIn('Border overlap: 2 of 4 international events', out, outcome)
+        # No US store: nothing to defer to, the international store syncs whole.
+        code, calls, snaps, _ = self._sync_calls(
+            run, {'steps.us_sync.outcome': 'success', 'github.event.inputs.full_refresh': 'false'},
+            {'meetup_global_events.json': intl}, None)
+        self.assertEqual((code, fps(snaps[-1])), (0, ['border', 'called-off', 'tj', 'mx']))
+        # A filter that cannot read the US store leaves the international one
+        # whole, still syncs it, and fails the step instead of hiding it.
+        code, calls, snaps, out = self._sync_calls(
+            run, {'steps.us_sync.outcome': 'success', 'github.event.inputs.full_refresh': 'false'},
+            {'meetup_events.json': '{"events": [', 'meetup_global_events.json': intl}, None)
+        self.assertEqual([c[c.index('--store') + 1] for c in calls], ['meetup_global_events.json'])
+        self.assertEqual(fps(snaps[-1]), ['border', 'called-off', 'tj', 'mx'])
+        self.assertNotEqual(code, 0)
+        self.assertIn('::warning::', out)
+
+    @staticmethod
+    def _sync_calls(run, exprs, stores, failing):
+        """Run a sync step's shell as Actions would (bash -eo pipefail), with
+        its ${{ }} expressions filled from `exprs`, `stores` ({name: text}) on
+        disk, `python` this interpreter, and the sync replaced by an echo that
+        fails for `failing`: -> (exit code, [the argument list of each call],
+        [the store each call was given, parsed, or None], stdout)."""
+        script = re.sub(r'\$\{\{\s*(.+?)\s*\}\}', lambda m: exprs[m[1]], run)
+        script = ('python() { "$PYTHON_EXE" "$@"; }\n'
+                  'fake_sync() { echo CALL "$@"; printf \'SNAP %s\\n\' "$(tr -d \'\\n\' < "$2")"; '
+                  '[ "$2" != "$FAILING" ]; }\n'
+                  + script.replace('python mapsee_supabase_sync.py', 'fake_sync'))
+        with tempfile.TemporaryDirectory() as tmp:
+            for name, text in stores.items():
+                Path(tmp, name).write_text(text, encoding='utf-8')
+            out = subprocess.run(['bash', '-eo', 'pipefail', '-c', script], cwd=tmp, capture_output=True,
+                                 text=True, env=dict(os.environ, FAILING=failing or '', PYTHON_EXE=sys.executable))
+        calls = [line.split()[1:] for line in out.stdout.splitlines() if line.startswith('CALL')]
+
+        def parsed(text):
+            try:
+                return json.loads(text)
+            except ValueError:
+                return None
+        snaps = [parsed(line[5:]) for line in out.stdout.splitlines() if line.startswith('SNAP ')]
+        return out.returncode, calls, snaps, out.stdout
+
+    def test_ics_skips_its_final_sync_after_a_checkpoint_that_succeeded(self):
+        # Nothing imports after the checkpoint in the ics group, so its final
+        # sync wrote 0 rows after a 239.2 s state read of 130,979 ids on
+        # 2026-10-23 (163.5 s, 0 rows on 10-22). It still runs when the
+        # checkpoint did not succeed; under continue-on-error only `.outcome`
+        # says so (the conclusion is always success).
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['feeds']['steps']
+        index = {s['id']: i for i, s in enumerate(steps) if 'id' in s}
+        sync, checkpoint = steps[index['sync']], steps[index['checkpoint']]
+        self.assertLess(index['ingest_ics'], index['checkpoint'])
+        self.assertLess(index['checkpoint'], index['sync'])
+        self.assertEqual(sync.get('if'), "matrix.group != 'ics' || steps.checkpoint.outcome != 'success'")
+        self.assertNotIn('conclusion', sync.get('if') or '')
+        self.assertTrue(sync['continue-on-error'])
+        self.assertTrue(checkpoint['continue-on-error'])
+        self.assertIn('--store feeds_events.json', checkpoint['run'])
+        self.assertIn('--store feeds_events.json', sync['run'])
+        # Every step after the checkpoint that can run in the ics group (no
+        # guard, always(), or any guard other than one naming another group)
+        # imports nothing and writes no store but the one the checkpoint synced.
+        for step in steps[index['checkpoint'] + 1:]:
+            only = re.fullmatch(r"matrix.group == '(\w+)'", step.get('if') or '')
+            if only and only[1] != 'ics':
+                continue
+            run = step.get('run') or ''
+            name = step.get('name') or step.get('uses')
+            self.assertIsNone(re.search(r'mapsee_ingest_\w+\.py', run), name)
+            if step is not sync:
+                self.assertNotIn('--store', run, name)
+
+    def test_feed_logs_are_unbuffered(self):
+        # Block-buffered, the ics step printed its first line ~33 minutes in
+        # (2026-10-23): no feed's cost could be read from the log.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        self.assertEqual(workflow['jobs']['feeds']['env'].get('PYTHONUNBUFFERED'), '1')
 
     def test_osm_place_windows_refresh_changed_rows(self):
         for name in ('osm-food', 'osm-secondhand'):
