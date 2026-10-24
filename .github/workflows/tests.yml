@@ -37,6 +37,11 @@ on:
       - "drupal_fullcalendar_sources.json"
       - "revize_sources.json"
       - "glenecho_sources.json"
+      - "natuurwerkdag_sources.json"
+      - "fixtures/natuurwerkdag/**"
+      - "kct_sources.json"
+      - "kct_places.json"
+      - "fixtures/kct/**"
       - "montreal_loisirs_sources.json"
       - "phl_parks_sources.json"
       - "barcelona_sources.json"
@@ -66,6 +71,11 @@ on:
       - "drupal_fullcalendar_sources.json"
       - "revize_sources.json"
       - "glenecho_sources.json"
+      - "natuurwerkdag_sources.json"
+      - "fixtures/natuurwerkdag/**"
+      - "kct_sources.json"
+      - "kct_places.json"
+      - "fixtures/kct/**"
       - "montreal_loisirs_sources.json"
       - "phl_parks_sources.json"
       - "barcelona_sources.json"
@@ -455,6 +465,10 @@ jobs:
         run: python test_ingest_revize.py
       - name: Glen Echo Park (the park's time line over its <time>, open hours, one timeout is one page)
         run: python test_ingest_glenecho.py
+      - name: Natuurwerkdag (the finder decides, a title naming another day or a closed job is refused, every guard wired)
+        run: python test_ingest_natuurwerkdag.py
+      - name: KCT hikes (each pin checked against the town its page names, no seasons as events)
+        run: python test_ingest_kct.py
       - name: Montreal Loisirs drop-ins (open data)
         run: python test_ingest_montreal_loisirs.py
       - name: Philadelphia Parks & Rec Finder drop-ins

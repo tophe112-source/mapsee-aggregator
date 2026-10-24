@@ -15,6 +15,10 @@ jsonld_cursor.json
 jsonld_cursor.json.tmp
 kct_cursor.json
 kct_cursor.json.tmp
+natuurwerkdag_cache.json
+natuurwerkdag_cache.json.tmp
+repaircafe_ch_cursor.json
+repaircafe_ch_cursor.json.tmp
 # The rec group's absence baselines (mapsee_supabase_sync --retire-absent):
 # Actions cache only. A local run leaves them behind; they are never history.
 rec_absence_manifest.json

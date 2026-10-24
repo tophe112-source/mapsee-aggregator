@@ -40,10 +40,10 @@ class WorkflowContracts(unittest.TestCase):
             'local': {'markets', 'parkrun', 'fairs', 'programs', 'jsonld', 'squarespace',
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu',
-                      'ava', 'rallybound', 'luminate', 'recitals'},
+                      'ava', 'rallybound', 'luminate', 'recitals', 'kct'},
             'rec': {'toronto_rec', 'linkedevents', 'perfectmind', 'drupal_fullcalendar', 'revize',
                     'glenecho', 'montreal_loisirs', 'phl_parks', 'barcelona', 'lcsd', 'madrid',
-                    'facility_hours'},
+                    'facility_hours', 'natuurwerkdag'},
         }
         found = {group: set() for group in expected}
         for step in job['steps']:

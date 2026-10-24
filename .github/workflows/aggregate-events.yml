@@ -112,6 +112,22 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
+      # KEPT ANSWERS RIDE IN THEIR OWN CACHE PAIR. census_cache.json holds
+      # mapsee_supabase_sync's Census answers (a match a year, a miss 30 days),
+      # so a chunk that fails tomorrow leaves yesterday's pin where it was;
+      # spotify_cache.json holds only answered lookups. actions/cache hashes the
+      # path list into the cache version, so adding them to an existing pair
+      # would have made the first run after the change restore none of its
+      # cursors, warm Photon answers or absence manifests.
+      - name: Restore kept Census and Spotify answers
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-ticketmaster-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-answers-ticketmaster-
       - name: Ingest US metros from metros_us.txt (Ticketmaster, serial — shared key is ~2 req/s)
         run: |
           set +e                       # one metro failing must not abort the sweep
@@ -163,6 +179,14 @@ jobs:
           else
             echo "no international events ingested — nothing to sync"
           fi
+      - name: Save kept Census and Spotify answers
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-ticketmaster-${{ github.run_id }}-${{ github.run_attempt }}
 
   meetup:
     name: Meetup sweep (US + international metros, parallel)
@@ -193,6 +217,16 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
+      # Kept answers in their own cache pair: see the ticketmaster job.
+      - name: Restore kept Census and Spotify answers
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-meetup-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-answers-meetup-
       - name: Mint fresh Meetup token (optional; the sweep works unauthenticated)
         env:
           MEETUP_CLIENT_KEY: ${{ secrets.MEETUP_CLIENT_KEY }}
@@ -296,6 +330,14 @@ jobs:
             echo "no international Meetup events ingested — nothing to sync"
           fi
           exit $rc
+      - name: Save kept Census and Spotify answers
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-meetup-${{ github.run_id }}-${{ github.run_attempt }}
 
   feeds:
     name: Feed imports (${{ matrix.group }})
@@ -346,12 +388,30 @@ jobs:
             tribe_cursor.json
             rec_absence_manifest.json
             facility_hours_manifest.json
-            census_cache.json
-            spotify_cache.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             geocode-cache-feeds-${{ matrix.group }}-
             geocode-cache-feeds-
+      # KEPT ANSWERS RIDE IN THEIR OWN CACHE PAIR. census_cache.json holds
+      # mapsee_supabase_sync's Census answers (a match a year, a miss 30 days),
+      # so a chunk that fails tomorrow leaves yesterday's pin where it was;
+      # spotify_cache.json holds only answered lookups. actions/cache hashes the
+      # path list into the cache version, so adding them to an existing pair
+      # would have made the first run after the change restore none of its
+      # cursors, warm Photon answers or absence manifests.
+      # The adapters added 2026-10-24 keep their read state here for the same reason.
+      - name: Restore kept Census and Spotify answers and new adapter state
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+            natuurwerkdag_cache.json
+            kct_cursor.json
+            repaircafe_ch_cursor.json
+          key: sync-answers-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-answers-feeds-${{ matrix.group }}-
       - name: Merge the warm geocode cache UNDER the committed one
         run: |
           python - <<'PY'
@@ -501,6 +561,23 @@ jobs:
       # Charity walks on RallyBound / Neon Fundraise: the National Kidney
       # Foundation's Kidney Walks and the CF Foundation's Great Strides. One
       # request per charity (24 placed walks on 2026-10-11), so it runs daily.
+      # THE CZECH TOURIST CLUB (KČT, kct.cz): public hikes from the calendar's
+      # inline FullCalendar array, 193 of 241 in 90 days placed on the clubs' own
+      # pins (2026-10-24), each pin checked against the town its page names
+      # (kct_places.json, a Wikidata snapshot). It reads on Wednesday and Sunday
+      # (run_weekdays in its config); kct_cursor.json keeps the pages read, so a
+      # cut run resumes rather than rereading 237 pages.
+      - name: Import the Czech Tourist Club's hikes (KČT; Wednesday and Sunday)
+        id: ingest_kct
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: |
+          if [ -f kct_sources.json ] && [ -f kct_places.json ]; then
+            python mapsee_ingest_kct.py --config kct_sources.json --store feeds_events.json --cursor kct_cursor.json --max-minutes 10
+          else
+            echo "no kct_sources.json or kct_places.json - skipping KČT hikes"
+          fi
       - name: Import charity walks on RallyBound (Kidney Walk, Great Strides)
         id: ingest_rallybound
         if: matrix.group == 'local'
@@ -1028,6 +1105,27 @@ jobs:
       # apart (robots.txt's Crawl-delay), 12 s. The worst call is ~106 s
       # (3 tries x 30 s + backoff + pacing) and no request starts after
       # --max-minutes 5, so 10 minutes holds it.
+      # THE NATUURWERKDAG (natuurwerkdag.nl, LandschappenNL): the Netherlands'
+      # national volunteer nature day, ~530 jobs on Friday 6 and Saturday 7
+      # November 2026, from the finder page (one request) plus each job's page
+      # (cached by sitemap lastmod in natuurwerkdag_cache.json, the resume cursor).
+      # A first read is ~525 requests, ~9 min at 1/s; a later day reads changed
+      # pages plus at most 60 older than 7 days. Unread pages are written from the
+      # listing, so a cut costs descriptions, not jobs. It marks a complete read,
+      # so the rec sync's --retire-absent sees jobs taken off the finder.
+      - name: Import the Natuurwerkdag (Dutch volunteer nature day)
+        id: ingest_natuurwerkdag
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        # --max-minutes 10 starts no request after +10 min (one may take 40 s);
+        # the store is saved every 40 rows and the cache every 25 reads.
+        timeout-minutes: 15
+        run: |
+          if [ -f natuurwerkdag_sources.json ]; then
+            python mapsee_ingest_natuurwerkdag.py --config natuurwerkdag_sources.json --store feeds_events.json --cache natuurwerkdag_cache.json --max-minutes 10
+          else
+            echo "no natuurwerkdag_sources.json - skipping"
+          fi
       - name: Import Loisirs Montréal free-play sessions (Montreal open data)
         id: ingest_montreal_loisirs
         if: matrix.group == 'rec'
@@ -1228,9 +1326,18 @@ jobs:
             tribe_cursor.json
             rec_absence_manifest.json
             facility_hours_manifest.json
+          key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save kept Census and Spotify answers and new adapter state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
             census_cache.json
             spotify_cache.json
-          key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+            natuurwerkdag_cache.json
+            kct_cursor.json
+            repaircafe_ch_cursor.json
+          key: sync-answers-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Retain the feed store and step outcomes
         if: always()
         env:
@@ -1289,6 +1396,16 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
+      # Kept answers in their own cache pair: see the ticketmaster job.
+      - name: Restore kept Census and Spotify answers
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-races-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-answers-races-
       # Failure-tolerant like every other ingest: a dead API is a quiet day for
       # two lenses, not a red workflow. source-health.yml is what notices.
       - name: Import RunSignup races
@@ -1323,6 +1440,14 @@ jobs:
           else
             echo "no races ingested — nothing to sync"
           fi
+      - name: Save kept Census and Spotify answers
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-races-${{ github.run_id }}-${{ github.run_attempt }}
 
   # OpenStreetMap marketplaces, on their own, for the same reason `races` is on
   # its own: this one source costs more than every other feed in the repo put
@@ -1492,10 +1617,23 @@ jobs:
           path: |
             geocode_cache.warm.json
             ics_feed_cache.json
-            census_cache.json
-            spotify_cache.json
           key: geocode-cache-extra-${{ github.run_id }}
           restore-keys: geocode-cache-
+      # KEPT ANSWERS RIDE IN THEIR OWN CACHE PAIR. census_cache.json holds
+      # mapsee_supabase_sync's Census answers (a match a year, a miss 30 days),
+      # so a chunk that fails tomorrow leaves yesterday's pin where it was;
+      # spotify_cache.json holds only answered lookups. actions/cache hashes the
+      # path list into the cache version, so adding them to an existing pair
+      # would have made the first run after the change restore none of its
+      # cursors, warm Photon answers or absence manifests.
+      - name: Restore kept Census and Spotify answers (saved at job end)
+        uses: actions/cache@v4
+        with:
+          path: |
+            census_cache.json
+            spotify_cache.json
+          key: sync-answers-extra-${{ github.run_id }}
+          restore-keys: sync-answers-extra-
       - name: Merge the warm geocode cache UNDER the committed one
         run: |
           python - <<'PY'
