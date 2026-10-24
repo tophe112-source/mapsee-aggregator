@@ -245,6 +245,21 @@ jobs:
       # no US metro. The US store is synced here again only when us_sync did
       # not succeed: it failed (which also skips the sweep), was cancelled, or
       # never ran.
+      #
+      # ONE COPY OF A BORDER EVENT, and it is the US leg's, as it was in the
+      # shared store. Three international circles overlap a US one (Tijuana
+      # 15.6 mi from San Diego; Victoria and Vancouver inside Seattle's 100),
+      # and an event both legs find has one fingerprint but can differ in
+      # category and ends_at: each Meetup process keeps the category of the
+      # first keyword whose results held it. Every Meetup record carries
+      # source_details, so needs_detail_sync keeps a stored row even on
+      # --only-new days, and two copies would both be written every day, the
+      # row's door switching between the syncs. So before the international
+      # store is synced, every fingerprint the US store holds, live or
+      # cancelled, leaves its events; its own tombstones stay, so a
+      # cancellation either leg saw still cancels. The US copy is written by
+      # us_sync, or above when that did not succeed. A filter that fails
+      # leaves the store whole (the sync still runs) and fails the step.
       - name: Sync Meetup events to Supabase (the international store; the US store only if its own sync did not succeed)
         if: always()
         run: |
@@ -257,6 +272,25 @@ jobs:
             python mapsee_supabase_sync.py --store meetup_events.json --skip-unchanged $ONLY_NEW || rc=$?
           fi
           if [ -f meetup_global_events.json ]; then
+            python - <<'PY' || { echo "::warning::Could not drop the US store's fingerprints from meetup_global_events.json; syncing it whole."; rc=1; }
+          import json, os
+          us = set()
+          if os.path.exists("meetup_events.json"):
+              with open("meetup_events.json", encoding="utf-8") as f:
+                  d = json.load(f)
+              us = {r.get("fingerprint") for r in (d.get("events") or []) + (d.get("tombstones") or [])} - {None}
+          with open("meetup_global_events.json", encoding="utf-8") as f:
+              g = json.load(f)
+          events = g.get("events") or []
+          g["events"] = [r for r in events if r.get("fingerprint") not in us]
+          if isinstance(g.get("_meta"), dict):
+              g["_meta"]["count"] = len(g["events"])
+          print(f"Border overlap: {len(events) - len(g['events'])} of {len(events)} international events "
+                f"are in the US store ({len(us)} fingerprints); its copy is the one written.")
+          with open("meetup_global_events.json.tmp", "w", encoding="utf-8") as f:
+              json.dump(g, f, ensure_ascii=False)
+          os.replace("meetup_global_events.json.tmp", "meetup_global_events.json")
+          PY
             python mapsee_supabase_sync.py --store meetup_global_events.json --skip-unchanged $ONLY_NEW || rc=$?
           else
             echo "no international Meetup events ingested — nothing to sync"
