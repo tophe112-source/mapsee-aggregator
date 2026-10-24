@@ -214,6 +214,7 @@ jobs:
           done
           exit 0
       - name: Sync the US leg NOW (a later timeout must not discard it)
+        id: us_sync                    # the final step reads its outcome
         run: |
           # Hard lesson: extra_sources was cancelled at its timeout mid-loop and
           # threw away ~42k already-ingested events because the only sync ran at
@@ -231,22 +232,36 @@ jobs:
         run: |
           set +e
           [ -f metros_global.json ] || { echo "no metros_global.json — skipping"; exit 0; }
-          python mapsee_sweep_global.py --config metros_global.json --store meetup_events.json --within-days 90 --sources meetup \
+          python mapsee_sweep_global.py --config metros_global.json --store meetup_global_events.json --within-days 90 --sources meetup \
             --deadline "${MEETUP_DEADLINE:-0}"
           exit 0
-      # always(): the store holds both legs, and a cap that cancels the sweep
-      # must not also skip the one step that writes the international half.
-      - name: Sync Meetup events to Supabase (events carry coords — no geocoding)
+      # always(): a cap that cancels the sweep must not also skip the one step
+      # that writes the international half. EACH LEG HAS ITS OWN STORE. While
+      # they shared one, this step re-read the state of 51,996 ids in 116.9 s
+      # (us_sync: 54.4 s) and sent 29,890 addresses to Census (us_sync:
+      # 14,471) on 2026-10-23, re-building the ~24.7k US rows us_sync had
+      # already written; and each of the 179 international metros loaded and
+      # rewrote them too, 6-13 min a day (10-21..23). metros_global.json has
+      # no US metro. The US store is synced here again only when us_sync did
+      # not succeed: it failed (which also skips the sweep), was cancelled, or
+      # never ran.
+      - name: Sync Meetup events to Supabase (the international store; the US store only if its own sync did not succeed)
         if: always()
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
-          if [ -f meetup_events.json ]; then
-            python mapsee_supabase_sync.py --store meetup_events.json --skip-unchanged $ONLY_NEW
-          else
-            echo "no Meetup events ingested — nothing to sync"
+          rc=0                         # both stores get their attempt; either failing fails the step
+          if [ "${{ steps.us_sync.outcome }}" != "success" ] && [ -f meetup_events.json ]; then
+            echo "US sync outcome '${{ steps.us_sync.outcome }}' - syncing meetup_events.json here"
+            python mapsee_supabase_sync.py --store meetup_events.json --skip-unchanged $ONLY_NEW || rc=$?
           fi
+          if [ -f meetup_global_events.json ]; then
+            python mapsee_supabase_sync.py --store meetup_global_events.json --skip-unchanged $ONLY_NEW || rc=$?
+          else
+            echo "no international Meetup events ingested — nothing to sync"
+          fi
+          exit $rc
 
   feeds:
     name: Feed imports (${{ matrix.group }})
@@ -262,6 +277,10 @@ jobs:
     timeout-minutes: 300
     env:
       GEOCODE_MAX_NEW: "5000"
+      # Per-source lines as they happen. Block-buffered, the ics step printed
+      # its first line ~33 minutes in (2026-10-23), so no feed's cost could be
+      # read from the log.
+      PYTHONUNBUFFERED: "1"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -1098,8 +1117,16 @@ jobs:
       # ran out the same 20 minutes on Wednesday's full refresh (2026-09-30, run
       # 36716083467), after its store doubled from 68,705 to 143,128 events, and
       # gets the same 60 (owner's decision, 2026-10-05). ics and local keep 20.
+      #
+      # The ics group imports nothing after the checkpoint, so once that synced
+      # this pass re-reads the same store to write nothing: 0 rows after a
+      # 239.2 s state read of 130,979 ids on 2026-10-23 (163.5 s, 0 rows on
+      # 10-22). `.outcome`, not `.conclusion`: under continue-on-error the
+      # conclusion is always success, and a checkpoint that failed, lost rows
+      # or ran out its 20 minutes must still be followed by this sync.
       - name: Sync feeds to Supabase (batch-geocoded)
         id: sync
+        if: matrix.group != 'ics' || steps.checkpoint.outcome != 'success'
         continue-on-error: true
         timeout-minutes: ${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}
         run: |
