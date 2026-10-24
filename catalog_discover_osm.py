@@ -1175,6 +1175,33 @@ def wix_default_route(listing: str) -> str:
     return WIX_DEFAULT_ROUTE
 
 
+def jsonld_link_pattern(listing: str) -> str:
+    """The link_pattern a non-Wix jsonld candidate ships with: one event's
+    page, /event/<slug> or /events/<slug>, on the listing's own host."""
+    return rf"https://{re.escape(urlparse(listing).netloc)}/(?:event|events)/[a-z0-9\-]+/?"
+
+
+# A JSONLD FIND IS PROPOSED ONLY WHEN ITS LISTING SHOWS EVENTS. verify reads
+# listing[0] and then at most six of the pages link_pattern finds on it, so a
+# listing with no Event block, no Wix events and no link the pattern matches
+# can only fail: "no schema.org Event blocks found" was 154 failures in the
+# 6 daily runs to 2026-10-23 (about 26 a run), and in a sample of 16 recent
+# ones all 16 were builder or plugin labels with 0 matching links. The
+# reviewer's check of the configured OSM jsonld sources without jsonld-event
+# found 35 of 35 readable ones pass this test (11 wp-event-manager and 5
+# modern-events on the link pattern, 3-49 links each; 20 sampled Wix on
+# wix_events, 3-110 each), so it costs no find that verify passes today.
+def events_evidence(page: str, page_url: str, labels: Iterable[str] = ()) -> bool:
+    """Does the page that becomes a jsonld candidate's listing show the
+    adapter an event: its own Event block, Wix events in its warmup data, or
+    a link the default link_pattern matches?"""
+    if "jsonld-event" in (labels or ()):
+        return True
+    if wix_events(page):
+        return True
+    return re.search(jsonld_link_pattern(page_url), page or "") is not None
+
+
 # THE CONNECT HALF OF A PROBE'S TIMEOUT, separately. An unreachable venue is
 # not a fast failure on this walk: on 2026-09-25 155 of the 163 sites probed
 # in three Mexican metros were `unreachable`, and the run read those three in
@@ -1312,6 +1339,10 @@ def find_calendar(session, home_url: str, timeout: int = 18,
 
     onsite, offsite = _cal_links(base, body)
     offsite_hit, offsite_url = offsite or (None, None)
+    # The events evidence (events_evidence) of the first followed page, which
+    # the ok-homepage branch below proposes as the listing; its body is gone
+    # by then, so it is read when that page is in hand.
+    first_evidence = None
 
     for u in _follow_order(onsite)[:max_follow]:
         try:
@@ -1332,6 +1363,9 @@ def find_calendar(session, home_url: str, timeout: int = 18,
                 out["extra"]["account_ids"] = [int(x) for x in m.group(1).replace(" ", "").split(",") if x]
             adapter = adapter_for(labels)
             cal_url = str(r2.url)
+            # The page that becomes cal_url, whose evidence is read below:
+            # verify reads listing[0], not always the page in hand.
+            page, page_labels = r2.text, labels
             if "wix" in labels:
                 # Read here because the page is in hand; to_candidate never
                 # sees it. The homepage is the second witness, not a fetch.
@@ -1358,13 +1392,22 @@ def find_calendar(session, home_url: str, timeout: int = 18,
                        == urlparse(cal_url).path.rstrip("/").rsplit("/", 1)[-1])
                 if ((one or (not here and "jsonld-event" not in labels))
                         and wix_events(body)):
-                    cal_url = base
+                    cal_url, page, page_labels = base, body, home_labels
             if adapter == "jsonld" and cal_url == str(r2.url):
-                cal_url = _prefer_listing(session, cal_url, timeout) or cal_url
+                parent = _prefer_listing(session, cal_url, timeout)
+                if parent and parent != cal_url:
+                    # The label came from an event page and the parent links
+                    # its siblings: verify decides, so this is evidence.
+                    cal_url, page = parent, None
+            out["extra"]["events_evidence"] = (
+                True if page is None else events_evidence(page, cal_url, page_labels))
             out.update(cal_url=cal_url, labels=labels, ics=ics,
                        adapter=adapter, status="ok")
             return out
-        out["cal_url"] = out["cal_url"] or str(r2.url)
+        if out["cal_url"] is None:
+            out["cal_url"] = str(r2.url)
+            if home_labels:
+                first_evidence = events_evidence(r2.text, out["cal_url"], labels)
         # THE CALENDAR PAGE CAN BE WHERE THE PLATFORM LINK IS: a centre whose
         # homepage links no ticketer can link its organiser page, or its
         # booking platform's timetable, from its what's-on page. Read here by
@@ -1387,6 +1430,10 @@ def find_calendar(session, home_url: str, timeout: int = 18,
         route = wix_route(body, base) if "wix" in home_labels else None
         if route:
             out["extra"]["wix_route"] = route
+        # The listing is the first followed page when one answered, and its
+        # evidence was read then; otherwise the homepage, which is in hand.
+        out["extra"]["events_evidence"] = (
+            first_evidence if out["cal_url"] else events_evidence(body, base, home_labels))
         out.update(cal_url=out["cal_url"] or base, labels=home_labels,
                    ics=home_ics or constructed_feed(session, base, home_labels),
                    adapter=adapter_for(home_labels), status="ok-homepage")
@@ -1485,6 +1532,10 @@ def why_no_candidate(found: Dict[str, Any]) -> str:
         return "ics-without-feed(" + ("+".join(found.get("labels") or []) or "?") + ")"
     if adapter == "venuepilot" and not (found.get("extra") or {}).get("account_ids"):
         return "venuepilot-without-accountIds"
+    if adapter == "jsonld" and (found.get("extra") or {}).get("events_evidence") is False:
+        # A builder or plugin label on a listing that shows no event (see
+        # events_evidence); the walk parks it as no-calendar.
+        return "jsonld-without-events(" + ("+".join(found.get("labels") or []) or "?") + ")"
     if adapter not in SHAPEABLE:
         return "no-config-shape(" + adapter + ")"
     return "unknown"
@@ -1557,8 +1608,8 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
         o = urlparse(cal)
         return dict(common, type="localist", base_url=f"{o.scheme}://{o.netloc}", days=90)
     if adapter == "jsonld":
-        o = urlparse(cal)
-        host = re.escape(o.netloc)
+        if (found.get("extra") or {}).get("events_evidence") is False:
+            return None                       # nothing for verify to read (events_evidence)
         if "wix" in (found.get("labels") or []):
             # Wix Events does not put its listing in anchors — it ships the whole
             # set as {"slug": ...} and routes each one through a page of its
@@ -1573,7 +1624,7 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
                         or wix_default_route(cal),
                         max_events=100, venue=_venue_block(v))
         return dict(common, type="jsonld", listing=[cal],
-                    link_pattern=rf"https://{host}/(?:event|events)/[a-z0-9\-]+/?",
+                    link_pattern=jsonld_link_pattern(cal),
                     max_events=150, venue=_venue_block(v))
     return None
 

@@ -324,6 +324,17 @@ def _save_ledger(led):
 
 DEAD_TTL = 90
 
+# AN OLDER PROBE'S VERDICT LAPSES AT 60 DAYS, NOT THE DAY THE PROBE IMPROVED.
+# Lapsing every version-1 row at once (2026-10-12) sent both walks back over
+# ground they had read: 86.5% of the community walk's 6,087 probes in five
+# runs (115-124) re-asked a key the ledger already had, and re-asked v1 rows
+# verified 1.0% (99 of 9,898) against 3.0-4.7% per probe on new ground
+# (measured 2026-10-23). From 60 days a v1 row is re-asked; before that the
+# new ground goes first, and DEAD_TTL still ends every row at 90. On the
+# 2026-10-24 ledger this parks 26,174 of the 28,947 v1 no-calendar and
+# offsite rows again; the other 2,773 are 60-89 days old.
+PROBE_REASK_DAYS = 60
+
 
 def _dead_recently(led, key, ttl=DEAD_TTL):
     """Has this URL been probed and rejected inside the TTL?
@@ -359,13 +370,16 @@ def _dead_recently(led, key, ttl=DEAD_TTL):
     # stopped reading share buttons, posts and page widgets as a calendar (17
     # of the ledger's 632 offsite osm-venue rows were those, 2026-10-12). Not
     # a robots.txt refusal, an unreachable site or a failed verify: a better
-    # fingerprint changes none of them.
+    # fingerprint changes none of them. Only from PROBE_REASK_DAYS on (see
+    # there), and verify asks the same, so the two still agree.
     reason = rec.get("reason") or ""
+    age = _days_since(rec.get("checked", 0))
     if (rec.get("type") == "osm-venue"
             and (reason == "osm probe: no-calendar" or reason.startswith("osm probe: offsite:"))
-            and _probe_version(rec) < _osm_probe_version()):
+            and _probe_version(rec) < _osm_probe_version()
+            and age >= PROBE_REASK_DAYS):
         return False
-    return _days_since(rec.get("checked", 0)) < ttl
+    return age < ttl
 
 
 def _probe_version(rec):
@@ -1541,6 +1555,22 @@ def _unreachable_recently(led, key, ttl=UNREACHABLE_TTL_DAYS):
             and _days_since(rec.get("checked", 0)) < ttl)
 
 
+# A HOMEPAGE THE WALK HAS JUST ASKED IS NOT ASKED AGAIN THIS WEEK, whatever it
+# answered. A metro the deadline cuts short is resumed the next run, and 28%
+# of the daily runs' probes (2,002 of 7,044 in runs 118, 121 and 123) left no
+# ledger row, so the resume paid for them again: Berlin's second visit (run
+# 121) spent about 500 of its 2,443 probes re-asking run 118's homes, and its
+# `configured` tally went from 46 to 158 (measured 2026-10-23). `found` (a
+# candidate came of it) and `probed` (a 4xx, a Crawl-delay past the cap, or a
+# find no candidate could be made of) are osm-venue rows only, so verify,
+# coverage and the health check, which read ok/fail/empty, never see them.
+def _probed_recently(led, key, ttl=UNREACHABLE_TTL_DAYS):
+    rec = led.get(key)
+    return (bool(rec) and rec.get("type") == "osm-venue"
+            and rec.get("status") in ("found", "probed")
+            and _days_since(rec.get("checked", 0)) < ttl)
+
+
 # How many cities one `discover civic` run walks. A CivicPlus city costs one
 # fetch for the homepage, one for /iCalendar.aspx and one PER SURVIVING CATEGORY
 # to prove it — Gloucester publishes 60 — so this is the knob that decides what a
@@ -1887,6 +1917,14 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
     for fname in ("squarespace_sources.json", "tribe_sources.json",
                   "jsonld_sources.json", "ics_sources.json"):
         declined |= _not_included(fname)   # already canonicalised
+    # What a homepage's `found` row may name and still be answered (see the
+    # pre-filter below): a configured or declined key, or the HASH a held
+    # calendar's row carries (_held_key) of a Google calendar the owner has
+    # since configured by hand, whose URL key the row cannot name.
+    answered = seen_keys | declined
+    answered |= {_held_key({"url": "https://calendar.google.com/" + m.group(1)})
+                 for m in (re.match(r"(?:calendar\.)?google\.com/(calendar/ical/.+)", k or "")
+                           for k in answered) if m}
 
     found, skipped = {}, {}
     found_rank = {}           # key -> (metro step, venue index) of its proposer
@@ -1906,25 +1944,33 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         if status == "unreachable" and f.get("note") in robots_status:
             status = robots_status[f["note"]]
         cand = osm.to_candidate(v, f, label) if status in ("ok", "ok-homepage") else None
+        # The walk writes the homepage's row only where it is the walk's: a
+        # row of another type under the same key is a verify's (a tribe
+        # base_url at the site root), and its fail or refused says more.
+        prior = led.get(home) or {}
+        ours = prior.get("type") in (None, "osm-venue")
         if cand:
             key = _canon(_key_of(cand))
-            # THE HOMEPAGE'S OLD VERDICT IS NOW WRONG. A row an older probe
-            # wrote (no-calendar, offsite) has lapsed, but left alone it still
-            # says so, and the ledger is what `ledger` and every later reader
-            # believe. Rewritten as what this probe saw; `found` parks nothing.
-            if (led.get(home) or {}).get("type") == "osm-venue" and led[home].get("status") != "found":
-                led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
-                             "reason": f"osm probe: found {cand.get('type')}",
-                             "status": "found", "type": "osm-venue",
-                             "probe": osm.PROBE_VERSION}
-            if key in seen_keys or key in declined:
-                bump("configured")
-                return
             # A PERSONAL ADDRESS IS ITS ID (see _held): its ledger row is keyed
             # by a hash, never by the URL, and one the owner already has in the
             # held list is not proposed again.
             held = _held(cand)
             lkey = _held_key(cand) if held else key
+            # THE HOMEPAGE IS PARKED `found` FOR A WEEK (_probed_recently),
+            # whatever becomes of its candidate, and names the candidate's
+            # key, so once that is configured the home is not asked again at
+            # all. It also replaces an older probe's no-calendar or offsite
+            # row, which the ledger would otherwise go on believing. Every
+            # candidate that reaches `found` is therefore written out:
+            # cmd_discover does not cut the walk's finds at `limit`.
+            if ours:
+                led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                             "reason": f"osm probe: found {cand.get('type')}",
+                             "status": "found", "type": "osm-venue", "cal_key": lkey,
+                             "probe": osm.PROBE_VERSION}
+            if key in seen_keys or key in declined:
+                bump("configured")
+                return
             if _dead_recently(led, lkey):
                 bump("known-dead")
                 return
@@ -1959,13 +2005,31 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         # served this probe and challenged the very next one, from the same IP,
         # seconds apart. Parking those for 90 days would retire a working
         # calendar on the strength of a bad moment, and the metro cursor means
-        # nobody would look again for months. Challenges and HTTP errors are not
+        # nobody would look again for months. Challenges, 429s and 5xx are not
         # written down at all; `unreachable` is parked for UNREACHABLE_TTL_DAYS
-        # under its own status (see there for why a week).
-        if status in ("no-calendar",) or status.startswith("offsite"):
+        # under its own status (see there for why a week), and so is
+        # `probed` (see _probed_recently): a 4xx, a Crawl-delay past the cap,
+        # or a find no candidate could be made of.
+        why = osm.why_no_candidate(f) if status.startswith("ok") else ""
+        # A JSONLD LISTING THAT SHOWS NO EVENT (osm.events_evidence) is a
+        # no-calendar verdict, not a candidate proposed to fail verify:
+        # parked for DEAD_TTL under the reason a later PROBE_VERSION re-asks
+        # once the row is PROBE_REASK_DAYS old (_dead_recently). Like the
+        # `found` and `probed` rows, never over a verify's row.
+        empty_jsonld = why.startswith("jsonld-without-events")
+        # A LAPSED OFFSITE VERDICT KEEPS ITS LINK. A 4xx, a timeout or an
+        # unusable find (a jsonld listing with no event among them) on the
+        # re-probe says nothing about the Eventbrite organizer the row
+        # names, and `ledger --offsite` lists a link only under an offsite
+        # reason. So that row is left as it is, unparked: the home is asked
+        # again on the next visit, which costs one request. A fresh
+        # no-calendar or offsite verdict, or a find, still replaces it.
+        links_out = bool(prior.get("offsite_url"))
+        if (status in ("no-calendar",) or status.startswith("offsite")
+                or (empty_jsonld and ours and not links_out)):
             led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
-                         "reason": f"osm probe: {status}", "status": "fail",
-                         "type": "osm-venue", "probe": osm.PROBE_VERSION}
+                         "reason": f"osm probe: {'no-calendar' if empty_jsonld else status}",
+                         "status": "fail", "type": "osm-venue", "probe": osm.PROBE_VERSION}
             # The page the probe took for the calendar and found nothing on.
             # It is what a later probe needs to look at again, and it was
             # computed and thrown away (find_calendar records the first page
@@ -1982,7 +2046,7 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             # fetching 26,000 sites again.
             if f.get("offsite_url") and not _ADDRESS_IN_URL_RX.search(f["offsite_url"]):
                 led[home]["offsite_url"] = f["offsite_url"][:300]
-        elif status == "unreachable" and (led.get(home) or {}).get("type") in (None, "osm-venue"):
+        elif status == "unreachable" and ours and not links_out:
             # Never over a row some other probe of this URL wrote (a verify's
             # ok, empty or refused says more than one failed connection).
             note = f" ({f['note']})" if f.get("note") else ""
@@ -1990,19 +2054,33 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                          "reason": f"osm probe: unreachable{note}",
                          "status": "unreachable", "type": "osm-venue",
                          "probe": osm.PROBE_VERSION}
-        elif status == "robots-disallowed" and (led.get(home) or {}).get("type") in (None, "osm-venue"):
+        elif status == "robots-disallowed" and ours:
             # The same status, and so the same DEAD_TTL, a verify gives a
             # source robots.txt refuses; the rule is in the reason.
-            why = next((r for _u, w, r in refusals if w == "RobotsDisallowed"), "")
+            rule = next((r for _u, w, r in refusals if w == "RobotsDisallowed"), "")
             led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
-                         "reason": f"osm probe: robots.txt {why}"[:300],
+                         "reason": f"osm probe: robots.txt {rule}"[:300],
                          "status": "refused", "type": "osm-venue",
+                         "probe": osm.PROBE_VERSION}
+        elif ours and not links_out and (
+                status.startswith("ok") or status == "robots-crawl-delay"
+                or (re.fullmatch(r"http4\d\d", status) and status != "http429")):
+            # Not dead (verify never reads `probed`), only not worth a second
+            # request this week. 429 is a rate limit, so it is not one.
+            if status == "robots-crawl-delay":
+                rule = next((r for _u, w, r in refusals if w == "RobotsCrawlDelay"), "")
+                said = f"robots.txt {rule}".strip()
+            else:
+                said = f"found-but-unusable: {why}" if why else status
+            led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                         "reason": f"osm probe: {said}"[:300],
+                         "status": "probed", "type": "osm-venue",
                          "probe": osm.PROBE_VERSION}
         # A probe that SUCCEEDED and still yielded nothing is not the same
         # event as a probe that failed, and lumping them under the status
         # word reported 25 of them as "ok" in one sweep. Name the gap.
         if status.startswith("ok"):
-            bump("found-but-unusable: " + osm.why_no_candidate(f))
+            bump("found-but-unusable: " + why)
         elif status == "unreachable" and f.get("note"):
             # BY EXCEPTION, because the two timeouts are different costs and
             # the log never said which fired: a ConnectTimeout is spent inside
@@ -2129,6 +2207,17 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                 continue
             if _unreachable_recently(led, home):
                 bump("unreachable-recently")
+                continue
+            # A home whose calendar is now configured (or declined) stays
+            # answered for as long as it is: its probe would only say so
+            # again, 91-170 times a run in the community walk.
+            rec = led.get(home) or {}
+            if (rec.get("type") == "osm-venue" and rec.get("status") == "found"
+                    and rec.get("cal_key") and rec["cal_key"] in answered):
+                bump("configured")
+                continue
+            if _probed_recently(led, home):
+                bump("probed-recently")
                 continue
             if home in probed:
                 bump("same-site")
@@ -2439,7 +2528,13 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
 
     all_cursors[slot] = cursor
     _save_cursor(all_cursors)
-    out_list = list(found.values())[:limit]
+    # THE OSM WALK'S FINDS ARE NOT CUT. It stops STARTING probes at `limit`
+    # and lets the running ones settle, so it can return up to
+    # OSM_PROBE_WORKERS - 1 more, and settle has already parked each one's
+    # homepage `found` for a week. Cut here, those calendars were never
+    # verified and the resumed metro skipped their homes: 3 of 5 finds with
+    # --limit 2 and 4 workers (measured 2026-10-24), lost until the next lap.
+    out_list = list(found.values()) if backend == "osm" else list(found.values())[:limit]
     json.dump(out_list, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     print(f"\n{len(out_list)} candidate(s) -> {out}")
     print("skipped: " + ", ".join(f"{v} {k}" for k, v in sorted(skipped.items())))
