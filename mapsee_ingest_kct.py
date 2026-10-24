@@ -41,25 +41,58 @@ WHY THESE RULES (measured 2026-10-24 on all 237 event pages within 90 days):
    to a summit), so the row is named after the finish. "Značka je v místě
    středu ČR. ..." - the centre of Czechia, 49.743756 15.3360752, when nothing
    was entered (24, some with a street address in the text): not written. Any
-   other sentence is not believed.
+   other sentence is not believed. A start or finish text is the row's place
+   name only when it names a place: 86 of the 408 texts say how to get there
+   instead ("hvězdicově", "individuální", "libovolné pěší trasy na vrchol
+   Javorníku", "dle propozic", "z místa bydliště") or name a kind of place
+   with no capital letter ("rozhledna", "komunitní centrum"). A start pin with
+   such a start is named after the finish (the Cimburk ruin for "Za
+   čertovským perníkem", whose start says "hvězdicově" and whose pin is the
+   ruin), and with no finish either it has no place name (9 written rows).
 
-2. A PIN MUST BE PRECISE AND IN ITS OWN DISTRICT. Of the 213 organiser pins,
-   2 had two decimals (49.7, 16.25 for Polička; 48.53 for Třísov, south of
-   the border), 2 were one-degree slips (České Budějovice's Dům kultury at
-   49.97193 14.47813, 111 km north beside Prague; Lhenice, Prachatice district,
-   at 49.996 14.149), a start in Olomouc was pinned 51 km from Olomouc, Kleť's
-   lay south of the border and one was a caravan meet in Hungary. So both coordinates need
-   three decimals (~100 m), the pin must be in Czechia's box, and it must lie
-   within `district_radius_km` (50) of the Wikidata point of a district the
-   event names. The 193 placed pins sit a median 11.0 km from theirs (p90
-   26.8, max 47.0). The district is the one the organiser typed ("Ústí
-   n.Orlicí", "Praha 8, Praha-východ", aliases such as "HK" and "Děčínsko":
-   184 rows), else a district town named in the start or finish place
-   ("Pardubice, žst.": 9). 13 name neither (Prague walks from "Olšanské
-   hřbitovy", "zimní stadion", "dle propozic") and are not written. What this
-   cannot see is an error inside the district: "Novoroční výstup na Račici"
-   starts "U lihovaru, Zábřeh" and is pinned ~35 km south of Zábřeh, 47 km
-   from Šumperk's point.
+2. A PIN MUST BE PRECISE, IN ITS OWN DISTRICT AND AT THE PLACE IT NAMES. Of
+   the 213 organiser pins, 2 had two decimals (49.7, 16.25 for Polička; 48.53
+   for Třísov, south of the border), 2 were one-degree slips (České
+   Budějovice's Dům kultury at 49.97193 14.47813, 111 km north beside Prague;
+   Lhenice, Prachatice district, at 49.996 14.149), a start in Olomouc was
+   pinned 51 km from Olomouc, Kleť's lay south of the border and one was a
+   caravan meet in Hungary. So both coordinates need three decimals (~100 m),
+   the pin must be in Czechia's box, and it must lie within
+   `district_radius_km` (50) of the Wikidata point of a district the event
+   names. The district is the one the organiser typed ("Ústí n.Orlicí", "Praha
+   8, Praha-východ", aliases such as "HK" and "Děčínsko": 184 rows), else a
+   district town named in the start or finish place ("Pardubice, žst.": 9).
+   13 name neither (Prague walks from "Olšanské hřbitovy", "zimní stadion",
+   "dle propozic") and are not written.
+   A district reaches ~40 km from its town, and 193 pins passed that check
+   while five of them were 20-36 km from the place their own page names:
+   "Novoroční výstup na Libín" starts at "Prachatice žst." and is pinned on
+   the Mezilesní slať bog by Nové Hutě, 29.6 km away; Kozákov's finish is
+   pinned at Dětenice, okres Jičín, 27.0 km from Kozákov; "Hrejkovice –
+   hospoda" is pinned in Písek, 23.0 km off; "zastávka Brušperk střed" at
+   Vyšní Lhoty below Prašivá, 20.1 km off; "U lihovaru, Zábřeh" at Borotín,
+   okres Blansko, 35.7 km off (Photon's reverse lookups of the five pins). So
+   the pin is also checked against the place the row is named after (rule 1),
+   when that text names a municipality or a part of one that kct_places.json
+   holds for the event's districts (15,048 names from Wikidata,
+   kct_places_build.py): it must lie within `town_radius_km` (10) of the
+   place's edge - its point plus the radius of a circle of its own area, so
+   Prague reaches 12.6 km and a village 0-2. Of the 193, 119 name such a
+   place: the five above lie 18.3 to 32.4 km beyond the edge, the other 114 at
+   most 6.9 km (a 100 km march whose start names Bučovice and Kyjov, pinned at
+   Vřesovice), median 2.3 km inside it. Without the edge, Vřesovice is 10.0 km
+   from Kyjov's point. A name followed by "nad", "pod", "u", "v" or "na"
+   begins a longer name and is not matched alone, or "Suchdol n.Luž." (Suchdol
+   nad Lužnicí, 0.6 km from its pin) would be the Suchdol 37 km away, "Nové
+   Město n/Met" the Nové Město 28 km away and "Paseky u Chlumětína" the Paseky
+   9.7 km away; after "nad"/"pod" the last word may be cut short. What this
+   cannot see: a text that names no place the table holds (73 of the 186
+   written rows: a summit in the genitive, "vrchol Libína", a chalet, a
+   street) is checked at district scale only, and a homonym whose real place
+   is not in the table would be refused (Prague's Ládví metro station is no
+   municipality part; the part called Ládví is in Praha-východ, 28 km off, and
+   "Metro "C" Ládví, u fontány" escapes it only through its "u"). The written
+   pins sit a median 11.1 km from their district's point (p90 26.7, max 41.5).
 
 3. A CLOCK IS ONE THE ORGANISER WROTE. The start row shows a clock only when
    one was entered (63 of 237 pages); the page's add-to-calendar widget then
@@ -82,6 +115,15 @@ WHY THESE RULES (measured 2026-10-24 on all 237 event pages within 90 days):
 6. NOTHING PERSONAL. Every page names a contact person with a private phone
    and email; none of it is read. A note's sentence that carries an email or
    a phone number is dropped.
+
+7. AN OCCASION LASTS DAYS, NOT A SEASON. Of the 237 pages, 233 run 0 to 3
+   days; the others run 9 (a caravan meet in Hungary), 210 ("Kolem republiky
+   za 53,3 km", a ride any day from April to October), 214 ("Jarní
+   Vysočinou": "Start 18. 8. 2026 21:00 ... Cíl 20. 3. 2027", a slip for the
+   walk on 20 March) and 244 days (a nature trail, March to October). Written,
+   each would show as on now, every day, for months. A row whose dates span
+   more than 7 days is not written (of the 1,056 events to come on the list,
+   1,047 span 7 days or fewer).
 
 THE CURSOR (`--cursor`, default kct_cursor.json) keeps each page's parsed
 facts with the list row they were read for. A page is read again only when its
@@ -122,6 +164,9 @@ TZ_NAME = "Europe/Prague"
 DEFAULT_WITHIN_DAYS = 90
 DEFAULT_MAX_MINUTES = 10.0
 DEFAULT_RADIUS_KM = 50.0
+DEFAULT_TOWN_KM = 10.0
+DEFAULT_PLACES = "kct_places.json"
+MAX_SPAN_DAYS = 7
 DEFAULT_REFRESH_DAYS = 14
 DEFAULT_REREAD_DAYS = 7
 SAVE_EVERY = 25
@@ -135,6 +180,18 @@ _PIN_START_RX = re.compile(r"^\s*Značka je v místě souřadnic startu akce\.?\
 _PIN_FINISH_RX = re.compile(r"^\s*Značka je v místě souřadnic cíle\b", re.I)
 _PIN_NONE_RX = re.compile(r"\bstředu ČR\b|nebyly organizátorem zadány", re.I)
 CZ_CENTRE = (49.743756, 15.3360752)
+# Rule 2: a place text that names no place. "hvězdicově" (star-wise),
+# "individuální", "libovolné" (any), "odkudkoliv" (from anywhere), "dle
+# propozic" (see the rules), "z místa bydliště" (from home), "dostředný pochod"
+# (walkers converge), "bude upřesněno" (to be announced), "v místě startu" (at
+# the start), and any text without a capital letter ("rozhledna", "zimní
+# stadion"): 86 of the 408 start and finish texts on the 237 pages.
+_VAGUE_RX = re.compile(r"^\W*(?:individu|hvězdic|libovol|odkudkoli|dle\s|dostředn|z\s+místa\s+bydliště|"
+                       r"bude\s+upřesn|různá\s+místa|v\s+místě\s+startu)", re.I)
+# A municipality's name followed by one of these is the start of a longer name
+# ("Suchdol n.Luž." is Suchdol nad Lužnicí, not the Suchdol 37 km away).
+_CONNECTIVES = {"nad", "pod", "u", "v", "ve", "na"}
+_SHORT_WORDS = {"n": "nad", "p": "pod"}
 CZ_BOX = (48.55, 51.06, 12.09, 18.86)          # lat min/max, lon min/max
 
 # Rule 4: the calendar's own meetings and training, by title.
@@ -442,8 +499,75 @@ def districts_for(det: Dict[str, Any], row: Dict[str, Any], cfg: Dict[str, Any])
     return keys, ("start place" if keys else "none")
 
 
+def is_vague(text: Optional[str]) -> bool:
+    """A start or finish text that names no place (rule 2)."""
+    t = (text or "").strip()
+    return not t or bool(_VAGUE_RX.search(t)) or t == t.lower()
+
+
+def pin_label(det: Dict[str, Any], row: Dict[str, Any], kind: str) -> Optional[str]:
+    """The place the pin stands for, as the page names it: the finish for a
+    finish pin, else the start. A start that names no place ("hvězdicově",
+    "dle propozic") gives way to the finish; a finish that names none is no
+    label at all."""
+    start = det.get("start_place") or row.get("mistos") or None
+    finish = det.get("finish_place") or None
+    if kind == PIN_FINISH:
+        return None if is_vague(finish) else finish
+    if not is_vague(start):
+        return start
+    return None if is_vague(finish) else finish
+
+
+def _place_words(text: Optional[str]) -> List[str]:
+    return [_SHORT_WORDS.get(w, w) for w in slug(text).split("-") if w]
+
+
+def named_places(text: Optional[str], keys: List[str],
+                 places: Dict[str, Dict[str, List[List[float]]]]) -> List[Tuple[str, float, float, float]]:
+    """(name, lat, lon, reach_km) of every municipality, part of one, hill or
+    city quarter in the districts `keys` that the text names. The longest name
+    wins at each word. A name followed by "nad", "pod", "u", "v" or "na" is the
+    start of a longer name the table does not hold, so it is not counted; after
+    "nad"/"pod" the last word may be cut short ("Nové Město n/Met")."""
+    words = _place_words(text)
+    if not words:
+        return []
+    index: Dict[str, List[Tuple[List[str], str, List[List[float]]]]] = {}
+    for k in keys:
+        for name, pts in (places.get(k) or {}).items():
+            parts = name.split("-")
+            index.setdefault(parts[0], []).append((parts, name, pts))
+    out: List[Tuple[str, float, float, float]] = []
+    i = 0
+    while i < len(words):
+        best: List[Tuple[List[str], str, List[List[float]]]] = []
+        for parts, name, pts in index.get(words[i], ()):
+            n = len(parts)
+            if i + n > len(words):
+                continue
+            if all(words[i + j] == parts[j] or
+                   (j == n - 1 and n >= 3 and parts[j - 1] in ("nad", "pod") and parts[j].startswith(words[i + j]))
+                   for j in range(n)):
+                if best and n > len(best[0][0]):
+                    best = []
+                if not best or n == len(best[0][0]):
+                    best.append((parts, name, pts))
+        if not best:
+            i += 1
+            continue
+        n = len(best[0][0])
+        if i + n >= len(words) or words[i + n] not in _CONNECTIVES:
+            for _, name, pts in best:
+                for lat, lon, reach in pts:
+                    if (name, lat, lon, reach) not in out:
+                        out.append((name, lat, lon, reach))
+        i += n
+    return out
+
+
 def place_pin(det: Dict[str, Any], row: Dict[str, Any], cfg: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], str]:
-    """({lat, lon, kind, district}, "") or (None, why the pin is not believed)."""
+    """({lat, lon, kind, district, label}, "") or (None, why the pin is not believed)."""
     note = det.get("pin_note") or ""
     lat_s, lon_s = det.get("lat_s"), det.get("lon_s")
     if not lat_s or not lon_s:
@@ -472,7 +596,18 @@ def place_pin(det: Dict[str, Any], row: Dict[str, Any], cfg: Dict[str, Any]) -> 
     near = min(keys, key=lambda k: km((lat, lon), tuple(districts[k])))
     if km((lat, lon), tuple(districts[near])) > radius:
         return None, f"pin over {radius:g} km from its district"
-    return {"lat": lat, "lon": lon, "kind": kind, "district": near, "district_from": how}, ""
+    # ...and near the place its page names, when the page names one the table
+    # knows: the reach of a town is its own size plus `town_radius_km`.
+    label = pin_label(det, row, kind)
+    town = None
+    named = named_places(label, keys, cfg.get("places") or {})
+    if named:
+        gap, town = min((km((lat, lon), (la, lo)) - reach, name) for name, la, lo, reach in named)
+        limit = float(cfg.get("town_radius_km", DEFAULT_TOWN_KM))
+        if gap > limit:
+            return None, f"pin over {limit:g} km from the place its page names"
+    return {"lat": lat, "lon": lon, "kind": kind, "district": near, "district_from": how,
+            "label": label, "town": town}, ""
 
 
 # --------------------------------------------------------------------------- #
@@ -575,6 +710,11 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], cfg: Dict[str, Any], toda
         return None, "past", False
     if first > today + timedelta(days=within_days):
         return None, "beyond the window", False
+    if (last - first).days > MAX_SPAN_DAYS:
+        # "Jarní Vysočinou": Start 18. 8. 2026, Cíl 20. 3. 2027 (the walk is the
+        # 20th); "Kolem republiky za 53,3 km": any day April to October. Neither
+        # is an occasion on one day of the map.
+        return None, f"runs over {MAX_SPAN_DAYS} days", False
     off, title = cancelled_title(row["title"] or det.get("title") or "")
     if not off:
         off, _ = cancelled_title(det.get("title") or "")
@@ -604,7 +744,7 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], cfg: Dict[str, Any], toda
 
     start_place = det.get("start_place") or row.get("mistos") or None
     finish_place = det.get("finish_place") or None
-    venue = finish_place if pin["kind"] == PIN_FINISH else start_place
+    venue = pin["label"]
     okres = det.get("start_okres") or row.get("okres") or None
     organiser = det.get("organiser") or row.get("poradatel") or None
 
@@ -652,7 +792,9 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], cfg: Dict[str, Any], toda
         ticket_url=row["url"],
         coords_exact=True,
     )
-    nev.fingerprint = make_fingerprint(nev.name, first.isoformat(), venue, None)
+    # With no place named, the district keeps two same-titled hikes on one day
+    # ("Novoroční čtyřlístek" is dozens on New Year's Day) from being one row.
+    nev.fingerprint = make_fingerprint(nev.name, first.isoformat(), venue, okres)
     return nev, "", off
 
 
@@ -859,6 +1001,20 @@ def ingest(cfg: Dict[str, Any], client: Client, today: date,
     return rep
 
 
+def load_places(path: str) -> Dict[str, Dict[str, List[List[float]]]]:
+    """kct_places.json's table, {district: {name slug: [[lat, lon, reach_km], ...]}}.
+    A run without it would write pins rule 2 cannot check, so it is required."""
+    try:
+        data = json.loads(open(path, encoding="utf-8").read())
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"[{SOURCE}] the place table {path} is missing or unreadable ({exc}); "
+                         "rebuild it with kct_places_build.py") from exc
+    places = data.get("places") if isinstance(data, dict) else None
+    if not isinstance(places, dict) or not places:
+        raise SystemExit(f"[{SOURCE}] the place table {path} holds no places")
+    return places
+
+
 def _today() -> date:
     fixed = os.environ.get("MAPSEE_TODAY")
     if fixed:
@@ -879,6 +1035,8 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
+    cfg["places"] = load_places(os.path.join(os.path.dirname(os.path.abspath(a.config)),
+                                             cfg.get("places_file") or DEFAULT_PLACES))
     today = _today()
     wd = cfg.get("run_weekdays")
     if wd and not a.force and today.weekday() not in wd:

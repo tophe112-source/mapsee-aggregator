@@ -1,7 +1,7 @@
 {
   "_comment": "Klub českých turistů (KČT, the Czech Tourist Club): the public hikes, ski and cycle tours its local branches list on kct.cz/kalendar-akci. kct.cz publishes no feed and no schema.org Event, so mapsee_ingest_kct.py reads the calendar page once (every event, as an inline FullCalendar JSON array) and then each in-window event's page (the start and finish, the routes, the organiser and a map pin the page explains). robots.txt on kct.cz is empty (HTTP 200, 0 bytes: RFC 9309 says no rules); the site links no terms of use, and /gdpr/ is the membership consent form. Read the adapter's header before changing a rule.",
   "_found": "manual:2026-10-24 Czechia had 9 curated community sources and 0 outdoors; kct.cz/kalendar-akci is the national club's calendar of public hikes",
-  "_measured": "2026-10-24: 3,999 events listed, 1,056 to come, 241 within 90 days (4 of them club meetings). All 237 other event pages read (12.3 min over two runs, ~3 s a page): 155 pinned at the organiser's start, 58 at the finish (star hikes), 24 at the centre-of-Czechia placeholder. Of the 213 organiser pins 193 are written (81% of the pages, 80% of the window): 13 name no district to check, 3 lie over 50 km from theirs (two one-degree slips), 2 outside Czechia, 2 have two decimals. The written pins sit a median 11.0 km from their district's point (p90 26.8, max 47.0). A start clock is shown on 63 pages.",
+  "_measured": "2026-10-24: 3,999 events listed, 1,056 to come, 241 within 90 days (4 of them club meetings). All 237 other event pages read (12.3 min over two runs, ~3 s a page): 155 pinned at the organiser's start, 58 at the finish (star hikes), 24 at the centre-of-Czechia placeholder. Of the 213 organiser pins 186 are written (78% of the pages, 77% of the window): 13 name no district to check, 3 lie over 50 km from theirs (two one-degree slips), 2 outside Czechia, 2 have two decimals, 5 lie 18-32 km beyond the edge of the town their own page names, and 2 sit on rows that run for a season (210 and 214 days). 113 of the 186 are checked against a named town; they sit a median 11.1 km from their district's point (p90 26.7, max 41.5). 9 written rows have no place name: their start and finish say how to get there, not where. A start clock is shown on 63 pages.",
   "list_url": "https://kct.cz/kalendar-akci/",
   "_within_days": "Event pages are read only for events starting within this many days (237 on 2026-10-24).",
   "within_days": 90,
@@ -11,8 +11,12 @@
   "_refresh_days": "The cursor re-reads an unchanged event's page after this many days; reread_within_days re-reads every run for events starting that soon.",
   "refresh_days": 14,
   "reread_within_days": 7,
-  "_district_radius_km": "A pin must lie within this distance of the Wikidata point of a district the event names. On 2026-10-24 the 193 written pins sat a median 11.0 km from theirs (max 47.0, Kralicky Sneznik's summit 41.5); the two one-degree slips were 109 and 111 km out. Districts reach about 40 km from their town (Sedlec-Prcice from Pribram, Kasejovice from Plzen for Plzen-jih).",
+  "_district_radius_km": "A pin must lie within this distance of the Wikidata point of a district the event names. On 2026-10-24 the 186 written pins sat a median 11.1 km from theirs (max 41.5, Kralicky Sneznik's summit); the two one-degree slips were 109 and 111 km out. Districts reach about 40 km from their town (Sedlec-Prcice from Pribram, Kasejovice from Plzen for Plzen-jih).",
   "district_radius_km": 50,
+  "_town_radius_km": "...and within this distance of the edge of the town or village the row is named after, when kct_places.json holds it for the event's districts (its Wikidata point plus the radius of a circle of its own area). On 2026-10-24, 119 of the 193 pins past the district check named such a place: 114 lay at most 6.9 km beyond its edge (median 2.3 km inside), and five lay 18.3 to 32.4 km beyond it (Prachatice for a Libin hike pinned near Nove Hute, Kozakov, Hrejkovice, Brusperk, Zabreh), all five wrong by Photon's reverse lookup.",
+  "town_radius_km": 10,
+  "_places_file": "The town table, beside this file. Built from Wikidata by kct_places_build.py; the adapter will not run without it.",
+  "places_file": "kct_places.json",
   "_districts": "The 76 okresy and Prague, keyed by kct.cz's own okres-<slug> post class: Wikidata P625 of every item with P31 Q548611 (district of the Czech Republic) and no P576, plus Q1085 (Praha), read 2026-10-24. Most points are the district town (Plzen-jih, Plzen-sever and Brno-venkov share their city's).",
   "districts": {
     "benesov": [49.6667, 14.75],
@@ -105,6 +109,14 @@
     {
       "what": "Events whose page pins the centre of Czechia (49.743756, 15.3360752)",
       "why": "The page says so: no coordinates, start place or district were entered. 24 of 237 pages within 90 days on 2026-10-24, some with a street address in the text; Photon is not a geocoder this repo trusts without an expected area (geocoding-and-addresses.md)."
+    },
+    {
+      "what": "Events pinned far from the town or village their own page names",
+      "why": "5 of 193 pins past the district check on 2026-10-24, 20 to 36 km from the named place (a Libin hike starting at Prachatice station pinned on a bog by Nove Hute; Kozakov's finish pinned in okres Jicin). The organiser's pin is the only coordinate the page gives, so the row is not written rather than moved."
+    },
+    {
+      "what": "Rows whose dates span more than 7 days",
+      "why": "A season, not an occasion: a ride any day from April to October (210 days), a spring walk entered from August to March (214), a nature trail (244). On the map each would show as on now, every day. 4 of 237 pages on 2026-10-24; 1,047 of the 1,056 events to come span 7 days or fewer."
     },
     {
       "what": "Club conferences, programme councils, leaders' training and exams",
