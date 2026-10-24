@@ -536,23 +536,50 @@ class LegacyRekeyTests(unittest.TestCase):
             self.assertEqual([r["external_id"] for r in write.call_args.args[0]], expected)
 
 
+class Clock:
+    """A monotonic clock the fake Census moves: a timeout costs its timeout,
+    an answer 22 ms an address (civic's measured rate)."""
+    def __init__(self):
+        self.t = 0.0
+
+    def __call__(self):
+        return self.t
+
+
 class Census:
     """The Census batch endpoint: Match for an address in `places`, No_Match
     for the rest, rows answered in reverse (Census does not keep the order).
-    `fail(call, addrs)` makes that request time out instead."""
-    def __init__(self, places=None, fail=None):
+    `fail(call, addrs, timeout)` makes that request time out instead, or
+    answer the HTTP status it returns. A field ending in a backslash is a
+    400 for the whole request, as measured live 2026-10-24."""
+    def __init__(self, places=None, fail=None, clock=None):
         self.places = places or {}
-        self.fail = fail or (lambda call, addrs: False)
-        self.sent, self.timeouts = [], []
+        self.fail = fail or (lambda call, addrs, timeout: False)
+        self.clock = clock or Clock()
+        self.sent, self.timeouts, self.bodies = [], [], []
 
     def post(self, url, files=None, data=None, timeout=None):
         import csv
-        rows = list(csv.reader(io.StringIO(files["addressFile"][1])))
+        body = files["addressFile"][1]
+        rows = list(csv.reader(io.StringIO(body)))
         addrs = [tuple(r[1:4]) for r in rows]
         self.sent.append(addrs)
         self.timeouts.append(timeout)
-        if self.fail(len(self.sent), addrs):
+        self.bodies.append(body)
+
+        class Response:
+            status_code = 200
+            text = ""
+        failed = self.fail(len(self.sent), addrs, timeout)
+        if any(f.endswith("\\") for a in addrs for f in a):
+            failed = 400
+        if failed is True:
+            self.clock.t += timeout
             raise TimeoutError("read timed out")     # requests.ReadTimeout in production
+        if failed:
+            Response.status_code, Response.text = failed, "<p>Malformed input file"
+            return Response()
+        self.clock.t += 0.022 * len(addrs)
         out = io.StringIO()
         writer = csv.writer(out)
         for r, addr in reversed(list(zip(rows, addrs))):
@@ -561,10 +588,7 @@ class Census:
                 writer.writerow([r[0], ", ".join(addr), "Match", "Exact", "X", f"{lon},{lat}", "1", "L"])
             else:
                 writer.writerow([r[0], ", ".join(addr), "No_Match"])
-
-        class Response:
-            status_code = 200
-            text = out.getvalue()
+        Response.text = out.getvalue()
         return Response()
 
 
@@ -572,9 +596,14 @@ def street(i):
     return (f"{i} Main St", "Seattle", "WA")
 
 
+def at(i, **rec):
+    return dict(rec, **dict(zip(("address", "city", "region"), street(i))))
+
+
 class CensusTests(unittest.TestCase):
     """The Census batch: what is sent, in what chunks, and what a failure moves."""
     NOW = 1_792_800_000                                 # 2026-10-24
+    HOUR = 3600
 
     def setUp(self):
         import tempfile
@@ -590,7 +619,7 @@ class CensusTests(unittest.TestCase):
         out = io.StringIO()
         with redirect_stdout(out):
             got = sync.batch_geocode(census, addrs, cache_path=self.cache,
-                                     now=self.NOW if now is None else now)
+                                     now=self.NOW if now is None else now, clock=census.clock)
         return got, out.getvalue()
 
     def stored(self):
@@ -601,16 +630,25 @@ class CensusTests(unittest.TestCase):
         with open(self.cache, "w", encoding="utf-8") as fh:
             json.dump(entries, fh)
 
-    def build(self, census, recs):
+    def build(self, census, recs, now=None, held=None):
+        """build_rows over `recs`, its Census answered in reverse order (so a
+        test knows which chunk an address lands in) at `now`."""
         path = os.path.join(self.folder, "store.json")
         base = dict(source="test", start_utc="2026-11-01T18:00:00Z", start_local="2026-11-01T11:00:00")
         with open(path, "w", encoding="utf-8") as fh:
             json.dump({"events": [dict(base, **r) for r in recs]}, fh)
+        when = self.NOW if now is None else now
         out = io.StringIO()
         with patch.dict(os.environ, {"SPOTIFY_CLIENT_ID": "", "SPOTIFY_CLIENT_SECRET": ""}), \
+             patch.object(sync, "batch_geocode",
+                          side_effect=lambda s, addrs, **kw: self.real(s, sorted(addrs, reverse=True),
+                                                                       now=when, clock=census.clock, **kw)), \
              redirect_stdout(out):
-            rows = sync.build_rows(path, "host", geo_session=census, census_cache=self.cache)
+            rows = sync.build_rows(path, "host", geo_session=census, census_cache=self.cache,
+                                   census_held=held)
         return {r["external_id"]: (r["lat"], r["lon"]) for r in rows}, out.getvalue()
+
+    real = staticmethod(sync.batch_geocode)
 
     def test_ten_thousand_addresses_go_in_four_chunks_of_at_most_2500(self):
         census = Census()
@@ -620,7 +658,8 @@ class CensusTests(unittest.TestCase):
         self.assertEqual(sum(len(set(s)) for s in census.sent), 10000, "every address once")
         self.assertEqual(got, {})
         self.assertEqual(log.count("Census chunk "), 4)
-        self.assertRegex(log, r"Census chunk 1/4: 2500 addresses, HTTP 200, 0 matched in \d+\.\ds")
+        self.assertRegex(log, r"Census chunk 1 \(2500 of 10000\): 2500 addresses, HTTP 200, "
+                              r"0 matched in \d+\.\ds")
         self.assertNotIn("::warning::", log)
 
     def test_a_record_abroad_is_never_sent_and_keeps_its_source_pin(self):
@@ -631,13 +670,10 @@ class CensusTests(unittest.TestCase):
                      country="gb", latitude=51.51, longitude=-0.08),
                 dict(fingerprint="au", name="Board games", address="1 George St", city="Sydney",
                      region="NSW", country="AU"),                              # no pin of its own: dropped
-                dict(fingerprint="us", name="Choir", **dict(zip(("address", "city", "region"), street(1))),
-                     country="us", latitude=47.0, longitude=-122.0),
-                dict(fingerprint="blank", name="Swing", **dict(zip(("address", "city", "region"), street(2)))),
-                dict(fingerprint="usa", name="Quiz", **dict(zip(("address", "city", "region"), street(3))),
-                     country="U.S.A."),
-                dict(fingerprint="named", name="Book club", **dict(zip(("address", "city", "region"), street(4))),
-                     country="United States")]
+                at(1, fingerprint="us", name="Choir", country="us", latitude=47.0, longitude=-122.0),
+                at(2, fingerprint="blank", name="Swing"),
+                at(3, fingerprint="usa", name="Quiz", country="U.S.A."),
+                at(4, fingerprint="named", name="Book club", country="United States")]
         rows, log = self.build(census, recs)
         sent = [a for s in census.sent for a in s]
         self.assertEqual(sorted(sent), [street(i) for i in (1, 2, 3, 4)])
@@ -664,6 +700,7 @@ class CensusTests(unittest.TestCase):
     def test_an_entry_nobody_asked_for_in_twice_its_ttl_is_dropped(self):
         old = self.NOW - 61 * 86400
         self.seed({"9 Gone St|Seattle|WA": ["NO_MATCH", old],
+                   "7 Held St|Seattle|WA": ["PENDING", old],
                    "8 Kept St|Seattle|WA": [47.6, -122.3, old],
                    "junk": "not an entry"})
         self.geocode(Census(), [street(1)])
@@ -678,54 +715,132 @@ class CensusTests(unittest.TestCase):
         self.assertEqual(self.stored(), {"1 Main St|Seattle|WA": [47.61, -122.33, self.NOW]})
 
     def test_a_failed_chunk_is_retried_once_as_two_halves(self):
-        census = Census(fail=lambda call, addrs: call == 1)
+        census = Census(fail=lambda call, addrs, timeout: call == 1)
         got, log = self.geocode(census, [street(i) for i in range(2500)])
         self.assertEqual([len(s) for s in census.sent], [2500, 1250, 1250])
         self.assertEqual(census.timeouts, [sync.CENSUS_TIMEOUT, sync.CENSUS_TIMEOUT / 2, sync.CENSUS_TIMEOUT / 2])
         self.assertEqual(len(self.stored()), 2500, "the halves' answers are kept")
-        self.assertIn("Census chunk 1/1: 2500 addresses, TimeoutError", log)
+        self.assertIn("Census chunk 1 (2500 of 2500): 2500 addresses, TimeoutError, 0 matched in 180.0s", log)
         self.assertNotIn("::warning::", log)
 
-    def test_a_failed_chunk_keeps_last_answers_writes_nothing_and_holds_back_the_unknown(self):
+    def test_a_slow_census_goes_on_in_half_chunks(self):
+        # Census times out at 2,500 and answers 1,250: once a chunk's halves
+        # both answer, the chunks after it are halves too, with half the wait.
+        census = Census(fail=lambda call, addrs, timeout: len(addrs) > 1250)
+        got, log = self.geocode(census, [street(i) for i in range(10000)])
+        self.assertEqual([len(s) for s in census.sent], [2500, 1250, 1250] + [1250] * 6)
+        self.assertEqual(census.timeouts[3:], [sync.CENSUS_TIMEOUT / 2] * 6)
+        self.assertEqual(len(self.stored()), 10000, "every address answered")
+        self.assertEqual(got.held, frozenset())
+        self.assertNotIn("::warning::", log)
+
+    def test_failed_requests_spend_at_most_the_budget(self):
+        # 2026-10-24's fake: every 2,500 times out, the first half answers and
+        # the second times out. Without a budget, 14,500 addresses took 18
+        # requests and ~1,780 s; the 9,000 chunks' worst was 2 x 180 s.
+        census = Census(fail=lambda call, addrs, timeout: len(addrs) > 1250 or call % 3 == 0)
+        got, log = self.geocode(census, [street(i) for i in range(14500)])
+        self.assertEqual([len(s) for s in census.sent], [2500, 1250, 1250], "then nothing fits the budget")
+        self.assertAlmostEqual(census.clock.t, 180 + 0.022 * 1250 + 90)
+        self.assertLessEqual(180 + 90, sync.CENSUS_FAIL_BUDGET)
+        self.assertEqual(len(got.held), 14500 - 1250, "unsent or unanswered, and Census answered some")
+        self.assertIn("12000 address(es) not sent (failed requests took 270s of 360s", log)
+
+    def test_a_census_that_is_down_costs_one_chunk_and_its_halves(self):
+        census = Census(fail=lambda call, addrs, timeout: True)
+        got, log = self.geocode(census, [street(i) for i in range(14500)])
+        self.assertEqual([len(s) for s in census.sent], [2500, 1250, 1250])
+        self.assertEqual(census.clock.t, 2 * sync.CENSUS_TIMEOUT)
+
+    def test_a_failed_chunk_keeps_last_answers_writes_no_answer_and_holds_the_unknown(self):
         stale = self.NOW - 400 * 86400                   # due to be asked again
         self.seed({"1 Main St|Seattle|WA": [47.61, -122.33, stale],
                    "2 Main St|Seattle|WA": ["NO_MATCH", self.NOW - 40 * 86400]})
         before = self.stored()
         # Chunk 1 (4, 5, 6) is answered; chunk 2 (1, 2, 3) and both its halves time out.
         census = Census(places={street(i): (47.0 + i / 100, -122.0) for i in range(1, 7)},
-                        fail=lambda call, addrs: street(1) in addrs or street(3) in addrs)
-        recs = [dict(fingerprint=f"e{i}", name=f"Event {i}", latitude=40.0, longitude=-100.0,
-                     **dict(zip(("address", "city", "region"), street(i)))) for i in (4, 5, 6, 1, 2, 3)]
-        with patch.object(sync, "CENSUS_CHUNK", 3), \
-             patch.object(sync, "batch_geocode",
-                          side_effect=lambda s, addrs, **kw: self.real(s, sorted(addrs, reverse=True),
-                                                                       now=self.NOW, **kw)):
-            rows, log = self.build(census, recs)
+                        fail=lambda call, addrs, timeout: street(1) in addrs or street(3) in addrs)
+        recs = [at(i, fingerprint=f"e{i}", name=f"Event {i}", latitude=40.0, longitude=-100.0)
+                for i in (4, 5, 6, 1, 2, 3)]
+        held = set()
+        with patch.object(sync, "CENSUS_CHUNK", 3):
+            rows, log = self.build(census, recs, held=held)
         self.assertEqual([len(s) for s in census.sent], [3, 3, 2, 1])
         self.assertEqual(rows["e1"], (47.61, -122.33), "the cached match, not the source's pin")
         self.assertEqual(rows["e2"], (40.0, -100.0), "the cached miss: the source's pin, as stored")
-        self.assertNotIn("e3", rows, "never answered: held back, not written on the source's pin")
+        self.assertEqual(rows["e3"], (40.0, -100.0), "built on the source's pin...")
+        self.assertEqual(held, {"e3"}, "...and handed to main(), which holds it if it is stored")
         self.assertEqual([rows[f"e{i}"] for i in (4, 5, 6)], [(47.04, -122.0), (47.05, -122.0), (47.06, -122.0)])
         after = self.stored()
         for key in before:
-            self.assertEqual(after[key], before[key], "a failed chunk writes no entry")
-        self.assertNotIn("3 Main St|Seattle|WA", after)
-        self.assertIn("::warning::Census geocoder: 1 of 2 chunk(s) failed", log)
-        self.assertIn("1 keep their cached match, 1 their cached miss, and 1 never answered are held back", log)
-        self.assertIn("Held back 1 row(s)", log)
+            self.assertEqual(after[key], before[key], "a failed chunk writes no answer")
+        self.assertEqual(after["3 Main St|Seattle|WA"], ["PENDING", self.NOW], "only the hold's mark")
+        self.assertIn("::warning::Census geocoder: 1 chunk(s) failed", log)
+        self.assertIn("1 keep their cached match, 1 their cached miss, 1 never answered are held", log)
+        self.assertIn("1 row(s) at an address whose Census chunk failed", log)
 
-    real = staticmethod(sync.batch_geocode)
+    def test_a_later_sync_on_the_same_file_holds_until_the_hold_lapses(self):
+        # 2026-10-24: the US leg held e1..e3; the final sync, on the same file,
+        # sent only those three, Census failed them again and "answered nothing
+        # this run", so they were written on the source's pin after all.
+        places = {street(i): (47.0 + i / 100, -122.0) for i in range(1, 7)}
+        recs = [at(i, fingerprint=f"e{i}", name=f"Event {i}", latitude=40.0, longitude=-100.0)
+                for i in range(1, 7)]
+        first_three = lambda call, addrs, timeout: any(street(i) in addrs for i in (1, 2, 3))
+        held = set()
+        with patch.object(sync, "CENSUS_CHUNK", 3):
+            self.build(Census(places, first_three), recs, held=held)
+        self.assertEqual(held, {"e1", "e2", "e3"})
+        for hours, still in ((3, {"e1", "e2", "e3"}), (sync.CENSUS_HOLD_HOURS + 1, set())):
+            census, held = Census(places, lambda call, addrs, timeout: True), set()
+            with patch.object(sync, "CENSUS_CHUNK", 3):
+                rows, log = self.build(census, recs, now=self.NOW + hours * self.HOUR, held=held)
+            self.assertEqual(census.sent[0], [street(3), street(2), street(1)], f"{hours} h: only those sent")
+            self.assertEqual(len(census.sent), 3, "their chunk and its halves")
+            self.assertEqual(held, still, f"{hours} h later")
+            self.assertEqual([rows[f"e{i}"] for i in (4, 5, 6)], [places[street(i)] for i in (4, 5, 6)])
+        self.assertIn(f"3 held for {sync.CENSUS_HOLD_HOURS} h already", log)
+        self.assertEqual(self.stored()["1 Main St|Seattle|WA"], ["PENDING", self.NOW], "the first failure")
 
-    def test_census_answering_nothing_stops_sending_and_keeps_source_pins(self):
-        census = Census(fail=lambda call, addrs: True)
-        recs = [dict(fingerprint=f"e{i}", name=f"Event {i}", latitude=40.0, longitude=-100.0,
-                     **dict(zip(("address", "city", "region"), street(i)))) for i in range(5)]
+    def test_a_field_ending_in_a_backslash_is_sent_without_it(self):
+        # Measured live 2026-10-24: '400 Broad St\' is HTTP 400 "Malformed input
+        # file" for the whole request, and it used to cost its half a hold every run.
+        poison = ("400 Broad St\\", "Seattle\\", "WA")
+        census = Census(places={("400 Broad St", "Seattle", "WA"): (47.62, -122.35)})
+        got, log = self.geocode(census, [poison] + [street(i) for i in range(3000)])
+        self.assertEqual([len(s) for s in census.sent], [2500, 501])
+        self.assertNotIn("\\", "".join(census.bodies))
+        self.assertEqual(got[poison], (47.62, -122.35))
+        self.assertIn("400 Broad St\\|Seattle\\|WA", self.stored(), "kept under the address it was asked for")
+        self.assertNotIn("::warning::", log)
+
+    def test_a_request_census_refuses_holds_nothing(self):
+        # A 4xx is the same answer next time: its addresses keep their last
+        # answer or the source's pin, and are never held.
+        bad = street(7)
+        census = Census(places={street(i): (47.0, -122.0) for i in range(8)},
+                        fail=lambda call, addrs, timeout: 400 if bad in addrs else False)
+        got, log = self.geocode(census, [street(i) for i in range(8)])
+        self.assertEqual([len(s) for s in census.sent], [8, 4, 4])
+        self.assertEqual(got.held, frozenset())
+        self.assertEqual(set(got), {street(i) for i in range(4)}, "the half without it is answered")
+        stored = self.stored()
+        self.assertEqual(set(stored), {f"{i} Main St|Seattle|WA" for i in range(4)},
+                         "the refused half writes no answer and no hold's mark")
+        self.assertIn("4 take their source pin (4 in a request Census refused)", log)
+
+    def test_census_answering_nothing_on_a_cold_cache_holds_nothing(self):
+        census = Census(fail=lambda call, addrs, timeout: True)
+        recs = [at(i, fingerprint=f"e{i}", name=f"Event {i}", latitude=40.0, longitude=-100.0)
+                for i in range(5)]
+        held = set()
         with patch.object(sync, "CENSUS_CHUNK", 2):
-            rows, log = self.build(census, recs)
+            rows, log = self.build(census, recs, held=held)
         self.assertEqual([len(s) for s in census.sent], [2, 1, 1], "one chunk and its halves, then stop")
         self.assertEqual(rows, {f"e{i}": (40.0, -100.0) for i in range(5)})
-        self.assertIn("2 not sent after that", log)
-        self.assertIn("Census answered nothing", log)
+        self.assertEqual(held, set())
+        self.assertIn("3 address(es) not sent", log)
+        self.assertIn("5 because Census answered nothing and the cache knows nothing", log)
         self.assertFalse(os.path.exists(self.cache), "nothing answered, nothing written")
 
     def test_nothing_to_send_reads_and_writes_nothing(self):
@@ -733,6 +848,43 @@ class CensusTests(unittest.TestCase):
         got, log = self.geocode(census, [])
         self.assertEqual((got, log, census.sent), ({}, "", []))
         self.assertFalse(os.path.exists(self.cache))
+
+    def sync_main(self, recs, stored, flags=(), answers=None):
+        """main() over `recs` with `stored` rows in the database; batch_geocode
+        answers `answers`. Returns the rows written and the log."""
+        path = os.path.join(self.folder, "store.json")
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump({"events": recs}, fh)
+        out = io.StringIO()
+        with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
+                                    "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key",
+                                    "SPOTIFY_CLIENT_ID": "", "SPOTIFY_CLIENT_SECRET": ""}), \
+             patch("sys.argv", ["sync", "--store", path, *flags]), \
+             patch("requests.Session", return_value=Store(stored)), \
+             patch.object(sync, "batch_geocode", return_value=answers) as geocode, \
+             patch.object(sync, "load_blocklist", return_value=[]), \
+             patch.object(sync, "merge_copy_categories", return_value=0), \
+             patch.object(sync, "upsert", return_value=(1, 0, 0)) as write, \
+             redirect_stdout(out):
+            sync.main()
+        written = {r["external_id"]: (r["lat"], r["lon"]) for r in write.call_args.args[0]}
+        return written, out.getvalue(), geocode
+
+    def test_only_a_stored_row_waits_for_census_and_a_new_one_is_written(self):
+        # A new row has no pin to keep: holding it kept a same-day Meetup event
+        # off the map until the next morning (2026-10-24: 5,000 of 7,500 new
+        # rows held when Census failed after its first request).
+        answers = sync.CensusAnswers()
+        answers.held = frozenset({street(1), street(2)})
+        base = dict(source="test", start_utc="2026-11-01T18:00:00Z", latitude=40.0, longitude=-100.0)
+        recs = [at(1, fingerprint="stored", name="Stored", **base),
+                at(2, fingerprint="new", name="New", **base)]
+        for flags in ((), ("--only-new",)):
+            if flags:                                   # a stored row an --only-new day still writes
+                recs[0]["source_details"] = {"price": "free"}
+            written, log, _ = self.sync_main(recs, {"stored": None}, flags, answers)
+            self.assertEqual(written, {"new": (40.0, -100.0)}, flags)
+            self.assertIn("Census hold: 1 stored row(s) held back; 1 new or moved row(s) written", log)
 
     def test_only_the_sync_run_keeps_answers(self):
         # A direct call (test_ics_venue_location's fake Census) keeps no file,
@@ -742,24 +894,10 @@ class CensusTests(unittest.TestCase):
             self.assertEqual(sync.batch_geocode(census, [street(1)]), {street(1): (47.61, -122.33)})
         self.assertFalse(os.path.exists(self.cache))
         # main() hands build_rows the cache path.
-        path = os.path.join(self.folder, "store.json")
-        rec = dict(fingerprint="new", name="Event new", source="test", start_utc="2026-11-01T18:00:00Z",
-                   **dict(zip(("address", "city", "region"), street(1))))
-        with open(path, "w", encoding="utf-8") as fh:
-            json.dump({"events": [rec]}, fh)
-        with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
-                                    "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key",
-                                    "SPOTIFY_CLIENT_ID": "", "SPOTIFY_CLIENT_SECRET": ""}), \
-             patch("sys.argv", ["sync", "--store", path]), \
-             patch("requests.Session", return_value=Store({})), \
-             patch.object(sync, "batch_geocode", return_value={street(1): (47.61, -122.33)}) as geocode, \
-             patch.object(sync, "load_blocklist", return_value=[]), \
-             patch.object(sync, "merge_copy_categories", return_value=0), \
-             patch.object(sync, "upsert", return_value=(1, 0, 0)) as write, \
-             redirect_stdout(io.StringIO()):
-            sync.main()
+        rec = at(1, fingerprint="new", name="Event new", source="test", start_utc="2026-11-01T18:00:00Z")
+        written, _, geocode = self.sync_main([rec], {}, answers={street(1): (47.61, -122.33)})
         self.assertEqual(geocode.call_args.kwargs, {"cache_path": self.cache})
-        self.assertEqual([(r["lat"], r["lon"]) for r in write.call_args.args[0]], [(47.61, -122.33)])
+        self.assertEqual(written, {"new": (47.61, -122.33)})
 
 
 def run():
