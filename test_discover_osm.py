@@ -78,6 +78,15 @@ What is pinned is what the first real sweeps got wrong:
     written out, past --limit too (3 of 5 were cut with --limit 2 and four
     workers), a held calendar configured by hand answers its home, and a
     lapsed offsite row keeps its organizer link through a 4xx or a timeout.
+  * A CALENDAR IS NAMED IN THE WALKS' OTHER LANGUAGES TOO (2026-10-25). Of 56
+    readable non-US homepages filed no-calendar, 14 named theirs only in a
+    word the walk did not read (Wydarzenia, Akce, Dogodki, Viðburðir, Hva
+    skjer, Tapahtumakalenteri). Those words are a FALLBACK, read only when the
+    old ones found nothing, because in the same pass they moved 14 of 255
+    configured calendars to a key no config holds. A waste, booking or meeting
+    calendar is not followed; "prevent" is not "event"; a page that declares
+    its charset only in a <meta> is decoded so; and Event Organiser's export
+    is found like My Calendar's.
 """
 import json
 import re
@@ -1302,6 +1311,7 @@ def main():
     homepage_park_edges(C)
     centre_calendars(C)
     overpass_strikes(C)
+    intl_calendar_words()
 
     print()
     if FAILURES:
@@ -2246,6 +2256,179 @@ def centre_calendars(C):
     C._pinned_slot(fresh, ("community_centre", "social_centre"))
     check("a walk that widens nothing starts at the top, as before",
           fresh.get("osm|community_centre,social_centre"), None)
+
+
+class _ByteSite(_Site):
+    """A site whose pages are BYTES, answered the way requests answers them:
+    text/html with no charset in the header is decoded as ISO-8859-1."""
+
+    def get(self, u, timeout=None, allow_redirects=True, **kw):
+        import requests
+        from requests.structures import CaseInsensitiveDict
+        self.asked.append(u)
+        if u not in self.pages:
+            raise ConnectionError(u)
+        r = requests.Response()
+        r.status_code, r.url, r._content = 200, u, self.pages[u]
+        r.headers = CaseInsensitiveDict({"Content-Type": "text/html"})
+        r.encoding = requests.utils.get_encoding_from_headers(r.headers)
+        return r
+
+
+def intl_calendar_words():
+    """The walks' other languages, as the non-US no-calendar sample named its
+    calendars (2026-10-25: 14 of 56 readable homepages), read as a fallback
+    so no find the old words make moves (14 of 255 configured calendars did,
+    read in one pass); the calendars that are not a programme; "prevent";
+    a charset only the page declares; Event Organiser."""
+    print()
+    print("a calendar is named in the walks' other languages too")
+    for href, text, src in (
+            ("/wydarzenia/", "Wydarzenia", "biblioteka.wroc.pl"),
+            ("/index.php?page=kalendarz-wydarzen", "Kalendarz wydarzeń", "kultura.miekinia.pl"),
+            ("/akce", "Aktuální akce", "knihovna.ricany.cz"),
+            ("/si/lokalno/dogodki/", "Dogodki", "rogaska-slatina.si"),
+            ("/mesecni-koledar/", "KOLEDAR", "knjiznica-radovljica.si"),
+            ("/is/mannlif/vidburdir", "Viðburðir", "olfus.is"),
+            ("/hva-skjer", "Hva skjer", "deichman.no"),
+            ("/tapahtumakalenteri", "Tapahtumakalenteri", "hnmky.fi"),
+            ("/esityskalenteri", "Esityskalenteri", "nukketeatterisampo.fi"),
+            ("/kalendarium/", "Evenemang", "confidencen.se"),
+            ("/main/p1.html", "イベントカレンダー", "city.kyoto.lg.jp's link text"),
+            ("/kurashi/p2.html", "催し・イベント", "a city's link text")):
+        site = _Site({"https://hall.example": f'<a href="{href}">{text}</a>',
+                      "https://hall.example" + href: "<html>nothing machine-readable</html>"})
+        osm.find_calendar(site, "https://hall.example")
+        check(f"  {text!r} ({src}) is followed", site.asked[1:], ["https://hall.example" + href])
+    for href, text in (("/redakce", "Redakce"), ("/reakce", "Reakce na podněty"),
+                       ("/objava/1207279", "SVET ZA PREVENTIVO IN VZGOJO V CESTNEM PROMETU"),
+                       ("/documents/bousai.pdf", "Leaflet for Disaster Prevention Information")):
+        site = _Site({"https://hall.example": f'<a href="{href}">{text}</a>'})
+        osm.find_calendar(site, "https://hall.example")
+        check(f"  {text!r} is not", site.asked[1:], [])
+
+    TEC = '<link rel="stylesheet" href="/wp-content/plugins/the-events-calendar/x.css">'
+    home = ('<a href="/kalender/">Kalender</a>'
+            '<a href="/wydarzenia/">Wydarzenia</a>')
+    site = _Site({"https://hall.example": home,
+                  "https://hall.example/kalender/": "<html>a hand-made table</html>",
+                  "https://hall.example/wydarzenia/": TEC})
+    f = osm.find_calendar(site, "https://hall.example")
+    check("the fallback is read once the old words found nothing",
+          (site.asked[1:], f["status"], f["adapter"]),
+          (["https://hall.example/kalender/", "https://hall.example/wydarzenia/"], "ok", "tribe"))
+    site = _Site({"https://hall.example": home,
+                  "https://hall.example/kalender/": TEC,
+                  "https://hall.example/wydarzenia/": TEC})
+    f = osm.find_calendar(site, "https://hall.example")
+    check("...and never once they found something, so a configured find keeps its key",
+          (site.asked[1:], f["cal_url"]), (["https://hall.example/kalender/"], "https://hall.example/kalender/"))
+    em = '<link rel="stylesheet" href="/wp-content/plugins/events-manager/x.css">'
+    site = _Site({"https://muzeum.example": em + '<a href="/wydarzenia/">Wydarzenia</a>',
+                  "https://muzeum.example/?ical=1": "BEGIN:VCALENDAR\r\nEND:VCALENDAR",
+                  "https://muzeum.example/wydarzenia/?ical=1": "BEGIN:VCALENDAR\r\nEND:VCALENDAR",
+                  "https://muzeum.example/wydarzenia/": em})
+    f = osm.find_calendar(site, "https://muzeum.example")
+    check("...nor once the homepage shows its platform (muzeumwarszawy.pl's /?ical=1 stays its key)",
+          (f["status"], f["ics"]), ("ok-homepage", "https://muzeum.example/?ical=1"))
+    links = "".join(f'<a href="/{p}">{p}</a>' for p in ("events", "wydarzenia", "akce", "dogodki"))
+    site = _Site({"https://hall.example": links})
+    osm.find_calendar(site, "https://hall.example")
+    check("...after the old words' links, and one page at most (60 requests of 790 found nothing usable)",
+          site.asked[1:], ["https://hall.example/events", "https://hall.example/akce"])
+    site = _Site({"https://hall.example": links.replace('<a href="/events">events</a>', "")})
+    osm.find_calendar(site, "https://hall.example")
+    check("...one, even when the old words left all three follows", site.asked[1:], ["https://hall.example/akce"])
+    site = _Site({"https://hall.example": links + '<a href="/kalender">Kalender</a>'})
+    osm.find_calendar(site, "https://hall.example", max_follow=2)
+    check("...and none when the old words take the civic walk's two", site.asked[1:],
+          ["https://hall.example/events", "https://hall.example/kalender"])
+
+    print()
+    print("a waste, booking or meeting calendar is not a programme")
+    for href, text, src in (
+            ("/Buergerservice/Muellkalender", "Müllkalender", "ebensee.at"),
+            ("/tenester/avfall-og-gjenvinning/", "Avfall og gjenvinning Hentekalender, gjenvinningsstasjon",
+             "surnadal.kommune.no"),
+            ("/motekalender-etter-28-04-23/", "Politiske saker", "tynset.kommune.no"),
+            ("/juhlat-merimelojien-majalla/majan-varauskalenteri/", "Majan varauskalenteri", "merimelojat.fi"),
+            ("/koripallo/harjoittelutilakalenteri", "Harjoittelutilakalenteri", "hnmky.fi"),
+            ("/buchungskalender/", "Buchungskalender", "igl-hamburg.de"),
+            ("/objava/57198", "Koledar odvoza odpadkov", "zelezniki.si"),
+            ("/wp-booking-calendar/", "Booking", "bakara.pl")):
+        site = _Site({"https://hall.example": f'<a href="{href}">{text}</a>'})
+        osm.find_calendar(site, "https://hall.example")
+        check(f"  {src}'s {text[:30]!r} is not followed", site.asked[1:], [])
+    for href, text in (("/Veranstaltungskalender_17", "Veranstaltungskalender"), ("/termine", "Termine"),
+                       ("/events-calendar", "Events calendar"), ("/robins-calendar", "Robins Calendar")):
+        site = _Site({"https://hall.example": f'<a href="{href}">{text}</a>'})
+        osm.find_calendar(site, "https://hall.example")
+        check(f"  ...while {text!r} still is", site.asked[1:], ["https://hall.example" + href])
+    site = _Site({"https://hall.example": '<a href="/Buergerservice/Muellkalender">Müllkalender</a>'
+                                          '<a href="/Unser_Ebensee/Veranstaltungen">Veranstaltungen</a>'
+                                          '<a href="/meineseite/veranstaltungen/detail">Meine Veranstaltungen</a>'})
+    osm.find_calendar(site, "https://hall.example", max_follow=2)
+    check("ebensee.at's Müllkalender no longer spends one of the civic walk's two follows",
+          site.asked[1:], ["https://hall.example/Unser_Ebensee/Veranstaltungen",
+                           "https://hall.example/meineseite/veranstaltungen/detail"])
+    site = _Site({"https://hall.example": '<a href="https://city.perfectmind.com/23/Clients/BookMe4">'
+                                          'Booking calendar</a>'})
+    check("...and a booking platform's link is still a routing signal",
+          osm.find_calendar(site, "https://hall.example")["status"], "offsite:perfectmind.com")
+
+    print()
+    print("a page that declares its charset only in a <meta> is read in it")
+    body = ('<html><head><meta charset="utf-8"></head><body>'
+            '<a href="/main/p1.html">イベントカレンダー</a></body></html>').encode("utf-8")
+    site = _ByteSite({"https://city.example": body, "https://city.example/main/p1.html": b"<html></html>"})
+    r = site.get("https://city.example")
+    check("requests reads such a page as Latin-1 (city.kyoto.lg.jp's header names no charset)",
+          ("イベント" in r.text, r.encoding), (False, "ISO-8859-1"))
+    check("...so it is decoded as the page declares",
+          ("イベント" in osm._read_as_declared(r).text, r.encoding), (True, "utf-8"))
+    site.asked = []
+    osm.find_calendar(site, "https://city.example")
+    check("...and its Japanese link is followed", site.asked, ["https://city.example", "https://city.example/main/p1.html"])
+    sjis = ('<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">'
+            '<a href="/p">催し</a>').encode("shift_jis")
+    check("an http-equiv Shift_JIS page too",
+          "催し" in osm._read_as_declared(_ByteSite({"https://c.example": sjis}).get("https://c.example")).text, True)
+
+    import requests
+    from requests.structures import CaseInsensitiveDict
+
+    def resp(content, ctype):
+        x = requests.Response()
+        x._content, x.status_code = content, 200
+        x.headers = CaseInsensitiveDict({"Content-Type": ctype})
+        x.encoding = requests.utils.get_encoding_from_headers(x.headers)
+        return x
+    check("a charset in the header wins",
+          osm._read_as_declared(resp(body, "text/html; charset=iso-8859-1")).encoding, "iso-8859-1")
+    check("...no <meta> leaves it as it was",
+          osm._read_as_declared(resp(b"<html>x</html>", "text/html")).encoding, "ISO-8859-1")
+    check("...and nor does a charset Python cannot name",
+          osm._read_as_declared(resp(b'<meta charset="x-no-such-zz">', "text/html")).encoding, "ISO-8859-1")
+    fake = _Site({"https://h.example": "<html></html>"}).get("https://h.example")
+    check("a response with no bytes (this file's own fakes) is returned as it is",
+          osm._read_as_declared(fake) is fake, True)
+
+    print()
+    print("Event Organiser is found the way My Calendar is")
+    # kre-museum.jp's homepage, trimmed: the plugin's stylesheet is on every page.
+    EO = ('<html><head><link rel="stylesheet" href="//kre.example/wp-content/plugins/event-organiser/'
+          'css/eventorganiser-front-end.css"></head><body><a href="/about/">About</a></body></html>')
+    check("its stylesheet is the sign", osm.fingerprint(EO)[0], ["event-organiser"])
+    check("...and its adapter is ics", osm.adapter_for(["event-organiser"]), "ics")
+    site = _Site({"https://kre.example": EO,
+                  "https://kre.example/?feed=eo-events": "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR"})
+    f = osm.find_calendar(site, "https://kre.example")
+    check("its whole-calendar export is proved and proposed (toyota-sentan.jp, kre-museum.jp)",
+          (f["status"], f["ics"]), ("ok-homepage", "https://kre.example/?feed=eo-events"))
+    site = _Site({"https://kre.example": EO})
+    f = osm.find_calendar(site, "https://kre.example")
+    check("...and an export that does not answer is not",
+          (f["ics"], osm.why_no_candidate(f)), (None, "ics-without-feed(event-organiser)"))
 
 
 if __name__ == "__main__":

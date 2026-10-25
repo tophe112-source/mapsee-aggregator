@@ -64,6 +64,7 @@ TWO REFUSALS, both deliberate:
 """
 from __future__ import annotations
 
+import codecs
 import json
 import os
 import datetime as _dt
@@ -154,9 +155,71 @@ DEFAULT_CATEGORY = "community"
 # purpose: the backend sweeps 28 countries and an English-only matcher would
 # quietly make it a US/UK tool wearing a global name.
 _CAL_WORDS = (
-    r"events?|calendar|kalender|calendrier|calendario|agenda|programm|programme|"
+    r"(?<!pr)events?|calendar|kalender|calendrier|calendario|agenda|programm|programme|"
     r"programa|what[-'\u2019]?s[-_ ]?on|shows?|gigs?|concerts?|veranstaltung|evenement|"
     r"evenimente|aktiviteter|tapahtumat|arrangement")
+# `(?<!pr)`: "event" is inside "prevent", "prevention" and Slovene and Spanish
+# "preventiva/preventivo". 2 of the 3 Slovene city halls in the sample below
+# spent one of the civic walk's two follows on a road-safety council ("Svet za
+# preventivo"), and 81 osm-venue rows in the ledger have a prevent... page as
+# the first page the walk followed (2026-10-25). No shipped source's URL says
+# prevent.
+#
+# THE WORDS THE WALKS' OTHER LANGUAGES USE, read only when the words above found
+# nothing (see find_calendar). Measured 2026-10-25 on two samples: 60 non-US
+# homepages the ledger filed no-calendar (30 civic in FI, NO, JP, AT, DK, SI,
+# SE, LT, IS, MX; 30 osm-venue in PL, CZ, FI, SE, DK, NO, JP; 56 readable), and
+# the homepages of 255 configured calendars in 14 countries whose languages
+# these are ("positives"). Per word, what it names there:
+#   tapahtum   Finnish: Tapahtumakalenteri (hnmky.fi), which `tapahtumat` is
+#              not inside.
+#   kalenter   Finnish "kalenteri": Esityskalenteri (nukketeatterisampo.fi, a
+#              positive the words above miss). Its booking and training-hall
+#              compounds are refused: see NOT_A_PROGRAMME_RX.
+#   evenemang  Swedish: confidencen.se, lommafolketshus.se, halmstad.se,
+#              haninge.se.
+#   hva skjer  Norwegian "what's on": deichman.no/hva-skjer, nhm.uio.no.
+#   wydarze    Polish "wydarzenia/wydarzeń": 5 of the 6 Polish sample homepages
+#              (biblioteka.wroc.pl twice, biblioteka.halinow.pl, oj7.edu.pl,
+#              kultura.miekinia.pl's "Kalendarz wydarzeń"). Bounded in front
+#              only, so -nia, -ń and -nie all match.
+#   akce       Czech "events": knihovna.ricany.cz /akce, rousinov.cz "Kulturní
+#              akce". Bounded both sides: "redakce" (editorial office) and
+#              "reakce" are in Czech footers.
+#   dogod      Slovene "dogodki/dogodkov": all 3 Slovene sample city halls
+#              (rogaska-slatina.si, postojna.si, zelezniki.si).
+#   koledar    Slovene "calendar": knjiznica-radovljica.si's KOLEDAR.
+#   viðburð    Icelandic "viðburðir" (and the vidburdir slug): both Icelandic
+#              city halls (olfus.is, vik.is), on one CMS.
+#   イベント 催し 行事  Japanese: chigasaki, kyoto and yokosuka name their
+#              calendars so, legible only once the page is decoded as it
+#              declares (see _read_as_declared).
+# Not added: Hungarian, Estonian, Latvian, Lithuanian and Croatian. 16 of the
+# 17 configured calendars there were found from their homepage by the words
+# above, and the 17th's robots.txt does not answer (RFC 9309: a refusal).
+#
+# A FALLBACK, NOT A NEW RANK, because a new word moves finds the old ones made.
+# Read in the same pass as the words above, they changed the candidate of 19
+# of the 255 positives, and 14 of those were configured calendars coming back
+# under a key no config holds, which merge would have shipped as second
+# copies: 10 Events Manager exports scoped to a /wydarzenia/ or event page
+# instead of the site root (8 of them Muzeum Warszawy's), 2 jsonld listings
+# moved from /events to /wydarzenia pages and 2 Wix sites proposed from their
+# /kalenteri and /evenemang pages. confidencen.se's /event/ listing was lost
+# behind /kalendarium, and 1 calendar was found. As a fallback they move
+# none of the 255 and still find that one (nukketeatterisampo.fi), and they
+# cost follows only on a homepage where the words above led nowhere, one at
+# most (INTL_MAX_FOLLOW). What the whole 2026-10-25 change (these words,
+# NOT_A_PROGRAMME_RX, `(?<!pr)`, the charset, Event Organiser) did, replayed
+# on the same pages: 325 readable non-US no-calendar homepages (the sample
+# above and a second of 290 in PL, CZ, FI, SE, DK, NO, JP, SI, IS) asked 730
+# requests where the old probe asked 646 (+13%), and gave 1 candidate that
+# verify passes (wmichalowicach.pl, a library's Events Calendar behind
+# "Wydarzenia") and 2 that robots.txt refuses; the 255 positives asked 529
+# for 526 and gave 3 more, all configured.
+_CAL_WORDS_INTL = (
+    r"tapahtum|kalenter|evenemang|hva[-_ ]skjer|\bwydarze[nń]|\bakce\b|\bdogod|koledar|"
+    r"vi[ðd]bur[ðd]|イベント|催し|行事")
 # "What's On" with its apostrophe (and the WordPress slug `what-s-on`) is the
 # same calendar word as "Whats On", so it ranks with it: as a programme word
 # it would have queued behind every calendar-word link and, under MAX_FOLLOW,
@@ -191,6 +254,33 @@ PROGRAMME_WORDS = (
     r"(?<!\bde)termine\b", r"\bdiary\b", r"\bschedules?\b")
 CAL_LINK_RX = re.compile("(" + _CAL_WORDS + "|" + "|".join(PROGRAMME_WORDS) + ")", re.I)
 _CAL_WORD_RX = re.compile("(" + _CAL_WORDS + ")", re.I)
+INTL_CAL_LINK_RX = re.compile("(" + _CAL_WORDS_INTL + ")", re.I)
+
+# ...AND THE CALENDARS THAT ARE NOT A PROGRAMME, which the calendar words name
+# too: a town's waste collection days (Müllkalender, Abfallkalender,
+# Hentekalender, "Koledar odvoza odpadkov"), a hall's bookings
+# (Belegungskalender, Buchungskalender, varauskalenteri, a training-hall
+# tilakalenteri) and a council's meetings (Møtekalender, Sitzungskalender).
+# A link that names one is not followed, so it cannot spend a follow, and a
+# booking calendar cannot become a candidate. Only the COMPOUND is refused,
+# the word for waste, bookings or meetings written onto the calendar word,
+# because a bare "Booking" or "Termine" is often the programme. Measured
+# 2026-10-25: 3 of the 56 readable sample homepages spent one of the civic
+# walk's two follows on one (ebensee.at's Müllkalender, surnadal.kommune.no's
+# Hentekalender, tynset.kommune.no's Møtekalender), `kalenter` alone would
+# have proposed merimelojat.fi's hut-booking Google calendar, and 15
+# osm-venue rows in the ledger had one as the first page followed. A page
+# about OCCUPANCY is refused whatever it is written onto (Czech obsazenost,
+# German Belegung, Swedish beläggning): the fallback below proposed
+# neobycejnaklubovna.cz's "Obsazenost NK", a Google calendar of when its room
+# is taken, on a second sample of 290 homepages. Not one of the 5,529 shipped
+# tribe, ics, jsonld and squarespace entries matches any of it.
+NOT_A_PROGRAMME_RX = re.compile(
+    r"(?:m[üu]e?ll|abfall|abfuhr|avfall|affald|hente|t[øöo]mme|t[öo]mning|"
+    r"soph[äa]mtning|j[äa]te|buchung|booking|bokning|varaus|tila|"
+    r"sitzung|m[øöo]te|m[øo]de|kokous|intranet)s?[-_ ]?(?:termin)?kalen[dt]|"
+    r"\b(?:waste|bins?|recycling|meetings?|bookings?)[-_ ]?calendar|koledar[-_ ]odvoz|"
+    r"obsazenost|belegung|bel[äa]ggning", re.I)
 
 # A challenge does not answer 403. SiteGround answers 202, and the WAF in front
 # of theblackaltar.org answers a clean 200 with a spinner that says "One moment,
@@ -292,6 +382,14 @@ PLATFORM_SIGNS = [
     # finds nothing and a perfectly readable site looks unreadable. A platform
     # can imply a feed URL — see FEED_TEMPLATES.
     ("my-calendar",      re.compile(r"/wp-content/plugins/my-calendar|mc-navigation-button|mc-events-link", re.I), "ics"),
+    # Event Organiser, the same shape: an iCal export of the whole calendar at
+    # a fixed path (?feed=eo-events) that no page links. Its stylesheet is on
+    # every page, the homepage too. Measured 2026-10-25: 2 of the 13 configured
+    # non-US calendars the probe could not find from their homepage run it
+    # (toyota-sentan.jp, kre-museum.jp, both added by hand), and the ledger
+    # holds 6 eo-events feeds, 4 of them ok (443, 122, 429 and 573 VEVENTs), none
+    # found by a walk.
+    ("event-organiser",  re.compile(r"/wp-content/plugins/event-organiser/", re.I), "ics"),
     # CivicPlus, which is how a large share of US municipalities publish anything
     # at all. Measured on issaquahwa.gov: find_calendar landed on /calendar.aspx
     # and returned `no-calendar`, because the page links no .ics and matched no
@@ -329,6 +427,7 @@ BUILDER_EVIDENCE = {
 # gives 27KB of iCal and its /events-main/ page gives 3.1MB of the same feed.
 FEED_TEMPLATES = {
     "my-calendar": "{origin}/?feed=my-calendar-ics",
+    "event-organiser": "{origin}/?feed=eo-events",
     "events-manager": "{cal}?ical=1",
 }
 
@@ -800,7 +899,7 @@ def adapter_for(labels: Iterable[str]) -> Optional[str]:
     # page happens to link a stray .ics is not — CivicPlus's own per-category
     # feeds are the whole calendar and the stray link is one slice of it.
     order = ["tribe", "mylisting", "localist", "gancio", "venuepilot",
-             "squarespace", "my-calendar", "trumba", "libcal",
+             "squarespace", "my-calendar", "event-organiser", "trumba", "libcal",
              "wp-event-manager", "events-manager", "modern-events", "wix",
              "civicplus", "gcal-embed", "jsonld-event", "ics"]
     # gcal-embed outranks the page's own Event block for my-calendar's reason:
@@ -1212,6 +1311,36 @@ def events_evidence(page: str, page_url: str, labels: Iterable[str] = ()) -> boo
 # parked in the ledger, so a host this misses is asked again next sweep.
 PROBE_CONNECT_S = 6
 
+# A PAGE THAT NAMES ITS CHARSET ONLY IN ITS OWN <meta> WAS READ AS LATIN-1.
+# requests decodes text/html whose Content-Type carries no charset as
+# ISO-8859-1, so a UTF-8 page's link text reached the calendar words as
+# mojibake ("イベント" as "ã‚¤ãƒ™ãƒ³ãƒˆ") and no word outside ASCII could
+# match it. Measured 2026-10-25: 7 of the 56 readable homepages in the non-US
+# no-calendar sample came that way, all 6 Japanese city and library sites
+# among them, each declaring UTF-8 in a meta tag; 2 of 245 readable positives
+# did (a Japanese and a Danish one). So the page is decoded as it declares when
+# the header says nothing. A response with no bytes to read (a test's) is left
+# as it is.
+_META_CHARSET_RX = re.compile(rb"""<meta[^>]+charset\s*=\s*["']?\s*([A-Za-z0-9_.:-]+)""", re.I)
+
+
+def _read_as_declared(r):
+    """`r`, set to decode by its own <meta> charset when its header names none."""
+    headers = getattr(r, "headers", None) or {}
+    ctype = next((v for k, v in headers.items() if k.lower() == "content-type"), "") or ""
+    content = getattr(r, "content", None)
+    if "charset" in ctype.lower() or not isinstance(content, bytes):
+        return r
+    m = _META_CHARSET_RX.search(content[:4096])
+    if m:
+        enc = m.group(1).decode("ascii", "ignore")
+        try:
+            codecs.lookup(enc)
+        except LookupError:
+            return r
+        r.encoding = enc
+    return r
+
 
 _ANCHOR_RX = re.compile(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', re.S | re.I)
 # A LINK TO ONE EVENT, not to whoever runs them: Eventbrite /e/<slug>-<id>,
@@ -1228,13 +1357,15 @@ _ANCHOR_RX = re.compile(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', re.S | re.I)
 _ONE_EVENT_RX = re.compile(r"^/e/|/event/|/events/\d", re.I)
 
 
-def _cal_links(base: str, body: str, one_event_ok: bool = True):
+def _cal_links(base: str, body: str, one_event_ok: bool = True, intl: bool = False):
     """(onsite, offsite) calendar links on one page.
 
     onsite: {url: strong}, in page order, `strong` when a calendar word (not
     only a programme word) named it. offsite: (host, url) of the first link to
     a platform OFFSITE_HOSTS routes, or None; with `one_event_ok` False, never
-    a link to one event (_ONE_EVENT_RX).
+    a link to one event (_ONE_EVENT_RX). With `intl`, the fallback: only the
+    site's own links _CAL_WORDS_INTL names and CAL_LINK_RX does not, each one
+    strong, and no offsite link.
     """
     onsite: Dict[str, bool] = {}
     offsite = None
@@ -1245,8 +1376,15 @@ def _cal_links(base: str, body: str, one_event_ok: bool = True):
         u = urljoin(base, href)
         if not u.startswith(("http://", "https://")):
             continue
-        if not (CAL_LINK_RX.search(href) or CAL_LINK_RX.search(text)
-                or any(h in urlparse(u).netloc.lower() for h in REC_BOOKING_HOSTS)):
+        named = (CAL_LINK_RX.search(href) or CAL_LINK_RX.search(text)
+                 or any(h in urlparse(u).netloc.lower() for h in REC_BOOKING_HOSTS))
+        if intl:
+            if (not named and (INTL_CAL_LINK_RX.search(href) or INTL_CAL_LINK_RX.search(text))
+                    and _same_host(u, base)
+                    and not (NOT_A_PROGRAMME_RX.search(href) or NOT_A_PROGRAMME_RX.search(text))):
+                onsite[u] = True
+            continue
+        if not named:
             continue
         off = _offsite(u)
         if off:
@@ -1259,6 +1397,8 @@ def _cal_links(base: str, body: str, one_event_ok: bool = True):
             if offsite is None and (one_event_ok or not _ONE_EVENT_RX.search(urlparse(u).path or "/")):
                 offsite = (off, u)
         elif _same_host(u, base):
+            if NOT_A_PROGRAMME_RX.search(href) or NOT_A_PROGRAMME_RX.search(text):
+                continue                  # waste days, bookings, meetings
             strong = bool(_CAL_WORD_RX.search(href) or _CAL_WORD_RX.search(text))
             onsite[u] = onsite.get(u, False) or strong
     return onsite, offsite
@@ -1269,6 +1409,16 @@ def _follow_order(onsite: Dict[str, bool]) -> List[str]:
     ones only a programme word did (PROGRAMME_WORDS); shorter path first."""
     return sorted(onsite, key=lambda u: (_rank(u)[0], 0 if onsite[u] else 1, _rank(u)[1]))
 
+
+# ...AND HOW MANY OF THOSE THE FALLBACK WORDS (_CAL_WORDS_INTL) MAY TAKE: one,
+# inside MAX_FOLLOW. Filling every slot left, the probe asked 790 requests of
+# 325 readable non-US no-calendar homepages (two samples, 2026-10-25) where
+# the old one asked 646; taking one, 730. The 60 between them found a
+# single-event page of a library whose calendar is configured already
+# (kjm.cz, through a branch's homepage) and an Icelandic town's jsonld, which
+# the civic walk cannot shape for a whole town. Every usable fallback find
+# was the first page the fallback followed.
+INTL_MAX_FOLLOW = 1
 
 # HOW MANY OF A SITE'S OWN LINKS ONE PROBE FOLLOWS. Two cut calendar links off
 # 6 of the 55 readable centre homepages re-read on 2026-10-12 (22q.es had 3,
@@ -1317,8 +1467,8 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     out = {"cal_url": None, "labels": [], "adapter": None, "ics": None,
            "status": None, "offsite": None, "offsite_url": None, "extra": {}}
     try:
-        r = session.get(home_url, timeout=(PROBE_CONNECT_S, timeout),
-                        allow_redirects=True)
+        r = _read_as_declared(session.get(home_url, timeout=(PROBE_CONNECT_S, timeout),
+                                          allow_redirects=True))
     except Exception as exc:                                      # noqa: BLE001
         out["status"] = "unreachable"
         out["note"] = type(exc).__name__
@@ -1345,10 +1495,23 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     # by then, so it is read when that page is in hand.
     first_evidence = None
 
-    for u in _follow_order(onsite)[:max_follow]:
+    def to_follow():
+        # The words CAL_LINK_RX knows, as they always were. Then, only when
+        # none of them led anywhere, the homepage shows no platform and a
+        # follow is left, the other languages' words (_CAL_WORDS_INTL), so
+        # they never move a find the first ones make.
+        first = _follow_order(onsite)[:max_follow]
+        yield from first
+        if home_labels or len(first) >= max_follow:
+            return
+        more = _cal_links(base, body, intl=True)[0]
+        yield from [u for u in _follow_order(more)
+                    if u not in onsite][:min(INTL_MAX_FOLLOW, max_follow - len(first))]
+
+    for u in to_follow():
         try:
-            r2 = session.get(u, timeout=(PROBE_CONNECT_S, timeout),
-                             allow_redirects=True)
+            r2 = _read_as_declared(session.get(u, timeout=(PROBE_CONNECT_S, timeout),
+                                               allow_redirects=True))
         except Exception:                                          # noqa: BLE001
             continue
         if CHALLENGE_RX.search(r2.text[:6000]):
