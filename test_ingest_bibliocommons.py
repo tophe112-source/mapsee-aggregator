@@ -627,6 +627,63 @@ _, names, st, _, _ = run_filtered([evt("k1", "All Library Locations Closed", f"{
 check("a whole-system closure titled with 'Locations' is refused as a notice",
       names == ["Family Storytime"] and st.stats["notices"] == 1, (names, dict(st.stats)))
 
+# ------------------------------------- 7e. paging that is not in date order
+print()
+print("the gateway does not page in date order")
+
+
+class Pages:
+    """Serves the given pages in turn (pagination says how many); counts reads."""
+    headers = {}
+
+    def __init__(self, pages):
+        self.pages, self.read = pages, []
+
+    def get(self, url, params=None, timeout=None):
+        n = (params or {}).get("page", 1)
+        self.read.append(n)
+        rows = self.pages[n - 1] if n <= len(self.pages) else []
+        return Resp({"entities": ent(events={r["id"]: r for r in rows}),
+                     "events": {"pagination": {"pages": len(self.pages)}}})
+
+
+def run_pages(pages):
+    sess = Pages(pages)
+    with tempfile.TemporaryDirectory() as d, contextlib.redirect_stdout(io.StringIO()):
+        st = BC.EventStore(os.path.join(d, "s.json"))
+        BC.ingest_site(st, sess, dict(SITE, horizon_days=90, crawl_delay=0, max_pages=5))
+    return sorted(r["name"] for r in st.records.values()), sess.read
+
+
+names, read = run_pages([
+    [evt("p1a", "Storytime A", f"{soon}T10:00", f"{soon}T11:00"),
+     evt("p1b", "Book Club 2029", f"{far}T18:00", f"{far}T19:00")],
+    [evt("p2a", "Last Week's Craft", f"{past}T10:00", f"{past}T11:00")],
+    [evt("p3a", "Storytime D", f"{soon}T15:00", f"{soon}T16:00")],
+])
+check("a page of past rows after a far-future one does not end the walk: page 3's row is kept",
+      names == ["Storytime A", "Storytime D"] and read == [1, 2, 3], (names, read))
+names, read = run_pages([
+    [evt("q1a", "Storytime A", f"{soon}T10:00", f"{soon}T11:00")],
+    [evt("q2a", "Book Club 2029", f"{far}T18:00", f"{far}T19:00"),
+     evt("q2b", "Lecture 2029", f"{far}T19:00", f"{far}T20:00")],
+    [evt("q3a", "Storytime D", f"{soon}T15:00", f"{soon}T16:00")],
+])
+check("...but a page beyond the horizon from end to end still stops it (cost bound)",
+      names == ["Storytime A"] and read == [1, 2], (names, read))
+
+# A cancelled closure row stored before the closure rule knew its words is
+# keyed by that title, so its tombstone keeps it; a cancelled event's notice
+# title is still stripped to the event's own name.
+closed = BC.to_event(evt("c1", "All Library Locations Closed", f"{soon}T00:00", None, cancelled=True),
+                     ent(), SITE, tombstone=True)
+check("a cancelled closure notice is tombstoned under its own title",
+      closed is not None and closed.name == "All Library Locations Closed", closed and closed.name)
+stripped = BC.to_event(evt("c2", "CANCELLED - Family Storytime", f"{soon}T10:00", f"{soon}T11:00",
+                           cancelled=True), ent(), SITE, tombstone=True)
+check("...and a cancelled event keeps the name inside its notice",
+      stripped is not None and stripped.name == "Family Storytime", stripped and stripped.name)
+
 # ------------------------------------------------------- 8. the config itself
 print()
 print("the shipped config")

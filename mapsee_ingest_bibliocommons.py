@@ -343,8 +343,11 @@ def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any],
         return None
     # A library that cancels often retitles too; the row was stored under the
     # title inside "CANCELLED - " (EventStore refuses a notice title).
+    # A closure notice names no event, but one stored before the closure rule
+    # knew its words (Kenton County's "All Library Locations Closed", added
+    # 2026-10-25) is keyed by that very title, so its tombstone keeps it.
     if tombstone and notice_reason(name):
-        name = strip_notice(name)
+        name = strip_notice(name) or (name if notice_reason(name) == "closure notice" else None)
         if not name:
             return None
 
@@ -501,7 +504,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if not rows:
             break
 
-        on_page = 0
+        on_page = page_beyond = 0
         location_cache: Dict[int, _LocationData] = {}
         for ev in rows:
             day = str(((ev.get("definition") or {}).get("start") or ""))[:10]
@@ -512,6 +515,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             # ALL - startDate/endDate are accepted and ignored (see the header).
             if day and day > limit_day:
                 beyond += 1
+                page_beyond += 1
                 continue
             off = bool((ev.get("definition") or {}).get("isCancelled"))
             nev = to_event(ev, ent, site, location_cache, tombstone=off)
@@ -541,10 +545,14 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         pages = int(pag.get("pages") or 0)
         if pages and page >= pages:
             break
-        # Rows come back in date order, so a page with nothing inside the
-        # horizon means every later page is beyond it too. Without this the loop
-        # reads the whole archive to find out it wanted none of it.
-        if on_page == 0 and beyond:
+        # Rows do NOT come back in date order: Glenview's page 1 had 98 steps
+        # back in time among 199 neighbours and ran to 2027-12-08 with 95 of 200
+        # rows inside 90 days (2026-10-25). So only a page that is beyond the
+        # horizon from end to end stops the walk; a page of past or unplaceable
+        # rows after an earlier far-future one used to stop it and lose the
+        # in-horizon rows behind. Without any stop the loop reads the whole
+        # archive to find out it wanted none of it.
+        if on_page == 0 and page_beyond and page_beyond == len(rows):
             print(f"[bibliocommons] {label}: past the {horizon}-day horizon at page {page}")
             break
         if delay:
