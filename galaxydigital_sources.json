@@ -1,0 +1,126 @@
+{
+  "_comment": "Dated volunteer shifts from Galaxy Digital 'Get Connected' portals, read by mapsee_ingest_galaxydigital.py. Every portal is the same template on its own host: /need/ lists the needs (12 a page), /need/detail/?need_id=N is one need with its Location table and its Shifts table (or one 'Happens On' date and clock). Read the adapter's header before adding a portal: a portal is a CITY or COUNTY department's (its own terms checked), the listing's standing roles are refused unread, and a meeting place that is not a street address needs a measured pin in location_overrides or it is refused.",
+  "_conduct": "Checked 2026-10-25 with our own User-Agent. robots.txt is one 1,151-byte file on every portal read (Portland, Olympia, Mecklenburg, WWU) and on api2.galaxydigital.com: 27 SEO crawlers Disallow: /, Crawl-delay 10 for bingbot, and 'User-agent: * / Disallow:' for everyone else. https://www.galaxydigital.com/terms-and-conditions is the licence between Galaxy and its CUSTOMER ('as long as You meet any applicable payment obligations', 'Your Principal Organization'); it forbids the customer to 'Reproduce, modify, copy, deconstruct, sell, trade, or resell the Services' (the software) and says nothing of reading the public pages. Each portal's footer 'Terms and Conditions' link is its /privacy page (volunteers' data only). The operators' own sites: portland.gov's 'Terms and policies' are ADA, captioning and privacy (https://www.portland.gov/help/about/privacy: nothing on reuse); https://www.olympiawa.gov/info/privacy_and_security_notice.php says 'Information presented on our web site is considered public information and may be distributed or copied. Use of appropriate byline credits is requested.' and that 'lists of individuals or directory information (including address, phone or email) may not be used for commercial purposes' - no person is copied; https://www.mecknc.gov/Policies/Privacy-and-Legal-Notices restricts only the County Seal. No terms forbid automated reading or republishing. The adapter copies no person: the Site Supervisor block is never read and a description sentence giving an e-mail address, a phone number or a named contact is dropped.",
+  "_not_included": {
+    "https://volunteer.wwu.edu": "Western Washington University's Community Service Center portal (agencies post needs for WWU students). Its own terms could not be read on 2026-10-25: www.wwu.edu's TLS chain failed our client, so even its robots.txt was unreachable (RFC 9309: assume Disallow). Its listing is 30 pages, and 49 of the first 60 needs are standing roles ('Is Ongoing' 44, 'Runs Until' 4, a range 1); of the 11 one-offs read, 10 give a street address (9 occasions: Bellingham Parks work parties, four blood-drive shifts, the Y's Halloween, a run posted twice). Add it once wwu.edu's terms are read.",
+    "https://volunteer.portland.gov/need/detail/?need_id=1181209": "Forest Park Restoration Stewardship Event: Location 'Holman ln' only. Photon answers a 1.5 km path (W 113897048, lon -122.7318 to -122.7193); the prose says park at NW Savier and NW Aspen and walk to 'the trailhead', which no source here places. Refused (5 shifts on 2026-10-25) until a pin is measured.",
+    "https://volunteer.portland.gov/need/detail/?need_id=1205592": "Pier Park Plant Pals: Location 'N Lombard St and N Bruce Ave'. Census answers no intersection, and Photon's North Bruce Avenue is a 240 m segment (lon -122.7612 to -122.7582) whose Lombard end could not be told from its other; the park's own point is 370 m from that segment. Refused (1 shift) until a pin is measured."
+  },
+  "portals": [
+    {
+      "name": "Portland Parks & Recreation",
+      "slug": "portland",
+      "base": "https://volunteer.portland.gov",
+      "promoter": "Portland Parks & Recreation",
+      "_found": "manual:2026-10-25 volunteer track (Galaxy Digital). Rose City Bluff Restoration meets every Sunday at 9:30; no catalog source carried any of these.",
+      "_measured": "2026-10-25, two live runs on a scratch store, 54 requests each: the listing is 5 pages, 52 needs - 38 'Multiple Shifts Available', 10 'Happens On', 4 'Flexible' (refused unread). Of the 48 need pages read: 64 dated shifts kept inside 90 days (34 pinned by location_overrides, 30 at 14 street addresses the Census matched 14 of 14); 12 needs refused for a background check, 1 skipped programme, 7 with no Location, 2 at a place with no pin (_not_included); 4 midnight placeholder shifts and 1 full one refused.",
+      "timezone": "America/Los_Angeles",
+      "city": "Portland",
+      "states": ["OR"],
+      "zip3": ["970", "972"],
+      "center": [45.5152, -122.6784],
+      "max_km": 40,
+      "category": "volunteer",
+      "within_days": 90,
+      "pause": 1.1,
+      "max_failures_in_row": 5,
+      "max_listing_pages": 20,
+      "description_chars": 600,
+      "signup_line": "Sign up with Respond on its page at volunteer.portland.gov (a free account).",
+      "skip_programs": ["SUN Community Schools"],
+      "_skip_programs_comment": "SUN Community Schools: 13 of Portland's 48 dated needs on 2026-10-25, every one an after-school club at a middle school (Beaumont, Lane, Brentwood) - chess, art, soccer, a yearbook - with a weekly slot through the school year. 12 require a background check and 'Activities w/ Youth'; the 13th (a Dungeons and Dragons club) asks for a club leader. A role inside a school's programme for its own students, not a shift the public can join.",
+      "location_overrides": [
+        {
+          "location": "NE Sacramento St and 66th, Portland, OR, 97213",
+          "venue": "Rose City Bluff",
+          "lat": 45.541347, "lon": -122.595442,
+          "_measured": "US Census for '6600 NE Sacramento St, Portland, OR' (NE 66th Ave on Portland's grid) -> 6600 NE SACRAMENTO ST, 97213, 45.541347 -122.595442; on the north edge of Rose City Golf Course's OSM extent (R 6549434, lat 45.5372-45.5419), the hillside the page names. Needs 1089657 (every Sunday) and 1313002."
+        },
+        {
+          "location": "Lents Park, SE Steele St and SE 92nd Ave, Portland, OR, 97266",
+          "venue": "Lents Park",
+          "lat": 45.48449, "lon": -122.568594,
+          "_measured": "US Census for '9200 SE Steele St, Portland, OR' -> 45.48449 -122.568594, the corner; 20 m outside the SE corner of Lents Park's OSM extent (W 27400680, lat 45.4847-45.4900, lon -122.5723 to -122.5687)."
+        },
+        {
+          "location": "5737 SW Miles & SW #58th, Portland, OR, 97219",
+          "venue": "April Hill Park",
+          "lat": 45.471555, "lon": -122.736301,
+          "_measured": "US Census for '5737 SW Miles Pl' -> 5737 SW MILES ST, 45.471555 -122.736301; inside April Hill Park's OSM extent (W 136243632, lat 45.4692-45.4719, lon -122.7372 to -122.7346)."
+        },
+        {
+          "location": "SW Clay and SW Park, 97205",
+          "venue": "South Park Blocks",
+          "lat": 45.514194, "lon": -122.683441,
+          "_measured": "The page: 'Meet in the park block between SW Clay and SW Market.' US Census '1500 SW Park Ave, Portland, OR' -> 45.514194 -122.683441; Photon's SW Clay St segment (45.515222,-122.68705 to 45.514012,-122.682501) crosses SW Park Ave's line at lat 45.51420, so this is the Clay corner of that block, inside the South Park Blocks' OSM extent (W 130670496)."
+        },
+        {
+          "location": "Overlook Park, N Overlook Blvd and Massachusetts Ave, Portland, OR, 97227",
+          "venue": "Overlook Park",
+          "lat": 45.548717, "lon": -122.682868,
+          "_measured": "Photon 'Overlook Park, Portland, Oregon' -> leisure=park W 143125303, 45.548717 -122.682868, extent lat 45.5470-45.5508, lon -122.6866 to -122.6812 (about 420 m across). The Location's first line names the park; the corner is on its edge."
+        },
+        {
+          "location": "6001-6399 SE Lincoln St, Portland, OR, 97215",
+          "venue": "Mt. Tabor Community Garden",
+          "lat": 45.50837, "lon": -122.598716,
+          "_measured": "Photon 'Tabor Community Garden, Portland' -> leisure=garden W 255968962 'Mt. Tabor Community Garden', 45.50837 -122.598716, on SE Lincoln St inside the 6001-6399 range (Census puts 6001 SE Lincoln St 230 m west, at 45.508135 -122.601683). The title names Tabor Community Gardens."
+        },
+        {
+          "location": "SE 60th Ave & SE Salmon St, Portland, OR, 97215",
+          "venue": "Mt. Tabor Park",
+          "lat": 45.514024, "lon": -122.601839,
+          "_measured": "US Census '6000 SE Salmon St, Portland, OR' -> 45.514024 -122.601839, the corner; the west edge of Mount Tabor Park's OSM extent (R 11665439, lon -122.6018)."
+        },
+        {
+          "location": "Alberta Park, NE 22nd Avenue and NE Killingsworth Street, Portland, OR, 97211",
+          "venue": "Alberta Park",
+          "lat": 45.562636, "lon": -122.642773,
+          "_measured": "US Census '2200 NE Killingsworth St, Portland, OR' -> 45.562636 -122.642773, the corner; 65 m east of the SE corner of Alberta Park's OSM extent (W 25710211, lat 45.5628-45.5662, lon -122.6459 to -122.6436)."
+        }
+      ]
+    },
+    {
+      "name": "Olympia Parks, Arts & Recreation",
+      "slug": "olympia",
+      "base": "https://volunteer.olympiawa.gov",
+      "promoter": "Olympia Parks, Arts & Recreation",
+      "_found": "manual:2026-10-25 volunteer track (Galaxy Digital): the City of Olympia's portal; its Park Stewardship work parties are three-hour Friday and Saturday sessions at a named park address.",
+      "_measured": "2026-10-25, live: 2 listing pages, 16 needs - 13 'Happens On' (Park Stewardship work parties, all 10 a.m. to 1 p.m.) and 3 'Flexible' (no shift on any of the 3 pages, read once by hand). 13 rows kept, 16 requests; the Census matched 9 of their 10 addresses ('2600 East Bay Dr. NE', Squaxin Park, did not, so the sync drops that one row).",
+      "timezone": "America/Los_Angeles",
+      "city": "Olympia",
+      "states": ["WA"],
+      "zip3": ["985"],
+      "center": [47.0379, -122.9007],
+      "max_km": 40,
+      "category": "volunteer",
+      "within_days": 90,
+      "pause": 1.1,
+      "max_failures_in_row": 5,
+      "max_listing_pages": 20,
+      "description_chars": 600,
+      "signup_line": "Sign up with Respond on its page at volunteer.olympiawa.gov (a free account)."
+    },
+    {
+      "name": "Mecklenburg County Park & Recreation",
+      "slug": "mecklenburg",
+      "base": "https://volunteer.parkandrec.mecklenburgcountync.gov",
+      "promoter": "Mecklenburg County Park & Recreation",
+      "_found": "manual:2026-10-25 volunteer track (Galaxy Digital): Mecklenburg County (Charlotte NC) Park & Recreation's portal - greenway cleanups, invasive-plant pulls, nature-centre garden days, recreation-centre festivals.",
+      "_measured": "2026-10-25, live: 2 listing pages, 23 needs - 14 'Happens On', 5 'Multiple Shifts Available', 4 'Flexible' (the nature-centre docent roles: background check and no shift, read once by hand). Of the 19 need pages read: 21 shifts kept, 4 full refused; the Census matched 16 of 16 addresses. 22 requests.",
+      "timezone": "America/New_York",
+      "city": "Charlotte",
+      "states": ["NC"],
+      "zip3": ["280", "281", "282"],
+      "center": [35.2271, -80.8431],
+      "max_km": 50,
+      "category": "volunteer",
+      "within_days": 90,
+      "pause": 1.1,
+      "max_failures_in_row": 5,
+      "max_listing_pages": 20,
+      "description_chars": 600,
+      "signup_line": "Sign up with Respond on its page at volunteer.parkandrec.mecklenburgcountync.gov (a free account)."
+    }
+  ]
+}
