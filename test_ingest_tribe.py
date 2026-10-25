@@ -37,10 +37,24 @@ from unittest.mock import patch
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# No check may write the shared, committed geocode_cache.json, nor count against
+# a real run's budget: both paths are read once, when their modules load.
+_GEO_DIR = tempfile.mkdtemp(prefix="tribe-geo-")
+os.environ["GEOCODE_CACHE"] = os.path.join(_GEO_DIR, "geocode_cache.json")
+os.environ["GEOCODE_BUDGET_FILE"] = os.path.join(_GEO_DIR, "geocode_budget.json")
+
 import mapsee_ingest_tribe as T
 from mapsee_supabase_sync import build_rows, to_row
 
 fails = []
+
+# Photon is asked only by a check that means to. The rows below the Calgary
+# block (`VENUE` is rebound to it) are coordless Canadian rows with a street, so
+# without this every main() run here would send them to the geocoder through
+# whatever fake Session it patched in. The placement checks at the end put the
+# real make_geocode back.
+_REAL_MAKE_GEOCODE = T.make_geocode
+patch.object(T, "make_geocode", lambda *a, **k: ((lambda q, s: None), (lambda: False))).start()
 
 
 def check(label, cond, detail=""):
@@ -720,7 +734,7 @@ handed = []                              # the deadline main gives each site
 def run_main(tmp, clock_steps, *extra, workers="1"):
     order, clock = [], [1000.0]
 
-    def fake_ingest(_session, site, _ids, deadline, _stop):
+    def fake_ingest(_session, site, _ids, deadline, _stop, _placer=None):
         order.append(site["name"])
         handed.append(deadline)
         clock[0] += clock_steps
@@ -920,7 +934,7 @@ together, guard = threading.Barrier(3, timeout=5), threading.Lock()
 live, overlap, starts = {}, [], []
 
 
-def host_fake(_session, site, _ids, _deadline, _stop):
+def host_fake(_session, site, _ids, _deadline, _stop, _placer=None):
     host = T._http_host(site["base_url"])
     with guard:
         starts.append(site["name"])
@@ -967,7 +981,7 @@ letters = [dict(SITE, name=n, base_url=f"https://{n}.example") for n in "abcde"]
 clock, go, saves = [1000.0], threading.Event(), []
 
 
-def ooo_fake(_session, site, _ids, _deadline, _stop):
+def ooo_fake(_session, site, _ids, _deadline, _stop, _placer=None):
     if site["name"] == "b":
         clock[0] += 200                  # b finishes first, a checkpoint later
     elif site["name"] == "d":
@@ -1075,7 +1089,7 @@ check("...and a site cut short with the whole step in front of it lets the curso
 # stalled: no site was refused a start, so nothing but the cut sites themselves
 # could move the cursor, and the run's done line said nothing of a deadline.
 def cut_fake(cut_names, seen):
-    def fake(_session, site, _ids, _deadline, _stop):
+    def fake(_session, site, _ids, _deadline, _stop, _placer=None):
         seen.append(site["name"])
         got = T.SiteEvents([SimpleNamespace(name=site["name"])])
         if site["name"] in cut_names:
@@ -1119,7 +1133,7 @@ class _InterruptedStore(_RecStore):
 a_stopped, a_out = [], threading.Event()
 
 
-def interrupt_fake(_session, site, _ids, _deadline, stop):
+def interrupt_fake(_session, site, _ids, _deadline, stop, _placer=None):
     if site["name"] == "a":
         a_stopped.append(stop.wait(5))
         a_out.set()
@@ -1151,8 +1165,10 @@ class _ThreadSession:
 
     def get(self, url, *, params, **kwargs):
         self.threads.add(threading.get_ident())
+        # A venue with its own coordinates: these rows are about threads, and
+        # `VENUE` is the Calgary block by now, which the placer would geocode.
         rows = self.rows or [row(id=7, title=f"Ride from {urlsplit(url).hostname}",
-                          start_date="2099-08-19 06:30:00")]
+                          start_date="2099-08-19 06:30:00", venue=dict(RIDE_VENUE))]
 
         class Response:
             status_code = 200
@@ -1165,6 +1181,8 @@ class _ThreadSession:
         self.closed = True
 
 
+RIDE_VENUE = {"venue": "Valmont Bike Park", "address": "3160 Airport Rd", "city": "Boulder",
+              "state": "CO", "country": "United States", "geo_lat": "40.0284", "geo_lng": "-105.2266"}
 six = [dict(SITE, name=f"site {n}", base_url=f"https://s{n}.example", crawl_delay=0) for n in range(6)]
 with tempfile.TemporaryDirectory() as tmp:
     json.dump({"sites": six}, open(os.path.join(tmp, "cfg.json"), "w"))
@@ -1176,8 +1194,12 @@ with tempfile.TemporaryDirectory() as tmp:
 kept_lines = [ln for ln in buf.getvalue().splitlines() if ": kept " in ln]
 check("every site's events reach the store", rc == 0 and names == sorted(
       f"Ride from s{n}.example" for n in range(6)), names)
+# The first Session is Photon's (main's, made before any worker's): unused here,
+# since every row has its own coordinates, and closed with the rest.
+photon_session, worker_sessions = _ThreadSession.made[0], _ThreadSession.made[1:]
 check("each worker has its own Session, and closes it",
-      0 < len(_ThreadSession.made) <= 3 and all(len(s.threads) <= 1 and s.closed for s in _ThreadSession.made),
+      0 < len(worker_sessions) <= 3 and all(len(s.threads) <= 1 and s.closed for s in worker_sessions)
+      and not photon_session.threads and photon_session.closed,
       [(len(s.threads), s.closed) for s in _ThreadSession.made])
 check("every site's line ends with its time",
       len(kept_lines) == 6 and all(re.search(r"kept 1 events in \d+\.\ds$", ln) for ln in kept_lines),
@@ -1236,6 +1258,386 @@ check("main reads a free_only site's known rows first, so a turn to paid still l
 with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {"TRIBE_WORKERS": "1"}):
     rc, out = run_pool(tmp, sites, lambda *a: [])
 check("TRIBE_WORKERS sets the default", "(1 at once," in out, out)
+
+
+# --- a street abroad, placed inside its own town (2026-10-25) -----------------
+# The sync's geocoder is US Census and a coordless row is dropped there, so a
+# venue outside the US with a street and a town but no geo_lat, and no block
+# standing in for it, never reached the map. StreetPlacer geocodes it through
+# Photon (make_geocode) and keeps the answer only inside the row's own town.
+import mapsee_supabase_sync as SYNC
+
+check("the placer's Census countries are the sync's, so it never takes a Census row",
+      T.CENSUS_COUNTRIES == SYNC.CENSUS_COUNTRIES, T.CENSUS_COUNTRIES ^ SYNC.CENSUS_COUNTRIES)
+attempts = {
+    # Today's Family: the first part alone is the school at no. 460.
+    "460 Concession Street, Entrance at side door of building off East 19th Street":
+        ["460 Concession Street, Entrance at side door of building off East 19th Street",
+         "460 Concession Street"],
+    # The church in brackets is why Photon found nothing (105 rows).
+    "18 Chapman Street West (Grace and Woodhouse United Church)": ["18 Chapman Street West"],
+    # Libraries Unlimited's "Library, building, street": the last part.
+    "Bideford Library, Arts Centre, The Quay": ["Bideford Library, Arts Centre, The Quay", "The Quay"],
+    "Exmouth Library, 40 Exeter Rd": ["Exmouth Library, 40 Exeter Rd", "40 Exeter Rd"],
+    # A bare number is no street, nor a last part with a number in it.
+    "Calle Sagra, 17": ["Calle Sagra, 17"],
+    "315 Dundas Street East, Waterdown, ON L0R 2H0 Parking at the back":
+        ["315 Dundas Street East, Waterdown, ON L0R 2H0 Parking at the back", "315 Dundas Street East"],
+    "Rue des Champs": ["Rue des Champs"],
+}
+got = {k: T.street_attempts(k) for k in attempts}
+check("a street is asked whole, then by its numbered part or its last part, never more than three",
+      got == attempts, {k: v for k, v in got.items() if v != attempts[k]})
+
+
+class _Photon:
+    """make_geocode's (geocode, unasked) pair, answering from a table."""
+
+    def __init__(self, answers, unasked=False):
+        self.answers, self.asked, self.spent = answers, [], unasked
+
+    def geocode(self, query, suffix):
+        self.asked.append(query + suffix)
+        return self.answers.get(query + suffix)
+
+    def placer(self, deadline=0.0):
+        return T.StreetPlacer(self.geocode, lambda: self.spent, deadline)
+
+
+# Photon's own answers, 2026-10-25. A Canadian postcode is one block face, and
+# the school at no. 460 sits on its point: 0.01 m from it.
+HAMILTON = (43.240988, -79.8562996)           # "L9A1C3 Hamilton, Canada": place=postcode
+HAMILTON_NODE = (43.2560802, -79.8728583)     # "Hamilton, Canada": place=city, 2.2 km off
+ARMSTRONG = (43.240988, -79.8562997)          # "460 Concession Street, L9A1C3 Hamilton, Canada"
+GLA = {"venue": "G.L Armstrong", "zip": "L9A1C3", "city": "Hamilton", "province": "Ontario",
+       "country": "Canada",
+       "address": "460 Concession Street, Entrance at side door of building off East 19th Street"}
+GLA_SUFFIX = ", L9A1C3 Hamilton, Canada"
+ON = dict(SITE, name="Today's Family", category="kids")
+
+
+def drop_in(n=1, **venue):
+    return {"id": n, "title": "EarlyON Drop-In", "start_date": "2026-10-27 09:30:00",
+            "venue": dict(GLA, **venue)}
+
+
+photon = _Photon({"L9A1C3 Hamilton, Canada": HAMILTON, "Hamilton, Canada": HAMILTON_NODE,
+                  "460 Concession Street" + GLA_SUFFIX: ARMSTRONG})
+ev = T.to_event(drop_in(), ON)
+how = photon.placer().place(ev, drop_in()["venue"])
+check("a coordless Canadian row is placed at its street, found by its numbered part,"
+      " though it sits on its postcode's point",
+      how == T.PLACED and (ev.latitude, ev.longitude) == ARMSTRONG, (how, ev.latitude, ev.longitude))
+check("...asking the town, the whole street, its numbered part and the town alone, once each",
+      photon.asked == ["L9A1C3 Hamilton, Canada", GLA["address"] + GLA_SUFFIX,
+                       "460 Concession Street" + GLA_SUFFIX, "Hamilton, Canada"], photon.asked)
+check("the placed row keeps its fingerprint, which never read the coordinates",
+      ev.fingerprint == T.to_event(drop_in(), ON).fingerprint)
+record = ev.as_record("now")
+check("...and the sync keeps the point: a Canadian row is not one Census may move",
+      SYNC._census_parts(record) is None and to_row(record, "fixture-host").get("lat") == ARMSTRONG[0],
+      (SYNC._census_parts(record), to_row(record, "fixture-host").get("lat")))
+
+# Hamilton, New Zealand: '53 Wellington Street, Hamilton East' came back in
+# Wellington (docs/agents/geocoding-and-addresses.md, 2026-10-23).
+nz = _Photon({"3216 Hamilton, New Zealand": (-37.7926, 175.2950),
+              "53 Wellington Street, 3216 Hamilton, New Zealand": (-41.2865, 174.7762)})
+ev = T.to_event({"id": 2, "title": "Market", "start_date": "2026-11-01 09:00:00",
+                 "venue": {"venue": "Hall", "address": "53 Wellington Street", "city": "Hamilton",
+                           "zip": "3216", "country": "New Zealand"}}, SITE)
+how = nz.placer().place(ev, T._obj({"address": "53 Wellington Street", "city": "Hamilton",
+                                    "zip": "3216", "country": "New Zealand"}))
+check("an answer in another city is refused, and the row stays coordless",
+      how == "the geocoder answered outside the town" and ev.latitude is None, (how, ev.latitude))
+
+# Photon, asked for a street it does not know, answers with the town: the very
+# point it gives for the town alone, or for a town-wide postcode. Measured
+# 2026-10-25: "Secret Harbour Blvd, 6173 Secret Harbour" is the suburb's node.
+town = _Photon({"L9A1C3 Hamilton, Canada": HAMILTON, "Hamilton, Canada": HAMILTON_NODE,
+                "460 Concession Street" + GLA_SUFFIX: HAMILTON_NODE})
+ev = T.to_event(drop_in(), ON)
+how = town.placer().place(ev, drop_in()["venue"])
+check("an answer on the town's own node is the town, not the street",
+      how == "the geocoder answered with the town itself" and ev.latitude is None, (how, ev.latitude))
+AU = {"address": "Secret Harbour Blvd", "city": "Secret Harbour", "zip": "6173", "country": "Australia"}
+SECRET_HARBOUR = (-32.4009024, 115.7529313)
+au = _Photon({"6173 Secret Harbour, Australia": SECRET_HARBOUR, "Secret Harbour, Australia": SECRET_HARBOUR,
+              "Secret Harbour Blvd, 6173 Secret Harbour, Australia": SECRET_HARBOUR})
+ev = T.to_event({"id": 4, "title": "Pram walk", "start_date": "2026-11-02 09:00:00", "venue": AU}, SITE)
+check("an answer on a town-wide postcode's point is the town too",
+      au.placer().place(ev, AU) == "the geocoder answered with the town itself" and ev.latitude is None,
+      ev.latitude)
+# But in a village the venue is often on the main street, beside the node: 6 of
+# 161 venues with their own pins sat 17 to 52 m from it, and a 50 m rule cost
+# five of them. Blyth's library, 422 Queen St, is a house 26 m from the
+# village's node and 2 m from the library's own pin.
+BLYTH = {"address": "422 Queen St,", "city": "Blyth", "zip": "N0M1H0", "country": "Canada"}
+blyth = _Photon({"N0M1H0 Blyth, Canada": (43.7365991, -81.4294024), "Blyth, Canada": (43.7365991, -81.4294024),
+                 "422 Queen St, N0M1H0 Blyth, Canada": (43.7365241, -81.4290947)})
+ev = T.to_event({"id": 5, "title": "Story time", "start_date": "2026-11-02 10:00:00", "venue": BLYTH}, SITE)
+check("a house 26 m from its village's node is the house",
+      blyth.placer().place(ev, BLYTH) == T.PLACED and ev.latitude == 43.7365241, ev.latitude)
+DK = {"address": "Rådhustorvet 6", "city": "Sønderborg", "zip": "6400", "country": "Danmark"}
+SONDERBORG = (54.9089186, 9.7897999)
+dk = _Photon({"6400 Sønderborg, Danmark": SONDERBORG, "Sønderborg, Danmark": SONDERBORG,
+              "Rådhustorvet 6, 6400 Sønderborg, Danmark": (54.909022, 9.788816)})
+ev = T.to_event({"id": 3, "title": "Koncert", "start_date": "2026-11-01 19:00:00", "venue": DK}, SITE)
+check("...and a house 70 m from a town-wide postcode's point is the house",
+      dk.placer().place(ev, DK) == T.PLACED and ev.latitude == 54.909022, ev.latitude)
+none = _Photon({})
+ev = T.to_event(drop_in(), ON)
+check("a town Photon cannot find places nothing, and asks no street",
+      none.placer().place(ev, drop_in()["venue"]) == "town not found by the geocoder"
+      and none.asked == ["L9A1C3 Hamilton, Canada"], none.asked)
+
+# Never touched: a real geo_lat, a standing block, a US row, a row naming no
+# country (both the sync's Census rows), a street with no town of its own.
+untouched = _Photon({"L9A1C3 Hamilton, Canada": HAMILTON})
+cases = {
+    "a real geo_lat": (drop_in(geo_lat="43.25", geo_lng="-79.85"), ON),
+    "a standing venue block": (drop_in(), dict(ON, venue={"name": "Centre", "lat": 43.1, "lon": -79.9})),
+    "a US row": (drop_in(country="United States"), ON),
+    "a row naming no country": (drop_in(country=""), ON),
+    "a street whose town is only the site's default": (drop_in(city=""), dict(ON, default_city="Hamilton")),
+}
+for label, (raw, site) in cases.items():
+    ev = T.to_event(raw, site)
+    before = (ev.latitude, ev.longitude)
+    how = untouched.placer().place(ev, T._obj(raw["venue"]))
+    check(f"{label} is not the placer's to place", how is None and (ev.latitude, ev.longitude) == before,
+          (how, ev.latitude))
+check("...and none of them asked the geocoder anything", untouched.asked == [], untouched.asked)
+# Today's Family's 17 rows at Mohawk College name no country; the site's
+# default_country is what makes them Canadian rather than the sync's Census rows.
+ev = T.to_event(drop_in(country=""), dict(ON, default_country="CA"))
+coded = _Photon({})
+coded.placer().place(ev, drop_in(country="")["venue"])
+check("a site's default_country names the country, as written",
+      coded.asked == ["L9A1C3 Hamilton, CA"], coded.asked)
+umfa_like = dict(ON, venue={"name": "Central Library", "lat": 43.26, "lon": -79.87, "names": ["Central Library"]})
+ev = T.to_event(drop_in(), umfa_like)
+how = photon.placer().place(ev, drop_in()["venue"])
+check("a block with `names` that does not stand in leaves the row to its own street",
+      how == T.PLACED and (ev.latitude, ev.longitude) == ARMSTRONG, (how, ev.latitude))
+
+# Once per venue per run: G.L. Armstrong holds 252 of the 2,454 rows.
+counted = _Photon(dict(photon.answers))
+placer = counted.placer()
+for n in range(252):
+    placer.place(T.to_event(drop_in(n), ON), drop_in(n)["venue"])
+missing = _Photon({"L9A1C3 Hamilton, Canada": HAMILTON})
+placer = missing.placer()
+for n in range(3):
+    placer.place(T.to_event(drop_in(n), ON), drop_in(n)["venue"])
+check("252 rows at one centre ask its questions once",
+      len(counted.asked) == 4 and len(set(counted.asked)) == 4, counted.asked)
+check("...and a street Photon misses (never cached) once a run, not once a row",
+      len(missing.asked) == 3, missing.asked)
+
+# A miss that may be a question never asked: past the deadline only cached
+# answers are given, and none over the budget.
+for label, clock, want in (("the deadline", 2000.0, T.UNASKED_DEADLINE), ("the budget", 1000.0, T.UNASKED_BUDGET)):
+    spent = _Photon({}, unasked=True)
+    ev = T.to_event(drop_in(), ON)
+    with patch.object(T.time, "time", lambda: clock):
+        how = spent.placer(deadline=1500.0).place(ev, drop_in()["venue"])
+    check(f"a miss after {label} says so", how == want, how)
+
+
+class _SiteSession:
+    def __init__(self, rows):
+        self.rows = rows
+
+    def get(self, url, *, params, **kwargs):
+        rows = self.rows
+
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return {"events": rows, "total_pages": 1}
+        return Response()
+
+
+wellington = {"address": "1 Far Street", "city": "Hamilton", "zip": "L9A1C3", "country": "Canada"}
+site_rows = [drop_in(1), drop_in(2), drop_in(3, **wellington), drop_in(4, country="US"),
+             drop_in(5, geo_lat="43.3", geo_lng="-79.8")]
+far = _Photon(dict(photon.answers, **{"1 Far Street" + GLA_SUFFIX: (45.42, -75.69)}))
+with redirect_stdout(io.StringIO()) as buf:
+    got = T.ingest_site(_SiteSession(site_rows), dict(ON, crawl_delay=0), placer=far.placer())
+check("a site's line counts its placed rows and why the others were not",
+      "kept 5 events (2 placed by a geocoded street) (1 not placed: 1 the geocoder answered outside the town) in "
+      in buf.getvalue() and got.cut == "", (buf.getvalue(), got.cut))
+check("...and only the placed rows carry the street's point",
+      [(e.latitude, e.longitude) for e in got] == [ARMSTRONG, ARMSTRONG, (None, None), (None, None), (43.3, -79.8)],
+      [(e.latitude, e.longitude) for e in got])
+for label, clock, cut in (("the deadline", 2000.0, "stopped at the deadline before geocoding 2 row(s)"),
+                          ("the budget", 1000.0, "")):
+    spent = _Photon({}, unasked=True)
+    with patch.object(T.time, "time", lambda: clock), redirect_stdout(io.StringIO()) as buf:
+        got = T.ingest_site(_SiteSession(site_rows[:2]), dict(ON, crawl_delay=0), deadline=1500.0,
+                            placer=spent.placer(deadline=1500.0))
+    check(f"rows left unplaced by {label} " + ("cut the site, so the next run starts at it" if cut
+                                                else "do not cut it: the budget is the whole job's"),
+          got.cut == cut and len(got) == 2, (got.cut, buf.getvalue()))
+
+
+class _Exploding:
+    def place(self, nev, v):
+        raise RuntimeError("boom")
+
+
+with redirect_stdout(io.StringIO()) as buf:
+    got = T.ingest_site(_SiteSession(site_rows[:2]), dict(ON, crawl_delay=0), placer=_Exploding())
+check("a placer that raises costs the placement, never the site's rows",
+      len(got) == 2 and "(2 not placed: 2 geocoder failed (RuntimeError))" in buf.getvalue(), buf.getvalue())
+
+
+# A whole run, with the real make_geocode (mapsee_ingest_ics's cache, budget
+# and pacing) over a fake Photon: three workers, one Photon request at a time,
+# the answers kept in the cache file, and nothing written when nothing is asked.
+import mapsee_ingest_ics as ICS
+
+
+class _World:
+    """Every Session main makes: three Tribe sites and Photon, by host."""
+    lock, inflight, most, photon_asked = threading.Lock(), [0], [0], []
+    country = "Canada"
+    points = {"L9A1C3 Hamilton, Canada": HAMILTON, "Hamilton, Canada": HAMILTON_NODE}
+
+    def __init__(self):
+        self.headers = {}
+
+    def get(self, url, *, params, **kwargs):
+        host = urlsplit(url).hostname
+        if host == "photon.komoot.io":
+            with _World.lock:
+                _World.inflight[0] += 1
+                _World.most[0] = max(_World.most[0], _World.inflight[0])
+                _World.photon_asked.append(params["q"])
+            threading.Event().wait(0.05)        # not time.sleep: the run patches it out
+            with _World.lock:
+                _World.inflight[0] -= 1
+            point = _World.points.get(params["q"])
+            features = [{"geometry": {"coordinates": [point[1], point[0]]}}] if point else []
+
+            class Answer:
+                status_code = 200
+
+                def raise_for_status(self):
+                    pass
+
+                def json(self):
+                    return {"features": features}
+            return Answer()
+        n = int(host[1])
+        rows = [dict(drop_in(10 * n + k, address=f"{100 * n + 1} Main Street West", country=_World.country),
+                     title=f"Drop-In {n}", start_date=f"2026-10-2{k} 09:30:00") for k in range(3)]
+
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return {"events": rows, "total_pages": 1}
+        return Response()
+
+    def close(self):
+        pass
+
+
+for n in (1, 2, 3):
+    _World.points[f"{100 * n + 1} Main Street West, L9A1C3 Hamilton, Canada"] = (43.25 - n / 100, -79.86)
+abroad = [dict(ON, name=f"centre {n}", base_url=f"https://s{n}.example", crawl_delay=0) for n in (1, 2, 3)]
+
+
+def world_run(tmp, config_sites):
+    json.dump({"sites": config_sites}, open(os.path.join(tmp, "cfg.json"), "w"))
+    store_path = os.path.join(tmp, "store.json")
+    _World.photon_asked = []
+    with patch.object(T, "make_geocode", _REAL_MAKE_GEOCODE), patch.object(T.requests, "Session", _World), \
+         patch.object(ICS.time, "sleep", lambda s: None), redirect_stdout(io.StringIO()) as buf:
+        T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", store_path, "--workers", "3"])
+    return T.EventStore(store_path).records.values(), buf.getvalue()
+
+
+cache_file = ICS.GEO_CACHE_PATH
+with tempfile.TemporaryDirectory() as tmp, patch.dict(ICS._GEO_CACHE, clear=True):
+    if os.path.exists(cache_file):
+        os.remove(cache_file)
+    records, out = world_run(tmp, abroad)
+    first_asked = list(_World.photon_asked)
+    kept = json.load(open(cache_file)) if os.path.exists(cache_file) else {}
+    again, out2 = world_run(tmp, abroad)
+check("a run places every centre's rows at its own street",
+      sorted((r["name"], r["latitude"]) for r in records)
+      == sorted((f"Drop-In {n}", 43.25 - n / 100) for n in (1, 2, 3) for _ in range(3))
+      and out.count("(3 placed by a geocoded street)") == 3,
+      ([(r.get("name"), r.get("latitude")) for r in records], out))
+check("...with one Photon request in flight at a time across three workers",
+      _World.most[0] == 1 and len(first_asked) == 5, (_World.most[0], first_asked))
+check("...and the done line says what Photon cost", "(5 Photon lookup(s), 0 missed)" in out, out)
+check("...and its answers kept in the shared cache file",
+      kept.get("101 main street west|, l9a1c3 hamilton, canada") == [43.24, -79.86]
+      and "l9a1c3 hamilton|, canada" in kept, sorted(kept))
+check("the next run asks Photon nothing, and places the same",
+      _World.photon_asked == [] and out2.count("(3 placed by a geocoded street)") == 3
+      and "Photon lookup" not in out2, (_World.photon_asked, out2))
+with tempfile.TemporaryDirectory() as tmp, patch.dict(ICS._GEO_CACHE, clear=True):
+    os.remove(cache_file)
+    _World.country = "United States"
+    records, out = world_run(tmp, abroad)
+    _World.country = "Canada"
+check("a run with only US rows asks Photon nothing, and writes no cache file",
+      _World.photon_asked == [] and not os.path.exists(cache_file)
+      and all(r["latitude"] is None for r in records) and "placed" not in out, (_World.photon_asked, out))
+
+
+# The four leads, as their own APIs and Photon answered on 2026-10-25
+# (fixtures/tribe_abroad/leads.json): every question the placement asks must be
+# one recorded, and every row lands where it did in the dry run.
+LEADS = json.load(open(Path(__file__).parent / "fixtures" / "tribe_abroad" / "leads.json", encoding="utf-8"))
+recorded, unrecorded = LEADS["photon"], []
+
+
+def replay(query, suffix):
+    if query + suffix not in recorded:
+        unrecorded.append(query + suffix)
+        return None
+    point = recorded[query + suffix]
+    return tuple(point) if point else None
+
+
+lead_placer = T.StreetPlacer(replay, lambda: False)
+where, lines = {}, []
+for entry in LEADS["sites"]:
+    with redirect_stdout(io.StringIO()) as buf:
+        got = T.ingest_site(_SiteSession(entry["rows"]), dict(entry["site"], crawl_delay=0), placer=lead_placer)
+    lines.append(buf.getvalue().strip())
+    for raw, ev in zip(entry["rows"], got):
+        where[T._obj(raw["venue"]).get("venue") or "(no venue)"] = (ev.latitude, ev.longitude)
+want = {
+    "Waterdown": (43.3338473, -79.892598),                       # 315 Dundas Street East, its first part
+    "G.L Armstrong": (43.240988, -79.8562997),                   # the school at no. 460
+    "Lakewood (Port Dover)": (42.78727791086956, -80.20488201956522),   # the church in brackets dropped
+    "Mohawk College": (43.2385213, -79.888144),                  # no country but the site's CA
+    "Virtual EarlyON": (None, None),                             # "Virtual via Zoom", no town
+    "(no venue)": (None, None),
+    "St Thomas Library": (50.716475775, -3.5394476625),          # "Emmanuel Rd": EX2 9AZ's point
+    "Bideford Library": (51.0181969, -4.2044537),                # "The Quay"
+    "Exmouth Library": (50.6217903, -3.4108492),
+    "Sidmouth Library": (None, None),                            # "EX12 2LT Sidmouth" is in Seaton
+    "The First Unitarian Church of Hamilton": (43.2573088, -79.8905782),
+    "Salle Polyvalente du Fronhof": (48.5856614, 7.4377708),     # Rue des Champs, 67310 Balbronn, FR
+}
+check("the four leads' real rows land where Photon put them in the dry run",
+      where == want, {k: (where.get(k), v) for k, v in want.items() if where.get(k) != v})
+check("...asking only the questions recorded, and every one of them",
+      unrecorded == [] and len(recorded) == 32, (unrecorded, len(recorded)))
+check("...and each site's line counts them",
+      lines[0].startswith("[tribe] Today's Family - EarlyON drop-ins (Hamilton, Ontario): kept 6 events "
+                          "(4 placed by a geocoded street) in ")
+      and "kept 4 events (3 placed by a geocoded street) (1 not placed: 1 the geocoder answered "
+          "outside the town) in " in lines[1], lines)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
