@@ -488,5 +488,90 @@ check("smoke marks an exact override 'override', an online room 'online'",
       and ICS._where(POLISH, "") == "venue",
       (ICS._where(override, "Polish Home"), ICS._where(POLISH, "Online"), ICS._where(OPEN, "")))
 
+# --- a place named only in the event's URL: url_venues --------------------------
+# Texas Parks & Wildlife's iCal gives none of its 609 VEVENTs a LOCATION or GEO;
+# 570 sit under /calendar/<park>/ and 39 under statewide folders (2026-10-25).
+GOV_CANYON = {"name": "Government Canyon State Natural Area", "address": "12861 Galm Rd",
+              "city": "San Antonio", "region": "TX", "postal_code": "78254", "country": "US",
+              "lat": 29.549316, "lon": -98.764715, "coords_exact": True}
+LOCKHART = {"name": "Lockhart State Park", "city": "Lockhart", "region": "TX", "country": "US",
+            "lat": 29.855409, "lon": -97.697742, "coords_exact": True}
+PARKS = {"name": "parks", "url": "https://tpwd.test/calendar/@@event_listing_ical?mode=future",
+         "venue_skip": r"^ONLINE PROGRAM\b",
+         "url_venues": [{"pattern": r"^https?://tpwd\.test/calendar/government-canyon/", "venue": GOV_CANYON},
+                        {"pattern": r"/calendar/lockhart/", "venue": LOCKHART},
+                        {"pattern": r"/calendar/no-point/", "venue": {"name": "No point"}}]}
+PARK_EVENTS = [
+    ("gc", "Fall Plant Walk", "", ["URL:https://tpwd.test/calendar/government-canyon/fall-plant-walk"]),
+    ("rel", "Golfing with a Ranger", "", ["URL:/calendar/lockhart/golfing"]),
+    ("fair", "UNT All Majors Career Fair", "", ["URL:https://tpwd.test/calendar/recruiting/unt"]),
+    ("loc", "Reading Hour", "Kimble County Library, Junction, TX",
+     ["URL:https://tpwd.test/calendar/government-canyon/reading"]),
+    ("geo", "Star Party", "", ["URL:https://tpwd.test/calendar/government-canyon/stars", "GEO:29.6;-98.7"]),
+    ("online", "ONLINE PROGRAM | Fun Facts", "", ["URL:https://tpwd.test/calendar/government-canyon/fun"]),
+    ("nopt", "Owl Prowl", "", ["URL:https://tpwd.test/calendar/no-point/owls"]),
+    ("tbd", "Night Hike", "TBD", ["URL:https://tpwd.test/calendar/government-canyon/night"]),
+]
+rows, log = run_ics(PARKS, PARK_EVENTS)
+gc = rows.get("gc")
+check("a VEVENT with no place, whose URL matches a pattern, is pinned to that pattern's venue",
+      gc is not None and (gc.latitude, gc.longitude) == (29.549316, -98.764715)
+      and gc.venue_name == "Government Canyon State Natural Area" and gc.coords_exact is True
+      and (gc.address, gc.city, gc.postal_code) == ("12861 Galm Rd", "San Antonio", "78254"),
+      gc and (gc.latitude, gc.venue_name, gc.coords_exact, gc.address))
+check("...and its identity is the venue's name, as the source-wide fallback's is",
+      gc is not None and gc.fingerprint == make_fingerprint("Fall Plant Walk", "2026-10-20",
+                                                            "Government Canyon State Natural Area"),
+      gc and gc.fingerprint)
+check("a relative URL is read against the feed's own address",
+      rows.get("rel") is not None and (rows["rel"].latitude, rows["rel"].longitude) == (29.855409, -97.697742),
+      rows.get("rel") and (rows["rel"].latitude, rows["rel"].longitude))
+check("a LOCATION the feed did give is geocoded as before, and a GEO wins",
+      rows.get("loc") is not None and (rows["loc"].latitude, rows["loc"].longitude) == GEOCODED
+      and rows.get("geo") is not None and (rows["geo"].latitude, rows["geo"].longitude) == (29.6, -98.7),
+      (rows.get("loc") and rows["loc"].latitude, rows.get("geo") and rows["geo"].latitude))
+check("a title venue_skip names elsewhere, a statewide folder, a block without a point: unplaceable",
+      not any(k in rows for k in ("online", "fair", "nopt")), sorted(rows))
+check("an unknown placeholder LOCATION is pinned by its URL, like no LOCATION",
+      rows.get("tbd") is not None and rows["tbd"].venue_name == "Government Canyon State Natural Area",
+      rows.get("tbd") and rows["tbd"].venue_name)
+check("the log counts the URL pins, the title kept off, and the URLs no pattern knows",
+      "kept 5 of 8 VEVENTs — 3 pinned by their URL (url_venues) — 1 kept off the venue by venue_skip" in log
+      and "3 unplaceable (no LOCATION/GEO); 2 of them have a URL no url_venues pattern matches" in log, log)
+
+# The source-wide `venue` stays the fallback for what no pattern knows.
+rows, log = run_ics(dict(PARKS, venue={"name": "TPWD Headquarters", "lat": 30.25, "lon": -97.72}), PARK_EVENTS)
+check("url_venues first; the source's own venue only for a URL no pattern matches",
+      (rows["gc"].latitude, rows["fair"].latitude, rows["nopt"].latitude) == (29.549316, 30.25, 30.25)
+      and "online" not in rows and "of them have a URL" not in log,
+      ({k: r.latitude for k, r in rows.items()}, log))
+
+
+class CollectCancels(Collect):
+    def __init__(self):
+        super().__init__()
+        self.cancels = []
+
+    def cancel(self, ev, reason):
+        self.cancels.append(ev)
+        return "cancelled"
+
+
+store = CollectCancels()
+text = ("BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:c1\r\nSUMMARY:Fall Plant Walk\r\nDTSTART:20261020T150000Z\r\n"
+        "STATUS:CANCELLED\r\nURL:https://tpwd.test/calendar/government-canyon/fall-plant-walk\r\n"
+        "END:VEVENT\r\nEND:VCALENDAR\r\n")
+with patch.object(ICS, "_fetch_ics", return_value=(text, "200")), \
+     patch.object(ICS, "datetime", Clock), redirect_stdout(io.StringIO()):
+    ICS.ingest_ics(store, None, PARKS)
+check("a cancelled VEVENT is keyed by its URL's venue too, so it tombstones the live row",
+      len(store.cancels) == 1 and gc is not None and store.cancels[0].fingerprint == gc.fingerprint,
+      [c.fingerprint for c in store.cancels])
+try:
+    run_ics(dict(PARKS, url_venues=[{"pattern": "(", "venue": GOV_CANYON}]), PARK_EVENTS[:1])
+    check("an unreadable url_venues pattern fails the source, loudly", False)
+except ValueError as exc:
+    check("an unreadable url_venues pattern fails the source, loudly", "url_venues" in str(exc), exc)
+
 print(f"\n{len(fails)} failure(s)")
 sys.exit(1 if fails else 0)

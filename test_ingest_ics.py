@@ -975,6 +975,207 @@ with patch.object(ICS, "_fetch_ics", return_value=(PHOTON_ICS, "200")), \
 check("...and a source that sent none says nothing about Photon",
       "in 0.0s" in out.getvalue() and "Photon" not in out.getvalue(), out.getvalue())
 
+
+# --- a LOCATION on several lines is asked line by line -------------------------
+# Shift2Bikes writes "Name\nStreet\nnotes". Joined, Photon placed 21 of 152
+# upcoming VEVENTs; line by line, under a check on Photon's own answer, 125
+# (2026-10-25). The answers below are the shapes Photon gave for its LOCATIONs.
+def _feature(lat, lon, **props):
+    return {"geometry": {"coordinates": [lon, lat]}, "properties": props}
+
+
+class AnswerSession:
+    """Photon stand-in: one answer per query (without the suffix), or none."""
+    def __init__(self, answers, suffix):
+        self.answers, self.suffix, self.queries = answers, suffix, []
+
+    def get(self, _url, params, timeout):
+        query = params["q"][:-len(self.suffix)] if params["q"].endswith(self.suffix) else params["q"]
+        self.queries.append(query)
+        feature = self.answers.get(query)
+
+        class R:
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return {"features": [feature] if feature else []}
+        return R()
+
+
+# Read through getattr, so a checkout without the rule FAILS line by line.
+_location_lines = getattr(ICS, "_location_lines", lambda _ev: [])
+line_attempts = getattr(ICS, "line_attempts", lambda _loc, _lines: [])
+_street_confirms = getattr(ICS, "_street_confirms", lambda _line, _props: None)
+_name_confirms = getattr(ICS, "_name_confirms", lambda _name, _props: None)
+
+
+def ask(geocode, loc, lines):
+    try:
+        return geocode(loc, lines)
+    except TypeError:                                 # a geocoder that takes the LOCATION alone
+        return "no lines"
+
+
+SUFFIX = ", Portland, OR"
+BOTELLON = "Bar Botellon\\n606 NE Davis St\\, Portland\\, OR 97232\\nmeet inside\\, drink wine\\, eat tapas"
+BOTELLON_JOINED = "Bar Botellon 606 NE Davis St, Portland, OR 97232 meet inside, drink wine, eat tapas"
+check("a LOCATION's lines are read from the escaped newlines; one line gives none",
+      _location_lines({"LOCATION": (BOTELLON, {})})
+      == ["Bar Botellon", "606 NE Davis St, Portland, OR 97232", "meet inside, drink wine, eat tapas"]
+      and _location_lines({"LOCATION": ("Polish Home, 1714 18th Ave, Seattle", {})}) == []
+      and _location_lines({"LOCATION": ("111 Alamo Plaza<br>San Antonio", {})}) == []
+      and ICS._location({"LOCATION": (BOTELLON, {})}) == BOTELLON_JOINED,
+      _location_lines({"LOCATION": (BOTELLON, {})}))
+check("several lines: name and street, the street alone (checked), the joined string, the name (checked)",
+      line_attempts(BOTELLON_JOINED, _location_lines({"LOCATION": (BOTELLON, {})})) == [
+          ("Bar Botellon, 606 NE Davis St, Portland, OR 97232", None),
+          ("606 NE Davis St, Portland, OR 97232", "street"),
+          (BOTELLON_JOINED, None),
+          ("Bar Botellon", "name")],
+      line_attempts(BOTELLON_JOINED, _location_lines({"LOCATION": (BOTELLON, {})})))
+check("a placeholder line and a link are never asked; a one-word or generic name is never asked alone",
+      line_attempts("x", ["Salmon Street Springs", "TBA"]) == [("x", None), ("Salmon Street Springs", "name")]
+      and line_attempts("y", ["205 path", "https://goo.gl/maps/Y8sy"]) == [("205 path", "street"), ("y", None)]
+      and line_attempts("z", ["NoPo", "Columbia Park"]) == [("z", None)]
+      and line_attempts("w", ["Community Center", "Gym"]) == [("w", None)]
+      and line_attempts("v", ["Pioneer Courthouse Square (upper level)", "SW Broadway & SW Morrison St"])
+      == [("v", None), ("Pioneer Courthouse Square", "name")],
+      line_attempts("x", ["Salmon Street Springs", "TBA"]))
+check("the street check takes the house it names and refuses another number, street or direction",
+      _street_confirms("606 NE Davis St, Portland, OR 97232",
+                           {"housenumber": "606", "street": "Northeast Davis Street"})
+      and _street_confirms("16365 NW Twin Oaks Dr Beaverton, OR 97006",
+                               {"housenumber": "16365", "street": "Northwest Twin Oaks Drive"})
+      and not _street_confirms("606 NE Davis St", {"housenumber": "815", "street": "Northeast Davis Street"})
+      and not _street_confirms("1120 SE Madison St", {"housenumber": "1120", "street": "Southwest 5th Avenue"})
+      and not _street_confirms("700 NE Multnomah St 3rd floor",
+                                   {"housenumber": "700", "street": "Southwest 3rd Avenue"})
+      and not _street_confirms("3947 N Williams Ave", {"street": "North Williams Avenue"}))
+check("the name check wants exactly the name's words",
+      _name_confirms("Cycle Town Coffee Roasters", {"name": "Cycle Town Coffee Roasters"})
+      and _name_confirms("Bar Botellon", {"name": "BAR Botellón"})
+      and not _name_confirms("Go Lloyd", {"name": "Lloyd District"})
+      and not _name_confirms("Xplore Food Carts", {"name": "Portland Mercado Food Carts"}))
+
+ANSWERS = {
+    "Bar Botellon, 606 NE Davis St, Portland, OR 97232":
+        _feature(45.52425, -122.65953, name="BAR Botellón", housenumber="606", street="Northeast Davis Street"),
+    "606 NE Davis St, Portland, OR 97232":
+        _feature(45.5245, -122.65719, name="Legacy Hospice", housenumber="815", street="Northeast Davis Street"),
+    "Cycle Town Coffee Roasters": _feature(45.53549, -122.68825, name="Cycle Town Coffee Roasters"),
+    "700 NE Multnomah St 3rd floor": _feature(45.5179, -122.67537, housenumber="700", street="Southwest 3rd Avenue"),
+    "Go Lloyd": _feature(45.53138, -122.66008, name="Lloyd District"),
+    "TBD TBD": _feature(45.70807, -121.51359, name="TBD - Female Figure"),
+}
+session = AnswerSession(ANSWERS, SUFFIX)
+cache = {}
+with patch.object(ICS, "_GEO_CACHE", cache), \
+     patch.object(ICS, "geocode_allowed", return_value=True), \
+     patch.object(ICS.time, "sleep"):
+    geocode = ICS.make_location_geocoder(session, SUFFIX)
+    lines = ["Cycle Town Coffee Roasters", "NW 16th and Thurman", "meet at the parking lot"]
+    joined = " ".join(lines)
+    town = ask(geocode, joined, lines)
+    check("an intersection is not a street line: the joined string, then the name, which Photon confirms",
+          town == (45.53549, -122.68825) and session.queries == [joined, "Cycle Town Coffee Roasters"]
+          and cache.get(f"{joined}|{SUFFIX}".lower()) == town, (town, session.queries))
+    check("...and its answer is cached under the LOCATION, never under the checked name",
+          f"cycle town coffee roasters|{SUFFIX}".lower() not in cache, sorted(cache))
+    session.queries.clear()
+    lloyd = ["Go Lloyd", "700 NE Multnomah St 3rd floor", "Conference room is around the corner"]
+    got = ask(geocode, " ".join(lloyd), lloyd)
+    check("a street answer at another street and a name answer at another place are both refused",
+          got == (None, None) and session.queries == ["Go Lloyd, 700 NE Multnomah St 3rd floor",
+                                                      "700 NE Multnomah St 3rd floor", " ".join(lloyd), "Go Lloyd"]
+          and not any("700 ne multnomah" in k and "go lloyd" not in k for k in cache), (got, session.queries))
+    session.queries.clear()
+    again = ask(geocode, " ".join(lloyd), lloyd)
+    check("what missed is not asked again in the same run (one request per attempt, not per VEVENT)",
+          again == (None, None) and session.queries == [], session.queries)
+    session.queries.clear()
+    bot = _location_lines({"LOCATION": (BOTELLON, {})})
+    got = ask(geocode, BOTELLON_JOINED, bot)
+    check("name and street answer first, so the hospice at 815 is never asked for",
+          got == (45.52425, -122.65953) and session.queries == ["Bar Botellon, 606 NE Davis St, Portland, OR 97232"],
+          (got, session.queries))
+
+SHIFT_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:s1\r\nSUMMARY:Tapas Tuesday\r\nDTSTART:20991010T020000Z\r\n"
+    f"LOCATION:{BOTELLON}\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:s2\r\nSUMMARY:Mystery Ride\r\nDTSTART:20991011T020000Z\r\n"
+    "LOCATION:TBD\\nTBD\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:s3\r\nSUMMARY:Path Ride\r\nDTSTART:20991012T020000Z\r\n"
+    "LOCATION:205 path\\nhttps://goo.gl/maps/Y8sy\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:s4\r\nSUMMARY:Bike Social Hour\r\nDTSTART:20991013T020000Z\r\n"
+    "LOCATION:Elmer W. Oliver Nature Park - 1650 Matlock Road  Mansfield TX 76063\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+session = AnswerSession(ANSWERS, SUFFIX)
+store = VenueStore()
+with patch.object(ICS, "_fetch_ics", return_value=(SHIFT_ICS, "200")), \
+     patch.object(ICS, "_GEO_CACHE", {}), \
+     patch.object(ICS, "geocode_allowed", return_value=True), \
+     patch.object(ICS.time, "sleep"), \
+     redirect_stdout(io.StringIO()) as out:
+    ICS.ingest_ics(store, session, {"name": "shift", "url": "https://shift.test/cal.ics", "geocode_suffix": SUFFIX})
+row = next((r for r in store.rows if r.source_id == "s1"), None)
+check("a multi-line LOCATION is placed, and keeps the joined text as its place name and identity",
+      row is not None and (row.latitude, row.longitude) == (45.52425, -122.65953)
+      and row.venue_name == BOTELLON_JOINED
+      and row.fingerprint == _fp("Tapas Tuesday", "2099-10-10", BOTELLON_JOINED),
+      row and (row.latitude, row.venue_name))
+check("'TBD\\nTBD' is a placeholder, never sent (Photon put 'TBD TBD' in Hood River), and a link is never sent",
+      not any(q.startswith("TBD") for q in session.queries)
+      and not any("://" in q for q in session.queries) and [r.source_id for r in store.rows] == ["s1"],
+      (session.queries, [r.source_id for r in store.rows]))
+check("a LOCATION on one line is asked exactly as before (whole, address half, venue)",
+      session.queries[-3:] == ["Elmer W. Oliver Nature Park - 1650 Matlock Road Mansfield TX 76063",
+                               "1650 Matlock Road Mansfield TX 76063", "Elmer W. Oliver Nature Park"],
+      session.queries)
+
+# --- one UID on several dates is one row per date ------------------------------
+# Repair Cafe Toronto expands its series as RECURRENCE-ID instances of one UID:
+# 31 VEVENTs kept and 18 rows written, each survivor carrying the LAST date's
+# fingerprint and the FIRST date's start (2026-10-23).
+UID_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:rc-1\r\nSUMMARY:Port Union Repair Cafe\r\nDTSTART:20991114T150000Z\r\n"
+    "RECURRENCE-ID:20991114T150000Z\r\nGEO:43.78;-79.14\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:rc-1\r\nSUMMARY:Port Union Repair Cafe\r\nDTSTART:20991212T150000Z\r\n"
+    "RECURRENCE-ID:20991212T150000Z\r\nGEO:43.78;-79.14\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:rc-1\r\nSUMMARY:Port Union Repair Cafe\r\nDTSTART:20991010T150000Z\r\n"
+    "GEO:43.78;-79.14\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:rc-1\r\nSUMMARY:Port Union Repair Cafe\r\nDTSTART:20991010T180000Z\r\n"
+    "GEO:43.78;-79.14\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:rc-1\r\nSUMMARY:Port Union Repair Cafe\r\nDTSTART:20991109T150000Z\r\n"
+    "STATUS:CANCELLED\r\nGEO:43.78;-79.14\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:rc-2\r\nSUMMARY:OCAD Repair Cafe\r\nDTSTART:20991028T150000Z\r\n"
+    "GEO:43.65;-79.39\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+with tempfile.TemporaryDirectory() as tmp:
+    store = EventStore(os.path.join(tmp, "uid.json"))
+    with patch.object(ICS, "_fetch_ics", return_value=(UID_ICS, "200")), \
+         redirect_stdout(io.StringIO()) as out:
+        kept = ICS.ingest_ics(store, None, {"name": "rc", "url": "https://rc.test/feed"})
+    recs = list(store.records.values())
+    ids = sorted(s["source_id"] for r in recs for s in r["sources"])
+    check("each date of a shared UID is its own row, and nothing is re-keyed",
+          kept == 5 and len(recs) == 4 and store.stats["rekeyed"] == 0,
+          (kept, len(recs), store.stats["rekeyed"]))
+    check("the first date keeps the bare UID; later dates are '<UID>/<date>'; one date, one key",
+          ids == ["rc-1", "rc-1/2099-11-14", "rc-1/2099-12-12", "rc-2"], ids)
+    check("every row's start is the date its fingerprint was made from",
+          all(r["fingerprint"] == _fp(r["name"], r["start_utc"][:10], None) for r in recs),
+          [(r["name"], r["start_utc"]) for r in recs])
+    check("a later date's cancellation tombstones that date, and the first date's row stays",
+          set(store.tombstones) == {_fp("Port Union Repair Cafe", "2099-11-09", None)}
+          and _fp("Port Union Repair Cafe", "2099-10-10", None) in store.records, sorted(store.tombstones))
+    check("the log counts the dates keyed this way",
+          "; 2 keyed by date (a UID an earlier date already used)" in out.getvalue(), out.getvalue())
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")
