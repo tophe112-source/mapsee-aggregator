@@ -1483,7 +1483,7 @@ for label, clock, cut in (("the deadline", 2000.0, "stopped at the deadline befo
 
 
 class _Exploding:
-    def place(self, nev, v):
+    def place(self, nev, v, site=None):
         raise RuntimeError("boom")
 
 
@@ -1550,13 +1550,13 @@ for n in (1, 2, 3):
 abroad = [dict(ON, name=f"centre {n}", base_url=f"https://s{n}.example", crawl_delay=0) for n in (1, 2, 3)]
 
 
-def world_run(tmp, config_sites):
+def world_run(tmp, config_sites, *extra):
     json.dump({"sites": config_sites}, open(os.path.join(tmp, "cfg.json"), "w"))
     store_path = os.path.join(tmp, "store.json")
     _World.photon_asked = []
     with patch.object(T, "make_geocode", _REAL_MAKE_GEOCODE), patch.object(T.requests, "Session", _World), \
          patch.object(ICS.time, "sleep", lambda s: None), redirect_stdout(io.StringIO()) as buf:
-        T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", store_path, "--workers", "3"])
+        T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", store_path, "--workers", "3", *extra])
     return T.EventStore(store_path).records.values(), buf.getvalue()
 
 
@@ -1590,6 +1590,23 @@ with tempfile.TemporaryDirectory() as tmp, patch.dict(ICS._GEO_CACHE, clear=True
 check("a run with only US rows asks Photon nothing, and writes no cache file",
       _World.photon_asked == [] and not os.path.exists(cache_file)
       and all(r["latitude"] is None for r in records) and "placed" not in out, (_World.photon_asked, out))
+# One writer per calendar: the ics config main is given reads centre 2's (as
+# www., under the root, The Events Calendar's own export), so its rows stay as
+# they were before there was a placer, and Photon is never asked their street.
+with tempfile.TemporaryDirectory() as tmp, patch.dict(ICS._GEO_CACHE, clear=True):
+    if os.path.exists(cache_file):
+        os.remove(cache_file)
+    ics_cfg = os.path.join(tmp, "ics.json")
+    json.dump([{"name": "centre 2", "url": "https://www.S2.example/?post_type=tribe_events&ical=1"}],
+              open(ics_cfg, "w"))
+    records, out = world_run(tmp, abroad, "--ics-config", ics_cfg)
+check("a run leaves the rows of a calendar the ics adapter reads where they were, and places the rest",
+      sorted((r["name"], r["latitude"]) for r in records)
+      == sorted([(f"Drop-In {n}", 43.25 - n / 100) for n in (1, 3) for _ in range(3)]
+                + [("Drop-In 2", None)] * 3)
+      and "(3 not placed: 3 not geocoded: ics_sources.json reads this calendar)" in out
+      and not any("201 Main Street West" in q for q in _World.photon_asked),
+      ([(r.get("name"), r.get("latitude")) for r in records], _World.photon_asked, out))
 
 
 # The four leads, as their own APIs and Photon answered on 2026-10-25
@@ -1638,6 +1655,125 @@ check("...and each site's line counts them",
                           "(4 placed by a geocoded street) in ")
       and "kept 4 events (3 placed by a geocoded street) (1 not placed: 1 the geocoder answered "
           "outside the town) in " in lines[1], lines)
+
+
+# --- a mailing address, and a Zoom link, are not places (2026-10-25) ----------
+# Coffs Harbour Regional Landcare's working bees at Green Bluff Headland give the
+# street "PO Box 1730" (5 rows). Photon's answers, recorded that day: the box is
+# Coffs Harbour Jetty's post office, 2.6 km from the town's point, so the town
+# guard alone kept it, 10.4 km from the headland (-30.2139, 153.1631).
+COFFS = (-30.2985996, 153.1094116)            # "2450 Coffs Harbour, Australia" and the town alone
+JETTY_PO = (-30.304605, 153.1360274)          # "PO Box 1730, 2450 Coffs Harbour, Australia"
+GREEN_BLUFF = (-30.2139375, 153.1630606)
+LANDCARE = {"name": "Coffs Harbour Regional Landcare (Coffs Harbour, Australia)",
+            "base_url": "https://coffsharbourlandcare.org.au", "category": "volunteer",
+            "default_city": "Coffs Harbour", "default_region": "NSW", "default_country": "AU"}
+BEE_VENUE = {"venue": "Green Bluff Headland", "address": "PO Box 1730", "city": "Coffs Harbour",
+             "zip": "2450", "country": "Australia"}
+
+
+def working_bee(n, **venue):
+    return {"id": n, "title": "Green Bluff Landcare 2026", "start_date": f"2026-1{n % 3}-28 08:00:00",
+            "categories": [{"slug": "working-bees"}], "venue": dict(BEE_VENUE, **venue)}
+
+
+check("the post office is a point the town guard alone would keep: inside the town, not on its node",
+      T.SAME_POINT_KM < T.km(JETTY_PO, COFFS) < T.STREET_KM and round(T.km(JETTY_PO, GREEN_BLUFF), 1) == 10.4,
+      (T.km(JETTY_PO, COFFS), T.km(JETTY_PO, GREEN_BLUFF)))
+coffs = _Photon({"2450 Coffs Harbour, Australia": COFFS, "Coffs Harbour, Australia": COFFS,
+                 "PO Box 1730, 2450 Coffs Harbour, Australia": JETTY_PO})
+ev = T.to_event(working_bee(1), LANDCARE)
+how = coffs.placer().place(ev, working_bee(1)["venue"], LANDCARE)
+check("a postal box is no place: refused, the row coordless, and nothing asked",
+      how == T.NOT_A_PLACE_POSTAL and ev.latitude is None and coffs.asked == [], (how, ev.latitude, coffs.asked))
+with redirect_stdout(io.StringIO()) as buf:
+    got = T.ingest_site(_SiteSession([working_bee(n) for n in range(5)]), dict(LANDCARE, crawl_delay=0),
+                        placer=coffs.placer())
+check("...and its site's line counts the five working bees",
+      "kept 5 events (5 not placed: 5 not a place: a postal box) in " in buf.getvalue()
+      and all(e.latitude is None for e in got), buf.getvalue())
+postal = ["PO Box 1730", "P.O. Box 12", "P O Box 5", "POBox 5", "GPO Box 123", "G.P.O. Box 9",
+          "Post Office Box 5", "Locked Bag 4", "Private Bag 3020", "Postfach 1234", "Postbus 123",
+          "Postboks 12", "Boîte postale 45", "Apartado 123", "Apartado de Correos 45", "Casilla 123",
+          "Casilla de Correo 45"]
+check("every common form of a postal box is one, and asks nothing",
+      all(T.street_attempts(p) == [] for p in postal), [p for p in postal if T.street_attempts(p)])
+streets = ["Box Hill Road", "Calle de la Casilla", "Plaza La Casilla", "Postfachweg 3", "Po Valley Rd",
+           "Postbusstraat 2", "Via Po 3", "Bp. 13. ker", "Calle Sagra,17", "Rue des Champs"]
+check("...and a street with one of those words in it is still a street, asked as written",
+      all(T.street_attempts(s)[0] == s for s in streets), [s for s in streets if T.street_attempts(s)[:1] != [s]])
+check("a street beside a postal box is asked without the box",
+      T.street_attempts("12 Main St, PO Box 4") == ["12 Main St"]
+      and T.street_attempts("Green Bluff Headland, PO Box 1730") == ["Green Bluff Headland"],
+      (T.street_attempts("12 Main St, PO Box 4"), T.street_attempts("Green Bluff Headland, PO Box 1730")))
+# Today's Family's 25 Virtual EarlyON rows say "Virtual via Zoom; no physical
+# location" and name no town, which is all that kept them from Photon.
+zoom = _Photon(dict(photon.answers))
+ev = T.to_event(drop_in(address="Virtual via Zoom; no physical location"), ON)
+how = zoom.placer().place(ev, drop_in(address="Virtual via Zoom; no physical location")["venue"], ON)
+check("an online \"street\" in a real town is no place either, and asks nothing",
+      how == T.NOT_A_PLACE_ONLINE and ev.latitude is None and zoom.asked == [], (how, zoom.asked))
+
+
+# --- one writer per calendar (2026-10-25) --------------------------------------
+# ajax.ca, bairrobenfica.pt, torrent.es and teruel.es are in tribe_sources.json
+# with no block AND in ics_sources.json, whose rows were the only ones on the
+# map. The two adapters key one event apart (24 of 24 Ajax events), so a REST
+# row placed here would be a second pin beside each stored ics row.
+tmp_dir = tempfile.mkdtemp(prefix="tribe-ics-")
+CAL = T.ics_calendars(os.path.join(tmp_dir, "missing.json"))
+check("a missing ics config claims nothing", CAL == {}, CAL)
+bad_cfg = os.path.join(tmp_dir, "broken.json")
+open(bad_cfg, "w").write("{not json")
+check("...nor does a broken one", T.ics_calendars(bad_cfg) == {})
+cal_cfg = os.path.join(tmp_dir, "ics.json")
+json.dump([{"url": "https://www.ajax.ca/?post_type=tribe_events&ical=1&eventDisplay=list"},
+           {"url": "https://extension.wsu.edu/thurston/events/category/mg/?ical=1"},
+           {"url": "https://Example.org/events/?ical=1"}, {"name": "no url"}, "not an entry"],
+          open(cal_cfg, "w"))
+CAL = T.ics_calendars(cal_cfg)
+claims = {
+    "https://ajax.ca": True,                          # www. and the export's query aside
+    "https://www.ajax.ca/": True,
+    "https://extension.wsu.edu/thurston": True,       # the feed is under this site's path
+    "https://extension.wsu.edu/snohomish": False,     # another calendar on the same host
+    "https://example.org": True,                      # host case aside
+    "https://example.org/events": True,
+    "https://example.org/blog": False,
+    "https://ajax.ca.example": False,
+    "": False,
+}
+got = {b: T.read_by_ics(b, CAL) for b in claims}
+check("an ics feed claims a Tribe site on its own host, at or under the site's path",
+      got == claims, {b: g for b, g in got.items() if g != claims[b]})
+AJAX = {"name": "Ajax", "base_url": "https://ajax.ca", "category": "community", "default_country": "CA"}
+AJAX_ARTS = {"venue": "Ajax Centre for the Arts", "address": "105 Bayly Street East", "city": "Ajax",
+             "zip": "L1S 1P2", "country": "Canada"}
+claimed = _Photon({})
+ev = T.to_event({"id": 9, "title": "Ajax Superstar", "start_date": "2026-11-14 18:00:00", "venue": AJAX_ARTS}, AJAX)
+how = T.StreetPlacer(claimed.geocode, lambda: False, 0.0, CAL).place(ev, AJAX_ARTS, AJAX)
+check("a row of a calendar the ics adapter reads is left to it, and nothing is asked",
+      how == T.ICS_READS and ev.latitude is None and claimed.asked == [], (how, claimed.asked))
+how = T.StreetPlacer(claimed.geocode, lambda: False, 0.0, CAL).place(
+    ev, AJAX_ARTS, dict(AJAX, base_url="https://ajax-arts.example"))
+check("...while the same street on a calendar it does not read is asked",
+      how == "town not found by the geocoder" and claimed.asked == ["L1S 1P2 Ajax, Canada"], (how, claimed.asked))
+
+# The live configs: every Tribe site whose host an ics feed reads is that
+# feed's to place, unless it is another calendar on that host (another path)
+# whose rows are the sync's Census rows.
+LIVE_ICS = T.ics_calendars()
+LIVE_SITES = json.load(open(Path(__file__).parent / "tribe_sources.json", encoding="utf-8"))["sites"]
+shared = [s for s in LIVE_SITES if T._calendar_at(s.get("base_url"))[0] in LIVE_ICS]
+loose = [s["name"] for s in shared if not T.read_by_ics(s.get("base_url"), LIVE_ICS)
+         and str(s.get("default_country") or "").replace(".", "").strip().lower() not in T.CENSUS_COUNTRIES]
+check("no live Tribe site shares a calendar with a live ics feed and is left to the placer",
+      len(shared) >= 23 and loose == [], (len(shared), loose))
+four = {T._calendar_at(s["base_url"])[0] for s in LIVE_SITES if T.read_by_ics(s["base_url"], LIVE_ICS)
+        and not s.get("venue")
+        and str(s.get("default_country") or "").lower() not in T.CENSUS_COUNTRIES}
+check("...among them the four that had no block, which the ics rows alone put on the map",
+      {"ajax.ca", "bairrobenfica.pt", "torrent.es", "teruel.es"} <= four, four)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

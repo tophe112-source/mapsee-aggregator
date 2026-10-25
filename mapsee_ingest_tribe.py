@@ -273,7 +273,9 @@ def online_with_no_place(ev: Dict[str, Any], name: Optional[str],
 # 12 were 1 to 4.6 km off: the middle of a street whose house Photon does not
 # know, or a bus stop on it. Of the 3,937 coordless rows, 3,901 were placed.
 # A US row, a row naming no country (both are the sync's Census rows), a real
-# geo_lat and a standing venue block are never touched.
+# geo_lat and a standing venue block are never touched. A postal box or an
+# online "street", and a calendar ics_sources.json already reads, are refused
+# before anything is asked (below).
 
 # The countries the sync hands to US Census (mapsee_supabase_sync.CENSUS_COUNTRIES,
 # which test_ingest_tribe.py holds this equal to; an adapter does not import
@@ -311,6 +313,87 @@ _MAYBE_UNASKED = ("town not found by the geocoder", "street not found in its tow
 UNASKED_DEADLINE = "not geocoded: the deadline had passed"
 UNASKED_BUDGET = "not geocoded: this run's lookup budget is spent"
 
+# A MAILING ADDRESS IS NOT A PLACE, AND NEITHER IS A ZOOM LINK. Photon answers
+# both: Coffs Harbour Regional Landcare's working bees at "Green Bluff Headland"
+# give the street "PO Box 1730" (5 rows, 2026-10-25), and Photon's answer was
+# Coffs Harbour Jetty's post office, 2.6 km from the town's point and so kept,
+# 10.4 km from the headland. A pin in the wrong place is worse than none (the
+# runsignup and rolodex adapters refuse PO boxes too). Such a street is refused
+# before anything is asked, and so is one that says it is online ("Virtual via
+# Zoom; no physical location", Today's Family's 25 Virtual EarlyON rows).
+# Of 617 distinct streets on 43 non-US sites and the four leads, and 4,499 in
+# five CI copies of the civic group's feeds_events.json, these two refuse those
+# two and nothing else.
+NOT_A_PLACE_POSTAL = "not a place: a postal box"
+NOT_A_PLACE_ONLINE = "not a place: online"
+# A comma part that STARTS as a postal box: English, French, German, Dutch,
+# Danish and Norwegian, Spanish. Not the bare French "BP 12": "Bp." is how
+# Budapest is written, and 10 configured sites are Hungarian.
+_POSTAL_BOX = re.compile(
+    r"^\s*(?:(?:g\.?\s*)?p\.?\s*o\.?\s*box\b|post\s*office\s*box\b|(?:locked|private)\s+bag\b"
+    r"|postfach\b|postbus\b|postboks\b|bo[iî]te\s+postale\b"
+    r"|apartado(?:\s+de\s+correos)?\s+\d|casilla(?:\s+de\s+correos?)?\s+\d)", re.I)
+
+
+def _without_postal_boxes(street: str) -> str:
+    """The street without its comma parts that are postal boxes ("" if that was
+    all). A street with none is returned as written, so its questions, and the
+    cache's answers to them, are the ones they were."""
+    parts = (street or "").split(",")
+    if not any(_POSTAL_BOX.match(p) for p in parts):
+        return street or ""
+    return ", ".join(p.strip() for p in parts if p.strip() and not _POSTAL_BOX.match(p))
+
+
+# ONE WRITER PER CALENDAR. Four calendars are in tribe_sources.json with no
+# venue block AND in ics_sources.json: ajax.ca, bairrobenfica.pt, torrent.es and
+# teruel.es (2026-10-25). Their REST venues carry no geo_lat, which is why the
+# ics entries exist ("REST venues carry no geo", says Ajax's), so the ics rows
+# were the only ones on the map. The two adapters key the same event apart (ics
+# hashes the whole LOCATION, this the venue and town: 24 of 24 Ajax events that
+# start together had two fingerprints), so a REST row placed here would be a
+# second pin beside each stored ics row: 39 Ajax rows, 20 Benfica, 15 Torrent.
+# A calendar ics_sources.json reads (same host, www. aside, at or under this
+# site's path) is the ics adapter's to place. Retiring the ics entry hands it
+# here, and its stored ics rows then stay beside the new ones until they are
+# past. A missing or broken ics config claims nothing, as
+# mapsee_ingest_facility_hours.claimed_osm_refs does for osm_amenities.
+ICS_READS = "not geocoded: ics_sources.json reads this calendar"
+ICS_CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ics_sources.json")
+
+
+def _calendar_at(url: Any) -> Tuple[str, str]:
+    """(host without www., path without a trailing slash), lower case; ("", "") if not a URL."""
+    try:
+        parts = urlsplit(str(url or "").strip())
+        host = (parts.hostname or "").lower().rstrip(".")
+    except ValueError:
+        return "", ""
+    if host.startswith("www."):
+        host = host[4:]
+    return host, parts.path.rstrip("/").lower()
+
+
+def ics_calendars(config_path: str = ICS_CONFIG) -> Dict[str, Tuple[str, ...]]:
+    """host -> the paths of the feeds ics_sources.json reads on it."""
+    try:
+        cfg = json.loads(open(config_path, encoding="utf-8").read())
+    except (OSError, ValueError):
+        return {}
+    out: Dict[str, Tuple[str, ...]] = {}
+    for src in cfg if isinstance(cfg, list) else []:
+        host, path = _calendar_at(src.get("url")) if isinstance(src, dict) else ("", "")
+        if host:
+            out[host] = out.get(host, ()) + (path,)
+    return out
+
+
+def read_by_ics(base_url: Any, calendars: Dict[str, Tuple[str, ...]]) -> bool:
+    """Whether an ics feed reads this Tribe site: its host, at or under its path.
+    extension.wsu.edu/snohomish is not /thurston's nor /pierce's calendar."""
+    host, base = _calendar_at(base_url)
+    return bool(host) and any(p == base or p.startswith(base + "/") for p in calendars.get(host, ()))
+
 
 # A comma part that is a house number and a street ("460 Concession Street"),
 # not a bare number ("Calle Sagra, 17") or a postcode.
@@ -331,8 +414,11 @@ def street_attempts(street: str) -> List[str]:
       - Libraries Unlimited writes "Bideford Library, Arts Centre, The Quay":
         157 of its 289 rows. The last part, asked with the postcode and town,
         found 7 of its 7 venues, and 6 of 6 such Repair Café Wales venues whose
-        own pin is known, 0.01 to 0.35 km from it."""
-    street = _ASIDE.sub("", street or "").strip(" ,") or (street or "").strip()
+        own pin is known, 0.01 to 0.35 km from it.
+    A part that is a postal box is never asked: Photon answers with the post
+    office."""
+    street = _without_postal_boxes(street)
+    street = _ASIDE.sub("", street).strip(" ,") or street.strip()
     if not street:
         return []
     parts = [p.strip() for p in street.split(",") if p.strip()]
@@ -399,13 +485,17 @@ class StreetPlacer:
     once per run, so a centre with 321 drop-in rows costs its lookups once and a
     street Photon misses (a miss is never cached) is asked once a run, not once
     a row. `geocode` and `unasked` are make_geocode's; `deadline` is main's
-    (epoch seconds, 0 = none)."""
+    (epoch seconds, 0 = none); `ics` is ics_calendars()'s, the calendars the
+    ics adapter places instead."""
 
-    def __init__(self, geocode, unasked, deadline: float = 0.0):
+    def __init__(self, geocode, unasked, deadline: float = 0.0,
+                 ics: Optional[Dict[str, Tuple[str, ...]]] = None):
         self.geocode, self.unasked, self.deadline = geocode, unasked, deadline
+        self.ics = ics or {}
         self.memo: Dict[tuple, Tuple[Optional[Tuple[float, float]], str]] = {}
 
-    def place(self, nev: NormalizedEvent, v: Dict[str, Any]) -> Optional[str]:
+    def place(self, nev: NormalizedEvent, v: Dict[str, Any],
+              site: Optional[Dict[str, Any]] = None) -> Optional[str]:
         """Give `nev` coordinates from its venue's street, and say how it went;
         None when the row is not this placer's to place."""
         if nev.latitude is not None and nev.longitude is not None:
@@ -416,6 +506,12 @@ class StreetPlacer:
         street, city = _clean(v.get("address")), _clean(v.get("city"))
         if not street or not city:
             return None                       # a street AND a town of its own
+        if site is not None and read_by_ics(site.get("base_url"), self.ics):
+            return ICS_READS                  # one writer per calendar
+        if _ONLINE_PLACE_RX.search(street):
+            return NOT_A_PLACE_ONLINE
+        if not _without_postal_boxes(street):
+            return NOT_A_PLACE_POSTAL
         # The country as written: Photon gave "..., FR" and "..., France" the
         # same point for 250 of FFSP's 252 questions (2026-10-25), and ", CA"
         # is Canada to it, not California ("Hamilton, CA" is Ontario's).
@@ -695,7 +791,7 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
                     continue
                 if nev and placer is not None:
                     try:
-                        how = placer.place(nev, _obj(ev.get("venue")))
+                        how = placer.place(nev, _obj(ev.get("venue")), site)
                     except Exception as exc:                   # noqa: BLE001
                         # Never the site's rows: one that cannot be placed is
                         # written as it was before there was a placer.
@@ -795,6 +891,8 @@ def main(argv=None) -> int:
                     help="with --deadline: file naming the site to start at")
     ap.add_argument("--workers", type=int, default=os.environ.get("TRIBE_WORKERS", DEFAULT_WORKERS),
                     help="sites read at once, never two on one host (1 = one at a time)")
+    ap.add_argument("--ics-config", default=ICS_CONFIG,
+                    help="the ics adapter's config: a calendar it reads is not geocoded here")
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
@@ -821,7 +919,7 @@ def main(argv=None) -> int:
     photon.headers.update({"User-Agent": UA})
     sessions.append(photon)
     geocode, unasked = make_geocode(photon, a.deadline or None, clock=time.time)
-    placer = StreetPlacer(geocode, unasked, a.deadline)
+    placer = StreetPlacer(geocode, unasked, a.deadline, ics_calendars(a.ics_config))
     import mapsee_ingest_ics as ics           # make_geocode's cache, loaded by it
     asked = [ics._PHOTON["lookups"]]
     photon_before = ics._photon_count()
