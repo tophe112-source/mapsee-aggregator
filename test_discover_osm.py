@@ -2430,6 +2430,72 @@ def intl_calendar_words():
     check("...and an export that does not answer is not",
           (f["ics"], osm.why_no_candidate(f)), (None, "ics-without-feed(event-organiser)"))
 
+    print()
+    print("Event Organiser's export is the site root's, whichever page the venue names")
+    # depana.org, 2026-10-25: the root's export is 443 VEVENTs, a subpage's
+    # spelling of it a VCALENDAR with none, which a probe would take for a feed.
+    VCAL = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nBEGIN:VEVENT\r\nUID:1\r\nEND:VEVENT\r\nEND:VCALENDAR"
+    EMPTY = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR"
+    net = {"https://net.example/a/": EO, "https://net.example/b/": EO,
+           "https://net.example/?feed=eo-events": VCAL,
+           "https://net.example/a/?feed=eo-events": EMPTY,
+           "https://net.example/b/?feed=eo-events": EMPTY}
+    keys = []
+    for home in ("https://net.example/a/", "https://net.example/b/"):
+        f = osm.find_calendar(_Site(net), home)
+        cand = osm.to_candidate({"name": home, "kind": "place_of_worship"}, f)
+        keys.append(cand and cand["url"])
+    check("two venues on subpages of one site propose its one export, from the root",
+          keys, ["https://net.example/?feed=eo-events"] * 2)
+    site = _Site(dict(net))
+    osm.find_calendar(site, "https://net.example/a/")
+    check("...and the subpage's spelling is never asked",
+          [u for u in site.asked if "feed=" in u], ["https://net.example/?feed=eo-events"])
+    MC = ('<html><link rel="stylesheet" href="/wp-content/plugins/my-calendar/css/x.css"></html>')
+    site = _Site({"https://mc.example/pcfwp/": MC,
+                  "https://mc.example/pcfwp/?feed=my-calendar-ics": VCAL})
+    check("My Calendar's is still the homepage's (photofri.ch/pcfwp/ is configured so)",
+          osm.find_calendar(site, "https://mc.example/pcfwp/")["ics"],
+          "https://mc.example/pcfwp/?feed=my-calendar-ics")
+
+    print()
+    print("a plugin that outranks the others for its export does not when the export does not answer")
+    LD = ('<script type="application/ld+json">{"@context":"https://schema.org","@type":"Event",'
+          '"name":"Konzert","startDate":"2026-11-20T19:00","location":{"@type":"Place",'
+          '"name":"Hall","address":"Main St 1"}}</script>')
+    MEC = '<div class="mec-event-article"></div>'
+    v = {"name": "Hall", "url": "https://hall.example", "kind": "arts_centre", "lat": 1.0, "lon": 2.0}
+
+    def hall(extra, plugin=EO, feed=None, feed_url="https://hall.example/?feed=eo-events"):
+        page = "<html>" + plugin + extra + '<a href="/events/">Events</a></html>'
+        pages = {"https://hall.example": page, "https://hall.example/events/": page}
+        if feed:
+            pages[feed_url] = feed
+        f = osm.find_calendar(_Site(pages), "https://hall.example")
+        return f, osm.to_candidate(v, f)
+    f, cand = hall(LD)
+    check("Event Organiser with the page's own Event block, no export: a jsonld candidate",
+          (f["labels"], f["adapter"], cand and cand["type"]),
+          (["event-organiser", "jsonld-event"], "jsonld", "jsonld"))
+    f, cand = hall(MEC)
+    check("...with Modern Events, the adapter Modern Events names (jsonld), as before Event Organiser was read",
+          f["adapter"], "jsonld")
+    f, cand = hall(LD, plugin=MC, feed_url="https://hall.example/?feed=my-calendar-ics")
+    check("...and My Calendar the same",
+          (f["adapter"], cand and cand["type"]), ("jsonld", "jsonld"))
+    f = osm.find_calendar(_Site({"https://hall.example": "<html>" + EO + LD + "</html>"}),
+                          "https://hall.example")
+    check("...and the same on a homepage that links no calendar page",
+          (f["status"], f["adapter"], (osm.to_candidate(v, f) or {}).get("type")),
+          ("ok-homepage", "jsonld", "jsonld"))
+    f, cand = hall(LD, feed=VCAL)
+    check("an export that answers still outranks the page's Event block",
+          (f["adapter"], cand and cand["url"]), ("ics", "https://hall.example/?feed=eo-events"))
+    check("a plugin alone keeps its ics-without-feed reason",
+          osm.settled_adapter(["event-organiser"], None), "ics")
+    check("...and so does one beside another ics platform with no feed",
+          osm.settled_adapter(["event-organiser", "trumba"], None), "ics")
+
 
 if __name__ == "__main__":
     sys.exit(main())

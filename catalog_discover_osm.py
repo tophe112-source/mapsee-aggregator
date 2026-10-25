@@ -422,12 +422,27 @@ BUILDER_EVIDENCE = {
 # Feeds that live at a known path rather than in a link. Probed only when the
 # platform was actually detected, and only believed when the fetch comes back a
 # calendar: a constructed URL that is merged unproven is a source ingesting zero.
-# {origin} is the site root, {cal} the calendar page we landed on. Prefer {cal}
-# where the plugin scopes its export to the page: the Bongo Club's site root
-# gives 27KB of iCal and its /events-main/ page gives 3.1MB of the same feed.
+# {origin} is the homepage as it answered, path and all; {root} its scheme and
+# host only; {cal} the calendar page we landed on. Prefer {cal} where the plugin
+# scopes its export to the page: the Bongo Club's site root gives 27KB of iCal
+# and its /events-main/ page gives 3.1MB of the same feed.
+#
+# EVENT ORGANISER'S EXPORT IS THE SITE ROOT'S, so it is written from {root}.
+# From {origin} a venue whose OSM website is a subpage proposed that page's
+# spelling, one key per subpage of one site, which neither the config dedupe
+# nor the walk's same-calendar check can join; and the spelling is not even
+# the calendar. Measured 2026-10-25 on depana.org (robots.txt allows all):
+# /?feed=eo-events is 869,625 bytes and 443 VEVENTs, /assemblea-general/
+# ?feed=eo-events a 350-byte VCALENDAR with none, which the probe takes for a
+# feed and verify fails. A language prefix loses nothing: jidyszland.pl's
+# /pl/ (WPML) and root spellings answer the same 227 bytes. All 8 eo-events
+# feeds in the configs and the ledger sit at the root. My Calendar keeps {origin}: 4 configured feeds carry a path
+# (photofri.ch/pcfwp/, papermuseum.jp/ja/, kultur-vor-ort.com/mosaik/,
+# leroy-groningen.nl/het-leroyhuis/), so its root needs the dedupe taught
+# their spelling first.
 FEED_TEMPLATES = {
     "my-calendar": "{origin}/?feed=my-calendar-ics",
-    "event-organiser": "{origin}/?feed=eo-events",
+    "event-organiser": "{root}/?feed=eo-events",
     "events-manager": "{cal}?ical=1",
 }
 
@@ -815,7 +830,8 @@ def constructed_feed(session, origin: str, labels: Iterable[str],
         if not tmpl:
             continue
         base = (cal or origin).split("?")[0]
-        url = tmpl.format(origin=origin.rstrip("/"),
+        o = urlparse(origin)
+        url = tmpl.format(origin=origin.rstrip("/"), root=f"{o.scheme}://{o.netloc}",
                           cal=base if base.endswith("/") else base + "/")
         try:
             r = session.get(url, timeout=timeout)
@@ -913,6 +929,31 @@ def adapter_for(labels: Iterable[str]) -> Optional[str]:
         if name in labs:
             return by_label.get(name)
     return None
+
+
+def settled_adapter(labels: Iterable[str], ics: Optional[str]) -> Optional[str]:
+    """adapter_for, once the feed is known: a plugin that outranks the others
+    only for an export at a known path (FEED_TEMPLATES) does not, when that
+    export did not answer.
+
+    My Calendar and Event Organiser rank above the page's own Event block,
+    Modern Events and WP Event Manager, for the whole calendar their export
+    is. When the export is refused by robots.txt, switched off or not a
+    VCALENDAR, adapter_for still said `ics`, to_candidate had no feed, and a
+    site the other reader shapes was parked `ics-without-feed`, asked again
+    and parked again. So the find is read without those labels, and keeps
+    `ics` (and its reason) only when nothing else on the page names an
+    adapter. Not measured as common: none of the 9 ics-without-feed rows in
+    the ledger (2026-10-25) carried a second label, and none of the 3 Event
+    Organiser sites found by the 2026-10-25 replays did.
+    """
+    labels = list(labels)
+    adapter = adapter_for(labels)
+    if adapter == "ics" and not ics:
+        rest = [x for x in labels if x not in FEED_TEMPLATES]
+        if len(rest) < len(labels):
+            return adapter_for(rest) or adapter
+    return adapter
 
 
 # ---- Overpass ----------------------------------------------------------------
@@ -1525,7 +1566,7 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             m = _VP_IDS_RX.search(r2.text) or _VP_IDS_RX.search(body)
             if m:
                 out["extra"]["account_ids"] = [int(x) for x in m.group(1).replace(" ", "").split(",") if x]
-            adapter = adapter_for(labels)
+            adapter = settled_adapter(labels, ics)
             cal_url = str(r2.url)
             # The page that becomes cal_url, whose evidence is read below:
             # verify reads listing[0], not always the page in hand.
@@ -1598,9 +1639,9 @@ def find_calendar(session, home_url: str, timeout: int = 18,
         # evidence was read then; otherwise the homepage, which is in hand.
         out["extra"]["events_evidence"] = (
             first_evidence if out["cal_url"] else events_evidence(body, base, home_labels))
-        out.update(cal_url=out["cal_url"] or base, labels=home_labels,
-                   ics=home_ics or constructed_feed(session, base, home_labels),
-                   adapter=adapter_for(home_labels), status="ok-homepage")
+        ics = home_ics or constructed_feed(session, base, home_labels)
+        out.update(cal_url=out["cal_url"] or base, labels=home_labels, ics=ics,
+                   adapter=settled_adapter(home_labels, ics), status="ok-homepage")
         return out
     if offsite_hit:
         out.update(status=f"offsite:{offsite_hit}", offsite=offsite_hit,
