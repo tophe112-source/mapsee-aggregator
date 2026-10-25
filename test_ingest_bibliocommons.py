@@ -11,7 +11,9 @@ stock tile shared by four hundred rows.
 
     python test_ingest_bibliocommons.py
 """
+import contextlib
 import copy
+import io
 import json
 import os
 import sys
@@ -474,6 +476,214 @@ n, names = run_split(sess)
 check("a 403 is the library declining: stopped, and never asked again in pieces",
       n == 0 and all(p.get("limit") == BC.PAGE_LIMIT for p in sess.seen), sess.seen)
 
+# ------------------------------------------- 7d. per-site skip_title / skip_types
+# The shapes of the 2026-10-25 review, which dropped five systems for rows that
+# are not programmes: Glenview's room bookings, titled with the group's own name
+# and typed "External Groups (Not Library Sponsored)" (42 of 359); Red Deer's
+# single-reader dog slots (46 of 243); Herrick's "Library Closings" type, whose
+# "Closing at 6 PM ..." no title rule knows. Ten candidate configs carried a
+# skip_title this adapter never read.
+print()
+print("skip_title and skip_types drop what is not a programme, and only when asked")
+FILTER_TYPES = {"t1": {"name": "Story Time"},
+                "x1": {"name": "External Groups (Not Library Sponsored)"},
+                "x2": {"name": "Library Closings"},
+                "x3": {"name": "Tech "},                 # a live name, trailing space and all
+                "x4": {"name": "Public Meetings and Hearings"}}
+
+
+class Rows:
+    """One page of the given rows; any later page is empty. Counts requests."""
+    headers = {}
+
+    def __init__(self, rows):
+        self.rows, self.calls = rows, 0
+
+    def get(self, url, params=None, timeout=None):
+        self.calls += 1
+        if (params or {}).get("page", 1) > 1:
+            return Resp({"entities": {"events": {}}, "events": {"pagination": {"pages": 1}}})
+        return Resp({"entities": ent(events={r["id"]: r for r in self.rows}, eventTypes=FILTER_TYPES),
+                     "events": {"pagination": {"pages": 1}}})
+
+
+FILTER_ROWS = [
+    evt("f1", "Family Storytime", f"{soon}T10:00", f"{soon}T11:00", types=("t1",)),
+    evt("f2", "Tower Crossing Condo Association", f"{soon}T18:00", f"{soon}T19:00", types=("x1",)),
+    # ANY skipped type drops the row, even beside one that is not skipped
+    evt("f3", "Girl Scout Troop 47922", f"{soon}T09:30", f"{soon}T10:30", types=("t1", "x1")),
+    evt("f4", "Closing at 6 PM for the New Year's Eve holiday", f"{soon}T18:00", None, types=("x2",)),
+    evt("f5", "Sit, Stay, Read with Katja!", f"{soon}T15:30", f"{soon}T16:00", types=("t1",)),
+    evt("f6", "SIT, STAY, READ WITH KATJA!", f"{soon}T16:00", f"{soon}T16:30", types=("t1",)),
+    evt("f7", "Drop in Tech Help", f"{soon}T13:00", f"{soon}T14:00", types=("x3",)),
+    evt("f8", "Zoning Board Hearing", f"{soon}T19:00", f"{soon}T20:00", types=("x4",)),
+]
+
+
+def run_filtered(rows, **site):
+    sess = Rows(rows)
+    out = io.StringIO()
+    with tempfile.TemporaryDirectory() as d, contextlib.redirect_stdout(out):
+        st = BC.EventStore(os.path.join(d, "s.json"))
+        try:
+            n = BC.ingest_site(st, sess, dict(SITE, horizon_days=180, crawl_delay=0, max_pages=2, **site))
+        except ValueError as exc:
+            n = exc
+    return n, sorted(r["name"] for r in st.records.values()), st, out.getvalue(), sess
+
+
+n, names, _, log, _ = run_filtered(FILTER_ROWS)
+check("without either key nothing is dropped - both are opt-in per site",
+      n == 8 and len(names) == 8, (n, names))
+check("...and the log line does not mention filters that are not configured",
+      "skip_" not in log, log)
+
+n, names, _, log, _ = run_filtered(FILTER_ROWS, skip_title=r"^Sit, Stay, Read with")
+check("skip_title drops the titles it matches, case-insensitively, and only those",
+      n == 6 and not any("katja" in x.lower() for x in names), names)
+check("...and the log line counts them", "2 by skip_title" in log, log)
+
+n, names, _, log, _ = run_filtered(
+    FILTER_ROWS, skip_types=["external groups (not library sponsored)", "Library  Closings", "Tech"])
+check("skip_types drops a row carrying ANY named type, the name read whole and "
+      "without case or spacing (\"Tech \" matches \"Tech\")",
+      names == sorted(["Family Storytime", "Sit, Stay, Read with Katja!",
+                       "SIT, STAY, READ WITH KATJA!", "Zoning Board Hearing"]), names)
+check("...and the log line counts them", "4 by skip_types" in log, log)
+n, names, _, _, _ = run_filtered(FILTER_ROWS, skip_types=["Public Meetings"])
+check("a type name is matched whole: 'Public Meetings' is not "
+      "'Public Meetings and Hearings'", "Zoning Board Hearing" in names, names)
+
+n, names, _, log, _ = run_filtered(FILTER_ROWS, skip_types=["Library Closings"],
+                                   skip_title=r"\bKatja\b|^Library Closings$")
+check("both together, each row counted once",
+      n == 5 and "1 by skip_types" in log and "2 by skip_title" in log, (n, log))
+_, _, _, log, _ = run_filtered(FILTER_ROWS, skip_title=r"^No Such Title$")
+check("a configured filter that matched nothing still says 0, so a stale one shows",
+      "0 by skip_title" in log, log)
+
+# A CANCELLED ROW IS NEVER FILTERED. A room booking stored before its library's
+# skip_types existed is still on the map, and the tombstone is what takes it off.
+booked = evt("f9", "Tower Crossing Condo Association", f"{soon}T18:00", f"{soon}T19:00", types=("x1",))
+live_n, _, live_st, _, _ = run_filtered([booked])
+(booked_fp, _), = live_st.records.items()
+_, _, gone_st, _, _ = run_filtered([dict(booked, definition=dict(booked["definition"], isCancelled=True))],
+                                   skip_types=["External Groups (Not Library Sponsored)"],
+                                   skip_title="Condo")
+check("a cancelled row of a skipped type and title still tombstones the stored row",
+      list(gone_st.tombstones) == [booked_fp], list(gone_st.tombstones))
+
+# A BAD FILTER FAILS THAT SITE, LOUDLY, AND COSTS NO TRAFFIC. Filtering nothing
+# is the quiet failure this replaces.
+n, names, _, _, sess = run_filtered(FILTER_ROWS, skip_title="(unclosed")
+check("an invalid skip_title raises, naming the site, before any request",
+      isinstance(n, ValueError) and "Test Library" in str(n) and "invalid skip_title" in str(n)
+      and sess.calls == 0, (n, sess.calls))
+n, _, _, _, sess = run_filtered(FILTER_ROWS, skip_types="Tech")
+check("a bare string for skip_types raises rather than matching letter by letter",
+      isinstance(n, ValueError) and "skip_types" in str(n) and sess.calls == 0, (n, sess.calls))
+
+
+class GoodThenBad:
+    """requests.Session stand-in for main(): every page is FILTER_ROWS."""
+    def __init__(self):
+        self.headers = {}
+        self.inner = Rows(FILTER_ROWS)
+
+    def get(self, url, params=None, timeout=None):
+        return self.inner.get(url, params, timeout)
+
+
+with tempfile.TemporaryDirectory() as d:
+    cfg_path = os.path.join(d, "cfg.json")
+    with open(cfg_path, "w", encoding="utf-8") as f:
+        json.dump({"sites": [dict(SITE, name="Broken Library", slug="broken", skip_title="[",
+                                  crawl_delay=0, max_pages=2),
+                             dict(SITE, name="Working Library", slug="working",
+                                  skip_title="Katja", crawl_delay=0, max_pages=2)]}, f)
+    real_session = BC.requests.Session
+    BC.requests.Session = GoodThenBad
+    out = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(out):
+            rc = BC.main(["--config", cfg_path, "--store", os.path.join(d, "s.json")])
+    finally:
+        BC.requests.Session = real_session
+    log = out.getvalue()
+    written = sorted(ref["source_id"].split(":")[0]
+                     for rec in BC.EventStore(os.path.join(d, "s.json")).records.values()
+                     for ref in rec["sources"])
+check("in main(), the bad site FAILS by name and the next one still runs",
+      rc == 0 and "Broken Library FAILED" in log and "invalid skip_title" in log
+      and "Working Library: kept 6" in log, log)
+check("...and the six rows written are all the working site's",
+      written == ["working"] * 6, written)
+
+# Kenton County's "All Library Locations Closed" (7 rows on the pseudo-venue
+# "All Library Locations", 2026-10-25) reached the store past the closure
+# nouns. It is a notice now, refused by EventStore with no filter configured.
+_, names, st, _, _ = run_filtered([evt("k1", "All Library Locations Closed", f"{soon}", None, types=("x2",)),
+                                   evt("k2", "Family Storytime", f"{soon}T10:00", f"{soon}T11:00")])
+check("a whole-system closure titled with 'Locations' is refused as a notice",
+      names == ["Family Storytime"] and st.stats["notices"] == 1, (names, dict(st.stats)))
+
+# ------------------------------------- 7e. paging that is not in date order
+print()
+print("the gateway does not page in date order")
+
+
+class Pages:
+    """Serves the given pages in turn (pagination says how many); counts reads."""
+    headers = {}
+
+    def __init__(self, pages):
+        self.pages, self.read = pages, []
+
+    def get(self, url, params=None, timeout=None):
+        n = (params or {}).get("page", 1)
+        self.read.append(n)
+        rows = self.pages[n - 1] if n <= len(self.pages) else []
+        return Resp({"entities": ent(events={r["id"]: r for r in rows}),
+                     "events": {"pagination": {"pages": len(self.pages)}}})
+
+
+def run_pages(pages):
+    sess = Pages(pages)
+    with tempfile.TemporaryDirectory() as d, contextlib.redirect_stdout(io.StringIO()):
+        st = BC.EventStore(os.path.join(d, "s.json"))
+        BC.ingest_site(st, sess, dict(SITE, horizon_days=90, crawl_delay=0, max_pages=5))
+    return sorted(r["name"] for r in st.records.values()), sess.read
+
+
+names, read = run_pages([
+    [evt("p1a", "Storytime A", f"{soon}T10:00", f"{soon}T11:00"),
+     evt("p1b", "Book Club 2029", f"{far}T18:00", f"{far}T19:00")],
+    [evt("p2a", "Last Week's Craft", f"{past}T10:00", f"{past}T11:00")],
+    [evt("p3a", "Storytime D", f"{soon}T15:00", f"{soon}T16:00")],
+])
+check("a page of past rows after a far-future one does not end the walk: page 3's row is kept",
+      names == ["Storytime A", "Storytime D"] and read == [1, 2, 3], (names, read))
+names, read = run_pages([
+    [evt("q1a", "Storytime A", f"{soon}T10:00", f"{soon}T11:00")],
+    [evt("q2a", "Book Club 2029", f"{far}T18:00", f"{far}T19:00"),
+     evt("q2b", "Lecture 2029", f"{far}T19:00", f"{far}T20:00")],
+    [evt("q3a", "Storytime D", f"{soon}T15:00", f"{soon}T16:00")],
+])
+check("...but a page beyond the horizon from end to end still stops it (cost bound)",
+      names == ["Storytime A"] and read == [1, 2], (names, read))
+
+# A cancelled closure row stored before the closure rule knew its words is
+# keyed by that title, so its tombstone keeps it; a cancelled event's notice
+# title is still stripped to the event's own name.
+closed = BC.to_event(evt("c1", "All Library Locations Closed", f"{soon}T00:00", None, cancelled=True),
+                     ent(), SITE, tombstone=True)
+check("a cancelled closure notice is tombstoned under its own title",
+      closed is not None and closed.name == "All Library Locations Closed", closed and closed.name)
+stripped = BC.to_event(evt("c2", "CANCELLED - Family Storytime", f"{soon}T10:00", f"{soon}T11:00",
+                           cancelled=True), ent(), SITE, tombstone=True)
+check("...and a cancelled event keeps the name inside its notice",
+      stripped is not None and stripped.name == "Family Storytime", stripped and stripped.name)
+
 # ------------------------------------------------------- 8. the config itself
 print()
 print("the shipped config")
@@ -485,6 +695,14 @@ check("every site has a slug and a category",
 check("slugs are unique - they namespace source_id", len(slugs) == len(set(slugs)), slugs)
 check("every site carries a horizon, or a 2027 book group pins for ever",
       all(s.get("horizon_days") for s in cfg["sites"]))
+bad_filters = []
+for s in cfg["sites"]:
+    try:
+        BC._skip_rules(s, s.get("name", "?"))
+    except ValueError as exc:
+        bad_filters.append(str(exc))
+check("every configured skip_title compiles and every skip_types is a list of names",
+      not bad_filters, bad_filters)
 declined = " ".join(k for k in cfg["_not_included"] if k.startswith("http"))
 check("nothing configured is also declined",
       not any(f"/{s}/" in declined for s in slugs), slugs)
