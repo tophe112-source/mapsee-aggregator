@@ -206,6 +206,18 @@ for title, want, own in [
 ]:
     check(f"notice_reason({title[:30]!r}) and the title it names",
           (ING.notice_reason(title), ING.strip_notice(title)), (want, own))
+# "Locations" is a library system's word for its branches. Live titles: Kenton
+# County (BiblioCommons) and Houston, 2026-10-25, 8 of 251,458 distinct titles,
+# all whole-system closures. A location that is an event's place stays.
+for title, want in [
+    ("All Library Locations Closed", "closure notice"),
+    ("ALL LIBRARY LOCATIONS CLOSED - Veterans Day", "closure notice"),
+    ("All HPL Locations are Closed for Thanksgiving Day", "closure notice"),
+    ("Location closed: Christmas Day", "closure notice"),
+    ("Secret Locations Tour", None),
+    ("Closed Locations of Old Seattle: a history walk", None),
+]:
+    check(f"notice_reason({title[:40]!r})", ING.notice_reason(title), want)
 
 print()
 print("EventStore.mark_complete: a whole read, and its window rounded inward")

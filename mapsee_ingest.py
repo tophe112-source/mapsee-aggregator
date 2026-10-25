@@ -350,8 +350,13 @@ def venue_is_only_a_city(name: Optional[str], city: Optional[str], lat: Any, lon
 # group, and "Closing Reception" and "Closed Captioned Screening" are events.
 # The cancelled half needs a separator, or capitals at the end, so a comedy
 # called "Cancelled Plans" or "Everything Is Cancelled" stays.
+# "Locations" is a library system's word for its branches: Kenton County's
+# "All Library Locations Closed" and Houston's "All HPL Locations are Closed for
+# Thanksgiving Day" slip past the old list. Adding it newly matches 8 of
+# 251,458 distinct titles across 7,298 stores and feed captures read on
+# 2026-10-25, every one of them a whole-system closure.
 _CLOSURE_TITLE_RX = re.compile(
-    r"\b(?:library|libraries|branch(?:es)?|facility|facilities|building|pool|town\s+hall|"
+    r"\b(?:library|libraries|branch(?:es)?|locations?|facility|facilities|building|pool|town\s+hall|"
     r"city\s+hall|offices?|museum|(?:community\s+|nature\s+|recreation\s+|senior\s+)?"
     r"(?:centre|center)|garden|park)\s+(?:is\s+|are\s+|will\s+be\s+)?closed\b|"
     r"^\W*closed\s*(?:$|[:\-–—|!(]|for\b|on\b|today\b)",

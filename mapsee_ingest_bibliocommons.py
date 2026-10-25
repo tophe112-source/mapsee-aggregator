@@ -60,6 +60,29 @@ systems, "Storytime" and "Story Time" and "Storytimes" among them - so the
 category is matched on KEYWORDS rather than an enum, and the AUDIENCE decides
 first where it can: a system that files a baby lapsit under "Books & Reading"
 still tells you the audience is 0-18 months.
+
+A LIBRARY'S CALENDAR IS ALSO ITS ROOM BOOKING SHEET. Two optional per-site keys
+drop what is not a programme, and both are opt-in, so a site without them
+loses nothing:
+
+    "skip_title": "regex"         case-insensitive SEARCH of the cleaned title,
+                                  as in ics, tribe and localist
+    "skip_types": ["Type name"]   gateway event type NAMES, whole and ignoring
+                                  case and spacing; a row carrying ANY of them
+                                  is dropped
+
+Both exist because the 2026-10-25 review dropped five systems for noise that
+neither the title rules nor the store could see: Glenview's 42 of 359 rows
+typed "External Groups (Not Library Sponsored)" are room bookings titled with
+the group's own name ("Tower Crossing Condo Association"), which only the TYPE
+gives away; Red Deer's 46 of 243 were one reader's 30-minute dog-reading slots;
+Palo Alto's 33 of 209 were "Vintage Media Lab" appointments. The candidate
+configs already carried skip_title, and this adapter read none of it. Applied
+in the same day's dry run, skip_types dropped Glenview's 47 booking rows inside
+the horizon and skip_title Red Deer's 46 slots, and the five systems keep 981
+rows between them.
+A cancelled row is never filtered: its tombstone is what takes a row stored
+before the filter existed off the map (the same choice localist makes).
 """
 from __future__ import annotations
 
@@ -264,6 +287,42 @@ def _image_url(image: Optional[Dict[str, Any]]) -> Optional[str]:
     return url if isinstance(url, str) and url.startswith("http") else None
 
 
+def _type_names(dfn: Dict[str, Any], ent: Dict[str, Any]) -> List[str]:
+    """The names of a row's event types, resolved through the page's
+    `entities.eventTypes`; ids the page does not define are left out."""
+    types = ent.get("eventTypes") or {}
+    names = ((types.get(str(t)) or {}).get("name") for t in (dfn.get("typeIds") or []))
+    return [n for n in names if n]
+
+
+def _type_key(name: Any) -> str:
+    # Whole names, compared without case or spacing: the vocabulary is typed by
+    # hand per library, and two live names carry a trailing space ("Tech ",
+    # "Horticulture ", Lawrence KS and Kenosha, 2026-10-25).
+    return re.sub(r"\s+", " ", str(name or "")).strip().casefold()
+
+
+def _skip_rules(site: Dict[str, Any], label: str) -> Tuple[Optional["re.Pattern[str]"], frozenset]:
+    """(skip_title, skip_types) for a site, compiled once.
+
+    A bad value raises, so main() fails THIS site and names it, and the next
+    one still runs. Filtering nothing would be the quiet failure: ten of the
+    twenty candidate configs reviewed on 2026-10-25 carried a skip_title that
+    had never done anything, because nothing here read it."""
+    skip_title = None
+    if site.get("skip_title"):
+        try:
+            skip_title = re.compile(site["skip_title"], re.I)
+        except (re.error, TypeError) as exc:
+            raise ValueError(f"{label}: invalid skip_title regex: {exc}") from exc
+    raw = site.get("skip_types") or []
+    # A bare string would be read letter by letter and match no type at all.
+    if (not isinstance(raw, (list, tuple))
+            or not all(isinstance(t, str) and t.strip() for t in raw)):
+        raise ValueError(f"{label}: skip_types must be a list of event type names, got {raw!r}")
+    return skip_title, frozenset(_type_key(t) for t in raw)
+
+
 def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any],
              location_cache: Optional[Dict[int, _LocationData]] = None, *,
              tombstone: bool = False) -> Optional[NormalizedEvent]:
@@ -313,11 +372,9 @@ def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any],
     if lat is None:
         return None
 
-    types = [(ent.get("eventTypes") or {}).get(str(t), {}).get("name")
-             for t in (dfn.get("typeIds") or [])]
     auds = [(ent.get("eventAudiences") or {}).get(str(a), {}).get("name")
             for a in (dfn.get("audienceIds") or [])]
-    primary, extras = categorise([t for t in types if t], [a for a in auds if a],
+    primary, extras = categorise(_type_names(dfn, ent), [a for a in auds if a],
                                  site.get("category", "learning"))
 
     slug = site["slug"]
@@ -408,8 +465,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     delay = float(site.get("crawl_delay", 1))
     max_pages = int(site.get("max_pages", 40))
     url = GATEWAY.format(slug=slug)
+    # Before the first request, so a bad filter costs no traffic.
+    skip_title, skip_types = _skip_rules(site, label)
 
-    kept = past = beyond = unplaceable = cancelled = 0
+    kept = past = beyond = unplaceable = cancelled = by_title = by_type = 0
     for page in range(1, max_pages + 1):
         try:
             r = session.get(url, params={"limit": PAGE_LIMIT, "page": page}, timeout=45)
@@ -460,9 +519,20 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                 unplaceable += 1
                 continue
             on_page += 1
+            # Never filtered: a row stored before its filter existed is still
+            # on the map, and this tombstone is what takes it off.
             if off:
                 if store.cancel(nev, "isCancelled") == "cancelled":
                     cancelled += 1
+                continue
+            # The TYPE first: it is the library's own word for what the row is,
+            # and a room booking's title is only the group's name.
+            if skip_types and skip_types.intersection(
+                    _type_key(t) for t in _type_names(ev.get("definition") or {}, ent)):
+                by_type += 1
+                continue
+            if skip_title and skip_title.search(nev.name):
+                by_title += 1
                 continue
             store.upsert(nev)
             kept += 1
@@ -480,8 +550,13 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if delay:
             time.sleep(delay)
 
+    # A configured filter is reported even at 0, so one that has stopped
+    # matching anything (a library renaming its types) shows in the log.
     print(f"[bibliocommons] {label}: kept {kept} "
-          f"(skipped {past} past, {beyond} beyond horizon, {unplaceable} unplaceable)"
+          f"(skipped {past} past, {beyond} beyond horizon, {unplaceable} unplaceable"
+          + (f", {by_type} by skip_types" if skip_types else "")
+          + (f", {by_title} by skip_title" if skip_title else "")
+          + ")"
           + (f"; {cancelled} cancelled (isCancelled, tombstoned)" if cancelled else ""))
     return kept
 
