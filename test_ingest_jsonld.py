@@ -56,6 +56,20 @@ measured 2026-10-04 that the adapter had wrong:
     yoga the same url; the store's source_id lookup folded 91 events into 21
     rows, each keyed to its last date and timed at its first.
 
+And, measured 2026-10-25, what kept two sites out and 31 configured hosts
+read faster than they ask:
+
+  * ROBOTS.TXT'S CRAWL-DELAY IS HONOURED, PER HOST AND ACROSS SITES. 31 of the
+    835 configured sites sit on a host asking 2-150 s and were read at 1 s;
+    Askim Kulturhus (10 s) was left out for it. A wait over 30 s is not slept,
+    the page is not asked (GRAAP: 150 s), and what robots.txt refuses is not
+    asked either.
+  * A NAIVE STAMP CAN BE UTC. Tartu Kultuuriaken's 10:00 is the 12:00 its page
+    prints; `naive_is_utc` + `timezone` reads it so, on both sides of a DST change.
+  * A streetAddress printed as LINES is a street and a town, a hall named as a
+    list is its lines, and abroad a street and a town with no geo get the one
+    Photon try the sync (Census, US only) cannot give.
+
 The live block below keeps the date it was captured with, because its SHAPE is
 what is being pinned — but every call that runs it through to_event rolls that
 date forward first. to_event drops anything before today, so a fixture dated the
@@ -391,6 +405,313 @@ def check_shared_urls():
           [e.source_id for e in rows if e.name != "Yoga"], [MEC_TEA_DANCE["url"]])
 
 
+# --- Tartu Kultuuriaken: verbatim from /et/syndmus/magnus-kirt-tagasitulek ---
+# ?event=216250, 2026-10-25 (image trimmed). The page prints "P 25. okt 2026 |
+# 13:30 - 15:41"; the block says 11:30 with no offset, and its url is the bare
+# event page every occurrence of the film shares.
+TARTU_LD = {
+    "@type": "Event", "name": "Magnus Kirt: Tagasitulek",
+    "url": "https://kultuuriaken.tartu.ee/et/syndmus/magnus-kirt-tagasitulek",
+    "startDate": "2026-10-25T11:30:00",
+    "@id": "https://kultuuriaken.tartu.ee/et/syndmus/magnus-kirt-tagasitulek",
+    "endDate": "2026-10-25T13:41:00",
+    "location": {"@type": "Place", "name": ["Elektriteater", "Raekoja saal"],
+                 "address": {"@type": "PostalAddress", "streetAddress": ["Kompanii 2", "Tartu"],
+                             "addressCountry": "EE"}},
+    "organizer": {"@type": "Organization", "@id": "Elektriteater", "name": "Elektriteater",
+                  "url": "https://elektriteater.ee"},
+}
+TALLINN = mapsee_ingest_jsonld.ZoneInfo("Europe/Tallinn")
+
+
+class _Clock:
+    """perf_counter and sleep on one fake clock; a request takes no time."""
+    def __init__(self):
+        self.t = 1000.0
+        self.slept = []
+
+    def perf_counter(self):
+        return self.t
+
+    def sleep(self, seconds):
+        self.slept.append(round(seconds, 3))
+        self.t += seconds
+
+
+class _Host(_Pages):
+    """Pages plus a robots.txt body (None: 404; an int: that status), each
+    request stamped with the fake clock, so the gaps can be read off."""
+    def __init__(self, pages, robots, clock):
+        super().__init__(pages)
+        self.robots, self.clock, self.asked = robots, clock, []
+
+    def get(self, url, timeout=None, allow_redirects=True, params=None):
+        self.asked.append((url, self.clock.t))
+        if url.endswith("/robots.txt"):
+            body, code = ((self.robots, 200) if isinstance(self.robots, str)
+                          else ("", self.robots if isinstance(self.robots, int) else 404))
+
+            class R:
+                content = body.encode()
+                status_code = code
+            return R()
+        if isinstance(self.pages.get(url), int):
+            status = self.pages[url]
+
+            class Refused:
+                status_code = status
+                text = ""
+
+                def raise_for_status(self):
+                    raise RuntimeError(f"{status} Client Error for url: {url}")
+            return Refused()
+        return super().get(url, timeout)
+
+
+def _paced(pages, robots_body, site, *, runs=1, deadline=None):
+    """(host, clock, printed lines, events) for ingest_site over a fake host, with
+    the real robots_txt.Robots reading `robots_body`. runs > 1 repeats the site on
+    the same host and the same Robots, as two configs on one host would be."""
+    clock = _Clock()
+    host = _Host(pages, robots_body, clock)
+    robots = mapsee_ingest_jsonld.robots_txt.Robots(host)
+    rows = _Rows()
+    with patch.object(mapsee_ingest_jsonld.time, "sleep", side_effect=clock.sleep), \
+            patch.object(mapsee_ingest_jsonld.time, "perf_counter", side_effect=clock.perf_counter), \
+            patch.object(mapsee_ingest_jsonld.time, "monotonic", return_value=0.0), \
+            patch.dict(mapsee_ingest_jsonld._ANSWERED, clear=True), \
+            patch.object(mapsee_ingest_jsonld, "_THROTTLED", set()), \
+            contextlib.redirect_stdout(io.StringIO()) as out:
+        for _ in range(runs):
+            mapsee_ingest_jsonld.ingest_site(rows, host, dict(
+                {"name": "paced", "category": "community", "venue": MEC_VENUE}, **site),
+                robots=robots, deadline=deadline)
+    return host, clock, out.getvalue(), rows.events
+
+
+def _gaps(host):
+    """Seconds between successive page requests (robots.txt itself not counted)."""
+    times = [t for u, t in host.asked if not u.endswith("/robots.txt")]
+    return [round(b - a, 3) for a, b in zip(times, times[1:])]
+
+
+def check_pacing():
+    print()
+    print("a host's robots.txt Crawl-delay is honoured, and what it refuses is not asked")
+    listing = "https://kulturhus.example/program/"
+    pages = [listing + f"{n}-show/" for n in (1, 2, 3)]
+    show = {"@type": "Event", "name": "Show", "startDate": SOON, "location": {"name": "Hall"}}
+    served = {listing: "".join(f'<a href="{p}">x</a>' for p in pages),
+              **{p: _page("", dict(show, name=f"Show {i}", url=p)) for i, p in enumerate(pages)}}
+    site = {"listing": [listing], "link_pattern": r"https://kulturhus\.example/program/\d+-show/"}
+    askim = "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\nCrawl-delay: 10\n"
+
+    host, clock, out, got = _paced(served, askim, site)
+    check("Askim's 'Crawl-delay: 10' puts 10 s between every request after the first",
+          _gaps(host), [10.0, 10.0, 10.0])
+    check("robots.txt is read once for the whole site", [u for u, _ in host.asked].count(
+        "https://kulturhus.example/robots.txt"), 1)
+    check("all three shows are kept", len(got), 3)
+    host, _, _, _ = _paced(served, None, site)
+    check("no robots.txt (404): the 1 s floor the adapter always kept", _gaps(host), [1.0, 1.0, 1.0])
+    host, _, _, _ = _paced(served, "User-agent: *\nCrawl-delay: 2\n", dict(site, crawl_delay=5))
+    check("a config crawl_delay of 5 lengthens the file's 2", _gaps(host), [5.0, 5.0, 5.0])
+    host, _, _, _ = _paced(served, askim, dict(site, crawl_delay=5))
+    check("...and never shortens the file's 10", _gaps(host), [10.0, 10.0, 10.0])
+    host, _, _, _ = _paced(served, askim, site, runs=2)
+    check("two configs on one host share its pace, across sites",
+          _gaps(host), [10.0] * 7)
+    check("...and its robots.txt", [u for u, _ in host.asked].count(
+        "https://kulturhus.example/robots.txt"), 1)
+    host, clock, _, _ = _paced(served, None, {"listing": [listing]})
+    check("a site of one page sleeps not at all (it used to sleep 1 s after every page)",
+          clock.slept, [])
+
+    print()
+    print("a wait longer than 30 s is not slept: the page is not asked")
+    inline = {listing: _page("", dict(show, url=pages[0]), dict(show, name="Other", url=pages[1]))
+              + "".join(f'<a href="{p}">x</a>' for p in pages)}
+    host, clock, out, got = _paced(inline, "User-agent: *\nCrawl-delay: 150\n", site)
+    check("GRAAP's 'Crawl-delay: 150': the listing is read, as the host's first request",
+          [u for u, _ in host.asked], ["https://kulturhus.example/robots.txt", listing])
+    check("...its Event blocks are kept", len(got), 2)
+    check("...nothing is slept", clock.slept, [])
+    check_true("...and the line says what was not asked and why",
+               "3 page(s) not asked: the host asks 150 s between requests, over the 30 s this run will wait"
+               in out)
+    host, clock, _, _ = _paced(served, "User-agent: *\nCrawl-delay: 30\n", site)
+    check("30 s is still waited", _gaps(host), [30.0, 30.0, 30.0])
+
+    print()
+    print("a wait is not started when it would end past the deadline")
+    try:
+        _paced(served, askim, site, deadline=5.0)
+        check("BudgetExpired is raised", "no exception", "BudgetExpired")
+    except mapsee_ingest_jsonld.BudgetExpired as exc:
+        check("BudgetExpired names the first page not asked, so the next run starts there",
+              (exc.offset, exc.inline_offset), (0, 0))
+
+    print()
+    print("what robots.txt refuses is not asked")
+    host, _, out, got = _paced(served, "User-agent: *\nDisallow: /program/2-\nCrawl-delay: 1\n", site)
+    check("a Disallowed event page is skipped and the others are read",
+          [u for u, _ in host.asked if "-show/" in u], [pages[0], pages[2]])
+    check_true("...and the line says which rule refused it",
+               "1 page(s) not asked, robots.txt (ok) refuses /program/2-show/: Disallow: /program/2-" in out)
+    host, _, out, got = _paced(served, 503, site)
+    check("an unreadable robots.txt (503): nothing else is asked of the host (RFC 9309)",
+          [u for u, _ in host.asked], ["https://kulturhus.example/robots.txt"])
+    check_true("...and the line says so", "robots.txt (unreachable) refuses /program/" in out)
+    host, _, _, _ = _paced(served, "User-agent: MapseeAggregator\nDisallow: /\n", site)
+    check("a group naming our product token refuses us everything",
+          [u for u, _ in host.asked], ["https://kulturhus.example/robots.txt"])
+
+    print()
+    print("a host that answers 429 is asked nothing more this run")
+    host, _, out, got = _paced(dict(served, **{pages[1]: 429}), None, site, runs=2)
+    check("Tartu's 429 on the second page: the third is not asked, nor the host's next site",
+          [u for u, _ in host.asked], ["https://kulturhus.example/robots.txt", listing, pages[0], pages[1]])
+    check("...and each site's line says why",
+          out.count("1 page(s) not asked: the host answered 429 this run"), 2)
+    host, _, _, _ = _paced(dict(served, **{pages[1]: 404}), None, site)
+    check("a 404 is one page's answer: the next page is still asked",
+          [u for u, _ in host.asked][-1], pages[2])
+
+    print()
+    print("main reads each host's robots.txt once for the whole run")
+    with tempfile.TemporaryDirectory() as tmp:
+        cfg = os.path.join(tmp, "sites.json")
+        with open(cfg, "w", encoding="utf-8") as fh:
+            json.dump({"sites": [{"name": "a", "listing": [listing]},
+                                 {"name": "b", "listing": [listing + "b"]}]}, fh)
+        seen = []
+        with patch.object(mapsee_ingest_jsonld, "ingest_site",
+                          side_effect=lambda *a, **k: seen.append(k.get("robots")) or 0), \
+                patch.object(mapsee_ingest_jsonld, "_save_geo_cache"), \
+                contextlib.redirect_stdout(io.StringIO()):
+            mapsee_ingest_jsonld.main(["--config", cfg, "--store", os.path.join(tmp, "events.json")])
+    check_true("every site is handed the same robots_txt.Robots",
+               len(seen) == 2 and seen[0] is seen[1]
+               and isinstance(seen[0], mapsee_ingest_jsonld.robots_txt.Robots))
+    for junk in ("10s", -1, True):
+        try:
+            _paced(served, None, dict(site, crawl_delay=junk))
+            check(f"  crawl_delay {junk!r} is a config error", "accepted", "ValueError")
+        except ValueError:
+            check(f"  crawl_delay {junk!r} is a config error", "ValueError", "ValueError")
+
+
+def check_naive_utc():
+    print()
+    print("Tartu Kultuuriaken prints a UTC instant with no offset; naive_is_utc reads it so")
+    wall = mapsee_ingest_jsonld._utc_wall_clock
+    check("'L 24. okt 2026 | 12:00' is 09:00 in the block, on the last day of summer time",
+          wall("2026-10-24T09:00:00", TALLINN), "2026-10-24T12:00:00+03:00")
+    check("'P 25. okt 2026 | 12:00 - 15:00' is 10:00, the first day of EET",
+          wall("2026-10-25T10:00:00", TALLINN), "2026-10-25T12:00:00+02:00")
+    check("'13:30 - 15:41' is 11:30", wall(TARTU_LD["startDate"], TALLINN), "2026-10-25T13:30:00+02:00")
+    check("a space separator and no seconds are read too",
+          wall("2026-10-25 14:00", TALLINN), "2026-10-25T16:00:00+02:00")
+    check("a late UTC start is the next LOCAL day",
+          wall("2026-12-31T22:30:00", TALLINN), "2027-01-01T00:30:00+02:00")
+    for same in ("2026-10-25", "2026-10-25T12:00:00+02:00", "2026-10-25T10:00:00Z", "", None, "soon"):
+        check(f"  {same!r} is no naive timed stamp and passes through", wall(same, TALLINN), same)
+    check("the sync passes the offset through untouched, so the instant is the page's",
+          _to_utc_if_naive("2026-10-25T13:30:00+02:00", 58.38, 26.72), "2026-10-25T13:30:00+02:00")
+
+    page_url = TARTU_LD["url"] + "?event=216250"
+    future = dict(TARTU_LD, startDate=_D.strftime("%Y-%m-%dT22:30:00"), endDate="")
+    local_day = (_D + timedelta(days=1)).strftime("%Y-%m-%d")
+    site = {"listing": ["https://kultuuriaken.tartu.ee/et/syndmused"],
+            "link_pattern": r"/et/syndmus/[a-z0-9\-]+\?event=\d+", "venue": None,
+            "naive_is_utc": True, "timezone": "Europe/Tallinn"}
+    served = {site["listing"][0]: '<a href="/et/syndmus/magnus-kirt-tagasitulek?event=216250">x</a>',
+              page_url: _page("", future)}
+    with patch.object(mapsee_ingest_jsonld, "_geocode", return_value=(58.3779, 26.7290)):
+        got = _ingest(served, site)
+        plain = _ingest(served, {k: v for k, v in site.items() if k not in ("naive_is_utc", "timezone")})
+    ev = got[0] if got else None
+    check_true("through ingest_site, 22:30 UTC is the next day in Tartu, with Tartu's offset",
+               ev is not None and ev.start_local[:10] == local_day
+               and ev.start_local[-6:] in ("+02:00", "+03:00"))
+    check("...the same instant the block names",
+          datetime.fromisoformat(ev.start_local).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M")
+          if ev else None, _D.strftime("%Y-%m-%dT22:30"))
+    check("...and it is fingerprinted on the local day",
+          ev.fingerprint if ev else None,
+          make_fingerprint("Magnus Kirt: Tagasitulek", local_day, "Elektriteater, Raekoja saal"))
+    check("without the option the naive stamp passes through as before (read as Tartu's clock)",
+          plain[0].start_local if plain else None, future["startDate"])
+
+    listing = "https://www.whitehorncommunity.com/calendar/"
+    day = _D.strftime("%Y-%m-%d")
+    timed = dict(MEC_YOGA, startDate=day + "T12:45:00-06:00", endDate=day + "T14:30:00-06:00")
+    got = _ingest({listing: _page(MEC_HEAD, timed)},
+                  {"listing": [listing], "naive_is_utc": True, "timezone": "America/Edmonton"})
+    check("on a MEC page the option leaves MEC's own naive wall clock alone",
+          got[0].start_local if got else None, day + "T18:45:00")
+    for bad in ({"naive_is_utc": True}, {"naive_is_utc": True, "timezone": "Mars/Olympus_Mons"},
+                {"naive_is_utc": True, "timezone": ""}):
+        try:
+            _ingest(served, dict(site, **bad) if "timezone" in bad
+                    else {k: v for k, v in dict(site, **bad).items() if k != "timezone"})
+            check(f"  {bad} is a config error", "accepted", "ValueError")
+        except ValueError:
+            check(f"  {bad} is a config error", "ValueError", "ValueError")
+
+
+def check_address_lines():
+    print()
+    print("a streetAddress printed as lines is the street, then the town")
+    loc = TARTU_LD["location"]
+    check("Tartu's ['Kompanii 2', 'Tartu'] is a street and a town",
+          {k: v for k, v in _address_parts(loc).items() if v},
+          {"address": "Kompanii 2", "city": "Tartu", "country": "EE"})
+    four = {"address": {"streetAddress": ["Ülikooli tänav 1", "Tartu", "Tartu maakond", "Eesti"],
+                        "addressCountry": "EE"}}
+    check("['Ülikooli tänav 1', 'Tartu', 'Tartu maakond', 'Eesti'] too",
+          (_address_parts(four)["address"], _address_parts(four)["city"]), ("Ülikooli tänav 1", "Tartu"))
+    named = {"address": {"streetAddress": ["Kompanii 2", "Raekoja plats"], "addressLocality": "Tartu"}}
+    check("an addressLocality beside the lines is the town, not the second line",
+          _address_parts(named)["city"], "Tartu")
+    check("a one-line list is a street and no town",
+          (_address_parts({"address": {"streetAddress": ["Vanemuise 6"]}})["address"],
+           _address_parts({"address": {"streetAddress": ["Vanemuise 6"]}})["city"]), ("Vanemuise 6", None))
+    check("a plain string streetAddress is read as before",
+          _address_parts({"address": {"streetAddress": "Vanemuise 6"}})["address"], "Vanemuise 6")
+    check("a hall named as a list reads as the site's own listing shows it",
+          mapsee_ingest_jsonld._clean(loc["name"]), "Elektriteater, Raekoja saal")
+    check("an empty list is no text", mapsee_ingest_jsonld._clean([]), None)
+
+    print()
+    print("abroad, a street and a town with no geo get the one Photon try the sync cannot give")
+    queries = []
+
+    def photon(_session, q):
+        queries.append(q)
+        return 58.3779, 26.7290
+    tartu = dict(TARTU_LD, startDate=SOON)
+    with patch.object(mapsee_ingest_jsonld, "_geocode", side_effect=photon):
+        ev = to_event(tartu, TARTU_LD["url"], "community", None)
+        check("Tartu's row asks Photon for its street and town", queries, ["Kompanii 2, Tartu"])
+        check("...and is pinned there", (ev.latitude, ev.longitude) if ev else None, (58.3779, 26.7290))
+        check("...with its hall and town", (ev.venue_name, ev.city) if ev else None,
+              ("Elektriteater, Raekoja saal", "Tartu"))
+        for country in (None, "US", "USA", "United States", "pr"):
+            us = dict(tartu, location={"name": "Chop Suey", "address": {
+                "streetAddress": "1325 E Madison St", "addressLocality": "Seattle",
+                "addressRegion": "WA", "addressCountry": country}})
+            ev = to_event(us, "u", "music", None)
+            check(f"  country {country!r}: a street and a city are left for the sync's Census pass",
+                  (ev is not None, ev.latitude if ev else "dropped", queries[1:]), (True, None, []))
+        geo = dict(tartu, location=dict(TARTU_LD["location"], geo={"latitude": 58.38, "longitude": 26.72}))
+        check_true("an Event abroad that carries its own geo asks nothing",
+                   to_event(geo, "u", "community", None) is not None and queries[1:] == [])
+    import mapsee_supabase_sync
+    check("the set of countries Census is sent is the sync's own",
+          mapsee_ingest_jsonld._CENSUS_COUNTRIES, mapsee_supabase_sync.CENSUS_COUNTRIES)
+
+
 def check_site_line():
     # The 10-21 ICS log flushed 8 KB covering 117.7 min and 54 sources, and no
     # line said which one took the time; JSON-LD's per-site lines are the same.
@@ -708,6 +1029,9 @@ def main():
     check_mec_clock()
     check_shared_urls()
     check_meta_description_fallback()
+    check_pacing()
+    check_naive_utc()
+    check_address_lines()
     check_site_line()
 
     print()
