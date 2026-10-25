@@ -24300,6 +24300,510 @@
         "street_hint": "1011 Royal Ave SW"
       },
       "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Granadilla de Abona",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.granadilladeabona.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Granadilla de Abona",
+      "default_region": null,
+      "default_country": "ES",
+      "_metro": "Granadilla de Abona, Spain"
+    },
+    {
+      "name": "Teruel",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.teruel.es",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Teruel",
+      "default_region": null,
+      "default_country": "ES",
+      "_metro": "Teruel, Spain"
+    },
+    {
+      "name": "Gemeindezentrum Schmitzhöhe",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ev-kirche-lindlar.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gemeindezentrum Schmitzhöhe",
+        "address": "1 Paul-Schneider-Straße",
+        "city": "Lindlar",
+        "postal_code": "51789",
+        "lat": 50.988749,
+        "lon": 7.2808912
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Vereinsgebäude KGV Neuenhof",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.neuenhof-koeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vereinsgebäude KGV Neuenhof",
+        "address": "103 Zollstocker Weg",
+        "city": "Köln",
+        "postal_code": "50997",
+        "lat": 50.886724,
+        "lon": 6.9315528
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Deutsches Architekturmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://dam-online.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Deutsches Architekturmuseum",
+        "address": "43 Schaumainkai",
+        "city": "Frankfurt am Main",
+        "postal_code": "60596",
+        "lat": 50.104975,
+        "lon": 8.6773143
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Frankfurter Rudergesellschaft Borussia 1896",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://frg-borussia.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Frankfurter Rudergesellschaft Borussia 1896",
+        "lat": 50.1051664,
+        "lon": 8.7171571
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Frauen-Ruderverein Freiweg Frankfurt e.V. 1927",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.freiweg-frankfurt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Frauen-Ruderverein Freiweg Frankfurt e.V. 1927",
+        "lat": 50.0913884,
+        "lon": 8.6409661
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Das Bett",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://bett-frankfurt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Das Bett",
+        "address": "12 Schmidtstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60326",
+        "country": "DE",
+        "lat": 50.1036882,
+        "lon": 8.618509
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kunstverein Familie Montez",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kvfm.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunstverein Familie Montez",
+        "address": "7 Honsellstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60314",
+        "country": "DE",
+        "lat": 50.1083027,
+        "lon": 8.7100526
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Lebenshilfe für Menschen mit Behinderung Kreisvereinigung Main-Taunus e.V.",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lebenshilfe-main-taunus.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lebenshilfe für Menschen mit Behinderung Kreisvereinigung Main-Taunus e.V.",
+        "lat": 50.148614,
+        "lon": 8.4541738
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Seligenstädter Fastnachtsmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.unser-seligenstadt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seligenstädter Fastnachtsmuseum",
+        "lat": 50.0439315,
+        "lon": 8.9709638
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Christiane Bayer",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://tanzschule-lutz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christiane Bayer",
+        "lat": 50.1902446,
+        "lon": 8.9281633
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "BOK Galerie - Bund Offenbacher Künstler",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://www.bund-offenbacher-kuenstler.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BOK Galerie - Bund Offenbacher Künstler",
+        "address": "29 Kirchgasse",
+        "postal_code": "63065",
+        "lat": 50.1078266,
+        "lon": 8.7617824
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Theaterhaus",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.theaterhaus-frankfurt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theaterhaus",
+        "address": "10 Schützenstraße",
+        "postal_code": "60311",
+        "lat": 50.1106413,
+        "lon": 8.6920467
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Theater Alte Brücke",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.theater-alte-bruecke.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater Alte Brücke",
+        "address": "5 Brückenstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60594",
+        "country": "DE",
+        "lat": 50.1047082,
+        "lon": 8.6878914
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Anglerverein ASV Harreshausen e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://asv-harreshausen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Anglerverein ASV Harreshausen e.V.",
+        "address": "29 Stockstädter Weg",
+        "city": "Babenhausen",
+        "postal_code": "64832",
+        "country": "DE",
+        "lat": 49.9734058,
+        "lon": 8.9971715
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Museum Kronberger Malerkolonie",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://kronberger-malerkolonie.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum Kronberger Malerkolonie",
+        "lat": 50.1779126,
+        "lon": 8.5109028
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Akademie Ewaldshof e. V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ewaldshof.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Akademie Ewaldshof e. V.",
+        "address": "31 Bahnhofstraße",
+        "city": "Niddatal",
+        "postal_code": "61194",
+        "lat": 50.3044575,
+        "lon": 8.8123957
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "RAUM 25",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://raum25-frankfurt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RAUM 25",
+        "address": "25 Golfstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60528",
+        "lat": 50.0744859,
+        "lon": 8.6433248
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Haus der Andacht",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://hausderandacht.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus der Andacht",
+        "lat": 50.113136,
+        "lon": 8.3969936
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Waldhaus Taunusklub",
+      "category": "community",
+      "_found": "osm:leisure -> tribe+jsonld-event+ics",
+      "base_url": "https://taunusklub-koeppern.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Waldhaus Taunusklub",
+        "address": "Bimsteinweg",
+        "city": "Friedrichsdorf",
+        "postal_code": "61381",
+        "lat": 50.2807631,
+        "lon": 8.6442898
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Schützenclub 1968 Klein Umstadt e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sc-klein-umstadt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schützenclub 1968 Klein Umstadt e.V.",
+        "lat": 49.889521,
+        "lon": 8.9638082
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Synagoge aus Nentershausen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hessenpark.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Synagoge aus Nentershausen",
+        "lat": 50.2776326,
+        "lon": 8.5225751
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Neue Stadthalle Langen",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.neue-stadthalle-langen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Neue Stadthalle Langen",
+        "address": "77 Südliche Ringstraße",
+        "city": "Langen (Hessen)",
+        "postal_code": "63225",
+        "country": "DE",
+        "lat": 49.9862261,
+        "lon": 8.6667118
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "tennis 65 eschborn e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://www.tennis65eschborn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "tennis 65 eschborn e.V.",
+        "lat": 50.1469824,
+        "lon": 8.5603045
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Bethaus Evangeliums-Christen-Babtisten Gemeinde",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://www.christen-frankfurt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bethaus Evangeliums-Christen-Babtisten Gemeinde",
+        "lat": 50.1280386,
+        "lon": 8.5982203
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Heimatverein Burghausen e.V.",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://burghausen-bienitz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heimatverein Burghausen e.V.",
+        "address": "26 Bienitzstraße",
+        "city": "Leipzig",
+        "postal_code": "04178",
+        "country": "DE",
+        "lat": 51.3532953,
+        "lon": 12.2532804
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Pflegeheim Marienheim",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.diakonie-leipzig.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pflegeheim Marienheim",
+        "address": "Chopinstraße",
+        "city": "Leipzig",
+        "postal_code": "04103",
+        "lat": 51.343095,
+        "lon": 12.389025
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "krimZkramZ",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://kunzstoffe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "krimZkramZ",
+        "address": "7 Georg-Schwarz-Straße",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "country": "DE",
+        "lat": 51.3384116,
+        "lon": 12.3271921
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Leipziger Schießkeller",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://schiesskeller-leipzig.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leipziger Schießkeller",
+        "lat": 51.3576122,
+        "lon": 12.3843322
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Generationenhof",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.generationenhof.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Generationenhof",
+        "address": "28 Schönauer Straße",
+        "city": "Markranstädt",
+        "postal_code": "04420",
+        "lat": 51.3360391,
+        "lon": 12.253747
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Ev. Studierendengemeinde (ESG)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://esg-leipzig.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ev. Studierendengemeinde (ESG)",
+        "address": "11 Alfred-Kästner-Straße",
+        "city": "Leipzig",
+        "postal_code": "04275",
+        "country": "DE",
+        "lat": 51.3224129,
+        "lon": 12.3683222
+      },
+      "_metro": "Leipzig, Germany"
     }
   ],
   "_not_included": {

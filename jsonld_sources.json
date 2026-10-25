@@ -14585,6 +14585,940 @@
         "street_hint": "4120 Rue Ontario Est"
       },
       "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "St. Martinus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.st-michael-dormagen.de/aktuelles/veranstaltungen/detail/Kommissar-Kraechz-in-der-Kirche-2026.11.07/?instancedate=1794047400000"
+      ],
+      "link_pattern": "https://www\\.st\\-michael\\-dormagen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Martinus",
+        "city": "Dormagen",
+        "postal_code": "41541",
+        "country": "DE",
+        "lat": 51.1208264,
+        "lon": 6.8492282
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Heilig Kreuz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.katholisch-bergheim.de/aktuelles/veranstaltungen/detail/Gospelkonzert-2026.11.14/?instancedate=1794677400000"
+      ],
+      "link_pattern": "https://www\\.katholisch\\-bergheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heilig Kreuz",
+        "address": "21 Fischbachstraße",
+        "city": "Bergheim",
+        "postal_code": "50127",
+        "country": "DE",
+        "lat": 50.9349241,
+        "lon": 6.6984354
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Schulgarten",
+      "category": "outdoors",
+      "_found": "osm:garden -> modern-events+jsonld-event",
+      "listing": [
+        "https://naturgut-ophoven.de/mec-category/ferienprogramm/"
+      ],
+      "link_pattern": "https://naturgut\\-ophoven\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schulgarten",
+        "address": "4 Talstraße",
+        "postal_code": "51379",
+        "lat": 51.0705575,
+        "lon": 7.0156684
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Verklärung Christi",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bistummainz.de/region-oberhessen/pfarrei/taunusblick/aktuell/veranstaltungen/m-event/Sternsinger-Infotreffen-2026.10.30/?instancedate=1793374200000"
+      ],
+      "link_pattern": "https://bistummainz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Verklärung Christi",
+        "lat": 50.1716206,
+        "lon": 8.7310114
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Städel Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.staedelmuseum.de/de/programm/gastkommentar/2026-10-25/12-00"
+      ],
+      "link_pattern": "https://www\\.staedelmuseum\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Städel Museum",
+        "address": "63 Schaumainkai",
+        "city": "Frankfurt am Main",
+        "postal_code": "60596",
+        "lat": 50.1032949,
+        "lon": 8.6738582
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kino Kelkheim",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://kino-kelkheim.de/programm"
+      ],
+      "link_pattern": "https://kino\\-kelkheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kino Kelkheim",
+        "lat": 50.1464705,
+        "lon": 8.4504632
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Feldberger Restaurant",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.tauna-tours.de/feldberger-restaurant"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/veranstaltungsinfo/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Feldberger Restaurant",
+        "address": "13 Königsteiner Straße",
+        "city": "Schmitten im Taunus",
+        "postal_code": "61389",
+        "lat": 50.2409868,
+        "lon": 8.4352263
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kulturprojekt 21 e.V.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.brotfabrik.de/programm/"
+      ],
+      "link_pattern": "https://www\\.brotfabrik\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturprojekt 21 e.V.",
+        "address": "2-4 Bachmannstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60488",
+        "country": "DE",
+        "lat": 50.1314436,
+        "lon": 8.6261887
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "MTV Sportzentrum",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://mtv-kronberg.de/events/"
+      ],
+      "link_pattern": "https://mtv\\-kronberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MTV Sportzentrum",
+        "address": "1 Schülerwiesen",
+        "city": "Kronberg im Taunus",
+        "postal_code": "61476",
+        "lat": 50.191608,
+        "lon": 8.5141181
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kronberger Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://kronberger-lichtspiele.de/programm"
+      ],
+      "link_pattern": "https://kronberger\\-lichtspiele\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kronberger Lichtspiele",
+        "lat": 50.179249,
+        "lon": 8.5101402
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Batschkapp Frankfurter Kulturzentrum e.V.",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.batschkapp.net/events/yu-frankfurt-batschkapp-2027-02-04-190000"
+      ],
+      "link_pattern": "https://www\\.batschkapp\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Batschkapp Frankfurter Kulturzentrum e.V.",
+        "address": "5 Gwinnerstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60388",
+        "lat": 50.1350602,
+        "lon": 8.7388046
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "PRACHT",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://pracht.bar/event/2564052"
+      ],
+      "link_pattern": "https://pracht\\.bar/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "PRACHT",
+        "address": "54 Niddastraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60329",
+        "lat": 50.1095172,
+        "lon": 8.6635337
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Ponyhof",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://ponyhof-club.de/night-events/"
+      ],
+      "link_pattern": "https://ponyhof\\-club\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ponyhof",
+        "address": "16 Klappergasse",
+        "city": "Frankfurt am Main",
+        "postal_code": "60594",
+        "lat": 50.105273,
+        "lon": 8.6910927
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Wat Buddhapiyawararam",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.watbuddhapiyawararam.de/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Wat Buddhapiyawararam",
+        "address": "6 Dietzenbacher Straße",
+        "city": "Dreieich",
+        "postal_code": "63303",
+        "country": "DE",
+        "lat": 49.9979856,
+        "lon": 8.7340289
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Taktgefühl",
+      "category": "fitness",
+      "_found": "osm:dance -> wix+gcal-embed",
+      "listing": [
+        "https://www.xn--taktgefhl-hg-jlb.de/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Taktgefühl",
+        "lat": 50.257077,
+        "lon": 8.655846
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Faselbräu - Zum Wohl Brauerei",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.faselbraeu.de/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Faselbräu - Zum Wohl Brauerei",
+        "address": "4 Hintergasse",
+        "city": "Mörfelden-Walldorf",
+        "postal_code": "64546",
+        "lat": 49.97283,
+        "lon": 8.5684413
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Museum Schloss Fechenbach",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.museumserver.de/veranstaltungen/2929713/2026/10/30/schlossgeister.html"
+      ],
+      "link_pattern": "https://www\\.museumserver\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Schloss Fechenbach",
+        "lat": 49.8998077,
+        "lon": 8.8385959
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Zoom",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://zoomfrankfurt.com/programm"
+      ],
+      "link_pattern": "https://zoomfrankfurt\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zoom",
+        "address": "21 Carl-Benz-Straße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60386",
+        "lat": 50.1217355,
+        "lon": 8.7506613
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Eisenbahnmuseum Darmstadt-Kranichstein",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://bahnwelt.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://bahnwelt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Eisenbahnmuseum Darmstadt-Kranichstein",
+        "lat": 49.9081895,
+        "lon": 8.679036
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Frankfurter Yachtclub e.V.",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.frankfurter-yachtclub.de/events"
+      ],
+      "link_pattern": "https://www\\.frankfurter\\-yachtclub\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Frankfurter Yachtclub e.V.",
+        "address": "21 Mainfeldstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60528",
+        "lat": 50.0899432,
+        "lon": 8.6369495
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Messecenter Rhein-Main",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.messecenter-rheinmain.de/events-directory/"
+      ],
+      "link_pattern": "https://www\\.messecenter\\-rheinmain\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Messecenter Rhein-Main",
+        "lat": 50.063573,
+        "lon": 8.3878056
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Justina-von-Cronstetten-Stift",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://justina-von-cronstetten-stift.de/events/"
+      ],
+      "link_pattern": "https://justina\\-von\\-cronstetten\\-stift\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Justina-von-Cronstetten-Stift",
+        "address": "38 Arndtstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60325",
+        "country": "DE",
+        "lat": 50.1175867,
+        "lon": 8.6605624
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "St. Cäcilia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bistummainz.de/region-mainlinie/pfarrei/heusenstamm-dietzenbach/m-event/Taufseminar-2026.10.31/?instancedate=1793437200000"
+      ],
+      "link_pattern": "https://bistummainz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Cäcilia",
+        "address": "8 Schloßstraße",
+        "city": "Heusenstamm",
+        "postal_code": "63150",
+        "country": "DE",
+        "lat": 50.0598059,
+        "lon": 8.8062637
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Freie evangelische Gemeinde Heusenstamm (FeG)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.feg-heusenstamm.de"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Freie evangelische Gemeinde Heusenstamm (FeG)",
+        "address": "15 Weiskircher Weg",
+        "city": "Heusenstamm",
+        "postal_code": "63150",
+        "country": "DE",
+        "lat": 50.0568501,
+        "lon": 8.813032
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Sankt Cyriakus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bistummainz.de/pfarrei/seligenstadt/aktuell/termine/veranstaltung/Seniorennachmittag-Basilika-00023/?instancedate=1795008600000"
+      ],
+      "link_pattern": "https://bistummainz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sankt Cyriakus",
+        "address": "34 Hauptstraße",
+        "city": "Seligenstadt",
+        "postal_code": "63500",
+        "country": "DE",
+        "lat": 50.0423445,
+        "lon": 9.0049188
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Stadtteiltreff Dicker Busch",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://dksb-ruesselsheim.de/events/"
+      ],
+      "link_pattern": "https://dksb\\-ruesselsheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtteiltreff Dicker Busch",
+        "address": "14a Evreuxring",
+        "city": "Rüsselsheim am Main",
+        "postal_code": "65428",
+        "country": "DE",
+        "lat": 49.9821374,
+        "lon": 8.4396881
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Das Rind",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://dasrind.de/event-detail/2026-11-01-soft-machine/"
+      ],
+      "link_pattern": "https://dasrind\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Rind",
+        "address": "11 Mainstraße",
+        "city": "Rüsselsheim am Main",
+        "postal_code": "65428",
+        "country": "DE",
+        "lat": 49.9959851,
+        "lon": 8.4119093
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Hundeverein Erzhausen e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://hv-erzhausen.de/termine/anmeldung/"
+      ],
+      "link_pattern": "https://hv\\-erzhausen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hundeverein Erzhausen e.V.",
+        "lat": 49.9448455,
+        "lon": 8.6455161
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Vereinsheim TV Schaafheim (TV Heim In den Auwiesen)",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.tv-schaafheim.de/kalender.62/hsg-aschafftal-tvs.html"
+      ],
+      "link_pattern": "https://www\\.tv\\-schaafheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Vereinsheim TV Schaafheim (TV Heim In den Auwiesen)",
+        "lat": 49.9269803,
+        "lon": 9.0106176
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "THOMAS MORE Kultur.Garten",
+      "category": "outdoors",
+      "_found": "osm:garden -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.thomasmore.de/events/"
+      ],
+      "link_pattern": "https://www\\.thomasmore\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "THOMAS MORE Kultur.Garten",
+        "address": "Langgewannweg",
+        "city": "Hochheim",
+        "postal_code": "65239",
+        "lat": 50.0132382,
+        "lon": 8.3385236
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Theater der Jungen Welt",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theaterderjungenweltleipzig.de/"
+      ],
+      "link_pattern": "https://www\\.theaterderjungenweltleipzig\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Theater der Jungen Welt",
+        "lat": 51.3376407,
+        "lon": 12.3333339
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Kino \"Bürgerhaus Groitzsch\"",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://kino-groitzsch.de/programm"
+      ],
+      "link_pattern": "https://kino\\-groitzsch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kino \"Bürgerhaus Groitzsch\"",
+        "address": "9 Breitstraße",
+        "city": "Groitzsch",
+        "postal_code": "04539",
+        "country": "DE",
+        "lat": 51.1566046,
+        "lon": 12.2804574
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Regina Palast",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.kinoleipzig.com/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.kinoleipzig\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Regina Palast",
+        "address": "56 Dresdner Straße",
+        "city": "Leipzig",
+        "postal_code": "04317",
+        "lat": 51.3390459,
+        "lon": 12.4014855
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Täubchenthal",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.taeubchenthal.com/programm/halloween-leipzig-2026"
+      ],
+      "link_pattern": "https://www\\.taeubchenthal\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Täubchenthal",
+        "address": "1 Wachsmuthstraße",
+        "city": "Leipzig",
+        "postal_code": "04229",
+        "country": "DE",
+        "lat": 51.3246064,
+        "lon": 12.3304072
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Tanzstudio Leuna/Merseburg",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://tanzstudio-leuna-merseburg.de/events/"
+      ],
+      "link_pattern": "https://tanzstudio\\-leuna\\-merseburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tanzstudio Leuna/Merseburg",
+        "address": "6 Wendisch Ende",
+        "city": "Leuna",
+        "postal_code": "06237",
+        "country": "DE",
+        "lat": 51.2904861,
+        "lon": 12.0262206
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://zwenkau.nak-nordost.de/db/629478/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://zwenkau\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+        "address": "1 Marktstraße",
+        "city": "Zwenkau",
+        "postal_code": "04442",
+        "country": "DE",
+        "lat": 51.2164189,
+        "lon": 12.3241488
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Das Geheime Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://geheimestheater.de/"
+      ],
+      "link_pattern": "https://geheimestheater\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Geheime Theater",
+        "address": "13 Pfaffendorfer Straße",
+        "city": "Leipzig",
+        "postal_code": "04105",
+        "lat": 51.346527,
+        "lon": 12.3711506
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Kunstdünger - Kunstschule",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://kunstduenger.art/"
+      ],
+      "link_pattern": "https://kunstduenger\\.art/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kunstdünger - Kunstschule",
+        "address": "86 Zschochersche Straße",
+        "lat": 51.3222334,
+        "lon": 12.3316573
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Wolkezwei",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://wolkezweileipzig.de/events"
+      ],
+      "link_pattern": "https://wolkezweileipzig\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wolkezwei",
+        "address": "2 Volbedingstraße",
+        "city": "Leipzig",
+        "postal_code": "04357",
+        "lat": 51.3604551,
+        "lon": 12.403969
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Leipzig - Mitte",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://leipzig-mitte.nak-nordost.de/db/629584/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://leipzig\\-mitte\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Leipzig - Mitte",
+        "address": "5 Sigismundstraße",
+        "city": "Leipzig",
+        "postal_code": "04317",
+        "country": "DE",
+        "lat": 51.3345853,
+        "lon": 12.402915
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Evangelisch-reformierte Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.reformiert-leipzig.org/"
+      ],
+      "link_pattern": "https://www\\.reformiert\\-leipzig\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evangelisch-reformierte Kirche",
+        "address": "7 Tröndlinring",
+        "city": "Leipzig",
+        "postal_code": "04105",
+        "country": "DE",
+        "lat": 51.3447039,
+        "lon": 12.373218
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Gedächtniskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.matthaeusgemeinde-leipzig.de/event-details/martinstag-2.html"
+      ],
+      "link_pattern": "https://www\\.matthaeusgemeinde\\-leipzig\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gedächtniskirche",
+        "address": "39 Ossietzkystraße",
+        "city": "Leipzig",
+        "postal_code": "04347",
+        "country": "DE",
+        "lat": 51.35951,
+        "lon": 12.4090875
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Allgemeiner Turnverein [ATV Leipzig 1845]",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.atv1845.de/kalender/"
+      ],
+      "link_pattern": "https://www\\.atv1845\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Allgemeiner Turnverein [ATV Leipzig 1845]",
+        "address": "1 Gerhard-Langner-Weg",
+        "city": "Leipzig",
+        "postal_code": "04299",
+        "lat": 51.3114985,
+        "lon": 12.4222335
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "St. Gertrud",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://kath-kirche-leipzig-ost.de/veranstaltung/hl-messe-27/"
+      ],
+      "link_pattern": "https://kath\\-kirche\\-leipzig\\-ost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Gertrud",
+        "address": "298 Engelsdorfer Straße",
+        "city": "Leipzig",
+        "postal_code": "04319",
+        "lat": 51.335349,
+        "lon": 12.4859534
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Calloway",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://swingconnection-leipzig.com/veranstaltungen/"
+      ],
+      "link_pattern": "https://swingconnection\\-leipzig\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Calloway",
+        "address": "16 Goldschmidtstraße",
+        "city": "Leipzig",
+        "postal_code": "04103",
+        "country": "DE",
+        "lat": 51.3359338,
+        "lon": 12.3844949
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://wurzen.nak-nordost.de/db/629445/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://wurzen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "address": "17 Muldengasse",
+        "city": "Wurzen",
+        "postal_code": "04808",
+        "country": "DE",
+        "lat": 51.3714653,
+        "lon": 12.7329632
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Leipzig-Plagwitz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://leipzig-plagwitz.nak-nordost.de/db/633951/Termine/Chorprobe"
+      ],
+      "link_pattern": "https://leipzig\\-plagwitz\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Leipzig-Plagwitz",
+        "lat": 51.3332076,
+        "lon": 12.347767
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "St. Anna",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://kath-kirche-leipzig-ost.de/veranstaltung/pfarreirat/"
+      ],
+      "link_pattern": "https://kath\\-kirche\\-leipzig\\-ost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Anna",
+        "address": "20 Sommerfelder Straße",
+        "city": "Taucha",
+        "postal_code": "04425",
+        "lat": 51.3775702,
+        "lon": 12.4928888
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Sportpark Tresenwald",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.sportpark-tresenwald.de/veranstaltungen/2930581/2026/10/31/tanznacht-in-machern.html"
+      ],
+      "link_pattern": "https://www\\.sportpark\\-tresenwald\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sportpark Tresenwald",
+        "lat": 51.3615719,
+        "lon": 12.6156803
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Bandhaus Manufaktur",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://bandcommunity-leipzig.org/veranstaltungen/"
+      ],
+      "link_pattern": "https://bandcommunity\\-leipzig\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bandhaus Manufaktur",
+        "address": "7 Saarländer Straße",
+        "city": "Leipzig",
+        "postal_code": "04179",
+        "lat": 51.3261675,
+        "lon": 12.3113116
+      },
+      "_metro": "Leipzig, Germany"
     }
   ],
   "_not_included": {

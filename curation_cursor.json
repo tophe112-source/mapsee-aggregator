@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "DK",
+  "country": "ES",
   "offset": 2140,
   "offsets": {
    "AE": 13,
@@ -11,7 +11,7 @@
    "CH": 200,
    "DE": 120,
    "DK": 137,
-   "ES": 98,
+   "ES": 190,
    "FI": 400,
    "GB": 120,
    "IE": 48,
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 118,
-  "metro_key": "DE:Cologne",
+  "metro": 120,
+  "metro_key": "DE:Leipzig",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 300,
-  "events": 1300,
+  "community events": 400,
+  "events": 0,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 200,
-  "parks events": 100,
+  "library programs": 0,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 0,
+  "recreation programs": 100,
   "road races": 0,
-  "special events": 200,
-  "volunteer": 100,
-  "wellness programs": 500,
-  "youth programs": 200
+  "special events": 0,
+  "volunteer": 200,
+  "wellness programs": 0,
+  "youth programs": 0
  }
 }
