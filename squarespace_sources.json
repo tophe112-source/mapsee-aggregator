@@ -3035,6 +3035,37 @@
         ]
       },
       "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Komma - Jugend & Kultur",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.komma.info/kalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Komma - Jugend & Kultur",
+        "address": "5-9 Maille",
+        "city": "Esslingen am Neckar",
+        "postal_code": "73728",
+        "lat": 48.7382635,
+        "lon": 9.3094242
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Atelier TamTam",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.ateliertamtam.de/kalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Atelier TamTam",
+        "address": "88A Rotebühlstraße",
+        "postal_code": "70178",
+        "lat": 48.7714682,
+        "lon": 9.1599276
+      },
+      "_metro": "Stuttgart, Germany"
     }
   ],
   "_not_included": {

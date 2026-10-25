@@ -15519,6 +15519,346 @@
         "lon": 12.3113116
       },
       "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Zoo Leipzig",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://www.zoo-leipzig.de/event/halloween-im-zoo-39/"
+      ],
+      "link_pattern": "https://www\\.zoo\\-leipzig\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zoo Leipzig",
+        "address": "29 Pfaffendorfer Straße",
+        "city": "Leipzig",
+        "postal_code": "04105",
+        "country": "DE",
+        "lat": 51.3508968,
+        "lon": 12.3678125
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "LKA-Longhorn",
+      "category": "music",
+      "_found": "osm:music_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://lka-longhorn.de/concerts/"
+      ],
+      "link_pattern": "https://lka\\-longhorn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LKA-Longhorn",
+        "address": "6 Heiligenwiesen",
+        "city": "Stuttgart",
+        "postal_code": "70327",
+        "country": "DE",
+        "lat": 48.7672836,
+        "lon": 9.2517713
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Capitol",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://capitol-kornwestheim.de/programm"
+      ],
+      "link_pattern": "https://capitol\\-kornwestheim\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capitol",
+        "lat": 48.8635637,
+        "lon": 9.1813794
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Bärenkino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://kinobb.de/programm"
+      ],
+      "link_pattern": "https://kinobb\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bärenkino",
+        "lat": 48.6838147,
+        "lon": 9.0131328
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "proTON The Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://protontheclub.de/events/"
+      ],
+      "link_pattern": "https://protontheclub\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "proTON The Club",
+        "address": "49 Königstraße",
+        "city": "Stuttgart",
+        "postal_code": "70173",
+        "lat": 48.7737232,
+        "lon": 9.1754029
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Sunny High Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://sunnyhigh.de/de/veranstaltungen/eskapade-2026-11-14"
+      ],
+      "link_pattern": "https://sunnyhigh\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sunny High Club",
+        "address": "14 Bahnhofstraße",
+        "city": "Stuttgart",
+        "postal_code": "70372",
+        "country": "DE",
+        "lat": 48.8025406,
+        "lon": 9.2170963
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Kulturbühne Rosenau",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.rosenau-stuttgart.de/spielplan.php?et=3689&j=1"
+      ],
+      "link_pattern": "https://www\\.rosenau\\-stuttgart\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturbühne Rosenau",
+        "address": "109B Rotebühlstraße",
+        "city": "Stuttgart",
+        "postal_code": "70178",
+        "lat": 48.7710183,
+        "lon": 9.1610435
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Stadtmuseum Nürtingen",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.stadtmuseum-nuertingen.de/stadtmuseum-nuertingen/veranstaltungen-des-stadtmuseums-nuertingen/12053/piraten-familienfuehrung-mit-anmeldung/termin-10944435"
+      ],
+      "link_pattern": "https://www\\.stadtmuseum\\-nuertingen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtmuseum Nürtingen",
+        "lat": 48.6251438,
+        "lon": 9.3341506
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Theater der Altstadt",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://theater-der-altstadt.de/"
+      ],
+      "link_pattern": "https://theater\\-der\\-altstadt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Theater der Altstadt",
+        "address": "89 Rotebühlstraße",
+        "city": "Stuttgart",
+        "postal_code": "70178",
+        "country": "DE",
+        "lat": 48.7719963,
+        "lon": 9.1642181
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Strotmanns Magic Lounge",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://strotmanns.com/thorsten-strotmann-apollo-theater.html"
+      ],
+      "link_pattern": "https://strotmanns\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Strotmanns Magic Lounge",
+        "address": "41 Naststraße",
+        "city": "Stuttgart",
+        "postal_code": "70376",
+        "country": "DE",
+        "lat": 48.8151774,
+        "lon": 9.2132682
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Wagenhallen",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://wagenhallen.de/programm/"
+      ],
+      "link_pattern": "https://wagenhallen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wagenhallen",
+        "address": "1 Innerer Nordbahnhof",
+        "city": "Stuttgart",
+        "postal_code": "70191",
+        "country": "DE",
+        "lat": 48.7997972,
+        "lon": 9.1857876
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Schützenhaus SV Aurich",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.svaurich.de/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Schützenhaus SV Aurich",
+        "lat": 48.9098777,
+        "lon": 8.9442332
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.kath-kirche-lb.de/events/"
+      ],
+      "link_pattern": "https://www\\.kath\\-kirche\\-lb\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "address": "29 Netzestraße",
+        "city": "Ludwigsburg",
+        "postal_code": "71638",
+        "country": "DE",
+        "lat": 48.8796235,
+        "lon": 9.2175612
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Lighthouse Church Ludwigsburg (biblisches Glaubenszentrum)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.lighthousechurch.de/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lighthouse Church Ludwigsburg (biblisches Glaubenszentrum)",
+        "address": "31 Strombergstraße",
+        "city": "Ludwigsburg",
+        "postal_code": "71636",
+        "country": "DE",
+        "lat": 48.8993629,
+        "lon": 9.1617092
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Glory Life Zentrum",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://glorylife.net/kalender/"
+      ],
+      "link_pattern": "https://glorylife\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Glory Life Zentrum",
+        "address": "10 Emerlandstraße",
+        "city": "Filderstadt",
+        "postal_code": "70794",
+        "country": "DE",
+        "lat": 48.6737541,
+        "lon": 9.2276202
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Heilsarmee Vorposten Bad Cannstatt",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/stuttgartkorps/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heilsarmee Vorposten Bad Cannstatt",
+        "address": "29 Brunnenstraße",
+        "city": "Stuttgart",
+        "postal_code": "70372",
+        "country": "DE",
+        "lat": 48.8063957,
+        "lon": 9.2148673
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Literaturhaus",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.literaturhaus-stuttgart.de/event/6748.html"
+      ],
+      "link_pattern": "https://www\\.literaturhaus\\-stuttgart\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Literaturhaus",
+        "address": "4 Breitscheidstraße",
+        "city": "Stuttgart",
+        "postal_code": "70174",
+        "country": "DE",
+        "lat": 48.7795411,
+        "lon": 9.1681691
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "St. Josef",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://xn--gdg-kempen-tnisvorst-fbc.de/aktuell/termine/a-event/Konzert-am-Hochfest-Allerheiligen/"
+      ],
+      "link_pattern": "https://xn\\-\\-gdg\\-kempen\\-tnisvorst\\-fbc\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Josef",
+        "lat": 51.3556079,
+        "lon": 6.4166456
+      },
+      "_metro": "Dusseldorf, Germany"
     }
   ],
   "_not_included": {

@@ -37605,5 +37605,294 @@
     "geocode_suffix": ", Leipzig",
     "limit": 300,
     "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "SV Naundorf",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://sv-naundorf.de/index.php?option=com_dpcalendar&task=ical.download&id=17",
+    "geocode_suffix": ", Leipzig, Germany",
+    "limit": 300,
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Gewandhaus",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.gewandhausorchester.de/veranstaltung/grosses-concert-9981/konzert.ics",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Stadtbücherei",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.backnang.de/site/Backnang-Internet/zmservice/25062112/ical/Sonntagsoeffnung_am_Gaensemarkt.ics?nodeID=523256710953",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Stadtbücherei",
+      "lat": 48.9485009,
+      "lon": 9.4303384,
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany",
+    "crawl_delay": 30.0
+  },
+  {
+    "name": "Kabarett der Galgenstricke",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://kabarettdergalgenstricke.de/kalender/ical",
+    "geocode_suffix": ", Esslingen am Neckar",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "CVJM Kirchheim u.T.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/google%40cvjm-ebersbach.de/public/basic.ics",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Stadtbücherei Zweigstelle Scharnhauser Park",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://stadtbuecherei-ostfildern.de/wp-content/uploads/samstagsimkubino-2026-11-07.ics",
+    "geocode_suffix": ", Ostfildern",
+    "limit": 300,
+    "venue": {
+      "name": "Stadtbücherei Zweigstelle Scharnhauser Park",
+      "city": "Ostfildern",
+      "postal_code": "73760",
+      "country": "DE",
+      "lat": 48.7219396,
+      "lon": 9.2714808,
+      "street_hint": "1 Gerhard-Koch-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Aktionskreis für Menschen mit und ohne Behinderung e.V. (AKB)",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tpdfttk77un05tveam7mibl7n4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kirchheim unter Teck",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Freie evangelische Gemeinde Gerlingen",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40lifebase.org/public/basic.ics",
+    "geocode_suffix": ", Gerlingen",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Fildergemeinde EFG",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://fildergemeinde.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Filderstadt",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Schwäbischer Albverein - Ortsgruppe Ruit",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://ruit.albverein.eu/events/sulzgries-katharinenlinde-uhlbach/?ical=1",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Galli-Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://galli-backnang.de/praeventionstheater/?ical=1",
+    "geocode_suffix": ", Backnang",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Kunstverein Wagenhalle",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://kunstverein-wagenhalle.de/events/?ical=1",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "VfB Fanclub Courage Gerlingen",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ohkai3nlodapdfktgalrbb7jgc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gerlingen",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Württembergische Landesbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7d01b47a5569838c18a6443dd472cfa2.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "venue": {
+      "name": "Württembergische Landesbibliothek",
+      "city": "Stuttgart",
+      "postal_code": "70173",
+      "country": "DE",
+      "lat": 48.777267,
+      "lon": 9.1852171,
+      "street_hint": "8 Konrad-Adenauer-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Katholisches Pfarramt Christus König",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ics.teamup.com/feed/ksf7fd3c7811fcb156/0.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Steingauzentrum",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.efg-kirchheim.de/events/?ical=1",
+    "geocode_suffix": ", Kirchheim unter Teck",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Stuttgart-Cannstatter Ruderclub",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mofigdn8d7h2ic3tk28gndt4vs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Immanuelsgemeinde (SELK)",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.selk-stuttgart.de/veranstaltungen/kalender.de.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Zu den 3 Cedern",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.zuden3cedern.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "David-Wengert-Haus für Hörgeschädigte",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40schwerhoerigenverein-stuttgart.de/public/basic.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Mombach-Bad",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://sv-cannstatt.de/?svc_ical=1",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "casa nostra",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.casanostra-bb.de/termine/event/termin/fitnessworkshop-20261026-1730-1900.ics",
+    "geocode_suffix": ", Böblingen",
+    "limit": 300,
+    "venue": {
+      "name": "casa nostra",
+      "city": "Böblingen",
+      "postal_code": "71034",
+      "country": "DE",
+      "lat": 48.6838811,
+      "lon": 9.0024456,
+      "street_hint": "4 Calwer Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Vereinsheim Tauchsportgruppe Teck e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ivkkhl8be7ik7ku0tndgtgccjo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kirchheim unter Teck",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Citygolf Stuttgart",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://citygolf-stuttgart.de/termine/?ical=1",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Opernhaus",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.staatsoper-stuttgart.de/kalender-eintrag/9518/ical-2026-10-25-9518.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Tennisanlage Aspen",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager+ics",
+    "url": "https://tchr.de/events/adventsfeier-ue66/ical/",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "SV Hardt e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/3diod2itqkhlmnr1jknluc4ojc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Aalto-Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.theater-essen.de/kalender-eintrag/3965/ical-2026-10-25-3965.ics",
+    "geocode_suffix": ", Essen",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
   }
 ]

@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 120,
-  "metro_key": "DE:Leipzig",
+  "metro": 122,
+  "metro_key": "DE:Dusseldorf",
   "stuck": {}
  },
  "osm|community_centre,library": {

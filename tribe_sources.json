@@ -24804,6 +24804,506 @@
         "lon": 12.3683222
       },
       "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "SC DHfK Leipzig",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://scdhfk.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SC DHfK Leipzig",
+        "lat": 51.3518488,
+        "lon": 12.3463109
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Glockenmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://glockenmuseum-stiftskirche-herrenberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Glockenmuseum",
+        "lat": 48.5968006,
+        "lon": 8.8710419
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Schwarzer Keiler - Heavy Metal Club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://der-schwarze-keiler.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schwarzer Keiler - Heavy Metal Club",
+        "address": "60 Fritz-Elsas-Straße",
+        "city": "Stuttgart",
+        "postal_code": "70174",
+        "country": "DE",
+        "lat": 48.7780053,
+        "lon": 9.1681834
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Kunstvereinskeller",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kunstverein-fellbach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunstvereinskeller",
+        "address": "9 Cannstatter Straße",
+        "city": "Fellbach",
+        "postal_code": "70734",
+        "country": "DE",
+        "lat": 48.8072575,
+        "lon": 9.277133
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Musikverein Stadtkapelle Herrenberg e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://stadtkapelle-herrenberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musikverein Stadtkapelle Herrenberg e.V.",
+        "lat": 48.5927567,
+        "lon": 8.8739237
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Nellys Puppen Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://nellyspuppentheater.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nellys Puppen Theater",
+        "lat": 48.7731401,
+        "lon": 9.1867389
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "KSV Holzgerlingen",
+      "category": "community",
+      "_found": "osm:club -> tribe+mylisting+modern-events+jsonld-event+ics",
+      "base_url": "https://ksv-holzgerlingen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "KSV Holzgerlingen",
+        "address": "1 Erlachstraße",
+        "city": "Holzgerlingen",
+        "postal_code": "71088",
+        "lat": 48.6326807,
+        "lon": 9.01459
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Obst- und Gartenbauverein Vaihingen an der Enz",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ogv-vaihingen-enz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Obst- und Gartenbauverein Vaihingen an der Enz",
+        "lat": 48.9268672,
+        "lon": 8.9532419
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Forum Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.forum-theater.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Forum Theater",
+        "address": "21 Gymnasiumstraße",
+        "city": "Stuttgart",
+        "postal_code": "70173",
+        "country": "DE",
+        "lat": 48.7764855,
+        "lon": 9.1736324
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Kleeblatt Pattonville",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://kleeblatt-ggmbh.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kleeblatt Pattonville",
+        "address": "27/1 John-F.-Kennedy-Allee",
+        "lat": 48.8734741,
+        "lon": 9.2234313
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Turnerbund Ruit e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://tbruit.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Turnerbund Ruit e.V.",
+        "address": "1 Talwiesen",
+        "city": "Ostfildern",
+        "postal_code": "73760",
+        "lat": 48.7209865,
+        "lon": 9.2583563
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "SJD - Die Falken Landesverband Baden-Württemberg",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sjd-falkenbw.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SJD - Die Falken Landesverband Baden-Württemberg",
+        "address": "77 Wagenburgstraße",
+        "city": "Stuttgart",
+        "postal_code": "70184",
+        "lat": 48.7802684,
+        "lon": 9.2003547
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Sankt Theresia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://kirche-stuttgart-nordwest.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sankt Theresia",
+        "address": "8 Pirmasenser Straße",
+        "city": "Stuttgart",
+        "postal_code": "70499",
+        "country": "DE",
+        "lat": 48.8111267,
+        "lon": 9.1155956
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Werkstatthaus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://werkstatthaus.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Werkstatthaus",
+        "address": "7 Gerokstraße",
+        "city": "Stuttgart",
+        "postal_code": "70188",
+        "country": "DE",
+        "lat": 48.7799603,
+        "lon": 9.1935659
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Hallenbad",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://wunnebad.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hallenbad",
+        "address": "56 Albertviller Straße",
+        "city": "Winnenden",
+        "postal_code": "71364",
+        "country": "DE",
+        "lat": 48.8656231,
+        "lon": 9.3950546
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Tanzloft Stuttgart",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tanzloft-stuttgart.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzloft Stuttgart",
+        "address": "36 Leuschnerstraße",
+        "city": "Stuttgart",
+        "postal_code": "70176",
+        "country": "DE",
+        "lat": 48.7766066,
+        "lon": 9.165223
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Alte Kelter",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://alte-kelter-winnenden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alte Kelter",
+        "address": "33 Paulinenstraße",
+        "city": "Winnenden",
+        "postal_code": "71364",
+        "lat": 48.8717891,
+        "lon": 9.4009125
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Musikverein Renningen",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://musikvereinrenningen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musikverein Renningen",
+        "address": "82 Gottfried-Bauer-Straße",
+        "city": "Renningen",
+        "postal_code": "71272",
+        "country": "DE",
+        "lat": 48.7705433,
+        "lon": 8.9229636
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "HMSV Modellflugplatz Vaihingen-Enz",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hmsv.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HMSV Modellflugplatz Vaihingen-Enz",
+        "lat": 48.9416985,
+        "lon": 8.9997201
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "?",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://hotel-silber.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "10 Dorotheenstraße",
+        "city": "Stuttgart",
+        "postal_code": "70173",
+        "country": "DE",
+        "lat": 48.7756524,
+        "lon": 9.1815669
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Württembergischer Christusbund",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://christusbund-rohrau.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Württembergischer Christusbund",
+        "address": "31 Gärtringer Straße",
+        "city": "Gärtringen",
+        "postal_code": "71116",
+        "country": "DE",
+        "lat": 48.6264325,
+        "lon": 8.9216267
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Theo-Lorch-Werkstätte",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.theo-lorch-werkstaetten.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theo-Lorch-Werkstätte",
+        "address": "26 Asperger Straße",
+        "city": "Bietigheim-Bissingen",
+        "postal_code": "74321",
+        "lat": 48.9411655,
+        "lon": 9.1359738
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Dorf- und Heimatmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://heimatverein-winterbach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dorf- und Heimatmuseum",
+        "address": "5 Herdfeld",
+        "city": "Winterbach",
+        "postal_code": "73650",
+        "country": "DE",
+        "lat": 48.7989469,
+        "lon": 9.4777214
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Obst- und Gartenbauverein",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ogv-schwaikheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Obst- und Gartenbauverein",
+        "address": "36 Badstraße",
+        "city": "Schwaikheim",
+        "postal_code": "71409",
+        "lat": 48.8793486,
+        "lon": 9.3600153
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Demokratisches Zentrum Ludwigsburg",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.demoz-lb.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Demokratisches Zentrum Ludwigsburg",
+        "address": "45/1 Wilhelmstraße",
+        "city": "Ludwigsburg",
+        "postal_code": "71638",
+        "country": "DE",
+        "lat": 48.8958497,
+        "lon": 9.1847553
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Süddeutsche Gemeinschaft Bietigheim",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://gemeinschaft-bietigheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Süddeutsche Gemeinschaft Bietigheim",
+        "address": "31 Pforzheimer Straße",
+        "city": "Bietigheim-Bissingen",
+        "postal_code": "74321",
+        "country": "DE",
+        "lat": 48.95702,
+        "lon": 9.1248272
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Atrio Leonberg",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.atrio-leonberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Atrio Leonberg",
+        "address": "19/1 Böblinger Straße",
+        "city": "Leonberg",
+        "postal_code": "71229",
+        "country": "DE",
+        "lat": 48.7888769,
+        "lon": 9.0310022
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Heilig Kreuz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://katholische-kirche-kirchheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heilig Kreuz",
+        "address": "40 Dorfwiesenstraße",
+        "lat": 48.6718698,
+        "lon": 9.5146761
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "SPORT QUADRAT TSV 1848 Bietigheim",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tsvbietigheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SPORT QUADRAT TSV 1848 Bietigheim",
+        "address": "31 Schwarzwaldstraße",
+        "city": "Bietigheim-Bissingen",
+        "postal_code": "74321",
+        "country": "DE",
+        "lat": 48.9531881,
+        "lon": 9.1226565
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "TSV Waldenbuch 1891 e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.tsv-waldenbuch.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TSV Waldenbuch 1891 e.V.",
+        "lat": 48.6450951,
+        "lon": 9.1525256
+      },
+      "_metro": "Stuttgart, Germany"
     }
   ],
   "_not_included": {
