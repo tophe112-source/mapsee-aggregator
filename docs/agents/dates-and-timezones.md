@@ -196,3 +196,16 @@
   or time set". The flag names are SeatGeek's documented ones and are
   unverified against a live record (no SEATGEEK_CLIENT_ID), but the title rule
   does not need them. `python test_ingest_seatgeek.py`.
+
+- **A JSON-LD startDate CAN BE A UTC INSTANT PRINTED WITH NO OFFSET, AND
+  `naive_is_utc` + `timezone` IS NOW A JSON-LD SOURCE OPTION (2026-10-25).**
+  Tartu Kultuuriaken prints 2026-10-25T10:00:00 for 'P 25. okt 2026 | 12:00'
+  and 2026-10-23T16:00:00 for 'R 23. okt 2026 | 19:00' (5 of 5 pages, both
+  sides of the DST change). Read as local naive time, every row was 2-3 h
+  early. The option turns such a stamp into the zone's wall clock WITH its
+  offset, so the date digits that the fingerprint and the past check read are
+  local, and the sync passes the stamp through. It runs after the MEC rule and
+  only on stamps the page printed naive. Tartu itself is held
+  (adapters-and-sources.md); the option is in place for the next site that
+  prints UTC naive. GAM (Santiago) prints LOCAL naive times ('Sá y Do — 17 h'
+  beside 17:00:00), so the option is per site, never a default.

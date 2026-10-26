@@ -566,3 +566,14 @@
   Riparazione, or are titled with the slogan "Reparieren statt wegwerfen".
   Whether a repair café belongs on the second-hand door is a product call. If
   it does, the rule needs those names too.
+
+- **AN ADAPTER'S OWN "Family friendly." LINE IS A KIDS SIGNAL TO THE SYNC.**
+  mapsee_supabase_sync._KIDS_RX matches "Family friendly." but not "fun and
+  family-friendly event" (checked 2026-10-25). Galaxy Digital's "Is Family
+  Friendly" flag sits beside "14 and older" on 2 of Portland's 30
+  family-friendly needs (the Harvest Festival and Boo Bash crews: teen
+  volunteers). The adapter withheld kids from them, but its own description
+  line put kids back through derive_categories on both. Kids, and the line,
+  now need a minimum age of 12 or under. After the change: 64 of 98 rows
+  outdoors+kids, 28 outdoors, 6 neither, and the adapter and the sync agree on
+  every row.

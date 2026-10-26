@@ -679,13 +679,6 @@
   `base_url`. One retired 2026-10-24. Follow a candidate's redirect before
   merging it.
 
-- **THE JSON-LD ADAPTER HAS NO CRAWL-DELAY, SO A SITE THAT ASKS FOR ONE IS
-  CLOSED TO IT.** Askim Kulturhus (Crawl-delay 10, 53 program pages, 50
-  upcoming), Ælvespeilet (Crawl-delay 5, 57) and the bibliotek.io library
-  platform (Crawl-delay 20, place is the library name only) all carry correct
-  Event JSON-LD and were not proposed (2026-10-23); `mapsee_ingest_jsonld.py`
-  paces at about 1 s.
-
 - **SPOTIFY RESOLVED 0 ARTISTS IN 24 OF 24 SYNCS, SO IT ASKS ONLY A NAMED
   PERFORMER AND STOPS WHEN NOTHING ANSWERS.** Spotify enrichment asks only
   about lineup[0], never a title. On 2026-10-23, 24 of 24 syncs resolved 0
@@ -818,3 +811,75 @@
   most of the load on the host. A parser change must bump PARSER_VERSION,
   which re-reads only the upcoming pages. `python
   test_ingest_repaircafe_ch.py`.
+
+- **THE JSON-LD ADAPTER NOW READS ROBOTS.TXT AND KEEPS ITS CRAWL-DELAY
+  (2026-10-25); THIS REPLACES 'THE JSON-LD ADAPTER HAS NO CRAWL-DELAY'.** Of
+  the 835 configured sites (692 hosts), 31 were on a host asking 2-150 s (2-3
+  s: 8, 10 s: 12, 20-30 s: 10, 150 s: 1) and were read at about 1 s. Each
+  host's robots.txt is now read once a run (robots_txt.Robots). A request
+  waits max(1 s, the config's `crawl_delay`, the file's Crawl-delay) after
+  that host's last answer, across sites. Costs and savings: 1,202 s a full
+  pass (206 event pages on 12 listings); the old 1 s sleep after every site's
+  last page is gone. A wait over 30 s is not slept and that page is not asked,
+  and the robots.txt read counts as the host's first request (d812b3b): GRAAP
+  asks 150 s, so it is not asked at all, where it was read at 1 s; Askim's
+  first page waits 10 s after its robots.txt. A challenged robots.txt asks
+  nothing, and a request that raises still stamps its host. A wait that would
+  end past the deadline is not started. What robots.txt refuses is not asked:
+  0 listings are disallowed today; 16 sit behind an unreadable or challenged
+  file, and only lafontana.org's listing would have loaded. A host answering
+  429 is asked nothing more that run. Askim Kulturhus dry run: 49 of 52 pages
+  in 547 s. `python test_ingest_jsonld.py`.
+
+- **TARTU KULTUURIAKEN'S OCCURRENCE PAGES ALL CARRY THE EVENT'S ONE DATE, NOT
+  THEIR OWN (2026-10-25).** Its 'Kõik' listing (?starting_time=5) links 1,206
+  occurrences (?event=<id>) of 692 events. In a 300-page run, 29 events had
+  several pages, and every page of each gave the same startDate as the bare
+  /et/syndmus/<slug> page. Lammas Shaun's five showings (25 Oct to 8 Nov) all
+  say 8 Nov 13:00. Oscar & Roosamamma's seven upcoming showings all say 23
+  Oct, so it is dropped as past (37 of 299 events go that way). Keying by the
+  occurrence page buys nothing, so a config would capture the slug and read
+  each event once (url_template), one row per event at its JSON-LD date. Tartu
+  is held until its rows can be placed with a town check
+  (geocoding-and-addresses.md). The other showings exist only in the listing's
+  cards, which carry no JSON-LD.
+
+- **GALAXY DIGITAL ("GET CONNECTED") PORTALS: THE LISTING'S DATE TEXT DECIDES
+  WHAT IS READ, A CORNER NEEDS A MEASURED PIN, AND NOBODY'S CONTACT IS COPIED
+  (2026-10-25).** One template per host: /need/ (12 needs a page; a table on
+  Portland, a card grid elsewhere) and /need/detail/?need_id=N (a Location
+  table, plus a Shifts table with "N of M" open spots, or "Happens On" with a
+  free-text clock).
+  - Standing roles are refused unread: 0 of 7 "Flexible" pages and 0 of 5
+    ranged pages had a dated shift, and 44 of WWU's first 60 needs say "Is
+    Ongoing". Every other page is re-read each run because spots fill.
+  - Live: 92 requests, 1.7 min, 98 shifts on 3 portals, two runs with the same
+    98 fingerprints.
+  - Refused needs: 12 of Portland's 48 pages require a background check (SUN
+    Community Schools clubs); the 13th SUN club needs `skip_programs`; 7 have
+    no Location.
+  - Refused shifts: 6 of 723 shift rows are a "12:00am to 3:00am" placeholder;
+    5 shifts full.
+  - Placement: intersections, trails and address ranges get no answer from
+    Census, and Photon put "NE Sacramento St and NE 66th Ave, Portland" at a
+    restaurant on NE 49th. So 8 Portland Locations are pinned in the config,
+    keyed by exact Location text and measured by Census corner addresses and
+    OSM extents. 2 stay refused (Holman ln; N Lombard and N Bruce). Census
+    matched 39 of the 40 street addresses.
+  - People: 72 contact sentences were dropped on 59 of 80 pages. Two traps:
+    Olympia's editor wraps "please call\n360-..." inside one <p>, so a source
+    newline must be a space or "please call" survives; and "please reach out
+    to <First> <Last> by phone or email" has neither an address nor a number.
+  - Program vs Agency: a city portal's "Program" block is a programme ("Nature
+    Patches"), so the promoter is the department; a volunteer centre's
+    "Agency" block is the organiser.
+  - Absence is judged only on a read that finished (review, 2026-10-25): a
+    portal is `mark_complete`d only when every listing page and every need
+    page read, and every shift line parsed. The fixture's "Thu Nov 18, 2026"
+    (a Wednesday) is a shift line the adapter cannot read, so that read is not
+    complete and --retire-absent takes nothing off; a later listing page
+    holding no need is a gap, not the end of the list. A pinned need refused
+    today is `seen` under the key its row was written with (the override's
+    venue, "Rose City Bluff"), not the page's Location text. "Contact Jane Doe
+    at the front desk." is a named contact. Each check fails on the previous
+    adapter. `python test_ingest_galaxydigital.py`.

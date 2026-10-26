@@ -150,17 +150,22 @@ a second per host, nothing retried after a refusal). What was added is in
 | Mapa da Cultura, Cultura Viva, Rede das Artes (Brazil, federal) | **bot challenge** | `/api/eventOccurrence/find` answers a Cloudflare 403; Belo Horizonte answers 403 'Acesso Bloqueado'; Iguatu `Disallow: /` |
 | National CKAN portals of Chile, Argentina, Uruguay, Bogotá | **robots.txt refuses `/api/`** | not proposed; the ckan exemption is the owner's call per portal |
 | Digiregion 'Obecní síť' Czech village sites | **terms forbid reuse; unplaceable** | footer 'Použití obsahu bez svolení autora zakázáno'; 7 of 7 and 9 of 9 VEVENTs have an empty LOCATION |
-| Galaxy Digital 'Get Connected', Better Impact, Humanitix | **not probed for terms; no adapter** | rich in dated volunteer shifts with places (volunteer.portland.gov's 'Rose City Bluff Restoration' every Sunday 9:30); each needs its terms read and an adapter |
+| Galaxy Digital 'Get Connected' (volunteer.portland.gov, volunteer.olympiawa.gov, Mecklenburg) | **WORKS, adapter built (2026-10-25)** | `mapsee_ingest_galaxydigital.py`: robots.txt allows everyone, the platform's terms license the software to the customer, and each operator's own terms were read (WWU's could not be, so it is parked). 98 dated shifts in 90 days on 3 portals (curation-and-discovery.md, adapters-and-sources.md) |
+| Humanitix | **terms forbid automated reading** | Website Terms of Use 2(d): no "software, automated device, robot, spider, scraper ... to access, retrieve, scrape or index" without written consent. Not proposed (2026-10-25) |
+| Better Impact (MyImpactPage) | **allowed; no adapter** | robots.txt and terms pass, but the 26 Sacramento activity pages read give the place in prose and sign up through an application form (2026-10-25) |
+| Texas Parks & Wildlife calendar (`tpwd.texas.gov/calendar/@@event_listing_ical?mode=future`) | **terms need written consent for commercial reuse; candidate held** | robots.txt allows /calendar/ and /state-parks/. The copyright policy says no part may be copied or reproduced without prior written consent, except noncommercial or educational use with the credit line "Information courtesy Texas Parks and Wildlife Department". The `url_venues` book (68 parks) and a dry run (469 kept, 444 rows within 120 days) are ready. The owner decides, or TPWD's Communications Division is asked (2026-10-25) |
+| Ælvespeilet (`www.elvespeilet.no`), Paagman (2 jsonld listings), theater.nl (Singer Laren) | **bot challenge / 403** | Ælvespeilet's /Program answers 307 to /csq/ ('x-redirect-reason: no-token', BunnyCDN) after two connection resets, though its robots.txt reads (Crawl-delay 5). Paagman's two configured listings answer 403 to the production UA; theater.nl challenges on robots.txt and answers 403 on its listing. Refusals: not retried; Paagman and theater.nl should leave jsonld_sources.json (2026-10-25) |
 
-Leads that need an adapter option, not a config (measured 2026-10-23):
-Texas Parks & Wildlife's iCal holds 563 state-park programmes inside 120 days
-with no LOCATION, but every URL carries the park slug, so a URL-prefix-to-venue
-option would place them; Shift2Bikes' 184 rides put 'Name\nStreet, City\nnotes'
-in LOCATION, which the ics adapter joins into one Photon query (10 of ~150
-placed); Today's Family (Hamilton, Ontario, 2,462 drop-in rows) and Libraries
-Unlimited (Devon, 311 rows) are tribe sites whose venues carry an address and
-no geo, which no geocoder reaches outside the US; Tartu Kultuuriaken (152
-upcoming) prints UTC JSON-LD without an offset. KČT's hiking calendar (1,057
-future hikes, an inline FullCalendar array) has had its adapter since
-2026-10-24 (`mapsee_ingest_kct.py`), as have the Natuurwerkdag and
-repair-cafe.ch.
+Leads that needed an adapter option (measured 2026-10-23), and where each
+stood on 2026-10-25: Texas Parks & Wildlife's iCal (no LOCATION, the park slug
+in every URL) is placed by the ics `url_venues` option and held for its terms
+(row above); Shift2Bikes' rides ('Name\nStreet, City\nnotes') are read with
+`location_lines: true` and configured (118 kept in the dry run); Today's
+Family (Hamilton, Ontario) and Libraries Unlimited (Devon) are configured
+since the tribe StreetPlacer geocodes a venue abroad inside its own town
+(1,240 of 1,261 and 285 of 289 placed), with FFSP (267 of 277) and Hamilton
+Naturalists (17 of 34); Tartu Kultuuriaken's UTC JSON-LD with no offset is
+read by `naive_is_utc`, but Tartu is held until its street-and-town rows get a
+town check. KČT's hiking calendar (1,057 future hikes, an inline FullCalendar
+array) has had its adapter since 2026-10-24 (`mapsee_ingest_kct.py`), as have
+the Natuurwerkdag and repair-cafe.ch.

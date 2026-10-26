@@ -135,3 +135,31 @@
   ahead keeps it up until it ends, and a teal row made after the cutoff means
   the feed was not retired. The steps are in sync-eventstore-and-paging.md and
   0236.
+
+- **SKIP_TITLE AND SKIP_TYPES WORK IN BIBLIOCOMMONS CONFIGS NOW (2026-10-25);
+  UNTIL THEN NOTHING READ THEM.** Ten of twenty candidate configs carried a
+  skip_title that had never done anything. A library's calendar is also its
+  room-booking sheet, and only the gateway's event TYPE shows it: Glenview
+  typed 47 rows inside the 90-day horizon 'External Groups (Not Library
+  Sponsored)', each titled with the group's own name ('Tower Crossing Condo
+  Association'). skip_types takes whole type names, ignoring case and spacing;
+  two live names end in a space ('Tech ', 'Horticulture '). A row is dropped
+  if any of its types matches; a cancelled row is never filtered, because its
+  tombstone is what takes a row stored before the filter off the map. A bad
+  value raises before the first request, so main() fails that site by name and
+  the next runs. Measured cost of a type skip: Herrick's 'Public Meetings'
+  type held 42 rows in the horizon, and 25 were groups the public could
+  probably join (book clubs, Writers' Workshop). Dropping the type keeps 140
+  rows; a title rule aimed at the 17 board and task-force meetings would keep
+  165. The five systems refused for noise until then (Glenview, Lawrence KS,
+  Red Deer, Palo Alto, Herrick) keep 981 rows between them. `python
+  test_ingest_bibliocommons.py`.
+
+- **THE GATEWAY DOES NOT RETURN ROWS IN DATE ORDER, SO THE EARLY STOP WAITS
+  FOR A PAGE BEYOND THE HORIZON FROM END TO END (2026-10-25).** Glenview's
+  page 1 had 98 steps back in time among 199 neighbours and ran to 2027-12-08,
+  with 95 of its 200 rows inside 90 days. The early stop counted far-future
+  rows across the whole walk, so a later page of past or unplaceable rows
+  ended it and lost the in-horizon rows on the pages behind. It now stops only
+  on a page whose every row is beyond the horizon. `python
+  test_ingest_bibliocommons.py`.

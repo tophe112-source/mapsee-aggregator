@@ -717,3 +717,41 @@
   `cancellation_targets` already drops live keys from a tombstone's legacy
   list; `rekey_legacy` does not yet, so any adapter that keeps old keys across
   runs must filter them itself.
+
+- **TWO ADAPTERS ON ONE CALENDAR KEY ONE EVENT APART, SO PLACING THE SECOND
+  ONE DOUBLES THE MAP (tribe vs ics, 2026-10-25).** ajax.ca, bairrobenfica.pt,
+  torrent.es and teruel.es are in tribe_sources.json with no venue block and
+  in ics_sources.json, because their REST venues carry no geo. ics hashes the
+  whole LOCATION and tribe hashes the venue and town, so 24 of 24 Ajax events
+  that start together had two fingerprints. Until the street placer, the REST
+  rows were dropped at the sync as coordless and the ics rows were the only
+  ones. Placing them would have added 39 Ajax, 20 Benfica and 15 Torrent rows
+  beside the stored ics rows, and the dedupe hides a copy only within 150 m
+  once DEDUPE_APPLY is true. mapsee_ingest_tribe now leaves a site to ics when
+  an ics_sources.json feed reads it (same host, www. aside, at or under the
+  site's path; WSU Snohomish is not the Thurston feed's), and a test over the
+  live configs fails if a non-US one is missed. Retiring the ics entry hands
+  the calendar to tribe, and its stored ics rows stay beside the new ones
+  until they are past. `python test_ingest_tribe.py`.
+
+- **ONE UID ON SEVERAL DATES WAS ONE ROW, WITH THE LAST DATE'S KEY AND THE
+  FIRST DATE'S START (2026-10-25).** The ics parser reads no RECURRENCE-ID,
+  and EventStore keys a row by (source, UID). So each later date of a UID
+  re-keyed the record. Repair Cafe Toronto's 16 upcoming RECURRENCE-ID
+  instances of 2 UIDs gave 31 kept VEVENTs, 18 rows and 13 re-keys. Each
+  survivor was hashed from its last date but started on its first: Port Union
+  starts 2027-01-16 but is keyed 2027-12-11, so a date appended to the series
+  would mint a new database row and orphan the old one.
+
+  Measured over 222 configured feeds (41,109 VEVENTs, 1 req/s per host,
+  robots.txt): only kre-museum.jp (Event Organiser) did it, 2 dates under one
+  UID with no RECURRENCE-ID. No feed repeated a UID on one date.
+
+  `ingest_ics` now keys the first date of a UID, in walk order, by the bare
+  UID, and every later date "<UID>/<date>" (mapsee_gcal's shape). A cancelled
+  later date tombstones only its own date. An offline replay of the 231
+  downloaded bodies: 0 of 17,358 rows lost or re-keyed, 16 tombstones
+  unchanged, 14 rows added, and 3 rows whose start now matches their own
+  fingerprint. The database keys on the fingerprint, so those 3 stored rows
+  correct their start on the next full write (Wednesday's refresh under
+  --only-new).

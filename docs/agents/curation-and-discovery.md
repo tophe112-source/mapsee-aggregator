@@ -1725,3 +1725,163 @@
   osm_food, osm_secondhand, phl_parks, program, recital, restaurant,
   runsignup, toronto_rec. A config whose adapter reads a publisher's own pages
   belongs in `_ROBOTS_EXTRA`; a documented API does not.
+
+- **OUTSIDE THE US A NO-CALENDAR VERDICT IS MOSTLY TRUE: THE CALENDAR EXISTS
+  AND PUBLISHES NOTHING A WALK CAN READ (2026-10-25).** 60 non-US homepages
+  the ledger filed no-calendar (30 civic-city in FI, NO, JP, AT, DK, SI, SE,
+  LT, IS, MX; 30 probe-2 osm-venue rows in PL, CZ, FI, SE, DK, NO, JP),
+  re-probed with find_calendar through the walk's own gated session. 56 were
+  readable. The first thing that stopped the walk: 24 an HTML-only calendar
+  (RIS-Kommunal's per-event iCal; Japanese, Slovene, Polish and Czech
+  municipal CMSs; WordPress posts); 12 a platform with an API and no adapter
+  (Eventz.today 3: tapahtumat.nokiankaupunki.fi, kajaani.fi,
+  postojna.dogodki.today; Cruncho 2: Halmstad, Skellefteå; Moya FullCalendar
+  2: olfus.is, vik.is; DPL CMS 2: genbib.dk, rdb.dk; LinkedEvents 1:
+  kalenteri.jyvaskyla.fi, which is keskisuomievents.fi/api/v1 with 2,198
+  events from today and a robots.txt that allows it; Helmet 2, which is
+  Helsinki's LinkedEvents and ingested already); 13 no calendar on the site; 6
+  JavaScript-only; 1 robots.txt. 14 named the calendar only in a word the walk
+  lacked. 7 sent no header charset (all 6 Japanese) and were read as Latin-1.
+  3 spent a civic follow on a waste or meeting calendar and 3 on a prevent…
+  link. 0 hid a calendar link in a single-quoted or unquoted href. 2 followed
+  an &amp;-mangled URL (rousinov.cz answered 400). Unescaping hrefs is NOT
+  done yet: 14 ledger keys and 9 ics_sources.json lines carry an entity, so a
+  fix would re-propose them under new keys unless dedupe learns both spellings
+  first. The hand-found Finnish towns (Vesanto, Muhos, Hirvensalmi,
+  Rautalampi) are found by the old probe; the civic walk had not reached them.
+  Recall on 255 configured calendars in 14 of these countries, probed from
+  their homepages: 233 found by the old probe, 44 of the 49 found by hand
+  among them.
+
+- **THE WALKS' OTHER LANGUAGES ARE A FALLBACK, ONE FOLLOW AT MOST
+  (2026-10-25).** Of 56 readable non-US homepages filed no-calendar, 14 named
+  their calendar only in a word the walk did not read (Wydarzenia, Akce,
+  Dogodki, Viðburðir, Hva skjer, Tapahtumakalenteri, イベント). Read in the same
+  pass as the old words, these words moved 14 of 255 configured calendars to a
+  key no config holds. So they are read only when the old words led nowhere
+  and the homepage shows no platform, and they get one follow at most
+  (INTL_MAX_FOLLOW). On 325 readable non-US no-calendar homepages that cost
+  646 -> 730 requests and found 1 verify-passing candidate. A link that writes
+  waste, bookings or meetings onto the calendar word (Müllkalender,
+  Hentekalender, Møtekalender, varauskalenteri), or names occupancy, is not
+  followed: 15 osm-venue ledger rows had one as their first followed page, and
+  0 of 5,529 shipped entries match. `(?<!pr)events?`: 81 osm-venue rows had a
+  prevent... page as theirs. A page whose header names no charset is decoded
+  by its own <meta>: 7 of 56 sample homepages, including all 6 Japanese.
+
+- **EVENT ORGANISER'S EXPORT IS THE SITE ROOT'S, NOT THE HOMEPAGE'S PATH
+  (2026-10-25).** Its FEED_TEMPLATE reads {root}, the scheme and host only.
+  From {origin} (the homepage as it answered, path included), two OSM venues
+  on subpages of one WordPress site proposed two keys for one export. The
+  subpage spelling is not even the calendar: depana.org/?feed=eo-events is
+  869,625 bytes with 443 VEVENTs, while
+  depana.org/assemblea-general/?feed=eo-events is a 350-byte VCALENDAR with
+  none, which the probe accepts and verify fails. A WPML language prefix loses
+  nothing: jidyszland.pl/pl/ and the root give identical 227 bytes. All 8
+  eo-events keys in configs and ledger sit at the root. My Calendar still uses
+  {origin}, and it has the same duplicate-key flaw
+  (essenfueralle.org/beziehen/biel-bienne/ and /zuerich/ export byte-identical
+  feeds). It cannot move to the root until the dedupe learns its path
+  spelling, because 4 configured My Calendar feeds carry a path
+  (photofri.ch/pcfwp/, papermuseum.jp/ja/, kultur-vor-ort.com/mosaik/,
+  leroy-groningen.nl/het-leroyhuis/).
+
+- **A PLUGIN THAT OUTRANKS THE PAGE FOR ITS EXPORT DOES NOT WHEN THE EXPORT
+  DID NOT ANSWER (settled_adapter, 2026-10-25).** My Calendar, Event Organiser
+  and Events Manager rank above jsonld-event, Modern Events and WP Event
+  Manager in adapter_for. When their FEED_TEMPLATES export was refused,
+  switched off or not a VCALENDAR, a site the other reader would have shaped
+  was parked ics-without-feed again on every probe. The find is now re-read
+  without those labels, and keeps `ics` and its reason only when nothing else
+  names an adapter. Incidence is unmeasured: 0 of the 9 ics-without-feed
+  ledger rows carry a second label.
+
+- **A CALENDAR THAT NAMES ITS PLACE ONLY IN THE EVENT URL IS A `url_venues`
+  BOOK AWAY FROM WORKING (2026-10-25).** Texas Parks & Wildlife's iCal
+  (plone.app.event `@@event_listing_ical?mode=future`) has 609 VEVENTs with no
+  LOCATION and no GEO, and the adapter dropped every one. 570 of them sit
+  under /calendar/<park>/ in 68 park folders (474 upcoming); 39 sit in 4
+  statewide folders (education, recruiting, Texas Outdoor Family, events) that
+  are somewhere different each time.
+
+  `url_venues: [{pattern, venue}]` pins a no-place VEVENT whose absolute URL
+  matches a pattern. It runs before the source's own `venue`; `venue_skip`
+  still applies; and the log counts the VEVENTs no pattern knows, so a new
+  park folder shows up.
+
+  The book came from each park page's printed "Latitude:/Longitude:", read
+  once at 1 req/s; the 5 park units came from their parent park's page. Every
+  point is within 15 km of Photon's answer for the park (median 1.1 km). Dry
+  run: 469 kept, 444 rows within 120 days at 65 parks. In their own text, 6 of
+  474 upcoming park events are elsewhere: 2 ONLINE PROGRAM and 4 outreach
+  events. The venue_skip catches 5; Buescher's Trunk or Treat stays about 4 km
+  off, because Purtis Creek's event of the same title is at its park.
+
+  Plone stamps every VEVENT TZID=US/Central, El Paso parks included, and the
+  event page shows "8:30a". So `wall_clock_tzids: ["US/Central"]` lets the
+  sync zone the 3 El Paso parks as America/Denver.
+
+  The candidate is held for TPWD's terms (platforms-probed.md).
+
+- **A JSONLD HOST THAT ASKS A CRAWL-DELAY OF 30 s OR LESS CAN BE PROPOSED NOW
+  (2026-10-25).** The adapter reads robots.txt itself, so `_PACED` in
+  catalog_curate.py does not need 'jsonld': the config's `crawl_delay` only
+  lengthens the pace. A host asking more than 30 s is read from its listing
+  alone. verify_jsonld still sends the listing and the first event page back
+  to back, which breaks a 10 s delay by one request; it should pace by the
+  file it just read. GAM-style sites (an Event on every detail page, none on
+  the listing) already work through link_pattern: GAM read 6 of 76 linked
+  pages and kept 2 (2026-10-25).
+
+- **THE VOLUNTEER DOOR'S THREE UNCHECKED PLATFORMS, GATED 2026-10-25:
+  HUMANITIX REFUSES BY ITS TERMS, BETTER IMPACT PUTS THE PLACE IN PROSE,
+  GALAXY DIGITAL IS READ.** All three were checked with our own User-Agent.
+  - Humanitix: robots.txt is `Allow: /`, but its Website Terms of Use 2(d) say
+    you will not "Use any software, automated device, robot, spider, scraper,
+    or other process or means to access, retrieve, scrape or index the
+    Websites or any content on the Websites without our express written
+    consent", and clause 4 forbids to "copy, monitor ... extract ... publish
+    or distribute any material". That is a refusal (Northey Street City Farm,
+    Perth City Farm, Green Adelaide and Get Outdoors Nevada stay out).
+  - Better Impact (MyImpactPage): app.betterimpact.com/robots.txt disallows
+    only /Status, /Application, /Content, /Images and /System, and its SaaS
+    agreement 2.4 binds the customer. It passes, but the 26 Sacramento
+    activity pages read give the place in prose ("3901 Land Park Dr. (picnic
+    area behind Fairytale Town)") and sign up through "Fill in an
+    application". Not built.
+  - Galaxy Digital passes and is built as mapsee_ingest_galaxydigital.py:
+    - The same 1,151-byte robots.txt on 4 portals and on api2: `User-agent: *
+      / Disallow:`.
+    - galaxydigital.com/terms-and-conditions licenses the software to the
+      customer ("Reproduce, modify, copy, deconstruct, sell, trade, or resell
+      the Services") and says nothing of reading public pages.
+    - Each portal's "Terms and Conditions" link is its /privacy page.
+    - An operator's own site must be read too. Olympia: "may be distributed or
+      copied", but lists of individuals "may not be used for commercial
+      purposes". Portland and Mecklenburg: nothing on reuse. www.wwu.edu
+      failed TLS from our client (robots.txt unreachable, so RFC 9309 says
+      disallow), so WWU's portal is parked in galaxydigital_sources.json
+      `_not_included`.
+  - VolunteerMatch and Idealist remain off-limits by ToS.
+
+- **A HAND SWEEP OF LIBRARY PLATFORMS FOUND 98 SYSTEMS NO BACKEND DISCOVERS:
+  44,880 PROGRAMMES IN 90 DAYS (2026-10-25).** No discovery backend finds a
+  BiblioCommons tenant, a Communico tenant or a LibCal calendar id; each was
+  found by hand, checked by a second agent told to refute it, and passed
+  `verify` under the production User-Agent in host-paced rounds (LibCal
+  tenants ask Crawl-delay 10).
+  - BiblioCommons: 20 systems, 7,266 rows (Dayton Metro 2,027 to Laurel County
+    86), every row on the gateway's own branch point.
+  - Communico: 40 systems as 77 feeds, 18,842 rows. Communico ignores its own
+    `days` filter and caps a feed at 500, so a big system is split by location
+    id until each feed reaches its horizon; a feed capped short of 90 days
+    (Hartford Downtown, Buffalo Central) was dropped.
+  - LibCal: 38 systems as 123 feeds, 18,772 rows.
+  - Placement: 1,299 LibCal and 2,247 Communico `location_overrides` pin each
+    room to its own branch, where the tenant's record carried the wrong
+    address (Allen County's Little Turtle under the Main Library's) or GEO
+    0;0. In the final dry run 50,792 of 50,853 kept rows were placed and none
+    at the wrong branch.
+  - Left out: Delaware County PA (off-site rows the ics adapter cannot yet
+    refuse), Cedar Mill/Bethany (already read through the wccls BiblioCommons
+    gateway).

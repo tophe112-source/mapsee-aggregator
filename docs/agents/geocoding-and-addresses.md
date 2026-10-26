@@ -264,3 +264,104 @@
   "Saas, Schweiz" answers Saas-Fee, 169 km from 7247 Saas. That only matters
   if the town-alone point is trusted, not when it is used to refuse. `python
   test_ingest_repaircafe_ch.py`.
+
+- **ABROAD, A TRIBE VENUE WITH A STREET AND A TOWN IS GEOCODED NOW, AND THE
+  TOWN IS THE SAME POINT, NOT 50 M (2026-10-25).** The 43 readable non-US
+  tribe sites with no venue block (or one with `names`) had 1,149 of 4,769
+  upcoming rows with a street and a town but no geo_lat, and the sync dropped
+  all of them. `mapsee_ingest_tribe.StreetPlacer` sends each venue to Photon
+  once per run, through `make_geocode` (the ics cache, GEOCODE_MAX_NEW, no
+  lookups after the deadline), and only one lookup is in flight across the 3
+  workers. It keeps an answer that is within 10 km of the row's
+  postcode-and-town point. It refuses an answer that sits exactly ON the
+  town's node, or on the point of a digits-only postcode.
+  - Calibration: 162 venues that carry their own pin, asked as if they did
+    not. 150 were placed, median 76 m off, 90% within 1.05 km. The 3 more than
+    5 km off are publisher errors (two lost the longitude's minus sign). 12
+    were 1 to 4.6 km off: the middle of a street, or a bus stop.
+  - The repair café's 50 m rule does not carry over. A village's venue is
+    often on its main street: 5 pinned venues were 17-37 m from the node. A
+    postcode with letters in it (UK, CA, NL) belongs to a building: G.L.
+    Armstrong school is 0.01 m from L9A 1C3's point.
+  - 10 km rather than 15: at 15, "Carlingford Road, A91 PF57 Dundalk" becomes
+    a nursing home in Carlingford, 12.8 km off.
+  - Attempts: the whole street with any (aside) dropped, then its numbered
+    part, then its last part. Libraries Unlimited's "Bideford Library, Arts
+    Centre, The Quay" (157 rows) is only found by its last part. Without the
+    postcode, Photon drifts to a same-kind feature nearby (Appledore Library
+    for Bideford).
+  - What a point-only guard cannot catch: Today's Family's "64 Sulphur Springs
+    Road, Ancaster" answers Ancaster Sports Centre, about 2.4 km off. Photon's
+    properties name the other street, but the shared geocoder returns only a
+    point.
+  - Cost: Photon gave the same point for ", FR" and ", France" on 250 of 252
+    questions. The four leads' first read took 764 lookups in 16.6 min, mostly
+    FFSP's 277 villages; later reads ask only the misses.
+  - Run `python test_ingest_tribe.py`.
+
+- **A POSTAL BOX IS ANSWERED WITH A POST OFFICE INSIDE THE TOWN, SO A TOWN
+  GUARD KEEPS IT (tribe, 2026-10-25).** Coffs Harbour Regional Landcare's
+  Green Bluff working bees give the street "PO Box 1730", 2450 Coffs Harbour.
+  Photon answered "Coffs Harbour Jetty PO", 2.6 km from the town's point and
+  not on its node, so a within-10-km, not-the-node guard kept it, 10.4 km from
+  the headland. A distance guard cannot tell a street that is not a place, so
+  mapsee_ingest_tribe refuses a street that is only a postal box (a comma part
+  starting PO/GPO Box, Post Office Box, Locked or Private Bag, Postfach,
+  Postbus, Postboks, boite postale, Apartado N, Casilla N) or that says it is
+  online, before asking anything. Not the bare French "BP 12": "Bp." is
+  Budapest, and 10 configured Tribe sites are Hungarian. Of 617 distinct
+  streets on 43 non-US Tribe sites and the four leads, and 4,499 in five CI
+  copies of the civic feeds_events.json, the checks refuse "PO Box 1730" and
+  "Virtual via Zoom; no physical location" and nothing else. `python
+  test_ingest_tribe.py`.
+
+- **A LOCATION ON SEVERAL LINES WAS ONE PHOTON QUERY, AND IT PLACED 21 OF 152
+  (2026-10-25).** Shift2Bikes (Portland's social-ride calendar) writes every
+  LOCATION as "Name\nStreet\nnotes". `_location` joins the lines with spaces,
+  and that text stays the row's place name and fingerprint. As the only query
+  it placed 21 of 152 live rides. Two of those were "TBD\nTBD", which Photon
+  put on a sculpture called "TBD - Female Figure" in Hood River, 93 km off.
+  Each line asked alone, over the 45 distinct LOCATIONs:
+  - name + second line placed 74, all right except 3 placeholder pairs;
+  - the street line alone placed 104, but 15 of its 33 distinct answers were
+    not the house (1120 SE Madison St came back as 1120 SW 5th Ave, "700 NE
+    Multnomah St 3rd floor" as 700 SW 3rd Ave, 2415 SE 11th as 206 SE 11th,
+    "37th & Skidmore" as a fountain downtown);
+  - the name alone placed 123, but 12 of 34 distinct answers were wrong (NoPo
+    as NoPo Paws, Migration Brewing at its other branch).
+
+  Since 75e1add this is OPT-IN, `location_lines: true` per source: it was
+  measured on one calendar's layout, and asked for every multi-line LOCATION
+  it dropped the CivicPlus address half and the Events Calendar comma
+  remainder, and Europe's "Name / Street N / POSTCODE City" was never
+  measured. An opted-in source asks the lines first and then the joined
+  string's own attempts it has not asked, so it can only gain a pin; every
+  other source asks exactly what it asked before. `line_attempts` asks, in
+  order: name + street line; the street line only when it starts with a house
+  number, kept only if Photon's housenumber, a street word and the direction
+  all agree (`_street_confirms`: 17 right kept, 0 of 15 wrong); the joined
+  string, as before; the name, kept only on an exact word set
+  (`_name_confirms`: drops 11 of 12 wrong). Placeholder lines and links are
+  never sent (Photon answered a Google Maps link with a 403). Every line "TBD"
+  now reads as a placeholder (`_all_placeholder_lines`). Result: 125 of 152
+  placed, every one checked by hand; the opted-in dry run that added the feed
+  kept 118 rows, 109 inside 120 days at 25 meeting points, with 22 cancelled
+  test events tombstoned. A single-line LOCATION is untouched; none of 24,217
+  upcoming VEVENTs in 222 configured feeds has several lines.
+
+  Separately, a miss is now remembered for the rest of the run, per source.
+  Before, it was re-sent for every VEVENT that carried that LOCATION: in those
+  222 feeds, 10,462 upcoming no-GEO VEVENTs share 851 distinct LOCATIONs.
+  Shift2Bikes went from 130 Photon requests per warm run to 32.
+
+- **A JSON-LD EVENT ABROAD WITH A STREET AND A TOWN BUT NO GEO STAYS UNPLACED,
+  ON PURPOSE, UNTIL IT GETS A TOWN CHECK (2026-10-25).** The sync's Census
+  pass sends no non-US address (_census_parts), so such a row is dropped.
+  a0c5547 gave it one cached Photon lookup of "street, town" (Tartu
+  Kultuuriaken: 260 of 262 upcoming placed, all in South Estonia), but it kept
+  Photon's first answer unchecked, and the review found answers at another
+  street or town; Tartu's rows also include online courses and a city-wide
+  placeholder that would have been pinned. d812b3b took the branch out: such
+  rows go back to unplaced until the tribe StreetPlacer's town check (within
+  10 km of the postcode-and-town point, never ON the town's node) is shared
+  with jsonld. Tartu is not added.

@@ -387,3 +387,16 @@
   mutations each fail `test_ingest_repaircafe_ch.py`, which reads the saved
   store through the sync's own `cancellation_inputs` and
   `absent_fingerprints`.
+
+- **'LOCATIONS' IS A LIBRARY SYSTEM'S WORD FOR ITS BRANCHES, AND A CLOSURE ROW
+  STORED UNDER THAT TITLE KEEPS IT FOR ITS TOMBSTONE (2026-10-25).** 'All
+  Library Locations Closed' (Kenton County, BiblioCommons) and 'All HPL
+  Locations are Closed for Thanksgiving Day' (Hoboken, NJ, Communico; not
+  Houston) got past _CLOSURE_TITLE_RX until 'locations?' joined its nouns. The
+  added noun newly matches 8 of 251,458 distinct titles across 7,298 stores
+  and feed captures, and every one is a whole-system closure. A cancelled
+  closure row stored before the change is keyed by that title, so
+  bibliocommons now tombstones it under its own title instead of dropping it
+  as naming no event; without that, the stored row would never be hidden.
+  Hoboken's 8 stored closure rows still need a hide in the database. `python
+  test_cancellations.py`.

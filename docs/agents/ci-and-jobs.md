@@ -501,3 +501,23 @@
   and the store held all 72 rows by run 2. The done line says "(stopped at the
   step deadline) (N site(s) cut short)" whenever a site was cut, even when
   every site started.
+
+- **A DEADLINE CHECKED BEFORE THE PAUSE LETS A REQUEST START PAST
+  --max-minutes, AND robots.txt IS AN UNPACED REQUEST.** The Client contract
+  that glenecho and natuurwerkdag use checks `clock() >= deadline` and THEN
+  sleeps the pause. With a fake clock (pause 1.1 s, 0.2 s a request, deadline
+  5.0) the last request went out at 5.7. Robots.check() also fetches
+  robots.txt outside the Client's pacing, so the first page followed it 0.2 s
+  later. mapsee_ingest_galaxydigital's Client stops when `clock() + wait >=
+  deadline`, and counts and paces a fresh robots.txt read.
+  test_ingest_galaxydigital asserts both: no request at or after the deadline,
+  and at least 1.1 s between any two requests to a host, robots.txt included.
+  Mutating either check fails the test.
+
+- **THE JSONLD STEP NOW PAYS EACH HOST'S CRAWL-DELAY (2026-10-25).** That is
+  1,202 s more per full pass for the 30 configured hosts asking 2-30 s. It is
+  offset by dropping the 1 s sleep after every site's last page, one second
+  off each of the 835 site visits. robots.txt is one more request per host per
+  run (692 hosts per pass); in a 16-worker audit all 692 took 122.5 s. Askim
+  Kulturhus, added, costs about 9 min (52 pages at 10 s) per visit of the
+  45-minute step; Tartu (200 pages at 2 s, about 8 min) is held.
