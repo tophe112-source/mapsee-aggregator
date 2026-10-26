@@ -1119,7 +1119,8 @@ with patch.object(ICS, "_fetch_ics", return_value=(SHIFT_ICS, "200")), \
      patch.object(ICS, "geocode_allowed", return_value=True), \
      patch.object(ICS.time, "sleep"), \
      redirect_stdout(io.StringIO()) as out:
-    ICS.ingest_ics(store, session, {"name": "shift", "url": "https://shift.test/cal.ics", "geocode_suffix": SUFFIX})
+    ICS.ingest_ics(store, session, {"name": "shift", "url": "https://shift.test/cal.ics", "geocode_suffix": SUFFIX,
+                                    "location_lines": True})
 row = next((r for r in store.rows if r.source_id == "s1"), None)
 check("a multi-line LOCATION is placed, and keeps the joined text as its place name and identity",
       row is not None and (row.latitude, row.longitude) == (45.52425, -122.65953)
@@ -1134,6 +1135,34 @@ check("a LOCATION on one line is asked exactly as before (whole, address half, v
       session.queries[-3:] == ["Elmer W. Oliver Nature Park - 1650 Matlock Road Mansfield TX 76063",
                                "1650 Matlock Road Mansfield TX 76063", "Elmer W. Oliver Nature Park"],
       session.queries)
+
+# Without location_lines a multi-line LOCATION is asked exactly as before:
+# the joined string through location_attempts, never a line on its own.
+session = AnswerSession(ANSWERS, SUFFIX)
+store = VenueStore()
+with patch.object(ICS, "_fetch_ics", return_value=(SHIFT_ICS, "200")), \
+     patch.object(ICS, "_GEO_CACHE", {}), \
+     patch.object(ICS, "geocode_allowed", return_value=True), \
+     patch.object(ICS.time, "sleep"), \
+     redirect_stdout(io.StringIO()):
+    ICS.ingest_ics(store, session, {"name": "shift-off", "url": "https://shift.test/cal.ics", "geocode_suffix": SUFFIX})
+check("a source that did not opt in asks no line on its own (the joined string, as it always has)",
+      BOTELLON_JOINED in session.queries
+      and "Bar Botellon, 606 NE Davis St, Portland, OR 97232" not in session.queries
+      and "606 NE Davis St, Portland, OR 97232" not in session.queries, session.queries)
+
+# Opted in, the lines go first and the joined string's own attempts follow,
+# so the CivicPlus address half is still asked when the lines miss.
+HALF = "1650 Matlock Road  Mansfield TX 76063 Pavilion 2"     # location_attempts' address half of the joined string
+session = AnswerSession({HALF: _feature(32.56, -97.14)}, SUFFIX)
+with patch.object(ICS, "_GEO_CACHE", {}), \
+     patch.object(ICS, "geocode_allowed", return_value=True), \
+     patch.object(ICS.time, "sleep"):
+    geocode = ICS.make_location_geocoder(session, SUFFIX)
+    civic = ["Elmer W. Oliver Nature Park - 1650 Matlock Road  Mansfield TX 76063", "Pavilion 2"]
+    got = ask(geocode, " ".join(civic), civic)
+check("...and when every line misses, the joined string's address half is still asked and places it",
+      got == (32.56, -97.14) and session.queries[-1] == HALF, (got, session.queries))
 
 # --- one UID on several dates is one row per date ------------------------------
 # Repair Cafe Toronto expands its series as RECURRENCE-ID instances of one UID:

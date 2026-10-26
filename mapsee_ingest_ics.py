@@ -46,6 +46,12 @@ Config per source (JSON list):
                      For a calendar that names the place only in its URL path:
                      Texas Parks & Wildlife's 609 VEVENTs carry no LOCATION, and
                      570 sit under /calendar/<park>/ (see _url_venue_rules).
+    location_lines   optional true: a LOCATION written on several lines
+                     ("Name\nStreet\nnotes") is asked line by line, under a
+                     check on Photon's own answer, before the joined string
+                     (see line_attempts). Off unless set, because it was
+                     measured on one calendar's layout (Shift2Bikes); every
+                     other source asks the joined string as it always has.
 
 Events need coordinates to land on the map: a VEVENT GEO property wins;
 otherwise the LOCATION string is geocoded via Photon (OSM) — one polite
@@ -590,9 +596,16 @@ def make_location_geocoder(session, suffix: str):
         first = _key(loc)
         if first in cache:
             return cache[first]
-        # `lines`: the LOCATION's own lines when it has several (line_attempts).
-        attempts = (line_attempts(loc, lines) if lines and len(lines) > 1
-                    else [(a, None) for a in location_attempts(loc)])
+        # `lines`: the LOCATION's own lines when it has several and its source
+        # opted in (location_lines). The lines go first; then what the joined
+        # string has always been asked (location_attempts: the CivicPlus
+        # address half, the Events Calendar's comma remainder), so a source
+        # that opts in can only gain a pin, never lose one it had.
+        attempts = [(a, None) for a in location_attempts(loc)]
+        if lines and len(lines) > 1:
+            first_tries = line_attempts(loc, lines)
+            asked = {a for a, _check in first_tries}
+            attempts = first_tries + [(a, c) for a, c in attempts if a not in asked]
         for attempt, check in attempts:
             if "://" in attempt:
                 continue                             # a link is not a place; Photon answers it with a 403
@@ -1314,9 +1327,13 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         else:
             lat, lon = geo if geo else (None, None)   # GEO:0;0 is "unset", not the Gulf of Guinea
         if venue is None and (lat is None or lon is None) and loc and not is_cancelled:
-            # Lines only when there are several: a geocoder other code (and
-            # the tests) hands in takes the LOCATION alone.
-            lat, lon = geocode(loc, lines) if lines else geocode(loc)
+            # Lines only when there are several AND the source opted in
+            # (location_lines): line_attempts was measured on one layout
+            # (Shift2Bikes), and Europe's "Name / Street N / POSTCODE City" is
+            # another. A geocoder other code hands in (the gcal smoke read's
+            # stub, the tests) takes the LOCATION alone.
+            lat, lon = (geocode(loc, lines) if lines and src.get("location_lines")
+                        else geocode(loc))
         url_matched = url_missed = False
         if venue is None and lat is None and not loc and not elsewhere and url_venues:
             by_url = _url_venue(src, ev, url_venues)
