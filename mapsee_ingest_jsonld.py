@@ -29,6 +29,12 @@ Config (jsonld_sources.json):
                   non-events a venue posts to its own calendar: "CLOSED FOR
                   MAINTENANCE", "Closed for Private Event". Without it those reach
                   the map as ordinary listings.
+      crawl_delay seconds between two requests to the site's host. Only ever
+                  LENGTHENS the pace: the host's own robots.txt Crawl-delay is
+                  read every run and the longer of the two wins (see _pause_for).
+      naive_is_utc + timezone   the site prints a UTC instant with no offset
+                  ("2026-10-24T09:00:00" for a noon start in Tartu); such stamps
+                  are turned into `timezone`'s wall clock with its offset.
     link_pattern matches either literal hrefs (no url_template) or captures a
     fragment that url_template turns into a page URL — Wix pages, for example,
     embed the FULL event list as {"slug": ...} JSON while only rendering the
@@ -38,10 +44,13 @@ Config (jsonld_sources.json):
 Notes:
   • Tolerant JSON: some sites (Ticket Tomato) emit invalid \\' escapes in their
     JSON-LD — those are repaired before parsing.
-  • Coordinates: location.geo when present; otherwise a street address is left
-    for the sync's Census batch geocoder, and address-less venues fall back to
-    one cached Photon lookup (same geocode_cache.json as the other feed adapters).
-  • Politeness: identified UA, ~1s between event-page fetches, per-site cap.
+  • Coordinates: location.geo when present; otherwise a US street address is
+    left for the sync's Census batch geocoder, and address-less venues, and
+    street addresses outside the US, fall back to one cached Photon lookup (same
+    geocode_cache.json as the other feed adapters).
+  • Politeness: identified UA, robots.txt read once per host a run and obeyed,
+    at least 1 s (or the host's Crawl-delay) between two requests to one host,
+    per-site cap. See the pacing section below.
   • Modern Events Calendar (measured 2026-10-04; see the notes above
     _mec_unset_price and _mec_wall_clock). Its "price": "0" is an EMPTY cost
     field, not a free event, so on a page carrying MEC's markup a bare zero is
@@ -66,6 +75,9 @@ from mapsee_geo_budget import geocode_allowed
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+import robots_txt
 
 try:
     import requests
@@ -106,6 +118,119 @@ def _save_cursor(path, source, offset=0, inline_offset=0):
     with open(tmp, "w", encoding="utf-8") as fh:
         json.dump({"source": source, "offset": offset, "inline_offset": inline_offset}, fh)
     os.replace(tmp, path)
+
+
+# ---- pacing: robots.txt, and one host's requests as far apart as it asks ------
+# THIS ADAPTER NEVER READ ROBOTS.TXT AND PACED EVERY HOST AT 1 s. Measured
+# 2026-10-25 over the 835 configured sites (692 hosts): 31 sites are on a host
+# whose robots.txt asks for more (2-3 s: 8, 10 s: 12, 20-30 s: 10, 150 s: 1),
+# and every one of them was being read at about 1 s. Curation left the other
+# side out: Askim Kulturhus (Crawl-delay 10, 52 program pages) and Ælvespeilet
+# (5) were not proposed on 2026-10-23 for exactly this. So each host's
+# robots.txt is read once a run (robots_txt.Robots, the parser verify uses) and
+# a request starts no sooner than max(MIN_INTERVAL_S, the site's `crawl_delay`,
+# the file's Crawl-delay) after the previous answer from the same host, across
+# sites, so two configs on one host share its pace. Honouring the 30 delays of
+# 30 s or less costs 1,202 s a full pass, over the 206 event pages 12 of those
+# listings link today; 12 others carry their Events on the listing itself, and
+# 6 did not answer or showed none. The wait is taken before a request now, not
+# after every one, so a site's last page no longer sleeps 1 s for a host nobody
+# asks next: a second off each of the 835 site visits.
+#
+# A WAIT LONGER THAN MAX_CRAWL_DELAY_S IS NOT SLEPT: THE REQUEST IS NOT SENT.
+# GRAAP asks 150 s, and its 28 event pages would be 70 min of a 45-minute step;
+# a sleep carried past --max-minutes would resume on the same page next run and
+# sleep again. The first request to a host in a run waits for nothing (robots.txt
+# itself is not counted), so such a site is still read from its listing alone,
+# once a visit: GRAAP's listing carries 30 Event blocks. 30 s is the cap the OSM
+# walk uses (OSM_MAX_CRAWL_DELAY_S in catalog_curate.py).
+#
+# WHAT ROBOTS.TXT REFUSES IS NOT ASKED: a Disallow on the page's path, a bot
+# challenge served on robots.txt, or a file that cannot be read at all (RFC 9309
+# section 2.3.1: assume Disallow: /). On 2026-10-25 no configured listing was
+# disallowed; 16 sat behind an unreadable or challenged robots.txt. Of their 15
+# hosts, 12 failed the listing request too (TLS and connection errors, a 403)
+# and 2 answered robots.txt when asked again; one listing, lafontana.org's,
+# loaded while its robots.txt did not, and is skipped until that file answers.
+#
+# A HOST THAT ANSWERS 429 IS ASKED NOTHING MORE THIS RUN. Tartu Kultuuriaken,
+# which sets no Crawl-delay, answered "429 Too Many Requests" to the 301st page
+# of a second 300-page dry run, about 600 requests in 27 min at this 1 s pace
+# (2026-10-25), and the adapter went on asking it at the same pace. Its next
+# visit starts again from the listing. Same rule as
+# mapsee_ingest_drupal_fullcalendar's 429.
+MIN_INTERVAL_S = 1.0
+MAX_CRAWL_DELAY_S = 30.0
+_ANSWERED: Dict[str, float] = {}        # host origin -> perf_counter() of its last answer
+_THROTTLED: set = set()                 # host origins that answered 429 this run
+
+
+def _site_delay(site: Dict[str, Any]) -> float:
+    """The config's own `crawl_delay`, 0 when unset; a junk value is a config error."""
+    raw = site.get("crawl_delay")
+    if raw is None:
+        return 0.0
+    if isinstance(raw, bool) or not isinstance(raw, (int, float)) or raw < 0:
+        raise ValueError(f"{site.get('name', '?')}: crawl_delay must be a number of seconds, not {raw!r}")
+    return float(raw)
+
+
+def _pause_for(robots, url: str, site_delay: float) -> Tuple[Optional[float], Optional[str]]:
+    """(seconds this url's host wants between two requests, None), or (None, why
+    robots.txt refuses the url). `robots` None asks nothing: the floor and the
+    config's delay only, which is what the offline tests drive."""
+    pause = max(MIN_INTERVAL_S, site_delay)
+    if robots is None:
+        return pause, None
+    ans = robots.check(url)
+    if ans.get("allowed") is not True:
+        return None, (f"robots.txt ({ans.get('status')}) refuses {robots_txt.request_path(url)[:80]}"
+                      + (f": {ans['rule']}" if ans.get("rule") else ""))
+    return max(pause, float(ans.get("crawl_delay") or 0)), None
+
+
+def _ask(session, robots, url: str, site_delay: float, now: Optional[float],
+         deadline: Optional[float], expired: "BudgetExpired", tally: Dict[str, Any]):
+    """GET `url` once its host may be asked again; None when it may not be.
+
+    `now` is the caller's own time.monotonic() read and `expired` the
+    BudgetExpired it would raise: test_feed_budgets drives the clock with a
+    fixed list of values, one per page, so this reads none of its own. The
+    elapsed time since a host's last answer is perf_counter's, as in _took. A
+    wait that would end past the deadline is not started."""
+    origin = robots_txt.origin_of(url)
+    fresh = robots is not None and origin not in getattr(robots, "_files", {})
+    pause, why = _pause_for(robots, url, site_delay)
+    # THE robots.txt READ IS THE HOST'S FIRST REQUEST, so the first page waits
+    # its Crawl-delay after it, as catalog_curate's paced session does. Before,
+    # it went out about 1 s later: GRAAP (Crawl-delay 150) got /robots.txt and
+    # /agenda/ back to back on every run (2026-10-25 review).
+    if fresh and origin not in _ANSWERED:
+        _ANSWERED[origin] = time.perf_counter()
+    if why:
+        tally["refused"] = tally.get("refused", 0) + 1
+        tally.setdefault("refusal", why)
+        return None
+    if origin in _THROTTLED:
+        tally["throttled"] = tally.get("throttled", 0) + 1
+        return None
+    last = _ANSWERED.get(origin)
+    wait = 0.0 if last is None else max(0.0, pause - (time.perf_counter() - last))
+    if wait > MAX_CRAWL_DELAY_S:
+        tally["unasked"] = tally.get("unasked", 0) + 1
+        tally["asks"] = max(tally.get("asks", 0), pause)
+        return None
+    if wait > 0:
+        if now is not None and now + wait >= deadline:
+            raise expired
+        time.sleep(wait)
+    try:
+        r = session.get(url, timeout=20)
+    finally:
+        _ANSWERED[origin] = time.perf_counter()
+    if getattr(r, "status_code", None) == 429:
+        _THROTTLED.add(origin)
+    return r
 
 # ---- persistent geocode cache (shared with the other feed adapters) ----------
 GEO_CACHE_PATH = os.environ.get("GEOCODE_CACHE", "geocode_cache.json")
@@ -358,6 +483,54 @@ def _from_mec(item: Dict[str, Any], keep_zero: bool = False) -> Tuple[Dict[str, 
     return (dict(priced, **moved) if moved else priced), priced is not item
 
 
+# SOME SITES PRINT A UTC INSTANT WITH NO OFFSET. Tartu Kultuuriaken (Drupal,
+# kultuuriaken.tartu.ee) gives "startDate": "2026-10-25T10:00:00" for an event
+# its own page shows at "P 25. okt 2026 | 12:00 - 15:00", and 16:00 for "R 23.
+# okt 2026 | 19:00", two days earlier in summer time (5 of 5 pages checked on
+# 2026-10-25, the first day of EET). A
+# naive stamp is otherwise the venue's wall clock (the WP Event Manager note in
+# this file's test), which the sync localises from the coordinates, so every
+# Tartu row would be 2 h early in winter and 3 h in summer. `naive_is_utc` with
+# a `timezone` turns such a stamp into that zone's wall clock WITH its offset:
+# the date digits are then the local date the fingerprint and the past-event
+# check read, and the sync passes an offset-bearing stamp through untouched.
+# Applied after the MEC rule and only to a stamp the page itself printed naive,
+# because the MEC rule's own output is a naive wall clock.
+_NAIVE_RX = re.compile(r"(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2})(?::(\d{2}))?(?:\.\d+)?")
+
+
+def _site_zone(site: Dict[str, Any]) -> Optional[ZoneInfo]:
+    """The zone a `naive_is_utc` site's stamps are turned into; None when unset."""
+    if not site.get("naive_is_utc"):
+        return None
+    try:
+        return ZoneInfo(site["timezone"])
+    except (KeyError, TypeError, ValueError, ZoneInfoNotFoundError) as exc:
+        raise ValueError(f"{site.get('name', '?')}: naive_is_utc needs an IANA `timezone`, "
+                         f"not {site.get('timezone')!r}") from exc
+
+
+def _utc_wall_clock(stamp: Any, zone: ZoneInfo) -> Any:
+    """A naive timed stamp read as UTC, as `zone`'s wall clock with its offset."""
+    m = _NAIVE_RX.fullmatch(stamp.strip()) if isinstance(stamp, str) else None
+    if not m:
+        return stamp                                   # a bare date, an offset, "" or junk
+    try:
+        utc = datetime.fromisoformat(f"{m[1]}T{m[2]}:{m[3] or '00'}").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return stamp
+    return utc.astimezone(zone).isoformat()
+
+
+def _from_naive_utc(item: Dict[str, Any], printed: Dict[str, Any], zone: ZoneInfo) -> Dict[str, Any]:
+    """`item` with each stamp the page printed naive (`printed` is the Event as
+    read, before the MEC rule) turned from UTC into `zone`'s wall clock."""
+    moved = {k: _utc_wall_clock(item[k], zone) for k in ("startDate", "endDate")
+             if isinstance(item.get(k), str) and item.get(k) == printed.get(k)}
+    moved = {k: v for k, v in moved.items() if v != item[k]}
+    return dict(item, **moved) if moved else item
+
+
 # ONE URL, SEVERAL DATES. EventStore.upsert looks a row up by (source,
 # source_id) BEFORE the fingerprint, and source_id is the Event's url. Some
 # calendars give every occurrence of a weekly session the same url and no
@@ -454,15 +627,17 @@ def _detail_meta_description(item: Dict[str, Any], page: str, page_url: str) -> 
     return description if description and len(description) <= 1000 else None
 
 
-def _prepared(page: str, page_url: str, detail: bool, meta_description: bool = False):
+def _prepared(page: str, page_url: str, detail: bool, meta_description: bool = False,
+              utc_zone: Optional[ZoneInfo] = None):
     """(item, to_event keyword arguments) for each Event on a fetched page. A
     keyword is passed only when it is set, so an ordinary page calls to_event
-    exactly as it always did."""
+    exactly as it always did. utc_zone: the site's `naive_is_utc` zone (_site_zone)."""
     items = _page_events(page)
     if detail and meta_description and len(items) == 1:
         description = _detail_meta_description(items[0], page, page_url)
         if description:
             items[0] = dict(items[0], description=description)
+    printed = list(items)
     flags = [False] * len(items)
     if _MEC_PAGE_RX.search(page or ""):
         # MEC's own "Free" is believable only where it sits beside the one event
@@ -470,6 +645,8 @@ def _prepared(page: str, page_url: str, detail: bool, meta_description: bool = F
         keep_zero = detail and len(items) == 1 and _mec_cost_says_free(page)
         pairs = [_from_mec(item, keep_zero) for item in items]
         items, flags = [p[0] for p in pairs], [p[1] for p in pairs]
+    if utc_zone is not None:
+        items = [_from_naive_utc(item, raw, utc_zone) for item, raw in zip(items, printed)]
     shared = _shared_urls(items, page_url)
     out = []
     for item, withdrawn in zip(items, flags):
@@ -481,6 +658,12 @@ def _prepared(page: str, page_url: str, detail: bool, meta_description: bool = F
 
 
 def _clean(s: Optional[str]) -> Optional[str]:
+    # A Text a CMS printed as a list reads as its lines, not as Python's repr:
+    # Tartu Kultuuriaken names a hall ["Elektriteater", "Raekoja saal"] (71 of
+    # 299 events on 2026-10-25), which its own listing shows as "Elektriteater,
+    # Raekoja saal".
+    if isinstance(s, list):
+        s = ", ".join(x.strip() for x in s if isinstance(x, str) and x.strip())
     if not s:
         return None
     s = html_mod.unescape(str(s))
@@ -538,12 +721,29 @@ def _meaningful(s: Optional[str]) -> Optional[str]:
 _ADDR_RX = re.compile(r"^(.*?),\s*([^,]+?),\s*([A-Z]{2})\s*(\d{5})?(?:,\s*[^,]+)?$")
 
 
+# A streetAddress printed as a LIST OF LINES (Drupal's schema_metatag) is the
+# street and then the town: Tartu Kultuuriaken's are ["Ülikooli tänav 1",
+# "Tartu", "Tartu maakond", "Eesti"] and ["Kompanii 2", "Tartu"], with no
+# addressLocality beside them. Read whole it was one string, "['Kompanii 2',
+# 'Tartu']", that no geocoder can read. Of 299 of its events on 2026-10-25, 296
+# print the lines (2 to 5 of them) and none an addressLocality; the second line
+# is a town in 281, a county in 8, a postcode and town ("50707 Tartu") in 4 and
+# a parish in 3, each a place Photon can read beside the street. So the first
+# line is the street, and the second is the town only where the block names none.
+def _street_lines(street: Any) -> Tuple[Optional[str], Optional[str]]:
+    """(street, town from the second line) of a streetAddress; town None unless a list."""
+    if not isinstance(street, list):
+        return _clean(street), None
+    lines = [line for line in (_clean(x) for x in street if isinstance(x, str)) if line]
+    return (lines[0] if lines else None), (lines[1] if len(lines) > 1 else None)
+
+
 def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
     addr = _ld_get(loc, "address")
     out = {"address": None, "city": None, "region": None, "postal_code": None, "country": None}
     if isinstance(addr, dict):
-        out["address"] = _clean(addr.get("streetAddress"))
-        out["city"] = _clean(addr.get("addressLocality"))
+        out["address"], town = _street_lines(addr.get("streetAddress"))
+        out["city"] = _clean(addr.get("addressLocality")) or town
         out["region"] = _clean(addr.get("addressRegion"))
         out["postal_code"] = _clean(addr.get("postalCode"))
         c = addr.get("addressCountry")
@@ -556,6 +756,15 @@ def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
         else:
             out["address"] = _clean(addr)
     return {k: _meaningful(v) for k, v in out.items()}
+
+
+# A STREET AND A TOWN ABROAD ARE NOT GEOCODED HERE, though the sync (Census,
+# US only) cannot place them either. A first version asked Photon for
+# "<street>, <town>" and took its first answer unchecked; the 2026-10-25 review
+# found that answer at another street or another town, and Tartu Kultuuriaken's
+# rows include online courses and a city-wide placeholder that would have been
+# pinned. Placing them wants the town check the tribe adapter's StreetPlacer
+# has (merged 2026-10-26), not a bare first answer.
 
 
 # schema.org/eventStatus values that mean "not at this place on this date".
@@ -758,7 +967,9 @@ def store_item(store: EventStore, item: Dict[str, Any], page_url: str, category:
 
 
 def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offset=0,
-                start_inline=0, deadline=None) -> int:
+                start_inline=0, deadline=None, robots=None) -> int:
+    """robots: a robots_txt.Robots shared by the run (main makes one), so each
+    host's file is read once; None asks no robots.txt (the offline tests)."""
     started, photon = time.perf_counter(), _photon_count()
     name = site.get("name", "?")
     # link_pattern is optional: single-page venue sites (Wix etc.) embed every
@@ -771,6 +982,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
     category = site.get("category", "community")
     venue_default = site.get("venue")   # fixed venue name/address/coords for single-venue sites
     use_meta_description = site.get("meta_description") is True
+    site_delay = _site_delay(site)
+    utc_zone = _site_zone(site)
     # Non-events a venue posts to its own calendar (closure and private-hire
     # notices). Matched against the event NAME, which is what they actually mean;
     # the alternative tell — a 00:00 start — would also throw away a New Year show.
@@ -778,19 +991,25 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
     urls: List[str] = []
     seen = set()
     kept = 0
-    tally: Dict[str, int] = {}
+    tally: Dict[str, Any] = {}
     inline_seen = 0
     for listing in site.get("listing", []):
-        if deadline is not None and time.monotonic() >= deadline:
+        now = time.monotonic() if deadline is not None else None
+        if now is not None and now >= deadline:
             raise BudgetExpired(start_offset, max(inline_seen, start_inline))
         try:
-            r = session.get(listing, timeout=20)
+            r = _ask(session, robots, listing, site_delay, now, deadline,
+                     BudgetExpired(start_offset, max(inline_seen, start_inline)), tally)
+            if r is None:
+                continue
             r.raise_for_status()
+        except BudgetExpired:
+            raise
         except Exception as exc:
             print(f"[jsonld] {name} listing {listing} failed: {exc}")
             continue
         # harvest Event blocks embedded in the listing page itself
-        for item, opts in _prepared(r.text, listing, detail=False):
+        for item, opts in _prepared(r.text, listing, detail=False, utc_zone=utc_zone):
             if inline_seen < start_inline:
                 inline_seen += 1
                 continue
@@ -805,30 +1024,40 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
             if u not in seen:
                 seen.add(u)
                 urls.append(u)
-        time.sleep(1.0)
     if len(urls) > cap:
         print(f"[jsonld] {name}: {len(urls)} event links found but max_events={cap} "
               f"— NOT reading {len(urls) - cap}; raise max_events to cover the calendar")
     for offset in range(start_offset, min(len(urls), cap)):
-        if deadline is not None and time.monotonic() >= deadline:
+        now = time.monotonic() if deadline is not None else None
+        if now is not None and now >= deadline:
             raise BudgetExpired(offset, inline_seen)
         u = urls[offset]
         try:
-            r = session.get(u, timeout=20)
+            r = _ask(session, robots, u, site_delay, now, deadline, BudgetExpired(offset, inline_seen), tally)
+            if r is None:
+                continue
             r.raise_for_status()
+        except BudgetExpired:
+            raise
         except Exception as exc:
             print(f"[jsonld] {name} {u} failed: {exc}")
             continue
-        for item, opts in _prepared(r.text, u, detail=True,
-                                    meta_description=use_meta_description):
+        for item, opts in _prepared(r.text, u, detail=True, meta_description=use_meta_description,
+                                    utc_zone=utc_zone):
             if store_item(store, item, u, category, session, venue_default, skip_rx, opts, tally):
                 kept += 1
-        time.sleep(1.0)
     print(f"[jsonld] {name}: kept {kept} events from {min(len(urls), cap)} pages"
           + (f"; {tally['cancelled']} cancelled/postponed/moved online (tombstoned)"
              if tally.get("cancelled") else "")
           + (f"; {tally['rescheduled']} old date(s) of a rescheduled event tombstoned"
              if tally.get("rescheduled") else "")
+          + (f"; {tally['refused']} page(s) not asked, {tally['refusal']}"
+             if tally.get("refused") else "")
+          + (f"; {tally['unasked']} page(s) not asked: the host asks {tally['asks']:g} s between "
+             f"requests, over the {MAX_CRAWL_DELAY_S:g} s this run will wait"
+             if tally.get("unasked") else "")
+          + (f"; {tally['throttled']} page(s) not asked: the host answered 429 this run"
+             if tally.get("throttled") else "")
           + _took(started, photon), flush=True)
     return kept
 
@@ -848,6 +1077,7 @@ def main(argv=None) -> int:
     session = requests.Session()
     session.headers.update({"User-Agent": UA, "Accept-Language": "en-US,en;q=0.8"})
     store = EventStore(a.store)
+    robots = robots_txt.Robots(session)       # each host's file read once a run, by this UA
     sites = cfg.get("sites", [])
     deadline = time.monotonic() + a.max_minutes * 60 if a.max_minutes else None
     cursor = _load_cursor(a.cursor) if deadline is not None else {}
@@ -869,7 +1099,7 @@ def main(argv=None) -> int:
         started, photon = time.perf_counter(), _photon_count()
         try:                                              # one site failing must not abort the sweep
             total += ingest_site(store, session, site, start_offset=offset,
-                                 start_inline=inline_offset, deadline=deadline)
+                                 start_inline=inline_offset, deadline=deadline, robots=robots)
             complete = True
         except BudgetExpired as exc:
             partial_offset = exc.offset
