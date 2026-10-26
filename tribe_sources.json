@@ -26054,6 +26054,780 @@
         "lon": 7.5442247
       },
       "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Sportfischereiverein Hagen, Herdecke und Umgegend e.V.",
+      "category": "community",
+      "_found": "osm:clubhouse -> tribe+mylisting+modern-events+jsonld-event",
+      "base_url": "https://sfv-hagen-herdecke.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sportfischereiverein Hagen, Herdecke und Umgegend e.V.",
+        "address": "2 Vorhaller Weg",
+        "city": "Herdecke",
+        "postal_code": "58313",
+        "country": "DE",
+        "lat": 51.3935845,
+        "lon": 7.4323668
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Bockumer Bürgerschützenverein e.V. 1912",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bbsv1912.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bockumer Bürgerschützenverein e.V. 1912",
+        "lat": 51.6959773,
+        "lon": 7.7120933
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Bochumer Event Center",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://bochumer-eventcenter.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bochumer Event Center",
+        "address": "6-8 Rombacher Hütte",
+        "city": "Bochum",
+        "postal_code": "44795",
+        "lat": 51.4644153,
+        "lon": 7.1926765
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "FZW",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://fzw.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FZW",
+        "address": "20 Ritterstraße",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "lat": 51.5150079,
+        "lon": 7.4501321
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Elberfelder Schachgesellschaft 1851",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://esg1851.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Elberfelder Schachgesellschaft 1851",
+        "lat": 51.2651319,
+        "lon": 7.1470288
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Klettergarten Tree2Tree",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tree2tree.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Klettergarten Tree2Tree",
+        "address": "13 Arenastraße",
+        "city": "Oberhausen",
+        "postal_code": "46047",
+        "lat": 51.4936229,
+        "lon": 6.8689224
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Barmer Brauerei",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://barmer-brauerei.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Barmer Brauerei",
+        "address": "129 Rödiger Straße",
+        "city": "Wuppertal",
+        "postal_code": "42283",
+        "lat": 51.2761003,
+        "lon": 7.1841452
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Heidter Bürgerverein e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hbv-wuppertal.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heidter Bürgerverein e.V.",
+        "lat": 51.2666942,
+        "lon": 7.2114485
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Buchhandlung Proust",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.buchhandlung-proust.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung Proust",
+        "lat": 51.4532194,
+        "lon": 7.0138064
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Treffpunkt Altstadt",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://treffpunkt-altstadt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Treffpunkt Altstadt",
+        "address": "1 Geschwister-Scholl-Platz",
+        "city": "Dorsten",
+        "postal_code": "46282",
+        "country": "DE",
+        "lat": 51.6572643,
+        "lon": 6.9670793
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Buddhistisches Zentrum in Essen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.buddhistisches-zentrum-essen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buddhistisches Zentrum in Essen",
+        "address": "13a Herkulesstraße",
+        "city": "Essen",
+        "postal_code": "45127",
+        "country": "DE",
+        "lat": 51.4555164,
+        "lon": 7.0215238
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Seglergemeinschaft Lohheider See",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://lohheider-see.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seglergemeinschaft Lohheider See",
+        "address": "121 Orsoyer Allee",
+        "city": "Duisburg",
+        "postal_code": "47199",
+        "lat": 51.5044766,
+        "lon": 6.6645099
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Christliches Altenheim Friedenshort e.V.",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.friedenshort.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christliches Altenheim Friedenshort e.V.",
+        "lat": 51.2335518,
+        "lon": 7.207295
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Overbeck-Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://overbeck-museum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Overbeck-Museum",
+        "address": "30 Alte Hafenstraße",
+        "city": "Bremen",
+        "postal_code": "28757",
+        "country": "DE",
+        "lat": 53.1688806,
+        "lon": 8.6238851
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Übermaxx",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.uebersee-museum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Übermaxx",
+        "address": "27 Breitenweg",
+        "city": "Bremen",
+        "postal_code": "28195",
+        "country": "DE",
+        "lat": 53.0832065,
+        "lon": 8.8097313
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Georg Büchner Buchhandlung",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event",
+      "base_url": "https://www.buechner-buchhandlung.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Georg Büchner Buchhandlung",
+        "lat": 53.073068,
+        "lon": 8.8266397
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "ATSV Habenhausen",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://atsvhabenhausen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ATSV Habenhausen",
+        "address": "35 Kästnerstraße",
+        "city": "Bremen",
+        "postal_code": "28279",
+        "lat": 53.0532139,
+        "lon": 8.8479588
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Mobileum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://schuppeneins.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mobileum",
+        "address": "20 Konsul-Smidt-Straße",
+        "city": "Bremen",
+        "postal_code": "28217",
+        "country": "DE",
+        "lat": 53.0904302,
+        "lon": 8.7747339
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Jugendblasorchester Beckeln",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "http://blaso.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendblasorchester Beckeln",
+        "lat": 52.8621845,
+        "lon": 8.5865343
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Bürgerverein Horn-Lehe e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bv-horn-lehe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bürgerverein Horn-Lehe e.V.",
+        "lat": 53.0975808,
+        "lon": 8.871436
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "La Milonguita Tradicional",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://lamilonguitatradicional.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Milonguita Tradicional",
+        "lat": 53.0802473,
+        "lon": 8.7971141
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Fischereiverein Delmenhorst",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://fischereiverein-delmenhorst.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fischereiverein Delmenhorst",
+        "lat": 53.0285313,
+        "lon": 8.6564809
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "eTage",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://etage-bremen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "eTage",
+        "address": "12 Bahnhofstraße",
+        "city": "Bremen",
+        "postal_code": "28195",
+        "lat": 53.0809974,
+        "lon": 8.8116562
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Die Glocke",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.glocke.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Die Glocke",
+        "address": "6-8 Domsheide",
+        "city": "Bremen",
+        "postal_code": "28195",
+        "lat": 53.0748543,
+        "lon": 8.8093754
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Bremer Ruder-Club Hansa",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brc-hansa.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bremer Ruder-Club Hansa",
+        "address": "64 Werderstraße",
+        "city": "Bremen",
+        "postal_code": "28199",
+        "lat": 53.0681646,
+        "lon": 8.8128159
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Villa Ichon",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.villa-ichon.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Villa Ichon",
+        "address": "4 Goetheplatz",
+        "city": "Bremen",
+        "postal_code": "28203",
+        "country": "DE",
+        "lat": 53.0721585,
+        "lon": 8.8148796
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Tura Kanusport",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://turakanusport.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tura Kanusport",
+        "address": "24/26 Am Lesumhafen",
+        "city": "Bremen",
+        "postal_code": "28717",
+        "lat": 53.1645583,
+        "lon": 8.6893965
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Gerhard-Marcks-Haus",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://marcks.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gerhard-Marcks-Haus",
+        "address": "208 Am Wall",
+        "city": "Bremen",
+        "postal_code": "28195",
+        "country": "DE",
+        "lat": 53.0726656,
+        "lon": 8.814628
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Alten- & Pflegeheim Familie Rathjen",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.familie-rathjen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alten- & Pflegeheim Familie Rathjen",
+        "address": "Am Triften",
+        "city": "Oyten",
+        "postal_code": "28876",
+        "country": "DE",
+        "lat": 53.0636838,
+        "lon": 9.0216859
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "FSC Stieglitz",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://fsc-stieglitz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FSC Stieglitz",
+        "lat": 52.9592219,
+        "lon": 8.7790001
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Eltern-Kind-Einrichtung \"Nordlicht\"",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hans-wendt-stiftung.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eltern-Kind-Einrichtung \"Nordlicht\"",
+        "address": "2g Randweg",
+        "city": "Bremen",
+        "postal_code": "28239",
+        "country": "DE",
+        "lat": 53.1364542,
+        "lon": 8.7381659
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Buchhaus Loschwitz",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://kulturhaus-loschwitz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhaus Loschwitz",
+        "address": "6 Friedrich-Wieck-Straße",
+        "city": "Dresden",
+        "postal_code": "01326",
+        "country": "DE",
+        "lat": 51.0537615,
+        "lon": 13.8136867
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Panisches NOt-Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.no-panik.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Panisches NOt-Theater",
+        "address": "2 An der Prießnitz",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "country": "DE",
+        "lat": 51.071036,
+        "lon": 13.7605038
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Blaue Fabrik",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://blauefabrik.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blaue Fabrik",
+        "address": "1 Eisenbahnstraße",
+        "city": "Dresden",
+        "postal_code": "01097",
+        "country": "DE",
+        "lat": 51.0654407,
+        "lon": 13.7379734
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Männernetzwerk Dresden e.V.",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://mnw-dd.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Männernetzwerk Dresden e.V.",
+        "address": "10 Schwepnitzer Straße",
+        "lat": 51.0696963,
+        "lon": 13.7476135
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Diakonie Meissen",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.diakonie-meissen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Diakonie Meissen",
+        "address": "11 Dresdner Straße",
+        "city": "Meißen",
+        "postal_code": "01662",
+        "lat": 51.1611299,
+        "lon": 13.4828867
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "COSMO Wissenschaftsforum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.cosmo-wissenschaftsforum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "COSMO Wissenschaftsforum",
+        "address": "2 Schloßstraße",
+        "city": "Dresden",
+        "postal_code": "01067",
+        "lat": 51.0507567,
+        "lon": 13.7376656
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Galerie Mitte Dresden",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://www.galerie-mitte.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galerie Mitte Dresden",
+        "address": "49 Striesener Straße",
+        "city": "Dresden",
+        "postal_code": "01307",
+        "lat": 51.0471152,
+        "lon": 13.7716483
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Brettspielhelden Dresden e. V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://brettspielhelden-dresden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brettspielhelden Dresden e. V.",
+        "address": "64 Schandauer Straße",
+        "city": "Dresden",
+        "postal_code": "01277",
+        "country": "DE",
+        "lat": 51.0411629,
+        "lon": 13.8003922
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Tanzschule Reh",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://www.tanzschule-reh.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzschule Reh",
+        "address": "1 Hartigstraße",
+        "city": "Dresden",
+        "postal_code": "01127",
+        "country": "DE",
+        "lat": 51.0720183,
+        "lon": 13.7273857
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "golden yoga Dresden | sonnemond yoga | ramadhuta yoga",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://goldenyoga-dresden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "golden yoga Dresden | sonnemond yoga | ramadhuta yoga",
+        "lat": 51.0597506,
+        "lon": 13.7425085
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Volkssolidarität",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.volkssoli-dresden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Volkssolidarität",
+        "address": "128 Bautzner Landstraße",
+        "city": "Dresden",
+        "postal_code": "01324",
+        "lat": 51.0615982,
+        "lon": 13.8477607
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Kulturelle Begegnungsstätte Oberau",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://niederau.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturelle Begegnungsstätte Oberau",
+        "address": "7a Thomas-Müntzer-Ring",
+        "city": "Oberau",
+        "postal_code": "01689",
+        "lat": 51.1853559,
+        "lon": 13.5554197
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Traditionsbahn Radebeul e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://traditionsbahn-radebeul.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Traditionsbahn Radebeul e.V.",
+        "lat": 51.1166485,
+        "lon": 13.6551356
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Kanuverein Laubegast e. V. Dresden",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kanuverein-laubegast.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kanuverein Laubegast e. V. Dresden",
+        "address": "35 Laubegaster Ufer",
+        "postal_code": "01279",
+        "lat": 51.0212796,
+        "lon": 13.8424152
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Sternwarte Radebeul",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.sternwarte-radebeul.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sternwarte Radebeul",
+        "address": "10a Auf den Ebenbergen",
+        "city": "Radebeul",
+        "postal_code": "01445",
+        "country": "DE",
+        "lat": 51.1160336,
+        "lon": 13.6220595
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "St. Kunigunde",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kath-kirche-pirna.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Kunigunde",
+        "address": "3 Dr.-Wilhelm-Külz-Straße",
+        "city": "Pirna",
+        "postal_code": "01796",
+        "country": "DE",
+        "lat": 50.9612619,
+        "lon": 13.9404426
+      },
+      "_metro": "Dresden, Germany"
     }
   ],
   "_not_included": {
