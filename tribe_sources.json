@@ -25304,6 +25304,756 @@
         "lon": 9.1525256
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Frohnzimmer",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://frohnzimmer.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Frohnzimmer",
+        "city": "Essen",
+        "postal_code": "45145",
+        "lat": 51.449054,
+        "lon": 6.9727222,
+        "street_hint": "7 Krefelder Straße"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Tanzschule Overrath",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://www.overrath.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzschule Overrath",
+        "lat": 51.4435496,
+        "lon": 7.0087682
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Kinderschutzbund Neuss",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event",
+      "base_url": "https://www.dksb-neuss.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kinderschutzbund Neuss",
+        "address": "22-24 Schulstraße",
+        "city": "Neuss",
+        "postal_code": "41460",
+        "country": "DE",
+        "lat": 51.1995793,
+        "lon": 6.6860407
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Lokschuppen Hochdahl - Eisenbahn-und Heimatmuseum Erkrath-Hochdahl e.V.",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.lokschuppen-hochdahl.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lokschuppen Hochdahl - Eisenbahn-und Heimatmuseum Erkrath-Hochdahl e.V.",
+        "lat": 51.2180691,
+        "lon": 6.948818
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Freie Schwimmer Duisburg 1920 e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://fsduisburg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freie Schwimmer Duisburg 1920 e.V.",
+        "lat": 51.4068283,
+        "lon": 6.7941505
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Ehrenamt Agentur Essen e. V.",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ehrenamtessen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ehrenamt Agentur Essen e. V.",
+        "address": "3 Dorotheenstraße",
+        "city": "Essen",
+        "postal_code": "45130",
+        "country": "DE",
+        "lat": 51.4365389,
+        "lon": 7.005972
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Buchhandlung Schulz & Schultz",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://schulzschultz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung Schulz & Schultz",
+        "address": "76 Geibelstraße",
+        "city": "Düsseldorf",
+        "postal_code": "40235",
+        "country": "DE",
+        "lat": 51.240304,
+        "lon": 6.8238465
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Akki-Aktion & Kultur mit Kindern e.V.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.akki-ev.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Akki-Aktion & Kultur mit Kindern e.V.",
+        "address": "25 Siegburger Straße",
+        "city": "Düsseldorf",
+        "postal_code": "40591",
+        "country": "DE",
+        "lat": 51.2046458,
+        "lon": 6.8087997
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "TD Tanzsportclub Rot-Weiß Düsseldorf e. V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://td-duesseldorf-rot-weiss.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TD Tanzsportclub Rot-Weiß Düsseldorf e. V.",
+        "address": "101 Altenbergstraße",
+        "city": "Düsseldorf",
+        "postal_code": "40235",
+        "country": "DE",
+        "lat": 51.2357457,
+        "lon": 6.8301961
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Ev. Emmaus Gemeinde",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.emmaus-essen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ev. Emmaus Gemeinde",
+        "address": "60, 60a Steile Straße",
+        "city": "Essen",
+        "postal_code": "45149",
+        "country": "DE",
+        "lat": 51.432057,
+        "lon": 6.9745957
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Yacht-Club Graf Spee",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://ycgs.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Yacht-Club Graf Spee",
+        "lat": 51.2513888,
+        "lon": 6.7295971
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Kino Kaarst",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://kunst-kaarst.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kino Kaarst",
+        "address": "16 Am Schulzentrum",
+        "city": "Kaarst",
+        "postal_code": "41564",
+        "lat": 51.2252628,
+        "lon": 6.6149187
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Hespertalbahn e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.hespertalbahn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hespertalbahn e.V.",
+        "address": "3 Prinz-Friedrich-Platz",
+        "city": "Essen",
+        "postal_code": "45257",
+        "lat": 51.3924731,
+        "lon": 7.0772298
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "UpStairs",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tanzwelt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "UpStairs",
+        "address": "175 Hauptstraße",
+        "city": "Heiligenhaus",
+        "postal_code": "42579",
+        "lat": 51.3262742,
+        "lon": 6.9697195
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Hecta Studio",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://hectastudio.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hecta Studio",
+        "address": "16 Friedensstraße",
+        "city": "Kaarst",
+        "postal_code": "41564",
+        "lat": 51.2314532,
+        "lon": 6.6158949
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Niederrheinisches Literaturhaus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://nlh-krefeld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Niederrheinisches Literaturhaus",
+        "address": "21 Gutenbergstraße",
+        "city": "Krefeld",
+        "postal_code": "47803",
+        "country": "DE",
+        "lat": 51.3349273,
+        "lon": 6.5484014
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Mülheimer Kanu- und Ski – Freunde e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mksf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mülheimer Kanu- und Ski – Freunde e.V.",
+        "address": "42 Kassenberg",
+        "postal_code": "45479",
+        "lat": 51.4208321,
+        "lon": 6.8724271
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Haus Wunderbar",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hauswunderbar.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus Wunderbar",
+        "lat": 51.3865834,
+        "lon": 7.0035107
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Tiergarten Mönchengladbach",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tiergarten-moenchengladbach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tiergarten Mönchengladbach",
+        "address": "22 Am Pixbusch",
+        "city": "Mönchengladbach",
+        "postal_code": "41199",
+        "country": "DE",
+        "lat": 51.1393522,
+        "lon": 6.4585055
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Alte Dreherei",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://alte-dreherei.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alte Dreherei",
+        "address": "13 Zur Alten Dreherei",
+        "city": "Mülheim an der Ruhr",
+        "postal_code": "45479",
+        "country": "DE",
+        "lat": 51.4282475,
+        "lon": 6.8650501
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Salvatorkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ekadu.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salvatorkirche",
+        "address": "22 Salvatorstraße",
+        "city": "Duisburg",
+        "postal_code": "47051",
+        "lat": 51.4358675,
+        "lon": 6.7611712
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Heilig Geist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://view-wp.heiliggeist-ratingen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heilig Geist",
+        "lat": 51.2927258,
+        "lon": 6.8231154
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Alte Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kirche-velbert.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alte Kirche",
+        "address": "158 Friedrichstraße",
+        "city": "Velbert",
+        "postal_code": "42551",
+        "lat": 51.3404765,
+        "lon": 7.0443736
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadthalle Hilden",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://www.stadthalle-hilden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadthalle Hilden",
+        "address": "1 Fritz-Gressard-Platz",
+        "city": "Hilden",
+        "postal_code": "40721",
+        "lat": 51.1669915,
+        "lon": 6.9289623
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Vereinigung Krefelder Sternfreunde",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://vks-krefeld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vereinigung Krefelder Sternfreunde",
+        "lat": 51.335577,
+        "lon": 6.6444208
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Wera Forum",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://weraforum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wera Forum",
+        "address": "20 Albert-Hahn-Straße",
+        "city": "Duisburg",
+        "postal_code": "47269",
+        "lat": 51.3669785,
+        "lon": 6.7748708
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Düsseldorfer Hockey Club 1905",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://duesseldorferhc.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Düsseldorfer Hockey Club 1905",
+        "lat": 51.243543,
+        "lon": 6.7352462
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Solawi Düsseldorf e.V.",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://solawi-duesseldorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Solawi Düsseldorf e.V.",
+        "lat": 51.1970173,
+        "lon": 6.8015125
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Prinzregenttheater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.prt-bochum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Prinzregenttheater",
+        "address": "50-60 Prinz-Regent-Straße",
+        "city": "Bochum",
+        "postal_code": "44795",
+        "country": "DE",
+        "lat": 51.450899,
+        "lon": 7.217516
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Die Trompete",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://die-trompete.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Die Trompete",
+        "address": "45 Viktoriastraße",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "country": "DE",
+        "lat": 51.477977,
+        "lon": 7.2158417
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Taranta Babu",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tarantababu.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Taranta Babu",
+        "lat": 51.5106589,
+        "lon": 7.4546492
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "ADTV-Tanzschule Siebenhühner",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://ts-hagen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ADTV-Tanzschule Siebenhühner",
+        "address": "64 Elberfelder Straße",
+        "city": "Hagen",
+        "postal_code": "58095",
+        "country": "DE",
+        "lat": 51.3596414,
+        "lon": 7.4663575
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "KATiELLi Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://katielli.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "KATiELLi Theater",
+        "lat": 51.6284555,
+        "lon": 7.3244803
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Kreiner's Zollhaus",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://kreiners.ruhr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kreiner's Zollhaus",
+        "address": "323 Hörder Straße",
+        "city": "Witten",
+        "postal_code": "58454",
+        "lat": 51.4687229,
+        "lon": 7.3677908
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Kulturzentrum Pelmke",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.pelmke.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturzentrum Pelmke",
+        "address": "14 Pelmkestraße",
+        "city": "Hagen",
+        "postal_code": "58089",
+        "lat": 51.3531205,
+        "lon": 7.4575859
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Sammelstelle",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://friedensdorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sammelstelle",
+        "lat": 51.4232854,
+        "lon": 7.2830926
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Heimatmuseum Wetter",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://heimatverein-wetter.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heimatmuseum Wetter",
+        "lat": 51.370274,
+        "lon": 7.3872337
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Theater an der Volme",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theaterandervolme.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater an der Volme",
+        "lat": 51.3531781,
+        "lon": 7.4823557
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Schlumberger-TS",
+      "category": "community",
+      "_found": "osm:school -> tribe",
+      "base_url": "https://schlumberger-ts.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schlumberger-TS",
+        "address": "26 Hertener Straße",
+        "city": "Recklinghausen",
+        "postal_code": "45657",
+        "lat": 51.6118695,
+        "lon": 7.1903818
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Superraum",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://dortmund-kreativ.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Superraum",
+        "address": "64 Brückstraße",
+        "city": "Dortmund",
+        "postal_code": "44135",
+        "lat": 51.51722,
+        "lon": 7.4650128
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "SpVgg Gerthe 1911 e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://gerthe11.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SpVgg Gerthe 1911 e.V.",
+        "lat": 51.5156762,
+        "lon": 7.2794281
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Anthroposophische Gesellschaft",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event",
+      "base_url": "https://thomas-zweig-dortmund.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Anthroposophische Gesellschaft",
+        "address": "45a Mergelteichstraße",
+        "city": "Dortmund",
+        "postal_code": "44225",
+        "lat": 51.47335,
+        "lon": 7.4644374
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Stadthalle",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://eventforum-castrop.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadthalle",
+        "address": "6-10 Europaplatz",
+        "city": "Castrop-Rauxel",
+        "postal_code": "44575",
+        "lat": 51.564809,
+        "lon": 7.312852
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Christuskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://christuskirche-bochum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christuskirche",
+        "address": "1 Platz des europäischen Versprechens",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "country": "DE",
+        "lat": 51.4823835,
+        "lon": 7.2137274
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Mowwes \"Zur Mühle\"",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mowwe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mowwes \"Zur Mühle\"",
+        "address": "132 Kurler Straße",
+        "city": "Dortmund",
+        "postal_code": "44319",
+        "lat": 51.5552869,
+        "lon": 7.5834017
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Hallenbad Scharnhorst",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sv-derne.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hallenbad Scharnhorst",
+        "address": "279a Gleiwitzstraße",
+        "city": "Dortmund",
+        "postal_code": "44328",
+        "country": "DE",
+        "lat": 51.5518031,
+        "lon": 7.5442247
+      },
+      "_metro": "Dortmund, Germany"
     }
   ],
   "_not_included": {

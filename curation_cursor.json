@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "ES",
+  "country": "NZ",
   "offset": 2140,
   "offsets": {
    "AE": 13,
@@ -25,11 +25,11 @@
    "MY": 47,
    "NL": 120,
    "NO": 240,
-   "NZ": 120,
+   "NZ": 140,
    "PT": 120,
    "SE": 40,
    "SI": 120,
-   "US": 2197,
+   "US": 2205,
    "ZA": 200
   },
   "visited": [
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 122,
-  "metro_key": "DE:Dusseldorf",
+  "metro": 123,
+  "metro_key": "DE:Dortmund",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 400,
-  "events": 0,
+  "community events": 0,
+  "events": 100,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 0,
-  "parks events": 0,
+  "library programs": 100,
+  "parks events": 100,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 100,
+  "recreation programs": 200,
   "road races": 0,
-  "special events": 0,
-  "volunteer": 200,
-  "wellness programs": 0,
-  "youth programs": 0
+  "special events": 100,
+  "volunteer": 300,
+  "wellness programs": 100,
+  "youth programs": 100
  }
 }

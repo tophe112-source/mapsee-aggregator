@@ -37894,5 +37894,302 @@
     "geocode_suffix": ", Essen",
     "limit": 300,
     "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Bridgeton — Administration",
+    "category": "community",
+    "url": "https://www.bridgetonmo.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Bridgeton, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Administration]",
+    "_metro": "Bridgeton, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bridgeton — Police",
+    "category": "community",
+    "url": "https://www.bridgetonmo.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Bridgeton, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Police]",
+    "_metro": "Bridgeton, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bridgeton — Golf",
+    "category": "community",
+    "url": "https://www.bridgetonmo.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Bridgeton, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Golf]",
+    "_metro": "Bridgeton, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Island City Cultural Center",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Island City Cultural Center]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Classes",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Classes]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Senior Programming",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Senior Programming]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Leisure Services Special Events",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Leisure Services Special Events]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Youth Program Calendar",
+    "category": "kids",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Youth Program Calendar]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Woods Cross — Events",
+    "category": "community",
+    "url": "https://www.woodscross.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Woods Cross, Utah",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Woods Cross, Utah",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Klostermuseum Saarn",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.kloster-saarn.com/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Mülheim an der Ruhr",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Deutsche Oper am Rhein /Kulturbetriebe Stadt Duisburg",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.operamrhein.de/kalender-eintrag/4101/ical-2026-10-27-4101.ics",
+    "geocode_suffix": ", Duisburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Krefelder Segel-Klub e.V.",
+    "category": "community",
+    "_found": "osm:marina -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40ksk1981.de/public/basic.ics",
+    "geocode_suffix": ", Krefeld",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Turnier-Tanz-Club Schwarz-Gold Moers e. V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://ttc-schwarz-gold-moers.de/events/mannschaftskampf-im-rahmen-des-tags-der-offenen-tuer/?ical=1",
+    "geocode_suffix": ", Moers",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Wassersportverein Moers e.V.",
+    "category": "community",
+    "_found": "osm:club -> events-manager+ics",
+    "url": "https://wsv-moers.de/events/arbeitstag-6/ical/",
+    "geocode_suffix": ", Moers",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Auferstehungsgemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/236jsct7ilp5gff18qanb83634%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Duisburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Düsseldorf sur place",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8hsu656o1tih25dibs3448gkao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Düsseldorf",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Freie Wasserfahrer Düsseldorf 1921 e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40fwf-d.de/public/basic.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Kult+Genuss",
+    "category": "community",
+    "_found": "osm:events_venue -> events-manager",
+    "url": "https://kultundgenuss.de/event/?ical=1",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "St. Sebastianus Schützenbruderschaft Hubbelrath 1635 e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/69ov9m7bj5e7u1l7foo94p7m7s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Pöppelhoppers",
+    "category": "community",
+    "_found": "osm:club -> my-calendar",
+    "url": "https://poeppelhoppers.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Tennisclub Rot-Weiß Vluyn e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://tc-vluyn.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Stadttheater / Duisburger Philharmoniker",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.theater-duisburg.de/kalender-eintrag/2416/ical-2026-10-30-2416.ics",
+    "geocode_suffix": ", Duisburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Philharmonie/ Saalbau",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.theater-essen.de/kalender-eintrag/4430/ical-2026-10-27-4430.ics",
+    "geocode_suffix": ", Essen",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Center of Mountainbike Essen",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/77480a27bd024340a3a45bb14f2010c9@ruhrpottbiker.eu/233c0da4e9104f9ca6b7376dd8f3e4ad12133761285054636553/calendar.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Villa Erckens",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "http://www.museum-villa-erckens.de/?ical=1",
+    "geocode_suffix": ", Grevenbroich",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Pampusschule",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h1agflclqbq7o2t6k8b5vhfb0s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kaarst",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Heimatmuseum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.geschichtsverein-heiligenhaus.de/events/gaby-koof-koof-singt-knef/?ical=1",
+    "geocode_suffix": ", Heiligenhaus",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Pfadfinderplatz - DPSG Stamm Kaster",
+    "category": "community",
+    "_found": "osm:camp_site -> ics",
+    "url": "https://calendar.google.com/calendar/ical/75b56526d61275aef1837e67ddfcf03fffdea988e25ad296bb4f99737612e99d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bedburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Die Rollsporthalle Bochum",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_61ef6b5027e6616fe29f03f1dc0164ab2a48ac7836897090cf20dde7cd3e1d65%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bochum",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Schützenverein Silschede 1872 e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/volker.synjawzew%40sv-silschede.de/public/basic.ics",
+    "geocode_suffix": ", Gevelsberg",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "UN-Hack-Bar e.V.",
+    "category": "community",
+    "_found": "osm:hackerspace -> events-manager+ics",
+    "url": "https://www.un-hack-bar.de/events.ics",
+    "geocode_suffix": ", Unna",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "SLADO e. V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/termine%40slado.de/public/basic.ics",
+    "geocode_suffix": ", Dortmund",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
   }
 ]
