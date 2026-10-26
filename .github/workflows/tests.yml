@@ -41,6 +41,8 @@ on:
       - "repaircafe_ch_sources.json"
       - "fixtures/repaircafe_ch/**"
       - "fixtures/natuurwerkdag/**"
+      - "galaxydigital_sources.json"
+      - "fixtures/galaxydigital/**"
       - "kct_sources.json"
       - "kct_places.json"
       - "fixtures/kct/**"
@@ -77,6 +79,8 @@ on:
       - "repaircafe_ch_sources.json"
       - "fixtures/repaircafe_ch/**"
       - "fixtures/natuurwerkdag/**"
+      - "galaxydigital_sources.json"
+      - "fixtures/galaxydigital/**"
       - "kct_sources.json"
       - "kct_places.json"
       - "fixtures/kct/**"
@@ -473,6 +477,8 @@ jobs:
         run: python test_ingest_glenecho.py
       - name: Natuurwerkdag (the finder decides, a title naming another day or a closed job is refused, every guard wired)
         run: python test_ingest_natuurwerkdag.py
+      - name: Galaxy Digital volunteer shifts (absence judged only on a finished read, no person copied, every pin measured)
+        run: python test_ingest_galaxydigital.py
       - name: KCT hikes (each pin checked against the town its page names, no seasons as events)
         run: python test_ingest_kct.py
       - name: repair-cafe.ch (Swiss repair cafés - the town guards the pin, a page read once per lastmod, a re-dated post moves or calls off its old row)

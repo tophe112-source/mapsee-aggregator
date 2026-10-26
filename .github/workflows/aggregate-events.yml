@@ -16,8 +16,9 @@ name: Aggregate public events
 #     sync and recovery artifacts. A failed adapter cannot block its neighbors.
 #     `rec` is the community-centre timetables (Toronto, Helsinki/Espoo,
 #     PerfectMind cities, Montreal, Philadelphia, Fairfax County, Revize towns,
-#     Glen Echo Park, Barcelona, Hong Kong; Madrid parked) and the civic
-#     facility opening hours: ~100k dated drop-in rows a first run, which is why
+#     Glen Echo Park, Barcelona, Hong Kong; Madrid parked), the civic
+#     facility opening hours and the volunteer days (the Natuurwerkdag, three
+#     Galaxy Digital park portals): ~100k dated drop-in rows a first run, which is why
 #     they have their own runner and their own 60-minute sync.
 #   • meetup — ONE Meetup sweep (US then international). Meetup shares no key
 #     with Ticketmaster, so it runs parallel; it used to run in TWO places
@@ -1140,6 +1141,28 @@ jobs:
             python mapsee_ingest_natuurwerkdag.py --config natuurwerkdag_sources.json --store feeds_events.json --cache natuurwerkdag_cache.json --max-minutes 10
           else
             echo "no natuurwerkdag_sources.json - skipping"
+          fi
+      # GALAXY DIGITAL "GET CONNECTED" PORTALS: dated volunteer shifts that
+      # three park departments (Portland, Olympia, Mecklenburg County) post on
+      # their own portals - 98 shifts inside 90 days on 2026-10-25, each with its
+      # open spots and its own sign-up page. HTML, one request per 1.1 s per
+      # host, robots.txt first; 92 requests in 1.7 min measured. A portal read
+      # to the end is marked complete (per id_prefix), so the rec sync's
+      # --retire-absent takes off a shift the portal no longer lists; a shift
+      # line it cannot read, or a listing page with no need on it, leaves the
+      # read unmarked.
+      - name: Import Galaxy Digital volunteer shifts (Portland, Olympia, Mecklenburg)
+        id: ingest_galaxydigital
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        # --max-minutes 6 starts no request after +6 min (one may take 40 s);
+        # the store is saved every 40 rows.
+        timeout-minutes: 10
+        run: |
+          if [ -f galaxydigital_sources.json ]; then
+            python mapsee_ingest_galaxydigital.py --config galaxydigital_sources.json --store feeds_events.json --max-minutes 6
+          else
+            echo "no galaxydigital_sources.json - skipping"
           fi
       # MONTREAL'S LOISIRS MONTREAL PROGRAMME (Ville de Montreal open data, CC
       # BY 4.0): free skates, free swims, pick-up hockey and open gyms that need
