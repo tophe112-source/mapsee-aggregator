@@ -25533,6 +25533,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "askimkulturhus.no/program": {
+    "checked": 20261026,
+    "name": "Askim Kulturhus (Askim, Norway)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "asklepia.de": {
     "checked": 20261025,
     "name": "Asklepia Seniorenzentrum Kirchheim",

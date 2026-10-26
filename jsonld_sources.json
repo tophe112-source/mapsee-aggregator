@@ -15859,6 +15859,29 @@
         "lon": 6.4166456
       },
       "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Askim Kulturhus (Askim, Norway)",
+      "category": "theater",
+      "listing": [
+        "https://www.askimkulturhus.no/program/"
+      ],
+      "link_pattern": "https://www\\.askimkulturhus\\.no/program/\\d+-[a-z0-9\\-]+/",
+      "max_events": 80,
+      "crawl_delay": 10,
+      "venue": {
+        "name": "Askim Kulturhus",
+        "address": "P. M. Røwdes gate 6",
+        "city": "Askim",
+        "postal_code": "1811",
+        "country": "NO",
+        "lat": 59.5835929,
+        "lon": 11.167364
+      },
+      "_metro": "Askim, Norway",
+      "_found": "manual:2026-10-25 lead from the 2026-10-23 sweep (left out: the jsonld adapter had no Crawl-delay) -> program pages carry Event JSON-LD",
+      "_measured": "2026-10-25 dry run: 49 kept of 52 program pages (49 Event blocks), all upcoming 2026-10-25 to 2027-09-25 - concerts, Riksteatret and Østfold Teater plays, Seniorakademiet talks, a school band's 75th, Christmas shows; 547 s at the host's Crawl-delay 10.",
+      "_note": "The municipal culture house's own programme. robots.txt (www) disallows only /wp-admin/ and asks Crawl-delay: 10, which the adapter now reads and keeps (crawl_delay here only records it); askimkulturhus.no/robots.txt without www redirects to the homepage. The listing has no JSON-LD; each /program/<id>-<slug>/ page has one Event whose location is 'Askim Kulturhus' with an empty PostalAddress, so the venue block places it. Page time matches the block's offset ('Torsdag 8. april kl. 19:00' beside 2027-04-08T19:00:00+02:00). Venue point: OSM way 738677884 (amenity=theatre); address from the site's footer ('Besøksadresse: P. M. Røwdes gate 6, 1811 Askim'). Cost: about 9 min a visit at 10 s a page."
     }
   ],
   "_not_included": {
