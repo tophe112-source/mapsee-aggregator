@@ -57646,5 +57646,17 @@
     "_metro": "Daytona Beach, United States",
     "_found": "manual:2026-10-25 guessed tenant volusialibrary.libcal.com (calendars page) -> one LibCal calendar per branch",
     "_note": "Measured 2026-10-25: cid=19798 (Port Orange Regional Library) returns 424 VEVENTs (under the 500 cap), reaching 361 days ahead; 195 VEVENTs in the next 90 days. Dry run (real ics adapter, scratch store): 316 rows stored, 184 in the next 90 days; 316 pinned to their branch by location_overrides / the venue block (points: OpenStreetMap library or Census-geocoded official address), 0 went to the geocoder, 0 unplaceable (offsite or no LOCATION) dropped. robots.txt: Crawl-delay 10, Disallow only /process_. Final review 2026-10-25: skip_title gained '^eLab$|^Read It & Rate It$|Math Challenge$' (recommended: reviewer-measured non-events). Precheck after the change: 424 vevents / 336 future. Final dry run 2026-10-25 (real ics adapter, scratch store): kept 267 of 424 VEVENTs (75 title-filtered); 265 rows stored, 172 in the next 90 days; placed 265 at a configured point (location_overrides/venue)."
+  },
+  {
+    "name": "Shift2Bikes community calendar (Portland, OR)",
+    "url": "https://www.shift2bikes.org/cal/shift-calendar.php",
+    "category": "community",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "skip_title": "clothing.optional|\\bnaked\\b.*\\bride\\b|advisory committee",
+    "_metro": "Portland, United States",
+    "_found": "manual:2026-10-25 Shift (shift2bikes.org) community ride calendar's own iCal feed, /cal/shift-calendar.php",
+    "_note": "2026-10-25 dry run (scratch store, Photon at 1.1 s/request): 319 VEVENTs, 174 upcoming, every upcoming LOCATION on 2 or 3 lines ('Name\\nStreet\\nnotes'). Kept 118 rows (109 within 120 days, 28 distinct titles, 25 points), 27 unplaceable, 22 STATUS:CANCELLED tombstoned (most are 'test' events), 9 title-filtered (7 Bicycle Advisory Committee meetings and 2 naked rides; 2 of the 9 already past). The adapter before line-by-line LOCATIONs kept 22 of these and placed 2 'TBD' rides in Hood River; every one of the 125 placed before the title filter was checked by hand against its LOCATION. Photon: 32 requests per warm run (was 130). Mixed calendar (rides, bike happy hours, a pantry ride), so community, per classification-and-categories.md. robots.txt allows /cal/; disallows /api/ only.",
+    "location_lines": true
   }
 ]

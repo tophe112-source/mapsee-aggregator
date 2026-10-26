@@ -437368,6 +437368,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shift2bikes.org/cal/shift-calendar.php": {
+    "checked": 20261026,
+    "name": "Shift2Bikes community calendar (Portland, OR)",
+    "reason": "307 vevents / 174 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "shiga-jinjacho.jp/ycBBS/Board.cgi/02_jinja_db/db/ycDB_02jinja-pc-detail.html?mode:view=1&view:oid=380": {
     "checked": 20260926,
     "name": "\u9ad8\u91ce\u795e\u793e",
