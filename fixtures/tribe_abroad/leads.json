@@ -1,0 +1,375 @@
+{
+ "_measured": "2026-10-25: real upcoming rows from the four leads' Tribe REST API, trimmed to the fields the adapter reads, and every Photon question their placement asks with the answer Photon gave that day (null: no answer). The addresses are the publishers' public venues.",
+ "sites": [
+  {
+   "site": {
+    "name": "Today's Family - EarlyON drop-ins (Hamilton, Ontario)",
+    "base_url": "https://www.todaysfamily.ca",
+    "category": "kids",
+    "within_days": 60,
+    "max_pages": 30,
+    "default_country": "CA",
+    "default_region": "ON"
+   },
+   "rows": [
+    {
+     "id": 10049297,
+     "title": "Drop In",
+     "start_date": "2026-10-26 09:00:00",
+     "end_date": "2026-10-26 16:00:00",
+     "timezone": "UTC+0",
+     "url": "https://www.todaysfamily.ca/event/drop-in-9/2026-10-26/",
+     "cost": "",
+     "venue": {
+      "venue": "Waterdown",
+      "address": "315 Dundas Street East, 315 Dundas Street East, Waterdown, ON L0R 2H0 Parking can be accessed from Dundas St. or Mill St. Entrance is at the back of the house, accessible with ramp access.",
+      "city": "Waterdown",
+      "province": "Ontario",
+      "stateprovince": "Ontario",
+      "zip": "L0R2H0",
+      "country": "Canada"
+     }
+    },
+    {
+     "id": 10015199,
+     "title": "Drop In",
+     "start_date": "2026-10-26 09:00:00",
+     "end_date": "2026-10-26 12:00:00",
+     "timezone": "UTC+0",
+     "url": "https://www.todaysfamily.ca/event/drop-in-5-2/2026-10-26/",
+     "cost": "",
+     "venue": {
+      "venue": "G.L Armstrong",
+      "address": "460 Concession Street, Entrance at side door of building off East 19th Street",
+      "city": "Hamilton",
+      "province": "Ontario",
+      "stateprovince": "Ontario",
+      "zip": "L9A1C3",
+      "country": "Canada"
+     }
+    },
+    {
+     "id": 10083298,
+     "title": "Drop In",
+     "start_date": "2026-10-26 09:30:00",
+     "end_date": "2026-10-26 12:00:00",
+     "timezone": "UTC+0",
+     "url": "https://www.todaysfamily.ca/event/drop-in-9-3/2026-10-26/",
+     "cost": "",
+     "venue": {
+      "venue": "Lakewood (Port Dover)",
+      "address": "18 Chapman Street West (Grace and Woodhouse United Church)",
+      "city": "Port Dover",
+      "province": "Ontario",
+      "stateprovince": "Ontario",
+      "zip": "N0A1N0",
+      "country": "Canada"
+     }
+    },
+    {
+     "id": 10101712,
+     "title": "Let&#8217;s Cook Together",
+     "start_date": "2026-10-28 10:00:00",
+     "end_date": "2026-10-28 10:00:00",
+     "timezone": "America/Toronto",
+     "url": "https://www.todaysfamily.ca/event/lets-cook-together-12/2026-10-28/",
+     "cost": "",
+     "venue": {
+      "venue": "Virtual EarlyON",
+      "address": "Virtual via Zoom; no physical location"
+     }
+    },
+    {
+     "id": 10116668,
+     "title": "Drop-In",
+     "start_date": "2026-10-30 09:00:00",
+     "end_date": "2026-10-30 12:00:00",
+     "timezone": "America/Toronto",
+     "url": "https://www.todaysfamily.ca/event/drop-in-23/2026-10-30/",
+     "cost": "",
+     "venue": []
+    },
+    {
+     "id": 10119132,
+     "title": "Drop-In",
+     "start_date": "2026-10-30 09:00:00",
+     "end_date": "2026-10-30 12:00:00",
+     "timezone": "America/Toronto",
+     "url": "https://www.todaysfamily.ca/event/drop-in-24/2026-10-30/",
+     "cost": "",
+     "venue": {
+      "venue": "Mohawk College",
+      "address": "135 Fennell Ave. W",
+      "city": "Hamilton"
+     }
+    }
+   ]
+  },
+  {
+   "site": {
+    "name": "Libraries Unlimited - Devon and Torbay library events",
+    "base_url": "https://librariesunlimited.org.uk",
+    "category": "community",
+    "within_days": 120,
+    "max_pages": 10,
+    "default_country": "GB"
+   },
+   "rows": [
+    {
+     "id": 9442,
+     "title": "Magical Storybox Machine",
+     "start_date": "2026-10-26 00:00:00",
+     "end_date": "2026-10-31 23:59:59",
+     "timezone": "Europe/London",
+     "url": "https://www.librariesunlimited.org.uk/event/magical-storybox-machine/",
+     "cost": "",
+     "venue": {
+      "venue": "St Thomas Library",
+      "address": "St Thomas Library, Emmanuel Hall, Emmanuel Rd",
+      "city": "Exeter",
+      "province": "Devon",
+      "state": "Devon",
+      "stateprovince": "Devon",
+      "zip": "EX2 9AZ",
+      "country": "United Kingdom"
+     }
+    },
+    {
+     "id": 10001769,
+     "title": "Knit &#038; Natter",
+     "start_date": "2026-10-26 14:00:00",
+     "end_date": "2026-10-26 16:00:00",
+     "timezone": "Europe/London",
+     "url": "https://www.librariesunlimited.org.uk/event/knit-natter/2026-10-26/",
+     "cost": "",
+     "venue": {
+      "venue": "Bideford Library",
+      "address": "Bideford Library, Arts Centre, The Quay",
+      "city": "Bideford",
+      "province": "Devon",
+      "state": "Devon",
+      "stateprovince": "Devon",
+      "zip": "EX39 2EY",
+      "country": "United Kingdom"
+     }
+    },
+    {
+     "id": 8986,
+     "title": "Author Talk with Vanessa Ascough",
+     "start_date": "2026-10-29 15:00:00",
+     "end_date": "2026-10-29 16:00:00",
+     "timezone": "Europe/London",
+     "url": "https://www.librariesunlimited.org.uk/event/author-talk-with-vanessa-ascough/",
+     "cost": "",
+     "venue": {
+      "venue": "Sidmouth Library",
+      "address": "Sidmouth Library, Blackmore Dr",
+      "city": "Sidmouth",
+      "province": "Devon",
+      "state": "Devon",
+      "stateprovince": "Devon",
+      "zip": "EX12 2LT",
+      "country": "United Kingdom"
+     }
+    },
+    {
+     "id": 10003190,
+     "title": "Friday Lunch Club",
+     "start_date": "2026-10-30 12:00:00",
+     "end_date": "2026-10-30 14:00:00",
+     "timezone": "Europe/London",
+     "url": "https://www.librariesunlimited.org.uk/event/friday-lunch-club/2026-10-30/",
+     "cost": "Free",
+     "venue": {
+      "venue": "Exmouth Library",
+      "address": "Exmouth Library, 40 Exeter Rd",
+      "city": "Exmouth",
+      "province": "Devon",
+      "state": "Devon",
+      "stateprovince": "Devon",
+      "zip": "EX8 1PS",
+      "country": "United Kingdom"
+     }
+    }
+   ]
+  },
+  {
+   "site": {
+    "name": "Hamilton Naturalists' Club (Hamilton, Ontario)",
+    "base_url": "https://hamiltonnature.org",
+    "category": "outdoors",
+    "within_days": 180,
+    "max_pages": 5,
+    "default_country": "CA",
+    "default_region": "ON"
+   },
+   "rows": [
+    {
+     "id": 10346,
+     "title": "Bird Study Group: Ontario Breeding Bird Atlas-3",
+     "start_date": "2026-10-26 19:30:00",
+     "end_date": "2026-10-26 21:00:00",
+     "timezone": "America/Toronto",
+     "url": "https://hamiltonnature.org/event/bird-study-group-ontario-breeding-bird-atlas-3/",
+     "cost": "",
+     "venue": {
+      "venue": "The First Unitarian Church of Hamilton",
+      "address": "170 Dundurn St. S.",
+      "city": "Hamilton",
+      "province": "Ontario",
+      "stateprovince": "Ontario",
+      "zip": "L8P 4K3",
+      "country": "Canada"
+     }
+    }
+   ]
+  },
+  {
+   "site": {
+    "name": "FFSP - marches populaires (France)",
+    "base_url": "https://www.ffsp.fr",
+    "category": "outdoors",
+    "within_days": 365,
+    "max_pages": 10,
+    "default_country": "FR"
+   },
+   "rows": [
+    {
+     "id": 45445,
+     "title": "Marche du Vignoble – BALBRONN",
+     "start_date": "2026-11-01 00:00:00",
+     "end_date": "2026-11-01 23:59:59",
+     "timezone": "Europe/Paris",
+     "url": null,
+     "cost": "",
+     "venue": {
+      "venue": "Salle Polyvalente du Fronhof",
+      "address": "Rue des Champs",
+      "city": "BALBRONN",
+      "state": "67",
+      "zip": "67310",
+      "country": "FR"
+     }
+    }
+   ]
+  }
+ ],
+ "photon": {
+  "L0R2H0 Waterdown, Canada": [
+   43.3336855,
+   -79.8937567
+  ],
+  "315 Dundas Street East, 315 Dundas Street East, Waterdown, ON L0R 2H0 Parking can be accessed from Dundas St. or Mill St. Entrance is at the back of the house, accessible with ramp access., L0R2H0 Waterdown, Canada": null,
+  "315 Dundas Street East, L0R2H0 Waterdown, Canada": [
+   43.3338473,
+   -79.892598
+  ],
+  "Waterdown, Canada": [
+   43.3314156,
+   -79.8956803
+  ],
+  "L9A1C3 Hamilton, Canada": [
+   43.240988,
+   -79.8562996
+  ],
+  "460 Concession Street, Entrance at side door of building off East 19th Street, L9A1C3 Hamilton, Canada": null,
+  "460 Concession Street, L9A1C3 Hamilton, Canada": [
+   43.240988,
+   -79.8562997
+  ],
+  "Hamilton, Canada": [
+   43.2560802,
+   -79.8728583
+  ],
+  "N0A1N0 Port Dover, Canada": [
+   42.7845713,
+   -80.2005169
+  ],
+  "18 Chapman Street West, N0A1N0 Port Dover, Canada": [
+   42.78727791086956,
+   -80.20488201956522
+  ],
+  "Port Dover, Canada": [
+   42.7845713,
+   -80.2005169
+  ],
+  "Hamilton, CA": [
+   43.2560802,
+   -79.8728583
+  ],
+  "135 Fennell Ave. W, Hamilton, CA": [
+   43.2385213,
+   -79.888144
+  ],
+  "EX2 9AZ Exeter, United Kingdom": [
+   50.716475775,
+   -3.5394476625
+  ],
+  "St Thomas Library, Emmanuel Hall, Emmanuel Rd, EX2 9AZ Exeter, United Kingdom": null,
+  "Emmanuel Rd, EX2 9AZ Exeter, United Kingdom": [
+   50.716475775,
+   -3.5394476625
+  ],
+  "Exeter, United Kingdom": [
+   50.7256138,
+   -3.5269209
+  ],
+  "EX39 2EY Bideford, United Kingdom": [
+   51.0201,
+   -4.20435
+  ],
+  "Bideford Library, Arts Centre, The Quay, EX39 2EY Bideford, United Kingdom": null,
+  "The Quay, EX39 2EY Bideford, United Kingdom": [
+   51.0181969,
+   -4.2044537
+  ],
+  "Bideford, United Kingdom": [
+   51.0181448,
+   -4.2064223
+  ],
+  "EX12 2LT Sidmouth, United Kingdom": [
+   50.70388,
+   -3.06838
+  ],
+  "Sidmouth Library, Blackmore Dr, EX12 2LT Sidmouth, United Kingdom": [
+   50.6811059,
+   -3.2384673
+  ],
+  "Blackmore Dr, EX12 2LT Sidmouth, United Kingdom": [
+   50.681255,
+   -3.2388072
+  ],
+  "EX8 1PS Exmouth, United Kingdom": [
+   50.6216890875,
+   -3.41126105
+  ],
+  "Exmouth Library, 40 Exeter Rd, EX8 1PS Exmouth, United Kingdom": [
+   50.6217903,
+   -3.4108492
+  ],
+  "Exmouth, United Kingdom": [
+   50.6190962,
+   -3.4146801
+  ],
+  "L8P 4K3 Hamilton, Canada": [
+   43.2573087,
+   -79.8905781
+  ],
+  "170 Dundurn St. S., L8P 4K3 Hamilton, Canada": [
+   43.2573088,
+   -79.8905782
+  ],
+  "67310 BALBRONN, FR": [
+   48.5844903,
+   7.4377184
+  ],
+  "Rue des Champs, 67310 BALBRONN, FR": [
+   48.5856614,
+   7.4377708
+  ],
+  "BALBRONN, FR": [
+   48.5844903,
+   7.4377184
+  ]
+ }
+}

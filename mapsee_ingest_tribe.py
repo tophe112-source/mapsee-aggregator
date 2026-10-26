@@ -50,7 +50,7 @@ import threading
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlsplit
 
 try:
@@ -61,6 +61,7 @@ except ImportError:  # pragma: no cover
 from mapsee_ingest import NormalizedEvent, EventStore, looks_online_only, make_fingerprint, norm_categories
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 from mapsee_admission import admission_description, normalize_admission_facts
+from mapsee_ingest_repaircafe_ch import km, make_geocode
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 _TAG = re.compile(r"<[^>]+>")
@@ -247,6 +248,291 @@ def online_with_no_place(ev: Dict[str, Any], name: Optional[str],
     return not place or bool(_ONLINE_PLACE_RX.search(place))
 
 
+# ---- a street abroad, placed inside its own town -----------------------------
+# THE SYNC SENDS A ROW TO US CENSUS ONLY IN THE US, AND DROPS A ROW WITH NO
+# COORDINATES, so a venue outside the US with a street and a town but no geo_lat,
+# and no venue block standing in for it, never reached the map. Measured
+# 2026-10-25 on the 43 readable non-US sites with no block, or a block with
+# `names` (first 10 pages at most): 1,149 of their 4,769 upcoming rows, at 199
+# venues on 23 sites, were such rows. The four leads held 2,788 more (Today's
+# Family 2,395, Libraries Unlimited 288, FFSP 88, Hamilton Naturalists 17).
+#
+# Such a venue is geocoded here through mapsee_ingest_ics's Photon geocoder (the
+# shared cache, the GEOCODE_MAX_NEW budget, a lookup a second), by
+# mapsee_ingest_repaircafe_ch's make_geocode, which asks nothing past the
+# deadline. Photon answers every question, so the answer is held to the row's own
+# town, as repair-cafe.ch's is:
+#   - the town's point is the row's postcode and town as Photon places them;
+#   - an answer more than STREET_KM from it is another town's street;
+#   - an answer ON the town's own node, or on a town-wide postcode's point, is
+#     the town: what Photon gives for a street it does not know.
+# 162 venues on the same sites that do carry their own pin, asked as if they did
+# not: 150 placed, a median 76 m from that pin and 90% within 1.05 km. 3 were more
+# than 5 km off, and in all three the pin is the publisher's error (two dropped
+# the longitude's minus sign, 417 and 443 km; one is 8 km out of its own town).
+# 12 were 1 to 4.6 km off: the middle of a street whose house Photon does not
+# know, or a bus stop on it. Of the 3,937 coordless rows, 3,901 were placed.
+# A US row, a row naming no country (both are the sync's Census rows), a real
+# geo_lat and a standing venue block are never touched. A postal box or an
+# online "street", and a calendar ics_sources.json already reads, are refused
+# before anything is asked (below).
+
+# The countries the sync hands to US Census (mapsee_supabase_sync.CENSUS_COUNTRIES,
+# which test_ingest_tribe.py holds this equal to; an adapter does not import
+# the sync). "" is a row that names no country, which Census gets too.
+CENSUS_COUNTRIES = frozenset({"", "us", "usa", "united states", "united states of america",
+                              "pr", "puerto rico"})
+
+# Further than this from the town's point, an answer is another town's street.
+# The wrong answers measured were 200 km and more away ("1150 WSP/SPW, Belgique"
+# in Jerez, 1,790 km), as were the abroad notes' Wellington and Vancouver for
+# Hamilton NZ, but not all: "Carlingford Road, A91 PF57 Dundalk" came back as a
+# nursing home in Carlingford, 12.8 km off. At 15 km that one is kept with 5
+# right ones (Sidmouth's library, which Photon's "EX12 2LT Sidmouth" puts in
+# Seaton, 12.2 km off, and two streets in Caledon and Nordborg, municipalities).
+# A pin in the wrong town is worse than no pin, so 10.
+STREET_KM = 10.0
+# An answer ON the town's own node, or on a town-wide postcode's point, is the
+# town: Photon's answer for a street it does not know is that very point (the
+# repair-café's Kuhstall). Not 50 m, the repair café's rule: a village's venue is
+# often on its main street beside the node, and 5 of the 162 pinned venues (a
+# café, two houses, a street, a building) were 17 to 37 m from it and within 80 m
+# of their own pins.
+SAME_POINT_KM = 0.001
+
+# One lookup at a time across the workers: Photon's fair use is one a second
+# from this process, and the shared cache and budget file are not thread-safe.
+_PLACE_LOCK = threading.Lock()
+
+PLACED = "placed by a geocoded street"
+_MAYBE_UNASKED = ("town not found by the geocoder", "street not found in its town")
+# The deadline's miss cuts the site, as a page the deadline stopped does: the
+# next run starts at it. The budget's does not: GEOCODE_MAX_NEW is the whole
+# job's, and a cut on every site past it would hold the cursor at the first of
+# them, run after run, and starve the tail (see main's cursor).
+UNASKED_DEADLINE = "not geocoded: the deadline had passed"
+UNASKED_BUDGET = "not geocoded: this run's lookup budget is spent"
+
+# A MAILING ADDRESS IS NOT A PLACE, AND NEITHER IS A ZOOM LINK. Photon answers
+# both: Coffs Harbour Regional Landcare's working bees at "Green Bluff Headland"
+# give the street "PO Box 1730" (5 rows, 2026-10-25), and Photon's answer was
+# Coffs Harbour Jetty's post office, 2.6 km from the town's point and so kept,
+# 10.4 km from the headland. A pin in the wrong place is worse than none (the
+# runsignup and rolodex adapters refuse PO boxes too). Such a street is refused
+# before anything is asked, and so is one that says it is online ("Virtual via
+# Zoom; no physical location", Today's Family's 25 Virtual EarlyON rows).
+# Of 617 distinct streets on 43 non-US sites and the four leads, and 4,499 in
+# five CI copies of the civic group's feeds_events.json, these two refuse those
+# two and nothing else.
+NOT_A_PLACE_POSTAL = "not a place: a postal box"
+NOT_A_PLACE_ONLINE = "not a place: online"
+# A comma part that STARTS as a postal box: English, French, German, Dutch,
+# Danish and Norwegian, Spanish. Not the bare French "BP 12": "Bp." is how
+# Budapest is written, and 10 configured sites are Hungarian.
+_POSTAL_BOX = re.compile(
+    r"^\s*(?:(?:g\.?\s*)?p\.?\s*o\.?\s*box\b|post\s*office\s*box\b|(?:locked|private)\s+bag\b"
+    r"|postfach\b|postbus\b|postboks\b|bo[iî]te\s+postale\b"
+    r"|apartado(?:\s+de\s+correos)?\s+\d|casilla(?:\s+de\s+correos?)?\s+\d)", re.I)
+
+
+def _without_postal_boxes(street: str) -> str:
+    """The street without its comma parts that are postal boxes ("" if that was
+    all). A street with none is returned as written, so its questions, and the
+    cache's answers to them, are the ones they were."""
+    parts = (street or "").split(",")
+    if not any(_POSTAL_BOX.match(p) for p in parts):
+        return street or ""
+    return ", ".join(p.strip() for p in parts if p.strip() and not _POSTAL_BOX.match(p))
+
+
+# ONE WRITER PER CALENDAR. Four calendars are in tribe_sources.json with no
+# venue block AND in ics_sources.json: ajax.ca, bairrobenfica.pt, torrent.es and
+# teruel.es (2026-10-25). Their REST venues carry no geo_lat, which is why the
+# ics entries exist ("REST venues carry no geo", says Ajax's), so the ics rows
+# were the only ones on the map. The two adapters key the same event apart (ics
+# hashes the whole LOCATION, this the venue and town: 24 of 24 Ajax events that
+# start together had two fingerprints), so a REST row placed here would be a
+# second pin beside each stored ics row: 39 Ajax rows, 20 Benfica, 15 Torrent.
+# A calendar ics_sources.json reads (same host, www. aside, at or under this
+# site's path) is the ics adapter's to place. Retiring the ics entry hands it
+# here, and its stored ics rows then stay beside the new ones until they are
+# past. A missing or broken ics config claims nothing, as
+# mapsee_ingest_facility_hours.claimed_osm_refs does for osm_amenities.
+ICS_READS = "not geocoded: ics_sources.json reads this calendar"
+ICS_CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ics_sources.json")
+
+
+def _calendar_at(url: Any) -> Tuple[str, str]:
+    """(host without www., path without a trailing slash), lower case; ("", "") if not a URL."""
+    try:
+        parts = urlsplit(str(url or "").strip())
+        host = (parts.hostname or "").lower().rstrip(".")
+    except ValueError:
+        return "", ""
+    if host.startswith("www."):
+        host = host[4:]
+    return host, parts.path.rstrip("/").lower()
+
+
+def ics_calendars(config_path: str = ICS_CONFIG) -> Dict[str, Tuple[str, ...]]:
+    """host -> the paths of the feeds ics_sources.json reads on it."""
+    try:
+        cfg = json.loads(open(config_path, encoding="utf-8").read())
+    except (OSError, ValueError):
+        return {}
+    out: Dict[str, Tuple[str, ...]] = {}
+    for src in cfg if isinstance(cfg, list) else []:
+        host, path = _calendar_at(src.get("url")) if isinstance(src, dict) else ("", "")
+        if host:
+            out[host] = out.get(host, ()) + (path,)
+    return out
+
+
+def read_by_ics(base_url: Any, calendars: Dict[str, Tuple[str, ...]]) -> bool:
+    """Whether an ics feed reads this Tribe site: its host, at or under its path.
+    extension.wsu.edu/snohomish is not /thurston's nor /pierce's calendar."""
+    host, base = _calendar_at(base_url)
+    return bool(host) and any(p == base or p.startswith(base + "/") for p in calendars.get(host, ()))
+
+
+# A comma part that is a house number and a street ("460 Concession Street"),
+# not a bare number ("Calle Sagra, 17") or a postcode.
+_NUMBERED_STREET = re.compile(r"\d+[a-z]?\s+(?=[^\d]*[^\W\d_]{3})[^\d]+", re.I)
+_ASIDE = re.compile(r"\s*\([^)]*\)")
+
+
+def street_attempts(street: str) -> List[str]:
+    """The strings to ask for one venue's street, best first, never more than three.
+
+    The street without its asides in brackets, then its numbered part, then its
+    last part. Every attempt is held to the town, and each costs a lookup.
+    Measured 2026-10-25 on the venues the whole string did not find:
+      - "18 Chapman Street West (Grace and Woodhouse United Church)", 105 of
+        Today's Family's rows, is found once the church in brackets is gone;
+      - "460 Concession Street, Entrance at side door of building off East 19th
+        Street" is not found, and its first part is the school at no. 460;
+      - Libraries Unlimited writes "Bideford Library, Arts Centre, The Quay":
+        157 of its 289 rows. The last part, asked with the postcode and town,
+        found 7 of its 7 venues, and 6 of 6 such Repair Café Wales venues whose
+        own pin is known, 0.01 to 0.35 km from it.
+    A part that is a postal box is never asked: Photon answers with the post
+    office."""
+    street = _without_postal_boxes(street)
+    street = _ASIDE.sub("", street).strip(" ,") or street.strip()
+    if not street:
+        return []
+    parts = [p.strip() for p in street.split(",") if p.strip()]
+    numbered = next((p for p in parts if _NUMBERED_STREET.fullmatch(p)), None)
+    last = parts[-1] if len(parts) > 1 and not re.search(r"\d", parts[-1]) else None
+    out = [street]
+    for q in (numbered, last):
+        if q and q not in out:
+            out.append(q)
+    return out
+
+
+# A postcode with a letter in it is a street's or a building's (the UK's
+# EX4 3PQ, Canada's L9A 1C3, the Netherlands' 2665 VH), and Photon places the
+# building there: an answer beside that point is the place, not the town. A
+# postcode of digits alone (6400, 67310, 1150) is a town's or a district's.
+_UNIT_POSTCODE = re.compile(r"[^\W\d_]")
+
+
+def place_street(street: str, postcode: Optional[str], city: str, country: str,
+                 geocode) -> Tuple[Optional[Tuple[float, float]], str]:
+    """((lat, lon), PLACED) or (None, why not).
+
+    `geocode(query, suffix)` is make_geocode's: a point, or None for a miss, a
+    question past the deadline or one over the budget."""
+    ref = geocode(f"{postcode or ''} {city}".strip(), f", {country}")
+    if ref is None:
+        return None, "town not found by the geocoder"
+    # The points an answer may not sit on: the town's own node (with no
+    # postcode, `ref` is that node) and a town-wide postcode's point.
+    towns = [] if postcode and _UNIT_POSTCODE.search(postcode) else [ref]
+    node_asked = [not postcode]
+
+    def is_town(p: Tuple[float, float]) -> bool:
+        # The town's own node is asked only when an answer would be kept, and
+        # once per town (the shared cache keeps hits).
+        if not node_asked[0]:
+            node_asked[0] = True
+            alone = geocode(city, f", {country}")
+            if alone is not None:
+                towns.append(alone)
+        return any(km(p, t) <= SAME_POINT_KM for t in towns)
+
+    suffix = ", " + ", ".join(x for x in (f"{postcode or ''} {city}".strip(), country) if x)
+    why = "street not found in its town"
+    for q in street_attempts(street):
+        p = geocode(q, suffix)
+        if p is None:
+            continue
+        if km(p, ref) > STREET_KM:
+            why = "the geocoder answered outside the town"
+            continue
+        if is_town(p):
+            why = "the geocoder answered with the town itself"
+            continue
+        return p, PLACED
+    return None, why
+
+
+class StreetPlacer:
+    """Places the coordless non-US rows of every site in one run.
+
+    Shared by the workers: one venue is placed at a time (_PLACE_LOCK), and
+    once per run, so a centre with 321 drop-in rows costs its lookups once and a
+    street Photon misses (a miss is never cached) is asked once a run, not once
+    a row. `geocode` and `unasked` are make_geocode's; `deadline` is main's
+    (epoch seconds, 0 = none); `ics` is ics_calendars()'s, the calendars the
+    ics adapter places instead."""
+
+    def __init__(self, geocode, unasked, deadline: float = 0.0,
+                 ics: Optional[Dict[str, Tuple[str, ...]]] = None):
+        self.geocode, self.unasked, self.deadline = geocode, unasked, deadline
+        self.ics = ics or {}
+        self.memo: Dict[tuple, Tuple[Optional[Tuple[float, float]], str]] = {}
+
+    def place(self, nev: NormalizedEvent, v: Dict[str, Any],
+              site: Optional[Dict[str, Any]] = None) -> Optional[str]:
+        """Give `nev` coordinates from its venue's street, and say how it went;
+        None when the row is not this placer's to place."""
+        if nev.latitude is not None and nev.longitude is not None:
+            return None                       # a real geo_lat, or a standing block
+        country = (nev.country or "").replace(".", "").strip()
+        if country.lower() in CENSUS_COUNTRIES:
+            return None                       # the sync's Census row
+        street, city = _clean(v.get("address")), _clean(v.get("city"))
+        if not street or not city:
+            return None                       # a street AND a town of its own
+        if site is not None and read_by_ics(site.get("base_url"), self.ics):
+            return ICS_READS                  # one writer per calendar
+        if _ONLINE_PLACE_RX.search(street):
+            return NOT_A_PLACE_ONLINE
+        if not _without_postal_boxes(street):
+            return NOT_A_PLACE_POSTAL
+        # The country as written: Photon gave "..., FR" and "..., France" the
+        # same point for 250 of FFSP's 252 questions (2026-10-25), and ", CA"
+        # is Canada to it, not California ("Hamilton, CA" is Ontario's).
+        postcode = _clean(v.get("zip"))
+        key = (street.casefold(), (postcode or "").casefold(), city.casefold(), country.casefold())
+        with _PLACE_LOCK:
+            got = self.memo.get(key)
+            if got is None:
+                got = place_street(street, postcode, city, country, self.geocode)
+                if got[0] is None and got[1] in _MAYBE_UNASKED and self.unasked():
+                    # Only cached answers are given past the deadline, and none
+                    # over the budget, so this miss may be a question not asked.
+                    late = self.deadline and time.time() >= self.deadline
+                    got = (None, UNASKED_DEADLINE if late else UNASKED_BUDGET)
+                self.memo[key] = got
+        point, how = got
+        if point is not None:
+            nev.latitude, nev.longitude = point
+        return how
+
+
 def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
     # NO EVENT STATUS IN THIS API. The Events Calendar's "Canceled"/"Postponed"
     # reaches the event page's JSON-LD (eventStatus, which
@@ -261,7 +547,7 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     start_local = start.replace(" ", "T")[:19]
     v = _obj(ev.get("venue"))
     lat, lon = _f(v.get("geo_lat")), _f(v.get("geo_lng"))
-    # A SITE OUTSIDE THE US THAT LEAVES geo_lat BLANK CANNOT BE PLACED AT ALL.
+    # A SITE OUTSIDE THE US THAT LEAVES geo_lat BLANK IS NOT PLACED BY THE SYNC.
     # The sync's only geocoder is the US Census batch service, and a row with no
     # coordinates is dropped there — so for a Canadian or European calendar whose
     # organiser never filled in the venue's map fields, "ingested 43 events" and
@@ -271,7 +557,9 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     # The config's `venue` block FILLS those gaps and never overrides real data,
     # which is the same contract the Squarespace and JSON-LD adapters already
     # have. Discovery supplies it for free: catalog_discover_osm proposes every
-    # candidate with the surveyed point OSM holds for that venue.
+    # candidate with the surveyed point OSM holds for that venue. A row the block
+    # does not fill, but whose venue gives a street and a town, is geocoded
+    # after this, inside that town (StreetPlacer).
     vd = site.get("venue") or {}
     if not _block_stands_in(v, vd):
         vd = {}                                   # not its coordinates, and not its street either
@@ -342,7 +630,8 @@ class SiteEvents(list):
 
 def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
                 deadline: float = 0.0,
-                stop: Optional[threading.Event] = None) -> SiteEvents:
+                stop: Optional[threading.Event] = None,
+                placer: Optional[StreetPlacer] = None) -> SiteEvents:
     """Read one site and return its events. The caller writes them.
 
     It never touches the store, which is not thread-safe: `admission_ids` is
@@ -355,6 +644,10 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
     80-minute deadline ran 86.9 (2026-10-23). The rows already read are returned,
     with `cut` set. `stop` is set when the run is interrupted, and ends the site
     the same way.
+
+    `placer` (main's StreetPlacer, shared by the workers) gives a coordless
+    non-US row its street's point; a row it could not place for the deadline
+    cuts the site too.
     """
     started = time.monotonic()
     events = SiteEvents()
@@ -405,6 +698,7 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
     admission_excluded = 0
     title_filtered = 0
     online = 0
+    placement: Dict[str, int] = {}
     cut = ""
     is_civic = str(site.get("_found", "")).startswith("civic:")
     refreshable_admission_ids = admission_ids if site.get("free_only") else frozenset()
@@ -495,6 +789,15 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
                 if nev and online_with_no_place(ev, nev.name, nev.description):
                     online += 1
                     continue
+                if nev and placer is not None:
+                    try:
+                        how = placer.place(nev, _obj(ev.get("venue")), site)
+                    except Exception as exc:                   # noqa: BLE001
+                        # Never the site's rows: one that cannot be placed is
+                        # written as it was before there was a placer.
+                        how = f"geocoder failed ({type(exc).__name__})"
+                    if how:
+                        placement[how] = placement.get(how, 0) + 1
                 if nev:
                     events.append(nev)
             if page >= int(body.get("total_pages") or page):
@@ -502,11 +805,18 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
         except Exception as exc:                           # noqa: BLE001
             _say(f"[tribe] {site.get('name')} p{page} unreadable page: "
                  f"{type(exc).__name__}: {exc}"); break
+    if placement.get(UNASKED_DEADLINE) and not cut:
+        cut = f"stopped at the deadline before geocoding {placement[UNASKED_DEADLINE]} row(s)"
+    placed = placement.pop(PLACED, 0)
     _say(f"[tribe] {site.get('name')}: kept {len(events)} events"
          + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
          + (f" ({governance} town-hall row(s) refused)" if governance else "")
          + (f" ({title_filtered} title-filtered)" if title_filtered else "")
          + (f" ({online} online with no place refused)" if online else "")
+         + (f" ({placed} {PLACED})" if placed else "")
+         + (" (" + str(sum(placement.values())) + " not placed: "
+            + ", ".join(f"{n} {why}" for why, n in sorted(placement.items(), key=lambda x: -x[1]))
+            + ")" if placement else "")
          + (f" ({excluded} outside configured categories)" if excluded else "")
          + (f" ({admission_excluded} outside explicit-free admission scope)"
             if admission_excluded else "")
@@ -581,6 +891,8 @@ def main(argv=None) -> int:
                     help="with --deadline: file naming the site to start at")
     ap.add_argument("--workers", type=int, default=os.environ.get("TRIBE_WORKERS", DEFAULT_WORKERS),
                     help="sites read at once, never two on one host (1 = one at a time)")
+    ap.add_argument("--ics-config", default=ICS_CONFIG,
+                    help="the ics adapter's config: a calendar it reads is not geocoded here")
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
@@ -602,6 +914,23 @@ def main(argv=None) -> int:
     # with no host of its own (no base_url) holds nobody up.
     hosts = [_http_host(s.get("base_url")) or f"#{i}" for i, s in enumerate(sites)]
     local, sessions, stop = threading.local(), [], threading.Event()
+    # Photon has a Session of its own, used under _PLACE_LOCK only.
+    photon = requests.Session()
+    photon.headers.update({"User-Agent": UA})
+    sessions.append(photon)
+    geocode, unasked = make_geocode(photon, a.deadline or None, clock=time.time)
+    placer = StreetPlacer(geocode, unasked, a.deadline, ics_calendars(a.ics_config))
+    import mapsee_ingest_ics as ics           # make_geocode's cache, loaded by it
+    asked = [ics._PHOTON["lookups"]]
+    photon_before = ics._photon_count()
+
+    def _save_geocodes() -> None:
+        # Only after a lookup: a run that asked nothing leaves the shared,
+        # committed geocode_cache.json as it found it.
+        if ics._PHOTON["lookups"] != asked[0]:
+            with _PLACE_LOCK:
+                ics._save_geo_cache(ics._GEO_CACHE)
+                asked[0] = ics._PHOTON["lookups"]
 
     def _read(site: Dict[str, Any], ids) -> tuple:
         t0 = time.monotonic()
@@ -611,7 +940,7 @@ def main(argv=None) -> int:
             session.headers.update({"User-Agent": UA, "Accept": "application/json"})
             sessions.append(session)
         try:
-            return ingest_site(session, site, ids, a.deadline, stop), None, time.monotonic() - t0
+            return ingest_site(session, site, ids, a.deadline, stop, placer), None, time.monotonic() - t0
         except Exception as exc:                          # noqa: BLE001
             return SiteEvents(), exc, time.monotonic() - t0
 
@@ -694,6 +1023,7 @@ def main(argv=None) -> int:
                 _save_store(store)
                 if cursor_path:
                     _save_cursor(cursor_path, _cursor())
+                _save_geocodes()
                 last_save = time.time()
         clean = True
     except KeyboardInterrupt:
@@ -711,9 +1041,14 @@ def main(argv=None) -> int:
     _save_store(store)
     if cursor_path:
         _save_cursor(cursor_path, _cursor())
+    _save_geocodes()
+    # The run's Photon cost, as the ics adapter prints a source's: a miss is
+    # never cached, so the same one is paid again next run.
+    lookups, missed = (n - b for n, b in zip(ics._photon_count(), photon_before))
     _say(f"[tribe] done: +{total} events from {done} of {len(sites)} sites "
          f"({workers} at once, {(time.monotonic() - began) / 60:.1f} min); "
          f"store now holds {len(store.records)} unique events."
+         + (f" ({lookups} Photon lookup(s), {missed} missed)" if lookups else "")
          + (" (stopped at the step deadline)" if stopped or cut_short else "")
          + (f" ({cut_short} site(s) cut short)" if cut_short else "")
          + (" (interrupted)" if interrupted else ""))
