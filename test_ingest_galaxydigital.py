@@ -222,6 +222,9 @@ for s, want in [("Contact Kerri Example at kerri@example.gov or 980-555-7878 (Qu
                 ("Text Carla if you can't find the crew, 503-555-7464.", True),
                 ("If you are interested, please reach out to Kyra Example by phone or email.", True),
                 ("For questions contact Jane Doe.", True),
+                ("Contact Jane Doe at the front desk.", True),
+                ("Please contact Jane Doe by phone.", True),
+                ("Call Center hours vary.", False),
                 ("Contact: the parks office", True),
                 ("We meet at 9:00am - 12:00pm on 2026-11-07.", False),
                 ("Please contact PDX 311 .", False),
@@ -280,9 +283,33 @@ ids = sorted(by_id(rows))
 check("read: 5 rows - 3 open shifts of the weekly need, the pinned one-off, the 14+ one-off",
       ids == ["portland:900001:2026-10-27:0900", "portland:900001:2026-11-10:0900", "portland:900001:2026-12-04:2100",
               "portland:900002:2026-11-08:0930", "portland:900008:2026-10-29:1630"], ids)
-check("read: complete, 2 listing pages and 7 need pages, robots.txt first",
-      rep["complete"] and rep["pages"] == {"listing": 2, "needs": 7} and web.log[0] == BASE + "/robots.txt"
+check("read: one shift we cannot read leaves the portal NOT complete (nothing judged absent), "
+      "2 listing pages and 7 need pages, robots.txt first",
+      not rep["complete"] and rep["pages"] == {"listing": 2, "needs": 7} and web.log[0] == BASE + "/robots.txt"
       and rep["requests"] == 10, (rep["complete"], rep["pages"], web.log[:2], rep["requests"]))
+# The unreadable one is "Thu Nov 18, 2026", a Wednesday; read right, the
+# portal is complete.
+READABLE = {need_url("900001"): Resp(200, fx("need-900001.html").replace("Thu Nov 18, 2026", "Wed Nov 18, 2026"))}
+rep_ok, _, _ = run(Web(READABLE))
+check("read: with every shift readable the same portal reads COMPLETE", rep_ok["complete"], rep_ok["refused"])
+rep_gap, _, _ = run(Web(dict(READABLE, **{BASE + "/need/index/12": Resp(200, "<html><body>Down for maintenance</body></html>")})))
+check("read: a later listing page that holds no need is not the end of the list (NOT complete)",
+      not rep_gap["complete"]
+      and rep_gap["notes"].get("a later listing page held no need (absence not judged this run)") == 1,
+      (rep_gap["complete"], rep_gap["notes"]))
+# A pinned need refused today is seen under the key its row was written with:
+# the override's venue ("Rose City Bluff"), not the page's Location text.
+VETTED = fx("need-900002.html").replace('<tr class="requirement" tabindex="0">',
+                                        '<tr class="requirement" tabindex="0">\n<td class="icon"></td>'
+                                        '<td class="text">Requires: Background Check</td></tr>'
+                                        '<tr class="requirement" tabindex="0">', 1)
+rep_v, rows_v, seen_v = run(Web(dict(READABLE, **{need_url("900002"): Resp(200, VETTED)})))
+D2v = G.parse_detail(VETTED)
+sh2, _ = G.shifts_of(D2v)
+want_keys = {G.fingerprint_for(D2v["title"], s["day"], s["start"], "Rose City Bluff") for s in sh2}
+check("read: a pinned need refused for a background check is seen under its written key (the override's venue)",
+      D2v["background_check"] and want_keys and want_keys <= set(seen_v)
+      and not any(r.source_id.startswith("portland:900002:") for r in rows_v), (sorted(want_keys), seen_v))
 check("read: the standing role and the one-off outside the window are never requested",
       need_url("900004") not in web.log and need_url("900005") not in web.log, web.log)
 gaps = [b - a for a, b in zip(web.times, web.times[1:])]
@@ -457,14 +484,15 @@ try:
     webs = []
 
     def factory():
-        w = Web()
+        w = Web(READABLE)
         webs.append(w)
         return w
 
     code = G.main(["--config", os.path.join(HERE, "galaxydigital_sources.json"), "--store", store_p,
                    "--only", "portland", "--max-minutes", "0"], session_factory=factory, sleep=lambda s: None)
     data = json.load(open(store_p, encoding="utf-8"))
-    check("main: exits 0 and writes the 5 rows", code == 0 and len(data["events"]) == 5,
+    # READABLE: the 5 rows plus the Nov 18 shift, read right once its weekday is
+    check("main: exits 0 and writes the 6 rows", code == 0 and len(data["events"]) == 6,
           (code, len(data.get("events", []))))
     check("main: --only reads one portal, robots.txt first, with our User-Agent",
           len(webs) == 1 and webs[0].log[0] == BASE + "/robots.txt" and webs[0].headers.get("User-Agent") == G.USER_AGENT,

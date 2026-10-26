@@ -268,7 +268,7 @@ _CONTACT_LABEL = re.compile(r"^\W*(?:contact(?:\s+person)?|coordinator|site\s+su
 # "please reach out to <First> <Last> by phone or email" (a SUN club page) has
 # neither an address nor a number, and is a person all the same.
 _NAMED_CONTACT = re.compile(
-    r"\b(?:contact|e-?mail|call|text|ask\s+for|reach\s+out\s+to)\s+[A-Z][\w'.-]*(?:\s+[A-Z][\w'.-]*){0,2}"
+    r"\b(?i:contact|e-?mail|call|text|ask\s+for|reach\s+out\s+to)\s+[A-Z][\w'.-]*(?:\s+[A-Z][\w'.-]*){0,2}"
     r"\s*(?:\b(?:at|on|via|by)\b|\(|[.!]?\s*$)")
 _LEAD_IN = re.compile(r"^\W*(?:\w+\s+){0,2}\w+\s*[?:]\s*$")
 # A lead-in on a line of its own goes with the contact under it only when it
@@ -919,7 +919,13 @@ def read_portal(portal: Dict[str, Any], client: Client, today: date,
                 if rep["pages"]["listing"] == 1:
                     print(f"[{SOURCE}] !! {portal.get('name')}: the listing matched no needs - the markup "
                           f"has probably changed. Check _LIST_START and _NEED_ID.", flush=True)
-                    whole = False
+                else:
+                    # A page the pager pointed at that holds no need is not
+                    # the end of the list: a maintenance page or a same-host
+                    # redirect to /login answers 200 too, and every need on
+                    # the pages behind it would read as removed.
+                    count("notes", "a later listing page held no need (absence not judged this run)")
+                whole = False
                 break
             for n in parsed["needs"]:
                 if n["need_id"] not in have:
@@ -963,6 +969,11 @@ def read_portal(portal: Dict[str, Any], client: Client, today: date,
         shifts, bad = shifts_of(detail)
         for why, k in bad.items():
             count("refused", f"shift: {why}", k)
+        if bad:
+            # Our own parse failure is not the organiser taking a shift down:
+            # without a date there is no key to mark seen, so the portal's read
+            # is not complete and nothing of it is judged absent this run.
+            whole = False
         window = [s for s in shifts if today <= s["day"] <= horizon]
         if len(window) < len(shifts):
             count("notes", "shift: outside the window", len(shifts) - len(window))
@@ -988,8 +999,15 @@ def read_portal(portal: Dict[str, Any], client: Client, today: date,
                       f"[{' / '.join(detail.get('location') or [])}] {url}")
             venue_guess = (parse_location(detail.get("location") or []).get("name")
                            or parse_location(detail.get("location") or []).get("street"))
+            # Seen under the key its row was WRITTEN with: an override's venue
+            # when the config pins the place (5 of the 8 Portland overrides
+            # name it otherwise than the page does), so a shift refused today
+            # (a background check added, a programme skipped) is not judged
+            # absent and cancelled. place() reads nothing; it only decides.
+            tried = where if where is not None else place(detail, portal)[0]
+            venue_seen = (tried or {}).get("venue") or venue_guess
             for s in window:
-                seen(fingerprint_for(detail["title"], s["day"], s["start"], venue_guess))
+                seen(fingerprint_for(detail["title"], s["day"], s["start"], venue_seen))
             continue
         for s in window:
             if s["start"] == (0, 0):
