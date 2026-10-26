@@ -682,6 +682,50 @@ finally:
     civ.CITY_CLASSES = _real
     _C._coverage_rows = _real_rows
 
+# ---------------------------------------------- 10. a city hall's calendar, in its own words
+# The civic walk shares find_calendar, and its non-US turns found 4 candidates
+# in 344 cities (runs 114-123). Of the 28 readable non-US city halls in the
+# 2026-10-25 sample, 5 named their calendar only in a word it did not read
+# (Dogodki, Viðburðir), and 2 of the 3 Slovene ones spent one of its two
+# follows on a road-safety council, because "preventivo" holds "event". This
+# is zelezniki.si's homepage, trimmed, with The Events Calendar on its page.
+
+
+class _Hall:
+    def __init__(self, pages):
+        self.pages, self.asked = pages, []
+
+    def get(self, u, timeout=None, allow_redirects=True, **kw):
+        self.asked.append(u)
+        if u not in self.pages:
+            raise ConnectionError(u)
+        page = self.pages[u]
+
+        class _R:
+            status_code, url, text = 200, u, page
+            headers = {"Content-Type": "text/html"}
+        return _R()
+
+
+_ZEL = ('<a href="/objava/1207279">SVET ZA PREVENTIVO IN VZGOJO V CESTNEM PROMETU</a>'
+        '<a href="/objava/57198">Koledar odvoza odpadkov</a>'
+        '<a href="/dogodki">Prihajajoči dogodki</a>'
+        '<a href="/objave/43">Dogodki in prireditve</a>')
+_hall = _Hall({"https://zelezniki.example": _ZEL,
+               "https://zelezniki.example/dogodki":
+                   '<link rel="stylesheet" href="/wp-content/plugins/the-events-calendar/x.css">'})
+_cands, _f = civ.probe(_hall, {"name": "Železniki", "url": "https://zelezniki.example", "city": "Železniki",
+                                "region": None, "country": "SI"})
+check(_hall.asked == ["https://zelezniki.example", "https://zelezniki.example/dogodki"],
+      f"a Slovene city hall's Dogodki is followed, not its road-safety council or its waste days ({_hall.asked})")
+check([(c["type"], c["base_url"], c["default_country"]) for c in _cands]
+      == [("tribe", "https://zelezniki.example", "SI")],
+      f"...and its calendar is proposed for the whole town ({_cands})")
+_hall = _Hall({"https://vik.example": '<a href="/is/mannlif/vidburdir">Viðburðir</a>'})
+civ.probe(_hall, {"name": "Vík", "url": "https://vik.example", "country": "IS"})
+check(_hall.asked == ["https://vik.example", "https://vik.example/is/mannlif/vidburdir"],
+      "an Icelandic one's Viðburðir too (vik.is, olfus.is)")
+
 # ---------------------------------------------- report
 bad = [l for ok, l in checks if not ok]
 for ok, l in checks:
