@@ -66,9 +66,9 @@ read faster than they ask:
     asked either.
   * A NAIVE STAMP CAN BE UTC. Tartu Kultuuriaken's 10:00 is the 12:00 its page
     prints; `naive_is_utc` + `timezone` reads it so, on both sides of a DST change.
-  * A streetAddress printed as LINES is a street and a town, a hall named as a
-    list is its lines, and abroad a street and a town with no geo get the one
-    Photon try the sync (Census, US only) cannot give.
+  * A streetAddress printed as LINES is a street and a town, and a hall named
+    as a list is its lines. Abroad, a street and a town with no geo are still
+    not geocoded here: an unchecked Photon answer was the wrong street.
 
 The live block below keeps the date it was captured with, because its SHAPE is
 what is being pinned — but every call that runs it through to_event rolls that
@@ -455,6 +455,8 @@ class _Host(_Pages):
                 content = body.encode()
                 status_code = code
             return R()
+        if isinstance(self.pages.get(url), Exception):
+            raise self.pages[url]
         if isinstance(self.pages.get(url), int):
             status = self.pages[url]
 
@@ -524,23 +526,34 @@ def check_pacing():
     check("...and its robots.txt", [u for u, _ in host.asked].count(
         "https://kulturhus.example/robots.txt"), 1)
     host, clock, _, _ = _paced(served, None, {"listing": [listing]})
-    check("a site of one page sleeps not at all (it used to sleep 1 s after every page)",
-          clock.slept, [])
+    check("a site of one page waits once, the 1 s floor after its robots.txt read, and never after "
+          "its last page (it used to sleep 1 s after every page)", clock.slept, [1.0])
 
     print()
     print("a wait longer than 30 s is not slept: the page is not asked")
     inline = {listing: _page("", dict(show, url=pages[0]), dict(show, name="Other", url=pages[1]))
               + "".join(f'<a href="{p}">x</a>' for p in pages)}
     host, clock, out, got = _paced(inline, "User-agent: *\nCrawl-delay: 150\n", site)
-    check("GRAAP's 'Crawl-delay: 150': the listing is read, as the host's first request",
-          [u for u, _ in host.asked], ["https://kulturhus.example/robots.txt", listing])
-    check("...its Event blocks are kept", len(got), 2)
-    check("...nothing is slept", clock.slept, [])
+    check("GRAAP's 'Crawl-delay: 150': robots.txt was the host's first request, so not even the listing is asked",
+          [u for u, _ in host.asked], ["https://kulturhus.example/robots.txt"])
+    check("...nothing is kept and nothing is slept", (len(got), clock.slept), (0, []))
     check_true("...and the line says what was not asked and why",
-               "3 page(s) not asked: the host asks 150 s between requests, over the 30 s this run will wait"
+               "page(s) not asked: the host asks 150 s between requests, over the 30 s this run will wait"
                in out)
+    host, clock, _, _ = _paced(served, askim, site)
+    check("the first page waits the Crawl-delay after robots.txt (it used to follow at once)",
+          round(host.asked[1][1] - host.asked[0][1], 3), 10.0)
     host, clock, _, _ = _paced(served, "User-agent: *\nCrawl-delay: 30\n", site)
     check("30 s is still waited", _gaps(host), [30.0, 30.0, 30.0])
+
+    print()
+    print("a challenged robots.txt asks nothing, and a request that fails still holds the pace")
+    host, _, out, got = _paced(served, "<html><title>Just a moment...</title>checking your browser</html>", site)
+    check("a bot challenge on robots.txt: only robots.txt is asked", [u for u, _ in host.asked],
+          ["https://kulturhus.example/robots.txt"])
+    broken = dict(served, **{pages[0]: ConnectionError("reset by peer")})
+    host, _, _, got = _paced(broken, askim, site)
+    check("a page whose request raises still stamps the host: the next waits 10 s", _gaps(host), [10.0, 10.0, 10.0])
 
     print()
     print("a wait is not started when it would end past the deadline")
@@ -684,7 +697,7 @@ def check_address_lines():
     check("an empty list is no text", mapsee_ingest_jsonld._clean([]), None)
 
     print()
-    print("abroad, a street and a town with no geo get the one Photon try the sync cannot give")
+    print("abroad, a street and a town with no geo are not geocoded here (an unchecked answer was wrong)")
     queries = []
 
     def photon(_session, q):
@@ -693,23 +706,20 @@ def check_address_lines():
     tartu = dict(TARTU_LD, startDate=SOON)
     with patch.object(mapsee_ingest_jsonld, "_geocode", side_effect=photon):
         ev = to_event(tartu, TARTU_LD["url"], "community", None)
-        check("Tartu's row asks Photon for its street and town", queries, ["Kompanii 2, Tartu"])
-        check("...and is pinned there", (ev.latitude, ev.longitude) if ev else None, (58.3779, 26.7290))
-        check("...with its hall and town", (ev.venue_name, ev.city) if ev else None,
-              ("Elektriteater, Raekoja saal", "Tartu"))
+        check("Tartu's row asks Photon nothing", queries, [])
+        check("...and is left unplaced, with its hall and town", (ev.latitude, ev.venue_name, ev.city) if ev else None,
+              (None, "Elektriteater, Raekoja saal", "Tartu"))
         for country in (None, "US", "USA", "United States", "pr"):
             us = dict(tartu, location={"name": "Chop Suey", "address": {
                 "streetAddress": "1325 E Madison St", "addressLocality": "Seattle",
                 "addressRegion": "WA", "addressCountry": country}})
             ev = to_event(us, "u", "music", None)
             check(f"  country {country!r}: a street and a city are left for the sync's Census pass",
-                  (ev is not None, ev.latitude if ev else "dropped", queries[1:]), (True, None, []))
+                  (ev is not None, ev.latitude if ev else "dropped", queries), (True, None, []))
         geo = dict(tartu, location=dict(TARTU_LD["location"], geo={"latitude": 58.38, "longitude": 26.72}))
-        check_true("an Event abroad that carries its own geo asks nothing",
-                   to_event(geo, "u", "community", None) is not None and queries[1:] == [])
-    import mapsee_supabase_sync
-    check("the set of countries Census is sent is the sync's own",
-          mapsee_ingest_jsonld._CENSUS_COUNTRIES, mapsee_supabase_sync.CENSUS_COUNTRIES)
+        check_true("an Event abroad that carries its own geo asks nothing and keeps it",
+                   (lambda e: e is not None and e.latitude == 58.38)(to_event(geo, "u", "community", None))
+                   and queries == [])
 
 
 def check_site_line():

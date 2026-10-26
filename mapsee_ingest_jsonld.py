@@ -198,12 +198,19 @@ def _ask(session, robots, url: str, site_delay: float, now: Optional[float],
     fixed list of values, one per page, so this reads none of its own. The
     elapsed time since a host's last answer is perf_counter's, as in _took. A
     wait that would end past the deadline is not started."""
+    origin = robots_txt.origin_of(url)
+    fresh = robots is not None and origin not in getattr(robots, "_files", {})
     pause, why = _pause_for(robots, url, site_delay)
+    # THE robots.txt READ IS THE HOST'S FIRST REQUEST, so the first page waits
+    # its Crawl-delay after it, as catalog_curate's paced session does. Before,
+    # it went out about 1 s later: GRAAP (Crawl-delay 150) got /robots.txt and
+    # /agenda/ back to back on every run (2026-10-25 review).
+    if fresh and origin not in _ANSWERED:
+        _ANSWERED[origin] = time.perf_counter()
     if why:
         tally["refused"] = tally.get("refused", 0) + 1
         tally.setdefault("refusal", why)
         return None
-    origin = robots_txt.origin_of(url)
     if origin in _THROTTLED:
         tally["throttled"] = tally.get("throttled", 0) + 1
         return None
@@ -751,19 +758,13 @@ def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
     return {k: _meaningful(v) for k, v in out.items()}
 
 
-# A STREET AND A TOWN WERE LEFT FOR THE SYNC, WHICH PLACES THEM ONLY IN THE US.
-# Its one geocoder is the Census batch service, which it sends no address from
-# another country (mapsee_supabase_sync._census_parts), and a row with no point
-# is dropped there. So an Event abroad with a street and a town but no geo was
-# dropped at the sync, while one with LESS address was placed here by Photon. A
-# Tartu Kultuuriaken row carries "Kompanii 2", "Tartu", "EE" and nothing else;
-# none of 299 events carried geo, and the 2026-10-25 dry run placed 260 of the
-# 262 upcoming, all inside South Estonia (2 addresses Photon did not find;
-# 99 lookups for the first 300 pages from an empty cache).
-# Same set as the sync's CENSUS_COUNTRIES (test_ingest_jsonld checks it):
-# naming no country still means the US, as it does there.
-_CENSUS_COUNTRIES = frozenset({"", "us", "usa", "united states", "united states of america",
-                               "pr", "puerto rico"})
+# A STREET AND A TOWN ABROAD ARE NOT GEOCODED HERE, though the sync (Census,
+# US only) cannot place them either. A first version asked Photon for
+# "<street>, <town>" and took its first answer unchecked; the 2026-10-25 review
+# found that answer at another street or another town, and Tartu Kultuuriaken's
+# rows include online courses and a city-wide placeholder that would have been
+# pinned. Placing them wants the town check the tribe adapter's StreetPlacer
+# has (merged 2026-10-26), not a bare first answer.
 
 
 # schema.org/eventStatus values that mean "not at this place on this date".
@@ -859,16 +860,9 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
                 parts[k] = venue_default[k]
         if lat is None and venue_default.get("lat") is not None:
             lat, lon = venue_default.get("lat"), venue_default.get("lon")
-    street_and_town = bool(parts["address"] and parts["city"])
-    abroad = (str(parts["country"] or "").replace(".", "").strip().lower()
-              not in _CENSUS_COUNTRIES)
-    if lat is None and not tombstone and (abroad or not street_and_town):
+    if lat is None and not (parts["address"] and parts["city"]) and not tombstone:
         # no coords and not enough address for the sync's Census pass → one cached Photon try
         q = ", ".join(x for x in (venue or parts["address"], parts["city"], parts["region"]) if x)
-        if street_and_town:
-            # Abroad, a street and a town are what Photon places best, and the
-            # only try this row gets: the sync drops it otherwise (_CENSUS_COUNTRIES).
-            q = f"{parts['address']}, {parts['city']}"
         if q:
             lat, lon = _geocode(session, q)
         if lat is None:
