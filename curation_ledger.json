@@ -174119,9 +174119,9 @@
     "type": "osm-venue"
   },
   "ffsp.fr": {
-    "checked": 20261004,
-    "name": "FFSP marches populaires (France)",
-    "reason": "83 events, 10/10 on page 1 future",
+    "checked": 20261026,
+    "name": "FFSP - marches populaires (France)",
+    "reason": "272 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -208387,6 +208387,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hamiltonnature.org": {
+    "checked": 20261026,
+    "name": "Hamilton Naturalists' Club (Hamilton, Ontario)",
+    "reason": "34 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "hamiltonzoo.co.nz": {
     "cal_url": "https://hamiltonzoo.co.nz/education/schoolholidayprogramme",
@@ -294345,6 +294352,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "librariesunlimited.org.uk": {
+    "checked": 20261026,
+    "name": "Libraries Unlimited - Devon and Torbay library events",
+    "reason": "291 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "librariewinobooks.com": {
     "checked": 20261024,
@@ -495058,6 +495072,13 @@
     "reason": "0 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "todaysfamily.ca": {
+    "checked": 20261026,
+    "name": "Today's Family - EarlyON drop-ins (Hamilton, Ontario)",
+    "reason": "1285 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "todo-works.de/index.html": {
     "checked": 20261025,

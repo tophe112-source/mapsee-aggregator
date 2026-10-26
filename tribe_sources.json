@@ -25304,6 +25304,52 @@
         "lon": 9.1525256
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Today's Family - EarlyON drop-ins (Hamilton, Ontario)",
+      "base_url": "https://www.todaysfamily.ca",
+      "category": "kids",
+      "within_days": 60,
+      "max_pages": 30,
+      "default_country": "CA",
+      "default_region": "ON",
+      "_metro": "Hamilton, Canada",
+      "_found": "manual:2026-10-25",
+      "_note": "2026-10-25 dry run (scratch store, this branch's StreetPlacer): 1,261 upcoming rows in 60 days (2,454 in 120, which is 50 pages), 23 titles, EarlyON drop-ins, songs and stories, infant programmes and community meals; plugin categories drop-in 2,136 and register 214 of 2,454. 1,240 placed by a geocoded street, at the 16 venues those 60 days name; the other 21 are 'Virtual via Zoom' or name no venue. No venue carries geo_lat, so without the placer none would reach the map. default_country CA places the 17 Mohawk College rows, which name no country. CHECK: 'Fieldcote Outdoor' (64 Sulphur Springs Road, Ancaster; 120 of the 2,454 rows) is answered with Ancaster Sports Centre, about 2.4 km off, the one wrong pin among its venues (Photon's properties name another street, which the shared geocoder does not return); 17 rows name no venue, so a venue block with names would pin those at Fieldcote too. robots.txt: Allow: / for *, Content-Signal search=yes, ai-train=no, use=reference. The bare host 301s the API to www. 1,496 rows say timezone 'UTC+0' with a local wall clock; the sync's starts_at for them matched America/Toronto's in a to_row check (08:45 -> 12:45Z)."
+    },
+    {
+      "name": "Libraries Unlimited - Devon and Torbay library events",
+      "base_url": "https://librariesunlimited.org.uk",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "GB",
+      "_metro": "Exeter, United Kingdom",
+      "_found": "manual:2026-10-25",
+      "_note": "2026-10-25 dry run: 289 upcoming rows in 120 days at 24 Devon and Torbay libraries (Friday Lunch Club, Knit & Natter, IT help, Lego Club, Storytime, Play & Connect, Job Support); plugin categories adults 211, children 111. 285 placed by a geocoded street (the library's own building for most; 'Library, building, street' addresses by their last part); 3 Sidmouth rows refused, because Photon puts 'EX12 2LT Sidmouth' in Seaton, 12.2 km off; 1 has no town. No venue carries geo_lat. robots.txt disallows /wp-admin/ only."
+    },
+    {
+      "name": "FFSP - marches populaires (France)",
+      "base_url": "https://www.ffsp.fr",
+      "category": "outdoors",
+      "within_days": 365,
+      "max_pages": 10,
+      "default_country": "FR",
+      "_metro": "Strasbourg, France",
+      "_found": "manual:2026-10-25",
+      "_note": "2026-10-25 dry run: 277 marches populaires (IVV walks) in 365 days (88 in 180), one village each, mostly Bas-Rhin, Moselle and Haut-Rhin. 267 placed by a geocoded street; 10 refused (6 street not found in its town, 2 answered outside it, 2 with the town itself). No venue carries geo_lat. The four leads' first read cost 764 Photon lookups and 16.6 min, most of them FFSP's villages (the other three's answers were mostly in the scratch cache already, from the measurement); later reads ask only the misses. Category: AVA's volkssport walks are community with fitness and outdoors; a Tribe site takes one, so outdoors. Ledger ok since 2026-10-04 ('83 events'). robots.txt disallows /wp-admin/ only."
+    },
+    {
+      "name": "Hamilton Naturalists' Club (Hamilton, Ontario)",
+      "base_url": "https://hamiltonnature.org",
+      "category": "outdoors",
+      "within_days": 180,
+      "max_pages": 5,
+      "default_country": "CA",
+      "default_region": "ON",
+      "_metro": "Hamilton, Canada",
+      "_found": "manual:2026-10-25",
+      "_note": "2026-10-25 dry run: 34 upcoming rows in 180 days (bird study group, monthly meetings, social walks, invasive-species removal, clean-ups); plugin categories include virtual-meetings 13. 17 placed by a geocoded street (the First Unitarian Church for meetings, Bruleville Nature Park, Dundas Valley's main lot, a pub); 15 name no venue and 2 only 'Hamilton Study Area', so they stay unplaced: no venue block, because the walks are all over the region. robots.txt disallows /wp-admin/ only."
     }
   ],
   "_not_included": {
