@@ -39,6 +39,19 @@ Config per source (JSON list):
                      are only ever matched, never geocoded or written to a row.
                      A verified venue point with an address can explicitly set
                      `coords_exact: true` to bypass Census re-geocoding too.
+    url_venues       optional [{pattern, venue}]: a VEVENT that carries neither
+                     LOCATION nor GEO, whose URL matches `pattern` (a regex,
+                     searched in the absolute URL), is pinned to that `venue`
+                     block, before and instead of the source-wide `venue`.
+                     For a calendar that names the place only in its URL path:
+                     Texas Parks & Wildlife's 609 VEVENTs carry no LOCATION, and
+                     570 sit under /calendar/<park>/ (see _url_venue_rules).
+    location_lines   optional true: a LOCATION written on several lines
+                     ("Name\nStreet\nnotes") is asked line by line, under a
+                     check on Photon's own answer, before the joined string
+                     (see line_attempts). Off unless set, because it was
+                     measured on one calendar's layout (Shift2Bikes); every
+                     other source asks the joined string as it always has.
 
 Events need coordinates to land on the map: a VEVENT GEO property wins;
 otherwise the LOCATION string is geocoded via Photon (OSM) — one polite
@@ -403,6 +416,90 @@ def location_attempts(loc: str) -> List[str]:
     return out
 
 
+# A LOCATION ON SEVERAL LINES IS "Name\nStreet\nnotes", and joined it is one
+# string Photon cannot read. Shift2Bikes, Portland's social-ride calendar,
+# writes "Bar Botellon\n606 NE Davis St, Portland, OR 97232\nmeet inside, drink
+# wine, eat tapas"; _location makes that one line (its text is the row's place
+# name and part of its fingerprint, so it stays as it was), and as the only
+# query it placed 21 of the 152 upcoming VEVENTs, 2 of them in Hood River, 93
+# km off, for "TBD\nTBD" (measured 2026-10-25, Photon, its 45 distinct
+# upcoming LOCATIONs, suffix ", Portland, OR"). Asked line by line instead:
+#   * name + ", " + second line placed 74 VEVENTs, every one right but the 3
+#     whose lines are placeholders ("TBD\nTBD", "tbd\ntbd", "Online\nTBA");
+#   * the street line alone placed 104, but 15 of its 33 distinct answers were
+#     not the house: "1120 SE Madison St" came back as 1120 SW 5th Ave, "700 NE
+#     Multnomah St 3rd floor" as 700 SW 3rd Ave, "2415 SE 11th Ave" as 206 SE
+#     11th Ave, "37th & Skidmore" as a fountain downtown, a "TBD" line as the
+#     city centroid;
+#   * the name alone placed 123, and 12 of its 34 distinct answers were another
+#     place ("NoPo" as NoPo Paws, "Migration Brewing" at its other branch).
+# So the street line is asked only when it starts with a house number, and
+# kept only when Photon's own answer passes _street_confirms: that keeps the 17
+# right answers and none of the 15 wrong ones (8 never asked, 7 refused). The
+# name is kept only under _name_confirms, which drops 11 of the 12 wrong names;
+# the 12th, the chain's other branch, is never asked for in this feed,
+# because its name and street answer first. The joined string stays, third,
+# as the query it always was. Placeholder lines and links are never sent
+# (Photon answered the one Google Maps link it was sent with a 403). A
+# LOCATION on one line is unchanged: none of this is called for it.
+def line_attempts(loc: str, lines: List[str]) -> List[Tuple[str, Optional[str]]]:
+    """(query, check) for a LOCATION on several lines, best first: name and
+    street line, the street line alone, the joined string `loc` (as before),
+    the name alone. check is None, "street" (_street_confirms) or "name"
+    (_name_confirms); a checked answer counts only when Photon's own
+    properties pass it."""
+    kept = [l for l in lines if l and "://" not in l
+            and not PLACEHOLDER_LOC_RX.match(l) and not _all_placeholders(l)]
+    if not kept:
+        return [(loc, None)]
+    name = None if _HOUSE_NUMBER_RX.match(kept[0]) else kept[0]
+    street = next((l for l in kept[(1 if name else 0):] if _HOUSE_NUMBER_RX.match(l)), None)
+    out: List[Tuple[str, Optional[str]]] = []
+    if name and street:
+        out.append((name + ", " + street, None))
+    if street:
+        out.append((street, "street"))
+    out.append((loc, None))
+    # Asked alone only when it is a NAME: two words or more, one of them more
+    # than a kind of building ("Wilshire Park", not "Community Center" or
+    # "NoPo"), without a bracketed aside ("Pioneer Courthouse Square (upper
+    # level)").
+    alone = re.sub(r"\s+", " ", _BRACKETED_RX.sub(" ", name or "")).strip()
+    words = _name_words(alone)
+    if len(words) >= 2 and _distinctive(words):
+        out.append((alone, "name"))
+    return out
+
+
+# A street's type, after _STREET_ABBR: never the word that says which street.
+_STREET_TYPES = frozenset("ave st rd blvd dr pl ln ct ter pkwy hwy sq cir way".split())
+
+
+def _street_confirms(line: str, props: Dict[str, Any]) -> bool:
+    """Photon's answer is the house the line names: the same house number, a
+    street sharing one of its name words, and no other direction (NE vs SW)."""
+    m = re.match(r"\s*(\d+[A-Za-z]?)\b", line)
+    if not m or str(props.get("housenumber") or "").strip().lower() != m.group(1).lower():
+        return False
+    want = _street_words(line[m.end():].split(",")[0])
+    got = _street_words(str(props.get("street") or ""))
+
+    def core(words):
+        return {w for w in words if w not in _DIRECTIONS and w not in _STREET_TYPES}
+    if not core(want) & core(got):
+        return False
+    ways, gets = set(want) & _DIRECTIONS, set(got) & _DIRECTIONS
+    return not (ways and gets and ways != gets)
+
+
+def _name_confirms(name: str, props: Dict[str, Any]) -> bool:
+    """Photon's answer carries exactly the name's words (see _name_words)."""
+    return _name_words(name) == _name_words(str(props.get("name") or ""))
+
+
+_CHECKS = {"street": _street_confirms, "name": _name_confirms}
+
+
 # A SOURCE'S VENUE IS WHERE MOST OF ITS EVENTS ARE, NOT ALL OF THEM. The venue
 # fallback pins every event that names no place, and a calendar's own titles
 # often say one is elsewhere. Measured 2026-09-30 on the calendars that first
@@ -477,11 +574,18 @@ def _took(started: float, photon: Tuple[int, int]) -> str:
 
 def make_location_geocoder(session, suffix: str):
     cache = _GEO_CACHE
+    # WHAT MISSED IS NOT ASKED AGAIN IN THE SAME RUN. A miss is not cached (see
+    # _geocode_one), and until this it was re-sent for every VEVENT carrying
+    # the same LOCATION: Shift2Bikes' 152 upcoming VEVENTs at 45 LOCATIONs sent
+    # 130 Photon requests on every warm run, all misses; with this and
+    # line_attempts, 32 (2026-10-25). Per source, and only an answer (an empty
+    # one, or one its check refused): an error is still retried.
+    missed = set()
 
     def _key(loc: str) -> str:
         return (loc + "|" + suffix).strip().lower()
 
-    def geocode(loc: str):
+    def geocode(loc: str, lines: Optional[List[str]] = None):
         # THE ANSWER IS CACHED AGAINST WHAT THE FEED SAID, not against the
         # attempt that happened to work. Only hits are cached (see below), so
         # without this a location that needs the split pays its FAILED first
@@ -492,18 +596,35 @@ def make_location_geocoder(session, suffix: str):
         first = _key(loc)
         if first in cache:
             return cache[first]
-        for attempt in location_attempts(loc):
-            lat, lon = _geocode_one(attempt)
+        # `lines`: the LOCATION's own lines when it has several and its source
+        # opted in (location_lines). The lines go first; then what the joined
+        # string has always been asked (location_attempts: the CivicPlus
+        # address half, the Events Calendar's comma remainder), so a source
+        # that opts in can only gain a pin, never lose one it had.
+        attempts = [(a, None) for a in location_attempts(loc)]
+        if lines and len(lines) > 1:
+            first_tries = line_attempts(loc, lines)
+            asked = {a for a, _check in first_tries}
+            attempts = first_tries + [(a, c) for a, c in attempts if a not in asked]
+        for attempt, check in attempts:
+            if "://" in attempt:
+                continue                             # a link is not a place; Photon answers it with a 403
+            lat, lon = _geocode_one(attempt, check)
             if lat is not None:
                 if attempt != loc:
                     cache[first] = (lat, lon)
                 return (lat, lon)
         return (None, None)
 
-    def _geocode_one(loc: str):
+    def _geocode_one(loc: str, check: Optional[str] = None):
+        # A CHECKED attempt neither reads nor writes its own key: an answer
+        # cached unchecked (another feed's same string) has not passed the
+        # check, and the hit is kept anyway, under the LOCATION's own key.
         key = _key(loc)
-        if key in cache:
+        if check is None and key in cache:
             return cache[key]
+        if (key, check) in missed:
+            return (None, None)
         if not geocode_allowed():                    # over this run's budget → retry next run
             return (None, None)
         _PHOTON["lookups"] += 1
@@ -513,6 +634,8 @@ def make_location_geocoder(session, suffix: str):
                             params={"q": loc + suffix, "limit": 1}, timeout=20)
             r.raise_for_status()                     # a 502 is not an empty result
             f = (r.json().get("features") or [None])[0]
+            if f and check and not _CHECKS[check](loc, f.get("properties") or {}):
+                f = None                             # an answer, but not the place this line names
             out = (f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0]) if f else (None, None)
         except Exception:                            # noqa: BLE001
             _PHOTON["misses"] += 1
@@ -530,9 +653,11 @@ def make_location_geocoder(session, suffix: str):
         # either, which costs one 1.1s lookup per unbfindable venue per run and
         # is bounded by geocode_allowed().
         if out[0] is not None:
-            cache[key] = out
+            if check is None:
+                cache[key] = out
         else:
             _PHOTON["misses"] += 1
+            missed.add((key, check))
         return out
     return geocode
 
@@ -547,6 +672,59 @@ def _location(ev: Dict[str, Any]) -> Optional[str]:
         loc = _html.unescape(re.sub(r"<[^>]+>", ", ", loc))    # &amp; and &nbsp; alike
         loc = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", loc)).strip(" ,") or None
     return loc
+
+
+def _location_lines(ev: Dict[str, Any]) -> List[str]:
+    """A LOCATION's own lines, each cleaned as _location cleans the whole, when
+    it has two or more ("Name\nStreet\nnotes"); else []. Only a newline the
+    feed escaped counts: Trumba's "<br>" stays the comma _location makes it."""
+    raw = _unescape(ev.get("LOCATION", ("", {}))[0] or "")
+    if "\n" not in raw.strip():
+        return []
+    out = []
+    for part in raw.split("\n"):
+        part = _html.unescape(re.sub(r"<[^>]+>", ", ", part))
+        part = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", part)).strip(" ,")
+        if part:
+            out.append(part)
+    return out if len(out) > 1 else []
+
+
+# A PLACE NAMED ONLY IN THE EVENT'S URL. Texas Parks & Wildlife's calendar
+# (plone.app.event) gives none of its 609 VEVENTs a LOCATION or a GEO, and
+# every one a URL under /calendar/<folder>/ (read 2026-10-25): 570 sit in 68
+# folders that are state parks, whose own pages print their latitude and
+# longitude, and 39 in 4 statewide folders (education, recruiting, Texas
+# Outdoor Family, events), each at a career fair, a city's pond or a
+# different park. The adapter dropped all 609 as unplaceable, the 474 park
+# programmes still to come among them. `url_venues` maps a URL pattern to a
+# venue block; a VEVENT that names no place and matches none stays
+# unplaceable, and the log counts it, so a folder the book lacks shows up.
+# Used where the source's `venue` fallback is (no LOCATION, no GEO, not a
+# placeholder that says elsewhere), before it; `venue_skip` keeps a title off.
+def _url_venue_rules(src: Dict[str, Any]) -> List[Tuple["re.Pattern[str]", Dict[str, Any]]]:
+    rules = []
+    for rule in src.get("url_venues") or []:
+        if not isinstance(rule, dict) or not _venue_pin(rule.get("venue")):
+            continue                                  # as location_overrides: no point, no rule
+        try:
+            rules.append((re.compile(str(rule.get("pattern") or "")), rule["venue"]))
+        except re.error as exc:
+            raise ValueError(f"{src.get('name', '?')}: invalid url_venues pattern: {exc}") from exc
+    return rules
+
+
+def _url_venue(src: Dict[str, Any], ev: Dict[str, Any],
+               rules: List[Tuple["re.Pattern[str]", Dict[str, Any]]]) -> Optional[Dict[str, Any]]:
+    """The venue block of the first url_venues rule this VEVENT's URL matches."""
+    raw = _html.unescape(_unescape(ev.get("URL", ("", {}))[0] or "")).strip()
+    if not raw:
+        return None
+    try:
+        url = urljoin(src["url"], raw)
+    except ValueError:
+        return None
+    return next((venue for rx, venue in rules if rx.search(url)), None)
 
 
 def _location_override(src: Dict[str, Any], location: Optional[str]) -> Optional[Dict[str, Any]]:
@@ -951,6 +1129,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             skip_title = re.compile(src["skip_title"], re.I)
         except (re.error, TypeError) as exc:
             raise ValueError(f"{src.get('name', '?')}: invalid skip_title regex: {exc}") from exc
+    url_venues = _url_venue_rules(src)
     # The VEVENTs as the old reader saw them, index for index: BEGIN/END and
     # every property name are ASCII, so both readings split the same way.
     old_events = None
@@ -999,6 +1178,25 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     skipped_title = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
     unnamed_held = 0                                  # see _pins_unnamed
+    pinned_by_url = 0                                 # see _url_venue_rules
+    url_unmatched = 0
+    # ONE UID, SEVERAL DATES. RFC 5545 names an occurrence by UID plus
+    # RECURRENCE-ID; this parser reads no RECURRENCE-ID, and the store keys a
+    # row by (source, UID), so every later date of a UID re-keyed the one row:
+    # it ended carrying the LAST date's fingerprint and the FIRST date's start,
+    # and a date added to the end of the series gives it a new fingerprint,
+    # so a new database row, and leaves the old one behind.
+    # Repair Cafe Toronto (a candidate) expands two monthly series as 16
+    # upcoming RECURRENCE-ID instances of 2 UIDs: 31 VEVENTs kept, 18 rows
+    # written, 13 re-keys (2026-10-23, and again 2026-10-25). In a sample of
+    # 222 configured feeds read 2026-10-25 (41,109 VEVENTs), one, an Event
+    # Organiser site, put 2 upcoming dates under one UID with no RECURRENCE-ID,
+    # and none put one UID twice on a date. So the first date of a UID in walk
+    # order keeps the bare UID (the key it always had), and each later date is
+    # keyed "<UID>/<date>", as mapsee_gcal keys a Calendar API instance; a UID
+    # seen twice on one date keeps one key, and the fingerprint merges it.
+    uid_dates: Dict[str, Dict[str, str]] = {}
+    keyed_by_date = 0
     for offset in range(start_offset, len(events)):
         if kept >= limit:
             break
@@ -1078,6 +1276,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             adjusted_params = _datetime_override(src, title, _location(ev), end_value, end_params)
             end_local, end_utc, _ = _parse_dt(end_value, adjusted_params or end_params)
         loc = _location(ev)
+        lines = _location_lines(ev)                   # [] unless the LOCATION has several lines
         # An online session is on no map, whatever GEO its branch stamped on it:
         # see ONLINE_LOC_RX. Before GEO is read, because Communico gives these
         # rows the owning branch's coordinates (or 0;0, which the geocoder then
@@ -1097,8 +1296,9 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             online += 1
             continue
         elsewhere = False
-        if loc and (PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)):
-            elsewhere = bool(ELSEWHERE_LOC_RX.match(loc)) or _all_placeholders(loc, ELSEWHERE_LOC_RX)
+        if loc and (PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc) or _all_placeholder_lines(lines)):
+            elsewhere = (bool(ELSEWHERE_LOC_RX.match(loc)) or _all_placeholders(loc, ELSEWHERE_LOC_RX)
+                         or _all_placeholder_lines(lines, ELSEWHERE_LOC_RX))
             loc = None                                # "TBD" names no place; see the pattern
         fingerprint_loc = loc
         had_source_location = bool(loc)
@@ -1127,11 +1327,32 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         else:
             lat, lon = geo if geo else (None, None)   # GEO:0;0 is "unset", not the Gulf of Guinea
         if venue is None and (lat is None or lon is None) and loc and not is_cancelled:
-            lat, lon = geocode(loc)
+            # Lines only when there are several AND the source opted in
+            # (location_lines): line_attempts was measured on one layout
+            # (Shift2Bikes), and Europe's "Name / Street N / POSTCODE City" is
+            # another. A geocoder other code hands in (the gcal smoke read's
+            # stub, the tests) takes the LOCATION alone.
+            lat, lon = (geocode(loc, lines) if lines and src.get("location_lines")
+                        else geocode(loc))
+        url_matched = url_missed = False
+        if venue is None and lat is None and not loc and not elsewhere and url_venues:
+            by_url = _url_venue(src, ev, url_venues)
+            url_matched, url_missed = by_url is not None, by_url is None
+            if by_url is None:
+                pass                                  # the source's `venue`, if any, is next
+            elif _off_venue(src, title):
+                off_venue += not is_cancelled         # its own title says it is somewhere else
+            else:
+                venue = by_url
+                lat, lon = float(venue["lat"]), float(venue["lon"])
+                loc = venue.get("name") or None
+                fingerprint_loc = loc
+                pinned_by_url += not is_cancelled
         if (venue is None and lat is None and not loc and not elsewhere and not is_cancelled
                 and _venue_pin(src.get("venue")) and not _pins_unnamed(src.get("venue"))):
             unnamed_held += 1                         # counted below with the unplaceable
-        if venue is None and lat is None and not loc and not elsewhere and _pins_unnamed(src.get("venue")):
+        if (venue is None and lat is None and not loc and not elsewhere and not url_matched
+                and _pins_unnamed(src.get("venue"))):
             if _off_venue(src, title):
                 off_venue += 1                        # its own title says it is somewhere else
             else:
@@ -1142,6 +1363,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                 pinned_by_venue += 1
         if (lat is None or lon is None) and not is_cancelled:
             unplaceable += 1
+            url_unmatched += url_missed               # a place url_venues does not know yet
             continue                                  # nowhere to pin it
         desc = _unescape(ev.get("DESCRIPTION", ("", {}))[0]).strip() or None
         if desc:                                      # ICS descriptions are often HTML-ish — keep them short + plain
@@ -1157,9 +1379,16 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             desc = f"{note}\n\n{desc}" if desc else note
         url = _event_url(ev, src)
         uid = (ev.get("UID", ("", {}))[0] or "").strip()
+        source_id = uid
+        if uid:                                       # see uid_dates
+            dates = uid_dates.setdefault(uid, {})
+            if date_key not in dates:
+                dates[date_key] = f"{uid}/{date_key}" if dates else uid
+                keyed_by_date += len(dates) > 1 and not is_cancelled
+            source_id = dates[date_key]
         nev = NormalizedEvent(
             source=label,
-            source_id=uid or make_fingerprint(title, date_key, fingerprint_loc),
+            source_id=source_id or make_fingerprint(title, date_key, fingerprint_loc),
             name=title,
             description=desc,
             start_local=start_local, start_utc=start_utc,
@@ -1211,6 +1440,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f" — {pinned_by_venue} pinned to the source's venue (no LOCATION/GEO)"
     if pinned_by_name:
         note += f" — {pinned_by_name} pinned to the source's venue (LOCATION names it)"
+    if pinned_by_url:
+        note += f" — {pinned_by_url} pinned by their URL (url_venues)"
     if off_venue:
         note += f" — {off_venue} kept off the venue by venue_skip"
     if unplaceable:
@@ -1220,6 +1451,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if unnamed_held:
             note += (f"; {unnamed_held} of them name no place and the venue block says "
                      f"pin_unnamed false: delete it if this is the venue's own programme")
+        if url_unmatched:
+            note += f"; {url_unmatched} of them have a URL no url_venues pattern matches"
     # A FEED THAT IS ENTIRELY IN THE PAST IS A CONFIG PROBLEM, NOT A QUIET DAY,
     # and until this line it looked exactly like a venue between seasons.
     #
@@ -1257,6 +1490,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f"; {online} online (a virtual room, not a place)"
     if skipped_title:
         note += f"; {skipped_title} title-filtered"
+    if keyed_by_date:
+        note += f"; {keyed_by_date} keyed by date (a UID an earlier date already used)"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}{_took(started, photon)}",
           flush=True)
     return kept - start_kept
@@ -1304,6 +1539,14 @@ def _all_placeholders(loc: str, rx: "re.Pattern[str]" = PLACEHOLDER_LOC_RX) -> b
     """Is every " - " part of this LOCATION a placeholder ("Offsite - Offsite")?"""
     parts = [p for p in _LOC_SPLIT_RX.split(loc) if p.strip()]
     return len(parts) > 1 and all(rx.match(p) for p in parts)
+
+
+# ...and every LINE of one. Shift2Bikes writes "TBD\nTBD", "TBA\nTBA" and
+# "tbd\ntbd", which _location joins to "TBD TBD", which no pattern above
+# reads as a placeholder: Photon put "TBD TBD, Portland, OR" on a sculpture
+# called "TBD - Female Figure" in Hood River, 93 km away (2026-10-25).
+def _all_placeholder_lines(lines: List[str], rx: "re.Pattern[str]" = PLACEHOLDER_LOC_RX) -> bool:
+    return len(lines) > 1 and all(rx.match(l) or _all_placeholders(l, rx) for l in lines)
 
 
 # AN ONLINE SESSION IS NOT A PLACE, and Communico says so in the branch half of
