@@ -52,8 +52,14 @@ GQL = "https://api.meetup.com/gql-ext"
 # eventSearch REQUIRES a keyword; these broad ones together approximate the old
 # "everything nearby" sweep. Dupes across keywords collapse in store.upsert.
 # Each entry is keyword:mapsee-category — the keyword that FOUND an event is a
-# decent guess at its layer (first keyword to see it wins; the sync's keyword
-# pass can still promote volunteer). Bare keywords default to community.
+# decent guess at its layer. Within a run the first (metro, keyword) pair to see
+# it wins; ACROSS runs mapsee_meetup_category_cache holds that first guess until
+# the event passes, because the store is rebuilt every run and the first pair
+# to see an event moves (top-200 drift, the international leg's daily country
+# rotation): category blamed 4.1k-4.8k UPDATEs per leg per day, 10-22..10-26.
+# Edit this list and the held guesses start over, on purpose (the cache is
+# versioned by it). The sync's keyword pass can still promote volunteer. Bare
+# keywords default to community.
 # One broad keyword per Mapsee layer — trimmed from 12 to 8 by dropping the
 # redundant ones (cooking/popup fold into food, games into social, learning into
 # tech), which cuts ~33% of the per-metro Meetup requests with ~no coverage loss.
@@ -368,6 +374,14 @@ def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: i
     return kept
 
 
+def parse_keywords(text: str) -> list:
+    """`keyword[:category],...` -> [(keyword, category)], a bare keyword filed
+    under community. The ONE reading of --keywords: mapsee_meetup_category_cache
+    versions its held categories by this list, so the two must never differ."""
+    return [(k.split(":")[0].strip(), (k.split(":")[1].strip() if ":" in k else "community"))
+            for k in text.split(",") if k.strip()]
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import public Meetup events near a point into the Mapsee store.")
     ap.add_argument("--latlong", required=True, help="lat,lon  e.g. 47.6062,-122.3321")
@@ -385,8 +399,7 @@ def main(argv=None) -> int:
         lat, lon = a.latlong.split(",")
     except ValueError:
         sys.exit("--latlong must look like  47.6062,-122.3321")
-    keywords = [(k.split(":")[0].strip(), (k.split(":")[1].strip() if ":" in k else "community"))
-                for k in a.keywords.split(",") if k.strip()]
+    keywords = parse_keywords(a.keywords)
     session = requests.Session()
     session.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
     store = EventStore(a.store)

@@ -32,6 +32,10 @@ geo_budget.json
 census_cache.json
 census_cache.json.tmp
 spotify_cache.json
+# Meetup's held first category per event (mapsee_meetup_category_cache):
+# Actions cache only, its own pair. Lost, it costs one day of category flips.
+meetup_category_cache.json
+meetup_category_cache.json.tmp
 feeds_events.json
 *.verified.json
 

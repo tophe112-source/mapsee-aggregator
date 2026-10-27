@@ -607,6 +607,15 @@ jobs:
       - name: A Zoom call is not a place (Meetup online-only and Plus Codes)
         run: python test_ingest_meetup.py
 
+      # A Meetup row's category is the first keyword whose results held it, the
+      # store is rebuilt every run, and that keyword moves: 4,146-4,818 UPDATEs
+      # per leg per day were category flips (10-22..10-26). The held first guess
+      # stops them. What is pinned is mostly what it must NOT do: write anything
+      # but events[*].category (a tombstone is what stops a cancelled event
+      # coming back), or stop a sync over a cache it cannot read.
+      - name: A Meetup event keeps its first category guess (and nothing else is touched)
+        run: python test_meetup_category_cache.py
+
       # The international sweep spawns its ingesters as subprocesses, and a
       # southern-hemisphere latlong starts with a minus that argparse reads as
       # an option. Australia, New Zealand and South Africa ingested nothing for
