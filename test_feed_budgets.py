@@ -130,8 +130,10 @@ rows = EventStore("unused")
 event = {"SUMMARY": ("Future gathering", {}), "DTSTART": ("20990101", {"VALUE": "DATE"}),
          "GEO": ("47.6;-122.3", {}), "UID": ("one", {})}
 future_events = [event, dict(event, UID=("two", {})), dict(event, UID=("three", {}))]
+# 2099 stays upcoming whatever day this runs; HORIZON_DAYS (365) is lifted for it.
 with patch.object(ics, "_fetch_ics", return_value=("", "200")), \
      patch.object(ics, "parse_ics", return_value=future_events), \
+     patch.object(ics, "HORIZON_DAYS", 100 * 365), \
      patch.object(ics.time, "monotonic", side_effect=[0, 4]):
     try:
         ics.ingest_ics(rows, None, {"name": "a", "url": "x", "limit": 2}, deadline=3)
@@ -139,7 +141,8 @@ with patch.object(ics, "_fetch_ics", return_value=("", "200")), \
     except ics.BudgetExpired as exc:
         assert (exc.offset, exc.kept) == (1, 1)
 with patch.object(ics, "_fetch_ics", return_value=("", "200")), \
-     patch.object(ics, "parse_ics", return_value=future_events):
+     patch.object(ics, "parse_ics", return_value=future_events), \
+     patch.object(ics, "HORIZON_DAYS", 100 * 365):
     assert ics.ingest_ics(rows, None, {"name": "a", "url": "x", "limit": 2},
                           start_offset=1, start_kept=1) == 1
 assert len(rows.rows) == 2

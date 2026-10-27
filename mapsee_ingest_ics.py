@@ -17,6 +17,9 @@ Config per source (JSON list):
                      to each normalized description before the sync's prose cap
     geocode_suffix   appended to LOCATION for Photon lookups (", Seattle, WA")
     limit            max future events to keep (default 500)
+    within_days      how far ahead an event may start and still be kept
+                     (default HORIZON_DAYS, 365); a Google calendar read through
+                     the Calendar API also reads this far ahead (default 180 there)
     venue            optional {name, address, city, region, postal_code, country,
                      lat, lon, aliases, street_hint, pin_unnamed, coords_exact} used for a
                      VEVENT that carries neither LOCATION nor GEO (unless
@@ -71,7 +74,7 @@ import sys
 import time
 import unicodedata
 from mapsee_geo_budget import geocode_allowed
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import parse_qs, urljoin, urlparse
 
@@ -143,6 +146,17 @@ FEED_CACHE_VERSION = 2
 # feeds list current and upcoming events; two months after the fix every such
 # row has been moved or is past, and each sync stops paying the lookup.
 LEGACY_KEYS_UNTIL = "2026-11-30"
+
+# A YEAR AHEAD, AND NO FURTHER, unless a source's own `within_days` says
+# otherwise. A rule-expanded civic calendar writes every occurrence it can
+# compute: the 2026-10-26 ics store held 7,574 of its 134,814 rows starting more
+# than 365 days after the run, from 224 sources, Roeland Park's 293 of 300 out
+# to 2069 and Burlington's to 2124, "Water Bill Due Date" 288 times. None of it
+# reaches a person before it is near (the map and the city pages rank by
+# nearness in time), and every row costs its space in events and events_map
+# until it does. Checked before `limit`, so a far row never takes a near one's
+# slot, and before any geocode; a cancellation beyond it still tombstones.
+HORIZON_DAYS = 365
 
 def _load_feed_cache():
     try:
@@ -1156,6 +1170,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     label = "ics:" + src["name"].lower().replace(" ", "-")
     geocode = make_location_geocoder(session, src.get("geocode_suffix", ""))
     now_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    horizon_days = int(src.get("within_days") or HORIZON_DAYS)
+    horizon_key = (datetime.now(timezone.utc) + timedelta(days=horizon_days)).strftime("%Y-%m-%d")
     limit = src.get("limit", 500)
     kept = start_kept
     # A VEVENT with no LOCATION and no GEO cannot be pinned, so it is dropped -
@@ -1170,6 +1186,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     pinned_by_name = 0
     off_venue = 0
     past = 0
+    beyond = 0                                        # see HORIZON_DAYS
     governance = 0
     cancelled = 0
     cancelled_unnamed = 0
@@ -1270,6 +1287,12 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             if date_key:
                 past += 1                             # counted; see the report below
             continue                                  # past (or unparseable) → skip
+        # NOT FOR A CANCELLATION: a row stored before the horizon existed can be
+        # this far out, and the publisher's word is still the one that takes it
+        # down. A tombstone writes no row, so it costs the table nothing.
+        if date_key > horizon_key and not is_cancelled:
+            beyond += 1                               # counted; see the report below
+            continue
         end_local = end_utc = None
         if "DTEND" in ev:
             end_value, end_params = _wall_clock(src, *ev["DTEND"])
@@ -1468,7 +1491,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # Nothing else in the pipeline can notice this. `status` empty is not fail,
     # so the curator audit stays green, and "kept 0 of 500" is one line in a run
     # that prints 258 of them.
-    if past and not kept:
+    if past and not kept and not beyond:
         note += (f" — ALL {past} events are in the PAST; this feed is stale or "
                  f"window-capped and is contributing nothing")
     elif past and kept and past >= max(10, len(events) // 2):
@@ -1476,6 +1499,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # COUNTED AND PRINTED, never a silent skip. A source whose events are mostly
     # its town hall's diary is a source worth reconsidering, and that is only
     # visible if the number is on the line.
+    if beyond:
+        note += f"; {beyond} beyond the {horizon_days}-day horizon"
     if governance:
         note += f"; {governance} town-hall row(s) refused"
     # Same rule as governance: counted and printed, never a silent skip. A feed
