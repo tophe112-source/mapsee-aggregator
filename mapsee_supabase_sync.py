@@ -3727,6 +3727,204 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
     return False
 
 
+def keep_reason(rec: Dict[str, Any], state: Dict[str, bool], detail: Dict[str, Dict[str, Any]],
+                moved=(), held=(), now: Optional[datetime] = None) -> Optional[str]:
+    """Why an --only-new run writes this record, or None when it does not:
+    "detail" (new, moved, or an exact-detail refresh: needs_detail_sync),
+    "back" (a row we cancelled, listed live again) or "time" (a stored row
+    with a new time). Claimed, held and stored-unchanged rows give None.
+
+    keep_new's loop, lifted out so the state cache can ask the SAME question of
+    the values it holds (state_cache_must_read): a rule added here is honoured
+    there without anyone remembering to."""
+    fp = rec["fingerprint"]
+    if needs_detail_sync(rec, state, moved, held):
+        return "detail"
+    if fp in held or state.get(fp, True):              # claimed, held, or not stored: nothing to add
+        return None
+    if import_cancelled(detail.get(fp), now):
+        return "back"
+    if time_changed(rec, detail.get(fp)):
+        return "time"
+    return None
+
+
+# ---- the import-state cache (--state-cache PATH) ------------------------------
+# AN --ONLY-NEW SYNC READ THE STATE OF EVERY FINGERPRINT IN ITS STORE TO FIND THE
+# FEW IT WRITES. On 10-26 the only-new syncs that write anything but exact-detail
+# rows (Ticketmaster and its international store, the four feed groups and their
+# checkpoints, races) read 461,619 ids in 892.3 s (300-700 ids/s, one random heap
+# page per id on a 1 GB instance), 443,328 of them already stored, to keep 18,291
+# new ids, 17,957 exact-detail refreshes, 470 time changes, 60 relists and 31
+# cancellations held back. civic alone read 165,899 to keep 15,435; ics 134,774
+# to keep 956. Every other id was a stored row with nothing to say, and is
+# skipped exactly as today: keep_reason returns None for it.
+#
+# So the values a state read RETURNED are kept, per store, in a file the
+# Actions cache carries ({fingerprint: STATE_FIELDS..., claimed, read_on}), and
+# the next --only-new run reads only what it must (state_cache_must_read):
+# a fingerprint the cache does not hold, one read more than STATE_CACHE_TTL ago,
+# one whose source time differs from the cached one (time_changed against the
+# cache), one cached with our two equal cancellation stamps (a lift may be due,
+# whatever its age), one with exact source_details (needs_detail_sync), one
+# re-keyed or held this run, and a deterministic STATE_CACHE_SAMPLE of the rest,
+# compared with the cache: more than STATE_CACHE_DRIFT_MAX of it differing (or
+# gone) and every id is read, as before, and the cache is rebuilt from that.
+#
+# A SKIP CAN ONLY DROP A WRITE, NEVER ADD ONE. Every row that reaches upsert()
+# was in this run's read (the claimed guard is intact), and a hidden, cancelled
+# or taken-down row is never written or lifted on a cached value: a lift names
+# both exact stamps the read saw. What a stale entry can cost is a delay, until
+# the TTL, the sample or Wednesday's refresh reads it: a row deleted while its
+# source still lists it is inserted again then, an equal-stamp cancellation
+# another store wrote is lifted then. Nothing a run WROTE is kept: everything it
+# handed to upsert() (whatever the outcome), held for Census, dropped by
+# moderation, re-keyed, cancelled or lifted is left out of the file and read
+# again next run, and a row no read found is never in it, so a row marked stored
+# that never landed (a 400, LOST) is not possible. A refresh (no --only-new) and
+# a run without a usable file read every id as before and write the file afresh
+# from that read; --dry-run never opens it. A run over part of a store (a feed
+# group's checkpoint) carries the rest of the file forward untouched: its final
+# sync, minutes later, reads from it (civic's checkpoint held 3,016 of 165,899).
+#
+# The file is refused unless its version is this one: derived from STATE_FIELDS,
+# so a column added to the read cannot be decided from a file without it, plus
+# STATE_CACHE_VERSION for a change to what an entry means.
+STATE_CACHE_VERSION = 1
+STATE_CACHE_TTL = timedelta(days=8)          # a failed Wednesday refresh still bounds staleness
+STATE_CACHE_SAMPLE = 0.01                    # one bucket of 100, rotating by day of year
+STATE_CACHE_DRIFT_MAX = 0.01
+
+
+def state_cache_version() -> str:
+    return f"{STATE_CACHE_VERSION}:{','.join(STATE_FIELDS)}"
+
+
+def _state_cache_entry_ok(entry) -> bool:
+    n = len(STATE_FIELDS)
+    if not isinstance(entry, list) or len(entry) != n + 2 or not isinstance(entry[n], bool):
+        return False
+    if any(v is not None and not isinstance(v, str) for v in entry[:n]):
+        return False
+    try:
+        return len(entry[n + 1]) == 10 and datetime.fromisoformat(entry[n + 1]) is not None
+    except (TypeError, ValueError):
+        return False
+
+
+def load_state_cache(path: str, store: str) -> Tuple[Optional[Dict[str, list]], str]:
+    """(the entries this run may decide from, or None to read every id; why)."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except FileNotFoundError:
+        return None, f"none at {path} (a first run, or an evicted Actions cache)"
+    except (OSError, ValueError) as error:
+        return None, f"{path} is unreadable ({type(error).__name__})"
+    if not isinstance(data, dict):
+        return None, f"{path} is unreadable (not an object)"
+    if data.get("version") != state_cache_version():
+        return None, f"{path} is version {data.get('version')!r}, this sync reads {state_cache_version()!r}"
+    if data.get("store") != store:
+        return None, f"{path} was written for {data.get('store')!r}, not {store!r}"
+    rows = data.get("rows")
+    if not isinstance(rows, dict) or not all(isinstance(fp, str) and _state_cache_entry_ok(e)
+                                             for fp, e in rows.items()):
+        return None, f"{path} is unreadable (a malformed entry)"
+    oldest = min((e[len(STATE_FIELDS) + 1] for e in rows.values()), default="-")
+    return rows, f"{len(rows)} row(s) from {path}, the oldest read on {oldest}"
+
+
+def _state_cache_detail(entry: list) -> Dict[str, Any]:
+    return dict(zip(STATE_FIELDS, entry[:len(STATE_FIELDS)]))
+
+
+def _state_cache_expired(entry: list, now: datetime) -> bool:
+    """Read on a day that began more than STATE_CACHE_TTL ago (a day's start,
+    so an entry is never trusted for longer than the TTL)."""
+    read_on = datetime.fromisoformat(entry[len(STATE_FIELDS) + 1]).replace(tzinfo=timezone.utc)
+    return now - read_on > STATE_CACHE_TTL
+
+
+def state_cache_sampled(fp: str, now: datetime) -> bool:
+    """Today's deterministic sample: the fingerprint's bucket is the day's."""
+    n = round(1 / STATE_CACHE_SAMPLE)
+    return int(hashlib.sha256(fp.encode("utf-8")).hexdigest()[:8], 16) % n == now.timetuple().tm_yday % n
+
+
+def state_cache_must_read(rec: Dict[str, Any], entry: Optional[list], now: datetime,
+                          moved=(), held=()) -> bool:
+    """Whether an --only-new run must read this record's state, given what the
+    cache holds for it (None: nothing). False only when today's loop, handed
+    the cached values, would skip it, and none of them can have aged into a
+    reason to write (a lift's 30 hours) or be out of date (the TTL)."""
+    fp = rec["fingerprint"]
+    if entry is None or fp in moved or fp in held or isinstance(rec.get("source_details"), dict):
+        return True
+    if _state_cache_expired(entry, now):
+        return True
+    cached = _state_cache_detail(entry)
+    at, hid = cached.get("cancelled_at"), cached.get("hidden_at")
+    if at and (at == hid or (_utc(at) is not None and _utc(at) == _utc(hid))):
+        return True                                   # ours: liftable once 30 h old, so read it
+    if time_changed(rec, cached):
+        return True
+    return keep_reason(rec, {fp: entry[len(STATE_FIELDS)]}, {fp: cached}, moved, held, now) is not None
+
+
+def state_cache_differs(entry: list, claimed: Optional[bool], got: Optional[Dict[str, Any]]) -> bool:
+    """A sampled row whose read no longer says what the cache does (or is gone)."""
+    if claimed is None or got is None or bool(claimed) != entry[len(STATE_FIELDS)]:
+        return True
+    for field, was in zip(STATE_FIELDS, entry):
+        now_ = got.get(field)
+        if was != now_ and (_utc(was) is None or _utc(was) != _utc(now_)):
+            return True
+    return False
+
+
+def next_state_cache(carried: Optional[Dict[str, list]], state: Dict[str, bool],
+                     detail: Dict[str, Dict[str, Any]], asked, evict, now: datetime) -> Dict[str, list]:
+    """The entries to save. `carried` is the restored file's (None: rebuilt from
+    this run alone); `asked` every id this run's state reads asked about, whose
+    answer replaces what was carried (a row the read did not find is dropped);
+    `evict` every fingerprint this run wrote, held, re-keyed, cancelled or
+    lifted. ONLY A READ'S OWN VALUES ARE EVER ADDED."""
+    out = {fp: e for fp, e in (carried or {}).items() if not _state_cache_expired(e, now)}
+    today = now.date().isoformat()
+    for fp in asked:
+        out.pop(fp, None)
+        got = detail.get(fp)
+        if fp in state and got is not None and all(f in got for f in STATE_FIELDS):
+            out[fp] = [got[f] for f in STATE_FIELDS] + [bool(state[fp]), today]
+    for fp in evict:
+        out.pop(fp, None)
+    return out
+
+
+def save_state_cache(path: str, store: str, rows: Dict[str, list], now: datetime) -> bool:
+    """Written whole or not at all (tmp + os.replace, like census_cache.json). A
+    file that cannot be written is removed instead: an old one would still hold
+    what this run changed."""
+    tmp = path + ".tmp"
+    try:
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump({"version": state_cache_version(), "store": store,
+                       "saved": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "rows": rows},
+                      fh, ensure_ascii=False, separators=(",", ":"))
+        os.replace(tmp, path)
+        return True
+    except (OSError, TypeError, ValueError) as error:
+        for leftover in (tmp, path):
+            try:
+                os.remove(leftover)
+            except OSError:
+                pass
+        print(f"::warning::State cache not saved to {path} ({type(error).__name__}); the next run "
+              f"reads every id.", flush=True)
+        return False
+
+
 def cancellation_inputs(store_path: str, store_data=None) -> Dict[str, Any]:
     """The store's tombstones and complete reads, and for each complete unit the
     fingerprints it holds now. `store_data`, when supplied by main(), shares its
@@ -4599,6 +4797,12 @@ def main() -> None:
     ap.add_argument("--manifest", default=None,
                     help="The per-source fingerprint manifest --retire-absent compares with and "
                          "rewrites after a successful sync (kept in the Actions cache).")
+    ap.add_argument("--state-cache", default=None, metavar="PATH",
+                    help="The import-state values this store's last runs READ (kept in the Actions "
+                         "cache): an --only-new run reads only the fingerprints it must (see "
+                         "state_cache_must_read) and rewrites it after the cancellations. Without "
+                         "--only-new every id is read and the file is rebuilt from that read. "
+                         "--dry-run never opens it.")
     a = ap.parse_args()
     if a.retire_absent and not a.manifest:
         raise SystemExit("--retire-absent needs --manifest PATH: absence is measured against the "
@@ -4671,8 +4875,22 @@ def main() -> None:
     detail: Dict[str, Dict[str, Any]] = {}            # STATE_FIELDS per stored row
     daily = set()                                     # stored rows an --only-new run still writes
     now = datetime.now(timezone.utc)
+    # THE STATE CACHE (see state_cache_must_read): decided from only under
+    # --only-new; any other run reads every id and rebuilds it from that read.
+    asked: set = set()                                # every id a state read asked about
+    cache_rows: Optional[Dict[str, list]] = None
+    cache_store = f"{os.path.basename(a.store)}|{os.path.basename(a.state_cache or '')}"
+    if a.state_cache and a.only_new:
+        cache_rows, why = load_state_cache(a.state_cache, cache_store)
+        print(f"State cache: {why}" + ("." if cache_rows is not None else
+                                       "; every id is read and the cache is built from that read."),
+              flush=True)
+    elif a.state_cache:
+        print(f"State cache: not read (no --only-new: every id is read); {a.state_cache} is "
+              f"rebuilt from this run's read.", flush=True)
 
     def read_state(ids):
+        asked.update(ids)
         t0 = time.monotonic()
         try:
             try:
@@ -4694,7 +4912,8 @@ def main() -> None:
     # BEFORE ANYTHING READS EXISTENCE: a row still filed under a legacy
     # fingerprint moves to its new one first, or --only-new would call the clean
     # record new and insert it beside the garbled row. See rekey_legacy.
-    moved, held = rekey_legacy(geo, url, key, legacy_pairs(a.store, store_data=store_data))
+    pairs = legacy_pairs(a.store, store_data=store_data)
+    moved, held = rekey_legacy(geo, url, key, pairs)
     # Absence is read off the store and the manifest, so it is known now; a gone
     # session that is only renamed or re-timed moves to its new key here, before
     # the upsert would insert it beside the old row (see absent_successors).
@@ -4702,8 +4921,9 @@ def main() -> None:
     previous = load_manifest(a.manifest) if a.manifest else None
     absent, absent_lines, absent_warnings = (absent_fingerprints(previous, inputs, now)
                                              if a.retire_absent else ({}, [], []))
+    successors = absent_successors(previous, inputs, absent)
     try:
-        moved_on, gone_moved = rekey_absent(geo, url, key, absent_successors(previous, inputs, absent))
+        moved_on, gone_moved = rekey_absent(geo, url, key, successors)
     except Exception as error:                        # noqa: BLE001 - it runs BEFORE the upsert
         print(f"::warning::Absence re-key failed ({type(error).__name__}); gone sessions are "
               f"treated as gone, as before.", flush=True)
@@ -4720,21 +4940,46 @@ def main() -> None:
         # fingerprint, new starts_at/ends_at: a class moved from 10:00 to 11:00
         # used to wait for Wednesday), or a row we CANCELLED that is listed live
         # again. All three are read off the state above, so this adds no request.
-        nonlocal state
-        state = read_state([r["fingerprint"] for r in recs])
+        # With a state cache, only the records it cannot answer for are read
+        # (state_cache_must_read), plus today's sample; the rest are the stored,
+        # unchanged rows this loop skips anyway, and are dropped unread.
+        nonlocal state, cache_rows
+        loop, skipped, sampled = recs, [], []
+        if cache_rows is not None:
+            loop = []
+            for r in recs:
+                entry = cache_rows.get(r["fingerprint"])
+                if state_cache_must_read(r, entry, now, moved, held):
+                    loop.append(r)
+                elif state_cache_sampled(r["fingerprint"], now):
+                    loop.append(r)
+                    sampled.append(r)
+                else:
+                    skipped.append(r)
+        state = read_state([r["fingerprint"] for r in loop])
+        if cache_rows is not None:
+            differ = sum(1 for r in sampled if state_cache_differs(
+                cache_rows[r["fingerprint"]], state.get(r["fingerprint"]), detail.get(r["fingerprint"])))
+            # ...and of those, the ones today's loop writes: what a skip would have cost.
+            missed = sum(1 for r in sampled if keep_reason(r, state, detail, moved, held, now))
+            print(f"State cache: {len(skipped)} of {len(recs)} stored row(s) skipped unread (read in "
+                  f"the last {STATE_CACHE_TTL.days} days; nothing they would be written for has "
+                  f"changed); {len(loop) - len(sampled)} read as they must be, and a sample of "
+                  f"{len(sampled)}: {differ} of {len(sampled)} sampled rows differ from the cache, "
+                  f"{missed} of them written today.", flush=True)
+            if sampled and differ / len(sampled) > STATE_CACHE_DRIFT_MAX:
+                print(f"::warning::State cache: {differ} of {len(sampled)} sampled rows differ from "
+                      f"what it holds (more than {STATE_CACHE_DRIFT_MAX:.0%}); every id is read this "
+                      f"run and the cache is rebuilt from that read.", flush=True)
+                state.update(read_state([r["fingerprint"] for r in skipped]))
+                loop, cache_rows = recs, None
         fresh, n_time, n_back = [], 0, 0
-        for r in recs:
-            fp = r["fingerprint"]
-            if needs_detail_sync(r, state, moved, held):
+        for r in loop:
+            why = keep_reason(r, state, detail, moved, held, now)
+            if why:
                 fresh.append(r)
-            elif fp in held or state.get(fp, True):    # claimed, held, or not stored: nothing to add
-                continue
-            elif import_cancelled(detail.get(fp), now):
-                fresh.append(r)
-                n_back += 1
-            elif time_changed(r, detail.get(fp)):
-                fresh.append(r)
-                n_time += 1
+                n_back += why == "back"
+                n_time += why == "time"
         daily.update(r["fingerprint"] for r in fresh if r["fingerprint"] in state)
         n_claimed = sum(1 for is_claimed in state.values() if is_claimed)
         print(f"Only-new: {len(fresh)} of {len(recs)} need sync ({len(state)} from this batch "
@@ -4784,10 +5029,13 @@ def main() -> None:
             print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
 
     terms = load_blocklist(geo, url, key) if rows else []  # no DB read for an empty write set
+    moderated: set = set()
     if terms:
         before = len(rows)
+        offered = {r["external_id"] for r in rows}
         rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
                                        for f in ("title", "description", "place_name", "host_name"))]
+        moderated = offered - {r["external_id"] for r in rows}
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
 
     # Before skip-unchanged, which drops an identical row from the WRITE but not
@@ -4822,6 +5070,7 @@ def main() -> None:
             print(f"Skip-unchanged: all {len(stored)} stored rows differ from what is stored "
                   f"(or could not be read back — a refusal means write); {fresh} new, not read back.")
 
+    sent = {r["external_id"] for r in rows}           # whatever the outcome: never kept in the cache
     t0 = time.monotonic()
     n, skipped, lost = upsert(rows, url, key)
     print(f"Upsert phase: {len(rows)} row(s) in {time.monotonic() - t0:.1f}s.", flush=True)
@@ -4845,6 +5094,7 @@ def main() -> None:
     for line in absent_lines + absent_warnings:
         print(line, flush=True)
     targets = cancellation_targets(inputs, absent)
+    called_off = set(targets)                         # whether or not a PATCH lands: not kept
     owned = {eid: u for eid, u in owned_tombstones(inputs).items() if eid in targets}
     if owned:
         mine, unread = own_rows(geo, url, key, owned)
@@ -4888,6 +5138,20 @@ def main() -> None:
     elif a.manifest and inputs["complete"]:
         print(f"Absence manifest NOT updated ({lost} row(s) lost, {owed} cancellation write(s) "
               f"owed): the last good baseline stays.", flush=True)
+    # AFTER THE CANCELLATIONS AND LIFTS, so a row either touched is left out. A
+    # run that dies before this line leaves the restored file as it was, which
+    # holds nothing this run changed except what the next read finds changed
+    # anyway (a time it wrote) or a delay toward hidden (a row it cancelled,
+    # skipped until the TTL if it is listed again).
+    if a.state_cache:
+        evict = (sent | moderated | census_held | moved | held | called_off
+                 | set(relist) | set(held_back) | set(successors) | set(successors.values()) | gone_moved
+                 | {old for olds in pairs.values() for old in olds})
+        rows_kept = next_state_cache(cache_rows, state, detail, asked, evict, now)
+        if save_state_cache(a.state_cache, cache_store, rows_kept, now):
+            print(f"State cache: {len(rows_kept)} row(s) saved to {a.state_cache}; "
+                  f"{len(evict & asked)} read this run but written, held, re-keyed, cancelled or "
+                  f"lifted are left out, to be read again.", flush=True)
     if owed:
         # A WARNING, NOT A FAILURE. Every owed write is derived again next run (a
         # tombstone is the publisher's word re-read, absence compares with the

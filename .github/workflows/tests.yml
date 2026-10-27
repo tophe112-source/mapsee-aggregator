@@ -416,6 +416,15 @@ jobs:
       - name: A rewrite writes what changed, and fails toward writing
         run: python test_skip_unchanged.py
 
+      # --state-cache: an --only-new sync reads the state of only the
+      # fingerprints it must, where it read all of them (461,619 ids in 892.3 s
+      # on 10-26, to keep about 36,800). A cache that calls a row stored when it
+      # is not keeps a new event off the map for days, and a value no read
+      # returned is that bug waiting; so every run here checks that nothing
+      # reached upsert() unread, and the file holds only what a read answered.
+      - name: The state cache changes what a sync reads, never what it writes
+        run: python test_sync_state_cache.py
+
       # Six adapters emit a bare YYYY-MM-DD when the source publishes no clock,
       # and each says in a comment that the row claims a DAY rather than a
       # minute. Nothing honoured it: a bare date in a timestamptz is read at the
