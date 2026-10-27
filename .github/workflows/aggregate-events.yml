@@ -2031,19 +2031,39 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
-      # 26h, not 24: the daily cron is at 06:17 UTC and a run that starts late or
-      # takes an hour must not leave a gap. Re-submitting a URL an engine has
-      # already seen is a no-op; missing one costs it its whole crawlable life.
       # A weekly market publishes each Saturday as its own listing and nothing tied
       # them together, so the map drew forty rows as forty separate things and Nearby
       # listed the same market forty times. Runs AFTER the dedupe job (this job needs
       # it), so it never chains a row that was about to be hidden as a copy. Here rather
       # than in the ingest because the store is rebuilt each run, and --only-new means a
       # sync sees this week's occurrence and not the thirty already in the table.
+      #
+      # OFF UNTIL ITS READ IS REWRITTEN; the repository variable LINK_SERIES =
+      # 'true' turns it back on, for a schedule and a dispatch alike. Its one
+      # listing (fetch_events) pages every upcoming imported row, ~680k, by
+      # OFFSET in id order with no hidden, standing or pin filter, and the FIRST
+      # page died at the statement timeout (57014) on 7 of the 8 days
+      # 2026-10-19..10-26, 38-51 s into the step, and at the 120 s ReadTimeout on
+      # 10-21. It has linked nothing since at least 10-19 and continue-on-error
+      # kept every one of those runs green. Set the variable only after
+      # fetch_events is the keyset walk its docstring describes.
       - name: Chain repeating listings into one series
-        if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+        if: ${{ vars.LINK_SERIES == 'true' && (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
         continue-on-error: true
         timeout-minutes: 7
         run: python mapsee_link_series.py --max-seconds 300
+      # 26h, not 24: the daily cron is at 06:17 UTC and a run that starts late or
+      # takes an hour must not leave a gap. Re-submitting a URL an engine has
+      # already seen is a no-op; missing one costs it its whole crawlable life.
+      #
+      # THE MON/THU RUN ANNOUNCES ITS OWN EVENTS, NOT THE LANDING PAGES AGAIN.
+      # Its job started 49, 74 and 52 min after the daily run's on 10-19,
+      # 10-22 and 10-26, and both sent the same 3,739 /c/ URLs (mapsee.me 1,354
+      # plus 9 doors x 265, the same counts on all 11 runs 10-19..10-26):
+      # landing_urls() is each host's whole sitemap-pages.xml, not what changed.
+      # So that cron passes --no-pages and sends only its new /e/ rows; the
+      # job's `if: always()` and its `needs` are untouched. On a Mon/Thu when
+      # GitHub drops the daily run (2026-10-05: the extra run was the day's
+      # only one) the landing pages wait for the next day's ping.
       - name: Submit
-        run: python mapsee_indexnow.py --since-hours 26
+        run: python mapsee_indexnow.py --since-hours 26 ${{ github.event.schedule == '40 6 * * 1,4' && '--no-pages' || '' }}

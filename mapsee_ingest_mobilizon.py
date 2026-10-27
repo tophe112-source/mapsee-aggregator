@@ -35,7 +35,7 @@ import json
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
 try:
@@ -48,6 +48,45 @@ from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_c
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 _TAG = re.compile(r"<[^>]+>")
+
+# A YEAR AHEAD, AND NO FURTHER, unless a site's `within_days` says otherwise:
+# mapsee_ingest_ics's HORIZON_DAYS. The 2026-10-26 civic store held 522 of its
+# 4,938 Mobilizon rows starting more than 365 days out (538 of 4,906 on 10-21),
+# 441 of them one association's weekly "Offener Techniktreff", every week to 2038.
+HORIZON_DAYS = 365
+
+# ...AND NOT ALREADY OVER. searchEvents(beginsOn: now) still answers events that
+# began long ago and carry no endsOn: 240 such rows in that store (238 on 10-21,
+# the same set), median 796 days old and the oldest 6,835, casino and IPTV ads
+# among them. The sync gives a row with no end its start plus a typical length,
+# already past; the janitor deletes it as a week over, and the next --only-new
+# sync inserts it again. Begun more than this long ago with no end, or with an
+# end that has passed, it can never be shown, so it is counted and not kept.
+# An event still running (an endsOn ahead) is kept, however long ago it began.
+STALE_AFTER = timedelta(days=1)
+
+
+def _instant(value: Optional[str]) -> Optional[datetime]:
+    """An ISO-8601 instant as an aware datetime, or None."""
+    try:
+        dt = datetime.fromisoformat(str(value or "").strip().replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+
+def stale_or_far(ev: Dict[str, Any], now: datetime, horizon: datetime) -> Optional[str]:
+    """'over' for an event that began more than STALE_AFTER ago and has no end
+    ahead of `now`, 'far' for one that begins after `horizon`, else None."""
+    begins = _instant(ev.get("beginsOn"))
+    if begins is None:
+        return None                                    # to_event refuses it anyway
+    if begins > horizon:
+        return "far"
+    ends = _instant(ev.get("endsOn"))
+    if begins < now - STALE_AFTER and (ends is None or ends < now):
+        return "over"
+    return None
 
 QUERY = """
 query($b:DateTime,$l:Int,$p:Int){
@@ -160,8 +199,12 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     limit = int(site.get("limit", 100))
     max_pages = int(site.get("max_pages", 5))
     delay = float(site.get("crawl_delay", 1))
-    begins = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    now = datetime.now(timezone.utc)
+    begins = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    horizon_days = int(site.get("within_days") or HORIZON_DAYS)
+    horizon = now + timedelta(days=horizon_days)
     kept = cancelled = 0
+    skipped = {"over": 0, "far": 0}
     for page in range(1, max_pages + 1):
         payload = {"query": QUERY, "variables": {"b": begins, "l": limit, "p": page}}
         try:
@@ -191,6 +234,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                 cancelled += 1
                 store.cancel(nev, "status:CANCELLED")
             elif nev:
+                why = stale_or_far(ev, now, horizon)
+                if why:
+                    skipped[why] += 1                  # see HORIZON_DAYS and STALE_AFTER
+                    continue
                 store.upsert(nev)
                 kept += 1
         if page * limit >= int(node.get("total") or 0):
@@ -198,7 +245,9 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if delay:
             time.sleep(delay)
     print(f"[mobilizon] {site.get('name')}: kept {kept} events"
-          + (f"; {cancelled} CANCELLED not imported" if cancelled else ""))
+          + (f"; {cancelled} CANCELLED not imported" if cancelled else "")
+          + (f"; {skipped['over']} already over (begun, no end ahead)" if skipped["over"] else "")
+          + (f"; {skipped['far']} beyond the {horizon_days}-day horizon" if skipped["far"] else ""))
     return kept
 
 

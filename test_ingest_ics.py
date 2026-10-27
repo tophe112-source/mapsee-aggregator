@@ -8,6 +8,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import mapsee_ingest_ics as ICS
 
+# THE FIXTURES DATE THEIR EVENTS 2099 so they stay upcoming whatever day the
+# suite runs, and HORIZON_DAYS (365) would refuse every one of them. Lifted for
+# the file; the horizon's own cases, at the end, put it back.
+HORIZON_DAYS = ICS.HORIZON_DAYS
+ICS.HORIZON_DAYS = 100 * 365
+
 
 fails = []
 
@@ -1204,6 +1210,85 @@ with tempfile.TemporaryDirectory() as tmp:
           and _fp("Port Union Repair Cafe", "2099-10-10", None) in store.records, sorted(store.tombstones))
     check("the log counts the dates keyed this way",
           "; 2 keyed by date (a UID an earlier date already used)" in out.getvalue(), out.getvalue())
+
+
+# --- a year ahead and no further, unless the source says otherwise ----------
+# The 2026-10-26 store held 7,574 of 134,814 ics rows starting more than 365
+# days out, from 224 rule-expanded calendars (Roeland Park 293 of 300, to 2069).
+# Dated from today, because the horizon is. A far row is counted, never kept,
+# never geocoded and never takes a near row's `limit` slot; a far cancellation
+# still tombstones the row stored before the horizon existed.
+from datetime import datetime as _dt, timedelta as _td, timezone as _tz  # noqa: E402
+
+
+def _day(n):
+    return (_dt.now(_tz.utc) + _td(days=n)).strftime("%Y%m%d")
+
+
+def _horizon_feed(rows):
+    return "BEGIN:VCALENDAR\r\n" + "".join(
+        f"BEGIN:VEVENT\r\nUID:{uid}\r\nSUMMARY:{uid}\r\nDTSTART;VALUE=DATE:{_day(n)}\r\n{extra}END:VEVENT\r\n"
+        for uid, n, extra in rows) + "END:VCALENDAR\r\n"
+
+
+HORIZON_ICS = _horizon_feed([                     # newest first, as CivicPlus writes them
+    ("far-cancelled", 500, "STATUS:CANCELLED\r\nLOCATION:Far Hall cancelled\r\n"),
+    ("far-400", 400, "LOCATION:Far Hall 400\r\n"),
+    ("far-366", 366, "LOCATION:Far Hall 366\r\n"),
+    ("edge-365", 365, "GEO:47.6;-122.3\r\n"),
+    ("near-30", 30, "GEO:47.6;-122.3\r\n"),
+    ("past", -3, "GEO:47.6;-122.3\r\n"),
+])
+far_geocodes = []
+
+
+def _far_geocoder(_session, _suffix):
+    def geocode(loc):
+        far_geocodes.append(loc)
+        return 47.6, -122.3
+    return geocode
+
+
+with patch.object(ICS, "HORIZON_DAYS", HORIZON_DAYS), \
+     patch.object(ICS, "_fetch_ics", return_value=(HORIZON_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_far_geocoder):
+    with redirect_stdout(io.StringIO()) as out:
+        hz = VenueStore()
+        hz_kept = ICS.ingest_ics(hz, None, {"name": "civicplus", "url": "x", "limit": 3})
+    check("the default horizon is 365 days", HORIZON_DAYS == 365, HORIZON_DAYS)
+    check("within 365 days is kept, the 365th day included; beyond it is not",
+          hz_kept == 2 and sorted(r.name for r in hz.rows) == ["edge-365", "near-30"],
+          (hz_kept, [r.name for r in hz.rows]))
+    check("a far row does not take the slot `limit` left: 2 kept of a limit of 3",
+          len(hz.rows) == 2, [r.name for r in hz.rows])
+    check("nothing beyond the horizon is geocoded", far_geocodes == [], far_geocodes)
+    check("a cancellation beyond the horizon still goes to store.cancel",
+          [r.source_id for r in hz.cancelled] == ["far-cancelled"], [r.source_id for r in hz.cancelled])
+    check("the log counts what the horizon refused",
+          "; 2 beyond the 365-day horizon" in out.getvalue(), out.getvalue())
+
+    with redirect_stdout(io.StringIO()) as out:
+        hz = VenueStore()
+        hz_kept = ICS.ingest_ics(hz, None, {"name": "civicplus", "url": "x", "within_days": 400})
+    check("a source's within_days moves its horizon out",
+          sorted(r.name for r in hz.rows) == ["edge-365", "far-366", "far-400", "near-30"]
+          and "beyond the" not in out.getvalue(), ([r.name for r in hz.rows], out.getvalue()))
+
+    with redirect_stdout(io.StringIO()) as out:
+        hz = VenueStore()
+        ICS.ingest_ics(hz, None, {"name": "santa-rosa", "url": "x", "within_days": 90})
+    check("...and in (a 90-day volunteer calendar keeps 90 days)",
+          [r.name for r in hz.rows] == ["near-30"]
+          and "; 3 beyond the 90-day horizon" in out.getvalue(), ([r.name for r in hz.rows], out.getvalue()))
+
+    FAR_ONLY = _horizon_feed([("far-400", 400, "GEO:47.6;-122.3\r\n"), ("past", -3, "GEO:47.6;-122.3\r\n")])
+    with patch.object(ICS, "_fetch_ics", return_value=(FAR_ONLY, "200")), \
+         redirect_stdout(io.StringIO()) as out:
+        hz = VenueStore()
+        ICS.ingest_ics(hz, None, {"name": "far-only", "url": "x"})
+    check("a feed of past and far rows is not reported as wholly past",
+          not hz.rows and "in the PAST" not in out.getvalue()
+          and "; 1 beyond the 365-day horizon" in out.getvalue(), out.getvalue())
 
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")

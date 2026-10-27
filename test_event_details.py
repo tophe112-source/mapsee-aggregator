@@ -94,7 +94,9 @@ class Details(unittest.TestCase):
             def upsert(self, ev):
                 self.rows.append(ev)
         store = Store()
+        # 2099 stays upcoming whatever day this runs; HORIZON_DAYS (365) is lifted for it.
         with patch.object(ICS, '_fetch_ics', return_value=(text, '200')), \
+             patch.object(ICS, 'HORIZON_DAYS', 100 * 365), \
              patch.object(ICS, 'make_location_geocoder', return_value=lambda loc: (42.7414667, -87.8125342)), \
              patch('mapsee_event_details.ramart_reader', return_value=lambda url, title, start: ramart_details(page(), url, title, start)):
             ICS.ingest_ics(store, None, {'name': 'RAM', 'url': 'https://www.ramart.org/events/?ical=1', 'details': 'ramart'})

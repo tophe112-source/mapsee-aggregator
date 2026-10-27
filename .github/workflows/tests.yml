@@ -601,6 +601,13 @@ jobs:
       - name: A platform that calls an event off tombstones the row we stored
         run: python test_platform_cancellations.py
 
+      # Mobilizon's searchEvents(beginsOn: now) also answers events that began
+      # years ago with no end (240 rows on 2026-10-26, inserted and deleted
+      # again every day) and a weekly meeting out to 2038. Neither is kept; an
+      # event still running, a cancellation and a site's within_days are.
+      - name: A Mobilizon answer keeps what can still be shown
+        run: python test_ingest_mobilizon.py
+
       # "Has coordinates" was the whole online test, and an organiser can walk
       # through it: file a Zoom event as PHYSICAL, type anything into the venue
       # box, and it arrives with a latitude. The expensive direction to get

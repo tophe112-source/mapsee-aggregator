@@ -14,10 +14,16 @@ closed. So the invariant is pinned here rather than reasoned about:
 
     for every venue, at least one row survives.
 
+Also pinned, at the end: the URL of the standing-row read, which only the
+index ../mapsee 0235 built can serve once 0156's is dropped.
+
 Run: python test_retire_perday.py
 """
+import io
 import sys
+from contextlib import redirect_stdout
 
+import mapsee_retire_perday_osm as R
 from mapsee_retire_perday_osm import collapse_orphans
 
 fails = []
@@ -74,6 +80,45 @@ hide = collapse_orphans({"k": [{"id": "none", "starts_at": None},
                                {"id": "real", "starts_at": "2026-08-14T13:00:00Z"}]})
 check("a row with no start time is not the one kept",
       [r["id"] for r in hide] == ["none"], hide)
+
+# THE STANDING-ROW READ IS SERVED BY ../mapsee 0235's events_recurring_listed_idx
+# (ends_at where recurring_hours is not null and hidden_at is null and not
+# pin_only). Without pin_only=eq.false only 0156's events_recurring_idx fits it,
+# and once that is dropped each page is a whole-heap scan: 193,130 buffers
+# against 439 on a production-shaped copy. Driven through main() with the REST
+# call stubbed, so the URL pinned is the one the script sends, in a dry run and
+# in --unhide's.
+def _reads(argv):
+    calls = []
+
+    def sb(path, method="GET", body=None, prefer=""):
+        calls.append((method, path))
+        return []
+    real = (R.sb, R.SUPABASE_URL, R.SERVICE_KEY, sys.argv)
+    R.sb, R.SUPABASE_URL, R.SERVICE_KEY = sb, "https://db.test", "key"
+    sys.argv = ["mapsee_retire_perday_osm.py"] + argv
+    try:
+        with redirect_stdout(io.StringIO()):
+            R.main()
+    finally:
+        R.sb, R.SUPABASE_URL, R.SERVICE_KEY, sys.argv = real
+    return calls
+
+
+for argv in ([], ["--unhide"]):
+    calls = _reads(argv)
+    standing = [p for m, p in calls if "recurring_hours=not.is.null" in p]
+    label = " ".join(argv) or "dry run"
+    check(f"{label}: one standing-row read", len(standing) == 1, standing)
+    url = standing[0] if standing else ""
+    check(f"{label}: the standing read leaves pins out, so 0235's index serves it",
+          "&pin_only=eq.false" in url, url)
+    check(f"{label}: ...and keeps that index's other clauses and its order",
+          url.startswith("events?select=id,title,lat,lon,starts_at,claimed_by&external_source=eq.mapsee&")
+          and "&hidden_at=is.null" in url and "&order=ends_at.asc&limit=500&offset=0" in url, url)
+    check(f"{label}: ...and is not windowed by starts_at", "starts_at=" not in url, url)
+    check(f"{label}: nothing is written", all(m == "GET" for m, _ in calls),
+          sorted({m for m, _ in calls}))
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

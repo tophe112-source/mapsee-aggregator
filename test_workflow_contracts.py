@@ -562,12 +562,76 @@ class WorkflowContracts(unittest.TestCase):
         for seconds in re.findall(r'--max-seconds (\d+)', mrun):
             self.assertLessEqual(int(seconds) / 60 + 5, manual['jobs']['dedupe']['timeout-minutes'])
 
+    def test_link_series_waits_for_its_switch_and_stays_tolerated(self):
+        # Its listing died on page 1 at the statement timeout (57014) on 7 of 8
+        # days 2026-10-19..10-26 (a ReadTimeout on the 8th) and linked nothing,
+        # green every time. Off unless vars.LINK_SERIES is 'true', on a schedule
+        # and on a dispatch, until fetch_events is a keyset walk; and when it is
+        # on again it is still a step nobody's run may fail on.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        found = [(name, s) for name, job in workflow['jobs'].items() for s in job.get('steps', [])
+                 if 'mapsee_link_series.py' in (s.get('run') or '')]
+        self.assertEqual([name for name, _ in found], ['indexnow'])
+        step = found[0][1]
+        self.assertIs(step.get('continue-on-error'), True)
+        self.assertEqual(len(re.findall(r'vars\.', step['if'])), 1)
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        daily = next(c for c in crons if f"github.event.schedule == '{c}'" in step['if'])
+        for value in ('', 'false', 'yes', 'true', 'True'):
+            on = value.lower() == 'true'
+            for cron in crons:
+                ran = self._gh_if(step['if'], {'github.event_name': 'schedule', 'github.event.schedule': cron,
+                                               'vars.LINK_SERIES': value})
+                self.assertEqual(ran, on and cron == daily, (cron, value))
+            for group, runs in (('', True), ('all', True), ('ics', False)):
+                ran = self._gh_if(step['if'], {'github.event_name': 'workflow_dispatch', 'inputs.feed_group': group,
+                                               'vars.LINK_SERIES': value})
+                self.assertEqual(ran, on and runs, (group, value))
+            self.assertFalse(self._gh_if(step['if'], {'github.event_name': 'workflow_dispatch',
+                                                      'inputs.extra_only': 'true', 'vars.LINK_SERIES': value}))
+
+    def test_indexnow_extra_run_announces_its_events_not_the_landing_pages(self):
+        # The Mon/Thu run's IndexNow job started 49-74 min after the daily
+        # run's on 10-19, 10-22 and 10-26 and sent the same 3,739 /c/ URLs again
+        # (landing_urls() is each host's whole sitemap-pages.xml). That cron,
+        # read from on.schedule, passes --no-pages; the daily cron and a
+        # dispatch do not, and the job still runs `if: always()` for its /e/ rows.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        extra_if = workflow['jobs']['extra_sources']['if']
+        extra = [c for c in crons if f"github.event.schedule == '{c}'" in extra_if]
+        self.assertEqual(len(extra), 1, extra_if)
+        extra = extra[0]
+        job = workflow['jobs']['indexnow']
+        self.assertEqual(job['if'], 'always()')
+        self.assertIn('extra_sources', job['needs'])
+        submit = [s for s in job['steps'] if 'mapsee_indexnow.py' in (s.get('run') or '')]
+        self.assertEqual(len(submit), 1)
+        self.assertNotIn('if', submit[0])
+        run = submit[0]['run']
+        self.assertIn(f"github.event.schedule == '{extra}'", run)
+
+        def argv(context):
+            line = re.sub(r'\$\{\{(.*?)\}\}', lambda m: self._gh_if(m[1], context, value=True), run)
+            return line.split()
+        for cron in crons:
+            got = argv({'github.event_name': 'schedule', 'github.event.schedule': cron})
+            self.assertEqual(got[:2], ['python', 'mapsee_indexnow.py'])
+            self.assertEqual(got[got.index('--since-hours') + 1], '26', cron)
+            self.assertEqual('--no-pages' in got, cron == extra, (cron, got))
+        got = argv({'github.event_name': 'workflow_dispatch'})
+        self.assertNotIn('--no-pages', got)
+        self.assertEqual(got[got.index('--since-hours') + 1], '26')
+
     @staticmethod
-    def _gh_if(expr, context):
+    def _gh_if(expr, context, value=False):
         """Evaluate an `if:` as Actions would, for the subset these workflows
         write: '...' literals, context names (missing ones are ''), ==, !=,
         !, &&, ||, brackets and always(). Actions compares strings WITHOUT
-        regard to case ('True' == 'true'), where a shell `case` does not."""
+        regard to case ('True' == 'true'), where a shell `case` does not.
+        value=True returns what a `${{ }}` inside a `run:` renders instead:
+        && and || hand back an operand, so `a == 'x' && '--flag' || ''` is
+        '--flag' or '', as on Actions."""
         body = re.fullmatch(r'\s*\$\{\{(.*)\}\}\s*', expr, re.S)
         body = body[1] if body else expr
 
@@ -594,7 +658,8 @@ class WorkflowContracts(unittest.TestCase):
             else:
                 src.append(f'S({str(context.get(name, ""))!r})')
             pos = m.end()
-        return bool(eval(''.join(src), {'S': S}))
+        out = eval(''.join(src), {'S': S})
+        return (str(out) if out else '') if value else bool(out)
 
     @staticmethod
     def _dedupe_calls(run, env):

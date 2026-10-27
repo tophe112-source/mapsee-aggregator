@@ -564,7 +564,9 @@ def main() -> None:
         pages = landing_urls(SITE, session)
         if pages:
             urls.extend(pages)
-            print(f"{HOST}: {len(pages)} /c/ landing page(s) whose listings changed this run")
+            # Every /c/ <loc> in the host's sitemap, the same 1,354 on all 11 runs
+            # 10-19..10-26: it never said which listings changed, so it does not claim to.
+            print(f"{HOST}: {len(pages)} /c/ landing page(s) listed in its sitemap-pages.xml")
 
     if urls:
         print(f"submitting {len(urls)} URL(s) for {HOST}")

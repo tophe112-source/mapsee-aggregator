@@ -470,6 +470,35 @@ def shard_bboxes(bboxes: List[Dict[str, Any]], run_weekdays: Optional[List[int]]
     return list(bboxes)[days.index(weekday)::len(days)]
 
 
+def home_city(lat: float, lon: float, bboxes: List[Dict[str, Any]]) -> str:
+    """The configured city a market's point belongs to, from EVERY bbox in the
+    config: of those that contain it, the one whose centre is nearest; a tie
+    goes to the lexically first city. A point no bbox contains (a way's centre
+    can sit outside the bbox that returned it) takes the nearest bbox's edge.
+
+    A PURE FUNCTION OF THE POINT AND THE CONFIG, which the first answer was not.
+    The city used to be whichever overlapping bbox absorbed the market first:
+    49 pairs of the 259 bboxes overlap, 26 of them across the Mon/Fri shards
+    (Denver/Boulder, Amsterdam/Rotterdam, Osaka/Kyoto...), so a market in one
+    of those overlaps was written with one city on Monday and the other on
+    Friday, and a metro that lost its slot and came back in the second pass
+    handed its markets to a neighbour. The sync then rewrote every occurrence's
+    locality: "locality 749" of the 801 stored rows that differed on Monday
+    2026-10-26, whose stored rows Friday's sweep had written, against 95 on
+    Friday 10-23, whose stored rows were the previous Friday's because Monday
+    10-19's sync wrote nothing (ReadTimeout)."""
+    scale = math.cos(math.radians(lat))
+
+    def rank(b):
+        gap_lat = max(b["s"] - lat, 0.0, lat - b["n"])
+        gap_lon = max(b["w"] - lon, 0.0, lon - b["e"]) * scale
+        mid_lat = lat - (b["s"] + b["n"]) / 2
+        mid_lon = (lon - (b["w"] + b["e"]) / 2) * scale
+        return (gap_lat ** 2 + gap_lon ** 2, mid_lat ** 2 + mid_lon ** 2,
+                b.get("city") or "", b.get("name") or "")
+    return (min(bboxes, key=rank).get("city") or "") if bboxes else ""
+
+
 def _overpass_fetch(session, endpoint, bbox, quiet=False):
     """Elements for one bbox, or None if the endpoint never answered.
 
@@ -529,6 +558,7 @@ def load_overpass(session, src: Dict[str, Any], deadline: float = 0.0,
     out: List[Dict[str, Any]] = []
     seen: set = set()
     bboxes = list(src.get("bboxes", []))
+    every_bbox = list(bboxes)                     # home_city reads them all, whatever today's shard
     if src.get("shard_by_weekday"):
         today = datetime.now().weekday() if weekday is None else weekday
         total = len(bboxes)
@@ -560,7 +590,8 @@ def load_overpass(session, src: Dict[str, Any], deadline: float = 0.0,
                 continue
             seen.add(key)
             street = " ".join(x for x in (t.get("addr:housenumber"), t.get("addr:street")) if x)
-            city = t.get("addr:city") or bbox.get("city") or ""
+            city = (t.get("addr:city") or home_city(float(lat), float(lon), every_bbox)
+                    or bbox.get("city") or "")
             # THE CITY IS NOT A STREET. This used to glue them into one `address`
             # and set no city at all, so every OSM market reached the database
             # with locality NULL and street_address "Berlin" — and most OSM
