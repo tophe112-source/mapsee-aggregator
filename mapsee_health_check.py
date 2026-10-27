@@ -22,7 +22,8 @@ It reads. It never writes event data.
 WHERE THE NUMBERS COME FROM
 ---------------------------
 `stats_snapshot_all()` — the precomputed snapshot from ../mapsee migration 0112,
-refreshed every 6h by the pg_cron job `mapsee-refresh-stats`.
+refreshed by the pg_cron job `mapsee-refresh-stats`: every 6h, or at 07:23 and
+19:23 UTC once ../mapsee 0245's runbook step 3 has moved it to twice a day.
 
 WHICH SCHEDULER OWNS THE REFRESH, because it has changed once and the answer is
 load-bearing here. It was the Worker (`refreshStats` in ../mapsee/src/index.js)
@@ -181,8 +182,10 @@ SNAPSHOT_RPC = "stats_snapshot_all"
 # the whole reason this script stopped calling it first.
 LEGACY_RPC = "source_stats"
 
-# pg_cron recomputes the snapshot every 6h. Four consecutive misses means the
-# cron is down, and every freshness number below is frozen at whatever it said
+# pg_cron recomputes the snapshot every 6h, or twice a day (07:23 and 19:23 UTC)
+# after ../mapsee 0245's runbook step 3. Missing the budget means four
+# consecutive misses at 6h, or two at twice a day - either way the cron is
+# down, and every freshness number below is frozen at whatever it said
 # then — SILENT would start firing about sources that are delivering fine. So a
 # stale snapshot is "the check cannot run", not "a source is quiet".
 SNAPSHOT_MAX_AGE_H = 24
@@ -425,7 +428,7 @@ def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str, l
             raise CheckCannotRun(
                 f"The stats snapshot is {age_h:.0f}h old",
                 f"Last computed {computed_at:%Y-%m-%d %H:%M} UTC; the budget is "
-                f"{SNAPSHOT_MAX_AGE_H}h (`refresh_stats` is scheduled every 6h).\n\n"
+                f"{SNAPSHOT_MAX_AGE_H}h (`refresh_stats` is scheduled every 6h, or twice a day after 0245's step 3).\n\n"
                 f"{_why_stale(cron)}",
                 "Every freshness number is frozen at that moment, so evaluating "
                 "them would report sources as silent that are delivering "
