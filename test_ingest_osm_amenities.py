@@ -643,6 +643,162 @@ def main():
                    f"the live facility_hours config claims refs in to_event's own 'type/id' "
                    f"shape ({len(A.CLAIMED_BY_FACILITY_HOURS)})"))
 
+    # ---- the fill held at a frontier, through main() -----------------------
+    #
+    # 2026-10-27: the first full turn of all 260 hubs inserted 465,774 rows in
+    # five Sundays, and 94 dense hubs still held 415,471 candidates past their
+    # cursor. --frontier stops each at its first F. The bug class this adapter
+    # has is "it was in main(), and nothing ran main()", so every case below
+    # runs the real main() with Overpass stubbed: ten fountains, ids 1-10 in
+    # candidate order, so a row's id says which index it came from.
+    import contextlib as _ctx, io as _io
+    _ten = [{"type": "node", "id": i, "lat": 47.6 + i / 1000, "lon": -122.3,
+             "tags": {"amenity": "drinking_water"}} for i in range(1, 11)]
+
+    def _run(args, cursor=None, frontier=None, raw_frontier=None, elements=_ten):
+        """(rc, ids written, cursor after, the area lines printed, error)."""
+        real = (A.sweep_tiles, A.CURSOR_PATH)
+        A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (elements, True)
+        out, rc, err = _io.StringIO(), None, None
+        with _tempfile.TemporaryDirectory() as tmp:
+            A.CURSOR_PATH = _os.path.join(tmp, "cursor.json")
+            if cursor is not None:
+                _json2.dump(cursor, open(A.CURSOR_PATH, "w", encoding="utf-8"))
+            extra = []
+            if frontier is not None or raw_frontier is not None:
+                fp = _os.path.join(tmp, "frontier.json")
+                open(fp, "w", encoding="utf-8").write(
+                    raw_frontier if raw_frontier is not None else _json2.dumps(frontier))
+                extra = ["--frontier", fp]
+            store = _os.path.join(tmp, "feeds.json")
+            try:
+                with _ctx.redirect_stdout(out):
+                    rc = A.main(["--config", "osm_amenity_sources.json", "--store", store,
+                                 "--places-cache", _os.path.join(tmp, "cache")] + args + extra)
+            except (Exception, SystemExit) as exc:          # noqa: BLE001
+                err = f"{type(exc).__name__}: {exc}"
+            finally:
+                A.sweep_tiles, A.CURSOR_PATH = real
+            ids = []
+            if _os.path.exists(store):
+                ids = sorted(int(src["source_id"].rsplit("/", 1)[1])
+                             for r in _json2.load(open(store, encoding="utf-8")).get("events", [])
+                             for src in r.get("sources") or [])
+            cur = A.load_cursor(_os.path.join(tmp, "cursor.json"))
+        return rc, ids, cur, out.getvalue().splitlines(), err
+
+    def _area_lines(lines, name="Seattle"):
+        return [l for l in lines if l.startswith(f"[osm-amenity] {name}:")]
+
+    seattle4 = ["--only", "Seattle", "--max-places", "4"]
+    # THE CONTROL: without a frontier, the walk from cursor 4 reaches 5-8. If
+    # it did not, nothing below could tell a hold from a fixture that never
+    # reached past index 4.
+    rc, ids, cur, lines, err = _run(seattle4, cursor={"Seattle": 4})
+    checks.append((ids == [5, 6, 7, 8] and cur.get("Seattle") == 8,
+                   f"control: unheld, cursor 4 examines ids 5-8 and saves 8 ({ids}, {cur}, {err})"))
+
+    # (a) F < N. The production shape: F = --max-places = the cursor, so the
+    # held walk wraps inside [0, F) and saves 0.
+    rc, ids, cur, lines, err = _run(seattle4, cursor={"Seattle": 4}, frontier={"Seattle": 4})
+    checks.append((rc == 0 and ids == [1, 2, 3, 4] and cur.get("Seattle") == 0,
+                   f"(a) held at F=4 of 10, cursor 4: re-reads ids 1-4 (index < F) and saves "
+                   f"cursor 0 < F ({ids}, {cur}, {err})"))
+    checks.append(("[osm-amenity] Seattle: frontier held at 4 of 10 candidate(s)" in lines,
+                   f"(a) ...and says so per area ({_area_lines(lines)})"))
+    checks.append((any(l.startswith("[osm-amenity] Seattle: 10 candidate(s),") for l in lines),
+                   "(a) ...while the summary still counts the FULL list, so the logs measure "
+                   "what a lift would resume"))
+    rc, ids, cur, lines, err = _run(["--only", "Seattle", "--max-places", "3"],
+                                    cursor={"Seattle": 3}, frontier={"Seattle": 4})
+    checks.append((ids == [1, 2, 4] and cur.get("Seattle") == 2,
+                   f"(a) a smaller window walks modulo the HELD length: from 3 it takes 4,1,2 and "
+                   f"saves 2, never id 5+ ({ids}, {cur}, {err})"))
+
+    # (b) F >= N, or the area not in the file: today's run, byte for byte —
+    # the same rows, the same cursor, the same per-area lines.
+    today = _run(seattle4, cursor={"Seattle": 4})
+    for label, front in (("F == N", {"Seattle": 10}), ("F > N", {"Seattle": 50}),
+                         ("area not in the file", {"Portland": 4, "_readme": ["x"]})):
+        got = _run(seattle4, cursor={"Seattle": 4}, frontier=front)
+        checks.append((got[4] is None and got[1:3] == today[1:3]
+                       and _area_lines(got[3]) == _area_lines(today[3]),
+                       f"(b) {label}: identical to an unheld run ({got[1]}, {got[2]}, {got[4]})"))
+
+    # (c) a missing or broken file is today's behaviour, SAID ALOUD — a hold
+    # that silently stopped holding reads exactly like a week it worked.
+    for label, kw in (("missing", {"frontier": None}), ("not JSON", {"raw_frontier": "{nope"}),
+                      ("not an object", {"raw_frontier": "[4000]"})):
+        if label == "missing":
+            got = _run(seattle4 + ["--frontier", "/nonexistent/osm_amenity_frontier.json"],
+                       cursor={"Seattle": 4})
+        else:
+            got = _run(seattle4, cursor={"Seattle": 4}, **kw)
+        checks.append((got[0] == 0 and got[4] is None and got[1:3] == today[1:3]
+                       and any("NO area is held" in l for l in got[3]),
+                       f"(c) frontier file {label}: no crash, today's run, and it says no area "
+                       f"is held ({got[1]}, {got[4]})"))
+    got = _run(seattle4, cursor={"Seattle": 4}, frontier={"Seattle": "4000"})
+    checks.append((got[1:3] == today[1:3]
+                   and any("Seattle" in l and "NOT held" in l for l in got[3]),
+                   f"(c) an F that is not a positive count holds nothing, out loud ({got[1]})"))
+
+    # (d) --kinds: F is a position in the FULL list and means nothing in a
+    # filtered one, so the frontier is not applied, and the log says so.
+    kinds = seattle4 + ["--kinds", "amenity=drinking_water"]
+    plain = _run(kinds, cursor={"Seattle": 4})
+    got = _run(kinds, cursor={"Seattle": 4}, frontier={"Seattle": 4})
+    checks.append((got[4] is None and got[1:3] == plain[1:3] == ([5, 6, 7, 8], {"Seattle": 8}),
+                   f"(d) under --kinds the frontier is ignored: ids 5-8, cursor 8 ({got[1]}, {got[2]})"))
+    checks.append((any("IGNORED" in l and "--kinds" in l for l in got[3])
+                   and not any("frontier held" in l for l in got[3]),
+                   "(d) ...and the log says it was ignored"))
+
+    # (e) --only is EXACT. A substring sent the Reno job to Grenoble too
+    # (2026-10-25, job 121138829093: 4,494 rows prepared for a metro of 718
+    # candidates), and four more pairs in the live config did the same.
+    for short, long_ in (("Reno", "Grenoble"), ("Portland", "Portland ME"),
+                         ("Birmingham", "Birmingham AL"), ("Newcastle", "Newcastle upon Tyne"),
+                         ("Porto", "Porto Alegre")):
+        got = _run(["--only", short, "--max-places", "4"])
+        pulled = sorted({l.split(":", 1)[0][len("[osm-amenity] "):] for l in got[3]
+                         if _re_mod.match(r"\[osm-amenity\] [^:]+: \d+ candidate\(s\),", l)})
+        checks.append((pulled == [short],
+                       f"(e) --only {short} pulls {short} alone, not {long_} as well ({pulled}, {got[4]})"))
+    got = _run(["--only", "reno", "--max-places", "4"])
+    pulled = sorted(l.split(":", 1)[0][len("[osm-amenity] "):] for l in got[3]
+                    if _re_mod.match(r"\[osm-amenity\] [^:]+: \d+ candidate\(s\),", l))
+    checks.append((pulled == ["Reno"], f"(e) ...case-insensitively: --only reno is Reno ({pulled})"))
+    got = _run(["--only", "Gren", "--max-places", "4"])
+    checks.append((got[4] is not None and got[4].startswith("SystemExit") and got[1] == [],
+                   f"(e) a name that matches no area is refused, not a silent empty run ({got[4]})"))
+
+    # THE COMMITTED FILE. Only a hub whose cursor has ONLY EVER ADVANCED may be
+    # held: one that wrapped has stored rows past any F, which a frontier
+    # would freeze (no OSM edit reaching them again). These nine are the ones
+    # the history disqualifies — seven wrapped in osm_amenity_cursor.json,
+    # Washington DC was read whole by the 2026-09-22 dispatches, and Grenoble
+    # by the Reno double pull — and the file's `_left_out` names each.
+    _cfg_names = {a["name"] for a in _json2.load(open("osm_amenity_sources.json",
+                                                      encoding="utf-8"))["areas"]}
+    try:
+        _blob = _json2.load(open("osm_amenity_frontier.json", encoding="utf-8"))
+        with _ctx.redirect_stdout(_io.StringIO()):
+            _held = A.load_frontier("osm_amenity_frontier.json")
+    except Exception as exc:                                    # noqa: BLE001
+        _blob, _held = {}, {}
+        checks.append((False, f"osm_amenity_frontier.json could not be read by the ingest: "
+                              f"{type(exc).__name__}: {exc}"))
+    _never = {"Paris", "London", "Berlin", "New York", "Seattle", "Chicago", "Portland",
+              "Washington DC", "Grenoble"}
+    checks.append((len(_held) >= 1 and set(_held) <= _cfg_names
+                   and len(_held) == len([k for k in _blob if not k.startswith("_")]),
+                   f"osm_amenity_frontier.json: {len(_held)} held hub(s), every one a config "
+                   f"area name and a positive F"))
+    checks.append((not (set(_held) & _never) and _never <= set(_blob.get("_left_out") or {}),
+                   f"...and no hub whose walk ever came back round is held "
+                   f"({sorted(set(_held) & _never)})"))
+
     # ---- a private pool is somebody's garden ------------------------------
     #
     # `leisure=swimming_pool` is the only selector here that is not civic by

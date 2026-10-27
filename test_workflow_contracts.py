@@ -149,6 +149,52 @@ class WorkflowContracts(unittest.TestCase):
         self.assertEqual(save['if'], 'always()')
         self.assertIn('matrix.area', save['with']['key'])
 
+    @staticmethod
+    def _gh_expr(expr, context):
+        """A GitHub `${{ }}` boolean/string expression, evaluated as Python.
+        Enough for `a != 'x' && b != 'y' && 'flag' || ''`: an unset context
+        key is null, which is unequal to any string, as in Actions."""
+        parts = re.split(r"('[^']*')", expr)
+        for i, part in enumerate(parts):
+            if not part.startswith("'"):
+                part = part.replace('&&', ' and ').replace('||', ' or ')
+                parts[i] = re.sub(r"[A-Za-z_][\w-]*(?:\.[\w-]+)+",
+                                  lambda m: repr(context.get(m[0])), part)
+        return eval(''.join(parts), {'__builtins__': {}})   # noqa: S307 - our own workflow text
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_osm_amenities_holds_the_fill_unless_lifted_and_pulls_one_area_per_job(self):
+        # 2026-10-27: the first full turn of all 260 hubs inserted 465,774 rows
+        # in five Sundays and 94 dense hubs still held 415,471 candidates. The
+        # hold is the DEFAULT and lifting it is one variable or one input.
+        wf = yaml.safe_load((ROOT / '.github/workflows/osm-amenities.yml').read_text(encoding='utf-8'))
+        fill = wf.get('on', wf.get(True))['workflow_dispatch']['inputs']['fill']
+        self.assertEqual((fill['type'], fill['default']), ('boolean', False))
+        pull = next(s for s in wf['jobs']['pull']['steps'] if str(s.get('name', '')).startswith('Pull '))
+        exprs = [e for e in re.findall(r'\$\{\{\s*(.*?)\s*\}\}', pull['run']) if '--frontier' in e]
+        self.assertEqual(len(exprs), 1, exprs)
+        held = '--frontier osm_amenity_frontier.json'
+        for context, want in (({}, held),                                          # schedule
+                              ({'github.event.inputs.fill': 'false'}, held),       # a dispatch
+                              ({'vars.OSM_AMENITY_FILL': 'on'}, ''),               # the lift
+                              ({'vars.OSM_AMENITY_FILL': 'off'}, held),
+                              ({'github.event.inputs.fill': 'true'}, '')):         # one run
+            self.assertEqual(self._gh_expr(exprs[0], context), want, context)
+        self.assertTrue((ROOT / 'osm_amenity_frontier.json').is_file())
+        # The plan's `only` is EXACT, as the ingest's --only is: a substring
+        # sent only=Reno to Grenoble as well. Run the step's own script.
+        pick = next(s for s in wf['jobs']['plan']['steps'] if s.get('id') == 'pick')
+        with tempfile.TemporaryDirectory() as tmp:
+            for only, want in (('reno', 0), ('Portland', 0), ('Gren', 1)):
+                out_file = Path(tmp, f'out-{only}')
+                env = dict(os.environ, ONLY=only, SHARD='', GITHUB_OUTPUT=str(out_file))
+                out = subprocess.run(['bash', '--noprofile', '--norc', '-eo', 'pipefail', '-c', pick['run']],
+                                     cwd=ROOT, capture_output=True, text=True, env=env)
+                self.assertEqual(out.returncode != 0, bool(want), (only, out.stderr[-300:]))
+                if not want:
+                    areas = json.loads(out_file.read_text().split('areas=', 1)[1])
+                    self.assertEqual(areas, ['Reno'] if only == 'reno' else ['Portland'])
+
     def test_markets_osm_ends_its_own_sweep_and_always_syncs(self):
         # 8 of 9 sweep days (08-21..09-11) were cancelled at the 330-minute cap
         # with the sync skipped. The budget plus the worst single bbox

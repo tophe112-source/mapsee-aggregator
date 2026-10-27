@@ -15,6 +15,9 @@
 # LIKE ITS SIBLINGS, THIS FETCHES NOBODY'S WEBSITE. Overpass is the only service
 # we are a guest on, so --max-places bounds run time rather than politeness.
 #
+# THE FILL IS HELD (2026-10-27): 94 dense hubs stop at a committed frontier
+# unless repository variable OSM_AMENITY_FILL is `on`. The Pull step says why.
+#
 # SUNDAYS. osm-food takes Overpass on Tuesday and osm-secondhand on Saturday;
 # aggregate-events runs its heavy sweep Mon/Thu and its full refresh Wednesday.
 # Two of our own workflows tiling Overpass at once means backing off politely
@@ -71,6 +74,13 @@ on:
         default: false
       retire_thin_artwork:
         description: "CLEANUP: hide anonymous artwork rows already written (an upsert cannot delete)"
+        type: boolean
+        required: false
+        default: false
+      # THE HOLD'S ONE-RUN LIFT. See the Pull step; the standing lift is the
+      # repository variable OSM_AMENITY_FILL=on.
+      fill:
+        description: "FILL: walk past osm_amenity_frontier.json this run (adds rows to the 94 held hubs)"
         type: boolean
         required: false
         default: false
@@ -132,7 +142,13 @@ jobs:
           asked = (os.environ.get("SHARD") or "").strip()
           shards = max(1, math.ceil(len(names) / PER_RUN))
           if only:
-              names = [n for n in names if only in n.lower()]
+              # EXACT, as the ingest's --only now is: a substring sent `only=Reno`
+              # to Grenoble as well. A name that matches nothing fails here
+              # rather than starting an empty matrix.
+              names = [n for n in names if n.strip().lower() == only]
+              if not names:
+                  sys.exit(f"only={only!r} names no area in osm_amenity_sources.json "
+                           f"(exact, case-insensitive)")
           elif asked:
               picked = sorted({int(s) - 1 for s in asked.split(",") if s.strip()})
               if any(p < 0 or p >= shards for p in picked):
@@ -260,6 +276,22 @@ jobs:
       # So they are orthogonal now: full_refresh drops --only-new (rewrite what
       # this run touches), restart_cursor passes --ignore-cursor (go back to the
       # beginning). Repeating full_refresh now walks the whole catalogue.
+      #
+      # THE FILL IS HELD BY DEFAULT (2026-10-27). The first full turn of all 260
+      # hubs ended 2026-10-25 having inserted 465,774 rows in five Sundays, 86%
+      # of them furniture, on a Supabase Micro instance; 94 dense hubs still
+      # held 415,471 candidates past their cursor, roughly 0.24-0.34M more rows
+      # over about 30 weeks. --frontier caps each of those hubs at the first F
+      # candidates (its cursor that day), so a visit still re-reads and
+      # refreshes what is stored and adds only what OSM gains inside it.
+      # osm_amenity_frontier.json's `_readme` says which hubs and why.
+      # Everything else here is unchanged: the skip-unchanged sync, the cursor
+      # job, the cache key and the shard plan.
+      #
+      # LIFTING IT IS ONE SWITCH: repository variable OSM_AMENITY_FILL=on (every
+      # run), the `fill` input (one dispatch), or deleting the file (the ingest
+      # then says it holds nothing). A --kinds dispatch ignores the frontier on
+      # its own, because F is a position in the FULL candidate list.
       - name: Pull ${{ matrix.area }}
         run: |
           python mapsee_ingest_osm_amenities.py \
@@ -270,6 +302,7 @@ jobs:
             ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
             ${{ github.event.inputs.listings_only == 'true' && '--listings-only' || '' }} \
             ${{ github.event.inputs.restart_cursor == 'true' && '--ignore-cursor' || '' }} \
+            ${{ (vars.OSM_AMENITY_FILL != 'on' && github.event.inputs.fill != 'true') && '--frontier osm_amenity_frontier.json' || '' }} \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Sync to Supabase

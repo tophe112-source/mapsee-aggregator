@@ -108,9 +108,22 @@ for the same reason.
 ATTRIBUTION. ODbL, on every row, in the same words the other two use, because
 mapsee_retire_perday_osm.py keys on that line.
 
+THE FILL IS HELD AT A FRONTIER (2026-10-27), AND THAT IS A CAPACITY CHOICE, NOT
+A BUG. The first full turn of all 260 hubs ended on 2026-10-25 and inserted
+465,774 rows in five Sundays, 86% of them furniture, into a Supabase Micro
+instance. 94 dense hubs still held 415,471 candidates the cursor had not reached
+(Tokyo 21,134, Yokohama 17,998, Dusseldorf 17,114), worth roughly 0.24-0.34M
+more rows over about 30 weeks. `--frontier osm_amenity_frontier.json` caps each
+hub it names at its first F candidates — F is where its cursor stood — so a
+visit still re-reads and refreshes what is stored, and adds only what OSM gains
+inside that window. The file's own `_readme` has the proof of which hubs may be
+held (only those whose cursor never came back round: a hub that wrapped has
+stored rows past any F, and a frontier would freeze them) and how to lift it.
+
 Env:  none (Overpass is public; be polite with --delay)
 Run:  python mapsee_ingest_osm_amenities.py --config osm_amenity_sources.json \
-          --store feeds_events.json [--dry-run] [--only london] [--warm-cache]
+          --store feeds_events.json [--dry-run] [--only London] [--warm-cache] \
+          [--frontier osm_amenity_frontier.json]
 """
 from __future__ import annotations
 
@@ -1062,12 +1075,54 @@ def save_places(cache_dir, area, elements, bbox):
         print(f"[osm-amenity] could not cache {area['name']}: {exc}", flush=True)
 
 
+def load_frontier(path):
+    """{area name: F} from `path` — and every way of getting {} SAYS SO.
+
+    {} is today's behaviour: no area held, every one walks its whole candidate
+    list. That is the right failure for a missing or broken file (the fill
+    resumes, nothing is frozen), and the wrong one to take quietly, because a
+    hold that silently stopped holding reads exactly like a week the hold
+    worked. So a file that cannot be read, or an entry that is not a positive
+    candidate count, prints what it costs. Keys starting with "_" are the
+    file's own notes.
+    """
+    try:
+        with open(path, encoding="utf-8") as fh:
+            blob = json.load(fh)
+        if not isinstance(blob, dict):
+            raise ValueError(f"expected an object of area: F, got {type(blob).__name__}")
+    except Exception as exc:                         # noqa: BLE001
+        print(f"[osm-amenity] frontier {path} not read ({type(exc).__name__}: {exc}): "
+              f"NO area is held, every one walks its whole candidate list", flush=True)
+        return {}
+    held = {}
+    for name, f in blob.items():
+        if str(name).startswith("_"):
+            continue
+        if isinstance(f, bool) or not isinstance(f, int) or f <= 0:
+            print(f"[osm-amenity] frontier {path}: {name} -> {f!r} is not a positive "
+                  f"candidate count, so {name} is NOT held", flush=True)
+            continue
+        held[name] = f
+    print(f"[osm-amenity] frontier {path}: {len(held)} area(s) held", flush=True)
+    return held
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(
         description="Import civic amenities from OpenStreetMap as standing map pins.")
     ap.add_argument("--config", default="osm_amenity_sources.json")
     ap.add_argument("--store", default="feeds_events.json")
-    ap.add_argument("--only", help="one area by name (substring)")
+    # EXACT, NOT A SUBSTRING. The matrix runs one job per area and passes its
+    # name here, and a substring match made five of those jobs pull a second
+    # metro: Reno/GRENOBLE, Portland/Portland ME, Birmingham/Birmingham AL,
+    # Newcastle/Newcastle upon Tyne, Porto/Porto Alegre. Each double pull is an
+    # extra Overpass sweep and an extra sync of rows another job also writes,
+    # and the second area's cursor move is never handed up — on 2026-10-25 the
+    # Reno job (121138829093) read "Grenoble: 5667 candidate(s) ... from 4000
+    # examined" from Grenoble's cursor, prepared 4,494 rows for a metro of 718
+    # candidates, and left osm_amenity_cursor.json saying Grenoble stood at 4000.
+    ap.add_argument("--only", help="one area by name (exact, case-insensitive)")
     ap.add_argument("--days-ahead", type=int, default=7)
     ap.add_argument("--max-places", type=int, default=1200,
                     help="per area, per run. Nothing here fetches a third-party "
@@ -1084,11 +1139,21 @@ def main(argv=None):
     ap.add_argument("--warm-cache", action="store_true")
     ap.add_argument("--delay", type=float, default=2.0)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--frontier", metavar="PATH",
+                    help="JSON {area: F}: examine only a named area's first F candidates "
+                         "(the fill hold, osm_amenity_frontier.json). Ignored under --kinds; "
+                         "a missing or unreadable file holds nothing and says so.")
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
+    only = (a.only or "").strip().lower()
     areas = [x for x in cfg.get("areas", [])
-             if not a.only or a.only.lower() in str(x.get("name", "")).lower()]
+             if not only or str(x.get("name", "")).strip().lower() == only]
+    if only and not areas:
+        # A name that matches nothing used to be a run that printed "0 listing(s)
+        # + 0 furniture" and exited 0 — a silent no-op. Exact matching makes a
+        # near-miss name more likely, so it is refused out loud.
+        sys.exit(f"--only {a.only!r} names no area in {a.config} (exact, case-insensitive)")
     if a.radius_miles:
         areas = [dict(x, radius_miles=a.radius_miles) for x in areas]
     wanted_kinds = None
@@ -1098,6 +1163,19 @@ def main(argv=None):
         if unknown:
             sys.exit(f"unknown --kinds: {', '.join(sorted(unknown))}. "
                      f"Known: {', '.join(sorted(BY_SLUG))}")
+
+    # A FRONTIER IS A POSITION IN THE FULL CANDIDATE LIST, and --kinds filters
+    # that list, so under --kinds index F names different elements entirely.
+    # Applying it anyway would hold a new Kind's walk at an arbitrary point, and
+    # a new Kind (or the buildings refresh the frontier file describes) is an
+    # explicit owner act — so it is not applied, and the log says so.
+    frontier = {}
+    if a.frontier and wanted_kinds:
+        print(f"[osm-amenity] --kinds is set, so frontier {a.frontier} is IGNORED: "
+              f"its F is a position in the full candidate list, not this filtered one",
+              flush=True)
+    elif a.frontier:
+        frontier = load_frontier(a.frontier)
 
     if a.warm_cache:
         for area in areas:
@@ -1135,6 +1213,18 @@ def main(argv=None):
         candidates = [el for el in elements
                       if kind_of(el.get("tags") or {})
                       and (not wanted_kinds or kind_of(el["tags"]).slug in wanted_kinds)]
+        # THE HOLD. Cut BEFORE window_at, so the walk and the cursor arithmetic
+        # below both run modulo the held length: the window can never reach
+        # index F, and the saved cursor is always < F. With F = --max-places
+        # (4000, every hub in the committed file) each visit re-reads [0, F)
+        # and saves 0. An area not in the file, or with F >= N, takes none of
+        # this and prints no extra area line — today's run, byte for byte.
+        n_all = len(candidates)
+        held_at = frontier.get(area["name"])
+        if held_at is not None and held_at < n_all:
+            candidates = candidates[:held_at]
+            print(f"[osm-amenity] {area['name']}: frontier held at {held_at} of {n_all} "
+                  f"candidate(s)", flush=True)
         # window_at returns a LIST, and the caller owns the next cursor —
         # osm_secondhand's `(start + len(window)) % n`. Unpacking it as a pair
         # is a ValueError at runtime and nothing static catches it.
@@ -1165,8 +1255,10 @@ def main(argv=None):
         furniture += area_furniture
         # THE SPLIT IS THE HEADLINE, so it is printed per area. A run whose
         # furniture count is the whole of it is a run that added pins and no
-        # listings, which is fine and worth being able to see.
-        print(f"[osm-amenity] {area['name']}: {len(candidates)} candidate(s), "
+        # listings, which is fine and worth being able to see. The count is the
+        # FULL list even when held, so the logs still measure the fill a lift
+        # would resume.
+        print(f"[osm-amenity] {area['name']}: {n_all} candidate(s), "
               f"{area_listings} listing(s) + {area_furniture} furniture from "
               f"{len(window)} examined", flush=True)
         if not a.ignore_cursor:
