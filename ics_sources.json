@@ -58392,5 +58392,431 @@
     "geocode_suffix": ", Dresden",
     "limit": 300,
     "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "East Grand Rapids — City Parks & Recreation Calendar",
+    "category": "community",
+    "url": "https://www.eastgrmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", East Grand Rapids, Michigan",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Parks & Recreation Calendar]",
+    "_metro": "East Grand Rapids, Michigan",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Brooklyn — Community Calendar",
+    "category": "community",
+    "url": "https://www.brooklynohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Brooklyn, Ohio",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Calendar]",
+    "_metro": "Brooklyn, Ohio",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cocoa Beach — Community Events",
+    "category": "community",
+    "url": "https://www.cityofcocoabeach.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+    "geocode_suffix": ", Cocoa Beach, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Cocoa Beach, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cocoa Beach — City Events",
+    "category": "community",
+    "url": "https://www.cityofcocoabeach.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Cocoa Beach, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Events]",
+    "_metro": "Cocoa Beach, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Possendorfer Kirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://kirchgemeinde-klingenberg-kreischa.de/aktuelles/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Bannewitz",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Puschkin",
+    "category": "music",
+    "_found": "osm:nightclub -> events-manager",
+    "url": "https://www.clubpuschkin.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "SJSV Großdobritz 1990 e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bbk0fi61jvehsjqojn8b8srlec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "SBB-Vereinszentrum",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> my-calendar+jsonld-event",
+    "url": "https://bergsteigerbund.de/kletterhalle/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "C3D2",
+    "category": "community",
+    "_found": "osm:workshop -> ics",
+    "url": "https://c3d2.de/ical.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Savoy Club",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lkg3uh0t3dn8jlhgn7j1gjjq6o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Verein Kanusport Dresden (VKD)",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://vkdresden.webling.eu/calendar/ics/Im2w6tqqnsKAfRSR.ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Ev.-luth. Elia-Kirche Langenhagen",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.elia-kirchengemeinde.de/anmeldung/?ical=1",
+    "geocode_suffix": ", Langenhagen",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Waldbühne Otternhagen",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://waldbuehne-otternhagen.de/programm/?ical=1",
+    "geocode_suffix": ", Neustadt am Rübenberge",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "DRK Ortsverein Lehrte e. V.",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c6f979a8313034a98d2553a1075330a7ac0f8bcd02770365d7a31daf3d37bd97%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lehrte",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "MGT - Mehrgenerationen-Treff in Gehrden",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://mgt-gehrden.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Gehrden",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Quartierstreff Empelde",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://win-e-v.de/events/49869-2026-10-29/?ical=1",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Quartierstreff Empelde",
+      "lat": 52.3401261,
+      "lon": 9.6706858,
+      "pin_unnamed": false
+    },
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Koinonia Calvary Chapel Hannover",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.koinonia-gemeinde.de/public.ics",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Chabad Hannover Haus Benjamin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c17028260ada740a0d9203ee82173eb7e1dd496b427b3de862780f52bafb8bf5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Bürgerschützengesellschaft Lehrte von 1837 e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a6ae8632ebf0a3c9f0a82d210741d92d3ec7dbdc8f1a15b8dd009e74858cb0b1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Michaeliskirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/14a15cb0-3188-43c2-a033-90a2f3043146.ics",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Gnadenkirche zum Heiligen Kreuz",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=96f91042-4518-4e21-ad55-a1359c0bb30b&amp;ids[]=9715b2c9-71e7-4c49-88dd-564297b4de00&amp;ids[]=4ecefe85-057b-4546-95b2-267890452ab8&amp;ids[]=5d7d64ce-8ed5-4460-a1b9-85d666289cfd&amp;ids[]=92aeb76a-e99c-43a1-8c14-47ac74285149",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Johanneskapelle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=a2e86425-13b9-4833-acf9-e6977e532fca&amp;ids[]=4974a2b2-e1ae-451a-8e99-8188b0e9d991&amp;ids[]=190432e3-239a-45cc-95d3-8e69ff2e075d&amp;ids[]=2c535ddd-35ca-4881-9514-23884fdc2efc&amp;ids[]=4d1cd16a-645a-42ec-8caa-13e8ef523924&amp;ids[]=1a25c015-56b3-496a-954d-7cfa11136fe5",
+    "geocode_suffix": ", Wennigsen (Deister)",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Gartenkirche St. Marien",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/1637a28e-4c5e-40e4-bbe9-d8ec46003451.ics",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Erlöserkirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=ed52b363-ef59-404c-9e64-eecbc9201034&amp;ids[]=fc780177-879c-480c-9c6e-6233232b7138&amp;ids[]=92acd4d6-394f-4e4b-9024-b180f238272a&amp;ids[]=37bdcfa4-c310-432d-913b-7e7c43f92d43&amp;ids[]=d5e1235a-3745-42ac-8c62-42fb443b13f9",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Sankt Cosmas und Damian",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/1f1a379c-df8f-43b2-93d7-f4fd2e6aae37.ics",
+    "geocode_suffix": ", Harsum",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Trinitatiskirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tkal%40fam-s.de/public/basic.ics",
+    "geocode_suffix": ", Hemmingen",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Thailändischer Tempel Wat Dhammavihara",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.wathannover.de/events/?ical=1",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "St. Johannis Kirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=8d468298-6a02-4cec-a574-d129e0712a6f&amp;ids[]=06d71641-163a-45d4-9d9f-44970d2c66d2&amp;ids[]=be38f982-720d-4b4a-a73a-c074b5cd8b83&amp;ids[]=b290f219-21a9-4627-b517-142f34a1d8cd&amp;ids[]=4b68ed0d-92df-461a-a4d9-a28414370305&amp;ids[]=a2bf52af-06f4-4a58-ab35-6d0c53ffa9f5&amp;ids[]=a0ef2b53-2e5d-405d-bc63-6150431674f0&amp;ids[]=a28ce32f-a502-41cc-9d7c-c68800228c9b",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Niedersächsischer Jagdklub Hannover e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/100527d1aa81bbd7796e73642992e29bf7ca54b178395684cee5e14b34bb0bd4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "VCP Kleefeld-Buchholz",
+    "category": "community",
+    "_found": "osm:club -> events-manager+ics",
+    "url": "https://kleefeld-buchholz.vcp-nds.de/veranstaltungen/friedenslicht-2026/ical/",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Israelitische Kultusgemeinde Nürnberg",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.ikg-n.de/?ical=1",
+    "geocode_suffix": ", Nürnberg",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "SV Ortsgruppe Roßtal e.V.",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://sv-og-rosstal.com/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Z-Bau",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://z-bau.com/programm/reading-club-152991.ics",
+    "geocode_suffix": ", Nürnberg",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Trainingsstätten des SV Großhabersdorf e.V. in Schulturnhalle",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://www.sv-grosshabersdorf.de/?ical=1",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Königlich Privilegierte Hauptschützengesellschaft Erlangen",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a73e2b316c9c114f13ae4875ad6ce81e17967d1ae3820874cfe6081d055da376%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Erlangen",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Bunte Hunde e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40buntehunde.org/public/basic.ics",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Foto-Video-Kreis Erlangen",
+    "category": "community",
+    "_found": "osm:club -> events-manager+ics",
+    "url": "https://foto-video-erlangen.de/events.ics",
+    "geocode_suffix": ", Erlangen",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Schützenverein Burgthann und Umgebung 1928 e. V",
+    "category": "community",
+    "_found": "osm:pitch -> ics",
+    "url": "https://www.sv-burgthann.de/veranstaltungen/veranstaltungen.ics",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Mariä Aufnahme in den Himmel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.pfarrverband-altdorf.de/winkelhaid-burgthann/calendar.ics",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany",
+    "crawl_delay": 5.0
+  },
+  {
+    "name": "St. Sebald",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.pfarrei-johannes-der-taeufer.de/termine/calendar.ics",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany",
+    "crawl_delay": 5.0
+  },
+  {
+    "name": "Modellflugplatz MFE",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qf7n39imntmpnn6s8v6tcfrkfo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Königlich privilegierte Schützengesellschaft Fürth",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cae60fe0885aa011cf2c444290a621feaf594a4ff5cecb5c5ede900f95b94a19%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fürth",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "DJK BFC e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gs%40djk-bfc.de/public/basic.ics",
+    "geocode_suffix": ", Nürnberg",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Projekt 31",
+    "category": "community",
+    "_found": "osm:club -> my-calendar+jsonld-event",
+    "url": "https://projekt31.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Nürnberg",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "TSV Rohr",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://www.tsvrohr.de/index.php?option=com_dpcalendar&task=ical.download&id=g-3",
+    "geocode_suffix": ", Rohr",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Église Saint-Martin-des-Gaules",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mvp016n646rnhj1hs6q0rckvak%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Noisy-le-Grand",
+    "limit": 300,
+    "_metro": "Paris, France"
   }
 ]

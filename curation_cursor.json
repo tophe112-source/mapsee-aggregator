@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "NZ",
+  "country": "SE",
   "offset": 2140,
   "offsets": {
    "AE": 13,
@@ -27,9 +27,9 @@
    "NO": 240,
    "NZ": 140,
    "PT": 120,
-   "SE": 40,
+   "SE": 80,
    "SI": 120,
-   "US": 2205,
+   "US": 2217,
    "ZA": 200
   },
   "visited": [
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 126,
-  "metro_key": "DE:Dresden",
+  "metro": 129,
+  "metro_key": "FR:Paris",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 0,
-  "events": 100,
+  "community events": 100,
+  "events": 200,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 100,
+  "library programs": 200,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 200,
+  "recreation programs": 300,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 300,
-  "wellness programs": 100,
-  "youth programs": 100
+  "special events": 200,
+  "volunteer": 0,
+  "wellness programs": 200,
+  "youth programs": 200
  }
 }

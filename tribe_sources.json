@@ -26874,6 +26874,670 @@
         "lon": 13.9404426
       },
       "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Spencer",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://spenceriowacity.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Spencer",
+      "default_region": "Iowa",
+      "default_country": "US",
+      "_metro": "Spencer, Iowa",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Putjatinhaus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.putjatinhaus.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Putjatinhaus",
+        "address": "83 Meußlitzer Straße",
+        "city": "Dresden",
+        "postal_code": "01259",
+        "lat": 51.0051009,
+        "lon": 13.8486658
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Windbergbahnmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://website.windbergbahn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Windbergbahnmuseum",
+        "address": "5 Hermann-Michel-Straße",
+        "city": "Dresden",
+        "postal_code": "01189",
+        "country": "DE",
+        "lat": 51.0049374,
+        "lon": 13.6895052
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "bauhof e.v.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.bauhofkultur.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "bauhof e.v.",
+        "address": "53 Dorfstraße",
+        "city": "Hemmingen",
+        "postal_code": "30966",
+        "lat": 52.3196938,
+        "lon": 9.7488847
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Tanzschule Bothe",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://www.tanzschule-bothe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzschule Bothe",
+        "address": "Hildesheimer Straße",
+        "city": "Hannover",
+        "postal_code": "30519",
+        "lat": 52.3247317,
+        "lon": 9.7820106
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Kulturpalast Linden e.V.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kulturpalast-hannover.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturpalast Linden e.V.",
+        "address": "24 Deisterstraße",
+        "city": "Hannover",
+        "postal_code": "30449",
+        "lat": 52.366243,
+        "lon": 9.7192003
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Theaterhaus Hildesheim e.V.",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theaterhaus-hildesheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theaterhaus Hildesheim e.V.",
+        "lat": 52.1628247,
+        "lon": 9.9618349
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Pi32",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://pi-kollektiv.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pi32",
+        "address": "32 Hans-Böckler-Straße",
+        "city": "Langenhagen",
+        "postal_code": "30851",
+        "country": "DE",
+        "lat": 52.4327253,
+        "lon": 9.7201445
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Freundeskreis Hannover",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://freundeskreis-hannover.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freundeskreis Hannover",
+        "address": "15 Goseriede",
+        "city": "Hannover",
+        "postal_code": "30159",
+        "lat": 52.378053,
+        "lon": 9.7312443
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Radsport-Verein Concordia Hannover",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://rv-concordia-hannover.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Radsport-Verein Concordia Hannover",
+        "address": "104 Stammestraße",
+        "city": "Hannover",
+        "postal_code": "30459",
+        "lat": 52.354595,
+        "lon": 9.7267593
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "KulturLaden Benthe e.V.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kulturladen-benthe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "KulturLaden Benthe e.V.",
+        "lat": 52.339224,
+        "lon": 9.6277773
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Kulturtreff Plantage",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://kulturtreff-plantage.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturtreff Plantage",
+        "lat": 52.3635352,
+        "lon": 9.6747626
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Hochschul-Segelclub Hannover",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://hsh-segeln.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hochschul-Segelclub Hannover",
+        "lat": 52.4613316,
+        "lon": 9.3662537
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Zen Dojo Shobogendo",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.shobogendo.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zen Dojo Shobogendo",
+        "lat": 52.3883453,
+        "lon": 9.7347061
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Schloß Gestorf",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://paritaetische-suchthilfe-nds.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schloß Gestorf",
+        "lat": 52.2162455,
+        "lon": 9.7061598
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Kneipp Verein Wunstorf",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://kneippverein-wunstorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kneipp Verein Wunstorf",
+        "address": "50 Barnestraße",
+        "city": "Wunstorf",
+        "postal_code": "31515",
+        "lat": 52.4174066,
+        "lon": 9.4313616
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Modellflugplatz Barsinghausen",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://mfg-barsinghausen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Modellflugplatz Barsinghausen",
+        "lat": 52.2903369,
+        "lon": 9.5363479
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Deutscher Ruder Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.drc1884.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Deutscher Ruder Club",
+        "address": "1 Roesebeckstraße",
+        "city": "Hannover",
+        "postal_code": "30449",
+        "lat": 52.362505,
+        "lon": 9.723069
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Kanu-Sport-Club e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ksc-hannover.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kanu-Sport-Club e.V.",
+        "address": "57 In den Kämpen",
+        "lat": 52.3792451,
+        "lon": 9.7009502
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "TSV Victoria Linden e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://victoria-linden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TSV Victoria Linden e.V.",
+        "address": "5 Fösseweg",
+        "city": "Hannover",
+        "postal_code": "30453",
+        "country": "DE",
+        "lat": 52.3699173,
+        "lon": 9.6963269
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Hannoverscher Radsport-Club von 1912",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://www.hrc1912.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hannoverscher Radsport-Club von 1912",
+        "address": "23 Weddigenufer",
+        "city": "Hannover",
+        "postal_code": "30167",
+        "lat": 52.3775975,
+        "lon": 9.7158116
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Lütt Jever Scheune",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://www.luettjeverscheune.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lütt Jever Scheune",
+        "address": "12 Hinter dem Dorfe",
+        "city": "Ronnenberg",
+        "postal_code": "30952",
+        "country": "DE",
+        "lat": 52.3172617,
+        "lon": 9.6584759
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Ruderverein für das \"Große Freie\" Lehrte/Sehnde",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://rudern-rgf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruderverein für das \"Große Freie\" Lehrte/Sehnde",
+        "address": "21 Friedrich-Ebert-Straße",
+        "city": "Sehnde",
+        "postal_code": "31319",
+        "lat": 52.3064753,
+        "lon": 9.968015
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "dance maxX",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://www.dance-maxx.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "dance maxX",
+        "address": "8 Kornmarkt",
+        "city": "Nürnberg",
+        "postal_code": "90402",
+        "country": "DE",
+        "lat": 49.4492887,
+        "lon": 11.0746948
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Tanzparadies Nürnberg",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tanzen-nuernberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzparadies Nürnberg",
+        "address": "38 Westendstraße",
+        "city": "Nürnberg",
+        "postal_code": "90427",
+        "country": "DE",
+        "lat": 49.4711262,
+        "lon": 11.0223247
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Jüdisches Museum Franken",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.juedisches-museum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jüdisches Museum Franken",
+        "address": "10a Synagogengasse",
+        "city": "Schwabach",
+        "postal_code": "91126",
+        "country": "DE",
+        "lat": 49.3314433,
+        "lon": 11.0227185
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Aero-Club Herzogenaurach e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://aeroclub-herzogenaurach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aero-Club Herzogenaurach e.V.",
+        "address": "1 Am Birkenbühl",
+        "city": "Herzogenaurach",
+        "postal_code": "91074",
+        "country": "DE",
+        "lat": 49.5826259,
+        "lon": 10.8823531
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Galerie Gaswerk",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.galerie-gaswerk.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galerie Gaswerk",
+        "address": "9 Nördliche Ringstraße",
+        "city": "Schwabach",
+        "postal_code": "91126",
+        "lat": 49.3315577,
+        "lon": 11.0235026
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Kulturhof",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://kulturhof-langenzenn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturhof",
+        "lat": 49.4942356,
+        "lon": 10.7912162
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Pinscher & Schnauzer Klub Erlangen",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.psk-erlangen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pinscher & Schnauzer Klub Erlangen",
+        "address": "2 Kraftwerkstraße",
+        "city": "Erlangen",
+        "postal_code": "91056",
+        "country": "DE",
+        "lat": 49.5737644,
+        "lon": 10.9721581
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Brauverein Schwabach e.V.",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brauverein-schwabach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brauverein Schwabach e.V.",
+        "address": "12A Nördliche Ringstraße",
+        "city": "Schwabach",
+        "postal_code": "91126",
+        "country": "DE",
+        "lat": 49.3321223,
+        "lon": 11.0236898
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "PZ-Kulturraum",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://kulturglueck.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "PZ-Kulturraum",
+        "address": "19 Nürnberger Straße",
+        "city": "Lauf an der Pegnitz",
+        "postal_code": "91207",
+        "country": "DE",
+        "lat": 49.5109361,
+        "lon": 11.2766259
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Hockey-Gesellschaft Nürnberg",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hgnuernberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hockey-Gesellschaft Nürnberg",
+        "address": "44 Buchenbühler Weg",
+        "city": "Nürnberg",
+        "postal_code": "90411",
+        "country": "DE",
+        "lat": 49.4945901,
+        "lon": 11.1164847
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Stadtjugendkapelle Herzogenaurach e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://sjk-herzogenaurach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtjugendkapelle Herzogenaurach e.V.",
+        "address": "24 Eichelmühlgasse",
+        "city": "Herzogenaurach",
+        "postal_code": "91074",
+        "country": "DE",
+        "lat": 49.5659687,
+        "lon": 10.8933265
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Eben-Ezer-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://jesuscentrum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eben-Ezer-Kirche",
+        "address": "68 Stadenstraße",
+        "city": "Nürnberg",
+        "postal_code": "90491",
+        "country": "DE",
+        "lat": 49.4827784,
+        "lon": 11.1374135
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Waldsportplatz",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tsv1846nuernberg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Waldsportplatz",
+        "address": "1 Irma-Walther-Straße",
+        "city": "Nürnberg",
+        "postal_code": "90491",
+        "country": "DE",
+        "lat": 49.4769754,
+        "lon": 11.1434048
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Kulturscheune Baiersdorf",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kusch-baiersdorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturscheune Baiersdorf",
+        "lat": 49.6585096,
+        "lon": 11.0330921
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "DPSG – Stamm Sankt Nikolaus Wendelstein",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://dpsgwendelstein.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "DPSG – Stamm Sankt Nikolaus Wendelstein",
+        "address": "10 Sperbersloher Straße",
+        "city": "Wendelstein",
+        "postal_code": "90530",
+        "country": "DE",
+        "lat": 49.3538578,
+        "lon": 11.1468625
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Sankt Matthäus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://st-matthaeus-n.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sankt Matthäus",
+        "address": "100 Rollnerstraße",
+        "city": "Nürnberg",
+        "postal_code": "90408",
+        "country": "DE",
+        "lat": 49.4667703,
+        "lon": 11.082133
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "SCO - Sportclub Obermichelbach e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sc-obermichelbach.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SCO - Sportclub Obermichelbach e.V.",
+        "address": "1 Bürgermeister-Hans-Tauber-Weg",
+        "city": "Obermichelbach",
+        "postal_code": "90587",
+        "lat": 49.5362034,
+        "lon": 10.8995524
+      },
+      "_metro": "Nuremberg, Germany"
     }
   ],
   "_not_included": {
