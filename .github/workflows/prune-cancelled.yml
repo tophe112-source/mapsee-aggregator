@@ -40,15 +40,23 @@ name: Prune cancelled events
 # UTC hours the morning collect ran in, about 50 fewer failed statements), and
 # the ~900 s each gives back goes to probing, roughly 950 more probes a
 # morning at the measured ~1.05 a second. The Sunday sweep keeps the reach: it
-# hides all 120 days of every listing IT finds off. A listing found off on
-# another day hides only its rows inside 48 hours; its later rows wait for a
-# run that probes the same URL again, the next Sunday's at the latest IF that
-# sweep reaches it. That is not guaranteed: the Sunday run probes soonest
-# first like every run (284-1,525 of its 4,000 in the measured week), and a
-# near run that has just hidden a listing's next 48 hours pushes its first
-# start out of Sunday's day 0. Not measured; re-measure from the logs (the
-# CALLED OFF tables) before calling far hides safe. A manual run with days
+# hides all 120 days of every listing IT finds off. A manual run with days
 # blank is the full sweep too, for a listing that cannot wait for Sunday.
+#
+# AND THE NEAR RUNS KEEP IT THROUGH THE URL INDEX. Alone, a listing found off
+# on a weekday hid only its rows inside 48 hours; its later rows waited until
+# they came within 48 hours themselves, a day or so of them a run, and those
+# later rows were at least 143 of the measured week's 360 hides. So the full
+# sweep, which reads the 120 days anyway, writes prune_url_index.json right
+# after its collect: for every listing a near run can reach in the next 8
+# days, the ids of its rows beyond 48 hours. Every other run restores it and,
+# when ITS OWN probe finds a listing off (the same evidence: EventCancelled or
+# a 404 at that URL, never prose, a 403, a robots.txt refusal or a host
+# answering dead wholesale), also hides those ids: read back first, and only
+# a row still unhidden, unclaimed, public, not started and still carrying
+# that link. Missing, unreadable or older than 8 days, the file is ignored
+# and the run says so in its log.
+# "far rows hidden from the URL index: N" is the line to re-measure from.
 #
 # WHY THERE ARE TWO RUNS. A once-daily sweep cannot catch a SAME-DAY
 # cancellation, and that is the case that actually costs somebody an evening.
@@ -117,6 +125,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # THE FAR-ROW INDEX RIDES IN ITS OWN CACHE PAIR (see the header). Only a
+      # run that read the whole horizon writes the file; every run restores
+      # the newest. An entry is keyed by the file's own hash and saved only
+      # when the file is not the one restored, so the twelve near runs a week
+      # upload nothing. A near run must never leave a file of its own behind:
+      # restore takes the NEWEST entry under the prefix, and a near run's
+      # would shadow Sunday's. Evicted or missing costs the near runs their far
+      # hides until the next full sweep, and nothing else.
+      - name: Restore the far-row URL index
+        id: url-index
+        uses: actions/cache/restore@v4
+        with:
+          path: prune_url_index.json
+          key: prune-url-index-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            prune-url-index-
       # --max-seconds is PAIRED with timeout-minutes above: the script stops
       # probing inside its own budget, acts on what it has and leaves the rest
       # for tomorrow, rather than being killed mid-sweep by the job timeout. The
@@ -147,23 +171,41 @@ jobs:
           # The weekday is read when the step runs, not when the cron fired:
           # the 07:55 run started 12:15-14:35 UTC in the measured week, still
           # the same UTC day.
+          #
+          # The full sweep WRITES the far-row index and every other run READS
+          # it; never both (the script refuses both flags).
+          READ="--url-index prune_url_index.json"
+          WRITE="--write-url-index prune_url_index.json"
           if [ -n "$DAYS_IN" ]; then
-            SCOPE="--days $DAYS_IN"; BUDGET=2100   # a manual run, aimed
+            SCOPE="--days $DAYS_IN"; BUDGET=2100; INDEX="$READ"    # a manual run, aimed
           elif [ -z "$FIRED_BY" ]; then
-            SCOPE=""; BUDGET=2100                  # a manual run with days blank: the full sweep
+            SCOPE=""; BUDGET=2100; INDEX="$WRITE"                  # a manual run with days blank: the full sweep
           elif [ "$FIRED_BY" = "55 16 * * *" ]; then
-            SCOPE="--days 2"; BUDGET=900           # the evening near-horizon pass
+            SCOPE="--days 2"; BUDGET=900; INDEX="$READ"            # the evening near-horizon pass
           elif [ "$FIRED_BY" = "55 7 * * *" ] && [ "$(date -u +%u)" = "7" ]; then
-            SCOPE=""; BUDGET=2100                  # Sunday morning: the full 120-day sweep
+            SCOPE=""; BUDGET=2100; INDEX="$WRITE"                  # Sunday morning: the full 120-day sweep
           elif [ "$FIRED_BY" = "55 7 * * *" ]; then
-            SCOPE="--days 2"; BUDGET=2100          # the other six mornings: same probes, ~1/15 of the reads
+            SCOPE="--days 2"; BUDGET=2100; INDEX="$READ"           # the other six mornings: same probes, ~1/15 of the reads
           else
             echo "::error title=Prune: no branch::the cron '$FIRED_BY' has no branch in this step; add one"
             exit 1
           fi
           if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
-          echo "scope: ${SCOPE:-full} · budget: ${BUDGET}s · ${APPLY:-DRY RUN}"
-          python mapsee_prune_cancelled.py --max-seconds "$BUDGET" $SCOPE $APPLY
+          echo "scope: ${SCOPE:-full} · budget: ${BUDGET}s · ${APPLY:-DRY RUN} · ${INDEX%% *}"
+          python mapsee_prune_cancelled.py --max-seconds "$BUDGET" $SCOPE $INDEX $APPLY
+
+      # always(): the full sweep writes the index BEFORE it probes, and the
+      # probing is what can run into the timeout; the file is saved anyway.
+      # hashFiles() is '' when there is no file (a near run that restored
+      # nothing): nothing to save. The same hash as the entry restored is a
+      # near run's untouched copy: nothing NEW to save, and saving it would
+      # only ask for a key that is taken.
+      - name: Save the far-row URL index
+        if: ${{ always() && hashFiles('prune_url_index.json') != '' && steps.url-index.outputs.cache-matched-key != format('prune-url-index-{0}', hashFiles('prune_url_index.json')) }}
+        uses: actions/cache/save@v4
+        with:
+          path: prune_url_index.json
+          key: prune-url-index-${{ hashFiles('prune_url_index.json') }}
 
       # always(): the step above spends its whole budget probing other people's
       # servers and can be cut short by the job timeout. This one reads only our

@@ -36,6 +36,11 @@ spotify_cache.json
 # Actions cache only, its own pair. Lost, it costs one day of category flips.
 meetup_category_cache.json
 meetup_category_cache.json.tmp
+# The far-row URL index mapsee_prune_cancelled writes on a full sweep and
+# the near runs read: Actions cache only, its own pair. Lost, it costs the
+# near runs their far hides until the next full sweep, never a wrong hide.
+prune_url_index.json
+prune_url_index.json.tmp
 feeds_events.json
 *.verified.json
 
