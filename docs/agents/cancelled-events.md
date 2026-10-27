@@ -400,3 +400,28 @@
   as naming no event; without that, the stored row would never be hidden.
   Hoboken's 8 stored closure rows still need a hide in the database. `python
   test_cancellations.py`.
+
+- **THE MORNING SWEEP READ 120 DAYS TO PROBE TODAY; NOW IT DOES THAT ON
+  SUNDAYS ONLY (2026-10-27).** All 7 morning runs 10-20..10-26 (jobs
+  118642658041 .. 121635448161) printed CAPPED 'through' their own run date.
+  The 4,000 URLs they could probe were therefore the set a --days 2 run picks;
+  its first window is the same query. Each run read 662,579-686,946 rows with
+  descriptions (4.72 M a week) and spent 841-1,921 s of its 2,100 s budget on
+  that collect; those times include the first 50 probes, because stdout was
+  buffered. Each run lost 3-4 windows a day to HTTP 500s at OFFSET 37.5k-49.5k
+  and probed 284-1,525 URLs. The 16:55 --days 2 run read 41.5k-46.5k rows in
+  131-225 s. The far rows did one useful thing. A listing found off hides
+  every collected row that shares its URL, and at least 143 of the week's 360
+  hides (40%) were such later rows: Tenby LC on 10-20 (at least 91), Pembroke
+  LC on 10-22 (at least 48) and a multi-day stage on 10-26 (4). Now 07:55 runs
+  --days 2 with 2,100 s on six days and the full sweep on Sundays (date -u +%u
+  = 7). A blank dispatch is also a full sweep, and an unknown cron fails.
+  Expected effect: about 3.8 M fewer rows a week, about 90 fewer minutes of
+  reads in 12:15-15:00 UTC, about 50 fewer failed statements and about 950
+  more probes per weekday morning. One thing is NOT guaranteed. A far row of a
+  listing found off on a weekday waits until a run probes its URL again. The
+  Sunday sweep reaches only its soonest URLs, and a near run that has just
+  hidden a listing's next 48 h pushes it out of Sunday's day 0. After a week,
+  re-measure from the logs: morning scanned rows (about 41-47k), the 'through'
+  date (still the run date), probes, hides per listing, Sunday's far hides,
+  and collect seconds (now unbuffered).

@@ -521,3 +521,49 @@
   run (692 hosts per pass); in a 16-worker audit all 692 took 122.5 s. Askim
   Kulturhus, added, costs about 9 min (52 pages at 10 s) per visit of the
   45-minute step; Tartu (200 pages at 2 s, about 8 min) is held.
+
+- **THE REPORT-ONLY COLLAPSER RAN 9 TIMES A WEEK TO SAY ONE NUMBER, AND WAS
+  THE ONLY RED JOB (2026-10-27).** With DEDUPE_APPLY unset, 2026-10-20..10-26
+  had 9 dedupe runs (7 daily, 2 Mon/Thu). Together they made 9,428 GETs and
+  102 statement timeouts (57014), listed 2,489,674 rows, read 237,434
+  descriptions and took 6,138 s. Dedupe was the only failed job in 8 of the 9
+  aggregate runs (39416876303, 39774488313, 39778061405, 39948040068,
+  40088525568, 40189539295, 40328064439, 40331616791); on 10-21 Meetup and
+  indexnow failed too. 'Copies to hide' stayed between 8,110 and 9,065 across
+  the 17 runs 10-14..10-26. Now a SCHEDULED run reaches the job only in
+  'bounded' or 'true', the last clause of its `if`, and a dispatch still runs
+  it. While the switch is unset the report is dedupe-events.yml, mode report:
+  dispatch it after the aggregate run has finished (about 19:10 UTC) and
+  before 03:00 UTC. One dispatched report costs about 1,176 GETs, about 13 x
+  57014, about 311k rows, about 29k descriptions and about 604 s. Actions
+  compares `vars.X == 'true'` without regard to case, but the shell's `case`
+  is case-sensitive, so 'True' passes the gate on schedule and then only
+  reports. test_workflow_contracts evaluates the `if` for every cron and every
+  switch value.
+
+- **A GATE SCRIPT THAT CALLS A MODULE'S main() READS THE REAL CLOCK UNLESS
+  MAPSEE_TODAY IS PINNED FOR THE WHOLE SCRIPT.** Passing today= to the cases
+  that call the function directly does not cover the cases that go through
+  main(), which pass today=None. test_meetup_category_cache.py first pinned
+  MAPSEE_TODAY only for its last case, and then deleted it. Its 2026-11-05
+  fixtures would have been pruned from 2026-11-07 UTC on: with the clock faked
+  to 2026-11-20, and with MAPSEE_TODAY=20261107, 10 checks failed, while
+  20261027 and 20261106 passed. tests.yml sets no MAPSEE_TODAY, so every push
+  touching a .py file would have gone red. Pin it next to the test's TODAY
+  constant before anything runs, as test_ingest_barcelona.py and
+  test_ingest_drupal_fullcalendar.py do. A case that changes it restores the
+  pin, never `del`s it. To prove the pin, fake the module's datetime.now past
+  the fixtures' dates and run the script.
+
+- **`--only` WAS A SUBSTRING, SO FIVE MATRIX JOBS PULLED TWO METROS.** The
+  five pairs were Reno/GRENOBLE, Portland/Portland ME, Birmingham/Birmingham
+  AL, Newcastle/Newcastle upon Tyne and Porto/Porto Alegre.
+  - **What it cost.** On 2026-10-25 the Reno job (121138829093) printed
+    "Grenoble: 5667 candidate(s) ... from 4000 examined". It started at
+    Grenoble's cursor, prepared 4,494 rows for a metro of 718 candidates, and
+    handed up only `{'Reno': 0}`. Grenoble was read whole while its committed
+    cursor still said 4000.
+  - **What changed.** `mapsee_ingest_osm_amenities.py --only` and the plan's
+    `only` input are now exact and case-insensitive, and a name matching
+    nothing is refused. `test_ingest_osm_amenities.py` (e) and
+    `test_workflow_contracts.py` pin this.

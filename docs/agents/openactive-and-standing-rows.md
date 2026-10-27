@@ -273,3 +273,40 @@
   a local run against an existing `--store` file would sync stale icons; CI
   starts the store empty. The first run after landing writes ~57,000 Everyone
   Active rows, ~17 minutes of upsert at the 58 rows/s measured that day.
+
+- **A STANDING ROW'S FACE CARRIED THREE CLOCKS, AND EACH WAS A DAILY UPDATE.**
+  Every OpenActive row is compared daily (needs_detail_sync: Only-new kept
+  76,772 of 77,729 on 10-26), so anything in to_row's output that moves with
+  the calendar is a non-HOT rewrite. Three did. First, the 🔎 search ended with
+  the soonest occurrence's date: replaying Everyone Active's fold on two days,
+  to_row differs in description alone, on that date. That is ~9.3k/day ((62.1k
+  EA + 2.9k Places)/7) of the 8,928-13,603 daily description blames,
+  10-21..10-26. Second, the opener counted the sessions the fortnight-deep
+  feed still listed: 62,102 EA rows held 126,457 occurrences on 10-26 (2.036
+  each), and a class later on the day of the run read 3, then 2 the next
+  morning. The sum of len-2 was 1,771-2,895/day 10-19..10-26, i.e. ~3.8-5.1k
+  UPDATEs/day. Third, where one row covers a series per weekday ('PT Taster
+  Session', Site 0083), the link followed whichever weekday came next. Since
+  2026-10-27 the fixes are: no 🔎 on openactive: or on any recurring_days row;
+  the opener is '🔁 Runs weekly — on D day(s) a week.' (WEEKLY_MARK kept, the
+  test imports it); link, description and poster come from the smallest _face
+  (link first, sorted-JSON tiebreak); and only the window comes from the
+  soonest. Each rewrite also shrinks the row by ~200 B: the 🔎 line is 155 B on
+  the EA_LANE fixture, and the old opener is 46-48 B longer.
+  test_ingest_openactive.py stable_face_checks_2026_10_27. Watch the next 8 OA
+  logs: 'most-blamed columns: description' should fall from ~9-13k to ~2-5k
+  within a week, and 'differed only by a line to_row no longer writes' should
+  drain week on week. A rise in the total differ count means the normalisation
+  is too narrow.
+
+- **THE ROW THAT SPEAKS FOR A WEEKLY FOLD IS A COPY: GIVING ONE OCCURRENCE
+  ANOTHER'S DATE BREAKS cancellations().** cancellations() re-folds the very
+  objects the live folds read (before_folds = kept, before the grid fold). If
+  the face row is given the soonest occurrence's window IN PLACE, two rows sit
+  at one instant. collapse_booking_grids' exact-duplicate fold
+  (by_instant.setdefault) merges them, the weekly fold loses a week, and a
+  live session becomes a tombstone. Measured in the test: with one lane swim
+  called off elsewhere, the in-place variant also tombstoned PT Taster's live
+  2026-10-20 Tuesday. copy.copy(rep) prevents this. _face costs 2.48 s per
+  126,457 occurrences (one Everyone Active run). Not addressed: the 5.5k/day
+  exact duplicates collapse_booking_grids keeps in feed order.

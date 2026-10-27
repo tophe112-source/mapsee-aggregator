@@ -296,19 +296,23 @@
   - Each chunk now gets `STATE_READ_TRIES` = 3 attempts, backing off 2 s then 4 s. A retry re-reads the chunk from offset 0 and keeps nothing from a failed try.
   - A persistent failure still fails closed before any write. Its message now names the reason (our own check's words, or an exception's class, never its text, which can carry the URL).
 
-- **CLEANUP MUST NOT COUNT THE CATALOG BEFORE EVERY BOUNDED DELETE RUN.**
-  On 2026-10-09, run 37951179234 hit 57014 while counting, then deleted only
+- **CLEANUP MUST NOT COUNT THE CATALOG BEFORE EVERY BOUNDED DELETE RUN.** On
+  2026-10-09, run 37951179234 hit 57014 while counting, then deleted only
   **46** rows before even a **10**-ID fetch timed out. October 10 live EXPLAIN
-  already used the valid `events_aggregator_cleanup_idx`; adding
-  `ORDER BY starts_at,id` only added Incremental Sort (limit cost 1,436.65 to
-  1,456.77), so no sort or duplicate index was shipped. Apply now goes directly
-  to bounded candidate fetches; dry-run alone requests `count=planned`, since
+  already used the valid `events_aggregator_cleanup_idx`; adding `ORDER BY
+  starts_at,id` only added Incremental Sort (limit cost 1,436.65 to 1,456.77),
+  so no sort or duplicate index was shipped. Apply now goes directly to
+  bounded candidate fetches; dry-run alone requests `count=planned`, since
   `count=estimated` can still perform an exact count. The source/start/end
-  safety predicates remain on every delete. The behavioral fixture makes
-  **3** requests to fetch/delete two rows and observe exhaustion, with **0**
+  safety predicates remain on every delete. The behavioral fixture makes **3**
+  requests to fetch/delete two rows and observe exhaustion, with **0**
   preliminary count requests; a failed dry-run count remains a visible error.
-  All **73** CI test scripts passed. This removes wasted work; it does not prove
-  the Micro database's separate memory/I/O pressure has been resolved.
+  All **73** CI test scripts passed. This removes wasted work; it does not
+  prove the Micro database's separate memory/I/O pressure has been resolved.
+  (2026-10-27: `order=starts_at.asc` alone now ships, because the frozen pin
+  band needs the index walk to stop at the limit and a local model seq-scanned
+  ~193k buffers without an ORDER; the id tiebreak this note measured is still
+  refused.)
 
 - **RUNSIGNUP'S 1,000 CAP CUTS BY NAME, SO AN OVER-CAP STATE LOSES THE END OF
   THE ALPHABET (2026-10-11).** Florida's 120 days answered exactly 1,000 and
@@ -319,17 +323,25 @@
   race_id, and only a single day still over the cap prints the NOTE. Texas was
   at 910. `python test_ingest_runsignup.py`.
 
-- **THE JANITOR NEVER DELETES A LIVE STANDING ROW (2026-10-12).** mapsee_cleanup
-  deleted every imported row whose window ended 7 days ago, standing rows too,
-  and a delete cascades to the row's chat and RSVPs. A centre, library or pool
-  is one standing row the database's roller moves to today, and the roller was
-  doing 5,000 rolls an hour against ~20,800 due (../mapsee 0234): its queue head
-  sat at 2026-10-08T21:59Z, four days old, so from about 10-15 the janitor would
-  have started deleting centres. The filter now carries
-  `and=(or(recurring_hours.is.null,hidden_at.not.is.null))`: a hidden (retired)
-  standing row still goes, a live one is the roller's to bring back. PostgREST
-  accepts the nested form (anon GET, 200; Polish Home's standing row falls
-  outside it). `python test_cleanup.py` (2 checks fail with the guard removed).
+- **THE JANITOR NEVER DELETES A STANDING ROW, HIDDEN OR NOT (2026-10-12;
+  narrowed 2026-10-27).** mapsee_cleanup deleted every imported row whose
+  window ended 7 days ago, standing rows too, and a delete cascades to the
+  row's chat and RSVPs. A centre, library or pool is one standing row the
+  database's roller moves to today, and the roller was doing 5,000 rolls an
+  hour against ~20,800 due (../mapsee 0234): its queue head sat at
+  2026-10-08T21:59Z, four days old. From 10-12 the filter carried
+  `and=(or(recurring_hours.is.null,hidden_at.not.is.null))`, which still
+  deleted a HIDDEN standing row. That was a conduct hole: the roller skips
+  hidden rows, so the window freezes and the row ages past the cutoff, and
+  `fetch_import_state` keys on whether the row exists, so the next sync
+  re-inserts a deleted take-down VISIBLE (hidden_at alone, as AGENTS.md
+  promises, came back ~8 days later) and `mapsee_retire_thin_artwork.py
+  --unhide` had nothing to put back. How many it deleted 10-12..10-26 was not
+  measured. The filter is now a plain `&recurring_hours=is.null` on the
+  candidate read and the delete, and asserts refuse any `hidden_at` clause.
+  `python test_cleanup.py`: 7 checks fail against the 10-12 code; a
+  table-backed case runs main against six rows and keeps the hidden standing
+  row while both past dated rows (one hidden) go.
 
 - **THE COLLAPSER FAILED FOR WEEKS WHILE ITS STEP SHOWED GREEN (2026-10-13).**
   `mapsee_dedupe_events.py` listed every imported row with no `starts_at` floor
@@ -755,3 +767,112 @@
   fingerprint. The database keys on the fingerprint, so those 3 stored rows
   correct their start on the next full write (Wednesday's refresh under
   --only-new).
+
+- **THE FROZEN PIN BAND STOPPED THE JANITOR AT 20,410 (2026-10-26).** Job
+  121659644598 deleted 20,300 rows at 0.47-0.78 s per 100, took 7.5 s for the
+  next 100, timed out fetching 100, 50, 25 and 12 ids, got 10 more and exited
+  1 at 15:20:49 with "Even 10 ids time out on fetch". Its cutoff
+  (10-19T15:17Z) was the first past the 465,926 pins ../mapsee 0239 froze at
+  local midnight of 10-19 (cohorts 10-18 22:00Z, 23:00Z, 10-19 04:00-07:00Z);
+  10-25's cutoff (10-18T13:14Z) sat just below and that run finished. 0113's
+  `events_aggregator_cleanup_idx` holds every pin and the old OR clause was
+  checked on the heap, so every page re-walked the band (0235: ~0.23 ms a
+  stale row, the 8 s ceiling after ~35k). The 11 runs 10-15..10-25 deleted a
+  mean of 28,599 a day. The fix has two halves: the filter's plain
+  `recurring_hours=is.null` plus `order=starts_at.asc` (one key, before
+  `&limit=`) here, and ../mapsee 0241's `events_cleanup_dated_idx`
+  (external_source, starts_at) WHERE external_source IS NOT NULL AND
+  recurring_hours IS NULL. On a local model the fetch read 325 buffers through
+  it against 82,433 through 0113, in custom and forced-generic plans; the old
+  OR clause kept 0113 even beside the new index, and without ORDER the model
+  seq-scanned ~193k buffers. 0113 stays: without it the spam purge walk read
+  193,506 buffers instead of 1,029. Falsifier: the first run after the build
+  clears the backlog with no "Fetch timed out" and ends "Nothing left to
+  delete".
+
+- **THE LOOKBACK FOLLOWS THE SWITCH: 6 WHILE IT REPORTS, 60 WHEN IT HIDES
+  (2026-10-27).** Over the 8 complete runs after ../mapsee 0239, days -7..-60
+  cost 300 GETs and 131-148 s per run. 49-51 of those pages and 108-134 s were
+  the 10-18/19 pin band. The band also held about 10 of the 13 statement
+  timeouts and the OWED 10-18 22:00-22:15Z slice, which was each run's only
+  exit-1 cause from 10-19 on. Before 0239 the owed slice moved daily with the
+  roller: 10-13..10-17 at 22:00Z, plus 04:00Z on 10-14/15/16. Lookback 6 drops
+  all of this (the band is fully out from 10-26) at a cost of 39-43 report
+  clusters out of 7,900-8,500 (0.5%). 'true' keeps 60, because the census's
+  only lookback hides were 3 Chicago Park District season programmes 21-29
+  days old. A 'true' run therefore exits 1 on the band until 12-17 or until
+  the band is fixed at the index; do not shorten its lookback to hide that.
+  Rollout changes: step 2 now reads an existing nightly artifact (the 10-26
+  one is kept until about 11-25) or a dispatched report, and setting 'bounded'
+  at step 5 is what restarts the scheduled job.
+
+- **A LINE to_row STOPS WRITING IS RETIRED PAIRWISE IN unchanged_ids, NEVER IN
+  _norm_cmp.** _norm_cmp sees one value, so stripping there is unconditional.
+  That would freeze ~65k stale-dated Google links on OA standing rows and hide
+  real 🔎 changes on rows that keep the line. Without any normalisation, the
+  first daily run after 2026-10-27 would have rewritten ~78k OpenActive rows
+  for the 🔎 line and ~66k standing rows for the opener, all non-HOT
+  (description feeds events_link_domain_idx and events_link_regdomain_idx), on
+  an instance already failing with 57014. _retired_lines reads the stored
+  description as today's to_row would write it, when a retired line is the
+  only difference. The 🔎 line goes only when ours has no 🔎 at all (a
+  Ticketmaster row compares it exactly). On a dated row it always goes. On a
+  standing row it goes only while its search date equals our starts_at[:10],
+  so the row is written once, at the roll it is written at anyway. The old
+  weekly opener reads as the new one only when it is byte-identical to what
+  the old adapter wrote for its own count (bucket and plural regenerated),
+  with the same day count, behind an identical '⚠️ Not on' line. Rows whose
+  prose overflows DESCRIPTION_MAX are written once, because the
+  46-48-char-shorter opener moves _cap_prose's cut. That is
+  fail-toward-writing, and the count is unmeasured. test_skip_unchanged.py
+  section 11: each 'written' case fails against one looser implementation
+  (unconditional strip, no ours-has-🔎 guard, day-count-blind, any old-looking
+  opener, no ⚠️ group, whole row taken for equal).
+
+- **A MEETUP ROW CHANGES DOOR EVERY DAY BECAUSE ITS CATEGORY IS THE FIRST
+  KEYWORD THAT FOUND IT, AND THAT KEYWORD MOVES.** Both Meetup stores are
+  rebuilt from nothing every run. Within a run the first (metro, keyword) pair
+  whose eventSearch top 200 held an event fills its category. eventSearch is
+  capped at 200 per keyword per metro (on 10-26 NYC answered 9,855 hits for
+  1,656 events), and the international leg starts at a different country every
+  day, so the first pair drifts. From the sync's blame lines over
+  10-22..10-26, category differed on 4,408-4,818 stored rows a day on the US
+  leg and 4,146-4,569 on the international leg, about 20% of the ~21-23k rows
+  compared. Each of those UPDATEs also carried ends_at (blamed 2,483-2,910)
+  and the music-only Listen line (1,613-1,796). Re-sending the same store
+  blames ~0 (10-24: 48,482 rows compared, 4,486 blamed, all from the day's
+  re-sweep), so the flips come from day to day.
+  `mapsee_meetup_category_cache.py` runs once per leg, between its sweep and
+  its sync, and holds fingerprint -> [first category, date]. It writes only
+  events[*].category, never tombstones, seen, complete_reads or _meta. It is
+  versioned by a sha1 of the parsed DEFAULT_KEYWORDS, so a keyword remap
+  reaches every event the next day. Its cache has its own actions/cache pair
+  (`meetup-categories-*`): a third path in the census/spotify pair would
+  change that pair's version hash and orphan every sync-answers-meetup-* entry
+  (12,825 of the US leg's 13,541 addresses were answered from it on 10-26). It
+  is REPORT ONLY until the repository variable `MEETUP_STICKY_CATEGORIES` is
+  'true'. Read the '  net rows per door if held' line for party, fitness and
+  food before switching it on: a first sighting is found far out, plausibly by
+  a narrow keyword late in the list, and the sync guards only kids, market and
+  volunteer guesses. The international report includes border events (689 of
+  28,833 on 10-26) that the filter drops before its sync, so treat it as an
+  upper bound. On 28.8k-event fixtures the pass takes 0.24-0.35 s and the
+  cache is 1.9 MB.
+
+- **THE JANITOR'S INDEX IS mapsee's 0241, AND ONLY THE NARROWED FILTER CAN USE
+  IT (2026-10-27).** mapsee's `events_cleanup_dated_idx (external_source,
+  starts_at) where external_source is not null and recurring_hours is null`
+  leaves out every pin and standing row. The dedupe's LIVE listing already
+  implies that predicate. mapsee_cleanup.py can use the index only once it
+  sends `recurring_hours=is.null` with no hidden_at arm, plus
+  `order=starts_at.asc`. With the index built, the old
+  `and=(or(recurring_hours.is.null,hidden_at.not.is.null))` filter still walks
+  0113's index: on a local PG16 model it took 368,331 buffers to return an
+  empty last page that costs 3,015 on the new index, and the first page went
+  from 26,127 to 3,114 buffers. Dedupe band slice 10-18 22:00-22:15Z: 141,887
+  -> 92 buffers, the same under generic and custom plans. Do not ask for 0113
+  to be dropped: the spam purge's unscoped walk needs it (1,029 buffers vs a
+  193,506-buffer seq scan). After the build,
+  `../mapsee/backend/sql/2026-10-27_cleanup_dated_idx_check.sql` must read
+  PASS. The first janitor run after that should delete over 20k rows with no
+  'Fetch timed out' and end 'Nothing left to delete'.

@@ -451,3 +451,38 @@
   therefore be an invention rather than a filter, and the honest options are all
   of them or none. Reproduce with
   `curl -s 'https://taginfo.openstreetmap.org/api/4/key/values?key=books'`.
+
+- **THE FILL IS HELD AT A FRONTIER, AND ONLY A HUB WHOSE CURSOR NEVER CAME
+  BACK ROUND MAY BE HELD.** The first full turn of all 260 hubs ended
+  2026-10-25 having inserted 465,774 rows in five Sundays (102,839 / 87,765 /
+  89,190 / 96,277 / 89,703), 86% of them `pin_only` furniture. 94 hubs still
+  held 415,471 unexamined candidates of 791,471 (Tokyo 21,134, Yokohama
+  17,998, Dusseldorf 17,114, Essen 16,891, Amsterdam 16,350). The next five
+  Sundays alone would have examined 233,789 of them.
+  `osm_amenity_frontier.json` caps each hub at F = its cursor on 2026-10-27
+  (4000), so a visit re-reads and refreshes [0, F) and adds only what OSM
+  gains inside it.
+  - **Which hubs.** The proof is `git log -p osm_amenity_cursor.json`: every
+    held hub appears once, as a new key at 4000. A hub that wrapped has stored
+    rows past any F, and a frontier would freeze them, so these are left out:
+    Paris (20000→3619), London, Berlin, New York, Seattle, Chicago and
+    Portland.
+  - **Not held:** the 154 hubs at 0 (read whole on every visit).
+  - **Lifting it** is `vars.OSM_AMENITY_FILL=on`, or the `fill` input for one
+    run. A held visit saves cursor 0, so the first visit after a lift re-reads
+    [0, F) once.
+
+- **THE CURSOR FILE IS NOT A RECORD OF WHAT WAS READ.** Three kinds of run
+  write rows that `osm_amenity_cursor.json` never shows:
+  - **`--ignore-cursor` dispatches.** On 2026-09-22, runs 35699268602 and
+    35699326816 read every hub's community centres, libraries, markets and dog
+    parks with `--kinds`. That is 90,874 building candidates in the 94 hubs
+    held today, about 46,367 of them past the frontier (B×(N−F)/N per hub).
+  - **Whole reads.** Washington DC's cursor went 0→4000, but the 0 was a whole
+    read: dispatch 35692053574 examined all 11,324 candidates at `--max-places
+    12000`, and 35697114519 all 12,583.
+  - **Substring double pulls.** The Reno job read Grenoble from 4000 (below).
+
+  So a frontier must be checked against the dispatch logs as well as the
+  cursor history. The building rows past F are refreshed only by a `--kinds`
+  dispatch, which ignores the frontier on purpose.
