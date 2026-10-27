@@ -2040,8 +2040,18 @@ jobs:
       # it), so it never chains a row that was about to be hidden as a copy. Here rather
       # than in the ingest because the store is rebuilt each run, and --only-new means a
       # sync sees this week's occurrence and not the thirty already in the table.
+      #
+      # OFF UNTIL ITS READ IS REWRITTEN; the repository variable LINK_SERIES =
+      # 'true' turns it back on, for a schedule and a dispatch alike. Its one
+      # listing (fetch_events) pages every upcoming imported row, ~680k, by
+      # OFFSET in id order with no hidden, standing or pin filter, and the FIRST
+      # page died at the statement timeout (57014) on 7 of the 8 days
+      # 2026-10-19..10-26, 38-51 s into the step, and at the 120 s ReadTimeout on
+      # 10-21. It has linked nothing since at least 10-19 and continue-on-error
+      # kept every one of those runs green. Set the variable only after
+      # fetch_events is the keyset walk its docstring describes.
       - name: Chain repeating listings into one series
-        if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+        if: ${{ vars.LINK_SERIES == 'true' && (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
         continue-on-error: true
         timeout-minutes: 7
         run: python mapsee_link_series.py --max-seconds 300

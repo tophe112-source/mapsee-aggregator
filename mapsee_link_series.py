@@ -109,7 +109,21 @@ def _local_date(starts_at: str, lon: Optional[float]) -> str:
 
 
 def fetch_events(base: str, auth: Dict[str, str], since: Optional[str]) -> List[Dict[str, Any]]:
-    """Every imported event in scope, paged."""
+    """Every imported event in scope, paged.
+
+    THIS READ IS WHY THE DAILY STEP IS OFF (aggregate-events.yml, behind
+    vars.LINK_SERIES). OFFSET over id order with nothing but starts_at to narrow
+    it sorts all ~680k upcoming imported rows before it can hand back page 1,
+    and that page hit the statement timeout (57014) on 7 of 8 days 2026-10-19..
+    10-26. What the rewrite needs before the variable is set: a keyset walk,
+    `and=(starts_at.gte.S,or(starts_at.gt.S,id.gt.I))&order=starts_at.asc,id.asc`,
+    bounded by a horizon (60 days: collapseSeries folds a series to its NEXT
+    occurrence, so near dates are the ones that matter), plus
+    hidden_at=is.null&recurring_hours=is.null&pin_only=not.is.true, so ../mapsee
+    0241's events_cleanup_dated_idx ((external_source, starts_at) where
+    recurring_hours is null) can serve it and a standing row or a pin, never a
+    series, is not read at all. The claimed-row skip and the --max-share /
+    --max-cluster refusals stay as they are."""
     rows: List[Dict[str, Any]] = []
     offset = 0
     while True:

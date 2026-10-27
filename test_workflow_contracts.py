@@ -562,6 +562,34 @@ class WorkflowContracts(unittest.TestCase):
         for seconds in re.findall(r'--max-seconds (\d+)', mrun):
             self.assertLessEqual(int(seconds) / 60 + 5, manual['jobs']['dedupe']['timeout-minutes'])
 
+    def test_link_series_waits_for_its_switch_and_stays_tolerated(self):
+        # Its listing died on page 1 at the statement timeout (57014) on 7 of 8
+        # days 2026-10-19..10-26 (a ReadTimeout on the 8th) and linked nothing,
+        # green every time. Off unless vars.LINK_SERIES is 'true', on a schedule
+        # and on a dispatch, until fetch_events is a keyset walk; and when it is
+        # on again it is still a step nobody's run may fail on.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        found = [(name, s) for name, job in workflow['jobs'].items() for s in job.get('steps', [])
+                 if 'mapsee_link_series.py' in (s.get('run') or '')]
+        self.assertEqual([name for name, _ in found], ['indexnow'])
+        step = found[0][1]
+        self.assertIs(step.get('continue-on-error'), True)
+        self.assertEqual(len(re.findall(r'vars\.', step['if'])), 1)
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        daily = next(c for c in crons if f"github.event.schedule == '{c}'" in step['if'])
+        for value in ('', 'false', 'yes', 'true', 'True'):
+            on = value.lower() == 'true'
+            for cron in crons:
+                ran = self._gh_if(step['if'], {'github.event_name': 'schedule', 'github.event.schedule': cron,
+                                               'vars.LINK_SERIES': value})
+                self.assertEqual(ran, on and cron == daily, (cron, value))
+            for group, runs in (('', True), ('all', True), ('ics', False)):
+                ran = self._gh_if(step['if'], {'github.event_name': 'workflow_dispatch', 'inputs.feed_group': group,
+                                               'vars.LINK_SERIES': value})
+                self.assertEqual(ran, on and runs, (group, value))
+            self.assertFalse(self._gh_if(step['if'], {'github.event_name': 'workflow_dispatch',
+                                                      'inputs.extra_only': 'true', 'vars.LINK_SERIES': value}))
+
     @staticmethod
     def _gh_if(expr, context):
         """Evaluate an `if:` as Actions would, for the subset these workflows
