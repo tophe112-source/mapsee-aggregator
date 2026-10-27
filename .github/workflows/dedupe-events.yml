@@ -4,6 +4,17 @@ name: Hide duplicate imported events (manual)
 # aggregate-events.yml. This is the same script by hand: a report, a bounded
 # first write, or the undo of one run.
 #
+# WHILE DEDUPE_APPLY IS UNSET, THIS IS THE REPORT. The schedules reach the
+# nightly job only once the variable is 'bounded' or 'true': with it unset it
+# re-listed about 310k rows 9 times a week (2026-10-20..10-26: 9,428 GETs, 102
+# statement timeouts, 6,138 s) to report a count that moved 8,110-9,065 in 12
+# days. Dispatch mode report (the default: 21 days ahead, 60 back, so it still
+# sees everything) after the day's aggregate run has finished, about 19:10 UTC,
+# and before 03:00 UTC. Until the 10-18 pin band is fixed at the index (or
+# leaves the 60 days, 12-17) it exits 1 on OWED 10-18 22:00-22:15Z; read the
+# report anyway. No schedule here: the rollout needs one report per step, not
+# one a night.
+#
 # workflow_dispatch ONLY. Never add a pull_request trigger: this repo is public
 # and that would expose SUPABASE_SERVICE_ROLE_KEY to fork code.
 #
@@ -27,8 +38,10 @@ name: Hide duplicate imported events (manual)
 #
 # Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 # Optional repo variable: DEDUPE_APPLY ('bounded' allows a bounded apply here
-# only; 'true' allows any apply here and arms the nightly job). The six rollout
-# steps are in docs/agents/sync-eventstore-and-paging.md and ../mapsee 0236.
+# and restarts the nightly job, which then reports and keeps but hides nothing
+# new; 'true' allows any apply here and arms the nightly job to hide). The six
+# rollout steps are in docs/agents/sync-eventstore-and-paging.md and ../mapsee
+# 0236, whose 'unset = report only' now means a report by dispatch, here.
 
 on:
   workflow_dispatch:

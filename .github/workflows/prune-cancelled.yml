@@ -12,12 +12,43 @@ name: Prune cancelled events
 # WHERE IT SITS IN THE DAY, and the order is load-bearing:
 #   06:17  aggregate-events      the import
 #   07:40  menu-links (Wed)      order links, after the import
-#   07:55  THIS (full sweep)     hide what the source has called off
+#   07:55  THIS (near horizon,   hide what the source has called off
+#          full budget; Sundays
+#          the full sweep)
 #   08:23  cleanup-events        the janitor deletes what is past
 #   16:55  THIS (near horizon)   catch TODAY's cancellations before tonight
 # After the import, so a row written this morning is checked this morning.
 # Before the janitor, so a cancelled event that is also past is deleted outright
 # rather than left hidden for a week.
+#
+# THE MORNING RUN READS 2 DAYS ON SIX DAYS AND 120 ON SUNDAY. Measured on the 7
+# morning full sweeps 2026-10-20..10-26 (jobs 118642658041 .. 121635448161):
+# every one printed CAPPED "through" its own run date, so the 4,000 URLs it may
+# probe were all today's, the same set a --days 2 run picks (its first window
+# is the same query). To pick them it read 662,579-686,946 rows with their
+# descriptions (4.72 M a week), 841-1,921 s of its 2,100 s budget, and lost 3-4
+# windows a day to HTTP 500s at OFFSET 37.5k-49.5k (3 tries each); probing got
+# the rest, 284-1,525 URLs. The 16:55 --days 2 run read 41.5k-46.5k rows in
+# 131-225 s. So the far 118 days added no probe. What they did add is reach:
+# a listing found off hides EVERY collected row that shares its URL, and at
+# least 143 of the week's 360 hides (40%) were such later rows, from two
+# leisure-centre timetables (Tenby, 10-20; Pembroke, 10-22) and one multi-day
+# stage (10-26).
+#
+# THE TRADE: six mornings read about 44k rows instead of about 674k (about
+# 3.8 M fewer rows a week, about 90 fewer minutes of reads in the 12:15-15:00
+# UTC hours the morning collect ran in, about 50 fewer failed statements), and
+# the ~900 s each gives back goes to probing, roughly 950 more probes a
+# morning at the measured ~1.05 a second. The Sunday sweep keeps the reach: it
+# hides all 120 days of every listing IT finds off. A listing found off on
+# another day hides only its rows inside 48 hours; its later rows wait for a
+# run that probes the same URL again, the next Sunday's at the latest IF that
+# sweep reaches it. That is not guaranteed: the Sunday run probes soonest
+# first like every run (284-1,525 of its 4,000 in the measured week), and a
+# near run that has just hidden a listing's next 48 hours pushes its first
+# start out of Sunday's day 0. Not measured; re-measure from the logs (the
+# CALLED OFF tables) before calling far hides safe. A manual run with days
+# blank is the full sweep too, for a listing that cannot wait for Sunday.
 #
 # WHY THERE ARE TWO RUNS. A once-daily sweep cannot catch a SAME-DAY
 # cancellation, and that is the case that actually costs somebody an evening.
@@ -44,7 +75,7 @@ name: Prune cancelled events
 
 on:
   schedule:
-    - cron: "55 7 * * *"        # daily ~07:55 UTC — the FULL sweep
+    - cron: "55 7 * * *"        # daily ~07:55 UTC — --days 2, full budget; Sundays the FULL sweep
     - cron: "55 16 * * *"       # daily ~16:55 UTC — the NEAR HORIZON (--days 2)
   workflow_dispatch:
     inputs:
@@ -94,23 +125,41 @@ jobs:
       # github.event.schedule is the cron that FIRED, and it is the only thing
       # that tells the two scheduled runs apart. It is empty on a dispatch, so a
       # manual run is a full sweep unless it asks for a narrower one.
+      #
+      # PYTHONUNBUFFERED: block-buffered, the "scanned" line reached the log
+      # only with "probed 50/4000" (121635448161, both 14:52:48.76), so every
+      # collect time read from it included the first 50 probes.
       - name: Hide events the source has cancelled
         env:
           FIRED_BY: ${{ github.event.schedule }}
           DAYS_IN: ${{ inputs.days }}
           DRY_RUN: ${{ inputs.dry_run }}
+          PYTHONUNBUFFERED: "1"
         run: |
           # A manual narrow run gets the FULL budget, not the short one. The
           # point of --days is to aim the sweep, not to cut it off: the first
           # live run showed 25,311 distinct URLs inside a three-day window, so
           # even two days is more than 900s of probing can finish, and stopping
           # early is how that run missed the event it was dispatched for.
+          #
+          # EVERY CRON HAS ITS OWN BRANCH and an unknown one fails, rather than
+          # falling into the 120-day sweep (test_workflow_contracts pins both).
+          # The weekday is read when the step runs, not when the cron fired:
+          # the 07:55 run started 12:15-14:35 UTC in the measured week, still
+          # the same UTC day.
           if [ -n "$DAYS_IN" ]; then
-            SCOPE="--days $DAYS_IN"; BUDGET=2100
+            SCOPE="--days $DAYS_IN"; BUDGET=2100   # a manual run, aimed
+          elif [ -z "$FIRED_BY" ]; then
+            SCOPE=""; BUDGET=2100                  # a manual run with days blank: the full sweep
           elif [ "$FIRED_BY" = "55 16 * * *" ]; then
-            SCOPE="--days 2"; BUDGET=900          # the near-horizon pass
+            SCOPE="--days 2"; BUDGET=900           # the evening near-horizon pass
+          elif [ "$FIRED_BY" = "55 7 * * *" ] && [ "$(date -u +%u)" = "7" ]; then
+            SCOPE=""; BUDGET=2100                  # Sunday morning: the full 120-day sweep
+          elif [ "$FIRED_BY" = "55 7 * * *" ]; then
+            SCOPE="--days 2"; BUDGET=2100          # the other six mornings: same probes, ~1/15 of the reads
           else
-            SCOPE=""; BUDGET=2100                 # the full sweep
+            echo "::error title=Prune: no branch::the cron '$FIRED_BY' has no branch in this step; add one"
+            exit 1
           fi
           if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
           echo "scope: ${SCOPE:-full} · budget: ${BUDGET}s · ${APPLY:-DRY RUN}"

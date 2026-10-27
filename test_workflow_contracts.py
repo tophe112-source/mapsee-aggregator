@@ -384,8 +384,12 @@ class WorkflowContracts(unittest.TestCase):
         # The collapser was a continue-on-error step inside indexnow: 12m12s,
         # its timeout, on most runs 2026-09-22..10-07, and green on all 25 runs
         # (09-19..10-12) that annotated exit 1. It hides production rows, so it
-        # writes only when vars.DEDUPE_APPLY is 'true'. It runs after BOTH
-        # schedules: the Mon/Thu one syncs SeatGeek and Eventbrite.
+        # writes only when vars.DEDUPE_APPLY is 'true'. In 'bounded' and 'true'
+        # it runs after BOTH schedules: the Mon/Thu one syncs SeatGeek and
+        # Eventbrite. Unset, the schedules SKIP it: 2026-10-20..10-26 it
+        # reported 9 times (9,428 GETs, 102 statement timeouts, 2,489,674 rows,
+        # 6,138 s) a count that moved 8,110-9,065 in 12 days, and was the only
+        # failed job in 8 of the 9 runs. A dispatch still runs it.
         workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
         job = workflow['jobs']['dedupe']
         self.assertNotIn('continue-on-error', job)
@@ -393,9 +397,26 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('dedupe', workflow['jobs']['indexnow']['needs'])
         self.assertEqual(workflow['jobs']['indexnow']['if'], 'always()')
         self.assertTrue(job['if'].startswith('${{ always() &&'))
-        for cron in (c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']):
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        for cron in crons:
             self.assertIn(f"github.event.schedule == '{cron}'", job['if'])
         self.assertNotIn('extra_only', job['if'])
+        # The switch, and nothing else from vars, decides a scheduled run.
+        self.assertEqual(sorted(re.findall(r"vars\.[\w.]+\s*==\s*'[^']*'", job['if'])),
+                         ["vars.DEDUPE_APPLY == 'bounded'", "vars.DEDUPE_APPLY == 'true'"])
+        self.assertEqual(len(re.findall(r'vars\.', job['if'])), 2)
+        for cron in crons:
+            for value in ('', 'false', 'yes', 'bounded', 'true', 'True', 'BOUNDED'):
+                ran = self._gh_if(job['if'], {'github.event_name': 'schedule', 'github.event.schedule': cron,
+                                              'vars.DEDUPE_APPLY': value})
+                self.assertEqual(ran, value.lower() in ('bounded', 'true'), (cron, value))
+        self.assertFalse(self._gh_if(job['if'], {'github.event_name': 'schedule',
+                                                 'github.event.schedule': '0 12 * * *', 'vars.DEDUPE_APPLY': 'true'}))
+        for value in ('', 'bounded', 'true'):
+            for group, runs in (('', True), ('all', True), ('ics', False)):
+                ran = self._gh_if(job['if'], {'github.event_name': 'workflow_dispatch', 'inputs.feed_group': group,
+                                              'vars.DEDUPE_APPLY': value})
+                self.assertEqual(ran, runs, (value, group))
         self.assertEqual(set(job['needs']), set(workflow['jobs']['indexnow']['needs']) - {'dedupe'})
         run = next(s['run'] for s in job['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
         self.assertIn('set -o pipefail', run)
@@ -419,6 +440,40 @@ class WorkflowContracts(unittest.TestCase):
         self.assertEqual(manual['concurrency']['group'], job['concurrency']['group'])
         for seconds in re.findall(r'--max-seconds (\d+)', mrun):
             self.assertLessEqual(int(seconds) / 60 + 5, manual['jobs']['dedupe']['timeout-minutes'])
+
+    @staticmethod
+    def _gh_if(expr, context):
+        """Evaluate an `if:` as Actions would, for the subset these workflows
+        write: '...' literals, context names (missing ones are ''), ==, !=,
+        !, &&, ||, brackets and always(). Actions compares strings WITHOUT
+        regard to case ('True' == 'true'), where a shell `case` does not."""
+        body = re.fullmatch(r'\s*\$\{\{(.*)\}\}\s*', expr, re.S)
+        body = body[1] if body else expr
+
+        class S(str):
+            def __eq__(self, other):
+                return self.lower() == str(other).lower()
+
+            def __ne__(self, other):
+                return not self.__eq__(other)
+            __hash__ = str.__hash__
+        token = re.compile(r"\s*(?:('(?:[^']|'')*')|(always\(\))|(&&|\|\||==|!=|!|\(|\))|([A-Za-z_][\w.-]*))")
+        src, pos = [], 0
+        while body[pos:].strip():
+            m = token.match(body, pos)
+            if not m:
+                raise ValueError(f'cannot read {body[pos:]!r}')
+            lit, always, op, name = m.groups()
+            if lit:
+                src.append(f'S({lit[1:-1].replace(chr(39) * 2, chr(39))!r})')
+            elif always:
+                src.append('True')
+            elif op:
+                src.append({'&&': ' and ', '||': ' or ', '!': ' not '}.get(op, op))
+            else:
+                src.append(f'S({str(context.get(name, ""))!r})')
+            pos = m.end()
+        return bool(eval(''.join(src), {'S': S}))
 
     @staticmethod
     def _dedupe_calls(run, env):
@@ -445,6 +500,16 @@ class WorkflowContracts(unittest.TestCase):
             full = [c for c in calls if '--days' in c and c[c.index('--days') + 1] != '0']
             self.assertEqual(len(full), 1, value)
             self.assertEqual('--apply' in full[0], value == 'true', value)
+            # 60 back only where it hides: the census's only lookback hides
+            # started 21-29 days before. Reporting, 6 back drops the 10-18/19
+            # band ../mapsee 0239 froze its pins into (49-51 pages, ~10 of 13
+            # statement timeouts and the run's only OWED slice: 300 GETs and
+            # 131-148 s a run) for 39-43 of ~8,000 report clusters.
+            lookback = int(full[0][full[0].index('--lookback') + 1])
+            if value == 'true':
+                self.assertGreaterEqual(lookback, 30, value)
+            else:
+                self.assertLessEqual(lookback, 7, value)
             kept = [c for c in calls if c not in full]
             if value == 'bounded':
                 # it keeps what was hidden (categories, no-room un-hides) and hides nothing new
@@ -470,6 +535,88 @@ class WorkflowContracts(unittest.TestCase):
         code, calls = self._dedupe_calls(mrun, {'APPLY_SWITCH': '', 'MODE': 'unhide', 'DAYS': '21', 'LOOKBACK': '60',
                                                 'STAMP': '2026-10-14T06:41:07+00:00'})
         self.assertEqual((code, calls[0][:3]), (0, ['--unhide', '--stamp', '2026-10-14T06:41:07+00:00']))
+
+    @staticmethod
+    def _prune_calls(context, dow):
+        """Run prune-cancelled's hide step with python and `date -u +%u`
+        stubbed: -> (exit code, [argv of each mapsee_prune_cancelled call]).
+        `context` maps an expression (`github.event.schedule`, `inputs.days`,
+        `inputs.dry_run`) to its value, '' when absent as on Actions; `dow` is
+        what `date -u +%u` answers."""
+        workflow = yaml.safe_load((ROOT / '.github/workflows/prune-cancelled.yml').read_text(encoding='utf-8'))
+        step = next(s for s in workflow['jobs']['prune']['steps']
+                    if 'mapsee_prune_cancelled.py' in (s.get('run') or ''))
+
+        def sub(text):
+            return re.sub(r'\$\{\{\s*(.*?)\s*\}\}', lambda m: str(context.get(m[1], '')), str(text))
+        real_date = shutil.which('date')
+        with tempfile.TemporaryDirectory() as tmp:
+            stubs = Path(tmp, 'bin')
+            stubs.mkdir()
+            (stubs / 'python').write_text('#!/bin/sh\necho "CALL $*"\n')
+            (stubs / 'date').write_text('#!/bin/sh\n'
+                                        f'if [ "$*" = "-u +%u" ]; then echo {dow}; else exec {real_date} "$@"; fi\n')
+            for f in stubs.iterdir():
+                f.chmod(0o755)
+            env = dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}")
+            env.update({k: sub(v) for k, v in (step.get('env') or {}).items()})
+            out = subprocess.run(['bash', '--noprofile', '--norc', '-eo', 'pipefail', '-c', sub(step['run'])],
+                                 cwd=tmp, capture_output=True, text=True, env=env)
+        calls = [line.split()[1:] for line in out.stdout.splitlines() if line.startswith('CALL')]
+        return out.returncode, calls
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_prune_cancelled_mornings_are_near_and_only_sunday_or_a_blank_dispatch_is_full(self):
+        # 7 of 7 morning full sweeps 2026-10-20..10-26 capped "through" their
+        # own run date: they read 662,579-686,946 rows each (4.72 M a week) to
+        # probe the URLs a --days 2 run picks. The far rows still carried at
+        # least 143 of the week's 360 hides (a listing found off hides every
+        # row of its URL it collected), so Sunday morning keeps the 120-day
+        # sweep and a dispatch with days blank is one; nothing else reaches it,
+        # and a cron with no branch fails instead of falling into it.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/prune-cancelled.yml').read_text(encoding='utf-8'))
+        job = workflow['jobs']['prune']
+        step = next(s for s in job['steps'] if 'mapsee_prune_cancelled.py' in (s.get('run') or ''))
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        self.assertIn('55 7 * * *', crons)
+        self.assertIn('55 16 * * *', crons)
+        full, budgets = set(), []
+        for cron in crons:
+            for dow in '1234567':
+                code, calls = self._prune_calls({'github.event.schedule': cron}, dow)
+                self.assertEqual((code, len(calls)), (0, 1), (cron, dow))
+                call = calls[0]
+                self.assertIn('--apply', call, (cron, dow))
+                budgets.append(int(self._flag(call, '--max-seconds')))
+                if '--days' in call:
+                    self.assertEqual(self._flag(call, '--days'), '2', (cron, dow))
+                else:
+                    full.add((cron, dow))
+        self.assertEqual(full, {('55 7 * * *', '7')})
+        self.assertEqual(self._flag(self._prune_calls({'github.event.schedule': '55 16 * * *'}, '3')[1][0],
+                                    '--max-seconds'), '900')
+        self.assertEqual(self._flag(self._prune_calls({'github.event.schedule': '55 7 * * *'}, '3')[1][0],
+                                    '--max-seconds'), '2100')
+        for dow in '17':
+            code, calls = self._prune_calls({}, dow)
+            self.assertEqual(code, 0, dow)
+            self.assertNotIn('--days', calls[0], dow)
+            self.assertIn('--apply', calls[0], dow)
+            budgets.append(int(self._flag(calls[0], '--max-seconds')))
+        code, calls = self._prune_calls({'inputs.days': '5', 'inputs.dry_run': 'true'}, '7')
+        self.assertEqual((code, self._flag(calls[0], '--days')), (0, '5'))
+        self.assertNotIn('--apply', calls[0])
+        code, calls = self._prune_calls({'github.event.schedule': '0 12 * * *'}, '7')
+        self.assertNotEqual(code, 0)
+        self.assertEqual(calls, [])
+        # --max-seconds is paired with timeout-minutes: five minutes are left
+        # for checkout, setup-python and the writes.
+        budgets += [int(b) for b in re.findall(r'BUDGET=(\d+)', step['run'])]
+        for budget in budgets:
+            self.assertLessEqual(budget, job['timeout-minutes'] * 60 - 300, budget)
+        # Block-buffered, "scanned" reached the log only with "probed 50/4000"
+        # (121635448161): no collect time could be read from it.
+        self.assertEqual(str((step.get('env') or {}).get('PYTHONUNBUFFERED')), '1')
 
     @staticmethod
     def _curate_discovers(context, dow='1'):
