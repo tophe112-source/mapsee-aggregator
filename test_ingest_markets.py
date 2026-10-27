@@ -164,6 +164,65 @@ check("OSM coordinates are marked exact so the Census pass cannot move them",
       mk["coords_exact"] is True, mk.get("coords_exact"))
 
 # --------------------------------------------------------------------------- #
+# the city is a function of the point, not of which bbox answered first
+# --------------------------------------------------------------------------- #
+# 49 pairs of the 259 configured bboxes overlap, 26 across the Mon/Fri shards,
+# and the first bbox to absorb a market used to name its city: one city on
+# Monday, the other on Friday, and the sync rewrote the locality of every
+# occurrence ("locality 749" of 801 differing stored rows on 2026-10-26). Of the
+# bboxes containing the point, the nearest centre names it; a tie goes to the
+# lexically first city; a point outside all of them takes the nearest edge.
+AMS = {"name": "Amsterdam, NL", "city": "Amsterdam", "s": 52.0, "w": 4.6, "n": 52.6, "e": 5.2}
+UTR = {"name": "Utrecht, NL", "city": "Utrecht", "s": 51.9, "w": 4.9, "n": 52.3, "e": 5.4}
+OVERLAP = {"lat": 52.12, "lon": 5.12, "tags": {"name": "Vredenburg Markt", "opening_hours": "Sa 08:00-17:00"}}
+
+
+def _sweep(bboxes, el=OVERLAP, fail_once=(), **kw):
+    """load_overpass with the endpoint replaced: every bbox answers `el`,
+    except a name in `fail_once`, whose FIRST call fails (a lost slot)."""
+    tries = []
+
+    def fetch(_session, _endpoint, bbox, quiet=False):
+        tries.append(bbox["name"])
+        return None if bbox["name"] in fail_once and tries.count(bbox["name"]) == 1 else [el]
+    real, M._overpass_fetch = M._overpass_fetch, fetch
+    try:
+        with redirect_stdout(io.StringIO()):
+            out = M.load_overpass(None, dict({"bboxes": bboxes, "pause_s": 0}, **kw.pop("src", {})), **kw)
+    finally:
+        M._overpass_fetch = real
+    return [m["city"] for m in out], tries
+
+
+check("in two bboxes, the nearer centre names the city, whichever answered first",
+      _sweep([AMS, UTR])[0] == ["Utrecht"] and _sweep([UTR, AMS])[0] == ["Utrecht"],
+      (_sweep([AMS, UTR]), _sweep([UTR, AMS])))
+cities, tries = _sweep([UTR, AMS], fail_once={"Utrecht, NL"})
+check("...and when the nearer one lost its slot and came back in the second pass",
+      cities == ["Utrecht"] and tries == ["Utrecht, NL", "Amsterdam, NL", "Utrecht, NL"], (cities, tries))
+SHARDED = {"shard_by_weekday": True, "run_weekdays": [0, 4]}
+monday, _ = _sweep([AMS, UTR], src=SHARDED, weekday=0)
+friday, _ = _sweep([AMS, UTR], src=SHARDED, weekday=4)
+check("Monday's shard (Amsterdam's bbox) and Friday's (Utrecht's) write the same city",
+      monday == friday == ["Utrecht"], (monday, friday))
+TWIN_Z = {"name": "Twin Z", "city": "Zed", "s": 1, "w": 1, "n": 2, "e": 2}
+TWIN_A = {"name": "Twin A", "city": "Ay", "s": 1, "w": 1, "n": 2, "e": 2}
+check("a tie goes to the lexically first city, in either order",
+      _sweep([TWIN_Z, TWIN_A], el=market_el())[0] == _sweep([TWIN_A, TWIN_Z], el=market_el())[0] == ["Ay"])
+OUTSIDE = {"lat": 52.7, "lon": 5.0, "tags": dict(OVERLAP["tags"], name="Noordmarkt")}
+check("a point outside every bbox (a way's centre) takes the nearest edge",
+      _sweep([UTR, AMS], el=OUTSIDE)[0] == ["Amsterdam"], _sweep([UTR, AMS], el=OUTSIDE))
+BIG = {"name": "Big", "city": "Big", "s": 0, "w": 0, "n": 10, "e": 10}
+SMALL = {"name": "Small", "city": "Small", "s": 10.5, "w": 4.5, "n": 11, "e": 5.5}
+check("a bbox that contains the point beats a nearer centre that does not",
+      M.home_city(9.9, 5.0, [SMALL, BIG]) == "Big", M.home_city(9.9, 5.0, [SMALL, BIG]))
+TAGGED = {"lat": 52.12, "lon": 5.12, "tags": dict(OVERLAP["tags"], **{"addr:city": "Utrecht-Oost"})}
+check("an addr:city tag still wins", _sweep([AMS, UTR], el=TAGGED)[0] == ["Utrecht-Oost"])
+check("home_city is the city of that rule, read from every bbox",
+      M.home_city(52.12, 5.12, [AMS, UTR]) == "Utrecht" and M.home_city(52.5, 4.7, [AMS, UTR]) == "Amsterdam"
+      and M.home_city(52.12, 5.12, []) == "")
+
+# --------------------------------------------------------------------------- #
 # the pin's label
 # --------------------------------------------------------------------------- #
 # Same rule as mapsee_ingest_runsignup: a street beginning with a house number
