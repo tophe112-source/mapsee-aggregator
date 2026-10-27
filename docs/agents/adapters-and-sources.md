@@ -883,3 +883,20 @@
     venue, "Rose City Bluff"), not the page's Location text. "Contact Jane Doe
     at the front desk." is a named contact. Each check fails on the previous
     adapter. `python test_ingest_galaxydigital.py`.
+
+- **RULE-EXPANDED CIVIC CALENDARS WROTE 7,574 ROWS MORE THAN A YEAR OUT; THE
+  ICS ADAPTER NOW KEEPS 365 DAYS (2026-10-27).** The 10-26 ics store held
+  7,574 of its 134,814 rows starting more than 365 days after the run, from
+  224 sources. Examples: Roeland Park 293 of 300 (out to 2069), Hinesville 288
+  of 300 (2051), St. Peters 279 of 300 (2098), Burlington 158 of 164 (2124).
+  There were 803 distinct titles, led by 'Water Bill Due Date' x288 and
+  'Farmer's Market' x236. All 22 festival- or fair-like titles among them were
+  rule repeats, not festivals announced a year ahead. The cap is HORIZON_DAYS
+  = 365, or the source's own within_days. It is checked after the past check
+  and before any geocode, so a far row never takes a near row's `limit` slot.
+  A STATUS:CANCELLED VEVENT beyond the horizon still tombstones. The only
+  within_days in ics_sources.json was Santa Rosa's 90, which until now reached
+  only the Calendar API path. It is honoured now (3 rows, none past 90 days).
+  Test fixtures dated 2099 so they 'stay upcoming' are refused by the horizon:
+  test_ingest_ics, test_feed_budgets and test_event_details lift
+  ICS.HORIZON_DAYS, and the horizon's own cases use dates counted from today.

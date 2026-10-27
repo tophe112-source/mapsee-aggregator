@@ -876,3 +876,57 @@
   `../mapsee/backend/sql/2026-10-27_cleanup_dated_idx_check.sql` must read
   PASS. The first janitor run after that should delete over 20k rows with no
   'Fetch timed out' and end 'Nothing left to delete'.
+
+- **AN --ONLY-NEW SYNC READ THE STATE OF ITS WHOLE STORE TO WRITE A FEW PER
+  CENT OF IT; --state-cache READS ONLY WHAT IT MUST (2026-10-27).** On 10-26
+  the only-new syncs that write more than exact-detail rows (Ticketmaster and
+  global, the four feed groups and their checkpoints, races) read 461,619 ids
+  in 892.3 s; 443,328 of them were stored. They kept 18,291 new ids, 17,957
+  exact-detail refreshes, 470 time changes, 60 relists and 31 held-back
+  cancellations. civic read 165,899 ids to keep 15,435, and ics read 134,774
+  to keep 956. `--state-cache PATH` keeps {fp: STATE_FIELDS, claimed, read_on}
+  taken ONLY from what a state read returned. The next --only-new run reads: a
+  fingerprint the file lacks; one read more than 8 days ago; a source time
+  that differs from the cached one; our equal cancellation stamps at any age;
+  source_details; a row moved or held this run; anything `keep_reason` keeps
+  against the cached values; and a deterministic 1% sample. If more than 1% of
+  the sample differs, every id is read, with a ::warning::. The file leaves
+  out every row handed to upsert(), moderated, Census-held, re-keyed,
+  cancelled or lifted, and every id a read did not find. Expected saving is
+  400-480k ids on each of the 6 non-refresh days. Read it from the 'State
+  cache: N of M stored row(s) skipped unread' lines, and read the drift from
+  '...k of S sampled rows differ from the cache, m of them written today'. At
+  civic's size the file is 21.6 MB (4.3 MB gzipped), and load + decide + save
+  take 0.55 + 1.3 + 0.77 s locally.
+
+- **A STALE STATE-CACHE ENTRY CAN ONLY DELAY A WRITE, AND THE DELAYS ARE
+  NAMED.** A skipped row is dropped exactly as a stored, unchanged row always
+  was, so nothing is written on a cached value. Every row that reaches
+  upsert() is in that run's read (test_sync_state_cache checks this over 21
+  runs), and a lift still names both exact stamps the read saw. Three things
+  wait for the 8-day TTL, the 1% sample or Wednesday's refresh. First, a row
+  deleted while its source still lists it at the same time is inserted again
+  only then. Second, an equal-stamp cancellation written by ANOTHER store's
+  sync on a shared fingerprint is lifted only then. Third, when two stores
+  write different times for one fingerprint, the last writer stands. A
+  pre-existing gap is made slower, not caused: ../mapsee's cancel_event
+  DELETEs a claimed row that has no history, and the next --only-new run
+  re-imports it as an unclaimed import; with the cache that waits for the TTL
+  or the refresh.
+
+- **mapsee_retire_perday_osm'S STANDING-ROW READ NOW ASKS pin_only=eq.false;
+  IT WAS THE LAST AGGREGATOR READER OF ../mapsee 0156's events_recurring_idx
+  (2026-10-27).** The read is
+  recurring_hours=not.is.null&hidden_at=is.null&order=ends_at.asc, 500 rows a
+  page up to offset 100k. Only 0156's index fitted it, and that index also
+  holds every furniture pin. Without it, each page is a whole-heap scan plus a
+  top-N sort: 193,130 buffers against 439 with an index, on a
+  production-shaped copy. With &pin_only=eq.false the read matches the
+  predicate of 0235's events_recurring_listed_idx. On a local PG16 table with
+  only that index, the old filter did a seq scan (25,074 buffers) and the new
+  one read 502 buffers through the index, both as a literal and as a custom
+  plan. A forced generic plan cannot prove the predicate. A pin is never a
+  restaurant's replacement, so this can only shrink `replaced`, meaning fewer
+  hides. No other aggregator REST read combines recurring_hours=not.is.null
+  with order=ends_at (grep, 2026-10-27). test_retire_perday.py pins the URL by
+  driving main() with the REST call stubbed.

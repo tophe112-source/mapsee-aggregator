@@ -425,3 +425,56 @@
   re-measure from the logs: morning scanned rows (about 41-47k), the 'through'
   date (still the run date), probes, hides per listing, Sunday's far hides,
   and collect seconds (now unbuffered).
+
+- **THE PRUNE COLLECT PAGES BY KEYSET; OFFSET LOST EVERY RUN'S FIRST WINDOW
+  (2026-10-27).** Every run 10-20..10-26, the 16:55 --days 2 runs included,
+  lost its first two-day window to HTTP 500 at OFFSET 37.5k-49.5k after 3
+  tries. A near run therefore read 41.5k-46.5k rows of a window that holds
+  more, and a full sweep lost 3-4 windows. OFFSET walks about 2 M rows to read
+  one 45k window of 90 pages. mapsee_prune_cancelled.collect now reads each
+  window with mapsee_dedupe_events._list_range's cursor
+  (starts_at.gte.S,or(starts_at.gt.S,id.gt.I), order starts_at,id, no offset=,
+  no count=). The cursor is quoted with microseconds: a bare '+' arrives as a
+  space, and a cursor truncated to seconds re-read the .25 s rows in the test.
+  A cursor that does not advance is a skipped window, not a loop. Expect near
+  runs to read their WHOLE window now (more rows than 46.5k, number
+  unmeasured) with no INCOMPLETE line, and the same probes: the 4,000-soonest
+  cap already ended 'through' the next day. `python test_prune_cancelled.py`.
+
+- **A NEAR RUN NOW HIDES A DEAD LISTING'S FAR ROWS FROM A SUNDAY URL INDEX,
+  READ BACK FIRST (2026-10-27).** With six --days 2 mornings, a listing found
+  off on a weekday hid only its next 48 h. At least 143 of the 10-20..10-26
+  week's 360 hides were such later rows. The full sweep (Sunday 07:55, or a
+  blank-days dispatch) now writes prune_url_index.json right after its
+  collect. Each entry maps a listing key (scheme/host lower-cased, fragment
+  dropped, path and query exact) to the ids of its rows beyond 48 h. Only
+  listings with at least 2 rows whose soonest row starts within 10 days get an
+  entry. A near run whose OWN probe finds a listing off (same evidence rules)
+  reads those ids back under the collect's filters plus claimed_by=is.null,
+  claimed_at=is.null and starts_at>=now, keeps the rows whose Tickets / info
+  still carries that link, and hides them through the same batched, filtered
+  PATCH as its near rows. Missing, unreadable, another version or older than 8
+  days: ignored, with one log line saying so. A listing with more than 200 far
+  rows is left out. On the four 10-26 feed-group stores (187,009 rows, 131,328
+  links) all 45 such listings were calendar, directory or home pages
+  (mdpls.libnet.info/events 4,829; grownyc.org/greenmarket 1,026), holding
+  45,815 of 52,928 far ids. What remained was 7,113 ids across 631 listings,
+  315 KB (165 KB gzip), built in 1.35 s. Production, scaled by rows (the
+  stores are 27.7% of the 681,407 scanned on 10-26): about 26k ids, about 1.2
+  MB, at most about 4.7 MB. Re-measure from 'URL INDEX: wrote' and 'far rows
+  hidden from the URL index: N'.
+
+- **ONE 404 ON A CALENDAR'S OWN PAGE HIDES EVERY ROW THAT LINKS IT, AND THE
+  SUNDAY SWEEP STILL DOES IT FOR 120 DAYS (measured 2026-10-27, not
+  changed).** Rows from a feed whose events have no page of their own carry
+  the calendar's URL as Tickets / info. On the 10-26 stores
+  mdpls.libnet.info/events was the link of 4,971 rows,
+  events.thelibrarydistrict.org/events of 3,788, grownyc.org/greenmarket of
+  1,066, and loisirs.montreal.ca/ of 774. refusing_hosts counts listings, not
+  rows, so it never sees that. A 404 there (a site move) makes the full sweep
+  hide every collected row of it with hidden_at only. The sync never lifts
+  that, and it is also the tombstone that stops re-import. The URL index caps
+  such listings at 200 far rows so weekday runs cannot do it, but the Sunday
+  sweep's reach is unchanged. Tenby LC (10-20) and Pembroke LC (10-22) went
+  404 on one host two days apart; whether those 143+ hides were closures or a
+  site restructure was not checked.

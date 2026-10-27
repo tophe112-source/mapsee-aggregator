@@ -156,3 +156,18 @@
   Lines with no contact keep their names ("Repair Café Murten", "Jegliche
   Haftung"). 6 of 216 descriptions changed, and none still contains a number
   or an '@'. `python test_ingest_repaircafe_ch.py`.
+
+- **MOBILIZON'S searchEvents(beginsOn: now) ANSWERS EVENTS THAT BEGAN YEARS
+  AGO WITH NO END, AND THE TABLE INSERTED AND DELETED THEM EVERY DAY
+  (2026-10-27).** The 10-26 civic store held 240 Mobilizon rows that began
+  more than a day before the run and had no endsOn (238 on 10-21, the same
+  set). Median age was 796 days, the oldest 6,835. Casino, betting and IPTV
+  ads were among them. The sync has no past filter and gives a row with no end
+  its start plus a typical length. mapsee_cleanup then deletes it once it is a
+  week past, and the next --only-new civic sync inserts it again: about 240
+  inserts and 240 cascading deletes a day. The adapter now counts and skips an
+  event that began more than STALE_AFTER (1 day) ago with no endsOn, or with
+  an endsOn already past. An event whose end is still ahead is kept, however
+  old. It also has the ics adapter's 365-day cap (HORIZON_DAYS, or a site's
+  within_days): 522 of 4,938 rows on 10-26, 441 of them one weekly 'Offener
+  Techniktreff' running to 2038. test_ingest_mobilizon.py.

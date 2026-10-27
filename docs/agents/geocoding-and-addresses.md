@@ -365,3 +365,20 @@
   rows go back to unplaced until the tribe StreetPlacer's town check (within
   10 km of the postcode-and-town point, never ON the town's node) is shared
   with jsonld. Tartu is not added.
+
+- **AN OSM MARKET IN TWO BBOXES TOOK THE CITY OF WHICHEVER ANSWERED FIRST, SO
+  EVERY SWEEP DAY REWROTE ITS LOCALITY (2026-10-27).** 49 pairs of the 259
+  market bboxes overlap, and 26 of those pairs straddle the Mon/Fri shards
+  (Denver/Boulder, Amsterdam/Rotterdam, Osaka/Kyoto, Brussels/Antwerp...). A
+  market in one of those overlaps was written with one city on Monday and the
+  other on Friday. A metro that lost its Overpass slot also handed its markets
+  to whichever neighbour answered. The sync's skip-unchanged blame said
+  'locality 749' of 801 differing stored rows on Monday 10-26 (rows stored by
+  Friday's sweep), against 95 on Friday 10-23. The 10-23 rows were compared
+  with the previous Friday's because Monday 10-19's sync wrote nothing
+  (ReadTimeout before the ownership check). home_city() now reads every
+  configured bbox. Among those containing the point, the nearest centre names
+  the city; a tie goes to the lexically first city; a point outside all of
+  them takes the nearest edge; addr:city still wins. Expect one settling write
+  per market in an overlap, then up to ~750 fewer locality UPDATEs per sweep
+  day.

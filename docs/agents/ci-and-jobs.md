@@ -567,3 +567,67 @@
     `only` input are now exact and case-insensitive, and a name matching
     nothing is refused. `test_ingest_osm_amenities.py` (e) and
     `test_workflow_contracts.py` pin this.
+
+- **A CACHE PAIR WHOSE FILE ONLY ONE KIND OF RUN WRITES: KEY IT BY THE FILE'S
+  HASH, SAVE ONLY WHEN IT IS NOT THE COPY RESTORED (2026-10-27).**
+  prune-cancelled.yml restores prune_url_index.json on every run (key
+  prune-url-index-run_id, restore-keys prefix), but only the full sweep writes
+  it. Following the repo's run_id idiom, the 12 near runs a week would
+  re-upload Sunday's file under fresh keys. Saving a near run's own file would
+  be worse: restore takes the NEWEST entry under the prefix, and that file
+  would shadow Sunday's. The save key is therefore
+  prune-url-index-${hashFiles(file)}, with `if: always() && hashFiles(file) !=
+  '' && steps.url-index.outputs.cache-matched-key !=
+  format('prune-url-index-{0}', hashFiles(file))`. Only a run that changed the
+  file saves, and always() still saves a file written before a probe phase
+  that ran into the timeout. test_workflow_contracts pins the pair, the
+  prefix's uniqueness and which branch writes.
+
+- **THE STATE CACHE IS ITS OWN ACTIONS/CACHE PAIR PER JOB, AFTER THE OTHERS,
+  AND A FEED GROUP'S CHECKPOINT SHARES IT WITH ITS FINAL SYNC (2026-10-27).**
+  The pairs are sync-state-ticketmaster-, sync-state-feeds-<group>-,
+  sync-state-races- and sync-state-extra-, keyed <run_id>-<attempt>, restored
+  by prefix and saved if: always(). Each store has one file, and the flag goes
+  after `$ONLY_NEW $ABSENT`. Adding a path to an existing pair would change
+  its version and restore none of it. A run over part of a store carries the
+  rest of the file forward rather than pruning to its store: civic's
+  checkpoint held 3,016 of 165,899 ids on 10-26, so pruning would have made
+  the final sync read about 163k. Meetup and OpenActive have no state cache,
+  because every record carries source_details and every stored row is
+  must-read: on 10-26 they kept 23,665 of 23,684, 25,492 of 25,720 and 76,772
+  of 77,729. The Meetup contract test also pins exactly 4 cache steps in that
+  job. extra_sources' file is written by Thursday's refresh and read on
+  Monday, 4 days later (10-26: 37,837 ids read, 4,745 kept).
+
+- **CHAIN REPEATING LISTINGS LINKED NOTHING FOR AT LEAST 8 DAYS WHILE GREEN,
+  AND NOW WAITS FOR vars.LINK_SERIES (2026-10-27).** Its one listing,
+  fetch_events, pages every upcoming imported row (~680k) by OFFSET in id
+  order, with no hidden, standing or pin filter. Page 1 died at the statement
+  timeout (57014) 38-51 s into the step on 10-19, 10-20 and 10-22..10-26 (jobs
+  118198402919, 118784501925, 119992354857, 120556942723, 120929673998,
+  121228334481, 121758215988). On 10-21 it died at the 120 s ReadTimeout
+  (119388758351). continue-on-error kept every run green. The step's `if` now
+  starts with `vars.LINK_SERIES == 'true' &&`, for a schedule and a dispatch
+  alike, and it stays continue-on-error. Do not set the variable until
+  fetch_events is rewritten: a keyset walk on (starts_at, id), a 60-day
+  horizon, and hidden_at=is.null&recurring_hours=is.null&pin_only=not.is.true,
+  which ../mapsee 0241's events_cleanup_dated_idx can serve. Its docstring
+  spells this out. test_workflow_contracts evaluates the step's `if` for every
+  cron, for a dispatch and for every variable value.
+
+- **THE MON/THU RUN RE-SENT EVERY LANDING PAGE 49-74 MINUTES AFTER THE DAILY
+  RUN, AND NOW SENDS ONLY ITS EVENTS (2026-10-27).** All 11 cached IndexNow
+  runs from 10-19..10-26 sent 3,739 /c/ URLs: 1,354 for mapsee.me plus 9 doors
+  x 265. landing_urls() returns each host's whole sitemap-pages.xml, so the
+  old log line 'whose listings changed this run' was never true. It now says
+  'listed in its sitemap-pages.xml'. On 10-19, 10-22 and 10-26 the Mon/Thu
+  run's indexnow job started 49, 74 and 52 min after the daily run's and sent
+  the same set again. The Submit step now adds --no-pages only when
+  github.event.schedule is '40 6 * * 1,4'. jobs.indexnow.if is still always()
+  and its needs are unchanged, so the extra run still announces its own /e/
+  rows. On a Mon/Thu when GitHub drops the daily run (seen 2026-10-05), the
+  landing pages wait a day. This is hygiene, not measured capacity: nothing
+  shows an engine fetching the pinged pages. The saving is 0 to ~1.2k SSR RPCs
+  a day per engine that does. test_workflow_contracts reads the cron from
+  on.schedule (the one extra_sources runs on) and renders the Submit command
+  for each cron and for a dispatch.

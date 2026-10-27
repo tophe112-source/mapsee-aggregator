@@ -56,6 +56,8 @@ python test_ingest_glenecho.py      # the written time line over the <time> fiel
 python test_ingest_natuurwerkdag.py # the finder decides, a title naming another day or a job closed to the public refused, no organiser's contact copied
 python test_ingest_galaxydigital.py # absence judged only on a finished read, no person's contact copied, every pin measured
 python test_meetup_category_cache.py # a Meetup row keeps its first category guess (report only until MEETUP_STICKY_CATEGORIES is true); never touches tombstones
+python test_prune_cancelled.py     # keyset collect loses no row at a page boundary; a near run hides a dead listing's far rows only from a fresh Sunday URL index
+python test_sync_state_cache.py     # every row written had its state read this run; the cache holds only values a read returned
 python test_ingest_kct.py          # each club pin checked against the town its page names, no season as an event, no 'hvězdicově' as a place
 python test_ingest_repaircafe_ch.py # the town guards the pin, a page read once per lastmod, a re-dated post moves or calls off its old row
 python test_ingest_seatgeek.py     # a TBD game dropped, never date-only, and a postponed one still tombstoned
@@ -82,7 +84,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 94 test scripts are the CI gate (`tests.yml`). They print one line per
+The 98 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
