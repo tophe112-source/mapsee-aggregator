@@ -488,6 +488,39 @@ def main():
     checks.append(("OpenStreetMap contributors (ODbL)" in _stored({"amenity": "give_box"}),
                    "...while the ODbL line the client strips is still there"))
 
+    # ------------------------------- A PIN STORES ITS ZONE, NOT SEVEN DAYS
+    #
+    # Every pin this adapter makes carries ALWAYS by construction, and nothing
+    # reads a pin's days (../mapsee 0239's roller skips pin_only). The sync
+    # writes {"tz"} alone for those: 330 B a row of heap on PG16, ~80k new pins
+    # a Sunday. Through the REAL to_event -> as_record -> to_row path, because
+    # the adapter decides pin_only and the sync decides the shape.
+    import mapsee_ingest_facility_hours as _F
+    from mapsee_supabase_sync import _ALWAYS_DAYS
+    def _written(tags):
+        row = ev(tags)
+        rec = _json.loads(_json.dumps(row.as_record("2026-08-26T00:00:00Z")))
+        rec["fingerprint"], rec["source"] = row.fingerprint, row.source
+        out = _to_row(rec, "00000000-0000-0000-0000-000000000001")
+        return out["pin_only"], out["recurring_hours"]
+    checks.append((_ALWAYS_DAYS == A.ALWAYS == _F.ALWAYS,
+                   "the sync's all-week constant is the amenity and facility-hours adapters' ALWAYS"))
+    LA = {"tz": "America/Los_Angeles"}
+    for tags, what in [({"amenity": "drinking_water"}, "a bare drinking fountain"),
+                       ({"leisure": "playground", "opening_hours": "24/7"}, "a 24/7 playground"),
+                       ({"leisure": "playground", "opening_hours": "Mo-Su 00:00-24:00"},
+                        "a playground open Mo-Su 00:00-24:00"),
+                       ({"leisure": "playground", "name": "Cal Anderson Playground",
+                         "wheelchair": "yes"}, "a playground with something to say")]:
+        got = _written(tags)
+        checks.append((got == (True, LA), f"{what} is a pin stored with its zone alone ({got})"))
+    for tags, what in [({"social_facility": "food_bank"}, "a bare food bank (always a listing)"),
+                       ({"leisure": "playground", "opening_hours": "Mo-Su 08:00-20:00"},
+                        "a playground that shuts")]:
+        got = _written(tags)
+        checks.append((got[0] is False and isinstance(got[1], dict) and got[1].get("days"),
+                       f"{what} is a listing and keeps its days for the roller ({got})"))
+
     # ------------------------------------------------------------ attribution
     checks.append(("OpenStreetMap contributors (ODbL)" in bare.description,
                    "ODbL attribution is on furniture too — retire_perday keys on that line"))

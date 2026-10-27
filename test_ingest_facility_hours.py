@@ -329,6 +329,25 @@ check("run seattle: the log counts cancellations, and the read is complete",
       and stats.get("complete read") == 1, dict(stats))
 check("run seattle: no own row is ever pin_only scenery",
       not [r for r in rows if r.pin_only], [r.name for r in rows if r.pin_only])
+
+
+# WHAT THE SYNC STORES FOR ALWAYS. A pin_only row with the all-week window keeps
+# its zone alone (nothing reads a pin's days; 330 B a row); a LISTING with the
+# same window keeps the days, because ../mapsee's roller carries it by them.
+def _stored_hours(ev):
+    from mapsee_supabase_sync import to_row
+    rec = json.loads(json.dumps(ev.as_record("2026-10-27T00:00:00Z")))
+    rec["fingerprint"], rec["source"] = ev.fingerprint, ev.source
+    out = to_row(rec, "00000000-0000-0000-0000-000000000001")
+    return out["pin_only"], out["recurring_hours"]
+
+
+alki_ev = dead[alki_fp][0]
+check("sync: a refused own centre (pin_only, ALWAYS) is stored with its zone alone",
+      alki_ev.pin_only is True and alki_ev.recurring_days == F.ALWAYS
+      and _stored_hours(alki_ev) == (True, {"tz": "America/Los_Angeles"}), _stored_hours(alki_ev))
+check("sync: a taken-over listing with the same ALWAYS window keeps its days",
+      _stored_hours(ng) == (False, {"tz": "America/Los_Angeles", "days": F.ALWAYS}), _stored_hours(ng))
 check("run seattle: a taken-over listing keeps the marker lines the civic card renders",
       "\n☎ Phone: (206) 684-7529\n" in lau.description and lau.description.endswith(F.OSM_LISTING_LINE)
       and "community centre in Seattle:" in lau.description.split("\n")[0], lau.description)

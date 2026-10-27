@@ -2233,13 +2233,51 @@ def should_compare_unchanged(only_new, rows, state):
     return not only_new or any(r["external_id"] in (state or {}) for r in rows)
 
 
+# A WEEK OF "ALWAYS", the window every furniture pin is written with. It must
+# equal mapsee_ingest_osm_amenities.ALWAYS and mapsee_ingest_facility_hours.ALWAYS
+# (test_ingest_osm_amenities.py asserts all three): defined here, not imported,
+# so the sync loads no adapter.
+_ALWAYS_DAYS = {str(d): [["00:00", "23:59"]] for d in range(7)}
+
+
+def _always_week(days) -> bool:
+    """True only for exactly seven 00:00-23:59 days; any other shape is False."""
+    try:
+        return {str(k): [list(p) for p in v] for k, v in days.items()} == _ALWAYS_DAYS
+    except Exception:
+        return False
+
+
 def _recurring_hours(rec, lat, lon):
-    """{"tz": …, "days": {"0": ["11:00","22:00"], …}} or None."""
+    """{"tz": …, "days": {"0": ["11:00","22:00"], …}}, {"tz": …} for a pin that
+    is always open, or None.
+
+    A PIN'S ALL-WEEK DAYS ARE 330 BYTES NOTHING READS, ON EVERY PIN. Every row
+    osm_amenities marks pin_only carries ALWAYS by construction (`shuts = days
+    != ALWAYS`, `pin_only = not (shuts or kind.always_list)`), and nothing reads
+    a pin's days: ../mapsee 0239's roller skips `e.pin_only`, `amenities_near`
+    returns no recurring_hours, and every other reader (0222, 0227-0229, 0233,
+    0239's refresh_stats, mapsee_cleanup's delete guard, mapsee_dedupe_events'
+    LIVE filter) tests only presence. Measured on PG16 over 100,000 rows:
+    681.57 B/row of heap with the pattern, 351.27 with {"tz"} alone — 330 B a
+    row, on the ~78-84k new pins a Sunday writes (osm-amenities, 10-18 and
+    10-25). So a pin that is always open stores the zone alone.
+
+    IT MUST STAY TRUTHY. skip_cols looks away from starts_at/ends_at only when
+    BOTH sides carry recurring_hours; a pin is no longer rolled, so with {} or
+    None here every visited pin's stale window would differ every week and be
+    rewritten. A LISTING keeps its days whatever they are (an always-open food
+    bank too): the roller reads them. Stored pins that still carry the days are
+    not rewritten to compact them — unchanged_ids treats the two as equal (see
+    _norm_rh) — so they compact the next time they are written for any reason."""
     days = rec.get("recurring_days")
     if not days:
         return None
     tz = _tz_for(lat, lon)
-    return {"tz": getattr(tz, "key", None) or "UTC",
+    zone = getattr(tz, "key", None) or "UTC"
+    if rec.get("pin_only") is True and _always_week(days):
+        return {"tz": zone}
+    return {"tz": zone,
             "days": {str(k): list(v) for k, v in days.items()}}
 
 
@@ -4144,11 +4182,60 @@ def _norm_cmp(col: str, v: Any) -> Any:
                         return _Unknown()
             normalized.append(copy)
         return sorted(normalized, key=lambda item: (item.get("at", ""), item.get("id", "")))
-    if isinstance(v, (int, float)):
+    if isinstance(v, float):
+        # READ BACK AT 15 SIGNIFICANT DIGITS: PostgREST answers float8 as '%.15g'
+        # (47.70713352786287 -> 47.7071335278629), so a 17-digit source
+        # coordinate never equalled what is stored and was rewritten on every
+        # compare. Measured on the stores against the logs' blame, exactly:
+        # facility hours 21 lat / 21 lon of 434 every day (16 digits would give
+        # 20); ics 2026-10-21 352 lon / 2 lat, re-blamed seconds after the
+        # checkpoint had written them; civic 10-21 35,166 lon / 14,034 lat of
+        # its 43,685 / 23,099 (bibliocommons' API centrePoints). Lossless: a
+        # move below ~5e-13 degrees (1e-8 m) is all this can miss; 1e-7 (1 cm)
+        # is still written. NaN stays unequal to itself, so it is written.
+        return float(f"{v:.15g}")
+    if isinstance(v, int):
+        # NOT through %.15g: an int is exact to 2^53 as a float, and a future
+        # bigint column must not be compared at 15 digits. Only lat/lon are
+        # numbers in to_row today; a stored 47 still equals our 47.0.
         return float(v)                      # 47.6 and 47.60000 arrive both ways
     if isinstance(v, (list, dict, str)):
         return v                             # jsonb/text[]/text compare structurally
     return _Unknown()
+
+
+def _compact_always(rh):
+    """{"tz": X} for exactly {"tz": X, "days": a week of always}; else rh as is."""
+    if (isinstance(rh, dict) and set(rh) == {"tz", "days"}
+            and _always_week(rh["days"])):
+        return {"tz": rh["tz"]}
+    return rh
+
+
+def _norm_rh(want: Dict[str, Any], row: Dict[str, Any]):
+    """(want, row), with a PIN's all-week days folded to the zone on both sides.
+
+    A STORED PIN IS NOT REWRITTEN ONLY TO COMPACT IT. _recurring_hours writes an
+    always-open pin as {"tz"} alone, and ~544k pins are stored, most with the
+    full week. Without this every one of those differs the next time
+    osm_amenities visits it: a non-HOT UPDATE each (0156's and 0235's
+    partial-index predicates name recurring_hours: 0 of 10,000 HOT, measured on
+    PG16) in a Sunday window already close to the daily run that fails with
+    57014. They compact the next
+    time something else about them changes; every new pin is inserted compact.
+    ONLY WHEN BOTH SIDES ARE PINS, so it fails toward writing: a listing stored
+    without its days (only a bug could do that) is never taken for equal, a row
+    changing shape is still written, and a tz or any other days still differ.
+    Diagnostics and the column loop are untouched — this only swaps two values."""
+    if want.get("pin_only") is not True or row.get("pin_only") is not True:
+        return want, row
+    if "recurring_hours" not in want or "recurring_hours" not in row:
+        return want, row                     # a column the server omits stays changed
+    a, b = want["recurring_hours"], row["recurring_hours"]
+    ca, cb = _compact_always(a), _compact_always(b)
+    if ca is a and cb is b:
+        return want, row
+    return dict(want, recurring_hours=ca), dict(row, recurring_hours=cb)
 
 
 def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
@@ -4170,6 +4257,7 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
     # can be named rather than merely obeyed. See the warning below.
     blamed: Dict[str, int] = {}
     compared = 0
+    past15 = 0                               # skipped, but unequal as plain floats
     same = set()
     ids = list(mine)
     i = 0
@@ -4199,10 +4287,19 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
             if not want:
                 continue
             compared += 1
-            diff = [c for c in want if c not in skip_cols(want, row)
-                    and (c not in row or _norm_cmp(c, want[c]) != _norm_cmp(c, row[c]))]
+            ours, theirs = _norm_rh(want, row)
+            diff = [c for c in ours if c not in skip_cols(ours, theirs)
+                    and (c not in theirs or _norm_cmp(c, ours[c]) != _norm_cmp(c, theirs[c]))]
             if not diff:
                 same.add(eid)
+                # WHAT THE 15-DIGIT READ-BACK SAVED, counted rather than inferred:
+                # OpenActive's daily ~11.6-12.2k lat/lon blame fits this bug and
+                # also a standing row's representative occurrence shifting, and
+                # no artifact can tell them apart. CPU only, no extra request.
+                if any(isinstance(ours[c], (int, float)) and not isinstance(ours[c], bool)
+                       and isinstance(theirs.get(c), (int, float)) and not isinstance(theirs[c], bool)
+                       and float(ours[c]) != float(theirs[c]) for c in ours):
+                    past15 += 1
             for c in diff:
                 blamed[c] = blamed.get(c, 0) + 1
     # A COLUMN DERIVED FROM THE CLOCK RATHER THAN FROM THE SOURCE UNDOES ALL OF
@@ -4225,6 +4322,9 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
         top = sorted(blamed.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
         print(f"Skip-unchanged: {compared - len(same)} of {compared} stored rows differ; "
               f"most-blamed columns: " + ", ".join(f"{c} {n}" for c, n in top), flush=True)
+    if past15:
+        print(f"Skip-unchanged: {past15} row(s) differed only past the 15th significant digit "
+              f"(float8 read-back) and were not rewritten.", flush=True)
     if compared >= 50:
         for col, n in sorted(blamed.items(), key=lambda kv: -kv[1]):
             if n >= compared * 0.99 and col not in _TS_COLS:
