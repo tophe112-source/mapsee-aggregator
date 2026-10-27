@@ -17,7 +17,15 @@ work that is idempotent, scheduled daily and would have succeeded seconds later.
 
 Both statuses are >= 500, so telling them apart is the whole job of _req, and
 getting it backwards is silent in either direction: retry the timeout and the
-run stalls; do not retry the 503 and a provider blip is a red build. Run:
+run stalls; do not retry the 503 and a provider blip is a red build.
+
+THEN WHAT THE JOB MAY TOUCH. No standing row goes by age, hidden or not: a live
+one is the roller's to bring back, and a hidden one is a tombstone whose delete
+lets the next sync re-insert it visible. The same `recurring_hours=is.null` is
+what keeps the candidate fetch off the 465,926 pins 0239 froze, which stopped
+the 2026-10-26 run at 20,410 deletions with "Even 10 ids time out on fetch".
+The last case runs the job against a small table and lets the URL's own filter
+decide what goes. Run:
 
     python test_cleanup.py
 """
@@ -124,6 +132,12 @@ def run_main(dry_run=False, fetch_timeouts=0, count_failure=False):
             return Resp(500, TIMEOUT_BODY)
         return pages.pop(0)
 
+    return drive_main(request, calls, dry_run)
+
+
+def drive_main(request, calls, dry_run=False):
+    """Run main with `request` standing in for _req; returns the `calls` that
+    request recorded, main's stdout, and its result (or the exception)."""
     real_req, real_time = C._req, C.time
     real_env = dict(C.os.environ)
     real_argv = sys.argv
@@ -153,15 +167,24 @@ check("apply starts with bounded candidate fetches, without a count request",
       and all("Range-Unit" not in call[2].get("headers", {}) for call in calls), calls)
 candidate_url = get_calls[0][1]
 delete_url = next(call[1] for call in calls if call[0] == "DELETE")
-check("candidate pages use a bounded limit without ordering work",
-      "&limit=100" in candidate_url and "order=" not in candidate_url, candidate_url)
+# ORDERED BY starts_at ALONE, BEFORE THE LIMIT. Without an ORDER a LIMIT may be
+# answered by a sequential scan (a local model of the table did: ~193k buffers);
+# an id tiebreak brings back the Incremental Sort the 2026-10-10 live EXPLAIN
+# measured. And `&limit=` stays last, because the halving case below reads the
+# batch size off the end of the URL.
+check("candidate pages are ordered by starts_at alone, before a bounded limit",
+      "&order=starts_at.asc&limit=100" in candidate_url and candidate_url.count("order=") == 1
+      and "id.asc" not in candidate_url, candidate_url)
 check("delete rechecks source, start cutoff and end-time eligibility",
       all(part in delete_url for part in (
           "external_source=eq.mapsee", "starts_at=lt.",
           "ends_at.is.null", "ends_at.lt.", "id=in.(event-a,event-b)")), delete_url)
-check("candidate reads and deletes spare a live standing row (the roller's to bring back)",
-      all("and=(or(recurring_hours.is.null,hidden_at.not.is.null))" in u
-          for u in (candidate_url, delete_url)), (candidate_url, delete_url))
+check("candidate reads and deletes spare EVERY standing row (a plain recurring_hours=is.null)",
+      all("&recurring_hours=is.null" in u for u in (candidate_url, delete_url)),
+      (candidate_url, delete_url))
+check("...with no hidden_at arm: a hidden standing row is a tombstone, not a candidate",
+      all("hidden_at" not in u for u in (candidate_url, delete_url)),
+      (candidate_url, delete_url))
 check("apply reports actual deletes without an eligible-count claim",
       "Deleted 2 past aggregator events." in output and "eligible" not in output, output)
 
@@ -182,14 +205,136 @@ check("fetch timeouts halve the limit to the minimum and remain a visible failur
       isinstance(result, SystemExit) and limits == ["100", "50", "25", "12", "10"]
       and "exists and is valid" in str(result) and "apply migration" not in str(result),
       (limits, result))
+check("...and the message names the index this read needs (0241) and the one it falls back to (0113)",
+      "events_cleanup_dated_idx" in str(result) and "0241" in str(result)
+      and "events_aggregator_cleanup_idx" in str(result), result)
+
+
+# --------------------------------------------------------------------------- #
+# THE FILTER, EVALUATED. The checks above read the URL's text; this one runs the
+# job against a small table and lets the URL's own filter decide what goes, so
+# a clause that reads right and selects wrong is caught too. Supports exactly
+# the PostgREST syntax the job sends and refuses anything else, so a filter
+# this cannot read fails here instead of passing by default.
+def _split_top(s):
+    """Split on commas that are not inside parentheses."""
+    out, depth, cur = [], 0, ""
+    for ch in s:
+        if ch == "," and depth == 0:
+            out.append(cur)
+            cur = ""
+            continue
+        depth += (ch == "(") - (ch == ")")
+        cur += ch
+    out.append(cur)
+    return out
+
+
+def _cond(row, col, op):
+    """One PostgREST condition `col` + `op` (`is.null`, `lt.X`, `in.(a,b)` ...)."""
+    if op.startswith("not."):
+        return not _cond(row, col, op[4:])
+    v = row.get(col)
+    if op == "is.null":
+        return v is None
+    if op.startswith("eq."):
+        return v == op[3:]
+    if op.startswith("lt."):
+        return v is not None and v < op[3:]
+    if op.startswith("in.(") and op.endswith(")"):
+        return v in op[4:-1].split(",")
+    raise AssertionError(f"the table fake cannot read {col}={op}")
+
+
+def _logic(row, kind, body):
+    """`or(a,b)` / `and(a,b)` bodies, nested ones included."""
+    assert body.startswith("(") and body.endswith(")"), body
+    parts = []
+    for p in _split_top(body[1:-1]):
+        if p.startswith(("or(", "and(")):
+            k, rest = p.split("(", 1)
+            parts.append(_logic(row, k, "(" + rest))
+        else:
+            col, op = p.split(".", 1)
+            parts.append(_cond(row, col, op))
+    return any(parts) if kind == "or" else all(parts)
+
+
+def _matches(row, query):
+    for param in query.split("&"):
+        key, val = param.split("=", 1)
+        if key in ("select", "order", "limit"):
+            continue
+        if key in ("or", "and"):
+            if not _logic(row, key, val):
+                return False
+        elif not _cond(row, key, val):
+            return False
+    return True
+
+
+def run_table(rows):
+    """Run main against `rows`, honouring each request's own filter, order and limit."""
+    table = [dict(r) for r in rows]
+    calls = []
+
+    def request(method, url, **kw):
+        calls.append((method, url, kw))
+        query = url.split("?", 1)[1]
+        hit = [r for r in table if _matches(r, query)]
+        if method == "DELETE":
+            for r in hit:
+                table.remove(r)
+            return Resp(204, headers={"Content-Range": f"*/{len(hit)}"})
+        if "order=starts_at.asc" in query:
+            hit.sort(key=lambda r: r["starts_at"])
+        limit = int(query.split("&limit=")[-1]) if "&limit=" in query else len(hit)
+        return Resp(200, headers={}, body=[{"id": r["id"]} for r in hit[:limit]])
+
+    calls, output, result = drive_main(request, calls)
+    return {r["id"] for r in table}, calls, output, result
+
+
+PAST, PAST_END, FUTURE = "2020-01-01T10:00:00Z", "2020-01-01T12:00:00Z", "2999-01-01T00:00:00Z"
+HOURS = {"mon": [["09:00", "17:00"]]}
+HIDDEN = "2026-10-01T00:00:00Z"
+rows = [
+    # ids say what each row is; recurring_hours set = a standing row
+    dict(id="past-dated", external_source="mapsee", starts_at=PAST, ends_at=PAST_END,
+         recurring_hours=None, hidden_at=None),
+    dict(id="past-dated-hidden", external_source="mapsee", starts_at=PAST, ends_at=PAST_END,
+         recurring_hours=None, hidden_at=HIDDEN),
+    dict(id="standing-live-stale", external_source="mapsee", starts_at=PAST, ends_at=PAST_END,
+         recurring_hours=HOURS, hidden_at=None),
+    dict(id="standing-hidden-stale", external_source="mapsee", starts_at=PAST, ends_at=PAST_END,
+         recurring_hours=HOURS, hidden_at=HIDDEN),
+    dict(id="still-running", external_source="mapsee", starts_at=PAST, ends_at=FUTURE,
+         recurring_hours=None, hidden_at=None),
+    dict(id="community-past", external_source=None, starts_at=PAST, ends_at=PAST_END,
+         recurring_hours=None, hidden_at=None),
+]
+left, calls, output, result = run_table(rows)
+deletes = [call[1] for call in calls if call[0] == "DELETE"]
+check("a hidden standing row (recurring_hours AND hidden_at set) is never in a delete's scope",
+      "standing-hidden-stale" in left
+      and all("standing-hidden-stale" not in u for u in deletes), (left, deletes))
+check("...nor is a live standing row the roller has not reached yet",
+      "standing-live-stale" in left, left)
+check("...while a past dated row goes, hidden or not (the retire scripts' promise)",
+      result == 0 and "past-dated" not in left and "past-dated-hidden" not in left
+      and "Nothing left to delete." in output, (left, result, output))
+check("...and a running event and a community event are untouched",
+      {"still-running", "community-past"} <= left, left)
 
 # The safety rail this file must never lose: the delete is scoped, always.
 import inspect
 src = inspect.getsource(C.main)
 check("the delete is still refused unless it is scoped to imported, past events",
       'assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt' in src)
-check("the delete is still refused if it could reach a live standing row",
-      'assert "recurring_hours.is.null" in flt' in src)
+check("the delete is still refused if it could reach a standing row",
+      'assert "&recurring_hours=is.null" in flt' in src)
+check("the delete is still refused if a hidden_at arm comes back (a hidden standing row is a tombstone)",
+      'assert "hidden_at" not in flt' in src)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
