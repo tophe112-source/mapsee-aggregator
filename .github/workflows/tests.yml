@@ -584,6 +584,13 @@ jobs:
       - name: A cancelled event must not arrive, and must leave once called off
         run: python test_cancelled_events.py
 
+      # ...and how the sweep READS: a keyset cursor, never OFFSET (every run
+      # 2026-10-20..10-26 lost its first window to HTTP 500 at OFFSET
+      # 37.5k-49.5k), and the far-row URL index the Sunday sweep leaves for the
+      # near runs, which may only ADD a hide the near run's own probe proved.
+      - name: The prune sweep pages by keyset, and the URL index only adds proven hides
+        run: python test_prune_cancelled.py
+
       # ...and the row we ALREADY wrote comes off too (owner, 2026-10-05: "we
       # don't want users to go to an event or center that is closed"). A
       # tombstone in the store cancels + hides its row; a community-centre

@@ -804,6 +804,59 @@ class WorkflowContracts(unittest.TestCase):
         # (121635448161): no collect time could be read from it.
         self.assertEqual(str((step.get('env') or {}).get('PYTHONUNBUFFERED')), '1')
 
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_prune_cancelled_full_sweep_writes_the_url_index_and_every_other_run_reads_it(self):
+        # A listing found off hides every collected row sharing its URL; with
+        # six --days 2 mornings that reach (at least 143 of 360 hides in
+        # 2026-10-20..10-26) came only from Sunday. The full sweep leaves
+        # {listing: far ids} in its own cache pair, and the near runs read it.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/prune-cancelled.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['prune']['steps']
+        hide = next(i for i, s in enumerate(steps) if 'mapsee_prune_cancelled.py' in (s.get('run') or ''))
+        restore = [i for i, s in enumerate(steps) if s.get('uses') == 'actions/cache/restore@v4']
+        save = [i for i, s in enumerate(steps) if s.get('uses') == 'actions/cache/save@v4']
+        self.assertEqual((len(restore), len(save)), (1, 1))
+        r, w = steps[restore[0]], steps[save[0]]
+        self.assertLess(restore[0], hide)
+        self.assertGreater(save[0], hide)
+        path = 'prune_url_index.json'
+        self.assertEqual((r['with']['path'], w['with']['path']), (path, path))
+        # restore takes the NEWEST entry under the prefix; the primary key never
+        # matches, so nothing older than the newest is ever chosen
+        self.assertEqual(r['with']['key'], 'prune-url-index-${{ github.run_id }}-${{ github.run_attempt }}')
+        self.assertEqual(r['with']['restore-keys'].split(), ['prune-url-index-'])
+        # saved even when the probing was cut short, keyed by the file itself,
+        # and only when it is not the copy that was restored
+        self.assertEqual(w['with']['key'], "prune-url-index-${{ hashFiles('prune_url_index.json') }}")
+        self.assertIn('always()', w['if'])
+        self.assertIn("hashFiles('prune_url_index.json') != ''", w['if'])
+        self.assertIn(f"steps.{r['id']}.outputs.cache-matched-key != "
+                      "format('prune-url-index-{0}', hashFiles('prune_url_index.json'))", w['if'])
+        # a prefix of its own: no other cache step in any workflow writes under it
+        ours = {r['name'], w['name']}
+        for wf in (ROOT / '.github/workflows').glob('*.yml'):
+            for job in (yaml.safe_load(wf.read_text(encoding='utf-8'))['jobs'] or {}).values():
+                for st in job.get('steps') or []:
+                    if wf.name == 'prune-cancelled.yml' and st.get('name') in ours:
+                        continue
+                    if str(st.get('uses', '')).startswith('actions/cache'):
+                        keys = [str((st.get('with') or {}).get('key', ''))]
+                        keys += str((st.get('with') or {}).get('restore-keys', '')).split()
+                        self.assertFalse(any(k.startswith('prune-url-index') for k in keys), wf.name)
+        self.assertIn(path, (ROOT / '.gitignore').read_text(encoding='utf-8').split())
+        # the runs that read the whole horizon write it; every other run reads
+        # it; no run does both
+        crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
+        cases = [({'github.event.schedule': c}, d) for c in crons for d in '1234567']
+        cases += [({}, '3'), ({'inputs.days': '5'}, '7')]
+        for context, dow in cases:
+            code, calls = self._prune_calls(context, dow)
+            self.assertEqual((code, len(calls)), (0, 1), (context, dow))
+            call = calls[0]
+            full = '--days' not in call
+            self.assertEqual(self._flag(call, '--write-url-index' if full else '--url-index'), path, (context, dow))
+            self.assertNotIn('--url-index' if full else '--write-url-index', call, (context, dow))
+
     @staticmethod
     def _curate_discovers(context, dow='1'):
         """Run curate-catalog's discover step with python and date stubbed:
