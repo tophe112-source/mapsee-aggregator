@@ -774,6 +774,27 @@ def _consecutive_weeks(rows: List[NormalizedEvent]) -> bool:
     return any((b - a).days == 7 for a, b in zip(days, days[1:]))
 
 
+# What a fold's rows say apart from WHEN and WHICH occurrence: its dates and its
+# own ids, which the fold replaces anyway.
+_DATED_FIELDS = frozenset({"start_local", "start_utc", "end_local", "end_utc",
+                           "source_id", "fingerprint"})
+
+
+def _face(ev: NormalizedEvent) -> Tuple[str, str, str, str, str]:
+    """A total order on what a folded row would put on the map, with no date in it.
+
+    A row WITH a link beats one without (U+FFFF sorts last), then the smallest
+    link, title, description and poster; the last element, every other field
+    as sorted JSON, breaks the ties those leave, so two runs that fold the same
+    series choose the same face whatever order the feed sent them in (Everyone
+    Active's occurrence feed is in MODIFICATION order). Two occurrences of one
+    series nearly always tie on all of it, and then the choice does not show.
+    Never the series' own @id as a link: that is the publisher's JSON API."""
+    rest = {k: v for k, v in vars(ev).items() if k not in _DATED_FIELDS}
+    return (ev.ticket_url or "\uffff", ev.name or "", ev.description or "",
+            ev.poster_image_url or "", json.dumps(rest, sort_keys=True, default=str))
+
+
 def collapse_weekly_series(events: List[NormalizedEvent], min_repeats: int
                            ) -> Tuple[List[NormalizedEvent], int, List[str]]:
     """A class that runs every Tuesday at 19:00 is ONE standing row, not seventeen.
@@ -830,7 +851,21 @@ def collapse_weekly_series(events: List[NormalizedEvent], min_repeats: int
             if s not in repeating:
                 loose.extend(r)
         folded = [e for r in repeating.values() for e in r]
-        rep = min(folded, key=lambda e: e.start_utc or "")
+        # THE ROW THAT SPEAKS FOR A FOLD IS CHOSEN BY WHAT IT SAYS, NOT BY THE
+        # CLOCK. It used to be the soonest occurrence, so where one standing row
+        # covers several series (Everyone Active's "PT Taster Session" at Site
+        # 0083 is one series per weekday, same title, same centre) its link,
+        # description and poster rotated with whichever weekday came next, and
+        # every rotation was an UPDATE. Now the smallest face (_face) speaks and
+        # only the WINDOW is the soonest occurrence's: the test still pins
+        # starts_at to the soonest, because the roller never pulls a window back.
+        # A COPY, so no row the fold read is given another occurrence's date:
+        # cancellations() re-folds those same objects, and two rows at one
+        # instant would collapse there into one and break the fold they made.
+        soon = min(folded, key=lambda e: e.start_utc or "")
+        rep = copy.copy(min(folded, key=_face))
+        rep.start_utc, rep.end_utc = soon.start_utc, soon.end_utc
+        rep.start_local, rep.end_local = soon.start_local, soon.end_local
         pattern: Dict[str, List[List[str]]] = {}
         for (wd, hh, ee) in sorted(repeating):
             win = [hh, ee]
@@ -843,10 +878,20 @@ def collapse_weekly_series(events: List[NormalizedEvent], min_repeats: int
         # event; a grid day folded weekly (the pool open those hours) carries it.
         rep.icon = BOOKING_ICON if all(e.icon == BOOKING_ICON for e in folded) else None
         days = len(pattern)
+        # NO SESSION COUNT: IT WAS A CLOCK. "2 sessions scheduled over the next
+        # few weeks" counted what the feed still listed, and Everyone Active
+        # lists a fortnight ahead, so a class later on the day of the run read 3
+        # and the next morning 2. 62,102 of its standing rows held 126,457
+        # occurrences on 2026-10-26 (2.036 each), and the 2-to-3 flips alone
+        # (sum of len-2: 1,771-2,895 a day, 10-19..10-26) were ~3.8-5.1k
+        # description UPDATEs a day, each non-HOT. The day count is the pattern
+        # and moves only when the pattern does. STORED rows still carry the old
+        # line; the sync's compare takes it for this one with the same day
+        # count (mapsee_supabase_sync._retired_lines), so none is rewritten
+        # only to drop it. "🔁 Runs weekly" must stay: it is WEEKLY_MARK, the
+        # substring mapsee_retire_openactive_slots finds a standing row by.
         rep.description = (
-            f"🔁 Runs weekly — {len(folded)} sessions scheduled over the next "
-            f"{'few months' if len(folded) > 8 else 'few weeks'}, on "
-            f"{days} day{'s' if days != 1 else ''} a week.\n\n"
+            f"🔁 Runs weekly — on {days} day{'s' if days != 1 else ''} a week.\n\n"
             + (rep.description or "")).strip()
         # IDENTITY IS THE ARRANGEMENT, NOT AN OCCURRENCE. A standing row must
         # keep the same id week after week or the roller has nothing stable to

@@ -146,6 +146,29 @@ class Details(unittest.TestCase):
             self.assertNotIn('More on this show', row['description'], source)
             self.assertEqual(row['color_hex'], '#0891b2', source)
 
+    def test_no_show_search_on_a_leisure_session_or_any_standing_row(self):
+        # The search ends with the occurrence's date, so on a standing row it
+        # changed every week the soonest occurrence rolled (OpenActive's
+        # description blame, 8.9-13.6k rows a day). OpenActive is a timetable
+        # like the civic ones, but keeps its violet pin: adding it to
+        # CIVIC_TIMETABLE_SOURCES would rewrite every one of its rows.
+        def stored(source, **extra):
+            ev = NormalizedEvent(source=source, source_id='s1', name='Bodypump Tue 19:00',
+                                 description='A class.', start_utc='2099-10-20T18:00:00+00:00',
+                                 venue_name='Northolt Leisure Centre', latitude=51.549, longitude=-0.368,
+                                 ticket_url='https://book.example.test/s1', **extra)
+            ev.fingerprint = make_fingerprint(ev.name, '2099-10-20', ev.venue_name)
+            return to_row(ev.as_record('2099-10-01T00:00:00Z'), 'fixture-host')
+        weekly = {'1': [['19:00', '20:00']]}
+        dated_oa = stored('openactive:Everyone Active')
+        self.assertNotIn('\U0001F50E', dated_oa['description'])
+        self.assertEqual(dated_oa['color_hex'], '#7c3aed')
+        self.assertNotIn('\U0001F50E', stored('openactive:Everyone Active', recurring_days=weekly)['description'])
+        # Any source, not only OpenActive: a standing row is never a dated show.
+        self.assertNotIn('\U0001F50E', stored('meetup', recurring_days=weekly)['description'])
+        self.assertIn('\U0001F50E More on this show: ', stored('meetup')['description'])
+        self.assertIn('\U0001F50E More on this show: ', stored('ticketmaster')['description'])
+
     def test_only_new_refreshes_facts_but_respects_claims_and_failed_rekeys(self):
         rec = {'fingerprint': 'fp', 'source_details': {}}
         self.assertTrue(needs_detail_sync(rec, {'fp': False}))

@@ -129,8 +129,8 @@ check("a column the server omits is a changed row, not an equal one",
       m.unchanged_ids(Stub([partial]), "https://x", "k", [row()]) == set())
 
 # --- 4. shapes the two sides spell differently -----------------------------
-# Postgres answers timestamps with an offset and floats in its own shortest
-# form. Treating those as differences would write every row every run and quietly
+# Postgres answers timestamps with an offset, and floats at 15 significant
+# digits (section 9). Treating those as differences would write every row every run and quietly
 # undo the whole point; treating an UNPARSEABLE one as equal would be the
 # dangerous direction, so it is not.
 check("the same instant spelled Z and +00:00 is not a change",
@@ -291,6 +291,181 @@ for wf in sorted(glob.glob(".github/workflows/*.yml")):
         if "mapsee_supabase_sync.py" in line and "--store" in line and "--skip-unchanged" not in line:
             missing.append(f"{wf}:{ln}")
 check("every sync invocation passes --skip-unchanged", not missing, missing)
+
+# --- 9. FLOAT8 READS BACK AT 15 SIGNIFICANT DIGITS --------------------------
+# PostgREST answers a double precision column as '%.15g', so a 17-digit source
+# coordinate never equalled its stored self and was rewritten on every compare:
+# facility hours blamed 'lat 21, lon 21' of 434 every day 10-20..10-26, and the
+# 10-21 ics sync re-blamed 352 lon seconds after its checkpoint had written them.
+# Meadowbrook Teen Life Center, as the store has it and as the read returns it.
+MEAD = dict(lat=47.70713352786287, lon=-122.29359643875411)
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    got = m.unchanged_ids(Stub([row(lat=47.7071335278629, lon=-122.293596438754)]), "https://x", "k",
+                          [row(**MEAD)])
+check("a 17-digit coordinate against its 15-digit read-back is not a change", got == {"a" * 40}, got)
+check("...and the rows that saved are counted, so OpenActive's share is measured, not inferred",
+      "1 row(s) differed only past the 15th significant digit" in buf.getvalue(), buf.getvalue())
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    m.unchanged_ids(Stub([row(**MEAD)]), "https://x", "k", [row(**MEAD)])
+check("...and nothing is counted when the floats are equal outright",
+      "15th significant digit" not in buf.getvalue(), buf.getvalue())
+# ROUNDING TOO COARSE IS THE DANGEROUS DIRECTION: round(v, 6) would pass every
+# case above and swallow this one, a real 1e-7 degree (1 cm) move.
+check("a 1e-7 degree move is still written",
+      m.unchanged_ids(Stub([row(lat=47.6062095)]), "https://x", "k", [row(lat=47.6062096)]) == set())
+# ...and one that does not straddle a half: 47.6062095 sits on round(v, 6)'s
+# boundary, so that pair is caught by it by luck. These two round to one value.
+check("...including one that round(v, 6) or '%.8g' would fold into its neighbour",
+      m.unchanged_ids(Stub([row(lat=47.6062091)]), "https://x", "k", [row(lat=47.6062092)]) == set())
+check("a stored int 47 and our 47.0 are the same coordinate",
+      m.unchanged_ids(Stub([row(lat=47)]), "https://x", "k", [row(lat=47.0)]) == {"a" * 40})
+check("an int is not cut to 15 digits (a future bigint column compares exactly)",
+      m._norm_cmp("n", 2 ** 53) != m._norm_cmp("n", 2 ** 53 - 1))
+check("NaN against NaN is written, never taken for equal",
+      m.unchanged_ids(Stub([row(lat=float("nan"))]), "https://x", "k", [row(lat=float("nan"))]) == set())
+
+# --- 10. A PIN THAT IS ALWAYS OPEN STORES ITS ZONE, NOT SEVEN DAYS ---------
+# 330 B a row of heap (PG16, 100,000 rows) that nothing reads: 0239's roller
+# skips pins and every other reader tests presence. Written compact from now on;
+# the ~544k pins stored with the full week must NOT be rewritten just to compact
+# them (each would be a non-HOT UPDATE), so the compare treats the two as equal —
+# and only between two pins, so everything else still fails toward writing.
+ALWAYS = {str(d): [["00:00", "23:59"]] for d in range(7)}
+LA_FULL = {"tz": "America/Los_Angeles", "days": ALWAYS}
+LA = {"tz": "America/Los_Angeles"}
+OLD_WIN = dict(starts_at="2026-09-01T07:00:00+00:00", ends_at="2026-09-02T06:59:00+00:00")
+NEW_WIN = dict(starts_at="2026-10-27T07:00:00+00:00", ends_at="2026-10-28T06:59:00+00:00")
+
+
+def same_pair(stored, mine):
+    return m.unchanged_ids(Stub([stored]), "https://x", "k", [mine]) == {"a" * 40}
+
+
+check("a stored pin with the full week against our compact pin is not a change",
+      same_pair(row(recurring_hours=LA_FULL), row(recurring_hours=LA)))
+check("...nor the other way round",
+      same_pair(row(recurring_hours=LA), row(recurring_hours=LA_FULL)))
+check("compact against compact is not a change",
+      same_pair(row(recurring_hours=LA), row(recurring_hours=LA)))
+check("a pin whose zone changed is written",
+      not same_pair(row(recurring_hours=LA_FULL), row(recurring_hours={"tz": "America/Denver"})))
+check("a stored pin with any other days is written compact",
+      not same_pair(row(recurring_hours={"tz": "America/Los_Angeles", "days": dict(ALWAYS, **{"6": [["00:00", "18:00"]]})}),
+                    row(recurring_hours=LA)))
+check("a stored full week carrying another key is not folded away",
+      not same_pair(row(recurring_hours=dict(LA_FULL, note="x")), row(recurring_hours=LA)))
+check("a stored compact pin that becomes a listing is written",
+      not same_pair(row(recurring_hours=LA), row(pin_only=False, recurring_hours=LA_FULL)))
+check("a stored full-week pin that becomes a listing is written",
+      not same_pair(row(recurring_hours=LA_FULL), row(pin_only=False, recurring_hours=LA_FULL)))
+check("a listing's full week against the same full week is not a change",
+      same_pair(row(pin_only=False, recurring_hours=LA_FULL), row(pin_only=False, recurring_hours=LA_FULL)))
+check("a LISTING stored without its days is written: the equivalence is for pins only",
+      not same_pair(row(pin_only=False, recurring_hours=LA), row(pin_only=False, recurring_hours=LA_FULL)))
+check("a pin the server answered without recurring_hours is written",
+      m.unchanged_ids(Stub([{k: v for k, v in row(recurring_hours=LA_FULL).items() if k != "recurring_hours"}]),
+                      "https://x", "k", [row(recurring_hours=LA)]) == set())
+# THE VALUE MUST STAY TRUTHY: skip_cols looks away from the roller's window only
+# when both sides carry recurring_hours, and pins are no longer rolled.
+check("a compact pin with last month's window against today's is not a change",
+      same_pair(row(recurring_hours=LA, **OLD_WIN), row(recurring_hours=LA, **NEW_WIN)))
+check("...and a stored full-week pin with an old window against a compact one is not either",
+      same_pair(row(recurring_hours=LA_FULL, **OLD_WIN), row(recurring_hours=LA, **NEW_WIN)))
+
+# What to_row writes. Seattle, so the zone is America/Los_Angeles either way
+# (timezonefinder or the US longitude fallback).
+SEA = (47.61, -122.33)
+pin = m._recurring_hours({"pin_only": True, "recurring_days": ALWAYS}, *SEA)
+check("an always-open pin is written as its zone alone", pin == LA, pin)
+check("...which is truthy, so skip_cols still looks away from its window",
+      bool(pin) and m.skip_cols({"recurring_hours": pin}, {"recurring_hours": pin}) == m._TS_COLS)
+listing = m._recurring_hours({"pin_only": False, "recurring_days": ALWAYS}, *SEA)
+check("an always-open LISTING keeps its days (the roller reads them)", listing == LA_FULL, listing)
+bounded = m._recurring_hours({"pin_only": True, "recurring_days": {"0": [["08:00", "20:00"]]}}, *SEA)
+check("a pin with any other days keeps them", bounded.get("days") == {"0": [["08:00", "20:00"]]}, bounded)
+check("only pin_only True compacts (a truthy 1 is not a pin's flag)",
+      m._recurring_hours({"pin_only": 1, "recurring_days": ALWAYS}, *SEA) == LA_FULL)
+check("tuples from an unserialised record are the same week",
+      m._recurring_hours({"pin_only": True, "recurring_days": {d: [("00:00", "23:59")] for d in range(7)}},
+                         *SEA) == LA)
+check("a week with no days is still no pattern",
+      m._recurring_hours({"pin_only": True, "recurring_days": {}}, *SEA) is None)
+
+# --- 11. A LINE to_row NO LONGER WRITES IS NOT A REASON TO WRITE ------------
+# OpenActive lost its 🔎 search and its weekly session count on 2026-10-27. ~78k
+# rows carry the one and ~66k the other, all compared daily, so a stored copy
+# that differs ONLY by them must not be rewritten for it. PAIRWISE, and toward
+# writing everywhere else: each case below that must be written is one an
+# unconditional strip or a looser opener match would have swallowed.
+TICKETS = "Tickets / info: https://book.example.test/s/1"
+SHOW = "\n\n\U0001F50E More on this show: https://www.google.com/search?q=Hall%20Yoga%20"
+LISTEN = "\n\n\U0001F3B5 Listen — Spotify: https://open.spotify.com/search/x"
+OPEN_NEW = "\U0001F501 Runs weekly — on 1 day a week.\n\n"
+OPEN_2 = "\U0001F501 Runs weekly — 2 sessions scheduled over the next few weeks, on 1 day a week.\n\n"
+OPEN_17 = "\U0001F501 Runs weekly — 17 sessions scheduled over the next few months, on 1 day a week.\n\n"
+OFF = "⚠️ Not on Tue 3 Nov: cancelled by the publisher.\n\n"
+WEEKLY = {"tz": "Europe/London", "days": {"1": [["19:00", "20:00"]]}}
+SOON = dict(starts_at="2026-10-29T19:00:00+00:00", ends_at="2026-10-29T20:00:00+00:00")
+
+
+def quiet_same(stored, mine):
+    with contextlib.redirect_stdout(io.StringIO()):     # the count line is asserted once, below
+        return same_pair(stored, mine)
+
+
+def dated(d):
+    return row(pin_only=False, description=d, **SOON)
+
+
+def weekly(d, **kw):
+    return row(pin_only=False, description=d, recurring_hours=WEEKLY, **dict(SOON, **kw))
+
+
+body = "Yoga for all.\n\n" + TICKETS
+check("a dated row stored with the 🔎 line, ours without: not a change",
+      quiet_same(dated(body + SHOW + "2026-10-29"), dated(body)))
+check("...nor with the line between two others (Tickets above, 🎵 Listen below)",
+      quiet_same(dated(body + SHOW + "2026-10-29" + LISTEN), dated(body + LISTEN)))
+check("the 🔎 line plus a prose edit is written",
+      not quiet_same(dated(body + SHOW + "2026-10-29"), dated("Yoga for all, now indoors.\n\n" + TICKETS)))
+check("a row that still writes the line (Ticketmaster) compares it exactly",
+      not quiet_same(dated(body + SHOW + "2026-10-29"), dated(body + SHOW + "2026-10-30")))
+check("...and prose of ours that happens to hold a 🔎 is never taken for the line",
+      not quiet_same(dated("Look for the \U0001F50E sign.\n\n" + TICKETS + SHOW + "2026-10-29"),
+                    dated("Look for the \U0001F50E sign.\n\n" + TICKETS)))
+check("a standing row whose stored search is on our soonest date: not a change",
+      quiet_same(weekly(OPEN_NEW + body + SHOW + "2026-10-29"), weekly(OPEN_NEW + body)))
+check("a standing row whose search date has rolled is written (once, as it would be today)",
+      not quiet_same(weekly(OPEN_NEW + body + SHOW + "2026-10-22"), weekly(OPEN_NEW + body)))
+check("the old weekly opener with the same day count: not a change",
+      quiet_same(weekly(OPEN_2 + body), weekly(OPEN_NEW + body)))
+check("...its 'few months' spelling too",
+      quiet_same(weekly(OPEN_17 + body), weekly(OPEN_NEW + body)))
+check("...and behind the '⚠️ Not on' line, which stays first",
+      quiet_same(weekly(OFF + OPEN_2 + body), weekly(OFF + OPEN_NEW + body)))
+check("a different '⚠️ Not on' line is written",
+      not quiet_same(weekly(OFF + OPEN_2 + body), weekly(OFF.replace("3 Nov", "10 Nov") + OPEN_NEW + body)))
+check("the old opener with a different number of days is written",
+      not quiet_same(weekly(OPEN_2.replace("on 1 day", "on 2 days") + body), weekly(OPEN_NEW + body)))
+check("the old opener with any other remainder is written",
+      not quiet_same(weekly(OPEN_2 + "Yoga for some.\n\n" + TICKETS), weekly(OPEN_NEW + body)))
+check("an opener the old adapter could not have written (9 sessions, 'few weeks') is written",
+      not quiet_same(weekly(OPEN_2.replace("2 sessions", "9 sessions") + body), weekly(OPEN_NEW + body)))
+check("the transition row (old opener, search on our soonest date): not a change",
+      quiet_same(weekly(OPEN_2 + body + SHOW + "2026-10-29"), weekly(OPEN_NEW + body)))
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    m.unchanged_ids(Stub([weekly(OPEN_2 + body + SHOW + "2026-10-29")]), "https://x", "k",
+                    [weekly(OPEN_NEW + body)])
+check("...and the log counts the rows a retired line alone made different",
+      "1 row(s) differed only by a line to_row no longer writes" in buf.getvalue(), buf.getvalue())
+check("a stored row answered without its description is written",
+      m.unchanged_ids(Stub([{k: v for k, v in weekly(OPEN_2 + body).items() if k != "description"}]),
+                      "https://x", "k", [weekly(OPEN_NEW + body)]) == set())
+check("a stored NULL description against ours is written",
+      not quiet_same(weekly(None), weekly(OPEN_NEW + body)))
 
 from test_sync_lookup import run as run_lookup_checks
 FAILS += run_lookup_checks()
