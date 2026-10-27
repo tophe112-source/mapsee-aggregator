@@ -1788,20 +1788,43 @@ jobs:
   # the point now; indexnow still runs (if: always()) and waits for it, so
   # nothing this hides is announced.
   #
-  # AFTER EVERY RUN THAT SYNCS, not only the daily one. The Mon/Thu run (and an
-  # extra_only dispatch) syncs SeatGeek and Eventbrite, and about 3 in 10 of the
-  # hides in a replay of the census involved a SeatGeek row (the count is in
-  # docs/agents/ci-and-jobs.md): on the daily schedule alone their copies stayed
-  # visible until the next morning. The 17:23 UTC festival-schedules sync is a
-  # separate workflow; its copies wait for the next 06:17 run (about 13 hours).
+  # AFTER EVERY RUN THAT SYNCS, not only the daily one, once the switch below is
+  # 'bounded' or 'true'. The Mon/Thu run (and an extra_only dispatch) syncs
+  # SeatGeek and Eventbrite, and about 3 in 10 of the hides in a replay of the
+  # census involved a SeatGeek row (the count is in docs/agents/ci-and-jobs.md):
+  # on the daily schedule alone their copies stayed visible until the next
+  # morning. The 17:23 UTC festival-schedules sync is a separate workflow; its
+  # copies wait for the next 06:17 run (about 13 hours).
   #
-  # IT HIDES NOTHING UNTIL THE OWNER TURNS IT ON. The switch is the repository
-  # variable DEDUPE_APPLY, with three positions (the step below): unset or any
-  # other value reports what it would hide and uploads every pair as the
-  # dedupe-report artifact; 'bounded' also keeps what dedupe-events.yml hid (the
-  # kept rows' categories) and hides nothing new; 'true' hides. --apply without
-  # events.duplicate_of also only reports (and exits 1). Reverse one run:
-  # dedupe-events.yml, mode unhide, its stamp.
+  # IT HIDES NOTHING UNTIL THE OWNER TURNS IT ON, AND WHILE IT IS OFF THE
+  # SCHEDULES SKIP IT. The switch is the repository variable DEDUPE_APPLY, with
+  # three positions (the step below): 'true' hides; 'bounded' keeps what
+  # dedupe-events.yml hid (the kept rows' categories) and hides nothing new;
+  # unset or any other value only reports. A SCHEDULED run reaches this job
+  # only in 'bounded' or 'true' (the last clause of the `if`). Measured
+  # 2026-10-20..10-26 with it unset: 9 report-only runs, 9,428 GETs, 102
+  # statement timeouts (57014), 2,489,674 rows listed plus 237,434 descriptions
+  # read, 6,138 s, and the only failed job in 8 of the 9 aggregate runs, while
+  # 'Copies to hide' moved only 8,110-9,065 over 17 runs 10-14..10-26: a nightly
+  # report said nothing a weekly one would not. The report while it is off is
+  # dedupe-events.yml (mode report, its default), dispatched after the day's
+  # aggregate run has finished (about 19:10 UTC) and before 03:00 UTC; a
+  # dispatch of THIS workflow still runs the job, in whatever position the
+  # switch is. --apply without events.duplicate_of also only reports (and exits
+  # 1). Reverse one run: dedupe-events.yml, mode unhide, its stamp.
+  #
+  # 60 DAYS BACK ONLY WHEN IT HIDES; 6 WHILE IT REPORTS. The rows that started
+  # earlier and are still running are the --lookback windows. Days -7..-60
+  # cost, per run (the 8 complete runs after ../mapsee 0239), 300 GETs and
+  # 131-148 s. Most of the seconds are the 10-18/19 band 0239 froze its pins
+  # into: 49-51 pages, 108-134 s, about 10 of the 13 statement timeouts, and
+  # the OWED 10-18 22:00-22:15Z slice that was the run's only exit-1 cause.
+  # Lookback 6 drops all of it (the band fully from 10-26) and 39-43 report
+  # clusters of 7,900-8,500 (0.5%). 'true' keeps 60: the census's only
+  # lookback hides were 3 Chicago Park District season programmes that started
+  # 21-29 days before, and the band stays in that window until 12-17 unless it
+  # is fixed at the index. Do not shorten the 'true' lookback to make that run
+  # green.
   #
   # --max-seconds covers the listing, the reads and the writes. Every call's
   # budget together is 1200 s in every position ('bounded': 240 for the kept
@@ -1812,7 +1835,7 @@ jobs:
     name: Hide duplicate imported events
     runs-on: ubuntu-latest
     needs: [ticketmaster, meetup, feeds, races, openactive, markets_osm, extra_sources]
-    if: ${{ always() && (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *' || github.event.schedule == '40 6 * * 1,4') }}
+    if: ${{ always() && (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *' || github.event.schedule == '40 6 * * 1,4') && (github.event_name != 'schedule' || vars.DEDUPE_APPLY == 'true' || vars.DEDUPE_APPLY == 'bounded') }}
     timeout-minutes: 25
     # One writer at a time: the manual dedupe-events.yml shares this group, and
     # the Mon/Thu run queues behind the daily one's job here.
@@ -1837,16 +1860,22 @@ jobs:
       - name: The rules about to be applied still pass their own tests
         run: python test_dedupe_events.py
       # THE SWITCH HAS THREE POSITIONS (repository variable DEDUPE_APPLY):
-      #   unset/other  report only, here and in dedupe-events.yml;
-      #   'bounded'    this job still only REPORTS the 21 days ahead and 60 back,
-      #                and only keeps what earlier runs hid (--apply --days 0
-      #                --lookback 0: the kept rows' categories and un-hiding a
-      #                copy that no longer fits, nothing new is hidden); new
-      #                copies are hidden only by dedupe-events.yml's apply mode,
-      #                with the days and lookback it is given (at most 7 each);
-      #   'true'       this job hides too, every run.
+      #   unset/other  the schedules skip this job (its `if`); a dispatch of
+      #                this workflow reports 21 days ahead and 6 back, and
+      #                dedupe-events.yml reports by hand (21 and 60 by default);
+      #   'bounded'    this job runs on both schedules again and still only
+      #                REPORTS the 21 days ahead and 6 back, and only keeps what
+      #                earlier runs hid (--apply --days 0 --lookback 0: the kept
+      #                rows' categories and un-hiding a copy that no longer
+      #                fits, nothing new is hidden); new copies are hidden only
+      #                by dedupe-events.yml's apply mode, with the days and
+      #                lookback it is given (at most 7 each);
+      #   'true'       this job hides too, every run, 21 days ahead and 60 back.
       # So the bounded first write (rollout step 5) cannot arm the 9 scheduled
       # runs a week: that takes a second, deliberate change of the variable.
+      # The shell keeps the report branch for unset although the schedules no
+      # longer reach it: a dispatch does, and the `if` compares without regard
+      # to case where `case` does not, so 'True' runs here and only reports.
       - name: Hide duplicate imported events (hides only when DEDUPE_APPLY is 'true')
         shell: bash
         run: |
@@ -1854,9 +1883,10 @@ jobs:
           rc=0
           MODE=""
           BUDGET=1200          # every call's --max-seconds together, in every position
+          LOOKBACK=6           # 60 only where it hides (the header says why)
           case "$DEDUPE_APPLY" in
             true)
-              MODE="--apply"
+              MODE="--apply"; LOOKBACK=60
               echo "::warning title=Dedupe: APPLY::DEDUPE_APPLY is 'true': copies are hidden in production (hidden_at + duplicate_of)." ;;
             bounded)
               echo "::notice title=Dedupe: BOUNDED::DEDUPE_APPLY is 'bounded': this run reports; it hides nothing new and keeps what dedupe-events.yml hid."
@@ -1865,7 +1895,7 @@ jobs:
             *)
               echo "::notice title=Dedupe: REPORT ONLY::DEDUPE_APPLY is '${DEDUPE_APPLY:-unset}', not 'true' or 'bounded': reporting only." ;;
           esac
-          python -u mapsee_dedupe_events.py $MODE --days 21 --lookback 60 --max-seconds "$BUDGET" \
+          python -u mapsee_dedupe_events.py $MODE --days 21 --lookback "$LOOKBACK" --max-seconds "$BUDGET" \
             --report dedupe_report.json | tee dedupe.log || rc=$?
           exit $rc
       - name: Summary
