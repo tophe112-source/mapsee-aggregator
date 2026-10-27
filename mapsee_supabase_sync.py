@@ -31,6 +31,7 @@ Typical pipeline (cron):
 """
 from __future__ import annotations
 import argparse
+import calendar
 import functools
 import hashlib
 import html
@@ -2050,6 +2051,65 @@ def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: st
     return end.isoformat()
 
 
+# ---- A STAMP POSTGRES WILL REFUSE COSTS ITS WHOLE BATCH ----------------------
+#
+# One row whose starts_at or ends_at timestamptz cannot read fails the 50-row
+# INSERT it rides in, and upsert() then re-sends all 50 one by one to find it:
+# 51 statements and 49 one-row transactions to skip one row. (Nothing is written
+# and rolled back first: PostgREST's json_populate_recordset is materialized
+# before the INSERT, so the 400 comes while parsing. PG 16, 2026-10-27: no BEFORE
+# INSERT trigger fired, n_tup_ins 0.) The cached logs 10-19..10-26 hold 54 such
+# rows, all in the daily feeds sync and all from JSON-LD calendars printing
+# their own template's garbage:
+# 33 "2026-10-6T23-23-50-00"-shaped clocks (Swedish and Dutch churches,
+# Villeurbanne's conseils de quartier), 15 "2026-12-06T00+01:00" (an hour and
+# no minutes, Zurich stages), two "2026-23-10 21:00", two "29-10-2026T23:59:59",
+# one "2026-12-12T15:0017:00:00" and one "2026-12-31T1600:00".
+#
+# PYTHON IS NOT THE ORACLE. datetime.fromisoformat accepts "2026-10-27T10" and
+# "…T00+01:00", which Postgres refuses, and refuses "2026-9-30T13:00:00",
+# "…T24:00:00" and "…T10:00 PM", which Postgres accepts: dropping on its word
+# would lose real events. So this names only shapes Postgres refuses whatever
+# the digits are, and anything else goes to the database as before. Measured on
+# PG 16 (DateStyle ISO, MDY, as Supabase) over 263,520 stamps (200,008 built
+# around these rules, the rest plausible ones and every stamp-shaped literal in
+# this repo), 62,359 of them accepted: no accepted stamp is named, and 52 of the
+# 54 logged rows are (the DD-MM-YYYY pair is refused only because DateStyle
+# reads it MDY; upsert() drops it on the database's own word, in 2 statements).
+# A single-digit offset ("+1:00") is NOT one of them: Postgres reads it.
+# fixtures/pg_timestamptz.json keeps 700 of those verdicts for the test.
+_PG_YMD_RX = re.compile(r"(\d{4})-(\d{1,2})-(\d{1,2})(?=$|[Tt\s])")
+_PG_BARE_HOUR_RX = re.compile(r"[Tt]\d{1,2}(?![\d:])")          # "T00+01:00", "T23-23-50-00"
+_PG_HOUR_RX = re.compile(r"[Tt](\d+):\d+(?::\d|(?![\d.:]))")    # "T1600:00", never "T25:0024.1" (mm:ss.f)
+_PG_FOUR_FIELDS_RX = re.compile(r"[Tt]\d+:\d+:\d+:\d")           # "T15:0017:00:00"
+
+
+def pg_refused_stamp(value: Any) -> Optional[str]:
+    """Why Postgres will refuse this starts_at/ends_at, or None when it may not.
+
+    None is the safe answer: the database decides, at today's cost. A name is
+    given only for a numeric YYYY-M-D stamp that is off the calendar, or whose
+    clock after 'T' is a bare hour, an hour past 24, or four fields."""
+    if not isinstance(value, str):
+        return None
+    m = _PG_YMD_RX.match(value)
+    if not m:
+        return None
+    y, mo, d = (int(g) for g in m.groups())
+    if y < 1:
+        return None
+    if not 1 <= mo <= 12 or not 1 <= d <= calendar.monthrange(y, mo)[1]:
+        return "no such date"
+    if _PG_BARE_HOUR_RX.match(value, m.end()):
+        return "an hour with no minutes"
+    h = _PG_HOUR_RX.match(value, m.end())
+    if h and int(h.group(1)) > 24:
+        return "an hour past 24"
+    if _PG_FOUR_FIELDS_RX.match(value, m.end()):
+        return "four clock fields"
+    return None
+
+
 def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     """Map one normalized event -> a public.events row for PostgREST upsert."""
     if "agenda" in rec and rec.get("agenda") is not None:
@@ -2242,10 +2302,28 @@ def needs_detail_sync(rec, state, moved=(), held=()):
         key not in state or key in moved or isinstance(rec.get("source_details"), dict))
 
 
-def should_compare_unchanged(only_new, rows, state):
-    # Ordinary only-new batches contain no stored rows. Exact-detail refreshes
-    # are the exception; compare those so a daily read costs no needless UPDATE.
-    return not only_new or any(r["external_id"] in (state or {}) for r in rows)
+def rows_to_compare(rows, state):
+    """The rows skip-unchanged may read back: those the import state says are
+    STORED. A row absent from it is new and is written without asking.
+
+    A NEW ROW HAS NOTHING TO COMPARE WITH, AND ASKING COST 16-35K ID LOOKUPS A
+    WEEKDAY. unchanged_ids was handed every row that survived the filters, so an
+    --only-new run that kept a few stored rows (a time change, an exact-detail
+    refresh) looked up all of its new ones too. Measured over 187 calls in the
+    cached logs 10-19..10-26: 1,698,315 ids asked, 1,439,587 of them stored;
+    a weekday wasted 15,689-34,683 lookups (172-381 GETs of ~91 ids) and
+    Sunday 10-25 112,410 (1,227 GETs). Ticketmaster asked 653 for 4 stored
+    (10-26), ics 7,352 for 201 (10-25), civic 14,530 for 7,656 (10-25).
+
+    Both reads ask the same thing (external_source=mapsee, external_id in …)
+    and the state read FAILS CLOSED, so no row unchanged_ids could ever find is
+    missing from `state` except one another job inserted between the two reads,
+    which is then written, as every new row is: the cost of being wrong here is
+    one UPDATE, never a skipped change. Under --only-new an ordinary batch has
+    no stored row at all, and nothing is read; that is the old
+    should_compare_unchanged, which this replaces, for both modes."""
+    state = state or {}
+    return [r for r in rows if r["external_id"] in state]
 
 
 # A WEEK OF "ALWAYS", the window every furniture pin is written with. It must
@@ -2782,14 +2860,34 @@ def build_rows(store_path: str, host_id: str, geo_session=None, keep=None,
                   f"never answered: " + ("main() holds back the stored ones." if census_held is not None
                                          else "written on the source's pin."), flush=True)
 
-    rows, dropped = [], 0
+    rows, dropped, unreadable = [], 0, []
     for rec in recs:
         if rec.get("latitude") is None or rec.get("longitude") is None:
             dropped += 1                              # coordless AND the geocoder couldn't place it
             continue
-        rows.append(to_row(rec, host_id))
+        row = to_row(rec, host_id)
+        # A stamp Postgres refuses would fail its 50-row batch and send all 50
+        # one by one (pg_refused_stamp). Dropped here instead, which is what the
+        # 400 did to it anyway, before a refresh day's state read, the read-back
+        # and the un-cancel see it: a cancelled row is never lifted for a listing
+        # whose time cannot be written (the lift used to run after the 400).
+        bad = [(c, row.get(c), why) for c in ("starts_at", "ends_at")
+               for why in (pg_refused_stamp(row.get(c)),) if why]
+        if bad:
+            unreadable.append((row.get("title"), bad[0]))
+            continue
+        rows.append(row)
     if dropped:
         print(f"Dropped {dropped} coordless events the geocoder couldn't place (address missing/unmatched).")
+    if unreadable:
+        # One line a row, as the 400s printed them, so the publisher's garbage
+        # stays readable in the log; bounded, as a broken template repeats.
+        for title, (col, value, why) in unreadable[:20]:
+            print(f"  unreadable [{col} {value!r}: {why}] {title!r}")
+        more = f" ({len(unreadable) - 20} more not listed)" if len(unreadable) > 20 else ""
+        print(f"Dropped {len(unreadable)} row(s) whose start or end Postgres cannot read as a time"
+              f"{more}: each would have failed its 50-row batch and sent the batch row by row.",
+              flush=True)
     return rows
 
 
@@ -2807,6 +2905,24 @@ def _unknown_column(resp) -> Optional[str]:
         message = ""
     found = _PGRST_UNKNOWN_COLUMN.search(message)
     return found.group(1) if found else None
+
+
+# Postgres's three refusals of a timestamptz INPUT, each quoting the input as it
+# was sent (22007, 22008, 22009): every one of the 54 logged 10-19..10-26 is one
+# of these, e.g. 'date/time field value out of range: "29-10-2026T23:59:59"'.
+_REFUSED_STAMP = re.compile(
+    r'(?:invalid input syntax for type timestamp(?: with time zone)?'
+    r'|date/time field value out of range|time zone displacement out of range): "(.*)"$', re.S)
+
+
+def _refused_stamp(resp) -> Optional[Tuple[str, str]]:
+    """(message, the literal it quotes) when a 400 refused a timestamp, else None."""
+    try:
+        message = str((resp.json() or {}).get("message") or "")
+    except Exception:                                       # noqa: BLE001
+        return None
+    found = _REFUSED_STAMP.search(message)
+    return (message, found.group(1)) if found else None
 
 
 def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, int]:
@@ -2983,6 +3099,26 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
                 print(f"  {_answer(resp)} on a {len(chunk)}-row batch: re-sending it "
                       f"as {half} + {len(chunk) - half}", flush=True)
                 continue
+            # A STAMP THE DATABASE NAMED IS A ROW THE DATABASE NAMED. build_rows
+            # drops the shapes Postgres refuses whatever the digits; the rest (a
+            # DD-MM-YYYY, which only DateStyle refuses) arrive here, quoted. Every
+            # row carrying that literal in a timestamp column is refused the same
+            # way, so those are skipped and the others go back as ONE batch: two
+            # statements for one bad row instead of 51. A literal no row carries
+            # (a trigger's own cast) isolates row by row, as before.
+            refused = _refused_stamp(resp) if resp.status_code == 400 else None
+            if refused:
+                reason, literal = refused
+                bad = [r for r in chunk if literal in (r.get("starts_at"), r.get("ends_at"))]
+                if bad:
+                    for row in bad:
+                        skipped += 1
+                        print(f"  skipped [{resp.status_code} {reason}] {row.get('title')!r}")
+                    rest = [r for r in chunk if literal not in (r.get("starts_at"), r.get("ends_at"))]
+                    if rest:
+                        queue.appendleft(rest)
+                    misses = 0
+                    continue
             # A whole-batch rejection is usually one bad row (e.g. the moderation
             # trigger raising 'content_blocked'). Re-send the batch row-by-row so the
             # clean events still land and only the offending ones are skipped + logged.
@@ -4670,17 +4806,21 @@ def main() -> None:
     elif merged:
         print(f"Kept rows: {merged} carry the categories of the copies hidden behind them.", flush=True)
 
-    # LAST, so nothing is read back for a row the filters above already dropped.
-    if a.skip_unchanged and rows and should_compare_unchanged(a.only_new, rows, state):
-        same = unchanged_ids(geo, url, key, rows)
+    # LAST, so nothing is read back for a row the filters above already dropped,
+    # and only a STORED row is read back at all (rows_to_compare): a new row is
+    # written whatever unchanged_ids would have said.
+    stored = rows_to_compare(rows, state) if a.skip_unchanged else []
+    if stored:
+        same = unchanged_ids(geo, url, key, stored)
+        fresh = len(rows) - len(stored)
         if same:
             before = len(rows)
             rows = [r for r in rows if r["external_id"] not in same]
             print(f"Skip-unchanged: {len(rows)} of {before} differ from what is stored "
-                  f"({len(same)} identical, not rewritten).")
+                  f"({len(same)} identical, not rewritten; {fresh} new, not read back).")
         else:
-            print(f"Skip-unchanged: all {len(rows)} rows differ from what is stored "
-                  f"(or could not be read back — a refusal means write).")
+            print(f"Skip-unchanged: all {len(stored)} stored rows differ from what is stored "
+                  f"(or could not be read back — a refusal means write); {fresh} new, not read back.")
 
     t0 = time.monotonic()
     n, skipped, lost = upsert(rows, url, key)

@@ -30,6 +30,7 @@ on:
       - "festival_sources.benaroya-snapshot.json"
       - "recital_sources.json"
       - "fixtures/benaroya-open-house.html"
+      - "fixtures/pg_timestamptz.json"
       - "opendata_sources.json"
       - "toronto_rec_sources.json"
       - "linkedevents_sources.json"
@@ -70,6 +71,7 @@ on:
       - "festival_sources.benaroya-snapshot.json"
       - "recital_sources.json"
       - "fixtures/benaroya-open-house.html"
+      - "fixtures/pg_timestamptz.json"
       - "opendata_sources.json"
       - "toronto_rec_sources.json"
       - "linkedevents_sources.json"
@@ -423,6 +425,16 @@ jobs:
       # earth was shifted by its venue's offset, in whichever direction.
       - name: An all-day row spans the day where the EVENT is
         run: python test_sync_all_day.py
+
+      # One starts_at Postgres cannot read failed its whole 50-row INSERT and
+      # upsert() re-sent all 50 one by one to skip it: 51 statements a row, 54
+      # rows in the week to 10-26, all JSON-LD template garbage. build_rows now
+      # drops the shapes Postgres refuses whatever the digits, and a refusal it
+      # leaves (DD-MM-YYYY, DateStyle's call) costs two statements. Checked
+      # against verdicts recorded on a real Postgres, because naming a stamp it
+      # would have read loses a real event every day.
+      - name: An unreadable time costs its row, not its batch
+        run: python test_sync_unreadable_time.py
 
       # ...and a Ticketmaster listing with no published start time is not
       # ingested at all. Anchored honestly to its day it still read "Today,
