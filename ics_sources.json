@@ -57658,5 +57658,739 @@
     "_found": "manual:2026-10-25 Shift (shift2bikes.org) community ride calendar's own iCal feed, /cal/shift-calendar.php",
     "_note": "2026-10-25 dry run (scratch store, Photon at 1.1 s/request): 319 VEVENTs, 174 upcoming, every upcoming LOCATION on 2 or 3 lines ('Name\\nStreet\\nnotes'). Kept 118 rows (109 within 120 days, 28 distinct titles, 25 points), 27 unplaceable, 22 STATUS:CANCELLED tombstoned (most are 'test' events), 9 title-filtered (7 Bicycle Advisory Committee meetings and 2 naked rides; 2 of the 9 already past). The adapter before line-by-line LOCATIONs kept 22 of these and placed 2 'TBD' rides in Hood River; every one of the 125 placed before the title filter was checked by hand against its LOCATION. Photon: 32 requests per warm run (was 130). Mixed calendar (rides, bike happy hours, a pantry ride), so community, per classification-and-categories.md. robots.txt allows /cal/; disallows /api/ only.",
     "location_lines": true
+  },
+  {
+    "name": "Bridgeton — Administration",
+    "category": "community",
+    "url": "https://www.bridgetonmo.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Bridgeton, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Administration]",
+    "_metro": "Bridgeton, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bridgeton — Police",
+    "category": "community",
+    "url": "https://www.bridgetonmo.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Bridgeton, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Police]",
+    "_metro": "Bridgeton, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bridgeton — Golf",
+    "category": "community",
+    "url": "https://www.bridgetonmo.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Bridgeton, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Golf]",
+    "_metro": "Bridgeton, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Island City Cultural Center",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Island City Cultural Center]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Classes",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Classes]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Senior Programming",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Senior Programming]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Leisure Services Special Events",
+    "category": "community",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Leisure Services Special Events]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wilton Manors — Youth Program Calendar",
+    "category": "kids",
+    "url": "https://www.wiltonmanors.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Wilton Manors, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Youth Program Calendar]",
+    "_metro": "Wilton Manors, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Woods Cross — Events",
+    "category": "community",
+    "url": "https://www.woodscross.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Woods Cross, Utah",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Woods Cross, Utah",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Klostermuseum Saarn",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.kloster-saarn.com/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Mülheim an der Ruhr",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Deutsche Oper am Rhein /Kulturbetriebe Stadt Duisburg",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.operamrhein.de/kalender-eintrag/4101/ical-2026-10-27-4101.ics",
+    "geocode_suffix": ", Duisburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Krefelder Segel-Klub e.V.",
+    "category": "community",
+    "_found": "osm:marina -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40ksk1981.de/public/basic.ics",
+    "geocode_suffix": ", Krefeld",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Turnier-Tanz-Club Schwarz-Gold Moers e. V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://ttc-schwarz-gold-moers.de/events/mannschaftskampf-im-rahmen-des-tags-der-offenen-tuer/?ical=1",
+    "geocode_suffix": ", Moers",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Wassersportverein Moers e.V.",
+    "category": "community",
+    "_found": "osm:club -> events-manager+ics",
+    "url": "https://wsv-moers.de/events/arbeitstag-6/ical/",
+    "geocode_suffix": ", Moers",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Auferstehungsgemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/236jsct7ilp5gff18qanb83634%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Duisburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Düsseldorf sur place",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8hsu656o1tih25dibs3448gkao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Düsseldorf",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Freie Wasserfahrer Düsseldorf 1921 e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40fwf-d.de/public/basic.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Kult+Genuss",
+    "category": "community",
+    "_found": "osm:events_venue -> events-manager",
+    "url": "https://kultundgenuss.de/event/?ical=1",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "St. Sebastianus Schützenbruderschaft Hubbelrath 1635 e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/69ov9m7bj5e7u1l7foo94p7m7s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Pöppelhoppers",
+    "category": "community",
+    "_found": "osm:club -> my-calendar",
+    "url": "https://poeppelhoppers.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Tennisclub Rot-Weiß Vluyn e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://tc-vluyn.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Stadttheater / Duisburger Philharmoniker",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.theater-duisburg.de/kalender-eintrag/2416/ical-2026-10-30-2416.ics",
+    "geocode_suffix": ", Duisburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Philharmonie/ Saalbau",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.theater-essen.de/kalender-eintrag/4430/ical-2026-10-27-4430.ics",
+    "geocode_suffix": ", Essen",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Center of Mountainbike Essen",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/77480a27bd024340a3a45bb14f2010c9@ruhrpottbiker.eu/233c0da4e9104f9ca6b7376dd8f3e4ad12133761285054636553/calendar.ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Villa Erckens",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "http://www.museum-villa-erckens.de/?ical=1",
+    "geocode_suffix": ", Grevenbroich",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Pampusschule",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h1agflclqbq7o2t6k8b5vhfb0s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kaarst",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Heimatmuseum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.geschichtsverein-heiligenhaus.de/events/gaby-koof-koof-singt-knef/?ical=1",
+    "geocode_suffix": ", Heiligenhaus",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Pfadfinderplatz - DPSG Stamm Kaster",
+    "category": "community",
+    "_found": "osm:camp_site -> ics",
+    "url": "https://calendar.google.com/calendar/ical/75b56526d61275aef1837e67ddfcf03fffdea988e25ad296bb4f99737612e99d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bedburg",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Die Rollsporthalle Bochum",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_61ef6b5027e6616fe29f03f1dc0164ab2a48ac7836897090cf20dde7cd3e1d65%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bochum",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Schützenverein Silschede 1872 e.V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/volker.synjawzew%40sv-silschede.de/public/basic.ics",
+    "geocode_suffix": ", Gevelsberg",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "UN-Hack-Bar e.V.",
+    "category": "community",
+    "_found": "osm:hackerspace -> events-manager+ics",
+    "url": "https://www.un-hack-bar.de/events.ics",
+    "geocode_suffix": ", Unna",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "SLADO e. V.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/termine%40slado.de/public/basic.ics",
+    "geocode_suffix": ", Dortmund",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "TV Hasperbach e.V. 1898",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lauftreff%40tv-hasperbach.de/public/basic.ics",
+    "geocode_suffix": ", Dortmund, Germany",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "KDST Nordmark",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.kdstv-nordmark.de/files/SemesterProgrammWiSe2627.ics",
+    "geocode_suffix": ", Essen",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Mädchen- und Frauenzentrum Courage Essen e.V.",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://couragezentrum-essen.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Essen",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Bahai-Zentrum Essen",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bahaiessenfb%40posteo.de/public/basic.ics",
+    "geocode_suffix": ", Essen, Germany",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "DARC Ortsverband Gladbeck (L03)",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/08ca998cc87d1cda25c0206c6a4edcbc4bb1c8f7c293fdf7569718fbb7ba415a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gladbeck",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Satellit der guten Hoffnung",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://theater-oberhausen.de/event/lichter-basteln-mit-dem-open-haus-fuer-alle/?ical=1",
+    "geocode_suffix": ", Oberhausen",
+    "limit": 300,
+    "venue": {
+      "name": "Satellit der guten Hoffnung",
+      "city": "Oberhausen",
+      "postal_code": "46045",
+      "lat": 51.4686331,
+      "lon": 6.8575901,
+      "street_hint": "119 Marktstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "St. Michael (Dellwig)",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2u915m3fsaigmrk8j3c858mans%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Essen",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Familienzentrum Alsbachtal",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_da75a67df62cc94c422f5a3066fd408edf7d9aaeb269bd78922e32c7a3d59156%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oberhausen",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Wassermühle Barrien",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://wassermuehle-barrien.de/index.php?option=com_dpcalendar&task=ical.download&id=13",
+    "geocode_suffix": ", Bremen, Germany",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Städtische Galerie Bremen",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://staedtischegaleriebremen.de/de/veranstaltungen/performance-viktoria-kurnicki-emese-kazar-big-sister/stgb-20261102-1100-1800.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Schützenverein Bookholzberg von 1897 e.V.",
+    "category": "community",
+    "_found": "osm:club -> my-calendar",
+    "url": "https://sv-bookholzberg.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Bremen, Germany",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Bremer Sportverein 1906 e. V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.bremer-sv.de/bsv-spielplan.ics",
+    "geocode_suffix": ", Bremen, Germany",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Bahá'í Zentrum Bremen",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/791p3bu1bcgje3ebu0lhah7q8g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Vegesacker Ruderverein",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2gdhqurcmc4es5d9btq6rvmf3c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Segelverein \"Weser\" e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://segelvereinweser.de/ical-verein.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Schützenverein Brinkum",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lhr8if39a7pv34f42gj80idkk4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bremen, Germany",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Schützenverein Lahausen",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q0tbvfrbo6c74bpti4h6pj8bps%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bremen, Germany",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Genuss-Event",
+    "category": "community",
+    "_found": "osm:events_venue -> events-manager",
+    "url": "https://genuss-event.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Klosterkirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/bcca1964-58a3-4766-b0ee-585beaefbea9.ics",
+    "geocode_suffix": ", Bremen, Germany",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "St. Andreas",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/09420f9e-9e6b-4565-973d-78e3e06bbb80.ics",
+    "geocode_suffix": ", Riede",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "HTB",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.harpstedter-turnerbund.de/termine/vorstandssitzung-und-spartensitzung-2026.ics",
+    "geocode_suffix": ", Harpstedt",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Christuskirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/e09fdfa7-03b3-466e-912d-82e2d4f7601e.ics",
+    "geocode_suffix": ", Harpstedt",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Kirche zu Blender",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/a4ad328a-bd66-48da-ba18-81bc4042c6fe.ics",
+    "geocode_suffix": ", Blender",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Schwimmverein Bremen von 1910",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/abb7a788fd4445ac8e3956c183f3af8e@team.svbremen10.de/21a51e800c254ea5b501a57053efa2d315136902619331145626/calendar.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Tanzschule Bremen",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0ll3k7o3bppbjf51n7ppnq19i8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://lkg-bremen.de/events/wohnzimmerkino/?ical=1",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "venue": {
+      "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+      "city": "Bremen",
+      "postal_code": "28219",
+      "country": "DE",
+      "lat": 53.1049417,
+      "lon": 8.7819284,
+      "street_hint": "197 Waller Heerstraße",
+      "aliases": [
+        "LKG Bremen, EGZ Walle"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Zum Guten Hirten",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=ea1c452f-b5f6-430e-b8ae-fa74d27b085d&amp;ids[]=68e51f91-80ad-463e-a698-cf7e7c84a3e9&amp;ids[]=7cd7ea7a-59bf-4748-aaf4-890d1811fc0f&amp;ids[]=a9bcaebe-3483-4338-8e93-1ff7283cf79a&amp;ids[]=5e575a12-55b4-4fa9-bab5-465b197bd380&amp;ids[]=2eee0e3b-a365-49f5-beb0-6ee416ddf7e8&amp;ids[]=02cac154-9bad-4a4c-a010-a95ce362ced6&amp;ids[]=7825a0a0-047b-41a6-bcfa-654383b58384&amp;ids[]=1357721b-4fdf-4770-a6ae-ca34960ca94e&amp;ids[]=579d10b9-424e-437c-8665-5047cde527f4",
+    "geocode_suffix": ", Langwedel",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Hoffnungskirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40hoffnungskirche.info/public/basic.ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Christophorus-Kirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/7b8ad490-a7f3-4e4d-9c61-2cb20e44d20e.ics",
+    "geocode_suffix": ", Ottersberg",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Dörphus Wulmstorf",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c75vkai8aiol8096hr002efrhg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Thedinghausen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "GrooveStation",
+    "category": "music",
+    "_found": "osm:nightclub -> ics",
+    "url": "https://www.groovestation.de/calendar.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Evangelische Studierendengemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.esg-dresden.de/ical.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Stadtmuseum Dresden",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://stmd.de/programm/kalender/zwischen-generationen-nadja-kuechenmeister-und-ingo-schulze.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Klettergarten Liebethal",
+    "category": "community",
+    "_found": "osm:events_venue -> my-calendar+jsonld-event",
+    "url": "https://bergsteigerbund.de/bergsport/klettergaerten/klettergarten-liebethaler-grund/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Mühlenmuseum",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar+jsonld-event",
+    "url": "https://www.zschoner-muehle.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Vereinsheim - TSC Excelsior",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/t42lr8kn5dsuqe8m6ao2jetr24%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Sächsischer Lehrerverband",
+    "category": "community",
+    "_found": "osm:ngo -> events-manager",
+    "url": "https://slv-gewerkschaft.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Tanzstudio Elementio",
+    "category": "fitness",
+    "_found": "osm:dance -> ics",
+    "url": "https://calendar.google.com/calendar/ical/cac50b4967552ec938c2a6955a5099fb336b5bfdf347b4ce857d81635df60311%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "boulderdrome",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/afec990569d697f21740c57b654f345dfdc94df6cf0470b7601b4337daaa1b59%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Radebeul",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Staatsoperette Dresden",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.staatsoperette.de/kalender-eintrag/2317/ical-2026-10-26-2317.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "INTERACT4WORK",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.willkommen-in-loebtau.de/termine/?ical=1",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "SAX-MAX Snooker e.V. Dresden",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.sax-max.de/kalender.ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Leonhardi-Museum",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://leonhardi-museum.de/programm/kalender/gerhard-altenbourg.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Scheune",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://scheune.org/shows.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Kraszewski-Museum",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://kraszewski-dresden.de/programm/kalender/visionaere-deutsche-und-polen-juedischer-herkunft-die-weltgeschichte-schrieben.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Tante JU",
+    "category": "music",
+    "_found": "osm:nightclub -> events-manager+ics",
+    "url": "https://www.liveclub-dresden.de/events.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
   }
 ]

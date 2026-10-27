@@ -15882,6 +15882,1849 @@
       "_found": "manual:2026-10-25 lead from the 2026-10-23 sweep (left out: the jsonld adapter had no Crawl-delay) -> program pages carry Event JSON-LD",
       "_measured": "2026-10-25 dry run: 49 kept of 52 program pages (49 Event blocks), all upcoming 2026-10-25 to 2027-09-25 - concerts, Riksteatret and Østfold Teater plays, Seniorakademiet talks, a school band's 75th, Christmas shows; 547 s at the host's Crawl-delay 10.",
       "_note": "The municipal culture house's own programme. robots.txt (www) disallows only /wp-admin/ and asks Crawl-delay: 10, which the adapter now reads and keeps (crawl_delay here only records it); askimkulturhus.no/robots.txt without www redirects to the homepage. The listing has no JSON-LD; each /program/<id>-<slug>/ page has one Event whose location is 'Askim Kulturhus' with an empty PostalAddress, so the venue block places it. Page time matches the block's offset ('Torsdag 8. april kl. 19:00' beside 2027-04-08T19:00:00+02:00). Venue point: OSM way 738677884 (amenity=theatre); address from the site's footer ('Besøksadresse: P. M. Røwdes gate 6, 1811 Askim'). Cost: about 9 min a visit at 10 s a page."
+    },
+    {
+      "name": "Freilichtbühne Mülheim an der Ruhr",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.regler-produktion.de/"
+      ],
+      "link_pattern": "https://www\\.regler\\-produktion\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Freilichtbühne Mülheim an der Ruhr",
+        "address": "2a Dimbeck",
+        "city": "Mülheim an der Ruhr",
+        "postal_code": "45470",
+        "country": "DE",
+        "lat": 51.4222987,
+        "lon": 6.8856315
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Lux-Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.luxlichtspiele.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.luxlichtspiele\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lux-Lichtspiele",
+        "address": "20 Benrather Straße",
+        "city": "Hilden",
+        "postal_code": "40721",
+        "lat": 51.1681379,
+        "lon": 6.9294041
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Hitch Kino Neuss",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.hitch.de/event-directory/"
+      ],
+      "link_pattern": "https://www\\.hitch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hitch Kino Neuss",
+        "address": "95 Oberstraße",
+        "city": "Neuss",
+        "postal_code": "41460",
+        "country": "DE",
+        "lat": 51.1967425,
+        "lon": 6.6954852
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Webster",
+      "category": "community",
+      "_found": "osm:pub -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.webster-brauhaus.de/live-events/"
+      ],
+      "link_pattern": "https://www\\.webster\\-brauhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Webster",
+        "address": "14 Dellplatz",
+        "city": "Duisburg",
+        "postal_code": "47051",
+        "country": "DE",
+        "lat": 51.4304652,
+        "lon": 6.7615016
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Kempener Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.kempenerlichtspiele.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.kempenerlichtspiele\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kempener Lichtspiele",
+        "lat": 51.3644167,
+        "lon": 6.4179986
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Bunker Paulsmühle",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event+ics",
+      "listing": [
+        "https://pmjecken.de/partys"
+      ],
+      "link_pattern": "https://pmjecken\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bunker Paulsmühle",
+        "address": "51 Paulsmühlenstraße",
+        "city": "Düsseldorf",
+        "postal_code": "40597",
+        "country": "DE",
+        "lat": 51.1645106,
+        "lon": 6.8833652
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Frank Petzchen Kochbücher",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://kochenamcarlsplatz.de/koch-kurse"
+      ],
+      "link_pattern": "https://kochenamcarlsplatz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Frank Petzchen Kochbücher",
+        "address": "6 Benrather Straße",
+        "city": "Düsseldorf",
+        "postal_code": "40213",
+        "country": "DE",
+        "lat": 51.2231533,
+        "lon": 6.7724092
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Grefi Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://grefi-kino.de/programm"
+      ],
+      "link_pattern": "https://grefi\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grefi Kino",
+        "address": "31 Ostwall",
+        "city": "Grevenbroich",
+        "postal_code": "41515",
+        "lat": 51.0889307,
+        "lon": 6.5939549
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Cinefactory im Haus Zoar",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinefactorymg.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.cinefactorymg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cinefactory im Haus Zoar",
+        "lat": 51.1955283,
+        "lon": 6.4330041
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Phönix Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://phoenix-club.online/events"
+      ],
+      "link_pattern": "https://phoenix\\-club\\.online/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Phönix Club",
+        "address": "162 Sandstraße",
+        "city": "Mülheim an der Ruhr",
+        "postal_code": "45473",
+        "lat": 51.4394768,
+        "lon": 6.8727857
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "BürgerBahnhof",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://buergerbahnhof.com/programm/"
+      ],
+      "link_pattern": "https://buergerbahnhof\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BürgerBahnhof",
+        "address": "16 Bahnstraße",
+        "city": "Wuppertal",
+        "postal_code": "42327",
+        "country": "DE",
+        "lat": 51.2342689,
+        "lon": 7.0712267
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Musikschule Haan e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event+ics",
+      "listing": [
+        "https://www.musikschule-haan.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.musikschule\\-haan\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musikschule Haan e.V.",
+        "address": "69 Dieker Straße",
+        "city": "Haan",
+        "postal_code": "42781",
+        "lat": 51.1947302,
+        "lon": 7.0082966
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Bier Bude",
+      "category": "community",
+      "_found": "osm:beverages -> modern-events+jsonld-event",
+      "listing": [
+        "https://bierbude-duisburg.de/termine/"
+      ],
+      "link_pattern": "https://bierbude\\-duisburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bier Bude",
+        "address": "3 Wallstraße",
+        "city": "Duisburg",
+        "postal_code": "47051",
+        "country": "DE",
+        "lat": 51.4322814,
+        "lon": 6.7636159
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Hildener Windsurfing Club e.V.",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.hwc-hilden.de/termine"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hildener Windsurfing Club e.V.",
+        "address": "198C Schalbruch",
+        "city": "Düsseldorf",
+        "postal_code": "40721",
+        "country": "DE",
+        "lat": 51.1826299,
+        "lon": 6.9099951
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Tanzschule am Wall",
+      "category": "fitness",
+      "_found": "osm:dance -> modern-events+jsonld-event",
+      "listing": [
+        "https://tanzschule-am-wall.de/events/"
+      ],
+      "link_pattern": "https://tanzschule\\-am\\-wall\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tanzschule am Wall",
+        "address": "42 Wallstraße",
+        "city": "Ratingen",
+        "postal_code": "40878",
+        "lat": 51.2960317,
+        "lon": 6.8495248
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "MiO Miteinander in Oppum",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://augustinus-krefeld.de/aktuelles/veranstaltungen/veranstaltung/vielfaeltiges-Wochenangebot-2026.10.26/?instancedate=1793005200000"
+      ],
+      "link_pattern": "https://augustinus\\-krefeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MiO Miteinander in Oppum",
+        "city": "Krefeld",
+        "postal_code": "47809",
+        "lat": 51.3289092,
+        "lon": 6.6123697,
+        "street_hint": "9 Hauptstraße"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Münsterbasilika St. Vitus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://pfarre-sankt-vitus.de/aktuelles/veranstaltungen/a-event/Taize-Gebet-00104/?instancedate=1793905200000"
+      ],
+      "link_pattern": "https://pfarre\\-sankt\\-vitus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Münsterbasilika St. Vitus",
+        "lat": 51.1924295,
+        "lon": 6.4315982
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Clemens Sels Museum Neuss",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event+ics",
+      "listing": [
+        "https://clemens-sels-museum-neuss.de/kalender"
+      ],
+      "link_pattern": "https://clemens\\-sels\\-museum\\-neuss\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Clemens Sels Museum Neuss",
+        "address": "Am Obertor",
+        "city": "Neuss",
+        "postal_code": "41460",
+        "country": "DE",
+        "lat": 51.1941561,
+        "lon": 6.6982995
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Pius-Lukas-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://st-nikolaus-krefeld.de/aktuelles/veranstaltungen/a-event/Morgenmeditation/?instancedate=1795849200000"
+      ],
+      "link_pattern": "https://st\\-nikolaus\\-krefeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pius-Lukas-Kirche",
+        "address": "380 Traarer Straße",
+        "city": "Krefeld",
+        "postal_code": "47829",
+        "lat": 51.3632561,
+        "lon": 6.6159471
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "St. Mariä Himmelfahrt",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.sankt-suitbertus.de/aktuelles/events/Gedaechtnistraining-in-Wittlaer/?instancedate=1793019600000"
+      ],
+      "link_pattern": "https://www\\.sankt\\-suitbertus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Mariä Himmelfahrt",
+        "address": "97 Im Grund",
+        "city": "Düsseldorf",
+        "postal_code": "40474",
+        "country": "DE",
+        "lat": 51.2750601,
+        "lon": 6.7361156
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Alevitische Gemeinde Düsseldorf",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.alevitische-gemeinde-duesseldorf.de/veranstaltungen/2805740/2026/12/31/silvester-y%C4%B1lba%C5%9F%C4%B1-kutlamas%C4%B1.html"
+      ],
+      "link_pattern": "https://www\\.alevitische\\-gemeinde\\-duesseldorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Alevitische Gemeinde Düsseldorf",
+        "address": "3a Am Kleinforst",
+        "city": "Düsseldorf",
+        "postal_code": "40627",
+        "country": "DE",
+        "lat": 51.2027694,
+        "lon": 6.8530152
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Evangelische Freikirche an der Wickenburg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.efw-essen.de/event-detailseite/punschabend-4"
+      ],
+      "link_pattern": "https://www\\.efw\\-essen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evangelische Freikirche an der Wickenburg",
+        "address": "101 Adelkampstraße",
+        "city": "Essen",
+        "postal_code": "45147",
+        "lat": 51.4407316,
+        "lon": 6.9643928
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Freie evangelische Gemeinde",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://freie-evangelische-gemeinde-haan.de/kalender/"
+      ],
+      "link_pattern": "https://freie\\-evangelische\\-gemeinde\\-haan\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Freie evangelische Gemeinde",
+        "address": "46 Ellscheider Straße",
+        "city": "Haan",
+        "postal_code": "42781",
+        "lat": 51.1968451,
+        "lon": 7.0091044
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Evangelische Kirche Osterath",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://evangelisch-in-buederich-osterath.ekir.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://evangelisch\\-in\\-buederich\\-osterath\\.ekir\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evangelische Kirche Osterath",
+        "address": "17 Alte Poststraße",
+        "city": "Meerbusch",
+        "postal_code": "40670",
+        "country": "DE",
+        "lat": 51.2690286,
+        "lon": 6.624779
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "WFB Velbert",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.wfbme.de/eventreader/handwerkermarkt-in-langenfeld.html"
+      ],
+      "link_pattern": "https://www\\.wfbme\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "WFB Velbert",
+        "lat": 51.3279061,
+        "lon": 7.0157898
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Heilsarmee Solingen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/solingen/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heilsarmee Solingen",
+        "address": "9;11 Florastraße",
+        "city": "Solingen",
+        "postal_code": "42651",
+        "country": "DE",
+        "lat": 51.1728026,
+        "lon": 7.0877884
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "St. Josef Grabeskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.trostraum.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St. Josef Grabeskirche",
+        "lat": 51.1620624,
+        "lon": 6.4517883
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Kulturvilla Mettmann",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event+ics",
+      "listing": [
+        "https://www.kulturvilla.com/programm/"
+      ],
+      "link_pattern": "https://www\\.kulturvilla\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturvilla Mettmann",
+        "address": "20 Beckershoffstraße",
+        "city": "Mettmann",
+        "postal_code": "40822",
+        "country": "DE",
+        "lat": 51.2514796,
+        "lon": 6.9747479
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Casablanca",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://casablanca.bochumerkinos.de/programm"
+      ],
+      "link_pattern": "https://casablanca\\.bochumerkinos\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Casablanca",
+        "address": "11 Kortumstraße",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "country": "DE",
+        "lat": 51.47677,
+        "lon": 7.2163847
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Union Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.kino-bochum.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.kino\\-bochum\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Union Kino",
+        "address": "16 Kortumstraße",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "country": "DE",
+        "lat": 51.4767836,
+        "lon": 7.2169038
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Cineworld Lünen",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://cineworld-luenen.de/programm"
+      ],
+      "link_pattern": "https://cineworld\\-luenen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cineworld Lünen",
+        "address": "3 Im Hagen",
+        "city": "Lünen",
+        "postal_code": "44532",
+        "lat": 51.6151709,
+        "lon": 7.522425
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Theater Kohlenpott",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.theaterkohlenpott.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Theater Kohlenpott",
+        "address": "5 Straße des Bohrhammers",
+        "city": "Herne",
+        "postal_code": "44625",
+        "country": "DE",
+        "lat": 51.5223582,
+        "lon": 7.2257774
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Capitol",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://capitol.bochumerkinos.de/programm"
+      ],
+      "link_pattern": "https://capitol\\.bochumerkinos\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capitol",
+        "address": "51 Kortumstraße",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "country": "DE",
+        "lat": 51.4794616,
+        "lon": 7.2168576
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Stadtmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.stadtmuseum-bergkamen.de/veranstaltungen/2892603/2026/11/06/nachts-im-museum.html"
+      ],
+      "link_pattern": "https://www\\.stadtmuseum\\-bergkamen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtmuseum",
+        "address": "31 Jahnstraße",
+        "city": "Bergkamen",
+        "postal_code": "59192",
+        "country": "DE",
+        "lat": 51.6092988,
+        "lon": 7.5894513
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Westfälisches Schulmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_143501.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Westfälisches Schulmuseum",
+        "address": "1 An der Wasserburg",
+        "city": "Dortmund",
+        "postal_code": "44379",
+        "country": "DE",
+        "lat": 51.5104838,
+        "lon": 7.3835838
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "St. Joseph-Stift",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://joseph-bochum.de/events/"
+      ],
+      "link_pattern": "https://joseph\\-bochum\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Joseph-Stift",
+        "address": "30 Klosterstraße",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "country": "DE",
+        "lat": 51.4854303,
+        "lon": 7.2096884
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Stadt- und Landesbibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_146575.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadt- und Landesbibliothek",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5165234,
+        "lon": 7.4608722,
+        "street_hint": "1-3 Max-von-der-Grün-Platz",
+        "aliases": [
+          "Zentralbibliothek"
+        ]
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Bücherwurm GmbH",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://buecherwurm-datteln.buchkatalog.de/Veranstaltungen"
+      ],
+      "link_pattern": "https://buecherwurm\\-datteln\\.buchkatalog\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bücherwurm GmbH",
+        "lat": 51.6499664,
+        "lon": 7.3389786
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Lichtspiel und Kunsttheater Schauburg",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://schauburg-kino.com/programm"
+      ],
+      "link_pattern": "https://schauburg\\-kino\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lichtspiel und Kunsttheater Schauburg",
+        "address": "66 Brückstraße",
+        "city": "Dortmund",
+        "postal_code": "44135",
+        "country": "DE",
+        "lat": 51.5172058,
+        "lon": 7.4647394
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "KickerEck",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://main.dal8fnk0mxzoj.amplifyapp.com/"
+      ],
+      "link_pattern": "https://main\\.dal8fnk0mxzoj\\.amplifyapp\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "KickerEck",
+        "address": "100 Sendstraße",
+        "city": "Dortmund",
+        "postal_code": "44143",
+        "lat": 51.5246007,
+        "lon": 7.5285198
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Museum für Kunst und Kulturgeschichte",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_126172.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum für Kunst und Kulturgeschichte",
+        "address": "3 Hansastraße",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5166724,
+        "lon": 7.4630051
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Naturmuseum Dortmund",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_99801.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Naturmuseum Dortmund",
+        "address": "271 Münsterstraße",
+        "city": "Dortmund",
+        "postal_code": "44145",
+        "country": "DE",
+        "lat": 51.5358813,
+        "lon": 7.457941
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "LAGO – Die Therme",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://gysenberg.de/events/"
+      ],
+      "link_pattern": "https://gysenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LAGO – Die Therme",
+        "address": "2 Am Ruhmbach",
+        "city": "Herne",
+        "postal_code": "44627",
+        "country": "DE",
+        "lat": 51.5333502,
+        "lon": 7.262512
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "K3",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.k3-schwelm.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "K3",
+        "address": "14 Sedanstraße",
+        "city": "Schwelm",
+        "postal_code": "58332",
+        "country": "DE",
+        "lat": 51.2932529,
+        "lon": 7.3035936
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Filmwelt Herne",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmwelt-herne.de/programm"
+      ],
+      "link_pattern": "https://filmwelt\\-herne\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmwelt Herne",
+        "address": "7 Berliner Platz",
+        "city": "Herne",
+        "postal_code": "44623",
+        "lat": 51.5369252,
+        "lon": 7.2234732
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Apollo Service Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.apollo-service-kino.de/programm"
+      ],
+      "link_pattern": "https://www\\.apollo\\-service\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Apollo Service Kino",
+        "address": "15 Nettestraße",
+        "city": "Altena",
+        "postal_code": "58762",
+        "lat": 51.2970133,
+        "lon": 7.6781743
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Evangelisch-reformierte Kirche Hohenlimburg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.reformiert-hohenlimburg.de/event/2026-11-01-orgelkonzert/"
+      ],
+      "link_pattern": "https://www\\.reformiert\\-hohenlimburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evangelisch-reformierte Kirche Hohenlimburg",
+        "address": "35 Freiheitstraße",
+        "city": "Hagen",
+        "postal_code": "58119",
+        "lat": 51.3504908,
+        "lon": 7.5702644
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "IUZ Sternwarte Bochum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.sternwarte-bochum.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "IUZ Sternwarte Bochum",
+        "address": "200a Blankensteiner Straße",
+        "city": "Bochum",
+        "postal_code": "44797",
+        "country": "DE",
+        "lat": 51.4272436,
+        "lon": 7.1932893
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "multiplex Gelsenkirchen",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://apollo.ge-kinos.de/programm"
+      ],
+      "link_pattern": "https://apollo\\.ge\\-kinos\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "multiplex Gelsenkirchen",
+        "address": "55 Willy-Brandt-Allee",
+        "lat": 51.551274,
+        "lon": 7.076103
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Studio-Bühne Essen",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.studio-buehne-essen.de/spielplan/"
+      ],
+      "link_pattern": "https://www\\.studio\\-buehne\\-essen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Studio-Bühne Essen",
+        "address": "11 Korumhöhe",
+        "city": "Essen",
+        "postal_code": "45307",
+        "country": "DE",
+        "lat": 51.4650961,
+        "lon": 7.0962242
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Helvete",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://helvete.de/nochmal/"
+      ],
+      "link_pattern": "https://helvete\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Helvete",
+        "lat": 51.468911,
+        "lon": 6.848571
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "K4 Theater für Menschlichkeit",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event+ics",
+      "listing": [
+        "https://www.k4theater.de/termine-wl/"
+      ],
+      "link_pattern": "https://www\\.k4theater\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "K4 Theater für Menschlichkeit",
+        "address": "80 Neuenteich",
+        "city": "Wuppertal",
+        "postal_code": "42107",
+        "country": "DE",
+        "lat": 51.2598785,
+        "lon": 7.1535661
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Turbinenhalle 1",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://turbinenhalle.de/programm/"
+      ],
+      "link_pattern": "https://turbinenhalle\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Turbinenhalle 1",
+        "lat": 51.4834907,
+        "lon": 6.86755
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Sport- und Freizeitanlage des Stadtsportbundes Oberhausen e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.ssb-oberhausen.de/veranstaltungen/2973777/2026/11/28/sportgala-2026.html"
+      ],
+      "link_pattern": "https://www\\.ssb\\-oberhausen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sport- und Freizeitanlage des Stadtsportbundes Oberhausen e.V.",
+        "lat": 51.4938815,
+        "lon": 6.8588049
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "CityKirche Elberfeld",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event+ics",
+      "listing": [
+        "https://www.citykirche-elberfeld.de/schedule/"
+      ],
+      "link_pattern": "https://www\\.citykirche\\-elberfeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CityKirche Elberfeld",
+        "address": "2 Kirchplatz",
+        "city": "Wuppertal",
+        "postal_code": "42103",
+        "country": "DE",
+        "lat": 51.256598,
+        "lon": 7.1474418
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "St. Antonius",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.antonius-wuppertal.de/aktuelles-termine/veranstaltungen/detail/GEMEINSAM-BETEN-IM-ROSENKRANZMONAT/?instancedate=1793119500000"
+      ],
+      "link_pattern": "https://www\\.antonius\\-wuppertal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Antonius",
+        "address": "139 Unterdörnen",
+        "city": "Wuppertal",
+        "postal_code": "42275",
+        "country": "DE",
+        "lat": 51.2706718,
+        "lon": 7.1952744
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Bandfabrik",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event+ics",
+      "listing": [
+        "https://bandfabrik-wuppertal.de/aktuell.php"
+      ],
+      "link_pattern": "https://bandfabrik\\-wuppertal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bandfabrik",
+        "address": "133 Schwelmer Straße",
+        "city": "Wuppertal",
+        "postal_code": "42389",
+        "country": "DE",
+        "lat": 51.2766244,
+        "lon": 7.2587885
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Central Theater",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.osterholz.cineprog.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.osterholz\\.cineprog\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Central Theater",
+        "address": "1",
+        "lat": 53.2309303,
+        "lon": 8.7844891
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Wassersportverein Blumenthal e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.wvbl.de/events"
+      ],
+      "link_pattern": "https://www\\.wvbl\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wassersportverein Blumenthal e.V.",
+        "address": "21 Weserstrandstraße",
+        "city": "Bremen",
+        "postal_code": "28779",
+        "lat": 53.1826775,
+        "lon": 8.5605954
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Packhaustheater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://packhaus.theater/events/liederin/"
+      ],
+      "link_pattern": "https://packhaus\\.theater/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Packhaustheater",
+        "address": "11 Wüstestätte",
+        "city": "Bremen",
+        "postal_code": "28195",
+        "country": "DE",
+        "lat": 53.0724986,
+        "lon": 8.8093111
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Museum für Schifffahrt und Torfabbau",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://vogelmuseum-museumsanlage-ohz.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://vogelmuseum\\-museumsanlage\\-ohz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum für Schifffahrt und Torfabbau",
+        "address": "42 Bördestraße",
+        "lat": 53.2244717,
+        "lon": 8.8100926
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Shagall",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.shagall-klub.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Shagall",
+        "address": "4 Rembertiring",
+        "city": "Bremen",
+        "postal_code": "28195",
+        "country": "DE",
+        "lat": 53.0806614,
+        "lon": 8.8138572
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Filmpalast Schwanewede",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://film-palast-schwanewede.de/programm"
+      ],
+      "link_pattern": "https://film\\-palast\\-schwanewede\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmpalast Schwanewede",
+        "address": "54 Am Markt",
+        "city": "Schwanewede",
+        "postal_code": "28790",
+        "country": "DE",
+        "lat": 53.2234245,
+        "lon": 8.5966094
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Verein für Kanusport Bremen",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://vkb-bremen.de/termine.php"
+      ],
+      "link_pattern": "https://vkb\\-bremen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Verein für Kanusport Bremen",
+        "address": "4 Auf dem Wummenstück",
+        "city": "Bremen",
+        "postal_code": "28359",
+        "country": "DE",
+        "lat": 53.1046404,
+        "lon": 8.8487428
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Anker der Eintracht",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://anker-der-eintracht.de/termine/"
+      ],
+      "link_pattern": "https://anker\\-der\\-eintracht\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Anker der Eintracht",
+        "lat": 53.1706716,
+        "lon": 8.6205152
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Bürgerhaus Mahndorf",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.buergerhaus-mahndorf.de/programm"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bürgerhaus Mahndorf",
+        "address": "10 Mahndorfer Bahnhof",
+        "city": "Bremen",
+        "postal_code": "28307",
+        "lat": 53.0390593,
+        "lon": 8.9454581
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Ritterhude",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://ritterhude.nak-nordost.de/db/575662/Termine/Reli-Sonntag"
+      ],
+      "link_pattern": "https://ritterhude\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Ritterhude",
+        "address": "90 Bremer Landstraße",
+        "city": "Ritterhude",
+        "postal_code": "27721",
+        "country": "DE",
+        "lat": 53.179076,
+        "lon": 8.7320641
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Modernes",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event+ics",
+      "listing": [
+        "https://modernes.de/events/2026-11-06/2010er/"
+      ],
+      "link_pattern": "https://modernes\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Modernes",
+        "address": "28 Neustadtswall",
+        "city": "Bremen",
+        "postal_code": "28199",
+        "country": "DE",
+        "lat": 53.0721753,
+        "lon": 8.7946514
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Oscar Kulturspielhaus",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://oscar-kulturspielhaus.de/programm"
+      ],
+      "link_pattern": "https://oscar\\-kulturspielhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Oscar Kulturspielhaus",
+        "address": "9 Klosterkamp",
+        "city": "Osterholz-Scharmbeck",
+        "postal_code": "27711",
+        "country": "DE",
+        "lat": 53.2236417,
+        "lon": 8.7956096
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Turnverein Baden e. V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.turnverein-baden.de/portal/veranstaltungen/volleyball-oberliga-maenner-1404-1230.html"
+      ],
+      "link_pattern": "https://www\\.turnverein\\-baden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Turnverein Baden e. V.",
+        "address": "180 Verdener Straße",
+        "city": "Achim",
+        "postal_code": "28832",
+        "country": "DE",
+        "lat": 52.9995332,
+        "lon": 9.0940009
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Bremen-Arsten",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bremen-arsten.nak-nordost.de/db/575667/Termine/Reli-Sonntag"
+      ],
+      "link_pattern": "https://bremen\\-arsten\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Bremen-Arsten",
+        "address": "132a Arsterdamm",
+        "city": "Bremen",
+        "postal_code": "28279",
+        "country": "DE",
+        "lat": 53.0366212,
+        "lon": 8.8400364
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Bremen-Lesum",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bremen-lesum.nak-nordost.de/db/575669/Termine/Reli-Sonntag"
+      ],
+      "link_pattern": "https://bremen\\-lesum\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Bremen-Lesum",
+        "address": "21 Lesmonastraße",
+        "city": "Bremen",
+        "postal_code": "28717",
+        "country": "DE",
+        "lat": 53.167189,
+        "lon": 8.6836905
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Bremen-Sebaldsbrück",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bremen-sebaldsbrueck.nak-nordost.de/db/624062/Termine/Probe-Frauenchor"
+      ],
+      "link_pattern": "https://bremen\\-sebaldsbrueck\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Bremen-Sebaldsbrück",
+        "address": "162 Vahrer Straße",
+        "city": "Bremen",
+        "postal_code": "28309",
+        "lat": 53.0675185,
+        "lon": 8.8873467
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Weyhe",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://weyhe.nak-nordost.de/db/575671/Termine/Reli-Sonntag"
+      ],
+      "link_pattern": "https://weyhe\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Weyhe",
+        "address": "20 Papengrenze",
+        "city": "Weyhe",
+        "postal_code": "28844",
+        "lat": 52.9896645,
+        "lon": 8.8187746
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Bremen-Osterholz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bremen-osterholz.nak-nordost.de/db/624054/Termine/Probe-Frauenchor"
+      ],
+      "link_pattern": "https://bremen\\-osterholz\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Bremen-Osterholz",
+        "address": "8c Am Hallacker",
+        "city": "Bremen",
+        "postal_code": "28327",
+        "country": "DE",
+        "lat": 53.0682179,
+        "lon": 8.9319316
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Achim",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://achim.nak-nordost.de/db/624063/Termine/Probe-Frauenchor"
+      ],
+      "link_pattern": "https://achim\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Achim",
+        "address": "34 Bergstraße",
+        "city": "Achim",
+        "postal_code": "28832",
+        "country": "DE",
+        "lat": 53.0109774,
+        "lon": 9.0436287
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Lilienthal",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://lilienthal.nak-nordost.de/db/523888/Termine/Gottesdienst-zum-ersten-Advent"
+      ],
+      "link_pattern": "https://lilienthal\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Lilienthal",
+        "address": "1a Amtsstraße",
+        "city": "Lilienthal",
+        "postal_code": "28865",
+        "lat": 53.1424107,
+        "lon": 8.910727
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "MS Treue",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.mstreue.de/"
+      ],
+      "link_pattern": "https://www\\.mstreue\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MS Treue",
+        "lat": 53.0723397,
+        "lon": 8.8075806
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Bremen-Huchting",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bremen-huchting.nak-nordost.de/db/575666/Termine/Reli-Sonntag"
+      ],
+      "link_pattern": "https://bremen\\-huchting\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Bremen-Huchting",
+        "address": "45a Am Sodenmatt",
+        "city": "Bremen",
+        "postal_code": "28259",
+        "lat": 53.0473538,
+        "lon": 8.719549
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Bremen-Mitte",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bremen-mitte.nak-nordost.de/db/575664/Termine/Reli-Sonntag"
+      ],
+      "link_pattern": "https://bremen\\-mitte\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Bremen-Mitte",
+        "address": "38 Augsburger Straße",
+        "city": "Bremen",
+        "postal_code": "28215",
+        "lat": 53.096186,
+        "lon": 8.8009505
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Jokes Die Circusschule",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.circusjokes.de/veranstaltungen/2838620/2026/11/08/lichterferst.html"
+      ],
+      "link_pattern": "https://www\\.circusjokes\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jokes Die Circusschule",
+        "address": "315a Kornstraße",
+        "city": "Bremen",
+        "postal_code": "28201",
+        "lat": 53.0537668,
+        "lon": 8.8119082
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Comödie",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.comoedie-dresden.de/spielplan/"
+      ],
+      "link_pattern": "https://www\\.comoedie\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Comödie",
+        "address": "74 Ammonstraße",
+        "city": "Dresden",
+        "postal_code": "01067",
+        "country": "DE",
+        "lat": 51.0484032,
+        "lon": 13.7220385
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Parkhotel Dresden am weißen Hirsch",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event+ics",
+      "listing": [
+        "https://www.parkhotel-dresden.de/programm"
+      ],
+      "link_pattern": "https://www\\.parkhotel\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Parkhotel Dresden am weißen Hirsch",
+        "address": "7 Bautzner Landstraße",
+        "city": "Dresden",
+        "country": "DE",
+        "lat": 51.0638434,
+        "lon": 13.8216653
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "MiBERZ",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.museen-dippoldiswalde.de/veranstaltungen/2968492/2026/10/27/dr.-christiane-hemker-die-silberbergwerke-von-dippoldiswalde-im-12.-und-13.-jahrhundert-montanarch%C3%A4ologie-im-welterbe.html"
+      ],
+      "link_pattern": "https://www\\.museen\\-dippoldiswalde\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MiBERZ",
+        "address": "8 Kirchplatz",
+        "city": "Dippoldiswalde",
+        "postal_code": "01744",
+        "country": "DE",
+        "lat": 50.8957246,
+        "lon": 13.6663587
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Gemeindezentrum St.-Pauli-Kirchgemeinde",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://kirchspiel-dresden-neustadt.de/veranstaltungen-gottesdienste-konzerte/gottesdienst-327.html"
+      ],
+      "link_pattern": "https://kirchspiel\\-dresden\\-neustadt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindezentrum St.-Pauli-Kirchgemeinde",
+        "lat": 51.075256,
+        "lon": 13.7485828
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "SV Wacker Mohorn e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.sv-wacker-mohorn.de/veranstaltungen/2974258/2026/10/31/fu%C3%9Fball-kreisoberliga-c-jugend.html"
+      ],
+      "link_pattern": "https://www\\.sv\\-wacker\\-mohorn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SV Wacker Mohorn e.V.",
+        "address": "2 Am Tharandter Wald",
+        "city": "Wilsdruff",
+        "postal_code": "01723",
+        "lat": 50.9982268,
+        "lon": 13.4756143
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Missnia\" e. V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://meissnercarnevalsverein.de/veranstaltung/weiberfasching.html"
+      ],
+      "link_pattern": "https://meissnercarnevalsverein\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Missnia\" e. V.",
+        "address": "12 Stadtblick",
+        "city": "Meißen",
+        "postal_code": "01662",
+        "lat": 51.1495662,
+        "lon": 13.4724247
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Kulturhafen Dresden",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://kulturhafen-dresden.de/Impro-Show/Das_Hotel-1571.html"
+      ],
+      "link_pattern": "https://kulturhafen\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturhafen Dresden",
+        "address": "53 Leisniger Straße",
+        "city": "Dresden",
+        "postal_code": "01127",
+        "lat": 51.0821801,
+        "lon": 13.721872
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Teilhabeberatung",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.stadt-ag-dresden.de/veranstaltungen/2967934/2026/10/28/wie-gehts-stille-stunde.html"
+      ],
+      "link_pattern": "https://www\\.stadt\\-ag\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teilhabeberatung",
+        "address": "21 Hoyerswerdaer Straße",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "country": "DE",
+        "lat": 51.0608458,
+        "lon": 13.7522572
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Jüdische Kultusgemeinde Dresden",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.juedische-gemeinde-dresden.de/eventlist"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Jüdische Kultusgemeinde Dresden",
+        "address": "1 Eisenbahnstraße",
+        "city": "Dresden",
+        "postal_code": "01097",
+        "lat": 51.0668592,
+        "lon": 13.7376813
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Baderei Kamenz",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.baderei-kamenz.de/events-veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Baderei Kamenz",
+        "lat": 51.2691576,
+        "lon": 14.0934849
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Frauenkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.frauenkirche-dresden.de/kalender/eventleser/offene-kirche-3253135"
+      ],
+      "link_pattern": "https://www\\.frauenkirche\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Frauenkirche",
+        "address": "Neumarkt",
+        "city": "Dresden",
+        "postal_code": "01067",
+        "country": "DE",
+        "lat": 51.0519531,
+        "lon": 13.7416141
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Peter-Pauls-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.kirchspiel-cwn.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Peter-Pauls-Kirche",
+        "address": "3 Pestalozzistraße",
+        "city": "Coswig",
+        "postal_code": "01640",
+        "lat": 51.1261326,
+        "lon": 13.5829787
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche - Gemeinde Dresden-Neustadt",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://dresden-neustadt.nak-nordost.de/db/632775/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://dresden\\-neustadt\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche - Gemeinde Dresden-Neustadt",
+        "address": "37 Böhmische Straße",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "lat": 51.0648715,
+        "lon": 13.7548635
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://radeberg.nak-nordost.de/db/638790/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://radeberg\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "6a Steinstraße",
+        "city": "Radeberg",
+        "postal_code": "01454",
+        "country": "DE",
+        "lat": 51.1151425,
+        "lon": 13.9037344
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche - Gemeinde Pirna",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://dresden-sued.nak-nordost.de/db/640586/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://dresden\\-sued\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche - Gemeinde Pirna",
+        "address": "23 Dippoldiswalder Straße",
+        "city": "Pirna",
+        "postal_code": "01796",
+        "country": "DE",
+        "lat": 50.9554416,
+        "lon": 13.9265868
+      },
+      "_metro": "Dresden, Germany"
     }
   ],
   "_not_included": {
