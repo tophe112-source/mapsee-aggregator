@@ -17725,6 +17725,618 @@
         "lon": 13.9265868
       },
       "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Hafenstraße e. V. - soziokulturelles Zentrum",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://hafenstrasse-meissen.de/events/"
+      ],
+      "link_pattern": "https://hafenstrasse\\-meissen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hafenstraße e. V. - soziokulturelles Zentrum",
+        "address": "28 Hafenstraße",
+        "city": "Meißen",
+        "postal_code": "01662",
+        "lat": 51.1685556,
+        "lon": 13.4780043
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Tiergarten Höckendorfer Heide",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://www.gemeinde-klingenberg.de/veranstaltungen/2968982/2026/10/30/kreatives-k%C3%BCrbisschnitzen-1.-termin-beim-landschaftspflegeverband-s%C3%A4chsische-schweiz-osterzgebirge-e.v.html"
+      ],
+      "link_pattern": "https://www\\.gemeinde\\-klingenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tiergarten Höckendorfer Heide",
+        "lat": 50.9242802,
+        "lon": 13.5924714
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche - Gemeinde Meißen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://meissen.nak-nordost.de/db/638780/Termine/Jugendgottesdienst"
+      ],
+      "link_pattern": "https://meissen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche - Gemeinde Meißen",
+        "address": "23 Neumarkt",
+        "city": "Meißen",
+        "postal_code": "01662",
+        "lat": 51.1571901,
+        "lon": 13.4708609
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Die Medizinhistorischen Sammlungen",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "http://www.medizinhistorische-sammlungen-gottleuba.de/veranstaltungen/2974177/2026/10/27/ratgeber-smartphone.html"
+      ],
+      "link_pattern": "https://www\\.medizinhistorische\\-sammlungen\\-gottleuba\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Die Medizinhistorischen Sammlungen",
+        "address": "39 Königstraße",
+        "city": "Bad Gottleuba-Berggießhübel",
+        "postal_code": "01816",
+        "lat": 50.8565907,
+        "lon": 13.9441277
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Galopprennbahn Dresden-Seidnitz",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://galopprennbahn-dresden-seidnitz.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://galopprennbahn\\-dresden\\-seidnitz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Galopprennbahn Dresden-Seidnitz",
+        "lat": 51.0199212,
+        "lon": 13.8004211
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "WDM",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://wdm167.com/#events"
+      ],
+      "link_pattern": "https://wdm167\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "WDM",
+        "address": "8 Weidendamm",
+        "city": "Hannover",
+        "postal_code": "30167",
+        "lat": 52.3843916,
+        "lon": 9.7301305
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "LaTable",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.lasall-hannover.de/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "LaTable",
+        "address": "79 Sallstraße",
+        "city": "Hannover",
+        "postal_code": "30171",
+        "lat": 52.3619187,
+        "lon": 9.7594735
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "marlene Bar & Bühne",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.marlene-hannover.de/programm/"
+      ],
+      "link_pattern": "https://www\\.marlene\\-hannover\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "marlene Bar & Bühne",
+        "address": "10 Prinzenstraße",
+        "lat": 52.3733154,
+        "lon": 9.7448112
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Old Inn",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://old-inn.info/upcoming-events/"
+      ],
+      "link_pattern": "https://old\\-inn\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Old Inn",
+        "address": "35 Hoher Weg",
+        "city": "Hildesheim",
+        "postal_code": "31134",
+        "lat": 52.1526448,
+        "lon": 9.9498194
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Jugend-, Familien- und Erziehungsberatung",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "http://www.vahrenheide.info/veranstaltungen/2940304/2026/10/29/internationales-kochen.html"
+      ],
+      "link_pattern": "https://www\\.vahrenheide\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jugend-, Familien- und Erziehungsberatung",
+        "address": "12A Plauener Straße",
+        "city": "Hannover",
+        "postal_code": "30179",
+        "lat": 52.4125478,
+        "lon": 9.7596982
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Haus Drei",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.hausdrei-wennigsen.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Haus Drei",
+        "address": "3a Hauptstraße",
+        "lat": 52.2730159,
+        "lon": 9.573656
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Tanzsportclub Phoenix Hannover e.V.",
+      "category": "community",
+      "_found": "osm:fitness_centre -> jsonld-event",
+      "listing": [
+        "https://www.tanzsport-phoenix.de/veranstaltungen/2854453/2026/11/21/save-the-date-generalreinigung.html"
+      ],
+      "link_pattern": "https://www\\.tanzsport\\-phoenix\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tanzsportclub Phoenix Hannover e.V.",
+        "address": "5A Ikarusallee",
+        "city": "Hannover",
+        "postal_code": "30179",
+        "country": "DE",
+        "lat": 52.4202545,
+        "lon": 9.7450118
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "SV Ahlem",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.sv-ahlem.de/veranstaltungen-turniere"
+      ],
+      "link_pattern": "https://www\\.sv\\-ahlem\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SV Ahlem",
+        "lat": 52.3792304,
+        "lon": 9.6570765
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Neuapostolische Gemeinde Hannover-Süd",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hannover-sued.nak-nordost.de/db/625352/Termine/Glaubenswochenende"
+      ],
+      "link_pattern": "https://hannover\\-sued\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Gemeinde Hannover-Süd",
+        "address": "3 Garkenburgstraße",
+        "city": "Hannover",
+        "postal_code": "30519",
+        "country": "DE",
+        "lat": 52.3328669,
+        "lon": 9.7750357
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "VfL Eintracht Hannover",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.vfl-eintracht-hannover.de/terminkalender/"
+      ],
+      "link_pattern": "https://www\\.vfl\\-eintracht\\-hannover\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "VfL Eintracht Hannover",
+        "address": "8 Hoppenstedtstraße",
+        "city": "Hannover",
+        "postal_code": "30173",
+        "lat": 52.3509014,
+        "lon": 9.7594989
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://pattensen.nak-nordost.de/db/625353/Termine/Glaubenswochenende"
+      ],
+      "link_pattern": "https://pattensen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "lat": 52.2613819,
+        "lon": 9.7703869
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "THEATER an der GLOCKSEE",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://theater-an-der-glocksee.de/spielplan.html"
+      ],
+      "link_pattern": "https://theater\\-an\\-der\\-glocksee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "THEATER an der GLOCKSEE",
+        "address": "35 Glockseestraße",
+        "city": "Hannover",
+        "postal_code": "30169",
+        "lat": 52.3717099,
+        "lon": 9.7194494
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "MusikZentrum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://musikzentrum-hannover.de/events/"
+      ],
+      "link_pattern": "https://musikzentrum\\-hannover\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MusikZentrum",
+        "lat": 52.3928592,
+        "lon": 9.725315
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Admiral Boutique Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://admiral-kino-nuernberg.de/"
+      ],
+      "link_pattern": "https://admiral\\-kino\\-nuernberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Admiral Boutique Kino",
+        "address": "11 Königstraße",
+        "city": "Nürnberg",
+        "postal_code": "90402",
+        "country": "DE",
+        "lat": 49.4516303,
+        "lon": 11.078125
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Babylon Kino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.babylon-kino-fuerth.de/de"
+      ],
+      "link_pattern": "https://www\\.babylon\\-kino\\-fuerth\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Babylon Kino",
+        "address": "3 Nürnberger Straße",
+        "city": "Fürth",
+        "postal_code": "90762",
+        "country": "DE",
+        "lat": 49.4722416,
+        "lon": 10.9938145
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "mach1 Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://mach1-club.de/"
+      ],
+      "link_pattern": "https://mach1\\-club\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "mach1 Club",
+        "address": "1-9 Kaiserstraße",
+        "city": "Nürnberg",
+        "postal_code": "90403",
+        "country": "DE",
+        "lat": 49.4522949,
+        "lon": 11.0768611
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Internationale Jesus Gemeinde",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://ijg-erlangen.de/events-2/"
+      ],
+      "link_pattern": "https://ijg\\-erlangen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Internationale Jesus Gemeinde",
+        "address": "47 Tennenloher Straße",
+        "city": "Erlangen",
+        "postal_code": "91058",
+        "country": "DE",
+        "lat": 49.5681558,
+        "lon": 10.9925966
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Lichtspiele Großhabersdorf",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://lichtspiele-grosshabersdorf.de/programm"
+      ],
+      "link_pattern": "https://lichtspiele\\-grosshabersdorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lichtspiele Großhabersdorf",
+        "address": "15 Bachstraße",
+        "city": "Großhabersdorf",
+        "postal_code": "90613",
+        "lat": 49.4053996,
+        "lon": 10.7869731
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Sektion Erlangen des Deutschen Alpenvereins e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.alpenverein-erlangen.de/jdav-die-jugend/"
+      ],
+      "link_pattern": "https://www\\.alpenverein\\-erlangen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sektion Erlangen des Deutschen Alpenvereins e.V.",
+        "address": "116 Hartmannstraße",
+        "city": "Erlangen",
+        "postal_code": "91052",
+        "country": "DE",
+        "lat": 49.5840298,
+        "lon": 11.0223516
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "1. Segel & Tauch Club Nürnberg e.V.",
+      "category": "community",
+      "_found": "osm:club -> wix+jsonld-event",
+      "listing": [
+        "https://www.erster-stn.de/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/veranstaltungsinfo/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "1. Segel & Tauch Club Nürnberg e.V.",
+        "address": "26 Riesenschritt",
+        "city": "Nürnberg",
+        "postal_code": "90419",
+        "country": "DE",
+        "lat": 49.45755,
+        "lon": 11.0631781
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Christengemeinde Hersbruck - Evangelische Freikirche e.V.",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.cg-hersbruck.de/veranstaltungen"
+      ],
+      "link_pattern": "https://www\\.cg\\-hersbruck\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Christengemeinde Hersbruck - Evangelische Freikirche e.V.",
+        "address": "62 Nürnberger Straße",
+        "city": "Hersbruck",
+        "postal_code": "91217",
+        "country": "DE",
+        "lat": 49.5086272,
+        "lon": 11.4195908
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Tango Loft Margarita",
+      "category": "fitness",
+      "_found": "osm:dance -> wix",
+      "listing": [
+        "https://www.mtango.de/programm"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/details-registrierung/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Tango Loft Margarita",
+        "address": "72 Poppenreuther Straße",
+        "city": "Fürth",
+        "postal_code": "90765",
+        "country": "DE",
+        "lat": 49.4813163,
+        "lon": 11.0080715
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "GATE",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://gate-nuernberg.de/Events/Show/192/Single%20Party%20%20Sa%2007%20November"
+      ],
+      "link_pattern": "https://gate\\-nuernberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "GATE",
+        "lat": 49.494604,
+        "lon": 11.0789073
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Sankt Theresia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://st-theresia-erlangen.de/aktuelles/Veranstaltungen/veranstaltung-im-detail/Kaffeetreff-00001/?instancedate=1793626200000"
+      ],
+      "link_pattern": "https://st\\-theresia\\-erlangen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sankt Theresia",
+        "address": "1",
+        "city": "Erlangen",
+        "postal_code": "91054",
+        "country": "DE",
+        "lat": 49.6013881,
+        "lon": 11.0402541
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Vereinsheim ASV Forth",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.asvforth.de/veranstaltungen/2970501/2026/11/20/asv-theater-dauermieter-oder-ein-schmitt-wohnt-selten-allein.html"
+      ],
+      "link_pattern": "https://www\\.asvforth\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Vereinsheim ASV Forth",
+        "lat": 49.5888272,
+        "lon": 11.2079487
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Casino Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.kino-eckental.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.kino\\-eckental\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Casino Lichtspiele",
+        "address": "55 Eschenauer Hauptstraße",
+        "city": "Eckental",
+        "postal_code": "90542",
+        "country": "DE",
+        "lat": 49.5745293,
+        "lon": 11.2011286
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Liebfrauenkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://pfarreiengemeinschaft-herzogenaurach.de/aktuelles/termine/veranstaltung-im-detail/Herbstzauber-2026.10.31/?instancedate=1793466000000"
+      ],
+      "link_pattern": "https://pfarreiengemeinschaft\\-herzogenaurach\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Liebfrauenkirche",
+        "lat": 49.567351,
+        "lon": 10.8888318
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "L'Olympia",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.olympiahall.com/agenda/lio/"
+      ],
+      "link_pattern": "https://www\\.olympiahall\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "L'Olympia",
+        "lat": 48.8702443,
+        "lon": 2.3283595
+      },
+      "_metro": "Paris, France"
     }
   ],
   "_not_included": {

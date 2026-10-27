@@ -3066,6 +3066,38 @@
         "lon": 9.1599276
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Yogabande",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.yogabande.de/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Yogabande",
+        "address": "18 Fröbelstraße",
+        "city": "Hannover",
+        "postal_code": "30451",
+        "lat": 52.3740813,
+        "lon": 9.7030048
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Gleis D - Skatehalle Hannover",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.gleis-d.de/programm",
+      "max_events": 200,
+      "venue": {
+        "name": "Gleis D - Skatehalle Hannover",
+        "address": "22b Hüttenstraße",
+        "city": "Hannover",
+        "postal_code": "30165",
+        "lat": 52.3927068,
+        "lon": 9.7237453
+      },
+      "_metro": "Hannover, Germany"
     }
   ],
   "_not_included": {
