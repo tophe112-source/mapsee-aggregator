@@ -403,6 +403,7 @@ def main():
     checks.extend(fix_checks_2026_10_05())
     checks.extend(cancel_checks_2026_10_05())
     checks.extend(booking_checks_2026_10_12())
+    checks.extend(stable_face_checks_2026_10_27())
 
     failed = 0
     for ok, why in checks:
@@ -1029,6 +1030,174 @@ def booking_checks_2026_10_12():
     checks.append((len(asked) == 2 and min(asked) >= 358,
                    "Everyone Active is walked past the 358 pages its occurrence feed measured, "
                    f"not the default {OA.MAX_PAGES} (asked {asked})"))
+    return checks
+
+
+# ---------------------------------------------------------------------------
+# 2026-10-27: A STANDING ROW'S FACE CARRIED A CLOCK. Every OpenActive row is
+# compared daily (needs_detail_sync), and a standing row's stored description
+# changed without the publisher changing anything: its session count flipped
+# 2 -> 3 -> 2 as a class later on the day of the run came into the fortnight
+# Everyone Active lists, its 🔎 search carried the soonest occurrence's date,
+# and where one row covers a series per weekday its link followed whichever
+# weekday came next. Everyone Active's series link is its booking landing page,
+# the same for every occurrence (the 10-26 dedupe artifact: one link on the
+# 10-28 and 10-29 rows of 'Gym 11-13 Yrs Wed 10:00').
+EA_LANE_BOOK = dict(EA_LANE, url="https://book.everyoneactive.com/connect/landing.aspx"
+                                 "?Site=0157&Activities=1574WS4MM1230HK&Culture=en-GB")
+# WHAT THE TABLE HOLDS FOR THAT SERIES, as the adapter and the sync wrote it
+# before this change (to_row of the real fold at the parent commit, verbatim):
+# a Wednesday read lists Thu 1 and 8 Oct, a Thursday read before the 14:30
+# class Thu 1, 8 and 15, and both search on the soonest date.
+_OLD_TAIL = ("\n\nSome admission options are not free. Admission: GBP 9.35.\n\n"
+             "Session data published by Everyone Active via OpenActive, licensed CC-BY 4.0.\n\n"
+             "\U0001F4CD 15 Marshall Street, London, W1F 7EL\n\n"
+             "Tickets / info: https://book.everyoneactive.com/connect/landing.aspx"
+             "?Site=0157&Activities=1574WS4MM1230HK&Culture=en-GB\n\n"
+             "\U0001F50E More on this show: https://www.google.com/search?q=Marshall%20Street"
+             "%20Leisure%20Centre%20and%20Spa%20Lane%20Swim%20Med%20Thu%2014%3A30%20")
+OLD_WED = ("\U0001F501 Runs weekly — 2 sessions scheduled over the next few weeks, on 1 day a week."
+           + _OLD_TAIL + "2026-10-01")
+OLD_THU = ("\U0001F501 Runs weekly — 3 sessions scheduled over the next few weeks, on 1 day a week."
+           + _OLD_TAIL + "2026-10-01")
+
+
+def _taster(code):
+    """'PT Taster Session' at Everyone Active's Site 0083: one SERIES per
+    weekday, one title, one centre — so one standing row over several links."""
+    return dict(EA_PUMP, **{"@id": f"https://data.everyoneactive.com/OpenActive/api/session-series/{code}",
+                            "name": "PT Taster Session",
+                            "url": "https://book.everyoneactive.com/connect/landing.aspx"
+                                   f"?Site=0083&Activities={code}&Culture=en-GB"})
+
+
+class _OneRow:
+    """A PostgREST that answers every compare with one stored row."""
+    def __init__(self, stored):
+        self.stored = stored
+
+    def get(self, url, headers=None, timeout=None):
+        stored = self.stored
+
+        class R:
+            status_code = 200
+
+            @staticmethod
+            def json():
+                return [stored]
+        return R()
+
+
+def stable_face_checks_2026_10_27():
+    """The same series folded on two days says the same thing, and a row the
+    old code stored is not rewritten only because the text changed. Each case
+    fails on the adapter or the sync as they were before 2026-10-27."""
+    import contextlib
+    import io
+    from mapsee_retire_openactive_slots import WEEKLY_MARK
+    checks = []
+    utc = timezone.utc
+
+    def standing(now, pairs):
+        evs = [e for e in (OA.to_event(OA.merge_occurrence(o, s), EA_SRC, now, 120)[0] for s, o in pairs) if e]
+        own = [(e, e.start_utc, e.end_utc) for e in evs]
+        out, _, _ = OA.collapse_weekly_series(evs, OA.WEEKLY_MIN_REPEATS)
+        return [e for e in out if e.recurring_days], own
+
+    def lane(now, days):
+        return standing(now, [(EA_LANE_BOOK, occ3(EA_LANE_BOOK, f"l{d}", d, 13, 30)) for d in days])[0]
+
+    def stored(ev):
+        return S.to_row(ev.as_record("2026-10-01T00:00:00+00:00"), "host")
+
+    # ----------------------------------- 1. a fortnight's feed, read a day apart
+    THU = datetime(2026, 10, 1, 12, tzinfo=utc)        # a Thursday, before the 13:30Z class
+    thu, fri = lane(THU, (1, 8, 15)), lane(THU + timedelta(days=1), (8, 15))
+    a, b = (thu or [None])[0], (fri or [None])[0]
+    checks.append((len(thu) == len(fri) == 1, "Thursday's three sessions and Friday's two each fold to one row"))
+    same = lambda f: a is not None and b is not None and getattr(a, f) == getattr(b, f)
+    checks.append((all(same(f) for f in ("description", "ticket_url", "source_details", "recurring_days",
+                                         "icon", "fingerprint", "poster_image_url")),
+                   "folded on Thursday and on Friday: the same description, link, facts, pattern, icon and id"))
+    ra, rb = (stored(a), stored(b)) if a and b else ({}, {})
+    checks.append((ra.get("description") is not None and ra.get("description") == rb.get("description"),
+                   "...and the STORED description (through _cap_prose and the Tickets line) is byte-identical"))
+    checks.append((sorted(c for c in ra if ra[c] != rb.get(c)) == ["ends_at", "starts_at"],
+                   "the only columns that differ are the window, which skip_cols looks past on a standing row"))
+    checks.append((a is not None and a.start_utc == "2026-10-01T13:30:00+00:00"
+                   and b.start_utc == "2026-10-08T13:30:00+00:00",
+                   "each still starts at its SOONEST occurrence (the roller never pulls a window back)"))
+    checks.append((a is not None and WEEKLY_MARK in a.description and WEEKLY_MARK in ra["description"],
+                   "the opener keeps WEEKLY_MARK, the substring mapsee_retire_openactive_slots finds standing rows by"))
+    checks.append((a is not None and a.description.startswith("\U0001F501 Runs weekly — on 1 day a week.\n\n"),
+                   "the opener says the pattern, not how many sessions the feed lists today"))
+    checks.append(("More on this show" not in ra.get("description", "x"),
+                   "no 🔎 search on a standing row: it carried the soonest date, so it changed every week"))
+    dated = OA.to_event(OA.merge_occurrence(occ3(EA_LANE_BOOK, "d", 15, 13, 30), EA_LANE_BOOK), EA_SRC, THU, 120)[0]
+    checks.append(("More on this show" not in (stored(dated)["description"] or ""),
+                   "nor on a dated OpenActive session: a lane swim is not a show"))
+
+    # ------------------------------ 2. one row over a series per weekday
+    TUE_S, THU_S = _taster("0832B2209000125"), _taster("0834B2209000125")
+
+    def pt(now, tue_days, thu_days):
+        return standing(now, [(TUE_S, occ3(TUE_S, f"u{d}", d, 8)) for d in tue_days]
+                        + [(THU_S, occ3(THU_S, f"t{d}", d, 8)) for d in thu_days])
+    tue_run, tue_own = pt(datetime(2026, 10, 6, 12, tzinfo=utc), (13, 20), (8, 15))
+    thu_run, _ = pt(datetime(2026, 10, 8, 12, tzinfo=utc), (13, 20), (15, 22))
+    p, q = (tue_run or [None])[0], (thu_run or [None])[0]
+    checks.append((p is not None and q is not None and p.ticket_url == q.ticket_url == TUE_S["url"]
+                   and p.description == q.description and stored(p)["description"] == stored(q)["description"],
+                   "two weekday series under one title: Tuesday's read and Thursday's give the same link and "
+                   "description (the soonest's link rotated between the two)"))
+    checks.append((p is not None and p.start_utc == "2026-10-08T08:00:00+00:00"
+                   and q.start_utc == "2026-10-13T08:00:00+00:00",
+                   "...while each still starts at its soonest session, whichever series that is"))
+    checks.append((all(e.start_utc == s and e.end_utc == t for e, s, t in tue_own),
+                   "the fold gives no row it read another occurrence's date (cancellations re-folds them)"))
+    # ...which matters as soon as anything at the publisher is called off: two
+    # rows at one instant collapse in the re-fold, the fold breaks, and a live
+    # session became a tombstone.
+    off = dict(occ3(EA_LANE, "gone", 9, 13, 30), eventStatus="https://schema.org/EventCancelled")
+    feeds = {"S": {s["@id"]: s for s in (TUE_S, THU_S, EA_LANE)},
+             "O": {o["@id"]: o for o in ([occ3(TUE_S, f"u{d}", d, 8) for d in (13, 20)]
+                                         + [occ3(THU_S, f"t{d}", d, 8) for d in (8, 15)] + [off])}}
+    real = OA.walk
+    OA.walk = lambda url, *a, **k: (feeds[url], "end of feed (1 page(s))")
+    try:
+        rows, rep = OA.read_source(dict(EA_SRC, feeds=[{"kind": "SessionSeries", "url": "S"},
+                                                       {"kind": "ScheduledSession", "url": "O"}]),
+                                   120, 5, 0, now=datetime(2026, 10, 6, 12, tzinfo=utc))
+    finally:
+        OA.walk = real
+    checks.append((sorted(e.name for e in rows if e.recurring_days) == ["PT Taster Session"]
+                   and [e.name for e in rep["cancel"]] == ["Lane Swim Med Thu 14:30"],
+                   "a called-off lane swim elsewhere tombstones itself and nothing the weekly row folded "
+                   f"({[(e.name, e.start_utc) for e in rep['cancel']]})"))
+
+    # ------------------------------ 3. the rows already stored are not rewritten for it
+    # ~66k standing rows carry the old opener and ~78k OpenActive rows the 🔎
+    # line. The sync reads each as the new text where that is the only change;
+    # a standing row's search goes only while its date is still the soonest, so
+    # each row is written once, at the roll it is written at today, then never.
+    def written(stored_row, ours):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            same_ids = S.unchanged_ids(_OneRow(stored_row), "https://x", "k", [ours])
+        return ours["external_id"] not in same_ids, buf.getvalue()
+    wed_row = stored(lane(datetime(2026, 9, 30, 12, tzinfo=utc), (1, 8))[0])
+    thu_row, fri_row = ra, rb
+    w, log = written(dict(wed_row, description=OLD_WED), thu_row)
+    checks.append((bool(thu_row) and not w, "stored Wednesday ('2 sessions', search on Thu 1 Oct), read Thursday "
+                                      "('3 sessions' before): NOT rewritten — that flip was 3.8-5.1k UPDATEs a day"))
+    checks.append(("1 row(s) differed only by a line to_row no longer writes" in log,
+                   "...and the log counts it, so the transition can be watched draining"))
+    checks.append((written(dict(thu_row, description=OLD_THU), fri_row)[0],
+                   "stored Thursday, read Friday (the soonest rolled to 8 Oct): written, as it is today — once"))
+    nxt_thu = stored(lane(datetime(2026, 10, 8, 12, tzinfo=utc), (8, 15, 22))[0])
+    nxt_fri = stored(lane(datetime(2026, 10, 9, 12, tzinfo=utc), (15, 22))[0])
+    checks.append((not written(fri_row, nxt_thu)[0] and not written(fri_row, nxt_fri)[0],
+                   "...and what that wrote is never rewritten by a later week's read"))
     return checks
 
 

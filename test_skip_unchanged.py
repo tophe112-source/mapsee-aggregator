@@ -393,6 +393,80 @@ check("tuples from an unserialised record are the same week",
 check("a week with no days is still no pattern",
       m._recurring_hours({"pin_only": True, "recurring_days": {}}, *SEA) is None)
 
+# --- 11. A LINE to_row NO LONGER WRITES IS NOT A REASON TO WRITE ------------
+# OpenActive lost its 🔎 search and its weekly session count on 2026-10-27. ~78k
+# rows carry the one and ~66k the other, all compared daily, so a stored copy
+# that differs ONLY by them must not be rewritten for it. PAIRWISE, and toward
+# writing everywhere else: each case below that must be written is one an
+# unconditional strip or a looser opener match would have swallowed.
+TICKETS = "Tickets / info: https://book.example.test/s/1"
+SHOW = "\n\n\U0001F50E More on this show: https://www.google.com/search?q=Hall%20Yoga%20"
+LISTEN = "\n\n\U0001F3B5 Listen — Spotify: https://open.spotify.com/search/x"
+OPEN_NEW = "\U0001F501 Runs weekly — on 1 day a week.\n\n"
+OPEN_2 = "\U0001F501 Runs weekly — 2 sessions scheduled over the next few weeks, on 1 day a week.\n\n"
+OPEN_17 = "\U0001F501 Runs weekly — 17 sessions scheduled over the next few months, on 1 day a week.\n\n"
+OFF = "⚠️ Not on Tue 3 Nov: cancelled by the publisher.\n\n"
+WEEKLY = {"tz": "Europe/London", "days": {"1": [["19:00", "20:00"]]}}
+SOON = dict(starts_at="2026-10-29T19:00:00+00:00", ends_at="2026-10-29T20:00:00+00:00")
+
+
+def quiet_same(stored, mine):
+    with contextlib.redirect_stdout(io.StringIO()):     # the count line is asserted once, below
+        return same_pair(stored, mine)
+
+
+def dated(d):
+    return row(pin_only=False, description=d, **SOON)
+
+
+def weekly(d, **kw):
+    return row(pin_only=False, description=d, recurring_hours=WEEKLY, **dict(SOON, **kw))
+
+
+body = "Yoga for all.\n\n" + TICKETS
+check("a dated row stored with the 🔎 line, ours without: not a change",
+      quiet_same(dated(body + SHOW + "2026-10-29"), dated(body)))
+check("...nor with the line between two others (Tickets above, 🎵 Listen below)",
+      quiet_same(dated(body + SHOW + "2026-10-29" + LISTEN), dated(body + LISTEN)))
+check("the 🔎 line plus a prose edit is written",
+      not quiet_same(dated(body + SHOW + "2026-10-29"), dated("Yoga for all, now indoors.\n\n" + TICKETS)))
+check("a row that still writes the line (Ticketmaster) compares it exactly",
+      not quiet_same(dated(body + SHOW + "2026-10-29"), dated(body + SHOW + "2026-10-30")))
+check("...and prose of ours that happens to hold a 🔎 is never taken for the line",
+      not quiet_same(dated("Look for the \U0001F50E sign.\n\n" + TICKETS + SHOW + "2026-10-29"),
+                    dated("Look for the \U0001F50E sign.\n\n" + TICKETS)))
+check("a standing row whose stored search is on our soonest date: not a change",
+      quiet_same(weekly(OPEN_NEW + body + SHOW + "2026-10-29"), weekly(OPEN_NEW + body)))
+check("a standing row whose search date has rolled is written (once, as it would be today)",
+      not quiet_same(weekly(OPEN_NEW + body + SHOW + "2026-10-22"), weekly(OPEN_NEW + body)))
+check("the old weekly opener with the same day count: not a change",
+      quiet_same(weekly(OPEN_2 + body), weekly(OPEN_NEW + body)))
+check("...its 'few months' spelling too",
+      quiet_same(weekly(OPEN_17 + body), weekly(OPEN_NEW + body)))
+check("...and behind the '⚠️ Not on' line, which stays first",
+      quiet_same(weekly(OFF + OPEN_2 + body), weekly(OFF + OPEN_NEW + body)))
+check("a different '⚠️ Not on' line is written",
+      not quiet_same(weekly(OFF + OPEN_2 + body), weekly(OFF.replace("3 Nov", "10 Nov") + OPEN_NEW + body)))
+check("the old opener with a different number of days is written",
+      not quiet_same(weekly(OPEN_2.replace("on 1 day", "on 2 days") + body), weekly(OPEN_NEW + body)))
+check("the old opener with any other remainder is written",
+      not quiet_same(weekly(OPEN_2 + "Yoga for some.\n\n" + TICKETS), weekly(OPEN_NEW + body)))
+check("an opener the old adapter could not have written (9 sessions, 'few weeks') is written",
+      not quiet_same(weekly(OPEN_2.replace("2 sessions", "9 sessions") + body), weekly(OPEN_NEW + body)))
+check("the transition row (old opener, search on our soonest date): not a change",
+      quiet_same(weekly(OPEN_2 + body + SHOW + "2026-10-29"), weekly(OPEN_NEW + body)))
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    m.unchanged_ids(Stub([weekly(OPEN_2 + body + SHOW + "2026-10-29")]), "https://x", "k",
+                    [weekly(OPEN_NEW + body)])
+check("...and the log counts the rows a retired line alone made different",
+      "1 row(s) differed only by a line to_row no longer writes" in buf.getvalue(), buf.getvalue())
+check("a stored row answered without its description is written",
+      m.unchanged_ids(Stub([{k: v for k, v in weekly(OPEN_2 + body).items() if k != "description"}]),
+                      "https://x", "k", [weekly(OPEN_NEW + body)]) == set())
+check("a stored NULL description against ours is written",
+      not quiet_same(weekly(None), weekly(OPEN_NEW + body)))
+
 from test_sync_lookup import run as run_lookup_checks
 FAILS += run_lookup_checks()
 

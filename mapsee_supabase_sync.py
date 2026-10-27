@@ -2094,7 +2094,22 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # this row's boilerplate, and a Google search link is not a fact about a
     # drinking fountain. Found by generating the real stored description for a
     # bare fountain and reading it.
-    if not str(_src).startswith(("opendata:", "venue:", "ics:", "program:", "osm-") + CIVIC_TIMETABLE_SOURCES):
+    #
+    # NOR IS A LEISURE CENTRE'S TIMETABLE, AND NO STANDING ROW GETS ONE.
+    # OpenActive is the CIVIC_TIMETABLE_SOURCES case exactly (a lane swim is not
+    # a show) but is NOT added to that tuple, which would also turn its pins
+    # teal and change its party gating: a full rewrite of ~78k rows for nothing.
+    # And the search ends with the occurrence's DATE, so on a standing row it
+    # changed every week the soonest occurrence rolled, which skip_cols cannot
+    # see past: replaying Everyone Active's fold on a Wednesday and a Friday,
+    # to_row differs in description alone and only on that date. OpenActive's
+    # description blame was 8,928-13,603 rows a day (10-21..10-26), ~9.3k of it
+    # this weekly roll (62.1k Everyone Active + 2.9k Places standing rows / 7).
+    # Rows stored with the line are not rewritten just to lose it: see
+    # _retired_lines.
+    if (not str(_src).startswith(("opendata:", "venue:", "ics:", "program:", "osm-", "openactive:")
+                                  + CIVIC_TIMETABLE_SOURCES)
+            and not rec.get("recurring_days")):
         show = venue_show_search_url(rec)
         if show:
             parts.append(f"🔎 More on this show: {show}")
@@ -4238,6 +4253,69 @@ def _norm_rh(want: Dict[str, Any], row: Dict[str, Any]):
     return dict(want, recurring_hours=ca), dict(row, recurring_hours=cb)
 
 
+# LINES to_row NO LONGER WRITES, as rows stored before 2026-10-27 still carry
+# them. The 🔎 search line between "Tickets / info:" and anything after it:
+_SHOW_LINE_RX = re.compile(r"\n\n\U0001F50E More on this show: \S+(?=\n\n|$)")
+# ...and collapse_weekly_series' opener as it was from 2026-08-28 (a62db3c),
+# behind the "⚠️ Not on …" line cancellations() may put first. Spelled here,
+# not imported, because the sync loads no adapter; test_ingest_openactive.py
+# runs the real adapter through to_row against both spellings.
+_OLD_WEEKLY_RX = re.compile(
+    r"(?:\u26a0[^\n]*\n\n)?(\U0001F501 Runs weekly — (\d+) sessions scheduled over the next "
+    r"few (?:weeks|months), on (\d) days? a week\.)")
+
+
+def _old_weekly_line(n: int, d: int) -> str:
+    """Byte for byte what the adapter wrote for n sessions on d days a week."""
+    return (f"\U0001F501 Runs weekly — {n} sessions scheduled over the next "
+            f"{'few months' if n > 8 else 'few weeks'}, on {d} day{'s' if d != 1 else ''} a week.")
+
+
+def _weekly_line(d: int) -> str:
+    """What it writes now: the pattern's day count, which moves only with the pattern."""
+    return f"\U0001F501 Runs weekly — on {d} day{'s' if d != 1 else ''} a week."
+
+
+def _retired_lines(want: Dict[str, Any], row: Dict[str, Any]) -> Dict[str, Any]:
+    """row, with the STORED description read as if written by today's to_row
+    wherever the only difference is a line it has stopped writing.
+
+    NEITHER RETIREMENT MAY COST A REWRITE. ~78k OpenActive rows carry the 🔎
+    line and ~66k standing rows the old weekly opener, every one compared daily
+    (needs_detail_sync), on an instance whose daily run was already failing
+    with 57014. Each rewrite would be non-HOT (description feeds
+    events_link_domain_idx and events_link_regdomain_idx). So they adopt the
+    new text only when written for another reason, and everything else still
+    fails toward writing — PAIRWISE, never in _norm_cmp, which sees one value
+    and would strip unconditionally:
+
+      - the 🔎 line goes only when OUR description has no 🔎 at all, so a row
+        that keeps the line (Ticketmaster) compares it exactly. On a DATED row
+        the search is a function of venue and date, which other columns
+        already compare. On a STANDING row only while the stored search ends
+        with our soonest occurrence's date: once that occurrence passes the
+        row is written as it is today, once, and never again for this line.
+      - the old opener reads as the new one only when it is exactly what the
+        old adapter wrote for its own count (bucket and plural included), and
+        with the SAME day count; a different count of days is written.
+
+    Whatever remains, the remainder included, is compared exactly as before."""
+    v, ours = row.get("description"), want.get("description")
+    if not (isinstance(v, str) and isinstance(ours, str)):
+        return row
+    new = v
+    m = _OLD_WEEKLY_RX.match(new)
+    if m and m.group(1) == _old_weekly_line(int(m.group(2)), int(m.group(3))):
+        new = new[:m.start(1)] + _weekly_line(int(m.group(3))) + new[m.end(1):]
+    if "\U0001F50E" not in ours and "\U0001F50E" in new:
+        s = _SHOW_LINE_RX.search(new)
+        if s:
+            day = str(want.get("starts_at") or "")[:10]
+            if not want.get("recurring_hours") or (day and s.group(0).endswith("%20" + day)):
+                new = new[:s.start()] + new[s.end():]
+    return row if new == v else dict(row, description=new)
+
+
 def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
     """external_ids whose stored row already equals what we are about to write.
 
@@ -4258,6 +4336,7 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
     blamed: Dict[str, int] = {}
     compared = 0
     past15 = 0                               # skipped, but unequal as plain floats
+    retired = 0                              # skipped, but for a line to_row retired
     same = set()
     ids = list(mine)
     i = 0
@@ -4288,10 +4367,13 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
                 continue
             compared += 1
             ours, theirs = _norm_rh(want, row)
-            diff = [c for c in ours if c not in skip_cols(ours, theirs)
-                    and (c not in theirs or _norm_cmp(c, ours[c]) != _norm_cmp(c, theirs[c]))]
+            read_as = _retired_lines(ours, theirs)
+            diff = [c for c in ours if c not in skip_cols(ours, read_as)
+                    and (c not in read_as or _norm_cmp(c, ours[c]) != _norm_cmp(c, read_as[c]))]
             if not diff:
                 same.add(eid)
+                if read_as is not theirs:
+                    retired += 1
                 # WHAT THE 15-DIGIT READ-BACK SAVED, counted rather than inferred:
                 # OpenActive's daily ~11.6-12.2k lat/lon blame fits this bug and
                 # also a standing row's representative occurrence shifting, and
@@ -4325,6 +4407,12 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
     if past15:
         print(f"Skip-unchanged: {past15} row(s) differed only past the 15th significant digit "
               f"(float8 read-back) and were not rewritten.", flush=True)
+    # HOW MANY STILL CARRY A RETIRED LINE, so the transition can be watched
+    # draining instead of assumed: OpenActive's should fall week on week as its
+    # standing rows roll and are written for their own reasons.
+    if retired:
+        print(f"Skip-unchanged: {retired} row(s) differed only by a line to_row no longer writes "
+              f"(\U0001F50E search, weekly session count) and were not rewritten.", flush=True)
     if compared >= 50:
         for col, n in sorted(blamed.items(), key=lambda kv: -kv[1]):
             if n >= compared * 0.99 and col not in _TS_COLS:
