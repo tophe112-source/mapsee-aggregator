@@ -132,6 +132,24 @@ jobs:
           key: sync-answers-ticketmaster-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             sync-answers-ticketmaster-
+      # THE IMPORT-STATE CACHE, one file per store, in a pair of its own AFTER the
+      # others (a path added to an existing pair changes its version, and the first
+      # run after would restore none of it). With --state-cache an --only-new sync
+      # reads the state of only the fingerprints it must, those its last runs did
+      # not read in 8 days and a 1% sample, instead of all of them: on 10-26 this
+      # job read 25,409 + 22,823 ids to keep 756 + 1,008. A missing or evicted
+      # file costs one full read, as every run made before it; a stale entry can
+      # delay a write until its 8 days run out, never cause one
+      # (mapsee_supabase_sync.state_cache_must_read).
+      - name: Restore the import-state cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            sync_state_ticketmaster.json
+            sync_state_global.json
+          key: sync-state-ticketmaster-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-state-ticketmaster-
       - name: Ingest US metros from metros_us.txt (Ticketmaster, serial — shared key is ~2 req/s)
         run: |
           set +e                       # one metro failing must not abort the sweep
@@ -159,7 +177,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
-          python mapsee_supabase_sync.py --store mapsee_events.json --skip-unchanged $ONLY_NEW
+          python mapsee_supabase_sync.py --store mapsee_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_ticketmaster.json
       - name: Sweep Ticketmaster across the international metros (ex-US)
         run: |
           set +e
@@ -179,7 +197,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f global_events.json ]; then
-            python mapsee_supabase_sync.py --store global_events.json --skip-unchanged $ONLY_NEW
+            python mapsee_supabase_sync.py --store global_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_global.json
           else
             echo "no international events ingested — nothing to sync"
           fi
@@ -191,6 +209,18 @@ jobs:
             census_cache.json
             spotify_cache.json
           key: sync-answers-ticketmaster-${{ github.run_id }}-${{ github.run_attempt }}
+      # always(): a sync that ran wrote its file, and a red step after it must not
+      # lose it. A sync killed before it wrote leaves the restored file: what that
+      # sync changed is read again where it matters (a new row, a time, a relist),
+      # and a row it cancelled stays hidden a little longer if listed again.
+      - name: Save the import-state cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            sync_state_ticketmaster.json
+            sync_state_global.json
+          key: sync-state-ticketmaster-${{ github.run_id }}-${{ github.run_attempt }}
 
   meetup:
     name: Meetup sweep (US + international metros, parallel)
@@ -476,6 +506,19 @@ jobs:
           key: sync-answers-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             sync-answers-feeds-${{ matrix.group }}-
+      # The import-state cache in its own pair (see the ticketmaster job), one file
+      # per group, shared by the checkpoint and the final sync: the checkpoint's
+      # partial store carries the rest of the file forward untouched. On 10-26
+      # civic read 165,899 ids to keep 15,435, ics 134,774 to keep 956, rec
+      # 70,167 to keep 8,592 and local 29,109 to keep 7,450; the exact-detail
+      # rows among those kept, and every new one, are still read each run.
+      - name: Restore the import-state cache
+        uses: actions/cache/restore@v4
+        with:
+          path: sync_state_${{ matrix.group }}.json
+          key: sync-state-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-state-feeds-${{ matrix.group }}-
       - name: Merge the warm geocode cache UNDER the committed one
         run: |
           python - <<'PY'
@@ -568,7 +611,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_${{ matrix.group }}.json
           else
             echo "nothing ingested yet — nothing to checkpoint"
           fi
@@ -1385,7 +1428,7 @@ jobs:
           ABSENT=""
           [ "${{ matrix.group }}" = "rec" ] && ABSENT="--retire-absent --manifest rec_absence_manifest.json"
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW $ABSENT
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW $ABSENT --state-cache sync_state_${{ matrix.group }}.json
           else
             echo "no feeds ingested — nothing to sync"
           fi
@@ -1449,6 +1492,12 @@ jobs:
             kct_cursor.json
             repaircafe_ch_cursor.json
           key: sync-answers-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save the import-state cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: sync_state_${{ matrix.group }}.json
+          key: sync-state-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Retain the feed store and step outcomes
         if: always()
         env:
@@ -1517,6 +1566,15 @@ jobs:
           key: sync-answers-races-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             sync-answers-races-
+      # The import-state cache in its own pair: see the ticketmaster job (10-26:
+      # 8,114 ids read here, 5,888 of them stored).
+      - name: Restore the import-state cache
+        uses: actions/cache/restore@v4
+        with:
+          path: sync_state_races.json
+          key: sync-state-races-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-state-races-
       # Failure-tolerant like every other ingest: a dead API is a quiet day for
       # two lenses, not a red workflow. source-health.yml is what notices.
       - name: Import RunSignup races
@@ -1547,7 +1605,7 @@ jobs:
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f races_events.json ]; then
-            python mapsee_supabase_sync.py --store races_events.json --skip-unchanged $ONLY_NEW
+            python mapsee_supabase_sync.py --store races_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_races.json
           else
             echo "no races ingested — nothing to sync"
           fi
@@ -1559,6 +1617,12 @@ jobs:
             census_cache.json
             spotify_cache.json
           key: sync-answers-races-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save the import-state cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: sync_state_races.json
+          key: sync-state-races-${{ github.run_id }}-${{ github.run_attempt }}
 
   # OpenStreetMap marketplaces, on their own, for the same reason `races` is on
   # its own: this one source costs more than every other feed in the repo put
@@ -1746,6 +1810,18 @@ jobs:
           key: sync-answers-extra-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             sync-answers-extra-
+      # The import-state cache in its own pair: see the ticketmaster job. Thursday's
+      # refresh writes it and Monday's --only-new run reads from it, four days on
+      # (10-26: 37,837 ids read here, 33,851 of them stored, to keep 4,745).
+      - name: Restore the import-state cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            sync_state_extra.json
+            sync_state_eventbrite.json
+          key: sync-state-extra-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            sync-state-extra-
       - name: Merge the warm geocode cache UNDER the committed one
         run: |
           python - <<'PY'
@@ -1810,12 +1886,12 @@ jobs:
           [ "$(date -u +%u)" = "4" ] && ONLY_NEW=""   # Thursday refresh for extra sources
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f extra_events.json ]; then
-            python mapsee_supabase_sync.py --store extra_events.json --skip-unchanged $ONLY_NEW
+            python mapsee_supabase_sync.py --store extra_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_extra.json
           else
             echo "no extra sources ingested — nothing to sync"
           fi
           if [ -f eventbrite_events.json ]; then
-            python mapsee_supabase_sync.py --store eventbrite_events.json --skip-unchanged $ONLY_NEW || true
+            python mapsee_supabase_sync.py --store eventbrite_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_eventbrite.json || true
           else
             echo "no Eventbrite events ingested — nothing to sync"
           fi
@@ -1833,6 +1909,14 @@ jobs:
             census_cache.json
             spotify_cache.json
           key: sync-answers-extra-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save the import-state cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            sync_state_extra.json
+            sync_state_eventbrite.json
+          key: sync-state-extra-${{ github.run_id }}-${{ github.run_attempt }}
 
   # ---------------------------------------------------------------------------
   # Hide the second row of one event (mapsee_dedupe_events.py).

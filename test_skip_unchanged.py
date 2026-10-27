@@ -262,12 +262,22 @@ check("...and the three most-blamed columns are printed with counts, most first"
       "3 of 4 stored rows differ; most-blamed columns: description 3, title 2, lat 1"
       in buf.getvalue(), buf.getvalue())
 
-# --- 7. Ordinary only-new is free; explicit detail refreshes are compared ---
+# --- 7. Only a STORED row is read back; a new one is written unasked --------
+# The import state already says which rows exist, read with the same filter and
+# failing closed. Handing unchanged_ids the new rows too cost 258,728 needless
+# id lookups over 187 calls in a week of logs (Ticketmaster 653 asked for 4
+# stored), and a new row can only ever be written.
 src = open("mapsee_supabase_sync.py", encoding="utf-8").read()
-check("only-new skips the comparison when all rows are new",
-      not m.should_compare_unchanged(True, [row(external_id="new")], {"existing": False}))
+check("a batch of new rows reads nothing back",
+      m.rows_to_compare([row(external_id="new")], {"existing": False}) == [])
 check("an exact-detail refresh under only-new still compares its stored row",
-      m.should_compare_unchanged(True, [row(external_id="existing")], {"existing": False}))
+      [r["external_id"] for r in m.rows_to_compare([row(external_id="existing")], {"existing": False})]
+      == ["existing"])
+check("...and only it, never the new rows beside it",
+      [r["external_id"] for r in m.rows_to_compare(
+          [row(external_id="new"), row(external_id="existing"), row(external_id="new2")],
+          {"existing": False, "claimed-elsewhere": True})] == ["existing"])
+check("no state read means nothing is compared", m.rows_to_compare([row()], None) == [])
 # LAST, after the claimed-guard and the moderation pre-filter, so nothing is
 # read back for a row that is about to be dropped anyway.
 # Anchored on `= upsert(` rather than on the whole assignment: upstream has
@@ -275,8 +285,95 @@ check("an exact-detail refresh under only-new still compares its stored row",
 # the literal line failed a check whose actual property — the filter runs after
 # the ones that DROP rows, and before the write — was never in danger.
 check("...and runs after the filters that drop rows",
-      src.index("Moderation pre-filter") < src.index("a.skip_unchanged and rows and should_compare_unchanged")
+      src.index("Moderation pre-filter") < src.index("stored = rows_to_compare(rows, state)")
       < src.index("= upsert("))
+
+# --- 7b. main() itself: unchanged_ids hears only stored ids; new rows are written
+# Driven through main() rather than the helper alone, because the bug was in
+# what main() handed over: every row that survived the filters.
+import json
+import os
+import tempfile
+from unittest.mock import patch
+
+os.environ.setdefault("MAPSEE_DB_WAIT_SECONDS", "0")
+
+
+class StateStore:
+    """The import-state read: answers only the ids it holds, unclaimed."""
+
+    def __init__(self, stored):
+        self.stored, self.calls, self.headers = set(stored), [], {}
+
+    def get(self, url, **kwargs):
+        self.calls.append(url)
+        q = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
+        clause = q.get("external_id", [None])[0]
+        ids = json.loads("[" + clause[4:-1] + "]") if clause else []
+        page = [dict(external_id=e, claimed_at=None) for e in sorted(set(ids) & self.stored)]
+
+        class R:
+            status_code = 200
+            headers = {"Content-Range": f"0-{len(page) - 1}/{len(page)}" if page else "*/0"}
+
+            def json(self):
+                return page
+        return R()
+
+
+_empty = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
+_empty.write('{"events": []}')
+_empty.close()
+
+
+def run_main(flags, recs, stored, same=()):
+    """(the id lists unchanged_ids was asked about, the ids handed to upsert)."""
+    asked = []
+
+    def spy(_session, _url, _key, rows):
+        asked.append([r["external_id"] for r in rows])
+        return {r["external_id"] for r in rows if r["external_id"] in same}
+
+    def fake_build_rows(_path, _host, _geo=None, keep=None, **_kw):
+        kept = keep(list(recs)) if keep else list(recs)
+        return [row(external_id=r["fingerprint"], title=r["fingerprint"]) for r in kept]
+
+    with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
+                                 "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key"}), \
+         patch("sys.argv", ["sync", "--store", _empty.name, "--skip-unchanged"] + flags), \
+         patch("requests.Session", return_value=StateStore(stored)), \
+         patch.object(m, "build_rows", side_effect=fake_build_rows), \
+         patch.object(m, "load_blocklist", return_value=[]), \
+         patch.object(m, "unchanged_ids", side_effect=spy), \
+         patch.object(m, "upsert", return_value=(0, 0, 0)) as write, \
+         contextlib.redirect_stdout(io.StringIO()):
+        m.main()
+    return asked, sorted(r["external_id"] for r in write.call_args.args[0])
+
+
+def rec(fp, detail=False):
+    r = {"fingerprint": fp, "name": fp, "start_utc": "2026-11-01T18:00:00Z"}
+    if detail:
+        r["source_details"] = {"availability": "sold out"}     # an exact-detail refresh
+    return r
+
+
+four = [rec("a"), rec("b"), rec("c"), rec("d")]
+asked, written = run_main([], four, stored={"a", "b"}, same={"a"})
+check("a refresh asks unchanged_ids about its stored rows only", asked == [["a", "b"]], asked)
+check("...writes the stored row that differs and every new row, unasked",
+      written == ["b", "c", "d"], written)
+asked, written = run_main([], four, stored=set())
+check("a refresh of nothing but new rows reads nothing back", asked == [], asked)
+check("...and writes them all", written == ["a", "b", "c", "d"], written)
+asked, written = run_main(["--only-new"], [rec("a", detail=True), rec("b"), rec("c"), rec("d")],
+                          stored={"a", "b"})
+check("an --only-new run asks about the stored row it kept, not the new ones beside it",
+      asked == [["a"]], asked)
+check("...and writes that row and every new row", written == ["a", "c", "d"], written)
+check("unchanged_ids is never asked about an id the import state did not find",
+      all(set(ids) <= {"a", "b"} for ids in asked), asked)
+os.unlink(_empty.name)
 
 # --- 8. EVERY sync invocation carries it, because one that does not is silent -
 # A flag passed in thirteen places and forgotten in the fourteenth costs nothing
