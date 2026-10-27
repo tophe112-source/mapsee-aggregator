@@ -6,7 +6,9 @@ keep the Mapsee events table lean (and the sync's only-new lookup fast).
 SAFETY: this is scoped to `external_source = 'mapsee'` ONLY — the events imported
 by this aggregator. User/community events (external_source IS NULL) are never
 matched, so they can't be deleted. Every request also carries a `starts_at`
-cutoff, so it can never become an unfiltered delete.
+cutoff, so it can never become an unfiltered delete. Nor is a STANDING row
+(recurring_hours set: a centre, a pool, a pin) ever matched, hidden or not —
+the comment on the filter in main() says why, with the 2026-10-26 numbers.
 
 Default keeps events for a WEEK after they END, so attendees can keep chatting
 about a show before it disappears.
@@ -141,25 +143,67 @@ def main() -> int:
     # but events cascade: event_messages, event_rsvps, invites and cohosts go
     # with it. The event comes back empty, mid-run, with its guest list gone.
     #
-    # The cleanup index is keyed by external_source and starts_at; ends_at stays
-    # in the filter as the running-event safety check. SQL predicate text order
-    # does not control index selection. Keep the full eligibility scope on both
-    # candidate reads and deletes.
+    # The cleanup indexes are keyed by external_source and starts_at; ends_at
+    # stays in the filter as the running-event safety check. SQL predicate text
+    # order does not control index selection. Keep the full eligibility scope on
+    # both candidate reads and deletes.
     #
-    # A STANDING ROW IS NEVER DELETED BY AGE UNLESS IT IS HIDDEN. A community
-    # centre, a library or a pool is one row whose window the database's hourly
-    # roller (0188; 0234 in ../mapsee) moves to today. Measured 2026-10-12, the
-    # roller did 5,000 rolls an hour against ~20,800 due, so its queue head sat
-    # four days old (2026-10-08T21:59Z) and 65 of the 70 facility-hours centres
-    # were stale. Seven days stale, this filter would have deleted them, and
-    # the delete cascades to each centre's chat and RSVPs. A live standing row
-    # is the roller's to bring back, not the janitor's to remove; a hidden one
-    # (retired by its own script) still goes.
+    # NO STANDING ROW IS EVER DELETED BY AGE, HIDDEN OR NOT. A community centre,
+    # a library, a pool or a furniture pin is one row with recurring_hours set,
+    # whose window the database's hourly roller (0188; 0234 in ../mapsee) moves
+    # to today.
+    #
+    # A LIVE ONE IS THE ROLLER'S TO BRING BACK. Measured 2026-10-12, the roller
+    # did 5,000 rolls an hour against ~20,800 due, so its queue head sat four
+    # days old (2026-10-08T21:59Z) and 65 of the 70 facility-hours centres were
+    # stale. Seven days stale, this filter would have deleted them, and the
+    # delete cascades to each centre's chat and RSVPs.
+    #
+    # A HIDDEN ONE IS A TOMBSTONE. The roller skips hidden rows, so a hidden
+    # standing row's window freezes and it ages past the cutoff a week later.
+    # fetch_import_state (mapsee_supabase_sync.py) keys on whether the row
+    # EXISTS, so once it is deleted the next sync of a source that still lists
+    # it re-inserts it VISIBLE. An organizer's take-down (hidden_at alone, as
+    # AGENTS.md promises) comes back about eight days later, and
+    # mapsee_retire_thin_artwork.py's `--unhide` (its rows are pins) has
+    # nothing left to put back. From 2026-10-12 to 10-26 this filter carried
+    # `and=(or(recurring_hours.is.null,hidden_at.not.is.null))`, which reached
+    # exactly those rows (how many it deleted was not measured); the stall
+    # below is what stopped it.
+    #
+    # THE SAME CLAUSE IS WHAT KEEPS THE FETCH OFF THE FROZEN PIN BAND. 0239
+    # (../mapsee, applied 2026-10-19 18:30Z) stopped rolling pins and froze
+    # 465,926 of them at local midnight of 10-19: cohorts at 10-18 22:00Z
+    # (CEST), 23:00Z (BST) and 10-19 04:00-07:00Z (US). 0113's
+    # events_aggregator_cleanup_idx holds every imported row, pins too, and the
+    # old OR clause could only be checked on the heap, so every page stepped
+    # over the band before it reached a deletable row (0235 measured ~0.23 ms
+    # per stale row walked: the 8 s ceiling after ~35k). On 2026-10-26 (cutoff
+    # 10-19T15:17Z, the first past the band; job 121659644598) the run deleted
+    # 20,300 rows at 0.47-0.78 s per 100, took 7.5 s for the next 100, timed
+    # out fetching 100, 50, 25 and 12, got 10 more (20,410) and ended "Even 10
+    # ids time out on fetch" at 15:20:49, exit 1. The 11 runs before it deleted
+    # a mean of 28,599 a day and ended "Nothing left to delete". The wall only
+    # grows: every frozen pin is below every later cutoff, and a pin the sync
+    # rewrites freezes at its own day.
+    #
+    # `&recurring_hours=is.null` is the literal that lets the planner prove
+    # ../mapsee migration 0241's events_cleanup_dated_idx, (external_source,
+    # starts_at) WHERE external_source IS NOT NULL AND recurring_hours IS NULL,
+    # which holds no standing row at all. On a local model the candidate fetch
+    # read 325 buffers through it against 82,433 through 0113, in custom and
+    # forced-generic plans; with the old OR clause the planner kept 0113 even
+    # with the new index present. Widen this clause again and the planner
+    # silently goes back to walking the band. (The index says IS NOT NULL, not
+    # = 'mapsee', because PostgREST sends eq values as $n parameters and a
+    # generic plan can prove only that.) 0113 stays for the unscoped walks:
+    # mapsee_spam_purge.py's has no recurring_hours filter.
     flt = (f"external_source=eq.mapsee&starts_at=lt.{cutoff}"
            f"&or=(ends_at.is.null,ends_at.lt.{cutoff})"
-           f"&and=(or(recurring_hours.is.null,hidden_at.not.is.null))")
+           f"&recurring_hours=is.null")
     assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt, "refusing an unscoped delete"
-    assert "recurring_hours.is.null" in flt, "refusing a delete that can reach a live standing row"
+    assert "&recurring_hours=is.null" in flt, "refusing a delete that can reach a standing row"
+    assert "hidden_at" not in flt, "refusing to delete a hidden standing row: it is a tombstone"
     base = url.rstrip("/") + "/rest/v1/events?" + flt
     auth = {"apikey": key, "Authorization": f"Bearer {key}"}
 
@@ -192,14 +236,28 @@ def main() -> int:
 
         # No OFFSET: every successful delete removes its page from the candidate
         # set, so the bounded limit fetch advances without a count or cursor.
-        page = _req("GET", f"{base}&select=id&limit={batch}", headers=auth,
-                    timeout=min(120, max(10, int(left))))
+        #
+        # ORDER BY starts_at, AND ONLY starts_at. Without an ORDER the planner is
+        # free to answer a LIMIT with a sequential scan. The 2026-10-10 live
+        # EXPLAIN did not (it used 0113), but a local model of the table with
+        # nothing left to delete did, in every index configuration: ~193k
+        # buffers, which on production is the whole 1.76 GB heap under an 8 s
+        # ceiling, on exactly the run that should end "Nothing left to
+        # delete". Ordered by the index's own second key, the fetch is an index
+        # scan that stops at the limit. An id tiebreak would bring back the
+        # Incremental Sort that 10-10 EXPLAIN measured (limit cost 1,436.65 to
+        # 1,456.77). It sits BEFORE &limit= because test_cleanup.py reads the
+        # batch size off the end of the URL.
+        page = _req("GET", f"{base}&select=id&order=starts_at.asc&limit={batch}",
+                    headers=auth, timeout=min(120, max(10, int(left))))
         if _timed_out(page):
             if batch <= BATCH_MIN:
-                sys.exit(f"Even {batch} ids time out on fetch. Check whether migration "
-                         f"0113's events_aggregator_cleanup_idx exists and is valid, "
-                         f"then inspect the live query plan; the timeout may have "
-                         f"another cause.")
+                sys.exit(f"Even {batch} ids time out on fetch. Check whether "
+                         f"events_cleanup_dated_idx (the mapsee repo's migration 0241) "
+                         f"exists and is valid; without it this read falls back to "
+                         f"0113's events_aggregator_cleanup_idx, which holds every "
+                         f"frozen pin and steps over them on the heap. Then inspect "
+                         f"the live query plan; the timeout may have another cause.")
             batch = max(BATCH_MIN, batch // 2)
             print(f"Fetch timed out — retrying with batches of {batch}.")
             continue
