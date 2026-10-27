@@ -877,6 +877,15 @@
   PASS. The first janitor run after that should delete over 20k rows with no
   'Fetch timed out' and end 'Nothing left to delete'.
 
+  LIVE 2026-10-27. The owner built it at about 15:30Z; the check file read
+  PASS at 15:37Z (index valid and ready, 7,806,976 B against 0113's 65,953,792
+  B; the janitor fetch and the 10-18 22:00-22:15Z dedupe slice both name it
+  under force_generic_plan and force_custom_plan). That day's scheduled run
+  (job 122256229134, 14:40Z, before the build) deleted 160 rows and stopped at
+  'Even 10 ids time out'. A dispatched run straight after the build (job
+  122285176335) deleted 32,232 rows in 153 s at 0.4-0.5 s per 100, with no
+  fetch timeout, and ended 'Nothing left to delete.'
+
 - **AN --ONLY-NEW SYNC READ THE STATE OF ITS WHOLE STORE TO WRITE A FEW PER
   CENT OF IT; --state-cache READS ONLY WHAT IT MUST (2026-10-27).** On 10-26
   the only-new syncs that write more than exact-detail rows (Ticketmaster and
