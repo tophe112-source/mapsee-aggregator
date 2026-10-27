@@ -289,6 +289,81 @@ class WorkflowContracts(unittest.TestCase):
         self.assertNotEqual(code, 0)
         self.assertIn('::warning::', out)
 
+    def test_meetup_held_categories_keep_their_own_cache_pair_and_never_stop_a_sync(self):
+        # Category was blamed on 4,146-4,818 UPDATEs per Meetup leg per day
+        # (10-22..10-26): the store is rebuilt every run and the first keyword
+        # to find an event moves. mapsee_meetup_category_cache holds the first
+        # guess. Its file gets its OWN cache pair: actions/cache hashes the path
+        # list into an entry's version, so a third path in the Census/Spotify
+        # pair would orphan every sync-answers-meetup-* entry and send the US
+        # leg's ~13.5k addresses to Census cold (12,825 answered from it on
+        # 10-26). One hold per leg, between its sweep and its sync, never inside
+        # a sync step, and neither can fail the job.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['meetup']['steps']
+        caches = [s for s in steps if str(s.get('uses', '')).startswith('actions/cache/')]
+        answers = [s for s in caches if s['with']['key'].startswith('sync-answers-')]
+        held = [s for s in caches if 'meetup_category_cache.json' in s['with']['path']]
+        self.assertEqual(len(answers), 2)
+        for step in answers:                      # byte-identical to before the held pair existed
+            self.assertEqual(step['with']['path'], 'census_cache.json\nspotify_cache.json\n', step['name'])
+            self.assertEqual(step['with']['key'],
+                             'sync-answers-meetup-${{ github.run_id }}-${{ github.run_attempt }}')
+        self.assertEqual(answers[0]['with']['restore-keys'], 'sync-answers-meetup-\n')
+        self.assertEqual([s['uses'] for s in held], ['actions/cache/restore@v4', 'actions/cache/save@v4'])
+        for step in held:
+            self.assertEqual(step['with']['path'], 'meetup_category_cache.json', step['name'])
+            self.assertEqual(step['with']['key'],
+                             'meetup-categories-${{ github.run_id }}-${{ github.run_attempt }}')
+            self.assertFalse(step['with']['key'].startswith('sync-answers-'))
+        self.assertEqual(held[0]['with']['restore-keys'], 'meetup-categories-\n')
+        self.assertEqual(held[1].get('if'), 'always()')
+        self.assertEqual(len(caches), 4)
+
+        def at(pred):
+            found = [i for i, s in enumerate(steps) if pred(s)]
+            self.assertEqual(len(found), 1, found)
+            return found[0]
+        us = at(lambda s: s.get('name') == 'Sweep Meetup across the US metros')
+        us_hold = at(lambda s: s.get('id') == 'us_hold')
+        us_sync = at(lambda s: s.get('id') == 'us_sync')
+        intl = at(lambda s: s.get('name') == 'Sweep Meetup across the international metros')
+        intl_hold = at(lambda s: s.get('id') == 'intl_hold')
+        final = at(lambda s: s.get('name', '').startswith('Sync Meetup events to Supabase'))
+        restore, save = steps.index(held[0]), steps.index(held[1])
+        self.assertEqual(sorted([restore, us, us_hold, us_sync, intl, intl_hold, final, save]),
+                         [restore, us, us_hold, us_sync, intl, intl_hold, final, save])
+        self.assertEqual(us_hold, us + 1)
+        self.assertEqual(intl_hold, intl + 1)
+        self.assertEqual(steps[intl_hold].get('if'), 'always()')
+        for i, store in ((us_hold, 'meetup_events.json'), (intl_hold, 'meetup_global_events.json')):
+            step = steps[i]
+            self.assertIs(step.get('continue-on-error'), True, step['name'])
+            self.assertEqual(step['env'], {'MEETUP_STICKY_CATEGORIES': '${{ vars.MEETUP_STICKY_CATEGORIES }}'})
+            self.assertIn(f'python mapsee_meetup_category_cache.py --store {store} '
+                          '--cache meetup_category_cache.json $MODE', step['run'])
+        # Nothing but the holds runs the module; no sync step gained a call.
+        for i, step in enumerate(steps):
+            if i not in (us_hold, intl_hold):
+                self.assertNotIn('mapsee_meetup_category_cache', step.get('run', ''), step.get('name'))
+        self.assertEqual(sorted(re.findall(r'\bpython\s+(\S+)', steps[final]['run'])),
+                         ['-', 'mapsee_supabase_sync.py', 'mapsee_supabase_sync.py'])
+        self.assertEqual(re.findall(r'\bpython\s+(\S+)', steps[us_sync]['run']), ['mapsee_supabase_sync.py'])
+        if not shutil.which('bash'):
+            return
+        # REPORT ONLY unless the repository variable is exactly 'true'.
+        for value, report in (('', True), ('false', True), ('TRUE', True), ('yes', True), ('true', False)):
+            for i, store in ((us_hold, 'meetup_events.json'), (intl_hold, 'meetup_global_events.json')):
+                script = 'python() { echo CALL "$@"; }\n' + steps[i]['run']
+                out = subprocess.run(['bash', '-eo', 'pipefail', '-c', script], capture_output=True, text=True,
+                                     env=dict(os.environ, MEETUP_STICKY_CATEGORIES=value))
+                self.assertEqual(out.returncode, 0, (value, out.stderr))
+                call = [line.split()[1:] for line in out.stdout.splitlines() if line.startswith('CALL')]
+                self.assertEqual(len(call), 1, value)
+                self.assertEqual('--report-only' in call[0], report, value)
+                self.assertEqual(call[0][:5], ['mapsee_meetup_category_cache.py', '--store', store,
+                                               '--cache', 'meetup_category_cache.json'])
+
     @staticmethod
     def _sync_calls(run, exprs, stores, failing):
         """Run a sync step's shell as Actions would (bash -eo pipefail), with
