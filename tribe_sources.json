@@ -27538,6 +27538,273 @@
         "lon": 10.8995524
       },
       "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "L’Empire",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://lempire-club.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L’Empire",
+        "address": "3 Route de Longjumeau",
+        "city": "Chilly-Mazarin",
+        "postal_code": "91380",
+        "lat": 48.7142251,
+        "lon": 2.2989492
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Centre culturel de Chine à Paris",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.ccc-paris.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre culturel de Chine à Paris",
+        "lat": 48.8619262,
+        "lon": 2.3106099
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Chapelle Saint-Jean Apôtre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.paroisse-chatou.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chapelle Saint-Jean Apôtre",
+        "address": "208 Rue des Landes",
+        "lat": 48.9016573,
+        "lon": 2.142026
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Saint-Germain",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.paroissesaintgermain.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Saint-Germain",
+        "address": "4 Place Charles de Gaulle",
+        "postal_code": "78100",
+        "lat": 48.8977208,
+        "lon": 2.0941713
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Exploradôme",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.exploradome.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Exploradôme",
+        "address": "18",
+        "lat": 48.7931891,
+        "lon": 2.3930852
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Circuit Carole",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.circuit-carole.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Circuit Carole",
+        "lat": 48.9804273,
+        "lon": 2.5216996
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Quai de la photo",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://quaidelaphoto.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quai de la photo",
+        "address": "9 Port de la Gare",
+        "city": "Paris",
+        "postal_code": "75013",
+        "lat": 48.8366196,
+        "lon": 2.3754076
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Théâtre de l'Elysée",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://lelysee.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre de l'Elysée",
+        "lat": 45.7551029,
+        "lon": 4.8420629
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Music 85",
+      "category": "community",
+      "_found": "osm:music_school -> tribe+jsonld-event+ics",
+      "base_url": "https://www.music85.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Music 85",
+        "lat": 45.7193637,
+        "lon": 4.8099218
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Radio-club de Lyon F8KLY",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://f8kly.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Radio-club de Lyon F8KLY",
+        "lat": 45.7593668,
+        "lon": 4.8159754
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "La Clef de Voûte",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.laclefdevoute.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Clef de Voûte",
+        "lat": 45.7708295,
+        "lon": 4.8344
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Musique O Parc",
+      "category": "community",
+      "_found": "osm:music_school -> tribe+jsonld-event+ics",
+      "base_url": "https://mop-oullins.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musique O Parc",
+        "lat": 45.7197064,
+        "lon": 4.8088225
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Basilique Notre-Dame de Fourvière",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fourviere.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Basilique Notre-Dame de Fourvière",
+        "lat": 45.7622856,
+        "lon": 4.8225916
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Espace Culturel Louise Labé",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.saintsymphoriendozon.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Espace Culturel Louise Labé",
+        "address": "13 Avenue Robert Schumann",
+        "postal_code": "69360",
+        "lat": 45.6325139,
+        "lon": 4.8661139
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "L'Allégro",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.theatreallegro.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'Allégro",
+        "lat": 45.8271333,
+        "lon": 4.9574619
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Temple de la Lanterne",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "http://www.templelanterne.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple de la Lanterne",
+        "lat": 45.766545,
+        "lon": 4.8315365
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Canoë Kayak Touristique et Sportif de Villeurbanne",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://cktsv.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Canoë Kayak Touristique et Sportif de Villeurbanne",
+        "lat": 45.7668166,
+        "lon": 4.908468
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "ALBEU Lyon Sport-Boules",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.albeusportboules.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ALBEU Lyon Sport-Boules",
+        "address": "3 Rue Rochambeau",
+        "city": "Lyon",
+        "postal_code": "69008",
+        "lat": 45.7331012,
+        "lon": 4.8675651
+      },
+      "_metro": "Lyon, France"
     }
   ],
   "_not_included": {

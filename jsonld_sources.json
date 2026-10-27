@@ -18337,6 +18337,410 @@
         "lon": 2.3283595
       },
       "_metro": "Paris, France"
+    },
+    {
+      "name": "New Morning",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.newmorning.com/programmation"
+      ],
+      "link_pattern": "https://www\\.newmorning\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "New Morning",
+        "lat": 48.8730035,
+        "lon": 2.3534809
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Théâtre des Abbesses",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theatredelaville-paris.com/fr/spectacles/saison-26-27/focus-irlande"
+      ],
+      "link_pattern": "https://www\\.theatredelaville\\-paris\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre des Abbesses",
+        "lat": 48.8845934,
+        "lon": 2.3372352
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Protestante - Paris Alésia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://eelparis.org/concerts/"
+      ],
+      "link_pattern": "https://eelparis\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Protestante - Paris Alésia",
+        "lat": 48.8277207,
+        "lon": 2.3275991
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "MJC Louis Lepage",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.mjc-nogent.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/d-tails-et-inscription/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "MJC Louis Lepage",
+        "address": "36 Boulevard Gallieni",
+        "city": "Nogent-sur-Marne",
+        "postal_code": "94130",
+        "lat": 48.8404575,
+        "lon": 2.4845286
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "La Librairie Perse En Poche",
+      "category": "learning",
+      "_found": "osm:books -> wix+jsonld-event",
+      "listing": [
+        "https://www.utopiran.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La Librairie Perse En Poche",
+        "lat": 48.8451946,
+        "lon": 2.2897565
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Studios 27",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.studios27.fr/spectacles"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Studios 27",
+        "lat": 48.8766896,
+        "lon": 2.3537954
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Le Large",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.large-emerige.fr/fr/evenements/battements-dacier"
+      ],
+      "link_pattern": "https://www\\.large\\-emerige\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le Large",
+        "lat": 48.8220814,
+        "lon": 2.2376657
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Parc zoologique de Paris",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://www.parczoologiquedeparis.fr/fr/evenement/journee-frissons"
+      ],
+      "link_pattern": "https://www\\.parczoologiquedeparis\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Parc zoologique de Paris",
+        "lat": 48.8318246,
+        "lon": 2.4172936
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Théâtre du Rond-Point",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theatredurondpoint.fr/fr/programmation/saison-26-27/danse/amazigh"
+      ],
+      "link_pattern": "https://www\\.theatredurondpoint\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre du Rond-Point",
+        "lat": 48.8677572,
+        "lon": 2.3108853
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Théâtre Alexandre Dumas",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://tad.saintgermainenlaye.fr/1933-8200/saison/saison-2026-2027/fiche/les-concerts-des-etoiles-du-classique.htm"
+      ],
+      "link_pattern": "https://tad\\.saintgermainenlaye\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre Alexandre Dumas",
+        "address": "Place André Malraux",
+        "city": "Saint-Germain-en-Laye",
+        "postal_code": "78100",
+        "lat": 48.8968176,
+        "lon": 2.0971101
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Protestante Unie de Meudon",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://meudon-sevres-ville-d-avray.epudf.org/evenements/catechisme/23/"
+      ],
+      "link_pattern": "https://meudon\\-sevres\\-ville\\-d\\-avray\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Protestante Unie de Meudon",
+        "address": "14 Rue du Bassin",
+        "city": "Meudon",
+        "postal_code": "92190",
+        "lat": 48.8198335,
+        "lon": 2.223098
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Brasserie Ox",
+      "category": "food",
+      "_found": "osm:brewery -> modern-events+jsonld-event",
+      "listing": [
+        "https://brasserie-ox.fr/evenements/"
+      ],
+      "link_pattern": "https://brasserie\\-ox\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brasserie Ox",
+        "address": "50 Route d'Orsay",
+        "lat": 48.6592945,
+        "lon": 2.2076845
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Le Bateau phare",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://lebateauphare.paris/programmation/"
+      ],
+      "link_pattern": "https://lebateauphare\\.paris/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le Bateau phare",
+        "lat": 48.83341,
+        "lon": 2.3792527
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Comœdia",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinema-comoedia.com/events/85414-la-semaine-anniversaire/?utm_campaign=247298&amp;utm_content=header_link&amp;utm_medium=email_recurring&amp;utm_source=Boost_CRM"
+      ],
+      "link_pattern": "https://www\\.cinema\\-comoedia\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Comœdia",
+        "lat": 45.7474,
+        "lon": 4.8355185
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Théâtre des Marronniers",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://theatre-des-marronniers.com/programmation-saison/allo-stella/"
+      ],
+      "link_pattern": "https://theatre\\-des\\-marronniers\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre des Marronniers",
+        "address": "7 Rue des Marronniers",
+        "lat": 45.7571453,
+        "lon": 4.8348148
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Centre social du Saunier",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.csdusaunier.fr/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Centre social du Saunier",
+        "lat": 45.7144855,
+        "lon": 4.7505792
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Cap Emploi 69",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.capemploi-69.com/evenements/evenement.html?i=5859&c=ZXZ0cy42YWQyMTVhZTBiM2M5OC4wODYxMTc1NQ=="
+      ],
+      "link_pattern": "https://www\\.capemploi\\-69\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cap Emploi 69",
+        "lat": 45.7270237,
+        "lon": 4.8391603
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Bourse du Travail",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bourse-du-travail.com/programmation.html"
+      ],
+      "link_pattern": "https://www\\.bourse\\-du\\-travail\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bourse du Travail",
+        "lat": 45.7592427,
+        "lon": 4.848221
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Théâtre des Célestins",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theatredescelestins.com/fr/programmation/2026-2027/grande-salle/petrole"
+      ],
+      "link_pattern": "https://www\\.theatredescelestins\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre des Célestins",
+        "lat": 45.7599838,
+        "lon": 4.8313201
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Église Évangélique Protestante",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://eglise-saintpriest.org/agenda/"
+      ],
+      "link_pattern": "https://eglise\\-saintpriest\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Évangélique Protestante",
+        "lat": 45.6950476,
+        "lon": 4.9250512
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Temple du Change",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://lyon-ouest-change.epudf.org/evenements/culte-au-temple/5/"
+      ],
+      "link_pattern": "https://lyon\\-ouest\\-change\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple du Change",
+        "lat": 45.7644769,
+        "lon": 4.827924
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "OL Vallée",
+      "category": "community",
+      "_found": "osm:attraction -> jsonld-event",
+      "listing": [
+        "https://www.ldlcarena.com/calendrier/"
+      ],
+      "link_pattern": "https://www\\.ldlcarena\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "OL Vallée",
+        "address": "10 Avenue Simone Veil",
+        "city": "Décines-Charpieu",
+        "postal_code": "69150",
+        "lat": 45.7647879,
+        "lon": 4.9812052
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Le ZEF - Scène nationale de Marseille",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.lezef.org/fr/"
+      ],
+      "link_pattern": "https://www\\.lezef\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le ZEF - Scène nationale de Marseille",
+        "lat": 43.3307459,
+        "lon": 5.3986698
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "Théâtre du Carré Rond",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://lecarrerond.fr/brassens.php"
+      ],
+      "link_pattern": "https://lecarrerond\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre du Carré Rond",
+        "address": "23",
+        "city": "Marseille",
+        "lat": 43.2937572,
+        "lon": 5.3850765
+      },
+      "_metro": "Marseille, France"
     }
   ],
   "_not_included": {

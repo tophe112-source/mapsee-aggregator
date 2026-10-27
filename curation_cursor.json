@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 129,
-  "metro_key": "FR:Paris",
+  "metro": 131,
+  "metro_key": "FR:Marseille",
   "stuck": {}
  },
  "osm|community_centre,library": {

@@ -58818,5 +58818,195 @@
     "geocode_suffix": ", Noisy-le-Grand",
     "limit": 300,
     "_metro": "Paris, France"
+  },
+  {
+    "name": "Album Comics",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/93de5dab32c2d35365da6fd32fd04457b5bf94203d92deffaf6971cadbaa2d20%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Foyer de Grenelle",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c8e57990d3d1a6621af21f29330bcbd8ae8810adc0c0bc54cdc618b88d92aaeb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Le Triton",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://letriton.com/concert/magma-2027-02-10/agenda.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Théâtre du Chaos",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bcjqvrnpqbamh2ar0r322a69hk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Musée Hector Guimard",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.lecercleguimard.fr/fr/nos-actions/centre-guimard-hotel-mezzara/?ical=1",
+    "geocode_suffix": ", Paris",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Rowing Club Port Marly",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.rcpm-aviron.fr/evenements.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Les Passerelles",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://www.lespasserelles.fr/information-transversale/agenda/les-forteresses-16013/calendar.ics",
+    "geocode_suffix": ", Pontault-Combault",
+    "limit": 300,
+    "_metro": "Paris, France",
+    "crawl_delay": 5.0
+  },
+  {
+    "name": "Les Archers du Donjon",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://archers-donjon-91.sportsregions.fr/evenements.ics",
+    "geocode_suffix": ", Longpont-sur-Orge",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Fluctuart",
+    "category": "community",
+    "_found": "osm:bar -> event-organiser",
+    "url": "https://fluctuart.fr/?feed=eo-events",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Paris Jean-Bouin",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e8c6ff0703cea5ee25cf77705bb7fae2dd0c7de88f3b7b24d4221474fcb4f5f9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Église Sainte-Cécile",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+ics",
+    "url": "https://stececile.fr/events/lage-dor/ical/",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Torcy Canoë Kayak",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vha9aqjsai1de2n2pe0rol5mco%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Torcy",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Moi j'm'en fous je triche",
+    "category": "community",
+    "_found": "osm:cafe -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a62dic8ts9j7mqag01qee1rjao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Réunions chrétiennes",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s95q8iso378fiqsdeunvrjc8to%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Villeurbanne",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Tango de Soie",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/snnvenkm3hcti63r9100gq8l6g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Hippodrome de Lyon-Carré de Soie",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> event-organiser",
+    "url": "https://www.leshippodromesdelyon.fr/?feed=eo-events",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Église Saint-Côme et Saint-Damien",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eosml%40mitropolia.eu/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Église évangélique arménienne",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/02l4i2732f4dntciimoobkseds%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Église Protestante Unie",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n0t4tokh2jjoms4eodo81q196c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Le Rize",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://lerize.villeurbanne.fr/agenda/?ical=1",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Tennis Club Trévoux",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c7c89a695a6e292e60fab7f990ce53dbfd60b0cb2e86c1d39e1eceb5e6a00198%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
   }
 ]
