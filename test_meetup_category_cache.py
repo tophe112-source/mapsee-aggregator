@@ -47,6 +47,12 @@ def load(path):
 
 
 TODAY = date(2026, 10, 27)
+# TODAY IS PINNED FOR THE WHOLE SCRIPT, NOT ONLY WHERE A CASE PASSES today=.
+# Every case driven through Dir.main() reaches M.main(), which asks _today()
+# and prunes an entry once its day is before today minus one. On the real
+# clock the 2026-11-05 fixtures were pruned from 2026-11-07 UTC on, and ten
+# checks went red on every push that touched a .py file.
+os.environ["MAPSEE_TODAY"] = TODAY.strftime("%Y%m%d")
 VERSION = M.keyword_version()
 
 
@@ -358,7 +364,7 @@ os.environ["MAPSEE_TODAY"] = "20261101"
 try:
     check("  read from the environment", M._today(), date(2026, 11, 1))
 finally:
-    del os.environ["MAPSEE_TODAY"]
+    os.environ["MAPSEE_TODAY"] = TODAY.strftime("%Y%m%d")   # back to the pin, never the real clock
 
 print()
 if FAILS:
