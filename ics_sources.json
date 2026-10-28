@@ -59008,5 +59008,124 @@
     "geocode_suffix": ", Lyon, France",
     "limit": 300,
     "_metro": "Lyon, France"
+  },
+  {
+    "name": "Église protestante unie De Grignan",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/df5b1ac812151c02063189ce19ace45b2f74be443e7c1f1820de012696e38b5f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Marseille",
+    "limit": 300,
+    "_metro": "Marseille, France"
+  },
+  {
+    "name": "Théâtre des Préambules",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://theatredespreambules.com/evenement/?ical=1",
+    "geocode_suffix": ", Toulouse, France",
+    "limit": 300,
+    "_metro": "Toulouse, France",
+    "crawl_delay": 30.0
+  },
+  {
+    "name": "Musée Georges Labit",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://museegeorgeslabit.fr/programme/?ical=1",
+    "geocode_suffix": ", Toulouse",
+    "limit": 300,
+    "_metro": "Toulouse, France"
+  },
+  {
+    "name": "Club Nautique de Mazerolles",
+    "category": "community",
+    "_found": "osm:sailing_school -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3c7346a5c11effd1b9a3cc64d0ea16abb0dc4ad9c6e1f99bea9f9a2ec0fdf9b5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sucé-sur-Erdre",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "ASBR Plongée",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2sflv23diafh6qrstugk16gfh0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nantes, France",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "ACC Judo",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://accjudo.fr/evenements.ics",
+    "geocode_suffix": ", La Chapelle-sur-Erdre",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "Football Club de Nantes",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.fcnantes.com/calendrierfcn2627.ics",
+    "geocode_suffix": ", La Chapelle-sur-Erdre",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "Les Visiteurs du Soir",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://lesvisiteursdusoir.com/calendrier-seances.ics",
+    "geocode_suffix": ", Nice, France",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "?",
+    "category": "theater",
+    "_found": "osm:cinema -> events-manager",
+    "url": "https://www.saint-jean-cap-ferrat.fr/agenda/?ical=1",
+    "geocode_suffix": ", Nice, France",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "Choisir Le Vélo",
+    "category": "community",
+    "_found": "osm:bicycle_repair_station -> event-organiser",
+    "url": "https://www.choisirlevelo.org/?feed=eo-events",
+    "geocode_suffix": ", Mouans-Sartoux",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "Église Protestante Unie de Nice Saint-Esprit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tnlvm7rpq106qtur05v384ls9c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nice, France",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "Activités Sportives Culturelles et de Plein Air",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cr3k4fe11gkm9eb1817opq2p6o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Strasbourg",
+    "limit": 300,
+    "_metro": "Strasbourg, France"
+  },
+  {
+    "name": "EDEKA Arena",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://www.messe-offenburg.de/sites/default/files/2026-10/ja-ich-will-die-hochzeitsmesse.ics",
+    "geocode_suffix": ", Strasbourg, France",
+    "limit": 300,
+    "_metro": "Strasbourg, France",
+    "crawl_delay": 10.0
   }
 ]

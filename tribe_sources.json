@@ -27805,6 +27805,450 @@
         "lon": 4.8675651
       },
       "_metro": "Lyon, France"
+    },
+    {
+      "name": "Librairie Pantagruel",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.librairesdusud.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librairie Pantagruel",
+        "address": "44 Rue Paul Codaccioni",
+        "city": "Marseille",
+        "lat": 43.2878302,
+        "lon": 5.3594005
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "La Maison de Rejane",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://lamaisonderejane.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Maison de Rejane",
+        "address": "59 Rue des Quatre Termes",
+        "city": "Aubagne",
+        "postal_code": "13685",
+        "lat": 43.2888371,
+        "lon": 5.5974626
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "La Chartreuse",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ville-pechbonnieu.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Chartreuse",
+        "address": "2 Rue Richard Dejean",
+        "city": "Pechbonnieu",
+        "postal_code": "31140",
+        "lat": 43.7048229,
+        "lon": 1.468353
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "La Buleria",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://la-buleria.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Buleria",
+        "address": "105 Route d'Agde",
+        "city": "Toulouse",
+        "postal_code": "31500",
+        "lat": 43.6295021,
+        "lon": 1.4809438
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Le Moulin de Roques",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://www.lemoulin-roques.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Moulin de Roques",
+        "lat": 43.5108458,
+        "lon": 1.3801702
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Espaces Vanel",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://espacesvanel.toulousecongres.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Espaces Vanel",
+        "lat": 43.6102051,
+        "lon": 1.4554948
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Les Enfants de R’lyeh",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.les-enfants-de-rlyeh.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Enfants de R’lyeh",
+        "address": "Place de la Source",
+        "city": "Blagnac",
+        "postal_code": "31700",
+        "lat": 43.6194762,
+        "lon": 1.3906054
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Théâtre du Pavé",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://theatredupave.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre du Pavé",
+        "lat": 43.5806319,
+        "lon": 1.4477369
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Centre de Congrès Pierre Baudis",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://centrepierrebaudis.toulousecongres.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre de Congrès Pierre Baudis",
+        "address": "11 Esplanade Compans Caffarelli",
+        "city": "Toulouse",
+        "postal_code": "31000",
+        "lat": 43.6112641,
+        "lon": 1.4343362
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Piscine municipale de l'Union",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ville-lunion.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Piscine municipale de l'Union",
+        "address": "Rue du Puy de Sancy",
+        "lat": 43.6552202,
+        "lon": 1.4910429
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Le Metronum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://lemetronum.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Metronum",
+        "lat": 43.6414815,
+        "lon": 1.4505865
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "La Cabane",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://halles-cartoucherie.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Cabane",
+        "address": "16 ter Avenue Raymond Badiou",
+        "lat": 43.5996755,
+        "lon": 1.4073144
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Dhagpo Bordeaux",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://dhagpo-bordeaux.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dhagpo Bordeaux",
+        "lat": 44.8400845,
+        "lon": -0.5997438
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Les Vivres de l'Art",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://lesvivresdelart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Vivres de l'Art",
+        "lat": 44.8642479,
+        "lon": -0.5494813
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Musée de la vigne et du vin",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.maisondesvinsdecadillac.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée de la vigne et du vin",
+        "lat": 44.6330479,
+        "lon": -0.3153376
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Librairie Le Passeur",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.librairie-lepasseur.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librairie Le Passeur",
+        "address": "9 Avenue Thiers",
+        "city": "Bordeaux",
+        "postal_code": "33100",
+        "lat": 44.8407816,
+        "lon": -0.558488
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "L'Inconnue",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+wp-event-manager+jsonld-event+ics",
+      "base_url": "https://linconnue.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'Inconnue",
+        "address": "181 Rue François Boucher",
+        "city": "Talence",
+        "postal_code": "33400",
+        "lat": 44.7924778,
+        "lon": -0.5875286
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "La Mac 1 du Crous",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-bordeaux.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Mac 1 du Crous",
+        "address": "4 Rue Lucie Aubrac",
+        "city": "Pessac",
+        "postal_code": "33600",
+        "lat": 44.792459,
+        "lon": -0.6228585
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Théâtre 100 Noms",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://theatre100noms.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre 100 Noms",
+        "lat": 47.200924,
+        "lon": -1.573384
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Théâtre de Jeanne",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.theatre-jeanne.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre de Jeanne",
+        "lat": 47.2045675,
+        "lon": -1.5755074
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Atlantic Danse Club",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://atlanticdanse.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Atlantic Danse Club",
+        "lat": 47.2233757,
+        "lon": -1.6330189
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Centre régional des oeuvres universitaires et scolaires de Nantes-Pays de la Loire",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-nantes.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre régional des oeuvres universitaires et scolaires de Nantes-Pays de la Loire",
+        "lat": 47.2445437,
+        "lon": -1.5556577
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Le Raimu",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://www.cannes-cinema.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Raimu",
+        "lat": 43.5671565,
+        "lon": 6.9657042
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Musée Renoir",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://ville.cagnes.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Renoir",
+        "lat": 43.6676631,
+        "lon": 7.1569511
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Fort de Mutzig",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://fort-mutzig.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fort de Mutzig",
+        "lat": 48.5586972,
+        "lon": 7.4571909
+      },
+      "_metro": "Strasbourg, France",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Malagacha Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://malagacha-gallery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Malagacha Gallery",
+        "address": "9 Rue du Parchemin",
+        "city": "Strasbourg",
+        "postal_code": "67000",
+        "lat": 48.584633,
+        "lon": 7.7538498
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Offenburger Hexenzunft e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hexenzunft.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Offenburger Hexenzunft e.V.",
+        "address": "Spitalstraße",
+        "city": "Offenburg",
+        "postal_code": "77652",
+        "lat": 48.4691793,
+        "lon": 7.9433572
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Maison des arts et du patrimoine - Musée de l'asperge",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.musee-asperge.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison des arts et du patrimoine - Musée de l'asperge",
+        "lat": 48.698121,
+        "lon": 7.7852558
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Bodhi Path",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bodhipath-renchen-ulm.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bodhi Path",
+        "address": "18 Kaierstraße",
+        "city": "Renchen",
+        "postal_code": "77871",
+        "lat": 48.5838974,
+        "lon": 8.0719224
+      },
+      "_metro": "Strasbourg, France"
     }
   ],
   "_not_included": {

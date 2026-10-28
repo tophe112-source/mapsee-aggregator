@@ -3098,6 +3098,20 @@
         "lon": 9.7237453
       },
       "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Château de Villeneuve",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.museedevence.fr/evenements",
+      "max_events": 200,
+      "venue": {
+        "name": "Château de Villeneuve",
+        "address": "2 Place du Frêne",
+        "lat": 43.7229295,
+        "lon": 7.1126235
+      },
+      "_metro": "Nice, France"
     }
   ],
   "_not_included": {

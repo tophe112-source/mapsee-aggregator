@@ -18741,6 +18741,527 @@
         "lon": 5.3850765
       },
       "_metro": "Marseille, France"
+    },
+    {
+      "name": "Studio Fotokino",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://fotokino.org/agenda-par-genre/"
+      ],
+      "link_pattern": "https://fotokino\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Studio Fotokino",
+        "address": "33",
+        "lat": 43.2992844,
+        "lon": 5.3829073
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "L'Affranchi",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://l-affranchi.com/"
+      ],
+      "link_pattern": "https://l\\-affranchi\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "L'Affranchi",
+        "address": "212",
+        "lat": 43.286486,
+        "lon": 5.4675889
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "Le Bijou",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.le-bijou.net/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Bijou",
+        "lat": 43.5844104,
+        "lon": 1.4275329
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "À demi-mot",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://librairie-ademimot.com/agenda/les-evenements-a-venir/"
+      ],
+      "link_pattern": "https://librairie\\-ademimot\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "À demi-mot",
+        "address": "2 Avenue Saint-Germier",
+        "lat": 43.4620543,
+        "lon": 1.3236178
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Le Grand Bazar",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.grandbazar.art/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Grand Bazar",
+        "address": "3 Avenue du Cimetière",
+        "postal_code": "31500",
+        "lat": 43.6066728,
+        "lon": 1.4594624
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Zénith Toulouse Métropole",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://zenith-toulousemetropole.com/shows/TAYC-21657"
+      ],
+      "link_pattern": "https://zenith\\-toulousemetropole\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zénith Toulouse Métropole",
+        "address": "11 Avenue Raymond Badiou",
+        "city": "Toulouse",
+        "postal_code": "31300",
+        "lat": 43.5982341,
+        "lon": 1.4093799
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Péniche Didascalie",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.penichedidascalie.com/copie-de-agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Péniche Didascalie",
+        "address": "Rue Federico Garcia Lorca",
+        "city": "Ramonville-Saint-Agne",
+        "postal_code": "31520",
+        "lat": 43.5414808,
+        "lon": 1.4902618
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Interference",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.interference-toulouse.fr/event/kery-james-2026"
+      ],
+      "link_pattern": "https://www\\.interference\\-toulouse\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Interference",
+        "address": "56",
+        "city": "Balma",
+        "postal_code": "31130",
+        "lat": 43.631489,
+        "lon": 1.4897404
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Théâtre Victoire",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.theatrevictoire.com/agenda/"
+      ],
+      "link_pattern": "https://www\\.theatrevictoire\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre Victoire",
+        "address": "18 Rue des Augustins",
+        "lat": 44.8323681,
+        "lon": -0.5715155
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Ciné Max Linder",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.maxlinder-creon.fr/events/85254-gabin/"
+      ],
+      "link_pattern": "https://www\\.maxlinder\\-creon\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ciné Max Linder",
+        "address": "13 Rue du Docteur Fauché",
+        "city": "Créon",
+        "postal_code": "33670",
+        "lat": 44.7740434,
+        "lon": -0.3486974
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Institut Soto-Zen Nanfutsuji",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://nanfutsuji.fr/calendrier"
+      ],
+      "link_pattern": "https://nanfutsuji\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Institut Soto-Zen Nanfutsuji",
+        "address": "17 Rue Baudin",
+        "city": "Le Bouscat",
+        "postal_code": "33110",
+        "lat": 44.862337,
+        "lon": -0.5869841
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Temple de l'église protestante unie de France",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bordeauxnordouest.epudf.org/evenements/culte/9/"
+      ],
+      "link_pattern": "https://bordeauxnordouest\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple de l'église protestante unie de France",
+        "address": "71 Avenue du Maréchal Leclerc",
+        "city": "Mérignac",
+        "postal_code": "33700",
+        "lat": 44.834291,
+        "lon": -0.6480415
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Temple protestant de Talence",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bordeauxsudouest.epudf.org/evenements/etude-biblique/3/"
+      ],
+      "link_pattern": "https://bordeauxsudouest\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple protestant de Talence",
+        "address": "283 Rue Frédéric Sévène",
+        "city": "Talence",
+        "postal_code": "33400",
+        "lat": 44.8069407,
+        "lon": -0.5778305
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Théâtre du Sphinx",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.theatredusphinx.com/programmation-au-sphinx/"
+      ],
+      "link_pattern": "https://www\\.theatredusphinx\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre du Sphinx",
+        "lat": 47.213517,
+        "lon": -1.5479704
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "La cour des Miracles",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.cdmlab.fr/programmation"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La cour des Miracles",
+        "lat": 47.2180774,
+        "lon": -1.5566208
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Le Lieu Unique",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://lelieuunique.com/evenement/slow-gant"
+      ],
+      "link_pattern": "https://lelieuunique\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le Lieu Unique",
+        "lat": 47.21529,
+        "lon": -1.5455957
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "CinéPHIL",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinephil.fr/events/82643-cine-gouter-le-corset/"
+      ],
+      "link_pattern": "https://www\\.cinephil\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CinéPHIL",
+        "address": "2 Rue des Anciens Combattants",
+        "lat": 47.0345,
+        "lon": -1.6421465
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Zénith Nantes Métropole",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.zenith-nantesmetropole.com/shows/ERA-22358"
+      ],
+      "link_pattern": "https://www\\.zenith\\-nantesmetropole\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zénith Nantes Métropole",
+        "address": "Boulevard du Zénith",
+        "city": "Saint-Herblain",
+        "postal_code": "44800",
+        "lat": 47.2287147,
+        "lon": -1.6279736
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Stockfish",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://etudiants.nice.fr/evenements-mde/"
+      ],
+      "link_pattern": "https://etudiants\\.nice\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stockfish",
+        "address": "5 Avenue François Mitterrand",
+        "city": "Nice",
+        "postal_code": "06300",
+        "lat": 43.7106044,
+        "lon": 7.2854335
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Cineplanet",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cineplanet-antibes.fr/events/84550-infirmary/"
+      ],
+      "link_pattern": "https://www\\.cineplanet\\-antibes\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cineplanet",
+        "lat": 43.5823187,
+        "lon": 7.1236364
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Autour d'un dragon",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.autourdunlivre.com/copy-of-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Autour d'un dragon",
+        "address": "4 Place Gambetta",
+        "postal_code": "06400",
+        "lat": 43.5532746,
+        "lon": 7.023312
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "La Salamandre",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.lasalamandreclub.com/programme"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La Salamandre",
+        "lat": 48.5804476,
+        "lon": 7.7602432
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Schachclub Neumühl",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.schachclub-neumuehl.de/termine"
+      ],
+      "link_pattern": "https://www\\.schachclub\\-neumuehl\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schachclub Neumühl",
+        "address": "70 Elsässer Straße",
+        "city": "Kehl",
+        "postal_code": "77694",
+        "lat": 48.5703669,
+        "lon": 7.8435806
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Next Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://nextclub.fr/agenda"
+      ],
+      "link_pattern": "https://nextclub\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Next Club",
+        "lat": 48.5797876,
+        "lon": 7.7430054
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Église Evangélique Bonne Nouvelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.bnstrasbourg.net/lagenda/"
+      ],
+      "link_pattern": "https://www\\.bnstrasbourg\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Evangélique Bonne Nouvelle",
+        "lat": 48.589097,
+        "lon": 7.739251
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Quai de Scène",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://spectacles.quaidescene.fr/spectacles/dirty-deep"
+      ],
+      "link_pattern": "https://spectacles\\.quaidescene\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Quai de Scène",
+        "address": "5 Quai du Général Koenig",
+        "city": "Strasbourg",
+        "postal_code": "67000",
+        "lat": 48.575449,
+        "lon": 7.7574144
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Simplicissimus-Haus",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "http://www.simplicissimushaus.de/veranstaltungen/2855243/2026/11/13/23.-renchener-lesenacht"
+      ],
+      "link_pattern": "https://www\\.simplicissimushaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Simplicissimus-Haus",
+        "address": "59 Hauptstraße",
+        "city": "Renchen",
+        "postal_code": "77871",
+        "country": "DE",
+        "lat": 48.5860965,
+        "lon": 8.01188
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Kirche am Flugplatz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.kircheamflugplatz.de/termine/2290-gemeindegebet"
+      ],
+      "link_pattern": "https://www\\.kircheamflugplatz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kirche am Flugplatz",
+        "address": "22 Europastraße",
+        "city": "Lahr/Schwarzwald",
+        "postal_code": "77933",
+        "lat": 48.3527067,
+        "lon": 7.826509
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Saint-Sauveur - Salle d'exposition",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://garesaintsauveur.lille3000.com/event/shii-foo-miix-1448"
+      ],
+      "link_pattern": "https://garesaintsauveur\\.lille3000\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint-Sauveur - Salle d'exposition",
+        "city": "Lille",
+        "postal_code": "59000",
+        "lat": 50.626861,
+        "lon": 3.0717035
+      },
+      "_metro": "Lille, France"
     }
   ],
   "_not_included": {
