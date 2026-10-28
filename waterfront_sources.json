@@ -1,0 +1,48 @@
+{
+  "sites": [
+    {
+      "name": "Friends of Waterfront Park - public programs",
+      "url": "https://waterfrontparkseattle.org/events/",
+      "timezone": "America/Los_Angeles",
+      "city": "Seattle",
+      "country": "US",
+      "category": "community",
+      "venues": {
+        "Pier 62": {
+          "name": "Pier 62",
+          "address": "1951 Alaskan Way",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98101",
+          "lat": 47.6084999,
+          "lon": -122.3448246,
+          "coordinate_source": "OpenStreetMap way 57391649 center, read 2026-10-27; name and 1951 Alaskan Way address agree with Seattle Parks https://seattle.gov/parks/parks/pier-62"
+        },
+        "Pier 66": {
+          "name": "Pier 66",
+          "address": "2211 Alaskan Way",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98121",
+          "lat": 47.6106073,
+          "lon": -122.3489456,
+          "coordinate_source": "OpenStreetMap relation 812611 (Pier 66 / Bell Street Pier) center, read 2026-10-27; publisher event cards specify 2211 Alaskan Way"
+        },
+        "Pier 66 (2211 Alaskan Way)": {
+          "name": "Pier 66",
+          "address": "2211 Alaskan Way",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98121",
+          "lat": 47.6106073,
+          "lon": -122.3489456,
+          "coordinate_source": "Same Pier 66 / OpenStreetMap relation 812611; publisher's exact location label"
+        }
+      },
+      "_note": "2026-10-27: publisher allows robots reads; calendar has dated occurrence cards with explicit local clocks, descriptions and admission. No Event JSON-LD; REST event posts omit schedule fields, Tribe route is absent and ?ical=1 returns HTML. Read the single calendar rather than fetching every occurrence. Only exact verified venue labels are placed; tours without a verified starting point and offsite gatherings stay out. Free is asserted only from each card's own admission label; weather restrictions are retained. Map data © OpenStreetMap contributors (ODbL)."
+    }
+  ]
+}

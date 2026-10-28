@@ -731,6 +731,17 @@ jobs:
           python mapsee_ingest_recitals.py --config recital_sources.json --store recital_events.json --max-seconds 60
           # A tiny complete series read: refresh dates and admission daily.
           python mapsee_supabase_sync.py --store recital_events.json --skip-unchanged
+      - name: Import Waterfront Park programs from one dated calendar
+        id: ingest_waterfront
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          MAPSEE_DB_WAIT_SECONDS: "30"
+        run: |
+          python mapsee_ingest_waterfront.py --config waterfront_sources.json --store waterfront_events.json --max-seconds 60
+          # Refresh published time/admission corrections; skip identical rows.
+          python mapsee_supabase_sync.py --store waterfront_events.json --skip-unchanged
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         id: ingest_programs
         if: matrix.group == 'local'

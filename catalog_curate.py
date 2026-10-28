@@ -4216,6 +4216,14 @@ def _rows_recitals(data):
     return rows
 
 
+def _rows_waterfront(data):
+    """One public calendar, with explicitly declared city and country."""
+    return [(entry.get("name") or "?", entry.get("city") or "?",
+             _country_named(entry.get("country")) or "?",
+             entry.get("category") or "community")
+            for entry in data.get("sites", [])]
+
+
 def _rows_mapasculturais(data):
     """One row per state register. Brazil is not declared per entry and does not
     need to be: the adapter exists for Mapas Culturais, which is a Brazilian
@@ -4246,6 +4254,7 @@ EXTRA_CONFIG = {
     "openactive": ("openactive_sources.json", _rows_openactive),
     "bibliocommons": ("bibliocommons_sources.json", _rows_bibliocommons),
     "recitals": ("recital_sources.json", _rows_recitals),
+    "waterfront": ("waterfront_sources.json", _rows_waterfront),
     "mapasculturais": ("mapasculturais_sources.json", _rows_mapasculturais),
 }
 # jsonld, mylisting and venuepilot are declared in BOTH tables, over the SAME

@@ -40,7 +40,7 @@ class WorkflowContracts(unittest.TestCase):
             'local': {'markets', 'parkrun', 'fairs', 'programs', 'jsonld', 'squarespace',
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu',
-                      'ava', 'rallybound', 'luminate', 'recitals', 'kct'},
+                      'ava', 'rallybound', 'luminate', 'recitals', 'waterfront', 'kct'},
             'rec': {'toronto_rec', 'linkedevents', 'perfectmind', 'drupal_fullcalendar', 'revize',
                     'glenecho', 'montreal_loisirs', 'phl_parks', 'barcelona', 'lcsd', 'madrid',
                     'facility_hours', 'natuurwerkdag', 'galaxydigital'},
@@ -72,6 +72,15 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('| ingest_ics | failure |', text)
         self.assertIn('1 failed or cancelled', text)
         self.assertNotIn('| ingest_tribe', text)
+
+    def test_waterfront_corrections_sync_daily_within_a_small_budget(self):
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        step = next(s for s in workflow['jobs']['feeds']['steps'] if s.get('id') == 'ingest_waterfront')
+        self.assertEqual("matrix.group == 'local'", step['if'])
+        self.assertEqual(3, step['timeout-minutes'])
+        self.assertIn('--max-seconds 60', step['run'])
+        self.assertIn('mapsee_supabase_sync.py --store waterfront_events.json --skip-unchanged', step['run'])
+        self.assertNotIn('--only-new', step['run'])
 
     def test_feed_budgets_leave_time_to_sync_and_persist_resume_cursors(self):
         workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))

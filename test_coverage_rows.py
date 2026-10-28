@@ -326,6 +326,10 @@ def t_a_curated_file_the_report_cannot_see_reads_as_a_gap():
     brazil = {k for t, _n, _m, c, k in rows if c == "Brazil"}
     check("Brazil's own adapter counts as Brazilian community supply",
           "community" in brazil, f"Brazil has {sorted(brazil)}")
+    waterfront = [r for r in rows if r[0] == "waterfront"]
+    check("Waterfront Park's calendar counts once at its declared Seattle location",
+          len(waterfront) == 1 and waterfront[0][2:] == ("Seattle", "United States", "community"),
+          str(waterfront))
     uk_vol = [n for t, n, _m, c, k in rows
               if c == "United Kingdom" and k == "volunteer"]
     check("GoodGym is UK volunteer supply, which the report used to FLAG as absent",

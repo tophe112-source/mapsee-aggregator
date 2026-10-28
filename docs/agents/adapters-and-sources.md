@@ -3,6 +3,41 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **ONE WATERFRONT CALENDAR READ DELIVERS 33 DATED OUTINGS (2026-10-27).**
+  The permitted official `/events/` page has **42** grid cards: **33** upcoming
+  occurrences at the verified Pier 62 / Pier 66 pins, **4** at unconfigured
+  places, and **5** program/promotion cards without usable occurrence data.
+  The 33 are **28** weather-permitting firepit socials, Halloween salsa,
+  **2** Stories Water Keeps dates and **2** winter solstice market dates.
+  Every placed card has a year-bearing local start, explicit displayed end,
+  own Free admission and poster. `mapsee_ingest_waterfront.py` reads them in
+  **1** listing request (plus robots.txt), without detail requests or geocoding;
+  unknown places are skipped. JSON-LD yields **0** Events, the public REST
+  posts omit schedule fields, Tribe returns **404**, and `?ical=1` is HTML.
+  The existing local daily job now refreshes a small separate store with
+  `--skip-unchanged`, within a **60 s** fetch budget and **2 MiB** body limit.
+  Stable day identities plus source-owned clock refreshes survive time
+  corrections and end withdrawals through an actual EventStore save/reload.
+  DST gaps/folds are rejected rather than guessed. **15** offline tests cover
+  these paths, source admission withdrawal, robots refusal and poster bounds.
+  Initial live sync inserted **35** new rows in **2.0 s**, all with verified
+  coordinates (**0** geocoder calls); readback verified **35/35** clocks/pins.
+  The other **2** are Pike Place Native American Artistry (Nov 7, 11–16) and
+  Magic in the Market (Nov 28, 11–18), imported once through the existing ICS
+  adapter from publisher exports `?method=ical&id=41148` / `41025`. Those
+  exports carry exact UTC clocks in about **2 KiB** for Magic, whereas its
+  **220 KB** HTML's Event JSON-LD contains bare dates; the publisher-wide
+  MEC export is HTML. Pike Place admission remains unknown; no new recurring
+  Pike Place source is claimed. Waterfront's **33** database `free` tags were
+  checked after sync: `Admission as listed: Free` matched **0**, while the
+  faithful `Admission: Free` matches the product predicate. The test uses the
+  vendored 0227 predicate so a fact cannot silently miss the free filter again.
+  After review and the store-level correction fix, all **97** CI scripts passed
+  locally in **30.56 s**, as did the **2** extra local scripts. **6** distinct
+  public event previews returned **200**; the anonymous Nearby `offer:free`
+  query returned both new Halloween listings. These are catalog/HTTP checks,
+  not evidence of user growth or dollar savings.
+
 - **A CONCERT SERIES IS FIVE PERFORMANCES, NOT A PARISH CALENDAR.** Measured
   2026-10-17: Epiphany Seattle's official 2026-2027 concert page yields **5**
   upcoming occurrences: Requiem on November 1 (admission unstated), Messiah on

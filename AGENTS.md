@@ -8,11 +8,9 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 559 of them — live in
-[`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
-every note's headline: grep it for the symptom, then open ONE file. Nothing in a
-note is a guess; each records a measurement, and the number is the point.
+**Keep this map small.** The measured notes — 560 of them — live in
+[`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
+then open ONE topic. Preserve each note's measurements.
 
 Sibling products, same author, same shape of notes: `../Mapsee` (the product and
 the Worker this pipeline feeds), `../Fish/fishsie-repo` (the game),
@@ -21,7 +19,7 @@ the Worker this pipeline feeds), `../Fish/fishsie-repo` (the game),
 ## The shape of it
 
 ```
-60 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+61 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -70,7 +68,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | The kids door (unsie.com, live) and what its plan still wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. The door has shipped; the plan's §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` and swap language in `_KIDS_RX`/`derive_categories`. Toy libraries and little free libraries are MEASURED: read the two notes in `docs/agents/osm-amenities.md` before widening either |
 | Brazilian cultural events (state/municipal registers) | `mapsee_ingest_mapasculturais.py` + `mapasculturais_sources.json` — the only source that puts anything on the map in Brazil |
-| The three HTML scrapers (no feed exists at any) | `mapsee_ingest_pioneersquare.py`, `mapsee_ingest_seattlecenter.py`, `mapsee_ingest_glenecho.py` — all place events from a venue book in their config, never from the page; Pioneer Square's is parked |
+| HTML calendars without feeds | `mapsee_ingest_pioneersquare.py`, `mapsee_ingest_seattlecenter.py`, `mapsee_ingest_glenecho.py`, `mapsee_ingest_waterfront.py` — all pin from configured venues; Pioneer Square's is parked |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
 Source lists are the `*_sources.json` files; `CONFIG` at the top of
@@ -89,7 +87,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 98 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 97 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -129,7 +127,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/osm-amenities.md` | 34 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 26 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 42 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
-| `docs/agents/adapters-and-sources.md` | 58 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts |
+| `docs/agents/adapters-and-sources.md` | 59 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts |
 | `docs/agents/classification-and-categories.md` | 43 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 53 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
 | `docs/agents/sync-eventstore-and-paging.md` | 54 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, unhide walks, re-keyed rows, the collapser |
@@ -148,7 +146,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 98 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 97 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

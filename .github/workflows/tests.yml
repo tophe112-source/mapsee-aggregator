@@ -29,6 +29,8 @@ on:
       - "festival_sources.json"
       - "festival_sources.benaroya-snapshot.json"
       - "recital_sources.json"
+      - "waterfront_sources.json"
+      - "fixtures/waterfront/**"
       - "fixtures/benaroya-open-house.html"
       - "fixtures/pg_timestamptz.json"
       - "opendata_sources.json"
@@ -70,6 +72,8 @@ on:
       - "festival_sources.json"
       - "festival_sources.benaroya-snapshot.json"
       - "recital_sources.json"
+      - "waterfront_sources.json"
+      - "fixtures/waterfront/**"
       - "fixtures/benaroya-open-house.html"
       - "fixtures/pg_timestamptz.json"
       - "opendata_sources.json"
@@ -145,6 +149,7 @@ jobs:
           python test_festival_pdf.py
           python test_ingest_festivals.py
           python test_ingest_recitals.py
+          python test_ingest_waterfront.py
           python test_discover_festivals.py
 
       # Both scripts print one line per case and exit non-zero on any failure,
