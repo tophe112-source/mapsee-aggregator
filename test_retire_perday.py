@@ -14,16 +14,19 @@ closed. So the invariant is pinned here rather than reasoned about:
 
     for every venue, at least one row survives.
 
-Also pinned, at the end: the URL of the standing-row read, which only the
-index ../mapsee 0235 built can serve once 0156's is dropped.
+Also pinned, at the end: the standing-row read, an id keyset over ../mapsee
+0247's events_standing_walk_idx (R1), never an ends_at or OFFSET walk.
 
 Run: python test_retire_perday.py
 """
 import io
 import sys
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 
 import mapsee_retire_perday_osm as R
+import mapsee_standing
+
+mapsee_standing.RETRY_PAUSE = 0          # a retry is about which request goes next, not the wait
 from mapsee_retire_perday_osm import collapse_orphans
 
 fails = []
@@ -81,44 +84,100 @@ hide = collapse_orphans({"k": [{"id": "none", "starts_at": None},
 check("a row with no start time is not the one kept",
       [r["id"] for r in hide] == ["none"], hide)
 
-# THE STANDING-ROW READ IS SERVED BY ../mapsee 0235's events_recurring_listed_idx
-# (ends_at where recurring_hours is not null and hidden_at is null and not
-# pin_only). Without pin_only=eq.false only 0156's events_recurring_idx fits it,
-# and once that is dropped each page is a whole-heap scan: 193,130 buffers
-# against 439 on a production-shaped copy. Driven through main() with the REST
-# call stubbed, so the URL pinned is the one the script sends, in a dry run and
-# in --unhide's.
-def _reads(argv):
+# THE STANDING-ROW READ IS AN ID KEYSET OVER ../mapsee 0247's
+# events_standing_walk_idx (id where recurring_hours is not null and hidden_at
+# is null and pin_only is false), through mapsee_standing.standing_pages. It
+# was an ends_at walk by OFFSET over 0235's events_recurring_listed_idx, which
+# refused past 100k; after ../mapsee 0248 the stored window of a standing row is
+# its anchor, so nothing that reads it may page by it. Driven through main()
+# with the REST call stubbed, so the URLs pinned are the ones the script sends,
+# in a dry run and in --unhide's.
+def _reads(argv, serve=None):
     calls = []
 
     def sb(path, method="GET", body=None, prefer=""):
         calls.append((method, path))
-        return []
+        return serve(path) if serve else []
     real = (R.sb, R.SUPABASE_URL, R.SERVICE_KEY, sys.argv)
     R.sb, R.SUPABASE_URL, R.SERVICE_KEY = sb, "https://db.test", "key"
     sys.argv = ["mapsee_retire_perday_osm.py"] + argv
     try:
-        with redirect_stdout(io.StringIO()):
-            R.main()
+        with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+            code = R.main()
     finally:
         R.sb, R.SUPABASE_URL, R.SERVICE_KEY, sys.argv = real
-    return calls
+    return calls, code
 
 
+WALK = "recurring_hours=not.is.null&hidden_at=is.null&pin_only=is.false"
 for argv in ([], ["--unhide"]):
-    calls = _reads(argv)
+    calls, _ = _reads(argv)
     standing = [p for m, p in calls if "recurring_hours=not.is.null" in p]
     label = " ".join(argv) or "dry run"
     check(f"{label}: one standing-row read", len(standing) == 1, standing)
     url = standing[0] if standing else ""
-    check(f"{label}: the standing read leaves pins out, so 0235's index serves it",
-          "&pin_only=eq.false" in url, url)
-    check(f"{label}: ...and keeps that index's other clauses and its order",
-          url.startswith("events?select=id,title,lat,lon,starts_at,claimed_by&external_source=eq.mapsee&")
-          and "&hidden_at=is.null" in url and "&order=ends_at.asc&limit=500&offset=0" in url, url)
+    check(f"{label}: the standing read is the walk index's literal predicate, pins out by is.false",
+          f"&{WALK}&" in url and "pin_only=eq.false" not in url, url)
+    check(f"{label}: ...with its own columns and filter, ordered by id, never OFFSET",
+          url.startswith("events?select=id,title,lat,lon,starts_at,claimed_by&" + WALK + "&external_source=eq.mapsee&")
+          and "&order=id.asc&limit=1000" in url and "offset=" not in url and "order=ends_at" not in url, url)
     check(f"{label}: ...and is not windowed by starts_at", "starts_at=" not in url, url)
     check(f"{label}: nothing is written", all(m == "GET" for m, _ in calls),
           sorted({m for m, _ in calls}))
+
+
+# PAST 100k, BY KEYSET: the old walk refused beyond OFFSET 100,000. Two full
+# pages and a short one, each continued from the last id it saw; a venue whose
+# replacement is on the third page still counts as replaced.
+def _uuid(n):
+    return f"{n:08x}-0000-0000-0000-000000000000"
+
+
+standing_rows = [{"id": _uuid(i), "title": "new", "lat": 47.0 + i / 1e3, "lon": -122.0,
+                  "starts_at": "2026-01-01T00:00:00+00:00", "claimed_by": None} for i in range(2500)]
+old = [{"id": "old-1", "title": "Old Pho", "lat": 47.0 + 2400 / 1e3, "lon": -122.0,
+        "starts_at": "2026-10-29T18:00:00+00:00", "claimed_by": None}]
+
+
+def serve(path):
+    if "recurring_hours=not.is.null" in path:
+        after = path.split("&id=gt.")[1].split("&")[0] if "&id=gt." in path else ""
+        rows = [r for r in standing_rows if r["id"] > after]
+        return rows[:1000]
+    if "recurring_hours=is.null" in path and "offset=0" in path:
+        return old
+    return []
+
+
+calls, code = _reads(["--days", "1", "--max-pages", "1"], serve)
+reads = [p for m, p in calls if "recurring_hours=not.is.null" in p]
+check("three keyset pages: the first unbounded, then id=gt.<last id of the page before>",
+      [("&id=gt." + p.split("&id=gt.")[1].split("&")[0]) if "&id=gt." in p else "" for p in reads],
+      ["", f"&id=gt.{_uuid(999)}", f"&id=gt.{_uuid(1999)}"])
+out = io.StringIO()
+real = (R.sb, R.SUPABASE_URL, R.SERVICE_KEY, sys.argv)
+R.sb, R.SUPABASE_URL, R.SERVICE_KEY = (lambda p, *a, **k: serve(p)), "https://db.test", "key"
+sys.argv = ["mapsee_retire_perday_osm.py", "--days", "1", "--max-pages", "1"]
+try:
+    with redirect_stdout(out):
+        R.main()
+finally:
+    R.sb, R.SUPABASE_URL, R.SERVICE_KEY, sys.argv = real
+check("a replacement on the third page still makes its venue's old row hideable",
+      "old rows to hide                   : 1" in out.getvalue(), out.getvalue())
+
+
+# A READ THAT FAILS PART-WAY WRITES NOTHING: a partial `replaced` hides less and
+# looks fine, which is the failure this script's safety rule exists to refuse.
+def failing(path):
+    if "recurring_hours=not.is.null" in path and "&id=gt." in path:
+        raise RuntimeError("HTTP 500")
+    return serve(path)
+
+
+calls, code = _reads(["--apply"], failing)
+check("a standing read that fails part-way ends the run, non-zero, before any write",
+      (code, [m for m, _ in calls if m != "GET"]), (1, []))
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

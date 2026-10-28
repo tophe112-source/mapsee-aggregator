@@ -67,6 +67,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from mapsee_standing import StandingWalkError, standing_pages
 from mapsee_supabase_sync import (categories_cover, copy_counts, derive_categories, merged_categories,
                                   read_hidden_copies)
 
@@ -231,73 +232,16 @@ def main():
     examples = collections.defaultdict(list)
     scanned = changed = written = 0
     held = collections.Counter()
+    seen = set()
+    only_filter = ""
+    if args.only:
+        only = urllib.parse.quote(args.only)
+        only_filter = f"&or=(category.eq.{only},categories.cs.%7B{only}%7D)"
 
-    # Walk in time windows rather than by OFFSET: deep offsets on this table die
-    # under the statement timeout (../mapsee 0147 header has the same note).
-    step = 86400 * 2
-    t = start
-    pages = 0
-    while t < now + args.days * 86400 and pages < args.max_pages:
-        w_a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t))
-        w_b = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(min(t + step, now + args.days * 86400)))
-        q = ("events?select=id,title,description,category,categories,claimed_by"
-             "&external_source=eq.mapsee&is_private=eq.false&hidden_at=is.null"
-             f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc&limit={PAGE}")
-        if args.only:
-            # PRIMARY *OR* SECONDARY. `category=eq.food` alone selects only rows
-            # whose primary is food — but the map does not filter that way.
-            # events_near (../mapsee 0108) matches
-            #     coalesce(e.category,'other') = any(p_categories)
-            #     OR e.categories && p_categories
-            # so an event carrying food as a SECONDARY is on the food map with
-            # everything else. Selecting on the primary alone meant the sweep
-            # never even looked at those rows: measured 2026-08-12, 163 of the
-            # 246 events the Seattle food filter returned had a non-food primary,
-            # among them a yoga class. A backfill that cannot see the rows the
-            # user is complaining about will always report success.
-            only = urllib.parse.quote(args.only)
-            q += f"&or=(category.eq.{only},categories.cs.%7B{only}%7D)"
-        # PAGINATE WITHIN THE WINDOW. Without this the sweep silently SAMPLES: a
-        # busy two-day window holds far more than PAGE rows and the rest are
-        # never examined. Caught by two dry runs disagreeing — `--only food` over
-        # 30 days found 92 changes while an all-category pass over 10 days found
-        # 4, because there the food rows were competing with every other category
-        # for the same 500 slots. A sweep that quietly skips rows reports "done"
-        # and leaves the bug in, which is the worst outcome available to it.
-        rows = []
-        offset = 0
-        while True:
-            batch = None
-            for attempt in range(3):
-                try:
-                    batch = sb(q + f"&offset={offset}") or []
-                    break
-                except Exception as e:
-                    # A 500 here is the statement timeout, and it is transient
-                    # often enough to be worth two more tries — the audit-vs-
-                    # candidate lesson in CLAUDE.md: a failure on something we
-                    # will otherwise SKIP deserves a second look, because
-                    # skipping it silently is the expensive outcome.
-                    if attempt == 2:
-                        print(f"  window {w_a[:10]} offset {offset} failed 3x ({e})",
-                              file=sys.stderr)
-                        skipped_windows.append(w_a[:10])
-                    else:
-                        time.sleep(1.5 * (attempt + 1))
-            if batch is None:
-                break
-            if not isinstance(batch, list) or not batch:
-                break
-            rows.extend(batch)
-            if len(batch) < PAGE:
-                break
-            offset += PAGE
-            if offset > 20000:
-                print(f"  window {w_a[:10]} exceeded 20k rows; shorten --days", file=sys.stderr)
-                skipped_windows.append(w_a[:10])
-                break
-        pages += 1
-
+    def process(rows, label):
+        """Recompute one batch of rows (a window's, or a page of standing rows)
+        and the copies hidden behind them; write what --allow names."""
+        nonlocal copies_scanned, no_fit, scanned, changed, written
         # The copies hidden behind this window's kept rows, with their text.
         wanted = [c["id"] for r in rows for c in copies_by_kept.get(str(r["id"]), ())]
         copy_rows = {}
@@ -307,13 +251,12 @@ def main():
                 for c in sb(f"events?select={COPY_SELECT}&external_source=eq.mapsee&id=in.({ids})") or []:
                     copy_rows[str(c["id"])] = c
             except Exception as e:                    # noqa: BLE001
-                print(f"  window {w_a[:10]}: hidden copies' text failed ({e})", file=sys.stderr)
-                skipped_windows.append(w_a[:10])
+                print(f"  window {label}: hidden copies' text failed ({e})", file=sys.stderr)
+                skipped_windows.append(label)
                 copy_rows = None
                 break
         if copy_rows is None:
-            t += step
-            continue                                  # never write a kept row without its copies
+            return                                    # never write a kept row without its copies
         after = {}
         for cid, c in copy_rows.items():
             copies_scanned += 1
@@ -376,7 +319,97 @@ def main():
                    {"category": new_primary, "categories": new_extras},
                    prefer="return=minimal")
                 written += 1
+
+    # Walk in time windows rather than by OFFSET: deep offsets on this table die
+    # under the statement timeout (../mapsee 0147 header has the same note).
+    step = 86400 * 2
+    t = start
+    pages = 0
+    while t < now + args.days * 86400 and pages < args.max_pages:
+        w_a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t))
+        w_b = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(min(t + step, now + args.days * 86400)))
+        q = ("events?select=id,title,description,category,categories,claimed_by"
+             "&external_source=eq.mapsee&is_private=eq.false&hidden_at=is.null"
+             f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc&limit={PAGE}")
+        if only_filter:
+            # PRIMARY *OR* SECONDARY. `category=eq.food` alone selects only rows
+            # whose primary is food — but the map does not filter that way.
+            # events_near (../mapsee 0108) matches
+            #     coalesce(e.category,'other') = any(p_categories)
+            #     OR e.categories && p_categories
+            # so an event carrying food as a SECONDARY is on the food map with
+            # everything else. Selecting on the primary alone meant the sweep
+            # never even looked at those rows: measured 2026-08-12, 163 of the
+            # 246 events the Seattle food filter returned had a non-food primary,
+            # among them a yoga class. A backfill that cannot see the rows the
+            # user is complaining about will always report success.
+            q += only_filter
+        # PAGINATE WITHIN THE WINDOW. Without this the sweep silently SAMPLES: a
+        # busy two-day window holds far more than PAGE rows and the rest are
+        # never examined. Caught by two dry runs disagreeing — `--only food` over
+        # 30 days found 92 changes while an all-category pass over 10 days found
+        # 4, because there the food rows were competing with every other category
+        # for the same 500 slots. A sweep that quietly skips rows reports "done"
+        # and leaves the bug in, which is the worst outcome available to it.
+        rows = []
+        offset = 0
+        while True:
+            batch = None
+            for attempt in range(3):
+                try:
+                    batch = sb(q + f"&offset={offset}") or []
+                    break
+                except Exception as e:
+                    # A 500 here is the statement timeout, and it is transient
+                    # often enough to be worth two more tries — the audit-vs-
+                    # candidate lesson in CLAUDE.md: a failure on something we
+                    # will otherwise SKIP deserves a second look, because
+                    # skipping it silently is the expensive outcome.
+                    if attempt == 2:
+                        print(f"  window {w_a[:10]} offset {offset} failed 3x ({e})",
+                              file=sys.stderr)
+                        skipped_windows.append(w_a[:10])
+                    else:
+                        time.sleep(1.5 * (attempt + 1))
+            if batch is None:
+                break
+            if not isinstance(batch, list) or not batch:
+                break
+            rows.extend(batch)
+            if len(batch) < PAGE:
+                break
+            offset += PAGE
+            if offset > 20000:
+                print(f"  window {w_a[:10]} exceeded 20k rows; shorten --days", file=sys.stderr)
+                skipped_windows.append(w_a[:10])
+                break
+        pages += 1
+
+        rows = [r for r in rows if r.get("id") not in seen]
+        seen.update(r.get("id") for r in rows)
+        process(rows, w_a[:10])
         t += step
+
+    # THE STANDING ROWS, BY ID. The windows find a standing row only while its
+    # stored window is inside them, and from ../mapsee 0248 that window is the
+    # anchor the sync last wrote, so a classifier fix would stop reaching every
+    # shop, centre and weekly class. One id keyset over 0247's
+    # events_standing_walk_idx under the same filters (the --only `or=` is a
+    # category filter, not a presence arm), each page through the same
+    # process(), deduplicated by id against the windows: before 0248 a standing
+    # row whose window is current is in both, and is recomputed and written
+    # once. A standing row is never a collapser's kept row or copy
+    # (mapsee_dedupe_events reads recurring_hours=is.null), so its copies are
+    # none. About 189k buffers a run, for a dispatch job.
+    try:
+        for page in standing_pages(sb, select="id,title,description,category,categories,claimed_by",
+                                   scope="&external_source=eq.mapsee&is_private=eq.false" + only_filter):
+            page = [r for r in page if r.get("id") not in seen]
+            seen.update(r.get("id") for r in page)
+            process(page, "standing")
+    except StandingWalkError as e:
+        print(f"  standing rows: {e}", file=sys.stderr)
+        skipped_windows.append("standing")
 
     print(f"\n  scanned {scanned} aggregator rows over {args.days} days (and {copies_scanned} hidden copies "
           f"behind them) · {changed} would change" + ("" if args.apply else "  (DRY RUN — nothing written)"))

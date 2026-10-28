@@ -43,6 +43,9 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
+
+from mapsee_standing import StandingWalkError, standing_pages, uuid_bound
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -446,6 +449,68 @@ def order_link_on(page_url: str, html: str):
     return _link_on(page_url, html, looks_like_ordering, ORDER_HOSTS)
 
 
+# HALF THE BUDGET TO WHAT IS COMING UP, HALF TO THE PLACES THAT STAND.
+# The dated read is the one this pass always had: the soonest upcoming food
+# rows. A standing food row (an OSM restaurant, one row per venue) used to
+# reach it only while it was SHUT at run time, because ../mapsee's roller kept
+# its stored window on the next opening; from ../mapsee 0248 that window is the
+# anchor the sync last wrote, in the past, so the dated read never meets it
+# again. So the standing rows get their own read, an id keyset over 0247's
+# events_standing_walk_idx starting at this ISO week's 1/53 of the id space
+# (wrapping to the start of the space when the slice runs out), and the two
+# are merged by id. The total is still `limit` rows, so the outbound fetches
+# this pass makes of venue sites stay what they were: one per venue among at
+# most 200 rows. Before 0248 a shut standing row can come back from both
+# reads; the merge keeps it once.
+STANDING_SLICES = 53     # ISO weeks, so a full year visits every slice once
+
+
+def _now():
+    """Now, or MAPSEE_TODAY=YYYYMMDD at 12:00Z (the gate scripts pin it)."""
+    fixed = os.environ.get("MAPSEE_TODAY")
+    if fixed:
+        return datetime.strptime(fixed, "%Y%m%d").replace(hour=12, tzinfo=timezone.utc)
+    return datetime.now(timezone.utc)
+
+
+def read_candidates(limit: int):
+    """Up to `limit` food rows: the dated soonest half, then standing rows from
+    this week's slice of the id space, merged by id."""
+    now = _now()
+    stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    q = ("events?select=id,title,place_name,description,lat,lon"
+         f"&category=eq.food&is_private=eq.false&hidden_at=is.null&starts_at=gt.{stamp}"
+         f"&order=starts_at.asc&limit={limit // 2}")
+    rows = (sb(q) or []) if limit // 2 > 0 else []
+    seen = {r.get("id") for r in rows}
+    want = limit - len(rows)
+    if want <= 0:
+        return rows
+    select = "id,title,place_name,description,lat,lon"
+    scope = "&category=eq.food&is_private=eq.false"
+    lo = uuid_bound(now.isocalendar()[1] % STANDING_SLICES, STANDING_SLICES)
+    got = []
+    try:
+        # ONE page each: the budget is the page size, and the walk stops there.
+        for page in standing_pages(sb, select=select, scope=scope, lo=lo, page=want, attempts=1):
+            got.extend(page)
+            break
+        if len(got) < want and lo != uuid_bound(0, STANDING_SLICES):
+            # The slice ran out before the budget did: carry on from the start
+            # of the id space, up to (not past) where this week began.
+            for page in standing_pages(sb, select=select, scope=scope, hi=lo,
+                                       page=want - len(got), attempts=1):
+                got.extend(page)
+                break
+    except StandingWalkError as e:
+        print(f"[menu-links] standing food rows: read stopped ({e}); going on with {len(got)}")
+    for r in got:
+        if r.get("id") not in seen:
+            seen.add(r.get("id"))
+            rows.append(r)
+    return rows[:limit]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=200, help="venues to examine")
@@ -457,11 +522,7 @@ def main():
         print("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set", file=sys.stderr)
         return 2
 
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    q = ("events?select=id,title,place_name,description,lat,lon"
-         f"&category=eq.food&is_private=eq.false&hidden_at=is.null&starts_at=gt.{now}"
-         f"&order=starts_at.asc&limit={args.limit}")
-    rows = sb(q) or []
+    rows = read_candidates(args.limit)
 
     # One venue, one fetch. Food venues repeat across many events and the site is
     # a property of the PLACE, so keying the work by venue and applying the

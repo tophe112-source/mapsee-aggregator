@@ -247,8 +247,14 @@ def main():
     served[:] = [hidden_grid]
     calls["patch"].clear(); calls["urls"].clear()
     rc = R.main(["--days", "1", "--back", "0", "--max-pages", "1", "--apply", "--unhide"])
-    checks.append((all("hidden_at=is.null" not in u for u in calls["urls"]),
-                   "--unhide does NOT filter the hidden rows out of its own scan"))
+    # ...its WINDOW scan, that is. The keeper walk by id (R1) reads visible
+    # rows on purpose: the keepers are never the hidden ones.
+    windows = [u for u in calls["urls"] if "starts_at=gte." in u]
+    checks.append((bool(windows) and all("hidden_at=is.null" not in u for u in windows),
+                   "--unhide does NOT filter the hidden rows out of its own window scan"))
+    keeper_walk = [u for u in calls["urls"] if "recurring_hours=not.is.null" in u]
+    checks.append((len(keeper_walk) == 1 and "hidden_at=is.null" in keeper_walk[0],
+                   "...while its keeper walk by id reads only visible rows, which keepers are"))
     patched = calls["patch"][0] if calls["patch"] else ("", {})
     checks.append((patched[1] == {"hidden_at": None},
                    "--unhide clears the stamp, so the pass is genuinely reversible"))

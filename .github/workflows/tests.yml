@@ -617,6 +617,15 @@ jobs:
       - name: The prune sweep pages by keyset, and the URL index only adds proven hides
         run: python test_prune_cancelled.py
 
+      # R1: from ../mapsee 0248 a standing row's stored window is the anchor
+      # the sync last wrote, so a walker windowed on starts_at never meets a
+      # shop, a centre or a weekly class again. Seven walkers read them by id
+      # over 0247's events_standing_walk_idx; this pins the literal request
+      # (never OFFSET, never starts_at), that a stale anchor is still reached,
+      # and that before 0248 nothing is probed or written twice.
+      - name: Every walker still reaches the standing rows by id
+        run: python test_standing_pass.py
+
       # ...and the row we ALREADY wrote comes off too (owner, 2026-10-05: "we
       # don't want users to go to an event or center that is closed"). A
       # tombstone in the store cancels + hides its row; a community-centre

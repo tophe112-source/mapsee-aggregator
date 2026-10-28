@@ -42,6 +42,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from mapsee_standing import StandingWalkError, standing_pages
+
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 PAGE = 500
@@ -161,37 +163,34 @@ def main():
     # The NEW model: one rolling row per venue. These are the replacements, and
     # their existence is what makes retiring an old row safe.
     #
-    # NOT time-windowed, unlike the old rows. There is one of these per venue
-    # rather than one per open day, so the whole set is small — and windowing it
-    # by starts_at defeats the partial index, which is keyed on ends_at.
-    # Measured against production: the windowed form took 0.77s and timed out
-    # (57014) on the attempt before that; ordered by ends_at to match the index
-    # it takes 0.22s. A safety check that intermittently fails is worse than no
+    # NOT time-windowed, unlike the old rows, and since R1 not ordered by any
+    # window at all. There is one of these per venue rather than one per open
+    # day, so the whole set is small. Windowing it by starts_at was already
+    # wrong before R1 (0.77 s and a 57014 against 0.22 s by the index, measured
+    # against production), and after ../mapsee 0248 a standing row's stored
+    # window is its ANCHOR, the last one the sync wrote, so a window would miss
+    # most of them. A safety check that intermittently fails is worse than no
     # safety check, because it fails by hiding LESS and looking fine.
     #
-    # pin_only=eq.false, so the index is ../mapsee 0235's
-    # events_recurring_listed_idx (ends_at where recurring_hours is not null and
-    # hidden_at is null and not pin_only), not 0156's events_recurring_idx, which
-    # also holds every furniture pin and is to be dropped once nothing reads it.
-    # With no index that fits, each page is a whole-heap scan and a top-N sort:
-    # 193,130 buffers a page against 439 with one, on a production-shaped copy.
-    # On a local PG16 table with only 0235's index, the old filter
-    # seq-scanned (25,074 buffers) and `pin_only = false` read it (502), as a
-    # literal and as a custom plan, which is what PostgREST's are while they
-    # stay the cheaper plan; a forced generic plan cannot prove the predicate.
-    # A furniture pin is never a restaurant's replacement, so leaving pins out
-    # can only shrink `replaced`: fewer rows hidden, never more.
-    new_rows, offset = [], 0
-    while True:
-        batch = sb(f"{base}&recurring_hours=not.is.null&hidden_at=is.null&pin_only=eq.false"
-                   f"&order=ends_at.asc&limit={PAGE}&offset={offset}") or []
-        new_rows.extend(batch)
-        if len(batch) < PAGE:
-            break
-        offset += PAGE
-        if offset > 100000:
-            print("  standing rows exceeded 100k — refusing to page further", file=sys.stderr)
-            break
+    # So it is mapsee_standing's id keyset over ../mapsee 0247's
+    # events_standing_walk_idx (id where recurring_hours is not null and
+    # hidden_at is null and pin_only is false), sent as the literal
+    # recurring_hours=not.is.null&hidden_at=is.null&pin_only=is.false. It
+    # replaces the ends_at walk over 0235's events_recurring_listed_idx, which
+    # paged by OFFSET and refused past 100k; a keyset has no deep-OFFSET cost,
+    # so the refusal went with it. `pin_only=is.false`, not `eq.false`: the
+    # index says `is false`. A furniture pin is never a restaurant's
+    # replacement, so leaving pins out can only shrink `replaced`: fewer rows
+    # hidden, never more. And a read that fails part-way ends the run before
+    # anything is written, for the same reason a partial `replaced` would.
+    new_rows = []
+    try:
+        for page in standing_pages(sb, select="id,title,lat,lon,starts_at,claimed_by",
+                                   scope="&external_source=eq.mapsee"):
+            new_rows.extend(page)
+    except StandingWalkError as e:
+        print(f"  standing rows could not be read whole ({e}); nothing written", file=sys.stderr)
+        return 1
     print(f"  standing rows (new model): {len(new_rows)} rows")
     replaced = {key(r["lat"], r["lon"]) for r in new_rows if r.get("lat") is not None}
 

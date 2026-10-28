@@ -104,6 +104,7 @@ Run:  python mapsee_prune_cancelled.py                    # dry run, the default
       python mapsee_prune_cancelled.py --apply --max-seconds 900
       python mapsee_prune_cancelled.py --apply --write-url-index prune_url_index.json   # the full sweep
       python mapsee_prune_cancelled.py --apply --days 2 --url-index prune_url_index.json
+      python mapsee_prune_cancelled.py --apply --days 2 --standing-slice 3/14   # + one slice of the standing rows
 """
 import argparse
 import collections
@@ -118,6 +119,7 @@ import urllib.request
 from datetime import datetime, timezone
 
 import robots_txt   # stdlib only, like this file
+from mapsee_standing import StandingWalkError, parse_slice, slice_bounds, standing_pages
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -377,6 +379,102 @@ def collect(args):
 
 
 # --------------------------------------------------------------------------- #
+# THE STANDING ROWS, ONE SLICE OF THE ID SPACE A RUN
+# --------------------------------------------------------------------------- #
+# The windows above find a row by its stored starts_at, and --back 0 keeps
+# only what has not started. Until ../mapsee 0248 a standing row (a shop, a
+# centre, a weekly class) was in them only while it was SHUT, because the
+# roller kept its stored window on the next opening: probed then, and an
+# always-open row never. From 0248 the roller writes only events_map and the
+# stored window is the ANCHOR the sync last wrote, in the past, so the windows
+# would never meet a standing row again.
+#
+# So a scheduled run also reads one slice of the standing rows by id
+# (--standing-slice K/N: ids in [K/N, (K+1)/N) of the uuid space), an id
+# keyset over 0247's events_standing_walk_idx under this sweep's own filters.
+# prune-cancelled.yml gives its 14 scheduled runs a week the 14 slices, so
+# each listed standing row comes up once a week: about 188k/14 = 13.4k rows a
+# run at ~1,005 buffers per 1,000 (capacity verdict), about 27k buffers a day,
+# where a full pass a run would be ~189k. Dispatch runs read no slice.
+#
+# THE SAME EVIDENCE, THE SAME HIDE. A standing row found off is hidden by
+# hide(), with LISTED and UNCLAIMED in its filter, exactly like a dated one.
+# It is never written to the far-row URL index (main() writes the index from
+# the windows alone), so read_far never meets one.
+#
+# NO DOUBLE PROBE, NO DOUBLE HIDE. Before 0248 a shut standing row is in a
+# window AND in its slice: the window's copy is kept, the slice's skipped by
+# id, and a URL is probed once whoever brought it (rows_by_url is keyed by it).
+#
+# AND NOT AT THE DATED ROWS' EXPENSE. A slice is thousands of URLs and a run
+# probes roughly one a second inside its budget, so standing URLs sorted at the
+# front (after 0248 every anchor is in the past) would spend the whole budget,
+# and the evening run exists for TONIGHT's dated cancellations. probe_order()
+# gives the URLs only the slice brought one place in every STANDING_EVERY,
+# from the front of the queue, and the soonest dated URLs the rest.
+STANDING_EVERY = 2
+
+
+def _slice_arg(text):
+    try:
+        return parse_slice(text)
+    except ValueError as e:
+        raise argparse.ArgumentTypeError(str(e)) from None
+
+
+def collect_standing(args, seen_ids):
+    """Rows of this run's id slice of the listed standing rows not already
+    collected (seen_ids), grouped by the source URL that would prove them off.
+    -> (scanned, rows_by_url, skipped)."""
+    rows_by_url = collections.defaultdict(list)
+    sl = getattr(args, "standing_slice", None)
+    if not sl:
+        return 0, rows_by_url, []
+    k, n = sl
+    lo, hi = slice_bounds(k, n)
+    scanned, skipped = 0, []
+    try:
+        for page in standing_pages(sb, select="id,title,description,claimed_by,starts_at",
+                                   scope=LISTED.replace("&hidden_at=is.null", "") + UNCLAIMED,
+                                   lo=lo, hi=hi):
+            for row in page:
+                if row.get("id") in seen_ids:
+                    continue                       # the window already has it
+                seen_ids.add(row.get("id"))
+                scanned += 1
+                if row.get("claimed_by"):
+                    continue                       # the venue owns this listing
+                m = TICKETS_LINE.search(row.get("description") or "")
+                if m:
+                    rows_by_url[m.group(1)].append(row)
+    except StandingWalkError as e:
+        print(f"  standing slice {k}/{n}: {e}", file=sys.stderr)
+        skipped.append(f"standing {k}/{n}")
+    return scanned, rows_by_url, skipped
+
+
+def probe_order(rows_by_url, standing_urls=()):
+    """The probe queue: dated URLs soonest first, and the URLs only the
+    standing slice brought (standing_urls) given one place in every
+    STANDING_EVERY from the front, oldest stored start first, until they run
+    out. -> (order, first_start)."""
+    first_start = {u: min(str(r.get("starts_at") or "9") for r in rows)
+                   for u, rows in rows_by_url.items()}
+    key = lambda u: (first_start[u], u)                                  # noqa: E731
+    standing = sorted((u for u in rows_by_url if u in standing_urls), key=key)
+    dated = sorted((u for u in rows_by_url if u not in standing_urls), key=key)
+    order, si, di = [], 0, 0
+    while si < len(standing) or di < len(dated):
+        if si < len(standing) and (len(order) % STANDING_EVERY == 0 or di >= len(dated)):
+            order.append(standing[si])
+            si += 1
+        else:
+            order.append(dated[di])
+            di += 1
+    return order, first_start
+
+
+# --------------------------------------------------------------------------- #
 # FAR ROWS WITHOUT THE 120-DAY READ
 # --------------------------------------------------------------------------- #
 # A listing found off hides every collected row that shares its URL, and on a
@@ -633,6 +731,9 @@ def main():
     ap.add_argument("--max-seconds", type=int, default=0,
                     help="stop probing after this long and act on what we have (0 = no budget)")
     ap.add_argument("--delay", type=float, default=0.35, help="seconds between probes")
+    # THE STANDING ROWS (see THE STANDING ROWS, ONE SLICE OF THE ID SPACE A RUN).
+    ap.add_argument("--standing-slice", type=_slice_arg, metavar="K/N", default=None,
+                    help="also read slice K of N of the listed standing rows, by id (scheduled runs)")
     # THE FAR-ROW INDEX (see FAR ROWS WITHOUT THE 120-DAY READ). One run writes
     # it, the others read it, never both: prune-cancelled.yml gives the write
     # to the runs that read the whole horizon (Sunday's, a blank dispatch).
@@ -662,6 +763,20 @@ def main():
     if args.url_index:
         index, note = load_url_index(args.url_index, began)
         print(note)
+    # The standing slice AFTER the index is written: its rows never enter it.
+    standing_urls = set()
+    if args.standing_slice:
+        seen = {r.get("id") for rows in rows_by_url.values() for r in rows}
+        n_std, std_by_url, std_skipped = collect_standing(args, seen)
+        for u, rows in std_by_url.items():
+            if u not in rows_by_url:
+                standing_urls.add(u)
+            rows_by_url[u].extend(rows)
+        k, n = args.standing_slice
+        print(f"  standing slice {k}/{n}: {n_std} row(s) read · "
+              f"{len(std_by_url)} source URL(s), {len(standing_urls)} of them new to this run")
+        if std_skipped:
+            print(f"  INCOMPLETE: the standing slice {k}/{n} was not read to its end")
     if not rows_by_url:
         print("  nothing to check.")
         return 0
@@ -679,12 +794,15 @@ def main():
     # harmful place for a stale row and the part that will be probed anyway as it
     # comes closer. A cancelled gig tomorrow is a wasted evening; a cancelled gig
     # in November is a row that has four months of runs to be caught in.
-    first_start = {u: min(str(r.get("starts_at") or "9") for r in rows)
-                   for u, rows in rows_by_url.items()}
-    order = sorted(rows_by_url, key=lambda u: (first_start[u], u))
+    #
+    # The standing slice's own URLs take one place in every STANDING_EVERY from
+    # the front (probe_order), so neither half spends the other's budget.
+    order, first_start = probe_order(rows_by_url, standing_urls)
     if len(order) > args.max_checks:
+        dated_kept = [u for u in order[:args.max_checks] if u not in standing_urls]
+        through = first_start[dated_kept[-1]][:10] if dated_kept else "-"
         print(f"  CAPPED: probing the {args.max_checks} soonest of {len(order)} URLs "
-              f"(through {first_start[order[args.max_checks - 1]][:10]}); the remaining "
+              f"(through {through}); the remaining "
               f"{len(order) - args.max_checks} are further out and wait for a later run")
         order = order[:args.max_checks]
 
@@ -697,6 +815,12 @@ def main():
         print(f"  PACED: {sum(paced.values())} URL(s) not asked because their host's "
               f"Crawl-delay had not elapsed; left for a later run: "
               + ", ".join(f"{h} {n}" for h, n in paced.most_common(6)))
+
+    if standing_urls:
+        # The line to re-measure "each standing row once a week" from: a slice
+        # URL not probed here waits for the same slice next week.
+        print(f"  STANDING: probed {sum(1 for u in verdicts if u in standing_urls)} of the "
+              f"{len(standing_urls)} URL(s) only the standing slice brought")
 
     tally = collections.Counter(verdicts.values())
     print("\n  verdicts: " + " · ".join(f"{k}={v}" for k, v in tally.most_common()))

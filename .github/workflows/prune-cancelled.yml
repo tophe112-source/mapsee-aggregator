@@ -58,6 +58,22 @@ name: Prune cancelled events
 # and the run says so in its log.
 # "far rows hidden from the URL index: N" is the line to re-measure from.
 #
+# AND ONE SLICE OF THE STANDING ROWS A RUN (R1). A standing row (a shop, a
+# centre, a weekly class) reached the windows above only while it was shut,
+# because ../mapsee's roller kept its stored window on its next opening. From
+# ../mapsee 0248 the roller writes only events_map and that stored window is the
+# anchor the sync last wrote, in the past, so the windows never meet one again.
+# So each of the 14 scheduled runs a week also reads one 1/14 slice of the id
+# space of the listed standing rows (an id keyset over 0247's
+# events_standing_walk_idx): mornings slice 2*(u-1), evenings 2*(u-1)+1, with
+# u the ISO weekday, Sunday's full sweep included. Each standing row comes up
+# once a week, about 13.4k rows and 27k buffers a day where a full pass every
+# run would be 189k a run. Its URLs take every other place from the front of
+# the probe queue, so tonight's dated cancellations keep half of it. A 16:55
+# run that starts after midnight UTC (this schedule has run up to 7.1 h late)
+# is still the previous day's evening. Manual runs read no slice. The run's log
+# says "STANDING: probed N of M": the number to re-measure the weekly claim from.
+#
 # WHY THERE ARE TWO RUNS. A once-daily sweep cannot catch a SAME-DAY
 # cancellation, and that is the case that actually costs somebody an evening.
 # Found the hard way on 2026-09-13: the reported row ("Seattle Gay Online Speed
@@ -174,25 +190,37 @@ jobs:
           #
           # The full sweep WRITES the far-row index and every other run READS
           # it; never both (the script refuses both flags).
+          #
+          # THE STANDING SLICE (see the header): one 1/14 of the standing rows'
+          # id space per scheduled run, mornings 2*(u-1) and evenings
+          # 2*(u-1)+1, so the 14 runs of a week read each slice once. Manual
+          # runs read none.
           READ="--url-index prune_url_index.json"
           WRITE="--write-url-index prune_url_index.json"
+          U=$(date -u +%u)
+          SLICE=""
           if [ -n "$DAYS_IN" ]; then
             SCOPE="--days $DAYS_IN"; BUDGET=2100; INDEX="$READ"    # a manual run, aimed
           elif [ -z "$FIRED_BY" ]; then
             SCOPE=""; BUDGET=2100; INDEX="$WRITE"                  # a manual run with days blank: the full sweep
           elif [ "$FIRED_BY" = "55 16 * * *" ]; then
+            # started after midnight UTC: still the previous day's evening
+            if [ "$(date -u +%H)" -lt 12 ]; then E=$(( (U + 5) % 7 + 1 )); else E=$U; fi
             SCOPE="--days 2"; BUDGET=900; INDEX="$READ"            # the evening near-horizon pass
-          elif [ "$FIRED_BY" = "55 7 * * *" ] && [ "$(date -u +%u)" = "7" ]; then
+            SLICE="--standing-slice $((2 * E - 1))/14"
+          elif [ "$FIRED_BY" = "55 7 * * *" ] && [ "$U" = "7" ]; then
             SCOPE=""; BUDGET=2100; INDEX="$WRITE"                  # Sunday morning: the full 120-day sweep
+            SLICE="--standing-slice $((2 * U - 2))/14"
           elif [ "$FIRED_BY" = "55 7 * * *" ]; then
             SCOPE="--days 2"; BUDGET=2100; INDEX="$READ"           # the other six mornings: same probes, ~1/15 of the reads
+            SLICE="--standing-slice $((2 * U - 2))/14"
           else
             echo "::error title=Prune: no branch::the cron '$FIRED_BY' has no branch in this step; add one"
             exit 1
           fi
           if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
-          echo "scope: ${SCOPE:-full} · budget: ${BUDGET}s · ${APPLY:-DRY RUN} · ${INDEX%% *}"
-          python mapsee_prune_cancelled.py --max-seconds "$BUDGET" $SCOPE $INDEX $APPLY
+          echo "scope: ${SCOPE:-full} · budget: ${BUDGET}s · ${APPLY:-DRY RUN} · ${INDEX%% *} · ${SLICE:-no standing slice}"
+          python mapsee_prune_cancelled.py --max-seconds "$BUDGET" $SCOPE $INDEX $SLICE $APPLY
 
       # always(): the full sweep writes the index BEFORE it probes, and the
       # probing is what can run into the timeout; the file is saved anyway.

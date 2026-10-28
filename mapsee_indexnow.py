@@ -213,15 +213,41 @@ def _explain(r) -> str:
     return f"HTTP {r.status_code} from PostgREST: {body or '(empty body)'}"
 
 
+def indexable(row, now: str) -> bool:
+    """Is this row in one of the two /e/ sitemap families? A standing row
+    (its recurring_hours carries a zone) always; a dated row while its start
+    is still ahead (sitemapEvents' `starts_at >= now`). `now` is the walk's
+    own ISO stamp. A start that cannot be read is not announced."""
+    if row.get("rh") is not None:
+        return True
+    try:
+        start = datetime.fromisoformat(str(row.get("starts_at")).replace("Z", "+00:00"))
+        at = datetime.fromisoformat(now.replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return False
+    if start.tzinfo is None:
+        start = start.replace(tzinfo=timezone.utc)
+    return start >= at
+
+
 def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
                         session: requests.Session,
                         max_urls: int = MAX_EVENT_URLS) -> Tuple[List[str], bool]:
     """Event ids created in the window that a crawler is allowed to index.
 
-    The three predicates after created_at are lifted verbatim from
-    sitemapEvents() in mapsee/src/index.js. If that ever changes, this must
-    change with it — the invariant is "IndexNow announces a subset of what the
-    sitemap announces", never a superset.
+    The predicates after created_at are lifted from the sitemaps in
+    mapsee/src/index.js. If they ever change, this must change with it — the
+    invariant is "IndexNow announces a subset of what the sitemap announces",
+    never a superset. Since R1 there are two families: sitemapEvents (the dated
+    rows, `starts_at >= now`) and sitemapPlaces (the standing rows,
+    `recurring_hours is not null`, whatever their stored window says). Both
+    carry is_private=eq.false, hidden_at=is.null and pin_only=is.false; the
+    union is "a standing row, or a row that has not started", and that test is
+    applied HERE, per row, not as an `or=` in the request: the access path
+    stays the 26-hour created_at range it always was, and a presence arm in a
+    PostgREST filter is what R1 forbids. From ../mapsee 0248 a standing row's
+    stored starts_at is its anchor, in the past, so the old `starts_at=gte.now`
+    would have dropped every new shop and centre from the push.
 
     Returns (ids, complete). `complete` is False when the walk was cut short,
     by the cap or by a page that would not come back — see below; the caller
@@ -274,11 +300,16 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
     stale = 0                    # consecutive timeouts on the SAME page
     while True:
         params = {
-            "select": "id,created_at",    # created_at IS the cursor, so it must come back
+            # created_at IS the cursor, so it must come back; starts_at and the
+            # pattern's zone decide, per row, which sitemap family it is in
+            # (a past dated event's page is not worth a crawl; a standing row's
+            # stored start is its anchor). The zone, not the pattern: a few
+            # bytes where the pattern is ~330 (mapsee_supabase_sync writes a
+            # tz into every recurring_hours, "UTC" when it has no better).
+            "select": "id,created_at,starts_at,rh:recurring_hours->>tz",
             "created_at": f"gte.{since}",
             "is_private": "eq.false",     # private events must never be announced
             "hidden_at": "is.null",       # moderated-away events must never be announced
-            "starts_at": f"gte.{now}",    # a past event's page is not worth a crawl
             # FURNITURE IS NOT A PAGE, and this is the predicate that drifted.
             # sitemapEvents() gained `pin_only: is.false` when ../mapsee 0194
             # landed and this did not, so IndexNow has been announcing /e/ pages
@@ -340,7 +371,7 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
         rows = r.json() or []
         for row in rows:
             rid = row.get("id")
-            if rid and rid not in seen:
+            if rid and rid not in seen and indexable(row, now):
                 seen.add(rid)
                 ids.append(rid)
         if len(ids) >= max_urls:

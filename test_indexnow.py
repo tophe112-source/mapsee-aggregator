@@ -109,7 +109,8 @@ def _rows(n, per_stamp=1):
     out = []
     for i in range(n):
         out.append({"id": f"id-{i:05d}",
-                    "created_at": f"2026-08-21T{(i // per_stamp) % 24:02d}:00:00+00:00"})
+                    "created_at": f"2026-08-21T{(i // per_stamp) % 24:02d}:00:00+00:00",
+                    "starts_at": "2099-01-01T19:00:00+00:00", "rh": None})
     out.sort(key=lambda r: (r["created_at"], r["id"]), reverse=True)
     return out
 
@@ -200,10 +201,45 @@ def main():
     walk(pg8, max_urls=BIG)
     check_true("every page filters furniture out",
                all(c.get("pin_only") == "is.false" for c in pg8.calls))
-    check_true("...and it is the same three other predicates the sitemap uses",
+    check_true("...and the two other predicates both sitemap families use",
                all(c.get("is_private") == "eq.false" and c.get("hidden_at") == "is.null"
-                   and str(c.get("starts_at", "")).startswith("gte.")
                    for c in pg8.calls))
+
+    print()
+    print("R1: a standing row is announced whatever its stored start; a past dated one is not")
+    # From ../mapsee 0248 a standing row's stored starts_at is its ANCHOR, the
+    # window the sync last wrote, so `starts_at=gte.now` in the request would
+    # drop every new shop and centre, which sitemapPlaces lists. The union of
+    # the two families is decided per row; the request keeps the created_at
+    # range as its access path and carries no starts_at and no or= arm.
+    check_true("no request filters on starts_at, and none carries a presence or=",
+               all("starts_at" not in c and "recurring_hours" not in str(c.get("or", ""))
+                   for c in pg8.calls))
+    check_true("each asks for the start and the pattern's zone, beside the cursor",
+               all(c.get("select") == "id,created_at,starts_at,rh:recurring_hours->>tz" for c in pg8.calls))
+    mixed = [
+        {"id": "standing-stale", "created_at": "2026-08-21T05:00:00+00:00",
+         "starts_at": "2026-08-01T09:00:00+00:00", "rh": "Europe/London"},      # anchor weeks back
+        {"id": "dated-past", "created_at": "2026-08-21T04:00:00+00:00",
+         "starts_at": "2026-08-01T09:00:00+00:00", "rh": None},                 # over: no crawl
+        {"id": "dated-future", "created_at": "2026-08-21T03:00:00+00:00",
+         "starts_at": "2099-08-01T09:00:00+00:00", "rh": None},
+        {"id": "dated-unreadable", "created_at": "2026-08-21T02:00:00+00:00",
+         "starts_at": None, "rh": None},
+    ]
+    got10, complete10 = walk(_PG(mixed), max_urls=BIG)
+    check("the stale standing row and the future dated row; not the past or the unreadable one",
+          (got10, complete10), (["standing-stale", "dated-future"], True))
+    # A dropped row is not an announced one: it must not use up the ceiling.
+    past_then_future = ([dict(r, id=f"past-{i:03d}", starts_at="2026-08-01T09:00:00+00:00")
+                         for i, r in enumerate(_rows(450)[:450])]
+                        + [dict(r, id=f"new-{i:03d}", created_at="2026-08-20T00:00:00+00:00")
+                           for i, r in enumerate(_rows(50))])
+    got11, complete11 = walk(_PG(past_then_future), max_urls=40)
+    check("rows dropped per row do not count toward the ceiling: the walk goes on to the 40 it can announce",
+          (len(got11), all(i.startswith("new-") for i in got11), complete11), (40, True, False))
+    check("indexable(): a zone means standing", ix.indexable({"rh": "UTC", "starts_at": None},
+                                                            "2026-08-21T00:00:00+00:00"), True)
 
     # ../mapsee's migrations are applied by hand, so a database can be missing
     # the column. A 400 is not retryable and would cost the whole walk.
@@ -233,7 +269,8 @@ def main():
     print("a cursor that cannot move stops, loudly")
     class _Stuck:
         def get(self, url, params=None, headers=None, timeout=None):
-            return _Resp(200, [{"id": "same", "created_at": "2026-08-21T00:00:00+00:00"}]
+            return _Resp(200, [{"id": "same", "created_at": "2026-08-21T00:00:00+00:00",
+                                "starts_at": "2099-01-01T19:00:00+00:00", "rh": None}]
                               * int(params["limit"]))
     got7, complete7 = walk(_Stuck(), max_urls=BIG)
     check("it returns what it had rather than looping for ever", got7, ["same"])

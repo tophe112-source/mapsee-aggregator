@@ -732,12 +732,13 @@ class WorkflowContracts(unittest.TestCase):
         self.assertEqual((code, calls[0][:3]), (0, ['--unhide', '--stamp', '2026-10-14T06:41:07+00:00']))
 
     @staticmethod
-    def _prune_calls(context, dow):
-        """Run prune-cancelled's hide step with python and `date -u +%u`
-        stubbed: -> (exit code, [argv of each mapsee_prune_cancelled call]).
-        `context` maps an expression (`github.event.schedule`, `inputs.days`,
-        `inputs.dry_run`) to its value, '' when absent as on Actions; `dow` is
-        what `date -u +%u` answers."""
+    def _prune_calls(context, dow, hour='17'):
+        """Run prune-cancelled's hide step with python, `date -u +%u` and
+        `date -u +%H` stubbed: -> (exit code, [argv of each
+        mapsee_prune_cancelled call]). `context` maps an expression
+        (`github.event.schedule`, `inputs.days`, `inputs.dry_run`) to its
+        value, '' when absent as on Actions; `dow` is what `date -u +%u`
+        answers, `hour` what `date -u +%H` does."""
         workflow = yaml.safe_load((ROOT / '.github/workflows/prune-cancelled.yml').read_text(encoding='utf-8'))
         step = next(s for s in workflow['jobs']['prune']['steps']
                     if 'mapsee_prune_cancelled.py' in (s.get('run') or ''))
@@ -750,7 +751,9 @@ class WorkflowContracts(unittest.TestCase):
             stubs.mkdir()
             (stubs / 'python').write_text('#!/bin/sh\necho "CALL $*"\n')
             (stubs / 'date').write_text('#!/bin/sh\n'
-                                        f'if [ "$*" = "-u +%u" ]; then echo {dow}; else exec {real_date} "$@"; fi\n')
+                                        f'if [ "$*" = "-u +%u" ]; then echo {dow}; '
+                                        f'elif [ "$*" = "-u +%H" ]; then echo {hour}; '
+                                        f'else exec {real_date} "$@"; fi\n')
             for f in stubs.iterdir():
                 f.chmod(0o755)
             env = dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}")
@@ -865,6 +868,51 @@ class WorkflowContracts(unittest.TestCase):
             full = '--days' not in call
             self.assertEqual(self._flag(call, '--write-url-index' if full else '--url-index'), path, (context, dow))
             self.assertNotIn('--url-index' if full else '--write-url-index', call, (context, dow))
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_prune_cancelled_reads_each_standing_slice_once_a_week_and_dispatches_read_none(self):
+        # R1: from ../mapsee 0248 a standing row's stored window is its anchor,
+        # so the windows never meet one again. Each scheduled run reads one
+        # 1/14 of the standing rows' id space (mapsee_standing, ~13.4k rows,
+        # ~27k buffers a day instead of ~189k a run): mornings 2*(u-1),
+        # evenings 2*(u-1)+1, Sunday's full sweep included, so the 14 runs of a
+        # week read each slice exactly once. A 16:55 run that starts after
+        # midnight UTC (7.1 h late was measured) is still the previous day's
+        # evening, or it would read tomorrow's evening slice twice and skip
+        # its own. A manual run reads none, as before.
+        slices = []
+        for dow in '1234567':
+            for cron, want in (('55 7 * * *', 2 * (int(dow) - 1)), ('55 16 * * *', 2 * (int(dow) - 1) + 1)):
+                code, calls = self._prune_calls({'github.event.schedule': cron}, dow)
+                self.assertEqual((code, len(calls)), (0, 1), (cron, dow))
+                self.assertEqual(calls[0].count('--standing-slice'), 1, (cron, dow, calls[0]))
+                self.assertEqual(self._flag(calls[0], '--standing-slice'), f'{want}/14', (cron, dow))
+                slices.append(want)
+        self.assertEqual(sorted(slices), list(range(14)))
+        # Sunday morning is the full sweep AND reads slice 12
+        code, calls = self._prune_calls({'github.event.schedule': '55 7 * * *'}, '7')
+        self.assertNotIn('--days', calls[0])
+        self.assertEqual(self._flag(calls[0], '--standing-slice'), '12/14')
+        # late: Monday 00:40 UTC is Sunday's evening (13), Tuesday 03:05 is Monday's (1)
+        for dow, hour, want in (('1', '00', '13/14'), ('2', '03', '1/14'), ('2', '11', '1/14'), ('2', '12', '3/14')):
+            code, calls = self._prune_calls({'github.event.schedule': '55 16 * * *'}, dow, hour)
+            self.assertEqual((code, self._flag(calls[0], '--standing-slice')), (0, want), (dow, hour))
+        for context in ({}, {'inputs.days': '5'}, {'inputs.days': '2', 'inputs.dry_run': 'true'}):
+            code, calls = self._prune_calls(context, '3')
+            self.assertEqual(code, 0, context)
+            self.assertNotIn('--standing-slice', calls[0], context)
+        # the script takes the flag the workflow passes
+        import mapsee_prune_cancelled as prune
+        import mapsee_standing as standing
+        self.assertEqual(prune._slice_arg('13/14'), (13, 14))
+        self.assertEqual(standing.slice_bounds(13, 14)[1], None)
+
+    def test_the_standing_pass_gate_runs_in_ci(self):
+        # Every walker that must see standing rows reads them by id
+        # (test_standing_pass pins the requests, in a stale-anchor world and in
+        # today's). A gate that is not in tests.yml guards nothing.
+        tests = (ROOT / '.github/workflows/tests.yml').read_text(encoding='utf-8')
+        self.assertIn('run: python test_standing_pass.py', tests)
 
     @staticmethod
     def _curate_discovers(context, dow='1'):

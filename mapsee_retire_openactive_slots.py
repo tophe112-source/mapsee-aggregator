@@ -64,6 +64,7 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
 from mapsee_ingest_openactive import GRID_MIN_PER_DAY
+from mapsee_standing import StandingWalkError, standing_pages
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -298,6 +299,48 @@ def scan(days, back, max_pages, include_hidden=False):
     return out, skipped
 
 
+def scan_keepers(seen_ids):
+    """The weekly KEEPERS by id: an id keyset over ../mapsee 0247's
+    events_standing_walk_idx, OA_MARK filtered here, rows `scan` already read
+    left out. -> (rows, skipped).
+
+    WHY. `weekly_superseded` hides a dated row only when its standing row is
+    in the same read, and `scan` finds that standing row by its stored window.
+    Until ../mapsee 0248 the roller kept that window current, so the keeper was
+    always inside [now - back, now + days]; from 0248 it is the anchor the sync
+    last wrote, and the keepers would drop out of the windows, and with them
+    every weekly retirement (the safety rule hides nothing without its keeper,
+    which is the right way round, but it would be all of them). Keepers are
+    VISIBLE in both directions (the rows they replaced are what --apply hides
+    and --unhide shows), so the walk's hidden_at=is.null serves --apply and
+    --unhide alike. About 189k buffers a run, for a dispatch job.
+
+    These rows are keepers ONLY: main() never hides one of them and never
+    counts one in a grid group. Before 0248 every keeper is in the windows as
+    well and this adds nothing; after it, a stale anchor must not make a
+    standing row look like a slot of the day it was last written on."""
+    rows, skipped, unmarked = [], 0, 0
+    try:
+        for page in standing_pages(
+                sb, select="id,title,lat,lon,starts_at,description,claimed_by,hidden_at,recurring_hours",
+                scope="&external_source=eq.mapsee&claimed_by=is.null"):
+            for r in page:
+                if r.get("id") in seen_ids:
+                    continue
+                seen_ids.add(r.get("id"))
+                if OA_MARK in (r.get("description") or ""):
+                    rows.append(r)
+                else:
+                    unmarked += 1
+    except StandingWalkError as e:
+        print(f"  standing rows: {e}", file=sys.stderr)
+        skipped += 1
+    print(f"  standing rows by id: {len(rows)} more OpenActive row(s) not in the windows "
+          f"({unmarked} other standing row(s) carried no attribution line)"
+          + ("  (the walk stopped early)" if skipped else ""))
+    return rows, skipped
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
     ap.add_argument("--apply", action="store_true", help="write (default is a dry run)")
@@ -318,17 +361,24 @@ def main(argv=None):
         sys.exit("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.")
 
     rows, skipped = scan(a.days, a.back, a.max_pages, include_hidden=a.unhide)
+    keepers, k_skipped = scan_keepers({r["id"] for r in rows})
+    keeper_ids = {r["id"] for r in keepers}
+    skipped += k_skipped
     if skipped:
         # A partial scan can only UNDER-report; it can never invent a group that
         # looks collapsed. Said out loud anyway, because a number that came from
         # an incomplete read must not read like a complete one.
         print(f"::warning::{skipped} window(s) could not be read — this pass is partial")
 
-    standing = [r for r in rows if isinstance(r.get("recurring_hours"), dict)
+    standing = [r for r in keepers + rows if isinstance(r.get("recurring_hours"), dict)
                 and WEEKLY_MARK in (r.get("description") or "")]
     print(f"  {len(standing)} standing row(s) available as weekly keepers")
     grid = [] if a.no_grid else superseded(rows, a.min_per_day)
-    weekly = [] if a.no_weekly else weekly_superseded(rows)
+    # The id walk's rows go FIRST, so on a shared title and venue the window's
+    # own keeper still wins (weekly_superseded keeps the last), and they are
+    # never themselves hidden.
+    weekly = [] if a.no_weekly else [r for r in weekly_superseded(keepers + rows)
+                                      if r["id"] not in keeper_ids]
     seen, doomed = set(), []
     for r in grid + weekly:                 # a day row can be BOTH; write it once
         if r["id"] not in seen:

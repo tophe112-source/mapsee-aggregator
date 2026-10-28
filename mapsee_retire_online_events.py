@@ -80,6 +80,7 @@ import urllib.request
 
 from mapsee_ingest import _HYBRID_RX, looks_online_only
 from mapsee_ingest_openactive import ONLINE_SESSION_RX
+from mapsee_standing import StandingWalkError, standing_pages
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -193,6 +194,28 @@ def main():
     t, pages = start, 0
     scanned = hits = claimed_skipped = 0
     examples, skipped_windows = [], []
+    seen = set()
+
+    def judge(rows):
+        """The ids among these rows to write, each row judged once."""
+        nonlocal scanned, hits, claimed_skipped
+        out = []
+        for row in rows:
+            if row.get("id") in seen:
+                continue                       # read twice (a window and the standing pass)
+            seen.add(row.get("id"))
+            scanned += 1
+            if row.get("claimed_by"):
+                claimed_skipped += 1
+                continue                       # somebody owns this listing now
+            if not should_retire(row):
+                continue
+            hits += 1
+            out.append(str(row["id"]))
+            if len(examples) < 30:
+                examples.append((str(row.get("starts_at"))[:10],
+                                 row.get("title") or "?"))
+        return out
 
     # Windowed like mapsee_reclassify and mapsee_prune_cancelled, for the same
     # reason: deep OFFSET paging on this table dies under the statement timeout.
@@ -221,19 +244,7 @@ def main():
                     time.sleep(1.5 * (attempt + 1))
             if not rows:
                 break
-            page_ids = []
-            for row in rows:
-                scanned += 1
-                if row.get("claimed_by"):
-                    claimed_skipped += 1
-                    continue                       # somebody owns this listing now
-                if not should_retire(row):
-                    continue
-                hits += 1
-                page_ids.append(str(row["id"]))
-                if len(examples) < 30:
-                    examples.append((str(row.get("starts_at"))[:10],
-                                     row.get("title") or "?"))
+            page_ids = judge(rows)
             # WRITE AT THE END OF EACH PAGE, NOT WHEN A BATCH HAPPENS TO FILL,
             # because the cursor below has to know exactly how many rows this
             # page removed from the result set. Carrying a half-full batch over
@@ -259,6 +270,27 @@ def main():
             offset += PAGE - (moved if args.apply else 0)
         pages += 1
         t += step
+
+    # THE STANDING ROWS, BY ID, forward only. The windows find a standing row
+    # only while its stored window is inside them; from ../mapsee 0248 that
+    # window is the anchor the sync last wrote, and a standing row is exactly
+    # the case should_retire's OpenActive clause exists for ("a standing row
+    # rolls on for ever"). One id keyset over 0247's events_standing_walk_idx
+    # under the same filters, the same predicate and the same PATCH, each row
+    # judged once (before 0248 a standing row is in a window too, and under
+    # --apply the window already hid it, so the walk's hidden_at=is.null leaves
+    # it out). A keyset is not moved by the rows a page hides, so no offset
+    # correction. --unhide reads HIDDEN rows, which this walk never sees; their
+    # windows 0239 never rolled either, so the window walk above is all it
+    # ever had (a gap older than R1).
+    if not args.unhide:
+        try:
+            for page in standing_pages(sb, select="id,title,description,claimed_by,starts_at",
+                                       scope="&external_source=eq.mapsee&is_private=eq.false" + keep_copies):
+                flush(judge(page))
+        except StandingWalkError as e:
+            print(f"  standing rows: {e}", file=sys.stderr)
+            skipped_windows.append("standing")
 
     print(f"\n  scanned {scanned} imported rows · {hits} to {verb}"
           + (f" · {claimed_skipped} claimed and left alone" if claimed_skipped else ""))

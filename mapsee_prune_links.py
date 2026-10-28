@@ -54,6 +54,7 @@ import urllib.parse
 import urllib.request
 
 from mapsee_menu_links import destination_verdict
+from mapsee_standing import StandingWalkError, standing_pages
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -150,6 +151,22 @@ def main():
     rows_by_url = collections.defaultdict(list)
     scanned = 0
     skipped_windows = []
+    seen = set()
+
+    def take(row):
+        """One row's transactional URLs into rows_by_url, once per id."""
+        nonlocal scanned
+        if row.get("id") in seen:
+            return
+        seen.add(row.get("id"))
+        scanned += 1
+        if row.get("claimed_by"):
+            return                             # the venue owns this listing
+        desc = row.get("description") or ""
+        for block in desc.split("\n\n"):
+            m = ORDER_LINE.match(block) or BOOK_LINE.match(block)
+            if m:
+                rows_by_url[m.group(1)].append(row)
 
     # Windowed like mapsee_reclassify, for the same reason: deep OFFSET paging on
     # this table dies under the statement timeout.
@@ -177,19 +194,29 @@ def main():
             if not batch:
                 break
             for row in batch:
-                scanned += 1
-                if row.get("claimed_by"):
-                    continue                       # the venue owns this listing
-                desc = row.get("description") or ""
-                for block in desc.split("\n\n"):
-                    m = ORDER_LINE.match(block) or BOOK_LINE.match(block)
-                    if m:
-                        rows_by_url[m.group(1)].append(row)
+                take(row)
             if len(batch) < PAGE:
                 break
             offset += PAGE
         pages += 1
         t += step
+
+    # THE STANDING ROWS, BY ID. Most rows carrying an order or booking link are
+    # standing ones (an OSM restaurant is one row per venue), and the windows
+    # above find a standing row only while its stored window is inside them:
+    # from ../mapsee 0248 that window is the anchor the sync last wrote, so
+    # they would find almost none. One id keyset over 0247's
+    # events_standing_walk_idx, under this pass's own filters, the same
+    # per-row logic, deduplicated by id against the windows (before 0248 a
+    # standing row is in both). About 189k buffers a run, for a dispatch job.
+    try:
+        for page in standing_pages(sb, select="id,title,description,claimed_by",
+                                   scope="&external_source=eq.mapsee&is_private=eq.false"):
+            for row in page:
+                take(row)
+    except StandingWalkError as e:
+        print(f"  standing rows: {e}", file=sys.stderr)
+        skipped_windows.append("standing")
 
     print(f"\n  scanned {scanned} aggregator rows · "
           f"{len(rows_by_url)} distinct transactional URLs")
