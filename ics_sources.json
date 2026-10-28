@@ -59127,5 +59127,177 @@
     "limit": 300,
     "_metro": "Strasbourg, France",
     "crawl_delay": 10.0
+  },
+  {
+    "name": "Port'Ouverte",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/contact%40portouverte.net/public/basic.ics",
+    "geocode_suffix": ", Tournai",
+    "limit": 300,
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "West-Vlaamse Aeroclub Moorsele",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wvlac.be_ks0tk2bv7aovd0qhir0g4mvcus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "Le Foyer",
+    "category": "theater",
+    "_found": "osm:cinema -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nd7sddqgjn8g2i5grl6nf50hlg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Acigné",
+    "limit": 300,
+    "_metro": "Rennes, France"
+  },
+  {
+    "name": "MSI Lab",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2c02499edad4d53fb99f33aaf9047f57f8ecf014ea478148dc852fefb9928e6e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", MONTREUIL SUR ILLE",
+    "limit": 300,
+    "_metro": "Rennes, France"
+  },
+  {
+    "name": "Nouvelle Librairie Sétoise",
+    "category": "learning",
+    "_found": "osm:books -> ics",
+    "url": "https://www.nouvellelibrairiesetoise.fr/rencontres/59564/event.ics",
+    "geocode_suffix": ", Sète",
+    "limit": 300,
+    "_metro": "Montpellier, France",
+    "crawl_delay": 5.0
+  },
+  {
+    "name": "Foyer Municipal des Retraités",
+    "category": "community",
+    "_found": "osm:social_centre -> events-manager",
+    "url": "https://www.lunel.com/category/toute-lactualite/evenement/?ical=1",
+    "geocode_suffix": ", Lunel",
+    "limit": 300,
+    "venue": {
+      "name": "Foyer Municipal des Retraités",
+      "city": "Lunel",
+      "postal_code": "34400",
+      "lat": 43.6761105,
+      "lon": 4.1295491,
+      "street_hint": "68 Rue de l'École du Parc",
+      "pin_unnamed": false
+    },
+    "_metro": "Montpellier, France"
+  },
+  {
+    "name": "Scouts et Guides de France - Territoire de l'Isère",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uq4ibf5bgfnoc7m2abmrsa3f9k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grenoble",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "L'ArTisterie",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n6e2fir6beu0hbqpi1d8f4akm4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fontaine",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "Green Kart",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/joitber7ldm1ce0to8ai4rlku8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grenoble, France",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "Karma Migyur Ling",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.montchardon.fr/programme/?ical=1",
+    "geocode_suffix": ", Grenoble, France",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "Repair Café Vandoeuvre",
+    "category": "community",
+    "_found": "osm:workshop -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_43332d29084c2a7f68338a4dc30f35378ae8e8801db6bbca228a2f995e7a8434%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nancy, France",
+    "limit": 300,
+    "_metro": "Nancy, France"
+  },
+  {
+    "name": "Willowdale Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40willowdalebaptist.com/public/basic.ics",
+    "geocode_suffix": ", North York",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Joe Rockhead's Indoor Rock Climbing",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e55cb594de65d41e1c70bf64add2cb1512262464aafbfc00fb52798e6c8947a0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, ON",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Nashville Road Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nashvilleroad.ca/events/potluck-lunch--99/2026-11-29.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "High Park Brewery",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_1450a456ce883421de0c3d397ff45a7598ea40771ea342b7b1780702e8d6da49%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Ontario",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "The Children's Storefront",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/childrensstorefront.com_ovt2823rbv4ala3o8adt7vqh78%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Saint Mary's Ukrainian Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40stmaryscawthra.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Metropolitan United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.metunited.org/events.ics",
+    "geocode_suffix": ", Toronto, ON",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
   }
 ]

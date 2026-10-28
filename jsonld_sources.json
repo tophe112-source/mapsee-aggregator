@@ -19262,6 +19262,403 @@
         "lon": 3.0717035
       },
       "_metro": "Lille, France"
+    },
+    {
+      "name": "Le Fresnoy - Studio national des arts contemporains",
+      "category": "community",
+      "_found": "osm:college -> jsonld-event",
+      "listing": [
+        "https://www.lefresnoy.net/agenda/"
+      ],
+      "link_pattern": "https://www\\.lefresnoy\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le Fresnoy - Studio national des arts contemporains",
+        "address": "22 Rue du Fresnoy",
+        "postal_code": "59200",
+        "lat": 50.7000523,
+        "lon": 3.1546769
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "l'Audito - Café de Paris",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://audito-tourcoing.fr/spectacles/2026/11/27/les-muses-de-l-opera"
+      ],
+      "link_pattern": "https://audito\\-tourcoing\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "l'Audito - Café de Paris",
+        "address": "5 Place de la République",
+        "city": "Tourcoing",
+        "postal_code": "59200",
+        "lat": 50.7219886,
+        "lon": 3.1587951
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Musée d'histoire et d'archéologie",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.ville-harnes.fr/site/"
+      ],
+      "link_pattern": "https://www\\.ville\\-harnes\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée d'histoire et d'archéologie",
+        "lat": 50.447808,
+        "lon": 2.9104311
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Centre régional information jeunesse",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.ij-hdf.fr/evenement/688/cafe-langues-lille-59"
+      ],
+      "link_pattern": "https://www\\.ij\\-hdf\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre régional information jeunesse",
+        "lat": 50.6333012,
+        "lon": 3.0665053
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Concertzaal De Kreun",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.wildewesten.be/nl/event/high-hi-2"
+      ],
+      "link_pattern": "https://www\\.wildewesten\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Concertzaal De Kreun",
+        "address": "1 Conservatoriumplein",
+        "city": "Kortrijk",
+        "postal_code": "8500",
+        "lat": 50.8249284,
+        "lon": 3.2617192
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "La Bonne Nouvelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://egliselabonnenouvelle.fr/agenda/"
+      ],
+      "link_pattern": "https://egliselabonnenouvelle\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Bonne Nouvelle",
+        "address": "98 Rue Eugène Pottier",
+        "lat": 48.104271,
+        "lon": -1.7073896
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Les Cadets de Bretagne",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.cadets.fr/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Les Cadets de Bretagne",
+        "lat": 48.1242546,
+        "lon": -1.6684578
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Les Jardins Rocambole",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.jardinsrocambole.fr/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Les Jardins Rocambole",
+        "lat": 47.9786653,
+        "lon": -1.6090328
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Carré Rondelet",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "http://carrerondelet.fr/"
+      ],
+      "link_pattern": "https://carrerondelet\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Carré Rondelet",
+        "address": "14 Rue de Belfort",
+        "city": "Montpellier",
+        "postal_code": "34000",
+        "lat": 43.6037355,
+        "lon": 3.8740486
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Zepetra école de cirque",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.zepetra.fr/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Zepetra école de cirque",
+        "address": "153 Rue Alphonse Beau de Rochas",
+        "city": "Castelnau-le-Lez",
+        "postal_code": "34170",
+        "lat": 43.6392045,
+        "lon": 3.9294337
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Mosquée de Lunel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "http://mosquee-lunel.fr"
+      ],
+      "link_pattern": "https://mosquee\\-lunel\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mosquée de Lunel",
+        "address": "118 Chemin de la Vidourlenque",
+        "city": "Lunel",
+        "postal_code": "34400",
+        "lat": 43.6815972,
+        "lon": 4.1453315
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Ligue Impro38",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://improvisation.fr/"
+      ],
+      "link_pattern": "https://improvisation\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ligue Impro38",
+        "address": "1 Avenue Aristide Briand",
+        "city": "Fontaine",
+        "postal_code": "38600",
+        "lat": 45.1890137,
+        "lon": 5.7001899
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Summum",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.summum-grenoble.com/evenements/saez/"
+      ],
+      "link_pattern": "https://www\\.summum\\-grenoble\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Summum",
+        "lat": 45.1553458,
+        "lon": 5.7372961
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Caméo Saint-Sébastien",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cameo-nancy.fr/events/82811-1518/"
+      ],
+      "link_pattern": "https://www\\.cameo\\-nancy\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Caméo Saint-Sébastien",
+        "lat": 48.6889331,
+        "lon": 6.1787659
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "La Compagnie des Ânes",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.compagniedesanes.com/evenements"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/d-tails-et-inscription/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La Compagnie des Ânes",
+        "lat": 48.7500591,
+        "lon": 6.2278651
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Église chrétienne du centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ecctoul.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Église chrétienne du centre",
+        "lat": 48.677459,
+        "lon": 5.8519043
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Cameron House",
+      "category": "music",
+      "_found": "osm:music_venue -> wix",
+      "listing": [
+        "https://www.thecameron.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Cameron House",
+        "address": "408 Queen Street West",
+        "lat": 43.6486214,
+        "lon": -79.3975842
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "The Opera House",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theoperahousetoronto.com/shows"
+      ],
+      "link_pattern": "https://www\\.theoperahousetoronto\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Opera House",
+        "address": "735 Queen Street East",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M4M 1H1",
+        "lat": 43.6589873,
+        "lon": -79.3487864
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "History",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.historytoronto.com/shows"
+      ],
+      "link_pattern": "https://www\\.historytoronto\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "History",
+        "address": "1663 Queen Street East",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M4L 1G5",
+        "lat": 43.6667034,
+        "lon": -79.3133062
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Kababayan Multicultural Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.kababayan.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kababayan Multicultural Centre",
+        "lat": 43.6409206,
+        "lon": -79.4331606,
+        "street_hint": "1313 Queen Street West"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Divya Jyoti Jagrati Santhan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.divinelightawakening.org/team-4"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Divya Jyoti Jagrati Santhan",
+        "address": "24 Taber Road",
+        "city": "Etobicoke",
+        "region": "ON",
+        "postal_code": "M9W 3A5",
+        "lat": 43.7191887,
+        "lon": -79.5749171
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Church of the Holy Trinity",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://holytrinity.to/calendar/"
+      ],
+      "link_pattern": "https://holytrinity\\.to/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Church of the Holy Trinity",
+        "address": "10 Trinity Square",
+        "city": "Toronto",
+        "lat": 43.6546926,
+        "lon": -79.3816915
+      },
+      "_metro": "Toronto, Canada"
     }
   ],
   "_not_included": {

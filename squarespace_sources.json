@@ -3112,6 +3112,77 @@
         "lon": 7.1126235
       },
       "_metro": "Nice, France"
+    },
+    {
+      "name": "Steadfast Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.steadfastbrewingco.com/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Steadfast Brewing Co.",
+        "address": "301 Lansdowne Avenue",
+        "lat": 43.6506772,
+        "lon": -79.4396696
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "City Dance Corps",
+      "category": "fitness",
+      "_found": "osm:dance -> squarespace",
+      "collection": "https://www.citydancecorps.com/workshops",
+      "max_events": 200,
+      "venue": {
+        "name": "City Dance Corps",
+        "address": "489 Queen Street West",
+        "lat": 43.6482225,
+        "lon": -79.398194
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Story Planet",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.storyplanet.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Story Planet",
+        "address": "986 Bathurst Street",
+        "lat": 43.6700678,
+        "lon": -79.4133127
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "New Hope Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://newhopechurch.live/events-1-1",
+      "max_events": 200,
+      "venue": {
+        "name": "New Hope Church",
+        "lat": 43.6087619,
+        "lon": -79.5821889
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Runnymede United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.runnymedeunited.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Runnymede United Church",
+        "address": "432 Runnymede Road",
+        "city": "Toronto",
+        "postal_code": "M6S 2Y8",
+        "lat": 43.656808,
+        "lon": -79.4792477
+      },
+      "_metro": "Toronto, Canada"
     }
   ],
   "_not_included": {

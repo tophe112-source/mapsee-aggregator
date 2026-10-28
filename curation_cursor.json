@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 137,
-  "metro_key": "FR:Lille",
+  "metro": 142,
+  "metro_key": "CA:Toronto",
   "stuck": {}
  },
  "osm|community_centre,library": {

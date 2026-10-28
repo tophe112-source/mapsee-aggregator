@@ -28249,6 +28249,524 @@
         "lon": 8.0719224
       },
       "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Le Loko",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.leloko.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Loko",
+        "address": "3 Rue du Marché",
+        "postal_code": "59000",
+        "lat": 50.627425,
+        "lon": 3.0505919
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Espace culturel Paul-André Lequimme",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.haubourdin.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Espace culturel Paul-André Lequimme",
+        "address": "Place Blondeau",
+        "city": "Haubourdin",
+        "postal_code": "59320",
+        "lat": 50.6086918,
+        "lon": 2.9847601
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "La Maison du Ronceray",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.la-maison-du-ronceray.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Maison du Ronceray",
+        "address": "110 Rue de la Poterie",
+        "city": "Rennes",
+        "postal_code": "35200",
+        "lat": 48.0928316,
+        "lon": -1.6408878
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Radioclub de Rennes F4KIO",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ara35.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Radioclub de Rennes F4KIO",
+        "lat": 48.1261983,
+        "lon": -1.7077358
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Centre régional des œuvres universitaires et scolaires de Rennes Bretagne",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-rennes.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre régional des œuvres universitaires et scolaires de Rennes Bretagne",
+        "address": "7 Place Hoche",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.1169221,
+        "lon": -1.6772262
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "ADEC - Maison du Théâtre Amateur",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://adec-theatre-amateur.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ADEC - Maison du Théâtre Amateur",
+        "address": "45 Rue Papu",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.1105664,
+        "lon": -1.6938959
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "La Mauvaise Réputation",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://montpellier.unioncommunistelibertaire.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Mauvaise Réputation",
+        "address": "20 Rue Terral",
+        "city": "Montpellier",
+        "postal_code": "34000",
+        "lat": 43.6096516,
+        "lon": 3.8731193
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Le Taurus",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ville-meze.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Taurus",
+        "address": "Rue de la Méditerranée",
+        "city": "Mèze",
+        "postal_code": "34140",
+        "lat": 43.4198044,
+        "lon": 3.6007767
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "CROUS",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-montpellier.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CROUS",
+        "lat": 43.6227983,
+        "lon": 3.8698289
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Théâtre Bassaget",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://mauguio-carnon.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre Bassaget",
+        "address": "Boulevard Antérieu",
+        "city": "Mauguio",
+        "postal_code": "34130",
+        "lat": 43.615811,
+        "lon": 4.012033
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Tennis Club Montpellier La Jalade",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://tcmlajalade.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tennis Club Montpellier La Jalade",
+        "address": "Rue de la Jalade",
+        "city": "Montpellier",
+        "postal_code": "34090",
+        "lat": 43.6283249,
+        "lon": 3.8628726
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Maison diocésaine Villa Maguelone",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://montpellier.catholique.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison diocésaine Villa Maguelone",
+        "lat": 43.6232596,
+        "lon": 3.8878047
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "EHPAD Louis Laget",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+modern-events",
+      "base_url": "https://www.baillargues.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EHPAD Louis Laget",
+        "address": "1 Rue des Pêcheurs de Perles",
+        "lat": 43.668538,
+        "lon": 4.0177547
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "À la Découverte du Cirque",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cirque-eybens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "À la Découverte du Cirque",
+        "lat": 45.1620697,
+        "lon": 5.7473978
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Au Perchoir",
+      "category": "community",
+      "_found": "osm:cafe -> tribe",
+      "base_url": "https://auperchoir.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Au Perchoir",
+        "address": "492 Rue des Bécasses",
+        "city": "Crolles",
+        "postal_code": "38920",
+        "lat": 45.2740774,
+        "lon": 5.8880838
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Aviron Grenoblois",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.aviron-grenoblois.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aviron Grenoblois",
+        "address": "39 Quai Jongkind",
+        "city": "Grenoble",
+        "postal_code": "38000",
+        "lat": 45.2001809,
+        "lon": 5.7348321
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "MC2",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://www.mc2grenoble.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MC2",
+        "address": "4 Rue Paul Claudel",
+        "city": "Grenoble",
+        "postal_code": "38100",
+        "lat": 45.1722274,
+        "lon": 5.7337064
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Le Hublot",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-lorraine.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Hublot",
+        "address": "138 avenue de la Libération",
+        "lat": 48.6970779,
+        "lon": 6.1594701
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Mine Musée du Val de Fer",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://minedeneuvesmaisons.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mine Musée du Val de Fer",
+        "lat": 48.631564,
+        "lon": 6.1087415
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Toronto Humane Society",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.torontohumanesociety.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Toronto Humane Society",
+        "address": "11 River Street",
+        "postal_code": "M5A 4C2",
+        "lat": 43.65763,
+        "lon": -79.3563427
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Buddies in Bad Times",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://buddiesinbadtimes.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buddies in Bad Times",
+        "address": "12 Alexander Street",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M4Y 1B4",
+        "lat": 43.6632092,
+        "lon": -79.382994
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Textile Museum Of Canada",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://textilemuseum.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Textile Museum Of Canada",
+        "address": "55 Centre Avenue",
+        "city": "Toronto",
+        "postal_code": "M5G 2H5",
+        "lat": 43.6544937,
+        "lon": -79.3866913
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Toronto Railway Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+event-organiser+jsonld-event+ics",
+      "base_url": "https://torontorailwaymuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Toronto Railway Museum",
+        "address": "255 Bremner Boulevard",
+        "lat": 43.6406473,
+        "lon": -79.3859564
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Lakeshore Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+ics",
+      "base_url": "https://lakeshorearts.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lakeshore Arts",
+        "lat": 43.6145162,
+        "lon": -79.4891245
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Dovercourt House",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dovercourthouse.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dovercourt House",
+        "address": "805 Dovercourt Road",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M6H 2X4",
+        "lat": 43.6627558,
+        "lon": -79.4296402
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "TCCSA",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://tccsa.on.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TCCSA",
+        "lat": 43.5782323,
+        "lon": -79.6522889
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Boulderz Climbing Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://boulderzclimbing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boulderz Climbing Centre",
+        "address": "1444 Dupont Street",
+        "city": "Toronto",
+        "region": "Ontario",
+        "lat": 43.6670376,
+        "lon": -79.4492775
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Reach Out Centre For Kids",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://rockonline.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reach Out Centre For Kids",
+        "address": "504 Iroquois Shore Road",
+        "postal_code": "L6H 2Y7",
+        "lat": 43.4689671,
+        "lon": -79.679886
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "First Unitarian Congregation of Toronto",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.firstunitariantoronto.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Unitarian Congregation of Toronto",
+        "address": "473 Oakwood Avenue",
+        "postal_code": "M6C2R5",
+        "lat": 43.6910656,
+        "lon": -79.4399077
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bata Shoe Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://batashoemuseum.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bata Shoe Museum",
+        "address": "327 Bloor Street West",
+        "city": "Toronto",
+        "postal_code": "M5S 1W7",
+        "lat": 43.6672516,
+        "lon": -79.4001432
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Church of the Redeemer",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://theredeemer.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Redeemer",
+        "address": "162 Bloor Street West",
+        "city": "Toronto",
+        "region": "ON",
+        "postal_code": "M5S 1M4",
+        "lat": 43.6690709,
+        "lon": -79.393997
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Holy Blossom Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://holyblossom.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Blossom Temple",
+        "address": "1950 Bathurst Street",
+        "city": "Toronto",
+        "lat": 43.698287,
+        "lon": -79.4252726
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 10.0
     }
   ],
   "_not_included": {
