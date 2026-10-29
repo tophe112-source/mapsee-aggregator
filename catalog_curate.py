@@ -86,7 +86,7 @@ import statistics
 import sys
 import time
 
-from urllib.parse import urljoin, urlparse
+from urllib.parse import parse_qs, urlencode, urljoin, urlparse
 
 import requests
 
@@ -220,14 +220,22 @@ class Verdict(str):
     """A verifier's note that names its own ledger status.
 
     Most notes are classified by their shape (_EMPTY_RX). A verdict that comes
-    from a second request, not from the note's numbers, says which status it
-    is instead of hoping the wording falls on the right side of a regex: an
-    empty CivicPlus category (see _civicplus_empty). It is still a str, so it
+    from a second request or a platform's measured behaviour, not from the
+    note's numbers, says which status it is instead of hoping the wording falls
+    on the right side of a regex: an empty CivicPlus category (see
+    _civicplus_empty), a valid empty calendar on a platform whose missing
+    calendars answer an error (EMPTY_CALENDAR_RULES), The Events Calendar
+    between seasons (tribe_ical_existence). It is still a str, so it
     prints, slices and lands in the ledger's `reason` like any other note.
     """
     status = None
 
-    def __new__(cls, text, status):
+    # `status` has a default because copy.copy and pickle rebuild the object
+    # by calling __new__ with str's own arguments (the text alone) and then
+    # restore `status` from the instance dict. Without it both raised
+    # TypeError (review of 2026-10-29): harmless under threads, a trap for
+    # any process pool.
+    def __new__(cls, text="", status=None):
         self = super().__new__(cls, text)
         self.status = status
         return self
@@ -546,13 +554,46 @@ def civicplus_cat_id(url):
     return m.group(1) if m else None
 
 
+def _robots_ask(s, url):
+    """robots.txt's answer for `url`: the audit's shared reader when `s` is the
+    audit's paced session (one robots.txt per origin per run, its Crawl-delay
+    kept for the pacing), else a fresh reader, as verify has always asked."""
+    pace = getattr(s, "pace", None)
+    if pace is not None:
+        return pace.robots_check(s.raw, url)
+    return robots_txt.Robots(s).check(url)
+
+
+def _get_after(s, url, ans, **kw):
+    """A SECOND request to a host this probe has just asked, Crawl-delay first.
+
+    CivicPlus's stock robots.txt asks `Crawl-delay: 10` (35 of 35 sampled
+    hosts' files that could be read, 2026-10-29), and the list read used to go
+    out the moment the feed's answer came back. In the audit the paced session
+    waits (it knows when the host was last asked); elsewhere (`verify`) this
+    waits the whole delay, which is never less than the host asked. A delay
+    over AUDIT_MAX_CRAWL_DELAY_S is not waited out and the request is not
+    sent sooner either: it raises, and the caller records why.
+    """
+    if getattr(s, "pace", None) is None:
+        delay = float(ans.get("crawl_delay") or 0)
+        if delay > AUDIT_MAX_CRAWL_DELAY_S:
+            raise AuditCrawlDelay(f"robots.txt asks Crawl-delay {delay:g} s, "
+                                  f"over the {AUDIT_MAX_CRAWL_DELAY_S:g} s a probe waits")
+        if delay > 0:
+            time.sleep(delay)
+    return s.get(url, **kw)
+
+
 def civicplus_list(s, url):
     """The categories /iCalendar.aspx lists on the site serving `url`.
 
     {"cats": {"34": "Library Events", ...}} or {"error": why}. Read once per
     origin and kept for the rest of the run, the error too: the audit retries
     a feed on a transport failure, and asking a struggling host's list again
-    three times over is not what "once" means.
+    three times over is not what "once" means. It is the second request to the
+    host in a row (the feed came first), so the host's Crawl-delay is honoured
+    before it (_get_after).
     """
     import catalog_discover_osm as osm
     from html import unescape
@@ -561,13 +602,15 @@ def civicplus_list(s, url):
     if got is not None:
         return got
     page = origin + "/iCalendar.aspx"
-    ans = robots_txt.Robots(s).check(page)
+    ans = _robots_ask(s, page)
     if ans["allowed"] is not True:
         why = ("challenged" if ans["allowed"] is None else "refuses it")
         got = {"error": f"robots.txt {why}: {ans.get('rule') or ans['status']}"}
     else:
         try:
-            r = s.get(page, timeout=CIVICPLUS_LIST_TIMEOUT, allow_redirects=True)
+            r = _get_after(s, page, ans, timeout=CIVICPLUS_LIST_TIMEOUT, allow_redirects=True)
+        except AuditCrawlDelay as ex:
+            got = {"error": str(ex)}
         except Exception as ex:                                   # noqa: BLE001
             got = {"error": type(ex).__name__}
         else:
@@ -605,32 +648,226 @@ def _civicplus_empty(s, url):
     return civicplus_verdict(civicplus_cat_id(url), civicplus_list(s, url))
 
 
+# A VALID CALENDAR WITH NO VEVENT PROVES THE CALENDAR EXISTS ONLY WHERE A
+# MISSING ONE ANSWERS SOMETHING ELSE. Measured 2026-10-29 with the production
+# UA, robots.txt asked first, by asking each platform for a calendar id that
+# does not exist (1-2 requests a platform):
+#   CivicPlus       a missing catID answers a VALID EMPTY VCALENDAR (urbandale
+#                   catID=99987: 200, text/calendar, 474 B) - the same file a
+#                   quiet category answers. Empty proves nothing; the site's
+#                   /iCalendar.aspx list decides (_civicplus_empty).
+#   LibCal          cid=999999 on leeds.libcal.com and smu-sg.libcal.com: 200
+#                   text/html, 19 B, "invalid calendar id".
+#   OpenAgenda      agendas/99999999999/events.v2.ics: 404 text/html.
+#   unibas.ch       .../news-veranstaltungen/99999999.ics on botgarten.unibas.ch:
+#                   200 text/calendar with a 0-byte body - no VCALENDAR at all.
+#   My Calendar     ?feed=my-calendar-ics on a WordPress without the plugin
+#                   (forterra.org) and an unregistered ?feed= on theblackaltar.org:
+#                   404, WordPress's wp_die XML.
+#   Vortex (UiO)    ?vrtx=ical on a folder that does not exist
+#                   (nhm.uio.no/hva-skjer/no-such-folder-mapsee/): 404 text/html.
+#   Google Calendar through the Calendar API: not measured (no key here). Read
+#                   in mapsee_gcal.fetch_events: any answer but 200 (a deleted
+#                   calendar's is 404 notFound) raises GcalError, and only a 200
+#                   is turned into VCALENDAR text. Its timeMin is today, so a
+#                   quiet calendar reads "0 vevents" by construction and
+#                   _EMPTY_RX (which needs N > 0 VEVENTs) could never call it
+#                   empty: the 3 Google calendars round 1 kept were `fail` again
+#                   on every audit.
+# So on the six platforms below a valid empty calendar is `empty` and says
+# why; CivicPlus keeps its list test; every platform not in the table keeps
+# "0 vevents / 0 future" -> `fail`, as before. Round 1 (2026-10-29) kept 14
+# non-CivicPlus feeds `empty` by hand, and the audit re-derived `fail` for all
+# 14 of them from this verifier; 3 Google, 2 LibCal, 1 OpenAgenda, 1 unibas.ch
+# and 1 My Calendar are this table's, the other 6 are The Events Calendar's
+# (tribe_ical_existence). Configured on 2026-10-29: LibCal 307, Google 459,
+# OpenAgenda 66, My Calendar 61, unibas.ch 6, Vortex 4.
+def _is_libcal(url, via_api=False):
+    p = urlparse(url)
+    return ((p.hostname or "").lower().endswith(".libcal.com")
+            and p.path.lower().endswith("/ical_subscribe.php")
+            and "cid" in parse_qs(p.query))
+
+
+def _is_openagenda(url, via_api=False):
+    p = urlparse(url)
+    return ((p.hostname or "").lower().endswith("openagenda.com")
+            and re.fullmatch(r"/agendas/\d+/events(?:\.v2)?\.ics", p.path) is not None)
+
+
+def _is_unibas(url, via_api=False):
+    p = urlparse(url)
+    host = (p.hostname or "").lower()
+    return ((host == "unibas.ch" or host.endswith(".unibas.ch"))
+            and re.search(r"/\d+\.ics$", p.path) is not None)
+
+
+def _is_my_calendar(url, via_api=False):
+    return "my-calendar-ics" in parse_qs(urlparse(url).query).get("feed", [])
+
+
+def _is_vortex(url, via_api=False):
+    return "ical" in parse_qs(urlparse(url).query).get("vrtx", [])
+
+
+def _is_google_api(url, via_api=False):
+    return bool(via_api and mapsee_gcal.calendar_id(url))
+
+
+def _is_civicplus(url, via_api=False):
+    return civicplus_cat_id(url) is not None
+
+
+EMPTY_CALENDAR_RULES = (
+    # (platform, recognises(url, via_api), what a missing calendar answers,
+    #  verdict for a valid calendar with no VEVENT: "empty" or a callable
+    #  existence test (s, url) -> Verdict)
+    ("CivicPlus", _is_civicplus, "the same valid empty VCALENDAR", _civicplus_empty),
+    ("Google Calendar API", _is_google_api, "404 notFound, which raises GcalError", "empty"),
+    ("LibCal", _is_libcal, "200 'invalid calendar id'", "empty"),
+    ("OpenAgenda", _is_openagenda, "404", "empty"),
+    ("unibas.ch", _is_unibas, "200 with a 0-byte body", "empty"),
+    ("My Calendar", _is_my_calendar, "404 (wp_die)", "empty"),
+    ("Vortex", _is_vortex, "404", "empty"),
+)
+
+
+def empty_calendar_rule(url, via_api=False):
+    """The EMPTY_CALENDAR_RULES row for `url`, or None (the old `fail`)."""
+    for rule in EMPTY_CALENDAR_RULES:
+        if rule[1](url, via_api):
+            return rule
+    return None
+
+
+def empty_calendar_verdict(s, url, via_api=False):
+    """Verdict for a valid VCALENDAR with no VEVENT, by the platform table."""
+    rule = empty_calendar_rule(url, via_api)
+    if rule is None:
+        return Verdict("0 vevents / 0 future", "fail")
+    platform, _match, missing, decide = rule
+    if callable(decide):
+        return decide(s, url)
+    return Verdict(f"0 vevents / 0 future; a valid empty {platform} calendar, and a "
+                   f"missing one answers {missing}, so this one exists", decide)
+
+
+# THE EVENTS CALENDAR BETWEEN SEASONS. Its ?ical=1 export renders the upcoming
+# list, so with nothing upcoming it answers something that is not a calendar:
+# measured 2026-10-29, Aldeburgh Food and Drink, British Cider Week, Buffalo
+# Niagara Waterkeeper and Fiddlehead Brewing answered 200 with a 0-byte body,
+# Berlin Food Week and Dublin Festival of History 404 with a 0-byte body - and
+# the same sites' REST route, /wp-json/tribe/events/v1/events, answered 200
+# JSON with an `events` list. A dead plugin has no such route. So the route is
+# the existence test, asked with robots.txt's permission for that exact URL:
+#   200 JSON, `events` empty   -> `empty`: the plugin is alive, nothing is on.
+#   `events` not empty         -> `fail`, saying the tribe adapter would read
+#                                 it: the export is broken while the calendar is
+#                                 not, which is a fix to propose, not a quiet
+#                                 calendar.
+#   anything else              -> `fail`, as before (refused, unreachable, 404,
+#                                 not The Events Calendar's JSON).
+# Only for a ?ical=1 feed answering 404, or 200 with no VEVENT (an empty body,
+# an HTML page, an empty VCALENDAR); a 403, 429 or 5xx keeps its old note so the
+# retry still sees it.
+TRIBE_REST_PATH = "/wp-json/tribe/events/v1/events"
+
+
+def _is_tribe_ical(url):
+    return "1" in parse_qs(urlparse(url).query).get("ical", [])
+
+
+def tribe_rest_url(url):
+    """The REST request the existence test makes for a ?ical=1 feed."""
+    day = _as_date(_today_int()).isoformat()
+    return (robots_txt.origin_of(url) + TRIBE_REST_PATH
+            + "?" + urlencode({"per_page": 10, "start_date": day}))
+
+
+def tribe_ical_existence(s, url, note):
+    """Verdict for a ?ical=1 export that did not give a calendar with events."""
+    rest = tribe_rest_url(url)
+    ans = _robots_ask(s, rest)
+    if ans["allowed"] is not True:
+        why = "challenged" if ans["allowed"] is None else "refuses it"
+        return Verdict(f"{note}; The Events Calendar REST not asked: robots.txt {why} "
+                       f"({ans.get('rule') or ans['status']})", "fail")
+    try:
+        r = _get_after(s, rest, ans, timeout=30)
+    except Exception as ex:                                       # noqa: BLE001
+        return Verdict(f"{note}; The Events Calendar REST unreachable "
+                       f"({type(ex).__name__}: {str(ex)[:60]})", "fail")
+    if r.status_code != 200:
+        return Verdict(f"{note}; The Events Calendar REST answers {r.status_code}", "fail")
+    try:
+        body = r.json()
+    except Exception:                                             # noqa: BLE001
+        body = None
+    evs = body.get("events") if isinstance(body, dict) else None
+    if not isinstance(evs, list):
+        return Verdict(f"{note}; the REST route answers 200 but not with "
+                       f"The Events Calendar's JSON", "fail")
+    if not evs:
+        return Verdict(f"{note}; The Events Calendar REST answers 200 with 0 upcoming", "empty")
+    try:
+        total = int(body.get("total") or len(evs))
+    except (TypeError, ValueError):
+        total = len(evs)
+    return Verdict(f"{note}; The Events Calendar REST lists {total} upcoming: the tribe "
+                   f"adapter would read it (a fix to propose, not an empty calendar)", "fail")
+
+
+# WHAT COUNTS AS A CALENDAR IS WHAT mapsee_ingest_ics READS. The adapter
+# decodes the body (_decode_ics: RFC 5545's UTF-8 when the server names no
+# charset), unfolds it, and takes every line that is exactly BEGIN:VEVENT; it
+# never looks for BEGIN:VCALENDAR. This verifier looked for that marker in the
+# first 400 characters only, so Forterra (Seattle) - whose WordPress prints
+# 8,120 characters of Elementor CSS before the calendar, `</style>BEGIN:VCALENDAR`
+# on one line - was "http 200 / no VCALENDAR" in the 2026-10-18 audit while
+# production kept 4 of 5 VEVENTs from it on 10-25, 10-27 and 10-28. Now the
+# VEVENTs are counted with the adapter's parse_ics, and a body with none is a
+# calendar when BEGIN:VCALENDAR appears anywhere in it.
 def verify_ics(s, e):
+    import mapsee_ingest_ics as ics
+    url = e["url"]
     key = mapsee_gcal.api_key()
-    if key and mapsee_gcal.calendar_id(e["url"]):
+    via_api = bool(key and mapsee_gcal.calendar_id(url))
+    if via_api:
         # The same text the ics adapter will parse; see mapsee_gcal.
         try:
-            txt = mapsee_gcal.fetch_as_ics(s, e["url"], key, timeout=60)
+            txt = mapsee_gcal.fetch_as_ics(s, url, key, timeout=60)
         except mapsee_gcal.GcalError as ex:
             return False, str(ex)[:90]
     else:
-        r = s.get(e["url"], timeout=60)
-        txt = r.text
-        if r.status_code != 200 or "BEGIN:VCALENDAR" not in txt[:400]:
-            return False, f"http {r.status_code} / no VCALENDAR"
+        fetch = "https://" + url[9:] if url.lower().startswith("webcal://") else url
+        r = s.get(fetch, timeout=60)
+        if r.status_code != 200:
+            note = f"http {r.status_code} / no VCALENDAR"
+            if r.status_code == 404 and _is_tribe_ical(url):
+                return False, tribe_ical_existence(s, url, note)
+            return False, note
+        txt = ics._decode_ics(r)[0]
+    events = ics.parse_ics(txt)
+    if not events:
+        if "BEGIN:VCALENDAR" not in txt:
+            note = "http 200 / no VCALENDAR"
+            if _is_tribe_ical(url):
+                return False, tribe_ical_existence(s, url, note)
+            return False, note
+        if _is_tribe_ical(url):
+            return False, tribe_ical_existence(s, url, "0 vevents / 0 future")
+        return False, empty_calendar_verdict(s, url, via_api)
     today = _today_int()
-    # Scope the scan to VEVENT BODIES. Scanning the whole file also catches the
+    # DTSTART of the VEVENTs only. Scanning the whole file also catches the
     # DTSTARTs inside VTIMEZONE STANDARD/DAYLIGHT sub-components, which carry
     # DST-transition dates - so a calendar whose real events all ended years ago
     # can report thousands of "future" dates and sail through this gate on
     # timezone metadata alone. (Seen in the wild: a dead market calendar
     # reporting "51 vevents / 15946 future" under two different URLs.)
-    bodies = re.findall(r"BEGIN:VEVENT(.*?)END:VEVENT", txt, re.S)
-    if not bodies and civicplus_cat_id(e["url"]):
-        return False, _civicplus_empty(s, e["url"])
-    starts = [d for b in bodies for d in re.findall(r"^DTSTART[^:\n]*:(\d{8})", b, re.M)]
+    starts = [m.group(1) for ev in events
+              for m in [re.match(r"(\d{8})", str((ev.get("DTSTART") or ("",))[0]).strip())] if m]
     fut = sum(1 for d in starts if int(d) >= today)
-    return (fut > 0), f"{len(bodies)} vevents / {fut} future"
+    return (fut > 0), f"{len(events)} vevents / {fut} future"
 
 
 def verify_opendata(s, e):
@@ -665,9 +902,24 @@ def verify_opendata(s, e):
     # on 2026-10-28, and FEED_DOWN reported a working source. Now the date is
     # whatever mapsee_ingest_opendata._iso_parts makes of it, and a row is
     # future when the adapter's own past-event drop would keep it (its end
-    # date, else its start). A value the adapter cannot turn into a date is
-    # still refused: _iso_parts hands such a value back as its first ten
-    # characters, which is not a date.
+    # date, else its start).
+    #
+    # WHAT IS REFUSED IS A VALUE WHOSE DATE IS NOT A DATE, NOT ONE WHOSE START
+    # PYTHON CANNOT READ. When neither fromisoformat nor the free-text reader
+    # takes a value, _iso_parts hands it back whole as the start and its first
+    # ten characters as the date key: "October 27" and "TBD" give a date key
+    # that is not YYYY-MM-DD, and are refused here ("not a date column"); the
+    # adapter emits them anyway and the sync's Postgres refuses the row
+    # (PostgreSQL 16.15, 2026-10-29: 'October 27'::timestamptz and
+    # 'TBD'::timestamptz both error). But "2026-11-27 7:00 PM" gives the date
+    # key 2026-11-27 and the start "2026-11-27 7:00 PM", which both this check
+    # and the adapter accept, and Postgres reads as 2026-11-27 19:00. So
+    # requiring a start Python can parse, here or in the adapter, would refuse
+    # a row the database keeps. The test here is an ISO date key; the adapter's
+    # is weaker (any date key, then its past-event drop), and Postgres has the
+    # last word on the start.
+    # (The review of 2026-10-29 found the earlier wording here claimed the
+    # opposite for this value without measuring it.)
     start_col = m.get("start")
     if start_col:
         import mapsee_ingest_opendata as od
@@ -3277,10 +3529,11 @@ def cmd_reapply(outdir):
 
     led_p = os.path.join(outdir, "curation_ledger.json")
     if os.path.exists(led_p):
-        # A snapshot taken while the sweep was being CANCELLED can be a
-        # half-written file; _save_ledger truncates before it dumps. Losing this
-        # run's probes then costs a repeat, where raising costs the cursor, the
-        # coverage line and every verified source in the same step.
+        # _save_ledger writes a temp file and renames it (since 2026-10-29), so
+        # the ledger it leaves is always whole; the SNAPSHOT is a `cp` of it,
+        # and a step cancelled mid-copy can still leave half a file here.
+        # Losing this run's probes then costs a repeat, where raising costs the
+        # cursor, the coverage line and every verified source in the same step.
         try:
             base, ours = _load_ledger(), _load_ledger_at(led_p)
         except Exception as exc:  # noqa: BLE001
@@ -3345,7 +3598,8 @@ def cmd_reapply(outdir):
 # timeout asked three times (VERIFY_RETRIES) at 60 s apiece.
 #
 # So a run is a BUDGET and an ORDER. `--max-minutes` starts no probe after the
-# deadline (the ones running finish and are recorded); every entry goes in the
+# deadline (the ledger is saved at once, and the ones running get AUDIT_GRACE_S
+# to finish and be recorded); every entry goes in the
 # order of its ledger row's `checked`, never-checked first, across all the
 # config files, so a run the budget cuts short is where the next one starts
 # instead of the head of ics_sources.json again; and the ledger is saved every
@@ -3392,10 +3646,165 @@ def _audit_plan(led):
     return plan
 
 
+# CRAWL-DELAY IN THE AUDIT. The audit asked a host as fast as its probes
+# came back: a host's next probe started the moment the last one ended, and
+# the CivicPlus list read went out right after the feed. CivicPlus's stock
+# robots.txt asks `Crawl-delay: 10` (35 of the 35 sampled hosts' files that
+# could be read, 2026-10-29), LibCal's 10 (leeds, smu-sg), and only 15 of the
+# 1,270 configured CivicPlus feeds carry `crawl_delay`. Now every request the
+# audit makes to a host waits out that host's delay since its last request:
+# the larger of what its robots.txt asks and what its entries' `crawl_delay`
+# asks (_AuditPace). Between probes nobody sleeps: the scheduler starts a
+# host's next probe only once the host is ready, and works on other hosts
+# meanwhile. Inside a probe (a retry, the CivicPlus list, The Events Calendar's
+# REST test, a jsonld follow-up page) the worker waits, but never longer than
+# AUDIT_MAX_CRAWL_DELAY_S: a request that would need longer is not sent, and
+# the probe records why, rather than asking sooner than the host said. 30 s
+# is the walk's cap too (OSM_MAX_CRAWL_DELAY_S) and three times the stock
+# CivicPlus and LibCal value; a worker asleep for a 3,600 s delay would carry
+# the run past its deadline. A documented public API (DOCUMENTED_API_TYPES)
+# is not asked for robots.txt, so only an entry's own `crawl_delay` paces it.
+AUDIT_MAX_CRAWL_DELAY_S = 30.0
+
+# WHEN THE BUDGET RUNS OUT, THE LEDGER IS SAVED FIRST AND THE STRAGGLERS GET
+# A BOUNDED GRACE. The wait on probes still running had no timeout, and a
+# server that trickles bytes holds a probe past `timeout=60` (it bounds each
+# read, not the response): on 2026-10-25 the runner killed python 0.25 s after
+# "The operation was canceled", taking up to 199 recorded probes and both
+# summary lines with it. Now the ledger is written the moment the deadline
+# cuts, then the running probes get AUDIT_GRACE_S to finish (three tries of a
+# 60 s timeout plus a list read is under 5 minutes), and any still running are
+# abandoned unrecorded: their entries keep their old rows and go first next
+# run. 200 + 5 minutes sits inside the probe step's 215. The workers are
+# daemon threads, so an abandoned one cannot hold the interpreter open.
+AUDIT_GRACE_S = 300.0
+
+# How long the scheduler blocks at most before it looks at the clock again.
+AUDIT_POLL_S = 1.0
+
+
+class AuditCrawlDelay(requests.exceptions.RequestException):
+    """A request that would wait out more than AUDIT_MAX_CRAWL_DELAY_S: not sent."""
+
+
+class _AuditPace:
+    """When each host may next be asked, for the audit: its last request plus
+    its Crawl-delay (robots.txt or the entries', the larger). Shared by every
+    worker; robots.txt is read once per origin per run, by whichever worker
+    needs it first, and robots.txt reads are not themselves paced."""
+
+    def __init__(self, entry_delays=None, cap=AUDIT_MAX_CRAWL_DELAY_S, robots_timeout=15.0):
+        import threading
+        self.entry = dict(entry_delays or {})        # host -> the configs' crawl_delay
+        self.cap = float(cap)
+        self.robots_timeout = robots_timeout
+        self._lock = threading.Lock()
+        self._last = {}                               # host -> time.time() of its last request
+        self._asked = {}                              # host -> robots.txt Crawl-delay (0 if none)
+        self._robots = {}                             # origin -> [Lock, Robots | None]
+        self.robots_read = self.waits = 0
+        self.waited = 0.0
+
+    def robots_check(self, raw, url):
+        """robots.txt's answer for `url`, the file read once per origin."""
+        import threading
+        origin = robots_txt.origin_of(url)
+        with self._lock:
+            slot = self._robots.setdefault(origin, [threading.Lock(), None])
+        with slot[0]:
+            if slot[1] is None:
+                slot[1] = robots_txt.Robots(raw, timeout=self.robots_timeout)
+                with self._lock:
+                    self.robots_read += 1
+            ans = slot[1].check(url)
+        try:
+            asked = float(ans.get("crawl_delay") or 0)
+        except (TypeError, ValueError):
+            asked = 0.0
+        host = _probe_host(url)
+        with self._lock:
+            self._asked[host] = max(self._asked.get(host, 0.0), asked)
+        return ans
+
+    def knows(self, host):
+        with self._lock:
+            return host in self._asked
+
+    def delay(self, host):
+        with self._lock:
+            return max(self.entry.get(host, 0.0), self._asked.get(host, 0.0))
+
+    def ready_at(self, host):
+        """The earliest time.time() at which `host` may be asked again."""
+        with self._lock:
+            last = self._last.get(host)
+        return 0.0 if last is None else last + self.delay(host)
+
+    def before(self, raw, url, exempt=False):
+        """Called before every request: wait out the host's delay, then mark it."""
+        host = _probe_host(url)
+        with self._lock:
+            seen = host in self._last
+        if seen and not exempt and not self.knows(host):
+            self.robots_check(raw, url)               # a second request: now it matters
+        wait = self.ready_at(host) - time.time()
+        if wait > self.cap:
+            raise AuditCrawlDelay(f"{host} asks Crawl-delay {self.delay(host):g} s; "
+                                  f"over the {self.cap:g} s a probe waits")
+        if wait > 0:
+            time.sleep(wait)
+            with self._lock:
+                self.waits += 1
+                self.waited += wait
+        with self._lock:
+            self._last[host] = time.time()
+
+
+class _AuditSession:
+    """A worker's session as the verifiers see it: every GET and POST goes
+    through the run's _AuditPace first. `raw` is the session underneath, which
+    robots.txt is read with."""
+
+    def __init__(self, raw, pace, exempt=False):
+        self.raw, self.pace, self.exempt = raw, pace, exempt
+
+    @property
+    def headers(self):
+        return getattr(self.raw, "headers", {})
+
+    def get(self, url, **kw):
+        self.pace.before(self.raw, url, self.exempt)
+        return self.raw.get(url, **kw)
+
+    def post(self, url, **kw):
+        self.pace.before(self.raw, url, self.exempt)
+        return self.raw.post(url, **kw)
+
+
 def _audit_host(t, e):
     """The host a probe of `e` asks: what the probes are serialised on."""
     reqs = _ingest_requests(t, e)
     return _probe_host(reqs[0][1]) if reqs else str(_key_of(e))
+
+
+def _audit_first_url(t, e):
+    reqs = _ingest_requests(t, e)
+    return reqs[0][1] if reqs else None
+
+
+def _entry_delays(plan):
+    """host -> the largest `crawl_delay` any configured entry on it asks."""
+    out = {}
+    for item in plan:
+        t, e = item[2], item[5]
+        try:
+            d = float(e.get("crawl_delay") or 0)
+        except (TypeError, ValueError):
+            d = 0.0
+        if d > 0:
+            h = _audit_host(t, dict(e, type=t))
+            out[h] = max(out.get(h, 0.0), d)
+    return out
 
 
 def _audit_probe(s, t, e):
@@ -3406,55 +3815,127 @@ def _audit_probe(s, t, e):
     return _verify_with_retry(VERIFIERS[t], s, e)
 
 
-def _audit_each(plan, deadline, workers, record):
-    """Probe `plan` in order, `workers` at once and never two on one host;
-    record(item, ok, note) on THIS thread as each one comes back.
+def _daemon_pool(n, fn):
+    """`n` daemon worker threads running fn(*args): (submit, close).
 
-    Returns True when the deadline stopped it before the end. Checked before
-    every probe is started; a probe already running is let finish and is
-    recorded. A worker's exception is the probe's note, never the run's end.
+    Daemon, unlike ThreadPoolExecutor's, whose workers the interpreter joins
+    at exit: a probe abandoned after the grace would otherwise hold python
+    open until the step's timeout killed it, which is the 2026-10-25 failure.
     """
-    if workers <= 1:
-        s = _session()
-        for item in plan:
-            if deadline and time.time() >= deadline:
-                return True
-            t, e = item[2], item[5]
-            ok, note = _audit_probe(s, t, dict(e, type=t))
-            record(item, ok, note)
-        return False
+    import concurrent.futures as cf
+    import queue
+    import threading
+    jobs = queue.Queue()
 
+    def run():
+        while True:
+            got = jobs.get()
+            if got is None:
+                return
+            fut, args = got
+            if not fut.set_running_or_notify_cancel():
+                continue
+            try:
+                fut.set_result(fn(*args))
+            except BaseException as exc:                          # noqa: BLE001
+                fut.set_exception(exc)
+
+    for i in range(n):
+        threading.Thread(target=run, name=f"audit-{i}", daemon=True).start()
+
+    def submit(*args):
+        fut = cf.Future()
+        jobs.put((fut, args))
+        return fut
+
+    def close():
+        for _ in range(n):
+            jobs.put(None)
+
+    return submit, close
+
+
+def _audit_each(plan, deadline, workers, record, pace=None, on_cut=None, grace=None):
+    """Probe `plan` in order, `workers` at once, never two on one host and
+    never a host before its Crawl-delay is out (`pace`); record(item, ok,
+    note) on THIS thread as each one comes back.
+
+    Returns (cut, abandoned): cut is True when the deadline stopped it before
+    the end; abandoned the items still running `grace` seconds after it,
+    left unrecorded. The deadline is checked before every probe is started;
+    when it cuts, on_cut() runs first (the caller saves the ledger), then the
+    probes already running get the grace. A worker's exception is the probe's
+    note, never the run's end; an interrupt is re-raised here.
+    """
     import concurrent.futures as cf
     import threading
+    grace = AUDIT_GRACE_S if grace is None else float(grace)
     local = threading.local()
+    hosts = {}
+    todo = []
+    for item in plan:
+        t = item[2]
+        host = _audit_host(t, dict(item[5], type=t))
+        hosts[host] = hosts.get(host, 0) + 1
+        todo.append((item, host))
 
-    def probe(t, e):
-        s = getattr(local, "s", None)
-        if s is None:
-            s = local.s = _session()
-        return _audit_probe(s, t, e)
+    def probe(t, e, host):
+        raw = getattr(local, "s", None)
+        if raw is None:
+            raw = local.s = _session()
+        if pace is None:
+            return _audit_probe(raw, t, e)
+        exempt = t in DOCUMENTED_API_TYPES
+        if hosts.get(host, 0) > 1 and not exempt and not pace.knows(host):
+            # More than one entry on this host: its delay decides when the
+            # next may start, so it is read before the first one goes.
+            first = _audit_first_url(t, e)
+            if first:
+                pace.robots_check(raw, first)
+        return _audit_probe(_AuditSession(raw, pace, exempt), t, e)
 
-    todo = [(item, _audit_host(item[2], dict(item[5], type=item[2]))) for item in plan]
-    inflight, busy, cut = {}, set(), False
-    pool = cf.ThreadPoolExecutor(max_workers=workers, thread_name_prefix="audit")
+    def ready(host, now):
+        return pace is None or pace.ready_at(host) <= now
+
+    submit, close = _daemon_pool(max(1, int(workers)), probe)
+    inflight, busy = {}, set()
+    cut, grace_end = False, None
     try:
         while todo or inflight:
-            while todo and len(inflight) < workers and not cut:
-                if deadline and time.time() >= deadline:
-                    cut = True
-                    break
-                pick = next((i for i, (_it, h) in enumerate(todo) if h not in busy), None)
+            now = time.time()
+            if not cut and deadline and now >= deadline:
+                cut = True
+                if on_cut:
+                    on_cut(len(inflight))
+                grace_end = time.time() + grace
+            while not cut and todo and len(inflight) < workers:
+                pick = next((i for i, (_it, h) in enumerate(todo)
+                             if h not in busy and ready(h, now)), None)
                 if pick is None:
-                    break                 # every waiting entry's host is mid-probe
+                    break                 # every waiting host is mid-probe or in its delay
                 item, host = todo.pop(pick)
                 busy.add(host)
                 t = item[2]
-                inflight[pool.submit(probe, t, dict(item[5], type=t))] = (item, host)
+                inflight[submit(t, dict(item[5], type=t), host)] = (item, host)
             if cut and not inflight:
                 break
+            if cut:
+                timeout = grace_end - time.time()
+                if timeout <= 0:
+                    break                 # the grace is spent: abandon what is left
+            else:
+                timeout = AUDIT_POLL_S
+                if deadline:
+                    timeout = min(timeout, max(0.0, deadline - now))
+                if pace is not None and todo and len(inflight) < workers:
+                    waiting = [pace.ready_at(h) for _it, h in todo if h not in busy]
+                    if waiting:
+                        timeout = min(timeout, max(0.0, min(waiting) - now))
             if not inflight:
+                time.sleep(timeout)
                 continue
-            done, _ = cf.wait(list(inflight), return_when=cf.FIRST_COMPLETED)
+            done, _ = cf.wait(list(inflight), timeout=min(timeout, AUDIT_POLL_S),
+                              return_when=cf.FIRST_COMPLETED)
             for fut in [f for f in inflight if f in done]:
                 item, host = inflight.pop(fut)
                 busy.discard(host)
@@ -3464,8 +3945,8 @@ def _audit_each(plan, deadline, workers, record):
                     ok, note = False, f"{type(exc).__name__}: {str(exc)[:70]}"
                 record(item, ok, note)
     finally:
-        pool.shutdown(wait=False, cancel_futures=True)
-    return cut
+        close()
+    return cut, [item for item, _h in inflight.values()]
 
 
 def cmd_audit(max_minutes=0.0, workers=None, save_every=AUDIT_SAVE_EVERY):
@@ -3489,7 +3970,7 @@ def cmd_audit(max_minutes=0.0, workers=None, save_every=AUDIT_SAVE_EVERY):
         lkey = _canon(_key_of(dict(e, type=t)))
         if lkey:                   # an entry with no key has no row to write
             led[lkey] = {"type": t, "name": e.get("name"), "status": status,
-                         "reason": note, "checked": _today_int()}
+                         "reason": str(note), "checked": _today_int()}
         mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
         # jsonld's key, `listing`, is a LIST. Slicing it and formatting the
         # slice with :60 raised TypeError on the first jsonld entry, and the one
@@ -3503,17 +3984,39 @@ def cmd_audit(max_minutes=0.0, workers=None, save_every=AUDIT_SAVE_EVERY):
         if n["probed"] % max(1, int(save_every)) == 0:
             _save_ledger(led)
 
-    cut = False
+    def on_cut(running):
+        # The ledger first, then the wait: whatever the stragglers do, every
+        # probe that came back is on disk before anything else can go wrong.
+        _save_ledger(led)
+        print(f"audit: the {float(max_minutes):g}-minute budget is spent; ledger saved "
+              f"({n['probed']} probed), waiting up to {AUDIT_GRACE_S:g} s for the "
+              f"{running} still running", flush=True)
+
+    pace = _AuditPace(_entry_delays(plan))
+    cut, abandoned, how = False, [], "interrupted"
     try:
-        cut = _audit_each(plan, deadline, workers, record)
+        cut, abandoned = _audit_each(plan, deadline, workers, record, pace=pace, on_cut=on_cut)
+        how = "budget" if cut else "done"
     finally:
         _save_ledger(led)          # whatever ended the loop, what it probed is kept
-    print(f"\n{n['fail']} entries are BROKEN (unreachable, or no longer a feed).")
-    print(f"{n['empty']} entries parse fine but have nothing upcoming — kept, not a regression.")
-    left = total - n["probed"]
-    print(f"audit reached {n['probed']} of {total} configured entries"
-          + (f"; stopped at the {float(max_minutes):g}-minute budget, and the next run "
-             f"starts with the {left} the ledger checked longest ago" if cut else ""))
+        # In the finally too: the workflow reads these two lines, and an
+        # interrupted run is the one whose log most needs them.
+        print(f"\n{n['fail']} entries are BROKEN (unreachable, or no longer a feed).")
+        print(f"{n['empty']} entries parse fine but have nothing upcoming — kept, not a regression.")
+        if abandoned:
+            print(f"{len(abandoned)} probe(s) still running {AUDIT_GRACE_S:g} s after the budget "
+                  f"were abandoned unrecorded: "
+                  + ", ".join(str(_canon(_key_of(dict(i[5], type=i[2]))))[:60] for i in abandoned[:5]))
+        if pace.waits or pace.robots_read:
+            print(f"crawl-delay: {pace.waits} wait(s) inside probes, {pace.waited:.0f} s in all; "
+                  f"robots.txt read for {pace.robots_read} origin(s)")
+        left = total - n["probed"]
+        tail = {"budget": f"; stopped at the {float(max_minutes):g}-minute budget, and the next run "
+                          f"starts with the {left} the ledger checked longest ago",
+                "interrupted": f"; interrupted, and the next run starts with the {left} the "
+                               f"ledger checked longest ago",
+                "done": ""}[how]
+        print(f"audit reached {n['probed']} of {total} configured entries{tail}", flush=True)
     return 0
 
 

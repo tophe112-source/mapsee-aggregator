@@ -656,3 +656,31 @@
   entries (Google calendars and jsonld left out), 182.4 s against 459.1 s one
   at a time (2.52x, the parallel run first), the same 114 ok / 10 empty / 4
   fail in both. `test_curate_audit.py`.
+
+- **THE AUDIT NOW WAITS OUT A HOST'S CRAWL-DELAY, SAVES THE MOMENT THE BUDGET
+  IS SPENT, AND GIVES A STRAGGLER FIVE MINUTES (2026-10-29).** It asked a host
+  as fast as its probes came back (the next probe as one ended, the CivicPlus
+  list read right after the feed), though CivicPlus's stock robots.txt asks
+  `Crawl-delay: 10` (35 of 35 sampled files read) and LibCal's 10 (leeds,
+  smu-sg). Now a host's delay is the larger of its robots.txt Crawl-delay (read
+  once per origin per run: before the first probe for the 502 hosts with more
+  than one entry, else at a host's second request) and its entries'
+  `crawl_delay`. The scheduler starts no probe on a host before its last
+  request plus that delay and works on other hosts meanwhile; inside a probe (a
+  retry, the CivicPlus list, The Events Calendar's REST test) the worker waits,
+  at most 30 s, and a request that would need longer is not sent. A documented
+  API is not asked for robots.txt. Projected from the 10-25 run's timings
+  (5,083 of today's 6,581 entries with their own time there, the rest their
+  type's mean; 312.8 min of probing): four workers, ideal scheduling, 80.9 min
+  with no delay, 86.7 with CivicPlus and LibCal at 10 s plus entries'
+  `crawl_delay` (23.1 worker-minutes waiting inside probes, 139 CivicPlus list
+  reads and 153 REST tests), 102.1 if every multi-entry host asked 10 s.
+  Times 4/2.52 (four workers measured 2.52x, not 4x): about 128, 138 and 162
+  min, all inside 200, and what a run does not reach goes first next Sunday.
+  The wait on running probes had no timeout, and on 10-25 the runner killed
+  python 0.25 s after the cancel. Now the ledger is saved when the budget
+  cuts, the running probes get `AUDIT_GRACE_S` = 300 s, a straggler is
+  abandoned unrecorded (its old row stays; the workers are daemon threads, so
+  it cannot hold python open), and both summary lines print in a `finally`,
+  interrupted or not. 200 + 5 minutes sits inside the step's 215.
+  `test_curate_audit.py`.
