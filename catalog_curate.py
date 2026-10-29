@@ -1077,6 +1077,19 @@ def verify_tribe(s, e):
     evs = body.get("events") or []
     total = int(body.get("total") or len(evs))
     if not evs:
+        # A QUIET CALENDAR IS NOT A REMOVED ONE, AND THE ROUTE SAYS WHICH. The
+        # plugin answers its own JSON (`events`, `total`, `total_pages`) with an
+        # empty list when nothing is on; a WordPress without it answers 404
+        # `rest_no_route`, and a site that left WordPress a 404 page. "0 events
+        # / 0 future" fell outside _EMPTY_RX (it needs N > 0), so every quiet
+        # site was `fail`: 45 of the 69 configured tribe `fail` rows on
+        # 2026-10-29. That day the 36 kept `empty` by hand all answered 200
+        # JSON with an empty list (1 to 146 events in the past year), and the
+        # removed plugins 404 (Sacré-Cœur, Pittsburg, 't Reghthuys
+        # rest_no_route; Cirkel Ordenen, Lemoore, Lawrence a page).
+        if isinstance(body.get("events"), list):
+            return False, Verdict(f"{_future_note(total, 0)}; The Events Calendar REST "
+                                  f"answers 200 with 0 upcoming", "empty")
         return False, _future_note(total, 0)
     fut = [x for x in evs if str(x.get("start_date") or "")[:10] >= today.isoformat()]
     if not fut:

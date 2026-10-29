@@ -723,49 +723,108 @@
   12 opendata datasets were `ok` before and after. A value the adapter cannot
   date ("October 27" with no year, "TBD") is still "not a date column".
 
-- **130 FEEDS FEED_DOWN, AND 100 OF THEM WERE NOT DEAD: 87 QUIET, 13 WORKING,
-  6 FIXED, 20 RETIRED, 4 FOR THE OWNER (2026-10-29).** Every flag came from
-  the 10-18 audit, because the 10-25 audit timed out without committing. Each
-  feed was judged on production's own line for it (runs 139, 140, 143 and 144,
-  10-24 to 10-28), the audit on a GitHub runner, and a recheck from another
-  network with the production UA, robots.txt asked first. A second agent told
-  to refute each verdict corrected 3 of 130. GitHub's view decides.
-  *Quiet* (87 `empty`): 73 CivicPlus categories still listed on their site's
-  `/iCalendar.aspx` (the existence test: a listed catID answering 0 VEVENTs is
-  quiet, an unlisted one is gone), e.g. farmers' markets whose seasons closed
-  09-24 and 10-03, Urbandale's summer concerts. Also 3 Google calendars read
-  through the API (it returns only upcoming events, so a quiet one can never
-  read "N vevents / 0 future"), 6 The Events Calendar sites whose `?ical=1`
-  answers 404 or 200 with 0 bytes when nothing is upcoming, while
-  `/wp-json/tribe/events/v1/events` answers 200 JSON, and 5 valid empty
-  VCALENDARs (2 LibCal, My Calendar, OpenAgenda, TYPO3). *Working* (13 `ok`):
-  Lakeville Heritage Center (production kept 300 per run; the audit had one
-  ReadTimeout), Nashville Public Library (206-209 of 250; audit 503), Forterra
-  (an Elementor `<style>` puts BEGIN:VCALENDAR at character 8,120, past
-  `verify_ics`'s first 400). *Fixed* (6): Warrensburg's deleted catID 27 ->
-  its visitors bureau's Events Calendar (146 events); The Good Society -> its
-  own export (534 VEVENTs, both taprooms pinned); Mathallen Oslo -> the tribe
-  REST route (`?ical=` now disallowed, 410); Heal the Bay -> the list export
-  (`/events/?ical=1` is the month view, empty at month's end); lkg-bremen ->
-  `/events.ics` (50) for one event's file; Mount Vernon WA ->
-  `wall_clock_tzids` (its feed stamps Pacific time America/New_York, 3 h
-  early). *Refused* (5, `_not_included`): Ridgecrest x2, Portland Museum of
-  Art, Granville Island (403 on every GitHub read), The Helena May (202 to
-  GitHub, which production logs as "kept 0 of 0"). *Not working* (15, ledger
-  `fail`): a deleted catID (Balch Springs 33), 585 rows the adapter refuses
-  (Yorba Linda Library: 584 closure notices and a commission meeting; its
-  programmes are already read through LibCal), single-event
-  `.ics` files (WLB, FU Berlin), and sites that dropped their calendar plugin
-  (Octopus Bar, Farm Cookery School, Eat Street Northshore, Civic Theatre).
-  *Owner* (4): Lakeville's two shelter schedules (111 and 101 private bookings
-  in 2026, titled with the renter's name), Edina catID 76 (Cloudflare 403 on
-  robots.txt from here, so the listing could not be read), Soumagne (moved to
-  `/events.ics`, but no VEVENT names a place). `configured_dead()` 130 -> 4.
-  The review that day reran the audit's verifier: it re-derived `fail` for 15
-  of the 100 (12 measured, 3 Google ones by construction), so the hand verdicts
-  would have lasted until the next Sunday; the verifier now agrees with 14 of
-  them on its own (next note), and FEED_DOWN had been blind to 114 more
-  configured `fail` rows (health-and-monitoring.md).
+- **244 CONFIGURED FEEDS FEED_DOWN, 190 OF THEM NOT DEAD: 125 QUIET, 49
+  WORKING, 16 FIXED; 52 RETIRED, 2 LEFT TO THE AUDIT (2026-10-29).** Round 1
+  took the 130 the health check listed (ics 129, opendata 1); round 2 the 114
+  it had never seen, because `configured_dead()` did not read configs shaped
+  `{"sites": [...]}` (tribe 69, jsonld 38, mobilizon 5, squarespace 2;
+  health-and-monitoring.md). Every flag came from the 10-18 audit (the 10-25
+  one timed out without committing). Evidence per feed: production's own line
+  (runs 138-144, 10-23 to 10-28), the audit on a GitHub runner, a recheck from
+  another network with the production UA (robots.txt first, its Crawl-delay
+  honoured), and for a fix the verifier again at apply time plus a dry run
+  through the adapter. A second agent told to refute each verdict corrected 3
+  of 130 and 6 of 114; a final review of round 1 found 15 faults, applied in
+  a corrections pass. GitHub's view decides.
+  *Quiet* (125 `empty`): 70 CivicPlus categories still listed on their site's
+  `/iCalendar.aspx`; 36 The Events Calendar sites whose REST route answers 200
+  JSON with an empty `events` list and which held 1 to 146 events in the past
+  year (Saint Boniface Museum 109, Tempio Ten Shin 146 weekly zazen sittings);
+  6 more whose `?ical=1` answers 404 or 0 bytes between seasons; 3 Google
+  calendars read through the API; 2 Mobilizon instances answering with past
+  events (Bosvreugd 92 since 2025-01-01, litera.tools 10); 3 jsonld agendas
+  between events (Modern Events Calendar printing its no-events text on New
+  Rock and MEERGroen, Lambda's 4 past); 5 other valid empty VCALENDARs.
+  *Working* (49 `ok`): production read them that week. Lakeville Heritage
+  Center 300 per run, Nashville Public Library 206-209 of 250 (audit 503),
+  LGBT Community Center of Greater Cleveland 462-468 (audit 403, and in run
+  144 one of 40 tribe sites with a one-day 202; 0 in runs 140 and 143), Le
+  Kalepin 109-121 and Mobilizon Italia 55-70 (audit ReadTimeouts), Forterra
+  (BEGIN:VCALENDAR at character 8,120). 18 Wix listings the audit read as "no
+  schema.org Event blocks found" (18 of the 65 Wix-pattern entries it probed):
+  production kept events from each (Teatro Verdi 19 of 19 pages, Sea Monster
+  Lounge 33 of 33), and verify passes all 18 again. `verify_jsonld` drops a
+  non-200 event page without a word, so what GitHub was answered is unknown.
+  *Fixed* (16, each re-verified and dry-run): round 1 Warrensburg (deleted
+  catID 27 -> its visitors bureau's Events Calendar, 146), The Good Society
+  (its own export, 534 VEVENTs), Mathallen Oslo (-> the tribe REST route;
+  `?ical=` disallowed, 410), Heal the Bay (the list export), lkg-bremen (->
+  `/events.ics`, 50), Mount Vernon WA (`wall_clock_tzids`, as the
+  corrections did for its catID 32 and Canton OH 26, 27, 34), Soumagne (->
+  `/events.ics` with a venue block: 7 of 8 event pages name the hall; 27
+  vevents / 26 future). Round 2: Pittsburg KS left The Events Calendar for My
+  Calendar on the same WordPress (-> `?feed=my-calendar-ics&span=year`, 288
+  vevents / 22 future; without `span` the export is the current month), Los
+  Ranchos de Albuquerque left Squarespace for CivicPlus (-> catID 24 and 23,
+  3 + 3, `civic:` so the town-hall filter runs), Tabernaklet (-> Events
+  Manager's `?ical=1`, 80 / 80), ASPA Centret (-> www.indenfor.dk/kalender/,
+  39/290; the old host fails TLS), Roter Baum Berlin (`venue.names`, so 49 of
+  its 60 rows go to their own street, not one block), and 4 jsonld listings
+  that were ONE event's page, moved to the venue's own list: Le Zénith (its
+  homepage, 108 show pages), POP Braine-l'Alleud (`/agenda/`, 12), Lotto Arena
+  (its sitemap, 100), St. Louis Bridge Center (`/schedule`, 50 games).
+  *Refused* (16, `_not_included`): Ridgecrest x2, Portland Museum of Art,
+  Granville Island, The Helena May; 10 tribe sites with a 403 on every GitHub
+  read, 8 of which answer this container (MARJCC 312 events, Main Street
+  Takoma 272, Sixth & I 38, Kós Károly 31), so the block is on GitHub's
+  ranges (7 were added by agent commits and read 403 at their first GitHub
+  audit, 10-11); OEC Korfbal, whose robots.txt is now `Disallow: /`.
+  *Not working* (31, ledger `fail`): round 1's deleted catID, Yorba Linda
+  Library (585 rows the adapter refuses), single-event `.ics` files (5 more
+  beyond the 244: lkg-bremen 2, WLB 3) and dropped plugins; round 2's
+  removed The Events Calendar (Sacré-Cœur, 1,465 events at merge, now a
+  custom plugin with no schema.org Event; 't Reghthuys, now a Google embed of
+  a personal address; Cirkel Ordenen to goMember;
+  Lemoore and Lawrence KS to CivicPlus and OpenCities), zero unique supply
+  (Camera Turin: all 8 entries in two years are site notices; Buntes Haus: a
+  second domain of roter-baum.berlin, the same 5 event ids; both also in
+  `_not_included`), Cheshire Ireland's deleted collection, 6 jsonld listings
+  that were one event's page and passed, Kitchener Oktoberfest (EventON draws
+  by AJAX), Gleis 21 (a Guidle iframe), Centre des musiciens du monde (EventON
+  prints `2026-11-4T19:30-4:00`: unpadded, so June dates compare as upcoming,
+  and -4:00 is an hour early in winter). BRONKS, Schouwburg Noord and OLT
+  Rivierenhof print `2026-11-03CET09:30:00+0100`, which PostgreSQL 16 refuses
+  and `pg_refused_stamp` does not catch.
+  *Booking schedules* (5 of the 244 and 11 more, into jsonld_sources.json's
+  `_not_included`): A CIVICPLUS CATEGORY OF BOOKINGS IS NOT EVENTS. Retired
+  when its entries are bookings, read on `Calendar.aspx?CID=<n>&showPastEvents=true`
+  (titles naming the renter, "Reserved", an equipment rota), kept only where it
+  carries public events no sibling feed has (Edgewater catID 25: 11 of 14
+  VEVENTs are its Community Market). Lakeville catID 35: 88 of 111 entries
+  name a private person; Rochester MI catID 41: 646 of 747 "Reserved";
+  Vandalia catID 27: 53 of 87 trailer RESERVED/UNAVAILABLE. Nothing in the
+  adapters refuses such a title (`notice_reason` and `spam_reason` pass
+  Tagungszentrum Mikado's "Private Buchung"); Big Lake catID 29 (286 of 525
+  titled with a renter's full name, about 125 public) is the owner's call.
+  *Left to the audit* (2): Cromane Seafest, which round 1 retired as dead on
+  "http 200 / no VCALENDAR", the same pair as three Events Calendar festivals
+  it kept as quiet, unrechecked (robots.txt unreachable from here); the entry
+  is back as at 10f27b9 with its 10-18 row, and the audit, which now asks
+  the REST route, decides. Edina catID 76 (its listing unreadable from here).
+  WHICH ANSWER PROVES A QUIET CALENDAR EXISTS IS PER PLATFORM: CivicPlus, the
+  category still listed (a quiet and a deleted one are the same 474 bytes);
+  The Events Calendar, its route answering an `events` list, where a removed
+  plugin answers 404 (`rest_no_route` JSON or a page: all 6 in round 2,
+  Sacré-Cœur, Pittsburg, 't Reghthuys, Cirkel Ordenen, Lemoore, Lawrence);
+  `verify_tribe` now files the empty list `empty` (it said "0 events / 0
+  future", outside `_EMPTY_RX`), so the 36 hold at the next audit that probes
+  them; six other platforms by a missing calendar's error (next note).
+  Mobilizon's "0 future events" and a Modern Events Calendar page with no
+  block still read `fail`, so that audit re-files Bosvreugd, litera.tools,
+  New Rock and MEERGroen. Production's tribe adapter logs a page-1 404 as "kept 0
+  events", the line a quiet calendar logs, and the jsonld job reaches a site
+  about once in 6 runs (45-minute slices of 1,058), so neither log alone
+  proves a feed dead. `configured_dead()`: 130 listed (114 hidden) -> 2.
 
 - **A VALID EMPTY CALENDAR PROVES THE CALENDAR EXISTS ONLY WHERE A MISSING ONE
   ANSWERS SOMETHING ELSE, SO THE RULE IS PER PLATFORM AND MEASURED

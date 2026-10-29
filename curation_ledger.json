@@ -24947,10 +24947,10 @@
     "type": "osm-venue"
   },
   "aquabeat.hk": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "\u89c0\u5858\u6d77\u6ff1\u6d3b\u52d5\u7a7a\u959301",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 35 event(s) 2025-10-29..2026-10-28 (last 2026-09-25); production 10-24..10-28 kept 0 events; ledger at merge 2026-08-31 '5 events, 5/5 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "aquabecool.com/aquabike-aix-en-provence": {
@@ -27160,10 +27160,10 @@
     "type": "tribe"
   },
   "arcoclubmalaka.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Club M\u00e1laga de Tiro con Arco",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 18 events 2026-05-09..2026-09-27 in the past year (a May-September competition season); production 10-24..10-28 kept 0 with no error.",
+    "status": "empty",
     "type": "tribe"
   },
   "arcotorrescacchi.it/?feed=my-calendar-ics": {
@@ -32502,9 +32502,9 @@
     "type": "tribe"
   },
   "askovfondenssocialpsykiatri.dk/kalender": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "ASPA Centret",
-    "reason": "SSLError: HTTPSConnectionPool(host='askovfondenssocialpsykiatri.dk', port=443): ",
+    "reason": "replaced 2026-10-29 by https://www.indenfor.dk/kalender/: Askovfonden's social-psychiatry site is now Indenfor. Over https this host fails TLS (hostname mismatch), so its robots.txt cannot be read (production 10-28 'robots.txt (unreachable) refuses /kalender/'; audit 10-11 and 10-18 SSLError); over http it answers 301 to the new page. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -61418,10 +61418,10 @@
     "type": "osm-venue"
   },
   "bibliotekawesola.pl/events": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Filia Nr 3 - Wola Grzybowska",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='bibliotekawesola.pl', port=443): Max retries",
-    "status": "fail",
+    "reason": "1/25 sampled events future (recheck 2026-10-29); the 10-18 ConnectionError was not seen again; 10-11 audit 18/24 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "bibliotekawiazowna.pl": {
@@ -68937,10 +68937,10 @@
     "type": "osm-venue"
   },
   "blackrockcenter.org/community-events": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "BlackRock Center for the Arts",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 7 events from 7 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "blackrockcollegerfc.ie/events": {
@@ -76116,10 +76116,10 @@
     "type": "osm-venue"
   },
   "bostoncyclistsunion.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Boston Cyclists Union",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 31 event(s) 2025-10-29..2026-10-28 (last 2026-10-17); production 10-25..10-28 kept 0 events; added 2026-08-16 (1e69c0f), first ledger row 10-11 ok '2 events, 2/2 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "bostonpublicmarket.org/events/?ical=1": {
@@ -76137,10 +76137,10 @@
     "type": "osm-venue"
   },
   "bosvreugdevents.nl": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Bosvreugd Cultuurbos Evenementen",
-    "reason": "0 future events",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): the instance answers (Mobilizon 5.2.4, config name 'Bosvreugd Cultuurbos Evenementen', registrations open) and holds 92 events since 2025-01-01, the last on 2026-06-27; 0 future; production kept 0 events 10-23..10-28",
+    "status": "empty",
     "type": "mobilizon"
   },
   "bota.uni-leipzig.de": {
@@ -78003,10 +78003,10 @@
     "type": "osm-venue"
   },
   "bownessseniorscentre.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Bowness Seniors' Centre",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 19 event(s) 2025-10-29..2026-10-28 (last 2026-10-16); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-19 '3 events, 3/3 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "bowringinstitute.in": {
@@ -80184,10 +80184,10 @@
     "type": "osm-venue"
   },
   "brausyndikat.ch": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Brausyndikat GmbH",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 5 events from 5 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "brausyndikat.ch/event-details/oranje-feest": {
@@ -82591,9 +82591,9 @@
     "type": "osm-venue"
   },
   "bronks.be/nl/event/grip?type=VRIJE%20VOORSTELLING": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "BRONKS",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production no line in runs 138-144 (not reached by the rotation); audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 the configured page (one show, Grip) 200 with 0 Event blocks; the agenda's 24 show pages carry Event blocks whose startDate ('2026-11-03CET09:30:00+0100') Postgres 16 refuses (time zone \"cet09:30:00+0100\" not recognized), so no config can land them. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -100479,9 +100479,9 @@
     "type": "osm-venue"
   },
   "camera.to": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Camera - Centro Italiano per la fotografia",
-    "reason": "0 events / 0 future",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 2 events, both 'Avviso speciale variazione orari' (ITA, ENG); 10-27 kept 0; 10-25 kept 0; 10-24 kept 0; audit 10-11 and 10-18 0 events / 0 future; recheck 10-29 2 events / 2 future, and all 8 entries 2025-10-29..2027-10-29 are the site's banner notices (hours changes, closures) in ITA/ENG pairs: zero unique supply. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
@@ -106647,10 +106647,10 @@
     "type": "osm-venue"
   },
   "casasantarosa.it": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Istituto Figlie di Santa Maria della Divina Provvidenza \u201eCasa Santa Rosa\u201c",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 1 events from 1 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "casasantarosa.it/event-details/codis-2026": {
@@ -106938,10 +106938,10 @@
     "type": "osm-venue"
   },
   "cashel-emly.ie": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Saint Mary's Church",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 1 event(s) 2025-10-29..2026-10-28 (last 2026-10-02); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-23 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "cashmerebowls.co.nz": {
@@ -112052,9 +112052,9 @@
     "type": "osm-venue"
   },
   "centredesmusiciensdumonde.com/programmation": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Centre des musiciens du monde",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production 10-28 no line; 10-27 no line (jsonld rotation); 10-24 kept 0 events from 0 pages; audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 /programmation/ 200, 160,280 B, 0 Event blocks and 0 links matching link_pattern. The events moved to /calendrier/<slug>/ and per-series pages, which print unpadded dates with a fixed -4:00 offset ('2026-11-4T19:30-4:00' for a 19 h 30 EST concert). The adapter keeps 19 past ones as upcoming and would put 4 of the 5 future ones an hour early. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -112694,10 +112694,10 @@
     "type": "osm-venue"
   },
   "centroaleman.mx": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Centro Alem\u00e1n de Cultura y Educaci\u00f3n",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 7 events 2026-06-11..2026-09-26 in the past year; production 10-24..10-28 kept 0 with no error.",
+    "status": "empty",
     "type": "tribe"
   },
   "centroambrosianodisolidarieta.org/mai-da-sole-2": {
@@ -113979,10 +113979,10 @@
     "type": "osm-venue"
   },
   "ceto.com.pt": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "CETO - Clube Escola T\u00e9nis de Oeiras",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 7 event(s) 2025-10-29..2026-10-28 (last 2026-09-24); production 10-24..10-28 kept 0 events; ledger at merge 2026-09-01 '2 events, 2/2 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "cetri.be": {
@@ -117369,9 +117369,9 @@
     "type": "osm-venue"
   },
   "cheshire.ie/upcoming-events": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "St. Laurence Cheshire Home",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-28 HTTP 404; 10-27 HTTP 404; 10-25 HTTP 404; 10-24 HTTP 404 (and 10-23, 10-26); audit 10-18 http 404; recheck 10-29 http 404 (Squarespace 404 page, 169,643 B), no events collection among the 116 URLs of www.cheshire.ie/sitemap.xml and no events link on the homepage. Entry in squarespace_sources.json at 10f27b9.",
     "status": "fail",
     "type": "squarespace"
   },
@@ -126198,9 +126198,9 @@
     "type": "osm-venue"
   },
   "cirkelordenen.dk": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Cirkel Ordenen",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 events; 10-27 kept 0 events; 10-25 kept 0 events; 10-24 kept 0 events (a page-1 404 logs as kept 0); audit 10-18 http 404 (10-11 http 404); recheck 10-29 /wp-json/tribe/events/v1/events 404 text/html and /wp-json/ 404: the site moved from WordPress to goMember (MemberLink) at www.cirkelordenen.dk, whose /kalender is the platform's placeholder text with no events, no schema.org Event and no feed. At merge 08-31 it read 22 events. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
@@ -139856,10 +139856,10 @@
     "type": "osm-venue"
   },
   "colosseo.it": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Antiquarium Forense",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "2 events, 2/2 on page 1 future (recheck 2026-10-29 with the production UA; production kept 2 on 10-24, 10-25, 10-27 and 10-28)",
+    "status": "ok",
     "type": "tribe"
   },
   "colosseum.nl": {
@@ -163167,10 +163167,10 @@
     "type": "osm-venue"
   },
   "desmoinespridecenter.org/events": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Des Moines Pride Center",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/2 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 3 events from 3 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "desmoineswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
@@ -174393,9 +174393,9 @@
     "type": "jsonld"
   },
   "dortmund.de/dortmund-erleben/veranstaltungskalender/termin_142434.html": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Stadt- und Landesbibliothek",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production 10-23 kept 0 events from 0 pages; 10-24..10-28 not reached by the rotation (the 10-27 'kept 1' line is the namesake entry termin_146575); audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 302 to /dortmund-erleben/veranstaltungskalender/?expired=true: it was one event's page (termin_142434) in the city calendar, now expired. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -178856,10 +178856,10 @@
     "type": "osm-venue"
   },
   "dublindiocese.ie": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "St. Brigid's Church",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 8 event(s) 2025-10-29..2026-10-28 (last 2026-09-08); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-22 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "dublinfestivalofhistory.ie/events/list/?ical=1": {
@@ -179538,10 +179538,10 @@
     "type": "osm-venue"
   },
   "duinwijck.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "B.C. Duinwijck",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 23 event(s) 2025-10-29..2026-10-28 (last 2026-10-17); production 10-23..10-28 kept 0 events with no error line; added 2026-10-16 (f3ef713).",
+    "status": "empty",
     "type": "tribe"
   },
   "duisburg.de": {
@@ -179992,10 +179992,10 @@
     "type": "civic-city"
   },
   "dundrumfc.ie": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Dundrum Football Club",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 8 event(s) 2025-10-29..2026-10-28 (last 2026-09-01); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-22 '2 events, 2/2 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "dundurn.com/about/the-dundurn-press-bookshop": {
@@ -180375,10 +180375,10 @@
     "type": "civic-city"
   },
   "durgatemple.org/event-list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Durga Temple",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 12 events from 12 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "durham.gov.uk": {
@@ -192320,10 +192320,10 @@
     "type": "osm-venue"
   },
   "en.utopiran.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Librairie Perse En Poche",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 4 events from 4 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "en.utopiran.com/event-details/rencontre-et-seance-de-dedicace-avec-poupeh-missaghi-autour-de-louvrage-inventaire-des-disparus": {
@@ -199730,10 +199730,10 @@
     "type": "osm-venue"
   },
   "europahalle.at": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Europahalle",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "4 events, 4/4 on page 1 future (recheck 2026-10-29 with the production UA; production kept 4 on 10-24, 10-25, 10-27 and 10-28)",
+    "status": "ok",
     "type": "tribe"
   },
   "europanova.be/contact": {
@@ -203305,10 +203305,10 @@
     "type": "ics"
   },
   "events.litera.tools": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "events.litera.tools",
-    "reason": "0 future events",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): the instance answers (Mobilizon 5.2.0, config name 'events.litera.tools') with 10 events since 2025-01-01, a sporadic 'Schreibsprechstunde' each posted about a week ahead, the last on 2026-09-30; 0 future; production kept 0 events 10-23..10-28",
+    "status": "empty",
     "type": "mobilizon"
   },
   "events.mcl.org/ical_subscribe.php?src=p&cid=21007": {
@@ -225167,10 +225167,10 @@
     "type": "jsonld"
   },
   "freiheitshalle-munich.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Freiheitshalle",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 14 events from 14 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "freiheitshalle-munich.com/events/neon-kunst-fur-kids-ein-nachmittag-voller-farbe-und-fantasie": {
@@ -242725,9 +242725,9 @@
     "type": "osm-venue"
   },
   "gleis21.ch": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kulturhaus Gleis 21",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production no line in runs 138-144 (not reached by the rotation); audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 homepage 200 with 0 Event blocks and no event link: the programme moved into a Guidle iframe (microsite.guidle.com/de/mr_JZ5y75) drawn by JavaScript, 0 events in its HTML. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -248077,10 +248077,10 @@
     "type": "osm-venue"
   },
   "greatdanebrewing.jp": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Great Dane Brewing",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 13 event(s) 2025-10-29..2026-10-28 (last 2026-10-16); production 10-24..10-28 kept 0 events with no error line; added 2026-09-28 (40210f4) at '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "greaterdandenong.com/section/1456/library": {
@@ -254387,10 +254387,10 @@
     "type": "osm-venue"
   },
   "haemophilia.ie": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Irish Haemophilia Society",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 5 event(s) 2025-10-29..2026-10-28 (last 2026-10-16); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-22 '2 events, 2/2 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "haendefuerkinder.de": {
@@ -259421,10 +259421,10 @@
     "type": "osm-venue"
   },
   "hasletennis.dk": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Hasle Tennisklub",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 1 event(s) 2025-10-29..2026-10-28 (last 2026-09-12); production 10-24..10-28 kept 0 events (10-25 after one connection failure); ledger at merge 2026-09-01 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "haslumseter.no": {
@@ -262377,10 +262377,10 @@
     "type": "osm-venue"
   },
   "hdb-scouts.be": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "HDB Scouts Gentbrugge",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window but lists 3 for 2027-02-27..2027-04-10 beyond it, and 15 events 2025-11-07..2026-10-10 in the past year; production 10-24..10-28 kept 0 with no error.",
+    "status": "empty",
     "type": "tribe"
   },
   "hdemiadanza.it": {
@@ -277546,10 +277546,10 @@
     "type": "ics"
   },
   "holyrosaryguelph.ca": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Holy Rosary Catholic Church",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 56 event(s) 2025-10-29..2026-10-28 (last 2026-09-05); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-19 '3 events, 3/3 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "holysloot.nl": {
@@ -290132,6 +290132,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "indenfor.dk/kalender": {
+    "checked": 20261029,
+    "name": "ASPA Centret",
+    "reason": "39/290 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "indenhalvenmaen.nl": {
     "checked": 20261017,
     "name": "Museum in den Halven Maen",
@@ -290550,10 +290557,10 @@
     "type": "tribe"
   },
   "indoorkartingbarcelona.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Indoor Karting Barcelona",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "ok on production's reads: kept 1 event on 10-24, 10-25 and 10-27 (10-28 one ConnectTimeout); the 10-18 audit read an empty window, '0 events / 0 future'. Recheck 2026-10-29 could not reach the host (robots.txt connection reset), feed not fetched.",
+    "status": "ok",
     "type": "tribe"
   },
   "indoorpadelcentrum.nl": {
@@ -290612,10 +290619,10 @@
     "type": "osm-venue"
   },
   "indoorwall.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Indoorwall",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 3 events 2026-04-11..2026-10-06 in the past year; production 10-24..10-28 kept 0 with no error; merge 09-14 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "indoorwingsuit.com": {
@@ -296517,10 +296524,10 @@
     "type": "osm-venue"
   },
   "ivry-eglise.catholique.fr": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "\u00c9glise Saint-Pierre - Saint-Paul",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 38 event(s) 2025-10-29..2026-10-28 (last 2026-09-27); production 10-24..10-28 kept 0 events; ledger at merge 2026-08-30 '9 events, 9/9 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "ivry94.fr/107/les-salles-de-l-espace-robespierre.htm": {
@@ -312530,9 +312537,9 @@
     "type": "jsonld"
   },
   "katholisch-krefeld-nordwest.de/aktuelles/Terminliste/a-event/Kinder-Troedel-Markt/?instancedate=1791711000000": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "B\u00fccherei St. Cyriakus Krefeld-H\u00fcls",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-23 404 ('listing ... failed: 404 Client Error', kept 0); 10-24..10-28 not reached by the rotation; audit 10-11 1/1 sampled events future, 10-18 http 404; recheck 10-29 http 404. It was one occurrence's page (Kinder-Tr\u00f6del-Markt, instancedate 2026-10-11 09:30 UTC). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -317392,10 +317399,10 @@
     "type": "osm-venue"
   },
   "kidbrookechub.org.uk/events": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kidbrooke Community Hub",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-24 kept 6 events from 7 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "kiddiesaqua.co.za": {
@@ -326315,10 +326322,10 @@
     "type": "osm-venue"
   },
   "kks-huenenberg.ch": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kleinkalibersch\u00fctzen H\u00fcnenberg",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 1 event (2026-10-10, the season's Endschiessen) in the past year; production 10-24..10-28 kept 0 with no error; merge 09-17 '5 events, 5/5 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "kksv-durbach.de": {
@@ -330780,10 +330787,10 @@
     "type": "osm-venue"
   },
   "kokoteatteri.fi": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "KokoTeatteri",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 10 events from 10 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "kokoteatteri.fi/event-details/anna-politkovskaja-putinin-venaja": {
@@ -333760,10 +333767,10 @@
     "type": "osm-venue"
   },
   "kplmo.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kirkwood Public Library (St. Louis)",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='kplmo.org', port=443): Max retries exceeded ",
-    "status": "fail",
+    "reason": "89 events, 10/10 on page 1 future (recheck 2026-10-29 with the production UA; production kept 92 on 10-28; the 10-18 ConnectTimeout was transient)",
+    "status": "ok",
     "type": "tribe"
   },
   "kplusgruppe.de/home.html": {
@@ -344199,10 +344206,10 @@
     "type": "osm-venue"
   },
   "lachapelletoulouse.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Chapelle",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "6 events, 6/6 on page 1 future (recheck 2026-10-29 with the production UA; production kept 6 on 10-28; the 10-11 and 10-18 audits read the calendar between postings, 67 events in the past year)",
+    "status": "ok",
     "type": "tribe"
   },
   "lachapelletoulouse.com/le-kiosk": {
@@ -347538,10 +347545,10 @@
     "type": "jsonld"
   },
   "lambdavalencia.org/agenda": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lambda",
-    "reason": "http 500",
-    "status": "fail",
+    "reason": "4 events / 0 future (recheck 2026-10-29): the MEC agenda loads (200, 274,452 B) with 4 Event blocks dated 2026-10-01..10-16 and nothing upcoming; the 10-18 http 500 was transient",
+    "status": "empty",
     "type": "jsonld"
   },
   "lambersart.fr/Tourisme-et-culture/Culture/Pole-Animation": {
@@ -349080,10 +349087,10 @@
     "type": "osm-venue"
   },
   "lapagedapres.be": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Page d'Apr\u00e8s",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 36 events 2025-11-06..2026-10-13 in the past year; production 10-24..10-28 kept 0 with no error; 10-11 audit '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "lapagesuivante.com": {
@@ -352856,9 +352863,9 @@
     "type": "tribe"
   },
   "lawrenceks.gov": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Douglas County / Lawrence Parks, KS",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 events (a page-1 404, which the adapter does not print); 10-27 kept 0; 10-25 kept 0; 10-24 kept 0; audit 10-11 and 10-18 http 404; recheck 10-29 http 404: lawrenceks.gov 301s to www.lawrenceks.gov, now Granicus OpenCities with no /wp-json/, whose /Events page has no iCal, RSS or JSON-LD. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
@@ -353816,18 +353823,16 @@
     "type": "osm-venue"
   },
   "le-zenith.com": {
-    "cal_key": "le-zenith.com/shows/MPL-20922",
-    "checked": 20261027,
+    "checked": 20261029,
     "name": "Le Z\u00e9nith",
-    "probe": 2,
-    "reason": "osm probe: found jsonld",
-    "status": "found",
-    "type": "osm-venue"
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "le-zenith.com/shows/MPL-20922": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Le Z\u00e9nith",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='le-zenith.com', port=443): Max retries excee",
+    "reason": "replaced 2026-10-29 by https://le-zenith.com/ (the homepage, which links 108 /shows/ pages): this URL is ONE show's page (MPL, 2026-11-28), empty once that show has passed (production 10-28 kept 1 events from 0 pages; audit 10-11 1/1 sampled events future, 10-18 ConnectTimeout). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -357939,10 +357944,10 @@
     "type": "osm-venue"
   },
   "lekalepin.fr": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Le Kalepin",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='lekalepin.fr', port=443): Read timed out. (r",
-    "status": "fail",
+    "reason": "105 upcoming, sample: L'atelier vocal de Villechen\u00e8ve (recheck 2026-10-29 with the production UA, answered in 1.0 s; the 10-18 audit's ReadTimeout was transient: production kept 109-121 events every run 10-23..10-28)",
+    "status": "ok",
     "type": "mobilizon"
   },
   "lekalinka.com": {
@@ -358383,9 +358388,9 @@
     "type": "civic-city"
   },
   "lemoore.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lemoore",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 events (a page-1 404, which the adapter does not print); 10-27 kept 0; 10-25 kept 0; 10-24 kept 0; audit 10-11 and 10-18 http 404; recheck 10-29 http 404 text/html: lemoore.com 301s to www.lemoore.gov, a CivicPlus site with no /wp-json/, whose 'Events' category (catID 23) is listed but holds 0 VEVENTs and no past event. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
@@ -358699,10 +358704,10 @@
     "type": "tribe"
   },
   "lentodance.at": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lento Dance Studio",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 1 events from 1 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "lentodance.at/events/classes-online-payment-2026-09-07-18-00": {
@@ -359399,10 +359404,17 @@
     "status": "fail",
     "type": "osm-venue"
   },
-  "lepop.be/evenement/cacao-quest": {
-    "checked": 20261018,
+  "lepop.be/agenda": {
+    "checked": 20261029,
     "name": "POP \u2014 Centre culturel de Braine-l'Alleud",
-    "reason": "no schema.org Event blocks found",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "lepop.be/evenement/cacao-quest": {
+    "checked": 20261029,
+    "name": "POP \u2014 Centre culturel de Braine-l'Alleud",
+    "reason": "replaced 2026-10-29 by https://lepop.be/agenda/ (which links 12 event pages): this URL is ONE show's page (Cacao Quest), read as past on 10-11 (1 events / 0 future) and carrying no Event block on 10-18 and 10-29; no production line in runs 138-144 (the jsonld rotation did not reach it). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -363110,10 +363122,10 @@
     "type": "osm-venue"
   },
   "lgbtcleveland.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "LGBT Community Center of Greater Cleveland",
-    "reason": "http 403",
-    "status": "fail",
+    "reason": "501 events, 10/10 on page 1 future (recheck 2026-10-29 with the production UA; production kept 466 on 10-23, 462 on 10-25 and 468 on 10-27; the 10-18 audit's http 403 and the 10-28 run's HTTP 202, one of 40 tribe 202s that run and 0 the run before, are the only refusals)",
+    "status": "ok",
     "type": "tribe"
   },
   "lgbthealth.org.uk": {
@@ -376493,11 +376505,25 @@
     "type": "osm-venue"
   },
   "losranchosnm.gov/calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Village of Los Ranchos de Albuquerque",
-    "reason": "no event articles on the collection page",
+    "reason": "replaced 2026-10-29 by CivicPlus catID 24 and 23 on www.losranchosnm.gov (ics): /calendar now redirects 301 -> 302 to /calendar.aspx (CivicEngage, server cloudflare); production 10-28, 10-27, 10-25, 10-24 found 0 event articles; audit 10-18 no event articles on the collection page. Entry in squarespace_sources.json at 10f27b9.",
     "status": "fail",
     "type": "squarespace"
+  },
+  "losranchosnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20261029,
+    "name": "Village of Los Ranchos de Albuquerque \u2014 Agri-Nature Center Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "losranchosnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20261029,
+    "name": "Village of Los Ranchos de Albuquerque \u2014 Community Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
   },
   "losrealejos.es": {
     "checked": 20261025,
@@ -376596,10 +376622,17 @@
     "type": "osm-venue"
   },
   "lotto-arena.be/evenement/glory-110-a200be7a": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lotto Arena",
-    "reason": "no schema.org Event blocks found",
+    "reason": "replaced 2026-10-29 by https://www.lotto-arena.be/sitemap.xml (100 Dutch /evenement/ pages; /kalender is drawn in the browser): this URL is ONE event's page (GLORY 110), 1/1 sampled events future on 10-11 and no schema.org Event blocks found on 10-18 and 10-29, once it had passed; no production line in runs 138-144 (the jsonld rotation did not reach it). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "lotto-arena.be/sitemap.xml": {
+    "checked": 20261029,
+    "name": "Lotto Arena",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "lotus-pflege.de": {
@@ -384583,10 +384616,10 @@
     "type": "osm-venue"
   },
   "maisondesfemmes-simonedebeauvoir.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Maison des femmes \u2014 Simone de Beauvoir",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 3 events from 3 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "maisondesforgerons.fr": {
@@ -385358,10 +385391,10 @@
     "type": "osm-venue"
   },
   "makecic.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Make Huyton Village",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 53 event(s) 2025-10-29..2026-10-28 (last 2026-09-24); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-19 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "makelemonade.kr": {
@@ -408248,10 +408281,10 @@
     "type": "mobilizon"
   },
   "mobilizon.defis.info": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Mobilizon de D\u00e9fis",
-    "reason": "0 future events",
-    "status": "fail",
+    "reason": "production kept 1 events on 10-28 and 10-27, 2 on 10-25, 10-24 and 10-23 (GitHub); recheck 2026-10-29 unreachable from this container (connection reset on 7 requests and 1 curl), so production's read stands; the 10-11 and 10-18 audits read '0 future events' before these were published",
+    "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.ethibox.fr": {
@@ -408304,10 +408337,10 @@
     "type": "mobilizon"
   },
   "mobilizon.it": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Mobilizon Italia",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='mobilizon.it', port=443): Read timed out. (r",
-    "status": "fail",
+    "reason": "61 upcoming, sample: Something Blue (recheck 2026-10-29 with the production UA, answered in 0.9 s; the 10-18 audit's ReadTimeout was transient: production kept 55-70 events every run 10-23..10-28)",
+    "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.kaz.bzh": {
@@ -415945,10 +415978,10 @@
     "type": "osm-venue"
   },
   "msbm.mb.ca": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Saint Boniface Museum",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 109 event(s) 2025-10-29..2026-10-28 (last 2026-10-13); production 10-25..10-28 kept 0 events; ledger at merge 2026-08-19 '11 events, 10/10 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "msc-eichenried.de/termine": {
@@ -422119,10 +422152,10 @@
     "type": "osm-venue"
   },
   "museolercaro.it": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Raccolta Lercaro",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 22 events 2026-01-22..2026-09-24 in the past year (the last exhibition ran to 10-15); production 10-24..10-28 kept 0 with no error.",
+    "status": "empty",
     "type": "tribe"
   },
   "museoliber.org": {
@@ -436360,10 +436393,10 @@
     "type": "jsonld"
   },
   "newrockescalade.be": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "New Rock",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: the homepage's Modern Events Calendar 7.16.0 list (mec_skin_6270, under '\u00c9v\u00e8nements') reads 'Aucun \u00e9v\u00e9nement trouv\u00e9 !'; 1/1 future at its 2026-09-11 merge",
+    "status": "empty",
     "type": "jsonld"
   },
   "newrossceltic.com": {
@@ -438747,10 +438780,10 @@
     "type": "osm-venue"
   },
   "nimbuskyrkan.se": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Nimbuskyrkan",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 4 event(s) 2025-10-29..2026-10-28 (last 2026-08-03); production 10-24..10-28 kept 0 events; ledger at merge 2026-09-05 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "ninasagt.de": {
@@ -444409,10 +444442,10 @@
     "type": "osm-venue"
   },
   "nuestrasraicesinc.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Casa de la Cultura",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 16 event(s) 2025-10-29..2026-10-28 (last 2026-10-10); production 10-24..10-28 kept 0 events with no error line; added 2026-10-04 (7b3f5d5) at '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "nuevenorte.com": {
@@ -450289,9 +450322,9 @@
     "type": "osm-venue"
   },
   "oktoberfest.ca/events": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kitchener Waterloo Oktoberfest",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 events from 2 pages (1 not asked, robots.txt Disallow: */page/*); 10-27, 10-25, 10-24 not reached by the jsonld rotation; audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 /events/ 200 with 0 Event blocks and no event link (EventON draws its list by AJAX; the pattern matches only /events/page/ and /events/feed/). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -450959,9 +450992,9 @@
     "type": "osm-venue"
   },
   "oltrivierenhof.be/nl/programma/yong-yello/a0NP500000OhCEgMAN": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "OLT Rivierenhof",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production no line in runs 138-144 (not reached by the rotation); audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 the configured page (one 2026 show, Yong Yello) 200 with 0 Event blocks; the programme lists one 2027 show whose 2 Event blocks say EventCancelled and are stamped '2027-06-15CEST19:00:00+0200', which Postgres 16 refuses. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -463471,10 +463504,10 @@
     "type": "osm-venue"
   },
   "papakuracatholic.org.nz": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Saint Marys Catholic Church / Saint Marys Papakura Parish",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "2 events, 2/2 on page 1 future (recheck 2026-10-29 with the production UA; production kept 2 on 10-27 and 10-28; the 10-18 audit read a parish between postings, 14 events in the past year)",
+    "status": "ok",
     "type": "tribe"
   },
   "papakurawesleyanchurch.co.nz": {
@@ -469124,10 +469157,10 @@
     "type": "osm-venue"
   },
   "parquefundidora.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Parque Fundidora (Monterrey)",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 21 event(s) 2025-10-29..2026-10-28 (last 2026-09-27); production 10-24..10-28 kept 0 events with no error line; added 2026-09-27 (6d32217) at 'thin: 2 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "parqueluz.com": {
@@ -482889,11 +482922,18 @@
     "type": "ics"
   },
   "pittks.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Pittsburg",
-    "reason": "http 404",
+    "reason": "replaced 2026-10-29 by https://www.pittks.org/?feed=my-calendar-ics&span=year (ics, My Calendar): The Events Calendar removed, /wp-json/tribe/events/v1/events 404 rest_no_route; production 10-24..10-28 kept 0; audit 10-11 and 10-18 http 404. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
+  },
+  "pittks.org/?feed=my-calendar-ics&span=year": {
+    "checked": 20261029,
+    "name": "Pittsburg",
+    "reason": "288 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
   },
   "pittlerwerk-halle-heinrich.de": {
     "checked": 20261025,
@@ -484969,10 +485009,10 @@
     "type": "osm-venue"
   },
   "plugin.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Plug In Institute of Contemporary Art",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 3 event(s) 2025-10-29..2026-10-28 (last 2026-09-14); production 10-25..10-28 kept 0 events (10-28 after one non-JSON answer); ledger at merge 2026-08-19 '3 events, 3/3 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "plugstreet1418.be": {
@@ -487512,10 +487552,10 @@
     "type": "osm-venue"
   },
   "portalanglais.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Centre de quartier du Port-\u00e0-l'Anglais",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 14 event(s) 2025-10-29..2026-10-28 (last 2026-10-04); production 10-24..10-28 kept 0 events; ledger at merge 2026-08-29 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "portaldacultura.gov.pt": {
@@ -487592,10 +487632,10 @@
     "type": "ics"
   },
   "portauxcerises.iledeloisirs.fr": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Accro des arbres",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 24 event(s) 2025-10-29..2026-10-28 (last 2026-08-29); production 10-24..10-28 kept 0 events; ledger at merge 2026-08-28 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "portcoquitlam.ca/recreation/port-coquitlam-recreation-complex": {
@@ -495495,10 +495535,10 @@
     "type": "osm-venue"
   },
   "quebradados.com/eventos": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Associa\u00e7\u00e3o Quebra-Dados",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29); production 10-28 kept 1 event; the 10-11 and 10-18 'no schema.org Event blocks found' fit an empty MEC list (New Rock's empty MEC list prints 0 blocks), not measured on those days",
+    "status": "ok",
     "type": "jsonld"
   },
   "quedat.com.es": {
@@ -497221,10 +497261,10 @@
     "type": "civic-city"
   },
   "radraceway.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "RAD Torque Raceway",
-    "reason": "http 523",
-    "status": "fail",
+    "reason": "1 events, 1/1 on page 1 future (recheck 2026-10-29 with the production UA; the 10-18 audit's http 523 was the origin down, as production's 10-25 read was; production kept 1 on 10-27 and 10-28)",
+    "status": "ok",
     "type": "tribe"
   },
   "radsfatz.bike": {
@@ -501857,9 +501897,9 @@
     "type": "osm-venue"
   },
   "reformiert-zuerich.ch/event/aussendungsgottesdienst-13726": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production no line in runs 138-144 (not reached by the rotation); audit 10-11 and 10-18 http 404; recheck 10-29 http 404. It was one service's page (aussendungsgottesdienst-13726) on the Reformierte Kirche Z\u00fcrich site, whose /agenda/ is the whole city church's. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -502150,9 +502190,9 @@
     "type": "osm-venue"
   },
   "reghthuys-nieuwkoop.nl": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "'t Reghthuys (Nieuwkoop)",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 events; 10-27 kept 0 events; 10-25 kept 0 events; 10-24 kept 0 events (a page-1 404 logs as kept 0); audit 10-18 http 404 (10-11 http 404); recheck 10-29 /wp-json/tribe/events/v1/events 404 rest_no_route and /wp-json/ lists 22 namespaces and no tribe/events/v1: The Events Calendar was removed, and /agenda/ is now a Google Calendar embed whose id is a personal address (the owner's call, not configured here). At add 09-27 it read 21 future. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
@@ -503905,10 +503945,10 @@
     "type": "osm-venue"
   },
   "remua.be": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "ReMuA",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 8 events 2026-05-30..2026-09-12 in the past year; production 10-24..10-28 kept 0 with no error; robots.txt asks Crawl-delay 10.",
+    "status": "empty",
     "type": "tribe"
   },
   "remuerabaptistchurch.org.nz": {
@@ -503920,10 +503960,10 @@
     "type": "osm-venue"
   },
   "remysokinawa.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Remy's",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29); production 10-23 kept 10 events from 10 pages; the 10-18 audit's 'no schema.org Event blocks found' was not reproduced",
+    "status": "ok",
     "type": "jsonld"
   },
   "renafan.de": {
@@ -507329,10 +507369,10 @@
     "type": "osm-venue"
   },
   "richmondheightslibrary.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Richmond Heights Memorial Library",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.richmondheightslibrary.org', port=443): ",
-    "status": "fail",
+    "reason": "23 events, 10/10 on page 1 future (recheck 2026-10-29 with the production UA; production kept 24-26 on 10-23, 10-25, 10-27 and 10-28; the 10-18 audit's ConnectTimeout was transient)",
+    "status": "ok",
     "type": "tribe"
   },
   "richmondhill-ga.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
@@ -512960,17 +513000,17 @@
     "type": "osm-venue"
   },
   "roter-baum-berlin.de": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Buntes Haus",
-    "reason": "0 events / 0 future",
+    "reason": "retired 2026-10-29, zero unique supply: production 10-28 kept 5 events; 10-27 kept 5; 10-25 kept 4; 10-24 kept 4, the same counts as 'Jugendfreizeiteinrichtung \"Anna Landsberger\"' (https://roter-baum.berlin) on every run; audit 10-18 0 events / 0 future; recheck 10-29 the home page 301s to roter-baum.berlin and the REST route serves the same WordPress (Link: roter-baum.berlin/wp-json/, 39,034 B, the same 5 event ids); a dry run of both entries stored 5 records with two sources each. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
   "roter-baum.berlin": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Jugendfreizeiteinrichtung \"Anna Landsberger\"",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "roter-baum.de/jugendhaus": {
@@ -517713,9 +517753,9 @@
     "type": "osm-venue"
   },
   "sacre-coeur-montmartre.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Basilique du Sacr\u00e9-C\u0153ur",
-    "reason": "http 404",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 events; 10-27 kept 0 events; 10-25 kept 0 events; 10-24 kept 0 events (a page-1 404 logs as kept 0); audit 10-18 http 404 (10-11 http 404); recheck 10-29 /wp-json/tribe/events/v1/events 404 rest_no_route, /wp-json/ lists 33 namespaces and no tribe/events/v1: The Events Calendar was replaced by a custom bsaweb-events plugin, whose event pages carry no schema.org Event, and /events/?ical=1 is 404. At merge 08-30 it read 1465 events. Entry in tribe_sources.json at 10f27b9.",
     "status": "fail",
     "type": "tribe"
   },
@@ -528079,10 +528119,10 @@
     "type": "osm-venue"
   },
   "schaumbad.mur.at": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Schaumbad - Freies Atelierhaus Graz",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "3 events, 3/3 on page 1 future (recheck 2026-10-29 with the production UA; production kept 3 on 10-28)",
+    "status": "ok",
     "type": "tribe"
   },
   "schauplatz-brunngasse.ch": {
@@ -530037,9 +530077,9 @@
     "type": "osm-venue"
   },
   "schouwburgnoord.be/nl/event/alex-h-smith": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Schouwburg Noord",
-    "reason": "no schema.org Event blocks found",
+    "reason": "retired 2026-10-29, not working: production no line in runs 138-144 (not reached by the rotation); audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 the configured page (one show, Alex H Smith) 200 with 0 Event blocks; the programme's 24 show pages carry Event blocks whose startDate ('2026-10-30CET20:15:00+0100') Postgres 16 refuses, so no config can land them. Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -534449,10 +534489,10 @@
     "type": "osm-venue"
   },
   "seamonsterlounge.com/buy-tickets-in-advance": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Sea Monster Lounge",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/2 sampled events future (recheck 2026-10-29 with the production UA); production 10-28 kept 33 events from 33 pages; the 10-18 audit's 'no schema.org Event blocks found' was not reproduced",
+    "status": "ok",
     "type": "jsonld"
   },
   "seanocaseycommunitycentre.ie": {
@@ -535808,10 +535848,10 @@
     "type": "osm-venue"
   },
   "seikkailupuisto.fi": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Seikkailupuisto Huippu",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 2 event(s) 2025-10-29..2026-10-28 (last 2026-10-17); production 10-24..10-28 kept 0 events; ledger at merge 2026-09-03 '5 events, 5/5 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "seikkailutalo.munstadi.fi": {
@@ -553997,10 +554037,10 @@
     "type": "osm-venue"
   },
   "southwhidbeycommunitycenter.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "South Whidbey Community Center",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/2 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 5 events from 8 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "southwickcommunitycentre.org.uk": {
@@ -571710,10 +571750,10 @@
     "type": "osm-venue"
   },
   "stichtingmeergroen.nl/evenementen": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lincolnpark voedseltuin MEERGroen",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): Modern Events Calendar on /evenementen/ answers 200 and its list view says 'Geen evenementen gevonden!'. /wp-json/wp/v2/mec-events lists 10 published events, newest posted 09-29: Herfstoogstfeest, Sat 17 Oct, the 1 future event the 10-16 add verified. Production 10-26 kept 0 events from 0 pages.",
+    "status": "empty",
     "type": "jsonld"
   },
   "stichtingonsutrecht.nl": {
@@ -573141,10 +573181,17 @@
     "type": "osm-venue"
   },
   "stlouisbridge.org/events/series-7-2026-10-13-tuesday-evening-open": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "St. Louis Bridge Center",
-    "reason": "http 404",
+    "reason": "replaced 2026-10-29 by https://www.stlouisbridge.org/schedule (50 /events/ links, 2026-10-29..2026-12-07): this URL is ONE game's page (Tuesday Evening Open, 2026-10-13), which 404s now that the game is over (production 10-25 '404 Client Error: Not Found'; audit 10-18 http 404; recheck 10-29 404). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "stlouisbridge.org/schedule": {
+    "checked": 20261029,
+    "name": "St. Louis Bridge Center",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "stlouispark.org": {
@@ -575856,10 +575903,10 @@
     "type": "tribe"
   },
   "strangefield.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "French Street Studios",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 2 events from 2 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse": {
@@ -576721,10 +576768,10 @@
     "type": "osm-venue"
   },
   "strzelnica-playground.pl": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Strzelnica Playground",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='strzelnica-playground.pl', port=443): Max re",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 12 events 2025-11-02..2026-10-25 in the past year; production kept 2 on 10-24 and 10-25 and 0 on 10-27 and 10-28; the 10-18 ConnectTimeout was transient.",
+    "status": "empty",
     "type": "tribe"
   },
   "strzelnica9-tka.pl": {
@@ -577892,10 +577939,10 @@
     "type": "osm-venue"
   },
   "studios27.fr": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Studios 27",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 18 events from 18 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "studios27.fr/event-details/sortir-des-cliches": {
@@ -587138,10 +587185,17 @@
     "status": "fail",
     "type": "osm-venue"
   },
-  "tabernaklet.se/?page_id=997": {
-    "checked": 20261018,
+  "tabernaklet.se/?ical=1": {
+    "checked": 20261029,
     "name": "Baptistkyrkan Tabernaklet",
-    "reason": "no schema.org Event blocks found",
+    "reason": "80 vevents / 80 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "tabernaklet.se/?page_id=997": {
+    "checked": 20261029,
+    "name": "Baptistkyrkan Tabernaklet",
+    "reason": "replaced 2026-10-29 by https://www.tabernaklet.se/?ical=1 (ics, Events Manager's calendar-wide export of the same calendar): this page is now Events Manager 7.4.12's list (37 ?event= links) with no Event JSON-LD (audit 10-11 and 10-18 no schema.org Event blocks found; recheck 10-29 the same; no production line in runs 138-144, the jsonld rotation did not reach it). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
@@ -592966,10 +593020,10 @@
     "type": "osm-venue"
   },
   "tc-murr.de": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "TC Murr e.V.",
-    "reason": "http 503",
-    "status": "fail",
+    "reason": "5 events, 5/5 on page 1 future (recheck 2026-10-29 with the production UA; production kept 5-6 on every run 10-24..10-28; the 10-18 audit's http 503 was transient)",
+    "status": "ok",
     "type": "tribe"
   },
   "tc-nauheim.de": {
@@ -595721,10 +595775,10 @@
     "type": "osm-venue"
   },
   "teatrodelburatto.com": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Teatro Verdi",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 19 events from 19 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "teatrodelburatto.com/event-details/bu-1-4": {
@@ -599143,10 +599197,10 @@
     "type": "osm-venue"
   },
   "tenshin.it": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Tempio Ten Shin",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 146 events 2025-10-30..2026-09-27 in the past year (weekly zazen); production 10-24..10-28 kept 0 with no error.",
+    "status": "empty",
     "type": "tribe"
   },
   "tensojinja.com": {
@@ -638207,10 +638261,10 @@
     "type": "osm-venue"
   },
   "verein-prinzhoefte.de": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Tagungszentrum Mikado",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 for the next 365 days, and held 11 event(s) 2025-10-29..2026-10-28 (last 2026-10-10); production 10-24..10-28 kept 0 events with no error line; added 2026-10-04 (711a32a) at '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "verein-prinzhoefte.de/tagungshaus-mikado": {
@@ -644999,10 +645053,10 @@
     "type": "osm-venue"
   },
   "vinttikoira.fi": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Tuomarinkartanon vinttikoirakeskus",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "2 events, 2/2 on page 1 future (recheck 2026-10-29 with the production UA; production kept 1 on every run 10-24..10-28; 69 events in the past year)",
+    "status": "ok",
     "type": "tribe"
   },
   "vinys.de": {
@@ -652174,10 +652228,10 @@
     "type": "osm-venue"
   },
   "waidhof.net": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Gest\u00fct Waidhof",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "1/1 sampled events future (recheck 2026-10-29 with the production UA); production 10-23 kept 1 events from 1 pages",
+    "status": "ok",
     "type": "jsonld"
   },
   "waidhof.net/event-details/reitabzeichen-2026": {
@@ -666751,10 +666805,10 @@
     "type": "osm-venue"
   },
   "wroclaw.simp.pl": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "SIMP Wroc\u0142aw",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window; 27 entries 2025-10-31..2026-09-30 in the past year (exams, courses, meetings); production 10-24..10-28 kept 0 with no error; merge 09-10 '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "wroclawkoreanchurch.com": {
@@ -666980,10 +667034,10 @@
     "type": "jsonld"
   },
   "wsparciewgdansku.pl": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "PIK w Gda\u0144sku",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "1 events, 1/1 on page 1 future (recheck 2026-10-29 with the production UA; production kept 2 on 10-28)",
+    "status": "ok",
     "type": "tribe"
   },
   "wspmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
@@ -668785,10 +668839,10 @@
     "type": "osm-venue"
   },
   "wzhkwarszawa.pl": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Wojew\u00f3dzki Zwi\u0105zek Hodowc\u00f3w Koni w Warszawie",
-    "reason": "not json",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST answers 200 JSON with 0 events in the 120-day window and lists 12 events 2026-03-17..2026-10-10 in the past year (a March-October show season); production 10-24..10-28 kept 0 with no error; the 10-18 'not json' was transient; merge 09-09 '6 events, 6/6 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "x-fights.de": {
@@ -672192,10 +672246,10 @@
     "type": "squarespace"
   },
   "ywcahartford.org": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "YWCA Hartford Region",
-    "reason": "0 events / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): The Events Calendar REST /wp-json/tribe/events/v1/events answers 200 JSON with total 0 in the entry's 120 days and 1 event in the next 365 (2027-04-07), and held 7 event(s) 2025-10-29..2026-10-28 (last 2026-10-17); production 10-23, 10-25 and 10-27 kept 0 events with no error line, 10-28 an HTTP 202 (one of 40 tribe 202s that run); added 2026-10-12 (9afa750) at '1 events, 1/1 on page 1 future'.",
+    "status": "empty",
     "type": "tribe"
   },
   "ywcalgary.ca": {

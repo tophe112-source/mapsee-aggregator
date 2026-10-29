@@ -298,22 +298,6 @@
       "_metro": "Edmonton, CA"
     },
     {
-      "name": "Kitchener Waterloo Oktoberfest",
-      "category": "community",
-      "_found": "osm:ngo -> jsonld-event",
-      "listing": [
-        "https://www.oktoberfest.ca/events/"
-      ],
-      "link_pattern": "https://www\\.oktoberfest\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kitchener Waterloo Oktoberfest",
-        "lat": 43.4502285,
-        "lon": -80.4891157
-      },
-      "_metro": "Kitchener, CA"
-    },
-    {
       "name": "Roslyn Oxley9 Gallery",
       "category": "arts",
       "_found": "osm:gallery -> jsonld-event",
@@ -612,9 +596,9 @@
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
       "listing": [
-        "https://le-zenith.com/shows/MPL-20922"
+        "https://le-zenith.com/"
       ],
-      "link_pattern": "https://le\\-zenith\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "/shows/[^\"'\\s<>?#]+-\\d+",
       "max_events": 150,
       "venue": {
         "name": "Le Zénith",
@@ -623,7 +607,8 @@
         "lat": 48.8941804,
         "lon": 2.3931712
       },
-      "_metro": "Paris, FR"
+      "_metro": "Paris, FR",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://le-zenith.com/shows/MPL-20922 (entry at 10f27b9), the page of ONE show (MPL, 2026-11-28): production kept 1 event from it on 10-28, and it empties after that date. The homepage links every show: 108 unique /shows/<name>-<id> pages (116 links, MPL-20922 among them), and each show page read carries one Event block (MPL 2026-11-28, Ezra Collective 2027-02-24, Carpenter Brut upcoming). The old link_pattern (/event/ or /events/) matched nothing on this site. robots.txt answers 404 (no rules). verify: 1/1 sampled events future. Dry run capped at max_events 12 for politeness: kept 12 events from 12 pages, 12 stored, 12 placed at the venue point, 2026-10-31..2028-03-25, 3 in the next 90 days. At max_events 150 a visit reads all 108 pages, about 2 min at the adapter's 1 s floor."
     },
     {
       "name": "Médiathèque Maupassant",
@@ -662,16 +647,18 @@
       "category": "community",
       "_found": "osm:social_facility -> modern-events+jsonld-event",
       "listing": [
-        "https://askovfondenssocialpsykiatri.dk/kalender/"
+        "https://www.indenfor.dk/kalender/"
       ],
-      "link_pattern": "https://askovfondenssocialpsykiatri\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
       "max_events": 150,
       "venue": {
         "name": "ASPA Centret",
         "lat": 55.685293,
         "lon": 12.552593
       },
-      "_metro": "Copenhagen, DK"
+      "_metro": "Copenhagen, DK",
+      "crawl_delay": 10,
+      "skip_title": "^Individuelle samtaler$",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES https://askovfondenssocialpsykiatri.dk/kalender/ (entry at 10f27b9): Askovfonden's social-psychiatry site is now Indenfor. Over https the old host fails TLS (SSLError: hostname mismatch), so its robots.txt cannot be read (production 10-28 'robots.txt (unreachable) refuses /kalender/'; audits 10-11 and 10-18 SSLError). Over http it answers 301 to https://www.indenfor.dk/kalender/, whose robots.txt allows the page and asks Crawl-delay: 10. The page ('KALENDER - Indenfor Askovfonden', 1,234,315 B) carries all 290 Event blocks inline (2026-09-28..2026-11-01, 39 upcoming), so link_pattern is dropped: it named the old host and matched nothing. verify: 39/290 sampled events future. skip_title drops 'Individuelle samtaler', 6 of the 39: one-to-one talks Monday to Friday 9-16 'efter aftale' (by appointment), a private appointment and not something to attend. Dry run: kept 33 events from 0 pages, 12 stored (the page repeats each event), 12 placed, date-only, 2026-10-29..2026-11-01. The blocks' location gives at most a name ('Kapelvej 55', 'AskovFondens café') and no address or geo; their descriptions say 'Hvor:' Griffenfeldsgade 35, Kapelvej 55 or Thorupgården, Thorupsgade 8, all 2200 København N. The venue block pins every row at the ASPA Centret point, as the old entry did."
     },
     {
       "name": "4. Hvidovre Søspejdergruppe",
@@ -1436,26 +1423,6 @@
       "_metro": "Stockholm, SE"
     },
     {
-      "name": "Baptistkyrkan Tabernaklet",
-      "category": "community",
-      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.tabernaklet.se/?page_id=997"
-      ],
-      "link_pattern": "https://www\\.tabernaklet\\.se/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Baptistkyrkan Tabernaklet",
-        "address": "4 Götabergsgatan",
-        "city": "Göteborg",
-        "postal_code": "411 34",
-        "country": "SE",
-        "lat": 57.7004655,
-        "lon": 11.9706585
-      },
-      "_metro": "Gothenburg, SE"
-    },
-    {
       "name": "Göteborgs Kanotförening",
       "category": "fitness",
       "_found": "osm:sports_centre -> modern-events+jsonld-event",
@@ -2078,16 +2045,18 @@
       "category": "arts",
       "_found": "osm:arts_centre -> jsonld-event",
       "listing": [
-        "https://lepop.be/evenement/cacao-quest/"
+        "https://lepop.be/agenda/"
       ],
-      "link_pattern": "https://lepop\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "https://lepop\\.be/evenement(?:-pop)?/[^\"'\\s<>?#]+/",
       "max_events": 150,
       "venue": {
         "name": "POP — Centre culturel de Braine-l'Alleud",
         "lat": 50.6838231,
         "lon": 4.372365
       },
-      "_metro": "Brussels, BE"
+      "_metro": "Brussels, BE",
+      "crawl_delay": 10,
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://lepop.be/evenement/cacao-quest/ (entry at 10f27b9), the page of ONE show: the 10-11 audit read its block as past ('1 events / 0 future'), and on 10-18 and 10-29 the page (422,573 B) carries no Event block at all. /agenda/ has no Event JSON-LD of its own but links 12 event pages (11 /evenement/, 1 /evenement-pop/), each carrying one Event block. robots.txt allows both and asks Crawl-delay: 10. verify: 1/1 sampled events future. Dry run: kept 12 events from 12 pages in 161.8 s, 12 stored, 12 placed (50.6836063, 4.3726297, the blocks' own point), 2026-11-03..2026-12-10, all in the next 90 days. 11 of the 12 blocks give their shop.utick.be ticket page as url, so that is the row's link."
     },
     {
       "name": "Amnesty International Belgique francophone",
@@ -2218,22 +2187,6 @@
       "_metro": "Brussels, BE"
     },
     {
-      "name": "BRONKS",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.bronks.be/nl/event/grip?type=VRIJE%20VOORSTELLING"
-      ],
-      "link_pattern": "https://www\\.bronks\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "BRONKS",
-        "lat": 50.8530688,
-        "lon": 4.3463334
-      },
-      "_metro": "Brussels, BE"
-    },
-    {
       "name": "New Rock",
       "category": "fitness",
       "_found": "osm:sports_centre -> modern-events+jsonld-event",
@@ -2306,9 +2259,9 @@
       "category": "community",
       "_found": "osm:events_venue -> jsonld-event",
       "listing": [
-        "https://www.lotto-arena.be/evenement/glory-110-a200be7a"
+        "https://www.lotto-arena.be/sitemap.xml"
       ],
-      "link_pattern": "https://www\\.lotto\\-arena\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "https://www\\.lotto-arena\\.be/evenement/[a-z0-9\\-]+",
       "max_events": 150,
       "venue": {
         "name": "Lotto Arena",
@@ -2318,27 +2271,8 @@
         "lat": 51.2301229,
         "lon": 4.4415337
       },
-      "_metro": "Antwerp, BE"
-    },
-    {
-      "name": "Schouwburg Noord",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "https://www.schouwburgnoord.be/nl/event/alex-h-smith"
-      ],
-      "link_pattern": "https://www\\.schouwburgnoord\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Schouwburg Noord",
-        "address": "135;137 Nieuwdreef",
-        "city": "Merksem",
-        "postal_code": "2170",
-        "country": "BE",
-        "lat": 51.2504473,
-        "lon": 4.4379039
-      },
-      "_metro": "Antwerp, BE"
+      "_metro": "Antwerp, BE",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://www.lotto-arena.be/evenement/glory-110-a200be7a (entry at 10f27b9), the page of ONE event: '1/1 sampled events future' on 10-11, 'no schema.org Event blocks found' on 10-18 and 10-29, once it had passed. /kalender is drawn in the browser (no event link in its HTML), so the site's own sitemap is the listing, as for The Royal Room: robots.txt is 'Allow: /' and names it. It holds 100 Dutch /evenement/ pages (the /fr/ and /en/ copies are left out by the pattern), newest first, back to 2023 editions. A future event's page carries one Event block with a UTC startDate (TILL LINDEMANN 2027-10-23T16:30:00.000Z); a past one carries none, so it costs a request and adds nothing. A session's first page is answered after a 5-hop silent sign-in (lotto-arena.be/auth/callback, api.mybeat.beatvenues.be/start-auth, auth.beatvenues.be/oauth2/authorize and back; their robots.txt answer 403 and 404, so no rules); measured over two pages in one requests session, the second came straight back. verify: 1/1 sampled events future. Dry run capped at max_events 6 for politeness: kept 4 events from 6 pages, 4 stored, 4 placed at the venue point (Bob Dylan 2026-10-29, Ricky Gervais 2027-01-23, Blue Planet III 2027-05-29, Till Lindemann 2027-10-23). Their ticket links are ticketmaster.be, so some rows will merge with the Ticketmaster sweep's Antwerp results (158 processed on 10-28); the overlap was not measured."
     },
     {
       "name": "Hnita Jazz Club",
@@ -2355,25 +2289,6 @@
         "city": "Heist op den Berg",
         "lat": 51.0613836,
         "lon": 4.7348665
-      },
-      "_metro": "Antwerp, BE"
-    },
-    {
-      "name": "OLT Rivierenhof",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.oltrivierenhof.be/nl/programma/yong-yello/a0NP500000OhCEgMAN"
-      ],
-      "link_pattern": "https://www\\.oltrivierenhof\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "OLT Rivierenhof",
-        "address": "246 Turnhoutsebaan",
-        "city": "Deurne",
-        "postal_code": "2100",
-        "lat": 51.2150963,
-        "lon": 4.4707324
       },
       "_metro": "Antwerp, BE"
     },
@@ -3088,23 +3003,6 @@
       "_metro": "Zurich, CH"
     },
     {
-      "name": "Kulturhaus Gleis 21",
-      "category": "community",
-      "_found": "osm:events_venue -> jsonld-event",
-      "listing": [
-        "https://gleis21.ch/"
-      ],
-      "link_pattern": "https://gleis21\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kulturhaus Gleis 21",
-        "address": "21 Buchsackerstrasse",
-        "lat": 47.405636,
-        "lon": 8.4058309
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
       "name": "Albis Foxes Handball",
       "category": "community",
       "_found": "osm:club -> jsonld-event",
@@ -3300,26 +3198,6 @@
         "name": "Strebergärtli",
         "lat": 47.3960038,
         "lon": 8.5516192
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
-      "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://reformiert-zuerich.ch/event/aussendungsgottesdienst-13726/"
-      ],
-      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
-        "address": "1 Riedenhaldenstrasse",
-        "city": "Zürich",
-        "postal_code": "8046",
-        "country": "CH",
-        "lat": 47.414576,
-        "lon": 8.518637
       },
       "_metro": "Zurich, CH"
     },
@@ -5346,22 +5224,6 @@
       "_metro": "Essen, Germany"
     },
     {
-      "name": "Bücherei St. Cyriakus Krefeld-Hüls",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://katholisch-krefeld-nordwest.de/aktuelles/Terminliste/a-event/Kinder-Troedel-Markt/?instancedate=1791711000000"
-      ],
-      "link_pattern": "https://katholisch\\-krefeld\\-nordwest\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Bücherei St. Cyriakus Krefeld-Hüls",
-        "lat": 51.3732543,
-        "lon": 6.5109926
-      },
-      "_metro": "Dusseldorf, Germany"
-    },
-    {
       "name": "MiO Miteinander in Oppum",
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event",
@@ -5395,26 +5257,6 @@
         "lon": 6.4379278
       },
       "_metro": "Dusseldorf, Germany"
-    },
-    {
-      "name": "Stadt- und Landesbibliothek",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_142434.html"
-      ],
-      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadt- und Landesbibliothek",
-        "address": "1-3 Max-von-der-Grün-Platz",
-        "city": "Dortmund",
-        "postal_code": "44137",
-        "country": "DE",
-        "lat": 51.5165234,
-        "lon": 7.4608722
-      },
-      "_metro": "Dortmund, Germany"
     },
     {
       "name": "Die Färberei",
@@ -7020,26 +6862,6 @@
       "_metro": "Montreal, Canada"
     },
     {
-      "name": "Centre des musiciens du monde",
-      "category": "community",
-      "_found": "osm:community_centre -> jsonld-event",
-      "listing": [
-        "https://centredesmusiciensdumonde.com/programmation/"
-      ],
-      "link_pattern": "https://centredesmusiciensdumonde\\.com/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Centre des musiciens du monde",
-        "address": "5043 Rue Saint-Dominique",
-        "city": "Montréal",
-        "region": "QC",
-        "postal_code": "H2T 1V1",
-        "lat": 45.5235166,
-        "lon": -73.5915882
-      },
-      "_metro": "Montreal, Canada"
-    },
-    {
       "name": "Bibliothèque Maisonneuve",
       "category": "learning",
       "_found": "osm:library -> jsonld-event",
@@ -8452,9 +8274,9 @@
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event+ics",
       "listing": [
-        "https://www.stlouisbridge.org/events/series-7-2026-10-13-tuesday-evening-open"
+        "https://www.stlouisbridge.org/schedule"
       ],
-      "link_pattern": "https://www\\.stlouisbridge\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "/events/(?:series|one-off)-[a-z0-9\\-]+",
       "max_events": 150,
       "venue": {
         "name": "St. Louis Bridge Center",
@@ -8465,7 +8287,8 @@
         "lat": 38.6806571,
         "lon": -90.3674181
       },
-      "_metro": "St. Louis, United States"
+      "_metro": "St. Louis, United States",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://www.stlouisbridge.org/events/series-7-2026-10-13-tuesday-evening-open, ONE game's own page, which 404s now that the game is over (production 10-25 '404 Client Error: Not Found', audit 10-18 'http 404', recheck 10-29 404). The club's site (Next.js) lists its games on /schedule: 50 /events/ links, 2026-10-29..2026-12-07, nine weekly series (duplicate games and lessons) and one one-off. They are relative hrefs, so link_pattern is now relative too. Each event page carries one schema.org Event with the street address and a naive local start: Thursday Morning Duplicate 2026-10-29T10:00:00, the homepage's 'Thu, Oct 29 10:00 AM'. robots.txt is 1,248 B of Cloudflare content-signal comments and no User-agent group, so nothing is disallowed and there is no Crawl-delay. verify_jsonld: 1/1 sampled events future. Dry run with max_events 4: kept 4 events from 4 pages, stored 4, placed 4 at the venue block's point. 3 of the 4 give a date-only endDate. The site's own webcal /calendar.ics was NOT used. Its 200 VEVENTs stamp UTC with the summer offset after DST ends: Monday Morning Duplicate is 20261102T150000Z, which is 09:00 CST, and the site says 10:00 AM. 46 of them have a LOCATION that is a room ('Chat Room', 23) or directors' names (23)."
     },
     {
       "name": "Q Center",

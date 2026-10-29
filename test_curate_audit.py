@@ -28,6 +28,9 @@ And the follow-ups the review of the round-1 triage asked for (2026-10-29):
   * A VALID EMPTY CALENDAR IS `empty` ONLY WHERE A MISSING ONE ANSWERS
     SOMETHING ELSE, per platform, measured (EMPTY_CALENDAR_RULES), and The
     Events Calendar between seasons is decided by its REST route.
+  * verify_tribe: the plugin's route answering an empty `events` list is a
+    quiet calendar, `empty`; a 404 (rest_no_route or a page) is still `fail`.
+    The 36 tribe sites kept `empty` by hand on 2026-10-29 answered that list.
   * CRAWL-DELAY between a host's requests, in the audit and in verify.
   * THE DEADLINE saves first, then gives stragglers a bounded grace.
   * The ledger survives a dump that dies; a Verdict survives copy and pickle.
@@ -769,6 +772,44 @@ finally:
     cc.time = real_time
 check("outside the audit the route waits out the host's Crawl-delay first (verify)",
       r[1] == "empty" and slept == [5.0], (r, slept))
+
+# ============================================================================
+# C4. verify_tribe: the plugin answering an empty list is a quiet calendar.
+# 2026-10-29: 36 configured sites kept `empty` by hand answered exactly that,
+# and the 6 whose plugin was gone answered 404 (JSON rest_no_route or a page).
+# ============================================================================
+SITE = "https://quiet.example"
+ROUTE = SITE + "/wp-json/tribe/events/v1/events"
+
+
+def tribe_verdict(answer, entry=None):
+    sess = Session({ROUTE: answer})
+    ok, note = cc._verify_with_retry(cc.VERIFIERS["tribe"], sess, dict(entry or {}, type="tribe",
+                                                                      base_url=SITE))
+    return ok, cc._status_for(ok, note), str(note)
+
+
+r = tribe_verdict(NO_EVENTS)
+check("verify_tribe: 200 JSON with an empty `events` list is `empty`, and says why",
+      r == (False, "empty", "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming"), r)
+r = tribe_verdict((404, json.dumps({"code": "rest_no_route", "message": "No route was found"}),
+                   "application/json"))
+check("verify_tribe: 404 rest_no_route (the plugin is gone) stays `fail`",
+      r == (False, "fail", "http 404"), r)
+r = tribe_verdict((404, "<html>The resource you are looking for has been removed</html>", "text/html"))
+check("verify_tribe: a 404 page (the site left WordPress) stays `fail`", r == (False, "fail", "http 404"), r)
+r = tribe_verdict((200, "<!DOCTYPE html><html></html>", "text/html"))
+check("verify_tribe: 200 that is not JSON stays `fail`", r == (False, "fail", "not json"), r)
+r = tribe_verdict((200, json.dumps({"code": "something else"}), "application/json"))
+check("verify_tribe: 200 JSON without an `events` list is not the plugin: `fail`",
+      r == (False, "fail", "0 events / 0 future"), r)
+r = tribe_verdict(TWO_EVENTS)
+check("verify_tribe: upcoming events are `ok`, as before",
+      r == (True, "ok", "2 events, 2/2 on page 1 future"), r)
+r = tribe_verdict((200, json.dumps({"events": [{"id": 1, "start_date": "2026-10-01 18:00:00"}], "total": 1}),
+                   "application/json"))
+check("verify_tribe: only past events in the window stays `empty` by its note, as before",
+      r == (False, "empty", "1 events / 0 future"), r)
 
 # ============================================================================
 # D. Crawl-delay: between a host's requests, in the audit and in verify.

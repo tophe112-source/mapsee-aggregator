@@ -521,22 +521,6 @@
       "_metro": "Dublin, IE"
     },
     {
-      "name": "St. Laurence Cheshire Home",
-      "category": "community",
-      "_found": "osm:social_facility -> squarespace",
-      "collection": "https://www.cheshire.ie/upcoming-events",
-      "max_events": 200,
-      "venue": {
-        "name": "St. Laurence Cheshire Home",
-        "address": "Lower Glanmire Road",
-        "city": "Glanmire",
-        "postal_code": "T23YF40",
-        "lat": 51.9066807,
-        "lon": -8.4044631
-      },
-      "_metro": "Cork, IE"
-    },
-    {
       "name": "The Arts House Trust",
       "category": "arts",
       "_found": "osm:arts_centre -> squarespace",
@@ -1601,24 +1585,6 @@
       },
       "_metro": "Detroit, United States",
       "_note": "Grosse Pointe War Memorial community center (Squarespace collection page): markets, veteran programs, blood drives, history tours, 2nd Saturdays. Stock Squarespace robots; bare page allowed."
-    },
-    {
-      "name": "Village of Los Ranchos de Albuquerque",
-      "category": "community",
-      "collection": "https://www.losranchosnm.gov/calendar",
-      "max_events": 200,
-      "venue": {
-        "name": "Los Ranchos de Albuquerque Village Hall",
-        "address": "6718 Rio Grande Blvd NW",
-        "city": "Los Ranchos de Albuquerque",
-        "region": "NM",
-        "postal_code": "87107",
-        "country": "US",
-        "lat": 35.1586075,
-        "lon": -106.65527
-      },
-      "_metro": "Albuquerque, United States",
-      "_note": "Village calendar: growers' market, health talks, yard sale, green-waste days. Bare Squarespace page (robots allows it). Most rows carry the village as venue."
     },
     {
       "name": "OFFCenter Community Arts (Albuquerque)",

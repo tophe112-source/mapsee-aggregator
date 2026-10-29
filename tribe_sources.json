@@ -2578,20 +2578,6 @@
       "_metro": "Paris, FR"
     },
     {
-      "name": "Basilique du Sacré-Cœur",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe",
-      "base_url": "https://www.sacre-coeur-montmartre.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Basilique du Sacré-Cœur",
-        "lat": 48.8867961,
-        "lon": 2.3430272
-      },
-      "_metro": "Paris, FR"
-    },
-    {
       "name": "Église Saint-Laurent",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
@@ -2918,20 +2904,6 @@
         "name": "LiteraturHaus",
         "lat": 55.6908006,
         "lon": 12.5556601
-      },
-      "_metro": "Copenhagen, DK"
-    },
-    {
-      "name": "Cirkel Ordenen",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "http://cirkelordenen.dk",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Cirkel Ordenen",
-        "lat": 55.685862,
-        "lon": 12.540348
       },
       "_metro": "Copenhagen, DK"
     },
@@ -6317,18 +6289,6 @@
       "_metro": "Neenah, Wisconsin"
     },
     {
-      "name": "Lemoore",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://lemoore.com",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Lemoore",
-      "default_region": "California",
-      "default_country": "US",
-      "_metro": "Lemoore, California"
-    },
-    {
       "name": "Trussville",
       "category": "community",
       "_found": "civic:city -> tribe+jsonld-event",
@@ -6361,17 +6321,6 @@
       "max_pages": 15,
       "default_city": "Henrico",
       "default_region": "Virginia",
-      "default_country": "United States"
-    },
-    {
-      "name": "Douglas County / Lawrence Parks, KS",
-      "category": "community",
-      "_found": "parks:agency -> tribe+jsonld-event+ics",
-      "base_url": "https://lawrenceks.gov",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Lawrence",
-      "default_region": "Kansas",
       "default_country": "United States"
     },
     {
@@ -6522,18 +6471,6 @@
       "default_region": "Missouri",
       "default_country": "US",
       "_metro": "Arnold, Missouri"
-    },
-    {
-      "name": "Pittsburg",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event",
-      "base_url": "https://www.pittks.org",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Pittsburg",
-      "default_region": "Kansas",
-      "default_country": "US",
-      "_metro": "Pittsburg, Kansas"
     },
     {
       "name": "Hammond",
@@ -8357,24 +8294,6 @@
       "_metro": "Lausanne, Switzerland"
     },
     {
-      "name": "Deschutes Historical Museum",
-      "category": "arts",
-      "_found": "osm:museum -> tribe+jsonld-event+ics",
-      "base_url": "https://www.deschuteshistory.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Deschutes Historical Museum",
-        "address": "129 Northwest Idaho Avenue",
-        "city": "Bend",
-        "region": "OR",
-        "postal_code": "97703",
-        "lat": 44.0553466,
-        "lon": -121.317076
-      },
-      "_metro": "Bend, United States"
-    },
-    {
       "name": "Cento Incroci",
       "category": "learning",
       "_found": "osm:books -> tribe",
@@ -8881,23 +8800,6 @@
         "postal_code": "10141",
         "lat": 45.0573955,
         "lon": 7.6523348
-      },
-      "_metro": "Turin, Italy"
-    },
-    {
-      "name": "Camera - Centro Italiano per la fotografia",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe",
-      "base_url": "https://camera.to",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Camera - Centro Italiano per la fotografia",
-        "address": "18 Via delle Rosine",
-        "city": "Torino",
-        "postal_code": "10123",
-        "lat": 45.0642368,
-        "lon": 7.6907554
       },
       "_metro": "Turin, Italy"
     },
@@ -10334,23 +10236,6 @@
       },
       "_metro": "Amsterdam, Netherlands",
       "_note": "Village community centre in Westzaan, Zaanstad (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Weekly movement classes for seniors, yoga, bridge, amateur theatre."
-    },
-    {
-      "name": "'t Reghthuys (Nieuwkoop)",
-      "category": "arts",
-      "base_url": "https://reghthuys-nieuwkoop.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "'t Reghthuys",
-        "address": "1 Reghthuysplein",
-        "city": "Nieuwkoop",
-        "postal_code": "2421BE",
-        "lat": 52.1503987,
-        "lon": 4.7793466
-      },
-      "_metro": "Nieuwkoop, Netherlands",
-      "_note": "Village cultural house in Nieuwkoop's old town hall (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Exhibitions, Tuesday music, courses, a gift market."
     },
     {
       "name": "TorenTuin (Rotterdam)",
@@ -12195,23 +12080,6 @@
       "_metro": "Eindhoven, Netherlands"
     },
     {
-      "name": "OEC Korfbal",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://oeckorfbal.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "OEC Korfbal",
-        "address": "1A Braakse Bosdijk",
-        "city": "Helmond",
-        "postal_code": "5703HZ",
-        "lat": 51.4865127,
-        "lon": 5.6780392
-      },
-      "_metro": "Eindhoven, Netherlands"
-    },
-    {
       "name": "Ellenhof",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -12460,9 +12328,13 @@
         "postal_code": "12685",
         "country": "DE",
         "lat": 52.5447356,
-        "lon": 13.5774895
+        "lon": 13.5774895,
+        "names": [
+          "Anna Landsberger"
+        ]
       },
-      "_metro": "Berlin, Germany"
+      "_metro": "Berlin, Germany",
+      "_note": "Measured 2026-10-29 with the production UA. Roter Baum Berlin's whole calendar (the site names its operator „Roter Baum“ Berlin UG), not this centre's: 60 rows 2025-10-29..2027-10-29 at 29 named places across Berlin, 55 with a street and none with coordinates (9 at the Lernwerkstatt Literatur und Theater, Zingster Straße 15; 7 at MGH Buntes Haus; 6 here; 4 naming no place). Without `names` the block pinned every row at Prötzeler Ring 13. With them it fills the 6 that name this centre and the 4 that name nothing; of the other 50, 49 go to their own street and 1 (Parkplatz Carl-Benz-Schule, 2026-05-06) names no street and is left unplaced. robots.txt has no rule for /wp-json/ and no Crawl-delay. verify: '5 events, 5/5 on page 1 future'. Dry runs from a cold geocode cache, three on 2026-10-29: twice kept 5, stored 5, 5 placed by a geocoded street (9 Photon lookups, 0 missed), 1.8-14.4 km from this centre (Stendaler Straße 43, Zingster Straße 15 in 13357, Adlergestell/Wassersportallee, Kreuzbergstraße 10); once Photon missed the town '13357 Berlin' and 3 were placed, 2 not placed (a miss is not cached, so the next run asks again). Before, all 5 sat on the block. www.roter-baum-berlin.de ('Buntes Haus') served this same calendar a second time and leaves in the same change."
     },
     {
       "name": "Machon-Eck",
@@ -12602,24 +12474,6 @@
         "country": "DE",
         "lat": 52.387563,
         "lon": 13.0418796
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
-      "name": "Buntes Haus",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://www.roter-baum-berlin.de",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Buntes Haus",
-        "address": "14 Hellersdorfer Promenade",
-        "city": "Berlin",
-        "postal_code": "12627",
-        "country": "DE",
-        "lat": 52.5408006,
-        "lon": 13.6069678
       },
       "_metro": "Berlin, Germany"
     },
@@ -13996,16 +13850,6 @@
       "_note": "seed-us 2026-10-03: 17 rows starting 2026-10-03..2027-01-01; of 17 read, 5 free/drop-in/community, 6 paid, 0 governance, 0 hours/closure notices, 0 members-only, 6 unstated; all 17 name a venue with a Manhattan street address (music school, two potteries, Center for Healing)."
     },
     {
-      "name": "Boonshoft Center for Jewish Culture and Education (Jewish Dayton)",
-      "category": "community",
-      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://jewishdayton.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "_metro": "Dayton, United States",
-      "_note": "seed-us 2026-10-03: 71 rows starting 2026-10-03..2027-01-01; of 71 read, 25 free/drop-in/community, 31 paid, 3 governance, 0 hours/closure notices, 0 members-only, 12 unstated; 53 name a venue with a street address (2 with coordinates); 15 name none and 3 are Zoom - left unplaced; 20 of the 31 paid are Winter Camp Shalom days, a JLI course and a writers' workshop series."
-    },
-    {
       "name": "Keystone Community Services",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
@@ -14499,48 +14343,6 @@
       "_note": "Public programme of the university central library: 8 free October events in its own building, including Musical Thursday, a Tuesday book talk, a literary samovar, an author reading and a workshop. The venue point is from OSM."
     },
     {
-      "name": "Kós Károly Művelődési Ház és Könyvtár (Budakalász)",
-      "category": "community",
-      "base_url": "https://koskarolymh.hu",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Budakalász",
-      "default_region": null,
-      "default_country": "HU",
-      "venue": {
-        "name": "Kós Károly Művelődési Ház és Könyvtár",
-        "names": [
-          "Kós Károly Művelődési Ház",
-          "Bálterem",
-          "Könyvtár",
-          "Díszterem",
-          "Galéria",
-          "udvar",
-          "Előadó",
-          "Klubterem",
-          "kávézó"
-        ],
-        "address": "Szentendrei út 9",
-        "city": "Budakalász",
-        "postal_code": "2011",
-        "country": "HU",
-        "lat": 47.6230733,
-        "lon": 19.049564
-      },
-      "_metro": "Budapest, Hungary",
-      "_found": "manual:2026-10-03 OSM community_centre Hungary -> tribe",
-      "_note": "Budakalász culture house and library: 29 upcoming events filed under its own rooms at Szentendrei út 9; `names` leaves the one park event unpinned. 12 are free (board-game afternoons, a kids' slide-cinema club, Alzheimer Café, a numismatists' club, a garage sale), and most priced ones cost 1,000-4,500 Ft.",
-      "include_categories": [
-        258,
-        305,
-        851,
-        259,
-        579,
-        341,
-        1075
-      ]
-    },
-    {
       "name": "Orlai ház (Mezőberény)",
       "category": "community",
       "base_url": "https://orlaihaz.mezobereny.hu",
@@ -14961,28 +14763,6 @@
       "_note": "Municipal art museum's workshops for children (Pequeños Artistas, ages 9+ and 12+) and seniors (Tarde de Oro, 55+): 6 events in October 2026, all 6 say libre de costo with phone reservation; 43 events posted Jan-Oct 2026; REST rows name no venue, so the OSM block places them."
     },
     {
-      "name": "Biblioteca Nacional Aruba (Oranjestad, Aruba)",
-      "category": "learning",
-      "base_url": "https://www.bibliotecanacional.aw/pages",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Oranjestad",
-      "default_region": null,
-      "default_country": "AW",
-      "timezone": "America/Aruba",
-      "venue": {
-        "name": "Biblioteca Nacional Aruba",
-        "address": "George Madurostraat 13",
-        "city": "Oranjestad",
-        "country": "AW",
-        "lat": 12.5152518,
-        "lon": -70.02949
-      },
-      "_metro": "Oranjestad, Aruba",
-      "_found": "manual:2026-10-03 find_calendar on bibliotecanacional.aw -> The Events Calendar REST under /pages; venue point OSM way 368233604",
-      "_note": "National library's public programme (Festival di buki pa mucha children's book festival, language and theatre workshops, K-9 team talks): 5 upcoming, none priced and one marked Free; only 5 more posted Jan-Oct 2026, so about ten a year; REST venues carry no coordinates."
-    },
-    {
       "name": "Netanya AACI (Netanya, Israel)",
       "category": "community",
       "base_url": "https://netanyaaaci.org.il",
@@ -15012,29 +14792,6 @@
         "country": "IL",
         "lat": 32.3308717,
         "lon": 34.8567212
-      }
-    },
-    {
-      "name": "The Book Lounge (Cape Town)",
-      "category": "learning",
-      "base_url": "https://www.booklounge.co.za",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Cape Town",
-      "default_region": "Western Cape",
-      "default_country": "ZA",
-      "_metro": "Cape Town, South Africa",
-      "_found": "manual:2026-10-03 TEC REST route probe of Cape Town literary venues",
-      "_note": "Independent bookshop at 71 Roeland Street whose calendar is author-in-conversation book launches open to all. 8 were upcoming on 2026-10-03, all 17:30 weekday evenings at the shop, with no cost set on any and each an open 'Join us' invitation with a sponsored wine table.",
-      "venue": {
-        "name": "The Book Lounge",
-        "address": "71 Roeland Street",
-        "city": "Cape Town",
-        "region": "Western Cape",
-        "postal_code": "8001",
-        "country": "ZA",
-        "lat": -33.92914,
-        "lon": 18.4216383
       }
     },
     {
@@ -15176,16 +14933,6 @@
       "crawl_delay": 30.0
     },
     {
-      "name": "JCC of Mid-Westchester",
-      "category": "community",
-      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://jccmw.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "_metro": "New York, United States",
-      "_note": "seeds2 2026-10-04: 66 rows starting 2026-10-04..2027-01-02; read 66: 29 free, 22 unknown, 14 paid, 1 online. 59 of 66 name JCCMW with its street address; offsite rows carry their own addresses."
-    },
-    {
       "name": "Evelyn Rubenstein Jewish Community Center",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
@@ -15213,46 +14960,6 @@
       "_metro": "Houston, United States",
       "_note": "seeds2 2026-10-04: 66 rows starting 2026-10-04..2027-01-02; read 66: 39 free, 22 unknown, 4 paid, 1 online. 60 of 66 carry their own coordinates; the block fills the Herzstein room (3); TBA (2) and Virtual (1) do not take it. Venue point: jcca.org directory point; Census matches '5601 S BRAESWOOD BLVD, HOUSTON, TX, 77096' 164 m away.",
       "crawl_delay": 10.0
-    },
-    {
-      "name": "Michael-Ann Russell JCC",
-      "category": "community",
-      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://marjcc.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Michael-Ann Russell JCC",
-        "address": "18900 NE 25th Ave",
-        "city": "North Miami Beach",
-        "region": "FL",
-        "postal_code": "33180",
-        "country": "US",
-        "lat": 25.9495576,
-        "lon": -80.1529144,
-        "names": [
-          "Senior Lounge",
-          "MARJCC",
-          "Lieberman Theater",
-          "Art Studio"
-        ]
-      },
-      "_metro": "Miami, United States",
-      "include_categories": [
-        "adult-services",
-        "adult-services-2",
-        "the-hub-adult-programing-events",
-        "cultural-arts",
-        "performing-arts-productions",
-        "jcat-performance",
-        "jazz-at-the-j-series",
-        "meet-the-author-series",
-        "marjcc-community-events",
-        "guest-performances",
-        "bamachol-dance-program-performance",
-        "marjcc-performance"
-      ],
-      "_note": "seeds2 2026-10-04: 225 rows starting 2026-10-04..2027-01-02; read 125: 90 unknown, 20 paid, 15 free. include_categories leaves out the building-hours category (6 holiday-hours notices) and Hebraica sports; 225 rows remain: 107 of 125 read are the Senior Adult Services drop-in groups (mah jongg, chess, knitting, support groups; no fee or eligibility stated on the row or its page), 14 padel nights at $20; the 49 naming no venue are Adult Services rows and take the block. Venue point: jcca.org directory point; Census matches '18900 NE 25TH AVE, MIAMI, FL, 33180' 211 m away."
     },
     {
       "name": "JCC of Windsor",
@@ -16480,20 +16187,6 @@
       "_metro": "New York, United States"
     },
     {
-      "name": "Main Street Takoma (Takoma Park / Takoma DC)",
-      "category": "community",
-      "base_url": "https://mainstreettakoma.org",
-      "within_days": 90,
-      "max_pages": 10,
-      "skip_title": "\\bclass(?:es)?\\b|pilates|flatfooting|irish dance for kids|woof clinic|nail trim|coworking|lunch bunch|farmers market|\\bworkshop\\b|5rhythms|bluegrass fiddling|terrarium|pet portraits",
-      "default_city": "Takoma Park",
-      "default_region": "MD",
-      "default_country": "US",
-      "_metro": "Washington, DC",
-      "_found": "manual:2026-10-10 dc-community oldtakoma.com -> mainstreettakoma.org (tribe)",
-      "_note": "Measured 2026-10-10: Main Street Takoma's community calendar (The Events Calendar REST), read 2026-10-10: 311 events in 90 days, 97 distinct titles; skip_title drops paid course sessions (School of Musical Traditions ensemble classes $250, tap/Pilates/Irish dance classes), a pet-shop nail-trim clinic, coworking and farmers markets (already in market_sources) -> 185 kept, 156 free/donation/no price, 183 with a street address (Takoma Park MD and Takoma DC): book clubs and author talks at People's Book, Historic Takoma talks, community drum circle, bluegrass jams, costume swaps, church bazaars, flea market, Dia de los Muertos, gallery openings, bike-safety clinic. robots.txt allows /wp-json/."
-    },
-    {
       "name": "Building Bridges Across the River (THEARC, Ward 8)",
       "category": "community",
       "base_url": "https://buildingbridgesdc.org",
@@ -16505,31 +16198,6 @@
       "_metro": "Washington, DC",
       "_found": "manual:2026-10-10 dc-community bbardc.org -> buildingbridgesdc.org (tribe)",
       "_note": "Measured 2026-10-10: Ward 8 / east-of-the-river nonprofit behind THEARC and the 11th Street Bridge Park. Tribe REST read 2026-10-10: 35 events in 90 days, all cost Free/blank, 31 with a street venue (THEARC Farm 1901 Mississippi Ave SE, Hopkins Garden 1227 K St SE, Union Temple Baptist Church farm): Food and Farm Fridays, farm volunteer days, turkey giveaway, Ward 8 Winter Wonderland, homebuyer club. Anacostia is otherwise almost empty in the catalog. robots.txt allows."
-    },
-    {
-      "name": "Sixth & I",
-      "category": "community",
-      "base_url": "https://www.sixthandi.org",
-      "within_days": 90,
-      "max_pages": 5,
-      "venue": {
-        "name": "Sixth & I",
-        "address": "600 I Street NW",
-        "city": "Washington",
-        "region": "DC",
-        "postal_code": "20001",
-        "country": "US",
-        "lat": 38.90064,
-        "lon": -77.020207
-      },
-      "_metro": "Washington, DC",
-      "_found": "manual:2026-10-10 dc-community faith-based community centre -> tribe",
-      "_note": "Measured 2026-10-10: Historic Chinatown synagogue run as a public cultural/community venue. Tribe REST read 2026-10-10: 43 events in 90 days, 34 with the venue's street address (the rest are hybrid rows the venue block fills): community-led Shabbat dinners, Friday night services, a grief group, Chanukah Shabbat, author talks (LeVar Burton) and concerts (Aga Khan Master Musicians, Haley Heynderickx); talks/concerts are ticketed, community programmes free or low-cost. robots.txt allows.",
-      "include_categories": [
-        "shabbat-services",
-        "social-jewish-life"
-      ],
-      "skip_title": "\\bgrief group\\b"
     },
     {
       "name": "Southeast Seattle Senior Center - activities and drop-ins (Rainier Valley)",
@@ -17804,19 +17472,6 @@
       "_metro": "St. Louis, United States",
       "skip_title": "OT100|Endurance Run",
       "_note": "Probed 2026-10-11, small. robots.txt '*' allows /wp-json/. TEC REST: 8 events in 120 days, 6 with an address; trail-build volunteer days, plus the OT100 endurance run (a paid race) which skip_title drops. Verdict maybe."
-    },
-    {
-      "name": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON)",
-      "base_url": "https://cvc.ca",
-      "category": "volunteer",
-      "within_days": 120,
-      "max_pages": 3,
-      "default_city": "Mississauga",
-      "default_region": "Ontario",
-      "default_country": "Canada",
-      "skip_title": "Wagon Rides|Belfountain by Night|Analysis to Action",
-      "_metro": "Toronto, Canada",
-      "_note": "Ledger has cvc.ca ok since 2026-10-04 but it was never merged. Measured 2026-10-11: 13 events in 120 days, 13/13 with a venue address, 7 'Free Event' tree plantings/invasive pulls; the skip_title drops the paid wagon rides ($60 / admission) and the online talk. Small."
     },
     {
       "name": "Community Room",
@@ -28885,6 +28540,19 @@
     "https://madenewomaha.com": "Made New Makerspace - public community events - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
     "https://www.kinsale.ie": "Kinsale - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
     "https://www.buurtteamamsterdam.nl": "Retired 2026-10-24. The OSM walk found it on one buurtteam office (Lekstraat 13A) and pinned the whole organisation's calendar there: 92 live rows on one point carrying 54 different place names (Nieuwendam and the Bijlmer at Lekstraat), mostly social-service 'spreekuur' hours, some by appointment. Streets are present but no coordinates. 28% of Amsterdam's visible rows came from this and hvoquerido.nl.",
-    "https://hvoquerido.nl": "Retired 2026-10-24. A care organisation's client activities, found by the OSM walk on one social facility (Plantage Muidergracht 14) and pinned there: 49 live rows on one point with 16 different place names, one 'Online (via Teams)'. Not a public programme, and not that building's."
+    "https://hvoquerido.nl": "Retired 2026-10-24. A care organisation's client activities, found by the OSM walk on one social facility (Plantage Muidergracht 14) and pinned there: 49 live rows on one point with 16 different place names, one 'Online (via Teams)'. Not a public programme, and not that building's.",
+    "https://www.deschuteshistory.org": "Deschutes Historical Museum (Bend, OR) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each refused (p1 HTTP 403). Audit on a GitHub runner 2026-10-18: http 403 (2026-10-11: 2 events, 2/2 on page 1 future). Recheck 2026-10-29: http 429 'Too Many Requests' from Cloudflare on a first request at about 06:30 UTC, then 3 events, 3/3 on page 1 future at 07:50 UTC. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://camera.to": "Camera - Centro Italiano per la fotografia (Turin) - tribe. RETIRED 2026-10-29: its The Events Calendar holds the site's banner notices, not events. All 8 entries dated 2025-10-29..2027-10-29 are notices in Italian/English pairs: 'Comunicazione ordinaria top-bar 26 dicembre - 1 febbraio' (2), 'Avviso speciale variazione orario' (August, 2), 'Avviso chiusura allestimento' (10-05..10-16, 2) and 'Avviso speciale variazione orari' (11-06..11-07, 2). Production kept 2 on 2026-10-28, and they were the last two. Recorded here, not only as a ledger fail, because verify passes on notices ('2 events, 2/2 on page 1 future' on 2026-10-29), so discovery would propose the site again after DEAD_TTL. Camera's programme (/agenda/, /incontri/, /mostre/) is not in The Events Calendar, and /agenda/ carries no schema.org Event markup. To restore: only if the calendar starts holding events; the entry is in tribe_sources.json at 10f27b9.",
+    "https://oeckorfbal.nl": "OEC Korfbal (Helmond) - The Events Calendar's REST API. RETIRED 2026-10-29 under the robots line (robots.txt binds a publisher's own pages and feeds): https://oeckorfbal.nl/robots.txt answers `Disallow: /` to every crawler (`User-Agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. It was not working either: the route answered 404 to both GitHub audits (2026-10-11 and 10-18), and production logged 'kept 0 events' on 2026-10-24, 10-25, 10-27 and 10-28. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at 10f27b9; `verify` will then pass it.",
+    "https://www.roter-baum-berlin.de": "Buntes Haus (Berlin-Hellersdorf) - The Events Calendar's REST API. RETIRED 2026-10-29 as zero unique supply: www.roter-baum-berlin.de is a second domain of roter-baum.berlin (its home page 301s there, and its /wp-json/ route answers from the same WordPress, Link: <https://roter-baum.berlin/wp-json/>), so it read Roter Baum Berlin's one calendar a second time: 39,034 bytes and the same 5 event ids on 2026-10-29, and production kept the same counts (4-5) under both names on 2026-10-24, 10-25, 10-27 and 10-28. The calendar is configured once, as 'Jugendfreizeiteinrichtung \"Anna Landsberger\"' (https://roter-baum.berlin), whose rows at MGH Buntes Haus (7 of 60, 2025-10-29..2027-10-29) carry their own street. Recorded here so the OSM walk, which found this alias on the Buntes Haus community centre, does not add it again. To restore: do not; read https://roter-baum.berlin.",
+    "https://jewishdayton.org": "Boonshoft Center for Jewish Culture and Education (Jewish Dayton) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each p1 HTTP 403. Audit on a GitHub runner 2026-10-18: http 403 (2026-10-11 read 68 events, 10/10 on page 1 future). Recheck 2026-10-29: http 403 from Cloudflare (a bare '403 Forbidden', 103 bytes) on robots.txt, the REST route, /wp-json/ and the home page. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md); the way in is to ask the operator. To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://koskarolymh.hu": "Kós Károly Művelődési Ház és Könyvtár (Budakalász) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each p1 HTTP 403. Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 31 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://www.bibliotecanacional.aw/pages": "Biblioteca Nacional Aruba (Oranjestad, Aruba) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25 and 10-28 each p1 HTTP 403 (10-27's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 6 events, 6/6 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://www.booklounge.co.za": "The Book Lounge (Cape Town) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25 and 10-28 each p1 HTTP 403 (10-27's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 9 events, 9/9 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://jccmw.org": "JCC of Mid-Westchester - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: robots.txt itself answered a Cloudflare 'Just a moment...' challenge (HTTP 403, cf-mitigated: challenge), so permission could not be established and nothing else was fetched. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md); the way in is to ask the operator. To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://marjcc.org": "Michael-Ann Russell JCC (North Miami Beach) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 312 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://mainstreettakoma.org": "Main Street Takoma (Takoma Park / Takoma DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 272 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://www.sixthandi.org": "Sixth & I (Washington, DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 38 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://cvc.ca": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-18: http 403. Recheck 2026-10-29: 3 events, 3/3 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9."
   }
 }
