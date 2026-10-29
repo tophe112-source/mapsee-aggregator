@@ -8,7 +8,7 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**Keep this map small.** The measured notes — 560 of them — live in
+**Keep this map small.** The measured notes — 563 of them — live in
 [`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
 then open ONE topic. Preserve each note's measurements.
 
@@ -87,7 +87,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 97 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
+- **The 98 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -123,10 +123,10 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 120 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is |
+| `docs/agents/curation-and-discovery.md` | 122 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is, an empty CivicPlus category vs a deleted one, a verifier that reads the adapter's dates |
 | `docs/agents/osm-amenities.md` | 34 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 26 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 42 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
+| `docs/agents/ci-and-jobs.md` | 43 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget and rotation |
 | `docs/agents/adapters-and-sources.md` | 59 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts |
 | `docs/agents/classification-and-categories.md` | 43 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 53 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
@@ -146,7 +146,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 97 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 98 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

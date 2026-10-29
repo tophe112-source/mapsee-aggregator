@@ -68,7 +68,8 @@
   is among the ledger's last 100, and the ledger listed 0 configured feeds as
   `fail`. The traceback was in the log, 60 lines ABOVE the output it followed,
   because `| tee` block-buffered stdout and stderr is not. Now the line takes a
-  list's first URL, the ledger is saved after every config file, the step runs
+  list's first URL, the ledger is saved after every config file (since
+  2026-10-29 every 200 probes and on any way out: `ci-and-jobs.md`), the step runs
   `python -u ... 2>&1`, and a missing "entries are BROKEN" summary line is an
   `::error::`. `test_curate_reapply.py` runs the real `cmd_audit` over a jsonld
   list and a crashing third file, and fails on the old code.

@@ -686,6 +686,43 @@
   worth a second look; a fresh candidate that times out costs nothing to skip
   and comes round again next week.
 
+- **AN EMPTY CIVICPLUS CATEGORY AND A DELETED ONE ARE THE SAME 474 BYTES, SO
+  THE SITE'S OWN LIST DECIDES (2026-10-29).** `www.urbandale.org`'s catID=34
+  (Library Events, on the site) and catID=99987 (never existed) both answered
+  HTTP 200, text/calendar, 474 bytes, 0 VEVENTs. `verify_ics` called both
+  "0 vevents / 0 future" and `_status_for` filed both `fail`: 82 of the 130
+  configured feeds FEED_DOWN listed that day were CivicPlus categories saying
+  exactly that, of 1,275 CivicPlus feeds configured. `/iCalendar.aspx` lists
+  every live category, quiet ones included (Urbandale's 9 held 34, 38 and 39,
+  all three empty). Now a CivicPlus feed (`iCalendar.aspx?catID=<n>`) that is
+  a VCALENDAR with no VEVENT reads that list once per origin per run, robots
+  asked first, and `civicplus_verdict` decides: listed is `empty` ("catID 34
+  still listed on /iCalendar.aspx as 'Library Events'"), gone is `fail`, an
+  unreadable list stays `fail`. The verdict carries its status (`Verdict`),
+  not a wording `_EMPTY_RX` happens to match; no other platform's verdict
+  moved, and `verify` still never proposes an empty candidate. Live that day,
+  production UA, >= 1.1 s between requests to a host: 15 flagged feeds on 8
+  hosts went 14 `fail` -> `empty` (every catID still listed; Redmond 12
+  categories, La Porte 7, Indianola 8, Huntington Park 10) and 1 to `ok`
+  (Redmond's Environmental Sustainability had 1 future event again); catID
+  99987 came back `fail`, "no longer listed (9 categories are)". Three more
+  flagged hosts (gloucester-ma.gov, casagrandeaz.gov, braintreema.gov) had an
+  unreachable robots.txt from this container and were not fetched.
+  `test_curate_audit.py`.
+
+- **A VERIFIER THAT READS DATES ITS OWN WAY REJECTS WHAT THE ADAPTER INGESTS.**
+  `verify_opendata` took a start value's first ten characters as an ISO date,
+  so City of Calgary's `next_date_times` ("October 27 2026 1 - 4 p.m.") was
+  "not a date column (sample: 'October 27')" in the 2026-10-18 audit while
+  production kept 9 of 9 rows on 10-25 and 10-27 and 12 of 13 on 10-28, and
+  FEED_DOWN reported a working source. It now dates a row with
+  `mapsee_ingest_opendata._iso_parts` and counts it future when the adapter's
+  past-event drop would keep it (its end date, else its start). Live
+  2026-10-29: Calgary went `fail` -> `ok` ("3 rows, sample: Coffee,
+  conversations & community - Acadia Aquatic & Fitness Centre"), and the other
+  12 opendata datasets were `ok` before and after. A value the adapter cannot
+  date ("October 27" with no year, "TBD") is still "not a date column".
+
 - **`_not_included` in a sources file is an editorial NO, and discovery reads
   it.** `mobilizon_sources.json` declines an instance for spam and another for an
   unclear licence. Both verify fine, because verification proves a feed works,

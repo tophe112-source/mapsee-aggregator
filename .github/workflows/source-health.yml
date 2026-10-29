@@ -285,22 +285,56 @@ jobs:
 
       # Never fail the job on a bad feed: a dead source is the expected finding
       # here, not an error. The ledger diff is the output that matters.
+      #
+      # A BUDGET, A STEP CAP UNDER THE JOB'S, AND THE SAVING IN STEPS OF THEIR
+      # OWN. 2026-10-25 (run 40179210416) probed 5,094 feeds from 09:05:35 to
+      # 13:06:03Z, was cancelled at the job's 240 minutes inside jsonld, and
+      # kept none of it: the snapshot copy sat at the end of THIS step, which
+      # never reached it, and the commit step was skipped. The configs held
+      # 6,601 entries on 2026-10-29. Now the audit stops starting probes at
+      # --max-minutes (the oldest ledger check goes first, so the next Sunday
+      # starts where this one stopped) and saves the ledger every 200 probes;
+      # the step's own cap is the backstop for a probe still running at the
+      # deadline (three tries of a 60 s timeout plus a CivicPlus list read is
+      # under 4 minutes), and the job's leaves the commit its room. Four probes
+      # at once, never two on one host: on 128 live entries (2026-10-29) that
+      # was 182.4 s against 459.1 s one at a time, with the same verdicts.
       - name: Re-probe every curated feed
+        timeout-minutes: 215
         run: |
           set +e
           # Unbuffered and with stderr in the log, so a crash is seen where it
           # happened: 2026-10-04's TypeError surfaced 60 lines above the output
           # it followed, and the run still went green with "ledger unchanged".
-          python -u catalog_curate.py audit 2>&1 | tee audit.log
+          python -u catalog_curate.py audit --max-minutes 200 --workers 4 2>&1 | tee audit.log
           grep -q "entries are BROKEN" audit.log || \
             echo "::error::the audit did not finish; whatever it probed before stopping is in the ledger, see the log"
-          mkdir -p "$SNAPSHOT"
-          cp curation_ledger.json "$SNAPSHOT/curation_ledger.json"
+          grep -E "^audit reached " audit.log | sed 's/^/::notice::/' || true
           exit 0
 
+      # always(): this is what a cancelled probe step skipped on 2026-10-25.
+      # Only after a probe step that started (audit.log exists); the ledger on
+      # disk is then the last one the audit saved, never a half-written file
+      # (_save_ledger writes aside and renames).
+      - name: Keep what the audit probed
+        if: ${{ always() }}
+        run: |
+          if [ -f audit.log ] && [ -f curation_ledger.json ]; then
+            mkdir -p "$SNAPSHOT"
+            cp curation_ledger.json "$SNAPSHOT/curation_ledger.json"
+            echo "snapshot taken"
+          else
+            echo "the audit never ran - nothing to keep"
+          fi
+
       - name: Commit the refreshed ledger
+        if: ${{ always() }}
         run: |
           set -euo pipefail
+          if [ ! -f "$SNAPSHOT/curation_ledger.json" ]; then
+            echo "no snapshot - the audit recorded nothing to commit"
+            exit 0
+          fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
@@ -321,12 +355,15 @@ jobs:
             # dead" for a run that had flipped 175 configured feeds to fail.
             DEAD=$(grep -oE "^[0-9]+ entries are BROKEN" audit.log | grep -oE "^[0-9]+" || echo "?")
             TOTAL=$(grep -cE "^\[(OK |-- |XX )\]" audit.log || true)
-            git commit -m "Weekly catalog audit: ${DEAD}/${TOTAL} feeds dead"
+            # How much of the catalog this run reached: a budget-cut run is a
+            # partial rotation, and its count says so.
+            OF=$(grep -oE "^audit reached [0-9]+ of [0-9]+" audit.log | grep -oE "[0-9]+$" || echo "?")
+            git commit -m "Weekly catalog audit: ${DEAD}/${TOTAL} feeds dead (${TOTAL} of ${OF} configured probed)"
             if git push origin "HEAD:$BRANCH"; then
               {
                 echo "### Weekly catalog audit"
                 echo
-                echo "**${DEAD} of ${TOTAL}** curated feeds are not returning usable data."
+                echo "**${DEAD} of ${TOTAL}** curated feeds probed are not returning usable data (${TOTAL} of ${OF} configured entries probed this run; the rest go first next run)."
                 echo
                 echo '```'
                 grep -E "^\[XX " audit.log | head -60 || echo "(no failures listed)"

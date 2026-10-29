@@ -8,6 +8,9 @@ __pycache__/
 # moving a pin. That makes the cache identity-critical, and actions/cache (7-day
 # idle eviction, never saved by a timed-out job) is not a place to keep identity.
 # The warm cache still covers the other adapters — see aggregate-events.yml.
+# _save_ledger writes the ledger aside and renames it into place; a run
+# killed mid-write leaves this behind, never a half-written ledger.
+curation_ledger.json.tmp
 ics_feed_cache.json
 ics_cursor.json
 ics_cursor.json.tmp

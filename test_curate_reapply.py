@@ -249,6 +249,10 @@ shutil.rmtree(tmp, ignore_errors=True)
 # jsonld's `listing` (a LIST) for its log line. Its one save sat after the loop,
 # so the commit step found "ledger unchanged", as it had every Sunday since
 # mid-September. Run the REAL cmd_audit over a temp tree with fake verifiers.
+# The crash is in a THIRD file, and it is what a cancelled step delivers: an
+# interrupt the verifier's own `except Exception` cannot swallow. (A missing
+# config file used to be the crash; since 2026-10-29 the audit reports and
+# skips one - test_curate_audit.py.)
 tmp = tempfile.mkdtemp()
 keep = (cc.HERE, cc.LEDGER_FILE, cc.CONFIG, dict(cc.VERIFIERS), cc._session)
 cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
@@ -256,15 +260,23 @@ json.dump([{"name": "Library", "url": "https://lib.example/cal.ics"}],
           open(os.path.join(tmp, "a_sources.json"), "w"))
 json.dump({"sites": [{"name": "Centre", "listing": ["https://centre.example/events/"]}]},
           open(os.path.join(tmp, "b_sources.json"), "w"))
+json.dump([{"name": "Venue", "collection": "https://venue.example/events"}],
+          open(os.path.join(tmp, "c_sources.json"), "w"))
 cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing"),
-             "ods": ("missing_sources.json", "url")}          # its file is absent: a crash
+             "squarespace": ("c_sources.json", "collection"),
+             "ods": ("missing_sources.json", "url")}          # its file is absent
 cc.VERIFIERS["ics"] = lambda s, e: (True, "3 vevents / 2 future")
 cc.VERIFIERS["jsonld"] = lambda s, e: (False, "http 404")
+def _interrupted(s, e):
+    raise KeyboardInterrupt
+
+
+cc.VERIFIERS["squarespace"] = _interrupted
 cc._session = lambda: None
 try:
     cc.cmd_audit()
     crashed = False
-except Exception:                                             # noqa: BLE001
+except BaseException:                                         # noqa: BLE001
     crashed = True
 led = read(cc.LEDGER_FILE) if os.path.exists(cc.LEDGER_FILE) else {}
 check("a jsonld entry whose listing is a list is audited, not a TypeError",

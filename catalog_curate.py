@@ -58,6 +58,8 @@ Usage:
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
+         [--max-minutes N]   # stop starting probes after N minutes; the oldest-checked go first
+         [--workers N]       # probes at once, never two on one host (default AUDIT_WORKERS)
   # which configured requests robots.txt refuses, and hosts fetched unpaced.
   # Report only: it edits nothing.
   python catalog_curate.py robots
@@ -214,9 +216,29 @@ _EMPTY_RX = re.compile(r"(?:^|\D)([1-9]\d*)\s*(?:vevents|events|rows|records)\b"
                        r"[^/]*/\s*0\s+future", re.I)
 
 
+class Verdict(str):
+    """A verifier's note that names its own ledger status.
+
+    Most notes are classified by their shape (_EMPTY_RX). A verdict that comes
+    from a second request, not from the note's numbers, says which status it
+    is instead of hoping the wording falls on the right side of a regex: an
+    empty CivicPlus category (see _civicplus_empty). It is still a str, so it
+    prints, slices and lands in the ledger's `reason` like any other note.
+    """
+    status = None
+
+    def __new__(cls, text, status):
+        self = super().__new__(cls, text)
+        self.status = status
+        return self
+
+
 def _status_for(ok, note):
     if ok:
         return "ok"
+    said = getattr(note, "status", None)
+    if said in ("empty", "fail"):
+        return said
     return "empty" if _EMPTY_RX.search(note or "") else "fail"
 
 
@@ -318,8 +340,13 @@ def _save_ledger(led):
     except Exception:                                             # noqa: BLE001
         on_disk = {}                     # unreadable or absent: ours is the file
     merged = _merge_ledgers(on_disk, led)
-    json.dump(merged, open(LEDGER_FILE, "w", encoding="utf-8"),
-              indent=2, sort_keys=True)
+    # Written aside and renamed into place, so a run cancelled mid-write (the
+    # audit now saves every few hundred probes, against a 19.6 MB file that
+    # takes 1.2-1.7 s to write) leaves the last whole ledger, never half of one.
+    tmp = LEDGER_FILE + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(merged, fh, indent=2, sort_keys=True)
+    os.replace(tmp, LEDGER_FILE)
 
 
 DEAD_TTL = 90
@@ -491,6 +518,93 @@ def verify_localist(s, e):
     return (fut > 0), f"{len(evs)} events / {fut} future instance(s)"
 
 
+# AN EMPTY CIVICPLUS CATEGORY AND A DELETED ONE ANSWER THE SAME FILE. Measured
+# 2026-10-29 on www.urbandale.org: catID=34 (Library Events, still on the
+# site) and catID=99987 (never existed) both returned HTTP 200, text/calendar,
+# 474 bytes, 0 VEVENTs. issaquahwa.gov did the same with 486 bytes (see the
+# note above CIVICPLUS_ICAL_RX in catalog_discover_osm). So "0 vevents" alone
+# decides nothing, and the audit recorded every such feed `fail`: 82 of the
+# 130 configured feeds FEED_DOWN reported on 2026-10-29 were CivicPlus
+# categories answering exactly that, among 1,275 CivicPlus feeds configured.
+#
+# What does decide it is the site's own list. /iCalendar.aspx carries one link
+# per live category (catID=<n>, the category's name as the link text), quiet
+# ones included: Urbandale's lists 9, among them 34, 38 (Mobile Recreation)
+# and 39 (Concerts), all three empty that day. Still listed is a calendar
+# between seasons: `empty`, kept, not a regression. Not listed is a category
+# the city deleted: `fail`. An unreadable list leaves it `fail`, as before.
+# The list is read ONCE per origin per run (the 1,275 feeds are on 601 sites,
+# up to six on one), and robots.txt is asked first, like any publisher request.
+_CIVICPLUS_FEED_RX = re.compile(r"/iCalendar\.aspx\?(?:[^#]*?&)?catID=(\d+)", re.I)
+CIVICPLUS_LIST_TIMEOUT = 30
+_CIVICPLUS_LISTS = {}            # origin -> {"cats": {id: name}} | {"error": why}
+
+
+def civicplus_cat_id(url):
+    """The category id of a CivicPlus iCal feed URL, or None for anything else."""
+    m = _CIVICPLUS_FEED_RX.search(str(url or ""))
+    return m.group(1) if m else None
+
+
+def civicplus_list(s, url):
+    """The categories /iCalendar.aspx lists on the site serving `url`.
+
+    {"cats": {"34": "Library Events", ...}} or {"error": why}. Read once per
+    origin and kept for the rest of the run, the error too: the audit retries
+    a feed on a transport failure, and asking a struggling host's list again
+    three times over is not what "once" means.
+    """
+    import catalog_discover_osm as osm
+    from html import unescape
+    origin = robots_txt.origin_of(url)
+    got = _CIVICPLUS_LISTS.get(origin)
+    if got is not None:
+        return got
+    page = origin + "/iCalendar.aspx"
+    ans = robots_txt.Robots(s).check(page)
+    if ans["allowed"] is not True:
+        why = ("challenged" if ans["allowed"] is None else "refuses it")
+        got = {"error": f"robots.txt {why}: {ans.get('rule') or ans['status']}"}
+    else:
+        try:
+            r = s.get(page, timeout=CIVICPLUS_LIST_TIMEOUT, allow_redirects=True)
+        except Exception as ex:                                   # noqa: BLE001
+            got = {"error": type(ex).__name__}
+        else:
+            if r.status_code != 200:
+                got = {"error": f"answered {r.status_code}"}
+            elif osm.CHALLENGE_RX.search(r.text[:6000]):
+                got = {"error": "a bot challenge"}
+            else:
+                cats = {}
+                for _href, cid, label in osm.CIVICPLUS_ICAL_RX.findall(r.text):
+                    cats.setdefault(cid, re.sub(r"\s+", " ", unescape(label)).strip())
+                got = {"cats": cats} if cats else {"error": "no catID links on it"}
+    _CIVICPLUS_LISTS[origin] = got
+    return got
+
+
+def civicplus_verdict(cat_id, listing):
+    """Verdict for a CivicPlus category whose feed is a VCALENDAR with no VEVENT.
+
+    The whole classification, apart from the fetch, so it can be tested on its
+    own: listed -> empty, not listed -> fail, list unreadable -> fail.
+    """
+    if "cats" not in listing:
+        return Verdict(f"0 vevents / 0 future; /iCalendar.aspx unreadable "
+                       f"({listing.get('error') or '?'})", "fail")
+    if cat_id in listing["cats"]:
+        name = listing["cats"][cat_id] or "(unnamed)"
+        return Verdict(f"0 vevents / 0 future; catID {cat_id} still listed on "
+                       f"/iCalendar.aspx as '{name}'", "empty")
+    return Verdict(f"0 vevents; catID {cat_id} no longer listed on /iCalendar.aspx "
+                   f"({len(listing['cats'])} categories are)", "fail")
+
+
+def _civicplus_empty(s, url):
+    return civicplus_verdict(civicplus_cat_id(url), civicplus_list(s, url))
+
+
 def verify_ics(s, e):
     key = mapsee_gcal.api_key()
     if key and mapsee_gcal.calendar_id(e["url"]):
@@ -512,6 +626,8 @@ def verify_ics(s, e):
     # timezone metadata alone. (Seen in the wild: a dead market calendar
     # reporting "51 vevents / 15946 future" under two different URLs.)
     bodies = re.findall(r"BEGIN:VEVENT(.*?)END:VEVENT", txt, re.S)
+    if not bodies and civicplus_cat_id(e["url"]):
+        return False, _civicplus_empty(s, e["url"])
     starts = [d for b in bodies for d in re.findall(r"^DTSTART[^:\n]*:(\d{8})", b, re.M)]
     fut = sum(1 for d in starts if int(d) >= today)
     return (fut > 0), f"{len(bodies)} vevents / {fut} future"
@@ -540,15 +656,36 @@ def verify_opendata(s, e):
     # whose dates are human-formatted strings were passing this check with
     # nothing but archive rows behind them, so the sampled values have to parse
     # as real dates and actually be in the future.
+    #
+    # PARSED BY THE ADAPTER'S OWN READER, NOT A SECOND ONE. This check used to
+    # take the value's first ten characters as ISO, so a column the adapter
+    # reads perfectly well failed here: City of Calgary's `next_date_times`
+    # ("October 27 2026 1 - 4 p.m.") was "not a date column (sample: 'October
+    # 27')" in the 2026-10-18 audit while production kept 12 of 13 rows from it
+    # on 2026-10-28, and FEED_DOWN reported a working source. Now the date is
+    # whatever mapsee_ingest_opendata._iso_parts makes of it, and a row is
+    # future when the adapter's own past-event drop would keep it (its end
+    # date, else its start). A value the adapter cannot turn into a date is
+    # still refused: _iso_parts hands such a value back as its first ten
+    # characters, which is not a date.
     start_col = m.get("start")
     if start_col:
+        import mapsee_ingest_opendata as od
         today = _as_date(_today_int()).isoformat()
-        iso = [str(row.get(start_col) or "")[:10] for row in rows]
-        parseable = [v for v in iso if re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)]
-        if not parseable:
-            return False, f"'{start_col}' is not a date column (sample: {iso[0]!r})"
-        if not any(v >= today for v in parseable):
-            return False, f"no future rows (latest sampled {max(parseable)})"
+        iso_rx = re.compile(r"\d{4}-\d{2}-\d{2}")
+        raw = [row.get(start_col) for row in rows]
+        last_days = []
+        for row in rows:
+            day = od._iso_parts(od._get(row, start_col))[2] or ""
+            if not iso_rx.fullmatch(day):
+                continue
+            end = od._iso_parts(od._get(row, m.get("end")))[2] or ""
+            last_days.append(end if iso_rx.fullmatch(end) else day)
+        if not last_days:
+            return False, (f"'{start_col}' is not a date column "
+                           f"(sample: {str(raw[0] or '')[:40]!r})")
+        if not any(v >= today for v in last_days):
+            return False, f"no future rows (latest sampled {max(last_days)})"
     return True, f"{len(rows)} rows, sample: {rows[0].get(m.get('title',''))}"
 
 
@@ -3196,46 +3333,187 @@ def cmd_reapply(outdir):
     return 0
 
 
-def cmd_audit():
-    s = _session()
-    led = _load_ledger()
-    stale = quiet = 0
+# THE WEEKLY AUDIT IS A ROTATION, BECAUSE IT NO LONGER FITS ITS JOB. On
+# 2026-10-04 it probed 3,240 configured feeds in 94 minutes. On 2026-10-25
+# (run 40179210416) the configs held 5,568 entries in the files it reached and
+# the probe step ran 09:05:35-13:06:03Z: localist 57 in 1.3 min, ics 2,931 in
+# 108.3, tribe 1,501 in 110.2, and 311 of jsonld's 785 when the job's
+# 240-minute cap cancelled it. 5,094 probes, and nothing kept: the snapshot was
+# copied inside the cancelled step and the commit step was skipped. Where the
+# time went is not where the probes are: the median probe took 0.69 s, but 67
+# probes over 60 s (1.3%) took 133.4 of the 240 minutes, each a connect or read
+# timeout asked three times (VERIFY_RETRIES) at 60 s apiece.
+#
+# So a run is a BUDGET and an ORDER. `--max-minutes` starts no probe after the
+# deadline (the ones running finish and are recorded); every entry goes in the
+# order of its ledger row's `checked`, never-checked first, across all the
+# config files, so a run the budget cuts short is where the next one starts
+# instead of the head of ics_sources.json again; and the ledger is saved every
+# AUDIT_SAVE_EVERY probes and on the way out, however the way out happens. An
+# entry no probe reached keeps its old row: a run never writes a verdict about
+# a feed it did not ask.
+AUDIT_SAVE_EVERY = 200
+
+# Probes at once. Never two on one host (the ingest adapters never ask one host
+# twice at once either, and a CivicPlus city or a Google calendar API host is a
+# long same-host queue), so the stalls above wait side by side instead of end
+# to end. 1 is the old one-at-a-time loop. See the workflow for what it runs.
+AUDIT_WORKERS = 1
+
+
+def _audit_plan(led):
+    """Every configured entry, the one the ledger checked longest ago first.
+
+    [(checked, seq, type, fname, key, entry)]; a row never checked sorts as 0,
+    and a tie keeps CONFIG and file order. A config file that is missing or
+    does not parse is reported and left out, not a reason to probe nothing.
+    """
+    plan = []
     for t, (fname, key) in CONFIG.items():
         fpath = os.path.join(HERE, fname)
-        # _entries(), not a bare json.load: ods_sources.json nests its list under
-        # "sources", so iterating the raw object walks the dict KEYS ("_comment",
-        # "sources") and blows up on dict(e, type=t). Same trap that hit
-        # _coverage_rows(); every reader of these configs must go through here.
-        cur = _entries(fname, json.load(open(fpath, encoding="utf-8")))
-        print(f"\n=== {fname} ({len(cur)}) ===")
+        try:
+            # _entries(), not a bare json.load: ods_sources.json nests its list
+            # under "sources", so iterating the raw object walks the dict KEYS.
+            cur = _entries(fname, json.load(open(fpath, encoding="utf-8")))
+        except (OSError, ValueError) as exc:
+            print(f"::warning::audit: {fname} not read ({type(exc).__name__}: "
+                  f"{str(exc)[:60]}) - its entries keep their old ledger rows")
+            continue
         for e in cur:
-            e2 = dict(e, type=t)
-            # Retried, unlike verification of a fresh candidate: a candidate that
-            # times out costs nothing to skip and can be proposed again next week,
-            # but a CONFIGURED feed marked dead here is parked for 90 days and
-            # reported as a regression. The two are not the same bet.
-            ok, note = _verify_with_retry(VERIFIERS[t], s, e2)
-            status = _status_for(ok, note)
-            if status == "fail":
-                stale += 1
-            elif status == "empty":
-                quiet += 1
-            led[_canon(_key_of(e2))] = {"type": t, "name": e.get("name"),
-                                        "status": status, "reason": note,
-                                        "checked": _today_int()}
-            mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
-            # jsonld's key, `listing`, is a LIST. Slicing it and formatting the
-            # slice with :60 raised TypeError on the first jsonld entry, and the
-            # one save sat after the loop, so every Sunday since mid-September
-            # threw the whole audit away: 2026-10-04 probed 3,240 feeds in 94
-            # minutes (211 broken) and the commit step found "ledger unchanged".
-            shown = e.get(key, "?")
-            shown = (shown[0] if shown else "?") if isinstance(shown, list) else shown
-            print(f"[{mark}] {str(shown)[:60]:60} {note}", flush=True)
-        _save_ledger(led)     # per file, so a later crash cannot discard what was probed
-    _save_ledger(led)
-    print(f"\n{stale} entries are BROKEN (unreachable, or no longer a feed).")
-    print(f"{quiet} entries parse fine but have nothing upcoming — kept, not a regression.")
+            if not isinstance(e, dict):
+                continue
+            rec = led.get(_canon(_key_of(dict(e, type=t)))) or {}
+            try:
+                checked = int(rec.get("checked") or 0)
+            except (TypeError, ValueError):
+                checked = 0
+            plan.append((checked, len(plan), t, fname, key, e))
+    plan.sort(key=lambda p: (p[0], p[1]))
+    return plan
+
+
+def _audit_host(t, e):
+    """The host a probe of `e` asks: what the probes are serialised on."""
+    reqs = _ingest_requests(t, e)
+    return _probe_host(reqs[0][1]) if reqs else str(_key_of(e))
+
+
+def _audit_probe(s, t, e):
+    # Retried, unlike verification of a fresh candidate: a candidate that times
+    # out costs nothing to skip and can be proposed again next week, but a
+    # CONFIGURED feed marked dead here is parked for 90 days and reported as a
+    # regression. The two are not the same bet.
+    return _verify_with_retry(VERIFIERS[t], s, e)
+
+
+def _audit_each(plan, deadline, workers, record):
+    """Probe `plan` in order, `workers` at once and never two on one host;
+    record(item, ok, note) on THIS thread as each one comes back.
+
+    Returns True when the deadline stopped it before the end. Checked before
+    every probe is started; a probe already running is let finish and is
+    recorded. A worker's exception is the probe's note, never the run's end.
+    """
+    if workers <= 1:
+        s = _session()
+        for item in plan:
+            if deadline and time.time() >= deadline:
+                return True
+            t, e = item[2], item[5]
+            ok, note = _audit_probe(s, t, dict(e, type=t))
+            record(item, ok, note)
+        return False
+
+    import concurrent.futures as cf
+    import threading
+    local = threading.local()
+
+    def probe(t, e):
+        s = getattr(local, "s", None)
+        if s is None:
+            s = local.s = _session()
+        return _audit_probe(s, t, e)
+
+    todo = [(item, _audit_host(item[2], dict(item[5], type=item[2]))) for item in plan]
+    inflight, busy, cut = {}, set(), False
+    pool = cf.ThreadPoolExecutor(max_workers=workers, thread_name_prefix="audit")
+    try:
+        while todo or inflight:
+            while todo and len(inflight) < workers and not cut:
+                if deadline and time.time() >= deadline:
+                    cut = True
+                    break
+                pick = next((i for i, (_it, h) in enumerate(todo) if h not in busy), None)
+                if pick is None:
+                    break                 # every waiting entry's host is mid-probe
+                item, host = todo.pop(pick)
+                busy.add(host)
+                t = item[2]
+                inflight[pool.submit(probe, t, dict(item[5], type=t))] = (item, host)
+            if cut and not inflight:
+                break
+            if not inflight:
+                continue
+            done, _ = cf.wait(list(inflight), return_when=cf.FIRST_COMPLETED)
+            for fut in [f for f in inflight if f in done]:
+                item, host = inflight.pop(fut)
+                busy.discard(host)
+                try:
+                    ok, note = fut.result()
+                except Exception as exc:                          # noqa: BLE001
+                    ok, note = False, f"{type(exc).__name__}: {str(exc)[:70]}"
+                record(item, ok, note)
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
+    return cut
+
+
+def cmd_audit(max_minutes=0.0, workers=None, save_every=AUDIT_SAVE_EVERY):
+    led = _load_ledger()
+    plan = _audit_plan(led)
+    total = len(plan)
+    workers = max(1, int(workers or AUDIT_WORKERS))
+    deadline = time.time() + float(max_minutes) * 60 if max_minutes else None
+    never = sum(1 for p in plan if not p[0])
+    print(f"audit: {total} configured entries, the oldest ledger check first "
+          f"({never} never checked; oldest {(plan[0][0] or 'never') if plan else '-'}), "
+          f"{workers} at once"
+          + (f", a {float(max_minutes):g}-minute budget" if deadline else ""), flush=True)
+    n = {"probed": 0, "fail": 0, "empty": 0}
+
+    def record(item, ok, note):
+        t, key, e = item[2], item[4], item[5]
+        status = _status_for(ok, note)
+        if status in ("fail", "empty"):
+            n[status] += 1
+        lkey = _canon(_key_of(dict(e, type=t)))
+        if lkey:                   # an entry with no key has no row to write
+            led[lkey] = {"type": t, "name": e.get("name"), "status": status,
+                         "reason": note, "checked": _today_int()}
+        mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
+        # jsonld's key, `listing`, is a LIST. Slicing it and formatting the
+        # slice with :60 raised TypeError on the first jsonld entry, and the one
+        # save sat after the loop, so every Sunday since mid-September threw the
+        # whole audit away: 2026-10-04 probed 3,240 feeds in 94 minutes (211
+        # broken) and the commit step found "ledger unchanged".
+        shown = e.get(key, "?")
+        shown = (shown[0] if shown else "?") if isinstance(shown, list) else shown
+        print(f"[{mark}] {str(shown)[:60]:60} {note}", flush=True)
+        n["probed"] += 1
+        if n["probed"] % max(1, int(save_every)) == 0:
+            _save_ledger(led)
+
+    cut = False
+    try:
+        cut = _audit_each(plan, deadline, workers, record)
+    finally:
+        _save_ledger(led)          # whatever ended the loop, what it probed is kept
+    print(f"\n{n['fail']} entries are BROKEN (unreachable, or no longer a feed).")
+    print(f"{n['empty']} entries parse fine but have nothing upcoming — kept, not a regression.")
+    left = total - n["probed"]
+    print(f"audit reached {n['probed']} of {total} configured entries"
+          + (f"; stopped at the {float(max_minutes):g}-minute budget, and the next run "
+             f"starts with the {left} the ledger checked longest ago" if cut else ""))
     return 0
 
 
@@ -4722,7 +5000,14 @@ def main(argv):
         # Every configured country, or the ones named: `cityclass CH DE`.
         return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))
     if cmd == "audit":
-        return cmd_audit()
+        # A WALL-CLOCK budget, for the reason the osm walk has one: the cost is
+        # other people's servers, and 1.3% of the probes took 55% of 2026-10-25's
+        # four hours. 0 = no limit (a manual run that should read everything).
+        mm = (float(argv[argv.index("--max-minutes") + 1])
+              if "--max-minutes" in argv else 0.0)
+        workers = (int(argv[argv.index("--workers") + 1])
+                   if "--workers" in argv else None)
+        return cmd_audit(max_minutes=mm, workers=workers)
     if cmd == "robots":
         return cmd_robots()
     if cmd == "ledger":

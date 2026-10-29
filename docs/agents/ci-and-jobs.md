@@ -631,3 +631,28 @@
   a day per engine that does. test_workflow_contracts reads the cron from
   on.schedule (the one extra_sources runs on) and renders the Submit command
   for each cron and for a dispatch.
+
+- **THE WEEKLY AUDIT RAN FOUR HOURS AND KEPT NOTHING, SO FEED_DOWN READ AN
+  AUDIT ELEVEN DAYS OLD (2026-10-25).** `source-health.yml`'s audit (run
+  40179210416, job 121126419210) probed from 09:05:35 to 13:06:03Z and was
+  cancelled at the job's 240 minutes, 311 entries into jsonld's 785: 5,094
+  probes (localist 57 in 1.3 min, ics 2,931 in 108.3, tribe 1,501 in 110.2,
+  jsonld 16.8). The snapshot copy sat at the end of the probe step, so it never
+  ran; the commit step was skipped; the runner killed the python 0.25 s after
+  "The operation was canceled." All 130 FEED_DOWN rows on 10-29 dated from
+  10-18. The time was not where the probes were: the median took 0.69 s and
+  p90 2.93 s, but 67 probes over 60 s (1.3%) took 133.4 of the 240 minutes,
+  each a connect or read timeout asked three times at 60 s. The configs held
+  6,601 entries on 10-29 (ics 3,372, tribe 1,779, jsonld 1,058). Now
+  `audit --max-minutes 200 --workers 4` starts no probe after the deadline;
+  goes in order of the ledger row's `checked`, never-checked first, across
+  every file, so a cut run is where the next starts; saves every 200 probes
+  (1.2-1.7 s a save on the 19.6 MB, 87,234-row ledger), on any way out, and
+  aside-then-rename; and prints "audit reached N of M". An entry it does not
+  reach keeps its old row. The probe step has `timeout-minutes: 215`, the
+  snapshot is its own `always()` step and the commit is `always()`, skipping
+  without a snapshot. Four workers, never two on one host (calendar.google.com
+  carries 457 entries, montreal.ca 76): live 2026-10-29 on 128 robots-allowed
+  entries (Google calendars and jsonld left out), 182.4 s against 459.1 s one
+  at a time (2.52x, the parallel run first), the same 114 ok / 10 empty / 4
+  fail in both. `test_curate_audit.py`.
