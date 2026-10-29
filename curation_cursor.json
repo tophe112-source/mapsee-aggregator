@@ -1,11 +1,11 @@
 {
  "civic": {
-  "country": "BE",
+  "country": "AU",
   "offset": 2140,
   "offsets": {
    "AE": 13,
    "AT": 240,
-   "AU": 120,
+   "AU": 203,
    "BE": 227,
    "CA": 120,
    "CH": 200,
@@ -29,7 +29,7 @@
    "PT": 120,
    "SE": 80,
    "SI": 120,
-   "US": 2218,
+   "US": 2232,
    "ZA": 200
   },
   "visited": [
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 142,
-  "metro_key": "CA:Toronto",
+  "metro": 145,
+  "metro_key": "CA:Calgary",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 200,
-  "events": 300,
+  "community events": 300,
+  "events": 400,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 0,
-  "parks events": 0,
+  "library programs": 100,
+  "parks events": 100,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 0,
+  "recreation programs": 100,
   "road races": 0,
-  "special events": 0,
-  "volunteer": 200,
-  "wellness programs": 300,
-  "youth programs": 100
+  "special events": 100,
+  "volunteer": 300,
+  "wellness programs": 400,
+  "youth programs": 200
  }
 }

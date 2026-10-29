@@ -19474,6 +19474,1120 @@
       "_metro": "Bainbridge Island, United States",
       "_found": "manual:2026-10-28 Fleabop reuse source review",
       "_note": "2026-10-28: robots allows the listing and event-details pages; the existing JSON-LD adapter read 3 details and kept 1 upcoming event: Fall Clothes Swap '26, Nov 15 12:00-14:30 PST at Filipino American Community Hall, 7566 High School Rd NE, Bainbridge Island. The organizer explicitly says Free event and no donation is required to shop. Mending is a separate service, not admission. Keep community as the calendar default; title-based swap/repair rules add market only to relevant events. Event addresses remain per-row: no blanket hall pin for future offsite events."
+    },
+    {
+      "name": "Kingsway Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.kingswaybaptist.ca/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kingsway Baptist Church",
+        "address": "41 Birchview Boulevard",
+        "city": "Etobicoke",
+        "lat": 43.6472076,
+        "lon": -79.5147194
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Paradise Cinema",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://paradiseonbloor.com/special_events/the-basement-revue/"
+      ],
+      "link_pattern": "https://paradiseonbloor\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paradise Cinema",
+        "address": "1006 Bloor Street West",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M6H 1M2",
+        "lat": 43.6611446,
+        "lon": -79.4307114
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "The Mill Christian Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.themillmississauga.ca/events/"
+      ],
+      "link_pattern": "https://www\\.themillmississauga\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Mill Christian Fellowship",
+        "address": "1991 South Millway",
+        "city": "Mississauga",
+        "region": "ON",
+        "postal_code": "L5L 1R4",
+        "lat": 43.5405909,
+        "lon": -79.6745592
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Dharma Drum Mountain (Toronto)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ddmbaontario.org/calender-event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Dharma Drum Mountain (Toronto)",
+        "address": "1025 McNicoll Avenue",
+        "city": "Toronto",
+        "postal_code": "M1W 3W6",
+        "lat": 43.8041231,
+        "lon": -79.3349001
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Congregation Knesseth Israel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.thejunctionshul.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Congregation Knesseth Israel",
+        "address": "56 Maria Street",
+        "city": "Toronto",
+        "lat": 43.666493,
+        "lon": -79.475426
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bibliothèque Saint-Charles",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/eveil-musical-0-2-ans-119203"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Saint-Charles",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.4791571,
+        "lon": -73.5635716,
+        "street_hint": "1050 Rue d'Hibernia"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Parc-Extension",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/gym-douce-113978"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Parc-Extension",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3N 1K2",
+        "lat": 45.5314163,
+        "lon": -73.6289844,
+        "street_hint": "421 Rue Saint-Roch"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de l'Île des soeurs",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/si-proche-et-si-loin-116229"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de l'Île des soeurs",
+        "city": "Verdun",
+        "region": "QC",
+        "postal_code": "H3E 1C9",
+        "lat": 45.4569489,
+        "lon": -73.5473453,
+        "street_hint": "260 Rue Elgar"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "salle de spectacle de l’Entrepôt",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/kairos-jennifer-alleyn-115474"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "salle de spectacle de l’Entrepôt",
+        "lat": 45.4334029,
+        "lon": -73.6894782
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Notre-Dame-de-Grâce",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/loeil-humain-120234"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Notre-Dame-de-Grâce",
+        "lat": 45.4755031,
+        "lon": -73.6143992,
+        "street_hint": "3755 Botrel"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Père-Ambroise",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/jeudis-technos-8-14-ans-119497"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Père-Ambroise",
+        "city": "Montréal",
+        "postal_code": "H2L 3C9",
+        "lat": 45.5227932,
+        "lon": -73.5626849,
+        "street_hint": "2093 Rue de la Visitation"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Frontenac",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ludotheque-club-lego-118151"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Frontenac",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2K 1W7",
+        "lat": 45.5329177,
+        "lon": -73.5517134,
+        "street_hint": "2550 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Michel",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118778"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Michel",
+        "city": "Montréal",
+        "postal_code": "H2A 3L6",
+        "lat": 45.5621974,
+        "lon": -73.6020202,
+        "street_hint": "7601 Rue François-Perrault"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Cartierville",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/vendredi-jeux-de-societe-116955"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Cartierville",
+        "city": "Montréal",
+        "postal_code": "H4J 2N7",
+        "lat": 45.5301968,
+        "lon": -73.7159741,
+        "street_hint": "12225 Rue Grenet"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque De Salaberry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-coloriage-116811"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque De Salaberry",
+        "city": "Montréal",
+        "postal_code": "H4J 1H1",
+        "lat": 45.5346141,
+        "lon": -73.7038342,
+        "street_hint": "4170 Rue De Salaberry"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Langelier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-117933"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Langelier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1N 1C5",
+        "lat": 45.5816816,
+        "lon": -73.544147,
+        "street_hint": "6473 Rue Sherbrooke Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Mercier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/contes-et-comptines-115146"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Mercier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955039,
+        "lon": -73.5236768,
+        "street_hint": "8105 Rue Hochelaga"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Serge-Bouchard",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/effets-de-films-115560"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Serge-Bouchard",
+        "city": "Montréal",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6680518,
+        "lon": -73.494856,
+        "street_hint": "14 001 Rue Notre-Dame Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rivière-des-Prairies",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/fer-et-cereales-115628"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rivière-des-Prairies",
+        "city": "Montréal",
+        "postal_code": "H1E 3J7",
+        "lat": 45.6499172,
+        "lon": -73.5790735,
+        "street_hint": "9001 Boulevard Perras"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Benny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/3d-mania-115453"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Benny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4B 1H3",
+        "lat": 45.4663823,
+        "lon": -73.6309558,
+        "street_hint": "6400 Avenue de Monkland"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Plateau-Mont-Royal",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-la-caserne-26-3-6-ans-118871"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Plateau-Mont-Royal",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H2J 1W3",
+        "lat": 45.5248812,
+        "lon": -73.5824623,
+        "street_hint": "465 Avenue du Mont-Royal Est",
+        "aliases": [
+          "Plateau Mont-Royal Library"
+        ]
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Le Prevost",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118847"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Le Prevost",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2R 2S5",
+        "lat": 45.5438649,
+        "lon": -73.6145722,
+        "street_hint": "7355 Avenue Christophe-Colomb"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Upstairs",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.upstairsjazz.com/calendar-2/"
+      ],
+      "link_pattern": "https://www\\.upstairsjazz\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Upstairs",
+        "address": "1254 Rue Mackay",
+        "lat": 45.4955965,
+        "lon": -73.5768353
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Pierrefonds",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cinema-famille-coco-117626"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Pierrefonds",
+        "city": "Pierrefonds",
+        "postal_code": "H9A 1A6",
+        "lat": 45.4960289,
+        "lon": -73.8475197,
+        "street_hint": "13555 Boulevard de Pierrefonds",
+        "aliases": [
+          "Pierrefonds Public Library"
+        ]
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Janine-Sutto",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/marcia-109933"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Janine-Sutto",
+        "address": "2550 Rue Frontenac",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5328205,
+        "lon": -73.5516111
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Le Centre d'art et musée de Montréal",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.montrealartcenter.com/our-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Centre d'art et musée de Montréal",
+        "address": "1844 Rue William",
+        "lat": 45.4869815,
+        "lon": -73.5671639
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "PROMIS",
+      "category": "community",
+      "_found": "osm:ngo -> modern-events+jsonld-event",
+      "listing": [
+        "https://promis.qc.ca/calendrier-des-activites/"
+      ],
+      "link_pattern": "https://promis\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "PROMIS",
+        "address": "3333 Chemin de la Côte-Sainte-Catherine",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1C8",
+        "lat": 45.5006258,
+        "lon": -73.6261436
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture de Pointe-aux-Trembles",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tresors-de-repertoire-117435"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture de Pointe-aux-Trembles",
+        "address": "14001 Rue Notre-Dame Est",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6681374,
+        "lon": -73.4948601
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "The Wheel Club",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.wheelclubndg.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Wheel Club",
+        "address": "3373 Boulevard Cavendish",
+        "lat": 45.4634534,
+        "lon": -73.6278766
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Librairie Résonance",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://librairieresonance.com/pages/evenements"
+      ],
+      "link_pattern": "https://librairieresonance\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Librairie Résonance",
+        "address": "40 Rue Beaubien Est",
+        "lat": 45.5306806,
+        "lon": -73.6079019
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Canadien d'Architecture",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.cca.qc.ca/en/events/106130/community-capital-what-we-build-together"
+      ],
+      "link_pattern": "https://www\\.cca\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre Canadien d'Architecture",
+        "address": "1920 Rue Baile",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3H 2S6",
+        "lat": 45.490974,
+        "lon": -73.5790045
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "CACI Salaberry",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://caci-bc.org/calendrier-evenements/"
+      ],
+      "link_pattern": "https://caci\\-bc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CACI Salaberry",
+        "address": "4800 Rue De Salaberry",
+        "lat": 45.5329754,
+        "lon": -73.7059191
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Palais des congrès de Montréal",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://congresmtl.com/calendrier-des-evenements/"
+      ],
+      "link_pattern": "https://congresmtl\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palais des congrès de Montréal",
+        "lat": 45.5051255,
+        "lon": -73.5607046
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "The Church of St. Andrew and St. Paul",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://standrewstpaul.com/events/"
+      ],
+      "link_pattern": "https://standrewstpaul\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Church of St. Andrew and St. Paul",
+        "address": "3415 Rue Redpath",
+        "lat": 45.4984906,
+        "lon": -73.5807477
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Aréna Mont-Royal",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/marche-fermier-laurier-110395"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Aréna Mont-Royal",
+        "address": "4365 Rue Cartier",
+        "lat": 45.5333069,
+        "lon": -73.5717947
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque L’Octogone",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/raconte-moi-la-science-117694"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque L’Octogone",
+        "city": "Montréal",
+        "lat": 45.4242983,
+        "lon": -73.6235267,
+        "street_hint": "1080 Avenue Dollard"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Pointe-à-Callière: Pavillon de l'Ancienne-Douane",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://pacmusee.qc.ca/fr/calendrier/evenement/conference-homere-sous-l-oeil-des-philosophes/"
+      ],
+      "link_pattern": "https://pacmusee\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pointe-à-Callière: Pavillon de l'Ancienne-Douane",
+        "lat": 45.5033359,
+        "lon": -73.5546229
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Pointe-à-Callière",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://pacmusee.qc.ca/en/calendar/event/lecture-homer-poet-of-western-literature/"
+      ],
+      "link_pattern": "https://pacmusee\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pointe-à-Callière",
+        "address": "350 Place Royale",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H2Y 3Y5",
+        "lat": 45.5026111,
+        "lon": -73.5542448
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Côte-des-Neiges",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-116508"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Côte-des-Neiges",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1Y2",
+        "lat": 45.4959105,
+        "lon": -73.6222404,
+        "street_hint": "5290 Chemin de la Côte-des-Neiges"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Henri-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/jeux-video-8-13-ans-118657"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Henri-Bourassa",
+        "city": "Montréal",
+        "lat": 45.6046301,
+        "lon": -73.6250091,
+        "street_hint": "5400 Boulevard Henri-Bourassa"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Boisé",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/salon-des-ados-119851"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Boisé",
+        "city": "Montréal",
+        "postal_code": "H4R 1T4",
+        "lat": 45.5042664,
+        "lon": -73.7050752,
+        "street_hint": "2727 Boulevard Thimens"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Jean-Claude-Malépart",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bain-libre-avec-activite-wibit-121007"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre Jean-Claude-Malépart",
+        "address": "2633 Rue Ontario Est",
+        "postal_code": "H2K 1W8",
+        "lat": 45.5338483,
+        "lon": -73.5524057
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la Culture Mercier",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/305-bellechasse-114804"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la Culture Mercier",
+        "address": "8105 Rue Hochelaga",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955094,
+        "lon": -73.5238339
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jacqueline-de-Repentigny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-conte-verdun-115809"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jacqueline-de-Repentigny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4H 1H6",
+        "lat": 45.448547,
+        "lon": -73.5778979,
+        "street_hint": "5955 Rue Bannantyne"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Claude-Léveillée",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/nuit-boheme-la-poesie-partout-116522"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Claude-Léveillée",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5416425,
+        "lon": -73.6134293,
+        "street_hint": "911 Rue Jean-Talon Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque d'Hochelaga",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/completement-jeu-2-6-ans-117277"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque d'Hochelaga",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1W 2Y6",
+        "lat": 45.5423301,
+        "lon": -73.5455697,
+        "street_hint": "1870 Rue Davidson"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Maisonneuve",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-code-116901"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Maisonneuve",
+        "city": "Montréal",
+        "postal_code": "H1V 1J9",
+        "lat": 45.5506235,
+        "lon": -73.5405648,
+        "street_hint": "4120 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Saviour of the Nations Luthern Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.saviourofthenations.org/events/june-bbq"
+      ],
+      "link_pattern": "https://www\\.saviourofthenations\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saviour of the Nations Luthern Church",
+        "address": "1631 East 41st Avenue",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V5P 1K5",
+        "lat": 49.23244,
+        "lon": -123.0722
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Saint Andrew's Wesley United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events",
+      "listing": [
+        "https://standrewswesley.com/events/"
+      ],
+      "link_pattern": "https://standrewswesley\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Andrew's Wesley United Church",
+        "address": "1022 Nelson Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6E 4S7",
+        "lat": 49.2812403,
+        "lon": -123.1266001
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Centre culturel francophone",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.lecentreculturel.com/programmationgenerale"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Centre culturel francophone",
+        "address": "1551 West 7th Avenue",
+        "lat": 49.265488,
+        "lon": -123.1400055
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Gateway Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.gatewaytheatre.com/events/"
+      ],
+      "link_pattern": "https://www\\.gatewaytheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gateway Theatre",
+        "address": "6500 Gilbert Road",
+        "lat": 49.1673438,
+        "lon": -123.1471337
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Rio Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://riotheatre.ca"
+      ],
+      "link_pattern": "https://riotheatre\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rio Theatre",
+        "address": "1660 East Broadway",
+        "lat": 49.2620334,
+        "lon": -123.070496
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Cultch",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://thecultch.com/calendar/"
+      ],
+      "link_pattern": "https://thecultch\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Cultch",
+        "address": "1895 Venables Street",
+        "city": "Vancouver",
+        "lat": 49.2768636,
+        "lon": -123.0660971
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Industrial 236",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://allevents.in/"
+      ],
+      "link_pattern": "https://allevents\\.in/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Industrial 236",
+        "address": "236 Clark Drive",
+        "lat": 49.2825415,
+        "lon": -123.0766899
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "St. Mark's Evangelical Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stmarkschurch.ca/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St. Mark's Evangelical Lutheran Church",
+        "address": "1593 East 18th Avenue",
+        "city": "Vancouver",
+        "lat": 49.2545516,
+        "lon": -123.0712288
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Parallel 49 Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event",
+      "listing": [
+        "https://parallel49brewing.com/events"
+      ],
+      "link_pattern": "https://parallel49brewing\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Parallel 49 Brewing",
+        "address": "1950 Triumph Street",
+        "city": "Vancovuer",
+        "postal_code": "V5L 1K5",
+        "lat": 49.283703,
+        "lon": -123.0643727
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "St. Faith's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stfaiths.ca/events/"
+      ],
+      "link_pattern": "https://stfaiths\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Faith's Anglican Church",
+        "address": "7284 Cypress Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6P 5M3",
+        "country": "CA",
+        "lat": 49.2197754,
+        "lon": -123.1493842
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "City Centre Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.citycentrechurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "City Centre Church",
+        "address": "13062 104 Avenue",
+        "lat": 49.1914069,
+        "lon": -122.8605419
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Stanley Park Lawn Bowling Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix+gcal-embed",
+      "listing": [
+        "https://www.splbc.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Stanley Park Lawn Bowling Club",
+        "address": "9100 Stanley Park Drive",
+        "lat": 49.2914361,
+        "lon": -123.1472088
+      },
+      "_metro": "Vancouver, Canada"
     }
   ],
   "_not_included": {

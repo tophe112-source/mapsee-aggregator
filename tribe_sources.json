@@ -28458,6 +28458,720 @@
       },
       "_metro": "Oslo, Norway",
       "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM ics_sources.json, where it was read as https://mathallenoslo.no/events/?ical=1: robots.txt now has `Disallow: /*?*ical=` (with /*?*tribe-bar-date=, /*?*outlook-ical=, /*?*eventDisplay=past) and that export answered 410 Gone in production on 2026-10-24, 10-25, 10-27 and 10-28. /wp-json/ is not disallowed and no Crawl-delay is set. verify: 59 events, 10/10 on page 1 future. Round-1 dry run without a venue block: kept 59, 57 stored, 55 placed at Vulkan 5 by a geocoded street (59.92225, 10.75175); the 2 'Kaffekurs hos Solberg & Hansen' rows gave no city and stayed unplaced. The venue block pins the hall at OSM way 112306688 'Mathallen' (amenity=food_court, Gerd Kjølaas' plass, 0178), 59.9221184, 10.7520299 through Photon, 21.7 m from the Vulkan 5 address point; Solberg & Hansen's café is OSM node 5593802021 on Vulkan, 35.8 m away, in the hall. Dry run with the block (2026-10-29, empty caches): kept 59, 57 stored, 57 placed at the hall (Kulinarisk Akademi 51, Galopin 4, Solberg & Hansen 2), 36 in the next 90 days. Mostly paid cooking classes and tastings in the hall (Kulinarisk Akademi, Galopin; 590-2050 NOK)."
+    },
+    {
+      "name": "Lancefield",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://lancefield.org.au",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Lancefield",
+      "default_region": null,
+      "default_country": "AU",
+      "_metro": "Lancefield, Australia"
+    },
+    {
+      "name": "Beth Tzedec Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://beth-tzedec.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beth Tzedec Synagogue",
+        "address": "1700 Bathurst Street",
+        "city": "York",
+        "lat": 43.6955375,
+        "lon": -79.4243355
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Islington Evangel Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://iecfamily.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islington Evangel Centre",
+        "address": "49 Queen's Plate Drive",
+        "lat": 43.7100682,
+        "lon": -79.589694
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Darchei Noam Reconstructionist Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://darcheinoam.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Darchei Noam Reconstructionist Synagogue",
+        "address": "864 Sheppard Avenue West",
+        "city": "North York",
+        "region": "Ontario",
+        "postal_code": "M3H 2T5",
+        "lat": 43.7526638,
+        "lon": -79.4533094
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Islington United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://islingtonunited.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islington United Church",
+        "address": "25 Burnhamthorpe Road",
+        "city": "Etobicoke",
+        "lat": 43.6495295,
+        "lon": -79.529782
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Little Trinity Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://littletrinity.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Little Trinity Anglican Church",
+        "address": "425 King Street East",
+        "city": "Toronto",
+        "lat": 43.653152,
+        "lon": -79.3618377
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Christ Emmanuel Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cecctoronto.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Emmanuel Community Church",
+        "address": "2712 Victoria Park Avenue",
+        "city": "North York",
+        "postal_code": "M2J 4A7",
+        "lat": 43.7841675,
+        "lon": -79.3278502
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "McMichael Canadian Art Collection",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://mcmichael.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "McMichael Canadian Art Collection",
+        "address": "10365 Islington Avenue",
+        "city": "Kleinburg",
+        "postal_code": "L0J 1C0",
+        "lat": 43.8434783,
+        "lon": -79.6164892
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Grace Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gracechurchscarborough.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Church",
+        "address": "700 Kennedy Road",
+        "city": "Scarborough",
+        "lat": 43.728035,
+        "lon": -79.2668505
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Carefirst Transitional Care Centre",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://carefirstontario.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Carefirst Transitional Care Centre",
+        "address": "300 Silver Star Boulevard",
+        "city": "Toronto",
+        "postal_code": "M1V 5P1",
+        "lat": 43.8126085,
+        "lon": -79.295016
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "St. Mary’s Antiochan Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://saintmarysmississauga.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Mary’s Antiochan Orthodox Church",
+        "address": "280 Traders Boulevard East",
+        "lat": 43.627975,
+        "lon": -79.6676324
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Saint James United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stjamesunitedchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint James United Church",
+        "address": "400 Burnhamthorpe Road",
+        "postal_code": "M9B 2A8",
+        "lat": 43.6466566,
+        "lon": -79.556249
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Spectre de Rue",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.spectrederue.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spectre de Rue",
+        "address": "1280 Rue Ontario Est",
+        "lat": 45.5218574,
+        "lon": -73.5617951
+      },
+      "_metro": "Montreal, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Les Sans-Taverne: Coop et Brasserie Artisanale",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://sans-taverne.coop",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Sans-Taverne: Coop et Brasserie Artisanale",
+        "address": "1900 Rue Le Ber",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3K 2A4",
+        "lat": 45.4809306,
+        "lon": -73.5524889
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "ALAC - Alliance pour l'accueil et l'integration des immigrats-es",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.alac.qc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ALAC - Alliance pour l'accueil et l'integration des immigrats-es",
+        "address": "5165 Chemin Queen Mary",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3W 1X7",
+        "lat": 45.4852312,
+        "lon": -73.6285289
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Shaar Hashomayim",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.theshaar.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shaar Hashomayim",
+        "address": "450 Avenue Kensington",
+        "city": "Westmount",
+        "lat": 45.4850515,
+        "lon": -73.5985804
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Service des loisirs Angus-Bourbonnière",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://slabrosemont.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Service des loisirs Angus-Bourbonnière",
+        "address": "5350 Rue Lafond",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5523585,
+        "lon": -73.5713572
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Église du Gesú",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://legesu.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église du Gesú",
+        "address": "1202 Rue De Bleury",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3B 3J3",
+        "lat": 45.5054545,
+        "lon": -73.5661958
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre récréatif Édouard-Rivet",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ville.montreal-est.qc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre récréatif Édouard-Rivet",
+        "address": "11111 Rue Notre-Dame Est",
+        "city": "Montréal-Est",
+        "region": "Québec",
+        "postal_code": "H1B 2V7",
+        "lat": 45.6285898,
+        "lon": -73.5005338
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Surrey Food Bank Society",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://surreyfoodbank.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Surrey Food Bank Society",
+        "address": "13478 78 Avenue",
+        "city": "Surrey",
+        "lat": 49.1443395,
+        "lon": -122.84914
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "BCIT Burnaby Campus Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.bcit.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BCIT Burnaby Campus Bookstore",
+        "lat": 49.2516748,
+        "lon": -123.0014436
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Britannia Shipyards National Historic Site",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://stevestonheritage.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Britannia Shipyards National Historic Site",
+        "lat": 49.1207839,
+        "lon": -123.1691426
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "WorkBC Vancouver Northeast",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://mosaicbc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "WorkBC Vancouver Northeast",
+        "address": "2555 Commercial Drive",
+        "city": "Vancouver",
+        "lat": 49.2617242,
+        "lon": -123.0702019
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Dance Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thedancecentre.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Dance Centre",
+        "address": "677 Davie Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6B 2G6",
+        "lat": 49.2769727,
+        "lon": -123.1256655
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Climb Base5",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://climbbase5.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Climb Base5",
+        "address": "98 Brigantine Drive",
+        "city": "Coquitlam",
+        "region": "British Columbia",
+        "postal_code": "V3K 6Z6",
+        "lat": 49.2276876,
+        "lon": -122.849835
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Arts Umbrella",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.artsumbrella.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arts Umbrella",
+        "address": "1440 Johnston Street",
+        "lat": 49.2703704,
+        "lon": -123.133298
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Burnaby Winter Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://burnabywinterclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burnaby Winter Club",
+        "address": "4990 Canada Way",
+        "city": "Burnaby",
+        "lat": 49.2430917,
+        "lon": -122.969155
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Dance Express",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://danceexpress.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dance Express",
+        "lat": 49.2668068,
+        "lon": -123.0100586
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Upstart & Crow",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://upstartandcrow.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Upstart & Crow",
+        "address": "1387 Railspur Alley",
+        "lat": 49.2704633,
+        "lon": -123.1343324
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Salvation Army Boundless Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://salvationarmyvancouver.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salvation Army Boundless Vancouver",
+        "address": "3213 Fraser Street",
+        "lat": 49.2561542,
+        "lon": -123.090174
+      },
+      "_metro": "Vancouver, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Orange Hall",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://successbc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Orange Hall",
+        "address": "341 Gore Avenue",
+        "lat": 49.2815958,
+        "lon": -123.09779
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Disability Foundation",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://disabilityfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Disability Foundation",
+        "address": "2285 Clark Drive",
+        "lat": 49.2645626,
+        "lon": -123.0777833
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Northside Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://dwellingplace.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Northside Church",
+        "address": "1460 Lansdowne Drive",
+        "lat": 49.2941195,
+        "lon": -122.8139421
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Cornerstone Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cornerstonebc.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cornerstone Seventh Day Adventist Church",
+        "address": "1415 Noons Creek Drive",
+        "lat": 49.2960899,
+        "lon": -122.8178379
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Evergreen Cultural Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://evergreenarts.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evergreen Cultural Centre",
+        "address": "1205 Pinetree Way",
+        "city": "Coquitlam",
+        "region": "BC",
+        "postal_code": "V3B 7Y3",
+        "lat": 49.2852654,
+        "lon": -122.7908384
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Vancouver Filipino Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vancouverfilipinoadventist.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vancouver Filipino Seventh Day Adventist Church",
+        "address": "235 East 15th Avenue",
+        "lat": 49.2577491,
+        "lon": -123.0998669
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Steveston Railway Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://historicsteveston.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Steveston Railway Museum",
+        "lat": 49.125569,
+        "lon": -123.1806346
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "King of Life Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kingoflife.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "King of Life Lutheran Church",
+        "address": "1198 Falcon Drive",
+        "lat": 49.2844185,
+        "lon": -122.8190958
+      },
+      "_metro": "Vancouver, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "St. James'",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stjames.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. James'",
+        "address": "303 East Cordova Street",
+        "postal_code": "V6A 1L4",
+        "lat": 49.2825102,
+        "lon": -123.097206
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Roedde House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.roeddehouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roedde House Museum",
+        "address": "1415 Barclay Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2869083,
+        "lon": -123.1321516
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Korean Baptist Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kbcv.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Korean Baptist Church of Vancouver",
+        "address": "1005 Kensington Avenue",
+        "lat": 49.2748988,
+        "lon": -122.9706163
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Embark Burnaby Learning Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.embarksustainability.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Embark Burnaby Learning Garden",
+        "lat": 49.2765494,
+        "lon": -122.9142408
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Danish Lutheran Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://danishchurch.vancouver.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Danish Lutheran Church of Vancouver",
+        "address": "6010 Kincaid Street",
+        "lat": 49.2479958,
+        "lon": -122.9765182
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Tzu Chi Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://tzuchi.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tzu Chi Community Garden",
+        "lat": 49.2109622,
+        "lon": -123.1176406
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "St. Anthony's Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sawv.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Anthony's Parish",
+        "address": "2347 Inglewood Avenue",
+        "postal_code": "V7V 1Z9",
+        "lat": 49.3349913,
+        "lon": -123.1768757
+      },
+      "_metro": "Vancouver, Canada"
     }
   ],
   "_not_included": {
