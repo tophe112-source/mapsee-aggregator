@@ -164,7 +164,21 @@ CONTENT_CASES = [
     ("Fashion Thrift Society Sydney", "arts", "Pre-loved fashion.", "arts", {"market"}, set()),
     ("Bermondsey Car Boot Sale", "community", "", "community", {"market"}, set()),
     ("Repair Cafe Islington", "community", "Bring something broken.", "community", {"market"}, set()),
+    # The measured repair-cafe.ch cursor had seven equivalent Swiss names that
+    # the English-only phrase missed; classify those exact observed forms.
+    ("Reparaturia", "community", "", "community", {"market"}, set()),
+    ("Repairmanent", "community", "", "community", {"market"}, set()),
+    ("Reparier-Kafi", "community", "", "community", {"market"}, set()),
+    ("Reparaturkaffee", "community", "", "community", {"market"}, set()),
+    ("Répare Café", "community", "", "community", {"market"}, set()),
+    ("Caffè Riparazione", "community", "", "community", {"market"}, set()),
+    ("Reparieren statt wegwerfen", "community", "", "community", {"market"}, set()),
     ("Community Clothing Swap", "community", "", "community", {"market"}, set()),
+    # Generic repair copy and a volunteer setup shift are not market listings.
+    ("Repairing broken appliances workshop", "community", "How to repair old tools.",
+     "community", set(), {"market"}),
+    ("Superreparaturia Services", "community", "", "community", set(), {"market"}),
+    ("Volunteer shift at Reparier-Kafi", "volunteer", "Help set up the room.", "volunteer", set(), {"market"}),
     ("Dallas Thrift & Vintage Shopping Tour", "outdoors", "", "outdoors", {"market"}, set()),
 
     # ...and the words it must NOT take. "Vintage" is a band name and a tour

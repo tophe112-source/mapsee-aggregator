@@ -19659,6 +19659,18 @@
         "lon": -79.3816915
       },
       "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "The ReUse Depot - swaps and reuse events",
+      "listing": [
+        "https://www.thereusedepot.org/event-list"
+      ],
+      "link_pattern": "https://www\\.thereusedepot\\.org/event-details/[a-zA-Z0-9-]+",
+      "category": "community",
+      "max_events": 80,
+      "_metro": "Bainbridge Island, United States",
+      "_found": "manual:2026-10-28 Fleabop reuse source review",
+      "_note": "2026-10-28: robots allows the listing and event-details pages; the existing JSON-LD adapter read 3 details and kept 1 upcoming event: Fall Clothes Swap '26, Nov 15 12:00-14:30 PST at Filipino American Community Hall, 7566 High School Rd NE, Bainbridge Island. The organizer explicitly says Free event and no donation is required to shop. Mending is a separate service, not admission. Keep community as the calendar default; title-based swap/repair rules add market only to relevant events. Event addresses remain per-row: no blanket hall pin for future offsite events."
     }
   ],
   "_not_included": {

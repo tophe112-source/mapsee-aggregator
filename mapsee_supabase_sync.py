@@ -719,7 +719,13 @@ _SECONDARY_RX = [
         r"(?:car\s+)?boot\s+sales?|jumble\s+sales?|garage\s+sales?|yard\s+sales?|"
         r"charity\s+shops?|op\s+shops?|consignment\s+sales?|"
         r"(?:book|toy|plant|seed|clothes|clothing|kit|food)\s+swaps?|swap\s+shops?|"
-        r"repair\s+caf[eé]s?|upcycling\s+(?:markets?|fairs?)|"
+        r"repair\s+caf[eé]s?|"
+        # Exact observed names for the same repair-café format in Swiss German,
+        # French and Italian; keep these phrase-bounded rather than matching
+        # generic repair wording or business references.
+        r"\b(?:reparaturia|repairmanent|reparier[\s-]+kafi|reparaturkaffee|"
+        r"r[eé]pare\s+caf[eé]|caff[eè]\s+riparazione|"
+        r"reparieren\s+statt\s+wegwerfen)\b|upcycling\s+(?:markets?|fairs?)|"
         r"record\s+swaps?|vinyl\s+fairs?|car\s+boot)\b|"
         # Loanwords: unambiguous in their own language, and Flohmarkt/Trodelmarkt
         # compound freely, so no leading word boundary on those two.
