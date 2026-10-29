@@ -3377,6 +3377,159 @@
         "lon": -123.1334983
       },
       "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Renfrew Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.renfrewbaptist.ca/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Renfrew Baptist Church",
+        "address": "1208 Renfrew Drive NE",
+        "postal_code": "T2E 5J5",
+        "lat": 51.0625957,
+        "lon": -114.0334153
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Calgary Rifle and Pistol Club",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.crpc.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Calgary Rifle and Pistol Club",
+        "address": "1910 39 Avenue NE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2E 7Y9",
+        "lat": 51.0885179,
+        "lon": -114.0139626
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Next Door Market & Event Space",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://nextdoorottawa.ca/events-list",
+      "max_events": 200,
+      "venue": {
+        "name": "Next Door Market & Event Space",
+        "address": "955 A Gladstone Avenue",
+        "postal_code": "K1Y 3E5",
+        "lat": 45.4038162,
+        "lon": -75.7152539
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "St. Stephen's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ststephensottawa.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Stephen's Anglican Church",
+        "address": "930 Watson Street",
+        "postal_code": "K2B 6B9",
+        "lat": 45.354502,
+        "lon": -75.7943935
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Le Pantoum",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.lepantoum.com/programmation",
+      "max_events": 200,
+      "venue": {
+        "name": "Le Pantoum",
+        "address": "76 Rue Saint-Joseph Ouest",
+        "city": "Québec",
+        "region": "Québec",
+        "lat": 46.8115441,
+        "lon": -71.2326193
+      },
+      "_metro": "Quebec City, Canada"
+    },
+    {
+      "name": "Grain & Grit",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.grainandgritbeer.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Grain & Grit",
+        "address": "11 Ewen Road",
+        "postal_code": "L8S 3C3",
+        "lat": 43.2567407,
+        "lon": -79.9315816
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "King's College Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.kingschapel.ca/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "King's College Chapel",
+        "address": "6350 Coburg Road",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3H 1Z9",
+        "lat": 44.6378103,
+        "lon": -63.5951816
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Lighthouse Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.lighthouseartscentre.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Lighthouse Arts Centre",
+        "address": "1800 Argyle Street",
+        "city": "Halifax",
+        "postal_code": "B3J 2V9",
+        "lat": 44.648506,
+        "lon": -63.5758182
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Crag X Climbing Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.cragx.ca/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Crag X Climbing Centre",
+        "address": "769 Pandora Avenue",
+        "lat": 48.4276435,
+        "lon": -123.3624874
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Centre of the Universe",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.centreoftheuniverse.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Centre of the Universe",
+        "lat": 48.5202755,
+        "lon": -123.4187761
+      },
+      "_metro": "Victoria, Canada"
     }
   ],
   "_not_included": {

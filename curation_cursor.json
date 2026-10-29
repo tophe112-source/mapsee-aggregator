@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 145,
-  "metro_key": "CA:Calgary",
+  "metro": 154,
+  "metro_key": "AU:Sydney",
   "stuck": {}
  },
  "osm|community_centre,library": {

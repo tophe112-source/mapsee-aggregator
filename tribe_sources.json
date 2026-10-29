@@ -29172,6 +29172,417 @@
         "lon": -123.1768757
       },
       "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "All Saints' Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.allsaintswestboro.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All Saints' Anglican Church",
+        "address": "347 Richmond Road",
+        "lat": 45.3921818,
+        "lon": -75.7547933
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "The Observatory",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.algonquinsa.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Observatory",
+        "lat": 45.3490407,
+        "lon": -75.7576914
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Memorial Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://ottawapa.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Memorial Hall",
+        "address": "141 Catherine Street",
+        "lat": 45.4102749,
+        "lon": -75.6906464
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Ottawa Rowing Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ottawarowingclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ottawa Rowing Club",
+        "address": "10 Lady Grey Drive",
+        "postal_code": "K1P 5P9",
+        "lat": 45.4352974,
+        "lon": -75.6999288
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Hindu Temple of Ottawa-Carleton",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hindutemple.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hindu Temple of Ottawa-Carleton",
+        "address": "4835 Bank Street",
+        "lat": 45.3103037,
+        "lon": -75.5867497
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Ottawa Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://ottawaadventist.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ottawa Seventh-Day Adventist Church",
+        "address": "2200 Benjamin Avenue",
+        "lat": 45.362599,
+        "lon": -75.7677255
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Masjid Bilal, Islamic Society of Cumberland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.masjidbilal.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Masjid Bilal, Islamic Society of Cumberland",
+        "address": "4509 Innes Road",
+        "lat": 45.4621642,
+        "lon": -75.4846875
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Église adventiste du septième jour francophone d'Ottawa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://eafo.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église adventiste du septième jour francophone d'Ottawa",
+        "address": "375 King Edward Avenue",
+        "lat": 45.4296077,
+        "lon": -75.6858245
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Cohere Centre",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://coherecentre.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cohere Centre",
+        "address": "4899 Uplands Drive",
+        "postal_code": "K1V 2N6",
+        "lat": 45.3321445,
+        "lon": -75.653895
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Blackburn Hamlet Community Centre & Arena",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://blackburnhamlet.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blackburn Hamlet Community Centre & Arena",
+        "address": "190 Glen Park Drive",
+        "lat": 45.4303793,
+        "lon": -75.5631065
+      },
+      "_metro": "Ottawa, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Pawn Shop Live",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://pawnshop-live.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pawn Shop Live",
+        "address": "6240 99 Street NW",
+        "city": "Edmonton",
+        "region": "Alberta",
+        "postal_code": "T6E 6C7",
+        "lat": 53.4987499,
+        "lon": -113.4875754
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Creative Manitoba",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+mylisting+jsonld-event+ics",
+      "base_url": "https://creativemanitoba.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Creative Manitoba",
+        "address": "245 McDermot Avenue",
+        "lat": 49.8975264,
+        "lon": -97.1410779
+      },
+      "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Le Pylône",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://fqme.qc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Pylône",
+        "lat": 46.7499033,
+        "lon": -71.2967063
+      },
+      "_metro": "Quebec City, Canada"
+    },
+    {
+      "name": "Workers Arts and Heritage Centre",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wahc-museum.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Workers Arts and Heritage Centre",
+        "address": "51 Stuart Street",
+        "postal_code": "L8L 1B5",
+        "lat": 43.2663928,
+        "lon": -79.8673712
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Unity Spiritual Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://unityspiritualcentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unity Spiritual Center",
+        "address": "289 Queenston Road",
+        "lat": 43.2342917,
+        "lon": -79.791575
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Bronte Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://brontesda.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bronte Seventh-Day Adventist Church",
+        "lat": 43.4238362,
+        "lon": -79.7589508
+      },
+      "_metro": "Hamilton, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Heritage Green Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://heritagegreenadventist.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heritage Green Seventh-day Adventist Church",
+        "address": "349 Isaac Brock Drive",
+        "city": "Stoney Creek",
+        "postal_code": "L8J 3S2",
+        "lat": 43.1930629,
+        "lon": -79.7898242
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Bus Stop Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://busstoptheatre.coop",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bus Stop Theatre",
+        "address": "2203 Gottingen Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3K 3B5",
+        "lat": 44.6532641,
+        "lon": -63.5849809
+      },
+      "_metro": "Halifax, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Shaar Shalom Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://theshaar.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shaar Shalom Synagogue",
+        "address": "1981 Oxford Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3H 4A4",
+        "lat": 44.6441881,
+        "lon": -63.599688
+      },
+      "_metro": "Halifax, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Halifax Chinese Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.halifaxchinesechurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Halifax Chinese Christian Church",
+        "address": "958 Barrington Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3H 2P7",
+        "lat": 44.6351641,
+        "lon": -63.5696125
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Parkland at the Common",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://experienceparkland.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parkland at the Common",
+        "address": "6015 Quinpool Road",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3K 5J6",
+        "lat": 44.6474018,
+        "lon": -63.591205
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Maritime Museum of British Columbia",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://mmbc.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maritime Museum of British Columbia",
+        "address": "744 Douglas Street",
+        "lat": 48.4217671,
+        "lon": -123.3663512
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Wentworth Villa",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wentworthvilla.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wentworth Villa",
+        "address": "1156 Fort Street",
+        "lat": 48.4233313,
+        "lon": -123.3516186
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Abkhazi Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://conservancy.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Abkhazi Garden",
+        "address": "1964 Fairfield Road",
+        "lat": 48.4161782,
+        "lon": -123.3265291
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "The Gardens at HCP",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://hcp.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Gardens at HCP",
+        "address": "505 Quayle Road",
+        "postal_code": "V9E 2J7",
+        "lat": 48.5005402,
+        "lon": -123.4143581
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "?",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.oakbay.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 48.4307105,
+        "lon": -123.3208809
+      },
+      "_metro": "Victoria, Canada"
     }
   ],
   "_not_included": {

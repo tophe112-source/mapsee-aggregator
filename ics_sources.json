@@ -59612,5 +59612,772 @@
     "geocode_suffix": ", Calgary, Canada",
     "limit": 300,
     "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "St. Andrew's Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.standrewscalgary.ca/events.ics",
+    "geocode_suffix": ", Calgary",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Hope Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.hopelutheran.ca/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Varsity Acres Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.vapc.ca/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "St. James Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stjamescalgary.com/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Westview Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.westviewchurch.ca/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "St Paul's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stpaulscalgary.ca/events.ics",
+    "geocode_suffix": ", Calgary, AB",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Assumption of the Blessed Virgin Mary Ukrainian Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hvkjlvrvk2dub280md3rhuuktg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Calgary Inter-Mennonite Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lrsqcllill13ev9qlag0pong78%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "First Mennonite Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_8s4qgnh2p7ilr0m1ik7f1i1d4k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Al Azhar Shrine Centre",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_ef8f85958dcd92955c8d0d0753f158154a6f1f9c5d5256011b231db584dee04f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Grace Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://gbccalgary.com/events.ics",
+    "geocode_suffix": ", Calgary, AB",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "House of Jacob Mikveh Israel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0854e78d48e1cdf24b1542df06288e8b04f471365d79af0ff195e5fa3cbb3227%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Sonrise Community Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sonrisecbc.ca/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Bow Valley Lawn Bowling Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/keo8fetf0rlmcmf0e86mf3o8jo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Knox Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.knoxottawa.ca/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Notre-Dame Cathedral Basilica",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uo8ck4oe45062prog8iees992o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, ON",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Annunciation Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gia1canjatclrjgk0t556oo358%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St. Bartholomew's Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintbartholomew.ca/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St. Helen’s Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event+ics",
+    "url": "https://sthelens.ca/feed/my-calendar-google/",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St. Albertus Pfarrgemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2545a6sd69i9n2pag4tukn701v01629d%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Ontario",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St. Xenia Russian Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7f05afce3ace5ba66807105159ccf723ff4e48dac9c632a1254e7b169d5672a2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "All Saints Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.allsaintslutheran.ca/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Julian of Norwich Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cmprqqgk6dffcf3a39m6igp5b4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St John the Evangelist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stjohnsottawa.com/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Trinity Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.trinityottawa.ca/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Christ Church Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ottawacathedral.ca/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Epiphany Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_a129b55846db87a865390aa0873574af5efb82a1d35bac73d5ab94813803820f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Parkdale Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/aroot9a4866fjm2ecck9bvd63o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Ontario",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St. Patrick's Basilica",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/massintention%40basilica.ca/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Watson's Mill",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q1m65mecav3b61nvmfd5krgsus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Community Bible Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cbcinfo%40cbcstittsville.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "St Thomas Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stthomasstittsville.ca/events.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Church of the Ascension",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchoftheascension.ca_dlbja6msmm7vo3r0hf9avsqd74%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ottawa, Canada",
+    "limit": 300,
+    "_metro": "Ottawa, Canada"
+  },
+  {
+    "name": "Foot Notes Dance Studio",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5cd0rrv4ko57bcg8o60b35kdrc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Daisy Chain Book Co.",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8mivi3o7mrqpo43lf7g1a5nh88%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "St. Peter Evangelical Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fbbe4e3f468360d6bf3d6bb5f35b10461d7c08039ead125e748ec59ef4042ff4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Sturgeon Valley Baptish Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.svbc.ab.ca/events.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "River West Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.riverwestchurch.org/events.ics",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Sunrise Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sunrisecommunitychurch.ca/events.ics",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Hillview Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hillviewchurch.ca_de3ipa88t5hvmcka3ann25bkoo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Capilano Christian Assembly",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cap-mail%40capilano.org/public/basic.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Nanaksar Gurudwara Gursikh Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40nanaksargurdwara.ca/public/basic.ics",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Trinity Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.tbcsherwoodpark.ca/events.ics",
+    "geocode_suffix": ", Sherwood Park, Alberta",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Glory Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_esuepetl40fcchdmiolurm0l94%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sherwood Park, Alberta",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mmoc.ca/icalendar.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Demetrios Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e812571fc46a0e1f1cb0f57c82c7663a41390c75af2d545bd6e64e9726e7ea39%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "St. Ann's Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/18ea157e627b08f102f39dfeed1f78bf0cdf43c1ac9841f294c107cad7e13c2f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Deer Lodge Curling Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6391786527cc8bfa87847d3566647ecbad95587234a2528e6b22bb5db5bdcbe0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Beautiful Savior Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bslc%40mts.net/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Saint Ignatius Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2ee721786dbe4427f644959dadc99af57cc07505c5fcfabb6fa462abf216e8c2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "St. Nicholas Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_hq22d2gc72uuql3m4pk53nu89o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Narol",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Sanford United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/91nim0velabhtunt7srh23qcr0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "St. Edward the Confessor Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stedwardchurch.ca/icalendar161763.ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Taoist Tai Chi Society",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://test.taoist.org/all-events/?ical=1",
+    "geocode_suffix": ", Hamilton, Canada",
+    "limit": 300,
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "Not Just Another Dance Studio",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0c98d9a75f6df001041fe9e9fa1de5ed84cd2820ad2ef3005c218481f2c15080%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hamilton, ON",
+    "limit": 300,
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "St. John the Evangelist Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.rockonlocke.ca/events.ics",
+    "geocode_suffix": ", Hamilton, Canada",
+    "limit": 300,
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "Hamilton Mennonite Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.hmc.on.ca/events.ics",
+    "geocode_suffix": ", Hamilton",
+    "limit": 300,
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "Emmanuel Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ebcmeet.com/events.ics",
+    "geocode_suffix": ", Hammonds Plains, Nova Scotia",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "Christ Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/music%40christchurchdartmouth.com/public/basic.ics",
+    "geocode_suffix": ", Dartmouth, Nova Scotia",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "Calvin Presbyterian",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f5d9701eb34756ca06e70a56ae016522ff8f274882b090a0e4c0e9da667f5211%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Halifax",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "Saint Benedict Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://saintbenedict.ca/events/icalendar_feed",
+    "geocode_suffix": ", Halifax, Nova Scotia",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "All Saints Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.cathedralchurchofallsaints.com/events.ics",
+    "geocode_suffix": ", Halifax, Nova Scotia",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "Overmarsh Farm Commons",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tbtea7bsf8s3k3bslpi9pkigjk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Friday Harbor",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "North Douglas Pentecostal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.northdouglaschurch.com/events.ics",
+    "geocode_suffix": ", Victoria, Canada",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "Saint John The Divine",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stjohnthedivine.bc.ca/events.ics",
+    "geocode_suffix": ", Victoria, BC",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "St. Luke's Cedar Hill Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stlukesvictoria.ca/events.ics",
+    "geocode_suffix": ", Victoria",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "Friendship Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.friendshipcommunity.ca/events.ics",
+    "geocode_suffix": ", Victoria, Canada",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "Lutheran Church of the Cross",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.lutheranvictoria.ca/events.ics",
+    "geocode_suffix": ", Victoria",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "Christ Church Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.christchurchcathedral.bc.ca/events.ics",
+    "geocode_suffix": ", Victoria, Canada",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "Westminster United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/westminsterunited.ca_babort55rj4he0an0iils70hoc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waterloo",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Nith Valley Mennonite Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40nithvalleymennonite.com/public/basic.ics",
+    "geocode_suffix": ", New Hamburg",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "St. John's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a94df4d49ef6c6a883c4f41de937cec505417735720f6d9830fe35f4bb8f755a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cambridge, Ontario",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Hope Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vo3amsbtb649d2lmkc9frohed4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Historic Saint Paul's Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v3u84hrf98s2qd0e3sukn7mfgk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Waterloo Masjid",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/f60241a6b8e256eb5597c20afaaea5f919e48d9bedea33757bff6cb45a7930c0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waterloo",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Benton Street Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_u58vtpabmmprqbaf4sstdgos24%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Waterloo Christian Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/canadian__en%40holiday.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waterloo, Ontario",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Glen Acres Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/t0v6i8s5aa7h9cgljrpa8ko7m4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Grand River Unitarian Congregation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/51i3svpud4piadbjot0e57r1es%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Bloomingdale Mennonite Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f0s8e63lpacnr1irkvsgrfgs28%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bloomingdale",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Romanian Pentecostal Church of God",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/krpc.ca_vtvn8190juofshl0ifv8k1fhto%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Church of the Apostles",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rector%40apostlesguelph.org/public/basic.ics",
+    "geocode_suffix": ", Guelph",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Trinity United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/trinitycambridge%40diohuron.org/public/basic.ics",
+    "geocode_suffix": ", Cambridge",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Floradale Mennonite Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cb3b4a6c059f8c9dce8640d89485b8dacef14657be9ab16ae82f3b01ea91951c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Floradale",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Glencairn Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/glencairn.ca_9ac1rp9bm9jgfoahqoffj1qdvs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
   }
 ]

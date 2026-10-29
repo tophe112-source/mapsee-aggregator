@@ -20588,6 +20588,213 @@
         "lon": -123.1472088
       },
       "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Glamorgan Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.glamorganchurch.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Glamorgan Church",
+        "address": "4715 45 Street SW",
+        "lat": 51.0120115,
+        "lon": -114.1533909
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "The Military Museums",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://themilitarymuseums.ca/events"
+      ],
+      "link_pattern": "https://themilitarymuseums\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Military Museums",
+        "address": "4520 Crowchild Trail SW",
+        "postal_code": "T2T 5J4",
+        "lat": 51.0135561,
+        "lon": -114.1161051
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "City At Night",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.cityatnight.ca/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "City At Night",
+        "address": "222 Slater Street",
+        "lat": 45.4193966,
+        "lon": -75.6993935
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Christ Church Huntley",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.huntleyparish.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Christ Church Huntley",
+        "address": "3008 Carp Road",
+        "lat": 45.3144355,
+        "lon": -75.9976697
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Francis Winspear Centre for Music",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.winspearcentre.com/tickets/events/other/2026/a-night-of-motown/"
+      ],
+      "link_pattern": "https://www\\.winspearcentre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Francis Winspear Centre for Music",
+        "address": "4 Sir Winston Churchill Square NW",
+        "city": "Edmonton",
+        "postal_code": "T5J 4X8",
+        "lat": 53.5441839,
+        "lon": -113.4875565
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Levity",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.levitycomedyclub.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Levity",
+        "address": "120 King Street West",
+        "city": "Hamilton",
+        "region": "ON",
+        "postal_code": "L8P 1A1",
+        "lat": 43.2580115,
+        "lon": -79.8726592
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Restoration House",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.restorationhouse.ca/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Restoration House",
+        "address": "103 MacNab Street North",
+        "lat": 43.2605588,
+        "lon": -79.8694359
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Agricola Street Books",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.agricolastreetbooks.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Agricola Street Books",
+        "address": "2684 Agricola Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3K 4C9",
+        "lat": 44.6566569,
+        "lon": -63.5954149
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "The Sanctuary Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://sanctuaryartscentre.com/events-calendar"
+      ],
+      "link_pattern": "https://sanctuaryartscentre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Sanctuary Arts Centre",
+        "address": "100 Ochterloney Street",
+        "city": "Dartmouth",
+        "region": "Nova Scotia",
+        "lat": 44.6682178,
+        "lon": -63.5661395
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Parkminster United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.parkuc.ca/church-events/"
+      ],
+      "link_pattern": "https://www\\.parkuc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Parkminster United Church",
+        "address": "275 Erb Street East",
+        "city": "Waterloo",
+        "lat": 43.4708625,
+        "lon": -80.498812
+      },
+      "_metro": "Kitchener, Canada"
+    },
+    {
+      "name": "River Run Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://riverrun.ca/events/list/"
+      ],
+      "link_pattern": "https://riverrun\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "River Run Centre",
+        "address": "35 Woolwich Street",
+        "city": "Guelph",
+        "postal_code": "N1H 3V1",
+        "lat": 43.5477461,
+        "lon": -80.2462798
+      },
+      "_metro": "Kitchener, Canada"
     }
   ],
   "_not_included": {
