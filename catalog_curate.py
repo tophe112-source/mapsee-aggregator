@@ -245,8 +245,9 @@ def _status_for(ok, note):
     if ok:
         return "ok"
     said = getattr(note, "status", None)
-    # `refused` only ever comes from the audit's robots.txt gate (_audit_robots),
-    # never from a verifier: a feed robots.txt disallows is not fetched at all.
+    # `refused` comes from a robots.txt rule, never from a feed's answer: the
+    # audit's gate (_audit_robots) over the requests an entry starts with, and
+    # verify_jsonld when robots.txt disallows every link page it sampled.
     if said in ("empty", "fail", "refused"):
         return said
     return "empty" if _EMPTY_RX.search(note or "") else "fail"
@@ -1265,9 +1266,11 @@ def verify_squarespace(s, e):
 # text is translated, so the SHAPE is matched: every events container on the
 # page holds text only (a populated list puts `<article
 # class="mec-event-article">` inside it). A removed page answers 404 and a
-# removed shortcode prints no container, so neither reads as quiet.
+# removed shortcode prints no container, so neither reads as quiet. The text
+# must have a visible character: a container holding only whitespace says
+# nothing (a script may fill it), and is not quiet (review of 2026-10-29).
 _MEC_CONTAINER_RX = re.compile(r'<div class="mec-skin-[a-z-]+-events-container"', re.I)
-_MEC_EMPTY_RX = re.compile(r'<div class="mec-skin-[a-z-]+-events-container"[^>]*>\s*([^<>]{1,120}?)\s*</div>',
+_MEC_EMPTY_RX = re.compile(r'<div class="mec-skin-[a-z-]+-events-container"[^>]*>\s*(\S[^<>]{0,119}?)\s*</div>',
                            re.I)
 
 
@@ -1295,7 +1298,8 @@ def verify_jsonld(s, e):
     explained afterwards (review of 2026-10-29). Now it carries how many link
     pages the listing had, how many were fetched, what each non-200 answered
     and how many robots.txt disallows (those are not fetched, and do not fail
-    an entry on their own). The wording never says "http 403", which
+    an entry on their own: when every page sampled is disallowed, the verdict
+    is `refused`, with the rule). The wording never says "http 403", which
     _verify_with_retry would read as the LISTING's transport failure.
     """
     listing = e.get("listing") or []
@@ -1325,7 +1329,7 @@ def verify_jsonld(s, e):
     # robots.txt for a link page: the audit's shared reader (asked before the
     # listing already), else one reader for this call.
     pace = getattr(s, "pace", None)
-    reader = []
+    reader, rules = [], []
 
     def disallowed(u):
         if pace is not None:
@@ -1334,7 +1338,10 @@ def verify_jsonld(s, e):
             if not reader:
                 reader.append(robots_txt.Robots(s))
             ans = reader[0].check(u)
-        return ans["allowed"] is False and ans["status"] == "ok"
+        if ans["allowed"] is False and ans["status"] == "ok":
+            rules.append(ans.get("rule") or "?")
+            return True
+        return False
 
     _count(r.text)
     pat = e.get("link_pattern")
@@ -1382,6 +1389,16 @@ def verify_jsonld(s, e):
             if refused:
                 said.append(f"{refused} disallowed by robots.txt")
             detail = f"; {len(urls)} link page(s) of {listed}: " + ", ".join(said)
+            # EVERY LINK PAGE DISALLOWED is robots.txt's answer, not the
+            # feed's: nothing was read, and the adapter (which asks robots.txt
+            # for each page too) would read nothing either. `refused`, with the
+            # rule, never `fail`, which FEED_DOWN would report as a dead feed
+            # (review of 2026-10-29). The listing itself was let through by
+            # the robots.txt gate that runs before a verifier (the audit's,
+            # or verify's _robots_gate).
+            if urls and refused == len(urls):
+                return False, Verdict(f"robots.txt disallows every link page sampled "
+                                      f"({refused} of {listed}): {rules[0]}{detail}", "refused")
         else:
             detail = "; no link matches link_pattern"
     if not seen_events:
@@ -2785,7 +2802,14 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             if home in seen_keys:
                 bump("configured")
                 continue
-            if home in declined:
+            # A SITE DECLINED WHOLE (a bare host in `_not_included`: Lotto
+            # Arena's, whose event pages answer through a third party's
+            # sign-in) is declined under any page of it. 25,303 of the
+            # 72,884 osm-venue homes in the ledger on 2026-10-29 carry a path,
+            # so an OSM `website` can name a page and miss the bare host.
+            # One home did then: gldf.org/ronchin-59.html, probed 10-28 to
+            # find gldf.org's calendar, whose site tribe_sources.json declines.
+            if home in declined or re.split(r"[/?]", home, maxsplit=1)[0] in declined:
                 bump("declined")
                 continue
             if _dead_recently(led, home):
@@ -4293,7 +4317,8 @@ def cmd_audit(max_minutes=0.0, workers=None, save_every=AUDIT_SAVE_EVERY):
         print(f"\n{n['fail']} entries are BROKEN (unreachable, or no longer a feed).")
         print(f"{n['empty']} entries parse fine but have nothing upcoming — kept, not a regression.")
         if n["refused"]:
-            print(f"{n['refused']} entries robots.txt disallows: recorded `refused`, never fetched.")
+            print(f"{n['refused']} entries robots.txt disallows: recorded `refused`, "
+                  f"nothing it disallows fetched.")
         if n["undecided"]:
             print(f"{n['undecided']} probe(s) not decided (a Crawl-delay over "
                   f"{AUDIT_MAX_CRAWL_DELAY_S:g} s inside the probe, or a Google calendar "

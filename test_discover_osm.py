@@ -1703,6 +1703,25 @@ def homepage_park_edges(C):
     check("...until it is no longer declined", (asked, sk.get("configured")),
           (["https://declined.example"], None))
 
+    # A SITE DECLINED WHOLE stays declined under any page of it: Lotto Arena
+    # (reverted 2026-10-29), whose event pages answer through a third party's
+    # sign-in. The walk found it as one event's page, and a later walk could
+    # propose another; its homepage key in `_not_included` stops the probe,
+    # whether OSM's `website` names the root or a page of the site.
+    check_true("Lotto Arena is declined on the record as a site, homepage and sitemap",
+               {"lotto-arena.be", "lotto-arena.be/sitemap.xml"}
+               <= C._not_included("jsonld_sources.json"))
+    asked, sk = walk(["https://www.lotto-arena.be/", "https://lotto-arena.be/nl/kalender"],
+                     lambda u: {"status": "ok", "adapter": "jsonld", "labels": ["jsonld-event"],
+                                "cal_url": "https://www.lotto-arena.be/evenement/next-show-a1"},
+                     {}, declined={"lotto-arena.be"})
+    check("a venue whose homepage is declined is never probed, at the root or a page of it",
+          (asked, sk.get("declined")), ([], 2))
+    asked, sk = walk(["https://decl.example/about"], lambda u: {"status": "no-calendar"}, {},
+                     declined={"decl.example/events"})
+    check("...but a declined CALENDAR page does not decline the rest of its site",
+          (asked, sk.get("declined")), (["https://decl.example/about"], None))
+
     # A find whose row is HELD for a ruling the owner owes (not a personal
     # address: Los Ranchos de Albuquerque's CivicPlus feeds, 2026-10-29) is not
     # proposed again either, as a held personal-address calendar is not.

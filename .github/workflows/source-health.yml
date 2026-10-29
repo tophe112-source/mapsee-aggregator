@@ -357,7 +357,10 @@ jobs:
             # was never configured, so on 2026-10-11 it read "42772/48760 feeds
             # dead" for a run that had flipped 175 configured feeds to fail.
             DEAD=$(grep -oE "^[0-9]+ entries are BROKEN" audit.log | grep -oE "^[0-9]+" || echo "?")
-            TOTAL=$(grep -cE "^\[(OK |-- |XX )\]" audit.log || true)
+            # Every probe that wrote a row: ok, empty, fail and `refused` (a
+            # robots.txt rule, marked [NO ]). A probe not decided ([.. ]) wrote
+            # none and is not counted here; `audit reached` counts it.
+            TOTAL=$(grep -cE "^\[(OK |-- |XX |NO )\]" audit.log || true)
             # How much of the catalog this run reached: a budget-cut run is a
             # partial rotation, and its count says so.
             OF=$(grep -oE "^audit reached [0-9]+ of [0-9]+" audit.log | grep -oE "[0-9]+$" || echo "?")
@@ -371,6 +374,20 @@ jobs:
                 echo '```'
                 grep -E "^\[XX " audit.log | head -60 || echo "(no failures listed)"
                 echo '```'
+                # A configured feed robots.txt now disallows is no dead feed,
+                # and is listed apart (FEED_DOWN also reports it daily).
+                if grep -qE "^\[NO " audit.log; then
+                  echo
+                  echo 'robots.txt disallows (recorded `refused`, nothing it disallows fetched):'
+                  echo
+                  echo '```'
+                  grep -E "^\[NO " audit.log | head -60 || true
+                  echo '```'
+                fi
+                if grep -qE "^[0-9]+ probe\(s\) not decided" audit.log; then
+                  echo
+                  grep -E "^[0-9]+ probe\(s\) not decided" audit.log
+                fi
               } >> "$GITHUB_STEP_SUMMARY"
               echo "pushed on attempt $attempt"
               exit 0

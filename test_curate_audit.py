@@ -1226,7 +1226,7 @@ check("an explicit Disallow on the feed is recorded `refused` with the rule, the
       and led[cc._canon(RB[0]["url"])]["reason"] == "robots.txt: Disallow: /cal (GET /cal0.ics)"
       and RB[0]["url"] not in shared.asked and "Deny" not in calls, (led.get(cc._canon(RB[0]["url"])), calls))
 check("...and said in the summary, apart from BROKEN",
-      "1 entries robots.txt disallows: recorded `refused`, never fetched." in log
+      "1 entries robots.txt disallows: recorded `refused`, nothing it disallows fetched." in log
       and "\n0 entries are BROKEN" in log, log[-600:])
 check("an unreachable robots.txt is not a verdict: the feed is probed as before",
       "Down" in calls and led[cc._canon(RB[1]["url"])]["status"] == "ok", (calls, led.get(cc._canon(RB[1]["url"]))))
@@ -1240,6 +1240,30 @@ check("a Google calendar without the Calendar API key is not probed and keeps it
       and not any("google" in u for u in shared.asked), (calls, led.get(GROW)))
 check("...counted as not decided, and still reached",
       "1 probe(s) not decided" in log and "audit reached 5 of 5 configured entries" in log, log[-600:])
+shutil.rmtree(tmp, ignore_errors=True)
+
+# Every request the adapter starts with is asked, not the first alone: a jsonld
+# entry's SECOND listing disallowed refuses the entry (review of 2026-10-29).
+ML = [{"name": "Two listings", "listing": ["https://open.example/agenda/", "https://deny.example/agenda/"]}]
+tmp = tree([], ML, {cc._canon(ML[0]["listing"][0]): dict(row(20261011), type="jsonld")})
+calls = []
+shared = Session({"https://open.example/robots.txt": (200, "User-agent: *\nAllow: /\n", "text/plain"),
+                  "https://deny.example/robots.txt": (200, "User-agent: *\nDisallow: /agenda\n", "text/plain")})
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"jsonld": ("b_sources.json", "listing")}
+cc.VERIFIERS["jsonld"] = lambda s, e: (calls.append(e["name"]), (True, "1/1 sampled events future"))[1]
+cc._session = lambda: shared
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit()
+finally:
+    restore()
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+got = led.get(cc._canon(ML[0]["listing"][0])) or {}
+check("audit: a jsonld entry whose SECOND listing robots.txt disallows is `refused`, the rule named, never probed",
+      got.get("status") == "refused" and got.get("reason") == "robots.txt: Disallow: /agenda (GET /agenda/)"
+      and calls == [] and "https://open.example/agenda/" not in shared.asked, (got, calls, shared.asked))
 shutil.rmtree(tmp, ignore_errors=True)
 
 # --- a follow-up page robots.txt disallows is not fetched, and is counted -------
@@ -1266,6 +1290,31 @@ sess = Session({"https://venue.example/robots.txt": J_ROBOTS, JL: (200, JL_PAGE,
 ok, note = cc.verify_jsonld(sess, {"listing": [JL], "link_pattern": r"/e/\d"})
 check("...and a refused page alone does not fail an entry whose other pages have events",
       ok and note == "1/1 sampled events future", note)
+# Every link page disallowed: robots.txt's answer, not a dead feed.
+sess = Session({"https://venue.example/robots.txt": (200, "User-agent: *\nDisallow: /e/\n", "text/plain"),
+                JL: (200, JL_PAGE, "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": [JL], "link_pattern": r"/e/\d"})
+check("verify_jsonld: when robots.txt disallows EVERY link page, the entry is `refused` with the rule, not `fail`",
+      cc._status_for(ok, note) == "refused"
+      and note == ("robots.txt disallows every link page sampled (3 of 3): Disallow: /e/; 3 link page(s) "
+                   "of 3: 0 fetched, 3 disallowed by robots.txt")
+      and not any("/e/" in u for u in sess.asked), (note, sess.asked))
+sess = Session({"https://venue.example/robots.txt": (200, "User-agent: *\nDisallow: /e/\n", "text/plain"),
+                JL: (200, JL_PAGE.replace('href="/e/3"', 'href="https://tix.example/e/3"'), "text/html"),
+                "https://tix.example/robots.txt": (200, "User-agent: *\nAllow: /\n", "text/plain"),
+                "https://tix.example/e/3": (404, "gone", "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": [JL], "link_pattern": r"(?:https://tix\.example)?/e/\d"})
+check("...but one page it could fetch makes it the feed's answer again (`fail`)",
+      cc._status_for(ok, note) == "fail" and note.endswith("1 fetched (1 answered 404), 2 disallowed by robots.txt"),
+      note)
+# An unreachable robots.txt is not a Disallow here, as in the audit's gate: the
+# page is fetched as before (the listing on that origin already was).
+sess = Session({"https://venue.example/robots.txt": _rq.ConnectionError("reset"),
+                JL: (200, JL_PAGE, "text/html"),
+                "https://venue.example/e/1": (200, FUT_BLOCK, "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": [JL], "link_pattern": r"/e/\d"})
+check("verify_jsonld: a link page whose robots.txt cannot be read is still fetched, not counted refused",
+      ok and note == "1/1 sampled events future" and "https://venue.example/e/1" in sess.asked, (note, sess.asked))
 
 # --- quiet answers that are not dead: a Mobilizon instance, an MEC agenda --------
 class GqlSession(Session):
@@ -1300,6 +1349,35 @@ sess = GqlSession({TODAY_B: gql(0), YEAR_B: gql(0)})
 r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
 check("mobilizon: nothing upcoming and nothing in a year is still `fail`",
       cc._status_for(*r) == "fail" and r[1] == "0 future events; none since 2025-10-29 either", r)
+
+
+class LookBackSession(GqlSession):
+    """Today's search answers 0 upcoming; the look back answers `back`."""
+
+    def __init__(self, back_code, back_body):
+        super().__init__({TODAY_B: gql(0)})
+        self.back_code, self.back_body = back_code, back_body
+
+    def post(self, url, json=None, **kw):
+        if (json or {}).get("variables", {}).get("b") == YEAR_B:
+            self.posts.append((url, YEAR_B))
+            body = self.back_body if isinstance(self.back_body, str) else __import__("json").dumps(self.back_body)
+            return Resp(self.back_code, body, url, "application/json" if self.back_code == 200 else "text/html")
+        return super().post(url, json=json, **kw)
+
+
+# A look back that FAILS is no evidence the instance answers: it stays `fail`,
+# or a broken instance would read quiet (review of 2026-10-29).
+sess = LookBackSession(500, "<h1>Internal Server Error</h1>")
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("mobilizon: 0 upcoming and a look back answering 500 is `fail`, never `empty`",
+      cc._status_for(*r) == "fail" and r[1] == "0 future events; the look back answered http 500"
+      and (sess.posts.count(("https://quiet.example/api", YEAR_B)) >= 1), (r, sess.posts))
+sess = LookBackSession(200, {"errors": [{"message": "unknown field"}]})
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("...and so is a look back answering a GraphQL error",
+      cc._status_for(*r) == "fail" and r[1].startswith("0 future events; the look back answered graphql:"),
+      (r, sess.posts))
 sess = GqlSession({"*": "<!DOCTYPE html><title>404</title>"}, code=404, ctype="text/html")
 r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
 check("mobilizon: a former instance (ibb.info's /api: a 404 page) is `fail`, asked once",
@@ -1342,6 +1420,15 @@ check("...and a page with no MEC container at all is not quiet",
       and cc.mec_no_events(NEWROCK + FULL) is None, cc.mec_no_events(NEWROCK + FULL))
 check("...nor one whose MEC events sit outside an empty-looking container",
       cc.mec_no_events(NEWROCK + '<article class="mec-event-article">A</article>') is None)
+check("...nor a container holding only whitespace, which a script may fill (review of 2026-10-29)",
+      cc.mec_no_events('<div class="mec-skin-list-events-container" id="mec_skin_events_1">\n   \n  </div>')
+      is None
+      and cc.mec_no_events(NEWROCK + '<div class="mec-skin-grid-events-container" id="e2">  </div>') is None)
+sess = Session({"https://mec.example/agenda/": (200, '<div class="mec-skin-list-events-container" id="x">'
+                                                     '\n \n</div>', "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": ["https://mec.example/agenda/"]})
+check("...so verify_jsonld files that page `fail`, not `empty`",
+      cc._status_for(ok, note) == "fail" and note == "no schema.org Event blocks found", note)
 check("...nor a page where a second view's container holds markup, whatever its classes",
       cc.mec_no_events(NEWROCK + '<div class="mec-skin-grid-events-container" id="mec_skin_events_7">'
                        '<div class="mec-event-grid-minimal"><a href="/events/b/">B</a></div></div>') is None)

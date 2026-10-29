@@ -758,7 +758,8 @@
   non-200 event page without a word, so what GitHub was answered is unknown;
   its failing note now says how many link pages the listing had, how many it
   fetched, what each non-200 answered and how many robots.txt disallows (those
-  are not fetched), so a repeat explains itself.
+  are not fetched; when it disallows every page sampled the entry is
+  `refused` with the rule, not `fail`), so a repeat explains itself.
   *Fixed* (14, each re-verified and dry-run): round 1 Warrensburg (deleted
   catID 27 -> its visitors bureau's Events Calendar, 146), The Good Society
   (its own export, 534 VEVENTs), Mathallen Oslo (-> the tribe REST route;
@@ -804,7 +805,13 @@
   session's first page goes through a 5-hop silent sign-in via
   api.mybeat.beatvenues.be, whose robots.txt answered 403, and
   auth.beatvenues.be, and with max_events 150 a visit re-read 100 sitemap
-  pages; that row is `refused`), Kitchener Oktoberfest (EventON draws
+  pages; that row is `refused`, and the venue is declined in
+  jsonld_sources.json's `_not_included` by its homepage and sitemap, so no
+  walk proposes another of its event pages: the venue walk now honours a
+  declined bare host under any page of it, since 25,303 of the 72,884
+  osm-venue homes in the ledger carry a path, and one, gldf.org/ronchin-59.html,
+  was probed on 10-28 to find the calendar tribe_sources.json declines),
+  Kitchener Oktoberfest (EventON draws
   by AJAX), Gleis 21 (a Guidle iframe), Centre des musiciens du monde (EventON
   prints `2026-11-4T19:30-4:00`: unpadded, so June dates compare as upcoming,
   and -4:00 is an hour early in winter). BRONKS, Schouwburg Noord and OLT
@@ -909,7 +916,9 @@
   no-events text alone in an events container ("Aucun événement trouvé !" on
   New Rock, "Geen evenementen gevonden!" on MEERGroen, 0 `mec-event-article`
   on either), which `verify_jsonld` now files `empty`; a removed page answers
-  404 and a removed shortcode prints no container. `test_curate_audit.py`.
+  404 and a removed shortcode prints no container. The text needs a visible
+  character: a container holding only whitespace (which a script may fill;
+  not measured on any MEC skin) stays `fail`. `test_curate_audit.py`.
 
 - **CIVICPLUS'S STOCK ROBOTS.TXT NOW DISALLOWS `/common/modules/icalendar/` IN
   LOWER CASE, AND ALL 1,270 CONFIGURED FEEDS ARE CAMELCASE: WHICH READING
@@ -952,7 +961,11 @@
   it, and the 16 booking calendars retired that day (all found by the civic
   walk, 10 with `ok` rows) could have come straight back. The civic walk,
   `verify` (even with `--recheck`) and `merge` now skip every key in every
-  CONFIG file's map (`_declined_keys`, jsonld's under any listing URL).
+  CONFIG file's map (`_declined_keys`, jsonld's under any listing URL). A
+  bare host in the map declines the whole site to the venue walk, under any
+  page an OSM `website` names (Lotto Arena, 10-29): 1 of the 72,884 osm-venue
+  homes then was a page on a declined host (gldf.org/ronchin-59.html); a
+  declined page with a path declines only that page.
 
 - **A widget key on somebody's page is not a feed you may read.**
   theveraproject.org embeds a DICE widget whose `partnerId` and `apiKey` are in

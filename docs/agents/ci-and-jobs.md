@@ -702,7 +702,13 @@
   worker-minutes, 11-18 minutes of a four-worker run on top of its 128-162;
   an estimate, not measured on a runner. A link
   page `verify_jsonld` would follow is skipped when disallowed and counted in
-  the note; alone it fails nothing. A request the pacing will not send (a
+  the note; alone it fails nothing, and when every page sampled is disallowed
+  the entry is `refused` with the rule (nothing was read, and the adapter asks
+  robots.txt per page too). Every request is asked, not the first: a jsonld
+  entry's second listing disallowed refuses it. The weekly commit counts a
+  `[NO ]` line among those probed and the step summary lists them apart from
+  the `[XX ]` ones, with the not-decided count; a `[.. ]` probe wrote no row
+  and is not counted. A request the pacing will not send (a
   Crawl-delay over 30 s inside a probe) used to end as a `fail` no server
   gave: a CivicPlus list "unreadable" (and kept for the origin), "REST
   unreachable", a retry's "AuditCrawlDelay" in place of the 503. Now that

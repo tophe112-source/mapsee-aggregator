@@ -509,6 +509,52 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('entries are BROKEN', dead)
         self.assertIn('audit.log', total)
         self.assertNotIn('curation_ledger.json', dead + total)
+        # Every mark cmd_audit prints for a probe that wrote a row is counted,
+        # `refused` ([NO ]) too, and not decided ([.. ]) is not: it wrote none.
+        src = (ROOT / 'catalog_curate.py').read_text(encoding='utf-8')
+        audit = src.split('def cmd_audit(', 1)[1]
+        marks = re.findall(r':\s*"([^"]+)"', audit.split('mark = {', 1)[1].split('}', 1)[0])
+        self.assertEqual(sorted(marks), ['-- ', 'NO ', 'OK ', 'XX '])
+        for mark in marks:
+            self.assertIn(mark, total)
+        self.assertNotIn('..', total)
+        # The weekly summary lists the refusals apart from the dead feeds
+        # (review of 2026-10-29: a feed robots.txt newly refused was in no report).
+        self.assertIn('grep -E "^\\[NO " audit.log', commit)
+        self.assertIn('probe\\(s\\) not decided', commit)
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_audit_summary_counts_and_lists_refusals_apart(self):
+        # The commit step's own lines, run as Actions would over an audit.log:
+        # the count, and the step summary (review of 2026-10-29).
+        workflow = yaml.safe_load((ROOT / '.github/workflows/source-health.yml').read_text(encoding='utf-8'))
+        lines = next(s['run'] for s in workflow['jobs']['audit']['steps']
+                     if 'Weekly catalog audit:' in (s.get('run') or '')).splitlines()
+        counts = [l for l in lines if l.strip().startswith(('DEAD=', 'TOTAL=', 'OF='))]
+        start = next(i for i, l in enumerate(lines) if l.strip() == '{')
+        end = next(i for i, l in enumerate(lines) if '>> "$GITHUB_STEP_SUMMARY"' in l)
+        script = '\n'.join(counts + lines[start:end + 1]) + '\necho "TOTAL=$TOTAL"\n'
+        full = ('[OK ] a  1 vevents / 1 future\n[XX ] b  http 404\n'
+                '[NO ] c  robots.txt: Disallow: /cal (GET /cal)\n[-- ] d  3 vevents / 0 future\n'
+                '[.. ] e  not decided: a Crawl-delay of 60 s\n\n'
+                '1 entries are BROKEN (unreachable, or no longer a feed).\n'
+                '1 probe(s) not decided (a Crawl-delay over 30 s inside the probe): their rows are unchanged.\n'
+                'audit reached 5 of 5 configured entries\n')
+        bare = ''.join(l + '\n' for l in full.splitlines() if not l.startswith(('[NO ', '1 probe(s)')))
+        for log, total, refused in ((full, '4', True), (bare, '3', False)):
+            with tempfile.TemporaryDirectory() as tmp:
+                Path(tmp, 'audit.log').write_text(log, encoding='utf-8')
+                out = subprocess.run(['bash', '--noprofile', '--norc', '-euo', 'pipefail', '-c', script], cwd=tmp,
+                                     capture_output=True, text=True,
+                                     env=dict(os.environ, GITHUB_STEP_SUMMARY=str(Path(tmp, 'summary.md'))))
+                self.assertEqual(out.returncode, 0, out.stderr)
+                summary = Path(tmp, 'summary.md').read_text(encoding='utf-8')
+            self.assertIn(f'TOTAL={total}\n', out.stdout)
+            xx = summary.split('```')[1]
+            self.assertIn('[XX ] b', xx)
+            self.assertNotIn('[NO ]', xx)
+            self.assertEqual('[NO ] c  robots.txt: Disallow: /cal (GET /cal)' in summary, refused)
+            self.assertEqual('1 probe(s) not decided' in summary, refused)
 
     def test_dedupe_is_its_own_red_job_behind_its_switch_before_indexnow(self):
         # The collapser was a continue-on-error step inside indexnow: 12m12s,

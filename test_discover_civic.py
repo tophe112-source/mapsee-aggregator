@@ -763,6 +763,11 @@ try:
     _json.dump({"sites": [], "_not_included": {_BOOKED_URL: "a reservation schedule, not events"}},
                open(_os.path.join(_tmp, "jsonld_sources.json"), "w"))
     _json.dump([], open(_os.path.join(_tmp, "ics_sources.json"), "w"))
+    # Every CONFIG file's map counts, not jsonld's alone: a Mobilizon instance
+    # declined in mobilizon_sources.json (scam listings, an uncleared licence).
+    _SPAM_MOB = "https://mobilizon.spam.example"
+    _json.dump({"sites": [], "_not_included": {_SPAM_MOB: "scam listings geocoded to France"}},
+               open(_os.path.join(_tmp, "mobilizon_sources.json"), "w"))
     _json.dump({}, open(_C.LEDGER_FILE, "w"))
     civ.CITY_CLASSES = {"US": (("Q1093829",), None, "us")}
     _C._coverage_rows = lambda: []
@@ -795,7 +800,8 @@ try:
     _C._session = lambda: _net
     cand = _os.path.join(_tmp, "cand.json")
     _json.dump([{"type": "ics", "name": "US town 0 events", "url": "http://us2197.example.gov/calendar.ics"},
-                {"type": "ics", "name": "Held town", "url": "https://us2199.example.gov/calendar.ics"}],
+                {"type": "ics", "name": "Held town", "url": "https://us2199.example.gov/calendar.ics"},
+                {"type": "mobilizon", "name": "Spam instance", "base_url": "https://www.mobilizon.spam.example/"}],
                open(cand, "w"))
     _json.dump({"us2199.example.gov/calendar.ics": {"status": "held", "checked": 20261029, "type": "ics",
                                                     "reason": "held pending the owner's ruling"}},
@@ -812,6 +818,9 @@ try:
           f"verify refuses a declined candidate, http:// and www-less, even with --recheck ({out.getvalue()[-300:]})")
     check(_net.asked == [] and "held for the owner since 20261029: Held town" in out.getvalue(),
           f"...asking nothing, and skips one held for the owner ({_net.asked})")
+    check(out.getvalue().count("[SKIP] mobilizon declined on the record (_not_included): Spam instance") == 2,
+          f"...and a Mobilizon instance mobilizon_sources.json declines, www. and a trailing slash "
+          f"apart ({out.getvalue()[-400:]})")
     out = _io.StringIO()
     with _ctx.redirect_stdout(out):
         _C.cmd_ledger_held()
@@ -825,7 +834,8 @@ try:
           "a jsonld entry is declined under any of its listing URLs, not only the first")
     ver = _os.path.join(_tmp, "ver.json")
     _json.dump([{"type": "ics", "name": "US town 0 events", "url": "https://us2197.example.gov/calendar.ics"},
-                {"type": "ics", "name": "Fine town", "url": "https://us2201.example.gov/calendar.ics"}],
+                {"type": "ics", "name": "Fine town", "url": "https://us2201.example.gov/calendar.ics"},
+                {"type": "mobilizon", "name": "Spam instance", "base_url": _SPAM_MOB}],
                open(ver, "w"))
     out = _io.StringIO()
     with _ctx.redirect_stdout(out):
@@ -834,6 +844,9 @@ try:
     check(merged == ["https://us2201.example.gov/calendar.ics"]
           and "[SKIP] ics US town 0 events: declined on the record (_not_included)" in out.getvalue(),
           f"merge refuses a declined entry from a verified file and writes the rest ({merged})")
+    mob = _json.load(open(_os.path.join(_tmp, "mobilizon_sources.json"), encoding="utf-8"))
+    check(mob["sites"] == [] and "[SKIP] mobilizon Spam instance: declined on the record" in out.getvalue(),
+          f"...a Mobilizon instance declined in its own file too ({mob['sites']}, {out.getvalue()[-300:]})")
 finally:
     _C.HERE, _C.LEDGER_FILE = _keep_here, _keep_lf
     civ.CITY_CLASSES = _real
