@@ -5586,6 +5586,7 @@
       "base_url": "https://remua.be",
       "within_days": 120,
       "max_pages": 10,
+      "crawl_delay": 10,
       "venue": {
         "name": "ReMuA",
         "lat": 50.8273294,

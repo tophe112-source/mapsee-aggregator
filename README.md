@@ -116,7 +116,7 @@ python catalog_curate.py discover ckan --limit 300 --category fitness,running
 python catalog_curate.py verify cands.json    # probe candidates, record results
 python catalog_curate.py merge  cands.verified.json
 python catalog_curate.py audit                # re-check every configured source
-python catalog_curate.py audit --max-minutes 200 --workers 4   # the Sunday run: oldest check first, each host's Crawl-delay, stops on time
+python catalog_curate.py audit --max-minutes 200 --workers 4   # the Sunday run: oldest check first, robots.txt obeyed, each host's Crawl-delay, stops on time
 python catalog_curate.py ledger               # what's been tried, what's dead
 ```
 
@@ -184,7 +184,7 @@ Mon & Thu and a 72-hour rule would cry wolf every Sunday:
 | `SILENT` | A baseline source's newest event is older than its budget. The job still exits 0; nothing new is arriving. |
 | `MISSING` | The source has no rows left at all. |
 | `DRAINED` | Still ingesting, but upcoming events collapsed >60% against the baseline. |
-| `FEED_DOWN` | A feed still wired into a `*_sources.json` that the curator audit can no longer read. |
+| `FEED_DOWN` | A feed still wired into a `*_sources.json` that the curator audit can no longer read, or whose robots.txt now refuses it; and any entry carrying `_hold` (an owner decision pending). |
 | `LEDGER` | How many curated feeds `catalog_curate.py` has marked dead, and whether that's growing. Advisory. |
 
 **What a "source" is here.** `external_source`, which the sync sets to the

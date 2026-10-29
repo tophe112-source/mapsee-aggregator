@@ -32796,7 +32796,8 @@
     "geocode_suffix": ", Big Lake, Minnesota",
     "limit": 300,
     "_found": "civic:city -> civicplus[Park Facility Rental]",
-    "_metro": "Big Lake, Minnesota"
+    "_metro": "Big Lake, Minnesota",
+    "_hold": "owner: 286 of 525 entries are bookings titled with a renter's full name (about 125 are public events: Music in the Park, ECFE, Graniteman); add a title filter or retire it"
   },
   {
     "name": "Norton — Event Calendar",
@@ -59023,49 +59024,5 @@
     },
     "_metro": "Gothenburg, SE",
     "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM jsonld_sources.json, where it was read as https://www.tabernaklet.se/?page_id=997 (entry at 10f27b9). That page verified '100/100 sampled events future' at its 2026-09-05 merge; it is now Events Manager 7.4.12's list (178,996 B, 37 ?event= links) with no Event JSON-LD, and an event page (?event=bon-och-lovsang) has none either, so the audits of 10-11 and 10-18 and the 10-29 recheck read 'no schema.org Event blocks found'. Events Manager's calendar-wide export of the same calendar, /?ical=1, answers 200 text/calendar (44,103 B, PRODID -//wp-events-plugin.com//7.4.12//EN): 80 VEVENTs to 2026-12-27, none with LOCATION or GEO. robots.txt allows it. verify: 80 vevents / 80 future. Dry run: kept 80 of 80 VEVENTs, 80 pinned to the source's venue, 80 stored, 80 placed at the church (57.7004655, 11.9706585), all in the next 90 days; DTSTART;TZID=Europe/Stockholm:20261029T170000 stored as 2026-10-29T17:00:00+01:00. The venue block is the old entry's, which already placed this calendar's location-less events at the church; every title is the church's own programme (Gudstjänst, Bibelstudier, Ukulelegruppen, Trappanér's suppers and clothes giveaway, Julotta). Merge only with the jsonld entry removed."
-  },
-  {
-    "name": "Village of Los Ranchos de Albuquerque — Community Events",
-    "category": "community",
-    "url": "https://www.losranchosnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
-    "geocode_suffix": ", Los Ranchos de Albuquerque, NM",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Community Events] (hand-curated 2026-10-29: the village moved its calendar off Squarespace)",
-    "venue": {
-      "name": "Los Ranchos de Albuquerque Village Hall",
-      "address": "6718 Rio Grande Blvd NW",
-      "city": "Los Ranchos de Albuquerque",
-      "region": "NM",
-      "postal_code": "87107",
-      "country": "US",
-      "lat": 35.1586075,
-      "lon": -106.65527,
-      "street_hint": "6718 Rio Grande Blvd"
-    },
-    "crawl_delay": 10,
-    "_metro": "Albuquerque, United States",
-    "_note": "Measured 2026-10-29 with the production UA. FIX for a moved calendar. The village's Squarespace calendar (squarespace_sources.json, collection https://www.losranchosnm.gov/calendar; its note: growers' market, health talks, yard sale, green-waste days; ledger '22/52 upcoming' on 10-11) now answers 301 -> /calendar/ -> 302 -> /calendar.aspx, a CivicPlus CivicEngage page (server cloudflare), so the Squarespace adapter found 0 event articles on every run 10-23..10-28. /iCalendar.aspx lists three categories: 22 Official Village Calendar (0 VEVENTs), 23 Agri-Nature Center Events (its own entry) and 24 Community Events (this one). verify: 3 vevents / 3 future, the 34th Annual Growers / Art Market on 10-31, 11-07 and 11-14, 08:00-11:00 America/Denver, as calendar.aspx shows it. The venue block is the old entry's Village Hall, at the US Census point for 6718 Rio Grande Blvd NW (35.158607, -106.655270). The market's LOCATION, 'Hartnett Park - 6718 Rio Grande Blvd; NW Los Ranchos NM 87107', names that street, so street_hint pins it with no Photon lookup. Dry run from empty caches: kept 3 of 3, 3 stored, 3 pinned to the venue, 0 Photon lookups, start_utc 2026-10-31T14:00Z (MDT) and 11-07T15:00Z (MST). robots.txt asks Crawl-delay: 10. Its 2026-10-20 Add-RobotsRules block disallows /common/modules/icalendar/ in lower case only, which is the open CivicPlus question in curation-and-discovery.md. _found starts with civic: (as 1,180 of the 1,270 configured CivicPlus feeds do), so the adapter's town-hall title filter runs on this town calendar; none of today's 3 titles matches it."
-  },
-  {
-    "name": "Village of Los Ranchos de Albuquerque — Agri-Nature Center Events",
-    "category": "community",
-    "url": "https://www.losranchosnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
-    "geocode_suffix": ", Los Ranchos de Albuquerque, NM",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Agri-Nature Center Events] (hand-curated 2026-10-29: the village moved its calendar off Squarespace)",
-    "venue": {
-      "name": "Larry P. Abraham Agri-Nature Center",
-      "address": "4920 Rio Grande Blvd NW",
-      "city": "Los Ranchos de Albuquerque",
-      "region": "NM",
-      "postal_code": "87107",
-      "country": "US",
-      "lat": 35.149804,
-      "lon": -106.663087,
-      "street_hint": "4920 Rio Grande Blvd"
-    },
-    "crawl_delay": 10,
-    "_metro": "Albuquerque, United States",
-    "_note": "Measured 2026-10-29 with the production UA. The other public category of the same move (see the Community Events entry): catID 23 'Agri-Nature Center Events', the village's farm centre at 4920 Rio Grande Blvd NW. verify: 3 vevents / 3 future: 'Workshop: Winter Habitat for IPM and Beneficial Insects' on 11-06 (Bernalillo County Extension), and 'Agriculture Community Forum' on 12-16 and 2027-01-20. Pinned at the US Census point for 4920 Rio Grande Blvd NW (35.149804, -106.663087), whose street every LOCATION names. Dry run from empty caches: kept 3 of 3, 3 stored, 3 pinned to the venue, 0 Photon lookups. Not a duplicate in production: the centre's Eventbrite organizer (eventbrite_organizers.json, id 34204363179) supplies nothing, because production's Eventbrite step on 10-26 (run 142) ended '+0 events' at 'discovery blocked from this IP'. robots.txt asks Crawl-delay: 10. It has the same lower-case-only icalendar rule as catID 24. _found starts with civic:, as for the Community Events entry; none of today's titles matches the town-hall filter."
   }
 ]

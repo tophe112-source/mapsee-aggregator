@@ -598,12 +598,20 @@ def configured_dead() -> list[dict]:
     the owner's only reminder would vanish. An entry that carries `_hold`
     ("owner: reservation schedule ...") is reported here whatever its row
     says, until the owner decides and the field goes.
+
+    A CONFIGURED FEED ROBOTS.TXT NOW REFUSES IS REPORTED TOO. The audit asks
+    robots.txt before an entry's first request and files an explicit Disallow
+    `refused`, fetching nothing (catalog_curate._audit_robots, 2026-10-29).
+    The adapter still reads that feed every day, so it is the owner's to
+    retire into `_not_included` or to ask the operator about; reading `fail`
+    alone would let the refusal vanish from this report. 0 configured entries
+    had a `refused` row that day.
     """
     led = _load_ledger()
     wired = _wired()
     out, seen = [], set()
     for raw_key, row in led.items():
-        if not isinstance(row, dict) or row.get("status") != "fail":
+        if not isinstance(row, dict) or row.get("status") not in ("fail", "refused"):
             continue
         key = _canon(raw_key)
         hit = wired.get(key)

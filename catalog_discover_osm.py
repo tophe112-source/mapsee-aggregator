@@ -493,7 +493,21 @@ CIVIC_DENY_RX = re.compile(
     r"finance|tax(?:es)?|assessor|clerks?|civil service|dockets?|warrants?|payroll|"
     r"billing|payments?|parking|paving|snow|plow|mosquito|inspections?|"
     r"licens(?:e|es|ing)|pre-?application|code enforcement|"
-    r"fire training|police academy|assistance program)\b", re.I)
+    r"fire training|police academy|assistance program|"
+    # A BOOKING SCHEDULE IS NOT EVENTS, and its entries name the renter. The
+    # 16 CivicPlus categories retired 2026-10-29 (Lakeville's "Antlers Park |
+    # Shelter A Monthly Schedule": 88 of 111 entries a private person;
+    # Rochester MI's Kiwanis Pavilion: 646 of 747 "Reserved"; Rockledge's
+    # "Facility Rental": 970 of 979 "In Use") all came from this walk, and
+    # none matched the list above. These words catch all 16 and, of the 1,254
+    # CivicPlus categories configured that day, one other: Edgewater's "Park
+    # Reservations" (174 of 184 entries "Reserved", kept for its market).
+    # Chosen to miss what is kept for its public events: "Park Facility
+    # Rental(s)" (Big Lake; Ferndale's 47, and 52 whose 19 entries are 16
+    # public) and "Pioneer Pavilion" (a venue), so no bare rental, pavilion
+    # or gazebo; and "reserv" stops short of a nature Reserve.
+    r"reserv(?:ations?|ed)|room rentals?|(?<!park )facility rentals?|"
+    r"picnic shelters?|shelter [a-z]|trailers?|availability|bookings?)\b", re.I)
 
 _LD_EVENT_RX = re.compile(
     r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', re.S | re.I)

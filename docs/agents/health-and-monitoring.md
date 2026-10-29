@@ -102,4 +102,8 @@
   is not a ledger row, and the audit rewrites rows (Lakeville catID 35 and 36
   are still listed on /iCalendar.aspx, so Sunday would file them `empty`), so
   an entry carrying `_hold` is reported whatever its row says, until the field
-  goes. `test_health_check.py`.
+  goes (Big Lake catID 29 carries one: its renters' names). A configured
+  entry whose row is `refused`, the audit's robots.txt verdict
+  (ci-and-jobs.md), is reported too: 0 on 10-29. On the final tree it returns
+  3: Edina catID 76, Cromane Seafest and Big Lake catID 29.
+  `test_health_check.py`.

@@ -525,11 +525,12 @@ class _Clock:
 
 
 def _civic_run(cursor, deadline_s=600.0, per_run=10, unread=(), empty=(),
-               hit=(), limit=300, city_s=11.0, wd_s=0.0, log=None):
+               hit=(), limit=300, city_s=11.0, wd_s=0.0, log=None, led=None):
     """One _discover_civic call against fakes -> (found, probed qids, batches asked).
 
     `wd_s` is what a Wikidata ask costs on the clock; `log`, when given,
-    collects each ask's timeout and each DMO ask's."""
+    collects each ask's timeout and each DMO ask's, and the walk's skip tally
+    under "skipped". `led` is the ledger the walk reads (empty by default)."""
     clock, probed, asked = _Clock(), [], []
     log = {} if log is None else log
 
@@ -572,8 +573,9 @@ def _civic_run(cursor, deadline_s=600.0, per_run=10, unread=(), empty=(),
         _C._robots_probe_session = lambda _h: _types.SimpleNamespace(refusals=[])
         _C._save_ledger = lambda _led: None
         found, _skipped = _C._discover_civic(
-            None, set(), {}, limit, cursor, cities_per_run=per_run,
+            None, set(), {} if led is None else led, limit, cursor, cities_per_run=per_run,
             deadline=(clock.now + deadline_s) if deadline_s else 0.0)
+        log["skipped"] = _skipped
     finally:
         for k, v in real.items():
             setattr(civ, k, v)
@@ -725,6 +727,118 @@ _hall = _Hall({"https://vik.example": '<a href="/is/mannlif/vidburdir">Viðburð
 civ.probe(_hall, {"name": "Vík", "url": "https://vik.example", "country": "IS"})
 check(_hall.asked == ["https://vik.example", "https://vik.example/is/mannlif/vidburdir"],
       "an Icelandic one's Viðburðir too (vik.is, olfus.is)")
+
+# ---------------------------------------------- 11. a booking schedule stays retired
+# The 16 CivicPlus categories retired 2026-10-29 as booking schedules (into
+# jsonld_sources.json's `_not_included`) were all found by this walk, and the
+# walk, verify and merge read no `_not_included` (review of 2026-10-29).
+BOOKED = ["Antlers Park | Shelter A Monthly Schedule", "Antlers Park | Shelter B Monthly Schedule",
+          "Parks Reservations", "Block Party Trailer", "Gazebo at Lion's Park - Reservations",
+          "Lion's Shelter Reservations", "Rochester Park Kiwanis Pavilion Reservations",
+          "Block'n Roll Reservation Schedule", "Facility Rental",
+          "Light Pole Flag and Banner - Reserved/Open Dates", "Ball Field Reservations",
+          "Parks: Events & Reservations", "Shelter Reservation", "Community Center Room Rentals",
+          "Park Shelter Reservations", "Star Park Picnic Shelter"]
+for name in BOOKED:
+    check(osm.CIVIC_DENY_RX.search(name), f"name test refuses the retired booking schedule {name!r}")
+# What is configured and kept for its public events, measured 2026-10-29: Big
+# Lake's rental calendar (about 125 of 525 public), Ferndale's 47 and 52 (16 of
+# 19 public), Ferndale's Pioneer Pavilion (a venue); and a nature reserve.
+for name in ("Park Facility Rental", "Park Facility Rentals", "All Other Park Facility Rentals",
+             "Pioneer Pavilion", "Community Room", "Lakeside Park Vendor Calendar",
+             "Senior Activity Center", "Nature Reserve Walks", "Concerts at the Gazebo"):
+    check(not osm.CIVIC_DENY_RX.search(name), f"name test keeps {name!r}, whose events are public")
+
+import json as _json
+import os as _os
+import shutil as _shutil
+import tempfile as _tempfile
+import contextlib as _ctx
+
+_BOOKED_URL = "https://www.us2197.example.gov/calendar.ics"     # what the walk proposes, www-less
+_keep_here, _keep_lf = _C.HERE, _C.LEDGER_FILE
+_tmp = _tempfile.mkdtemp(prefix="civic-declined-")
+try:
+    _C.HERE, _C.LEDGER_FILE = _tmp, _os.path.join(_tmp, "curation_ledger.json")
+    _json.dump({"sites": [], "_not_included": {_BOOKED_URL: "a reservation schedule, not events"}},
+               open(_os.path.join(_tmp, "jsonld_sources.json"), "w"))
+    _json.dump([], open(_os.path.join(_tmp, "ics_sources.json"), "w"))
+    _json.dump({}, open(_C.LEDGER_FILE, "w"))
+    civ.CITY_CLASSES = {"US": (("Q1093829",), None, "us")}
+    _C._coverage_rows = lambda: []
+    log = {}
+    found, probed, _a = _civic_run(_cur("BR"), hit={"US2197", "US2199"}, log=log)
+    urls = sorted(c["url"] for c in found.values())
+    check(urls == ["https://us2199.example.gov/calendar.ics"] and log["skipped"].get("declined") == 1,
+          f"the civic walk does not propose a calendar a config's _not_included declines "
+          f"({urls}, {log['skipped']})")
+    log = {}
+    found, _p, _a = _civic_run(_cur("BR"), hit={"US2199"}, log=log, led={
+        "us2199.example.gov/calendar.ics": {"status": "held", "checked": 20261029, "type": "ics",
+                                            "reason": "held pending the owner's ruling"}})
+    check(found == {} and log["skipped"].get("held") == 1,
+          f"...nor one whose ledger row is held for the owner ({log['skipped']})")
+
+    # verify refuses it without a request; merge refuses it from a verified file.
+    class _NoNet:
+        headers = {"User-Agent": _C.UA}
+
+        def __init__(self):
+            self.asked = []
+
+        def get(self, url, **kw):
+            self.asked.append(url)
+            raise ConnectionError(url)
+
+    _net = _NoNet()
+    _keep_session = _C._session
+    _C._session = lambda: _net
+    cand = _os.path.join(_tmp, "cand.json")
+    _json.dump([{"type": "ics", "name": "US town 0 events", "url": "http://us2197.example.gov/calendar.ics"},
+                {"type": "ics", "name": "Held town", "url": "https://us2199.example.gov/calendar.ics"}],
+               open(cand, "w"))
+    _json.dump({"us2199.example.gov/calendar.ics": {"status": "held", "checked": 20261029, "type": "ics",
+                                                    "reason": "held pending the owner's ruling"}},
+               open(_C.LEDGER_FILE, "w"))
+    out = _io.StringIO()
+    try:
+        with _ctx.redirect_stdout(out):
+            _C.cmd_verify(cand)
+            _C.cmd_verify(cand, recheck=True)
+    finally:
+        _C._session = _keep_session
+    verified = _json.load(open(_os.path.join(_tmp, "cand.verified.json")))
+    check(verified == [] and out.getvalue().count("declined on the record (_not_included): US town 0") == 2,
+          f"verify refuses a declined candidate, http:// and www-less, even with --recheck ({out.getvalue()[-300:]})")
+    check(_net.asked == [] and "held for the owner since 20261029: Held town" in out.getvalue(),
+          f"...asking nothing, and skips one held for the owner ({_net.asked})")
+    out = _io.StringIO()
+    with _ctx.redirect_stdout(out):
+        _C.cmd_ledger_held()
+    check("1 verified feed(s) held for a ruling the owner owes:" in out.getvalue()
+          and "us2199.example.gov/calendar.ics" in out.getvalue()
+          and "held pending the owner's ruling" in out.getvalue() and "personal address" not in out.getvalue(),
+          f"`ledger --held` lists a ruling still owed with its reason, not as a personal address "
+          f"({out.getvalue()[:300]})")
+    check(_C._entry_keys({"type": "jsonld", "listing": ["https://hall.example/a/", "https://www.hall.example/b/"]})
+          == {"hall.example/a", "hall.example/b"},
+          "a jsonld entry is declined under any of its listing URLs, not only the first")
+    ver = _os.path.join(_tmp, "ver.json")
+    _json.dump([{"type": "ics", "name": "US town 0 events", "url": "https://us2197.example.gov/calendar.ics"},
+                {"type": "ics", "name": "Fine town", "url": "https://us2201.example.gov/calendar.ics"}],
+               open(ver, "w"))
+    out = _io.StringIO()
+    with _ctx.redirect_stdout(out):
+        _C.cmd_merge(ver)
+    merged = [e["url"] for e in _json.load(open(_os.path.join(_tmp, "ics_sources.json"), encoding="utf-8"))]
+    check(merged == ["https://us2201.example.gov/calendar.ics"]
+          and "[SKIP] ics US town 0 events: declined on the record (_not_included)" in out.getvalue(),
+          f"merge refuses a declined entry from a verified file and writes the rest ({merged})")
+finally:
+    _C.HERE, _C.LEDGER_FILE = _keep_here, _keep_lf
+    civ.CITY_CLASSES = _real
+    _C._coverage_rows = _real_rows
+    _shutil.rmtree(_tmp, ignore_errors=True)
 
 # ---------------------------------------------- report
 bad = [l for ok, l in checks if not ok]

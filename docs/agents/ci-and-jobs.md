@@ -663,9 +663,8 @@
   list read right after the feed), though CivicPlus's stock robots.txt asks
   `Crawl-delay: 10` (35 of 35 sampled files read) and LibCal's 10 (leeds,
   smu-sg). Now a host's delay is the larger of its robots.txt Crawl-delay (read
-  once per origin per run: before the first probe for the 502 hosts with more
-  than one entry, else at a host's second request) and its entries'
-  `crawl_delay`. The scheduler starts no probe on a host before its last
+  once per origin per run, before the host's first request; next note) and
+  its entries' `crawl_delay`. The scheduler starts no probe on a host before its last
   request plus that delay and works on other hosts meanwhile; inside a probe (a
   retry, the CivicPlus list, The Events Calendar's REST test) the worker waits,
   at most 30 s, and a request that would need longer is not sent. A documented
@@ -684,3 +683,34 @@
   it cannot hold python open), and both summary lines print in a `finally`,
   interrupted or not. 200 + 5 minutes sits inside the step's 215.
   `test_curate_audit.py`.
+
+- **THE AUDIT OBEYS ROBOTS.TXT, LEAVES A ROW ALONE WHEN NO SERVER DECIDED IT,
+  AND SKIPS A TYPE IT CANNOT VERIFY (2026-10-29).** The final review of the
+  dead-feed job found three ways it wrote a verdict nothing measured. It read
+  robots.txt for the Crawl-delay alone and fetched what the file disallows,
+  filing it ok, empty or fail, never `refused` (round 2 found two by hand:
+  OEC Korfbal's `Disallow: /`, Mathallen's `/*?*ical=`). Now every request
+  the ingest adapter makes (`_ingest_requests`) is checked before the entry's
+  first one: an explicit Disallow is `refused` with the rule, nothing
+  fetched; an unreachable or challenged file is probed as before; a
+  documented API is not asked; a Google calendar without the Calendar API
+  key is not probed and keeps its row (robots.txt refuses its export; 459
+  configured), as `verify` skips it. That reads robots.txt for every host:
+  4,423 origins in the 6,531 planned entries on the final 10-29 configs, key
+  set, where it was read up front only for the 488 hosts with more than one
+  entry. At the 0.6 s a read the budget projection assumed, about 44
+  worker-minutes, 11-18 minutes of a four-worker run on top of its 128-162;
+  an estimate, not measured on a runner. A link
+  page `verify_jsonld` would follow is skipped when disallowed and counted in
+  the note; alone it fails nothing. A request the pacing will not send (a
+  Crawl-delay over 30 s inside a probe) used to end as a `fail` no server
+  gave: a CivicPlus list "unreadable" (and kept for the origin), "REST
+  unreachable", a retry's "AuditCrawlDelay" in place of the 503. Now that
+  probe is "not decided" and the entry keeps its row, like an abandoned one.
+  And `mylisting` is in CONFIG with no verifier: its one entry's probe raised
+  KeyError inside the worker and was recorded `fail`, so FEED_DOWN would have
+  reported Bainbridge Island daily while production kept 556 of 592
+  occurrences from it on 10-28. A type with no verifier is now left out of
+  the plan, said once. FEED_DOWN reports a configured entry's `refused` row
+  (0 on 10-29) as it does `fail`. `test_curate_audit.py`,
+  `test_health_check.py`.

@@ -490,6 +490,22 @@ def t_a_pending_owner_decision_stays_reported():
           str(sorted(got)))
 
 
+def t_a_feed_robots_txt_now_refuses_is_reported():
+    configs = {"ics_sources.json": [
+        {"name": "Club", "url": "https://club.example/events/?ical=1", "category": "sports"},
+        {"name": "Quiet", "url": "https://quiet.example/cal.ics", "category": "arts"}]}
+    ledger = {"club.example/events/?ical=1": dict(_fail("Club"), status="refused",
+                                                   reason="robots.txt: Disallow: / (GET /events/?ical=1)"),
+              "quiet.example/cal.ics": dict(_fail("Quiet"), status="empty"),
+              "gone.example/cal.ics": dict(_fail("A refused candidate"), status="refused")}
+    got = _dead_tree(configs, ledger)
+    check("a configured feed the audit filed `refused` (robots.txt) is FEED_DOWN, with the rule",
+          got.get("club.example/events/?ical=1", {}).get("reason")
+          == "robots.txt: Disallow: / (GET /events/?ical=1)", str(got))
+    check("...not a refused candidate nobody configured, nor an `empty` feed",
+          sorted(got) == ["club.example/events/?ical=1"], str(sorted(got)))
+
+
 def main():
     for fn in (t_reads_the_snapshot_not_the_dead_rpc,
                t_server_error_body_reaches_the_report,
@@ -511,7 +527,8 @@ def main():
                t_warn_only_never_fails,
                t_no_credentials_is_a_skip,
                t_configured_dead_reads_every_config_shape,
-               t_a_pending_owner_decision_stays_reported):
+               t_a_pending_owner_decision_stays_reported,
+               t_a_feed_robots_txt_now_refuses_is_reported):
         print(f"\n--- {fn.__name__} ---")
         fn()
     print()

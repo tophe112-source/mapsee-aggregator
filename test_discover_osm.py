@@ -1703,6 +1703,17 @@ def homepage_park_edges(C):
     check("...until it is no longer declined", (asked, sk.get("configured")),
           (["https://declined.example"], None))
 
+    # A find whose row is HELD for a ruling the owner owes (not a personal
+    # address: Los Ranchos de Albuquerque's CivicPlus feeds, 2026-10-29) is not
+    # proposed again either, as a held personal-address calendar is not.
+    led = {"heldtown.example/events.ics": {"status": "held", "checked": 20261029, "type": "ics",
+                                           "reason": "held pending the owner's ruling"}}
+    asked, sk = walk(["https://heldtown.example"],
+                     lambda u: {"status": "ok", "adapter": "ics", "labels": ["ics"],
+                                "cal_url": u + "/events/", "ics": "/events.ics"}, led)
+    check("a found calendar held for a ruling the owner owes is not proposed again",
+          (asked, sk.get("held")), (["https://heldtown.example"], 1))
+
     # A jsonld find with nothing on is parked only where the row is the walk's.
     stale = {"checked": _days_ago(C, C.DEAD_TTL + 10), "status": "fail", "type": "jsonld",
              "reason": "http 404"}

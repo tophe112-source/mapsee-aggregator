@@ -2255,26 +2255,6 @@
       "_metro": "Antwerp, BE"
     },
     {
-      "name": "Lotto Arena",
-      "category": "community",
-      "_found": "osm:events_venue -> jsonld-event",
-      "listing": [
-        "https://www.lotto-arena.be/sitemap.xml"
-      ],
-      "link_pattern": "https://www\\.lotto-arena\\.be/evenement/[a-z0-9\\-]+",
-      "max_events": 150,
-      "venue": {
-        "name": "Lotto Arena",
-        "address": "119 Schijnpoortweg",
-        "city": "Merksem",
-        "postal_code": "2170",
-        "lat": 51.2301229,
-        "lon": 4.4415337
-      },
-      "_metro": "Antwerp, BE",
-      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://www.lotto-arena.be/evenement/glory-110-a200be7a (entry at 10f27b9), the page of ONE event: '1/1 sampled events future' on 10-11, 'no schema.org Event blocks found' on 10-18 and 10-29, once it had passed. /kalender is drawn in the browser (no event link in its HTML), so the site's own sitemap is the listing, as for The Royal Room: robots.txt is 'Allow: /' and names it. It holds 100 Dutch /evenement/ pages (the /fr/ and /en/ copies are left out by the pattern), newest first, back to 2023 editions. A future event's page carries one Event block with a UTC startDate (TILL LINDEMANN 2027-10-23T16:30:00.000Z); a past one carries none, so it costs a request and adds nothing. A session's first page is answered after a 5-hop silent sign-in (lotto-arena.be/auth/callback, api.mybeat.beatvenues.be/start-auth, auth.beatvenues.be/oauth2/authorize and back; their robots.txt answer 403 and 404, so no rules); measured over two pages in one requests session, the second came straight back. verify: 1/1 sampled events future. Dry run capped at max_events 6 for politeness: kept 4 events from 6 pages, 4 stored, 4 placed at the venue point (Bob Dylan 2026-10-29, Ricky Gervais 2027-01-23, Blue Planet III 2027-05-29, Till Lindemann 2027-10-23). Their ticket links are ticketmaster.be, so some rows will merge with the Ticketmaster sweep's Antwerp results (158 processed on 10-28); the overlap was not measured."
-    },
-    {
       "name": "Hnita Jazz Club",
       "category": "music",
       "_found": "osm:music_venue -> modern-events+jsonld-event",

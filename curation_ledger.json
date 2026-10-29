@@ -121882,10 +121882,10 @@
     "type": "ics"
   },
   "ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Rochester \u2014 Rochester Park Kiwanis Pavilion Reservations",
-    "reason": "11 vevents / 11 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar": {
@@ -121896,17 +121896,17 @@
     "type": "ics"
   },
   "ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Rochester \u2014 Lion's Shelter Reservations",
-    "reason": "21 vevents / 21 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": {
     "checked": 20261029,
     "name": "Rochester \u2014 Gazebo at Lion's Park - Reservations",
-    "reason": "empty, not dead (2026-10-29): CivicPlus catID=45 'Gazebo at Lion's Park - Reservations' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-17 '3 vevents / 3 future'.",
-    "status": "empty",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "ci.rosenberg.tx.us": {
@@ -122051,10 +122051,10 @@
     "type": "civic-city"
   },
   "ci.trenton.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Trenton \u2014 Shelter Reservation",
-    "reason": "8 vevents / 8 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "ci.tukwila.wa.us/recreation/rectcc.html": {
@@ -130684,10 +130684,10 @@
     "type": "civic-city"
   },
   "cityofbrookings-sd.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Brookings \u2014 Light Pole Flag and Banner - Reserved/Open Dates",
-    "reason": "2 vevents / 2 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "cityofbrookpark.com": {
@@ -131001,10 +131001,10 @@
     "type": "ics"
   },
   "cityofedgewater.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Edgewater \u2014 Ball Field Reservations",
-    "reason": "76 vevents / 76 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "cityofedwardsville.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
@@ -131099,10 +131099,10 @@
     "type": "ics"
   },
   "cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Ferndale \u2014 Star Park Picnic Shelter",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar": {
@@ -132309,10 +132309,10 @@
     "type": "ics"
   },
   "cityofrockledge.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Rockledge \u2014 Facility Rental",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "cityofroma.net": {
@@ -132897,10 +132897,10 @@
     "type": "civic-city"
   },
   "cityofwickliffe.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Wickliffe \u2014 Community Center Room Rentals",
-    "reason": "615 vevents / 615 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "cityofwildwood.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
@@ -143323,10 +143323,10 @@
     "type": "ics"
   },
   "coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Coppell \u2014 Block'n Roll Reservation Schedule",
-    "reason": "4 vevents / 3 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "coppet.ch/avisiter/8245": {
@@ -314963,8 +314963,8 @@
   "kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
     "checked": 20261029,
     "name": "Kelso \u2014 Parks Reservations",
-    "reason": "empty, not dead (2026-10-29): CivicPlus catID=25 'Parks Reservations' still listed on /iCalendar.aspx (8 categories); recheck http 200 text/calendar 486 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-18 '2 vevents / 2 future'.",
-    "status": "empty",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
@@ -346799,16 +346799,16 @@
     "type": "ics"
   },
   "lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lakeville \u2014 Antlers Park | Shelter A Monthly Schedule",
-    "reason": "0 vevents / 0 future",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
     "status": "fail",
     "type": "ics"
   },
   "lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lakeville \u2014 Antlers Park | Shelter B Monthly Schedule",
-    "reason": "0 vevents / 0 future",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
     "status": "fail",
     "type": "ics"
   },
@@ -376507,22 +376507,22 @@
   "losranchosnm.gov/calendar": {
     "checked": 20261029,
     "name": "Village of Los Ranchos de Albuquerque",
-    "reason": "replaced 2026-10-29 by CivicPlus catID 24 and 23 on www.losranchosnm.gov (ics): /calendar now redirects 301 -> 302 to /calendar.aspx (CivicEngage, server cloudflare); production 10-28, 10-27, 10-25, 10-24 found 0 event articles; audit 10-18 no event articles on the collection page. Entry in squarespace_sources.json at 10f27b9.",
+    "reason": "the village moved its calendar to CivicPlus catID 24 and 23 on www.losranchosnm.gov (ics), which are HELD, not configured, pending the owner's ruling on CivicPlus's lowercase Disallow: /common/modules/icalendar/ (both entries in ics_sources.json at aacf717; ledger `held`): /calendar now redirects 301 -> 302 to /calendar.aspx (CivicEngage, server cloudflare); production 10-28, 10-27, 10-25, 10-24 found 0 event articles; audit 10-18 no event articles on the collection page. Entry in squarespace_sources.json at 10f27b9.",
     "status": "fail",
     "type": "squarespace"
   },
   "losranchosnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
     "checked": 20261029,
     "name": "Village of Los Ranchos de Albuquerque \u2014 Agri-Nature Center Events",
-    "reason": "3 vevents / 3 future",
-    "status": "ok",
+    "reason": "verified 3 vevents / 3 future on 2026-10-29; held pending the owner's ruling on CivicPlus's lowercase Disallow: /common/modules/icalendar/ (curation-and-discovery.md)",
+    "status": "held",
     "type": "ics"
   },
   "losranchosnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
     "checked": 20261029,
     "name": "Village of Los Ranchos de Albuquerque \u2014 Community Events",
-    "reason": "3 vevents / 3 future",
-    "status": "ok",
+    "reason": "verified 3 vevents / 3 future on 2026-10-29; held pending the owner's ruling on CivicPlus's lowercase Disallow: /common/modules/icalendar/ (curation-and-discovery.md)",
+    "status": "held",
     "type": "ics"
   },
   "losrealejos.es": {
@@ -376624,15 +376624,15 @@
   "lotto-arena.be/evenement/glory-110-a200be7a": {
     "checked": 20261029,
     "name": "Lotto Arena",
-    "reason": "replaced 2026-10-29 by https://www.lotto-arena.be/sitemap.xml (100 Dutch /evenement/ pages; /kalender is drawn in the browser): this URL is ONE event's page (GLORY 110), 1/1 sampled events future on 10-11 and no schema.org Event blocks found on 10-18 and 10-29, once it had passed; no production line in runs 138-144 (the jsonld rotation did not reach it). Entry in jsonld_sources.json at 10f27b9.",
+    "reason": "retired 2026-10-29, not working: production no line in runs 138-144 (not reached by the rotation); audit 10-11 1/1 sampled events future, 10-18 no schema.org Event blocks found; recheck 10-29 200, 127,683 B, 0 Event blocks. It was one event's page (GLORY 110, za 17.10.2026, 16:00Z), now past. The venue's sitemap (100 /evenement/ pages) was not configured in its place: each adapter session's first page is answered through a 5-hop silent sign-in, lotto-arena.be/auth/callback -> api.mybeat.beatvenues.be/start-auth (whose robots.txt answers 403) -> auth.beatvenues.be/oauth2/authorize?...prompt=none -> back, a redirect chain through a host whose robots.txt refuses us (review of 2026-10-29). Entry in jsonld_sources.json at 10f27b9.",
     "status": "fail",
     "type": "jsonld"
   },
   "lotto-arena.be/sitemap.xml": {
     "checked": 20261029,
     "name": "Lotto Arena",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "not configured (reverted 2026-10-29): verify read 1/1 sampled events future, but each session's first event page is answered through a 5-hop silent sign-in via api.mybeat.beatvenues.be (its robots.txt answered 403) and auth.beatvenues.be, so reading it drives a third party's OAuth endpoint; and with max_events 150 each visit would re-read 100 sitemap pages back to 2023 (review of 2026-10-29). The way in is to ask the operator.",
+    "status": "refused",
     "type": "jsonld"
   },
   "lotus-pflege.de": {
@@ -456459,10 +456459,10 @@
     "type": "squarespace"
   },
   "orovilleca.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Oroville \u2014 Parks: Events & Reservations",
-    "reason": "5 vevents / 5 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "orpea.be": {
@@ -457790,10 +457790,10 @@
     "type": "ics"
   },
   "oskaloosaiowa.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Oskaloosa \u2014 Park Shelter Reservations",
-    "reason": "7 vevents / 0 future",
-    "status": "empty",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "oskar-drewitz.de": {
@@ -635234,8 +635234,8 @@
   "vandaliaohio.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
     "checked": 20261029,
     "name": "Vandalia \u2014 Block Party Trailer",
-    "reason": "0 vevents / 0 future; CivicPlus catID=27 'Block Party Trailer' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
-    "status": "empty",
+    "reason": "retired 2026-10-29: a reservation schedule, not events; recorded in jsonld_sources.json _not_included",
+    "status": "fail",
     "type": "ics"
   },
   "vandammelivraria.com.br": {

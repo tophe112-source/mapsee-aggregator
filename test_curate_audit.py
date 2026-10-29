@@ -35,6 +35,13 @@ And the follow-ups the review of the round-1 triage asked for (2026-10-29):
   * THE DEADLINE saves first, then gives stragglers a bounded grace.
   * The ledger survives a dump that dies; a Verdict survives copy and pickle.
 
+And the final review of round 2 (2026-10-29), section G: a type with no
+verifier (mylisting) is never written; robots.txt is obeyed before an entry's
+first request (`refused`, nothing fetched) and before a jsonld link page; a
+probe the pacing stopped decides nothing; a scoped ?ical=1 export is not
+tested against the site's route; Mobilizon's and Modern Events Calendar's
+quiet answers are `empty`; and the three mutations the review left alive.
+
 Runs the REAL cmd_audit, verify_ics, verify_opendata and cmd_verify over temp
 trees and stub sessions - no network, no database.
 
@@ -763,6 +770,29 @@ sess = Session({"https://other.example/cal.ics": (404, "", "text/html")})
 check("a 404 that is not a ?ical=1 export asks nothing more",
       audit_verdict(sess, "https://other.example/cal.ics") == (False, "fail", "http 404 / no VCALENDAR")
       and sess.asked == ["https://other.example/cal.ics"])
+# A SCOPED EXPORT IS NOT THE SITE'S CALENDAR (review of 2026-10-29): the route
+# answers for the whole site, or the network root of a multisite. The review's
+# examples keep the old verdict and never ask the route.
+SCOPED = ["https://www.bartramsgarden.org/?post_type=tribe_events&tribe_events_cat=volunteer&ical=1"
+          "&eventDisplay=list",
+          "https://www.casalcatalatolosa.cat/tag/concert/?ical=1",
+          "https://www.lunel.com/category/toute-lactualite/evenement/?ical=1",
+          "https://extension.wsu.edu/thurston/events/category/mg/?post_type=tribe_events&ical=1&eventDisplay=list"]
+for url in SCOPED:
+    root = cc.robots_txt.origin_of(url)
+    sess = Session({root + "/robots.txt": ROBOTS_OK, url: (200, "", "text/html"),
+                    cc.tribe_rest_url(url): TWO_EVENTS})
+    r = audit_verdict(sess, url)
+    check(f"a scoped export is not tested against the site's route: {url[8:52]}",
+          r == (False, "fail", "http 200 / no VCALENDAR") and sess.asked == [url], (r, sess.asked))
+for url in ("https://fest.example/events/?ical=1", "https://fest.example/events/list/?ical=1",
+            "https://fest.example/?post_type=tribe_events&ical=1&eventDisplay=list",
+            "https://fest.example/?ical=1"):
+    check(f"...while the whole calendar at the origin still is: {url[8:]}", cc.tribe_feed_is_sitewide(url))
+check("...and one event's own export is not the whole calendar",
+      not cc.tribe_feed_is_sitewide("https://win-e-v.de/events/fahrradtour-11/?ical=1"))
+check("...nor another post type's export",
+      not cc.tribe_feed_is_sitewide("https://fest.example/?post_type=page&ical=1"))
 slept = []
 real_time = cc.time
 cc.time = types.SimpleNamespace(time=real_time.time, sleep=slept.append)
@@ -947,10 +977,14 @@ check("a host's next probe starts no sooner than its robots.txt Crawl-delay afte
 check("...or its entries' own crawl_delay", gaps[1] >= 0.39, (gaps, starts, reqs))
 check("...and the other hosts are probed meanwhile",
       max(starts.get("R4", 9e9), starts.get("R5", 9e9)) < min(starts.get("R1", 0), starts.get("R3", 0)), starts)
-check("...without a worker asleep on it, robots.txt read once for each host with two entries",
-      "crawl-delay: 0 wait(s) inside probes, 0 s in all; robots.txt read for 2 origin(s)" in out.getvalue()
-      and shared.asked.count("https://one.example/robots.txt") == 1
-      and shared.asked.count("https://four.example/robots.txt") == 1, (out.getvalue()[-400:], shared.asked))
+# Every host's robots.txt is read before its first request now (its Disallow
+# decides whether to ask at all: section G), once per origin for the run.
+check("...without a worker asleep on it, robots.txt read once per host, before its first request",
+      "crawl-delay: 0 wait(s) inside probes, 0 s in all; robots.txt read for 4 origin(s)" in out.getvalue()
+      and all(shared.asked.count(f"https://{h}/robots.txt") == 1 for h in set(QH))
+      and all(shared.asked.index(f"https://{h}/robots.txt")
+              < min(i for i, u in enumerate(shared.asked) if u.startswith(f"https://{h}/cal"))
+              for h in set(QH)), (out.getvalue()[-400:], shared.asked))
 shutil.rmtree(tmp, ignore_errors=True)
 
 # Inside one probe, through the real verify_ics: the list read waits the
@@ -1110,6 +1144,272 @@ for how, fn in (("copy.copy", copy.copy), ("copy.deepcopy", copy.deepcopy),
     check(f"a Verdict survives {how} with its status",
           lambda: isinstance(fn(v), cc.Verdict) and fn(v) == v and fn(v).status == "empty"
           and cc._status_for(False, fn(v)) == "empty")
+
+# ============================================================================
+# G. The final review of 2026-10-29: what the audit must not write.
+# ============================================================================
+# --- a type with no verifier is never probed and never written ----------------
+# mylisting is in CONFIG and in no VERIFIERS entry: planned anyway, its probe
+# raised KeyError and was recorded `fail` "KeyError: 'mylisting'", which
+# FEED_DOWN then reported daily (production kept 556 of 592 from it, 10-28).
+gap = sorted(set(cc.CONFIG) - set(cc.VERIFIERS))
+check(f"CONFIG types the audit cannot verify, so it skips them: {gap}", gap == ["mylisting"], gap)
+NV = [{"name": "Listed", "explore_url": "https://isle.example/events/?type=event"},
+      {"name": "Unrowed", "explore_url": "https://isle2.example/events/"}]
+NV_ROW = {"type": "mylisting", "name": "Listed", "status": "ok", "reason": "seen", "checked": 20261011}
+tmp = tree([{"name": "A1", "url": "https://a1.example/cal.ics"}], [],
+           {cc._canon(NV[0]["explore_url"]): dict(NV_ROW)})
+json.dump({"sites": NV}, open(os.path.join(tmp, "c_sources.json"), "w"))
+calls = []
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "nover": ("c_sources.json", "explore_url")}
+cc.VERIFIERS["ics"] = lambda s, e: (calls.append(e["name"]), (True, "1 vevents / 1 future"))[1]
+cc._session = lambda: None
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit()
+finally:
+    restore()
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+log = out.getvalue()
+check("a type with no verifier is not probed: its row is the whole old row, and no row is added",
+      led.get(cc._canon(NV[0]["explore_url"])) == NV_ROW and cc._canon(NV[1]["explore_url"]) not in led
+      and calls == ["A1"], (led, calls))
+check("...said once, by type, and the entries it can verify are audited as before",
+      log.count("no verifier for `nover` (c_sources.json)") == 1
+      and "audit reached 1 of 1 configured entries" in log and "KeyError" not in log, log[-500:])
+shutil.rmtree(tmp, ignore_errors=True)
+
+# --- robots.txt is obeyed before an entry's first request ----------------------
+RB = [{"name": "Deny", "url": "https://deny.example/cal0.ics"},
+      {"name": "Down", "url": "https://down.example/cal1.ics"},
+      {"name": "Open", "url": "https://open.example/cal2.ics"},
+      {"name": "GCal", "url": GCAL}]
+DOC = [{"name": "Doc", "base_url": "https://doc.example"}]
+GROW = cc._canon(GCAL)
+tmp = tree(RB, DOC, {cc._canon(RB[0]["url"]): row(20261011, "ok", "seen"),
+                     GROW: row(20261011, "ok", "12 vevents / 12 future")})
+calls = []
+
+
+def fetching_stub(s, e):
+    calls.append(e["name"])
+    s.get(e.get("url") or e["base_url"] + "/api")
+    return True, "1 vevents / 1 future"
+
+
+import requests as _rq
+shared = Session({"https://deny.example/robots.txt": (200, "User-agent: *\nDisallow: /cal\n", "text/plain"),
+                  "https://down.example/robots.txt": _rq.ConnectionError("reset"),
+                  "https://open.example/robots.txt": (200, "User-agent: *\nAllow: /\n", "text/plain"),
+                  "https://doc.example/robots.txt": (200, "User-agent: *\nDisallow: /\n", "text/plain")})
+for u in (RB[0]["url"], RB[1]["url"], RB[2]["url"], "https://doc.example/api"):
+    shared.pages[u] = (200, "x")
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "mobilizon": ("b_sources.json", "base_url")}
+cc.VERIFIERS["ics"] = cc.VERIFIERS["mobilizon"] = fetching_stub
+cc._session = lambda: shared
+had_key = os.environ.pop(mapsee_gcal.KEY_ENV, None)
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit(workers=2)
+finally:
+    restore()
+    if had_key is not None:
+        os.environ[mapsee_gcal.KEY_ENV] = had_key
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+log = out.getvalue()
+check("an explicit Disallow on the feed is recorded `refused` with the rule, the feed never fetched",
+      led[cc._canon(RB[0]["url"])]["status"] == "refused"
+      and led[cc._canon(RB[0]["url"])]["reason"] == "robots.txt: Disallow: /cal (GET /cal0.ics)"
+      and RB[0]["url"] not in shared.asked and "Deny" not in calls, (led.get(cc._canon(RB[0]["url"])), calls))
+check("...and said in the summary, apart from BROKEN",
+      "1 entries robots.txt disallows: recorded `refused`, never fetched." in log
+      and "\n0 entries are BROKEN" in log, log[-600:])
+check("an unreachable robots.txt is not a verdict: the feed is probed as before",
+      "Down" in calls and led[cc._canon(RB[1]["url"])]["status"] == "ok", (calls, led.get(cc._canon(RB[1]["url"]))))
+check("an allowed feed is probed, robots.txt asked first",
+      "Open" in calls and shared.asked.index("https://open.example/robots.txt") < shared.asked.index(RB[2]["url"]))
+check("a documented API is never asked for robots.txt, and its Disallow: / does not refuse it",
+      "https://doc.example/robots.txt" not in shared.asked and "Doc" in calls
+      and led[cc._canon("https://doc.example")]["status"] == "ok", (shared.asked, calls))
+check("a Google calendar without the Calendar API key is not probed and keeps its whole row",
+      "GCal" not in calls and led[GROW] == row(20261011, "ok", "12 vevents / 12 future")
+      and not any("google" in u for u in shared.asked), (calls, led.get(GROW)))
+check("...counted as not decided, and still reached",
+      "1 probe(s) not decided" in log and "audit reached 5 of 5 configured entries" in log, log[-600:])
+shutil.rmtree(tmp, ignore_errors=True)
+
+# --- a follow-up page robots.txt disallows is not fetched, and is counted -------
+JL = "https://venue.example/agenda/"
+FUT_BLOCK = ('<script type="application/ld+json">{"@type": "Event", "name": "Gig", '
+             '"startDate": "2026-11-20T20:00"}</script>')
+JL_PAGE = '<a href="/e/1">1</a><a href="/e/2">2</a><a href="/e/3">3</a>'
+J_ROBOTS = (200, "User-agent: *\nDisallow: /e/2\n", "text/plain")
+sess = Session({"https://venue.example/robots.txt": J_ROBOTS, JL: (200, JL_PAGE, "text/html"),
+                "https://venue.example/e/1": (200, "<p>no block</p>", "text/html"),
+                "https://venue.example/e/2": (200, FUT_BLOCK, "text/html"),
+                "https://venue.example/e/3": (404, "gone", "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": [JL], "link_pattern": r"/e/\d"})
+check("verify_jsonld: a link page robots.txt disallows is not fetched",
+      "https://venue.example/e/2" not in sess.asked and sess.asked.count("https://venue.example/robots.txt") == 1,
+      sess.asked)
+check("...and the note says what was followed, what answered what, and what robots.txt refused",
+      not ok and note == ("no schema.org Event blocks found; 3 link page(s) of 3: 2 fetched (1 answered "
+                          "404), 1 disallowed by robots.txt"), note)
+check("...without that wording triggering a retry or reading as `empty`",
+      cc._status_for(False, note) == "fail" and not cc.re.search(r"http (?:403|429|5\d\d)", note))
+sess = Session({"https://venue.example/robots.txt": J_ROBOTS, JL: (200, JL_PAGE, "text/html"),
+                "https://venue.example/e/1": (200, FUT_BLOCK, "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": [JL], "link_pattern": r"/e/\d"})
+check("...and a refused page alone does not fail an entry whose other pages have events",
+      ok and note == "1/1 sampled events future", note)
+
+# --- quiet answers that are not dead: a Mobilizon instance, an MEC agenda --------
+class GqlSession(Session):
+    """POSTs answered by the GraphQL `b` (beginsOn) variable; records each one."""
+
+    def __init__(self, by_begins, code=200, ctype="application/json"):
+        super().__init__({})
+        self.by_begins, self.code, self.ctype, self.posts = by_begins, code, ctype, []
+
+    def post(self, url, json=None, **kw):
+        begins = (json or {}).get("variables", {}).get("b")
+        self.posts.append((url, begins))
+        got = self.by_begins.get(begins, self.by_begins.get("*"))
+        body = got if isinstance(got, str) else __import__("json").dumps(got)
+        return Resp(self.code, body, url, self.ctype)
+
+
+def gql(total, titles=()):
+    return {"data": {"searchEvents": {"total": total, "elements": [
+        {"uuid": str(i), "title": t, "beginsOn": "2026-11-05T18:00:00Z"} for i, t in enumerate(titles)]}}}
+
+
+MOB = {"type": "mobilizon", "base_url": "https://quiet.example"}
+TODAY_B, YEAR_B = "2026-10-29T00:00:00Z", "2025-10-29T00:00:00Z"
+sess = GqlSession({TODAY_B: gql(0), YEAR_B: gql(41, ["Vrijdenkers café"])})
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("mobilizon: an instance answering 0 upcoming but 41 in the past year is `empty` (Bosvreugd, 10-29)",
+      cc._status_for(*r) == "empty" and str(r[1]) == "0 future events; the instance answers, with 41 events "
+      "since 2025-10-29" and sess.posts == [("https://quiet.example/api", TODAY_B),
+                                            ("https://quiet.example/api", YEAR_B)], (r, sess.posts))
+sess = GqlSession({TODAY_B: gql(0), YEAR_B: gql(0)})
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("mobilizon: nothing upcoming and nothing in a year is still `fail`",
+      cc._status_for(*r) == "fail" and r[1] == "0 future events; none since 2025-10-29 either", r)
+sess = GqlSession({"*": "<!DOCTYPE html><title>404</title>"}, code=404, ctype="text/html")
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("mobilizon: a former instance (ibb.info's /api: a 404 page) is `fail`, asked once",
+      r == (False, "http 404") and len(sess.posts) == 1, (r, sess.posts))
+sess = GqlSession({"*": {"errors": [{"message": "unknown field"}]}})
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("mobilizon: a GraphQL error is `fail` and asks nothing more",
+      cc._status_for(*r) == "fail" and r[1].startswith("graphql:") and len(sess.posts) == 1, (r, sess.posts))
+sess = GqlSession({TODAY_B: gql(3, ["Linux Café"])})
+r = cc._verify_with_retry(cc.VERIFIERS["mobilizon"], sess, MOB)
+check("mobilizon: upcoming events are `ok`, one request, as before",
+      r == (True, "3 upcoming, sample: Linux Café") and len(sess.posts) == 1, (r, sess.posts))
+
+# Modern Events Calendar's empty list, in the two shapes measured on 10-29.
+NEWROCK = ('<div class="mec-wrap mec-skin-list-container  " id="mec_skin_6270">\n'
+           '<div class="mec-skin-list-events-container" id="mec_skin_events_6270">\n'
+           '        Aucun événement trouvé !    </div>\n    \n</div>')
+MEERGROEN = ('<div class="mec-wrap mec-skin-list-container  " id="mec_skin_mec1">\n\n    \n'
+             '        <div class="mec-skin-list-events-container" id="mec_skin_events_mec1">\n'
+             '        Geen evenementen gevonden!    </div>\n</div>\n'
+             '<script data-mec-view-beacon="1" data-view="list" data-skin="list" data-count="0">'
+             '(function(){})();</script>')
+FULL = ('<div class="mec-skin-list-events-container" id="mec_skin_events_9">'
+        '<div class="mec-wrapper"><article class="mec-event-article mec-clear">'
+        '<h4 class="mec-event-title"><a href="/events/a/">A</a></h4></article></div></div>')
+for name, page, text in (("New Rock", NEWROCK, "Aucun événement trouvé !"),
+                         ("MEERGroen", MEERGROEN, "Geen evenementen gevonden!")):
+    sess = Session({"https://mec.example/agenda/": (200, page, "text/html")})
+    ok, note = cc.verify_jsonld(sess, {"listing": ["https://mec.example/agenda/"],
+                                       "link_pattern": r"https://mec\.example/events/[a-z0-9-]+/"})
+    check(f"jsonld: Modern Events Calendar's no-events list ({name}) is `empty`, quoting it",
+          cc._status_for(ok, note) == "empty" and note == "no schema.org Event blocks found; Modern Events "
+          f"Calendar prints its no-events text ('{text}'); no link matches link_pattern", note)
+sess = Session({"https://mec.example/agenda/": (200, FULL, "text/html")})
+ok, note = cc.verify_jsonld(sess, {"listing": ["https://mec.example/agenda/"]})
+check("jsonld: an MEC list WITH events but no Event block is still `fail`",
+      cc._status_for(ok, note) == "fail" and note == "no schema.org Event blocks found", note)
+check("...and a page with no MEC container at all is not quiet",
+      cc.mec_no_events("<p>Aucun événement trouvé !</p>") is None
+      and cc.mec_no_events(NEWROCK + FULL) is None, cc.mec_no_events(NEWROCK + FULL))
+check("...nor one whose MEC events sit outside an empty-looking container",
+      cc.mec_no_events(NEWROCK + '<article class="mec-event-article">A</article>') is None)
+check("...nor a page where a second view's container holds markup, whatever its classes",
+      cc.mec_no_events(NEWROCK + '<div class="mec-skin-grid-events-container" id="mec_skin_events_7">'
+                       '<div class="mec-event-grid-minimal"><a href="/events/b/">B</a></div></div>') is None)
+
+# --- a Crawl-delay over the cap inside a probe decides nothing ---------------------
+cc._CIVICPLUS_LISTS.clear()
+CD_ROW = row(20261011, "ok", "4 vevents / 4 future")
+tmp = tree([{"name": "Slow City", "url": SLOW_CP}], [], {cc._canon(SLOW_CP): dict(CD_ROW)})
+shared = Session(cp_pages("User-agent: *\nCrawl-delay: 60\n"))
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing")}
+cc._session = lambda: shared
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit()
+finally:
+    restore()
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+check("audit: a CivicPlus list read the 60 s Crawl-delay stops is not decided: the whole old row stays",
+      led[cc._canon(SLOW_CP)] == CD_ROW and SLOW + "/iCalendar.aspx" not in shared.asked,
+      (led.get(cc._canon(SLOW_CP)), shared.asked))
+check("...the refusal is not kept as the origin's list, and the log says not decided",
+      SLOW not in cc._CIVICPLUS_LISTS and "not decided: slow.example asks Crawl-delay 60 s" in out.getvalue(),
+      (cc._CIVICPLUS_LISTS, out.getvalue()[-500:]))
+shutil.rmtree(tmp, ignore_errors=True)
+cc._CIVICPLUS_LISTS.clear()
+
+# A retry after a 503 that the pacing will not send: not "AuditCrawlDelay" in
+# place of the 503, but no verdict at all.
+R503 = "https://busy503.example/cal.ics"
+tmp = tree([{"name": "Busy", "url": R503, "crawl_delay": 45}], [], {cc._canon(R503): dict(CD_ROW)})
+shared = Session({"https://busy503.example/robots.txt": (200, "User-agent: *\n", "text/plain"),
+                  R503: (503, "busy", "text/html")})
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing")}
+cc._session = lambda: shared
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit()
+finally:
+    restore()
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+check("audit: a retry the entry's 45 s crawl_delay will not send leaves the old row, not a `fail`",
+      led[cc._canon(R503)] == CD_ROW and shared.asked.count(R503) == 1
+      and "1 probe(s) not decided" in out.getvalue(), (led.get(cc._canon(R503)), shared.asked))
+shutil.rmtree(tmp, ignore_errors=True)
+
+# --- the three mutations the review's 36 left alive ------------------------------
+# M07: an empty VCALENDAR after a long preamble is a calendar wherever it starts.
+sess = Session({LIBCAL: (200, CSS + EMPTY, "text/calendar")})
+r = audit_verdict(sess, LIBCAL)
+check("an empty VCALENDAR after 8,000+ characters of CSS, on LibCal, is `empty`, not 'no VCALENDAR'",
+      r[:2] == (False, "empty") and "a valid empty LibCal calendar" in r[2] and len(CSS) > 8000, r)
+# M31: a challenge page in place of the CivicPlus list is not a list.
+cc._CIVICPLUS_LISTS.clear()
+CH = "https://walled.example"
+CH_CP = CH + "/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar"
+CH_PAGE = "<html><title>Just a moment...</title>" + LISTING.replace(CITY, CH) + "</html>"
+sess = Session({CH + "/robots.txt": ALLOW, CH + "/iCalendar.aspx": (200, CH_PAGE, "text/html"),
+                CH_CP: (200, EMPTY)})
+r = audit_verdict(sess, CH_CP)
+check("a bot challenge in place of the CivicPlus list is unreadable (`fail`), even if it carries links",
+      r[1] == "fail" and "unreadable (a bot challenge)" in r[2], r)
+cc._CIVICPLUS_LISTS.clear()
+# M28 (`exempt = False` in the probe): the documented-API case above, through
+# the real _audit_each, asserts robots.txt is never requested for doc.example.
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
