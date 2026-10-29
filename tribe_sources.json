@@ -28786,11 +28786,22 @@
       "name": "Mathallen Oslo Food Hall",
       "base_url": "https://mathallenoslo.no",
       "category": "market",
+      "_found": "manual:2026-10-29 deadfix -> the same calendar's The Events Calendar REST route (its ?ical= export is disallowed by robots.txt and answers 410)",
       "within_days": 120,
       "max_pages": 10,
       "default_city": "Oslo",
       "default_country": "NO",
-      "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM ics_sources.json, where it was read as https://mathallenoslo.no/events/?ical=1: robots.txt now has `Disallow: /*?*ical=` (with /*?*tribe-bar-date=, /*?*outlook-ical=, /*?*eventDisplay=past) and that export answered 410 Gone in production on 2026-10-24, 10-25, 10-27 and 10-28. /wp-json/ is not disallowed and no Crawl-delay is set. verify: 59 events, 10/10 on page 1 future. Dry run: kept 59, 57 stored, 55 placed at Vulkan 5 by a geocoded street (59.92225, 10.75175), 36 stored in the next 90 days; the 2 'Kaffekurs hos Solberg & Hansen' rows give no city and stay unplaced. Mostly paid cooking classes and tastings in the hall (Kulinarisk Akademi, Galopin; 590-2050 NOK)."
+      "venue": {
+        "name": "Mathallen Oslo",
+        "address": "Vulkan 5",
+        "city": "Oslo",
+        "postal_code": "0178",
+        "country": "NO",
+        "lat": 59.9221184,
+        "lon": 10.7520299
+      },
+      "_metro": "Oslo, Norway",
+      "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM ics_sources.json, where it was read as https://mathallenoslo.no/events/?ical=1: robots.txt now has `Disallow: /*?*ical=` (with /*?*tribe-bar-date=, /*?*outlook-ical=, /*?*eventDisplay=past) and that export answered 410 Gone in production on 2026-10-24, 10-25, 10-27 and 10-28. /wp-json/ is not disallowed and no Crawl-delay is set. verify: 59 events, 10/10 on page 1 future. Round-1 dry run without a venue block: kept 59, 57 stored, 55 placed at Vulkan 5 by a geocoded street (59.92225, 10.75175); the 2 'Kaffekurs hos Solberg & Hansen' rows gave no city and stayed unplaced. The venue block pins the hall at OSM way 112306688 'Mathallen' (amenity=food_court, Gerd Kjølaas' plass, 0178), 59.9221184, 10.7520299 through Photon, 21.7 m from the Vulkan 5 address point; Solberg & Hansen's café is OSM node 5593802021 on Vulkan, 35.8 m away, in the hall. Dry run with the block (2026-10-29, empty caches): kept 59, 57 stored, 57 placed at the hall (Kulinarisk Akademi 51, Galopin 4, Solberg & Hansen 2), 36 in the next 90 days. Mostly paid cooking classes and tastings in the hall (Kulinarisk Akademi, Galopin; 590-2050 NOK)."
     }
   ],
   "_not_included": {
