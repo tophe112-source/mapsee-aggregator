@@ -723,6 +723,45 @@
   12 opendata datasets were `ok` before and after. A value the adapter cannot
   date ("October 27" with no year, "TBD") is still "not a date column".
 
+- **130 FEEDS FEED_DOWN, AND 100 OF THEM WERE NOT DEAD: 87 QUIET, 13 WORKING,
+  6 FIXED, 20 RETIRED, 4 FOR THE OWNER (2026-10-29).** Every flag came from
+  the 10-18 audit, because the 10-25 audit timed out without committing. Each
+  feed was judged on production's own line for it (runs 139, 140, 143 and 144,
+  10-24 to 10-28), the audit on a GitHub runner, and a recheck from another
+  network with the production UA, robots.txt asked first. A second agent told
+  to refute each verdict corrected 3 of 130. GitHub's view decides.
+  *Quiet* (87 `empty`): 73 CivicPlus categories still listed on their site's
+  `/iCalendar.aspx` (the existence test: a listed catID answering 0 VEVENTs is
+  quiet, an unlisted one is gone), e.g. farmers' markets whose seasons closed
+  09-24 and 10-03, Urbandale's summer concerts. Also 3 Google calendars read
+  through the API (it returns only upcoming events, so a quiet one can never
+  read "N vevents / 0 future"), 6 The Events Calendar sites whose `?ical=1`
+  answers 404 or 200 with 0 bytes when nothing is upcoming, while
+  `/wp-json/tribe/events/v1/events` answers 200 JSON, and 5 valid empty
+  VCALENDARs (2 LibCal, My Calendar, OpenAgenda, TYPO3). *Working* (13 `ok`):
+  Lakeville Heritage Center (production kept 300 per run; the audit had one
+  ReadTimeout), Nashville Public Library (206-209 of 250; audit 503), Forterra
+  (an Elementor `<style>` puts BEGIN:VCALENDAR at character 8,120, past
+  `verify_ics`'s first 400). *Fixed* (6): Warrensburg's deleted catID 27 ->
+  its visitors bureau's Events Calendar (146 events); The Good Society -> its
+  own export (534 VEVENTs, both taprooms pinned); Mathallen Oslo -> the tribe
+  REST route (`?ical=` now disallowed, 410); Heal the Bay -> the list export
+  (`/events/?ical=1` is the month view, empty at month's end); lkg-bremen ->
+  `/events.ics` (50) for one event's file; Mount Vernon WA ->
+  `wall_clock_tzids` (its feed stamps Pacific time America/New_York, 3 h
+  early). *Refused* (5, `_not_included`): Ridgecrest x2, Portland Museum of
+  Art, Granville Island (403 on every GitHub read), The Helena May (202 to
+  GitHub, which production logs as "kept 0 of 0"). *Not working* (15, ledger
+  `fail`): a deleted catID (Balch Springs 33), 585 rows the adapter refuses
+  (Yorba Linda Library: 584 closure notices and a commission meeting; its
+  programmes are already read through LibCal), single-event
+  `.ics` files (WLB, FU Berlin), and sites that dropped their calendar plugin
+  (Octopus Bar, Farm Cookery School, Eat Street Northshore, Civic Theatre).
+  *Owner* (4): Lakeville's two shelter schedules (111 and 101 private bookings
+  in 2026, titled with the renter's name), Edina catID 76 (Cloudflare 403 on
+  robots.txt from here, so the listing could not be read), Soumagne (moved to
+  `/events.ics`, but no VEVENT names a place). `configured_dead()` 130 -> 4.
+
 - **`_not_included` in a sources file is an editorial NO, and discovery reads
   it.** `mobilizon_sources.json` declines an instance for spam and another for an
   unclear licence. Both verify fine, because verification proves a feed works,

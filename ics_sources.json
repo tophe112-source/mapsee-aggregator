@@ -2048,13 +2048,6 @@
     "limit": 300
   },
   {
-    "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
-    "url": "https://www.civictheatre.ie/whats-on/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Tallaght, Dublin, Ireland",
-    "limit": 300
-  },
-  {
     "name": "Riverbank Arts Centre (Newbridge, Ireland)",
     "url": "https://www.riverbank.ie/events/?ical=1",
     "category": "arts",
@@ -2168,10 +2161,12 @@
   },
   {
     "name": "Heal the Bay (Santa Monica, CA)",
-    "url": "https://healthebay.org/events/?ical=1",
+    "url": "https://healthebay.org/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "volunteer",
     "geocode_suffix": ", Santa Monica, CA",
-    "limit": 300
+    "limit": 300,
+    "_found": "manual:2026-10-29 deadfix -> The Events Calendar's list-view iCal export of the same calendar",
+    "_note": "Measured 2026-10-29 with the production UA. REPLACES https://healthebay.org/events/?ical=1 (same entry at 10f27b9), which exports the site's MONTH view: it answers 200 with an empty body (text/html, 0 B) once the month's events are over (production 10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs'; audit 10-18 'http 200 / no VCALENDAR'), and with tribe-bar-date=2026-09-01 it gave exactly September's 5 VEVENTs. The plugin's list export reads every upcoming event: verify_ics '6 vevents / 6 future', the same 6 the REST API (/wp-json/tribe/events/v1/events) lists in the next 120 days. robots.txt allows it. Scratch run of the ics adapter: kept 2 of 6 (two MPA Watch trainings carry no LOCATION; the Kuruvungna Village Springs and Dockweiler State Beach LOCATIONs missed Photon), 2 placed, 2 in the next 90 days."
   },
   {
     "name": "Johnson Creek Watershed Council (Portland, OR)",
@@ -2333,13 +2328,6 @@
     "url": "https://www.tacomaartmuseum.org/events/?ical=1",
     "category": "arts",
     "geocode_suffix": ", Tacoma, WA",
-    "limit": 300
-  },
-  {
-    "name": "Portland Museum of Art (Portland, ME)",
-    "url": "https://www.portlandmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Portland, ME",
     "limit": 300
   },
   {
@@ -4247,13 +4235,6 @@
     "limit": 300
   },
   {
-    "name": "The Helena May (Hong Kong)",
-    "url": "https://www.helenamay.com/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Hong Kong",
-    "limit": 300
-  },
-  {
     "name": "Dubai Astronomy Group (Dubai)",
     "url": "https://dubaiastronomy.com/events/?ical=1",
     "category": "outdoors",
@@ -4356,13 +4337,6 @@
     "url": "https://swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
     "geocode_suffix": ", Ukiah, CA",
-    "limit": 300
-  },
-  {
-    "name": "Granville Island Events (Vancouver)",
-    "url": "https://granvilleisland.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Granville Island, Vancouver, BC, Canada",
     "limit": 300
   },
   {
@@ -4562,13 +4536,6 @@
     "limit": 300
   },
   {
-    "name": "Eat Street Northshore (Brisbane)",
-    "url": "https://eatstreetnorthshore.com.au/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Brisbane, Australia",
-    "limit": 300
-  },
-  {
     "name": "Capital Region Farmers Market (Canberra)",
     "url": "https://capitalregionfarmersmarket.com.au/events/?ical=1",
     "category": "market",
@@ -4576,24 +4543,10 @@
     "limit": 300
   },
   {
-    "name": "Mathallen Oslo Food Hall",
-    "url": "https://mathallenoslo.no/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Mathallen, Oslo, Norway",
-    "limit": 300
-  },
-  {
     "name": "Aldeburgh Food and Drink Festival (Suffolk)",
     "url": "https://aldeburghfoodanddrink.co.uk/events/?ical=1",
     "category": "food",
     "geocode_suffix": ", Snape, Suffolk, UK",
-    "limit": 300
-  },
-  {
-    "name": "The Farm Cookery School (Wiltshire)",
-    "url": "https://thefarmcookeryschool.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Bromham, Wiltshire, UK",
     "limit": 300
   },
   {
@@ -4748,13 +4701,6 @@
     "url": "https://britishciderweek.org.uk/events/?ical=1",
     "category": "food",
     "geocode_suffix": ", United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "Cromane Seafest (Co. Kerry, Ireland)",
-    "url": "https://www.cromaneseafest.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Cromane, Co. Kerry, Ireland",
     "limit": 300
   },
   {
@@ -5081,18 +5027,42 @@
     "limit": 300
   },
   {
-    "name": "Friends of Little Sài Gòn (Seattle)",
-    "url": "https://flsseattle.org/events/?ical=1",
+    "name": "The Good Society (West Seattle and Queen Anne, Seattle)",
+    "url": "https://goodsocietybeer.com/?gse_ics=1",
     "category": "community",
     "geocode_suffix": ", Seattle, WA",
-    "limit": 300
-  },
-  {
-    "name": "The Good Society - West Seattle Events (Seattle)",
-    "url": "https://goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 300
+    "limit": 300,
+    "skip_title": "^Members\\S*\\s+Night$",
+    "location_overrides": [
+      {
+        "location": "West Seattle",
+        "venue": {
+          "name": "The Good Society Brewery & Public House",
+          "address": "2701 California Ave SW",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98116",
+          "country": "US",
+          "lat": 47.579252,
+          "lon": -122.38671
+        }
+      },
+      {
+        "location": "Queen Anne",
+        "venue": {
+          "name": "The Good Society Brewery & Barrel House",
+          "address": "535 W McGraw St",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98119",
+          "country": "US",
+          "lat": 47.639537,
+          "lon": -122.364103
+        }
+      }
+    ],
+    "_found": "manual:2026-10-29 deadfix -> the events page's own 'Subscribe to the calendar: all events' link (/?gse_ics=1)",
+    "_note": "Measured 2026-10-29 with the production UA. REPLACES https://goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list (entry 'The Good Society - West Seattle Events (Seattle)' at 10f27b9), which now 301s to goodsocietybeer.com and answers its HTML page (200 text/html, 108,021 B; production 10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs'): the site left The Events Calendar (/wp-json/tribe/events/v1/events 404; /wp-json/ lists its own gs-events/v1 instead). goodsocietybeer.com/events/ links 'Subscribe to the calendar: all events' at /?gse_ics=1; robots.txt `User-agent: * / Allow: /` with Content-Signal search=yes,ai-train=no,use=reference; verify_ics '536 vevents / 505 future'. It carries both taprooms and every LOCATION is only 'West Seattle' (287) or 'Queen Anne' (249), so location_overrides pin them to the addresses on goodsocietybeer.com/locations/ (2701 California Ave SW, 98116; 535 W McGraw St, 98119), points from the US Census geocoder. skip_title drops 'Members' Night' (83 VEVENTs, '$7 imperial pints for members of The Admiral Club and Draft Beer Society all day long': a members' price, not an event). Scratch run of the ics adapter: kept 285 of 536 (142 beyond the 365-day horizon, 83 title-filtered), 285 placed (180 West Seattle, 105 Queen Anne), 69 in the next 90 days. Renamed because the feed is both taprooms, not West Seattle alone."
   },
   {
     "name": "Historic Seattle - CID History Collective (Seattle)",
@@ -5119,13 +5089,6 @@
     "name": "Seattle Gymnastics - Indoor Playground (Seattle)",
     "url": "https://seattlegymnastics.com/play-events/indoor-playground/schedule/?ical=1",
     "category": "kids",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 300
-  },
-  {
-    "name": "The Octopus Bar (Seattle)",
-    "url": "https://theoctopusbar.com/?ical=1&eventDisplay=list",
-    "category": "party",
     "geocode_suffix": ", Seattle, WA",
     "limit": 300
   },
@@ -5741,15 +5704,6 @@
     "geocode_suffix": ", Yorba Linda, California",
     "limit": 300,
     "_found": "civic:city -> civicplus[Parks & Recreation Events]",
-    "_metro": "Yorba Linda, California"
-  },
-  {
-    "name": "Yorba Linda — Library Events",
-    "category": "learning",
-    "url": "https://www.yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "geocode_suffix": ", Yorba Linda, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Library Events]",
     "_metro": "Yorba Linda, California"
   },
   {
@@ -7038,15 +6992,6 @@
     "category": "community",
     "_found": "osm:place_of_worship -> events-manager",
     "url": "https://www.pfarregersthof.at/komm/?ical=1",
-    "geocode_suffix": ", Wien",
-    "limit": 300,
-    "_metro": "Vienna, AT"
-  },
-  {
-    "name": "Kirche Namen Jesu",
-    "category": "community",
-    "_found": "osm:place_of_worship -> ics",
-    "url": "https://www.namenjesu.com/NJ.ics",
     "geocode_suffix": ", Wien",
     "limit": 300,
     "_metro": "Vienna, AT"
@@ -9462,7 +9407,11 @@
     "geocode_suffix": ", Mount Vernon, Washington",
     "limit": 300,
     "_found": "civic:city -> civicplus[Mayor]",
-    "_metro": "Mount Vernon, Washington"
+    "_metro": "Mount Vernon, Washington",
+    "wall_clock_tzids": [
+      "America/New_York"
+    ],
+    "_note": "Measured 2026-10-29 with the production UA. FIX for a mislabelled zone. Mount Vernon (WA)'s CivicPlus feed stamps its Pacific wall clock as TZID=America/New_York (X-WR-TIMEZONE America/New_York). Mayor's Coffee Hour, UID 5510: the feed has DTSTART;TZID=America/New_York:20261109T180000, and the city's own page Calendar.aspx?EID=5510 says 2026-11-09T18:00 local. Read plainly, it stored start_utc 2026-11-09T23:00Z, which is 15:00 PST, 3 h early. Sibling catID 32 does the same: Starry Night Sound Bath, UID 5429, feed 20270312T190000 America/New_York, page 7:00 PM. verify: 1 vevents / 1 future. Dry run: kept 1 of 1, stored 1, placed 1, 1 in the next 90 days, start_local 2026-11-09T18:00:00 floating (start_utc null, so the sync zones it from the coordinates). Replaces the same entry, which had no wall_clock_tzids. The 10-18 audit's '0 vevents / 0 future' was a quiet week: production kept 1 of 1 on 10-28, and the category has held 475 entries since 2012, a monthly Mayor's Coffee Hour."
   },
   {
     "name": "Midlothian — Public Library Calendar",
@@ -10886,24 +10835,6 @@
     "_metro": "Fredericksburg, US"
   },
   {
-    "name": "Ridgecrest — Community Events",
-    "category": "community",
-    "url": "https://www.ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
-    "geocode_suffix": ", Ridgecrest, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Community Events]",
-    "_metro": "Ridgecrest, California"
-  },
-  {
-    "name": "Ridgecrest — Parks and Recreation Calendar",
-    "category": "community",
-    "url": "https://www.ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "geocode_suffix": ", Ridgecrest, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks and Recreation Calendar]",
-    "_metro": "Ridgecrest, California"
-  },
-  {
     "name": "Chaska — Community Events",
     "category": "community",
     "url": "https://www.chaskamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
@@ -10928,15 +10859,6 @@
     "geocode_suffix": ", Balch Springs, Texas",
     "limit": 300,
     "_found": "civic:city -> civicplus[Library]",
-    "_metro": "Balch Springs, Texas"
-  },
-  {
-    "name": "Balch Springs — Parks & Recreation Center",
-    "category": "community",
-    "url": "https://www.balchspringstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
-    "geocode_suffix": ", Balch Springs, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks & Recreation Center]",
     "_metro": "Balch Springs, Texas"
   },
   {
@@ -12829,15 +12751,6 @@
     "geocode_suffix": ", Warrensburg, Missouri",
     "limit": 300,
     "_found": "civic:city -> civicplus[Parks & Recreation]",
-    "_metro": "Warrensburg, Missouri"
-  },
-  {
-    "name": "Warrensburg — COVB Calendar",
-    "category": "community",
-    "url": "https://www.warrensburg-mo.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
-    "geocode_suffix": ", Warrensburg, Missouri",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[COVB Calendar]",
     "_metro": "Warrensburg, Missouri"
   },
   {
@@ -16065,15 +15978,6 @@
     "_metro": "Basel, CH"
   },
   {
-    "name": "Universitätsbibliothek Religion",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-fakultaetdekanat/1186.ics",
-    "geocode_suffix": ", Basel",
-    "limit": 300,
-    "_metro": "Basel, CH"
-  },
-  {
     "name": "Fachbereichsbibliothek Kulturwissenschaft und Europäische Ethnologie",
     "category": "learning",
     "_found": "osm:library -> ics",
@@ -16361,15 +16265,6 @@
     "_metro": "Milan, Italy"
   },
   {
-    "name": "Lokalhus Syd",
-    "category": "community",
-    "_found": "osm:community_centre -> my-calendar",
-    "url": "https://lokalhuset.dk/?feed=my-calendar-ics",
-    "geocode_suffix": ", Copenhagen, Denmark",
-    "limit": 300,
-    "_metro": "Copenhagen, Denmark"
-  },
-  {
     "name": "KVIC Brno-Vinohrady",
     "category": "community",
     "_found": "osm:community_centre -> events-manager",
@@ -16397,15 +16292,6 @@
     "_metro": "Milan, Italy"
   },
   {
-    "name": "Universitätsbibliothek Religion",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-forschungsdekanat/1973.ics",
-    "geocode_suffix": ", Basel",
-    "limit": 300,
-    "_metro": "Basel, Switzerland"
-  },
-  {
     "name": "CasaLarga",
     "category": "community",
     "_found": "osm:community_centre -> events-manager+ics",
@@ -16422,15 +16308,6 @@
     "geocode_suffix": ", 港区, 東京都",
     "limit": 300,
     "_metro": "Tokyo, Japan"
-  },
-  {
-    "name": "Circolo Scacchi Arcotorre Chieri",
-    "category": "arts",
-    "_found": "osm:arts_centre -> my-calendar+jsonld-event",
-    "url": "https://www.arcotorrescacchi.it/?feed=my-calendar-ics",
-    "geocode_suffix": ", Chieri",
-    "limit": 300,
-    "_metro": "Turin, Italy"
   },
   {
     "name": "チェッコリ",
@@ -26749,15 +26626,6 @@
     "_metro": "Berlin, Germany"
   },
   {
-    "name": "Zentralbibliothek der Freien Universität Berlin",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.fu-berlin.de/sites/ub/termine/2026-10-05-cb-aktionsstand.ics?format=ics",
-    "geocode_suffix": ", Berlin",
-    "limit": 300,
-    "_metro": "Berlin, Germany"
-  },
-  {
     "name": "Kieztreff",
     "category": "community",
     "_found": "osm:community_centre -> gcal-embed",
@@ -27093,15 +26961,6 @@
     "_metro": "Stuttgart, Germany"
   },
   {
-    "name": "Württembergische Landesbibliothek",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7ffe1a4b0327ffbd48e2c99098d40b29.ics",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "_metro": "Stuttgart, Germany"
-  },
-  {
     "name": "casa nostra",
     "category": "community",
     "_found": "osm:community_centre -> ics",
@@ -27231,10 +27090,35 @@
     "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
     "category": "community",
     "_found": "osm:community_centre -> events-manager",
-    "url": "https://lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1",
+    "url": "https://lkg-bremen.de/events.ics",
     "geocode_suffix": ", Bremen",
     "limit": 300,
-    "_metro": "Bremen, Germany"
+    "_metro": "Bremen, Germany",
+    "location_overrides": [
+      {
+        "location": "Evangelisches Gemeinschaftszentrum, Waller Heerstraße 197, Bremen, 28219, Deutschland",
+        "venue": {
+          "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+          "city": "Bremen",
+          "postal_code": "28219",
+          "country": "DE",
+          "lat": 53.1049417,
+          "lon": 8.7819284
+        }
+      },
+      {
+        "location": "Evangelisches Gemeinschaftszentrum, Waller Heerstraße 197, Bremen, Bremen, 28219, Deutschland",
+        "venue": {
+          "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+          "city": "Bremen",
+          "postal_code": "28219",
+          "country": "DE",
+          "lat": 53.1049417,
+          "lon": 8.7819284
+        }
+      }
+    ],
+    "_note": "Measured 2026-10-29 with the production UA. Events Manager's calendar-wide iCal export (PRODID wp-events-plugin.com 5.9942). Replaces https://lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1, the export of ONE event, which Events Manager empties once that event is over: 136 bytes, 0 VEVENTs on 2026-10-29; production 'kept 0 of 0' on 10-25, 10-27 and 10-28. robots.txt allows /events.ics. verify: 50 vevents / 50 future. Every VEVENT's LOCATION is one of two spellings of 'Evangelisches Gemeinschaftszentrum, Waller Heerstrasse 197' (25 each), and both are pinned by location_overrides to the OSM point the two sibling entries' venue block carries (53.1049417, 8.7819284), because Photon is not stable on them: of three dry runs from empty caches one placed all 50 at 53.10494, 8.78195, one dropped a row as unplaceable, and one put the 25 rows of the '..., Bremen, 28219, Deutschland' spelling on the 28219 postcode point 1.16 km away and cached it. Dry run with the overrides: kept 50 of 50, 50 stored, 50 placed, 0 Photon lookups, 44 in the next 90 days: Bibelgespraech, EC Hauskreis, Alpha-Hauskreis, Gottesdienst, Jungschar, Wohnzimmerkino, Lichterfest, Adventsfeier."
   },
   {
     "name": "Gemeindehaus",

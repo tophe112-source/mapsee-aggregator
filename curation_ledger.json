@@ -13469,10 +13469,10 @@
     "type": "osm-venue"
   },
   "aldeburghfoodanddrink.co.uk/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Aldeburgh Food and Drink Festival (Suffolk)",
-    "reason": "http 200 / no VCALENDAR",
-    "status": "fail",
+    "reason": "empty 2026-10-29: annual festival (2026-09-26/27), nothing upcoming; TEC ?ical=1 answers 200 with an empty body when nothing is upcoming; REST 0 events in 120 days; the same path with tribe-bar-date=2026-09-01 gives 3 VEVENTs",
+    "status": "empty",
     "type": "ics"
   },
   "aldegundis-buettgen.de": {
@@ -18091,10 +18091,10 @@
     "type": "osm-venue"
   },
   "amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Amador Vintners Wine Events (California)",
-    "reason": "http 403 / no VCALENDAR",
-    "status": "fail",
+    "reason": "17 vevents / 17 future",
+    "status": "ok",
     "type": "ics"
   },
   "amaebisu.com": {
@@ -19190,10 +19190,10 @@
     "type": "ics"
   },
   "americanfork.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "American Fork \u2014 Aquatics",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=40 'Aquatics' still listed on /iCalendar.aspx (38 categories); recheck http 200 text/calendar 471 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "americanlegend.be": {
@@ -22112,10 +22112,10 @@
     "type": "ics"
   },
   "anokamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Anoka \u2014 Better Values Liquor",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=26 listed as \"Better Values Liquor\"; 77 events 2020-2024, last 2024-10-24 (annual October tasting), none in 2025",
+    "status": "empty",
     "type": "ics"
   },
   "anokamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
@@ -27167,9 +27167,9 @@
     "type": "tribe"
   },
   "arcotorrescacchi.it/?feed=my-calendar-ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Circolo Scacchi Arcotorre Chieri",
-    "reason": "http 404 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 404; 10-27 404; 10-25 404; 10-24 404; audit 10-18 http 404 / no VCALENDAR; recheck 10-29 http 404 / no VCALENDAR (wp_die: not a valid feed template; My Calendar plugin removed). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -30127,10 +30127,10 @@
     "type": "ics"
   },
   "artesianm.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Artesia \u2014 Public Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=26 'Public Events' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "artesport.it": {
@@ -43697,17 +43697,17 @@
     "type": "osm-venue"
   },
   "bainbridgewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Bainbridge Island \u2014 Emergency Preparedness",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=33 still listed on /iCalendar.aspx as \"Emergency Preparedness\"; 1 future at merge 2026-09-13; production 10-24..10-28 read a valid empty calendar",
+    "status": "empty",
     "type": "ics"
   },
   "bainbridgewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Bainbridge Island \u2014 Community Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "1 vevents / 1 future (recheck 2026-10-29); production kept 1 of 1 on 10-27 and 10-28",
+    "status": "ok",
     "type": "ics"
   },
   "baindencre.fr": {
@@ -44009,9 +44009,9 @@
     "type": "ics"
   },
   "balchspringstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Balch Springs \u2014 Parks & Recreation Center",
-    "reason": "0 vevents / 0 future",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 of 0 VEVENTs; 10-27 kept 0 of 0; 10-25 kept 0 of 0; 10-24 kept 0 of 0; audit 10-18 0 vevents / 0 future; recheck 10-29 http 200 / 474 B / 0 VEVENTs, catID=33 no longer listed on /iCalendar.aspx (5 categories: 22, 25, 24, 14, 37); listed 25 'Community Events' is 60 of 64 City Council meetings, 14 'Main Calendar' 124 of 126 board/council meetings. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -47745,10 +47745,10 @@
     "type": "osm-venue"
   },
   "battlecreekmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Battle Creek \u2014 Community Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 14 still listed on /iCalendar.aspx as 'Community Events'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "battlecreekmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar": {
@@ -55198,10 +55198,10 @@
     "type": "osm-venue"
   },
   "berlinfoodweek.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Berlin Food Week (Germany)",
-    "reason": "http 404 / no VCALENDAR",
-    "status": "fail",
+    "reason": "The Events Calendar between seasons: ?ical=1 on the empty upcoming list answers 404 (empty body); the same URL with &tribe-bar-date=2026-10-05 returned 26 VEVENTs on 2026-10-29, and the REST route lists the 2025 and 2026 editions. Next edition expected October 2027.",
+    "status": "empty",
     "type": "ics"
   },
   "berlinischegalerie.de": {
@@ -71711,10 +71711,10 @@
     "type": "osm-venue"
   },
   "bnwaterkeeper.org/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Buffalo Niagara Waterkeeper",
-    "reason": "http 200 / no VCALENDAR",
-    "status": "fail",
+    "reason": "empty 2026-10-29: 78 events 2025-06..2026-10-27, none in the next 120 days; TEC ?ical=1 answers 200 with an empty body when nothing is upcoming; with tribe-bar-date=2026-09-01 the same path gives 23 VEVENTs",
+    "status": "empty",
     "type": "ics"
   },
   "bo-no-bo.pl": {
@@ -76474,10 +76474,10 @@
     "type": "osm-venue"
   },
   "botgarten.unibas.ch/de/news-veranstaltungen/2514.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Botanischer Garten der Universit\u00e4t",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future: valid VCALENDAR (Sabre VObject), and the garden's Veranstaltungen block on /de/news-veranstaltungen/ shows 'Keine Eintr\u00e4ge verf\u00fcgbar' on 2026-10-29. Verified 4 vevents / 4 future on 2026-09-19.",
+    "status": "empty",
     "type": "ics"
   },
   "bothar.ie": {
@@ -79059,10 +79059,10 @@
     "type": "ics"
   },
   "braintreema.gov/common/modules/iCalendar/iCalendar.aspx?catID=66&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Braintree \u2014 MA 250",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'MA 250' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 32 events, 1 in 2025 (2025-12-16 'Boston Tea Party Tasting and Talk') and 31 in 2026 (February, April-September, last 2026-09-29 'Make a miniature Robe Bed (For Children and Tweens)'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "brakbuldring.no": {
@@ -79276,10 +79276,10 @@
     "type": "ics"
   },
   "bransonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Branson \u2014 Campground",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=36 listed as \"Campground\"; its 4 posted October 2026 events ended 10-17, the day before the audit",
+    "status": "empty",
     "type": "ics"
   },
   "brant-ca.libcal.com/ical_subscribe.php?cid=8336": {
@@ -81643,10 +81643,10 @@
     "type": "ics"
   },
   "brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=51&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Brighton \u2014 Oasis Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=51 'Oasis Calendar' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=62&feed=calendar": {
@@ -82152,10 +82152,10 @@
     "type": "jsonld"
   },
   "britishciderweek.org.uk/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "British Cider Week (Devon, UK)",
-    "reason": "http 200 / no VCALENDAR",
-    "status": "fail",
+    "reason": "empty 2026-10-29: seasonal (104 events since 2026-03-14, 43 of the first 50 in the week of 2026-04-24), none in the next 120 days; TEC ?ical=1 answers 200 with an empty body; with tribe-bar-date=2026-04-01 the same path gives 30 VEVENTs",
+    "status": "empty",
     "type": "ics"
   },
   "britishclub.org.sg": {
@@ -91524,10 +91524,10 @@
     "type": "ics"
   },
   "burlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Burlington \u2014 Parks Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=31 'Parks Events' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 477 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-12 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "burn-in.at": {
@@ -95168,10 +95168,10 @@
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/1d40ac096b17c056aa341240c473e570ebdc8ec7e8b3e5cffe3a9f9c9710cb59%40group.calendar.google.com/public/basic.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Chiro JEZ",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future through the Calendar API (HTTP 200, window today..+180 days); production 2026-10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs (api)'. Quiet, not gone: verified 2026-09-13 '13 vevents / 2 future' (the Chirobal and a BBQ, per the entry's _note), so it carries a couple of events at a time.",
+    "status": "empty",
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/1sbitll7lahptmnun8veivsabc%40group.calendar.google.com/public/basic.ics": {
@@ -97184,10 +97184,10 @@
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/d210c31f0858adc44d3f95c4b103e8689117f0933ddb3536fb63af3b40447f1b%40group.calendar.google.com/public/basic.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "UTC Hetzendorf",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future through the Calendar API (HTTP 200, window today..+180 days); production 2026-10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs (api)'. Quiet, not gone: verified 2026-09-08 '192 vevents / 3 future', a long-used club calendar.",
+    "status": "empty",
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/d5b0eqo3gkbicpv72m3cvqh7v8%40group.calendar.google.com/public/basic.ics": {
@@ -99074,10 +99074,10 @@
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/vafgdqs2lm07ni2m85iqc0qunk%40group.calendar.google.com/public/basic.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Groupe Escalade Saint-Thibault",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future through the Calendar API (HTTP 200, window today..+180 days); production 2026-10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs (api)'. Quiet, not gone: verified 2026-08-29 '230 vevents / 1 future', a long-used calendar that keeps about one outing ahead.",
+    "status": "empty",
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/vbs2af6app1kqpssdqrc4p7nv8%40group.calendar.google.com/public/basic.ics": {
@@ -101844,10 +101844,10 @@
     "type": "ics"
   },
   "cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Canton \u2014 Public Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 34 still listed on /iCalendar.aspx as 'Public Events'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cantonpl.org": {
@@ -106296,10 +106296,10 @@
     "type": "ics"
   },
   "casagrandeaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Casa Grande \u2014 Hispanic Heritage Month",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Hispanic Heritage Month' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 1 event, 0 in 2025 and 1 in 2026 (2026-09-25 '\u00a1Celebra! Hispanic Heritage Month Celebration'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "casaguilhermedealmeida.org.br": {
@@ -117876,10 +117876,10 @@
     "type": "ics"
   },
   "chickasha.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Chickasha \u2014 Chickasha Community Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=33 still listed on /iCalendar.aspx as \"Chickasha Community Calendar\"; 1 future at merge 2026-09-13",
+    "status": "empty",
     "type": "ics"
   },
   "chicklit.at": {
@@ -117890,10 +117890,10 @@
     "type": "osm-venue"
   },
   "chicopeema.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Chicopee \u2014 Veterans Services",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=25 'Veterans Services' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "chicopeema.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": {
@@ -121896,10 +121896,10 @@
     "type": "ics"
   },
   "ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Rochester \u2014 Gazebo at Lion's Park - Reservations",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=45 'Gazebo at Lion's Park - Reservations' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-17 '3 vevents / 3 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "ci.rosenberg.tx.us": {
@@ -130404,10 +130404,10 @@
     "type": "civic-city"
   },
   "cityofartesia.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Artesia \u2014 Home Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 14 still listed on /iCalendar.aspx as 'Home Calendar'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cityofartesia.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
@@ -130439,10 +130439,10 @@
     "type": "ics"
   },
   "cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=51&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Asbury Park \u2014 APFD",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'APFD' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 3 events: 2025-05-26 and 2026-05-25 'APFD Memorial Day Service', 2026-10-17 'Community Day'; quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar": {
@@ -130614,10 +130614,10 @@
     "type": "ics"
   },
   "cityofberea.org/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Berea \u2014 Veterans Outreach",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=43 listed as \"Veterans Outreach\"; 6 events in 2026, last 2026-10-08",
+    "status": "empty",
     "type": "ics"
   },
   "cityofbethany.org": {
@@ -130740,10 +130740,10 @@
     "type": "ics"
   },
   "cityofchelsea.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Chelsea \u2014 Historical Museum",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=26 'Historical Museum' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cityofchelsea.com/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
@@ -130854,10 +130854,10 @@
     "type": "ics"
   },
   "cityofdanville.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Danville \u2014 Event Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=28 'Event Calendar' still listed on /iCalendar.aspx (5 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "cityofdecatural.com": {
@@ -131036,10 +131036,10 @@
     "type": "civic-city"
   },
   "cityofelcentro.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "El Centro \u2014 Parks and Rec - Special Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 27 still listed on /iCalendar.aspx as 'Parks and Rec - Special Events'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cityofenterprise.net": {
@@ -131071,10 +131071,10 @@
     "type": "tribe"
   },
   "cityoffenton.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Fenton \u2014 Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Events' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 46 events, 33 in 2025 (February-December, incl. 2025-11-14 and 2025-12-06 'Jinglefest') and 13 in 2026 (April-July and October, last 2026-10-16 'Fourth Annual Storytelling Festival'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar": {
@@ -131529,10 +131529,10 @@
     "type": "ics"
   },
   "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Laurel \u2014 Laurel Police Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=35 listed as \"Laurel Police Events\"; 8 events in 2025, 4 in 2026, last 2026-10-07",
+    "status": "empty",
     "type": "ics"
   },
   "cityoflavista.org/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar": {
@@ -132365,10 +132365,10 @@
     "type": "ics"
   },
   "cityofsachse.com/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Sachse \u2014 Police Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=31 'Police Department' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cityofsacramento.gov/ypce/Older_Adult_Services/hart-senior-center": {
@@ -132507,10 +132507,10 @@
     "type": "ics"
   },
   "cityofsebastian.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Sebastian \u2014 Police Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=25 'Police Calendar' still listed on /iCalendar.aspx (8 categories); recheck http 200 text/calendar 477 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '3 vevents / 3 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "cityofsebastian.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
@@ -132563,17 +132563,17 @@
     "type": "ics"
   },
   "cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Shawnee \u2014 Aquatics",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=29 'Aquatics' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Shawnee \u2014 Fire",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=34 'Fire' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "cityofshelby.com": {
@@ -132897,10 +132897,10 @@
     "type": "ics"
   },
   "cityofwildwood.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Wildwood \u2014 Parks & Recreation",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=27 listed as \"Parks & Recreation\" (539 events since 2016, 7 in 2026, last 2026-10-07)",
+    "status": "empty",
     "type": "ics"
   },
   "cityofwildwood.com/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar": {
@@ -132911,10 +132911,10 @@
     "type": "ics"
   },
   "cityofwildwood.com/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Wildwood \u2014 Wildwood Farmers Market",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=40 listed as \"Wildwood Farmers Market\"; seasonal, 19 market dates May-Oct 2026, last 2026-10-03",
+    "status": "empty",
     "type": "ics"
   },
   "cityofwilliston.com": {
@@ -133211,9 +133211,9 @@
     "type": "squarespace"
   },
   "civictheatre.ie/whats-on/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 html (kept 0 of 0); 10-27 html; 10-25 html; 10-24 html; audit 10-18 http 200 / no VCALENDAR; recheck 10-29 http 200 / no VCALENDAR (What's On HTML; tribe REST 404, plugin removed). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -138538,10 +138538,10 @@
     "type": "osm-venue"
   },
   "coalinga.com/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Coalinga \u2014 Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 35 still listed on /iCalendar.aspx as 'Events'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "coallia.org": {
@@ -147384,9 +147384,9 @@
     "type": "osm-venue"
   },
   "cromaneseafest.com/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Cromane Seafest (Co. Kerry, Ireland)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 of 0; 10-27 kept 0 of 0; 10-25 kept 0 of 0; 10-24 kept 0 of 0; audit 10-11 and 10-18 http 200 / no VCALENDAR; recheck 10-29 robots.txt unreachable (connection reset by peer, www and bare host, 3 tries), feed not fetched. Last good: ledger 07-27, 19 vevents / 19 future. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -154371,10 +154371,10 @@
     "type": "ics"
   },
   "dartmouthma.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Dartmouth \u2014 Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Events' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 22 events, 7 in 2025 (April, August, October-November) and 15 in 2026 (March, May-October, last 2026-10-03 'Dartmouth Cultural Center presents Welcome to the Graveyard'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "dartpalast.de/kalender": {
@@ -155101,10 +155101,10 @@
     "type": "ods"
   },
   "data.calgary.ca/resource/n625-9k5x.json": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "City of Calgary Events",
-    "reason": "'next_date_times' is not a date column (sample: 'October 27')",
-    "status": "fail",
+    "reason": "production 10-28 kept 12 of 13 rows; 10-27, 10-25, 10-24 kept 9 of 9; the audit's date-column note is a verifier false negative",
+    "status": "ok",
     "type": "opendata"
   },
   "data.cambridgema.gov/resource/4ixn-jz5x.json": {
@@ -178856,10 +178856,10 @@
     "type": "tribe"
   },
   "dublinfestivalofhistory.ie/events/list/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Dublin Festival of History (Dublin, Ireland)",
-    "reason": "http 404 / no VCALENDAR",
-    "status": "fail",
+    "reason": "The Events Calendar between seasons: /events/list/?ical=1 answers 404 (empty body) on the empty upcoming list; with &tribe-bar-date=2026-10-01 it returned 30 VEVENTs on 2026-10-29, and the REST route holds 279 events of the 2026 festival. Annual, late September to October.",
+    "status": "empty",
     "type": "ics"
   },
   "dublinia.ie": {
@@ -181942,9 +181942,9 @@
     "type": "osm-venue"
   },
   "eatstreetnorthshore.com.au/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Eat Street Northshore (Brisbane)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 html (kept 0 of 0); 10-27 html; 10-25 html; 10-24 html; audit 10-18 http 200 / no VCALENDAR; recheck 10-29 http 200 / no VCALENDAR (site rebuilt in Framer, no calendar export). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -192008,10 +192008,10 @@
     "type": "ics"
   },
   "emporiaks.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Emporia \u2014 Emporia Golf Course Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=44 'Emporia Golf Course Calendar' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "emporiooriginal.com.br": {
@@ -203291,10 +203291,10 @@
     "type": "jsonld"
   },
   "events.library.nashville.org/feeder/main/eventsFeed.gdo?f=y&format=text/calendar&count=250": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Nashville Public Library (Nashville, TN)",
-    "reason": "http 503 / no VCALENDAR",
-    "status": "fail",
+    "reason": "production 2026-10-28 kept 209 of 250 VEVENTs (10-27 207, 10-25 206, 10-24 207); the 10-18 audit's http 503 was transient. robots.txt answered HTTP 500 on 2026-10-29 (and at add, 2026-09-27), so not refetched here.",
+    "status": "ok",
     "type": "ics"
   },
   "events.litera.tools": {
@@ -211466,10 +211466,10 @@
     "type": "ics"
   },
   "fbfl.us/common/modules/iCalendar/iCalendar.aspx?catID=70&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Fernandina Beach \u2014 Parks and Recreation",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=70 'Parks and Recreation' still listed on /iCalendar.aspx (6 categories); recheck http 200 text/calendar 477 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-17 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "fbg-delmenhorst.de": {
@@ -215029,10 +215029,10 @@
     "type": "osm-venue"
   },
   "fiddleheadbrewing.com/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Fiddlehead Brewing (Shelburne, VT)",
-    "reason": "http 200 / no VCALENDAR",
-    "status": "fail",
+    "reason": "empty 2026-10-29: sparse calendar (2 events since 2025-06, last 2026-10-05), none in the next 120 days; TEC ?ical=1 answers 200 with an empty body; with tribe-bar-date=2026-09-01 the same path gives 2 VEVENTs",
+    "status": "empty",
     "type": "ics"
   },
   "fidele-nassauer.de": {
@@ -218548,9 +218548,9 @@
     "type": "tribe"
   },
   "flsseattle.org/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Friends of Little S\u00e0i G\u00f2n (Seattle)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 of 0; 10-27 kept 0 of 0; 10-25 kept 0 of 0; 10-24 kept 0 of 0; audit 10-11 and 10-18 http 200 / no VCALENDAR; recheck 10-29 301 to /events-resources/?ical=1, an HTML page, and /wp-json/tribe/events/v1/events 404 rest_no_route (The Events Calendar removed). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -221844,10 +221844,10 @@
     "type": "osm-venue"
   },
   "forterra.org/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Forterra (Seattle, WA)",
-    "reason": "http 200 / no VCALENDAR",
-    "status": "fail",
+    "reason": "production 10-28 kept 4 of 5; 10-27 4 of 5; 10-25 4 of 5; 10-24 5 of 6; recheck 10-29 5 vevents / 5 future after 8,120 chars of Elementor CSS that hide BEGIN:VCALENDAR from verify_ics",
+    "status": "ok",
     "type": "ics"
   },
   "fortetorre.org": {
@@ -227692,9 +227692,9 @@
     "type": "ics"
   },
   "fu-berlin.de/sites/ub/termine/2026-10-05-cb-aktionsstand.ics?format=ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Zentralbibliothek der Freien Universit\u00e4t Berlin",
-    "reason": "http 404 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 404; 10-27 404; 10-25 404; audit 10-18 http 404 / no VCALENDAR; recheck 10-29 http 404. It was one event's own .ics (2026-10-05 Aktionsstand), not a calendar. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -230218,10 +230218,10 @@
     "type": "ics"
   },
   "gainesville.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Gainesville \u2014 Airport",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 27 still listed on /iCalendar.aspx as 'Airport'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "gainesville.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
@@ -243501,17 +243501,17 @@
     "type": "osm-venue"
   },
   "gloucester-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=104&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Gloucester \u2014 Fire Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=104 'Fire Department' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "gloucester-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=105&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Gloucester \u2014 Police Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=105 'Police Department' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "gloucester-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=106&feed=calendar": {
@@ -245309,10 +245309,17 @@
     "type": "osm-venue"
   },
   "goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "The Good Society - West Seattle Events (Seattle)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "replaced 2026-10-29 by https://goodsocietybeer.com/?gse_ics=1: this URL now 301s to goodsocietybeer.com's HTML page (recheck 10-29 200 text/html, 108,021 B; production 10-24, 10-25, 10-27, 10-28 kept 0 of 0; audit 10-18 http 200 / no VCALENDAR); the site left The Events Calendar, and its /events/ page links its own export. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
+    "type": "ics"
+  },
+  "goodsocietybeer.com/?gse_ics=1": {
+    "checked": 20261029,
+    "name": "The Good Society (West Seattle and Queen Anne, Seattle)",
+    "reason": "534 vevents / 505 future",
+    "status": "ok",
     "type": "ics"
   },
   "goodtimescomedyclub.co.nz": {
@@ -247752,10 +247759,10 @@
     "type": "ics"
   },
   "grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Grapevine \u2014 Library - Genealogy",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Library - Genealogy' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 24 events, 13 in 2025 (February-September, November-December) and 11 in 2026 (January-September, last 2026-09-14); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": {
@@ -262762,10 +262769,17 @@
     "status": "fail",
     "type": "osm-venue"
   },
-  "healthebay.org/events/?ical=1": {
-    "checked": 20261018,
+  "healthebay.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261029,
     "name": "Heal the Bay (Santa Monica, CA)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "healthebay.org/events/?ical=1": {
+    "checked": 20261029,
+    "name": "Heal the Bay (Santa Monica, CA)",
+    "reason": "replaced 2026-10-29 by https://healthebay.org/?post_type=tribe_events&ical=1&eventDisplay=list: this URL exports the site's MONTH view, which answers 200 with an empty body once the month's events are over (production 10-24, 10-25, 10-27, 10-28 kept 0 of 0; audit 10-18 http 200 / no VCALENDAR); the list export of the same calendar reads 6 vevents / 6 future. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -280823,10 +280837,10 @@
     "type": "osm-venue"
   },
   "hpca.gov/common/modules/iCalendar/iCalendar.aspx?catID=16&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Huntington Park",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=16 listed as \"City Special Events\"; 3 events Sep-Oct 2026, last 2026-10-10",
+    "status": "empty",
     "type": "ics"
   },
   "hpca.org.au": {
@@ -283550,10 +283564,10 @@
     "type": "ics"
   },
   "huntsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Huntsville \u2014 Wynne Home Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=32 'Wynne Home Events' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "hup.eu": {
@@ -290349,17 +290363,17 @@
     "type": "ics"
   },
   "indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Indianola \u2014 Parks & Rec",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 23 still listed on /iCalendar.aspx as 'Parks & Rec'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Indianola \u2014 Community Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 28 still listed on /iCalendar.aspx as 'Community Calendar'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
@@ -314933,10 +314947,10 @@
     "type": "ics"
   },
   "kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kelso \u2014 Parks Reservations",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=25 'Parks Reservations' still listed on /iCalendar.aspx (8 categories); recheck http 200 text/calendar 486 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-18 '2 vevents / 2 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
@@ -346552,10 +346566,10 @@
     "type": "ics"
   },
   "lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lake Elsinore \u2014 Community Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 29 still listed on /iCalendar.aspx as 'Community Calendar'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "lakechap.ca": {
@@ -346636,10 +346650,10 @@
     "type": "osm-venue"
   },
   "lakesaintlouis.com/common/modules/iCalendar/iCalendar.aspx?catID=1030&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lake St. Louis \u2014 Community Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Community Events' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 31 events, 15 in 2025 (12 of them Tree/Park/Personnel board meetings the town-hall filter refuses, plus Memorial Day and Bash at the Boulevard) and 16 in 2026 (2026-03-26 Mayor's Open House and 03-28 Easter Egg Event through 2026-10-03 'Bash at the Boulevard': Summer Concert Series, Movie in the Park, Lap the Lake, City Wide Garage Sale); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "lakesaintlouis.com/common/modules/iCalendar/iCalendar.aspx?catID=1035&feed=calendar": {
@@ -346757,10 +346771,10 @@
     "type": "ics"
   },
   "lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lakeville \u2014 Lakeville Heritage Center",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.lakevillemn.gov', port=443): Read timed ",
-    "status": "fail",
+    "reason": "354 vevents / 351 future",
+    "status": "ok",
     "type": "ics"
   },
   "lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
@@ -349885,17 +349899,17 @@
     "type": "ics"
   },
   "laportetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Porte \u2014 EMS",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=22 'EMS' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "laportetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Porte \u2014 Fire Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=23 'Fire Department' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "laportetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
@@ -349906,17 +349920,17 @@
     "type": "ics"
   },
   "laportetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Porte \u2014 Office of Emergency Management",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=33 'Office of Emergency Management' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '2 vevents / 2 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "laportetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "La Porte \u2014 Police",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=34 'Police' still listed on /iCalendar.aspx (7 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '2 vevents / 2 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "lapose.pl": {
@@ -354178,10 +354192,10 @@
     "type": "ics"
   },
   "lebanonnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lebanon \u2014 Lebanon Farmers' Market",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=28 listed as \"Lebanon Farmers' Market\"; seasonal, 20 Thursday dates May-Sep 2026, last 2026-09-24",
+    "status": "empty",
     "type": "ics"
   },
   "lebanonnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
@@ -356003,10 +356017,10 @@
     "type": "ics"
   },
   "leeds.libcal.com/ical_subscribe.php?cid=9035": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "University of Leeds Public Events (Leeds, United Kingdom)",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR 'Public Events', 0 VEVENTs; cid 9035 still listed on /calendar (a missing cid answers 'invalid calendar id')",
+    "status": "empty",
     "type": "ics"
   },
   "leedsbuddhistcentre.org/events.ics": {
@@ -358865,17 +358879,17 @@
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Leominster \u2014 Ribbon Cuttings",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Ribbon Cuttings' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 28 events, 10 in 2025 (March-December, incl. 2025-11-14 and 2025-12-11) and 18 in 2026 (February-September, last 2026-09-25 'MOD Creative Studio Ribbon Cutting'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Leominster \u2014 Community Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Community Events' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 58 events, 38 in 2025 (January-November) and 20 in 2026 (January-October, last 2026-10-11 'Rock the GazBar 5K'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
@@ -372840,17 +372854,17 @@
     "type": "ics"
   },
   "littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Little Elm \u2014 Police Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=20 'Police Department' still listed on /iCalendar.aspx (16 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-11 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Little Elm \u2014 Fire Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=21 'Fire Department' still listed on /iCalendar.aspx (16 categories); recheck http 200 text/calendar 474 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-11 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
@@ -373827,6 +373841,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "lkg-bremen.de/events.ics": {
+    "checked": 20261029,
+    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+    "reason": "50 vevents / 50 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "lkg-bremen.de/events/ec-hauskreis-2026-10-22/?ical=1": {
     "checked": 20261022,
     "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
@@ -373835,9 +373856,9 @@
     "type": "ics"
   },
   "lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-    "reason": "0 vevents / 0 future",
+    "reason": "replaced 2026-10-29 by https://lkg-bremen.de/events.ics: this URL is ONE event's Events Manager export, empty once that event is over (recheck 10-29 http 200, 136 B, 0 VEVENTs; production 10-25, 10-27, 10-28 kept 0 of 0; audit 10-18 0 vevents / 0 future); the calendar-wide export reads 50 vevents / 50 future. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -375551,9 +375572,9 @@
     "type": "osm-venue"
   },
   "lokalhuset.dk/?feed=my-calendar-ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Lokalhus Syd",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 html (kept 0 of 0, 304); 10-27 html; 10-25 html; 10-24 html; audit 10-18 http 200 / no VCALENDAR; recheck 10-29 http 200 / no VCALENDAR (site rebuilt without WordPress or a calendar). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -376430,10 +376451,10 @@
     "type": "osm-venue"
   },
   "loslunasnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Los Lunas - Library (Los Lunas)",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "8 vevents / 8 future (recheck 2026-10-29; production 10-28 kept 9 of 9)",
+    "status": "ok",
     "type": "ics"
   },
   "lospalacios.org": {
@@ -391738,10 +391759,17 @@
     "status": "fail",
     "type": "osm-venue"
   },
-  "mathallenoslo.no/events/?ical=1": {
-    "checked": 20261018,
+  "mathallenoslo.no": {
+    "checked": 20261029,
     "name": "Mathallen Oslo Food Hall",
-    "reason": "http 410 / no VCALENDAR",
+    "reason": "59 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "mathallenoslo.no/events/?ical=1": {
+    "checked": 20261029,
+    "name": "Mathallen Oslo Food Hall",
+    "reason": "replaced 2026-10-29 by https://mathallenoslo.no (tribe, /wp-json/tribe/events/v1/events): robots.txt now says Disallow: /*?*ical=, and this export answered 410 Gone in production 10-24, 10-25, 10-27, 10-28 (audit 10-18 http 410 / no VCALENDAR). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -404688,10 +404716,10 @@
     "type": "osm-venue"
   },
   "minotnd.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Minot \u2014 City Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "1 vevents / 1 future (recheck 2026-10-29 with the production UA; the 10-18 audit read 0 before this event was published on 10-23)",
+    "status": "ok",
     "type": "ics"
   },
   "minstercaregroup.co.uk/care-homes/ancliffe": {
@@ -414698,10 +414726,10 @@
     "type": "osm-venue"
   },
   "mountvernonwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Mount Vernon \u2014 Mayor",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
     "type": "ics"
   },
   "mountvernonwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
@@ -430605,9 +430633,9 @@
     "type": "osm-venue"
   },
   "namenjesu.com/NJ.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Kirche Namen Jesu",
-    "reason": "http 404 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 404; 10-27 404; 10-25 404; 10-24 404; audit 10-18 http 404 / no VCALENDAR; recheck 10-29 http 404 / no VCALENDAR (the site still links webcal://www.namenjesu.com/NJ.ics; /share/NJ.ics 404 too). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -437454,10 +437482,10 @@
     "type": "osm-venue"
   },
   "nhm.uio.no/hva-skjer/botaniskhage/?vrtx=ical": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Botanisk hage",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
     "type": "ics"
   },
   "nhm.uio.no/utstillinger/botanisk-hage/avdelinger/arboretet/index.html": {
@@ -443781,10 +443809,10 @@
     "type": "osm-venue"
   },
   "nss.org.sg/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Nature Society (Singapore)",
-    "reason": "http 403 / no VCALENDAR",
-    "status": "fail",
+    "reason": "production 10-28 and 10-27 kept 6 of 6 (10-25 a transient 403); recheck 10-29 6 vevents / 6 future",
+    "status": "ok",
     "type": "ics"
   },
   "nssv.de": {
@@ -453789,10 +453817,10 @@
     "type": "ics"
   },
   "openagenda.com/agendas/7840068/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Semaine Bleue Bordeaux Seniors (Bordeaux, France)",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future: the 2026 Semaine Bleue (2026-10-05..10-11, 37 events) has passed; the agenda (OpenAgenda 7840068, no year in its slug) is live and answers a valid VCALENDAR. Annual, each October.",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/78623851/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -459986,10 +460014,10 @@
     "type": "ics"
   },
   "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Owatonna \u2014 Stormwater Management",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Stormwater Management' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 4 events: 2025-03-31 'Downstream Environmental Film Festival', 2025-09-13 and 2026-09-19 watershed clean-ups, 2026-09-21 'Rain Garden Workshop'; quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
@@ -480195,10 +480223,10 @@
     "type": "osm-venue"
   },
   "piedmontpark.org/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Piedmont Park Conservancy (Atlanta, GA)",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='piedmontpark.org', port=443): Read timed out",
-    "status": "fail",
+    "reason": "production 10-28 kept 1 of 3; 10-27, 10-25, 10-24 kept 3 of 4; recheck 10-29 3 vevents / 2 future (the audit's ReadTimeout was transient)",
+    "status": "ok",
     "type": "ics"
   },
   "pieknamilosc.waw.pl": {
@@ -501266,17 +501294,17 @@
     "type": "ics"
   },
   "redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Redmond \u2014 Environmental Sustainability",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "1 vevents / 1 future (recheck 2026-10-29); production kept 1 of 1 on 10-24, 10-25, 10-27 and 10-28",
+    "status": "ok",
     "type": "ics"
   },
   "redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Redmond \u2014 Volunteer Opportunities",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=45 still listed on /iCalendar.aspx as \"Volunteer Opportunities\"; 2 future at merge (checked 2026-09-03)",
+    "status": "empty",
     "type": "ics"
   },
   "redmountainpark.org": {
@@ -501435,10 +501463,10 @@
     "type": "ics"
   },
   "redwingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Red Wing \u2014 City Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=30 listed as \"City Events\"; 7 events Aug-Oct 2026, last 2026-10-17",
+    "status": "empty",
     "type": "ics"
   },
   "redwoodbridgeclub.org": {
@@ -520200,10 +520228,10 @@
     "type": "tribe"
   },
   "salemma.gov/common/modules/iCalendar/iCalendar.aspx?catID=108&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Salem \u2014 Health Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=108 'Health Events' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "salemma.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
@@ -533478,10 +533506,10 @@
     "type": "ics"
   },
   "scsmi.net/common/modules/iCalendar/iCalendar.aspx?catID=72&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "St. Clair Shores \u2014 Farmers Market",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=72 'Farmers Market' still listed on /iCalendar.aspx (43 categories); recheck http 200 text/calendar 477 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-06 '2 vevents / 2 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "scsvdester.nl": {
@@ -549887,10 +549915,10 @@
     "type": "osm-venue"
   },
   "smu-sg.libcal.com/ical_subscribe.php?cid=11382": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "SMU Libraries (Singapore)",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR 'Library Events', 0 VEVENTs; cid 11382 still listed on /calendar (a missing cid answers 'invalid calendar id')",
+    "status": "empty",
     "type": "ics"
   },
   "smu.byx.org": {
@@ -550166,10 +550194,10 @@
     "type": "ics"
   },
   "snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Snoqualmie \u2014 Sustainability Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 36 still listed on /iCalendar.aspx as 'Sustainability Events'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar": {
@@ -550187,10 +550215,10 @@
     "type": "ics"
   },
   "snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=64&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Snoqualmie \u2014 Green Snoqualmie",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 64 still listed on /iCalendar.aspx as 'Green Snoqualmie'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "snowa.de": {
@@ -553576,10 +553604,10 @@
     "type": "osm-venue"
   },
   "southburlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "South Burlington \u2014 Recreation Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 44 still listed on /iCalendar.aspx as 'Recreation Calendar'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "southburlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar": {
@@ -572904,10 +572932,10 @@
     "type": "ics"
   },
   "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "St. Joseph \u2014 Remington Nature Center",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Remington Nature Center' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 6 events, 2 in 2025 (March) and 4 in 2026 (2026-05-09 Native Plant Sale, 06-13 Herp-O-Rama, 08-08 Insect-O-Rama, 09-26 Spider Sniffing!); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
@@ -585681,10 +585709,10 @@
     "type": "osm-venue"
   },
   "swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Sword and Board (Ukiah, CA)",
-    "reason": "http 403 / no VCALENDAR",
-    "status": "fail",
+    "reason": "30 vevents / 29 future",
+    "status": "ok",
     "type": "ics"
   },
   "swords.dublin.anglican.org/donabate.php": {
@@ -588575,10 +588603,10 @@
     "type": "ics"
   },
   "tallmadgeoh.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Tallmadge \u2014 Recreation Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=25 listed as \"Recreation Events\"; 27 events in 2025, 14 in 2026, last 2026-10-17",
+    "status": "empty",
     "type": "ics"
   },
   "talloaks.in": {
@@ -596953,10 +596981,10 @@
     "type": "ics"
   },
   "tegacaysc.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Tega Cay \u2014 Beach & Swim Center Calendar",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=33 'Beach & Swim Center Calendar' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "tegel-borsigwalde.de": {
@@ -597561,10 +597589,10 @@
     "type": "ics"
   },
   "templeterrace.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Temple Terrace \u2014 Police",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, not dead (2026-10-29): CivicPlus catID=34 'Police' still listed on /iCalendar.aspx (6 categories); recheck http 200 text/calendar 477 B, 0 VEVENTs; production 10-24..10-28 kept 0 of 0 VEVENTs on every run; ledger at merge 09-13 '1 vevents / 1 future'.",
+    "status": "empty",
     "type": "ics"
   },
   "temploluzdooriente.org.br": {
@@ -605716,10 +605744,10 @@
     "type": "osm-venue"
   },
   "theblackaltar.org/?feed=my-calendar-ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "The Black Altar Project (Seattle)",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid My Calendar VCALENDAR, 0 VEVENTs; the site's last events were 2026-08-23 and 2026-08-30",
+    "status": "empty",
     "type": "ics"
   },
   "theblackarchives.nl/home.html": {
@@ -606210,10 +606238,10 @@
     "type": "ics"
   },
   "thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "The Colony \u2014 Animal Services",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 22 still listed on /iCalendar.aspx as 'Animal Services'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
@@ -606656,9 +606684,9 @@
     "type": "osm-venue"
   },
   "thefarmcookeryschool.co.uk/events/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "The Farm Cookery School (Wiltshire)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 of 0; 10-27 kept 0 of 0; 10-25 kept 0 of 0; 10-24 kept 0 of 0; audit 10-11 and 10-18 http 200 / no VCALENDAR; recheck 10-29 301 to /calendar/, an HTML page (FooEvents Calendar), and /wp-json/tribe/events/v1/events 404 rest_no_route (The Events Calendar removed). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -607724,9 +607752,9 @@
     "type": "ics"
   },
   "theoctopusbar.com/?ical=1&eventDisplay=list": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "The Octopus Bar (Seattle)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 html (kept 0 of 0); 10-27 html; 10-25 html; 10-24 html; audit 10-18 http 200 / no VCALENDAR; recheck 10-29 http 200 / no VCALENDAR (site moved off WordPress to FusionCMS; tribe REST 404). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -607825,16 +607853,16 @@
     "type": "osm-venue"
   },
   "theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-fakultaetdekanat/1186.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Universit\u00e4tsbibliothek Religion",
-    "reason": "http 404 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 404; 10-27 404; 10-25 404; 10-24 404; audit 10-18 http 404 / no VCALENDAR; recheck 10-29 http 404 / no VCALENDAR; the faculty's replacement list 12316.ics has no LOCATION (adapter kept 0 of 5). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
   "theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-forschungsdekanat/1973.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Universit\u00e4tsbibliothek Religion",
-    "reason": "http 404 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 404; 10-27 404; 10-25 404; 10-24 404; audit 10-18 http 404 / no VCALENDAR; recheck 10-29 http 404 / no VCALENDAR; the faculty's replacement list 12316.ics has no LOCATION (adapter kept 0 of 5). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -611095,10 +611123,10 @@
     "type": "ics"
   },
   "tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Tifton \u2014 Fire Department",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Fire Department' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 22 events, 9 in 2025 (January, April, July, September-October) and 13 in 2026 (April-May, July, September, last 2026-09-24 'Refrigerated Container Awareness Course'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
@@ -626616,10 +626644,10 @@
     "type": "ics"
   },
   "ucitymo.org/common/modules/iCalendar/iCalendar.aspx?catID=62&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "University City \u2014 Community Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; recheck 2026-10-29: catID=62 listed as \"Community Events\"; 8 events in 2026 (spring plant sale, September concerts), last 2026-09-27",
+    "status": "empty",
     "type": "ics"
   },
   "ucjg-vevey.ch": {
@@ -632159,24 +632187,24 @@
     "type": "ics"
   },
   "urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Urbandale \u2014 Library Events",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Library Events' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 20 events, 2 in 2025 (April-May) and 18 in 2026 (June-September, last 2026-09-22 'Civility Dialogues'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Urbandale \u2014 Mobile Recreation",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Mobile Recreation' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 175 events, 70 in 2025 (June-August only) and 105 in 2026 (June-August, plus the 2026-10-10 'Pop-Up Park & Block Party'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Urbandale \u2014 Concerts",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Concerts' still listed on /iCalendar.aspx; feed answers a valid VCALENDAR with 0 VEVENTs; the site's calendar search for 2025-01-01..2026-10-29 shows 21 events, 11 in 2025 (May-August) and 10 in 2026 (May-August, last 2026-10-10 'Pop-Up Park & Block Party in Downtown Urbandale'); quiet, not deleted",
+    "status": "empty",
     "type": "ics"
   },
   "urbane-gaerten-muenchen.de": {
@@ -635143,10 +635171,10 @@
     "type": "ics"
   },
   "vandaliaohio.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Vandalia \u2014 Block Party Trailer",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; CivicPlus catID=27 'Block Party Trailer' still listed on /iCalendar.aspx 2026-10-29 (quiet, not deleted); production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "vandammelivraria.com.br": {
@@ -646381,6 +646409,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitwarrensburg.com": {
+    "checked": 20261029,
+    "name": "Warrensburg \u2014 COVB Calendar",
+    "reason": "146 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "visitwicklow.ie/events/?ical=1": {
     "checked": 20261018,
     "name": "Visit Wicklow (Wicklow, Ireland)",
@@ -653595,9 +653630,9 @@
     "type": "ics"
   },
   "warrensburg-mo.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Warrensburg \u2014 COVB Calendar",
-    "reason": "0 vevents / 0 future",
+    "reason": "replaced 2026-10-29 by https://www.visitwarrensburg.com (tribe; the Warrensburg visitors bureau's own The Events Calendar, linked by the city site's WCVB button): CivicPlus catID 27 no longer listed on /iCalendar.aspx or in /Calendar.aspx's category filter (5 categories: 28, 26, 14, 22, 25); production 10-28, 10-27, 10-25, 10-24 kept 0 of 0 VEVENTs; audit 10-18 0 vevents / 0 future. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -654654,10 +654689,10 @@
     "type": "ics"
   },
   "waukee.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Waukee \u2014 Summertime in Waukee",
-    "reason": "0 vevents / 0 future",
-    "status": "fail",
+    "reason": "empty 2026-10-29: valid VCALENDAR with a VTIMEZONE and no VEVENT; catID 31 still listed on /iCalendar.aspx as 'Summertime in Waukee'; production 10-28 kept 0 of 0",
+    "status": "empty",
     "type": "ics"
   },
   "waukeepubliclibrary.org": {
@@ -664152,9 +664187,9 @@
     "type": "ics"
   },
   "wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7ffe1a4b0327ffbd48e2c99098d40b29.ics": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "W\u00fcrttembergische Landesbibliothek",
-    "reason": "http 404 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 404; 10-27 404; 10-25 404; audit 10-18 http 404 / no VCALENDAR; recheck 10-29 http 404. It was one event's own .ics, and WLB publishes no calendar-wide export (its calendar page links 77 per-event .ics files). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
@@ -671237,16 +671272,16 @@
     "type": "osm-venue"
   },
   "yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Yorba Linda \u2014 Parks & Recreation Events",
-    "reason": "http 500 / no VCALENDAR",
-    "status": "fail",
+    "reason": "empty, checked 2026-10-29: CivicPlus category 'Parks & Recreation Events' still listed; feed parses (584 vevents / 584 future) but all 584 are 'All City Facilities Closed' notices to 2121 that the adapter refuses; 48 real programmes 2025-01..2026-09 (last 2026-09-19); quiet between programmes, not deleted; the 10-18 http 500 was transient",
+    "status": "empty",
     "type": "ics"
   },
   "yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Yorba Linda \u2014 Library Events",
-    "reason": "http 500 / no VCALENDAR",
+    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 of 585 VEVENTs, 585 town-hall row(s) refused; 10-27 the same; 10-25 the same; 10-24 the same; audit 10-18 http 500 / no VCALENDAR; recheck 10-29 585 vevents / 584 future, 584 'All City Facilities Closed' notices to 2121 and 1 Library Commission Meeting, and all 17 events the category held 2025-01..2026-10 were closure notices: zero unique supply. The library's programmes are configured as ylpl.libcal.com cid=19851 and cid=11139. Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
     "type": "ics"
   },
