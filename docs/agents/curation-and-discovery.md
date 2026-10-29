@@ -761,6 +761,77 @@
   in 2026, titled with the renter's name), Edina catID 76 (Cloudflare 403 on
   robots.txt from here, so the listing could not be read), Soumagne (moved to
   `/events.ics`, but no VEVENT names a place). `configured_dead()` 130 -> 4.
+  The review that day reran the audit's verifier: it re-derived `fail` for 15
+  of the 100 (12 measured, 3 Google ones by construction), so the hand verdicts
+  would have lasted until the next Sunday; the verifier now agrees with 14 of
+  them on its own (next note), and FEED_DOWN had been blind to 114 more
+  configured `fail` rows (health-and-monitoring.md).
+
+- **A VALID EMPTY CALENDAR PROVES THE CALENDAR EXISTS ONLY WHERE A MISSING ONE
+  ANSWERS SOMETHING ELSE, SO THE RULE IS PER PLATFORM AND MEASURED
+  (2026-10-29).** Round 1 kept 14 non-CivicPlus feeds `empty` by hand and
+  `verify_ics` called all 14 `fail` again: the Google ones by construction
+  (mapsee_gcal's `timeMin` is today, so a quiet calendar is "0 vevents", and
+  `_EMPTY_RX` needs N > 0 VEVENTs). Asked for a calendar id that does not exist
+  (production UA, robots.txt first, 1-2 requests each): LibCal `cid=999999` on
+  leeds and smu-sg answered 200 text/html, 19 B, "invalid calendar id";
+  OpenAgenda `agendas/99999999999` 404; botgarten.unibas.ch
+  `.../99999999.ics` 200 with a 0-byte body; My Calendar's
+  `?feed=my-calendar-ics` on a WordPress without it (forterra.org) and an
+  unregistered `?feed=` on theblackaltar.org 404 (wp_die XML); Vortex
+  `?vrtx=ical` on a missing nhm.uio.no folder 404; CivicPlus catID 99987 the
+  same 474-byte empty VCALENDAR a quiet category answers. Google through the
+  Calendar API is read, not measured (no key here): any non-200 raises
+  `GcalError` and only a 200 becomes VCALENDAR text. `EMPTY_CALENDAR_RULES`
+  says it per platform: on those six a valid empty calendar is `empty`, the
+  note saying why ("a missing one answers 404, so this one exists"); CivicPlus
+  keeps its `/iCalendar.aspx` test; any other platform keeps "0 vevents / 0
+  future" -> `fail`. Configured that day: LibCal 307, Google 459, OpenAgenda
+  66, My Calendar 61, unibas.ch 6, Vortex 4. THE EVENTS CALENDAR between
+  seasons answers `?ical=1` with a 0-byte 200 (Aldeburgh Food and Drink,
+  British Cider Week, Buffalo Niagara Waterkeeper, Fiddlehead Brewing) or a
+  0-byte 404 (Berlin Food Week, Dublin Festival of History), while its REST
+  route answers 200 JSON. So for a `?ical=1` feed answering 404 or 200 with no
+  VEVENT, `/wp-json/tribe/events/v1/events?per_page=10&start_date=<today>`
+  (robots.txt asked for that exact URL) decides: `events` empty is `empty`
+  ("...; The Events Calendar REST answers 200 with 0 upcoming"), upcoming
+  events there is `fail` saying the tribe adapter would read it, anything
+  else `fail`. And a calendar is what mapsee_ingest_ics reads: VEVENTs counted
+  by its `parse_ics` over its `_decode_ics` text, BEGIN:VCALENDAR looked for
+  anywhere (it was `txt[:400]`). Through the new `verify_ics` at
+  06:15-06:16Z, paced as the audit runs it: all six Events Calendar sites
+  `empty` with that note; Forterra, whose `</style>BEGIN:VCALENDAR` sits at
+  character 8,120, "5 vevents / 5 future" (it was "http 200 / no VCALENDAR";
+  production kept 4 of 5 on 10-25, 10-27 and 10-28); both LibCal feeds,
+  OpenAgenda, unibas.ch and My Calendar `empty`; Botanisk hage (Vortex) `ok`
+  1/1. Cromane Seafest was not fetched: its robots.txt was unreachable from
+  this container at 05:46Z and 06:16Z. `test_curate_audit.py`.
+
+- **CIVICPLUS'S STOCK ROBOTS.TXT NOW DISALLOWS `/common/modules/icalendar/` IN
+  LOWER CASE, AND ALL 1,270 CONFIGURED FEEDS ARE CAMELCASE: WHICH READING
+  BINDS IS THE OWNER'S CALL (open, 2026-10-29).** 40 of the 602 configured
+  CivicPlus origins sampled (seed 20261029; robots.txt requests only, one
+  origin at a time, the unreachable ones asked again): 35 read, 5 unreachable
+  from this container. All 35 carry a `# added 2026-10-20` (14) or
+  `2026-10-21` (21) `by Add-RobotsRules` block in the group that applies to us,
+  with `Disallow: /common/modules/icalendar/` in lower case only (0 with the
+  camelCase path), `/rss.aspx` beside `/RSS.aspx` (35 of 35), and
+  `Crawl-delay: 10` (35 of 35). The configured feeds use
+  `/common/modules/iCalendar/iCalendar.aspx` (1,270 of 1,270); robots_txt
+  matches paths case-sensitively, as RFC 9309 says, so they read as allowed on
+  all 35, and the same feeds with the path lower-cased read as refused on all
+  35. Reading 1: the rule binds as written, the camelCase path is not
+  disallowed, nothing changes. Reading 2: the block writes both cases for
+  /rss.aspx but one for icalendar, which reads as meaning the module whatever
+  its case; then the 1,270 go to `_not_included` like the 76 of 2026-09-30.
+  At stake: production's 10-28 ics job kept 44,528 of 98,779 VEVENTs from
+  1,269 CivicPlus feeds, 16.1% of the 275,894 the whole job kept. Its pacing:
+  mapsee_ingest_ics paces a host only by entries' `crawl_delay`
+  (`_crawl_delays`) and never reads robots.txt, and 15 of the 1,270 feeds (on
+  8 hosts) carry one; on 10-28, 625 of 662 consecutive same-host CivicPlus
+  reads without it were under 10 s apart (576 under 2 s; the config holds 650
+  same-host pairs back to back). The audit now honours the 10 s
+  (ci-and-jobs.md); the ingest does not. No behaviour changed for this.
 
 - **`_not_included` in a sources file is an editorial NO, and discovery reads
   it.** `mobilizon_sources.json` declines an instance for spam and another for an

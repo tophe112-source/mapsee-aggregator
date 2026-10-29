@@ -116,7 +116,7 @@ python catalog_curate.py discover ckan --limit 300 --category fitness,running
 python catalog_curate.py verify cands.json    # probe candidates, record results
 python catalog_curate.py merge  cands.verified.json
 python catalog_curate.py audit                # re-check every configured source
-python catalog_curate.py audit --max-minutes 200 --workers 4   # the Sunday run: oldest check first, stops on time
+python catalog_curate.py audit --max-minutes 200 --workers 4   # the Sunday run: oldest check first, each host's Crawl-delay, stops on time
 python catalog_curate.py ledger               # what's been tried, what's dead
 ```
 

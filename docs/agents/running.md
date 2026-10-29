@@ -41,7 +41,7 @@ python test_skip_unchanged.py       # which rows a rewrite-every-run adapter may
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python test_curate_reapply.py       # putting a finished curation run back on a main that moved
-python test_curate_audit.py         # the weekly audit: a budget, the oldest check first, saves on the way; CivicPlus lists; the adapter's dates
+python test_curate_audit.py         # the weekly audit: a budget, the oldest check first, saves on the way, Crawl-delay, the deadline's grace; CivicPlus lists; empty calendars by platform; the adapter's dates
 python test_curate_coverage.py      # the report that AIMS the loop: real countries, real targets
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
 python test_cancellations.py        # the row we already wrote leaves too: tombstones, absence from a whole read, un-cancel only ours

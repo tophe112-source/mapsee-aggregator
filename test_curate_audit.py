@@ -21,6 +21,17 @@ from the 2026-10-18 audit. Three things made that list wrong:
     column" while production kept 12 of 13 rows. It now reads dates with the
     adapter's own parser.
 
+And the follow-ups the review of the round-1 triage asked for (2026-10-29):
+
+  * A CALENDAR IS WHAT mapsee_ingest_ics READS. Forterra's BEGIN:VCALENDAR
+    sits at character 8,120, after Elementor's CSS; the check looked at 400.
+  * A VALID EMPTY CALENDAR IS `empty` ONLY WHERE A MISSING ONE ANSWERS
+    SOMETHING ELSE, per platform, measured (EMPTY_CALENDAR_RULES), and The
+    Events Calendar between seasons is decided by its REST route.
+  * CRAWL-DELAY between a host's requests, in the audit and in verify.
+  * THE DEADLINE saves first, then gives stragglers a bounded grace.
+  * The ledger survives a dump that dies; a Verdict survives copy and pickle.
+
 Runs the REAL cmd_audit, verify_ics, verify_opendata and cmd_verify over temp
 trees and stub sessions - no network, no database.
 
@@ -63,7 +74,8 @@ class Resp:
     def __init__(self, code, body, url, ctype="text/html"):
         self.status_code, self.text, self.url = code, body, url
         self.content = body.encode("utf-8")
-        self.headers = {"content-type": ctype}
+        self.headers = {"content-type": ctype, "Content-Type": ctype}
+        self.encoding = self.apparent_encoding = None
 
     def json(self):
         return json.loads(self.text)
@@ -77,7 +89,7 @@ class Session:
         self.headers = {"User-Agent": cc.UA}
         self.asked = []
 
-    def get(self, url, timeout=None, allow_redirects=True, params=None):
+    def get(self, url, timeout=None, allow_redirects=True, params=None, **kw):
         self.asked.append(url)
         got = self.pages.get(url)
         if callable(got):
@@ -191,12 +203,15 @@ check("a list that answers 503 leaves the feed `fail`, the feed asked once",
       r[1] == "fail" and "unreadable (answered 503)" in r[2] and sess.asked.count(BUSY_CP) == 1,
       (r, sess.asked))
 
-# Every other platform's verdict is untouched: an empty non-CivicPlus VCALENDAR.
+# A platform the table does not know keeps its old verdict: an empty VCALENDAR
+# is `fail`, with the old note, and nothing else is asked. (Until 2026-10-29
+# this case used a ?ical=1 URL; that is The Events Calendar's export now, which
+# has its own existence test below.)
 cc._CIVICPLUS_LISTS.clear()
-sess = Session({"https://club.example/?ical=1": (200, EMPTY)})
-r = audit_verdict(sess, "https://club.example/?ical=1")
-check("an empty VCALENDAR that is not CivicPlus is `fail` with the old note, nothing else asked",
-      r == (False, "fail", "0 vevents / 0 future") and sess.asked == ["https://club.example/?ical=1"],
+sess = Session({"https://club.example/calendar.ics": (200, EMPTY)})
+r = audit_verdict(sess, "https://club.example/calendar.ics")
+check("an empty VCALENDAR on a platform not in the table is `fail` with the old note, nothing else asked",
+      r == (False, "fail", "0 vevents / 0 future") and sess.asked == ["https://club.example/calendar.ics"],
       (r, sess.asked))
 
 # Discovery's half: an empty candidate is still never proposed.
@@ -284,6 +299,21 @@ entry = dict(CAL, map=dict(CAL["map"], end="end_date"))
 ok, note = verify_rows(running, entry)
 check("an event that started before today and runs on is future, as the adapter keeps it",
       ok and adapter_keeps(running, entry) == [True], (note, adapter_keeps(running, entry)))
+# AN ISO DATE WITH A CLOCK PYTHON CANNOT READ IS ACCEPTED BY BOTH, ON PURPOSE.
+# _iso_parts("2026-11-27 7:00 PM") is ("2026-11-27 7:00 PM", None, "2026-11-27"):
+# the date key is a date, the start is the raw value, and Postgres reads that
+# value (PostgreSQL 16.15, 2026-10-29: 2026-11-27 19:00). Requiring a start
+# Python parses would refuse a row the database keeps, so the verifier's
+# comment now says this instead of the opposite (review of 2026-10-29).
+clock_txt = f"{soon.isoformat()} 7:00 PM"
+pm = rows_of(clock_txt)
+ok, note = verify_rows(pm)
+check("'YYYY-MM-DD 7:00 PM' verifies: its date key is a date",
+      ok and od._iso_parts(clock_txt) == (clock_txt, None, soon.isoformat()), (note, od._iso_parts(clock_txt)))
+check("...and the adapter keeps the row with the raw value as its start, for Postgres to read",
+      lambda: adapter_keeps(pm) == [True] and od.row_to_event(pm[0], CAL).start_local == clock_txt)
+check("...while a value with no date in its first ten characters is still refused",
+      not verify_rows(rows_of("TBD"))[0] and not verify_rows(rows_of("Fall season"))[0])
 os.environ["MAPSEE_TODAY"] = TODAY
 
 # ============================================================================
@@ -374,6 +404,13 @@ check("the budget stops it: no probe is started after the deadline",
 check("an entry the run did not reach keeps its old row, `fail` included",
       lambda: led[cc._canon("https://a1.example/cal.ics")] == LEDGER[cc._canon("https://a1.example/cal.ics")]
       and led[cc._canon("https://a3.example/cal.ics")]["checked"] == 20261011)
+# The WHOLE row, status included: a run never marks a feed it did not probe.
+# (The review of 2026-10-29 mutated unreached rows to `fail`, kept their date,
+# and the check above let it through.)
+check("...the WHOLE row: an unreached `ok` entry is still `ok`, reason and date unchanged",
+      lambda: led[cc._canon("https://a3.example/cal.ics")] == LEDGER[cc._canon("https://a3.example/cal.ics")]
+      and led[cc._canon("https://a3.example/cal.ics")]["status"] == "ok",
+      led.get(cc._canon("https://a3.example/cal.ics")))
 check("the entries it did reach carry this run's verdict and date",
       lambda: led[cc._canon("https://b2.example/events/")]["status"] == "fail"
       and led[cc._canon("https://b1.example/events/")]["checked"] == int(TODAY)
@@ -419,6 +456,10 @@ check("an interrupt mid-run (a cancelled step) still saves every probe before it
       isinstance(raised, KeyboardInterrupt)
       and sum(1 for r in led.values() if r.get("checked") == int(TODAY)) == 2
       and led[cc._canon("https://b1.example/events/")]["checked"] == 20261004, (raised, calls))
+check("...and still prints both summary lines, saying it was interrupted",
+      "\n1 entries are BROKEN" in log
+      and "audit reached 2 of 5 configured entries; interrupted, and the next run starts with the 3" in log,
+      log[-400:])
 shutil.rmtree(tmp, ignore_errors=True)
 
 # --- several at once, never two on one host -----------------------------------
@@ -519,6 +560,8 @@ job_cap = job.get("timeout-minutes")
 check("the probe step passes a budget", budget is not None, probe.get("run"))
 check("...under its own step timeout, with room for the probes running at the deadline",
       lambda: step_cap - budget >= 10, (budget, step_cap))
+check("...room for the whole grace the audit gives them, and five minutes to save and print",
+      lambda: step_cap - budget >= cc.AUDIT_GRACE_S / 60 + 5, (budget, step_cap, cc.AUDIT_GRACE_S))
 check("...and the step timeout under the job's, with room to commit",
       lambda: job_cap - step_cap >= 10, (step_cap, job_cap))
 check("the snapshot is not taken inside the probe step",
@@ -535,6 +578,497 @@ check("...and skips cleanly when there is no snapshot",
       bool(commit) and re.search(r'if \[ ! -f "\$SNAPSHOT/curation_ledger\.json" \]; then.*?exit 0',
                                  str(commit[0].get("run", "")), re.S) is not None)
 check("...after the snapshot step", bool(snap and commit) and steps.index(snap[0]) < steps.index(commit[0]))
+
+# ============================================================================
+# C1. A calendar is what mapsee_ingest_ics reads, wherever in the body it is.
+# ============================================================================
+import copy
+import pickle
+import mapsee_gcal
+import mapsee_ingest_ics as ics_adapter
+
+FUT, PAST = "20261105T180000", "20250105T180000"
+
+
+def vevent(i, start=FUT):
+    return f"BEGIN:VEVENT\r\nUID:{i}\r\nDTSTART:{start}\r\nSUMMARY:Walk {i}\r\nEND:VEVENT\r\n"
+
+
+# Forterra's shape (2026-10-29): WordPress prints Elementor CSS, then the
+# export starts on the same line as </style>, 8,120 characters in.
+CSS = '<style id="elementor-post-49753">' + ".e4e7b{color:#333}" * 460 + "/* End custom CSS */</style>"
+FORTERRA = (CSS + "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Forterra - ECPv6.18.2//NONSGML v1.0//EN\n"
+            + "".join(vevent(i) for i in range(5)) + "END:VCALENDAR\n")
+FT_URL = "https://forterra.example/events/?ical=1"
+check("fixture: BEGIN:VCALENDAR past character 8,000 and on no line of its own",
+      FORTERRA.find("BEGIN:VCALENDAR") > 8000
+      and "BEGIN:VCALENDAR" not in [ln.strip() for ln in FORTERRA.splitlines()])
+sess = Session({FT_URL: (200, FORTERRA, "text/calendar; charset=UTF-8")})
+r = audit_verdict(sess, FT_URL)
+check("a calendar after 8,120 characters of CSS is read, as production read Forterra's",
+      r == (True, "ok", "5 vevents / 5 future") and sess.asked == [FT_URL], (r, sess.asked))
+check("...and the verifier counts the VEVENTs the adapter's parser counts",
+      len(ics_adapter.parse_ics(FORTERRA)) == 5)
+BARE = "".join(vevent(i) for i in range(2))
+sess = Session({"https://bare.example/cal.ics": (200, BARE)})
+check("VEVENTs with no VCALENDAR wrapper are read, because the adapter reads them",
+      audit_verdict(sess, "https://bare.example/cal.ics") == (True, "ok", "2 vevents / 2 future"))
+sess = Session({"https://site.example/cal.ics": (200, "<html><body>Events</body></html>", "text/html")})
+check("a page with neither is still not a calendar",
+      audit_verdict(sess, "https://site.example/cal.ics") == (False, "fail", "http 200 / no VCALENDAR"))
+TZ_ONLY = ("BEGIN:VCALENDAR\r\nBEGIN:VTIMEZONE\r\nTZID:Europe/Oslo\r\nBEGIN:DAYLIGHT\r\n"
+           "DTSTART:20270328T020000\r\nEND:DAYLIGHT\r\nEND:VTIMEZONE\r\n" + vevent(1, PAST) + "END:VCALENDAR\r\n")
+sess = Session({"https://tz.example/cal.ics": (200, TZ_ONLY)})
+check("a VTIMEZONE's future DTSTART still counts for nothing",
+      audit_verdict(sess, "https://tz.example/cal.ics") == (False, "empty", "1 vevents / 0 future"))
+sess = Session({"https://parish.example/cal.ics": (200, BARE)})
+check("webcal:// is asked as https://, as the adapter asks it",
+      audit_verdict(sess, "webcal://parish.example/cal.ics")[0] is True
+      and sess.asked == ["https://parish.example/cal.ics"], sess.asked)
+
+# ============================================================================
+# C2. A valid empty calendar, platform by platform, from what a missing one answers.
+# ============================================================================
+LIBCAL = "https://lib.libcal.com/ical_subscribe.php?cid=9035"
+OA = "https://openagenda.com/agendas/7840068/events.v2.ics?relative%5b0%5d=current"
+UNIBAS = "https://botgarten.unibas.ch/de/news-veranstaltungen/2514.ics"
+MYCAL = "https://altar.example/?feed=my-calendar-ics"
+VRTX = "https://www.nhm.uio.no/hva-skjer/botaniskhage/?vrtx=ical"
+GCAL = "https://calendar.google.com/calendar/ical/club%40group.calendar.google.com/public/basic.ics"
+EXAMPLES = {"CivicPlus": CP.format(34), "Google Calendar API": GCAL, "LibCal": LIBCAL,
+            "OpenAgenda": OA, "unibas.ch": UNIBAS, "My Calendar": MYCAL, "Vortex": VRTX}
+check("the table holds exactly the platforms measured, CivicPlus first",
+      [rule[0] for rule in cc.EMPTY_CALENDAR_RULES] == list(EXAMPLES),
+      [rule[0] for rule in cc.EMPTY_CALENDAR_RULES])
+matrix = {(rule[0], name): bool(rule[1](url, True))
+          for rule in cc.EMPTY_CALENDAR_RULES for name, url in EXAMPLES.items()}
+check("each row recognises its own platform's URL and no other's",
+      all(v == (a == b) for (a, b), v in matrix.items()),
+      [k for k, v in matrix.items() if v != (k[0] == k[1])])
+check("only CivicPlus decides by a second request; the others by what a missing calendar answers",
+      [rule[0] for rule in cc.EMPTY_CALENDAR_RULES if callable(rule[3])] == ["CivicPlus"]
+      and all(rule[3] == "empty" for rule in cc.EMPTY_CALENDAR_RULES[1:]))
+check("a Google calendar counts only when it was read through the Calendar API",
+      cc.empty_calendar_rule(GCAL, via_api=False) is None
+      and cc.empty_calendar_rule(GCAL, via_api=True)[0] == "Google Calendar API")
+check("a URL no row names has no rule, so it keeps the old `fail`",
+      cc.empty_calendar_rule("https://club.example/calendar.ics") is None
+      and cc.empty_calendar_rule("https://lib.libcal.com/calendar?cid=9035") is None)
+for name in ("LibCal", "OpenAgenda", "unibas.ch", "My Calendar", "Vortex"):
+    url = EXAMPLES[name]
+    sess = Session({url: (200, EMPTY)})
+    r = audit_verdict(sess, url)
+    check(f"{name}: a valid empty calendar is `empty`, saying why, one request",
+          r[:2] == (False, "empty") and f"a valid empty {name} calendar" in r[2]
+          and "so this one exists" in r[2] and sess.asked == [url], (r, sess.asked))
+    check(f"...{name}'s status is the Verdict's, not a wording _EMPTY_RX happens to match",
+          cc._EMPTY_RX.search(r[2]) is None)
+# The other half of the rule: what a MISSING calendar answers stays `fail`.
+MISSING = {"LibCal": (200, "invalid calendar id", "text/html; charset=UTF-8"),
+           "OpenAgenda": (404, "<!DOCTYPE html><html></html>", "text/html"),
+           "unibas.ch": (200, "", "text/calendar; charset=utf-8"),
+           "My Calendar": (404, "<error><code>wp_die</code></error>", "text/xml"),
+           "Vortex": (404, "<!DOCTYPE html><html></html>", "text/html")}
+for name, answer in MISSING.items():
+    sess = Session({EXAMPLES[name]: answer})
+    r = audit_verdict(sess, EXAMPLES[name])
+    check(f"{name}: what a missing calendar answers (measured) is still `fail`",
+          r[1] == "fail" and "no VCALENDAR" in r[2], r)
+
+# Google through the REAL mapsee_gcal path: a 200 with no items is a calendar
+# that exists; the API's 404 is GcalError, `fail`.
+CID = mapsee_gcal.calendar_id(GCAL)
+API = mapsee_gcal.api_url(CID)
+had_key = os.environ.get(mapsee_gcal.KEY_ENV)
+os.environ[mapsee_gcal.KEY_ENV] = "test-key"
+try:
+    sess = Session({API: (200, json.dumps({"summary": "Club", "timeZone": "Europe/Vienna", "items": []}),
+                          "application/json")})
+    r = audit_verdict(sess, GCAL)
+    check("Google through the API: a 200 with no events is `empty`, the API's 200 being the proof",
+          r[:2] == (False, "empty") and "Google Calendar API" in r[2] and sess.asked == [API], (r, sess.asked))
+    err = {"error": {"code": 404, "message": "Not Found", "errors": [{"reason": "notFound"}]}}
+    sess = Session({API: (404, json.dumps(err), "application/json")})
+    r = audit_verdict(sess, GCAL)
+    check("...and a calendar the API does not know (404) is `fail`",
+          r[1] == "fail" and r[2].startswith("calendar api 404 notFound"), r)
+finally:
+    if had_key is None:
+        os.environ.pop(mapsee_gcal.KEY_ENV, None)
+    else:
+        os.environ[mapsee_gcal.KEY_ENV] = had_key
+sess = Session({GCAL: (200, EMPTY)})
+check("...but an empty export read without the API proves nothing: `fail`, as before",
+      audit_verdict(sess, GCAL) == (False, "fail", "0 vevents / 0 future"))
+
+# ============================================================================
+# C3. The Events Calendar between seasons: its REST route says it is alive.
+# ============================================================================
+TEC = "https://fest.example/events/?ical=1"
+REST = cc.tribe_rest_url(TEC)
+FEST_ROBOTS = "https://fest.example/robots.txt"
+check("the existence test asks the route on the feed's origin, from today",
+      REST == "https://fest.example/wp-json/tribe/events/v1/events?per_page=10&start_date=2026-10-29", REST)
+ROBOTS_OK = (200, "User-agent: *\nDisallow: /wp-admin/\n", "text/plain")
+NO_EVENTS = (200, json.dumps({"events": [], "total": 0, "total_pages": 0}), "application/json")
+TWO_EVENTS = (200, json.dumps({"events": [{"id": 1, "start_date": "2026-11-02 18:00:00"},
+                                          {"id": 2, "start_date": "2026-11-09 18:00:00"}],
+                               "total": 2}), "application/json")
+
+
+def tec(feed_answer, rest_answer=NO_EVENTS, robots=ROBOTS_OK, url=TEC):
+    pages = {FEST_ROBOTS: robots, url: feed_answer}
+    if rest_answer is not None:
+        pages[REST] = rest_answer
+    sess = Session(pages)
+    return audit_verdict(sess, url), sess.asked
+
+
+r, asked = tec((200, "", "text/html; charset=UTF-8"))
+check("?ical=1 answering an empty 200, REST 200 with 0 upcoming: `empty`, and says so",
+      r == (False, "empty", "http 200 / no VCALENDAR; The Events Calendar REST answers 200 with 0 upcoming")
+      and asked == [TEC, FEST_ROBOTS, REST], (r, asked))
+r, asked = tec((404, "", "text/html; charset=UTF-8"))
+check("?ical=1 answering 404, REST 200 with 0 upcoming: `empty`",
+      r == (False, "empty", "http 404 / no VCALENDAR; The Events Calendar REST answers 200 with 0 upcoming"), r)
+r, asked = tec((200, "<!DOCTYPE html><html><body>Events</body></html>", "text/html"))
+check("?ical=1 answering an HTML page, REST 200 with 0 upcoming: `empty`", r[1] == "empty", r)
+r, asked = tec((200, EMPTY))
+check("?ical=1 answering an empty VCALENDAR is decided by the REST route too",
+      r == (False, "empty", "0 vevents / 0 future; The Events Calendar REST answers 200 with 0 upcoming"), r)
+r, asked = tec((200, "", "text/html"), TWO_EVENTS)
+check("REST lists upcoming events while ?ical=1 gives nothing: `fail`, naming the fix",
+      r[1] == "fail" and "REST lists 2 upcoming: the tribe adapter would read it" in r[2], r)
+r, asked = tec((200, "", "text/html"), (404, json.dumps({"code": "rest_no_route"}), "application/json"))
+check("no REST route (no plugin): `fail`, as before", r[1] == "fail" and r[2].endswith("REST answers 404"), r)
+r, asked = tec((200, "", "text/html"), (200, json.dumps({"code": "something else"}), "application/json"))
+check("a 200 that is not The Events Calendar's JSON is not proof: `fail`",
+      r[1] == "fail" and "not with The Events Calendar's JSON" in r[2], r)
+r, asked = tec((200, "", "text/html"), robots=(200, "User-agent: *\nDisallow: /wp-json/\n", "text/plain"))
+check("robots.txt refusing the route: never requested, `fail`",
+      r[1] == "fail" and "REST not asked: robots.txt refuses it" in r[2] and REST not in asked, (r, asked))
+r, asked = tec((200, "", "text/html"), robots=(200, "User-agent: *\nDisallow: /*start_date=\n", "text/plain"))
+check("...asked about that exact URL, query string included",
+      r[1] == "fail" and "Disallow: /*start_date=" in r[2] and REST not in asked, (r, asked))
+r, asked = tec((503, "busy", "text/html"))
+check("a 503 on ?ical=1 keeps its old note and its retries; the route is not asked",
+      r == (False, "fail", "http 503 / no VCALENDAR") and asked.count(TEC) == 3 and REST not in asked,
+      (r, asked))
+r, asked = tec((200, FORTERRA, "text/calendar"))
+check("a ?ical=1 export with events never asks the route", r[1] == "ok" and asked == [TEC], (r, asked))
+sess = Session({"https://other.example/cal.ics": (404, "", "text/html")})
+check("a 404 that is not a ?ical=1 export asks nothing more",
+      audit_verdict(sess, "https://other.example/cal.ics") == (False, "fail", "http 404 / no VCALENDAR")
+      and sess.asked == ["https://other.example/cal.ics"])
+slept = []
+real_time = cc.time
+cc.time = types.SimpleNamespace(time=real_time.time, sleep=slept.append)
+try:
+    r, asked = tec((200, "", "text/html"), robots=(200, "User-agent: *\nCrawl-delay: 5\n", "text/plain"))
+finally:
+    cc.time = real_time
+check("outside the audit the route waits out the host's Crawl-delay first (verify)",
+      r[1] == "empty" and slept == [5.0], (r, slept))
+
+# ============================================================================
+# D. Crawl-delay: between a host's requests, in the audit and in verify.
+# ============================================================================
+SLOW = "https://slow.example"
+SLOW_CP = SLOW + "/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar"
+
+
+def cp_pages(robots_body):
+    return {SLOW + "/robots.txt": (200, robots_body, "text/plain"),
+            SLOW + "/iCalendar.aspx": (200, LISTING.replace(CITY, SLOW), "text/html"),
+            SLOW_CP: (200, EMPTY)}
+
+
+cc._CIVICPLUS_LISTS.clear()
+slept = []
+cc.time = types.SimpleNamespace(time=real_time.time, sleep=slept.append)
+try:
+    sess = Session(cp_pages("User-agent: *\nCrawl-delay: 10\n"))
+    r = audit_verdict(sess, SLOW_CP)
+finally:
+    cc.time = real_time
+check("verify: the CivicPlus list read waits the host's Crawl-delay (10 s) after the feed",
+      r[1] == "empty" and slept == [10.0]
+      and sess.asked.index(SLOW + "/iCalendar.aspx") > sess.asked.index(SLOW_CP), (r, slept, sess.asked))
+cc._CIVICPLUS_LISTS.clear()
+slept = []
+cc.time = types.SimpleNamespace(time=real_time.time, sleep=slept.append)
+try:
+    sess = Session(cp_pages("User-agent: *\nCrawl-delay: 60\n"))
+    r = audit_verdict(sess, SLOW_CP)
+finally:
+    cc.time = real_time
+check("a Crawl-delay over the 30 s cap is not waited out, and the list is not asked sooner",
+      r[1] == "fail" and "Crawl-delay 60 s" in r[2] and slept == []
+      and SLOW + "/iCalendar.aspx" not in sess.asked, (r, slept, sess.asked))
+cc._CIVICPLUS_LISTS.clear()
+
+
+class FakeTime:
+    def __init__(self):
+        self.t, self.slept = 5000.0, []
+
+    def time(self):
+        return self.t
+
+    def sleep(self, s):
+        self.slept.append(round(s, 3))
+        self.t += s
+
+
+ft = FakeTime()
+cc.time = types.SimpleNamespace(time=ft.time, sleep=ft.sleep)
+try:
+    raw = Session({"https://h.example/robots.txt": (200, "User-agent: *\nCrawl-delay: 10\n", "text/plain"),
+                   "https://h.example/a": (200, "x"), "https://h.example/b": (200, "x")})
+    pace = cc._AuditPace({"h.example": 4.0})
+    ps = cc._AuditSession(raw, pace)
+    ps.get("https://h.example/a")
+    first = (list(ft.slept), list(raw.asked))
+    ft.t += 1.0
+    ps.get("https://h.example/b")
+    check("pace: a host's first request goes at once, robots.txt not yet read",
+          first == ([], ["https://h.example/a"]), first)
+    check("...its second waits out the larger delay (robots 10 s over the entry's 4 s), less time passed",
+          ft.slept == [9.0] and raw.asked.count("https://h.example/robots.txt") == 1, (ft.slept, raw.asked))
+    check("...and the scheduler reads when the host is next free from the same clock",
+          pace.ready_at("h.example") == ft.t + 10.0 and pace.delay("h.example") == 10.0)
+    ft.slept.clear()
+    pace = cc._AuditPace({"h.example": 20.0})
+    pace._asked["h.example"] = 10.0
+    ps = cc._AuditSession(raw, pace)
+    ps.get("https://h.example/a")
+    ft.t += 1.0
+    ps.get("https://h.example/b")
+    check("...an entry's own crawl_delay wins when it is the larger", ft.slept == [19.0], ft.slept)
+    ft.slept.clear()
+    raw.asked.clear()
+    pace = cc._AuditPace({"h.example": 45.0})
+    pace._asked["h.example"] = 0.0
+    ps = cc._AuditSession(raw, pace)
+    ps.get("https://h.example/a")
+    try:
+        ps.get("https://h.example/b")
+        refused = False
+    except cc.AuditCrawlDelay:
+        refused = True
+    check("...a wait over the 30 s cap raises, and the request is not sent",
+          refused and ft.slept == [] and raw.asked == ["https://h.example/a"], (refused, ft.slept, raw.asked))
+    raw.asked.clear()
+    pace = cc._AuditPace({"api.example": 2.0})
+    ps = cc._AuditSession(raw, pace, exempt=True)
+    ps.get("https://api.example/x")
+    ps.get("https://api.example/y")
+    check("...a documented API is never asked for robots.txt, but its entry's delay holds",
+          "https://api.example/robots.txt" not in raw.asked and ft.slept == [2.0], (raw.asked, ft.slept))
+finally:
+    cc.time = real_time
+
+# The scheduler: a host in its delay is skipped, not slept on. one.example's
+# delay is its robots.txt's (read before its first probe, because it has two
+# entries); four.example's is its entries' own `crawl_delay`.
+QH = ["one.example", "one.example", "four.example", "four.example", "two.example", "three.example"]
+QP = [{"name": f"R{i}", "url": f"https://{h}/cal{i}.ics", "crawl_delay": 0.4 if h == "four.example" else None}
+      for i, h in enumerate(QH)]
+tmp = tree(QP, [], {})
+starts, reqs = {}, {}
+lock = threading.Lock()
+
+
+def paced_stub(s, e):
+    with lock:
+        starts[e["name"]] = _time.time()
+    s.get(e["url"])
+    with lock:
+        reqs[e["name"]] = _time.time()
+    return True, "1 vevents / 1 future"
+
+
+shared = Session({"https://one.example/robots.txt": (200, "User-agent: *\nCrawl-delay: 0.4\n", "text/plain"),
+                  "https://four.example/robots.txt": (200, "User-agent: *\n", "text/plain")})
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing")}
+cc.VERIFIERS["ics"] = paced_stub
+cc._session = lambda: shared
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit(workers=2)
+finally:
+    restore()
+gaps = (starts.get("R1", 0) - reqs.get("R0", 0), starts.get("R3", 0) - reqs.get("R2", 0))
+check("a host's next probe starts no sooner than its robots.txt Crawl-delay after its last request",
+      gaps[0] >= 0.39, (gaps, starts, reqs))
+check("...or its entries' own crawl_delay", gaps[1] >= 0.39, (gaps, starts, reqs))
+check("...and the other hosts are probed meanwhile",
+      max(starts.get("R4", 9e9), starts.get("R5", 9e9)) < min(starts.get("R1", 0), starts.get("R3", 0)), starts)
+check("...without a worker asleep on it, robots.txt read once for each host with two entries",
+      "crawl-delay: 0 wait(s) inside probes, 0 s in all; robots.txt read for 2 origin(s)" in out.getvalue()
+      and shared.asked.count("https://one.example/robots.txt") == 1
+      and shared.asked.count("https://four.example/robots.txt") == 1, (out.getvalue()[-400:], shared.asked))
+shutil.rmtree(tmp, ignore_errors=True)
+
+# Inside one probe, through the real verify_ics: the list read waits the
+# host's robots.txt Crawl-delay after the feed, and robots.txt is read once.
+cc._CIVICPLUS_LISTS.clear()
+tmp = tree([{"name": "Slow City", "url": SLOW_CP}], [], {})
+stamps = []
+
+
+class StampSession(Session):
+    def get(self, url, **kw):
+        stamps.append((url, _time.time()))
+        return super().get(url, **kw)
+
+
+shared = StampSession(cp_pages("User-agent: *\nCrawl-delay: 0.3\n"))
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing")}
+cc._session = lambda: shared
+out = io.StringIO()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit(workers=2)
+finally:
+    restore()
+at = {u: t for u, t in stamps}
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+check("audit: the CivicPlus list read waits the robots.txt Crawl-delay after the feed",
+      at.get(SLOW + "/iCalendar.aspx", 0) - at.get(SLOW_CP, 9e9) >= 0.29
+      and led[cc._canon(SLOW_CP)]["status"] == "empty", (stamps, led))
+check("...robots.txt read once for the origin, shared by the pacing and the list",
+      shared.asked.count(SLOW + "/robots.txt") == 1, shared.asked)
+shutil.rmtree(tmp, ignore_errors=True)
+cc._CIVICPLUS_LISTS.clear()
+
+# ============================================================================
+# E. The deadline: save first, then a bounded grace, then the summary.
+# ============================================================================
+release = threading.Event()
+
+
+def hang_or_quick(s, e):
+    if e["name"] == "H":
+        release.wait(10)
+        return True, "late"
+    return True, "1 vevents / 1 future"
+
+
+keep_v, keep_s = cc.VERIFIERS["ics"], cc._session
+cc.VERIFIERS["ics"] = hang_or_quick
+cc._session = lambda: None
+plan = [(0, i, "ics", "a_sources.json", "url", {"name": n, "url": f"https://{n.lower()}.example/c.ics"})
+        for i, n in enumerate(("Q", "H", "N"))]
+recorded, cuts = [], []
+t0 = _time.time()
+try:
+    cut, abandoned = cc._audit_each(plan, _time.time() + 0.3, 1,
+                                    lambda item, ok, note: recorded.append(item[5]["name"]),
+                                    on_cut=lambda running: cuts.append((running, list(recorded))),
+                                    grace=0.4)
+finally:
+    cc.VERIFIERS["ics"], cc._session = keep_v, keep_s
+took = _time.time() - t0
+check("at the deadline on_cut runs while the straggler is still running, after what came back",
+      cuts == [(1, ["Q"])], cuts)
+check("...the straggler is abandoned after the grace, unrecorded, and nothing new starts",
+      cut is True and [i[5]["name"] for i in abandoned] == ["H"] and recorded == ["Q"], (cut, abandoned, recorded))
+check("...within the grace, not when the straggler chooses", 0.6 <= took < 2.5, took)
+
+tmp = tree([{"name": "Q", "url": "https://q.example/c.ics"}, {"name": "H", "url": "https://h.example/c.ics"}],
+           [], {cc._canon("https://h.example/c.ics"): row(20261011, "ok", "seen")})
+inside, saves = {"each": False}, []
+real_each, real_save = cc._audit_each, cc._save_ledger
+
+
+def each_wrapped(*a, **kw):
+    inside["each"] = True
+    try:
+        return real_each(*a, **kw)
+    finally:
+        inside["each"] = False
+
+
+def save_wrapped(led_now):
+    saves.append((inside["each"], cc._canon("https://q.example/c.ics") in led_now))
+    return real_save(led_now)
+
+
+keep_grace = cc.AUDIT_GRACE_S
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing")}
+cc.VERIFIERS["ics"] = hang_or_quick
+cc._session = lambda: None
+cc._audit_each, cc._save_ledger, cc.AUDIT_GRACE_S = each_wrapped, save_wrapped, 0.5
+release.clear()
+out = io.StringIO()
+t0 = _time.time()
+try:
+    with redirect_stdout(out):
+        cc.cmd_audit(workers=2, max_minutes=0.3 / 60)
+finally:
+    cc._audit_each, cc._save_ledger, cc.AUDIT_GRACE_S = real_each, real_save, keep_grace
+    restore()
+took = _time.time() - t0
+log = out.getvalue()
+led = json.load(open(os.path.join(tmp, "curation_ledger.json"), encoding="utf-8"))
+check("...and the abandoned worker is a daemon thread, so it cannot hold python open",
+      lambda: [t.daemon for t in threading.enumerate() if t.name.startswith("audit-")]
+      and all(t.daemon for t in threading.enumerate() if t.name.startswith("audit-")))
+check("the ledger is saved when the deadline cuts, while a probe is still running",
+      (True, True) in saves, saves)
+check("...the run returns within the grace instead of waiting on the straggler", took < 3.0, took)
+check("...the straggler's entry keeps its whole old row",
+      led[cc._canon("https://h.example/c.ics")] == row(20261011, "ok", "seen"), led)
+check("...and both summary lines print, with what was abandoned",
+      "\n0 entries are BROKEN" in log and "audit reached 1 of 2 configured entries; stopped at the" in log
+      and "1 probe(s) still running 0.5 s after the budget were abandoned unrecorded: h.example/c.ics" in log,
+      log[-600:])
+release.set()
+shutil.rmtree(tmp, ignore_errors=True)
+
+# ============================================================================
+# F. The ledger on disk, and a Verdict outside the thread it was made on.
+# ============================================================================
+tmp = tempfile.mkdtemp(prefix="curate-audit-dump-")
+keep_lf = cc.LEDGER_FILE
+cc.LEDGER_FILE = os.path.join(tmp, "curation_ledger.json")
+real_dump = cc.json.dump
+
+
+def dump_then_die(obj, fh, **kw):
+    fh.write('{"a.example/cal.ics": {"status": "o')
+    raise OSError("No space left on device")
+
+
+try:
+    cc._save_ledger({"a.example/cal.ics": row(20261018)})
+    before = open(cc.LEDGER_FILE, encoding="utf-8").read()
+    cc.json.dump = dump_then_die
+    try:
+        cc._save_ledger({"b.example/cal.ics": row(20261029)})
+        died = False
+    except OSError:
+        died = True
+    finally:
+        cc.json.dump = real_dump
+    after = open(cc.LEDGER_FILE, encoding="utf-8").read()
+finally:
+    cc.LEDGER_FILE = keep_lf
+check("a dump that dies mid-write leaves the previous ledger whole and parseable",
+      died and after == before and json.loads(after) == {"a.example/cal.ics": row(20261018)}, (died, after[:80]))
+shutil.rmtree(tmp, ignore_errors=True)
+
+v = cc.Verdict("0 vevents / 0 future; catID 34 still listed on /iCalendar.aspx as 'Library Events'", "empty")
+for how, fn in (("copy.copy", copy.copy), ("copy.deepcopy", copy.deepcopy),
+                ("pickle", lambda x: pickle.loads(pickle.dumps(x)))):
+    check(f"a Verdict survives {how} with its status",
+          lambda: isinstance(fn(v), cc.Verdict) and fn(v) == v and fn(v).status == "empty"
+          and cc._status_for(False, fn(v)) == "empty")
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

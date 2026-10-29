@@ -293,12 +293,15 @@ jobs:
       # never reached it, and the commit step was skipped. The configs held
       # 6,601 entries on 2026-10-29. Now the audit stops starting probes at
       # --max-minutes (the oldest ledger check goes first, so the next Sunday
-      # starts where this one stopped) and saves the ledger every 200 probes;
-      # the step's own cap is the backstop for a probe still running at the
-      # deadline (three tries of a 60 s timeout plus a CivicPlus list read is
-      # under 4 minutes), and the job's leaves the commit its room. Four probes
-      # at once, never two on one host: on 128 live entries (2026-10-29) that
-      # was 182.4 s against 459.1 s one at a time, with the same verdicts.
+      # starts where this one stopped) and saves the ledger every 200 probes.
+      # When the budget is spent it saves at once, gives the probes still
+      # running 5 minutes (AUDIT_GRACE_S; three tries of a 60 s timeout plus a
+      # CivicPlus list read fit), abandons any straggler unrecorded and prints
+      # its summary: 200 + 5 sits inside this step's 215, and the job's 240
+      # leaves the commit its room. Four probes at once, never two on one
+      # host, and a host's next request no sooner than its Crawl-delay: on 128
+      # live entries (2026-10-29) four at once took 182.4 s against 459.1 s
+      # one at a time, with the same verdicts.
       - name: Re-probe every curated feed
         timeout-minutes: 215
         run: |

@@ -396,6 +396,100 @@ def t_no_credentials_is_a_skip():
     check("no credentials makes no request", not CALLS, f"{len(CALLS)} call(s)")
 
 
+def _dead_tree(configs, ledger):
+    """A temp tree of real-shaped configs and a ledger; configured_dead() over it."""
+    tmp = tempfile.mkdtemp(prefix="health-dead-")
+    for fname, blob in configs.items():
+        with open(os.path.join(tmp, fname), "w", encoding="utf-8") as fh:
+            json.dump(blob, fh)
+    with open(os.path.join(tmp, "curation_ledger.json"), "w", encoding="utf-8") as fh:
+        json.dump(ledger, fh)
+    keep = (hc.HERE, hc.LEDGER)
+    hc.HERE, hc.LEDGER = tmp, os.path.join(tmp, "curation_ledger.json")
+    try:
+        return {d["url"]: d for d in hc.configured_dead()}
+    finally:
+        hc.HERE, hc.LEDGER = keep
+
+
+def _fail(name, reason="0 events / 0 future"):
+    return {"type": "x", "name": name, "status": "fail", "reason": reason, "checked": 20261018}
+
+
+# Real shapes (2026-10-29): tribe, jsonld, mobilizon and squarespace nest their
+# list under "sites"; jsonld's key is a LIST of listing URLs; venuepilot's is
+# its account ids. The ledger keys are literal, written the way cmd_audit
+# writes them (catalog_curate._canon(_key_of(...))), not recomputed here.
+SHAPES = {
+    "tribe_sources.json": {"sites": [
+        {"name": "Boston Cyclists Union", "base_url": "https://www.bostoncyclistsunion.org/",
+         "category": "fitness"},
+        {"name": "Rad Raceway", "base_url": "https://radraceway.com", "category": "sports"}]},
+    "jsonld_sources.json": {"sites": [
+        {"name": "Hall", "listing": ["https://hall.example/events/", "https://hall.example/more/"],
+         "category": "arts"}]},
+    "venuepilot_sources.json": {"sites": [{"name": "Club", "account_ids": [12, 3], "category": "music"}]},
+    "ics_sources.json": [{"name": "Library", "url": "https://Lib.Example/Cal.ics", "category": "learning"},
+                         {"name": "Old Row", "url": "https://old.example/feed.ics", "category": "community"}],
+}
+LEDGER_ROWS = {
+    "bostoncyclistsunion.org": _fail("Boston Cyclists Union"),
+    "radraceway.com": dict(_fail("Rad Raceway", "http 523"), status="ok"),
+    "hall.example/events": _fail("Hall", "no schema.org Event blocks found"),
+    "venuepilot:3,12": _fail("Club", "0 events / 0 future"),
+    "lib.example/Cal.ics": _fail("Library", "http 404 / no VCALENDAR"),
+    "candidate.example/feed.ics": _fail("A rejected candidate"),
+    # A row from before the ledger was re-keyed (raw URL, scheme and www.):
+    # catalog_curate._load_ledger canonicalises it, and so must this.
+    "https://www.old.example/feed.ics": _fail("Old Row", "http 410 / no VCALENDAR"),
+}
+
+
+def t_configured_dead_reads_every_config_shape():
+    got = _dead_tree(SHAPES, LEDGER_ROWS)
+    check("a tribe entry ({'sites': [...]}, base_url with www and a slash) is seen",
+          got.get("bostoncyclistsunion.org", {}).get("config") == "tribe_sources.json", str(sorted(got)))
+    check("a jsonld entry, keyed by the FIRST url of its listing list, is seen",
+          got.get("hall.example/events", {}).get("config") == "jsonld_sources.json", str(sorted(got)))
+    check("a venuepilot entry, keyed by its sorted account ids, is seen",
+          "venuepilot:3,12" in got, str(sorted(got)))
+    check("an ics entry is still seen, its host's case folded the way the ledger folds it",
+          "lib.example/cal.ics" in got, str(sorted(got)))
+    check("an `ok` row and a rejected candidate are not FEED_DOWN",
+          "radraceway.com" not in got and "candidate.example/feed.ics" not in got, str(sorted(got)))
+    check("a ledger row still keyed by its raw URL matches its canonical config key",
+          "old.example/feed.ics" in got, str(sorted(got)))
+    check("exactly those five", len(got) == 5, str(sorted(got)))
+    check("each carries its name, category and file",
+          got.get("bostoncyclistsunion.org", {}).get("category") == "fitness"
+          and got.get("bostoncyclistsunion.org", {}).get("reason") == "0 events / 0 future")
+
+
+def t_a_pending_owner_decision_stays_reported():
+    configs = {"ics_sources.json": [
+        {"name": "Shelter A", "url": "https://city.example/cal.aspx?catID=35",
+         "_hold": "owner: reservation schedule, retire or keep", "category": "community"},
+        {"name": "Shelter B", "url": "https://city.example/cal.aspx?catID=36",
+         "_hold": "owner: reservation schedule, retire or keep", "category": "community"},
+        {"name": "Plain", "url": "https://city.example/cal.aspx?catID=37", "category": "community"}]}
+    ledger = {"city.example/cal.aspx?catID=35": dict(_fail("Shelter A"), status="empty",
+                                                    reason="0 vevents / 0 future; catID 35 still listed"),
+              "city.example/cal.aspx?catID=36": _fail("Shelter B", "0 vevents / 0 future"),
+              "city.example/cal.aspx?catID=37": dict(_fail("Plain"), status="empty")}
+    got = _dead_tree(configs, ledger)
+    a = got.get("city.example/cal.aspx?catid=35", {})
+    check("an entry held for the owner is reported though the audit filed it `empty`",
+          a.get("reason", "").startswith("held for the owner: owner: reservation schedule")
+          and "(ledger empty: 0 vevents / 0 future; catID 35 still listed)" in a.get("reason", ""), str(a))
+    b = got.get("city.example/cal.aspx?catid=36", {})
+    check("...a held entry with a `fail` row is reported once, its reason saying both",
+          len([u for u in got if u.endswith("catid=36")]) == 1
+          and b.get("reason") == "held for the owner: owner: reservation schedule, retire or keep; "
+                                 "0 vevents / 0 future", str(b))
+    check("...and an unheld `empty` entry is not reported", "city.example/cal.aspx?catid=37" not in got,
+          str(sorted(got)))
+
+
 def main():
     for fn in (t_reads_the_snapshot_not_the_dead_rpc,
                t_server_error_body_reaches_the_report,
@@ -415,7 +509,9 @@ def main():
                t_missing_baseline_says_it_checked_nothing,
                t_seed_baseline_writes_once,
                t_warn_only_never_fails,
-               t_no_credentials_is_a_skip):
+               t_no_credentials_is_a_skip,
+               t_configured_dead_reads_every_config_shape,
+               t_a_pending_owner_decision_stays_reported):
         print(f"\n--- {fn.__name__} ---")
         fn()
     print()
