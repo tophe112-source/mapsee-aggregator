@@ -68,7 +68,8 @@
   is among the ledger's last 100, and the ledger listed 0 configured feeds as
   `fail`. The traceback was in the log, 60 lines ABOVE the output it followed,
   because `| tee` block-buffered stdout and stderr is not. Now the line takes a
-  list's first URL, the ledger is saved after every config file, the step runs
+  list's first URL, the ledger is saved after every config file (since
+  2026-10-29 every 200 probes and on any way out: `ci-and-jobs.md`), the step runs
   `python -u ... 2>&1`, and a missing "entries are BROKEN" summary line is an
   `::error::`. `test_curate_reapply.py` runs the real `cmd_audit` over a jsonld
   list and a crashing third file, and fails on the old code.
@@ -84,3 +85,25 @@
   and dispatch; schedule + dispatch only, it reads the service key) opens
   `db-health` / `db-health-check` issues and closes them when the probe
   answers. `test_db_health.py`: 17 cases.
+
+- **FEED_DOWN NEVER SAW A CONFIG SHAPED `{"sites": [...]}`, SO 114 DEAD FEEDS
+  WENT UNREPORTED (2026-10-29).** `configured_dead()` read a bare list or a
+  "sources" key and one field per entry, while tribe, jsonld, mobilizon,
+  squarespace, gancio and venuepilot nest theirs under "sites". On 10f27b9,
+  114 configured feeds had a ledger `fail` from the 10-18 audit and none was
+  listed (tribe 69, jsonld 38, mobilizon 5, squarespace 2); the "130" it did
+  list were ics 129 and opendata 1. Now every config is read through
+  `catalog_curate._entries` and every entry keyed `_canon(_key_of(...))`, the
+  key `cmd_audit` writes (jsonld's first listing URL, `venuepilot:<ids>`,
+  ods's derived URL), with the ledger's keys canonicalised the same way. Over
+  10f27b9's configs and ledger it returns 244 (130 + 114); over round 1's
+  ledger on wt/dead130-sys 118: tribe 69, jsonld 38, mobilizon 5, squarespace
+  2 and the 4 left for the owner (the old code: 4). A pending owner decision
+  is not a ledger row, and the audit rewrites rows (Lakeville catID 35 and 36
+  are still listed on /iCalendar.aspx, so Sunday would file them `empty`), so
+  an entry carrying `_hold` is reported whatever its row says, until the field
+  goes (Big Lake catID 29 carries one: its renters' names). A configured
+  entry whose row is `refused`, the audit's robots.txt verdict
+  (ci-and-jobs.md), is reported too: 0 on 10-29. On the final tree it returns
+  3: Edina catID 76, Cromane Seafest and Big Lake catID 29.
+  `test_health_check.py`.

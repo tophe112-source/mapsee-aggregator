@@ -631,3 +631,92 @@
   a day per engine that does. test_workflow_contracts reads the cron from
   on.schedule (the one extra_sources runs on) and renders the Submit command
   for each cron and for a dispatch.
+
+- **THE WEEKLY AUDIT RAN FOUR HOURS AND KEPT NOTHING, SO FEED_DOWN READ AN
+  AUDIT ELEVEN DAYS OLD (2026-10-25).** `source-health.yml`'s audit (run
+  40179210416, job 121126419210) probed from 09:05:35 to 13:06:03Z and was
+  cancelled at the job's 240 minutes, 311 entries into jsonld's 785: 5,094
+  probes (localist 57 in 1.3 min, ics 2,931 in 108.3, tribe 1,501 in 110.2,
+  jsonld 16.8). The snapshot copy sat at the end of the probe step, so it never
+  ran; the commit step was skipped; the runner killed the python 0.25 s after
+  "The operation was canceled." All 130 FEED_DOWN rows on 10-29 dated from
+  10-18. The time was not where the probes were: the median took 0.69 s and
+  p90 2.93 s, but 67 probes over 60 s (1.3%) took 133.4 of the 240 minutes,
+  each a connect or read timeout asked three times at 60 s. The configs held
+  6,601 entries on 10-29 (ics 3,372, tribe 1,779, jsonld 1,058). Now
+  `audit --max-minutes 200 --workers 4` starts no probe after the deadline;
+  goes in order of the ledger row's `checked`, never-checked first, across
+  every file, so a cut run is where the next starts; saves every 200 probes
+  (1.2-1.7 s a save on the 19.6 MB, 87,234-row ledger), on any way out, and
+  aside-then-rename; and prints "audit reached N of M". An entry it does not
+  reach keeps its old row. The probe step has `timeout-minutes: 215`, the
+  snapshot is its own `always()` step and the commit is `always()`, skipping
+  without a snapshot. Four workers, never two on one host (calendar.google.com
+  carries 457 entries, montreal.ca 76): live 2026-10-29 on 128 robots-allowed
+  entries (Google calendars and jsonld left out), 182.4 s against 459.1 s one
+  at a time (2.52x, the parallel run first), the same 114 ok / 10 empty / 4
+  fail in both. `test_curate_audit.py`.
+
+- **THE AUDIT NOW WAITS OUT A HOST'S CRAWL-DELAY, SAVES THE MOMENT THE BUDGET
+  IS SPENT, AND GIVES A STRAGGLER FIVE MINUTES (2026-10-29).** It asked a host
+  as fast as its probes came back (the next probe as one ended, the CivicPlus
+  list read right after the feed), though CivicPlus's stock robots.txt asks
+  `Crawl-delay: 10` (35 of 35 sampled files read) and LibCal's 10 (leeds,
+  smu-sg). Now a host's delay is the larger of its robots.txt Crawl-delay (read
+  once per origin per run, before the host's first request; next note) and
+  its entries' `crawl_delay`. The scheduler starts no probe on a host before its last
+  request plus that delay and works on other hosts meanwhile; inside a probe (a
+  retry, the CivicPlus list, The Events Calendar's REST test) the worker waits,
+  at most 30 s, and a request that would need longer is not sent. A documented
+  API is not asked for robots.txt. Projected from the 10-25 run's timings
+  (5,083 of today's 6,581 entries with their own time there, the rest their
+  type's mean; 312.8 min of probing): four workers, ideal scheduling, 80.9 min
+  with no delay, 86.7 with CivicPlus and LibCal at 10 s plus entries'
+  `crawl_delay` (23.1 worker-minutes waiting inside probes, 139 CivicPlus list
+  reads and 153 REST tests), 102.1 if every multi-entry host asked 10 s.
+  Times 4/2.52 (four workers measured 2.52x, not 4x): about 128, 138 and 162
+  min, all inside 200, and what a run does not reach goes first next Sunday.
+  The wait on running probes had no timeout, and on 10-25 the runner killed
+  python 0.25 s after the cancel. Now the ledger is saved when the budget
+  cuts, the running probes get `AUDIT_GRACE_S` = 300 s, a straggler is
+  abandoned unrecorded (its old row stays; the workers are daemon threads, so
+  it cannot hold python open), and both summary lines print in a `finally`,
+  interrupted or not. 200 + 5 minutes sits inside the step's 215.
+  `test_curate_audit.py`.
+
+- **THE AUDIT OBEYS ROBOTS.TXT, LEAVES A ROW ALONE WHEN NO SERVER DECIDED IT,
+  AND SKIPS A TYPE IT CANNOT VERIFY (2026-10-29).** The final review of the
+  dead-feed job found three ways it wrote a verdict nothing measured. It read
+  robots.txt for the Crawl-delay alone and fetched what the file disallows,
+  filing it ok, empty or fail, never `refused` (round 2 found two by hand:
+  OEC Korfbal's `Disallow: /`, Mathallen's `/*?*ical=`). Now every request
+  the ingest adapter makes (`_ingest_requests`) is checked before the entry's
+  first one: an explicit Disallow is `refused` with the rule, nothing
+  fetched; an unreachable or challenged file is probed as before; a
+  documented API is not asked; a Google calendar without the Calendar API
+  key is not probed and keeps its row (robots.txt refuses its export; 459
+  configured), as `verify` skips it. That reads robots.txt for every host:
+  4,423 origins in the 6,531 planned entries on the final 10-29 configs, key
+  set, where it was read up front only for the 488 hosts with more than one
+  entry. At the 0.6 s a read the budget projection assumed, about 44
+  worker-minutes, 11-18 minutes of a four-worker run on top of its 128-162;
+  an estimate, not measured on a runner. A link
+  page `verify_jsonld` would follow is skipped when disallowed and counted in
+  the note; alone it fails nothing, and when every page sampled is disallowed
+  the entry is `refused` with the rule (nothing was read, and the adapter asks
+  robots.txt per page too). Every request is asked, not the first: a jsonld
+  entry's second listing disallowed refuses it. The weekly commit counts a
+  `[NO ]` line among those probed and the step summary lists them apart from
+  the `[XX ]` ones, with the not-decided count; a `[.. ]` probe wrote no row
+  and is not counted. A request the pacing will not send (a
+  Crawl-delay over 30 s inside a probe) used to end as a `fail` no server
+  gave: a CivicPlus list "unreadable" (and kept for the origin), "REST
+  unreachable", a retry's "AuditCrawlDelay" in place of the 503. Now that
+  probe is "not decided" and the entry keeps its row, like an abandoned one.
+  And `mylisting` is in CONFIG with no verifier: its one entry's probe raised
+  KeyError inside the worker and was recorded `fail`, so FEED_DOWN would have
+  reported Bainbridge Island daily while production kept 556 of 592
+  occurrences from it on 10-28. A type with no verifier is now left out of
+  the plan, said once. FEED_DOWN reports a configured entry's `refused` row
+  (0 on 10-29) as it does `fail`. `test_curate_audit.py`,
+  `test_health_check.py`.

@@ -521,22 +521,6 @@
       "_metro": "Dublin, IE"
     },
     {
-      "name": "St. Laurence Cheshire Home",
-      "category": "community",
-      "_found": "osm:social_facility -> squarespace",
-      "collection": "https://www.cheshire.ie/upcoming-events",
-      "max_events": 200,
-      "venue": {
-        "name": "St. Laurence Cheshire Home",
-        "address": "Lower Glanmire Road",
-        "city": "Glanmire",
-        "postal_code": "T23YF40",
-        "lat": 51.9066807,
-        "lon": -8.4044631
-      },
-      "_metro": "Cork, IE"
-    },
-    {
       "name": "The Arts House Trust",
       "category": "arts",
       "_found": "osm:arts_centre -> squarespace",
@@ -1601,24 +1585,6 @@
       },
       "_metro": "Detroit, United States",
       "_note": "Grosse Pointe War Memorial community center (Squarespace collection page): markets, veteran programs, blood drives, history tours, 2nd Saturdays. Stock Squarespace robots; bare page allowed."
-    },
-    {
-      "name": "Village of Los Ranchos de Albuquerque",
-      "category": "community",
-      "collection": "https://www.losranchosnm.gov/calendar",
-      "max_events": 200,
-      "venue": {
-        "name": "Los Ranchos de Albuquerque Village Hall",
-        "address": "6718 Rio Grande Blvd NW",
-        "city": "Los Ranchos de Albuquerque",
-        "region": "NM",
-        "postal_code": "87107",
-        "country": "US",
-        "lat": 35.1586075,
-        "lon": -106.65527
-      },
-      "_metro": "Albuquerque, United States",
-      "_note": "Village calendar: growers' market, health talks, yard sale, green-waste days. Bare Squarespace page (robots allows it). Most rows carry the village as venue."
     },
     {
       "name": "OFFCenter Community Arts (Albuquerque)",
@@ -3098,6 +3064,319 @@
         "lon": 9.7237453
       },
       "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Château de Villeneuve",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.museedevence.fr/evenements",
+      "max_events": 200,
+      "venue": {
+        "name": "Château de Villeneuve",
+        "address": "2 Place du Frêne",
+        "lat": 43.7229295,
+        "lon": 7.1126235
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Steadfast Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.steadfastbrewingco.com/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Steadfast Brewing Co.",
+        "address": "301 Lansdowne Avenue",
+        "lat": 43.6506772,
+        "lon": -79.4396696
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "City Dance Corps",
+      "category": "fitness",
+      "_found": "osm:dance -> squarespace",
+      "collection": "https://www.citydancecorps.com/workshops",
+      "max_events": 200,
+      "venue": {
+        "name": "City Dance Corps",
+        "address": "489 Queen Street West",
+        "lat": 43.6482225,
+        "lon": -79.398194
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Story Planet",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.storyplanet.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Story Planet",
+        "address": "986 Bathurst Street",
+        "lat": 43.6700678,
+        "lon": -79.4133127
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "New Hope Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://newhopechurch.live/events-1-1",
+      "max_events": 200,
+      "venue": {
+        "name": "New Hope Church",
+        "lat": 43.6087619,
+        "lon": -79.5821889
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Runnymede United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.runnymedeunited.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Runnymede United Church",
+        "address": "432 Runnymede Road",
+        "city": "Toronto",
+        "postal_code": "M6S 2Y8",
+        "lat": 43.656808,
+        "lon": -79.4792477
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bayview Glen Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.bayviewglen.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bayview Glen Church",
+        "address": "300 Steeles Avenue East",
+        "city": "Thornhill",
+        "region": "ON",
+        "postal_code": "L3T 1A7",
+        "lat": 43.8043659,
+        "lon": -79.3948713
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Ebenezer Reformed Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://yourchurch.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Ebenezer Reformed Church",
+        "address": "2438 Glengarry Road",
+        "city": "Mississauga",
+        "postal_code": "L5C 1Y2",
+        "lat": 43.5533396,
+        "lon": -79.6377997
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "BAND",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.bandgallery.com/current-exhibitions-and-events",
+      "max_events": 200,
+      "venue": {
+        "name": "BAND",
+        "address": "19 Brock Avenue",
+        "lat": 43.6425115,
+        "lon": -79.4325112
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Shakti Rock Gym",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://shaktirockgym.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Shakti Rock Gym",
+        "address": "175 St. Viateur Est",
+        "postal_code": "H2T 1Y1",
+        "lat": 45.5275845,
+        "lon": -73.5976905
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Emmaus Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.emmausanglicanchurch.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Emmaus Anglican Church",
+        "address": "3495 rue University",
+        "lat": 45.5066183,
+        "lon": -73.575803
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "La Livrerie",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.lalivrerie.com/programmation",
+      "max_events": 200,
+      "venue": {
+        "name": "La Livrerie",
+        "address": "1289 Rue Ontario Est",
+        "postal_code": "H2L 1S1",
+        "lat": 45.5221415,
+        "lon": -73.5619185
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Celebrities",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.celebritiesnightclub.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Celebrities",
+        "address": "1022 Davie Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2793851,
+        "lon": -123.129915
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Mackin Heritage House",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.coquitlamheritage.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mackin Heritage House",
+        "address": "1116 Brunette Avenue",
+        "lat": 49.2385727,
+        "lon": -122.861932
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Fortune Sound Club",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.fortunesoundclub.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Fortune Sound Club",
+        "address": "147 East Pender Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2805207,
+        "lon": -123.1007376
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Rolla Skate Club",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.rollaskateclub.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Rolla Skate Club",
+        "lat": 49.2849577,
+        "lon": -123.0430871
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Granville Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.granvillechapel.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Granville Chapel",
+        "address": "5901 Granville Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6M 3C9",
+        "lat": 49.2321591,
+        "lon": -123.1401727
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Cobalt",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.thecobalt.ca/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Cobalt",
+        "address": "917 Main Street",
+        "lat": 49.2764955,
+        "lon": -123.1001072
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Trinity Grace United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.tgucvan.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Trinity Grace United Church",
+        "address": "803 East 16th Avenue",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V5T 2V7",
+        "lat": 49.2566263,
+        "lon": -123.0871791
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Cityview Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.cityviewchurch.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Cityview Church",
+        "address": "4370 Sophia Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2458764,
+        "lon": -123.0988584
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Malkin Bowl",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.malkinbowl.com/upcoming",
+      "max_events": 200,
+      "venue": {
+        "name": "Malkin Bowl",
+        "address": "610 Pipeline Road",
+        "lat": 49.2987552,
+        "lon": -123.1334983
+      },
+      "_metro": "Vancouver, Canada"
     }
   ],
   "_not_included": {

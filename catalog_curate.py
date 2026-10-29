@@ -58,6 +58,8 @@ Usage:
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
+         [--max-minutes N]   # stop starting probes after N minutes; the oldest-checked go first
+         [--workers N]       # probes at once, never two on one host (default AUDIT_WORKERS)
   # which configured requests robots.txt refuses, and hosts fetched unpaced.
   # Report only: it edits nothing.
   python catalog_curate.py robots
@@ -65,7 +67,7 @@ Usage:
   # the venues whose events are on a platform we already ingest, with the link
   python catalog_curate.py ledger --offsite [--refresh]   # --refresh re-probes
          # the routable finds recorded before the link was kept
-  # the discovered calendars held for the owner (a personal address is their id)
+  # what is held for the owner: a personal address is the calendar's id, or a ruling is owed
   python catalog_curate.py ledger --held
   python catalog_curate.py coverage                   # where the catalog is thin (no network)
   # prove a civic country before it ships: rows, seconds and the largest city
@@ -84,7 +86,7 @@ import statistics
 import sys
 import time
 
-from urllib.parse import urljoin, urlparse
+from urllib.parse import parse_qs, urlencode, urljoin, urlparse
 
 import requests
 
@@ -214,9 +216,40 @@ _EMPTY_RX = re.compile(r"(?:^|\D)([1-9]\d*)\s*(?:vevents|events|rows|records)\b"
                        r"[^/]*/\s*0\s+future", re.I)
 
 
+class Verdict(str):
+    """A verifier's note that names its own ledger status.
+
+    Most notes are classified by their shape (_EMPTY_RX). A verdict that comes
+    from a second request or a platform's measured behaviour, not from the
+    note's numbers, says which status it is instead of hoping the wording falls
+    on the right side of a regex: an empty CivicPlus category (see
+    _civicplus_empty), a valid empty calendar on a platform whose missing
+    calendars answer an error (EMPTY_CALENDAR_RULES), The Events Calendar
+    between seasons (tribe_ical_existence). It is still a str, so it
+    prints, slices and lands in the ledger's `reason` like any other note.
+    """
+    status = None
+
+    # `status` has a default because copy.copy and pickle rebuild the object
+    # by calling __new__ with str's own arguments (the text alone) and then
+    # restore `status` from the instance dict. Without it both raised
+    # TypeError (review of 2026-10-29): harmless under threads, a trap for
+    # any process pool.
+    def __new__(cls, text="", status=None):
+        self = super().__new__(cls, text)
+        self.status = status
+        return self
+
+
 def _status_for(ok, note):
     if ok:
         return "ok"
+    said = getattr(note, "status", None)
+    # `refused` comes from a robots.txt rule, never from a feed's answer: the
+    # audit's gate (_audit_robots) over the requests an entry starts with, and
+    # verify_jsonld when robots.txt disallows every link page it sampled.
+    if said in ("empty", "fail", "refused"):
+        return said
     return "empty" if _EMPTY_RX.search(note or "") else "fail"
 
 
@@ -318,8 +351,13 @@ def _save_ledger(led):
     except Exception:                                             # noqa: BLE001
         on_disk = {}                     # unreadable or absent: ours is the file
     merged = _merge_ledgers(on_disk, led)
-    json.dump(merged, open(LEDGER_FILE, "w", encoding="utf-8"),
-              indent=2, sort_keys=True)
+    # Written aside and renamed into place, so a run cancelled mid-write (the
+    # audit now saves every few hundred probes, against a 19.6 MB file that
+    # takes 1.2-1.7 s to write) leaves the last whole ledger, never half of one.
+    tmp = LEDGER_FILE + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(merged, fh, indent=2, sort_keys=True)
+    os.replace(tmp, LEDGER_FILE)
 
 
 DEAD_TTL = 90
@@ -491,30 +529,385 @@ def verify_localist(s, e):
     return (fut > 0), f"{len(evs)} events / {fut} future instance(s)"
 
 
+# AN EMPTY CIVICPLUS CATEGORY AND A DELETED ONE ANSWER THE SAME FILE. Measured
+# 2026-10-29 on www.urbandale.org: catID=34 (Library Events, still on the
+# site) and catID=99987 (never existed) both returned HTTP 200, text/calendar,
+# 474 bytes, 0 VEVENTs. issaquahwa.gov did the same with 486 bytes (see the
+# note above CIVICPLUS_ICAL_RX in catalog_discover_osm). So "0 vevents" alone
+# decides nothing, and the audit recorded every such feed `fail`: 82 of the
+# 130 configured feeds FEED_DOWN reported on 2026-10-29 were CivicPlus
+# categories answering exactly that, among 1,275 CivicPlus feeds configured.
+#
+# What does decide it is the site's own list. /iCalendar.aspx carries one link
+# per live category (catID=<n>, the category's name as the link text), quiet
+# ones included: Urbandale's lists 9, among them 34, 38 (Mobile Recreation)
+# and 39 (Concerts), all three empty that day. Still listed is a calendar
+# between seasons: `empty`, kept, not a regression. Not listed is a category
+# the city deleted: `fail`. An unreadable list leaves it `fail`, as before.
+# The list is read ONCE per origin per run (the 1,275 feeds are on 601 sites,
+# up to six on one), and robots.txt is asked first, like any publisher request.
+_CIVICPLUS_FEED_RX = re.compile(r"/iCalendar\.aspx\?(?:[^#]*?&)?catID=(\d+)", re.I)
+CIVICPLUS_LIST_TIMEOUT = 30
+_CIVICPLUS_LISTS = {}            # origin -> {"cats": {id: name}} | {"error": why}
+
+
+def civicplus_cat_id(url):
+    """The category id of a CivicPlus iCal feed URL, or None for anything else."""
+    m = _CIVICPLUS_FEED_RX.search(str(url or ""))
+    return m.group(1) if m else None
+
+
+def _robots_ask(s, url):
+    """robots.txt's answer for `url`: the audit's shared reader when `s` is the
+    audit's paced session (one robots.txt per origin per run, its Crawl-delay
+    kept for the pacing), else a fresh reader, as verify has always asked."""
+    pace = getattr(s, "pace", None)
+    if pace is not None:
+        return pace.robots_check(s.raw, url)
+    return robots_txt.Robots(s).check(url)
+
+
+def _get_after(s, url, ans, **kw):
+    """A SECOND request to a host this probe has just asked, Crawl-delay first.
+
+    CivicPlus's stock robots.txt asks `Crawl-delay: 10` (35 of 35 sampled
+    hosts' files that could be read, 2026-10-29), and the list read used to go
+    out the moment the feed's answer came back. In the audit the paced session
+    waits (it knows when the host was last asked); elsewhere (`verify`) this
+    waits the whole delay, which is never less than the host asked. A delay
+    over AUDIT_MAX_CRAWL_DELAY_S is not waited out and the request is not
+    sent sooner either: it raises, and the caller records why.
+    """
+    if getattr(s, "pace", None) is None:
+        delay = float(ans.get("crawl_delay") or 0)
+        if delay > AUDIT_MAX_CRAWL_DELAY_S:
+            raise AuditCrawlDelay(f"robots.txt asks Crawl-delay {delay:g} s, "
+                                  f"over the {AUDIT_MAX_CRAWL_DELAY_S:g} s a probe waits")
+        if delay > 0:
+            time.sleep(delay)
+    return s.get(url, **kw)
+
+
+def civicplus_list(s, url):
+    """The categories /iCalendar.aspx lists on the site serving `url`.
+
+    {"cats": {"34": "Library Events", ...}} or {"error": why}. Read once per
+    origin and kept for the rest of the run, the error too: the audit retries
+    a feed on a transport failure, and asking a struggling host's list again
+    three times over is not what "once" means. It is the second request to the
+    host in a row (the feed came first), so the host's Crawl-delay is honoured
+    before it (_get_after).
+    """
+    import catalog_discover_osm as osm
+    from html import unescape
+    origin = robots_txt.origin_of(url)
+    got = _CIVICPLUS_LISTS.get(origin)
+    if got is not None:
+        return got
+    page = origin + "/iCalendar.aspx"
+    ans = _robots_ask(s, page)
+    if ans["allowed"] is not True:
+        why = ("challenged" if ans["allowed"] is None else "refuses it")
+        got = {"error": f"robots.txt {why}: {ans.get('rule') or ans['status']}"}
+    else:
+        try:
+            r = _get_after(s, page, ans, timeout=CIVICPLUS_LIST_TIMEOUT, allow_redirects=True)
+        except AuditCrawlDelay as ex:
+            # NOT KEPT FOR THE ORIGIN: no server answered, the request was
+            # simply not sent. In the audit the probe is then "not decided"
+            # (its session saw the refusal) and the entry keeps its old row;
+            # the next feed on this host may find the host ready.
+            return {"error": str(ex)}
+        except Exception as ex:                                   # noqa: BLE001
+            got = {"error": type(ex).__name__}
+        else:
+            if r.status_code != 200:
+                got = {"error": f"answered {r.status_code}"}
+            elif osm.CHALLENGE_RX.search(r.text[:6000]):
+                got = {"error": "a bot challenge"}
+            else:
+                cats = {}
+                for _href, cid, label in osm.CIVICPLUS_ICAL_RX.findall(r.text):
+                    cats.setdefault(cid, re.sub(r"\s+", " ", unescape(label)).strip())
+                got = {"cats": cats} if cats else {"error": "no catID links on it"}
+    _CIVICPLUS_LISTS[origin] = got
+    return got
+
+
+def civicplus_verdict(cat_id, listing):
+    """Verdict for a CivicPlus category whose feed is a VCALENDAR with no VEVENT.
+
+    The whole classification, apart from the fetch, so it can be tested on its
+    own: listed -> empty, not listed -> fail, list unreadable -> fail.
+    """
+    if "cats" not in listing:
+        return Verdict(f"0 vevents / 0 future; /iCalendar.aspx unreadable "
+                       f"({listing.get('error') or '?'})", "fail")
+    if cat_id in listing["cats"]:
+        name = listing["cats"][cat_id] or "(unnamed)"
+        return Verdict(f"0 vevents / 0 future; catID {cat_id} still listed on "
+                       f"/iCalendar.aspx as '{name}'", "empty")
+    return Verdict(f"0 vevents; catID {cat_id} no longer listed on /iCalendar.aspx "
+                   f"({len(listing['cats'])} categories are)", "fail")
+
+
+def _civicplus_empty(s, url):
+    return civicplus_verdict(civicplus_cat_id(url), civicplus_list(s, url))
+
+
+# A VALID CALENDAR WITH NO VEVENT PROVES THE CALENDAR EXISTS ONLY WHERE A
+# MISSING ONE ANSWERS SOMETHING ELSE. Measured 2026-10-29 with the production
+# UA, robots.txt asked first, by asking each platform for a calendar id that
+# does not exist (1-2 requests a platform):
+#   CivicPlus       a missing catID answers a VALID EMPTY VCALENDAR (urbandale
+#                   catID=99987: 200, text/calendar, 474 B) - the same file a
+#                   quiet category answers. Empty proves nothing; the site's
+#                   /iCalendar.aspx list decides (_civicplus_empty).
+#   LibCal          cid=999999 on leeds.libcal.com and smu-sg.libcal.com: 200
+#                   text/html, 19 B, "invalid calendar id".
+#   OpenAgenda      agendas/99999999999/events.v2.ics: 404 text/html.
+#   unibas.ch       .../news-veranstaltungen/99999999.ics on botgarten.unibas.ch:
+#                   200 text/calendar with a 0-byte body - no VCALENDAR at all.
+#   My Calendar     ?feed=my-calendar-ics on a WordPress without the plugin
+#                   (forterra.org) and an unregistered ?feed= on theblackaltar.org:
+#                   404, WordPress's wp_die XML.
+#   Vortex (UiO)    ?vrtx=ical on a folder that does not exist
+#                   (nhm.uio.no/hva-skjer/no-such-folder-mapsee/): 404 text/html.
+#   Google Calendar through the Calendar API: not measured (no key here). Read
+#                   in mapsee_gcal.fetch_events: any answer but 200 (a deleted
+#                   calendar's is 404 notFound) raises GcalError, and only a 200
+#                   is turned into VCALENDAR text. Its timeMin is today, so a
+#                   quiet calendar reads "0 vevents" by construction and
+#                   _EMPTY_RX (which needs N > 0 VEVENTs) could never call it
+#                   empty: the 3 Google calendars round 1 kept were `fail` again
+#                   on every audit.
+# So on the six platforms below a valid empty calendar is `empty` and says
+# why; CivicPlus keeps its list test; every platform not in the table keeps
+# "0 vevents / 0 future" -> `fail`, as before. Round 1 (2026-10-29) kept 14
+# non-CivicPlus feeds `empty` by hand, and the audit re-derived `fail` for all
+# 14 of them from this verifier; 3 Google, 2 LibCal, 1 OpenAgenda, 1 unibas.ch
+# and 1 My Calendar are this table's, the other 6 are The Events Calendar's
+# (tribe_ical_existence). Configured on 2026-10-29: LibCal 307, Google 459,
+# OpenAgenda 66, My Calendar 61, unibas.ch 6, Vortex 4.
+def _is_libcal(url, via_api=False):
+    p = urlparse(url)
+    return ((p.hostname or "").lower().endswith(".libcal.com")
+            and p.path.lower().endswith("/ical_subscribe.php")
+            and "cid" in parse_qs(p.query))
+
+
+def _is_openagenda(url, via_api=False):
+    p = urlparse(url)
+    return ((p.hostname or "").lower().endswith("openagenda.com")
+            and re.fullmatch(r"/agendas/\d+/events(?:\.v2)?\.ics", p.path) is not None)
+
+
+def _is_unibas(url, via_api=False):
+    p = urlparse(url)
+    host = (p.hostname or "").lower()
+    return ((host == "unibas.ch" or host.endswith(".unibas.ch"))
+            and re.search(r"/\d+\.ics$", p.path) is not None)
+
+
+def _is_my_calendar(url, via_api=False):
+    return "my-calendar-ics" in parse_qs(urlparse(url).query).get("feed", [])
+
+
+def _is_vortex(url, via_api=False):
+    return "ical" in parse_qs(urlparse(url).query).get("vrtx", [])
+
+
+def _is_google_api(url, via_api=False):
+    return bool(via_api and mapsee_gcal.calendar_id(url))
+
+
+def _is_civicplus(url, via_api=False):
+    return civicplus_cat_id(url) is not None
+
+
+EMPTY_CALENDAR_RULES = (
+    # (platform, recognises(url, via_api), what a missing calendar answers,
+    #  verdict for a valid calendar with no VEVENT: "empty" or a callable
+    #  existence test (s, url) -> Verdict)
+    ("CivicPlus", _is_civicplus, "the same valid empty VCALENDAR", _civicplus_empty),
+    ("Google Calendar API", _is_google_api, "404 notFound, which raises GcalError", "empty"),
+    ("LibCal", _is_libcal, "200 'invalid calendar id'", "empty"),
+    ("OpenAgenda", _is_openagenda, "404", "empty"),
+    ("unibas.ch", _is_unibas, "200 with a 0-byte body", "empty"),
+    ("My Calendar", _is_my_calendar, "404 (wp_die)", "empty"),
+    ("Vortex", _is_vortex, "404", "empty"),
+)
+
+
+def empty_calendar_rule(url, via_api=False):
+    """The EMPTY_CALENDAR_RULES row for `url`, or None (the old `fail`)."""
+    for rule in EMPTY_CALENDAR_RULES:
+        if rule[1](url, via_api):
+            return rule
+    return None
+
+
+def empty_calendar_verdict(s, url, via_api=False):
+    """Verdict for a valid VCALENDAR with no VEVENT, by the platform table."""
+    rule = empty_calendar_rule(url, via_api)
+    if rule is None:
+        return Verdict("0 vevents / 0 future", "fail")
+    platform, _match, missing, decide = rule
+    if callable(decide):
+        return decide(s, url)
+    return Verdict(f"0 vevents / 0 future; a valid empty {platform} calendar, and a "
+                   f"missing one answers {missing}, so this one exists", decide)
+
+
+# THE EVENTS CALENDAR BETWEEN SEASONS. Its ?ical=1 export renders the upcoming
+# list, so with nothing upcoming it answers something that is not a calendar:
+# measured 2026-10-29, Aldeburgh Food and Drink, British Cider Week, Buffalo
+# Niagara Waterkeeper and Fiddlehead Brewing answered 200 with a 0-byte body,
+# Berlin Food Week and Dublin Festival of History 404 with a 0-byte body - and
+# the same sites' REST route, /wp-json/tribe/events/v1/events, answered 200
+# JSON with an `events` list. A dead plugin has no such route. So the route is
+# the existence test, asked with robots.txt's permission for that exact URL:
+#   200 JSON, `events` empty   -> `empty`: the plugin is alive, nothing is on.
+#   `events` not empty         -> `fail`, saying the tribe adapter would read
+#                                 it: the export is broken while the calendar is
+#                                 not, which is a fix to propose, not a quiet
+#                                 calendar.
+#   anything else              -> `fail`, as before (refused, unreachable, 404,
+#                                 not The Events Calendar's JSON).
+# Only for a ?ical=1 feed answering 404, or 200 with no VEVENT (an empty body,
+# an HTML page, an empty VCALENDAR); a 403, 429 or 5xx keeps its old note so the
+# retry still sees it.
+TRIBE_REST_PATH = "/wp-json/tribe/events/v1/events"
+
+
+def _is_tribe_ical(url):
+    return "1" in parse_qs(urlparse(url).query).get("ical", [])
+
+
+# A SCOPED EXPORT IS NOT THE SITE'S CALENDAR, and the route answers for the
+# site. 7 configured ?ical=1 feeds on 2026-10-29 read one category or tag
+# (bartramsgarden `tribe_events_cat=volunteer`, casalcatalatolosa
+# `/tag/concert/`, lunel `/category/...`, two extension.wsu.edu subsites'
+# `/events/category/<slug>/`), and the route at the ORIGIN is the network
+# root, not the /thurston/ subsite: a quiet category on a busy site read
+# "the tribe adapter would read it" (which would import every category) and a
+# deleted one on a quiet site `empty` (review of 2026-10-29). So the test is
+# asked only where the feed is plainly the whole calendar at the origin: a
+# query of nothing but ical, post_type=tribe_events and eventDisplay, and a
+# path of at most the archive slug and a view (`/events/`, `/events/list/`).
+# Anything else - 40 of the 415 configured ?ical=1 feeds, 16 of them an
+# /event(s)/<slug>/ export, none with an `empty` row - keeps the old verdict,
+# `fail`, with no advice: its scope is not mapped to REST parameters.
+_TRIBE_SITEWIDE_QUERY = {"ical", "post_type", "eventDisplay"}
+_TRIBE_VIEWS = {"list", "lista", "liste", "month", "mois", "monat", "mes", "maand", "week",
+                "day", "photo", "map", "upcoming", "past", "today", "summary"}
+
+
+def tribe_feed_is_sitewide(url):
+    """Whether a ?ical=1 feed is the site's whole calendar at its origin."""
+    p = urlparse(url)
+    q = parse_qs(p.query, keep_blank_values=True)
+    if set(q) - _TRIBE_SITEWIDE_QUERY:
+        return False
+    if q.get("post_type", ["tribe_events"]) != ["tribe_events"]:
+        return False
+    segs = [x for x in p.path.split("/") if x]
+    return len(segs) <= 1 or (len(segs) == 2 and segs[1].lower() in _TRIBE_VIEWS)
+
+
+def tribe_rest_url(url):
+    """The REST request the existence test makes for a ?ical=1 feed."""
+    day = _as_date(_today_int()).isoformat()
+    return (robots_txt.origin_of(url) + TRIBE_REST_PATH
+            + "?" + urlencode({"per_page": 10, "start_date": day}))
+
+
+def tribe_ical_existence(s, url, note):
+    """Verdict for a ?ical=1 export that did not give a calendar with events."""
+    if not tribe_feed_is_sitewide(url):
+        return Verdict(note, "fail")
+    rest = tribe_rest_url(url)
+    ans = _robots_ask(s, rest)
+    if ans["allowed"] is not True:
+        why = "challenged" if ans["allowed"] is None else "refuses it"
+        return Verdict(f"{note}; The Events Calendar REST not asked: robots.txt {why} "
+                       f"({ans.get('rule') or ans['status']})", "fail")
+    try:
+        r = _get_after(s, rest, ans, timeout=30)
+    except Exception as ex:                                       # noqa: BLE001
+        return Verdict(f"{note}; The Events Calendar REST unreachable "
+                       f"({type(ex).__name__}: {str(ex)[:60]})", "fail")
+    if r.status_code != 200:
+        return Verdict(f"{note}; The Events Calendar REST answers {r.status_code}", "fail")
+    try:
+        body = r.json()
+    except Exception:                                             # noqa: BLE001
+        body = None
+    evs = body.get("events") if isinstance(body, dict) else None
+    if not isinstance(evs, list):
+        return Verdict(f"{note}; the REST route answers 200 but not with "
+                       f"The Events Calendar's JSON", "fail")
+    if not evs:
+        return Verdict(f"{note}; The Events Calendar REST answers 200 with 0 upcoming", "empty")
+    try:
+        total = int(body.get("total") or len(evs))
+    except (TypeError, ValueError):
+        total = len(evs)
+    return Verdict(f"{note}; The Events Calendar REST lists {total} upcoming: the tribe "
+                   f"adapter would read it (a fix to propose, not an empty calendar)", "fail")
+
+
+# WHAT COUNTS AS A CALENDAR IS WHAT mapsee_ingest_ics READS. The adapter
+# decodes the body (_decode_ics: RFC 5545's UTF-8 when the server names no
+# charset), unfolds it, and takes every line that is exactly BEGIN:VEVENT; it
+# never looks for BEGIN:VCALENDAR. This verifier looked for that marker in the
+# first 400 characters only, so Forterra (Seattle) - whose WordPress prints
+# 8,120 characters of Elementor CSS before the calendar, `</style>BEGIN:VCALENDAR`
+# on one line - was "http 200 / no VCALENDAR" in the 2026-10-18 audit while
+# production kept 4 of 5 VEVENTs from it on 10-25, 10-27 and 10-28. Now the
+# VEVENTs are counted with the adapter's parse_ics, and a body with none is a
+# calendar when BEGIN:VCALENDAR appears anywhere in it.
 def verify_ics(s, e):
+    import mapsee_ingest_ics as ics
+    url = e["url"]
     key = mapsee_gcal.api_key()
-    if key and mapsee_gcal.calendar_id(e["url"]):
+    via_api = bool(key and mapsee_gcal.calendar_id(url))
+    if via_api:
         # The same text the ics adapter will parse; see mapsee_gcal.
         try:
-            txt = mapsee_gcal.fetch_as_ics(s, e["url"], key, timeout=60)
+            txt = mapsee_gcal.fetch_as_ics(s, url, key, timeout=60)
         except mapsee_gcal.GcalError as ex:
             return False, str(ex)[:90]
     else:
-        r = s.get(e["url"], timeout=60)
-        txt = r.text
-        if r.status_code != 200 or "BEGIN:VCALENDAR" not in txt[:400]:
-            return False, f"http {r.status_code} / no VCALENDAR"
+        fetch = "https://" + url[9:] if url.lower().startswith("webcal://") else url
+        r = s.get(fetch, timeout=60)
+        if r.status_code != 200:
+            note = f"http {r.status_code} / no VCALENDAR"
+            if r.status_code == 404 and _is_tribe_ical(url):
+                return False, tribe_ical_existence(s, url, note)
+            return False, note
+        txt = ics._decode_ics(r)[0]
+    events = ics.parse_ics(txt)
+    if not events:
+        if "BEGIN:VCALENDAR" not in txt:
+            note = "http 200 / no VCALENDAR"
+            if _is_tribe_ical(url):
+                return False, tribe_ical_existence(s, url, note)
+            return False, note
+        if _is_tribe_ical(url):
+            return False, tribe_ical_existence(s, url, "0 vevents / 0 future")
+        return False, empty_calendar_verdict(s, url, via_api)
     today = _today_int()
-    # Scope the scan to VEVENT BODIES. Scanning the whole file also catches the
+    # DTSTART of the VEVENTs only. Scanning the whole file also catches the
     # DTSTARTs inside VTIMEZONE STANDARD/DAYLIGHT sub-components, which carry
     # DST-transition dates - so a calendar whose real events all ended years ago
     # can report thousands of "future" dates and sail through this gate on
     # timezone metadata alone. (Seen in the wild: a dead market calendar
     # reporting "51 vevents / 15946 future" under two different URLs.)
-    bodies = re.findall(r"BEGIN:VEVENT(.*?)END:VEVENT", txt, re.S)
-    starts = [d for b in bodies for d in re.findall(r"^DTSTART[^:\n]*:(\d{8})", b, re.M)]
+    starts = [m.group(1) for ev in events
+              for m in [re.match(r"(\d{8})", str((ev.get("DTSTART") or ("",))[0]).strip())] if m]
     fut = sum(1 for d in starts if int(d) >= today)
-    return (fut > 0), f"{len(bodies)} vevents / {fut} future"
+    return (fut > 0), f"{len(events)} vevents / {fut} future"
 
 
 def verify_opendata(s, e):
@@ -540,15 +933,51 @@ def verify_opendata(s, e):
     # whose dates are human-formatted strings were passing this check with
     # nothing but archive rows behind them, so the sampled values have to parse
     # as real dates and actually be in the future.
+    #
+    # PARSED BY THE ADAPTER'S OWN READER, NOT A SECOND ONE. This check used to
+    # take the value's first ten characters as ISO, so a column the adapter
+    # reads perfectly well failed here: City of Calgary's `next_date_times`
+    # ("October 27 2026 1 - 4 p.m.") was "not a date column (sample: 'October
+    # 27')" in the 2026-10-18 audit while production kept 12 of 13 rows from it
+    # on 2026-10-28, and FEED_DOWN reported a working source. Now the date is
+    # whatever mapsee_ingest_opendata._iso_parts makes of it, and a row is
+    # future when the adapter's own past-event drop would keep it (its end
+    # date, else its start).
+    #
+    # WHAT IS REFUSED IS A VALUE WHOSE DATE IS NOT A DATE, NOT ONE WHOSE START
+    # PYTHON CANNOT READ. When neither fromisoformat nor the free-text reader
+    # takes a value, _iso_parts hands it back whole as the start and its first
+    # ten characters as the date key: "October 27" and "TBD" give a date key
+    # that is not YYYY-MM-DD, and are refused here ("not a date column"); the
+    # adapter emits them anyway and the sync's Postgres refuses the row
+    # (PostgreSQL 16.15, 2026-10-29: 'October 27'::timestamptz and
+    # 'TBD'::timestamptz both error). But "2026-11-27 7:00 PM" gives the date
+    # key 2026-11-27 and the start "2026-11-27 7:00 PM", which both this check
+    # and the adapter accept, and Postgres reads as 2026-11-27 19:00. So
+    # requiring a start Python can parse, here or in the adapter, would refuse
+    # a row the database keeps. The test here is an ISO date key; the adapter's
+    # is weaker (any date key, then its past-event drop), and Postgres has the
+    # last word on the start.
+    # (The review of 2026-10-29 found the earlier wording here claimed the
+    # opposite for this value without measuring it.)
     start_col = m.get("start")
     if start_col:
+        import mapsee_ingest_opendata as od
         today = _as_date(_today_int()).isoformat()
-        iso = [str(row.get(start_col) or "")[:10] for row in rows]
-        parseable = [v for v in iso if re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)]
-        if not parseable:
-            return False, f"'{start_col}' is not a date column (sample: {iso[0]!r})"
-        if not any(v >= today for v in parseable):
-            return False, f"no future rows (latest sampled {max(parseable)})"
+        iso_rx = re.compile(r"\d{4}-\d{2}-\d{2}")
+        raw = [row.get(start_col) for row in rows]
+        last_days = []
+        for row in rows:
+            day = od._iso_parts(od._get(row, start_col))[2] or ""
+            if not iso_rx.fullmatch(day):
+                continue
+            end = od._iso_parts(od._get(row, m.get("end")))[2] or ""
+            last_days.append(end if iso_rx.fullmatch(end) else day)
+        if not last_days:
+            return False, (f"'{start_col}' is not a date column "
+                           f"(sample: {str(raw[0] or '')[:40]!r})")
+        if not any(v >= today for v in last_days):
+            return False, f"no future rows (latest sampled {max(last_days)})"
     return True, f"{len(rows)} rows, sample: {rows[0].get(m.get('title',''))}"
 
 
@@ -635,27 +1064,64 @@ query($b:DateTime,$l:Int){
 }"""
 
 
+# A QUIET INSTANCE IS NOT A MISSING ONE, AND THE API SAYS WHICH. Measured
+# 2026-10-29 with the production UA (robots.txt asked first, though the
+# GraphQL API is documented): bosvreugdevents.nl and events.litera.tools
+# answered searchEvents(beginsOn: today) with 200 JSON, total 0 - and asked
+# from a year back, 41 and 5 events (206 and 98 since 2000; the latest
+# 2026-06-27 and 2026-09-30). A former instance answers something else:
+# ibb.info's /api is a 404 HTML page ("http 404", `fail` as before). So an
+# instance that answers the probe normally with nothing upcoming is asked once
+# more, from MOBILIZON_QUIET_DAYS back: events there make it `empty`, none
+# leaves it `fail` ("0 future events", an instance nobody uses). Round 2 kept
+# both `empty` by hand and the audit would have re-filed them.
+MOBILIZON_QUIET_DAYS = 365
+
+
+def _mobilizon_search(s, base, begins, limit):
+    """(node, why): the searchEvents node, or None and why the answer is not one."""
+    r = s.post(f"{base}/api", timeout=30,
+               json={"query": MOBILIZON_PROBE, "variables": {"b": begins, "l": limit}},
+               headers={"Content-Type": "application/json", "Accept": "application/json"})
+    if r.status_code != 200:
+        return None, f"http {r.status_code}"
+    try:
+        body = r.json() or {}
+    except Exception:  # noqa: BLE001
+        return None, "not json (is this a Mobilizon instance?)"
+    if not isinstance(body, dict):
+        return None, "not json (is this a Mobilizon instance?)"
+    if body.get("errors"):
+        return None, f"graphql: {str(body['errors'])[:70]}"
+    node = (body.get("data") or {}).get("searchEvents")
+    if not isinstance(node, dict):
+        return None, "no searchEvents in the answer"
+    return node, None
+
+
 def verify_mobilizon(s, e):
     base = (e.get("base_url") or "").rstrip("/")
     if not base:
         return False, "no base_url"
-    begins = _as_date(_today_int()).isoformat() + "T00:00:00Z"
-    r = s.post(f"{base}/api", timeout=30,
-               json={"query": MOBILIZON_PROBE, "variables": {"b": begins, "l": 5}},
-               headers={"Content-Type": "application/json", "Accept": "application/json"})
-    if r.status_code != 200:
-        return False, f"http {r.status_code}"
-    try:
-        body = r.json() or {}
-    except Exception:  # noqa: BLE001
-        return False, "not json (is this a Mobilizon instance?)"
-    if body.get("errors"):
-        return False, f"graphql: {str(body['errors'])[:70]}"
-    node = (body.get("data") or {}).get("searchEvents") or {}
+    today = _as_date(_today_int())
+    node, why = _mobilizon_search(s, base, today.isoformat() + "T00:00:00Z", 5)
+    if node is None:
+        return False, why
     rows = [x for x in (node.get("elements") or []) if x]
-    if not rows:
-        return False, "0 future events"
-    return True, f"{node.get('total', len(rows))} upcoming, sample: {str(rows[0].get('title'))[:40]}"
+    if rows:
+        return True, f"{node.get('total', len(rows))} upcoming, sample: {str(rows[0].get('title'))[:40]}"
+    since = today - datetime.timedelta(days=MOBILIZON_QUIET_DAYS)
+    past, why = _mobilizon_search(s, base, since.isoformat() + "T00:00:00Z", 1)
+    if past is None:
+        return False, f"0 future events; the look back answered {why}"
+    try:
+        held = int(past.get("total") or 0)
+    except (TypeError, ValueError):
+        held = 0
+    if held:
+        return False, Verdict(f"0 future events; the instance answers, with {held} events "
+                              f"since {since.isoformat()}", "empty")
+    return False, f"0 future events; none since {since.isoformat()} either"
 
 
 # --- venue-site verifiers ---------------------------------------------------
@@ -688,6 +1154,19 @@ def verify_tribe(s, e):
     evs = body.get("events") or []
     total = int(body.get("total") or len(evs))
     if not evs:
+        # A QUIET CALENDAR IS NOT A REMOVED ONE, AND THE ROUTE SAYS WHICH. The
+        # plugin answers its own JSON (`events`, `total`, `total_pages`) with an
+        # empty list when nothing is on; a WordPress without it answers 404
+        # `rest_no_route`, and a site that left WordPress a 404 page. "0 events
+        # / 0 future" fell outside _EMPTY_RX (it needs N > 0), so every quiet
+        # site was `fail`: 45 of the 69 configured tribe `fail` rows on
+        # 2026-10-29. That day the 36 kept `empty` by hand all answered 200
+        # JSON with an empty list (1 to 146 events in the past year), and the
+        # removed plugins 404 (Sacré-Cœur, Pittsburg, 't Reghthuys
+        # rest_no_route; Cirkel Ordenen, Lemoore, Lawrence a page).
+        if isinstance(body.get("events"), list):
+            return False, Verdict(f"{_future_note(total, 0)}; The Events Calendar REST "
+                                  f"answers 200 with 0 upcoming", "empty")
         return False, _future_note(total, 0)
     fut = [x for x in evs if str(x.get("start_date") or "")[:10] >= today.isoformat()]
     if not fut:
@@ -776,12 +1255,52 @@ def verify_squarespace(s, e):
     return True, f"{len(fut)}/{len(every)} upcoming"
 
 
+# MODERN EVENTS CALENDAR WITH NOTHING ON prints its no-events text where the
+# list would be: an events container holding that text and no markup. Measured
+# 2026-10-29 on the two round-2 agendas the audit re-files `fail` "no
+# schema.org Event blocks found": New Rock (newrockescalade.be,
+# `<div class="mec-skin-list-events-container" id="mec_skin_events_6270">`
+# holding 'Aucun événement trouvé !', no view beacon) and MEERGroen
+# (stichtingmeergroen.nl/evenementen/, MEC lite, 'Geen evenementen gevonden!'
+# and a `data-count="0"` view beacon), 0 `mec-event-article` on either. The
+# text is translated, so the SHAPE is matched: every events container on the
+# page holds text only (a populated list puts `<article
+# class="mec-event-article">` inside it). A removed page answers 404 and a
+# removed shortcode prints no container, so neither reads as quiet. The text
+# must have a visible character: a container holding only whitespace says
+# nothing (a script may fill it), and is not quiet (review of 2026-10-29).
+_MEC_CONTAINER_RX = re.compile(r'<div class="mec-skin-[a-z-]+-events-container"', re.I)
+_MEC_EMPTY_RX = re.compile(r'<div class="mec-skin-[a-z-]+-events-container"[^>]*>\s*(\S[^<>]{0,119}?)\s*</div>',
+                           re.I)
+
+
+def mec_no_events(html):
+    """MEC's no-events text when every events container on the page holds
+    nothing else, else None."""
+    html = html or ""
+    containers = len(_MEC_CONTAINER_RX.findall(html))
+    texts = _MEC_EMPTY_RX.findall(html)
+    if not containers or len(texts) != containers or "mec-event-article" in html:
+        return None
+    return texts[0].strip()
+
+
 def verify_jsonld(s, e):
     """Follow a few of the listing's event links and read their Event blocks.
 
     Capped hard: verification must not cost the 150-page crawl the real run is
     allowed. Finding future events on the first handful is enough to prove the
     shape; whether the tail is worth having is what max_events decides later.
+
+    A FAILING NOTE SAYS WHAT THE LINKS ANSWERED. A non-200 event page used to
+    be dropped without a word, so the 2026-10-18 audit's "no schema.org Event
+    blocks found" on 18 Wix listings production kept events from could not be
+    explained afterwards (review of 2026-10-29). Now it carries how many link
+    pages the listing had, how many were fetched, what each non-200 answered
+    and how many robots.txt disallows (those are not fetched, and do not fail
+    an entry on their own: when every page sampled is disallowed, the verdict
+    is `refused`, with the rule). The wording never says "http 403", which
+    _verify_with_retry would read as the LISTING's transport failure.
     """
     listing = e.get("listing") or []
     listing = listing if isinstance(listing, list) else [listing]
@@ -807,16 +1326,37 @@ def verify_jsonld(s, e):
                 if str(item.get("startDate") or "")[:10] >= today:
                     future += 1
 
+    # robots.txt for a link page: the audit's shared reader (asked before the
+    # listing already), else one reader for this call.
+    pace = getattr(s, "pace", None)
+    reader, rules = [], []
+
+    def disallowed(u):
+        if pace is not None:
+            ans = pace.robots_check(s.raw, u)
+        else:
+            if not reader:
+                reader.append(robots_txt.Robots(s))
+            ans = reader[0].check(u)
+        if ans["allowed"] is False and ans["status"] == "ok":
+            rules.append(ans.get("rule") or "?")
+            return True
+        return False
+
     _count(r.text)
     pat = e.get("link_pattern")
     tmpl = e.get("url_template")
+    detail = ""
     if pat and not future:
         urls = list(dict.fromkeys(re.findall(pat, r.text)))
+        listed = len(urls)
         # Both ends of the list, still six fetches at most. A calendar listed
         # oldest-first keeps its future at the END: Centretown CHC's Wix page
         # (Ottawa, 76 upcoming drop-ins) lists 116 slugs and the first upcoming
         # one is the 41st, so the first six could only ever say "none future".
         urls = urls if len(urls) <= 6 else urls[:3] + urls[-3:]
+        fetched = refused = 0
+        codes, errors = {}, {}
         for u in urls:
             u = u if isinstance(u, str) else u[0]
             # url_template is not decoration: a Wix site's link_pattern captures a
@@ -825,19 +1365,50 @@ def verify_jsonld(s, e):
             # nothing, so every Wix candidate failed verification for a reason
             # that had nothing to do with the site. ingest_site applies it; so
             # must whatever decides whether ingest_site would work.
-            u = tmpl.format(u) if tmpl else u
-            try:
-                rr = s.get(urljoin(listing[0], u), timeout=25)
-            except Exception:                                     # noqa: BLE001
+            page = urljoin(listing[0], tmpl.format(u) if tmpl else u)
+            if disallowed(page):
+                refused += 1
                 continue
+            try:
+                rr = s.get(page, timeout=25)
+            except Exception as ex:                               # noqa: BLE001
+                errors[type(ex).__name__] = errors.get(type(ex).__name__, 0) + 1
+                continue
+            fetched += 1
             if rr.status_code == 200:
                 _count(rr.text)
+            else:
+                codes[rr.status_code] = codes.get(rr.status_code, 0) + 1
             if future:
                 break
+        if listed:
+            said = [f"{fetched} fetched"
+                    + (" (" + ", ".join(f"{n} answered {c}" for c, n in sorted(codes.items())) + ")"
+                       if codes else "")]
+            said += [f"{n} not answered ({why})" for why, n in sorted(errors.items())]
+            if refused:
+                said.append(f"{refused} disallowed by robots.txt")
+            detail = f"; {len(urls)} link page(s) of {listed}: " + ", ".join(said)
+            # EVERY LINK PAGE DISALLOWED is robots.txt's answer, not the
+            # feed's: nothing was read, and the adapter (which asks robots.txt
+            # for each page too) would read nothing either. `refused`, with the
+            # rule, never `fail`, which FEED_DOWN would report as a dead feed
+            # (review of 2026-10-29). The listing itself was let through by
+            # the robots.txt gate that runs before a verifier (the audit's,
+            # or verify's _robots_gate).
+            if urls and refused == len(urls):
+                return False, Verdict(f"robots.txt disallows every link page sampled "
+                                      f"({refused} of {listed}): {rules[0]}{detail}", "refused")
+        else:
+            detail = "; no link matches link_pattern"
     if not seen_events:
-        return False, "no schema.org Event blocks found"
+        quiet = mec_no_events(r.text)
+        if quiet is not None:
+            return False, Verdict(f"no schema.org Event blocks found; Modern Events Calendar "
+                                  f"prints its no-events text ('{quiet[:40]}'){detail}", "empty")
+        return False, "no schema.org Event blocks found" + detail
     if not future:
-        return False, _future_note(seen_events, 0)
+        return False, _future_note(seen_events, 0) + detail
     return True, f"{future}/{seen_events} sampled events future"
 
 
@@ -1786,6 +2357,7 @@ def _civic_batch(civic, session, probe_s, cursor, country, per_run, deadline,
     if noms:
         print(f"  {len(noms)} of them name a tourism board on Wikipedia")
 
+    declined = _declined_keys()
     read = 0
     for place in places:
         if deadline and time.time() >= deadline:
@@ -1822,6 +2394,10 @@ def _civic_batch(civic, session, probe_s, cursor, country, per_run, deadline,
                 ckey = _canon(_key_of(cand))
                 if ckey in seen_keys or _dead_recently(led, ckey):
                     bump("configured"); continue
+                if ckey in declined:
+                    bump("declined"); continue
+                if (led.get(ckey) or {}).get("status") == "held":
+                    bump("held"); continue
                 # The country SPELLED OUT, like the venue backend's label.
                 # `_metro` is written into the shipped config (1,247 ics entries
                 # carry one), so "Bern, CH" is a line a curator reads and a
@@ -1987,10 +2563,12 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             if _dead_recently(led, lkey):
                 bump("known-dead")
                 return
+            # Held for the owner, a personal address or a ruling still owed
+            # (see cmd_verify): not proposed again until the owner decides.
+            if (led.get(lkey) or {}).get("status") == "held":
+                bump("held")
+                return
             if held:
-                if (led.get(lkey) or {}).get("status") == "held":
-                    bump("held")
-                    return
                 cand["_home"] = v.get("url")      # for the owner's list; merge never writes it
             # TWO VENUES, ONE CALENDAR (a city's events page linked from each
             # of its centres): the FIRST in map order proposes it, whichever
@@ -2224,7 +2802,14 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             if home in seen_keys:
                 bump("configured")
                 continue
-            if home in declined:
+            # A SITE DECLINED WHOLE (a bare host in `_not_included`: Lotto
+            # Arena's, whose event pages answer through a third party's
+            # sign-in) is declined under any page of it. 25,303 of the
+            # 72,884 osm-venue homes in the ledger on 2026-10-29 carry a path,
+            # so an OSM `website` can name a page and miss the bare host.
+            # One home did then: gldf.org/ronchin-59.html, probed 10-28 to
+            # find gldf.org's calendar, whose site tribe_sources.json declines.
+            if home in declined or re.split(r"[/?]", home, maxsplit=1)[0] in declined:
                 bump("declined")
                 continue
             if _dead_recently(led, home):
@@ -2380,6 +2965,36 @@ def _not_included(fname):
     if not isinstance(doc, dict):
         return set()
     return {_canon(u) for u in (doc.get("_not_included") or {})}
+
+
+# AN EDITORIAL NO HOLDS EVERYWHERE A SOURCE CAN COME BACK, not only in the walk
+# that read it first. The 16 CivicPlus booking calendars the corrections
+# retired on 2026-10-29 (renters' names, "Reserved", trailer rotas) were all
+# found by the civic walk (`civic:city -> civicplus[...]`), and the civic walk,
+# `verify` and `merge` read no `_not_included`: only the venue walk and
+# Mobilizon discovery did. 10 of the 16 ledger rows were still `ok`, so when
+# the walk reached those cities again it would have proposed them, verify
+# passed them and the weekly sweep merged them back (review of 2026-10-29).
+# Every CONFIG file's map counts, keyed as _not_included keys them; an iCal
+# feed's record lives in jsonld_sources.json's, because ics_sources.json is a
+# bare list.
+def _declined_keys():
+    """Every key in every CONFIG file's `_not_included` map, canonicalised."""
+    out = set()
+    for fname in sorted({f for f, _k in CONFIG.values()}):
+        out |= _not_included(fname)
+    return out
+
+
+def _entry_keys(e):
+    """Every canonical key an entry could be configured or declined under:
+    its ledger key, and for jsonld every listing URL."""
+    keys = {_canon(_key_of(e))}
+    if e.get("type") == "jsonld":
+        listing = e.get("listing") or []
+        keys |= {_canon(u) for u in (listing if isinstance(listing, list) else [listing])
+                 if isinstance(u, str) and u}
+    return {k for k in keys if k}
 
 
 def _discover_mobilizon(session, seen_keys, led, limit):
@@ -2708,6 +3323,7 @@ def cmd_verify(path, recheck=False, ttl=90):
     robots = robots_txt.Robots(s)
     led = _load_ledger()
     in_config = _config_keys()
+    declined = _declined_keys()
     chipublib_configured = _chipublib_configured()
     passed, skipped = [], 0
     for e in cands:
@@ -2722,6 +3338,11 @@ def cmd_verify(path, recheck=False, ttl=90):
             continue
         if not recheck and key in in_config:
             print(f"[SKIP] {t:8} already in config: {e.get('name','?')[:44]}")
+            skipped += 1
+            continue
+        # Not even with --recheck: an editorial no is not a stale verdict.
+        if _entry_keys(e) & declined:
+            print(f"[SKIP] {t:8} declined on the record (_not_included): {e.get('name','?')[:40]}")
             skipped += 1
             continue
         if _blocked_cpl_opendata(e, chipublib_configured):
@@ -2740,7 +3361,13 @@ def cmd_verify(path, recheck=False, ttl=90):
                   f"{e.get('name','?')[:36]}")
             skipped += 1
             continue
-        if held and not recheck and (rec or {}).get("status") == "held":
+        # Held for the owner: a personal-address calendar (its row is under
+        # _held_key), or any verified feed the owner was asked to rule on
+        # first (Los Ranchos de Albuquerque's CivicPlus catIDs 24 and 23,
+        # 2026-10-29: the lowercase `Disallow: /common/modules/icalendar/`).
+        # --recheck re-verifies a personal-address one (it is held again
+        # below); a ruling still owed is not a stale verdict, so never.
+        if (rec or {}).get("status") == "held" and not (recheck and held):
             print(f"[SKIP] {t:8} held for the owner since {rec.get('checked')}: "
                   f"{e.get('name','?')[:36]}")
             skipped += 1
@@ -2973,8 +3600,14 @@ def _held_key(e):
 def cmd_merge(path):
     verified = json.load(open(path, encoding="utf-8"))
     chipublib_configured = _chipublib_configured()
+    declined = _declined_keys()
     by_type = {}
     for e in verified:
+        if _entry_keys(e) & declined:
+            # The name only, like [HOLD]: this line goes to the step summary.
+            print(f"[SKIP] {e.get('type')} {e.get('name', '?')[:50]}: declined on the record "
+                  f"(_not_included)")
+            continue
         why = _held(e)
         if why:
             # The name only: this line goes to the public step summary.
@@ -3140,10 +3773,11 @@ def cmd_reapply(outdir):
 
     led_p = os.path.join(outdir, "curation_ledger.json")
     if os.path.exists(led_p):
-        # A snapshot taken while the sweep was being CANCELLED can be a
-        # half-written file; _save_ledger truncates before it dumps. Losing this
-        # run's probes then costs a repeat, where raising costs the cursor, the
-        # coverage line and every verified source in the same step.
+        # _save_ledger writes a temp file and renames it (since 2026-10-29), so
+        # the ledger it leaves is always whole; the SNAPSHOT is a `cp` of it,
+        # and a step cancelled mid-copy can still leave half a file here.
+        # Losing this run's probes then costs a repeat, where raising costs the
+        # cursor, the coverage line and every verified source in the same step.
         try:
             base, ours = _load_ledger(), _load_ledger_at(led_p)
         except Exception as exc:  # noqa: BLE001
@@ -3196,46 +3830,514 @@ def cmd_reapply(outdir):
     return 0
 
 
-def cmd_audit():
-    s = _session()
-    led = _load_ledger()
-    stale = quiet = 0
+# THE WEEKLY AUDIT IS A ROTATION, BECAUSE IT NO LONGER FITS ITS JOB. On
+# 2026-10-04 it probed 3,240 configured feeds in 94 minutes. On 2026-10-25
+# (run 40179210416) the configs held 5,568 entries in the files it reached and
+# the probe step ran 09:05:35-13:06:03Z: localist 57 in 1.3 min, ics 2,931 in
+# 108.3, tribe 1,501 in 110.2, and 311 of jsonld's 785 when the job's
+# 240-minute cap cancelled it. 5,094 probes, and nothing kept: the snapshot was
+# copied inside the cancelled step and the commit step was skipped. Where the
+# time went is not where the probes are: the median probe took 0.69 s, but 67
+# probes over 60 s (1.3%) took 133.4 of the 240 minutes, each a connect or read
+# timeout asked three times (VERIFY_RETRIES) at 60 s apiece.
+#
+# So a run is a BUDGET and an ORDER. `--max-minutes` starts no probe after the
+# deadline (the ledger is saved at once, and the ones running get AUDIT_GRACE_S
+# to finish and be recorded); every entry goes in the
+# order of its ledger row's `checked`, never-checked first, across all the
+# config files, so a run the budget cuts short is where the next one starts
+# instead of the head of ics_sources.json again; and the ledger is saved every
+# AUDIT_SAVE_EVERY probes and on the way out, however the way out happens. An
+# entry no probe reached keeps its old row: a run never writes a verdict about
+# a feed it did not ask.
+AUDIT_SAVE_EVERY = 200
+
+# Probes at once. Never two on one host (the ingest adapters never ask one host
+# twice at once either, and a CivicPlus city or a Google calendar API host is a
+# long same-host queue), so the stalls above wait side by side instead of end
+# to end. 1 is the old one-at-a-time loop. See the workflow for what it runs.
+AUDIT_WORKERS = 1
+
+
+def _audit_plan(led):
+    """Every configured entry, the one the ledger checked longest ago first.
+
+    [(checked, seq, type, fname, key, entry)]; a row never checked sorts as 0,
+    and a tie keeps CONFIG and file order. A config file that is missing or
+    does not parse is reported and left out, not a reason to probe nothing.
+
+    A TYPE WITH NO VERIFIER IS LEFT OUT, SAID ONCE, ITS ROWS UNTOUCHED.
+    `mylisting` is in CONFIG (so discovery knows what is configured) and in no
+    VERIFIERS entry. Planned anyway, every probe raised KeyError inside the
+    worker and was recorded `fail` "KeyError: 'mylisting'" (review of
+    2026-10-29), and FEED_DOWN, which reads mylisting_sources.json, then
+    reported Bainbridge Island daily while production kept 556 of 592
+    occurrences from it on 10-28. A missing verifier is not a verdict.
+    """
+    plan = []
     for t, (fname, key) in CONFIG.items():
+        if t not in VERIFIERS:
+            print(f"audit: no verifier for `{t}` ({fname}): its entries are not probed "
+                  f"and keep their ledger rows", flush=True)
+            continue
         fpath = os.path.join(HERE, fname)
-        # _entries(), not a bare json.load: ods_sources.json nests its list under
-        # "sources", so iterating the raw object walks the dict KEYS ("_comment",
-        # "sources") and blows up on dict(e, type=t). Same trap that hit
-        # _coverage_rows(); every reader of these configs must go through here.
-        cur = _entries(fname, json.load(open(fpath, encoding="utf-8")))
-        print(f"\n=== {fname} ({len(cur)}) ===")
+        try:
+            # _entries(), not a bare json.load: ods_sources.json nests its list
+            # under "sources", so iterating the raw object walks the dict KEYS.
+            cur = _entries(fname, json.load(open(fpath, encoding="utf-8")))
+        except (OSError, ValueError) as exc:
+            print(f"::warning::audit: {fname} not read ({type(exc).__name__}: "
+                  f"{str(exc)[:60]}) - its entries keep their old ledger rows")
+            continue
         for e in cur:
-            e2 = dict(e, type=t)
-            # Retried, unlike verification of a fresh candidate: a candidate that
-            # times out costs nothing to skip and can be proposed again next week,
-            # but a CONFIGURED feed marked dead here is parked for 90 days and
-            # reported as a regression. The two are not the same bet.
-            ok, note = _verify_with_retry(VERIFIERS[t], s, e2)
-            status = _status_for(ok, note)
-            if status == "fail":
-                stale += 1
-            elif status == "empty":
-                quiet += 1
-            led[_canon(_key_of(e2))] = {"type": t, "name": e.get("name"),
-                                        "status": status, "reason": note,
-                                        "checked": _today_int()}
-            mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
-            # jsonld's key, `listing`, is a LIST. Slicing it and formatting the
-            # slice with :60 raised TypeError on the first jsonld entry, and the
-            # one save sat after the loop, so every Sunday since mid-September
-            # threw the whole audit away: 2026-10-04 probed 3,240 feeds in 94
-            # minutes (211 broken) and the commit step found "ledger unchanged".
-            shown = e.get(key, "?")
-            shown = (shown[0] if shown else "?") if isinstance(shown, list) else shown
-            print(f"[{mark}] {str(shown)[:60]:60} {note}", flush=True)
-        _save_ledger(led)     # per file, so a later crash cannot discard what was probed
-    _save_ledger(led)
-    print(f"\n{stale} entries are BROKEN (unreachable, or no longer a feed).")
-    print(f"{quiet} entries parse fine but have nothing upcoming — kept, not a regression.")
+            if not isinstance(e, dict):
+                continue
+            rec = led.get(_canon(_key_of(dict(e, type=t)))) or {}
+            try:
+                checked = int(rec.get("checked") or 0)
+            except (TypeError, ValueError):
+                checked = 0
+            plan.append((checked, len(plan), t, fname, key, e))
+    plan.sort(key=lambda p: (p[0], p[1]))
+    return plan
+
+
+# CRAWL-DELAY IN THE AUDIT. The audit asked a host as fast as its probes
+# came back: a host's next probe started the moment the last one ended, and
+# the CivicPlus list read went out right after the feed. CivicPlus's stock
+# robots.txt asks `Crawl-delay: 10` (35 of the 35 sampled hosts' files that
+# could be read, 2026-10-29), LibCal's 10 (leeds, smu-sg), and only 15 of the
+# 1,270 configured CivicPlus feeds carry `crawl_delay`. Now every request the
+# audit makes to a host waits out that host's delay since its last request:
+# the larger of what its robots.txt asks and what its entries' `crawl_delay`
+# asks (_AuditPace). Between probes nobody sleeps: the scheduler starts a
+# host's next probe only once the host is ready, and works on other hosts
+# meanwhile. Inside a probe (a retry, the CivicPlus list, The Events Calendar's
+# REST test, a jsonld follow-up page) the worker waits, but never longer than
+# AUDIT_MAX_CRAWL_DELAY_S: a request that would need longer is not sent, rather
+# than asking sooner than the host said, and the probe decides nothing: the
+# entry keeps its row (_audit_each). 30 s
+# is the walk's cap too (OSM_MAX_CRAWL_DELAY_S) and three times the stock
+# CivicPlus and LibCal value; a worker asleep for a 3,600 s delay would carry
+# the run past its deadline. A documented public API (DOCUMENTED_API_TYPES)
+# is not asked for robots.txt, so only an entry's own `crawl_delay` paces it.
+AUDIT_MAX_CRAWL_DELAY_S = 30.0
+
+# WHEN THE BUDGET RUNS OUT, THE LEDGER IS SAVED FIRST AND THE STRAGGLERS GET
+# A BOUNDED GRACE. The wait on probes still running had no timeout, and a
+# server that trickles bytes holds a probe past `timeout=60` (it bounds each
+# read, not the response): on 2026-10-25 the runner killed python 0.25 s after
+# "The operation was canceled", taking up to 199 recorded probes and both
+# summary lines with it. Now the ledger is written the moment the deadline
+# cuts, then the running probes get AUDIT_GRACE_S to finish (three tries of a
+# 60 s timeout plus a list read is under 5 minutes), and any still running are
+# abandoned unrecorded: their entries keep their old rows and go first next
+# run. 200 + 5 minutes sits inside the probe step's 215. The workers are
+# daemon threads, so an abandoned one cannot hold the interpreter open.
+AUDIT_GRACE_S = 300.0
+
+# How long the scheduler blocks at most before it looks at the clock again.
+AUDIT_POLL_S = 1.0
+
+
+class AuditCrawlDelay(requests.exceptions.RequestException):
+    """A request that would wait out more than AUDIT_MAX_CRAWL_DELAY_S: not sent."""
+
+
+class _AuditPace:
+    """When each host may next be asked, for the audit: its last request plus
+    its Crawl-delay (robots.txt or the entries', the larger). Shared by every
+    worker; robots.txt is read once per origin per run, by whichever worker
+    needs it first, and robots.txt reads are not themselves paced."""
+
+    def __init__(self, entry_delays=None, cap=AUDIT_MAX_CRAWL_DELAY_S, robots_timeout=15.0):
+        import threading
+        self.entry = dict(entry_delays or {})        # host -> the configs' crawl_delay
+        self.cap = float(cap)
+        self.robots_timeout = robots_timeout
+        self._lock = threading.Lock()
+        self._last = {}                               # host -> time.time() of its last request
+        self._asked = {}                              # host -> robots.txt Crawl-delay (0 if none)
+        self._robots = {}                             # origin -> [Lock, Robots | None]
+        self.robots_read = self.waits = 0
+        self.waited = 0.0
+
+    def robots_check(self, raw, url):
+        """robots.txt's answer for `url`, the file read once per origin."""
+        import threading
+        origin = robots_txt.origin_of(url)
+        with self._lock:
+            slot = self._robots.setdefault(origin, [threading.Lock(), None])
+        with slot[0]:
+            if slot[1] is None:
+                slot[1] = robots_txt.Robots(raw, timeout=self.robots_timeout)
+                with self._lock:
+                    self.robots_read += 1
+            ans = slot[1].check(url)
+        try:
+            asked = float(ans.get("crawl_delay") or 0)
+        except (TypeError, ValueError):
+            asked = 0.0
+        host = _probe_host(url)
+        with self._lock:
+            self._asked[host] = max(self._asked.get(host, 0.0), asked)
+        return ans
+
+    def knows(self, host):
+        with self._lock:
+            return host in self._asked
+
+    def delay(self, host):
+        with self._lock:
+            return max(self.entry.get(host, 0.0), self._asked.get(host, 0.0))
+
+    def ready_at(self, host):
+        """The earliest time.time() at which `host` may be asked again."""
+        with self._lock:
+            last = self._last.get(host)
+        return 0.0 if last is None else last + self.delay(host)
+
+    def before(self, raw, url, exempt=False):
+        """Called before every request: wait out the host's delay, then mark it."""
+        host = _probe_host(url)
+        with self._lock:
+            seen = host in self._last
+        if seen and not exempt and not self.knows(host):
+            self.robots_check(raw, url)               # a second request: now it matters
+        wait = self.ready_at(host) - time.time()
+        if wait > self.cap:
+            raise AuditCrawlDelay(f"{host} asks Crawl-delay {self.delay(host):g} s; "
+                                  f"over the {self.cap:g} s a probe waits")
+        if wait > 0:
+            time.sleep(wait)
+            with self._lock:
+                self.waits += 1
+                self.waited += wait
+        with self._lock:
+            self._last[host] = time.time()
+
+
+class _AuditSession:
+    """A worker's session as the verifiers see it: every GET and POST goes
+    through the run's _AuditPace first. `raw` is the session underneath, which
+    robots.txt is read with. One per probe: `undecided` is set when the pacing
+    refused to send one of its requests (AuditCrawlDelay), so a probe whose
+    verifier swallowed that refusal into a note is still known undecided."""
+
+    def __init__(self, raw, pace, exempt=False):
+        self.raw, self.pace, self.exempt = raw, pace, exempt
+        self.undecided = None
+
+    @property
+    def headers(self):
+        return getattr(self.raw, "headers", {})
+
+    def _before(self, url):
+        try:
+            self.pace.before(self.raw, url, self.exempt)
+        except AuditCrawlDelay as ex:
+            self.undecided = str(ex)
+            raise
+
+    def get(self, url, **kw):
+        self._before(url)
+        return self.raw.get(url, **kw)
+
+    def post(self, url, **kw):
+        self._before(url)
+        return self.raw.post(url, **kw)
+
+
+def _audit_host(t, e):
+    """The host a probe of `e` asks: what the probes are serialised on."""
+    reqs = _ingest_requests(t, e)
+    return _probe_host(reqs[0][1]) if reqs else str(_key_of(e))
+
+
+def _entry_delays(plan):
+    """host -> the largest `crawl_delay` any configured entry on it asks."""
+    out = {}
+    for item in plan:
+        t, e = item[2], item[5]
+        try:
+            d = float(e.get("crawl_delay") or 0)
+        except (TypeError, ValueError):
+            d = 0.0
+        if d > 0:
+            h = _audit_host(t, dict(e, type=t))
+            out[h] = max(out.get(h, 0.0), d)
+    return out
+
+
+def _audit_probe(s, t, e):
+    # Retried, unlike verification of a fresh candidate: a candidate that times
+    # out costs nothing to skip and can be proposed again next week, but a
+    # CONFIGURED feed marked dead here is parked for 90 days and reported as a
+    # regression. The two are not the same bet.
+    return _verify_with_retry(VERIFIERS[t], s, e)
+
+
+# THE AUDIT ASKS ROBOTS.TXT BEFORE AN ENTRY'S FIRST REQUEST, AND OBEYS IT.
+# It read the file for the Crawl-delay alone, then fetched a feed the file
+# disallows and filed it ok, empty or fail, never `refused` (review of
+# 2026-10-29; round 2 found two such refusals by hand: OEC Korfbal's
+# `Disallow: /`, Mathallen's `/*?*ical=`). Now an explicit Disallow of a
+# request the ingest adapter makes (_ingest_requests, as verify's
+# _robots_gate asks) is recorded `refused` with the rule and nothing is
+# fetched, so a host that starts refusing us is found the next Sunday. A
+# robots.txt that cannot be read (unreachable, a challenge) is probed as
+# before: not being able to read the file is not a verdict about the feed. A
+# documented public API is not asked (DOCUMENTED_API_TYPES). A Google calendar
+# with no Calendar API key is not probed at all and keeps its row, as verify
+# skips it: robots.txt refuses its export, and the key is a setting, not a
+# verdict about the calendar.
+def _audit_robots(pace, raw, t, e):
+    """None to probe; (False, Verdict 'refused') on an explicit Disallow;
+    (None, why) when the entry is not decided this run."""
+    if t == "ics" and mapsee_gcal.calendar_id(e.get("url") or "") and not mapsee_gcal.api_key():
+        return None, (f"not decided: a Google calendar needs {mapsee_gcal.KEY_ENV} "
+                      f"(its iCal export is refused by robots.txt)")
+    for method, url in _ingest_requests(t, e):
+        ans = pace.robots_check(raw, url)
+        if ans["allowed"] is False and ans["status"] == "ok":
+            return False, Verdict(f"robots.txt: {ans['rule']} "
+                                  f"({method} {robots_txt.request_path(url)[:60]})", "refused")
+    return None
+
+
+def _daemon_pool(n, fn):
+    """`n` daemon worker threads running fn(*args): (submit, close).
+
+    Daemon, unlike ThreadPoolExecutor's, whose workers the interpreter joins
+    at exit: a probe abandoned after the grace would otherwise hold python
+    open until the step's timeout killed it, which is the 2026-10-25 failure.
+    """
+    import concurrent.futures as cf
+    import queue
+    import threading
+    jobs = queue.Queue()
+
+    def run():
+        while True:
+            got = jobs.get()
+            if got is None:
+                return
+            fut, args = got
+            if not fut.set_running_or_notify_cancel():
+                continue
+            try:
+                fut.set_result(fn(*args))
+            except BaseException as exc:                          # noqa: BLE001
+                fut.set_exception(exc)
+
+    for i in range(n):
+        threading.Thread(target=run, name=f"audit-{i}", daemon=True).start()
+
+    def submit(*args):
+        fut = cf.Future()
+        jobs.put((fut, args))
+        return fut
+
+    def close():
+        for _ in range(n):
+            jobs.put(None)
+
+    return submit, close
+
+
+def _audit_each(plan, deadline, workers, record, pace=None, on_cut=None, grace=None,
+                undecided=None):
+    """Probe `plan` in order, `workers` at once, never two on one host and
+    never a host before its Crawl-delay is out (`pace`); record(item, ok,
+    note) on THIS thread as each one comes back.
+
+    Returns (cut, abandoned): cut is True when the deadline stopped it before
+    the end; abandoned the items still running `grace` seconds after it,
+    left unrecorded. The deadline is checked before every probe is started;
+    when it cuts, on_cut() runs first (the caller saves the ledger), then the
+    probes already running get the grace. A worker's exception is the probe's
+    note, never the run's end; an interrupt is re-raised here.
+
+    A PROBE THE PACING STOPPED IS NOT DECIDED. When a request inside it would
+    have to wait out more than AUDIT_MAX_CRAWL_DELAY_S it is not sent
+    (AuditCrawlDelay), and whatever the verifier then said (a CivicPlus list
+    "unreadable", "REST unreachable", a retry's "AuditCrawlDelay: ..." in place
+    of the 503 before it) was decided by no server. Such a probe, and one
+    _audit_robots will not start, goes to undecided(item, note), never to
+    record: the entry keeps its old row, like an abandoned probe.
+    """
+    import concurrent.futures as cf
+    import threading
+    grace = AUDIT_GRACE_S if grace is None else float(grace)
+    local = threading.local()
+    todo = []
+    for item in plan:
+        t = item[2]
+        todo.append((item, _audit_host(t, dict(item[5], type=t))))
+
+    def probe(t, e, host):
+        raw = getattr(local, "s", None)
+        if raw is None:
+            raw = local.s = _session()
+        if pace is None:
+            return _audit_probe(raw, t, e)
+        exempt = t in DOCUMENTED_API_TYPES
+        if not exempt:
+            # Read before the entry's first request, every host: its Disallow
+            # decides whether to ask at all, and its Crawl-delay when the
+            # host's next probe may start.
+            gate = _audit_robots(pace, raw, t, e)
+            if gate is not None:
+                return gate
+        s = _AuditSession(raw, pace, exempt)
+        ok, note = _audit_probe(s, t, e)
+        if not ok and s.undecided:
+            return None, f"not decided: {s.undecided}"
+        return ok, note
+
+    def ready(host, now):
+        return pace is None or pace.ready_at(host) <= now
+
+    submit, close = _daemon_pool(max(1, int(workers)), probe)
+    inflight, busy = {}, set()
+    cut, grace_end = False, None
+    try:
+        while todo or inflight:
+            now = time.time()
+            if not cut and deadline and now >= deadline:
+                cut = True
+                if on_cut:
+                    on_cut(len(inflight))
+                grace_end = time.time() + grace
+            while not cut and todo and len(inflight) < workers:
+                pick = next((i for i, (_it, h) in enumerate(todo)
+                             if h not in busy and ready(h, now)), None)
+                if pick is None:
+                    break                 # every waiting host is mid-probe or in its delay
+                item, host = todo.pop(pick)
+                busy.add(host)
+                t = item[2]
+                inflight[submit(t, dict(item[5], type=t), host)] = (item, host)
+            if cut and not inflight:
+                break
+            if cut:
+                timeout = grace_end - time.time()
+                if timeout <= 0:
+                    break                 # the grace is spent: abandon what is left
+            else:
+                timeout = AUDIT_POLL_S
+                if deadline:
+                    timeout = min(timeout, max(0.0, deadline - now))
+                if pace is not None and todo and len(inflight) < workers:
+                    waiting = [pace.ready_at(h) for _it, h in todo if h not in busy]
+                    if waiting:
+                        timeout = min(timeout, max(0.0, min(waiting) - now))
+            if not inflight:
+                time.sleep(timeout)
+                continue
+            done, _ = cf.wait(list(inflight), timeout=min(timeout, AUDIT_POLL_S),
+                              return_when=cf.FIRST_COMPLETED)
+            for fut in [f for f in inflight if f in done]:
+                item, host = inflight.pop(fut)
+                busy.discard(host)
+                try:
+                    ok, note = fut.result()
+                except Exception as exc:                          # noqa: BLE001
+                    ok, note = False, f"{type(exc).__name__}: {str(exc)[:70]}"
+                if ok is None:
+                    if undecided:
+                        undecided(item, note)
+                    continue
+                record(item, ok, note)
+    finally:
+        close()
+    return cut, [item for item, _h in inflight.values()]
+
+
+def cmd_audit(max_minutes=0.0, workers=None, save_every=AUDIT_SAVE_EVERY):
+    led = _load_ledger()
+    plan = _audit_plan(led)
+    total = len(plan)
+    workers = max(1, int(workers or AUDIT_WORKERS))
+    deadline = time.time() + float(max_minutes) * 60 if max_minutes else None
+    never = sum(1 for p in plan if not p[0])
+    print(f"audit: {total} configured entries, the oldest ledger check first "
+          f"({never} never checked; oldest {(plan[0][0] or 'never') if plan else '-'}), "
+          f"{workers} at once"
+          + (f", a {float(max_minutes):g}-minute budget" if deadline else ""), flush=True)
+    n = {"probed": 0, "fail": 0, "empty": 0, "refused": 0, "undecided": 0}
+
+    def shown_of(item):
+        # jsonld's key, `listing`, is a LIST. Slicing it and formatting the
+        # slice with :60 raised TypeError on the first jsonld entry, and the one
+        # save sat after the loop, so every Sunday since mid-September threw the
+        # whole audit away: 2026-10-04 probed 3,240 feeds in 94 minutes (211
+        # broken) and the commit step found "ledger unchanged".
+        shown = item[5].get(item[4], "?")
+        return (shown[0] if shown else "?") if isinstance(shown, list) else shown
+
+    def record(item, ok, note):
+        t, e = item[2], item[5]
+        status = _status_for(ok, note)
+        if status in ("fail", "empty", "refused"):
+            n[status] += 1
+        lkey = _canon(_key_of(dict(e, type=t)))
+        if lkey:                   # an entry with no key has no row to write
+            led[lkey] = {"type": t, "name": e.get("name"), "status": status,
+                         "reason": str(note), "checked": _today_int()}
+        mark = {"ok": "OK ", "empty": "-- ", "fail": "XX ", "refused": "NO "}[status]
+        print(f"[{mark}] {str(shown_of(item))[:60]:60} {note}", flush=True)
+        n["probed"] += 1
+        if n["probed"] % max(1, int(save_every)) == 0:
+            _save_ledger(led)
+
+    def undecided(item, note):
+        # No row is written: the entry keeps the one it had (see _audit_each).
+        n["undecided"] += 1
+        print(f"[.. ] {str(shown_of(item))[:60]:60} {note}", flush=True)
+
+    def on_cut(running):
+        # The ledger first, then the wait: whatever the stragglers do, every
+        # probe that came back is on disk before anything else can go wrong.
+        _save_ledger(led)
+        print(f"audit: the {float(max_minutes):g}-minute budget is spent; ledger saved "
+              f"({n['probed']} probed), waiting up to {AUDIT_GRACE_S:g} s for the "
+              f"{running} still running", flush=True)
+
+    pace = _AuditPace(_entry_delays(plan))
+    cut, abandoned, how = False, [], "interrupted"
+    try:
+        cut, abandoned = _audit_each(plan, deadline, workers, record, pace=pace, on_cut=on_cut,
+                                     undecided=undecided)
+        how = "budget" if cut else "done"
+    finally:
+        _save_ledger(led)          # whatever ended the loop, what it probed is kept
+        # In the finally too: the workflow reads these two lines, and an
+        # interrupted run is the one whose log most needs them.
+        print(f"\n{n['fail']} entries are BROKEN (unreachable, or no longer a feed).")
+        print(f"{n['empty']} entries parse fine but have nothing upcoming — kept, not a regression.")
+        if n["refused"]:
+            print(f"{n['refused']} entries robots.txt disallows: recorded `refused`, "
+                  f"nothing it disallows fetched.")
+        if n["undecided"]:
+            print(f"{n['undecided']} probe(s) not decided (a Crawl-delay over "
+                  f"{AUDIT_MAX_CRAWL_DELAY_S:g} s inside the probe, or a Google calendar "
+                  f"without {mapsee_gcal.KEY_ENV}): their rows are unchanged.")
+        if abandoned:
+            print(f"{len(abandoned)} probe(s) still running {AUDIT_GRACE_S:g} s after the budget "
+                  f"were abandoned unrecorded: "
+                  + ", ".join(str(_canon(_key_of(dict(i[5], type=i[2]))))[:60] for i in abandoned[:5]))
+        if pace.waits or pace.robots_read:
+            print(f"crawl-delay: {pace.waits} wait(s) inside probes, {pace.waited:.0f} s in all; "
+                  f"robots.txt read for {pace.robots_read} origin(s)")
+        reached = n["probed"] + n["undecided"]
+        left = total - reached
+        tail = {"budget": f"; stopped at the {float(max_minutes):g}-minute budget, and the next run "
+                          f"starts with the {left} the ledger checked longest ago",
+                "interrupted": f"; interrupted, and the next run starts with the {left} the "
+                               f"ledger checked longest ago",
+                "done": ""}[how]
+        print(f"audit reached {reached} of {total} configured entries{tail}", flush=True)
     return 0
 
 
@@ -3383,9 +4485,11 @@ def cmd_ledger_offsite(refresh=False):
 
 
 def cmd_ledger_held():
-    """The discovered calendars held for the owner, because a personal address
-    is their id (see _held). The address is in none of these rows: each names
-    the venue and its homepage, where the calendar can be read again."""
+    """The feeds held for the owner. Mostly discovered calendars whose id is a
+    personal address (see _held): the address is in none of these rows, each
+    names the venue and its homepage, where the calendar can be read again.
+    Also a verified feed held for a ruling the owner owes (its row is keyed by
+    its URL, which carries no address, and its reason says what is owed)."""
     led = _load_ledger()
     rows = sorted(((k, v) for k, v in led.items()
                    if isinstance(v, dict) and v.get("status") == "held"),
@@ -3393,13 +4497,21 @@ def cmd_ledger_held():
     if not rows:
         print("nothing is held")
         return 0
-    print(f"{len(rows)} discovered calendar(s) held for the owner: each one's id is "
-          f"a personal address, which this public repo does not commit by itself")
-    for _k, v in rows:
-        print(f"  {str(v.get('name') or '?')[:40]:40} {str(v.get('metro') or '?')[:24]:24} "
-              f"{v.get('home') or '?'}  ({v.get('checked')}: {str(v.get('reason') or '')[:50]})")
-    print("To keep one: read the calendar on the venue's site, decide that its address may "
-          "be published, and add the entry by hand without `_found`; merge writes those.")
+    personal = [(k, v) for k, v in rows if str(k).startswith("held:")]
+    ruling = [(k, v) for k, v in rows if not str(k).startswith("held:")]
+    if personal:
+        print(f"{len(personal)} discovered calendar(s) held for the owner: each one's id is "
+              f"a personal address, which this public repo does not commit by itself")
+        for _k, v in personal:
+            print(f"  {str(v.get('name') or '?')[:40]:40} {str(v.get('metro') or '?')[:24]:24} "
+                  f"{v.get('home') or '?'}  ({v.get('checked')}: {str(v.get('reason') or '')[:50]})")
+        print("To keep one: read the calendar on the venue's site, decide that its address may "
+              "be published, and add the entry by hand without `_found`; merge writes those.")
+    if ruling:
+        print(f"{len(ruling)} verified feed(s) held for a ruling the owner owes:")
+        for k, v in ruling:
+            print(f"  {str(v.get('name') or '?')[:60]:60} {_public_url(k)}\n      ({v.get('checked')}: "
+                  f"{str(v.get('reason') or '')[:240]})")
     return 0
 
 
@@ -4722,7 +5834,14 @@ def main(argv):
         # Every configured country, or the ones named: `cityclass CH DE`.
         return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))
     if cmd == "audit":
-        return cmd_audit()
+        # A WALL-CLOCK budget, for the reason the osm walk has one: the cost is
+        # other people's servers, and 1.3% of the probes took 55% of 2026-10-25's
+        # four hours. 0 = no limit (a manual run that should read everything).
+        mm = (float(argv[argv.index("--max-minutes") + 1])
+              if "--max-minutes" in argv else 0.0)
+        workers = (int(argv[argv.index("--workers") + 1])
+                   if "--workers" in argv else None)
+        return cmd_audit(max_minutes=mm, workers=workers)
     if cmd == "robots":
         return cmd_robots()
     if cmd == "ledger":

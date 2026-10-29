@@ -148,13 +148,38 @@ LEDGER = os.path.join(HERE, "curation_ledger.json")
 # lives this check would quietly stop matching and report nothing wrong.
 # ODS entries have no literal url — the records endpoint is derived — so its
 # builder comes across too.
+#
+# AND THE KEY IS THE AUDIT'S OWN, NOT A SECOND GUESS AT IT. This used to read
+# only a bare list or a "sources" key and take one field per entry, so every
+# config shaped {"sites": [...]} was invisible: on 10f27b9 (2026-10-29) 114
+# configured feeds had a ledger `fail` FEED_DOWN never showed - tribe 69,
+# jsonld 38, mobilizon 5, squarespace 2 - while the "130" it did show were
+# ics and opendata only. Now every config is read through catalog_curate's
+# _entries and every entry keyed with _canon(_key_of(...)), exactly as
+# cmd_audit writes the ledger row: jsonld's `listing` is a LIST (its first
+# URL is the key), venuepilot's key is "venuepilot:<ids>", ods derives its URL.
 try:
-    from catalog_curate import CONFIG as CURATE_CONFIG, _ods_url
+    from catalog_curate import (CONFIG as CURATE_CONFIG, _ods_url, _entries, _key_of,
+                                _canon)
 except Exception:      # pragma: no cover - curator absent; degrade to ICS only
     CURATE_CONFIG = {"ics": ("ics_sources.json", "url")}
 
     def _ods_url(_e):
         return ""
+
+    def _entries(_fname, data):
+        if isinstance(data, dict):
+            for k in ("sources", "sites"):
+                if isinstance(data.get(k), list):
+                    return data[k]
+            return []
+        return data
+
+    def _key_of(e):
+        return e.get("url")
+
+    def _canon(u):
+        return _norm_url(u)
 
 # Days without a new event before a source is considered silent. 8 rather than
 # 3: the heavy sweep is Mon & Thu, so a healthy SeatGeek can legitimately go
@@ -522,8 +547,37 @@ def _load_ledger() -> dict:
         return {}
 
 
+def _wired() -> dict:
+    """ledger key -> (config file, entry), for every configured entry, keyed
+    exactly as `catalog_curate.py audit` keys the row it writes for it."""
+    wired = {}
+    for kind, (fname, _key) in CURATE_CONFIG.items():
+        path = os.path.join(HERE, fname)
+        if not os.path.exists(path):
+            continue
+        try:
+            with open(path, encoding="utf-8") as fh:
+                blob = json.load(fh)
+        except (OSError, json.JSONDecodeError):
+            continue
+        entries = _entries(fname, blob)
+        if not isinstance(entries, list):
+            continue
+        for e in entries:
+            if not isinstance(e, dict):
+                continue
+            try:
+                key = _canon(_key_of(dict(e, type=kind)))
+            except Exception:                                     # noqa: BLE001
+                key = None
+            if key:
+                wired.setdefault(key, (fname, e))
+    return wired
+
+
 def configured_dead() -> list[dict]:
-    """Feeds that are WIRED IN and that the curator audit has marked dead.
+    """Feeds that are WIRED IN and that the curator audit has marked dead,
+    and every configured entry the owner has been asked to decide (`_hold`).
 
     The bare ledger count conflates two completely different things. Most
     "fail" rows are candidates that were evaluated and rejected — that is the
@@ -536,42 +590,52 @@ def configured_dead() -> list[dict]:
     configured — including three metro library systems (Denver, Fairfax County,
     Carnegie Pittsburgh), which are among the best 'learning' and 'community'
     supply the catalog has, and which feed awaresie.com and plansie.com.
+
+    A PENDING OWNER DECISION IS NOT A LEDGER ROW. Round 1 of the 2026-10-29
+    triage left four feeds "FEED_DOWN until you decide", but the next audit
+    re-probes them and rewrites their rows: Lakeville's catID 35 and 36 are
+    still listed on /iCalendar.aspx, so they would turn `empty` on Sunday and
+    the owner's only reminder would vanish. An entry that carries `_hold`
+    ("owner: reservation schedule ...") is reported here whatever its row
+    says, until the owner decides and the field goes.
+
+    A CONFIGURED FEED ROBOTS.TXT NOW REFUSES IS REPORTED TOO. The audit asks
+    robots.txt before an entry's first request and files an explicit Disallow
+    `refused`, fetching nothing (catalog_curate._audit_robots, 2026-10-29).
+    The adapter still reads that feed every day, so it is the owner's to
+    retire into `_not_included` or to ask the operator about; reading `fail`
+    alone would let the refusal vanish from this report. 0 configured entries
+    had a `refused` row that day.
     """
     led = _load_ledger()
-    if not led:
-        return []
-    wired = {}
-    for kind, (fname, url_key) in CURATE_CONFIG.items():
-        path = os.path.join(HERE, fname)
-        if not os.path.exists(path):
+    wired = _wired()
+    out, seen = [], set()
+    for raw_key, row in led.items():
+        if not isinstance(row, dict) or row.get("status") not in ("fail", "refused"):
             continue
-        try:
-            with open(path, encoding="utf-8") as fh:
-                blob = json.load(fh)
-        except (OSError, json.JSONDecodeError):
-            continue
-        # both shapes: a bare list, or {"sources": [...]} — same as _entries()
-        entries = blob.get("sources", []) if isinstance(blob, dict) else blob
-        if not isinstance(entries, list):
-            continue
-        for e in entries:
-            if not isinstance(e, dict):
-                continue
-            u = _ods_url(e) if kind == "ods" else e.get(url_key)
-            if u:
-                wired[_norm_url(u)] = (fname, e)
-    out = []
-    for key, row in led.items():
-        if not isinstance(row, dict) or row.get("status") != "fail":
-            continue
-        hit = wired.get(_norm_url(key))
+        key = _canon(raw_key)
+        hit = wired.get(key)
         if not hit:
             continue                      # a rejected candidate, not a regression
         fname, entry = hit
+        seen.add(key)
         out.append({
             "url": _norm_url(key),
             "name": row.get("name") or entry.get("name") or key,
-            "reason": row.get("reason") or "?",
+            "reason": (f"held for the owner: {entry['_hold']}; " if entry.get("_hold") else "")
+                      + (row.get("reason") or "?"),
+            "category": entry.get("category") or "-",
+            "config": fname,
+        })
+    for key, (fname, entry) in wired.items():
+        if key in seen or not entry.get("_hold"):
+            continue
+        row = led.get(key) if isinstance(led.get(key), dict) else {}
+        out.append({
+            "url": _norm_url(key),
+            "name": entry.get("name") or row.get("name") or key,
+            "reason": f"held for the owner: {entry['_hold']}"
+                      + (f" (ledger {row.get('status')}: {row.get('reason')})" if row else ""),
             "category": entry.get("category") or "-",
             "config": fname,
         })

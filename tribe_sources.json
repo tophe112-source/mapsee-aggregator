@@ -2578,20 +2578,6 @@
       "_metro": "Paris, FR"
     },
     {
-      "name": "Basilique du Sacré-Cœur",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe",
-      "base_url": "https://www.sacre-coeur-montmartre.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Basilique du Sacré-Cœur",
-        "lat": 48.8867961,
-        "lon": 2.3430272
-      },
-      "_metro": "Paris, FR"
-    },
-    {
       "name": "Église Saint-Laurent",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
@@ -2918,20 +2904,6 @@
         "name": "LiteraturHaus",
         "lat": 55.6908006,
         "lon": 12.5556601
-      },
-      "_metro": "Copenhagen, DK"
-    },
-    {
-      "name": "Cirkel Ordenen",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "http://cirkelordenen.dk",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Cirkel Ordenen",
-        "lat": 55.685862,
-        "lon": 12.540348
       },
       "_metro": "Copenhagen, DK"
     },
@@ -5614,6 +5586,7 @@
       "base_url": "https://remua.be",
       "within_days": 120,
       "max_pages": 10,
+      "crawl_delay": 10,
       "venue": {
         "name": "ReMuA",
         "lat": 50.8273294,
@@ -6317,18 +6290,6 @@
       "_metro": "Neenah, Wisconsin"
     },
     {
-      "name": "Lemoore",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://lemoore.com",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Lemoore",
-      "default_region": "California",
-      "default_country": "US",
-      "_metro": "Lemoore, California"
-    },
-    {
       "name": "Trussville",
       "category": "community",
       "_found": "civic:city -> tribe+jsonld-event",
@@ -6361,17 +6322,6 @@
       "max_pages": 15,
       "default_city": "Henrico",
       "default_region": "Virginia",
-      "default_country": "United States"
-    },
-    {
-      "name": "Douglas County / Lawrence Parks, KS",
-      "category": "community",
-      "_found": "parks:agency -> tribe+jsonld-event+ics",
-      "base_url": "https://lawrenceks.gov",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Lawrence",
-      "default_region": "Kansas",
       "default_country": "United States"
     },
     {
@@ -6522,18 +6472,6 @@
       "default_region": "Missouri",
       "default_country": "US",
       "_metro": "Arnold, Missouri"
-    },
-    {
-      "name": "Pittsburg",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event",
-      "base_url": "https://www.pittks.org",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Pittsburg",
-      "default_region": "Kansas",
-      "default_country": "US",
-      "_metro": "Pittsburg, Kansas"
     },
     {
       "name": "Hammond",
@@ -8357,24 +8295,6 @@
       "_metro": "Lausanne, Switzerland"
     },
     {
-      "name": "Deschutes Historical Museum",
-      "category": "arts",
-      "_found": "osm:museum -> tribe+jsonld-event+ics",
-      "base_url": "https://www.deschuteshistory.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Deschutes Historical Museum",
-        "address": "129 Northwest Idaho Avenue",
-        "city": "Bend",
-        "region": "OR",
-        "postal_code": "97703",
-        "lat": 44.0553466,
-        "lon": -121.317076
-      },
-      "_metro": "Bend, United States"
-    },
-    {
       "name": "Cento Incroci",
       "category": "learning",
       "_found": "osm:books -> tribe",
@@ -8881,23 +8801,6 @@
         "postal_code": "10141",
         "lat": 45.0573955,
         "lon": 7.6523348
-      },
-      "_metro": "Turin, Italy"
-    },
-    {
-      "name": "Camera - Centro Italiano per la fotografia",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe",
-      "base_url": "https://camera.to",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Camera - Centro Italiano per la fotografia",
-        "address": "18 Via delle Rosine",
-        "city": "Torino",
-        "postal_code": "10123",
-        "lat": 45.0642368,
-        "lon": 7.6907554
       },
       "_metro": "Turin, Italy"
     },
@@ -10334,23 +10237,6 @@
       },
       "_metro": "Amsterdam, Netherlands",
       "_note": "Village community centre in Westzaan, Zaanstad (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Weekly movement classes for seniors, yoga, bridge, amateur theatre."
-    },
-    {
-      "name": "'t Reghthuys (Nieuwkoop)",
-      "category": "arts",
-      "base_url": "https://reghthuys-nieuwkoop.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "'t Reghthuys",
-        "address": "1 Reghthuysplein",
-        "city": "Nieuwkoop",
-        "postal_code": "2421BE",
-        "lat": 52.1503987,
-        "lon": 4.7793466
-      },
-      "_metro": "Nieuwkoop, Netherlands",
-      "_note": "Village cultural house in Nieuwkoop's old town hall (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Exhibitions, Tuesday music, courses, a gift market."
     },
     {
       "name": "TorenTuin (Rotterdam)",
@@ -12195,23 +12081,6 @@
       "_metro": "Eindhoven, Netherlands"
     },
     {
-      "name": "OEC Korfbal",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://oeckorfbal.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "OEC Korfbal",
-        "address": "1A Braakse Bosdijk",
-        "city": "Helmond",
-        "postal_code": "5703HZ",
-        "lat": 51.4865127,
-        "lon": 5.6780392
-      },
-      "_metro": "Eindhoven, Netherlands"
-    },
-    {
       "name": "Ellenhof",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -12460,9 +12329,13 @@
         "postal_code": "12685",
         "country": "DE",
         "lat": 52.5447356,
-        "lon": 13.5774895
+        "lon": 13.5774895,
+        "names": [
+          "Anna Landsberger"
+        ]
       },
-      "_metro": "Berlin, Germany"
+      "_metro": "Berlin, Germany",
+      "_note": "Measured 2026-10-29 with the production UA. Roter Baum Berlin's whole calendar (the site names its operator „Roter Baum“ Berlin UG), not this centre's: 60 rows 2025-10-29..2027-10-29 at 29 named places across Berlin, 55 with a street and none with coordinates (9 at the Lernwerkstatt Literatur und Theater, Zingster Straße 15; 7 at MGH Buntes Haus; 6 here; 4 naming no place). Without `names` the block pinned every row at Prötzeler Ring 13. With them it fills the 6 that name this centre and the 4 that name nothing; of the other 50, 49 go to their own street and 1 (Parkplatz Carl-Benz-Schule, 2026-05-06) names no street and is left unplaced. robots.txt has no rule for /wp-json/ and no Crawl-delay. verify: '5 events, 5/5 on page 1 future'. Dry runs from a cold geocode cache, three on 2026-10-29: twice kept 5, stored 5, 5 placed by a geocoded street (9 Photon lookups, 0 missed), 1.8-14.4 km from this centre (Stendaler Straße 43, Zingster Straße 15 in 13357, Adlergestell/Wassersportallee, Kreuzbergstraße 10); once Photon missed the town '13357 Berlin' and 3 were placed, 2 not placed (a miss is not cached, so the next run asks again). Before, all 5 sat on the block. www.roter-baum-berlin.de ('Buntes Haus') served this same calendar a second time and leaves in the same change."
     },
     {
       "name": "Machon-Eck",
@@ -12602,24 +12475,6 @@
         "country": "DE",
         "lat": 52.387563,
         "lon": 13.0418796
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
-      "name": "Buntes Haus",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://www.roter-baum-berlin.de",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Buntes Haus",
-        "address": "14 Hellersdorfer Promenade",
-        "city": "Berlin",
-        "postal_code": "12627",
-        "country": "DE",
-        "lat": 52.5408006,
-        "lon": 13.6069678
       },
       "_metro": "Berlin, Germany"
     },
@@ -13996,16 +13851,6 @@
       "_note": "seed-us 2026-10-03: 17 rows starting 2026-10-03..2027-01-01; of 17 read, 5 free/drop-in/community, 6 paid, 0 governance, 0 hours/closure notices, 0 members-only, 6 unstated; all 17 name a venue with a Manhattan street address (music school, two potteries, Center for Healing)."
     },
     {
-      "name": "Boonshoft Center for Jewish Culture and Education (Jewish Dayton)",
-      "category": "community",
-      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://jewishdayton.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "_metro": "Dayton, United States",
-      "_note": "seed-us 2026-10-03: 71 rows starting 2026-10-03..2027-01-01; of 71 read, 25 free/drop-in/community, 31 paid, 3 governance, 0 hours/closure notices, 0 members-only, 12 unstated; 53 name a venue with a street address (2 with coordinates); 15 name none and 3 are Zoom - left unplaced; 20 of the 31 paid are Winter Camp Shalom days, a JLI course and a writers' workshop series."
-    },
-    {
       "name": "Keystone Community Services",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
@@ -14499,48 +14344,6 @@
       "_note": "Public programme of the university central library: 8 free October events in its own building, including Musical Thursday, a Tuesday book talk, a literary samovar, an author reading and a workshop. The venue point is from OSM."
     },
     {
-      "name": "Kós Károly Művelődési Ház és Könyvtár (Budakalász)",
-      "category": "community",
-      "base_url": "https://koskarolymh.hu",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Budakalász",
-      "default_region": null,
-      "default_country": "HU",
-      "venue": {
-        "name": "Kós Károly Művelődési Ház és Könyvtár",
-        "names": [
-          "Kós Károly Művelődési Ház",
-          "Bálterem",
-          "Könyvtár",
-          "Díszterem",
-          "Galéria",
-          "udvar",
-          "Előadó",
-          "Klubterem",
-          "kávézó"
-        ],
-        "address": "Szentendrei út 9",
-        "city": "Budakalász",
-        "postal_code": "2011",
-        "country": "HU",
-        "lat": 47.6230733,
-        "lon": 19.049564
-      },
-      "_metro": "Budapest, Hungary",
-      "_found": "manual:2026-10-03 OSM community_centre Hungary -> tribe",
-      "_note": "Budakalász culture house and library: 29 upcoming events filed under its own rooms at Szentendrei út 9; `names` leaves the one park event unpinned. 12 are free (board-game afternoons, a kids' slide-cinema club, Alzheimer Café, a numismatists' club, a garage sale), and most priced ones cost 1,000-4,500 Ft.",
-      "include_categories": [
-        258,
-        305,
-        851,
-        259,
-        579,
-        341,
-        1075
-      ]
-    },
-    {
       "name": "Orlai ház (Mezőberény)",
       "category": "community",
       "base_url": "https://orlaihaz.mezobereny.hu",
@@ -14961,28 +14764,6 @@
       "_note": "Municipal art museum's workshops for children (Pequeños Artistas, ages 9+ and 12+) and seniors (Tarde de Oro, 55+): 6 events in October 2026, all 6 say libre de costo with phone reservation; 43 events posted Jan-Oct 2026; REST rows name no venue, so the OSM block places them."
     },
     {
-      "name": "Biblioteca Nacional Aruba (Oranjestad, Aruba)",
-      "category": "learning",
-      "base_url": "https://www.bibliotecanacional.aw/pages",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Oranjestad",
-      "default_region": null,
-      "default_country": "AW",
-      "timezone": "America/Aruba",
-      "venue": {
-        "name": "Biblioteca Nacional Aruba",
-        "address": "George Madurostraat 13",
-        "city": "Oranjestad",
-        "country": "AW",
-        "lat": 12.5152518,
-        "lon": -70.02949
-      },
-      "_metro": "Oranjestad, Aruba",
-      "_found": "manual:2026-10-03 find_calendar on bibliotecanacional.aw -> The Events Calendar REST under /pages; venue point OSM way 368233604",
-      "_note": "National library's public programme (Festival di buki pa mucha children's book festival, language and theatre workshops, K-9 team talks): 5 upcoming, none priced and one marked Free; only 5 more posted Jan-Oct 2026, so about ten a year; REST venues carry no coordinates."
-    },
-    {
       "name": "Netanya AACI (Netanya, Israel)",
       "category": "community",
       "base_url": "https://netanyaaaci.org.il",
@@ -15012,29 +14793,6 @@
         "country": "IL",
         "lat": 32.3308717,
         "lon": 34.8567212
-      }
-    },
-    {
-      "name": "The Book Lounge (Cape Town)",
-      "category": "learning",
-      "base_url": "https://www.booklounge.co.za",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Cape Town",
-      "default_region": "Western Cape",
-      "default_country": "ZA",
-      "_metro": "Cape Town, South Africa",
-      "_found": "manual:2026-10-03 TEC REST route probe of Cape Town literary venues",
-      "_note": "Independent bookshop at 71 Roeland Street whose calendar is author-in-conversation book launches open to all. 8 were upcoming on 2026-10-03, all 17:30 weekday evenings at the shop, with no cost set on any and each an open 'Join us' invitation with a sponsored wine table.",
-      "venue": {
-        "name": "The Book Lounge",
-        "address": "71 Roeland Street",
-        "city": "Cape Town",
-        "region": "Western Cape",
-        "postal_code": "8001",
-        "country": "ZA",
-        "lat": -33.92914,
-        "lon": 18.4216383
       }
     },
     {
@@ -15176,16 +14934,6 @@
       "crawl_delay": 30.0
     },
     {
-      "name": "JCC of Mid-Westchester",
-      "category": "community",
-      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://jccmw.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "_metro": "New York, United States",
-      "_note": "seeds2 2026-10-04: 66 rows starting 2026-10-04..2027-01-02; read 66: 29 free, 22 unknown, 14 paid, 1 online. 59 of 66 name JCCMW with its street address; offsite rows carry their own addresses."
-    },
-    {
       "name": "Evelyn Rubenstein Jewish Community Center",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
@@ -15213,46 +14961,6 @@
       "_metro": "Houston, United States",
       "_note": "seeds2 2026-10-04: 66 rows starting 2026-10-04..2027-01-02; read 66: 39 free, 22 unknown, 4 paid, 1 online. 60 of 66 carry their own coordinates; the block fills the Herzstein room (3); TBA (2) and Virtual (1) do not take it. Venue point: jcca.org directory point; Census matches '5601 S BRAESWOOD BLVD, HOUSTON, TX, 77096' 164 m away.",
       "crawl_delay": 10.0
-    },
-    {
-      "name": "Michael-Ann Russell JCC",
-      "category": "community",
-      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://marjcc.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Michael-Ann Russell JCC",
-        "address": "18900 NE 25th Ave",
-        "city": "North Miami Beach",
-        "region": "FL",
-        "postal_code": "33180",
-        "country": "US",
-        "lat": 25.9495576,
-        "lon": -80.1529144,
-        "names": [
-          "Senior Lounge",
-          "MARJCC",
-          "Lieberman Theater",
-          "Art Studio"
-        ]
-      },
-      "_metro": "Miami, United States",
-      "include_categories": [
-        "adult-services",
-        "adult-services-2",
-        "the-hub-adult-programing-events",
-        "cultural-arts",
-        "performing-arts-productions",
-        "jcat-performance",
-        "jazz-at-the-j-series",
-        "meet-the-author-series",
-        "marjcc-community-events",
-        "guest-performances",
-        "bamachol-dance-program-performance",
-        "marjcc-performance"
-      ],
-      "_note": "seeds2 2026-10-04: 225 rows starting 2026-10-04..2027-01-02; read 125: 90 unknown, 20 paid, 15 free. include_categories leaves out the building-hours category (6 holiday-hours notices) and Hebraica sports; 225 rows remain: 107 of 125 read are the Senior Adult Services drop-in groups (mah jongg, chess, knitting, support groups; no fee or eligibility stated on the row or its page), 14 padel nights at $20; the 49 naming no venue are Adult Services rows and take the block. Venue point: jcca.org directory point; Census matches '18900 NE 25TH AVE, MIAMI, FL, 33180' 211 m away."
     },
     {
       "name": "JCC of Windsor",
@@ -16480,20 +16188,6 @@
       "_metro": "New York, United States"
     },
     {
-      "name": "Main Street Takoma (Takoma Park / Takoma DC)",
-      "category": "community",
-      "base_url": "https://mainstreettakoma.org",
-      "within_days": 90,
-      "max_pages": 10,
-      "skip_title": "\\bclass(?:es)?\\b|pilates|flatfooting|irish dance for kids|woof clinic|nail trim|coworking|lunch bunch|farmers market|\\bworkshop\\b|5rhythms|bluegrass fiddling|terrarium|pet portraits",
-      "default_city": "Takoma Park",
-      "default_region": "MD",
-      "default_country": "US",
-      "_metro": "Washington, DC",
-      "_found": "manual:2026-10-10 dc-community oldtakoma.com -> mainstreettakoma.org (tribe)",
-      "_note": "Measured 2026-10-10: Main Street Takoma's community calendar (The Events Calendar REST), read 2026-10-10: 311 events in 90 days, 97 distinct titles; skip_title drops paid course sessions (School of Musical Traditions ensemble classes $250, tap/Pilates/Irish dance classes), a pet-shop nail-trim clinic, coworking and farmers markets (already in market_sources) -> 185 kept, 156 free/donation/no price, 183 with a street address (Takoma Park MD and Takoma DC): book clubs and author talks at People's Book, Historic Takoma talks, community drum circle, bluegrass jams, costume swaps, church bazaars, flea market, Dia de los Muertos, gallery openings, bike-safety clinic. robots.txt allows /wp-json/."
-    },
-    {
       "name": "Building Bridges Across the River (THEARC, Ward 8)",
       "category": "community",
       "base_url": "https://buildingbridgesdc.org",
@@ -16505,31 +16199,6 @@
       "_metro": "Washington, DC",
       "_found": "manual:2026-10-10 dc-community bbardc.org -> buildingbridgesdc.org (tribe)",
       "_note": "Measured 2026-10-10: Ward 8 / east-of-the-river nonprofit behind THEARC and the 11th Street Bridge Park. Tribe REST read 2026-10-10: 35 events in 90 days, all cost Free/blank, 31 with a street venue (THEARC Farm 1901 Mississippi Ave SE, Hopkins Garden 1227 K St SE, Union Temple Baptist Church farm): Food and Farm Fridays, farm volunteer days, turkey giveaway, Ward 8 Winter Wonderland, homebuyer club. Anacostia is otherwise almost empty in the catalog. robots.txt allows."
-    },
-    {
-      "name": "Sixth & I",
-      "category": "community",
-      "base_url": "https://www.sixthandi.org",
-      "within_days": 90,
-      "max_pages": 5,
-      "venue": {
-        "name": "Sixth & I",
-        "address": "600 I Street NW",
-        "city": "Washington",
-        "region": "DC",
-        "postal_code": "20001",
-        "country": "US",
-        "lat": 38.90064,
-        "lon": -77.020207
-      },
-      "_metro": "Washington, DC",
-      "_found": "manual:2026-10-10 dc-community faith-based community centre -> tribe",
-      "_note": "Measured 2026-10-10: Historic Chinatown synagogue run as a public cultural/community venue. Tribe REST read 2026-10-10: 43 events in 90 days, 34 with the venue's street address (the rest are hybrid rows the venue block fills): community-led Shabbat dinners, Friday night services, a grief group, Chanukah Shabbat, author talks (LeVar Burton) and concerts (Aga Khan Master Musicians, Haley Heynderickx); talks/concerts are ticketed, community programmes free or low-cost. robots.txt allows.",
-      "include_categories": [
-        "shabbat-services",
-        "social-jewish-life"
-      ],
-      "skip_title": "\\bgrief group\\b"
     },
     {
       "name": "Southeast Seattle Senior Center - activities and drop-ins (Rainier Valley)",
@@ -17804,19 +17473,6 @@
       "_metro": "St. Louis, United States",
       "skip_title": "OT100|Endurance Run",
       "_note": "Probed 2026-10-11, small. robots.txt '*' allows /wp-json/. TEC REST: 8 events in 120 days, 6 with an address; trail-build volunteer days, plus the OT100 endurance run (a paid race) which skip_title drops. Verdict maybe."
-    },
-    {
-      "name": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON)",
-      "base_url": "https://cvc.ca",
-      "category": "volunteer",
-      "within_days": 120,
-      "max_pages": 3,
-      "default_city": "Mississauga",
-      "default_region": "Ontario",
-      "default_country": "Canada",
-      "skip_title": "Wagon Rides|Belfountain by Night|Analysis to Action",
-      "_metro": "Toronto, Canada",
-      "_note": "Ledger has cvc.ca ok since 2026-10-04 but it was never merged. Measured 2026-10-11: 13 events in 120 days, 13/13 with a venue address, 7 'Free Event' tree plantings/invasive pulls; the skip_title drops the paid wagon rides ($60 / admission) and the online talk. Small."
     },
     {
       "name": "Community Room",
@@ -27805,6 +27461,1717 @@
         "lon": 4.8675651
       },
       "_metro": "Lyon, France"
+    },
+    {
+      "name": "Librairie Pantagruel",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.librairesdusud.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librairie Pantagruel",
+        "address": "44 Rue Paul Codaccioni",
+        "city": "Marseille",
+        "lat": 43.2878302,
+        "lon": 5.3594005
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "La Maison de Rejane",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://lamaisonderejane.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Maison de Rejane",
+        "address": "59 Rue des Quatre Termes",
+        "city": "Aubagne",
+        "postal_code": "13685",
+        "lat": 43.2888371,
+        "lon": 5.5974626
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "La Chartreuse",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ville-pechbonnieu.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Chartreuse",
+        "address": "2 Rue Richard Dejean",
+        "city": "Pechbonnieu",
+        "postal_code": "31140",
+        "lat": 43.7048229,
+        "lon": 1.468353
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "La Buleria",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://la-buleria.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Buleria",
+        "address": "105 Route d'Agde",
+        "city": "Toulouse",
+        "postal_code": "31500",
+        "lat": 43.6295021,
+        "lon": 1.4809438
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Le Moulin de Roques",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://www.lemoulin-roques.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Moulin de Roques",
+        "lat": 43.5108458,
+        "lon": 1.3801702
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Espaces Vanel",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://espacesvanel.toulousecongres.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Espaces Vanel",
+        "lat": 43.6102051,
+        "lon": 1.4554948
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Les Enfants de R’lyeh",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.les-enfants-de-rlyeh.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Enfants de R’lyeh",
+        "address": "Place de la Source",
+        "city": "Blagnac",
+        "postal_code": "31700",
+        "lat": 43.6194762,
+        "lon": 1.3906054
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Théâtre du Pavé",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://theatredupave.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre du Pavé",
+        "lat": 43.5806319,
+        "lon": 1.4477369
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Centre de Congrès Pierre Baudis",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://centrepierrebaudis.toulousecongres.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre de Congrès Pierre Baudis",
+        "address": "11 Esplanade Compans Caffarelli",
+        "city": "Toulouse",
+        "postal_code": "31000",
+        "lat": 43.6112641,
+        "lon": 1.4343362
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Piscine municipale de l'Union",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ville-lunion.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Piscine municipale de l'Union",
+        "address": "Rue du Puy de Sancy",
+        "lat": 43.6552202,
+        "lon": 1.4910429
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Le Metronum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://lemetronum.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Metronum",
+        "lat": 43.6414815,
+        "lon": 1.4505865
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "La Cabane",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://halles-cartoucherie.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Cabane",
+        "address": "16 ter Avenue Raymond Badiou",
+        "lat": 43.5996755,
+        "lon": 1.4073144
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Dhagpo Bordeaux",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://dhagpo-bordeaux.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dhagpo Bordeaux",
+        "lat": 44.8400845,
+        "lon": -0.5997438
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Les Vivres de l'Art",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://lesvivresdelart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Vivres de l'Art",
+        "lat": 44.8642479,
+        "lon": -0.5494813
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Musée de la vigne et du vin",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.maisondesvinsdecadillac.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée de la vigne et du vin",
+        "lat": 44.6330479,
+        "lon": -0.3153376
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Librairie Le Passeur",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.librairie-lepasseur.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librairie Le Passeur",
+        "address": "9 Avenue Thiers",
+        "city": "Bordeaux",
+        "postal_code": "33100",
+        "lat": 44.8407816,
+        "lon": -0.558488
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "L'Inconnue",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+wp-event-manager+jsonld-event+ics",
+      "base_url": "https://linconnue.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'Inconnue",
+        "address": "181 Rue François Boucher",
+        "city": "Talence",
+        "postal_code": "33400",
+        "lat": 44.7924778,
+        "lon": -0.5875286
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "La Mac 1 du Crous",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-bordeaux.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Mac 1 du Crous",
+        "address": "4 Rue Lucie Aubrac",
+        "city": "Pessac",
+        "postal_code": "33600",
+        "lat": 44.792459,
+        "lon": -0.6228585
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Théâtre 100 Noms",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://theatre100noms.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre 100 Noms",
+        "lat": 47.200924,
+        "lon": -1.573384
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Théâtre de Jeanne",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.theatre-jeanne.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre de Jeanne",
+        "lat": 47.2045675,
+        "lon": -1.5755074
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Atlantic Danse Club",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://atlanticdanse.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Atlantic Danse Club",
+        "lat": 47.2233757,
+        "lon": -1.6330189
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Centre régional des oeuvres universitaires et scolaires de Nantes-Pays de la Loire",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-nantes.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre régional des oeuvres universitaires et scolaires de Nantes-Pays de la Loire",
+        "lat": 47.2445437,
+        "lon": -1.5556577
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Le Raimu",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://www.cannes-cinema.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Raimu",
+        "lat": 43.5671565,
+        "lon": 6.9657042
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Musée Renoir",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://ville.cagnes.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Renoir",
+        "lat": 43.6676631,
+        "lon": 7.1569511
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Fort de Mutzig",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://fort-mutzig.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fort de Mutzig",
+        "lat": 48.5586972,
+        "lon": 7.4571909
+      },
+      "_metro": "Strasbourg, France",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Malagacha Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://malagacha-gallery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Malagacha Gallery",
+        "address": "9 Rue du Parchemin",
+        "city": "Strasbourg",
+        "postal_code": "67000",
+        "lat": 48.584633,
+        "lon": 7.7538498
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Offenburger Hexenzunft e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hexenzunft.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Offenburger Hexenzunft e.V.",
+        "address": "Spitalstraße",
+        "city": "Offenburg",
+        "postal_code": "77652",
+        "lat": 48.4691793,
+        "lon": 7.9433572
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Maison des arts et du patrimoine - Musée de l'asperge",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.musee-asperge.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison des arts et du patrimoine - Musée de l'asperge",
+        "lat": 48.698121,
+        "lon": 7.7852558
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Bodhi Path",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bodhipath-renchen-ulm.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bodhi Path",
+        "address": "18 Kaierstraße",
+        "city": "Renchen",
+        "postal_code": "77871",
+        "lat": 48.5838974,
+        "lon": 8.0719224
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Le Loko",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.leloko.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Loko",
+        "address": "3 Rue du Marché",
+        "postal_code": "59000",
+        "lat": 50.627425,
+        "lon": 3.0505919
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Espace culturel Paul-André Lequimme",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.haubourdin.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Espace culturel Paul-André Lequimme",
+        "address": "Place Blondeau",
+        "city": "Haubourdin",
+        "postal_code": "59320",
+        "lat": 50.6086918,
+        "lon": 2.9847601
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "La Maison du Ronceray",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.la-maison-du-ronceray.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Maison du Ronceray",
+        "address": "110 Rue de la Poterie",
+        "city": "Rennes",
+        "postal_code": "35200",
+        "lat": 48.0928316,
+        "lon": -1.6408878
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Radioclub de Rennes F4KIO",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ara35.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Radioclub de Rennes F4KIO",
+        "lat": 48.1261983,
+        "lon": -1.7077358
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Centre régional des œuvres universitaires et scolaires de Rennes Bretagne",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-rennes.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre régional des œuvres universitaires et scolaires de Rennes Bretagne",
+        "address": "7 Place Hoche",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.1169221,
+        "lon": -1.6772262
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "ADEC - Maison du Théâtre Amateur",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://adec-theatre-amateur.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ADEC - Maison du Théâtre Amateur",
+        "address": "45 Rue Papu",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.1105664,
+        "lon": -1.6938959
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "La Mauvaise Réputation",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://montpellier.unioncommunistelibertaire.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Mauvaise Réputation",
+        "address": "20 Rue Terral",
+        "city": "Montpellier",
+        "postal_code": "34000",
+        "lat": 43.6096516,
+        "lon": 3.8731193
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Le Taurus",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ville-meze.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Taurus",
+        "address": "Rue de la Méditerranée",
+        "city": "Mèze",
+        "postal_code": "34140",
+        "lat": 43.4198044,
+        "lon": 3.6007767
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "CROUS",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-montpellier.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CROUS",
+        "lat": 43.6227983,
+        "lon": 3.8698289
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Théâtre Bassaget",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://mauguio-carnon.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre Bassaget",
+        "address": "Boulevard Antérieu",
+        "city": "Mauguio",
+        "postal_code": "34130",
+        "lat": 43.615811,
+        "lon": 4.012033
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Tennis Club Montpellier La Jalade",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://tcmlajalade.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tennis Club Montpellier La Jalade",
+        "address": "Rue de la Jalade",
+        "city": "Montpellier",
+        "postal_code": "34090",
+        "lat": 43.6283249,
+        "lon": 3.8628726
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Maison diocésaine Villa Maguelone",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://montpellier.catholique.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison diocésaine Villa Maguelone",
+        "lat": 43.6232596,
+        "lon": 3.8878047
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "EHPAD Louis Laget",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+modern-events",
+      "base_url": "https://www.baillargues.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EHPAD Louis Laget",
+        "address": "1 Rue des Pêcheurs de Perles",
+        "lat": 43.668538,
+        "lon": 4.0177547
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "À la Découverte du Cirque",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cirque-eybens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "À la Découverte du Cirque",
+        "lat": 45.1620697,
+        "lon": 5.7473978
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Au Perchoir",
+      "category": "community",
+      "_found": "osm:cafe -> tribe",
+      "base_url": "https://auperchoir.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Au Perchoir",
+        "address": "492 Rue des Bécasses",
+        "city": "Crolles",
+        "postal_code": "38920",
+        "lat": 45.2740774,
+        "lon": 5.8880838
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Aviron Grenoblois",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.aviron-grenoblois.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aviron Grenoblois",
+        "address": "39 Quai Jongkind",
+        "city": "Grenoble",
+        "postal_code": "38000",
+        "lat": 45.2001809,
+        "lon": 5.7348321
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "MC2",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://www.mc2grenoble.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MC2",
+        "address": "4 Rue Paul Claudel",
+        "city": "Grenoble",
+        "postal_code": "38100",
+        "lat": 45.1722274,
+        "lon": 5.7337064
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Le Hublot",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-lorraine.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Hublot",
+        "address": "138 avenue de la Libération",
+        "lat": 48.6970779,
+        "lon": 6.1594701
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Mine Musée du Val de Fer",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://minedeneuvesmaisons.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mine Musée du Val de Fer",
+        "lat": 48.631564,
+        "lon": 6.1087415
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Toronto Humane Society",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.torontohumanesociety.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Toronto Humane Society",
+        "address": "11 River Street",
+        "postal_code": "M5A 4C2",
+        "lat": 43.65763,
+        "lon": -79.3563427
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Buddies in Bad Times",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://buddiesinbadtimes.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buddies in Bad Times",
+        "address": "12 Alexander Street",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M4Y 1B4",
+        "lat": 43.6632092,
+        "lon": -79.382994
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Textile Museum Of Canada",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://textilemuseum.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Textile Museum Of Canada",
+        "address": "55 Centre Avenue",
+        "city": "Toronto",
+        "postal_code": "M5G 2H5",
+        "lat": 43.6544937,
+        "lon": -79.3866913
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Toronto Railway Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+event-organiser+jsonld-event+ics",
+      "base_url": "https://torontorailwaymuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Toronto Railway Museum",
+        "address": "255 Bremner Boulevard",
+        "lat": 43.6406473,
+        "lon": -79.3859564
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Lakeshore Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+ics",
+      "base_url": "https://lakeshorearts.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lakeshore Arts",
+        "lat": 43.6145162,
+        "lon": -79.4891245
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Dovercourt House",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dovercourthouse.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dovercourt House",
+        "address": "805 Dovercourt Road",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M6H 2X4",
+        "lat": 43.6627558,
+        "lon": -79.4296402
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "TCCSA",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://tccsa.on.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TCCSA",
+        "lat": 43.5782323,
+        "lon": -79.6522889
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Boulderz Climbing Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://boulderzclimbing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boulderz Climbing Centre",
+        "address": "1444 Dupont Street",
+        "city": "Toronto",
+        "region": "Ontario",
+        "lat": 43.6670376,
+        "lon": -79.4492775
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Reach Out Centre For Kids",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://rockonline.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reach Out Centre For Kids",
+        "address": "504 Iroquois Shore Road",
+        "postal_code": "L6H 2Y7",
+        "lat": 43.4689671,
+        "lon": -79.679886
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "First Unitarian Congregation of Toronto",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.firstunitariantoronto.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Unitarian Congregation of Toronto",
+        "address": "473 Oakwood Avenue",
+        "postal_code": "M6C2R5",
+        "lat": 43.6910656,
+        "lon": -79.4399077
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bata Shoe Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://batashoemuseum.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bata Shoe Museum",
+        "address": "327 Bloor Street West",
+        "city": "Toronto",
+        "postal_code": "M5S 1W7",
+        "lat": 43.6672516,
+        "lon": -79.4001432
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Church of the Redeemer",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://theredeemer.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Redeemer",
+        "address": "162 Bloor Street West",
+        "city": "Toronto",
+        "region": "ON",
+        "postal_code": "M5S 1M4",
+        "lat": 43.6690709,
+        "lon": -79.393997
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Holy Blossom Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://holyblossom.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Blossom Temple",
+        "address": "1950 Bathurst Street",
+        "city": "Toronto",
+        "lat": 43.698287,
+        "lon": -79.4252726
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Warrensburg — COVB Calendar",
+      "category": "community",
+      "_found": "civic:city -> civicplus[COVB Calendar] -> the bureau's own site (tribe)",
+      "base_url": "https://www.visitwarrensburg.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Warrensburg",
+      "default_region": "Missouri",
+      "default_country": "US",
+      "_metro": "Warrensburg, Missouri",
+      "_replaces": "ics_sources.json 'Warrensburg — COVB Calendar' url https://www.warrensburg-mo.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar (entry at 10f27b9): 3 vevents / 3 future at its 2026-09-13 merge, 0 from 10-11, and on 2026-10-29 catID 27 is listed neither on the city's /iCalendar.aspx nor in /Calendar.aspx's category filter. Merge only with that entry removed.",
+      "_note": "Measured 2026-10-29 with the production UA. The Warrensburg visitors bureau's (WCVB's) own calendar: the 'WCVB' button in the city site's chrome (on its /iCalendar.aspx and /Calendar.aspx pages) links https://www.visitwarrensburg.com, whose footer names the WCVB Board, Lodging Tax and Tourism Development. robots.txt is Yoast's 'User-agent: * / Disallow:' (empty) with no Crawl-delay, so the adapter's 2 s default; /wp-json/tribe/events/v1/events is allowed. verify: '146 events, 10/10 on page 1 future'. Dry run: kept 146, 140 unique, 101 in the next 90 days; no row carries coordinates, 135 carry a street address, and the sync's Census batch matched 35 of the 40 addresses (129 of 140 rows). UCM home games, the Old Drum open mic, UCM theatre and dance, dance classes, trunk-or-treats and markets in Warrensburg, Knob Noster, Holden and Kingsville. 4 rows are also on the configured Parks & Recreation feed (catID 22): Swimming with Santa, Holiday Festival, Turkey Trot 5K and the Holiday Arts & Crafts Show. Replaces the CivicPlus 'COVB Calendar' (catID 27), a category the city deleted."
+    },
+    {
+      "name": "Mathallen Oslo Food Hall",
+      "base_url": "https://mathallenoslo.no",
+      "category": "market",
+      "_found": "manual:2026-10-29 deadfix -> the same calendar's The Events Calendar REST route (its ?ical= export is disallowed by robots.txt and answers 410)",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Oslo",
+      "default_country": "NO",
+      "venue": {
+        "name": "Mathallen Oslo",
+        "address": "Vulkan 5",
+        "city": "Oslo",
+        "postal_code": "0178",
+        "country": "NO",
+        "lat": 59.9221184,
+        "lon": 10.7520299
+      },
+      "_metro": "Oslo, Norway",
+      "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM ics_sources.json, where it was read as https://mathallenoslo.no/events/?ical=1: robots.txt now has `Disallow: /*?*ical=` (with /*?*tribe-bar-date=, /*?*outlook-ical=, /*?*eventDisplay=past) and that export answered 410 Gone in production on 2026-10-24, 10-25, 10-27 and 10-28. /wp-json/ is not disallowed and no Crawl-delay is set. verify: 59 events, 10/10 on page 1 future. Round-1 dry run without a venue block: kept 59, 57 stored, 55 placed at Vulkan 5 by a geocoded street (59.92225, 10.75175); the 2 'Kaffekurs hos Solberg & Hansen' rows gave no city and stayed unplaced. The venue block pins the hall at OSM way 112306688 'Mathallen' (amenity=food_court, Gerd Kjølaas' plass, 0178), 59.9221184, 10.7520299 through Photon, 21.7 m from the Vulkan 5 address point; Solberg & Hansen's café is OSM node 5593802021 on Vulkan, 35.8 m away, in the hall. Dry run with the block (2026-10-29, empty caches): kept 59, 57 stored, 57 placed at the hall (Kulinarisk Akademi 51, Galopin 4, Solberg & Hansen 2), 36 in the next 90 days. Mostly paid cooking classes and tastings in the hall (Kulinarisk Akademi, Galopin; 590-2050 NOK)."
+    },
+    {
+      "name": "Lancefield",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://lancefield.org.au",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Lancefield",
+      "default_region": null,
+      "default_country": "AU",
+      "_metro": "Lancefield, Australia"
+    },
+    {
+      "name": "Beth Tzedec Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://beth-tzedec.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beth Tzedec Synagogue",
+        "address": "1700 Bathurst Street",
+        "city": "York",
+        "lat": 43.6955375,
+        "lon": -79.4243355
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Islington Evangel Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://iecfamily.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islington Evangel Centre",
+        "address": "49 Queen's Plate Drive",
+        "lat": 43.7100682,
+        "lon": -79.589694
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Darchei Noam Reconstructionist Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://darcheinoam.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Darchei Noam Reconstructionist Synagogue",
+        "address": "864 Sheppard Avenue West",
+        "city": "North York",
+        "region": "Ontario",
+        "postal_code": "M3H 2T5",
+        "lat": 43.7526638,
+        "lon": -79.4533094
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Islington United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://islingtonunited.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islington United Church",
+        "address": "25 Burnhamthorpe Road",
+        "city": "Etobicoke",
+        "lat": 43.6495295,
+        "lon": -79.529782
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Little Trinity Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://littletrinity.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Little Trinity Anglican Church",
+        "address": "425 King Street East",
+        "city": "Toronto",
+        "lat": 43.653152,
+        "lon": -79.3618377
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Christ Emmanuel Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cecctoronto.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Emmanuel Community Church",
+        "address": "2712 Victoria Park Avenue",
+        "city": "North York",
+        "postal_code": "M2J 4A7",
+        "lat": 43.7841675,
+        "lon": -79.3278502
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "McMichael Canadian Art Collection",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://mcmichael.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "McMichael Canadian Art Collection",
+        "address": "10365 Islington Avenue",
+        "city": "Kleinburg",
+        "postal_code": "L0J 1C0",
+        "lat": 43.8434783,
+        "lon": -79.6164892
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Grace Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gracechurchscarborough.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Church",
+        "address": "700 Kennedy Road",
+        "city": "Scarborough",
+        "lat": 43.728035,
+        "lon": -79.2668505
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Carefirst Transitional Care Centre",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://carefirstontario.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Carefirst Transitional Care Centre",
+        "address": "300 Silver Star Boulevard",
+        "city": "Toronto",
+        "postal_code": "M1V 5P1",
+        "lat": 43.8126085,
+        "lon": -79.295016
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "St. Mary’s Antiochan Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://saintmarysmississauga.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Mary’s Antiochan Orthodox Church",
+        "address": "280 Traders Boulevard East",
+        "lat": 43.627975,
+        "lon": -79.6676324
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Saint James United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stjamesunitedchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint James United Church",
+        "address": "400 Burnhamthorpe Road",
+        "postal_code": "M9B 2A8",
+        "lat": 43.6466566,
+        "lon": -79.556249
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Spectre de Rue",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.spectrederue.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spectre de Rue",
+        "address": "1280 Rue Ontario Est",
+        "lat": 45.5218574,
+        "lon": -73.5617951
+      },
+      "_metro": "Montreal, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Les Sans-Taverne: Coop et Brasserie Artisanale",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://sans-taverne.coop",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Sans-Taverne: Coop et Brasserie Artisanale",
+        "address": "1900 Rue Le Ber",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3K 2A4",
+        "lat": 45.4809306,
+        "lon": -73.5524889
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "ALAC - Alliance pour l'accueil et l'integration des immigrats-es",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.alac.qc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ALAC - Alliance pour l'accueil et l'integration des immigrats-es",
+        "address": "5165 Chemin Queen Mary",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3W 1X7",
+        "lat": 45.4852312,
+        "lon": -73.6285289
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Shaar Hashomayim",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.theshaar.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shaar Hashomayim",
+        "address": "450 Avenue Kensington",
+        "city": "Westmount",
+        "lat": 45.4850515,
+        "lon": -73.5985804
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Service des loisirs Angus-Bourbonnière",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://slabrosemont.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Service des loisirs Angus-Bourbonnière",
+        "address": "5350 Rue Lafond",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5523585,
+        "lon": -73.5713572
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Église du Gesú",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://legesu.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église du Gesú",
+        "address": "1202 Rue De Bleury",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3B 3J3",
+        "lat": 45.5054545,
+        "lon": -73.5661958
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre récréatif Édouard-Rivet",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ville.montreal-est.qc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre récréatif Édouard-Rivet",
+        "address": "11111 Rue Notre-Dame Est",
+        "city": "Montréal-Est",
+        "region": "Québec",
+        "postal_code": "H1B 2V7",
+        "lat": 45.6285898,
+        "lon": -73.5005338
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Surrey Food Bank Society",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://surreyfoodbank.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Surrey Food Bank Society",
+        "address": "13478 78 Avenue",
+        "city": "Surrey",
+        "lat": 49.1443395,
+        "lon": -122.84914
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "BCIT Burnaby Campus Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.bcit.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BCIT Burnaby Campus Bookstore",
+        "lat": 49.2516748,
+        "lon": -123.0014436
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Britannia Shipyards National Historic Site",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://stevestonheritage.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Britannia Shipyards National Historic Site",
+        "lat": 49.1207839,
+        "lon": -123.1691426
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "WorkBC Vancouver Northeast",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://mosaicbc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "WorkBC Vancouver Northeast",
+        "address": "2555 Commercial Drive",
+        "city": "Vancouver",
+        "lat": 49.2617242,
+        "lon": -123.0702019
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Dance Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thedancecentre.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Dance Centre",
+        "address": "677 Davie Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6B 2G6",
+        "lat": 49.2769727,
+        "lon": -123.1256655
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Climb Base5",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://climbbase5.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Climb Base5",
+        "address": "98 Brigantine Drive",
+        "city": "Coquitlam",
+        "region": "British Columbia",
+        "postal_code": "V3K 6Z6",
+        "lat": 49.2276876,
+        "lon": -122.849835
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Arts Umbrella",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.artsumbrella.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arts Umbrella",
+        "address": "1440 Johnston Street",
+        "lat": 49.2703704,
+        "lon": -123.133298
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Burnaby Winter Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://burnabywinterclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burnaby Winter Club",
+        "address": "4990 Canada Way",
+        "city": "Burnaby",
+        "lat": 49.2430917,
+        "lon": -122.969155
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Dance Express",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://danceexpress.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dance Express",
+        "lat": 49.2668068,
+        "lon": -123.0100586
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Upstart & Crow",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://upstartandcrow.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Upstart & Crow",
+        "address": "1387 Railspur Alley",
+        "lat": 49.2704633,
+        "lon": -123.1343324
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Salvation Army Boundless Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://salvationarmyvancouver.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salvation Army Boundless Vancouver",
+        "address": "3213 Fraser Street",
+        "lat": 49.2561542,
+        "lon": -123.090174
+      },
+      "_metro": "Vancouver, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Orange Hall",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://successbc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Orange Hall",
+        "address": "341 Gore Avenue",
+        "lat": 49.2815958,
+        "lon": -123.09779
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Disability Foundation",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://disabilityfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Disability Foundation",
+        "address": "2285 Clark Drive",
+        "lat": 49.2645626,
+        "lon": -123.0777833
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Northside Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://dwellingplace.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Northside Church",
+        "address": "1460 Lansdowne Drive",
+        "lat": 49.2941195,
+        "lon": -122.8139421
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Cornerstone Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cornerstonebc.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cornerstone Seventh Day Adventist Church",
+        "address": "1415 Noons Creek Drive",
+        "lat": 49.2960899,
+        "lon": -122.8178379
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Evergreen Cultural Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://evergreenarts.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evergreen Cultural Centre",
+        "address": "1205 Pinetree Way",
+        "city": "Coquitlam",
+        "region": "BC",
+        "postal_code": "V3B 7Y3",
+        "lat": 49.2852654,
+        "lon": -122.7908384
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Vancouver Filipino Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vancouverfilipinoadventist.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vancouver Filipino Seventh Day Adventist Church",
+        "address": "235 East 15th Avenue",
+        "lat": 49.2577491,
+        "lon": -123.0998669
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Steveston Railway Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://historicsteveston.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Steveston Railway Museum",
+        "lat": 49.125569,
+        "lon": -123.1806346
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "King of Life Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kingoflife.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "King of Life Lutheran Church",
+        "address": "1198 Falcon Drive",
+        "lat": 49.2844185,
+        "lon": -122.8190958
+      },
+      "_metro": "Vancouver, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "St. James'",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stjames.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. James'",
+        "address": "303 East Cordova Street",
+        "postal_code": "V6A 1L4",
+        "lat": 49.2825102,
+        "lon": -123.097206
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Roedde House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.roeddehouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roedde House Museum",
+        "address": "1415 Barclay Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2869083,
+        "lon": -123.1321516
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Korean Baptist Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kbcv.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Korean Baptist Church of Vancouver",
+        "address": "1005 Kensington Avenue",
+        "lat": 49.2748988,
+        "lon": -122.9706163
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Embark Burnaby Learning Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.embarksustainability.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Embark Burnaby Learning Garden",
+        "lat": 49.2765494,
+        "lon": -122.9142408
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Danish Lutheran Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://danishchurch.vancouver.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Danish Lutheran Church of Vancouver",
+        "address": "6010 Kincaid Street",
+        "lat": 49.2479958,
+        "lon": -122.9765182
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Tzu Chi Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://tzuchi.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tzu Chi Community Garden",
+        "lat": 49.2109622,
+        "lon": -123.1176406
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "St. Anthony's Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sawv.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Anthony's Parish",
+        "address": "2347 Inglewood Avenue",
+        "postal_code": "V7V 1Z9",
+        "lat": 49.3349913,
+        "lon": -123.1768757
+      },
+      "_metro": "Vancouver, Canada"
     }
   ],
   "_not_included": {
@@ -27888,6 +29255,19 @@
     "https://madenewomaha.com": "Made New Makerspace - public community events - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
     "https://www.kinsale.ie": "Kinsale - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
     "https://www.buurtteamamsterdam.nl": "Retired 2026-10-24. The OSM walk found it on one buurtteam office (Lekstraat 13A) and pinned the whole organisation's calendar there: 92 live rows on one point carrying 54 different place names (Nieuwendam and the Bijlmer at Lekstraat), mostly social-service 'spreekuur' hours, some by appointment. Streets are present but no coordinates. 28% of Amsterdam's visible rows came from this and hvoquerido.nl.",
-    "https://hvoquerido.nl": "Retired 2026-10-24. A care organisation's client activities, found by the OSM walk on one social facility (Plantage Muidergracht 14) and pinned there: 49 live rows on one point with 16 different place names, one 'Online (via Teams)'. Not a public programme, and not that building's."
+    "https://hvoquerido.nl": "Retired 2026-10-24. A care organisation's client activities, found by the OSM walk on one social facility (Plantage Muidergracht 14) and pinned there: 49 live rows on one point with 16 different place names, one 'Online (via Teams)'. Not a public programme, and not that building's.",
+    "https://www.deschuteshistory.org": "Deschutes Historical Museum (Bend, OR) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each refused (p1 HTTP 403). Audit on a GitHub runner 2026-10-18: http 403 (2026-10-11: 2 events, 2/2 on page 1 future). Recheck 2026-10-29: http 429 'Too Many Requests' from Cloudflare on a first request at about 06:30 UTC, then 3 events, 3/3 on page 1 future at 07:50 UTC. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://camera.to": "Camera - Centro Italiano per la fotografia (Turin) - tribe. RETIRED 2026-10-29: its The Events Calendar holds the site's banner notices, not events. All 8 entries dated 2025-10-29..2027-10-29 are notices in Italian/English pairs: 'Comunicazione ordinaria top-bar 26 dicembre - 1 febbraio' (2), 'Avviso speciale variazione orario' (August, 2), 'Avviso chiusura allestimento' (10-05..10-16, 2) and 'Avviso speciale variazione orari' (11-06..11-07, 2). Production kept 2 on 2026-10-28, and they were the last two. Recorded here, not only as a ledger fail, because verify passes on notices ('2 events, 2/2 on page 1 future' on 2026-10-29), so discovery would propose the site again after DEAD_TTL. Camera's programme (/agenda/, /incontri/, /mostre/) is not in The Events Calendar, and /agenda/ carries no schema.org Event markup. To restore: only if the calendar starts holding events; the entry is in tribe_sources.json at 10f27b9.",
+    "https://oeckorfbal.nl": "OEC Korfbal (Helmond) - The Events Calendar's REST API. RETIRED 2026-10-29 under the robots line (robots.txt binds a publisher's own pages and feeds): https://oeckorfbal.nl/robots.txt answers `Disallow: /` to every crawler (`User-Agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. It was not working either: the route answered 404 to both GitHub audits (2026-10-11 and 10-18), and production logged 'kept 0 events' on 2026-10-24, 10-25, 10-27 and 10-28. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at 10f27b9; `verify` will then pass it.",
+    "https://www.roter-baum-berlin.de": "Buntes Haus (Berlin-Hellersdorf) - The Events Calendar's REST API. RETIRED 2026-10-29 as zero unique supply: www.roter-baum-berlin.de is a second domain of roter-baum.berlin (its home page 301s there, and its /wp-json/ route answers from the same WordPress, Link: <https://roter-baum.berlin/wp-json/>), so it read Roter Baum Berlin's one calendar a second time: 39,034 bytes and the same 5 event ids on 2026-10-29, and production kept the same counts (4-5) under both names on 2026-10-24, 10-25, 10-27 and 10-28. The calendar is configured once, as 'Jugendfreizeiteinrichtung \"Anna Landsberger\"' (https://roter-baum.berlin), whose rows at MGH Buntes Haus (7 of 60, 2025-10-29..2027-10-29) carry their own street. Recorded here so the OSM walk, which found this alias on the Buntes Haus community centre, does not add it again. To restore: do not; read https://roter-baum.berlin.",
+    "https://jewishdayton.org": "Boonshoft Center for Jewish Culture and Education (Jewish Dayton) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each p1 HTTP 403. Audit on a GitHub runner 2026-10-18: http 403 (2026-10-11 read 68 events, 10/10 on page 1 future). Recheck 2026-10-29: http 403 from Cloudflare (a bare '403 Forbidden', 103 bytes) on robots.txt, the REST route, /wp-json/ and the home page. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md); the way in is to ask the operator. To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://koskarolymh.hu": "Kós Károly Művelődési Ház és Könyvtár (Budakalász) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each p1 HTTP 403. Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 31 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://www.bibliotecanacional.aw/pages": "Biblioteca Nacional Aruba (Oranjestad, Aruba) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25 and 10-28 each p1 HTTP 403 (10-27's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 6 events, 6/6 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://www.booklounge.co.za": "The Book Lounge (Cape Town) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25 and 10-28 each p1 HTTP 403 (10-27's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 9 events, 9/9 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://jccmw.org": "JCC of Mid-Westchester - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: robots.txt itself answered a Cloudflare 'Just a moment...' challenge (HTTP 403, cf-mitigated: challenge), so permission could not be established and nothing else was fetched. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md); the way in is to ask the operator. To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://marjcc.org": "Michael-Ann Russell JCC (North Miami Beach) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 312 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://mainstreettakoma.org": "Main Street Takoma (Takoma Park / Takoma DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 272 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://www.sixthandi.org": "Sixth & I (Washington, DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 38 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://cvc.ca": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-18: http 403. Recheck 2026-10-29: 3 events, 3/3 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9."
   }
 }

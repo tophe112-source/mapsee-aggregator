@@ -2048,13 +2048,6 @@
     "limit": 300
   },
   {
-    "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
-    "url": "https://www.civictheatre.ie/whats-on/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Tallaght, Dublin, Ireland",
-    "limit": 300
-  },
-  {
     "name": "Riverbank Arts Centre (Newbridge, Ireland)",
     "url": "https://www.riverbank.ie/events/?ical=1",
     "category": "arts",
@@ -2168,10 +2161,12 @@
   },
   {
     "name": "Heal the Bay (Santa Monica, CA)",
-    "url": "https://healthebay.org/events/?ical=1",
+    "url": "https://healthebay.org/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "volunteer",
     "geocode_suffix": ", Santa Monica, CA",
-    "limit": 300
+    "limit": 300,
+    "_found": "manual:2026-10-29 deadfix -> The Events Calendar's list-view iCal export of the same calendar",
+    "_note": "Measured 2026-10-29 with the production UA. REPLACES https://healthebay.org/events/?ical=1 (same entry at 10f27b9), which exports the site's MONTH view: it answers 200 with an empty body (text/html, 0 B) once the month's events are over (production 10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs'; audit 10-18 'http 200 / no VCALENDAR'), and with tribe-bar-date=2026-09-01 it gave exactly September's 5 VEVENTs. The plugin's list export reads every upcoming event: verify_ics '6 vevents / 6 future', the same 6 the REST API (/wp-json/tribe/events/v1/events) lists in the next 120 days. robots.txt allows it. Scratch run of the ics adapter: kept 2 of 6 (two MPA Watch trainings carry no LOCATION; the Kuruvungna Village Springs and Dockweiler State Beach LOCATIONs missed Photon), 2 placed, 2 in the next 90 days."
   },
   {
     "name": "Johnson Creek Watershed Council (Portland, OR)",
@@ -2333,13 +2328,6 @@
     "url": "https://www.tacomaartmuseum.org/events/?ical=1",
     "category": "arts",
     "geocode_suffix": ", Tacoma, WA",
-    "limit": 300
-  },
-  {
-    "name": "Portland Museum of Art (Portland, ME)",
-    "url": "https://www.portlandmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Portland, ME",
     "limit": 300
   },
   {
@@ -4247,13 +4235,6 @@
     "limit": 300
   },
   {
-    "name": "The Helena May (Hong Kong)",
-    "url": "https://www.helenamay.com/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Hong Kong",
-    "limit": 300
-  },
-  {
     "name": "Dubai Astronomy Group (Dubai)",
     "url": "https://dubaiastronomy.com/events/?ical=1",
     "category": "outdoors",
@@ -4356,13 +4337,6 @@
     "url": "https://swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
     "geocode_suffix": ", Ukiah, CA",
-    "limit": 300
-  },
-  {
-    "name": "Granville Island Events (Vancouver)",
-    "url": "https://granvilleisland.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Granville Island, Vancouver, BC, Canada",
     "limit": 300
   },
   {
@@ -4562,13 +4536,6 @@
     "limit": 300
   },
   {
-    "name": "Eat Street Northshore (Brisbane)",
-    "url": "https://eatstreetnorthshore.com.au/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Brisbane, Australia",
-    "limit": 300
-  },
-  {
     "name": "Capital Region Farmers Market (Canberra)",
     "url": "https://capitalregionfarmersmarket.com.au/events/?ical=1",
     "category": "market",
@@ -4576,24 +4543,10 @@
     "limit": 300
   },
   {
-    "name": "Mathallen Oslo Food Hall",
-    "url": "https://mathallenoslo.no/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Mathallen, Oslo, Norway",
-    "limit": 300
-  },
-  {
     "name": "Aldeburgh Food and Drink Festival (Suffolk)",
     "url": "https://aldeburghfoodanddrink.co.uk/events/?ical=1",
     "category": "food",
     "geocode_suffix": ", Snape, Suffolk, UK",
-    "limit": 300
-  },
-  {
-    "name": "The Farm Cookery School (Wiltshire)",
-    "url": "https://thefarmcookeryschool.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Bromham, Wiltshire, UK",
     "limit": 300
   },
   {
@@ -5081,18 +5034,42 @@
     "limit": 300
   },
   {
-    "name": "Friends of Little Sài Gòn (Seattle)",
-    "url": "https://flsseattle.org/events/?ical=1",
+    "name": "The Good Society (West Seattle and Queen Anne, Seattle)",
+    "url": "https://goodsocietybeer.com/?gse_ics=1",
     "category": "community",
     "geocode_suffix": ", Seattle, WA",
-    "limit": 300
-  },
-  {
-    "name": "The Good Society - West Seattle Events (Seattle)",
-    "url": "https://goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 300
+    "limit": 300,
+    "skip_title": "^Members\\S*\\s+Night$",
+    "location_overrides": [
+      {
+        "location": "West Seattle",
+        "venue": {
+          "name": "The Good Society Brewery & Public House",
+          "address": "2701 California Ave SW",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98116",
+          "country": "US",
+          "lat": 47.579252,
+          "lon": -122.38671
+        }
+      },
+      {
+        "location": "Queen Anne",
+        "venue": {
+          "name": "The Good Society Brewery & Barrel House",
+          "address": "535 W McGraw St",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98119",
+          "country": "US",
+          "lat": 47.639537,
+          "lon": -122.364103
+        }
+      }
+    ],
+    "_found": "manual:2026-10-29 deadfix -> the events page's own 'Subscribe to the calendar: all events' link (/?gse_ics=1)",
+    "_note": "Measured 2026-10-29 with the production UA. REPLACES https://goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list (entry 'The Good Society - West Seattle Events (Seattle)' at 10f27b9), which now 301s to goodsocietybeer.com and answers its HTML page (200 text/html, 108,021 B; production 10-24, 10-25, 10-27, 10-28 'kept 0 of 0 VEVENTs'): the site left The Events Calendar (/wp-json/tribe/events/v1/events 404; /wp-json/ lists its own gs-events/v1 instead). goodsocietybeer.com/events/ links 'Subscribe to the calendar: all events' at /?gse_ics=1; robots.txt `User-agent: * / Allow: /` with Content-Signal search=yes,ai-train=no,use=reference; verify_ics '534 vevents / 505 future'. It carries both taprooms and every LOCATION is only 'West Seattle' (286) or 'Queen Anne' (248), so location_overrides pin them to the addresses on goodsocietybeer.com/locations/ (2701 California Ave SW, 98116; 535 W McGraw St, 98119), points from the US Census geocoder. skip_title drops 'Members' Night' (83 VEVENTs, '$7 imperial pints for members of The Admiral Club and Draft Beer Society all day long': a members' price, not an event). Scratch run of the ics adapter: kept 285 of 534 (142 beyond the 365-day horizon, 83 title-filtered), 285 placed (180 West Seattle, 105 Queen Anne), 69 in the next 90 days. Renamed because the feed is both taprooms, not West Seattle alone."
   },
   {
     "name": "Historic Seattle - CID History Collective (Seattle)",
@@ -5119,13 +5096,6 @@
     "name": "Seattle Gymnastics - Indoor Playground (Seattle)",
     "url": "https://seattlegymnastics.com/play-events/indoor-playground/schedule/?ical=1",
     "category": "kids",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 300
-  },
-  {
-    "name": "The Octopus Bar (Seattle)",
-    "url": "https://theoctopusbar.com/?ical=1&eventDisplay=list",
-    "category": "party",
     "geocode_suffix": ", Seattle, WA",
     "limit": 300
   },
@@ -5525,7 +5495,12 @@
     "geocode_suffix": ", Canton, Ohio",
     "limit": 300,
     "_found": "civic:city -> civicplus[Centennial Plaza]",
-    "_metro": "Canton, Ohio"
+    "_metro": "Canton, Ohio",
+    "wall_clock_tzids": [
+      "America/Chicago"
+    ],
+    "crawl_delay": 10,
+    "_note": "Measured 2026-10-29 with the production UA. FIX for a mislabelled zone, as catID 26: all 3 VEVENTs carry TZID=America/Chicago over Canton's Eastern wall clock. Light Up Downtown, UID 2731: feed DTSTART;TZID=America/Chicago:20261202T173000, the city's page Calendar.aspx?EID=2731 'Time: 5:30 PM'; read plainly 2026-12-02T23:30Z, 18:30 EST, 1 h late. Dry run from empty caches with wall_clock_tzids: kept 3 of 3, 3 stored, 3 placed, start_local floating (17:30, zoned by the sync as America/New_York, 22:30Z). robots.txt asks Crawl-delay: 10."
   },
   {
     "name": "Canton — Civic Center",
@@ -5534,7 +5509,12 @@
     "geocode_suffix": ", Canton, Ohio",
     "limit": 300,
     "_found": "civic:city -> civicplus[Civic Center]",
-    "_metro": "Canton, Ohio"
+    "_metro": "Canton, Ohio",
+    "wall_clock_tzids": [
+      "America/Chicago"
+    ],
+    "crawl_delay": 10,
+    "_note": "Measured 2026-10-29 with the production UA. FIX for a mislabelled zone: Canton (Ohio)'s CivicPlus feed stamps its Eastern wall clock as TZID=America/Chicago (X-WR-TIMEZONE America/Chicago), all 25 VEVENTs, so every row landed 1 h late. MercyMe Concert, UID 2707: feed DTSTART;TZID=America/Chicago:20270501T190000, the city's page Calendar.aspx?EID=2707 'Time: 7:00 PM - 9:30 PM'; read plainly 2027-05-02T00:00Z, 20:00 EDT. Professional Championship Bull Riders, UID 2682: feed 20261121T190000, page 2026-11-21T19:00; read plainly 20:00 EST. Dry run from empty caches with wall_clock_tzids: kept 25 of 25, 25 stored, 25 placed, start_local floating (19:00), which the sync zones from the coordinates as America/New_York (2027-05-01T23:00Z, 2026-11-22T00:00Z). robots.txt asks Crawl-delay: 10."
   },
   {
     "name": "Canton — Public Events",
@@ -5543,7 +5523,12 @@
     "geocode_suffix": ", Canton, Ohio",
     "limit": 300,
     "_found": "civic:city -> civicplus[Public Events]",
-    "_metro": "Canton, Ohio"
+    "_metro": "Canton, Ohio",
+    "wall_clock_tzids": [
+      "America/Chicago"
+    ],
+    "crawl_delay": 10,
+    "_note": "Measured 2026-10-29 with the production UA. 0 VEVENTs today (474 B, between farmers'-market seasons), with X-WR-TIMEZONE America/Chicago: the same site-wide setting that puts catIDs 26 and 27 1 h late (MercyMe Concert 7:00 PM on the page, 20:00 EDT read plainly), so it carries the same wall_clock_tzids for when the season refills it. It changes nothing for a VEVENT in any other zone. robots.txt asks Crawl-delay: 10."
   },
   {
     "name": "Marysville — City Events",
@@ -5663,24 +5648,6 @@
     "_metro": "Lakeville, Minnesota"
   },
   {
-    "name": "Lakeville — Antlers Park | Shelter A Monthly Schedule",
-    "category": "community",
-    "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
-    "geocode_suffix": ", Lakeville, Minnesota",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Antlers Park | Shelter A Monthly Schedule]",
-    "_metro": "Lakeville, Minnesota"
-  },
-  {
-    "name": "Lakeville — Antlers Park | Shelter B Monthly Schedule",
-    "category": "community",
-    "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
-    "geocode_suffix": ", Lakeville, Minnesota",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Antlers Park | Shelter B Monthly Schedule]",
-    "_metro": "Lakeville, Minnesota"
-  },
-  {
     "name": "Eau Claire — Special Events Calendar",
     "category": "community",
     "url": "https://www.eauclairewi.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
@@ -5741,15 +5708,6 @@
     "geocode_suffix": ", Yorba Linda, California",
     "limit": 300,
     "_found": "civic:city -> civicplus[Parks & Recreation Events]",
-    "_metro": "Yorba Linda, California"
-  },
-  {
-    "name": "Yorba Linda — Library Events",
-    "category": "learning",
-    "url": "https://www.yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "geocode_suffix": ", Yorba Linda, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Library Events]",
     "_metro": "Yorba Linda, California"
   },
   {
@@ -7038,15 +6996,6 @@
     "category": "community",
     "_found": "osm:place_of_worship -> events-manager",
     "url": "https://www.pfarregersthof.at/komm/?ical=1",
-    "geocode_suffix": ", Wien",
-    "limit": 300,
-    "_metro": "Vienna, AT"
-  },
-  {
-    "name": "Kirche Namen Jesu",
-    "category": "community",
-    "_found": "osm:place_of_worship -> ics",
-    "url": "https://www.namenjesu.com/NJ.ics",
     "geocode_suffix": ", Wien",
     "limit": 300,
     "_metro": "Vienna, AT"
@@ -8474,15 +8423,6 @@
     "_metro": "Coppell, Texas"
   },
   {
-    "name": "Coppell — Block'n Roll Reservation Schedule",
-    "category": "community",
-    "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
-    "geocode_suffix": ", Coppell, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Block'n Roll Reservation Schedule]",
-    "_metro": "Coppell, Texas"
-  },
-  {
     "name": "Coppell — Fire Department",
     "category": "community",
     "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
@@ -9453,7 +9393,12 @@
     "geocode_suffix": ", Mount Vernon, Washington",
     "limit": 300,
     "_found": "civic:city -> civicplus[Parks & Recreation]",
-    "_metro": "Mount Vernon, Washington"
+    "_metro": "Mount Vernon, Washington",
+    "wall_clock_tzids": [
+      "America/New_York"
+    ],
+    "crawl_delay": 10,
+    "_note": "Measured 2026-10-29 with the production UA. FIX for a mislabelled zone, as sibling catID 29: all 59 VEVENTs carry TZID=America/New_York over the Pacific wall clock. Starry Night Sound Bath, UID 5429: feed DTSTART;TZID=America/New_York:20270312T190000, the city's page Calendar.aspx?EID=5429 'Time: 7:00 PM - 8:00 PM'; read plainly it is 2027-03-13T00:00Z, 16:00 PST, 3 h early. Illuminight Winter Walk, UID 5452: feed 20270129T170000, page 2027-01-29T17:00; read plainly 14:00 PST. Dry run from empty caches with wall_clock_tzids: kept 58 of 59 VEVENTs, 57 stored, 57 placed, every start_local floating (19:00 and 17:00 as the pages say), which the sync zones from the coordinates as America/Los_Angeles (03:00Z and 01:00Z). robots.txt asks Crawl-delay: 10."
   },
   {
     "name": "Mount Vernon — Mayor",
@@ -9462,7 +9407,27 @@
     "geocode_suffix": ", Mount Vernon, Washington",
     "limit": 300,
     "_found": "civic:city -> civicplus[Mayor]",
-    "_metro": "Mount Vernon, Washington"
+    "_metro": "Mount Vernon, Washington",
+    "wall_clock_tzids": [
+      "America/New_York"
+    ],
+    "crawl_delay": 10,
+    "location_overrides": [
+      {
+        "location": "Mount Vernon Library Commons, - 208 W. Kincaid Street Mount Vernon WA 98273",
+        "venue": {
+          "name": "Mount Vernon Library Commons",
+          "address": "208 W. Kincaid Street",
+          "city": "Mount Vernon",
+          "region": "WA",
+          "postal_code": "98273",
+          "country": "US",
+          "lat": 48.417463,
+          "lon": -122.337717
+        }
+      }
+    ],
+    "_note": "Measured 2026-10-29 with the production UA. FIX for a mislabelled zone. Mount Vernon (WA)'s CivicPlus feed stamps its Pacific wall clock as TZID=America/New_York (X-WR-TIMEZONE America/New_York). Mayor's Coffee Hour, UID 5510: the feed has DTSTART;TZID=America/New_York:20261109T180000, and the city's own page Calendar.aspx?EID=5510 says 2026-11-09T18:00 local. Read plainly, it stored start_utc 2026-11-09T23:00Z, which is 15:00 PST, 3 h early. Sibling catID 32 does the same and carries the same fix. verify: 1 vevents / 1 future. PINNED: the feed's one LOCATION, 'Mount Vernon Library Commons, - 208 W. Kincaid Street Mount Vernon WA 98273' as the adapter cleans it, is held by location_overrides at the US Census point for 208 W Kincaid St (48.417463, -122.337717), because from empty caches the unpinned entry kept 0 of 1 (the round-1 review's run: 3 Photon lookups, 3 missed); the first dry run's placement came from a warm cache. Dry run from empty caches with the pin: kept 1 of 1, 1 stored, 1 placed at the pin, 0 Photon lookups, start_local 2026-11-09T18:00:00 floating (start_utc null, so the sync zones it from the coordinates: 18:00 PST, 02:00Z). robots.txt asks Crawl-delay: 10. Replaces the same entry, which had no wall_clock_tzids. The 10-18 audit's '0 vevents / 0 future' was a quiet week: production kept 1 of 1 on 10-28, and the category has held 475 entries since 2012, a monthly Mayor's Coffee Hour."
   },
   {
     "name": "Midlothian — Public Library Calendar",
@@ -10886,24 +10851,6 @@
     "_metro": "Fredericksburg, US"
   },
   {
-    "name": "Ridgecrest — Community Events",
-    "category": "community",
-    "url": "https://www.ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
-    "geocode_suffix": ", Ridgecrest, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Community Events]",
-    "_metro": "Ridgecrest, California"
-  },
-  {
-    "name": "Ridgecrest — Parks and Recreation Calendar",
-    "category": "community",
-    "url": "https://www.ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "geocode_suffix": ", Ridgecrest, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks and Recreation Calendar]",
-    "_metro": "Ridgecrest, California"
-  },
-  {
     "name": "Chaska — Community Events",
     "category": "community",
     "url": "https://www.chaskamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
@@ -10931,30 +10878,12 @@
     "_metro": "Balch Springs, Texas"
   },
   {
-    "name": "Balch Springs — Parks & Recreation Center",
-    "category": "community",
-    "url": "https://www.balchspringstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
-    "geocode_suffix": ", Balch Springs, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks & Recreation Center]",
-    "_metro": "Balch Springs, Texas"
-  },
-  {
     "name": "Rockledge — Events",
     "category": "community",
     "url": "https://www.cityofrockledge.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
     "geocode_suffix": ", Rockledge, Florida",
     "limit": 300,
     "_found": "civic:city -> civicplus[Events]",
-    "_metro": "Rockledge, Florida"
-  },
-  {
-    "name": "Rockledge — Facility Rental",
-    "category": "community",
-    "url": "https://www.cityofrockledge.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "geocode_suffix": ", Rockledge, Florida",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Facility Rental]",
     "_metro": "Rockledge, Florida"
   },
   {
@@ -11995,15 +11924,6 @@
     "_metro": "Clinton, Utah"
   },
   {
-    "name": "Brookings — Light Pole Flag and Banner - Reserved/Open Dates",
-    "category": "community",
-    "url": "https://www.cityofbrookings-sd.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
-    "geocode_suffix": ", Brookings, South Dakota",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Light Pole Flag and Banner - Reserved/Open Dates]",
-    "_metro": "Brookings, South Dakota"
-  },
-  {
     "name": "Van Buren — Municipal Government Holidays",
     "category": "community",
     "url": "https://www.cityofvanburenar.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
@@ -12029,15 +11949,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Community Events Calendar]",
     "_metro": "Hudson, Ohio"
-  },
-  {
-    "name": "Edgewater — Ball Field Reservations",
-    "category": "community",
-    "url": "https://www.cityofedgewater.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
-    "geocode_suffix": ", Edgewater, Florida",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Ball Field Reservations]",
-    "_metro": "Edgewater, Florida"
   },
   {
     "name": "Edgewater — Park Reservations",
@@ -12670,15 +12581,6 @@
     "_metro": "Shelbyville, Indiana"
   },
   {
-    "name": "Oroville — Parks: Events & Reservations",
-    "category": "community",
-    "url": "https://www.orovilleca.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
-    "geocode_suffix": ", Oroville, California",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks: Events & Reservations]",
-    "_metro": "Oroville, California"
-  },
-  {
     "name": "Otsego — Holiday- City Offices closed",
     "category": "community",
     "url": "https://www.otsegomn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
@@ -12829,15 +12731,6 @@
     "geocode_suffix": ", Warrensburg, Missouri",
     "limit": 300,
     "_found": "civic:city -> civicplus[Parks & Recreation]",
-    "_metro": "Warrensburg, Missouri"
-  },
-  {
-    "name": "Warrensburg — COVB Calendar",
-    "category": "community",
-    "url": "https://www.warrensburg-mo.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
-    "geocode_suffix": ", Warrensburg, Missouri",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[COVB Calendar]",
     "_metro": "Warrensburg, Missouri"
   },
   {
@@ -14542,15 +14435,6 @@
     "_metro": "Vandalia, Ohio"
   },
   {
-    "name": "Vandalia — Block Party Trailer",
-    "category": "community",
-    "url": "https://www.vandaliaohio.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
-    "geocode_suffix": ", Vandalia, Ohio",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Block Party Trailer]",
-    "_metro": "Vandalia, Ohio"
-  },
-  {
     "name": "Asbury Park — Main Calendar",
     "category": "community",
     "url": "https://www.cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
@@ -14683,15 +14567,6 @@
     "geocode_suffix": ", Ferndale, Washington",
     "limit": 300,
     "_found": "civic:city -> civicplus[All Other Park Facility Rentals]",
-    "_metro": "Ferndale, Washington"
-  },
-  {
-    "name": "Ferndale — Star Park Picnic Shelter",
-    "category": "community",
-    "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar",
-    "geocode_suffix": ", Ferndale, Washington",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Star Park Picnic Shelter]",
     "_metro": "Ferndale, Washington"
   },
   {
@@ -15040,10 +14915,21 @@
     "name": "Centre Culturel - Salle de Soumagne-Bas",
     "category": "community",
     "_found": "osm:community_centre -> events-manager",
-    "url": "http://www.ccsoumagne.be/evenements/?ical=1",
+    "url": "https://www.ccsoumagne.be/events.ics",
     "geocode_suffix": ", Liege, BE",
     "limit": 300,
-    "_metro": "Liege, BE"
+    "_metro": "Liege, BE",
+    "venue": {
+      "name": "Centre Culturel - Salle de Soumagne-Bas",
+      "address": "Rue Pierre Curie 36A",
+      "city": "Soumagne",
+      "postal_code": "4630",
+      "country": "BE",
+      "lat": 50.6104884,
+      "lon": 5.7483827,
+      "pin_unnamed": true
+    },
+    "_note": "Measured 2026-10-29 with the production UA. REPLACES http://www.ccsoumagne.be/evenements/?ical=1, which now answers the 69,833-byte HTML agenda page (production 10-24, 10-25, 10-27 and 10-28 'kept 0 of 0 VEVENTs'; audit 10-11 and 10-18 'http 200 / no VCALENDAR'). Events Manager's calendar-wide export /events.ics: robots.txt allows it, no Crawl-delay; verify '27 vevents / 26 future'. No VEVENT carries LOCATION, GEO or CATEGORIES, so the venue block pins every one (pin_unnamed true) to the centre's hall, OSM way 261116414 'Centre Culturel - Salle de Soumagne-Bas' (amenity=community_centre, Rue Pierre Curie 36A, 4630 Soumagne) at 50.6104884, 5.7483827 through Photon. Of 8 event pages read on 10-29, 7 name the hall ('Centre culturel de Soumagne, Rue Pierre Curie 36A' or 'Salle de Soumagne-Bas') and 1 names no place (Larmes, a P1-P4 school show); round 1 read 4 more, 2 naming the hall and 2 none. Some rows are school performances (the agenda tags 'A l'ÉCOLE' on Toutes les choses géniales 20/11, Encore 11/03 and Grand Bleu Canap' 04/06; Larmes says P1-P4), and the feed carries nothing to filter them by. Dry run from empty caches: kept 26 of 27 VEVENTs (1 past), 26 pinned to the venue, 21 stored (5 second performances on the same day fold into one row), 21 placed at the hall, 16 in the next 90 days."
   },
   {
     "name": "Parroquia de Santa Catalina Mártir",
@@ -15407,24 +15293,6 @@
     "_metro": "Fernandina Beach, Florida"
   },
   {
-    "name": "Rochester — Lion's Shelter Reservations",
-    "category": "community",
-    "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
-    "geocode_suffix": ", Rochester, Michigan",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Lion's Shelter Reservations]",
-    "_metro": "Rochester, Michigan"
-  },
-  {
-    "name": "Rochester — Rochester Park Kiwanis Pavilion Reservations",
-    "category": "community",
-    "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
-    "geocode_suffix": ", Rochester, Michigan",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Rochester Park Kiwanis Pavilion Reservations]",
-    "_metro": "Rochester, Michigan"
-  },
-  {
     "name": "Rochester — Events",
     "category": "community",
     "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
@@ -15432,24 +15300,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Events]",
     "_metro": "Rochester, Michigan"
-  },
-  {
-    "name": "Rochester — Gazebo at Lion's Park - Reservations",
-    "category": "community",
-    "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
-    "geocode_suffix": ", Rochester, Michigan",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Gazebo at Lion's Park - Reservations]",
-    "_metro": "Rochester, Michigan"
-  },
-  {
-    "name": "Trenton — Shelter Reservation",
-    "category": "community",
-    "url": "https://www.ci.trenton.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
-    "geocode_suffix": ", Trenton, Ohio",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Shelter Reservation]",
-    "_metro": "Trenton, Ohio"
   },
   {
     "name": "Tehachapi — Main City Calendar",
@@ -15669,15 +15519,6 @@
     "_metro": "Kelso, Washington"
   },
   {
-    "name": "Kelso — Parks Reservations",
-    "category": "community",
-    "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "geocode_suffix": ", Kelso, Washington",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks Reservations]",
-    "_metro": "Kelso, Washington"
-  },
-  {
     "name": "Festus — Library",
     "category": "learning",
     "url": "https://www.festusmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
@@ -15694,15 +15535,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[City Calendar]",
     "_metro": "Grover Beach, California"
-  },
-  {
-    "name": "Wickliffe — Community Center Room Rentals",
-    "category": "community",
-    "url": "https://www.cityofwickliffe.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
-    "geocode_suffix": ", Wickliffe, Ohio",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Community Center Room Rentals]",
-    "_metro": "Wickliffe, Ohio"
   },
   {
     "name": "Levelland — Main Street Calendar",
@@ -16065,15 +15897,6 @@
     "_metro": "Basel, CH"
   },
   {
-    "name": "Universitätsbibliothek Religion",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-fakultaetdekanat/1186.ics",
-    "geocode_suffix": ", Basel",
-    "limit": 300,
-    "_metro": "Basel, CH"
-  },
-  {
     "name": "Fachbereichsbibliothek Kulturwissenschaft und Europäische Ethnologie",
     "category": "learning",
     "_found": "osm:library -> ics",
@@ -16361,15 +16184,6 @@
     "_metro": "Milan, Italy"
   },
   {
-    "name": "Lokalhus Syd",
-    "category": "community",
-    "_found": "osm:community_centre -> my-calendar",
-    "url": "https://lokalhuset.dk/?feed=my-calendar-ics",
-    "geocode_suffix": ", Copenhagen, Denmark",
-    "limit": 300,
-    "_metro": "Copenhagen, Denmark"
-  },
-  {
     "name": "KVIC Brno-Vinohrady",
     "category": "community",
     "_found": "osm:community_centre -> events-manager",
@@ -16397,15 +16211,6 @@
     "_metro": "Milan, Italy"
   },
   {
-    "name": "Universitätsbibliothek Religion",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-forschungsdekanat/1973.ics",
-    "geocode_suffix": ", Basel",
-    "limit": 300,
-    "_metro": "Basel, Switzerland"
-  },
-  {
     "name": "CasaLarga",
     "category": "community",
     "_found": "osm:community_centre -> events-manager+ics",
@@ -16422,15 +16227,6 @@
     "geocode_suffix": ", 港区, 東京都",
     "limit": 300,
     "_metro": "Tokyo, Japan"
-  },
-  {
-    "name": "Circolo Scacchi Arcotorre Chieri",
-    "category": "arts",
-    "_found": "osm:arts_centre -> my-calendar+jsonld-event",
-    "url": "https://www.arcotorrescacchi.it/?feed=my-calendar-ics",
-    "geocode_suffix": ", Chieri",
-    "limit": 300,
-    "_metro": "Turin, Italy"
   },
   {
     "name": "チェッコリ",
@@ -26749,15 +26545,6 @@
     "_metro": "Berlin, Germany"
   },
   {
-    "name": "Zentralbibliothek der Freien Universität Berlin",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.fu-berlin.de/sites/ub/termine/2026-10-05-cb-aktionsstand.ics?format=ics",
-    "geocode_suffix": ", Berlin",
-    "limit": 300,
-    "_metro": "Berlin, Germany"
-  },
-  {
     "name": "Kieztreff",
     "category": "community",
     "_found": "osm:community_centre -> gcal-embed",
@@ -27093,15 +26880,6 @@
     "_metro": "Stuttgart, Germany"
   },
   {
-    "name": "Württembergische Landesbibliothek",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7ffe1a4b0327ffbd48e2c99098d40b29.ics",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "_metro": "Stuttgart, Germany"
-  },
-  {
     "name": "casa nostra",
     "category": "community",
     "_found": "osm:community_centre -> ics",
@@ -27231,10 +27009,35 @@
     "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
     "category": "community",
     "_found": "osm:community_centre -> events-manager",
-    "url": "https://lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1",
+    "url": "https://lkg-bremen.de/events.ics",
     "geocode_suffix": ", Bremen",
     "limit": 300,
-    "_metro": "Bremen, Germany"
+    "_metro": "Bremen, Germany",
+    "location_overrides": [
+      {
+        "location": "Evangelisches Gemeinschaftszentrum, Waller Heerstraße 197, Bremen, 28219, Deutschland",
+        "venue": {
+          "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+          "city": "Bremen",
+          "postal_code": "28219",
+          "country": "DE",
+          "lat": 53.1049417,
+          "lon": 8.7819284
+        }
+      },
+      {
+        "location": "Evangelisches Gemeinschaftszentrum, Waller Heerstraße 197, Bremen, Bremen, 28219, Deutschland",
+        "venue": {
+          "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+          "city": "Bremen",
+          "postal_code": "28219",
+          "country": "DE",
+          "lat": 53.1049417,
+          "lon": 8.7819284
+        }
+      }
+    ],
+    "_note": "Measured 2026-10-29 with the production UA. Events Manager's calendar-wide iCal export (PRODID wp-events-plugin.com 5.9942). Replaces https://lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1, the export of ONE event, which Events Manager empties once that event is over: 136 bytes, 0 VEVENTs on 2026-10-29; production 'kept 0 of 0' on 10-25, 10-27 and 10-28. robots.txt allows /events.ics. verify: 50 vevents / 50 future. Every VEVENT's LOCATION is one of two spellings of 'Evangelisches Gemeinschaftszentrum, Waller Heerstrasse 197' (25 each), and both are pinned by location_overrides to the OSM point the two sibling entries' venue block carries (53.1049417, 8.7819284), because Photon is not stable on them: of three dry runs from empty caches one placed all 50 at 53.10494, 8.78195, one dropped a row as unplaceable, and one put the 25 rows of the '..., Bremen, 28219, Deutschland' spelling on the 28219 postcode point 1.16 km away and cached it. Dry run with the overrides: kept 50 of 50, 50 stored, 50 placed, 0 Photon lookups, 44 in the next 90 days: Bibelgespraech, EC Hauskreis, Alpha-Hauskreis, Gottesdienst, Jungschar, Wohnzimmerkino, Lichterfest, Adventsfeier."
   },
   {
     "name": "Gemeindehaus",
@@ -32993,7 +32796,8 @@
     "geocode_suffix": ", Big Lake, Minnesota",
     "limit": 300,
     "_found": "civic:city -> civicplus[Park Facility Rental]",
-    "_metro": "Big Lake, Minnesota"
+    "_metro": "Big Lake, Minnesota",
+    "_hold": "owner: 286 of 525 entries are bookings titled with a renter's full name (about 125 are public events: Music in the Park, ECFE, Graniteman); add a title filter or retire it"
   },
   {
     "name": "Norton — Event Calendar",
@@ -33029,15 +32833,6 @@
     "geocode_suffix": ", Oskaloosa, Iowa",
     "limit": 300,
     "_found": "civic:city -> civicplus[Home Page Calendar]",
-    "_metro": "Oskaloosa, Iowa"
-  },
-  {
-    "name": "Oskaloosa — Park Shelter Reservations",
-    "category": "community",
-    "url": "https://www.oskaloosaiowa.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
-    "geocode_suffix": ", Oskaloosa, Iowa",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Park Shelter Reservations]",
     "_metro": "Oskaloosa, Iowa"
   },
   {
@@ -35313,25 +35108,6 @@
     "_metro": "Stuttgart, Germany"
   },
   {
-    "name": "Württembergische Landesbibliothek",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/allgemeine-fuehrung-4.ics",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "venue": {
-      "name": "Württembergische Landesbibliothek",
-      "city": "Stuttgart",
-      "postal_code": "70173",
-      "country": "DE",
-      "lat": 48.777267,
-      "lon": 9.1852171,
-      "street_hint": "8 Konrad-Adenauer-Straße",
-      "pin_unnamed": false
-    },
-    "_metro": "Stuttgart, Germany"
-  },
-  {
     "name": "Kiezraum BadPankStraße",
     "category": "community",
     "_found": "osm:ngo -> my-calendar",
@@ -35557,25 +35333,6 @@
     "_metro": "Munich, Germany"
   },
   {
-    "name": "Württembergische Landesbibliothek",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/testvortrag-weggesperrt.ics",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "venue": {
-      "name": "Württembergische Landesbibliothek",
-      "city": "Stuttgart",
-      "postal_code": "70173",
-      "country": "DE",
-      "lat": 48.777267,
-      "lon": 9.1852171,
-      "street_hint": "8 Konrad-Adenauer-Straße",
-      "pin_unnamed": false
-    },
-    "_metro": "Stuttgart, Germany"
-  },
-  {
     "name": "Freiraum",
     "category": "community",
     "_found": "osm:community_centre -> gcal-embed",
@@ -35678,28 +35435,6 @@
       "lat": 53.1124077,
       "lon": 8.7555642,
       "street_hint": "26 Liegnitzstraße",
-      "pin_unnamed": false
-    },
-    "_metro": "Bremen, Germany"
-  },
-  {
-    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://lkg-bremen.de/events/ec-hauskreis-2026-10-22/?ical=1",
-    "geocode_suffix": ", Bremen",
-    "limit": 300,
-    "venue": {
-      "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-      "city": "Bremen",
-      "postal_code": "28219",
-      "country": "DE",
-      "lat": 53.1049417,
-      "lon": 8.7819284,
-      "street_hint": "197 Waller Heerstraße",
-      "aliases": [
-        "LKG Bremen, EGZ Walle"
-      ],
       "pin_unnamed": false
     },
     "_metro": "Bremen, Germany"
@@ -37738,25 +37473,6 @@
     "url": "https://calendar.google.com/calendar/ical/ohkai3nlodapdfktgalrbb7jgc%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Gerlingen",
     "limit": 300,
-    "_metro": "Stuttgart, Germany"
-  },
-  {
-    "name": "Württembergische Landesbibliothek",
-    "category": "learning",
-    "_found": "osm:library -> ics",
-    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7d01b47a5569838c18a6443dd472cfa2.ics",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "venue": {
-      "name": "Württembergische Landesbibliothek",
-      "city": "Stuttgart",
-      "postal_code": "70173",
-      "country": "DE",
-      "lat": 48.777267,
-      "lon": 9.1852171,
-      "street_hint": "8 Konrad-Adenauer-Straße",
-      "pin_unnamed": false
-    },
     "_metro": "Stuttgart, Germany"
   },
   {
@@ -58191,28 +57907,6 @@
     "_metro": "Bremen, Germany"
   },
   {
-    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://lkg-bremen.de/events/wohnzimmerkino/?ical=1",
-    "geocode_suffix": ", Bremen",
-    "limit": 300,
-    "venue": {
-      "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-      "city": "Bremen",
-      "postal_code": "28219",
-      "country": "DE",
-      "lat": 53.1049417,
-      "lon": 8.7819284,
-      "street_hint": "197 Waller Heerstraße",
-      "aliases": [
-        "LKG Bremen, EGZ Walle"
-      ],
-      "pin_unnamed": false
-    },
-    "_metro": "Bremen, Germany"
-  },
-  {
     "name": "Zum Guten Hirten",
     "category": "community",
     "_found": "osm:place_of_worship -> ics",
@@ -59008,5 +58702,915 @@
     "geocode_suffix": ", Lyon, France",
     "limit": 300,
     "_metro": "Lyon, France"
+  },
+  {
+    "name": "Église protestante unie De Grignan",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/df5b1ac812151c02063189ce19ace45b2f74be443e7c1f1820de012696e38b5f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Marseille",
+    "limit": 300,
+    "_metro": "Marseille, France"
+  },
+  {
+    "name": "Théâtre des Préambules",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://theatredespreambules.com/evenement/?ical=1",
+    "geocode_suffix": ", Toulouse, France",
+    "limit": 300,
+    "_metro": "Toulouse, France",
+    "crawl_delay": 30.0
+  },
+  {
+    "name": "Musée Georges Labit",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://museegeorgeslabit.fr/programme/?ical=1",
+    "geocode_suffix": ", Toulouse",
+    "limit": 300,
+    "_metro": "Toulouse, France"
+  },
+  {
+    "name": "Club Nautique de Mazerolles",
+    "category": "community",
+    "_found": "osm:sailing_school -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3c7346a5c11effd1b9a3cc64d0ea16abb0dc4ad9c6e1f99bea9f9a2ec0fdf9b5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sucé-sur-Erdre",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "ASBR Plongée",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2sflv23diafh6qrstugk16gfh0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nantes, France",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "ACC Judo",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://accjudo.fr/evenements.ics",
+    "geocode_suffix": ", La Chapelle-sur-Erdre",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "Football Club de Nantes",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.fcnantes.com/calendrierfcn2627.ics",
+    "geocode_suffix": ", La Chapelle-sur-Erdre",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "Les Visiteurs du Soir",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://lesvisiteursdusoir.com/calendrier-seances.ics",
+    "geocode_suffix": ", Nice, France",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "?",
+    "category": "theater",
+    "_found": "osm:cinema -> events-manager",
+    "url": "https://www.saint-jean-cap-ferrat.fr/agenda/?ical=1",
+    "geocode_suffix": ", Nice, France",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "Choisir Le Vélo",
+    "category": "community",
+    "_found": "osm:bicycle_repair_station -> event-organiser",
+    "url": "https://www.choisirlevelo.org/?feed=eo-events",
+    "geocode_suffix": ", Mouans-Sartoux",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "Église Protestante Unie de Nice Saint-Esprit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tnlvm7rpq106qtur05v384ls9c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nice, France",
+    "limit": 300,
+    "_metro": "Nice, France"
+  },
+  {
+    "name": "Activités Sportives Culturelles et de Plein Air",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cr3k4fe11gkm9eb1817opq2p6o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Strasbourg",
+    "limit": 300,
+    "_metro": "Strasbourg, France"
+  },
+  {
+    "name": "EDEKA Arena",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://www.messe-offenburg.de/sites/default/files/2026-10/ja-ich-will-die-hochzeitsmesse.ics",
+    "geocode_suffix": ", Strasbourg, France",
+    "limit": 300,
+    "_metro": "Strasbourg, France",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Port'Ouverte",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/contact%40portouverte.net/public/basic.ics",
+    "geocode_suffix": ", Tournai",
+    "limit": 300,
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "West-Vlaamse Aeroclub Moorsele",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wvlac.be_ks0tk2bv7aovd0qhir0g4mvcus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "Le Foyer",
+    "category": "theater",
+    "_found": "osm:cinema -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nd7sddqgjn8g2i5grl6nf50hlg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Acigné",
+    "limit": 300,
+    "_metro": "Rennes, France"
+  },
+  {
+    "name": "MSI Lab",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2c02499edad4d53fb99f33aaf9047f57f8ecf014ea478148dc852fefb9928e6e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", MONTREUIL SUR ILLE",
+    "limit": 300,
+    "_metro": "Rennes, France"
+  },
+  {
+    "name": "Nouvelle Librairie Sétoise",
+    "category": "learning",
+    "_found": "osm:books -> ics",
+    "url": "https://www.nouvellelibrairiesetoise.fr/rencontres/59564/event.ics",
+    "geocode_suffix": ", Sète",
+    "limit": 300,
+    "_metro": "Montpellier, France",
+    "crawl_delay": 5.0
+  },
+  {
+    "name": "Foyer Municipal des Retraités",
+    "category": "community",
+    "_found": "osm:social_centre -> events-manager",
+    "url": "https://www.lunel.com/category/toute-lactualite/evenement/?ical=1",
+    "geocode_suffix": ", Lunel",
+    "limit": 300,
+    "venue": {
+      "name": "Foyer Municipal des Retraités",
+      "city": "Lunel",
+      "postal_code": "34400",
+      "lat": 43.6761105,
+      "lon": 4.1295491,
+      "street_hint": "68 Rue de l'École du Parc",
+      "pin_unnamed": false
+    },
+    "_metro": "Montpellier, France"
+  },
+  {
+    "name": "Scouts et Guides de France - Territoire de l'Isère",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uq4ibf5bgfnoc7m2abmrsa3f9k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grenoble",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "L'ArTisterie",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n6e2fir6beu0hbqpi1d8f4akm4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fontaine",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "Green Kart",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/joitber7ldm1ce0to8ai4rlku8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grenoble, France",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "Karma Migyur Ling",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.montchardon.fr/programme/?ical=1",
+    "geocode_suffix": ", Grenoble, France",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "Repair Café Vandoeuvre",
+    "category": "community",
+    "_found": "osm:workshop -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_43332d29084c2a7f68338a4dc30f35378ae8e8801db6bbca228a2f995e7a8434%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nancy, France",
+    "limit": 300,
+    "_metro": "Nancy, France"
+  },
+  {
+    "name": "Willowdale Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40willowdalebaptist.com/public/basic.ics",
+    "geocode_suffix": ", North York",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Joe Rockhead's Indoor Rock Climbing",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e55cb594de65d41e1c70bf64add2cb1512262464aafbfc00fb52798e6c8947a0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, ON",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Nashville Road Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nashvilleroad.ca/events/potluck-lunch--99/2026-11-29.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "High Park Brewery",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_1450a456ce883421de0c3d397ff45a7598ea40771ea342b7b1780702e8d6da49%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Ontario",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "The Children's Storefront",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/childrensstorefront.com_ovt2823rbv4ala3o8adt7vqh78%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Saint Mary's Ukrainian Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40stmaryscawthra.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Metropolitan United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.metunited.org/events.ics",
+    "geocode_suffix": ", Toronto, ON",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Pittsburg",
+    "category": "community",
+    "_found": "civic:city -> tribe+jsonld-event -> my-calendar (the site left The Events Calendar; 2026-10-29)",
+    "url": "https://www.pittks.org/?feed=my-calendar-ics&span=year",
+    "geocode_suffix": ", Pittsburg, KS",
+    "limit": 300,
+    "within_days": 365,
+    "_metro": "Pittsburg, Kansas",
+    "_replaces": "tribe_sources.json 'Pittsburg' base_url https://www.pittks.org (entry at 10f27b9; default_city Pittsburg, default_region Kansas, default_country US, now carried by geocode_suffix): '526 events, 10/10 on page 1 future' at its 2026-09-13 merge, /wp-json/tribe/events/v1/events 404 rest_no_route since the 10-11 audit. Merge only with that entry removed.",
+    "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM tribe_sources.json: www.pittks.org is still WordPress (7.1) but no longer runs The Events Calendar. /wp-json/tribe/events/v1/events answers 404 rest_no_route (audits 10-11 and 10-18 'http 404'; production 10-24, 10-25, 10-27 and 10-28 'kept 0 events', the adapter's silent page-1 404). /wp-json/ now lists my-calendar/v1, and the city's /events/ pages carry My Calendar's ?mc_id= links. My Calendar's iCal export at /?feed=my-calendar-ics, which the site links from nowhere, gives only the current month (37 VEVENTs, 5 from today). With &span=year it gives the calendar year: 288 VEVENTs, 2026-01-07..2026-12-31. So in December it runs out at 31 December until January's rows appear. robots.txt answers 404, so nothing is disallowed and no Crawl-delay is asked. verify: 288 vevents / 22 future. Dry run from an empty geocode cache: kept 15 of 288, 15 stored, 15 placed, all 15 in the next 90 days. 96 town-hall rows were refused (5 of the 22 upcoming: Land Bank Board of Trustees x3, Airport Advisory Board, Memorial Auditorium Advisory Board), 175 were past, and 2 were unplaceable because Photon missed their LOCATIONs (Pittsburg Public Library, 308 N Walnut St; Pritchett Pavilion). What it keeps: theatre at Memorial Auditorium, the monthly exhibits, the Christmas parade, Small Business Saturday, and Lincoln Center's family nights. The feed double-escapes '&', so 1 of the 15 titles is stored with '&amp;amp;'."
+  },
+  {
+    "name": "Baptistkyrkan Tabernaklet",
+    "category": "community",
+    "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+    "url": "https://www.tabernaklet.se/?ical=1",
+    "geocode_suffix": ", Göteborg",
+    "limit": 300,
+    "venue": {
+      "name": "Baptistkyrkan Tabernaklet",
+      "address": "4 Götabergsgatan",
+      "city": "Göteborg",
+      "postal_code": "411 34",
+      "country": "SE",
+      "lat": 57.7004655,
+      "lon": 11.9706585
+    },
+    "_metro": "Gothenburg, SE",
+    "_note": "Measured 2026-10-29 with the production UA. MOVED HERE FROM jsonld_sources.json, where it was read as https://www.tabernaklet.se/?page_id=997 (entry at 10f27b9). That page verified '100/100 sampled events future' at its 2026-09-05 merge; it is now Events Manager 7.4.12's list (178,996 B, 37 ?event= links) with no Event JSON-LD, and an event page (?event=bon-och-lovsang) has none either, so the audits of 10-11 and 10-18 and the 10-29 recheck read 'no schema.org Event blocks found'. Events Manager's calendar-wide export of the same calendar, /?ical=1, answers 200 text/calendar (44,103 B, PRODID -//wp-events-plugin.com//7.4.12//EN): 80 VEVENTs to 2026-12-27, none with LOCATION or GEO. robots.txt allows it. verify: 80 vevents / 80 future. Dry run: kept 80 of 80 VEVENTs, 80 pinned to the source's venue, 80 stored, 80 placed at the church (57.7004655, 11.9706585), all in the next 90 days; DTSTART;TZID=Europe/Stockholm:20261029T170000 stored as 2026-10-29T17:00:00+01:00. The venue block is the old entry's, which already placed this calendar's location-less events at the church; every title is the church's own programme (Gudstjänst, Bibelstudier, Ukulelegruppen, Trappanér's suppers and clothes giveaway, Julotta). Merge only with the jsonld entry removed."
+  },
+  {
+    "name": "Pontiac — Main Calendar",
+    "category": "community",
+    "url": "https://www.pontiac.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Pontiac, Illinois",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Pontiac, Illinois",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Grand Rapids",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://cityofgrandrapidsmn.com/calendar/ical/%2A/calendar.ics",
+    "geocode_suffix": ", Grand Rapids, Minnesota",
+    "limit": 300,
+    "_metro": "Grand Rapids, Minnesota",
+    "crawl_delay": 15.0
+  },
+  {
+    "name": "Roncesvalles United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/069c477951a9a17f34adbfa9dec69d619e993c182592116ed2f70d2303884026%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Forest Hill United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1vo77pnejo4hg8qup7cjd7bjsg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "The Sports Village",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> my-calendar",
+    "url": "https://www.sportsvillage.ca/?feed=my-calendar-ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "St. Luke’s Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b2a00b7069f880e24e743502192ed4bce25d837f44a10a3c8140dfdb13c1233d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Beth Jacob Synagogue",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_378ba81e9eae0c5bf8b755e7d08980ac1ec24e06aeac23f06bd55fe128924e6f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", North York",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Saint Mary Star of the Sea Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/30prg3oduhr1il1h2hghb69i0s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Kingsway-Lambton United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.kingswaylambton.ca/events.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Westminster United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dsj2gdoecrrcbupdi9top8tekg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "St. Olaves Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d168e69cfce506931b3404a5b09b0c9624f6f6fdd4593addeaae67c6757db2a8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Erin Mills United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a2bojmehst2qm54vse9r3pk1no%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mississauga",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Runnymede Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.runnymedechurch.org/events.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Oakwood Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.oakwoodbfc.com/events.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Entraide Ahuntsic-Nord",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40entraidenord.org/public/basic.ics",
+    "geocode_suffix": ", Montréal, Québec",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Club de Kendo Ayame",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5eaab905a56685d0a4320d61af714e1695fa60a1f83610dca9d9a52e8a3d46b4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montréal",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Centre de ressources communautaires de l'Ouest-de-l'Île - CRC",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b2c5fb85bd6692000d2c008b982af34db905c9dd68135e0afbb6a3110af51494%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pointe-Claire, QC",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Église Saint-Esprit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://www.stespritderosemont.ca/infos/eglise-saint-esprit/?feed=my-calendar-ics",
+    "geocode_suffix": ", Montreal, Canada",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Église orthodoxe roumaine de l'Annonciation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9hrast80mvdnu74qv1lm8oc3ao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montréal, QC",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "St Helens Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://sthelensvancouver.com/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St. Timothy Anglican Chuch",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sainttimothy.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Jubilee United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jubilee-uc.ca_0g36ul260rom0vo43og7etmpeo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Saint John of Shanghai Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n7822eeuum0covis43jsvsdv08%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Bethel International Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://bethelinvancouver.com/events.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Aviary",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7hiluc30hvrplu268iqvbnnunc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fairview Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.fairviewbaptistvancouver.ca/events.ics",
+    "geocode_suffix": ", Vancouver, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fruitful Life Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.flccvancouver.net/activity/live/?ical=1",
+    "geocode_suffix": ", Vancouver, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Hollyburn Sailing Club",
+    "category": "community",
+    "_found": "osm:sailing_school -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hollyburnsailingclub.ca_23f1p9ivnaijvhl07qasen7jts%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "All Saints Ladner Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.vancouver.anglican.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Westwood Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.westwoodac.org/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St Agnes' Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintagnes.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "North Shore Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nsac.bc.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Eagle Ridge Bible Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.erbf.com/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Inlet United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.inletunited.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "The Mission to Seafarers",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.flyingangel.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St Luke Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stluke%40telus.net/public/basic.ics",
+    "geocode_suffix": ", Surrey",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Gracepoint Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gracepoint.ca/events.ics",
+    "geocode_suffix": ", Surrey",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Attitude Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vancouver%40attitudebaptistchurch.ca/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Grace Vancouver Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/32ade9321c163299bcd581faec5feae50e543073922bd83f9cd352599133c024%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Mountainview Christian Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mountainviewfellowship.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Peace Church on 52nd",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.peacechurchon52.ca/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Vancouver, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Burnaby Pacific Grace Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://bpgc.org/events.ics",
+    "geocode_suffix": ", Burnaby",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fraser Lands Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.fraserlands.ca/events.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Olivet Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.olivet.bc.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Holy Trinity Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.holytrinitycathedral.ca/events.ics",
+    "geocode_suffix": ", New Westminster, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Green Timbers Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lhq80qn2jdvp9ggt7uu4cm3kbc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Surrey",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Burnaby Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.bacfamily.org/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St Anne's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stannessteveston.ca/events.ics",
+    "geocode_suffix": ", Richmond",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Lighthouse Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ladnerlife.com/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Immaculate Conception Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://icdelta.ca/icalendar0.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Vancouver Hack Space",
+    "category": "community",
+    "_found": "osm:leisure -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6kqbcrijmvlp9e82gi0ql0csl4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Trinity Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/284b88b657f5aceeb4ee434dfd55c8c1841c437fa3b81d8e5bdad9efd44efa7c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, British Columbia",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Saint Anselm's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stanselms.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Nelson Avenue Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nacchurch.org/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Burnaby Chinese Evangelical Free Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fdd0a46b5f587f5db4155b4a5862ad7a60985c64e9f61a171da33da96603eed4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "West Point Grey Lawn Bowling Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f2f53c7eb6f0e1a64f0c1366f1fad9277e153f046a4e8dbaa9618f2b503d4a0d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "West Vancouver Lawn Bowling Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7c3622d96469ef75fbc1c3b7ecbc11aea552e054fa54ed71517070bada94c0a4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fraser River Discovery Centre",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q1obqdnmnfd0arpdmb3lu14tt4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "South Gate Alliance",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://southgatealliance.net/events/small-group-practicing-the-way/2026-10-30.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Autism Calgary",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/autismcalgary.com_hm5hojchcs694lak4a1n8r032c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Winners Chapel International Calgary",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://winnerschapelcalgary.org/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Skipping Stone",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5f25dd0bf7800264e3e595ea33bddfaf32b5df642dfbafff20b17c3e61753beb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Quickdraw Animation Society",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2100d2fa9c97284471519e556b38c6020b87b84e048ed39b7deae8a5fc7c0db8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Northwest Islamic Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tco2ejtvl6s4oaof8ipmh3vevo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, AB",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Workshop Studios",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b7aog3hke1dm9bni1hc7m5p2o8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
   }
 ]

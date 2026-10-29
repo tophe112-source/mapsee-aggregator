@@ -566,6 +566,17 @@
   Riparazione, or are titled with the slogan "Reparieren statt wegwerfen".
   Whether a repair café belongs on the second-hand door is a product call. If
   it does, the rule needs those names too.
+  **2026-10-28 update:** the owner asked to improve Fleabop's reuse catalog;
+  the established English repair-café rule now recognizes those **7** exact
+  equivalent names/phrases, with word boundaries and the same volunteer-shift
+  exclusions. Generic repair copy and embedded business names remain out.
+  A sequential, one-object-at-a-time read of the Oct 27 civic recovery store
+  examined **182,300** events in **9.45 s**, selecting **24** upcoming, placed
+  repair-cafe.ch records. Exact fingerprint lookups found all **24** public;
+  **2** already carried market and **22** gained only the market secondary.
+  Optimistic writes required unchanged title/category/categories, public and
+  unhidden status, and no claim. Readback preserved every primary category,
+  description, date and ownership field. No publisher recrawl was needed.
 
 - **AN ADAPTER'S OWN "Family friendly." LINE IS A KIDS SIGNAL TO THE SYNC.**
   mapsee_supabase_sync._KIDS_RX matches "Family friendly." but not "fun and

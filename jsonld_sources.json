@@ -298,22 +298,6 @@
       "_metro": "Edmonton, CA"
     },
     {
-      "name": "Kitchener Waterloo Oktoberfest",
-      "category": "community",
-      "_found": "osm:ngo -> jsonld-event",
-      "listing": [
-        "https://www.oktoberfest.ca/events/"
-      ],
-      "link_pattern": "https://www\\.oktoberfest\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kitchener Waterloo Oktoberfest",
-        "lat": 43.4502285,
-        "lon": -80.4891157
-      },
-      "_metro": "Kitchener, CA"
-    },
-    {
       "name": "Roslyn Oxley9 Gallery",
       "category": "arts",
       "_found": "osm:gallery -> jsonld-event",
@@ -612,9 +596,9 @@
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
       "listing": [
-        "https://le-zenith.com/shows/MPL-20922"
+        "https://le-zenith.com/"
       ],
-      "link_pattern": "https://le\\-zenith\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "/shows/[^\"'\\s<>?#]+-\\d+",
       "max_events": 150,
       "venue": {
         "name": "Le Zénith",
@@ -623,7 +607,8 @@
         "lat": 48.8941804,
         "lon": 2.3931712
       },
-      "_metro": "Paris, FR"
+      "_metro": "Paris, FR",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://le-zenith.com/shows/MPL-20922 (entry at 10f27b9), the page of ONE show (MPL, 2026-11-28): production kept 1 event from it on 10-28, and it empties after that date. The homepage links every show: 108 unique /shows/<name>-<id> pages (116 links, MPL-20922 among them), and each show page read carries one Event block (MPL 2026-11-28, Ezra Collective 2027-02-24, Carpenter Brut upcoming). The old link_pattern (/event/ or /events/) matched nothing on this site. robots.txt answers 404 (no rules). verify: 1/1 sampled events future. Dry run capped at max_events 12 for politeness: kept 12 events from 12 pages, 12 stored, 12 placed at the venue point, 2026-10-31..2028-03-25, 3 in the next 90 days. At max_events 150 a visit reads all 108 pages, about 2 min at the adapter's 1 s floor."
     },
     {
       "name": "Médiathèque Maupassant",
@@ -662,16 +647,18 @@
       "category": "community",
       "_found": "osm:social_facility -> modern-events+jsonld-event",
       "listing": [
-        "https://askovfondenssocialpsykiatri.dk/kalender/"
+        "https://www.indenfor.dk/kalender/"
       ],
-      "link_pattern": "https://askovfondenssocialpsykiatri\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
       "max_events": 150,
       "venue": {
         "name": "ASPA Centret",
         "lat": 55.685293,
         "lon": 12.552593
       },
-      "_metro": "Copenhagen, DK"
+      "_metro": "Copenhagen, DK",
+      "crawl_delay": 10,
+      "skip_title": "^Individuelle samtaler$",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES https://askovfondenssocialpsykiatri.dk/kalender/ (entry at 10f27b9): Askovfonden's social-psychiatry site is now Indenfor. Over https the old host fails TLS (SSLError: hostname mismatch), so its robots.txt cannot be read (production 10-28 'robots.txt (unreachable) refuses /kalender/'; audits 10-11 and 10-18 SSLError). Over http it answers 301 to https://www.indenfor.dk/kalender/, whose robots.txt allows the page and asks Crawl-delay: 10. The page ('KALENDER - Indenfor Askovfonden', 1,234,315 B) carries all 290 Event blocks inline (2026-09-28..2026-11-01, 39 upcoming), so link_pattern is dropped: it named the old host and matched nothing. verify: 39/290 sampled events future. skip_title drops 'Individuelle samtaler', 6 of the 39: one-to-one talks Monday to Friday 9-16 'efter aftale' (by appointment), a private appointment and not something to attend. Dry run: kept 33 events from 0 pages, 12 stored (the page repeats each event), 12 placed, date-only, 2026-10-29..2026-11-01. The blocks' location gives at most a name ('Kapelvej 55', 'AskovFondens café') and no address or geo; their descriptions say 'Hvor:' Griffenfeldsgade 35, Kapelvej 55 or Thorupgården, Thorupsgade 8, all 2200 København N. The venue block pins every row at the ASPA Centret point, as the old entry did."
     },
     {
       "name": "4. Hvidovre Søspejdergruppe",
@@ -1436,26 +1423,6 @@
       "_metro": "Stockholm, SE"
     },
     {
-      "name": "Baptistkyrkan Tabernaklet",
-      "category": "community",
-      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.tabernaklet.se/?page_id=997"
-      ],
-      "link_pattern": "https://www\\.tabernaklet\\.se/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Baptistkyrkan Tabernaklet",
-        "address": "4 Götabergsgatan",
-        "city": "Göteborg",
-        "postal_code": "411 34",
-        "country": "SE",
-        "lat": 57.7004655,
-        "lon": 11.9706585
-      },
-      "_metro": "Gothenburg, SE"
-    },
-    {
       "name": "Göteborgs Kanotförening",
       "category": "fitness",
       "_found": "osm:sports_centre -> modern-events+jsonld-event",
@@ -2078,16 +2045,18 @@
       "category": "arts",
       "_found": "osm:arts_centre -> jsonld-event",
       "listing": [
-        "https://lepop.be/evenement/cacao-quest/"
+        "https://lepop.be/agenda/"
       ],
-      "link_pattern": "https://lepop\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "https://lepop\\.be/evenement(?:-pop)?/[^\"'\\s<>?#]+/",
       "max_events": 150,
       "venue": {
         "name": "POP — Centre culturel de Braine-l'Alleud",
         "lat": 50.6838231,
         "lon": 4.372365
       },
-      "_metro": "Brussels, BE"
+      "_metro": "Brussels, BE",
+      "crawl_delay": 10,
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://lepop.be/evenement/cacao-quest/ (entry at 10f27b9), the page of ONE show: the 10-11 audit read its block as past ('1 events / 0 future'), and on 10-18 and 10-29 the page (422,573 B) carries no Event block at all. /agenda/ has no Event JSON-LD of its own but links 12 event pages (11 /evenement/, 1 /evenement-pop/), each carrying one Event block. robots.txt allows both and asks Crawl-delay: 10. verify: 1/1 sampled events future. Dry run: kept 12 events from 12 pages in 161.8 s, 12 stored, 12 placed (50.6836063, 4.3726297, the blocks' own point), 2026-11-03..2026-12-10, all in the next 90 days. 11 of the 12 blocks give their shop.utick.be ticket page as url, so that is the row's link."
     },
     {
       "name": "Amnesty International Belgique francophone",
@@ -2218,22 +2187,6 @@
       "_metro": "Brussels, BE"
     },
     {
-      "name": "BRONKS",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.bronks.be/nl/event/grip?type=VRIJE%20VOORSTELLING"
-      ],
-      "link_pattern": "https://www\\.bronks\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "BRONKS",
-        "lat": 50.8530688,
-        "lon": 4.3463334
-      },
-      "_metro": "Brussels, BE"
-    },
-    {
       "name": "New Rock",
       "category": "fitness",
       "_found": "osm:sports_centre -> modern-events+jsonld-event",
@@ -2302,45 +2255,6 @@
       "_metro": "Antwerp, BE"
     },
     {
-      "name": "Lotto Arena",
-      "category": "community",
-      "_found": "osm:events_venue -> jsonld-event",
-      "listing": [
-        "https://www.lotto-arena.be/evenement/glory-110-a200be7a"
-      ],
-      "link_pattern": "https://www\\.lotto\\-arena\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Lotto Arena",
-        "address": "119 Schijnpoortweg",
-        "city": "Merksem",
-        "postal_code": "2170",
-        "lat": 51.2301229,
-        "lon": 4.4415337
-      },
-      "_metro": "Antwerp, BE"
-    },
-    {
-      "name": "Schouwburg Noord",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "https://www.schouwburgnoord.be/nl/event/alex-h-smith"
-      ],
-      "link_pattern": "https://www\\.schouwburgnoord\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Schouwburg Noord",
-        "address": "135;137 Nieuwdreef",
-        "city": "Merksem",
-        "postal_code": "2170",
-        "country": "BE",
-        "lat": 51.2504473,
-        "lon": 4.4379039
-      },
-      "_metro": "Antwerp, BE"
-    },
-    {
       "name": "Hnita Jazz Club",
       "category": "music",
       "_found": "osm:music_venue -> modern-events+jsonld-event",
@@ -2355,25 +2269,6 @@
         "city": "Heist op den Berg",
         "lat": 51.0613836,
         "lon": 4.7348665
-      },
-      "_metro": "Antwerp, BE"
-    },
-    {
-      "name": "OLT Rivierenhof",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.oltrivierenhof.be/nl/programma/yong-yello/a0NP500000OhCEgMAN"
-      ],
-      "link_pattern": "https://www\\.oltrivierenhof\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "OLT Rivierenhof",
-        "address": "246 Turnhoutsebaan",
-        "city": "Deurne",
-        "postal_code": "2100",
-        "lat": 51.2150963,
-        "lon": 4.4707324
       },
       "_metro": "Antwerp, BE"
     },
@@ -3088,23 +2983,6 @@
       "_metro": "Zurich, CH"
     },
     {
-      "name": "Kulturhaus Gleis 21",
-      "category": "community",
-      "_found": "osm:events_venue -> jsonld-event",
-      "listing": [
-        "https://gleis21.ch/"
-      ],
-      "link_pattern": "https://gleis21\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kulturhaus Gleis 21",
-        "address": "21 Buchsackerstrasse",
-        "lat": 47.405636,
-        "lon": 8.4058309
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
       "name": "Albis Foxes Handball",
       "category": "community",
       "_found": "osm:club -> jsonld-event",
@@ -3300,26 +3178,6 @@
         "name": "Strebergärtli",
         "lat": 47.3960038,
         "lon": 8.5516192
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
-      "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://reformiert-zuerich.ch/event/aussendungsgottesdienst-13726/"
-      ],
-      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
-        "address": "1 Riedenhaldenstrasse",
-        "city": "Zürich",
-        "postal_code": "8046",
-        "country": "CH",
-        "lat": 47.414576,
-        "lon": 8.518637
       },
       "_metro": "Zurich, CH"
     },
@@ -5346,22 +5204,6 @@
       "_metro": "Essen, Germany"
     },
     {
-      "name": "Bücherei St. Cyriakus Krefeld-Hüls",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://katholisch-krefeld-nordwest.de/aktuelles/Terminliste/a-event/Kinder-Troedel-Markt/?instancedate=1791711000000"
-      ],
-      "link_pattern": "https://katholisch\\-krefeld\\-nordwest\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Bücherei St. Cyriakus Krefeld-Hüls",
-        "lat": 51.3732543,
-        "lon": 6.5109926
-      },
-      "_metro": "Dusseldorf, Germany"
-    },
-    {
       "name": "MiO Miteinander in Oppum",
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event",
@@ -5395,26 +5237,6 @@
         "lon": 6.4379278
       },
       "_metro": "Dusseldorf, Germany"
-    },
-    {
-      "name": "Stadt- und Landesbibliothek",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_142434.html"
-      ],
-      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadt- und Landesbibliothek",
-        "address": "1-3 Max-von-der-Grün-Platz",
-        "city": "Dortmund",
-        "postal_code": "44137",
-        "country": "DE",
-        "lat": 51.5165234,
-        "lon": 7.4608722
-      },
-      "_metro": "Dortmund, Germany"
     },
     {
       "name": "Die Färberei",
@@ -7020,26 +6842,6 @@
       "_metro": "Montreal, Canada"
     },
     {
-      "name": "Centre des musiciens du monde",
-      "category": "community",
-      "_found": "osm:community_centre -> jsonld-event",
-      "listing": [
-        "https://centredesmusiciensdumonde.com/programmation/"
-      ],
-      "link_pattern": "https://centredesmusiciensdumonde\\.com/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Centre des musiciens du monde",
-        "address": "5043 Rue Saint-Dominique",
-        "city": "Montréal",
-        "region": "QC",
-        "postal_code": "H2T 1V1",
-        "lat": 45.5235166,
-        "lon": -73.5915882
-      },
-      "_metro": "Montreal, Canada"
-    },
-    {
       "name": "Bibliothèque Maisonneuve",
       "category": "learning",
       "_found": "osm:library -> jsonld-event",
@@ -8452,9 +8254,9 @@
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event+ics",
       "listing": [
-        "https://www.stlouisbridge.org/events/series-7-2026-10-13-tuesday-evening-open"
+        "https://www.stlouisbridge.org/schedule"
       ],
-      "link_pattern": "https://www\\.stlouisbridge\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "link_pattern": "/events/(?:series|one-off)-[a-z0-9\\-]+",
       "max_events": 150,
       "venue": {
         "name": "St. Louis Bridge Center",
@@ -8465,7 +8267,8 @@
         "lat": 38.6806571,
         "lon": -90.3674181
       },
-      "_metro": "St. Louis, United States"
+      "_metro": "St. Louis, United States",
+      "_note": "Measured 2026-10-29 with the production UA. REPLACES the listing https://www.stlouisbridge.org/events/series-7-2026-10-13-tuesday-evening-open, ONE game's own page, which 404s now that the game is over (production 10-25 '404 Client Error: Not Found', audit 10-18 'http 404', recheck 10-29 404). The club's site (Next.js) lists its games on /schedule: 50 /events/ links, 2026-10-29..2026-12-07, nine weekly series (duplicate games and lessons) and one one-off. They are relative hrefs, so link_pattern is now relative too. Each event page carries one schema.org Event with the street address and a naive local start: Thursday Morning Duplicate 2026-10-29T10:00:00, the homepage's 'Thu, Oct 29 10:00 AM'. robots.txt is 1,248 B of Cloudflare content-signal comments and no User-agent group, so nothing is disallowed and there is no Crawl-delay. verify_jsonld: 1/1 sampled events future. Dry run with max_events 4: kept 4 events from 4 pages, stored 4, placed 4 at the venue block's point. 3 of the 4 give a date-only endDate. The site's own webcal /calendar.ics was NOT used. Its 200 VEVENTs stamp UTC with the summer offset after DST ends: Monday Morning Duplicate is 20261102T150000Z, which is 09:00 CST, and the site says 10:00 AM. 46 of them have a LOCATION that is a room ('Chat Room', 23) or directors' names (23)."
     },
     {
       "name": "Q Center",
@@ -18741,6 +18544,2050 @@
         "lon": 5.3850765
       },
       "_metro": "Marseille, France"
+    },
+    {
+      "name": "Studio Fotokino",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://fotokino.org/agenda-par-genre/"
+      ],
+      "link_pattern": "https://fotokino\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Studio Fotokino",
+        "address": "33",
+        "lat": 43.2992844,
+        "lon": 5.3829073
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "L'Affranchi",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://l-affranchi.com/"
+      ],
+      "link_pattern": "https://l\\-affranchi\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "L'Affranchi",
+        "address": "212",
+        "lat": 43.286486,
+        "lon": 5.4675889
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "Le Bijou",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.le-bijou.net/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Bijou",
+        "lat": 43.5844104,
+        "lon": 1.4275329
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "À demi-mot",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://librairie-ademimot.com/agenda/les-evenements-a-venir/"
+      ],
+      "link_pattern": "https://librairie\\-ademimot\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "À demi-mot",
+        "address": "2 Avenue Saint-Germier",
+        "lat": 43.4620543,
+        "lon": 1.3236178
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Le Grand Bazar",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.grandbazar.art/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Grand Bazar",
+        "address": "3 Avenue du Cimetière",
+        "postal_code": "31500",
+        "lat": 43.6066728,
+        "lon": 1.4594624
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Zénith Toulouse Métropole",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://zenith-toulousemetropole.com/shows/TAYC-21657"
+      ],
+      "link_pattern": "https://zenith\\-toulousemetropole\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zénith Toulouse Métropole",
+        "address": "11 Avenue Raymond Badiou",
+        "city": "Toulouse",
+        "postal_code": "31300",
+        "lat": 43.5982341,
+        "lon": 1.4093799
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Péniche Didascalie",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.penichedidascalie.com/copie-de-agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Péniche Didascalie",
+        "address": "Rue Federico Garcia Lorca",
+        "city": "Ramonville-Saint-Agne",
+        "postal_code": "31520",
+        "lat": 43.5414808,
+        "lon": 1.4902618
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Interference",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.interference-toulouse.fr/event/kery-james-2026"
+      ],
+      "link_pattern": "https://www\\.interference\\-toulouse\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Interference",
+        "address": "56",
+        "city": "Balma",
+        "postal_code": "31130",
+        "lat": 43.631489,
+        "lon": 1.4897404
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Théâtre Victoire",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.theatrevictoire.com/agenda/"
+      ],
+      "link_pattern": "https://www\\.theatrevictoire\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre Victoire",
+        "address": "18 Rue des Augustins",
+        "lat": 44.8323681,
+        "lon": -0.5715155
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Ciné Max Linder",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.maxlinder-creon.fr/events/85254-gabin/"
+      ],
+      "link_pattern": "https://www\\.maxlinder\\-creon\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ciné Max Linder",
+        "address": "13 Rue du Docteur Fauché",
+        "city": "Créon",
+        "postal_code": "33670",
+        "lat": 44.7740434,
+        "lon": -0.3486974
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Institut Soto-Zen Nanfutsuji",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://nanfutsuji.fr/calendrier"
+      ],
+      "link_pattern": "https://nanfutsuji\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Institut Soto-Zen Nanfutsuji",
+        "address": "17 Rue Baudin",
+        "city": "Le Bouscat",
+        "postal_code": "33110",
+        "lat": 44.862337,
+        "lon": -0.5869841
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Temple de l'église protestante unie de France",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bordeauxnordouest.epudf.org/evenements/culte/9/"
+      ],
+      "link_pattern": "https://bordeauxnordouest\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple de l'église protestante unie de France",
+        "address": "71 Avenue du Maréchal Leclerc",
+        "city": "Mérignac",
+        "postal_code": "33700",
+        "lat": 44.834291,
+        "lon": -0.6480415
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Temple protestant de Talence",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bordeauxsudouest.epudf.org/evenements/etude-biblique/3/"
+      ],
+      "link_pattern": "https://bordeauxsudouest\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple protestant de Talence",
+        "address": "283 Rue Frédéric Sévène",
+        "city": "Talence",
+        "postal_code": "33400",
+        "lat": 44.8069407,
+        "lon": -0.5778305
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "Théâtre du Sphinx",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.theatredusphinx.com/programmation-au-sphinx/"
+      ],
+      "link_pattern": "https://www\\.theatredusphinx\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Théâtre du Sphinx",
+        "lat": 47.213517,
+        "lon": -1.5479704
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "La cour des Miracles",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.cdmlab.fr/programmation"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La cour des Miracles",
+        "lat": 47.2180774,
+        "lon": -1.5566208
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Le Lieu Unique",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://lelieuunique.com/evenement/slow-gant"
+      ],
+      "link_pattern": "https://lelieuunique\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le Lieu Unique",
+        "lat": 47.21529,
+        "lon": -1.5455957
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "CinéPHIL",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinephil.fr/events/82643-cine-gouter-le-corset/"
+      ],
+      "link_pattern": "https://www\\.cinephil\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CinéPHIL",
+        "address": "2 Rue des Anciens Combattants",
+        "lat": 47.0345,
+        "lon": -1.6421465
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Zénith Nantes Métropole",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.zenith-nantesmetropole.com/shows/ERA-22358"
+      ],
+      "link_pattern": "https://www\\.zenith\\-nantesmetropole\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zénith Nantes Métropole",
+        "address": "Boulevard du Zénith",
+        "city": "Saint-Herblain",
+        "postal_code": "44800",
+        "lat": 47.2287147,
+        "lon": -1.6279736
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Stockfish",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://etudiants.nice.fr/evenements-mde/"
+      ],
+      "link_pattern": "https://etudiants\\.nice\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stockfish",
+        "address": "5 Avenue François Mitterrand",
+        "city": "Nice",
+        "postal_code": "06300",
+        "lat": 43.7106044,
+        "lon": 7.2854335
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Cineplanet",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cineplanet-antibes.fr/events/84550-infirmary/"
+      ],
+      "link_pattern": "https://www\\.cineplanet\\-antibes\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cineplanet",
+        "lat": 43.5823187,
+        "lon": 7.1236364
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Autour d'un dragon",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.autourdunlivre.com/copy-of-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Autour d'un dragon",
+        "address": "4 Place Gambetta",
+        "postal_code": "06400",
+        "lat": 43.5532746,
+        "lon": 7.023312
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "La Salamandre",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.lasalamandreclub.com/programme"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La Salamandre",
+        "lat": 48.5804476,
+        "lon": 7.7602432
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Schachclub Neumühl",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.schachclub-neumuehl.de/termine"
+      ],
+      "link_pattern": "https://www\\.schachclub\\-neumuehl\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schachclub Neumühl",
+        "address": "70 Elsässer Straße",
+        "city": "Kehl",
+        "postal_code": "77694",
+        "lat": 48.5703669,
+        "lon": 7.8435806
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Next Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://nextclub.fr/agenda"
+      ],
+      "link_pattern": "https://nextclub\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Next Club",
+        "lat": 48.5797876,
+        "lon": 7.7430054
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Église Evangélique Bonne Nouvelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.bnstrasbourg.net/lagenda/"
+      ],
+      "link_pattern": "https://www\\.bnstrasbourg\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Evangélique Bonne Nouvelle",
+        "lat": 48.589097,
+        "lon": 7.739251
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Quai de Scène",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://spectacles.quaidescene.fr/spectacles/dirty-deep"
+      ],
+      "link_pattern": "https://spectacles\\.quaidescene\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Quai de Scène",
+        "address": "5 Quai du Général Koenig",
+        "city": "Strasbourg",
+        "postal_code": "67000",
+        "lat": 48.575449,
+        "lon": 7.7574144
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Simplicissimus-Haus",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "http://www.simplicissimushaus.de/veranstaltungen/2855243/2026/11/13/23.-renchener-lesenacht"
+      ],
+      "link_pattern": "https://www\\.simplicissimushaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Simplicissimus-Haus",
+        "address": "59 Hauptstraße",
+        "city": "Renchen",
+        "postal_code": "77871",
+        "country": "DE",
+        "lat": 48.5860965,
+        "lon": 8.01188
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Kirche am Flugplatz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.kircheamflugplatz.de/termine/2290-gemeindegebet"
+      ],
+      "link_pattern": "https://www\\.kircheamflugplatz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kirche am Flugplatz",
+        "address": "22 Europastraße",
+        "city": "Lahr/Schwarzwald",
+        "postal_code": "77933",
+        "lat": 48.3527067,
+        "lon": 7.826509
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Saint-Sauveur - Salle d'exposition",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://garesaintsauveur.lille3000.com/event/shii-foo-miix-1448"
+      ],
+      "link_pattern": "https://garesaintsauveur\\.lille3000\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint-Sauveur - Salle d'exposition",
+        "city": "Lille",
+        "postal_code": "59000",
+        "lat": 50.626861,
+        "lon": 3.0717035
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Le Fresnoy - Studio national des arts contemporains",
+      "category": "community",
+      "_found": "osm:college -> jsonld-event",
+      "listing": [
+        "https://www.lefresnoy.net/agenda/"
+      ],
+      "link_pattern": "https://www\\.lefresnoy\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Le Fresnoy - Studio national des arts contemporains",
+        "address": "22 Rue du Fresnoy",
+        "postal_code": "59200",
+        "lat": 50.7000523,
+        "lon": 3.1546769
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "l'Audito - Café de Paris",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://audito-tourcoing.fr/spectacles/2026/11/27/les-muses-de-l-opera"
+      ],
+      "link_pattern": "https://audito\\-tourcoing\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "l'Audito - Café de Paris",
+        "address": "5 Place de la République",
+        "city": "Tourcoing",
+        "postal_code": "59200",
+        "lat": 50.7219886,
+        "lon": 3.1587951
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Musée d'histoire et d'archéologie",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.ville-harnes.fr/site/"
+      ],
+      "link_pattern": "https://www\\.ville\\-harnes\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée d'histoire et d'archéologie",
+        "lat": 50.447808,
+        "lon": 2.9104311
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Centre régional information jeunesse",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.ij-hdf.fr/evenement/688/cafe-langues-lille-59"
+      ],
+      "link_pattern": "https://www\\.ij\\-hdf\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre régional information jeunesse",
+        "lat": 50.6333012,
+        "lon": 3.0665053
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Concertzaal De Kreun",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.wildewesten.be/nl/event/high-hi-2"
+      ],
+      "link_pattern": "https://www\\.wildewesten\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Concertzaal De Kreun",
+        "address": "1 Conservatoriumplein",
+        "city": "Kortrijk",
+        "postal_code": "8500",
+        "lat": 50.8249284,
+        "lon": 3.2617192
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "La Bonne Nouvelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://egliselabonnenouvelle.fr/agenda/"
+      ],
+      "link_pattern": "https://egliselabonnenouvelle\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Bonne Nouvelle",
+        "address": "98 Rue Eugène Pottier",
+        "lat": 48.104271,
+        "lon": -1.7073896
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Les Cadets de Bretagne",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.cadets.fr/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Les Cadets de Bretagne",
+        "lat": 48.1242546,
+        "lon": -1.6684578
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Les Jardins Rocambole",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.jardinsrocambole.fr/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Les Jardins Rocambole",
+        "lat": 47.9786653,
+        "lon": -1.6090328
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Carré Rondelet",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "http://carrerondelet.fr/"
+      ],
+      "link_pattern": "https://carrerondelet\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Carré Rondelet",
+        "address": "14 Rue de Belfort",
+        "city": "Montpellier",
+        "postal_code": "34000",
+        "lat": 43.6037355,
+        "lon": 3.8740486
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Zepetra école de cirque",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.zepetra.fr/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Zepetra école de cirque",
+        "address": "153 Rue Alphonse Beau de Rochas",
+        "city": "Castelnau-le-Lez",
+        "postal_code": "34170",
+        "lat": 43.6392045,
+        "lon": 3.9294337
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Mosquée de Lunel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "http://mosquee-lunel.fr"
+      ],
+      "link_pattern": "https://mosquee\\-lunel\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mosquée de Lunel",
+        "address": "118 Chemin de la Vidourlenque",
+        "city": "Lunel",
+        "postal_code": "34400",
+        "lat": 43.6815972,
+        "lon": 4.1453315
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Ligue Impro38",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://improvisation.fr/"
+      ],
+      "link_pattern": "https://improvisation\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ligue Impro38",
+        "address": "1 Avenue Aristide Briand",
+        "city": "Fontaine",
+        "postal_code": "38600",
+        "lat": 45.1890137,
+        "lon": 5.7001899
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Summum",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.summum-grenoble.com/evenements/saez/"
+      ],
+      "link_pattern": "https://www\\.summum\\-grenoble\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Summum",
+        "lat": 45.1553458,
+        "lon": 5.7372961
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "Caméo Saint-Sébastien",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cameo-nancy.fr/events/82811-1518/"
+      ],
+      "link_pattern": "https://www\\.cameo\\-nancy\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Caméo Saint-Sébastien",
+        "lat": 48.6889331,
+        "lon": 6.1787659
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "La Compagnie des Ânes",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.compagniedesanes.com/evenements"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/d-tails-et-inscription/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La Compagnie des Ânes",
+        "lat": 48.7500591,
+        "lon": 6.2278651
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Église chrétienne du centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ecctoul.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Église chrétienne du centre",
+        "lat": 48.677459,
+        "lon": 5.8519043
+      },
+      "_metro": "Nancy, France"
+    },
+    {
+      "name": "Cameron House",
+      "category": "music",
+      "_found": "osm:music_venue -> wix",
+      "listing": [
+        "https://www.thecameron.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Cameron House",
+        "address": "408 Queen Street West",
+        "lat": 43.6486214,
+        "lon": -79.3975842
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "The Opera House",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theoperahousetoronto.com/shows"
+      ],
+      "link_pattern": "https://www\\.theoperahousetoronto\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Opera House",
+        "address": "735 Queen Street East",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M4M 1H1",
+        "lat": 43.6589873,
+        "lon": -79.3487864
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "History",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.historytoronto.com/shows"
+      ],
+      "link_pattern": "https://www\\.historytoronto\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "History",
+        "address": "1663 Queen Street East",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M4L 1G5",
+        "lat": 43.6667034,
+        "lon": -79.3133062
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Kababayan Multicultural Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.kababayan.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kababayan Multicultural Centre",
+        "lat": 43.6409206,
+        "lon": -79.4331606,
+        "street_hint": "1313 Queen Street West"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Divya Jyoti Jagrati Santhan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.divinelightawakening.org/team-4"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Divya Jyoti Jagrati Santhan",
+        "address": "24 Taber Road",
+        "city": "Etobicoke",
+        "region": "ON",
+        "postal_code": "M9W 3A5",
+        "lat": 43.7191887,
+        "lon": -79.5749171
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Church of the Holy Trinity",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://holytrinity.to/calendar/"
+      ],
+      "link_pattern": "https://holytrinity\\.to/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Church of the Holy Trinity",
+        "address": "10 Trinity Square",
+        "city": "Toronto",
+        "lat": 43.6546926,
+        "lon": -79.3816915
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "The ReUse Depot - swaps and reuse events",
+      "listing": [
+        "https://www.thereusedepot.org/event-list"
+      ],
+      "link_pattern": "https://www\\.thereusedepot\\.org/event-details/[a-zA-Z0-9-]+",
+      "category": "community",
+      "max_events": 80,
+      "_metro": "Bainbridge Island, United States",
+      "_found": "manual:2026-10-28 Fleabop reuse source review",
+      "_note": "2026-10-28: robots allows the listing and event-details pages; the existing JSON-LD adapter read 3 details and kept 1 upcoming event: Fall Clothes Swap '26, Nov 15 12:00-14:30 PST at Filipino American Community Hall, 7566 High School Rd NE, Bainbridge Island. The organizer explicitly says Free event and no donation is required to shop. Mending is a separate service, not admission. Keep community as the calendar default; title-based swap/repair rules add market only to relevant events. Event addresses remain per-row: no blanket hall pin for future offsite events."
+    },
+    {
+      "name": "Kingsway Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.kingswaybaptist.ca/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kingsway Baptist Church",
+        "address": "41 Birchview Boulevard",
+        "city": "Etobicoke",
+        "lat": 43.6472076,
+        "lon": -79.5147194
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Paradise Cinema",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://paradiseonbloor.com/special_events/the-basement-revue/"
+      ],
+      "link_pattern": "https://paradiseonbloor\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paradise Cinema",
+        "address": "1006 Bloor Street West",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M6H 1M2",
+        "lat": 43.6611446,
+        "lon": -79.4307114
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "The Mill Christian Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.themillmississauga.ca/events/"
+      ],
+      "link_pattern": "https://www\\.themillmississauga\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Mill Christian Fellowship",
+        "address": "1991 South Millway",
+        "city": "Mississauga",
+        "region": "ON",
+        "postal_code": "L5L 1R4",
+        "lat": 43.5405909,
+        "lon": -79.6745592
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Dharma Drum Mountain (Toronto)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ddmbaontario.org/calender-event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Dharma Drum Mountain (Toronto)",
+        "address": "1025 McNicoll Avenue",
+        "city": "Toronto",
+        "postal_code": "M1W 3W6",
+        "lat": 43.8041231,
+        "lon": -79.3349001
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Congregation Knesseth Israel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.thejunctionshul.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Congregation Knesseth Israel",
+        "address": "56 Maria Street",
+        "city": "Toronto",
+        "lat": 43.666493,
+        "lon": -79.475426
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bibliothèque Saint-Charles",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/eveil-musical-0-2-ans-119203"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Saint-Charles",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.4791571,
+        "lon": -73.5635716,
+        "street_hint": "1050 Rue d'Hibernia"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Parc-Extension",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/gym-douce-113978"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Parc-Extension",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3N 1K2",
+        "lat": 45.5314163,
+        "lon": -73.6289844,
+        "street_hint": "421 Rue Saint-Roch"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de l'Île des soeurs",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/si-proche-et-si-loin-116229"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de l'Île des soeurs",
+        "city": "Verdun",
+        "region": "QC",
+        "postal_code": "H3E 1C9",
+        "lat": 45.4569489,
+        "lon": -73.5473453,
+        "street_hint": "260 Rue Elgar"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "salle de spectacle de l’Entrepôt",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/kairos-jennifer-alleyn-115474"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "salle de spectacle de l’Entrepôt",
+        "lat": 45.4334029,
+        "lon": -73.6894782
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Notre-Dame-de-Grâce",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/loeil-humain-120234"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Notre-Dame-de-Grâce",
+        "lat": 45.4755031,
+        "lon": -73.6143992,
+        "street_hint": "3755 Botrel"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Père-Ambroise",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/jeudis-technos-8-14-ans-119497"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Père-Ambroise",
+        "city": "Montréal",
+        "postal_code": "H2L 3C9",
+        "lat": 45.5227932,
+        "lon": -73.5626849,
+        "street_hint": "2093 Rue de la Visitation"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Frontenac",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ludotheque-club-lego-118151"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Frontenac",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2K 1W7",
+        "lat": 45.5329177,
+        "lon": -73.5517134,
+        "street_hint": "2550 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Michel",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118778"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Michel",
+        "city": "Montréal",
+        "postal_code": "H2A 3L6",
+        "lat": 45.5621974,
+        "lon": -73.6020202,
+        "street_hint": "7601 Rue François-Perrault"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Cartierville",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/vendredi-jeux-de-societe-116955"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Cartierville",
+        "city": "Montréal",
+        "postal_code": "H4J 2N7",
+        "lat": 45.5301968,
+        "lon": -73.7159741,
+        "street_hint": "12225 Rue Grenet"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque De Salaberry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-coloriage-116811"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque De Salaberry",
+        "city": "Montréal",
+        "postal_code": "H4J 1H1",
+        "lat": 45.5346141,
+        "lon": -73.7038342,
+        "street_hint": "4170 Rue De Salaberry"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Langelier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-117933"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Langelier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1N 1C5",
+        "lat": 45.5816816,
+        "lon": -73.544147,
+        "street_hint": "6473 Rue Sherbrooke Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Mercier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/contes-et-comptines-115146"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Mercier",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955039,
+        "lon": -73.5236768,
+        "street_hint": "8105 Rue Hochelaga"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Serge-Bouchard",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/effets-de-films-115560"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Serge-Bouchard",
+        "city": "Montréal",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6680518,
+        "lon": -73.494856,
+        "street_hint": "14 001 Rue Notre-Dame Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rivière-des-Prairies",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/fer-et-cereales-115628"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rivière-des-Prairies",
+        "city": "Montréal",
+        "postal_code": "H1E 3J7",
+        "lat": 45.6499172,
+        "lon": -73.5790735,
+        "street_hint": "9001 Boulevard Perras"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Benny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/3d-mania-115453"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Benny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4B 1H3",
+        "lat": 45.4663823,
+        "lon": -73.6309558,
+        "street_hint": "6400 Avenue de Monkland"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Plateau-Mont-Royal",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-la-caserne-26-3-6-ans-118871"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Plateau-Mont-Royal",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H2J 1W3",
+        "lat": 45.5248812,
+        "lon": -73.5824623,
+        "street_hint": "465 Avenue du Mont-Royal Est",
+        "aliases": [
+          "Plateau Mont-Royal Library"
+        ]
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Le Prevost",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118847"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Le Prevost",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2R 2S5",
+        "lat": 45.5438649,
+        "lon": -73.6145722,
+        "street_hint": "7355 Avenue Christophe-Colomb"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Upstairs",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.upstairsjazz.com/calendar-2/"
+      ],
+      "link_pattern": "https://www\\.upstairsjazz\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Upstairs",
+        "address": "1254 Rue Mackay",
+        "lat": 45.4955965,
+        "lon": -73.5768353
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Pierrefonds",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cinema-famille-coco-117626"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Pierrefonds",
+        "city": "Pierrefonds",
+        "postal_code": "H9A 1A6",
+        "lat": 45.4960289,
+        "lon": -73.8475197,
+        "street_hint": "13555 Boulevard de Pierrefonds",
+        "aliases": [
+          "Pierrefonds Public Library"
+        ]
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Janine-Sutto",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/marcia-109933"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Janine-Sutto",
+        "address": "2550 Rue Frontenac",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5328205,
+        "lon": -73.5516111
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Le Centre d'art et musée de Montréal",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.montrealartcenter.com/our-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Centre d'art et musée de Montréal",
+        "address": "1844 Rue William",
+        "lat": 45.4869815,
+        "lon": -73.5671639
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "PROMIS",
+      "category": "community",
+      "_found": "osm:ngo -> modern-events+jsonld-event",
+      "listing": [
+        "https://promis.qc.ca/calendrier-des-activites/"
+      ],
+      "link_pattern": "https://promis\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "PROMIS",
+        "address": "3333 Chemin de la Côte-Sainte-Catherine",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1C8",
+        "lat": 45.5006258,
+        "lon": -73.6261436
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture de Pointe-aux-Trembles",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tresors-de-repertoire-117435"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture de Pointe-aux-Trembles",
+        "address": "14001 Rue Notre-Dame Est",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6681374,
+        "lon": -73.4948601
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "The Wheel Club",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.wheelclubndg.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Wheel Club",
+        "address": "3373 Boulevard Cavendish",
+        "lat": 45.4634534,
+        "lon": -73.6278766
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Librairie Résonance",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://librairieresonance.com/pages/evenements"
+      ],
+      "link_pattern": "https://librairieresonance\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Librairie Résonance",
+        "address": "40 Rue Beaubien Est",
+        "lat": 45.5306806,
+        "lon": -73.6079019
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Canadien d'Architecture",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.cca.qc.ca/en/events/106130/community-capital-what-we-build-together"
+      ],
+      "link_pattern": "https://www\\.cca\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre Canadien d'Architecture",
+        "address": "1920 Rue Baile",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3H 2S6",
+        "lat": 45.490974,
+        "lon": -73.5790045
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "CACI Salaberry",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://caci-bc.org/calendrier-evenements/"
+      ],
+      "link_pattern": "https://caci\\-bc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CACI Salaberry",
+        "address": "4800 Rue De Salaberry",
+        "lat": 45.5329754,
+        "lon": -73.7059191
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Palais des congrès de Montréal",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://congresmtl.com/calendrier-des-evenements/"
+      ],
+      "link_pattern": "https://congresmtl\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palais des congrès de Montréal",
+        "lat": 45.5051255,
+        "lon": -73.5607046
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "The Church of St. Andrew and St. Paul",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://standrewstpaul.com/events/"
+      ],
+      "link_pattern": "https://standrewstpaul\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Church of St. Andrew and St. Paul",
+        "address": "3415 Rue Redpath",
+        "lat": 45.4984906,
+        "lon": -73.5807477
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Aréna Mont-Royal",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/marche-fermier-laurier-110395"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Aréna Mont-Royal",
+        "address": "4365 Rue Cartier",
+        "lat": 45.5333069,
+        "lon": -73.5717947
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque L’Octogone",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/raconte-moi-la-science-117694"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque L’Octogone",
+        "city": "Montréal",
+        "lat": 45.4242983,
+        "lon": -73.6235267,
+        "street_hint": "1080 Avenue Dollard"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Pointe-à-Callière: Pavillon de l'Ancienne-Douane",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://pacmusee.qc.ca/fr/calendrier/evenement/conference-homere-sous-l-oeil-des-philosophes/"
+      ],
+      "link_pattern": "https://pacmusee\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pointe-à-Callière: Pavillon de l'Ancienne-Douane",
+        "lat": 45.5033359,
+        "lon": -73.5546229
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Pointe-à-Callière",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://pacmusee.qc.ca/en/calendar/event/lecture-homer-poet-of-western-literature/"
+      ],
+      "link_pattern": "https://pacmusee\\.qc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pointe-à-Callière",
+        "address": "350 Place Royale",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H2Y 3Y5",
+        "lat": 45.5026111,
+        "lon": -73.5542448
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Côte-des-Neiges",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-116508"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Côte-des-Neiges",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1Y2",
+        "lat": 45.4959105,
+        "lon": -73.6222404,
+        "street_hint": "5290 Chemin de la Côte-des-Neiges"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Henri-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/jeux-video-8-13-ans-118657"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Henri-Bourassa",
+        "city": "Montréal",
+        "lat": 45.6046301,
+        "lon": -73.6250091,
+        "street_hint": "5400 Boulevard Henri-Bourassa"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Boisé",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/salon-des-ados-119851"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Boisé",
+        "city": "Montréal",
+        "postal_code": "H4R 1T4",
+        "lat": 45.5042664,
+        "lon": -73.7050752,
+        "street_hint": "2727 Boulevard Thimens"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Jean-Claude-Malépart",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bain-libre-avec-activite-wibit-121007"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre Jean-Claude-Malépart",
+        "address": "2633 Rue Ontario Est",
+        "postal_code": "H2K 1W8",
+        "lat": 45.5338483,
+        "lon": -73.5524057
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la Culture Mercier",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/305-bellechasse-114804"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la Culture Mercier",
+        "address": "8105 Rue Hochelaga",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955094,
+        "lon": -73.5238339
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jacqueline-de-Repentigny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-conte-verdun-115809"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jacqueline-de-Repentigny",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4H 1H6",
+        "lat": 45.448547,
+        "lon": -73.5778979,
+        "street_hint": "5955 Rue Bannantyne"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Claude-Léveillée",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/nuit-boheme-la-poesie-partout-116522"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Claude-Léveillée",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5416425,
+        "lon": -73.6134293,
+        "street_hint": "911 Rue Jean-Talon Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque d'Hochelaga",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/completement-jeu-2-6-ans-117277"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque d'Hochelaga",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1W 2Y6",
+        "lat": 45.5423301,
+        "lon": -73.5455697,
+        "street_hint": "1870 Rue Davidson"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Maisonneuve",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-code-116901"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Maisonneuve",
+        "city": "Montréal",
+        "postal_code": "H1V 1J9",
+        "lat": 45.5506235,
+        "lon": -73.5405648,
+        "street_hint": "4120 Rue Ontario Est"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Saviour of the Nations Luthern Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.saviourofthenations.org/events/june-bbq"
+      ],
+      "link_pattern": "https://www\\.saviourofthenations\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saviour of the Nations Luthern Church",
+        "address": "1631 East 41st Avenue",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V5P 1K5",
+        "lat": 49.23244,
+        "lon": -123.0722
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Saint Andrew's Wesley United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events",
+      "listing": [
+        "https://standrewswesley.com/events/"
+      ],
+      "link_pattern": "https://standrewswesley\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Andrew's Wesley United Church",
+        "address": "1022 Nelson Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6E 4S7",
+        "lat": 49.2812403,
+        "lon": -123.1266001
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Centre culturel francophone",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.lecentreculturel.com/programmationgenerale"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Centre culturel francophone",
+        "address": "1551 West 7th Avenue",
+        "lat": 49.265488,
+        "lon": -123.1400055
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Gateway Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.gatewaytheatre.com/events/"
+      ],
+      "link_pattern": "https://www\\.gatewaytheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gateway Theatre",
+        "address": "6500 Gilbert Road",
+        "lat": 49.1673438,
+        "lon": -123.1471337
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Rio Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://riotheatre.ca"
+      ],
+      "link_pattern": "https://riotheatre\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rio Theatre",
+        "address": "1660 East Broadway",
+        "lat": 49.2620334,
+        "lon": -123.070496
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Cultch",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://thecultch.com/calendar/"
+      ],
+      "link_pattern": "https://thecultch\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Cultch",
+        "address": "1895 Venables Street",
+        "city": "Vancouver",
+        "lat": 49.2768636,
+        "lon": -123.0660971
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Industrial 236",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://allevents.in/"
+      ],
+      "link_pattern": "https://allevents\\.in/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Industrial 236",
+        "address": "236 Clark Drive",
+        "lat": 49.2825415,
+        "lon": -123.0766899
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "St. Mark's Evangelical Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stmarkschurch.ca/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St. Mark's Evangelical Lutheran Church",
+        "address": "1593 East 18th Avenue",
+        "city": "Vancouver",
+        "lat": 49.2545516,
+        "lon": -123.0712288
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Parallel 49 Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event",
+      "listing": [
+        "https://parallel49brewing.com/events"
+      ],
+      "link_pattern": "https://parallel49brewing\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Parallel 49 Brewing",
+        "address": "1950 Triumph Street",
+        "city": "Vancovuer",
+        "postal_code": "V5L 1K5",
+        "lat": 49.283703,
+        "lon": -123.0643727
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "St. Faith's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stfaiths.ca/events/"
+      ],
+      "link_pattern": "https://stfaiths\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Faith's Anglican Church",
+        "address": "7284 Cypress Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6P 5M3",
+        "country": "CA",
+        "lat": 49.2197754,
+        "lon": -123.1493842
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "City Centre Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.citycentrechurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "City Centre Church",
+        "address": "13062 104 Avenue",
+        "lat": 49.1914069,
+        "lon": -122.8605419
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Stanley Park Lawn Bowling Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix+gcal-embed",
+      "listing": [
+        "https://www.splbc.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Stanley Park Lawn Bowling Club",
+        "address": "9100 Stanley Park Drive",
+        "lat": 49.2914361,
+        "lon": -123.1472088
+      },
+      "_metro": "Vancouver, Canada"
     }
   ],
   "_not_included": {
@@ -18831,6 +20678,29 @@
     "https://www.moonahartscentre.org.au/calendar/": "Moonah Arts Centre - jsonld. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: n/a. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from jsonld_sources.json at 1fbdfaa.",
     "https://www.shirdisaibaba.org.nz/upcoming-events/": "Shri Shirdi Saibaba Mandir - jsonld. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: n/a. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from jsonld_sources.json at 1fbdfaa.",
     "https://brownsbaybrewing.co.nz/event-directory/": "Browns Bay Brewing - jsonld. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: n/a. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from jsonld_sources.json at 1fbdfaa.",
-    "https://calendar.google.com/calendar/ical/nsdocarmo.com.br_6tp00foh2ic2h9oo2me43ijbk4%40group.calendar.google.com/public/basic.ics": "Retired 2026-10-24 from ics_sources.json (Paróquia Nossa Senhora do Carmo da Aclimação, São Paulo, found by the OSM walk as a gcal-embed). It is the parish's service rota, not events: 6 titles repeated weekly for 26 weeks, 155 of São Paulo's 380 visible rows (40.8%; 55 of its top 200), 139 with no link, 51 of them Alcoholics Anonymous meetings that do not belong on a public social map. Declined here because ics_sources.json is a list with no _not_included, and discovery reads this one (the LibraryMarket precedent)."
+    "https://calendar.google.com/calendar/ical/nsdocarmo.com.br_6tp00foh2ic2h9oo2me43ijbk4%40group.calendar.google.com/public/basic.ics": "Retired 2026-10-24 from ics_sources.json (Paróquia Nossa Senhora do Carmo da Aclimação, São Paulo, found by the OSM walk as a gcal-embed). It is the parish's service rota, not events: 6 titles repeated weekly for 26 weeks, 155 of São Paulo's 380 visible rows (40.8%; 55 of its top 200), 139 with no link, 51 of them Alcoholics Anonymous meetings that do not belong on a public social map. Declined here because ics_sources.json is a list with no _not_included, and discovery reads this one (the LibraryMarket precedent).",
+    "https://www.ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": "Ridgecrest — Parks and Recreation Calendar (Ridgecrest, California) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each 403 Client Error: Forbidden. Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403 / no VCALENDAR. Recheck 2026-10-29: 1 vevents / 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 10f27b9 (its robots.txt has asked Crawl-delay: 10 since 2026-10-21, so carry \"crawl_delay\": 10).",
+    "https://www.ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": "Ridgecrest — Community Events (Ridgecrest, California) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-24, 10-25, 10-27 and 10-28 each 403 Client Error: Forbidden. Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403 / no VCALENDAR. Recheck 2026-10-29: 4 vevents / 4 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 10f27b9 (its robots.txt has asked Crawl-delay: 10 since 2026-10-21, so carry \"crawl_delay\": 10).",
+    "https://granvilleisland.com/events/?ical=1": "Granville Island Events (Vancouver) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-28 refused (403); 2026-10-27 refused (403); 2026-10-25 refused (403); 2026-10-24 refused (403). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403 / no VCALENDAR. Recheck 2026-10-29: http 403, a Cloudflare 'Just a moment...' challenge, though robots.txt allows the path (Allow: /events/*). It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md); the way in is to ask the operator. To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.helenamay.com/events/?ical=1": "The Helena May (Hong Kong) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-28, 2026-10-27, 2026-10-25 and 2026-10-24 each read 0 VEVENTs in 0.2-0.3 s (the adapter logs a 202 challenge body as 'kept 0 of 0'). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 202 / no VCALENDAR. Recheck 2026-10-29: 3 vevents / 3 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. Its robots.txt asks Crawl-delay: 120, which a restored entry should carry. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.portlandmuseum.org/events/?ical=1": "Portland Museum of Art (Portland, ME) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-28 refused (403); 2026-10-27 refused (403); 2026-10-25 refused (403); 2026-10-24 refused (403). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403 / no VCALENDAR. Recheck 2026-10-29: 8 vevents / 7 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": "Lakeville — Antlers Park | Shelter A Monthly Schedule (Lakeville, Minnesota) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes private renters' names. Its own Calendar.aspx?view=list&CID=35&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 111 entries, all April-September 2026, and every one is a booking of the shelter titled with its hours and the renter: 88 name a private person, e.g. '9 a.m.-3 p.m. Shelter A | Nathan J.', '4-10 p.m. Shelter A | Aaron H.' and '9 a.m.-10 p.m. Shelter A | Angie L.'; the rest are a school team's practices ('LNHS Boys Cross Country', 18), a camp, a club and an HOA. Production 2026-10-24, 10-25, 10-27 and 10-28: kept 0 of 0 VEVENTs (between seasons); next May it would refill with the same bookings. The owner was asked in round 1 (option B, retire, recommended). To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": "Lakeville — Antlers Park | Shelter B Monthly Schedule (Lakeville, Minnesota) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes private renters' names. Its own Calendar.aspx?view=list&CID=36&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 101 entries, all May-August 2026, every one a booking titled with its hours and the renter; at least 95 name a private person, e.g. '4-10 p.m. Shelter B | Jordyn B.' (9 bookings), '9 a.m.-10 p.m. Shelter B | Karen T.' and '9 a.m.-3 p.m. | Kayla D.'. Production 2026-10-24, 10-25, 10-27 and 10-28: kept 0 of 0 VEVENTs (between seasons). The owner was asked in round 1 (option B, retire, recommended). To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": "Kelso — Parks Reservations (Kelso, Washington) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes private renters' names. Its own Calendar.aspx?CID=25&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 87 entries (2025: 34, 2026: 53), every one a booking of a park shelter. 44 are bookings by families, companies, churches and clubs, 17 of them naming a private person, e.g. 'Family Reunion - Gerry F., Tam O Large Shelter', 'Memorial Service - Randy C. - Tam O Small Shelter' and 'Graduation Party - M. - Large Shelter Tam O'. The other 43 are public programmes or holidays held in a shelter; the 25 library programmes among the 2026 entries (storytime, STEAM, book club, meditation in the park) appear on the same day in Kelso's configured library calendars (catIDs 23, 27, 28, 29, 30) in 24 cases. Production 2026-10-24, 10-25, 10-27 and 10-28: kept 0 of 0 VEVENTs (between seasons). To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.vandaliaohio.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": "Vandalia — Block Party Trailer (Vandalia, Ohio) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: an equipment availability schedule, not events, which publishes private renters' names. Its own Calendar.aspx?CID=27&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 87 entries (2024: 67, 2025: 17, 2026: 3): 53 are 'BLOCK PARTY TRAILER UNAVAILABLE' (52) or 'BLOCK PARTY TRAILER RESERVED' (1); 16 lend it to a street, a household or an organisation for a block party, 4 of them titled with a household's surname ('P. - Block Party Trailer', 'B. - Block Party Trailer'); 18 are city occasions it was taken to (National Night Out 3, Music in the Park 3, Police Department Open House 3). The 3 entries of 2026 are National Night Out, Touch-a-Truck and Fall Festival, which do not appear on the same day in the configured Parks and Recreation calendar (catID 23); they are the only events this feed would have added. Production 2026-10-24, 10-25, 10-27 and 10-28: kept 0 of 0 VEVENTs. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": "Rochester — Gazebo at Lion's Park - Reservations (Rochester, Michigan) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events. Its own Calendar.aspx?CID=45&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 28 entries (2024: 2, 2025: 13, 2026: 13): 20 read only 'Reserved' (in three spellings) and 1 'Test'; the other 7 are the gazebo booked for RARA's summer concerts ('RARA Bites & Beats by Paint Creek' 6, 'RARA's Music in Park' 1), 5 of which appear on the same day in the configured Events calendar (catID 42) as 'Music in the Park' or 'Bites and Beats'. Its configured siblings catID 41 and 44 are the same kind and were retired with it. Production 2026-10-24, 10-25, 10-27 and 10-28: kept 0 of 0 VEVENTs. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": "Rochester — Lion's Shelter Reservations (Rochester, Michigan) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events. Its own Calendar.aspx?CID=44&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 98 entries (2022-2026; 2026: 25): 91 read 'Reserved' (89 bare, in three spellings, and 2 'Reserved-RARA Day Camps'); the rest are 'RARA Day Camps' 3, 'Art & Apples' 2, 'Making Strides Against Breast Cancer Walk' 1 and a staff booking that names its employee ('Deep Cleaning - Don C.'). None of the 6 public occasions appears on the same day in the configured Events calendar (catID 42). Production put about 20 'Reserved' rows on the map every day: kept 21 of 21 VEVENTs on 2026-10-24 and 20 of 20 on 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar": "Rochester — Rochester Park Kiwanis Pavilion Reservations (Rochester, Michigan) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes some renters' names. Its own Calendar.aspx?CID=41&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 747 entries (2018-2026; 2026: 86): 646 begin 'Reserved' (550 read only 'Reserved'; a few name the renter, e.g. 'Reserved-A.', 'Reserved-O.'); 58 are private bookings by kind ('Birthday Party' 14, 'Grad Party' 9, 'Picnic' 9, and one titled with a renter's name, 'P. P.'); 43 are the pavilion booked for public occasions ('RARA Day Camps' 29, 'Heritage Days' 2, charity walks and runs). 4 of those 43 appear on the same day in the configured Events calendar (catID 42). Production kept 9 of 9 VEVENTs on 2026-10-24, 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": "Coppell — Block'n Roll Reservation Schedule (Coppell, Texas) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: an equipment reservation schedule, not events. Its own Calendar.aspx?CID=34&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 104 entries (2021-2026 and one dated 2000): 25 read 'Not available' or 'Unavailable', and 75 are the Block'n Roll trailer lent to a homeowners' or neighbourhood association, titled with its name ('Magnolia Park HOA' 6, 'Stonemeade Estates' 5, 'Coppell Historical Society' 5); it names no private person. 4 are city occasions the trailer went to (a 2022 pickleball tournament, the library's 2022 Summer Reading Kickoff, a 2023 Old Town community event, and the 2026 Volunteer Appreciation Event). The feed on 2026-10-29 holds 2 VEVENTs, 'Community Development Event' and 'Coppell Pecan Valley HOA'. Production kept 2 of 3 VEVENTs on 2026-10-24 and 10-25, and 2 of 2 on 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.cityofrockledge.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": "Rockledge — Facility Rental (Rockledge, Florida) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: an availability schedule, not events. Its own Calendar.aspx?CID=25&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 979 entries (2014-2026; 2026: 10): 970 read '<room> - In Use' ('Training Room at Community Resource Center - In Use' 295, 'Thompson House - In Use' 146) and 9 name only the room. The feed on 2026-10-29 holds 1 VEVENT, 'Rockledge Municipal Building - In Use'. Production kept 1 of 1 VEVENTs on 2026-10-24, 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.cityofbrookings-sd.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": "Brookings — Light Pole Flag and Banner - Reserved/Open Dates (Brookings, South Dakota) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a schedule of which banners hang on the city's light poles, not events. Its own Calendar.aspx?CID=30&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 118 entries (2022: 2, 2024: 8, 2025: 107, 2026: 1): 'Chamber Military Affairs Banners' 98, 'Rolling Thunder Inc. Chapter 2 South Dakota' 15, Pride Week flags 4 and 'Veteran Banners - Banner Zones 1 and 2' 1. The feed on 2026-10-29 holds 2 VEVENTs, both 'Rolling Thunder Inc. Chapter 2 South Dakota (Zone 3)'. Production kept 2 of 2 VEVENTs on 2026-10-24, 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.cityofedgewater.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": "Edgewater — Ball Field Reservations (Edgewater, Florida) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events. Its own Calendar.aspx?CID=26&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 337 entries, all 2026 and all 'Reserved - Hawks Park Baseball Fields' (234) or 'Reserved - Whistle Stop Baseball Field' (103). The feed on 2026-10-29 holds 59 VEVENTs, every one 'Reserved - ...'. Production put them on the map: kept 66 of 66 VEVENTs on 2026-10-24, 65 of 65 on 10-25, 63 of 63 on 10-27 and 61 of 61 on 10-28. Its sibling Park Reservations (catID 25) stays configured: 11 of its 14 VEVENTs on 10-29 are the public Edgewater Community Market. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.orovilleca.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": "Oroville — Parks: Events & Reservations (Oroville, California) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events. Its own Calendar.aspx?CID=29&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 1 entry, 'Hammon Park, Private Event' (2026-08-08); the feed on 2026-10-29 holds 1 VEVENT, 'Hewitt Park Pavillion Picnic Reservation, Private Use' (2026-11-01). Neither is an event the public can attend, and no other entry has been published there. Production kept 4 of 4 VEVENTs on 2026-10-24, 2 of 2 on 10-25 and 1 of 1 on 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.ci.trenton.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": "Trenton — Shelter Reservation (Trenton, Ohio) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes private renters' names. Its own Calendar.aspx?CID=26&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 91 entries, all 2026: 70 are bookings titled with the shelter and the renter's surname, e.g. 'SHELTER 1 - W.', 'SHELTER 3 - M.' (3 bookings) and 'SHELTER 2 - P.'; 9 mark the shelters unavailable; 12 are the shelters booked for public occasions (Movies in the Park 4, Veterans Memorial 5K 3, a jazz concert, a 5K, a trunk-or-treat, a homecoming parade, a library programme). Trenton has no other configured calendar, so those 12 go with it. Production kept 7 of 7 VEVENTs on 2026-10-24 and 2 of 2 on 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.cityofwickliffe.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": "Wickliffe — Community Center Room Rentals (Wickliffe, Ohio) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a schedule of opening hours, not events. The feed on 2026-10-29 (robots.txt allows; Crawl-delay 10 honoured) holds 600 VEVENTs running to 2030-12-27: 'Senior Center Hours' 404, 'Community Center Hours' 190, 4 holiday closures, 'Craft Fair' 1 and 'Event prep' 1. Its own Calendar.aspx?CID=29&showPastEvents=true (October 2026) lists 40: 'Senior Center Hours' 22, 'Community Center Hours' 17 and 'Private Rental' 1. Production stored 300 such rows a day, the entry's limit: kept 300 of 606 VEVENTs on 2026-10-24 and 10-25, 300 of 604 on 10-27 and 300 of 602 on 10-28. When a centre is open is mapsee_ingest_facility_hours.py's business, not an event's. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.oskaloosaiowa.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": "Oskaloosa — Park Shelter Reservations (Oskaloosa, Iowa) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes private renters' names. Its own Calendar.aspx?CID=35&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 355 entries (2023: 42, 2024: 100, 2025: 94, 2026: 119), every one a shelter booking or a closure: 199 name the renter in brackets, mostly a surname, e.g. 'Rotary Shelter Reservation (R.)', 'Shelter A Reservation (S.)' and 'Kiwanis Shelter Reservation (B.'s Grad)'; 10 mark the shelters first-come, first-served or closed; 1 is a public occasion (the library's Summer Reading Kick Off Party). Production kept 0 of 7 VEVENTs on 2026-10-25, 10-27 and 10-28, all 7 in the past. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar": "Ferndale — Star Park Picnic Shelter (Ferndale, Washington) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes some renters' names. Its own Calendar.aspx?CID=49&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 60 entries, all 2026: 57 are private bookings ('STAR PARK - Private Event' 28, 'BIRTHDAY PARTY' 13, 'Private Party' 11, a preschool party, a school field trip), three of them naming a child or a family, e.g. 'STAR PARK - M.'s Late Birthday Party'; 3 are public occasions (a ribbon cutting, a walk for peace, a yard-games tournament), and all 3 appear on the same day with the same title in the configured Park Facility Rentals calendar (catID 47), which stays configured. The feed on 2026-10-29 holds 1 VEVENT, 'STAR PARK - Private Event'. Production kept 1 of 1 VEVENTs on 2026-10-24, 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
+    "https://www.lotto-arena.be": "Lotto Arena, Antwerp (Merksem). Reverted 2026-10-29 and declined as a site, homepage and sitemap both. It came from the venue walk (osm:events_venue -> jsonld-event) as the page of ONE event (GLORY 110, 2026-10-17 16:00Z), which read '1/1 sampled events future' on 10-11 and 'no schema.org Event blocks found' on 10-18 and 10-29. The site's sitemap (100 Dutch /evenement/ pages) verifies, but each requests session's first event page is answered through a 5-hop silent sign-in measured 2026-10-29: lotto-arena.be/auth/callback -> api.mybeat.beatvenues.be/start-auth (whose robots.txt answered 403) -> auth.beatvenues.be/oauth2/authorize?...prompt=none -> back. Reading any event page drives a third party's OAuth endpoint through a host whose robots.txt refuses us, so no page of this site is configured. The way in is to ask the operator for a feed. Ledger rows: lotto-arena.be/evenement/glory-110-a200be7a (fail) and lotto-arena.be/sitemap.xml (refused).",
+    "https://www.lotto-arena.be/sitemap.xml": "Lotto Arena's sitemap: see https://www.lotto-arena.be above (a sign-in chain through a host whose robots.txt answered 403; reverted 2026-10-29)."
   }
 }
