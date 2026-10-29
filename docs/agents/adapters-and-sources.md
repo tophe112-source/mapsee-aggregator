@@ -3,6 +3,24 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A SWAP CALENDAR'S DEFAULT CATEGORY MUST NOT TURN EVERY FUTURE EVENT INTO
+  A MARKET (2026-10-28).** ReUse Depot's permitted Wix `/event-list` has **3**
+  detail links; the existing JSON-LD adapter keeps **1** upcoming Fall Clothes
+  Swap on **Nov 15, 12:00–14:30 PST** at the Filipino American Community Hall,
+  **7566 High School Rd NE, Bainbridge Island**. Its own page says Free event
+  and no donation is needed to shop. `jsonld_sources.json` keeps the calendar
+  community-primary; the existing title-based rule supplies market-secondary
+  for the swap. No blanket venue pin assigns future offsite events to this hall.
+  PACS' permitted `/fleamarket` page gives **Nov 1, 11:00–16:00 PST**, **11020
+  NE Halsey St, Portland**, but **0** Event JSON-LD blocks. Its **$10** vendor
+  fee is not shopper admission; this event was imported once with unknown
+  admission, without adding a recurring source that cannot refresh itself.
+  The **2** published addresses each had **1** matching Census street result
+  inside the expected town. Live sync inserted **2** new rows in **0.9 s**;
+  exact readback confirmed **2/2** times/pins and Fleabop membership, with
+  **1** actual database free tag (the swap), and none for PACS. The **97** CI
+  scripts passed locally in **32.71 s** after the classification/source changes.
+
 - **ONE WATERFRONT CALENDAR READ DELIVERS 33 DATED OUTINGS (2026-10-27).**
   The permitted official `/events/` page has **42** grid cards: **33** upcoming
   occurrences at the verified Pier 62 / Pier 66 pins, **4** at unconfigured
