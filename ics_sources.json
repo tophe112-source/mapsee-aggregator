@@ -59299,5 +59299,593 @@
     "geocode_suffix": ", Toronto, ON",
     "limit": 300,
     "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Pontiac — Main Calendar",
+    "category": "community",
+    "url": "https://www.pontiac.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Pontiac, Illinois",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Pontiac, Illinois",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Grand Rapids",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://cityofgrandrapidsmn.com/calendar/ical/%2A/calendar.ics",
+    "geocode_suffix": ", Grand Rapids, Minnesota",
+    "limit": 300,
+    "_metro": "Grand Rapids, Minnesota",
+    "crawl_delay": 15.0
+  },
+  {
+    "name": "Roncesvalles United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/069c477951a9a17f34adbfa9dec69d619e993c182592116ed2f70d2303884026%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Forest Hill United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1vo77pnejo4hg8qup7cjd7bjsg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "The Sports Village",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> my-calendar",
+    "url": "https://www.sportsvillage.ca/?feed=my-calendar-ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "St. Luke’s Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b2a00b7069f880e24e743502192ed4bce25d837f44a10a3c8140dfdb13c1233d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Beth Jacob Synagogue",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_378ba81e9eae0c5bf8b755e7d08980ac1ec24e06aeac23f06bd55fe128924e6f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", North York",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Saint Mary Star of the Sea Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/30prg3oduhr1il1h2hghb69i0s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Kingsway-Lambton United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.kingswaylambton.ca/events.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Westminster United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dsj2gdoecrrcbupdi9top8tekg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "St. Olaves Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d168e69cfce506931b3404a5b09b0c9624f6f6fdd4593addeaae67c6757db2a8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toronto",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Erin Mills United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a2bojmehst2qm54vse9r3pk1no%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mississauga",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Runnymede Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.runnymedechurch.org/events.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Oakwood Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.oakwoodbfc.com/events.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Entraide Ahuntsic-Nord",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40entraidenord.org/public/basic.ics",
+    "geocode_suffix": ", Montréal, Québec",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Club de Kendo Ayame",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5eaab905a56685d0a4320d61af714e1695fa60a1f83610dca9d9a52e8a3d46b4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montréal",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Centre de ressources communautaires de l'Ouest-de-l'Île - CRC",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b2c5fb85bd6692000d2c008b982af34db905c9dd68135e0afbb6a3110af51494%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pointe-Claire, QC",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Église Saint-Esprit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://www.stespritderosemont.ca/infos/eglise-saint-esprit/?feed=my-calendar-ics",
+    "geocode_suffix": ", Montreal, Canada",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "Église orthodoxe roumaine de l'Annonciation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9hrast80mvdnu74qv1lm8oc3ao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montréal, QC",
+    "limit": 300,
+    "_metro": "Montreal, Canada"
+  },
+  {
+    "name": "St Helens Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://sthelensvancouver.com/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St. Timothy Anglican Chuch",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sainttimothy.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Jubilee United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jubilee-uc.ca_0g36ul260rom0vo43og7etmpeo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Saint John of Shanghai Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n7822eeuum0covis43jsvsdv08%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Bethel International Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://bethelinvancouver.com/events.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Aviary",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7hiluc30hvrplu268iqvbnnunc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fairview Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.fairviewbaptistvancouver.ca/events.ics",
+    "geocode_suffix": ", Vancouver, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fruitful Life Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.flccvancouver.net/activity/live/?ical=1",
+    "geocode_suffix": ", Vancouver, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Hollyburn Sailing Club",
+    "category": "community",
+    "_found": "osm:sailing_school -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hollyburnsailingclub.ca_23f1p9ivnaijvhl07qasen7jts%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "All Saints Ladner Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.vancouver.anglican.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Westwood Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.westwoodac.org/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St Agnes' Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintagnes.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "North Shore Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nsac.bc.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Eagle Ridge Bible Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.erbf.com/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Inlet United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.inletunited.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "The Mission to Seafarers",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.flyingangel.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St Luke Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stluke%40telus.net/public/basic.ics",
+    "geocode_suffix": ", Surrey",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Gracepoint Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gracepoint.ca/events.ics",
+    "geocode_suffix": ", Surrey",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Attitude Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vancouver%40attitudebaptistchurch.ca/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Grace Vancouver Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/32ade9321c163299bcd581faec5feae50e543073922bd83f9cd352599133c024%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Mountainview Christian Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mountainviewfellowship.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Peace Church on 52nd",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.peacechurchon52.ca/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Vancouver, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Burnaby Pacific Grace Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://bpgc.org/events.ics",
+    "geocode_suffix": ", Burnaby",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fraser Lands Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.fraserlands.ca/events.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Olivet Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.olivet.bc.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Holy Trinity Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.holytrinitycathedral.ca/events.ics",
+    "geocode_suffix": ", New Westminster, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Green Timbers Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lhq80qn2jdvp9ggt7uu4cm3kbc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Surrey",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Burnaby Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.bacfamily.org/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "St Anne's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stannessteveston.ca/events.ics",
+    "geocode_suffix": ", Richmond",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Lighthouse Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ladnerlife.com/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Immaculate Conception Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://icdelta.ca/icalendar0.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Vancouver Hack Space",
+    "category": "community",
+    "_found": "osm:leisure -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6kqbcrijmvlp9e82gi0ql0csl4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Trinity Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/284b88b657f5aceeb4ee434dfd55c8c1841c437fa3b81d8e5bdad9efd44efa7c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, British Columbia",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Saint Anselm's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stanselms.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Nelson Avenue Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nacchurch.org/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Burnaby Chinese Evangelical Free Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fdd0a46b5f587f5db4155b4a5862ad7a60985c64e9f61a171da33da96603eed4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "West Point Grey Lawn Bowling Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f2f53c7eb6f0e1a64f0c1366f1fad9277e153f046a4e8dbaa9618f2b503d4a0d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "West Vancouver Lawn Bowling Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7c3622d96469ef75fbc1c3b7ecbc11aea552e054fa54ed71517070bada94c0a4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fraser River Discovery Centre",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q1obqdnmnfd0arpdmb3lu14tt4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "South Gate Alliance",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://southgatealliance.net/events/small-group-practicing-the-way/2026-10-30.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Autism Calgary",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/autismcalgary.com_hm5hojchcs694lak4a1n8r032c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Winners Chapel International Calgary",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://winnerschapelcalgary.org/events.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Skipping Stone",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5f25dd0bf7800264e3e595ea33bddfaf32b5df642dfbafff20b17c3e61753beb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Quickdraw Animation Society",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2100d2fa9c97284471519e556b38c6020b87b84e048ed39b7deae8a5fc7c0db8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Northwest Islamic Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tco2ejtvl6s4oaof8ipmh3vevo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, AB",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
+  },
+  {
+    "name": "Workshop Studios",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b7aog3hke1dm9bni1hc7m5p2o8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Calgary, Canada",
+    "limit": 300,
+    "_metro": "Calgary, Canada"
   }
 ]
