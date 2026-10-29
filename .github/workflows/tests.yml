@@ -692,6 +692,17 @@ jobs:
       - name: Re-applying a curation run onto a main that moved
         run: python test_curate_reapply.py
 
+      # FEED_DOWN listed 130 configured feeds on 2026-10-29, every one from an
+      # audit eleven days old: the 10-25 audit ran four hours, was cancelled,
+      # and kept nothing; 82 of the 130 were CivicPlus categories a site still
+      # lists, recorded `fail` because an empty category and a deleted one
+      # answer the same 474 bytes; and Calgary's open data failed a verifier
+      # that read dates its own way while production kept 12 of 13 rows.
+      # Pins the budget, the oldest-first order, the saves, the workflow's
+      # always() steps, the CivicPlus list and the shared date parser.
+      - name: The weekly audit lands what it probed, and its verdicts agree with the adapters
+        run: python test_curate_audit.py
+
       # The report that AIMS the loop. Its bottom twenty lines are what an
       # autonomous run picks targets from and what the gap sweep pins
       # `--category` to, and every bug this grades was invisible in a report

@@ -116,6 +116,7 @@ python catalog_curate.py discover ckan --limit 300 --category fitness,running
 python catalog_curate.py verify cands.json    # probe candidates, record results
 python catalog_curate.py merge  cands.verified.json
 python catalog_curate.py audit                # re-check every configured source
+python catalog_curate.py audit --max-minutes 200 --workers 4   # the Sunday run: oldest check first, stops on time
 python catalog_curate.py ledger               # what's been tried, what's dead
 ```
 
@@ -213,7 +214,9 @@ Two workflows run it (`.github/workflows/source-health.yml`):
   because every check above compares against it and without it the job passes
   having evaluated nothing.
 - **Sundays, 04:10 UTC** — the deep probe: `catalog_curate.py audit` re-fetches
-  every curated feed and commits the refreshed ledger.
+  the curated feeds, the one the ledger checked longest ago first, inside a
+  200-minute budget, and commits the refreshed ledger (whatever it reached,
+  even when the step is cut off); what it did not reach goes first next week.
 
 Notification is a GitHub issue rather than Slack precisely because it needs no
 secret, no external account and no upkeep.
