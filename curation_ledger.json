@@ -110167,10 +110167,17 @@
     "type": "osm-venue"
   },
   "ccsoumagne.be/evenements/?ical=1": {
-    "checked": 20261018,
+    "checked": 20261029,
     "name": "Centre Culturel - Salle de Soumagne-Bas",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "replaced 2026-10-29 by https://www.ccsoumagne.be/events.ics (Events Manager's calendar-wide export, 27 vevents / 26 future): this URL now answers the 69,833-byte HTML agenda page (production 10-24, 10-25, 10-27, 10-28 kept 0 of 0; audit 10-11 and 10-18 http 200 / no VCALENDAR). Entry in ics_sources.json at 10f27b9.",
     "status": "fail",
+    "type": "ics"
+  },
+  "ccsoumagne.be/events.ics": {
+    "checked": 20261029,
+    "name": "Centre Culturel - Salle de Soumagne-Bas",
+    "reason": "27 vevents / 26 future",
+    "status": "ok",
     "type": "ics"
   },
   "ccspa-jalhay-stoumont.be/agenda-du-cc": {
@@ -147384,9 +147391,9 @@
     "type": "osm-venue"
   },
   "cromaneseafest.com/events/?ical=1": {
-    "checked": 20261029,
+    "checked": 20261018,
     "name": "Cromane Seafest (Co. Kerry, Ireland)",
-    "reason": "retired 2026-10-29, not working: production 10-28 kept 0 of 0; 10-27 kept 0 of 0; 10-25 kept 0 of 0; 10-24 kept 0 of 0; audit 10-11 and 10-18 http 200 / no VCALENDAR; recheck 10-29 robots.txt unreachable (connection reset by peer, www and bare host, 3 tries), feed not fetched. Last good: ledger 07-27, 19 vevents / 19 future. Entry in ics_sources.json at 10f27b9.",
+    "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
   },
@@ -373849,10 +373856,10 @@
     "type": "ics"
   },
   "lkg-bremen.de/events/ec-hauskreis-2026-10-22/?ical=1": {
-    "checked": 20261022,
+    "checked": 20261029,
     "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "replaced 2026-10-29 by https://lkg-bremen.de/events.ics (the calendar-wide export)",
+    "status": "fail",
     "type": "ics"
   },
   "lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1": {
@@ -373863,10 +373870,10 @@
     "type": "ics"
   },
   "lkg-bremen.de/events/wohnzimmerkino/?ical=1": {
-    "checked": 20261026,
+    "checked": 20261029,
     "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "replaced 2026-10-29 by https://lkg-bremen.de/events.ics (the calendar-wide export)",
+    "status": "fail",
     "type": "ics"
   },
   "lkg-burgdorf.de": {
@@ -391769,8 +391776,8 @@
   "mathallenoslo.no/events/?ical=1": {
     "checked": 20261029,
     "name": "Mathallen Oslo Food Hall",
-    "reason": "replaced 2026-10-29 by https://mathallenoslo.no (tribe, /wp-json/tribe/events/v1/events): robots.txt now says Disallow: /*?*ical=, and this export answered 410 Gone in production 10-24, 10-25, 10-27, 10-28 (audit 10-18 http 410 / no VCALENDAR). Entry in ics_sources.json at 10f27b9.",
-    "status": "fail",
+    "reason": "robots.txt: Disallow: /*?*ical= (GET /events/?ical=1). Replaced 2026-10-29 by https://mathallenoslo.no (tribe, /wp-json/tribe/events/v1/events, which robots.txt allows); this export also answered 410 Gone in production 10-24, 10-25, 10-27, 10-28. Entry in ics_sources.json at 10f27b9.",
+    "status": "refused",
     "type": "ics"
   },
   "mathematisch-physikalischer-salon.skd.museum/ausstellungen/dauerausstellung": {
@@ -664173,17 +664180,17 @@
     "type": "osm-venue"
   },
   "wlb-stuttgart.de/veranstaltungen/kalender/termin/allgemeine-fuehrung-4.ics": {
-    "checked": 20261021,
+    "checked": 20261029,
     "name": "W\u00fcrttembergische Landesbibliothek",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29, not working: one event's own .ics, and its only event is past. Production 10-28, 10-27 and 10-25 kept 0 of 1 VEVENTs (ALL 1 events are in the PAST). Recheck 10-29 (robots.txt Allow: /): http 200, 1 VEVENT, 'Allgemeine F\u00fchrung' at 2026-10-21T08:00Z, no RRULE. WLB publishes no calendar-wide export (its calendar page links 77 per-event .ics files). Entry in ics_sources.json at 10f27b9.",
+    "status": "fail",
     "type": "ics"
   },
   "wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7d01b47a5569838c18a6443dd472cfa2.ics": {
-    "checked": 20261025,
+    "checked": 20261029,
     "name": "W\u00fcrttembergische Landesbibliothek",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29, not working: one event's own .ics, and its only event is past. Production 10-27 kept 1 of 1 VEVENTs, 10-28 kept 0 of 1 (ALL 1 events are in the PAST). Recheck 10-29 (robots.txt Allow: /): http 200, 1 VEVENT, 'Recherche Deep Dive - Strategien f\u00fcr anspruchsvolle Schreibprojekte' at 2026-10-27T15:00Z, no RRULE. WLB publishes no calendar-wide export (its calendar page links 77 per-event .ics files). Entry in ics_sources.json at 10f27b9.",
+    "status": "fail",
     "type": "ics"
   },
   "wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7ffe1a4b0327ffbd48e2c99098d40b29.ics": {
@@ -664194,10 +664201,10 @@
     "type": "ics"
   },
   "wlb-stuttgart.de/veranstaltungen/kalender/termin/testvortrag-weggesperrt.ics": {
-    "checked": 20261022,
+    "checked": 20261029,
     "name": "W\u00fcrttembergische Landesbibliothek",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-29, not working: one event's own .ics, and its only event is past. Production 10-28, 10-27 and 10-25 kept 0 of 1 VEVENTs (ALL 1 events are in the PAST). Recheck 10-29 (robots.txt Allow: /): http 200, 1 VEVENT, 'Ausstellungser\u00f6ffnung' at 2026-10-22T16:00Z, no RRULE. WLB publishes no calendar-wide export (its calendar page links 77 per-event .ics files). Entry in ics_sources.json at 10f27b9.",
+    "status": "fail",
     "type": "ics"
   },
   "wlkskrakus.pl": {
