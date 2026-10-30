@@ -21145,6 +21145,455 @@
         "lon": 116.0655355
       },
       "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Tea Tree Gully Anglican",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://ttganglican.org.au/events/services/830-am-service-247/"
+      ],
+      "link_pattern": "https://ttganglican\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tea Tree Gully Anglican",
+        "address": "19 Perseverance Road",
+        "postal_code": "5091",
+        "lat": -34.8235666,
+        "lon": 138.728958
+      },
+      "_metro": "Adelaide, Australia"
+    },
+    {
+      "name": "Heddon Greta Drive In",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.drive-in.au/home/"
+      ],
+      "link_pattern": "https://www\\.drive\\-in\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heddon Greta Drive In",
+        "lat": -32.806846,
+        "lon": 151.5165684
+      },
+      "_metro": "Newcastle, Australia"
+    },
+    {
+      "name": "The Kew Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.hewsonbooks.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Kew Bookshop",
+        "lat": 51.4773543,
+        "lon": -0.2854594
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Crate Brewery & Pizza",
+      "category": "community",
+      "_found": "osm:pub -> jsonld-event",
+      "listing": [
+        "https://www.cratebrewery.com/pages/whats-on"
+      ],
+      "link_pattern": "https://www\\.cratebrewery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Crate Brewery & Pizza",
+        "address": "43 White Post Lane",
+        "city": "London",
+        "postal_code": "E9 5EN",
+        "lat": 51.5429973,
+        "lon": -0.0220788
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Emergency Exit Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://eea.org.uk/events"
+      ],
+      "link_pattern": "https://eea\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Emergency Exit Arts",
+        "address": "Azof Street",
+        "city": "London",
+        "postal_code": "SE10 0EF",
+        "lat": 51.48906,
+        "lon": 0.0079339
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lumiere Cinema Romford",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.lumiereromford.com/movies/andre-rieus-2026-christmas-concert-let-it-snow-2026?location=all&amp;locationKey=all"
+      ],
+      "link_pattern": "https://www\\.lumiereromford\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lumiere Cinema Romford",
+        "address": "Mercury Shopping Centre",
+        "city": "Romford",
+        "postal_code": "RM1 3EE",
+        "lat": 51.5794872,
+        "lon": 0.1852042
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Southwark Brewing",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.southwarkbrewing.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Southwark Brewing",
+        "address": "46 Druid Street",
+        "city": "London",
+        "postal_code": "SE1 2EZ",
+        "lat": 51.5005941,
+        "lon": -0.0771444
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Bridge Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bridgetheatre.co.uk/en-GB/event/musical/pride-tickets"
+      ],
+      "link_pattern": "https://www\\.bridgetheatre\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bridge Theatre",
+        "address": "3 Potters Fields Park",
+        "city": "London",
+        "postal_code": "SE1 2SG",
+        "lat": 51.5040964,
+        "lon": -0.0773186
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Honourable Society of Lincoln's Inn",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.lincolnsinn.org.uk/whats-on/legal-ai-event/"
+      ],
+      "link_pattern": "https://www\\.lincolnsinn\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Honourable Society of Lincoln's Inn",
+        "address": "Lincoln's Inn Fields",
+        "city": "London",
+        "postal_code": "WC2A 3TL",
+        "lat": 51.5167519,
+        "lon": -0.1143657
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "LA Hacienda",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.lalounge.co.uk/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "LA Hacienda",
+        "address": "26 Bell Lane",
+        "city": "London",
+        "postal_code": "E16 2AB",
+        "lat": 51.5045617,
+        "lon": 0.0175868
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Norman Park Community Sports Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://npcsc.co.uk/npcsc_event/yoga-with-karen-rose/120355200/"
+      ],
+      "link_pattern": "https://npcsc\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Norman Park Community Sports Centre",
+        "address": "Norman Park Hayes Lane",
+        "city": "Bromley",
+        "postal_code": "BR2 9EJ",
+        "lat": 51.3866557,
+        "lon": 0.0213902
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Woolwich Works",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.woolwich.works/events/more-fire"
+      ],
+      "link_pattern": "https://www\\.woolwich\\.works/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Woolwich Works",
+        "address": "11 No 1 Street",
+        "city": "London",
+        "postal_code": "SE18 6HD",
+        "lat": 51.4943602,
+        "lon": 0.0699897
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Greenwich & Blackheath Board Games and Beer Club",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.meetup.com/greenwich-blackheath-gaming/"
+      ],
+      "link_pattern": "https://www\\.meetup\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Greenwich & Blackheath Board Games and Beer Club",
+        "lat": 51.4816381,
+        "lon": 0.0366583
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Spanners",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.spanners.club/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Spanners",
+        "address": "Ridgway Road",
+        "city": "London",
+        "postal_code": "SW9 7EX",
+        "lat": 51.4652517,
+        "lon": -0.1040163
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Firepit Art Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://www.firepit.art/whats-on/"
+      ],
+      "link_pattern": "https://www\\.firepit\\.art/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Firepit Art Gallery",
+        "address": "10 Cutter Lane",
+        "city": "London",
+        "postal_code": "SE10 0XX",
+        "lat": 51.501906,
+        "lon": 0.0073043
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Conway Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.conwayhall.org.uk/whats-on/"
+      ],
+      "link_pattern": "https://www\\.conwayhall\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Conway Hall",
+        "address": "25 Red Lion Square",
+        "city": "London",
+        "postal_code": "WC1R 4RL",
+        "lat": 51.5197612,
+        "lon": -0.1183039
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Bàrd Books",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.wearebardbooks.co.uk/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bàrd Books",
+        "address": "341-343 Roman Road",
+        "city": "London",
+        "postal_code": "E3 5QR",
+        "lat": 51.5310481,
+        "lon": -0.0396615
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "National Housing Federation",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event",
+      "listing": [
+        "https://www.housing.org.uk/events/"
+      ],
+      "link_pattern": "https://www\\.housing\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "National Housing Federation",
+        "address": "25 Procter Street",
+        "city": "London",
+        "postal_code": "WC1V 6NY",
+        "lat": 51.518621,
+        "lon": -0.119625
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "radial london",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "http://radial.london/whats-on"
+      ],
+      "link_pattern": "https://radial\\.london/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "radial london",
+        "address": "39b Markfield Road",
+        "postal_code": "N15 4QA",
+        "lat": 51.5831632,
+        "lon": -0.064742
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Young V&A",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.vam.ac.uk/event/Q007lPeed6d/send-play-jul-dec-2026"
+      ],
+      "link_pattern": "https://www\\.vam\\.ac\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Young V&A",
+        "address": "Cambridge Heath Road",
+        "city": "London",
+        "postal_code": "E2 9PA",
+        "lat": 51.5290596,
+        "lon": -0.0548708
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "American International Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://amchurch.co.uk/whats-on/"
+      ],
+      "link_pattern": "https://amchurch\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "American International Church",
+        "lat": 51.521056,
+        "lon": -0.135423
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Saint Jude-on-the-Hill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stjudeonthehill.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Jude-on-the-Hill",
+        "address": "Central Square",
+        "city": "London",
+        "postal_code": "NW11 7AH",
+        "lat": 51.5801551,
+        "lon": -0.189878
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Old Church",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.theoldchurch.org.uk/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Old Church",
+        "address": "Stoke Newington Church Street",
+        "city": "London",
+        "postal_code": "N16 9ES",
+        "lat": 51.561372,
+        "lon": -0.0847068
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Apollo Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://nimaxtheatres.com/whats-on/"
+      ],
+      "link_pattern": "https://nimaxtheatres\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Apollo Theatre",
+        "address": "31 Shaftesbury Avenue",
+        "city": "London",
+        "postal_code": "W1D 7EZ",
+        "lat": 51.5115661,
+        "lon": -0.1334413
+      },
+      "_metro": "London, United Kingdom"
     }
   ],
   "_not_included": {

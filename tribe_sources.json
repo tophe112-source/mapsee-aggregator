@@ -30183,6 +30183,250 @@
         "lon": 115.8255761
       },
       "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Gold Coast Turf Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+my-calendar",
+      "base_url": "https://gctc.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gold Coast Turf Club",
+        "address": "Racecourse Drive",
+        "region": "QLD",
+        "postal_code": "4217",
+        "lat": -28.0056648,
+        "lon": 153.4067102
+      },
+      "_metro": "Gold Coast, Australia"
+    },
+    {
+      "name": "Currumbin RSL",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.currumbinrsl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Currumbin RSL",
+        "address": "165 Duringan Street",
+        "postal_code": "4223",
+        "lat": -28.1374229,
+        "lon": 153.4739108
+      },
+      "_metro": "Gold Coast, Australia"
+    },
+    {
+      "name": "Crown Court",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://crowncourtchurch.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Crown Court",
+        "city": "London",
+        "lat": 51.513419,
+        "lon": -0.1209833
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "BethWall Climbing Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://londonclimbingcentres.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BethWall Climbing Centre",
+        "address": "Hollybush Place",
+        "city": "London",
+        "postal_code": "E2 9QX",
+        "lat": 51.5277422,
+        "lon": -0.056381
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lynwood Christian Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://cogop.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lynwood Christian Fellowship",
+        "address": "14-16 Lynwood Road",
+        "city": "London",
+        "postal_code": "SW17 8SA",
+        "lat": 51.4327823,
+        "lon": -0.1623587
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "English National Ballet School",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event",
+      "base_url": "https://www.enbschool.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "English National Ballet School",
+        "address": "Hortensia Road",
+        "city": "London",
+        "lat": 51.4815828,
+        "lon": -0.1852632
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Tara GFC",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://taragfc.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tara GFC",
+        "address": "Cayton Road",
+        "city": "Greenford",
+        "postal_code": "UB6 8BJ",
+        "lat": 51.5365645,
+        "lon": -0.3387099
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Hammersmith Chess Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hammerchess.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hammersmith Chess Club",
+        "lat": 51.4936598,
+        "lon": -0.2350475
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Selsdon Village Club",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.selsdonvillageclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Selsdon Village Club",
+        "address": "151 Addington Road",
+        "city": "South Croydon",
+        "postal_code": "CR2 8LH",
+        "lat": 51.344476,
+        "lon": -0.061128
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Enfield Town Islamic Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etic.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Enfield Town Islamic Centre",
+        "address": "5 Silver Street",
+        "city": "Enfield",
+        "postal_code": "EN1 3EF",
+        "lat": 51.6525763,
+        "lon": -0.0804612
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Hounslow Jamia Masjid & Islamic Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hounslowmasjid.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hounslow Jamia Masjid & Islamic Centre",
+        "address": "367 Wellington Road South",
+        "postal_code": "TW4 5HU",
+        "lat": 51.4591959,
+        "lon": -0.3749235
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Westminster Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://westminstercathedral.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westminster Cathedral",
+        "address": "Francis Street",
+        "city": "London",
+        "postal_code": "SW1P 1QW",
+        "lat": 51.4958198,
+        "lon": -0.1395187
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Mary le Strand",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmarylestrand.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mary le Strand",
+        "address": "Strand",
+        "city": "London",
+        "postal_code": "WC2R 1ES",
+        "lat": 51.5121899,
+        "lon": -0.1168414
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Peter de Beauvoir Town",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "http://www.stpeterdebeauvoir.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Peter de Beauvoir Town",
+        "lat": 51.5408083,
+        "lon": -0.0801426
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Teresa of the Child Jesus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rcdow.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Teresa of the Child Jesus",
+        "address": "291 Shenley Road",
+        "city": "Borehamwood",
+        "postal_code": "WD6 1TG",
+        "lat": 51.6603529,
+        "lon": -0.2690022
+      },
+      "_metro": "London, United Kingdom"
     }
   ],
   "_not_included": {

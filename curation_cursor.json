@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 158,
-  "metro_key": "AU:Adelaide",
+  "metro": 165,
+  "metro_key": "GB:London",
   "stuck": {}
  },
  "osm|community_centre,library": {

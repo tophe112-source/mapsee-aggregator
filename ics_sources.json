@@ -60638,5 +60638,158 @@
     "geocode_suffix": ", Perth, Australia",
     "limit": 300,
     "_metro": "Perth, Australia"
+  },
+  {
+    "name": "The Anglican Church of St Michael",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40mitchamanglican.org.au/public/basic.ics",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300,
+    "_metro": "Adelaide, Australia"
+  },
+  {
+    "name": "Holy Cross Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mjo1m643jhp7lluhbg23pqlpuk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300,
+    "_metro": "Adelaide, Australia"
+  },
+  {
+    "name": "Brougham Place Uniting Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5e5a34fff0059ee4262f694b568695832a5e2e95a8605ccf301c0fe0b0da1945%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300,
+    "_metro": "Adelaide, Australia"
+  },
+  {
+    "name": "New Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c0e9138b8921e16a68e55bf5233ad7e87e9aab6d786c8d65c8a39d1e966e67b6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300,
+    "_metro": "Adelaide, Australia"
+  },
+  {
+    "name": "Kingscliff Seventh-Day Adventist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/contactus%40kingscliffchurch.com/public/basic.ics",
+    "geocode_suffix": ", Gold Coast, Australia",
+    "limit": 300,
+    "_metro": "Gold Coast, Australia"
+  },
+  {
+    "name": "Lakeside Adventist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2f8mpdh9hqs7i1k1eui68b8pe8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Newcastle, Australia",
+    "limit": 300,
+    "_metro": "Newcastle, Australia"
+  },
+  {
+    "name": "Soul Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dd390ca33f363add1a407565bee820cdb5d4c34a54b1995b010651fab29eda40%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hobart, Australia",
+    "limit": 300,
+    "_metro": "Hobart, Australia"
+  },
+  {
+    "name": "Keiraville International Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4504fd2a6a4a7a50c464dc6d43fac754bdc74529df8915ee2f351995cff2f29a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wollongong, Australia",
+    "limit": 300,
+    "_metro": "Wollongong, Australia"
+  },
+  {
+    "name": "Wilton Anglican",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pwac.org.au_5g9qhss2bolo6gonfs85hvnpl0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wollongong, Australia",
+    "limit": 300,
+    "_metro": "Wollongong, Australia"
+  },
+  {
+    "name": "Lancaster Road United Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_31223ec75678affb4647ba4b28d45fc9021725da28fe549943331c191b710f0f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Cranbrook Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/irqli8pemnp005qk0nskj8pth0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ilford",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Saklatvala Hall",
+    "category": "learning",
+    "_found": "osm:books -> events-manager",
+    "url": "https://thecommunists.org/events/?ical=1",
+    "geocode_suffix": ", Southall",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Association of Ukrainians in Great Britain",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3da0f132ca918255156f339195902119e385a9a5e449a5f7ff23c87b48885739%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Three Wheels Shin Buddhist Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/t3tv88jrncfe5v3lgbbo41q00k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Cheam Sports Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/thqcbud5e3m6lkaavmhehah7c0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Mary of Eton",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e88df2e37ccc93bd1a431fd0a640e576ac685bf8df8e3ec2bf16bb519b72e4a9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Greenwich Yacht Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h8s1f6qp9l40rbv3feam1l6ge282rri6%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
   }
 ]

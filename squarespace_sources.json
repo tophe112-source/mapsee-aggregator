@@ -3716,6 +3716,191 @@
         "lon": 115.8681232
       },
       "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Canberra Environment Centre",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.canberraenvironment.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Canberra Environment Centre",
+        "lat": -35.19351,
+        "lon": 149.1541998
+      },
+      "_metro": "Canberra, Australia"
+    },
+    {
+      "name": "The Dome",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.domelondon.co.uk/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "The Dome",
+        "address": "2A Dartmouth Park Hill",
+        "city": "London",
+        "postal_code": "N19 5QH",
+        "lat": 51.5574348,
+        "lon": -0.1386581
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Cartoon Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.cartoonmuseum.org/whats-on-exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "The Cartoon Museum",
+        "address": "63 Wells Street",
+        "city": "London",
+        "postal_code": "W1A 3AE",
+        "lat": 51.5175767,
+        "lon": -0.1385815
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Night Tales Loft",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.ntloft.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Night Tales Loft",
+        "address": "Westgate Street",
+        "city": "London",
+        "lat": 51.5374845,
+        "lon": -0.057773
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "art in the docks",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.artinthedocks.com/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "art in the docks",
+        "address": "25 Shackleton Way",
+        "city": "London",
+        "postal_code": "E16 2XJ",
+        "lat": 51.5055578,
+        "lon": 0.07711
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ichthusnewlife.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Life Church",
+        "address": "96 Woolwich Road",
+        "city": "London",
+        "postal_code": "SE10 0LE",
+        "lat": 51.4861479,
+        "lon": 0.0166191
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St. Andrew's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://standrewsthornhillsquare.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Andrew's",
+        "city": "London",
+        "postal_code": "N1 1BQ",
+        "lat": 51.5410911,
+        "lon": -0.1152482
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St. Sepulchre's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://hsl.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Sepulchre's Church",
+        "address": "Holborn Viaduct",
+        "city": "London",
+        "lat": 51.5166696,
+        "lon": -0.1022347
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Walworth Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://walworthgarden.org.uk/workshop-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Walworth Garden",
+        "address": "206 Manor Place",
+        "city": "London",
+        "postal_code": "SE17 3BN",
+        "lat": 51.487133,
+        "lon": -0.1022447
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Holy Trinity Brompton",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://htb.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Holy Trinity Brompton",
+        "address": "Brompton Road",
+        "city": "London",
+        "postal_code": "SW7 1JA",
+        "lat": 51.4978711,
+        "lon": -0.1698959
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Church of the Immaculate Conception",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.farmstreet.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Church of the Immaculate Conception",
+        "address": "Farm Street",
+        "city": "London",
+        "lat": 51.5094246,
+        "lon": -0.1491337
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St John the Evangelist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stjohnschurchfriernbarnet.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "St John the Evangelist",
+        "address": "Friern Barnet Road",
+        "city": "London",
+        "postal_code": "N11 3EQ",
+        "lat": 51.6130942,
+        "lon": -0.154477
+      },
+      "_metro": "London, United Kingdom"
     }
   ],
   "_not_included": {
