@@ -416,8 +416,9 @@ def main():
     #
     # 519,045 worldwide (taginfo 2026-08-27) — denser than drinking water, and
     # the thing a map of "what this neighbourhood already has" is expected to
-    # know. Same shape as a fountain: untagged means the pin is the information,
-    # real hours make it a listing that can be shut.
+    # know. Same shape as a fountain: untagged means the pin is the information.
+    # Unlike anything else that can be shut, real hours do NOT make it a
+    # listing (Kind.never_list, 2026-10-31): it is a landmark, hours and all.
     loo = ev({"amenity": "toilets", "changing_table": "yes", "wheelchair": "yes",
               "fee": "yes", "charge": "50p"})
     checks.append((loo.category == "outdoors" and loo.pin_only is True,
@@ -428,9 +429,18 @@ def main():
         checks.append((want in loo.description, why))
     shuts = ev({"amenity": "toilets", "name": "Pier 62 Restroom",
                 "opening_hours": "Mo-Su 06:00-22:00"})
-    checks.append((shuts.pin_only is False,
-                   "a toilet block that LOCKS at night is a listing, like anything "
-                   "else that can be shut"))
+    checks.append((shuts.pin_only is True,
+                   "a toilet block that LOCKS at night is still a landmark, not a "
+                   "listing in Nearby's list of what is on"))
+    checks.append(("Open:" in shuts.description or "🕑" in shuts.description,
+                   "...and its hours are still on the pin, in its description"))
+    # never_list is the toilet's alone: anything else that can be shut lists.
+    fountain = ev({"amenity": "drinking_water", "opening_hours": "Mo-Su 06:00-22:00"})
+    checks.append((fountain.pin_only is False,
+                   "control: a fountain that shuts at night still lists — never_list "
+                   "is the toilet's, not a general change"))
+    checks.append(([k.slug for k in A.KINDS if k.never_list] == ["amenity=toilets"],
+                   "exactly one Kind never lists, and it is amenity=toilets"))
 
     # ------------------------------------------------------------- placement
     row = ev({"leisure": "playground", "name": "Cal Anderson Play Area",

@@ -175,7 +175,7 @@ class Kind:
 
     def __init__(self, key, value, category, noun, glyph, secondary=(),
                  always_open=True, always_list=False, bare_is_enough=True,
-                 extra="", public_only=False, refuse=None):
+                 extra="", public_only=False, refuse=None, never_list=False):
         self.key, self.value = key, value
         # AN EXTRA OVERPASS FILTER, because one selector is not always a
         # category. Every other Kind here describes a thing that is civic by
@@ -230,6 +230,17 @@ class Kind:
         # stands would undo 0194 by degrees; the argument here is the stakes,
         # and they are not the same stakes.
         self.always_list = always_list
+        # …AND THE OTHER WAY ROUND: IS "IT CAN BE SHUT" A REASON TO LIST IT?
+        #
+        # For a library or a pool, yes: its hours are when you can go. For a
+        # public toilet, no. Reported 2026-10-31 from a phone in Seattle: "Public
+        # toilet · Today, 10:00 AM" heading the Nearby list of what is on, above
+        # a concert, because its block publishes Mo-Su 10:00-19:00. Nobody plans
+        # a day around a toilet; it is a landmark (the 🚻 Bathrooms type in
+        # ../mapsee's Things view), and its hours are a fact ON the pin — the
+        # description carries the "Open:" line either way. True wins over
+        # `shuts` and over always_list.
+        self.never_list = never_list
         # IS THE MERE EXISTENCE OF THIS THING WORTH A DOT?
         #
         # For seven of the nine selectors: yes, and that is why they are here.
@@ -272,9 +283,10 @@ KINDS = [
     # 519,045 worldwide (taginfo, 2026-08-27) — denser than drinking water, and
     # the single most-asked-for thing on a map of what a neighbourhood already
     # has. Untagged hours means "the pin is the information", exactly as for a
-    # fountain; a toilet block that publishes real hours becomes a listing like
-    # anything else that can be shut.
-    Kind("amenity", "toilets", "outdoors", "public toilet", "🚻"),
+    # fountain. A toilet block that publishes real hours USED to become a
+    # listing, as anything that can be shut does; it is a landmark now
+    # whatever its hours (never_list), and the hours ride on the pin.
+    Kind("amenity", "toilets", "outdoors", "public toilet", "🚻", never_list=True),
     Kind("leisure", "fitness_station", "fitness", "outdoor gym", "🏋", ["outdoors"]),
     Kind("amenity", "public_bookcase", "learning", "little free library", "📚", ["community"]),
     Kind("amenity", "bicycle_repair_station", "outdoors", "bike repair stand", "🔧"),
@@ -981,7 +993,7 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         # sheet. The two judgements are no longer the same question asked
         # twice — this one is "listing or scenery", that one is "is this
         # scenery worth opening".
-        pin_only=not (shuts or kind.always_list),
+        pin_only=kind.never_list or not (shuts or kind.always_list),
         # THE KIND'S OWN GLYPH, because the CATEGORY's is not specific enough
         # here. Three selectors share `outdoors` — drinking water, public
         # toilets and bike repair stands — so the map drew 🚰 on all three and

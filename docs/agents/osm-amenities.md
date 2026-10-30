@@ -232,6 +232,21 @@
   `mapsee_ingest_osm_amenities` two production runs. The test drives the real
   `main()` against a stubbed transport on all three argv shapes now.
 
+- **A PUBLIC TOILET IS A LANDMARK WHATEVER ITS HOURS (`Kind.never_list`,
+  2026-10-31).** The "can it be SHUT" test below made a toilet block with real
+  `opening_hours` a listing, and a listing is in `events_near`. Reported from a
+  phone in Seattle: "Public toilet · Today, 10:00 AM" heading the Nearby list
+  of what is on, above a concert, with "Open: Mon-Sun 10:00-19:00" for a
+  description. Nobody plans a day around a toilet. `never_list=True` on
+  `amenity=toilets` alone makes `pin_only` true over both `shuts` and
+  `always_list`. The hours still print on the pin's description, so its sheet
+  keeps them, and it draws as ../mapsee's 🚻 Bathrooms landmark. A fountain
+  that shuts at night still lists (the control case), and the test pins that
+  exactly one Kind has the flag. Stored toilet listings flip on the rewrite
+  that visits their area. That is one fifth of the 260 areas a Sunday, so
+  without a dispatch it takes five weeks; `shard=1,2,3` then `shard=4,5`
+  reaches the whole catalogue in two dispatches.
+
 - **A FACT BUYS A SHEET, NOT A LISTING — "can it be SHUT" is the Nearby test.**
   `pin_only` began as "carries nothing worth reading", so one operator tag or
   one surface promoted a playground into `events_near`. Measured 2026-08-26 in
