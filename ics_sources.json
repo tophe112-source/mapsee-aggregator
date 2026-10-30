@@ -60379,5 +60379,264 @@
     "geocode_suffix": ", Kitchener",
     "limit": 300,
     "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "Australian Computer Museum Society",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/riley.perry%40acms.org.au/public/basic.ics",
+    "geocode_suffix": ", NSW",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Lapidary House",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/secretary%40lcnsw.org/public/basic.ics",
+    "geocode_suffix": ", Sydney, Australia",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "St John's Sutherland",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stjohns.org.au_nf6j0hr821hirg1u9qrlbvfprk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sydney, Australia",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Manly Yacht Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/78qniseu11fgq29sfru1gh6900%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sydney, Australia",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Asquith Uniting Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/um4b33me7k4927o2n3h6q7q79g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", NSW",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Double Bay Sailing Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dbsc.com.au_0cic7t2ic9vlu9idf9rfol0ssk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sydney, Australia",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Condell Park Bible Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5ir3oqcgms5ef2vmttrr0g3rh4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", NSW",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Greenwich Flying Squadron",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5f29b0de50f164b187f1b204e1a59cfc603233ff97cf652395f9645e1bfdadc0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sydney, Australia",
+    "limit": 300,
+    "_metro": "Sydney, Australia"
+  },
+  {
+    "name": "Fairfield Canoe Club",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://calendar.google.com/calendar/ical/communications%40fairfieldcanoeclub.org.au/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Sabby",
+    "category": "community",
+    "_found": "osm:coworking_space -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ab5d821d6b03d54c9cf28dacf754969af22f68d09d57a313d65704ea4fe5d010%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", VIC",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Saint Johns Southgate",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.stjohnssouthgate.com.au/index.php/music/bach-cantata/?ical=1",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Glen Waverley Uniting Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40gwuc.org.au/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "South Oakleigh Gospel Hall",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2e5r35ln8ja0l0k71uejh6cu9c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Our Lady of Perpetual Help Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.hfp.org.au/icalendar1.ics",
+    "geocode_suffix": ", VIC",
+    "limit": 300,
+    "_metro": "Melbourne, Australia",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "St Hilary's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://sthils.com/events.ics",
+    "geocode_suffix": ", VIC",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Whitehorse Uniting Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5120982bf72a2a33710cb606e0bd0e1789f6fc94201ae7c598e4aace943a0dde%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "St Paul's",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stpaulsmanly.org_e4mg6ju30ef23ing65jspv7thg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brisbane",
+    "limit": 300,
+    "_metro": "Brisbane, Australia"
+  },
+  {
+    "name": "Brownsea Water Activities Center",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brisbane, Australia",
+    "limit": 300,
+    "_metro": "Brisbane, Australia"
+  },
+  {
+    "name": "Brisbane Amateur Radio Club",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://barc.org.au/barc_calendar.ics",
+    "geocode_suffix": ", Brisbane, Australia",
+    "limit": 300,
+    "_metro": "Brisbane, Australia"
+  },
+  {
+    "name": "Rocks Community Garden",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f321571c89bc146c3731adbc35efaa4cf31cbcb8c5c655e0f08110e96da79f3b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brisbane, Australia",
+    "limit": 300,
+    "_metro": "Brisbane, Australia"
+  },
+  {
+    "name": "Springwood Seventh-day Adventist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.springwood.church/events.ics",
+    "geocode_suffix": ", QLD",
+    "limit": 300,
+    "_metro": "Brisbane, Australia"
+  },
+  {
+    "name": "Keperra Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dg0rp38llsomm5pnu3bpbusbtk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", QLD",
+    "limit": 300,
+    "_metro": "Brisbane, Australia"
+  },
+  {
+    "name": "Christ Church Claremont",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pboyland%40claremont.perth.anglican.org/public/basic.ics",
+    "geocode_suffix": ", Perth, Australia",
+    "limit": 300,
+    "_metro": "Perth, Australia"
+  },
+  {
+    "name": "Coolbellup Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.coobychurch.com.au/events.ics",
+    "geocode_suffix": ", WA",
+    "limit": 300,
+    "_metro": "Perth, Australia"
+  },
+  {
+    "name": "Manning Community Men’s Shed",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://mmswa.tidyhq.com/public/events.ics",
+    "geocode_suffix": ", Perth, Australia",
+    "limit": 300,
+    "venue": {
+      "name": "Manning Community Men’s Shed",
+      "lat": -32.0133262,
+      "lon": 115.8645316,
+      "pin_unnamed": false
+    },
+    "_metro": "Perth, Australia"
+  },
+  {
+    "name": "The White House Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2fm6ocgl2jh9hdrq764e8eepbk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Perth, Australia",
+    "limit": 300,
+    "_metro": "Perth, Australia"
+  },
+  {
+    "name": "Riverton Rossmoyne Bowling",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iphhq3t6ukj65jlpveso4ri28s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Perth, Australia",
+    "limit": 300,
+    "_metro": "Perth, Australia"
+  },
+  {
+    "name": "West Australian Model Railway Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8lb5v1h324muk3fqj298ukfadk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Perth, Australia",
+    "limit": 300,
+    "_metro": "Perth, Australia"
   }
 ]

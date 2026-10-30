@@ -29583,6 +29583,606 @@
         "lon": -123.3208809
       },
       "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "St Mark's Catholic Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmarksdrummoyne.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mark's Catholic Parish",
+        "address": "33 Tranmere Street",
+        "region": "NSW",
+        "postal_code": "2047",
+        "lat": -33.8556587,
+        "lon": 151.1540138
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Cruising Yacht Club of Australia",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://cyca.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cruising Yacht Club of Australia",
+        "address": "1 New Beach Road",
+        "lat": -33.8742336,
+        "lon": 151.2337708
+      },
+      "_metro": "Sydney, Australia",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Holy Name of Mary Hunters Hill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hnom.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Name of Mary Hunters Hill",
+        "address": "3 Mary Street",
+        "lat": -33.834354,
+        "lon": 151.1374485
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Bexley RSL Club",
+      "category": "community",
+      "_found": "osm:adult_gaming_centre -> tribe",
+      "base_url": "https://bexleyrsl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bexley RSL Club",
+        "address": "24 Stoney Creek Road",
+        "postal_code": "2207",
+        "lat": -33.94936,
+        "lon": 151.1248245
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Cabramatta Bowling Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://cabrabowls.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cabramatta Bowling Club",
+        "address": "82 Longfield Street",
+        "lat": -33.8949456,
+        "lon": 150.9464744
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Alma Doepel Restoration Project",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.almadoepel.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alma Doepel Restoration Project",
+        "lat": -37.8193359,
+        "lon": 144.9356712
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Footscray Community Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://footscrayarts.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Footscray Community Arts Centre",
+        "address": "45 Moreland Street",
+        "region": "VIC",
+        "postal_code": "3011",
+        "lat": -37.8033391,
+        "lon": 144.9073334
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Maccabi",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://maccabi.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maccabi",
+        "lat": -37.8741864,
+        "lon": 145.0245381
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Saint Paul's Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cathedral.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Paul's Cathedral",
+        "address": "202 Flinders Street",
+        "region": "VIC",
+        "postal_code": "3000",
+        "lat": -37.8167969,
+        "lon": 144.9676352
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Michael's Uniting Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmichaels.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Michael's Uniting Church",
+        "lat": -37.8143288,
+        "lon": 144.9692505
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Rippon Lea Estate",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event",
+      "base_url": "https://www.ripponleaestate.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rippon Lea Estate",
+        "address": "192 Hotham Street",
+        "region": "VIC",
+        "postal_code": "3185",
+        "lat": -37.8797436,
+        "lon": 144.9990551
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Royal Melbourne Yacht Squadron",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://rmys.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Melbourne Yacht Squadron",
+        "lat": -37.8634651,
+        "lon": 144.971456
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Brunswick Uniting Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://brunswick.unitingchurch.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brunswick Uniting Church",
+        "lat": -37.7726763,
+        "lon": 144.961537
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Point Cook Village",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://pointcookvillage.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Point Cook Village",
+        "lat": -37.8982472,
+        "lon": 144.7507481
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Ringwood Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ringwoodknoxparish.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ringwood Lutheran Church",
+        "lat": -37.8221954,
+        "lon": 145.2277878
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Ivanhoe Baptist Church Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://ivanhoebaptist.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ivanhoe Baptist Church Chapel",
+        "address": "1 Livingstone Street",
+        "lat": -37.7676866,
+        "lon": 145.0427176
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Meat Market",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://meatmarket.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meat Market",
+        "address": "3 Blackwood Street",
+        "region": "VIC",
+        "postal_code": "3051",
+        "lat": -37.8015961,
+        "lon": 144.9543074
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Ithaca Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ithacapc.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ithaca Presbyterian Church",
+        "lat": -27.4568868,
+        "lon": 153.001716
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Queensland Target Sports",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://targetsports.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Queensland Target Sports",
+        "lat": -27.5088234,
+        "lon": 153.1329717
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Buddhist Vihara (Temple) of Queensland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://bvoqld.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buddhist Vihara (Temple) of Queensland",
+        "address": "108 Eric Street",
+        "region": "QLD",
+        "postal_code": "4300",
+        "lat": -27.6196097,
+        "lon": 152.8994989
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Aspley Leagues Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://aspleyleaguesclub.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aspley Leagues Club",
+        "address": "29 Kirby Road",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4034",
+        "lat": -27.3603727,
+        "lon": 153.0270145
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "East Leagues Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://eastsleagues.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "East Leagues Club",
+        "address": "40 Main Avenue",
+        "lat": -27.4974083,
+        "lon": 153.0498588
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Czechoslovakian Club of Queensland",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://csklubqld.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Czechoslovakian Club of Queensland",
+        "address": "25 Upfield Street",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4156",
+        "lat": -27.557799,
+        "lon": 153.1492342
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Living Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://livingchurch.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Living Church",
+        "address": "1541 Creek Road",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4152",
+        "lat": -27.4860742,
+        "lon": 153.0996749
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Kurilpa Senior Citizens Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.apsl.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kurilpa Senior Citizens Centre",
+        "postal_code": "4101",
+        "lat": -27.4822876,
+        "lon": 153.0121482,
+        "street_hint": "174-176 Boundary Street",
+        "aliases": [
+          "Kurilpa Hall"
+        ]
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Royal Queensland Yacht Squadron",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rqys.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Queensland Yacht Squadron",
+        "lat": -27.4604604,
+        "lon": 153.1906665
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Inala Community House",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ich.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Inala Community House",
+        "address": "38 Sittella Street",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4077",
+        "lat": -27.605571,
+        "lon": 152.975376
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Oasis Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://oasischurch.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oasis Church",
+        "address": "10 Youngs Crossing Road",
+        "region": "QLD",
+        "postal_code": "4500",
+        "lat": -27.2885199,
+        "lon": 152.9535848
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Mount Petrie Bowmen Archery Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://brisbanearchery.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Petrie Bowmen Archery Club",
+        "address": "Archery Road",
+        "lat": -27.5087236,
+        "lon": 153.1395865
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Cannington Uniting Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://unitingchurchwa.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cannington Uniting Church",
+        "lat": -32.0267873,
+        "lon": 115.9424438
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Rhein-Donau Club",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rheindonau.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rhein-Donau Club",
+        "address": "110 North Lake Road",
+        "region": "WA",
+        "postal_code": "6154",
+        "lat": -32.0425474,
+        "lon": 115.8161066
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "West Australian Gun Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://wagunclub.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West Australian Gun Club",
+        "address": "Jules Steiner Memorial Drive",
+        "region": "WA",
+        "postal_code": "6068",
+        "lat": -31.8091927,
+        "lon": 115.924503
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Adrenaline Vault Cockburn",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://adrenalinevault.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adrenaline Vault Cockburn",
+        "address": "443 Yangebup Road",
+        "lat": -32.1234762,
+        "lon": 115.8380975
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Centre for Stories",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://centreforstories.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre for Stories",
+        "address": "100 Aberdeen Street",
+        "region": "WA",
+        "postal_code": "6003",
+        "lat": -31.9461531,
+        "lon": 115.8584854
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Victoria Park Centre for the Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://vicparkarts.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Victoria Park Centre for the Arts",
+        "address": "12 Kent Street",
+        "lat": -31.9821977,
+        "lon": 115.9001049
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Quakers Friends' Meeting House",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.quakersaustralia.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quakers Friends' Meeting House",
+        "address": "35 Clifton Crescent",
+        "lat": -31.9286657,
+        "lon": 115.8719269
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Westminster Presbyterian Church Bull Creek",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://wpcbc.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westminster Presbyterian Church Bull Creek",
+        "address": "32 Bull Creek Drive",
+        "postal_code": "6149",
+        "lat": -32.0515745,
+        "lon": 115.8572571
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "St Andrew's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://standrewsubi.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Andrew's Anglican Church",
+        "address": "259 Barker Road",
+        "region": "WA",
+        "postal_code": "6008",
+        "lat": -31.9490519,
+        "lon": 115.8255761
+      },
+      "_metro": "Perth, Australia"
     }
   ],
   "_not_included": {

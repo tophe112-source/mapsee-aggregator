@@ -3530,6 +3530,192 @@
         "lon": -123.4187761
       },
       "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Newtown Mission",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.newtownmission.org.au/events/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Newtown Mission",
+        "lat": -33.8964166,
+        "lon": 151.1806282
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Narrabeen Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.narrabeenbaptist.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Narrabeen Baptist Church",
+        "address": "13 Grenfell Avenue",
+        "lat": -33.7102942,
+        "lon": 151.2934018
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Good Vibes Yoga",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://goodvibesyoga.com.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Good Vibes Yoga",
+        "address": "116 High Street",
+        "lat": -37.7793273,
+        "lon": 144.9971488
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Centrestage Performing Arts School",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.showfitstudios.com/calendar-2025",
+      "max_events": 200,
+      "venue": {
+        "name": "Centrestage Performing Arts School",
+        "address": "15 Albert Street",
+        "lat": -37.7706935,
+        "lon": 144.9805507
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Tempo Rubato",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.temporubato.com.au/tempo-concerts",
+      "max_events": 200,
+      "venue": {
+        "name": "Tempo Rubato",
+        "address": "34 Breese Street",
+        "lat": -37.7620474,
+        "lon": 144.9617907
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Quadraphonic Club",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.quadclub.com.au/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Quadraphonic Club",
+        "address": "345 Victoria Street",
+        "region": "VIC",
+        "postal_code": "3056",
+        "lat": -37.7663588,
+        "lon": 144.9583431
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Gerard Majella Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.olaparishchermside.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Gerard Majella Catholic Church",
+        "address": "146 Maundrell Terrace",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4032",
+        "lat": -27.3804908,
+        "lon": 153.0123542
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Bardon Bowls Club",
+      "category": "community",
+      "_found": "osm:licenced_club -> squarespace",
+      "collection": "https://www.bardonbowls.com/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Bardon Bowls Club",
+        "address": "69 Bowman Parade",
+        "lat": -27.4564579,
+        "lon": 152.9788782
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Bracken Ridge Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.brbc.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bracken Ridge Baptist Church",
+        "address": "47 Norris Road",
+        "lat": -27.314054,
+        "lon": 153.0275995
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "St Marks, Clayfield",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmarksclayfield.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Marks, Clayfield",
+        "address": "103 Bonney Avenue",
+        "postal_code": "4011",
+        "lat": -27.4227197,
+        "lon": 153.0473903
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "New Edition Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.newedition.com.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Edition Bookshop",
+        "address": "41 High Street",
+        "lat": -32.0552806,
+        "lon": 115.744283
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Wanneroo Sports and Social Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://wanneroossc.com/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "Wanneroo Sports and Social Club",
+        "lat": -31.7555261,
+        "lon": 115.8024534
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Saint Alban's Anglican Church Highgate",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://stalbans.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Alban's Anglican Church Highgate",
+        "address": "423 Beaufort Street",
+        "lat": -31.9402268,
+        "lon": 115.8681232
+      },
+      "_metro": "Perth, Australia"
     }
   ],
   "_not_included": {

@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "AU",
+  "country": "CH",
   "offset": 2140,
   "offsets": {
    "AE": 13,
@@ -8,7 +8,7 @@
    "AU": 203,
    "BE": 227,
    "CA": 120,
-   "CH": 200,
+   "CH": 400,
    "DE": 120,
    "DK": 137,
    "ES": 190,
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 154,
-  "metro_key": "AU:Sydney",
+  "metro": 158,
+  "metro_key": "AU:Adelaide",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 300,
-  "events": 400,
+  "community events": 400,
+  "events": 500,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 100,
+  "library programs": 200,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 100,
+  "recreation programs": 200,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 300,
-  "wellness programs": 400,
-  "youth programs": 200
+  "special events": 200,
+  "volunteer": 0,
+  "wellness programs": 500,
+  "youth programs": 0
  }
 }

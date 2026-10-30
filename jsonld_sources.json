@@ -20795,6 +20795,356 @@
         "lon": -80.2462798
       },
       "_metro": "Kitchener, Canada"
+    },
+    {
+      "name": "Waitara Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://waitaraanglican.com.au/events/"
+      ],
+      "link_pattern": "https://waitaraanglican\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Waitara Anglican Church",
+        "lat": -33.7042124,
+        "lon": 151.1112939
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Capitol Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.capitoltheatre.com.au/the-lion-king"
+      ],
+      "link_pattern": "https://www\\.capitoltheatre\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capitol Theatre",
+        "address": "13 Campbell Street",
+        "region": "NSW",
+        "postal_code": "2000",
+        "lat": -33.8796294,
+        "lon": 151.2063401
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "St Andrews Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://maroubrapresbyterian.org.au/events-upcoming/"
+      ],
+      "link_pattern": "https://maroubrapresbyterian\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St Andrews Presbyterian Church",
+        "lat": -33.9422291,
+        "lon": 151.2371296
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "White Bay Power Station",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.whitebaypowerstation.com/whats-on/events/heaps-gay"
+      ],
+      "link_pattern": "https://www\\.whitebaypowerstation\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "White Bay Power Station",
+        "lat": -33.8669492,
+        "lon": 151.1766977
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "La Mama Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.lamama.com.au/whats-on/cultural-conservation-in-action-2026/sistaz-burlayi-two-gulan"
+      ],
+      "link_pattern": "https://www\\.lamama\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Mama Theatre",
+        "address": "205 Faraday Street",
+        "postal_code": "3053",
+        "lat": -37.7990994,
+        "lon": 144.9676917
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Tallboy and Moose",
+      "category": "community",
+      "_found": "osm:pub -> jsonld-event",
+      "listing": [
+        "https://www.tallboyandmoose.com/blogs/events"
+      ],
+      "link_pattern": "https://www\\.tallboyandmoose\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tallboy and Moose",
+        "address": "270 Raglan Street",
+        "lat": -37.7486826,
+        "lon": 145.0028763
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Paralympics Australia",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.paralympic.org.au/events-calendar/"
+      ],
+      "link_pattern": "https://www\\.paralympic\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paralympics Australia",
+        "address": "275 Melrose Drive",
+        "lat": -37.6909843,
+        "lon": 144.8692682
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Hellenic Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.hellenic.org.au/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hellenic Museum",
+        "address": "280 William Street",
+        "lat": -37.812171,
+        "lon": 144.957084
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Malthouse Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.malthousetheatre.com.au/whats-on/season-2027/swim"
+      ],
+      "link_pattern": "https://www\\.malthousetheatre\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Malthouse Theatre",
+        "address": "113-129 Sturt Street",
+        "region": "VIC",
+        "postal_code": "3006",
+        "lat": -37.8271072,
+        "lon": 144.9669824
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Crossway Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.crossway.org.au/events/"
+      ],
+      "link_pattern": "https://www\\.crossway\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Crossway Baptist Church",
+        "address": "2 Vision Drive",
+        "lat": -37.8594401,
+        "lon": 145.1678387
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Melbourne Park",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.melbournepark.com.au/events/"
+      ],
+      "link_pattern": "https://www\\.melbournepark\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Melbourne Park",
+        "lat": -37.8213263,
+        "lon": 144.9813618
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Calder Park Raceway",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.calderpark.com.au/upcomingevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Calder Park Raceway",
+        "address": "377 Calder Freeway",
+        "region": "VIC",
+        "postal_code": "3037",
+        "lat": -37.6721151,
+        "lon": 144.7552923
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "The Dandenong Workers Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.workers.net.au/whatson"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Dandenong Workers Club",
+        "address": "52-70 Wedge Street",
+        "region": "VIC",
+        "postal_code": "3175",
+        "lat": -37.9918531,
+        "lon": 145.2264557
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Paul's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://stpaulscaulfieldnorth.com.au/events-2/"
+      ],
+      "link_pattern": "https://stpaulscaulfieldnorth\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St Paul's",
+        "address": "530 Dandenong Road",
+        "lat": -37.8667968,
+        "lon": 145.0274933
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Saint Stephen's Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.surreyhillspresbyterian.org.au/event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Stephen's Presbyterian Church",
+        "lat": -37.8266203,
+        "lon": 145.1001997
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Cremorne Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.qpac.com.au/whats-on/2027/once"
+      ],
+      "link_pattern": "https://www\\.qpac\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cremorne Theatre",
+        "lat": -27.4748645,
+        "lon": 153.0201109
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Happy Valley Brewing Co.",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.happyvalleybrewingco.com.au/what-s-happening"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Happy Valley Brewing Co.",
+        "address": "34 Wolverhampton Street",
+        "lat": -27.4174406,
+        "lon": 153.0138956
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "The Clubhouse Moorooka",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.theclubhousemoorooka.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Clubhouse Moorooka",
+        "address": "76 Koala Road",
+        "lat": -27.5308245,
+        "lon": 153.0280446
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Kenmore Bridge Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.kenmorebridgeclub.com.au/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kenmore Bridge Club",
+        "lat": -27.5045653,
+        "lon": 152.931855
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Kalamunda Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.perthhills.church/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kalamunda Church of Christ",
+        "address": "20 Mileti Road",
+        "lat": -31.9938685,
+        "lon": 116.0655355
+      },
+      "_metro": "Perth, Australia"
     }
   ],
   "_not_included": {
