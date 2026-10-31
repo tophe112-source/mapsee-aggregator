@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "CH",
+  "country": "GB",
   "offset": 2140,
   "offsets": {
    "AE": 13,
@@ -13,7 +13,7 @@
    "DK": 137,
    "ES": 190,
    "FI": 400,
-   "GB": 120,
+   "GB": 240,
    "IE": 48,
    "IN": 120,
    "IS": 120,
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 165,
-  "metro_key": "GB:London",
+  "metro": 166,
+  "metro_key": "GB:Manchester",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 400,
-  "events": 500,
+  "community events": 0,
+  "events": 600,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 200,
-  "parks events": 0,
+  "library programs": 0,
+  "parks events": 100,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 200,
+  "recreation programs": 300,
   "road races": 0,
-  "special events": 200,
-  "volunteer": 0,
-  "wellness programs": 500,
-  "youth programs": 0
+  "special events": 0,
+  "volunteer": 100,
+  "wellness programs": 0,
+  "youth programs": 100
  }
 }

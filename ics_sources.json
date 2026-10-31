@@ -60791,5 +60791,258 @@
     "geocode_suffix": ", London",
     "limit": 300,
     "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Charteris Sports Centre",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/charterissports.org_lgjhvp0asn6595aoplp3eal6is%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Imam Khoei Islamic Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dh4gnma32s9i7deacue8ffj9s4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St James's Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser",
+    "url": "https://www.sjp.org.uk/?feed=eo-events",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Peter's Italian Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/italianchurch.org.uk_267tfi7hv4q72lce5het66niio%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St. Mary & Archangel Michael Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tcd05u6ooct3vdta3kcia2a114%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Scala",
+    "category": "music",
+    "_found": "osm:nightclub -> events-manager",
+    "url": "https://scala.co.uk/events/?ical=1",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Kingsway International Christian Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.kicc.org.uk/events/?ical=1",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Desborough Sailing Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c880efb2ac2b0c3b6f95b062539bc5477be90f30a2e9294c3143ccbc07aa300e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Herne Hill Velodrome",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_bkprb7musg4vvnnieds4u5bsns%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Holy Trinity Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40htw.org.uk/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Matthew's",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40stmatthewskt6.org/public/basic.ics",
+    "geocode_suffix": ", Surbiton",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Lawrence",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://stlawrencechurch.co.uk/?feed=my-calendar-ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom",
+    "crawl_delay": 15.0
+  },
+  {
+    "name": "The Model Railway Club",
+    "category": "community",
+    "_found": "osm:club -> event-organiser",
+    "url": "https://www.themodelrailwayclub.org/?feed=eo-events",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Mary's",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2eccd70afa096d1669b34db4e2d84abbf9c133c56bb255b71f89f5ccc8bba956%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Mary the Virgin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40stmarysrickmansworth.org.uk/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "The Atlantis Bookshop",
+    "category": "learning",
+    "_found": "osm:books -> event-organiser",
+    "url": "https://theatlantisbookshop.com/?feed=eo-events",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Matthew's",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/smam.org.uk_k36u5ui6p7cbptqslt1b9p05f4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ashford",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "The Chinese Church in London",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser",
+    "url": "https://ccil.org.uk/?feed=eo-events",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Cathedral of the Nativity of the Mother of God and the Holy Royal Martyrs",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cpdlaqq6537kqb4mvedbmssmi8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Orpington Liberal Club",
+    "category": "community",
+    "_found": "osm:club -> events-manager+ics",
+    "url": "https://orpingtonliberalclub.co.uk/events.ics",
+    "geocode_suffix": ", Orpington",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Cycling Club Hackney",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6pnq3ucqj4oicdnagvk4iu6hf4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Rosedale Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gg04uan8bqnu66n979rjgutmi8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waltham Cross",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "The Linden Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d9763a4d09568180d51a4a8acfdd2c40b69d6a29df4aea211465808e35451a8b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Manchester, United Kingdom",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Spring Bank Arts Centre",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/401fdbb3f345c432544fc01158debf91331e7b89e53220e1f953f0e9340f5063%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", High Peak",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Union Chapel Fallowfield",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7fm779u2n9v7ajutca6cnc1bf8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Manchester",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Errwood Sailing Club",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://errwoodsailing.co.uk/index.php?option=com_dpcalendar&task=ical.download&id=8",
+    "geocode_suffix": ", Buxton",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Altrincham & District Athletic Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://altrincham-athletics.co.uk/events/ics/",
+    "geocode_suffix": ", Manchester, United Kingdom",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "East Lancashire Paper Mill Cricket Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3lr329n3jb4c79daufjvmev2cs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Manchester, United Kingdom",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
   }
 ]

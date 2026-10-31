@@ -21594,6 +21594,678 @@
         "lon": -0.1334413
       },
       "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Essex Unitarian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.kensington-unitarians.org.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Essex Unitarian Church",
+        "address": "112 Palace Gardens Terrace",
+        "city": "London",
+        "postal_code": "W8 4RT",
+        "lat": 51.5088658,
+        "lon": -0.1935871
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Boniface German Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://dkg-london.org/termine/"
+      ],
+      "link_pattern": "https://dkg\\-london\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St Boniface German Church",
+        "address": "47 Adler Street",
+        "city": "London",
+        "postal_code": "E1 1EE",
+        "lat": 51.5158167,
+        "lon": -0.0673098
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "London Coliseum",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.eno.org/support-us/events/"
+      ],
+      "link_pattern": "https://www\\.eno\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "London Coliseum",
+        "address": "32-35 St Martin's Lane",
+        "city": "London",
+        "postal_code": "WC2N 4ES",
+        "country": "GB",
+        "lat": 51.5100068,
+        "lon": -0.1262395
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Dietrich Bonhoeffer Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ev-synode.org.uk/veranstaltungen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Dietrich Bonhoeffer Church",
+        "address": "50 Dacres Road",
+        "city": "London",
+        "postal_code": "SE23 2NR",
+        "lat": 51.4336412,
+        "lon": -0.0522456
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Barnes Sports Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.barnessportsclub.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Barnes Sports Club",
+        "address": "261 Lonsdale Road",
+        "city": "London",
+        "postal_code": "SW13 9QL",
+        "lat": 51.4778121,
+        "lon": -0.2473194
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Saint Lawrence Church, Abbots Langley",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.abbotslangley.org.uk/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Lawrence Church, Abbots Langley",
+        "address": "High Street",
+        "city": "Abbots Langley",
+        "postal_code": "WD5 0AS",
+        "lat": 51.707783,
+        "lon": -0.416964
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Summerhouse Drive Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://local.kent.gov.uk/kb5/kent/directory/service.page?id=6iQ7U-nCSSk"
+      ],
+      "link_pattern": "https://local\\.kent\\.gov\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Summerhouse Drive Library",
+        "city": "Bexley",
+        "postal_code": "DA5 2EE",
+        "lat": 51.4262272,
+        "lon": 0.166727,
+        "street_hint": "80 Summerhouse Drive"
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Church Lane Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.transitionleytonstone.org.uk/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Church Lane Community Garden",
+        "address": "Harold Road",
+        "city": "London",
+        "postal_code": "E11 4QY",
+        "lat": 51.5664414,
+        "lon": 0.0072081
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Westminster Abbey",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.westminster-abbey.org/events"
+      ],
+      "link_pattern": "https://www\\.westminster\\-abbey\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Westminster Abbey",
+        "address": "20 Dean's Yard",
+        "city": "London",
+        "postal_code": "SW1P 3PA",
+        "lat": 51.4994013,
+        "lon": -0.1273907
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Uxbridge Road Tabernacle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.uxbridgeroadtabernacle.co.uk/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Uxbridge Road Tabernacle",
+        "address": "Bloemfontein Way",
+        "city": "London",
+        "lat": 51.5068484,
+        "lon": -0.2348872
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Arcola Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.arcolatheatre.com/event/the-ugly-one/"
+      ],
+      "link_pattern": "https://www\\.arcolatheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Arcola Theatre",
+        "address": "24 Ashwin Street",
+        "city": "London",
+        "postal_code": "E8 3DL",
+        "country": "GB",
+        "lat": 51.5469459,
+        "lon": -0.0749083
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Crossness Pumping Station",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://crossness.org.uk/whats-on/christmas-steaming-day-2026/"
+      ],
+      "link_pattern": "https://crossness\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Crossness Pumping Station",
+        "address": "Bazalgette Way",
+        "city": "London",
+        "postal_code": "SE2 9AQ",
+        "lat": 51.5090877,
+        "lon": 0.1383871
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Alligator's Mouth",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.thealligatorsmouth.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Alligator's Mouth",
+        "address": "2a Church Court",
+        "city": "Richmond",
+        "postal_code": "TW9 1JL",
+        "lat": 51.4604454,
+        "lon": -0.3040416
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Spielplatz",
+      "category": "community",
+      "_found": "osm:resort -> jsonld-event",
+      "listing": [
+        "https://singapura.pro/"
+      ],
+      "link_pattern": "https://singapura\\.pro/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Spielplatz",
+        "lat": 51.7168255,
+        "lon": -0.3574814
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Castle Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://thecastlecinema.com/programme/115766/naza/"
+      ],
+      "link_pattern": "https://thecastlecinema\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Castle Cinema",
+        "address": "64-66 Brooksby's Walk",
+        "city": "London",
+        "postal_code": "E9 6DA",
+        "lat": 51.5513301,
+        "lon": -0.0431931
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Old Finchleians Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.oldfinchleians.co.uk/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Old Finchleians Club",
+        "address": "12 Southover",
+        "city": "London",
+        "postal_code": "N12 7JE",
+        "lat": 51.6185902,
+        "lon": -0.1902603
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Masjid Tawhid",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.masjidtawhid.org/event-details/mtl-x-sdh-boys-girls-laser-tag-event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Masjid Tawhid",
+        "address": "80 High Road Leyton",
+        "city": "London",
+        "postal_code": "E15 2BP",
+        "lat": 51.5531282,
+        "lon": -0.004632
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Anne's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stannes-soho.org.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St Anne's Church",
+        "address": "55 Dean Street",
+        "city": "London",
+        "lat": 51.5124226,
+        "lon": -0.132086
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Saint Mary the Virgin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stmarytwick.org.uk/whatson"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Mary the Virgin",
+        "address": "Church Street",
+        "city": "Twickenham",
+        "postal_code": "TW1 3NJ",
+        "lat": 51.4469711,
+        "lon": -0.325105
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lettsom Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.lettsomgardens.org.uk/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lettsom Gardens",
+        "lat": 51.4665732,
+        "lon": -0.0817785
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lewisham Islamic Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://lewishamislamiccentre.com/calendar/"
+      ],
+      "link_pattern": "https://lewishamislamiccentre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lewisham Islamic Centre",
+        "address": "363,365 Lewisham High Street",
+        "city": "London",
+        "postal_code": "SE13 6NZ",
+        "lat": 51.45179,
+        "lon": -0.0162928
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Andrew's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.standrewschelsea.org/whatson"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St Andrew's",
+        "address": "Park Walk",
+        "city": "London",
+        "lat": 51.4851975,
+        "lon": -0.1785053
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "All Nations' Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.apostolic-anc.org/anc-calendar/"
+      ],
+      "link_pattern": "https://www\\.apostolic\\-anc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "All Nations' Centre",
+        "address": "13 Tyers Terrace",
+        "city": "London",
+        "postal_code": "SE11 5LZ",
+        "lat": 51.4880572,
+        "lon": -0.1187237
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Mitcham Community Orchard and Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.sustainablemerton.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mitcham Community Orchard and Gardens",
+        "lat": 51.4058551,
+        "lon": -0.1698583
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Eynsford Riverside Club",
+      "category": "community",
+      "_found": "osm:club -> wix+jsonld-event",
+      "listing": [
+        "https://www.eynsfordriversideclub.co.uk/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Eynsford Riverside Club",
+        "lat": 51.3684455,
+        "lon": 0.2107209
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "TREM Place of our Sanctuary",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://placeofoursanctuary.org/events/"
+      ],
+      "link_pattern": "https://placeofoursanctuary\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "TREM Place of our Sanctuary",
+        "address": "84 Lillie Road",
+        "city": "London",
+        "postal_code": "SW6 1TL",
+        "lat": 51.4859321,
+        "lon": -0.2015573
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "OpenSwim UK",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.openswim.org.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "OpenSwim UK",
+        "lat": 53.4318699,
+        "lon": -2.3023589
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Greater Manchester Police Sports and Social Club Ltd",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.gmpsportsclub.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Greater Manchester Police Sports and Social Club Ltd",
+        "lat": 53.4373619,
+        "lon": -2.2561864
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Millgate Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://millgateartscentre.co.uk/"
+      ],
+      "link_pattern": "https://millgateartscentre\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Millgate Arts Centre",
+        "lat": 53.5668175,
+        "lon": -2.0231288
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Chadderton FC",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.chaddertonfc.co.uk/seniorTeamsCalendar"
+      ],
+      "link_pattern": "https://www\\.chaddertonfc\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chadderton FC",
+        "address": "Andrew Street",
+        "city": "Oldham",
+        "postal_code": "OL9 0JT",
+        "lat": 53.5469385,
+        "lon": -2.1439322
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Northern Light Cinema Stretford",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.tnlcinemastretford.co.uk/home/"
+      ],
+      "link_pattern": "https://www\\.tnlcinemastretford\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Northern Light Cinema Stretford",
+        "address": "Pinnington Lane",
+        "city": "Manchester",
+        "postal_code": "M32 9AH",
+        "lat": 53.4457113,
+        "lon": -2.3094873
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Platt Hall",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.platthall.org/whatson"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Platt Hall",
+        "lat": 53.4504833,
+        "lon": -2.2222967
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Octagon Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://octagonbolton.co.uk/events/romeo-juliet"
+      ],
+      "link_pattern": "https://octagonbolton\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Octagon Theatre",
+        "city": "Bolton",
+        "postal_code": "BL1 1US",
+        "lat": 53.5773112,
+        "lon": -2.4304645
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Church of St Martin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stmartins-lowmarple.co.uk/whats-on/"
+      ],
+      "link_pattern": "https://stmartins\\-lowmarple\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Church of St Martin",
+        "lat": 53.4009472,
+        "lon": -2.0563765
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Prestwich Amateur Dramatic & Operatic Society",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.pados.co.uk/whatson"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Prestwich Amateur Dramatic & Operatic Society",
+        "address": "29 Saint Mary's Road",
+        "city": "Prestwich",
+        "postal_code": "M25 1AQ",
+        "lat": 53.5296629,
+        "lon": -2.2783242
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Uppermill Cricket and Bowling Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.ucbc.club/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Uppermill Cricket and Bowling Club",
+        "lat": 53.5456269,
+        "lon": -2.0039692
+      },
+      "_metro": "Manchester, United Kingdom"
     }
   ],
   "_not_included": {

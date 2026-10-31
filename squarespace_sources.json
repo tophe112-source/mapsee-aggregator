@@ -3901,6 +3901,188 @@
         "lon": -0.154477
       },
       "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New Beacon Books",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.newbeaconbooks.com/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Beacon Books",
+        "address": "76 Stroud Green Road",
+        "city": "London",
+        "lat": 51.5681328,
+        "lon": -0.1094556
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lighthouse Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.lighthouselondon.org/calendar-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Lighthouse Church",
+        "address": "Finchley Road",
+        "city": "London",
+        "postal_code": "NW3 5HT",
+        "lat": 51.5469454,
+        "lon": -0.1790319
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Saint Mary's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmaryswimbledon.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Mary's",
+        "address": "30 St Mary's Road",
+        "city": "London",
+        "postal_code": "SW19 7BP",
+        "lat": 51.4284392,
+        "lon": -0.2105575
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Parish Church of Saint John The Baptist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://hollandparkbenefice.org/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Parish Church of Saint John The Baptist",
+        "address": "Holland Road",
+        "city": "London",
+        "lat": 51.5032645,
+        "lon": -0.2141849
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Andrew by the Wardrobe",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.standrewbythewardrobe.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Andrew by the Wardrobe",
+        "address": "Queen Victoria Street",
+        "city": "London",
+        "lat": 51.5123839,
+        "lon": -0.1012605
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Spitalfields City Farm",
+      "category": "community",
+      "_found": "osm:yes -> squarespace",
+      "collection": "https://www.spitalfieldscityfarm.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Spitalfields City Farm",
+        "lat": 51.522171,
+        "lon": -0.0671452
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Colour Factory",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.colourfactory.com/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "Colour Factory",
+        "address": "8a Queens Yard",
+        "city": "London",
+        "lat": 51.5432441,
+        "lon": -0.0227726
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Christ Church Spitalfields",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://spitalfields.church/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Christ Church Spitalfields",
+        "address": "Commercial Street",
+        "city": "London",
+        "postal_code": "E1 6LY",
+        "lat": 51.5191005,
+        "lon": -0.0737211
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Jamia Masjid Newham",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://newhammosque.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Jamia Masjid Newham",
+        "address": "266 High Street North",
+        "lat": 51.5416491,
+        "lon": 0.0509392
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Waltham Abbey Royal Gunpowder Mills",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.gunpowdermills.com/whats-on-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Waltham Abbey Royal Gunpowder Mills",
+        "address": "Beaulieu Drive",
+        "city": "Waltham Abbey",
+        "postal_code": "EN9 1JY",
+        "lat": 51.6976352,
+        "lon": -0.0076093
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Lighthouse",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.reuk.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Lighthouse",
+        "address": "60-62 High Street Harlesden",
+        "city": "London",
+        "postal_code": "NW10 4LL",
+        "lat": 51.5355884,
+        "lon": -0.2471311
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "West Park Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.thesilkmuseum.co.uk/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "West Park Museum",
+        "address": "Prestbury Road",
+        "postal_code": "SK10 3BJ",
+        "lat": 53.263019,
+        "lon": -2.1365729
+      },
+      "_metro": "Manchester, United Kingdom"
     }
   ],
   "_not_included": {

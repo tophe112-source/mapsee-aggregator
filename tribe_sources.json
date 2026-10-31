@@ -30427,6 +30427,633 @@
         "lon": -0.2690022
       },
       "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Weston-super-Mare",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://wsm-tc.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Weston-super-Mare",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Weston-super-Mare, United Kingdom"
+    },
+    {
+      "name": "Godalming",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://godalming-tc.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Godalming",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Godalming, United Kingdom"
+    },
+    {
+      "name": "St Mary-at-Hill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmaryathill.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mary-at-Hill",
+        "address": "Lovat Lane",
+        "city": "London",
+        "lat": 51.510106,
+        "lon": -0.0837121
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Set Social",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://setspace.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Set Social",
+        "address": "55 Nigel Road",
+        "city": "London",
+        "postal_code": "SE15 4NP",
+        "lat": 51.4665381,
+        "lon": -0.066568
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Tower Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.towertheatre.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tower Theatre",
+        "address": "16 Northwold Road",
+        "city": "London",
+        "postal_code": "N16 7HR",
+        "lat": 51.5628069,
+        "lon": -0.0719688
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Dutch Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://dutchchurch.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dutch Church",
+        "address": "7 Austin Friars",
+        "city": "London",
+        "postal_code": "EC2N 2HA",
+        "lat": 51.5155144,
+        "lon": -0.0856275
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "De Havilland Aircraft Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dehavillandmuseum.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Havilland Aircraft Museum",
+        "address": "Salisbury Hall",
+        "city": "St Albans",
+        "postal_code": "AL2 1BU",
+        "lat": 51.7107477,
+        "lon": -0.2716626
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Chats Palace",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://chatspalace.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chats Palace",
+        "address": "42-44 Brooksby's Walk",
+        "city": "London",
+        "postal_code": "E9 6DF",
+        "lat": 51.5502689,
+        "lon": -0.0426032
+      },
+      "_metro": "London, United Kingdom",
+      "crawl_delay": 2.0
+    },
+    {
+      "name": "Beckenham Place Mansion",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.beckenhamplace.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beckenham Place Mansion",
+        "lat": 51.4185912,
+        "lon": -0.0187543
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Magnus the Martyr",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.stmagnusmartyr.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Magnus the Martyr",
+        "address": "Lower Thames Street",
+        "city": "London",
+        "postal_code": "EC3R 6DN",
+        "lat": 51.5093347,
+        "lon": -0.0862095
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St James, Sussex Gardens",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stjamespaddington.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St James, Sussex Gardens",
+        "address": "Sussex Gardens",
+        "city": "London",
+        "lat": 51.5130541,
+        "lon": -0.176502
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Our Lady of The Assumption and Saint Gregory",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://warwickstreet.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Lady of The Assumption and Saint Gregory",
+        "address": "Warwick Street",
+        "city": "London",
+        "postal_code": "W1B 5LZ",
+        "lat": 51.5112299,
+        "lon": -0.1378686
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Lighthouse",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thelighthouseandgardens.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Lighthouse",
+        "city": "London",
+        "lat": 51.5459024,
+        "lon": -0.0077786,
+        "street_hint": "38 Celebration Avenue"
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Parade's End Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://paradesendbooks.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parade's End Books",
+        "address": "406 Richmond Road",
+        "city": "Kingston upon Thames",
+        "postal_code": "KT2 5PU",
+        "country": "GB",
+        "lat": 51.4303194,
+        "lon": -0.3065071
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The English-Speaking Union",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.esu.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The English-Speaking Union",
+        "address": "37 Charles Street",
+        "city": "London",
+        "postal_code": "W1J 5ED",
+        "lat": 51.5077809,
+        "lon": -0.1467274
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Housmans",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://housmans.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Housmans",
+        "address": "5 Caledonian Road",
+        "city": "London",
+        "lat": 51.5311707,
+        "lon": -0.1212699
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St. Peter's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stpetersfulham.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Peter's",
+        "address": "St. Peter's Terrace",
+        "city": "London",
+        "postal_code": "SW6 7JS",
+        "lat": 51.4791582,
+        "lon": -0.2083525
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New River Studios",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://newriverstudios.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New River Studios",
+        "address": "199 Eade Road",
+        "city": "London",
+        "postal_code": "N4 1DN",
+        "lat": 51.5749263,
+        "lon": -0.0881482
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Dalston Superstore",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://dalstonsuperstore.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dalston Superstore",
+        "address": "117 Kingsland High Street",
+        "city": "London",
+        "postal_code": "E8 2PB",
+        "lat": 51.5500999,
+        "lon": -0.0754909
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Heath Robinson Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heathrobinsonmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heath Robinson Museum",
+        "address": "West End Lane",
+        "city": "Pinner",
+        "postal_code": "HA5 1AE",
+        "country": "GB",
+        "lat": 51.5927152,
+        "lon": -0.3866848
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Brockwell Park Community Greenhouses",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brockwellgreenhouses.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brockwell Park Community Greenhouses",
+        "lat": 51.4500022,
+        "lon": -0.1091423
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Kingdom Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://thekingdom.church",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Kingdom Church",
+        "address": "93 Camberwell Station Road",
+        "city": "London",
+        "postal_code": "SE5 9JJ",
+        "country": "GB",
+        "lat": 51.4727633,
+        "lon": -0.0983809
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Jesus House for All The Nations",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.jesushouse.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jesus House for All The Nations",
+        "address": "112 Brent Terrace",
+        "city": "London",
+        "postal_code": "NW2 1LT",
+        "lat": 51.5713389,
+        "lon": -0.22669
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Centre for Armenian Information & Advice",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+wp-event-manager+event-organiser+jsonld-event+ics",
+      "base_url": "https://caia.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre for Armenian Information & Advice",
+        "lat": 51.505179,
+        "lon": -0.2784956
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Titsey Brewing Co",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event",
+      "base_url": "https://titseybrewingco.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Titsey Brewing Co",
+        "lat": 51.2857525,
+        "lon": 0.0245087
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The People Speak",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://thepeoplespeak.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The People Speak",
+        "address": "27 Aberfeldy Street",
+        "city": "London",
+        "lat": 51.5130805,
+        "lon": -0.0055972
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Sidcup Recreation Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sidcuprecreationclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sidcup Recreation Club",
+        "lat": 51.4226734,
+        "lon": 0.1050042
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Weybridge Sailing and Recreational Boating Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://weybridgeboating.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Weybridge Sailing and Recreational Boating Club",
+        "address": "Walton Lane",
+        "city": "Weybridge",
+        "postal_code": "KT13 8LU",
+        "lat": 51.3819297,
+        "lon": -0.4555001
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Royal Connections",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+events-manager",
+      "base_url": "https://royalconnections.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Connections",
+        "address": "199 Freemasons Road",
+        "city": "London",
+        "postal_code": "E16 3PG",
+        "lat": 51.5162923,
+        "lon": 0.0246588
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Bowmen of Bruntwood",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.bowmenofbruntwood.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bowmen of Bruntwood",
+        "lat": 53.3802545,
+        "lon": -2.2096862
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Stubborn Mule Brewery and Tap",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://stubbornmulebrewery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stubborn Mule Brewery and Tap",
+        "address": "1 Skelton Road",
+        "city": "Altrincham",
+        "postal_code": "WA14 1SJ",
+        "lat": 53.4000547,
+        "lon": -2.3427996
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Aatma",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://aatmavenue.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aatma",
+        "address": "14-16 Faraday Street",
+        "lat": 53.4826285,
+        "lon": -2.2329323
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "House of Books and Friends",
+      "category": "community",
+      "_found": "osm:cafe -> tribe+jsonld-event+ics",
+      "base_url": "https://houseofbooksandfriends.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "House of Books and Friends",
+        "address": "53 King Street",
+        "city": "Manchester",
+        "postal_code": "M2 4LQ",
+        "lat": 53.4809273,
+        "lon": -2.2423184
+      },
+      "_metro": "Manchester, United Kingdom",
+      "crawl_delay": 7.0
+    },
+    {
+      "name": "The Moor Club",
+      "category": "community",
+      "_found": "osm:social_club -> tribe+jsonld-event+ics",
+      "base_url": "https://themoorclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Moor Club",
+        "address": "35 Heaton Moor Road",
+        "city": "Stockport",
+        "postal_code": "SK4 4PB",
+        "lat": 53.4233737,
+        "lon": -2.1819015
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Ramsbottom Cricket Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://ramsbottomcc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ramsbottom Cricket Club",
+        "address": "Acre Bottom Lane",
+        "city": "Ramsbottom",
+        "postal_code": "BL0 0BS",
+        "lat": 53.6458695,
+        "lon": -2.3134426
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Monton Sports Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://montonsportsclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Monton Sports Club",
+        "address": "Welbeck Road",
+        "city": "Manchester",
+        "postal_code": "M30 9EH",
+        "lat": 53.4939056,
+        "lon": -2.3433792
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Saddleworth Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.saddleworthmuseum.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saddleworth Museum",
+        "lat": 53.5469002,
+        "lon": -2.0076449
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Lymm Rugby Football Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lymmrugby.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lymm Rugby Football Club",
+        "lat": 53.3729818,
+        "lon": -2.4788428
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Romiley Cricket Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://romileycricketclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Romiley Cricket Club",
+        "address": "Birchvale Drive",
+        "city": "Stockport",
+        "postal_code": "SK6 4LD",
+        "lat": 53.4159262,
+        "lon": -2.0765445
+      },
+      "_metro": "Manchester, United Kingdom"
     }
   ],
   "_not_included": {
