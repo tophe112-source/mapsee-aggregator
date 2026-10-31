@@ -22266,6 +22266,539 @@
         "lon": -2.0039692
       },
       "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Dashmesh Sikh Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://gurdwaras.com/calendar"
+      ],
+      "link_pattern": "https://gurdwaras\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dashmesh Sikh Temple",
+        "address": "98 Heywood Street",
+        "city": "Manchester",
+        "postal_code": "M8 0DT",
+        "lat": 53.5024646,
+        "lon": -2.2392991
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Himley House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.himleyhallandpark.co.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Himley House Museum",
+        "lat": 52.5218932,
+        "lon": -2.1661412
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Snobs",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.snobsnightclub.co.uk/tickets/"
+      ],
+      "link_pattern": "https://www\\.snobsnightclub\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Snobs",
+        "address": "200 Broad Street",
+        "city": "Birmingham",
+        "postal_code": "B15 1SU",
+        "country": "GB",
+        "lat": 52.4752524,
+        "lon": -1.913925
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Worcestershire County Museum",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.museumsworcestershire.org.uk/whats-on/"
+      ],
+      "link_pattern": "https://www\\.museumsworcestershire\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Worcestershire County Museum",
+        "lat": 52.3392101,
+        "lon": -2.2419459
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "bp pulse LIVE",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.bppulselive.co.uk/events"
+      ],
+      "link_pattern": "https://www\\.bppulselive\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "bp pulse LIVE",
+        "address": "Perimeter Road",
+        "city": "Birmingham",
+        "postal_code": "B40 1NT",
+        "lat": 52.4484171,
+        "lon": -1.7204631
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Oldbury Fire Cadet Unit",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.wmfs.net/events-directory/"
+      ],
+      "link_pattern": "https://www\\.wmfs\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Oldbury Fire Cadet Unit",
+        "address": "Old Park Lane",
+        "lat": 52.492641,
+        "lon": -2.0170538
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Solihull Indoor Bowls Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.solihullibc.co.uk/webpages"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Solihull Indoor Bowls Club",
+        "address": "Brick Kiln Lane",
+        "city": "Solihull",
+        "postal_code": "B91 3LE",
+        "lat": 52.3990327,
+        "lon": -1.8004271
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Elmdon Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.elmdonchurch.org/events/light-party/"
+      ],
+      "link_pattern": "https://www\\.elmdonchurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Elmdon Church",
+        "address": "Elmdon Park",
+        "city": "Solihull",
+        "postal_code": "B92 9EJ",
+        "lat": 52.442605,
+        "lon": -1.7627317
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "The Treehouse Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event+ics",
+      "listing": [
+        "https://www.treehousebookshop.co.uk/events"
+      ],
+      "link_pattern": "https://www\\.treehousebookshop\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Treehouse Bookshop",
+        "address": "The Square",
+        "lat": 52.3432046,
+        "lon": -1.5799696
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Mandir Baba Balak Nath",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.mandirbababalaknath.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mandir Baba Balak Nath",
+        "address": "96A Caldmore Road",
+        "city": "Walsall",
+        "postal_code": "WS1 3PD",
+        "lat": 52.5789245,
+        "lon": -1.9818115
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "St Giles Supportive Care Centre",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.stgileshospice.com/support-us/fundraise/our-events/"
+      ],
+      "link_pattern": "https://www\\.stgileshospice\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St Giles Supportive Care Centre",
+        "address": "Lindridge Road",
+        "city": "Sutton Coldfield",
+        "postal_code": "B75 6JB",
+        "lat": 52.5726717,
+        "lon": -1.7951745
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Elim Bethel Church Oldbury",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.oldburychurch.org.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Elim Bethel Church Oldbury",
+        "address": "Stone Street",
+        "lat": 52.5019783,
+        "lon": -2.0125637
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Flashpoint Bristol",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://flashpointtemple.com/events/"
+      ],
+      "link_pattern": "https://flashpointtemple\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Flashpoint Bristol",
+        "lat": 51.4455997,
+        "lon": -2.5811842
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Cornerstone Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://cornerstonechurchbristol.com/events/"
+      ],
+      "link_pattern": "https://cornerstonechurchbristol\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cornerstone Church",
+        "address": "Redland Road",
+        "city": "Bristol",
+        "postal_code": "BS6 6AG",
+        "lat": 51.4676867,
+        "lon": -2.5953237
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "KSC",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.stradlingcollection.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "KSC",
+        "address": "48 Park Row",
+        "city": "Bristol",
+        "postal_code": "BS1 5LH",
+        "lat": 51.4552728,
+        "lon": -2.6024434
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bloc Climbing",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://flashpointeaston.com/events/"
+      ],
+      "link_pattern": "https://flashpointeaston\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bloc Climbing",
+        "address": "New Gatton Road",
+        "city": "Bristol",
+        "postal_code": "BS2 9SH",
+        "country": "GB",
+        "lat": 51.4685543,
+        "lon": -2.5704954
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Carmel City Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.carmelcitychurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Carmel City Church",
+        "address": "817A Bath Road",
+        "city": "Bristol",
+        "postal_code": "BS4 5NL",
+        "lat": 51.430541,
+        "lon": -2.5405314
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The Armstrong",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.thearmstrong.co.uk/events/meet-tommy-atkins"
+      ],
+      "link_pattern": "https://www\\.thearmstrong\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Armstrong",
+        "lat": 51.606079,
+        "lon": -2.525554
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bolling Hall Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://bradfordmuseums.org/event/halloween-hyacinths-2/"
+      ],
+      "link_pattern": "https://bradfordmuseums\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bolling Hall Museum",
+        "address": "Bowling Hall Road",
+        "city": "Bradford",
+        "postal_code": "BD4 7LP",
+        "lat": 53.7789101,
+        "lon": -1.7388476
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Cliffe Castle",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://bradfordmuseums.org/event/keighley-cougars/"
+      ],
+      "link_pattern": "https://bradfordmuseums\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cliffe Castle",
+        "lat": 53.8751275,
+        "lon": -1.9136767
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Ilkley Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://ilkleycinema.co.uk/film/andre-rieus-2026-christmas-concert-let-it-snow/"
+      ],
+      "link_pattern": "https://ilkleycinema\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ilkley Cinema",
+        "address": "46a Leeds Road",
+        "city": "Ilkley",
+        "postal_code": "LS29 8DP",
+        "lat": 53.9266008,
+        "lon": -1.8200029
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Shibden Hall",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://museums.calderdale.gov.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Shibden Hall",
+        "address": "Lister's Road",
+        "city": "Halifax",
+        "postal_code": "HX3 6XG",
+        "lat": 53.7281552,
+        "lon": -1.8399129
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "East Bierley Community Sports Association",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.ebcsa.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "East Bierley Community Sports Association",
+        "lat": 53.7544193,
+        "lon": -1.701328
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "First Direct Bank Arena",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.firstdirectbankarena.com/events"
+      ],
+      "link_pattern": "https://www\\.firstdirectbankarena\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "First Direct Bank Arena",
+        "address": "Arena Way",
+        "city": "Leeds",
+        "postal_code": "LS2 8BY",
+        "lat": 53.8034582,
+        "lon": -1.5421213
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Cartwright Hall Art Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://bradfordmuseums.org/event/brew-board/"
+      ],
+      "link_pattern": "https://bradfordmuseums\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cartwright Hall Art Gallery",
+        "lat": 53.8121657,
+        "lon": -1.7716852
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Royal Armouries",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://royalarmouries.org/leeds/whats-on/genghis-khan"
+      ],
+      "link_pattern": "https://royalarmouries\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Royal Armouries",
+        "address": "Armouries Drive",
+        "city": "Leeds",
+        "postal_code": "LS10 1LG",
+        "lat": 53.7918164,
+        "lon": -1.5322837
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "St George's Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bradford-theatres.co.uk/whats-on/brainiac-live"
+      ],
+      "link_pattern": "https://www\\.bradford\\-theatres\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St George's Hall",
+        "city": "Bradford",
+        "postal_code": "BD1 1JT",
+        "lat": 53.7925225,
+        "lon": -1.7509775
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Bradford Industrial Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://bradfordmuseums.org/event/the-big-picture/"
+      ],
+      "link_pattern": "https://bradfordmuseums\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bradford Industrial Museum",
+        "address": "Moorside Avenue",
+        "city": "Bradford",
+        "postal_code": "BD2 3HP",
+        "lat": 53.811215,
+        "lon": -1.7212994
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Smile Bar & Venue",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.smilebarandvenue.co.uk/events/"
+      ],
+      "link_pattern": "https://www\\.smilebarandvenue\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Smile Bar & Venue",
+        "address": "38 Wakefield Road",
+        "city": "Huddersfield",
+        "postal_code": "HD1 3AQ",
+        "lat": 53.6442636,
+        "lon": -1.7750223
+      },
+      "_metro": "Leeds, United Kingdom"
     }
   ],
   "_not_included": {

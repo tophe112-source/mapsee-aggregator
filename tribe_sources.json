@@ -31054,6 +31054,218 @@
         "lon": -2.0765445
       },
       "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "St Nicholas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stnicholaswarwick.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Nicholas",
+        "address": "St Nicholas Church Street",
+        "city": "Warwick",
+        "postal_code": "CV34 4JD",
+        "lat": 52.2817969,
+        "lon": -1.5818067
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Talisman Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://talismantheatre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Talisman Theatre",
+        "address": "Barrow Road",
+        "city": "Kenilworth",
+        "postal_code": "CV8 1EG",
+        "lat": 52.3406631,
+        "lon": -1.5822325
+      },
+      "_metro": "Birmingham, United Kingdom",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Blackwell",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://blackwellclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blackwell",
+        "address": "84 Linthurst Newtown",
+        "city": "Blackwell",
+        "postal_code": "B60 1BS",
+        "lat": 52.3493029,
+        "lon": -2.0059547
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Kenilworth Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kenilworthbooks.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kenilworth Books",
+        "address": "Talisman Square",
+        "city": "Kenilworth",
+        "postal_code": "CV8 1JB",
+        "lat": 52.342741,
+        "lon": -1.57765
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Chepstow Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.monlife.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chepstow Museum",
+        "address": "Bridge Street",
+        "city": "Chepstow",
+        "postal_code": "NP16 5EZ",
+        "lat": 51.6446056,
+        "lon": -2.6722693
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Saint Mary's Bathwick",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bathwickparishes.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Mary's Bathwick",
+        "address": "Darlington Street",
+        "city": "Bath",
+        "postal_code": "BA2 4EB",
+        "lat": 51.3843158,
+        "lon": -2.350878
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "New Bristol Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.newbristolbrewery.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Bristol Brewery",
+        "address": "20A Wilson Street",
+        "city": "Bristol",
+        "postal_code": "BS2 9HH",
+        "lat": 51.4610311,
+        "lon": -2.5826336
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Church of St Mary",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://compton-dando.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of St Mary",
+        "city": "Bristol",
+        "postal_code": "BS39 4LB",
+        "lat": 51.3798005,
+        "lon": -2.5106002
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The HiFi Club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://thehificlub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The HiFi Club",
+        "address": "2 Central Road",
+        "city": "Leeds",
+        "postal_code": "LS1 6DE",
+        "lat": 53.7961276,
+        "lon": -1.5412804
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Seven",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sevenleeds.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seven",
+        "lat": 53.8277943,
+        "lon": -1.5377236
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Minster Church of St-Peter-at-Leeds",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://leedsminster.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Minster Church of St-Peter-at-Leeds",
+        "lat": 53.7951424,
+        "lon": -1.5360776
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Etz Chayim Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etzchaim.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Etz Chayim Synagogue",
+        "lat": 53.8501627,
+        "lon": -1.534619
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Lindley Liberal Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://lindleylib.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lindley Liberal Club",
+        "address": "36 Occupation Road",
+        "city": "Huddersfield",
+        "postal_code": "HD3 3EQ",
+        "lat": 53.6586691,
+        "lon": -1.8212286
+      },
+      "_metro": "Leeds, United Kingdom"
     }
   ],
   "_not_included": {

@@ -4083,6 +4083,144 @@
         "lon": -2.1365729
       },
       "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "The American Museum (Claverton Manor)",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.americanmuseum.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "The American Museum (Claverton Manor)",
+        "lat": 51.3751643,
+        "lon": -2.3112398
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Roseberry Road Studios",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.roseberryroadstudios.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Roseberry Road Studios",
+        "address": "25-28 Roseberry Road",
+        "city": "Bath",
+        "postal_code": "BA2 3DX",
+        "lat": 51.3825674,
+        "lon": -2.3836858
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "St. Michael's Without",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmichaelsbath.org.uk/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Michael's Without",
+        "address": "Broad Street",
+        "city": "Bath",
+        "postal_code": "BA1 5LP",
+        "lat": 51.3836529,
+        "lon": -2.3598305
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "St Nicholas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stnicholasbristol.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Nicholas",
+        "address": "Saint Nicholas Street",
+        "city": "Bristol",
+        "postal_code": "BS1 1UE",
+        "lat": 51.4539454,
+        "lon": -2.5923017
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The Mission Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.missiontheatre.co.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "The Mission Theatre",
+        "address": "32 Corn Street",
+        "city": "Bath",
+        "postal_code": "BA1 1UF",
+        "lat": 51.3791386,
+        "lon": -2.361613
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Iford Manor Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.ifordmanor.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Iford Manor Gardens",
+        "lat": 51.3295179,
+        "lon": -2.2871769
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bristol International Student Centre",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://www.bisc.org.uk/termprogramme",
+      "max_events": 200,
+      "venue": {
+        "name": "Bristol International Student Centre",
+        "address": "45 Woodland Road",
+        "city": "Bristol",
+        "postal_code": "BS8 1UT",
+        "lat": 51.4572733,
+        "lon": -2.6032132
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Jamyang",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://jamyangleeds.co.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Jamyang",
+        "address": "31 St Paul's Street",
+        "city": "Leeds",
+        "postal_code": "LS1 2JG",
+        "lat": 53.7979479,
+        "lon": -1.551275
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Amity Brew Co",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.amitybrew.co/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Amity Brew Co",
+        "address": "83-85 Town Street",
+        "city": "Pudsey",
+        "postal_code": "LS28 5UJ",
+        "lat": 53.8143332,
+        "lon": -1.6716632
+      },
+      "_metro": "Leeds, United Kingdom"
     }
   ],
   "_not_included": {

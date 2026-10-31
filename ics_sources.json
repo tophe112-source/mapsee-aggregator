@@ -61044,5 +61044,194 @@
     "geocode_suffix": ", Manchester, United Kingdom",
     "limit": 300,
     "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Raglan Road Scout Hut",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nrd74t8u72oqevq1ohn4r9ap0s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Manchester, United Kingdom",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Sandwell Irish Community Association",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_02ef67579f75185b1b95ef9894b13e12c4abde041560e51038b7a44be0345751%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Birmingham, United Kingdom",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "Limitless Youth Oldbury",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.elim.org.uk/Calendar/Calendar.ics?days=1827",
+    "geocode_suffix": ", Birmingham, United Kingdom",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Warwick University Library",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://warwick.ac.uk/sitebuilder2/api/sitebuilder.ics?page=/services/library/all-events-calendar/&amp;event=8ac672c4a055c68001a06cd03ffa2679",
+    "geocode_suffix": ", Coventry",
+    "limit": 300,
+    "venue": {
+      "name": "Warwick University Library",
+      "city": "Coventry",
+      "postal_code": "CV4 7AL",
+      "lat": 52.3815233,
+      "lon": -1.5616658,
+      "pin_unnamed": false
+    },
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "Edgbaston Old Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ad5ac43e8ef9c34e63cbcac3456872f32544ffa4e9c21bc2a6e71f86631b38be%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Birmingham, United Kingdom",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "St Matthias & St George",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/50dc31ffd9ae062683156298bd15d469aa48020dc34c0697b8886f209fafed80%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Redditch",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "Renfrew North Parish Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/renfrewnorth.org.uk_1tij3d5bkir7lhoqnev3s2qmqs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Renfrew",
+    "limit": 300,
+    "_metro": "Glasgow, United Kingdom"
+  },
+  {
+    "name": "Harvest Glasgow",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://harvestglasgow.church/calendar/ics",
+    "geocode_suffix": ", Glasgow",
+    "limit": 300,
+    "_metro": "Glasgow, United Kingdom"
+  },
+  {
+    "name": "Toasties (Breakfast And Afterschool Club)",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://stsavioursba1.greenhousecms.co.uk/ical.ics",
+    "geocode_suffix": ", Bristol, United Kingdom",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Breakfast Club",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.farmboroughchurchprimary.org.uk/ical.ics",
+    "geocode_suffix": ", Bristol, United Kingdom",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Shirehampton Sailing Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qd255dh8f5af68algepkak323g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bristol, United Kingdom",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Christ the King",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a1d73bd558343e3af74fe8b2d176d3eb6fe0246ecf5231a8020af6a8e28e325a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bradley Stoke",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Grace Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cd1bf453ec2bbe931a7f554896767bc636b0c43c6fc83c69b847aa995de4271c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bristol",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Mirfield Publications",
+    "category": "learning",
+    "_found": "osm:books -> event-organiser",
+    "url": "https://mirfield.org.uk/?feed=eo-events",
+    "geocode_suffix": ", Leeds, United Kingdom",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "St Marks Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7nth86l9gafftdck0ahtr4df9k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Leeds",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "Meltham Golf Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/siqirp2ta00hid5uf2osjfrcrc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Holmfirth",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "St. Lukes",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e94f78cee27be57f995a8e974324b6762d154ec5225c0e44215fc02b22a6a3d6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Widnes",
+    "limit": 300,
+    "_metro": "Liverpool, United Kingdom"
+  },
+  {
+    "name": "St George's Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mjhreo3qpm1j3mct0j3fras8c8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Huyton",
+    "limit": 300,
+    "_metro": "Liverpool, United Kingdom"
+  },
+  {
+    "name": "Caerwys Memorial Institute",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/town-clerk%40caerwys.com/public/basic.ics",
+    "geocode_suffix": ", Mold",
+    "limit": 300,
+    "venue": {
+      "name": "Caerwys Memorial Institute",
+      "city": "Mold",
+      "postal_code": "CH7 5AH",
+      "country": "GB",
+      "lat": 53.2445151,
+      "lon": -3.3067262,
+      "pin_unnamed": false
+    },
+    "_metro": "Liverpool, United Kingdom"
   }
 ]

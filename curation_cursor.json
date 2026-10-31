@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 166,
-  "metro_key": "GB:Manchester",
+  "metro": 172,
+  "metro_key": "GB:Edinburgh",
   "stuck": {}
  },
  "osm|community_centre,library": {
