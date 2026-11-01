@@ -22799,6 +22799,273 @@
         "lon": -1.7750223
       },
       "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Stramash",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://stramashedinburgh.com/events/"
+      ],
+      "link_pattern": "https://stramashedinburgh\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stramash",
+        "address": "209 Cowgate",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1JQ",
+        "lat": 55.9485629,
+        "lon": -3.1877983
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "St James the Less",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stjamesthelesspenicuik.org/whats-on/"
+      ],
+      "link_pattern": "https://stjamesthelesspenicuik\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St James the Less",
+        "address": "23 Broomhill Road",
+        "city": "Penicuik",
+        "postal_code": "EH26 9EE",
+        "lat": 55.8247299,
+        "lon": -3.2273806
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Granton Parish Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.grantonchurch.org.uk/this-week/"
+      ],
+      "link_pattern": "https://www\\.grantonchurch\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Granton Parish Church",
+        "address": "55 Boswall Parkway",
+        "city": "Edinburgh",
+        "postal_code": "EH5 2DA",
+        "country": "GB",
+        "lat": 55.9762062,
+        "lon": -3.2241319
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Royal Lyceum Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://lyceum.org.uk/events/1984"
+      ],
+      "link_pattern": "https://lyceum\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Royal Lyceum Theatre",
+        "address": "30b Grindlay Street",
+        "city": "Edinburgh",
+        "postal_code": "EH3 9AX",
+        "country": "GB",
+        "lat": 55.9470175,
+        "lon": -3.2043154
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Elsecar Heritage Centre",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.elsecar-heritage.com/whats-on"
+      ],
+      "link_pattern": "https://www\\.elsecar\\-heritage\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Elsecar Heritage Centre",
+        "address": "Wath Road",
+        "city": "Barnsley",
+        "postal_code": "S74 8HJ",
+        "country": "GB",
+        "lat": 53.4944272,
+        "lon": -1.4200496
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Stand To Veteran Community Hub",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.standto.co.uk/our-events/"
+      ],
+      "link_pattern": "https://www\\.standto\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stand To Veteran Community Hub",
+        "address": "Steeplegate",
+        "lat": 53.2352644,
+        "lon": -1.4259034
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Worsbrough Mill Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.worsbrough-mill.com/whats-on"
+      ],
+      "link_pattern": "https://www\\.worsbrough\\-mill\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Worsbrough Mill Museum",
+        "lat": 53.5254865,
+        "lon": -1.4744324
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sheffield Pattern Club",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://patternclub.org/sheffield-archive/"
+      ],
+      "link_pattern": "https://patternclub\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sheffield Pattern Club",
+        "address": "2-4 Matilda Street",
+        "city": "Sheffield",
+        "postal_code": "S1 4QD",
+        "lat": 53.3768905,
+        "lon": -1.4723461
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sheffield City Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.sheffieldcityhall.co.uk/event/day-fever/tm_1agzkfegkdckduy/"
+      ],
+      "link_pattern": "https://www\\.sheffieldcityhall\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sheffield City Hall",
+        "address": "Barker's Pool",
+        "city": "Sheffield",
+        "postal_code": "S1 2JA",
+        "lat": 53.3808662,
+        "lon": -1.4724355
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Corporation",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.corporation.org.uk/events/"
+      ],
+      "link_pattern": "https://www\\.corporation\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Corporation",
+        "address": "Milton Street",
+        "city": "Sheffield",
+        "postal_code": "S1 4JU",
+        "lat": 53.3774862,
+        "lon": -1.4759559
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Cannon Hall",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.cannon-hall.com/whats-on"
+      ],
+      "link_pattern": "https://www\\.cannon\\-hall\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cannon Hall",
+        "address": "Bark House Lane",
+        "city": "Barnsley",
+        "postal_code": "S75 4AT",
+        "lat": 53.570959,
+        "lon": -1.5904719
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "The Mulberry Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.themulberryclub.co.uk/club-calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Mulberry Club",
+        "address": "35 George Street",
+        "city": "Sheffield",
+        "postal_code": "S1 2PF",
+        "lat": 53.3820927,
+        "lon": -1.4668206
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Norton House Country Club",
+      "category": "community",
+      "_found": "osm:social_club -> wix",
+      "listing": [
+        "https://www.nortonhousecountryclub.co.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Norton House Country Club",
+        "address": "246-248 Norton Lane",
+        "city": "Sheffield",
+        "postal_code": "S8 8HD",
+        "country": "GB",
+        "lat": 53.3341744,
+        "lon": -1.4613417
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Cooper Art Gallery",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.cooper-gallery.com/whats-on"
+      ],
+      "link_pattern": "https://www\\.cooper\\-gallery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cooper Art Gallery",
+        "address": "Church Street",
+        "city": "Barnsley",
+        "postal_code": "S70 2AH",
+        "lat": 53.5551429,
+        "lon": -1.4817479
+      },
+      "_metro": "Sheffield, United Kingdom"
     }
   ],
   "_not_included": {

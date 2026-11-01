@@ -31266,6 +31266,231 @@
         "lon": -1.8212286
       },
       "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Hollands Kroon",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hollandskroon.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Hollands Kroon",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Hollands Kroon, Netherlands"
+    },
+    {
+      "name": "Wageningen",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.wageningen.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Wageningen",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Wageningen, Netherlands"
+    },
+    {
+      "name": "Moerdijk",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://www.moerdijk.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Moerdijk",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Moerdijk, Netherlands"
+    },
+    {
+      "name": "Waddinxveen",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.waddinxveen.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Waddinxveen",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Waddinxveen, Netherlands"
+    },
+    {
+      "name": "Collective - City Observatory",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.collective-edinburgh.art",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Collective - City Observatory",
+        "address": "38 Calton Hill",
+        "city": "Edinburgh",
+        "postal_code": "EH7 5AA",
+        "lat": 55.9550001,
+        "lon": -3.1835262
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Fruitmarket",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event",
+      "base_url": "https://www.fruitmarket.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fruitmarket",
+        "address": "45 Market Street",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1DF",
+        "lat": 55.9512566,
+        "lon": -3.1896986
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Edinburgh Free Church Continuing",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.freechurchcontinuing.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edinburgh Free Church Continuing",
+        "address": "29 Arthur Street",
+        "city": "Edinburgh",
+        "postal_code": "EH6 5DA",
+        "lat": 55.9646747,
+        "lon": -3.1785716
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "St Cuthbert's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stcuthbertscolinton.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Cuthbert's",
+        "address": "Colinton Road",
+        "postal_code": "EH13 0BB",
+        "lat": 55.9076065,
+        "lon": -3.2536268
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Fire Station Creative",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://firestationcreative.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fire Station Creative",
+        "address": "Carnegie Drive",
+        "city": "Dunfermline",
+        "postal_code": "KY12 7AN",
+        "lat": 56.0731641,
+        "lon": -3.462451
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Lost Shore Surf Resort",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lostshore.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lost Shore Surf Resort",
+        "address": "11 South Platt Hill",
+        "city": "Newbridge",
+        "postal_code": "EH28 8AY",
+        "lat": 55.9194059,
+        "lon": -3.3982633
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Parish Church of St Mary and All Saints",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://crookedspire.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parish Church of St Mary and All Saints",
+        "lat": 53.2361927,
+        "lon": -1.4244216
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "National Emergency Services Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://visitnesm.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Emergency Services Museum",
+        "address": "101-109 West Bar",
+        "city": "Sheffield",
+        "postal_code": "S3 8PT",
+        "lat": 53.3855011,
+        "lon": -1.4710046
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Vibrant Warsop",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.vibrantwarsop.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vibrant Warsop",
+        "lat": 53.2043149,
+        "lon": -1.1518777
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Denby Dale Community Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ddcp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Denby Dale Community Library",
+        "city": "Huddersfield",
+        "postal_code": "HD8 8RX",
+        "lat": 53.5736659,
+        "lon": -1.654108,
+        "street_hint": "344 Wakefield Road"
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Barrow Hill Roundhouse Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.barrowhill.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Barrow Hill Roundhouse Museum",
+        "lat": 53.2766867,
+        "lon": -1.384187
+      },
+      "_metro": "Sheffield, United Kingdom"
     }
   ],
   "_not_included": {

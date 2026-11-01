@@ -61233,5 +61233,41 @@
       "pin_unnamed": false
     },
     "_metro": "Liverpool, United Kingdom"
+  },
+  {
+    "name": "Forth Canoe Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_8074ff39cf28b437bc9769fe2c11b8a6480c98e90c5bfd9c2df39660275f17ad%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edinburgh, United Kingdom",
+    "limit": 300,
+    "_metro": "Edinburgh, United Kingdom"
+  },
+  {
+    "name": "Edinburgh Central Mosque",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gl501c8enr4ckr8udqeq4r1a34%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edinburgh",
+    "limit": 300,
+    "_metro": "Edinburgh, United Kingdom"
+  },
+  {
+    "name": "Pilrig St Paul's",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/djm00uak2q4abnlbidnudv34l0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edinburgh",
+    "limit": 300,
+    "_metro": "Edinburgh, United Kingdom"
+  },
+  {
+    "name": "St Mary’s Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1u7edrnsjrmdtqs4k0n79sf6g0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edinburgh, United Kingdom",
+    "limit": 300,
+    "_metro": "Edinburgh, United Kingdom"
   }
 ]

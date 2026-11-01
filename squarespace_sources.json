@@ -4221,6 +4221,96 @@
         "lon": -1.6716632
       },
       "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Collective Space",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.wearecollectivespace.org/events-1-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Collective Space",
+        "city": "Edinburgh",
+        "lat": 55.9624374,
+        "lon": -3.1768744,
+        "street_hint": "21 Albert Street"
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Hillsborough Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.hillsboroughbookshop.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Hillsborough Bookshop",
+        "address": "89 Middlewood Road",
+        "postal_code": "S6 4GX",
+        "lat": 53.4046585,
+        "lon": -1.5040054
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sheffield Botanical Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.sbg.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Sheffield Botanical Gardens",
+        "lat": 53.3719743,
+        "lon": -1.4971366
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sheffield Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sheffieldcathedral.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Sheffield Cathedral",
+        "city": "Sheffield",
+        "country": "GB",
+        "lat": 53.3832132,
+        "lon": -1.4693806
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Stephen Hill Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stcolumbacrosspool.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Stephen Hill Methodist Church",
+        "address": "547 Manchester Road",
+        "city": "Sheffield",
+        "postal_code": "S10 5PL",
+        "lat": 53.3804329,
+        "lon": -1.5222787
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Saint David",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.whvchurches.org.uk/special-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint David",
+        "address": "Woodhead Road",
+        "city": "Holmfirth",
+        "postal_code": "HD9 2NQ",
+        "lat": 53.5572413,
+        "lon": -1.8189657
+      },
+      "_metro": "Sheffield, United Kingdom"
     }
   ],
   "_not_included": {
