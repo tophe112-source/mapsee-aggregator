@@ -209,3 +209,15 @@
   (adapters-and-sources.md); the option is in place for the next site that
   prints UTC naive. GAM (Santiago) prints LOCAL naive times ('Sá y Do — 17 h'
   beside 17:00:00), so the option is per site, never a default.
+
+- **A FIXTURE DAY TAKEN FROM NOW CROSSES MIDNIGHT UTC IN THE LAST 15 MINUTES OF
+  THE DAY (2026-11-01).** `test_cancellations.py` built its successor fixtures on
+  `D = NOW + 6 days`, with the re-timed session at D + 15 min on the same
+  occurrence link. `absent_successors` takes a successor on a shared link only
+  on the same UTC day (`fs[:10] == gs[:10]`), so from 23:45 UTC the moved
+  session was tomorrow's: the script failed 2 cases on main (35c1454), on the
+  R1 walkers branch and on their merge alike at 23:49-23:52 UTC, having passed
+  the same main tree at 20:20 UTC (99 of 99); its CI run on the 20:24 UTC push
+  was green by timing. D is now that day at 12:00 UTC; the fixture's offsets
+  span 0 to +6 h and never cross a day. Fixed and unfixed ran in the same
+  minute, 23:52 UTC: 151 ok against 2 FAIL.

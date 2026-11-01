@@ -681,7 +681,11 @@ SHARED = "https://example.org/centre/calendar"
 UNIT = "perfectmind|surrey:"
 WS = {UNIT: {"source": "perfectmind", "id_prefix": "surrey:", "from": stamp(NOW - timedelta(hours=1)),
              "to": stamp(NOW + timedelta(days=90)), "at": stamp(NOW)}}
-D = NOW + timedelta(days=6)
+# Noon UTC, not NOW's clock: the successor cases put sessions at D, D + 15 min
+# and D + 3..6 h, and a successor is the same occurrence only on the same UTC
+# day. From 23:45 UTC, D + 15 min was tomorrow, and the script failed on every
+# tree it had passed at 20:20 UTC (2026-11-01).
+D = (NOW + timedelta(days=6)).replace(hour=12, minute=0, second=0)
 
 
 def srec(fp, when, name, url=None, venue="Cloverdale Recreation Centre"):
