@@ -1,0 +1,81 @@
+# The landmarks mapsee's own members add through the Things form (../mapsee 0250).
+#
+# A member who adds a public toilet, a drinking fountain or a bench writes it
+# into a SEPARATE LIST (public.user_landmarks) that nothing on the map reads.
+# This job is what reads it: mapsee_ingest_user_landmarks.py walks the
+# service_role-only feed `landmarks_catalog_feed()` and writes each live
+# landmark as the same pin_only standing row mapsee_ingest_osm_amenities writes
+# for an OSM fountain, and a tombstone for each one that is withdrawn, hidden
+# by consensus or taken off with a ban. "Going forward" is this schedule: the
+# contributor sees their landmark in My listings at once, everybody else after
+# the next run.
+#
+# DAILY, AND AFTER THE IMPORT. aggregate-events runs at 06:17 and its Wednesday
+# full refresh can take the morning; 07:20 is clear of it, of menu-links
+# (07:40), prune-cancelled (07:55) and cleanup-events (08:23). The feed is a
+# few hundred rows read from our own database, so the job costs seconds.
+#
+# NEVER --only-new. Every column here is the member's — the text, the photo,
+# the glyph — and changes when they edit, so the sync must rewrite; the OSM
+# amenity job learned this the hard way (osm-amenities.yml's Sync step).
+# --skip-unchanged keeps that cheap: a row that did not change is not written.
+#
+# Never add pull_request: the sync reads SUPABASE_SERVICE_ROLE_KEY.
+name: Member landmarks
+
+on:
+  schedule:
+    - cron: "20 7 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Read the feed and print what would be written; write nothing"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: user-landmarks
+  cancel-in-progress: false
+
+env:
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+  MAPSEE_HOST_PROFILE_ID: ${{ secrets.MAPSEE_HOST_PROFILE_ID }}
+
+jobs:
+  landmarks:
+    name: Read the member landmarks and write the catalog rows
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      # The store is rebuilt from the feed on every run — the feed IS the
+      # whole list, so there is nothing to carry over, and a fresh store means
+      # a tombstone is written for every non-live row every day (the sync
+      # applies tombstones in every run; re-applying one is a no-op).
+      - name: Read the feed
+        run: |
+          python mapsee_ingest_user_landmarks.py --store user_landmarks_events.json \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+      - name: Sync to Supabase
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          if [ -f user_landmarks_events.json ]; then
+            python mapsee_supabase_sync.py --store user_landmarks_events.json --skip-unchanged
+          else
+            echo "no user_landmarks_events.json — the feed was not read this run"
+            exit 1
+          fi

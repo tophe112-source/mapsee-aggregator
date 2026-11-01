@@ -31,6 +31,7 @@ python test_ingest_markets.py       # a metro that loses its Overpass slot, city
 python test_ingest_seattlecenter.py # yearless dates, another event's coordinates, and matinees
 python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, and it lies both ways
 python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
+python test_ingest_user_landmarks.py # a member's landmark becomes an OSM-shaped pin; withdrawn, hidden and banned rows become tombstones
 python test_retire_thin_artwork.py  # which already-written artwork rows may be hidden
 python test_ingest_mapasculturais.py # an accepted filter that never ran, and a coordinate of "0"
 python test_retire_openactive_slots.py # which superseded slot rows may be hidden
@@ -86,7 +87,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 100 test scripts include 98 distinct CI gate scripts (`tests.yml`). They print one line per
+The 101 test scripts include 99 distinct CI gate scripts (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

@@ -380,6 +380,14 @@ jobs:
       - name: Civic amenities (which pins earn a sheet)
         run: python test_ingest_osm_amenities.py
 
+      # The landmarks members add through ../mapsee's Things form (0250). The
+      # row must come out shaped like an OSM fountain's — the product's Free
+      # filter maps a pin back to its type by GLYPH — and the feed's verdict
+      # (withdrawn, hidden, banned) must become a tombstone, because an upsert
+      # cannot delete. Both failures are silent on the map.
+      - name: Member landmarks (the catalog row, the glyphs, the tombstones)
+        run: python test_ingest_user_landmarks.py
+
       # A migration's CODE can merge before the migration has been RUN, and
       # nothing sequences a git merge against a hand-run `supabase db push`.
       # to_row writes every column for every adapter, so an unknown column used
