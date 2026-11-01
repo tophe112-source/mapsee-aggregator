@@ -8,7 +8,11 @@ complete upcoming cards, including a year-bearing local datetime and a link
 whose `date` query names that exact occurrence.
 
     python mapsee_ingest_waterfront.py --config waterfront_sources.json \
-        --store feeds_events.json --max-seconds 60
+        --store feeds_events.json --max-seconds 660
+
+The publisher's robots.txt asks for `Crawl-delay: 600` (read 2026-11-01; none
+on 10-27). The one listing request waits it out after the robots.txt read, so
+the run budget has to hold the wait: 660 s in aggregate-events.yml.
 
 Config: `{ "sites": [{ "name": "Friends of Waterfront Park",
   "url": "https://waterfrontparkseattle.org/events/",
@@ -47,7 +51,7 @@ UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 HOST = "waterfrontparkseattle.org"
 SOURCE = "waterfront"
 MIN_INTERVAL_S = 1.0
-MAX_RUN_SECONDS = 300
+MAX_RUN_SECONDS = 900
 MAX_PAGE_BYTES = 2 * 1024 * 1024
 _DATETIME = re.compile(r"^\d{12}$")
 _RANGE = re.compile(
@@ -355,7 +359,15 @@ def ingest_site(store: EventStore, session, robots: robots_txt.Robots,
                 float(site.get("crawl_delay", 0) or 0))
     remaining = deadline - time.monotonic()
     if remaining <= 0 or delay >= remaining:
-        raise RuntimeError("run deadline leaves no time for the required host delay and listing request")
+        # Name both numbers: the remedy is the workflow's --max-seconds, not
+        # the adapter. With a 60 s budget against the host's Crawl-delay of
+        # 600 this raised in 1.2 s on 2026-10-30, 10-31 and 11-01, before any
+        # request, and the local job was red each day.
+        raise RuntimeError(
+            f"the host asks for a {delay:.0f} s delay before the listing request and this run's "
+            f"budget has {max(remaining, 0):.0f} s left; raise --max-seconds past the delay or leave the site unread")
+    if delay > MIN_INTERVAL_S:
+        print(f"[waterfront] {name}: waiting {delay:.0f} s, the host's Crawl-delay, before the listing request")
     time.sleep(delay)
     remaining = deadline - time.monotonic()
     if remaining <= 0:

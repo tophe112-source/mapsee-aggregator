@@ -26,6 +26,14 @@ name: Source health
 # while the real fault (a statement timeout, named in a response body nobody
 # printed) went unnamed. A check that cannot run has to say so in those words.
 #
+# THE RUN'S COLOUR SAYS WHETHER THE CHECK RAN, not whether every feed is alive.
+# A quiet source is the issue's job - opened below, commented daily, closed when
+# it clears - and leaves the run green with a warning annotation. Red is exit 2:
+# the alarm itself is off. Until 2026-11-01 exit 1 failed the job too, and the
+# 25 scheduled runs from 2026-10-11 15:03Z to 11-01 15:26Z were all red, the
+# README badge with them, over findings issue #32 already carried (on 11-01,
+# one held feed) while the check had run every day.
+#
 # Triggers are schedule + workflow_dispatch ONLY. Never add pull_request:
 # this job reads SUPABASE_SERVICE_ROLE_KEY, which must never be exposed to
 # untrusted fork code.
@@ -234,9 +242,9 @@ jobs:
             gh issue close "$EXISTING"
           fi
 
-      # Fail the job last, so the issue is always filed first. A red run in the
-      # Actions tab is a second, independent signal alongside the issue email.
-      - name: Fail if unhealthy
+      # Last, so the issue is always filed first. Only "the check could not run"
+      # fails the job - THE RUN'S COLOUR, in the header.
+      - name: Say which it is, and fail only when nothing was evaluated
         if: ${{ !inputs.update_baseline && steps.health.outputs.status != '0' }}
         env:
           STATUS: ${{ steps.health.outputs.status }}
@@ -246,10 +254,9 @@ jobs:
           # when the finding was that no feed had been looked at.
           if [ "$STATUS" = "2" ]; then
             echo "::error::The ingest health check could not run - NO source was evaluated. See the open ingest-health-check issue."
-          else
-            echo "::error::A source has stopped delivering - see the open ingest-health issue."
+            exit 1
           fi
-          exit 1
+          echo "::warning::A source has stopped delivering - see the open ingest-health issue. The check ran, so this run stays green."
 
   # The deep probe. Where the `check` job asks the database what landed, this
   # one asks every curated feed whether it is still alive, and records the

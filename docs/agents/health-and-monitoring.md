@@ -107,3 +107,19 @@
   (ci-and-jobs.md), is reported too: 0 on 10-29. On the final tree it returns
   3: Edina catID 76, Cromane Seafest and Big Lake catID 29.
   `test_health_check.py`.
+
+- **A RED RUN FOR A QUIET SOURCE SAID NOTHING THE ISSUE HAD NOT, 25 RUNS IN A
+  ROW (2026-11-01).** `source-health.yml` exited 1 after filing the issue
+  whenever the check found a SILENT / MISSING / DRAINED / FEED_DOWN row, so
+  every scheduled run from 2026-10-11 15:03Z to 11-01 15:26Z (25 of 25; the
+  last green 10-11 10:45Z) was red, and the README badge with them, over
+  findings issue #32 carried in a comment a day (24 comments by 11-01; after
+  that day's curation, one held feed: Big Lake catID 29). Only exit 2, nothing
+  evaluated, was a red that carried news. Now exit 1 leaves the run green with
+  a `::warning::` and only exit 2 fails the job; `test_workflow_contracts.py`
+  runs the step's script under both statuses. The baseline the check compared
+  against was seeded 2026-08-10 with 106,594 upcoming `mapsee` rows against
+  1,154,244 on 11-01: DRAINED (a 60% fall) could not have fired above 42,638
+  rows, a fall of 96%, and the held feed, in no baseline's `configured_dead`,
+  was a problem row every day rather than the backlog note that list makes of
+  it. Re-seed with the workflow's `update_baseline` dispatch after a trusted run.

@@ -12,6 +12,7 @@ import tempfile
 import unittest
 import warnings
 import yaml
+import mapsee_ingest_waterfront as waterfront
 from workflow_report import report
 
 ROOT = Path(__file__).resolve().parent
@@ -73,12 +74,18 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('1 failed or cancelled', text)
         self.assertNotIn('| ingest_tribe', text)
 
-    def test_waterfront_corrections_sync_daily_within_a_small_budget(self):
+    def test_waterfront_budget_holds_the_hosts_crawl_delay_and_syncs_daily(self):
+        # waterfrontparkseattle.org's robots.txt asks for Crawl-delay: 600 (read
+        # 2026-11-01; none on 10-27). The adapter waits it out before its one
+        # request, so a 60 s budget exited 1 before fetching anything on 10-30,
+        # 10-31 and 11-01, and the local job was red each day.
         workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
         step = next(s for s in workflow['jobs']['feeds']['steps'] if s.get('id') == 'ingest_waterfront')
         self.assertEqual("matrix.group == 'local'", step['if'])
-        self.assertEqual(3, step['timeout-minutes'])
-        self.assertIn('--max-seconds 60', step['run'])
+        budget = int(re.search(r'--max-seconds (\d+)', step['run'])[1])
+        self.assertGreater(budget, 600)
+        self.assertLessEqual(budget, waterfront.MAX_RUN_SECONDS)
+        self.assertGreaterEqual(step['timeout-minutes'] * 60, budget + 120)
         self.assertIn('mapsee_supabase_sync.py --store waterfront_events.json --skip-unchanged', step['run'])
         self.assertNotIn('--only-new', step['run'])
 
@@ -555,6 +562,28 @@ class WorkflowContracts(unittest.TestCase):
             self.assertNotIn('[NO ]', xx)
             self.assertEqual('[NO ] c  robots.txt: Disallow: /cal (GET /cal)' in summary, refused)
             self.assertEqual('1 probe(s) not decided' in summary, refused)
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_source_health_run_is_red_only_when_the_check_could_not_run(self):
+        # Exit 1 (a quiet source) is the issue's job and a warning here; exit 2
+        # (nothing evaluated) fails the job. When exit 1 failed it too, the 25
+        # scheduled runs 2026-10-11 15:03Z..11-01 15:26Z were all red over
+        # findings issue #32 already carried, while the check ran every day.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/source-health.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['check']['steps']
+        health = next(s for s in steps if s.get('id') == 'health')
+        self.assertTrue(health['continue-on-error'])
+        self.assertFalse(any('exit 1' in (s.get('run') or '') for s in steps[:-1]))
+        last = steps[-1]
+        self.assertEqual("${{ !inputs.update_baseline && steps.health.outputs.status != '0' }}", last['if'])
+        self.assertEqual('${{ steps.health.outputs.status }}', last['env']['STATUS'])
+        for status, code, said, unsaid in (('1', 0, '::warning::', '::error::'),
+                                           ('2', 1, '::error::', '::warning::')):
+            out = subprocess.run(['bash', '--noprofile', '--norc', '-e', '-c', last['run']],
+                                 capture_output=True, text=True, env=dict(os.environ, STATUS=status))
+            self.assertEqual(code, out.returncode, out.stderr)
+            self.assertIn(said, out.stdout)
+            self.assertNotIn(unsaid, out.stdout)
 
     def test_dedupe_is_its_own_red_job_behind_its_switch_before_indexnow(self):
         # The collapser was a continue-on-error step inside indexnow: 12m12s,

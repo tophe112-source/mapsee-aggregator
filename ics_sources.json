@@ -60225,5 +60225,310 @@
     "limit": 300,
     "_metro": "Uxbridge, Canada",
     "crawl_delay": 1.0
+  },
+  {
+    "name": "The New Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://www.generalconference.org.uk/locations/seaburn-dene/?feed=my-calendar-ics",
+    "geocode_suffix": ", Newcastle upon Tyne, United Kingdom",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Aruna Ratanagiri",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/g7a5l7gr19fd3u8d48f60qgem0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Belsay",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Climb Newcastle @ The Pool",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://www.climbnewcastle.com/setting.ics",
+    "geocode_suffix": ", Newcastle upon Tyne",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Sherburn Hill Hub and Café",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar",
+    "url": "https://www.sherburnhillhub.org.uk/?feed=my-calendar-ics",
+    "geocode_suffix": ", Newcastle upon Tyne, United Kingdom",
+    "limit": 300,
+    "venue": {
+      "name": "Sherburn Hill Hub and Café",
+      "postal_code": "DH6 1PA",
+      "lat": 54.7730391,
+      "lon": -1.478093,
+      "pin_unnamed": false
+    },
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "The Orthodox Church of St Cuthbert and St Bede",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/867no4jb45ph39eunmunvciic4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Durham",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Royal Northumberland Yacht Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5d5b6b94bd2665b7bf0a44dd5506ac0797054a5893081c62d6cdbc0603296aff%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Blyth",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "North Road Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e7j2nkm2b8mq2pad7kt5ch9fu8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Durham",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Wrekenton Methodist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wrekentonmc%40hotmail.co.uk/public/basic.ics",
+    "geocode_suffix": ", Gateshead",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Cleadon All Saints Parish Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r84vcd0oudg03ski43tr252jj0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sunderland",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Langley Park Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ocvpd2pd5vp12nu5h1pjqkre7c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Newcastle upon Tyne, United Kingdom",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "1st Dipton Scout and Guide Group",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/derwentsidescouts.org.uk_39ej5v7ii6v4ccvqqltj7f86rk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stanley",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Calvary Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40calvarybaptist.co.uk/public/basic.ics",
+    "geocode_suffix": ", Cardiff",
+    "limit": 300,
+    "_metro": "Cardiff, United Kingdom"
+  },
+  {
+    "name": "Christ Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/docs%40ccwsm.org.uk/public/basic.ics",
+    "geocode_suffix": ", Weston-super-Mare",
+    "limit": 300,
+    "_metro": "Cardiff, United Kingdom"
+  },
+  {
+    "name": "Shree Swaminarayan Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gpimkf5m051obbl27hf59bjhkc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cardiff",
+    "limit": 300,
+    "_metro": "Cardiff, United Kingdom"
+  },
+  {
+    "name": "1st Donegore Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rk131f0jfeee42a1j3er41ndmc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Parkgate",
+    "limit": 300,
+    "_metro": "Belfast, United Kingdom"
+  },
+  {
+    "name": "Trinity Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hello%40trinitygreyabbey.org/public/basic.ics",
+    "geocode_suffix": ", Greyabbey",
+    "limit": 300,
+    "_metro": "Belfast, United Kingdom"
+  },
+  {
+    "name": "Southwell Minster",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser",
+    "url": "https://www.southwellminster.org/?feed=eo-events",
+    "geocode_suffix": ", Southwell",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "The Assumption RC Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7e0fcc93n7lck8ao46lhinvhqg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nottingham",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "St Paul's Church Little Eaton",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://littleeatonchurch.co.uk/?feed=my-calendar-ics",
+    "geocode_suffix": ", Derby",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "St Barnabas Lenton Abbey",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3corkt4j6oc9epsm4tdtnptcis%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nottingham",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "St Marks",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jiseq9hedc607na4ja0khofvco%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Alfreton",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "St. Alkmund's Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://stalkmundsduffield.co.uk/?feed=my-calendar-ics",
+    "geocode_suffix": ", Belper",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "Parish Church of St Werburgh",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stwerburghsspondon.greenhousecms.co.uk/ical.ics",
+    "geocode_suffix": ", Derby",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "St Mary the Virgin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmaryschurchbrighton.org.uk_edcl0vtlismul16743m90n6hro%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brighton",
+    "limit": 300,
+    "_metro": "Brighton, United Kingdom"
+  },
+  {
+    "name": "The Blue Idol Quaker Meeting House",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/16fq3bn71f88uagiofdoopmvm0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Horsham",
+    "limit": 300,
+    "_metro": "Brighton, United Kingdom"
+  },
+  {
+    "name": "West Hove Studio",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5e8a1acc2f002b322efc2af88d2ffe3ec883f034383be076ef688cf5aa0085ba%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brighton, United Kingdom",
+    "limit": 300,
+    "_metro": "Brighton, United Kingdom"
+  },
+  {
+    "name": "Corpus Christi Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ccnd-nyc.org/icalendar0.ics",
+    "geocode_suffix": ", Manhattan, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Linden Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40lindenpres.org/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Our Lady of Sorrows Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9f911e8d9f2f703292d7009508cd8584b66fc75e81247298e1ca8c1894f181ad%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", South Orange",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Thomas Paine Cottage and Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8sg5f71esfmgdb11enr94nf9d0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Bartow-Pell Mansion Museum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.bartowpellmansionmuseum.org/rent/?ical=1",
+    "geocode_suffix": ", NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "VITAL Climbing Gym",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_aacb6aa43c55cab539ee37b39526dda91c3b9382dbd162dc269bbf55f5d03bf0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Red Hook Community Farm",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/veggies%40rhicenter.org/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
   }
 ]

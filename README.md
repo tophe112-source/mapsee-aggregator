@@ -205,6 +205,11 @@ cosmetic. This workflow's first eight runs all failed on a retired RPC and all
 filed under "one or more sources have gone quiet", describing an outage that was
 not happening while the real fault went unnamed for four days.
 
+Only exit 2 turns the workflow run red. A quiet source is the issue's job, and
+the run stays green with a warning annotation; when exit 1 failed the job too,
+the 25 daily runs from 2026-10-11 to 11-01 were all red, and the badge above
+with them, over findings the open issue already carried.
+
 Two workflows run it (`.github/workflows/source-health.yml`):
 
 - **daily, 08:40 UTC** — one cheap snapshot read. If anything is unhealthy it
