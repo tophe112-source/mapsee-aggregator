@@ -56,6 +56,19 @@
   query returned both new Halloween listings. These are catalog/HTTP checks,
   not evidence of user growth or dollar savings.
 
+- **A CRAWL-DELAY LONGER THAN THE RUN BUDGET FAILED THE WATERFRONT STEP BEFORE
+  ITS ONE REQUEST, THREE DAYS RUNNING (2026-11-01).** waterfrontparkseattle.org's
+  robots.txt, read 2026-11-01, carries `Crawl-delay: 600` for every agent; the
+  10-27 note above found none, and the step passed on 10-28 and 10-29.
+  `ingest_site` waits the delay out before its single listing request, so with
+  `--max-seconds 60` it raised "run deadline leaves no time" in **1.2 s** on
+  10-30, 10-31 and 11-01 (runs 147-149), the `local` feeds job went red each
+  day through `Fail when an import or sync failed`, and the page was never
+  asked for. The step's budget is now **660 s** (`timeout-minutes` 15, ten of
+  them the wait); the adapter prints the wait, and when the budget cannot hold
+  the delay names both numbers and the flag. `test_ingest_waterfront.py` sleeps
+  a patched 600 and asks once; the 60 s budget asks nothing.
+
 - **A CONCERT SERIES IS FIVE PERFORMANCES, NOT A PARISH CALENDAR.** Measured
   2026-10-17: Epiphany Seattle's official 2026-2027 concert page yields **5**
   upcoming occurrences: Requiem on November 1 (admission unstated), Messiah on

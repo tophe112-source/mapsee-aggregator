@@ -271,6 +271,29 @@ class WaterfrontTests(unittest.TestCase):
             self.assertIsNotNone(event, reason)
             self.assertEqual(expected, event.poster_image_url is not None)
 
+    def test_the_hosts_crawl_delay_is_waited_out_before_the_one_request(self):
+        # robots.txt read 2026-11-01 asks every agent for Crawl-delay: 600 (none
+        # on 10-27). The adapter sleeps it, then asks once; a budget shorter
+        # than the delay asks nothing and names both numbers and the flag.
+        robots = {"allowed": True, "status": "ok", "crawl_delay": 600}
+        slept = []
+        with tempfile.TemporaryDirectory() as temp:
+            session = FakeSession()
+            with patch.object(FakeRobots, "check", return_value=robots), \
+                    patch.object(waterfront.time, "sleep", slept.append):
+                result = waterfront.ingest_site(EventStore(str(Path(temp) / "events.json")), session,
+                                                FakeRobots(), SITE, time.monotonic() + 660, TODAY)
+                self.assertEqual([600.0], slept)
+                self.assertEqual(1, len(session.calls))
+                self.assertEqual(33, result["kept"])
+                short = FakeSession()
+                with self.assertRaisesRegex(RuntimeError, r"600 s delay .* (59|60) s left.*--max-seconds"):
+                    waterfront.ingest_site(EventStore(str(Path(temp) / "short.json")), short,
+                                           FakeRobots(), SITE, time.monotonic() + 60, TODAY)
+                self.assertEqual([600.0], slept)
+                self.assertEqual([], short.calls)
+        self.assertLessEqual(660, waterfront.MAX_RUN_SECONDS)
+
     def test_page_size_and_empty_usable_markup_fail_visibly(self):
         with tempfile.TemporaryDirectory() as temp:
             with self.assertRaisesRegex(RuntimeError, "2 MiB"):

@@ -731,15 +731,20 @@ jobs:
           python mapsee_ingest_recitals.py --config recital_sources.json --store recital_events.json --max-seconds 60
           # A tiny complete series read: refresh dates and admission daily.
           python mapsee_supabase_sync.py --store recital_events.json --skip-unchanged
+      # The publisher's robots.txt asks for Crawl-delay: 600 (read 2026-11-01;
+      # none when the adapter landed on 10-27), and the adapter waits it out
+      # before its one listing request, so the budget holds the wait. With 60 s
+      # it exited 1 before asking for anything on 10-30, 10-31 and 11-01, and
+      # the local job was red each day over a page it never fetched.
       - name: Import Waterfront Park programs from one dated calendar
         id: ingest_waterfront
         if: matrix.group == 'local'
         continue-on-error: true
-        timeout-minutes: 3
+        timeout-minutes: 15
         env:
           MAPSEE_DB_WAIT_SECONDS: "30"
         run: |
-          python mapsee_ingest_waterfront.py --config waterfront_sources.json --store waterfront_events.json --max-seconds 60
+          python mapsee_ingest_waterfront.py --config waterfront_sources.json --store waterfront_events.json --max-seconds 660
           # Refresh published time/admission corrections; skip identical rows.
           python mapsee_supabase_sync.py --store waterfront_events.json --skip-unchanged
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)

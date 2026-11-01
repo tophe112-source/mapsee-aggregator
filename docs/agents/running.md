@@ -80,7 +80,7 @@ python test_robots.py               # robots.txt per RFC 9309, and verify never 
 python test_gcal.py                 # a Google calendar read through the Calendar API keeps its rows
 python test_ics_venue_location.py   # a LOCATION that names the venue lands on its pin, one that names elsewhere does not, pin_unnamed holds bare events
 python test_ingest_recitals.py     # Epiphany: each performance's own dates, prices, free restrictions and same-day occurrences
-python test_ingest_waterfront.py   # one dated calendar: verified venue pins, DST, corrections, free admission and posters
+python test_ingest_waterfront.py   # one dated calendar: verified venue pins, DST, corrections, free admission and posters, the host's Crawl-delay
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python catalog_curate.py robots     # which configured requests robots.txt refuses (report only, network)
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
