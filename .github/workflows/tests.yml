@@ -711,6 +711,8 @@ jobs:
       # always() steps, the CivicPlus list and the shared date parser.
       - name: The weekly audit lands what it probed, and its verdicts agree with the adapters
         run: python test_curate_audit.py
+      - name: One site, one feed; a single event's download is not a calendar
+        run: python test_curate_mirror.py
 
       # The report that AIMS the loop. Its bottom twenty lines are what an
       # autonomous run picks targets from and what the gap sweep pins

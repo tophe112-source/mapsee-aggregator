@@ -2160,3 +2160,79 @@
   - Left out: Delaware County PA (off-site rows the ics adapter cannot yet
     refuse), Cedar Mill/Bethany (already read through the wccls BiblioCommons
     gateway).
+
+- **ONE SITE, ONE FEED: 31 SITES WERE READ BY THEIR REST ROUTE AND BY ITS ICAL
+  EXPORT, AND THE EXPORT CAPS AT 30 (2026-11-01).** The sweep had verified both
+  halves of The Events Calendar on 31 hosts (32 ics entries; extension.wsu.edu
+  had two county slices) and merged both. Measured with the production UA:
+  townhallseattle.org's export carried 30 VEVENTs, 25 of them the same title
+  and date as the REST page (58 events in all); schuylkillcenter.org 29 of 30
+  against 41; textilemuseum.ca 9 of 15 against 13. The export is capped at 30
+  upcoming where the route pages the whole calendar: chattlibrary.org 831,
+  events.miamibeachfl.gov 503, godalming-tc.gov.uk 114, fortwhyte.org 98,
+  schlitzaudubon.org 97, against 30 each. Since 2026-10-25 mapsee_ingest_tribe
+  had yielded to the ics feed on a shared host (sync-eventstore-and-paging.md),
+  so each of these venues was on the map with at most 30 events. The 32 exports
+  are out and the route is the writer; six REST entries took the export's more
+  specific category (townhallseattle.org, torrent.es, teruel.es and
+  extension.wsu.edu learning; kulturkinder.net and lebensnah.de kids).
+  `mirror_of` (catalog_curate.py) keeps it so: `verify` and `merge` refuse an
+  export of a site whose route is configured, a second export of a site that
+  has one (the route answers the same calendar from any page: mezrab.nl's two
+  URLs answered 2,089 identical UIDs, occii.org's /agenda and /events 1,790,
+  win-e-v.de was configured six times at 10,229 each; 10 such aliases removed,
+  each measured identical or a strict subset; einewelthaus.de's two kept, 0
+  shared UIDs), and print a REST candidate for a site whose export is
+  configured for a hand swap. A category, tag, venue or organizer export is a
+  slice, so two slices of one site are not mirrors of each other. The
+  test_ingest_tribe live-config check now asserts the inverse (no shared host);
+  the adapter's yield stays as the guard for a pair added by hand. Their stored
+  ics rows stay beside the REST rows until they are past, as the 10-25 note
+  said they would. `python test_curate_mirror.py`.
+
+- **A SINGLE EVENT'S ICAL DOWNLOAD IS NOT A CALENDAR (2026-11-01).** 54
+  configured ics URLs had the shape of a per-event export (The Events
+  Calendar's /events/<slug>/ical/, event.ics, addtocal.ics, download.ics?ids,
+  kalender-eintrag/<id>/); 34 carried exactly one VEVENT and 33 of those had
+  none upcoming - the next event is under a new URL, so the source dies with
+  its event and the audit never flags it (`empty`, not `fail`). 29 removed (the
+  other 5 went by another rule the same day). verify_ics now fails exactly one
+  VEVENT behind such a shape as `fail`, naming the shape. The shape alone is
+  not the rule: feeds.apps.wayne.edu/events/main/ical wears it with 167 VEVENTs
+  and verifies.
+
+- **THE FIRST BUDGETED AUDIT'S 128 FEED_DOWN, WORKED THE SAME DAY: 15 BACK, 3
+  QUIET, 29 RE-FOUND, 80 RETIRED, 1 HELD; FEED_DOWN 1 (2026-11-01).** Sunday's
+  audit (70 minutes, 7,238 of 7,238, 1,056 s of Crawl-delay waits across 4,934
+  origins) left 128 fail/refused rows on configured entries, 116 of them `ok` a
+  week before. Rechecked the same day from a second network with the verifier:
+  12 of 19 network failures and 3 of 7 CivicPlus feeds answered (ok); 3
+  CivicPlus categories are still listed on their site's /iCalendar.aspx
+  (`empty`); the rest could not read robots.txt from either network (RFC 9309:
+  refused). Of the 80 gone (404, 5xx, no Event blocks, no VCALENDAR, not json),
+  `find_calendar` from each site's homepage through the walk's robots-gated,
+  host-paced session found a calendar on 53 (46 on a page, 7 on the homepage;
+  13 unreachable, 9 with none, 4 moved to a booking platform, 1 refusing): 41
+  candidates, 31 verified, 26 merged (22 jsonld, 3 tribe, 1 ics; the rest were
+  configured already under another entry). 36 of the 48 dead jsonld seeds were
+  deep event pages ("A deep event page can be a better crawl seed", above); their
+  replacements are listings. Retired, with the evidence written into
+  `_not_included` (jsonld's map for an ics feed, as the reader documents): 47
+  gone, 15 robots.txt refusals, 18 refusals (401-403) under the production UA.
+  Held: Big Lake. FEED_DOWN after: 1. Dead entries must come out BEFORE the
+  replacements are verified, or `mirror_of` refuses a site's replacement
+  because its own dead REST entry is still configured; and `_not_included` is
+  written only for a site that got no verified replacement, or it would decline
+  the replacement. Entries, main to this commit: ics 3,578 -> 3,474, tribe
+  1,953 -> 1,933, jsonld 1,241 -> 1,212, squarespace 279 -> 278; the civic walk
+  (Canada, 101 cities from offset 120) added 7 verified of 11 proposed (6 routes, 1 iCal; 2 routes answered 0 upcoming, Iqaluit's iCal 500, Ingersoll's Google calendar is held for the Calendar API key), 8 US cities from offset 2232 before its budget ran out; the OSM walk's Overpass
+  call for Newcastle upon Tyne did not answer, so its cursor stayed. Hamilton
+  (NZ) was the one event metro of 179 with no civic-pin area and has one now;
+  rvdehertog.nl's geocode_suffix named 's-Hertogenbosch without its country
+  and read as a US metro in `coverage`. TRAP: a walk's ledger snapshot folded
+  back with `reapply` wins a same-day tie (`_merge_ledgers` is `>=`), so a
+  snapshot taken before a same-day re-verification reverts that key to the
+  audit's `fail`: 2 of the 38 keys verified today (selk-mitte.de,
+  cineteatropax.it/events, each replaced under its own old key) came back as
+  FEED_DOWN after the fold-back and were verified again after it. Fold the
+  walks back first, verify last.

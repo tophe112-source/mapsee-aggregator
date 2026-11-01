@@ -1,19 +1,19 @@
 {
  "civic": {
-  "country": "AU",
+  "country": "CA",
   "offset": 2140,
   "offsets": {
    "AE": 13,
    "AT": 240,
    "AU": 203,
    "BE": 227,
-   "CA": 120,
-   "CH": 200,
+   "CA": 240,
+   "CH": 400,
    "DE": 120,
    "DK": 137,
    "ES": 190,
    "FI": 400,
-   "GB": 120,
+   "GB": 240,
    "IE": 48,
    "IN": 120,
    "IS": 120,
@@ -23,13 +23,13 @@
    "LT": 120,
    "MX": 240,
    "MY": 47,
-   "NL": 120,
+   "NL": 240,
    "NO": 240,
    "NZ": 140,
    "PT": 120,
    "SE": 80,
    "SI": 120,
-   "US": 2232,
+   "US": 2241,
    "ZA": 200
   },
   "visited": [
@@ -247,9 +247,14 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 145,
-  "metro_key": "CA:Calgary",
-  "stuck": {}
+  "metro": 174,
+  "metro_key": "GB:Newcastle upon Tyne",
+  "stuck": {
+   "GB:Newcastle upon Tyne": {
+    "day": 20261101,
+    "n": 1
+   }
+  }
  },
  "osm|community_centre,library": {
   "metro": 225,
@@ -263,21 +268,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 300,
-  "events": 400,
+  "community events": 100,
+  "events": 700,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
   "library programs": 100,
-  "parks events": 100,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 100,
+  "recreation programs": 400,
   "road races": 0,
   "special events": 100,
-  "volunteer": 300,
-  "wellness programs": 400,
+  "volunteer": 200,
+  "wellness programs": 100,
   "youth programs": 200
  }
 }

@@ -784,6 +784,123 @@ def _is_tribe_ical(url):
     return "1" in parse_qs(urlparse(url).query).get("ical", [])
 
 
+# --- ONE SITE, ONE FEED ------------------------------------------------------
+# The Events Calendar publishes the same calendar twice: its REST route
+# (tribe_sources.json reads /wp-json/tribe/events/v1/events) and its iCal
+# export (`?ical=1`, which answers from ANY page of the site, not only
+# /events/). The sweep verified both and merged both, so on 2026-11-01 31 hosts
+# were configured under both types, and every event they publish was imported
+# twice under two fingerprints (the deduper then hides one copy a day later).
+# Measured that day, production UA: townhallseattle.org's export carried 30
+# VEVENTs, 25 of them the same title and date as the REST page (58 events in
+# all); schuylkillcenter.org 29 of 30 against 41; textilemuseum.ca 9 of 15
+# against 13. The export is capped at 30 upcoming where the REST route pages
+# the whole calendar (503 for events.miamibeachfl.gov, 831 for
+# chattlibrary.org), so the REST feed is the one to keep. The same route under
+# two page URLs is one feed: mezrab.nl/events/?ical=1 and
+# mezrab.nl/events/parviz/?ical=1 answered 2,089 identical UIDs, occii.org's
+# /agenda and /events exports 1,790, and win-e-v.de was configured six times
+# (10,229 VEVENTs each). A category, tag, venue or organizer export is a
+# SLICE of that calendar (extension.wsu.edu's two county Master Gardener
+# exports beside its REST root), so two slices are not mirrors of each other,
+# but a slice beside the whole is.
+# `verify` and `merge` ask this before adding; a candidate already configured
+# is not being added and is left alone (the audit grades it on its own).
+_TEC_ARCHIVE_PATH_RX = re.compile(r"/(?:category|tag|venue|organizer|organiser)/", re.I)
+_TEC_ARCHIVE_QUERY = ("tribe_events_cat", "tribe_venue", "tribe_organizer", "tribe-bar-search",
+                      "tribe_events_tag", "tag", "cat")
+
+
+def _host_of(url):
+    try:
+        h = (urlparse(url if "://" in str(url) else "https://" + str(url)).hostname or "").lower()
+    except Exception:  # noqa: BLE001
+        return ""
+    return h[4:] if h.startswith("www.") else h
+
+
+def _tec_scope(url):
+    """'global' for The Events Calendar's whole-site iCal export, 'archive' for
+    a category/tag/venue/organizer export, None for anything else (a plain
+    .ics file is not provably the same calendar: einewelthaus.de's /events.ics
+    and its film-category export shared 0 UIDs on 2026-11-01)."""
+    if not _is_tribe_ical(url):
+        return None
+    u = urlparse(url)
+    q = parse_qs(u.query)
+    if any(k in q for k in _TEC_ARCHIVE_QUERY) or _TEC_ARCHIVE_PATH_RX.search(u.path or ""):
+        return "archive"
+    return "global"
+
+
+def _config_feeds_by_host():
+    """host -> [(type, url)] for every configured ics and tribe entry."""
+    out = {}
+    for t in ("ics", "tribe"):
+        fname, key = CONFIG[t]
+        p = os.path.join(HERE, fname)
+        if not os.path.exists(p):
+            continue
+        for e in _entries(fname, json.load(open(p, encoding="utf-8"))):
+            u = e.get(key)
+            if isinstance(u, str) and u:
+                out.setdefault(_host_of(u), []).append((t, u))
+    return out
+
+
+def mirror_of(e, by_host):
+    """Why adding this candidate would read a calendar the configs already
+    read, or None. Says which configured feed it mirrors."""
+    t = e.get("type")
+    if t == "ics":
+        url = e.get("url") or ""
+        scope = _tec_scope(url)
+        if not scope:
+            return None
+        for ot, ou in by_host.get(_host_of(url), []):
+            if ot == "tribe":
+                return (f"The Events Calendar export of a site whose REST feed is configured ({ou}); "
+                        f"the export caps at 30 upcoming and repeats it")
+            if ot == "ics" and _canon(ou) != _canon(url):
+                other = _tec_scope(ou)
+                if other == "global":
+                    return (f"The Events Calendar export already configured for this site ({ou}); "
+                            f"the route answers the same calendar from any page")
+                if other == "archive" and scope == "global":
+                    return (f"the whole-site export of a calendar configured as a slice ({ou}); "
+                            f"swap by hand, the slice is a subset of this")
+        return None
+    if t == "tribe":
+        url = e.get("base_url") or ""
+        for ot, ou in by_host.get(_host_of(url), []):
+            if ot == "ics" and _tec_scope(ou):
+                return (f"REST feed of a site whose The Events Calendar export is configured ({ou}); "
+                        f"the REST feed is the fuller one - retire the export by hand, then add this")
+    return None
+
+
+# A SINGLE EVENT'S DOWNLOAD IS NOT A CALENDAR. The Events Calendar links an
+# iCal file per event (/events/<slug>/ical/), and so do Craft, ProcessWire
+# and the municipal calendars that offer "add to calendar": one VEVENT, and
+# the next event is under a new URL, so the source dies the day the event
+# does and never lists again. 54 configured iCal URLs had that shape on
+# 2026-11-01; 34 carried exactly one VEVENT and 33 of those had none upcoming.
+# A real calendar can hold one upcoming event, and a whole calendar can wear
+# the shape (feeds.apps.wayne.edu/events/main/ical, 167 VEVENTs), so neither
+# is enough alone: both must hold. /events/ical/ matches no part of this.
+_ONE_EVENT_EXPORT_RX = re.compile(
+    r"/events?/(?!ical/?$)[^/?#]+/ical/?$"          # The Events Calendar, per event
+    r"|/event\.ics$|/addtocal\.ics$|/download\.ics\?ids"
+    r"|/ical-\d{4}-\d{2}-\d{2}-\d+\.ics$|/kalender-eintrag/\d+/"
+    r"|/termin/[^/]+-\d{8}(?:-\d{4}){0,2}\.ics$", re.I)
+
+
+def _one_event_export(url):
+    u = urlparse(url)
+    m = _ONE_EVENT_EXPORT_RX.search((u.path or "") + ("?" + u.query if u.query else ""))
+    return m.group(0) if m else None
+
+
 # A SCOPED EXPORT IS NOT THE SITE'S CALENDAR, and the route answers for the
 # site. 7 configured ?ical=1 feeds on 2026-10-29 read one category or tag
 # (bartramsgarden `tribe_events_cat=volunteer`, casalcatalatolosa
@@ -907,6 +1024,11 @@ def verify_ics(s, e):
     starts = [m.group(1) for ev in events
               for m in [re.match(r"(\d{8})", str((ev.get("DTSTART") or ("",))[0]).strip())] if m]
     fut = sum(1 for d in starts if int(d) >= today)
+    if len(events) == 1:
+        shape = _one_event_export(url)
+        if shape:
+            return False, Verdict(f"1 vevents / {fut} future; a single event's iCal download "
+                                  f"({shape}), not a calendar", "fail")
     return (fut > 0), f"{len(events)} vevents / {fut} future"
 
 
@@ -3324,6 +3446,7 @@ def cmd_verify(path, recheck=False, ttl=90):
     led = _load_ledger()
     in_config = _config_keys()
     declined = _declined_keys()
+    feeds_by_host = _config_feeds_by_host()
     chipublib_configured = _chipublib_configured()
     passed, skipped = [], 0
     for e in cands:
@@ -3347,6 +3470,12 @@ def cmd_verify(path, recheck=False, ttl=90):
             continue
         if _blocked_cpl_opendata(e, chipublib_configured):
             print(f"[SKIP] opendata Chicago Public Library is read through configured BiblioCommons chipublib")
+            skipped += 1
+            continue
+        # One site, one feed (mirror_of): asked before any request is made.
+        why_mirror = None if key in in_config else mirror_of(e, feeds_by_host)
+        if why_mirror:
+            print(f"[MIRROR] {t:8} {e.get('name', '?')[:40]}: {why_mirror}")
             skipped += 1
             continue
         rec = led.get(lkey)
@@ -3601,6 +3730,7 @@ def cmd_merge(path):
     verified = json.load(open(path, encoding="utf-8"))
     chipublib_configured = _chipublib_configured()
     declined = _declined_keys()
+    feeds_by_host = _config_feeds_by_host()
     by_type = {}
     for e in verified:
         if _entry_keys(e) & declined:
@@ -3635,6 +3765,12 @@ def cmd_merge(path):
             if _blocked_cpl_opendata(e, chipublib_configured):
                 print("[SKIP] Chicago Public Library OpenData duplicate; BiblioCommons chipublib is configured")
                 continue
+            # One site, one feed - against the files as they are AND what this
+            # merge has already added (a sweep can verify a site both ways).
+            why_mirror = mirror_of(e, feeds_by_host)
+            if why_mirror:
+                print(f"[MIRROR] {t} {e.get('name', '?')[:50]}: {why_mirror}")
+                continue
             entry = {k: v for k, v in e.items() if k != "type"}
             if t == "ods":
                 entry["url"] = _ods_url(entry)     # derived key, kept for dedup
@@ -3645,6 +3781,8 @@ def cmd_merge(path):
             cur.append(entry)
             seen.add(ck)
             added += 1
+            if t in ("ics", "tribe") and isinstance(kv, str):
+                feeds_by_host.setdefault(_host_of(kv), []).append((t, kv))
         out_doc = doc if isinstance(doc, dict) else cur   # nested files keep their wrapper
         # Write it back the way it was written. These files are stored at
         # indent=1 and this dumped them at 2, so adding ONE source to

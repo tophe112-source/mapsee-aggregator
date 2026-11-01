@@ -652,22 +652,6 @@
       "_metro": "Edmonton, CA"
     },
     {
-      "name": "Plug In Institute of Contemporary Art",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe+jsonld-event+ics",
-      "base_url": "https://plugin.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Plug In Institute of Contemporary Art",
-        "address": "460 Portage Avenue",
-        "postal_code": "R3C 0E8",
-        "lat": 49.8904395,
-        "lon": -97.1512172
-      },
-      "_metro": "Winnipeg, CA"
-    },
-    {
       "name": "Devil May Care Brew Co.",
       "category": "food",
       "_found": "osm:brewery -> tribe+jsonld-event",
@@ -1087,20 +1071,6 @@
         "name": "St Thomas' Anglican Church North Sydney",
         "lat": -33.8337257,
         "lon": 151.2058416
-      },
-      "_metro": "Sydney, AU"
-    },
-    {
-      "name": "Collaroy Surf Life Saving Club",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://collaroysurfclub.com.au",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Collaroy Surf Life Saving Club",
-        "lat": -33.733081,
-        "lon": 151.3024137
       },
       "_metro": "Sydney, AU"
     },
@@ -1690,24 +1660,6 @@
         "lon": -6.1168158
       },
       "_metro": "Dublin, IE"
-    },
-    {
-      "name": "The Cork Arts Theatre",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe",
-      "base_url": "https://corkartstheatre.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "The Cork Arts Theatre",
-        "address": "Knapp's Square",
-        "city": "Cork",
-        "postal_code": "T23 X72D",
-        "country": "IE",
-        "lat": 51.9014931,
-        "lon": -8.4728875
-      },
-      "_metro": "Cork, IE"
     },
     {
       "name": "Grace Church",
@@ -2974,20 +2926,6 @@
         "name": "Firgårde Forsamlingshus",
         "lat": 56.0886943,
         "lon": 9.8068428
-      },
-      "_metro": "Aarhus, DK"
-    },
-    {
-      "name": "Skafferiet",
-      "category": "community",
-      "_found": "osm:events_venue -> tribe",
-      "base_url": "https://skafferiet.dk",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Skafferiet",
-        "lat": 56.3257863,
-        "lon": 10.0448711
       },
       "_metro": "Aarhus, DK"
     },
@@ -5007,23 +4945,6 @@
       "_metro": "Warsaw, PL"
     },
     {
-      "name": "Wojewódzki Związek Hodowców Koni w Warszawie",
-      "category": "community",
-      "_found": "osm:ngo -> tribe",
-      "base_url": "https://wzhkwarszawa.pl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Wojewódzki Związek Hodowców Koni w Warszawie",
-        "address": "49 Onufrego Zagłoby",
-        "city": "Marki",
-        "postal_code": "05-270",
-        "lat": 52.3208846,
-        "lon": 21.0834981
-      },
-      "_metro": "Warsaw, PL"
-    },
-    {
       "name": "QueerMuzeum",
       "category": "arts",
       "_found": "osm:museum -> tribe",
@@ -5260,20 +5181,6 @@
         "country": "PL",
         "lat": 50.0716297,
         "lon": 19.927118
-      },
-      "_metro": "Krakow, PL"
-    },
-    {
-      "name": "Folwark Kultura",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://zielonki.pl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Folwark Kultura",
-        "lat": 50.1725984,
-        "lon": 19.9152505
       },
       "_metro": "Krakow, PL"
     },
@@ -7292,22 +7199,6 @@
       "_metro": "Barcelona, ES"
     },
     {
-      "name": "Indoor Karting Barcelona",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://indoorkartingbarcelona.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Indoor Karting Barcelona",
-        "address": "430 Carretera de Laureà Miró",
-        "postal_code": "08980",
-        "lat": 41.3948441,
-        "lon": 2.034236
-      },
-      "_metro": "Barcelona, ES"
-    },
-    {
       "name": "Nau Bostik",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -9026,23 +8917,6 @@
       "_metro": "Bologna, Italy"
     },
     {
-      "name": "Raccolta Lercaro",
-      "category": "arts",
-      "_found": "osm:museum -> tribe",
-      "base_url": "https://www.museolercaro.it",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Raccolta Lercaro",
-        "address": "57 Via Riva di Reno",
-        "city": "Bologna",
-        "postal_code": "40122",
-        "lat": 44.4987097,
-        "lon": 11.3375785
-      },
-      "_metro": "Bologna, Italy"
-    },
-    {
       "name": "Link",
       "category": "music",
       "_found": "osm:nightclub -> tribe+jsonld-event+ics",
@@ -10349,24 +10223,6 @@
       "default_country": "US",
       "_metro": "Jacksonville, United States",
       "_note": "Monthly creek cleanups and free LaVilla history walks. robots.txt: Crawl-delay 10 (honoured), nothing disallowed. community, the cleanups promote to volunteer at sync."
-    },
-    {
-      "name": "Museo Nacional de Culturas Populares (Mexico City)",
-      "category": "arts",
-      "base_url": "https://mncp.cultura.gob.mx",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Museo Nacional de Culturas Populares",
-        "lat": 19.34995,
-        "lon": -99.16102,
-        "address": "Av. Miguel Hidalgo 289, Del Carmen, Coyoacán",
-        "city": "Ciudad de México",
-        "country": "Mexico"
-      },
-      "_metro": "Mexico City, Mexico",
-      "_note": "Federal (Secretaría de Cultura) museum in Coyoacán; free festivals, book launches, concerts. The Events Calendar REST API; robots.txt disallows only /Propuestas/. Fills Mexico City.",
-      "_found": "wikidata:museum -> tribe"
     },
     {
       "name": "Facultad de Música UNAM (Mexico City)",
@@ -11999,23 +11855,6 @@
       "_metro": "Utrecht, Netherlands"
     },
     {
-      "name": "Consultatiebureau",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://ggdru.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Consultatiebureau",
-        "address": "2 Lisidunalaan",
-        "city": "Leusden",
-        "postal_code": "3833BR",
-        "lat": 52.1348275,
-        "lon": 5.4263758
-      },
-      "_metro": "Utrecht, Netherlands"
-    },
-    {
       "name": "De Hangar",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -12386,7 +12225,7 @@
     },
     {
       "name": "Familientreff RIGATONI",
-      "category": "community",
+      "category": "kids",
       "_found": "osm:community_centre -> tribe",
       "base_url": "https://www.lebensnah.de",
       "within_days": 120,
@@ -13143,7 +12982,7 @@
     },
     {
       "name": "Torrent",
-      "category": "community",
+      "category": "learning",
       "_found": "civic:city -> tribe+jsonld-event+ics",
       "base_url": "https://torrent.es",
       "within_days": 365,
@@ -14796,33 +14635,6 @@
       }
     },
     {
-      "name": "Kuldīgas Galvenā bibliotēka (Kuldīga Main Library)",
-      "base_url": "https://biblio.kuldiga.lv",
-      "category": "learning",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Kuldīga",
-      "default_country": "LV",
-      "skip_title": "^Metodisk[aā] diena",
-      "_metro": "Liepāja, Latvia",
-      "_found": "manual:2026-10-03 OSM libraries Latvia -> The Events Calendar REST (its iCal export stamps a fixed wrong zone)",
-      "venue": {
-        "name": "Kuldīgas Galvenā bibliotēka",
-        "address": "1905. gada iela 6",
-        "city": "Kuldīga",
-        "postal_code": "LV-3301",
-        "country": "LV",
-        "lat": 56.9693109,
-        "lon": 21.9684827,
-        "names": [
-          "Kuldīgas Galvenā bibliotēka",
-          "Kuldīgas Galvenās bibliotēkas",
-          "Mākslas nams"
-        ]
-      },
-      "_note": "Kuldīga main library: free author meetings, forest-school storytelling for children, the readers' club, lectures and financial-literacy seminars. None of the REST venues carries an address or coordinates, so the block places the rows that name the library or the Art House (Mākslas nams, 36 m away); the Zoom discussion club names neither and drops. 'Metodiskā diena' is a recurring closure notice."
-    },
-    {
       "name": "Jewish Community Center of the East Bay",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
@@ -16272,27 +16084,6 @@
       "_note": "The city calendar is mostly governance: of 183 rows in 90 days, CIVIC_TITLE_RX takes 114 and this skip_title 54 more (meetings, hearings, council office hours, firefighter information sessions, business workshops). The rest are public: Green Tacoma Day, open-space volunteer work parties (Wapato Hills, Trafton Slope, Fern Hill, McKinley), a Code Update open house at the Moore Branch library, the City Services Expo and hiring fair at the Tacoma Dome, the Diwali lamp lighting, blood drives. Rows carry no categories, so include_categories cannot do this. Metro Parks Tacoma answers 403 and is not proposed."
     },
     {
-      "name": "MOHAI - Museum of History & Industry public programs (South Lake Union)",
-      "base_url": "https://mohai.org",
-      "category": "learning",
-      "within_days": 90,
-      "per_page": 50,
-      "max_pages": 2,
-      "venue": {
-        "name": "MOHAI",
-        "address": "860 Terry Ave N",
-        "city": "Seattle",
-        "region": "WA",
-        "postal_code": "98109",
-        "country": "US",
-        "lat": 47.6275114,
-        "lon": -122.3367506
-      },
-      "_metro": "Seattle, WA",
-      "_found": "manual:2026-10-10 mohai.org homepage (The Events Calendar)",
-      "_note": "Every row is at MOHAI (rooms: Faye G. Allen Grand Atrium, Joshua Green Foundation Theater) with address 'MOHAI 860 Terry Ave N' and no geo; the block supplies the point (OSM tourism=museum via Photon)."
-    },
-    {
       "name": "Bellevue Botanical Garden - walks, story times and garden programs (Bellevue)",
       "base_url": "https://bellevuebotanical.org",
       "category": "outdoors",
@@ -16307,7 +16098,7 @@
     {
       "name": "WSU Extension Snohomish County - repair cafe, beach cleanups, master gardener talks",
       "base_url": "https://extension.wsu.edu/snohomish",
-      "category": "community",
+      "category": "learning",
       "within_days": 90,
       "per_page": 50,
       "max_pages": 2,
@@ -16713,20 +16504,6 @@
       "_metro": "Philadelphia, United States"
     },
     {
-      "name": "West Deptford Library",
-      "category": "learning",
-      "_found": "osm:library -> tribe+jsonld-event+ics",
-      "base_url": "https://westdeptford.lib.nj.us",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "West Deptford Library",
-        "lat": 39.8452925,
-        "lon": -75.1905172
-      },
-      "_metro": "Philadelphia, United States"
-    },
-    {
       "name": "Audubon Public Library",
       "category": "learning",
       "_found": "osm:library -> tribe+jsonld-event+ics",
@@ -16897,24 +16674,6 @@
       "_metro": "Boston, United States"
     },
     {
-      "name": "Lucius Beebe Memorial Library",
-      "category": "learning",
-      "_found": "osm:library -> tribe",
-      "base_url": "https://wakefieldlibrary.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Lucius Beebe Memorial Library",
-        "address": "345 Main Street",
-        "city": "Wakefield",
-        "region": "MA",
-        "postal_code": "01880",
-        "lat": 42.5045911,
-        "lon": -71.0719069
-      },
-      "_metro": "Boston, United States"
-    },
-    {
       "name": "Walpole Public Library",
       "category": "learning",
       "_found": "osm:library -> tribe+jsonld-event+ics",
@@ -17059,7 +16818,7 @@
     },
     {
       "name": "Town Hall Seattle",
-      "category": "community",
+      "category": "learning",
       "_found": "osm:community_centre -> tribe+jsonld-event",
       "base_url": "https://townhallseattle.org",
       "within_days": 120,
@@ -18923,23 +18682,6 @@
       "_metro": "Rotterdam, Netherlands"
     },
     {
-      "name": "Lachai Roï",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe+jsonld-event",
-      "base_url": "https://www.lachai-roi.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Lachai Roï",
-        "address": "11 Antoon Coolenstraat",
-        "city": "Sommelsdijk",
-        "postal_code": "3245MC",
-        "lat": 51.7625984,
-        "lon": 4.1544779
-      },
-      "_metro": "Rotterdam, Netherlands"
-    },
-    {
       "name": "Oude Kerk Charlois",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe",
@@ -19638,20 +19380,6 @@
       "_metro": "Utrecht, Netherlands"
     },
     {
-      "name": "Tripodia",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event+ics",
-      "base_url": "https://tripodia.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Tripodia",
-        "lat": 52.2065591,
-        "lon": 4.4176518
-      },
-      "_metro": "The Hague, Netherlands"
-    },
-    {
       "name": "DUNAatelier",
       "category": "arts",
       "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
@@ -19699,23 +19427,6 @@
       },
       "_metro": "Eindhoven, Netherlands",
       "crawl_delay": 10.0
-    },
-    {
-      "name": "Pand P",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event+ics",
-      "base_url": "https://pand-p.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Pand P",
-        "address": "65 Leenderweg",
-        "city": "Eindhoven",
-        "postal_code": "5614HL",
-        "lat": 51.4271073,
-        "lon": 5.4891089
-      },
-      "_metro": "Eindhoven, Netherlands"
     },
     {
       "name": "TPC Boshoven",
@@ -21169,24 +20880,6 @@
       "_metro": "Berlin, Germany"
     },
     {
-      "name": "Evangelisch-Lutherische Kirche",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
-      "base_url": "https://selk-mitte.de",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Evangelisch-Lutherische Kirche",
-        "address": "53 Annenstraße",
-        "city": "Berlin",
-        "postal_code": "10179",
-        "country": "DE",
-        "lat": 52.5068836,
-        "lon": 13.4155893
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
       "name": "Martin-Luther-Kirche",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
@@ -22425,17 +22118,6 @@
       "_note": "2026-10-23: 112 events in 120 days; 34 are 'MUSEUM CLOSED' (skipped). The rest: Seeds & Sprouts, Wee Wednesday, Fine Art Friday, Animal Meet & Greet, STEAM Saturday and a Pajama Storytime the museum runs at Southside Library (own address and geo). The block carries `names`, so only rows naming the museum or nothing take its point (Census exact match)."
     },
     {
-      "name": "Children's Museum of New Hampshire (Dover, NH)",
-      "base_url": "https://childrens-museum.org",
-      "category": "kids",
-      "within_days": 120,
-      "max_pages": 10,
-      "skip_title": "MUSEUM OPEN|Birthday Parties|^CLOSED\\b|week class",
-      "_metro": "Dover, United States",
-      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
-      "_note": "2026-10-23: 356 events in 120 days, every one at the museum's own venue with street address (6 Washington Street). 176 of the first 300 are not events (MUSEUM OPEN 83, Birthday Parties Available 75, CLOSED 18), which skip_title removes; what remains is the programme: Science Friday, Wacky Art Wednesdays, Cultural Crafts, Toddler Tinker Time, Baby Storytime, Early Birds Playgroup."
-    },
-    {
       "name": "Mississippi Children's Museum - Jackson and Meridian",
       "base_url": "https://mschildrensmuseum.org",
       "category": "kids",
@@ -22805,34 +22487,6 @@
       },
       "_metro": "Seoul, South Korea",
       "_found": "manual:2026-10-23 ledger ok (ics) but never configured; read through the tribe REST instead"
-    },
-    {
-      "name": "Teatro del Lago (Frutillar, Chile)",
-      "base_url": "https://teatrodellago.cl",
-      "category": "arts",
-      "within_days": 120,
-      "max_pages": 10,
-      "default_city": "Frutillar",
-      "default_region": "Los Lagos",
-      "default_country": "CL",
-      "timezone": "America/Santiago",
-      "venue": {
-        "name": "Teatro del Lago",
-        "address": "Avenida Bernardo Philippi 1000",
-        "city": "Frutillar",
-        "region": "Los Lagos",
-        "postal_code": "5690000",
-        "country": "CL",
-        "lat": -41.1394537,
-        "lon": -73.0252738,
-        "names": [
-          "Teatro del Lago",
-          "Espacio Tronador"
-        ]
-      },
-      "_metro": "Puerto Montt, Chile",
-      "_found": "manual:2026-10-23 hand list of Chilean cultural centres, fingerprinted (tribe+ics on /agenda-eventos/)",
-      "skip_title": "Licitaci[oó]n"
     },
     {
       "name": "Žvejų rūmai - Klaipėda city cultural centre (Klaipėda, Lithuania)",
@@ -23558,7 +23212,7 @@
     },
     {
       "name": "Kulturkinder e.V.",
-      "category": "community",
+      "category": "kids",
       "_found": "osm:club -> tribe+jsonld-event+ics",
       "base_url": "https://www.kulturkinder.net",
       "within_days": 120,
@@ -23971,7 +23625,7 @@
     },
     {
       "name": "Teruel",
-      "category": "community",
+      "category": "learning",
       "_found": "civic:city -> tribe+jsonld-event+ics",
       "base_url": "https://www.teruel.es",
       "within_days": 365,
@@ -24962,18 +24616,6 @@
       "_metro": "Stuttgart, Germany"
     },
     {
-      "name": "Today's Family - EarlyON drop-ins (Hamilton, Ontario)",
-      "base_url": "https://www.todaysfamily.ca",
-      "category": "kids",
-      "within_days": 60,
-      "max_pages": 30,
-      "default_country": "CA",
-      "default_region": "ON",
-      "_metro": "Hamilton, Canada",
-      "_found": "manual:2026-10-25",
-      "_note": "2026-10-25 dry run (scratch store, this branch's StreetPlacer): 1,261 upcoming rows in 60 days (2,454 in 120, which is 50 pages), 23 titles, EarlyON drop-ins, songs and stories, infant programmes and community meals; plugin categories drop-in 2,136 and register 214 of 2,454. 1,240 placed by a geocoded street, at the 16 venues those 60 days name; the other 21 are 'Virtual via Zoom' or name no venue. No venue carries geo_lat, so without the placer none would reach the map. default_country CA places the 17 Mohawk College rows, which name no country. CHECK: 'Fieldcote Outdoor' (64 Sulphur Springs Road, Ancaster; 120 of the 2,454 rows) is answered with Ancaster Sports Centre, about 2.4 km off, the one wrong pin among its venues (Photon's properties name another street, which the shared geocoder does not return); 17 rows name no venue, so a venue block with names would pin those at Fieldcote too. robots.txt: Allow: / for *, Content-Signal search=yes, ai-train=no, use=reference. The bare host 301s the API to www. 1,496 rows say timezone 'UTC+0' with a local wall clock; the sync's starts_at for them matched America/Toronto's in a to_row check (08:45 -> 12:45Z)."
-    },
-    {
       "name": "Libraries Unlimited - Devon and Torbay library events",
       "base_url": "https://librariesunlimited.org.uk",
       "category": "community",
@@ -25067,20 +24709,6 @@
         "name": "Lokschuppen Hochdahl - Eisenbahn-und Heimatmuseum Erkrath-Hochdahl e.V.",
         "lat": 51.2180691,
         "lon": 6.948818
-      },
-      "_metro": "Dusseldorf, Germany"
-    },
-    {
-      "name": "Freie Schwimmer Duisburg 1920 e.V.",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://fsduisburg.de",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Freie Schwimmer Duisburg 1920 e.V.",
-        "lat": 51.4068283,
-        "lon": 6.7941505
       },
       "_metro": "Dusseldorf, Germany"
     },
@@ -27842,23 +27470,6 @@
       "crawl_delay": 10.0
     },
     {
-      "name": "Malagacha Gallery",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe",
-      "base_url": "https://malagacha-gallery.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Malagacha Gallery",
-        "address": "9 Rue du Parchemin",
-        "city": "Strasbourg",
-        "postal_code": "67000",
-        "lat": 48.584633,
-        "lon": 7.7538498
-      },
-      "_metro": "Strasbourg, France"
-    },
-    {
       "name": "Offenburger Hexenzunft e.V.",
       "category": "community",
       "_found": "osm:club -> tribe+jsonld-event+ics",
@@ -29172,6 +28783,2436 @@
         "lon": -123.1768757
       },
       "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "All Saints' Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.allsaintswestboro.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All Saints' Anglican Church",
+        "address": "347 Richmond Road",
+        "lat": 45.3921818,
+        "lon": -75.7547933
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "The Observatory",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.algonquinsa.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Observatory",
+        "lat": 45.3490407,
+        "lon": -75.7576914
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Memorial Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://ottawapa.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Memorial Hall",
+        "address": "141 Catherine Street",
+        "lat": 45.4102749,
+        "lon": -75.6906464
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Ottawa Rowing Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ottawarowingclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ottawa Rowing Club",
+        "address": "10 Lady Grey Drive",
+        "postal_code": "K1P 5P9",
+        "lat": 45.4352974,
+        "lon": -75.6999288
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Hindu Temple of Ottawa-Carleton",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hindutemple.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hindu Temple of Ottawa-Carleton",
+        "address": "4835 Bank Street",
+        "lat": 45.3103037,
+        "lon": -75.5867497
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Ottawa Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://ottawaadventist.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ottawa Seventh-Day Adventist Church",
+        "address": "2200 Benjamin Avenue",
+        "lat": 45.362599,
+        "lon": -75.7677255
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Masjid Bilal, Islamic Society of Cumberland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.masjidbilal.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Masjid Bilal, Islamic Society of Cumberland",
+        "address": "4509 Innes Road",
+        "lat": 45.4621642,
+        "lon": -75.4846875
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Église adventiste du septième jour francophone d'Ottawa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://eafo.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église adventiste du septième jour francophone d'Ottawa",
+        "address": "375 King Edward Avenue",
+        "lat": 45.4296077,
+        "lon": -75.6858245
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Cohere Centre",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://coherecentre.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cohere Centre",
+        "address": "4899 Uplands Drive",
+        "postal_code": "K1V 2N6",
+        "lat": 45.3321445,
+        "lon": -75.653895
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Blackburn Hamlet Community Centre & Arena",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://blackburnhamlet.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blackburn Hamlet Community Centre & Arena",
+        "address": "190 Glen Park Drive",
+        "lat": 45.4303793,
+        "lon": -75.5631065
+      },
+      "_metro": "Ottawa, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Pawn Shop Live",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://pawnshop-live.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pawn Shop Live",
+        "address": "6240 99 Street NW",
+        "city": "Edmonton",
+        "region": "Alberta",
+        "postal_code": "T6E 6C7",
+        "lat": 53.4987499,
+        "lon": -113.4875754
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Creative Manitoba",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+mylisting+jsonld-event+ics",
+      "base_url": "https://creativemanitoba.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Creative Manitoba",
+        "address": "245 McDermot Avenue",
+        "lat": 49.8975264,
+        "lon": -97.1410779
+      },
+      "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Le Pylône",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://fqme.qc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Pylône",
+        "lat": 46.7499033,
+        "lon": -71.2967063
+      },
+      "_metro": "Quebec City, Canada"
+    },
+    {
+      "name": "Workers Arts and Heritage Centre",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wahc-museum.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Workers Arts and Heritage Centre",
+        "address": "51 Stuart Street",
+        "postal_code": "L8L 1B5",
+        "lat": 43.2663928,
+        "lon": -79.8673712
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Unity Spiritual Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://unityspiritualcentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unity Spiritual Center",
+        "address": "289 Queenston Road",
+        "lat": 43.2342917,
+        "lon": -79.791575
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Bronte Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://brontesda.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bronte Seventh-Day Adventist Church",
+        "lat": 43.4238362,
+        "lon": -79.7589508
+      },
+      "_metro": "Hamilton, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Heritage Green Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://heritagegreenadventist.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heritage Green Seventh-day Adventist Church",
+        "address": "349 Isaac Brock Drive",
+        "city": "Stoney Creek",
+        "postal_code": "L8J 3S2",
+        "lat": 43.1930629,
+        "lon": -79.7898242
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Bus Stop Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://busstoptheatre.coop",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bus Stop Theatre",
+        "address": "2203 Gottingen Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3K 3B5",
+        "lat": 44.6532641,
+        "lon": -63.5849809
+      },
+      "_metro": "Halifax, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Shaar Shalom Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://theshaar.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shaar Shalom Synagogue",
+        "address": "1981 Oxford Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3H 4A4",
+        "lat": 44.6441881,
+        "lon": -63.599688
+      },
+      "_metro": "Halifax, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Halifax Chinese Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.halifaxchinesechurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Halifax Chinese Christian Church",
+        "address": "958 Barrington Street",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3H 2P7",
+        "lat": 44.6351641,
+        "lon": -63.5696125
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Parkland at the Common",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://experienceparkland.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parkland at the Common",
+        "address": "6015 Quinpool Road",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3K 5J6",
+        "lat": 44.6474018,
+        "lon": -63.591205
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Maritime Museum of British Columbia",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://mmbc.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maritime Museum of British Columbia",
+        "address": "744 Douglas Street",
+        "lat": 48.4217671,
+        "lon": -123.3663512
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Wentworth Villa",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wentworthvilla.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wentworth Villa",
+        "address": "1156 Fort Street",
+        "lat": 48.4233313,
+        "lon": -123.3516186
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Abkhazi Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://conservancy.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Abkhazi Garden",
+        "address": "1964 Fairfield Road",
+        "lat": 48.4161782,
+        "lon": -123.3265291
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "The Gardens at HCP",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://hcp.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Gardens at HCP",
+        "address": "505 Quayle Road",
+        "postal_code": "V9E 2J7",
+        "lat": 48.5005402,
+        "lon": -123.4143581
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "?",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.oakbay.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 48.4307105,
+        "lon": -123.3208809
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "St Mark's Catholic Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmarksdrummoyne.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mark's Catholic Parish",
+        "address": "33 Tranmere Street",
+        "region": "NSW",
+        "postal_code": "2047",
+        "lat": -33.8556587,
+        "lon": 151.1540138
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Cruising Yacht Club of Australia",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://cyca.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cruising Yacht Club of Australia",
+        "address": "1 New Beach Road",
+        "lat": -33.8742336,
+        "lon": 151.2337708
+      },
+      "_metro": "Sydney, Australia",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Holy Name of Mary Hunters Hill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hnom.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Name of Mary Hunters Hill",
+        "address": "3 Mary Street",
+        "lat": -33.834354,
+        "lon": 151.1374485
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Bexley RSL Club",
+      "category": "community",
+      "_found": "osm:adult_gaming_centre -> tribe",
+      "base_url": "https://bexleyrsl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bexley RSL Club",
+        "address": "24 Stoney Creek Road",
+        "postal_code": "2207",
+        "lat": -33.94936,
+        "lon": 151.1248245
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Cabramatta Bowling Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://cabrabowls.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cabramatta Bowling Club",
+        "address": "82 Longfield Street",
+        "lat": -33.8949456,
+        "lon": 150.9464744
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Alma Doepel Restoration Project",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.almadoepel.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alma Doepel Restoration Project",
+        "lat": -37.8193359,
+        "lon": 144.9356712
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Footscray Community Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://footscrayarts.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Footscray Community Arts Centre",
+        "address": "45 Moreland Street",
+        "region": "VIC",
+        "postal_code": "3011",
+        "lat": -37.8033391,
+        "lon": 144.9073334
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Maccabi",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://maccabi.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maccabi",
+        "lat": -37.8741864,
+        "lon": 145.0245381
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Saint Paul's Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cathedral.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Paul's Cathedral",
+        "address": "202 Flinders Street",
+        "region": "VIC",
+        "postal_code": "3000",
+        "lat": -37.8167969,
+        "lon": 144.9676352
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Michael's Uniting Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmichaels.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Michael's Uniting Church",
+        "lat": -37.8143288,
+        "lon": 144.9692505
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Rippon Lea Estate",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event",
+      "base_url": "https://www.ripponleaestate.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rippon Lea Estate",
+        "address": "192 Hotham Street",
+        "region": "VIC",
+        "postal_code": "3185",
+        "lat": -37.8797436,
+        "lon": 144.9990551
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Royal Melbourne Yacht Squadron",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://rmys.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Melbourne Yacht Squadron",
+        "lat": -37.8634651,
+        "lon": 144.971456
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Brunswick Uniting Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://brunswick.unitingchurch.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brunswick Uniting Church",
+        "lat": -37.7726763,
+        "lon": 144.961537
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Point Cook Village",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://pointcookvillage.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Point Cook Village",
+        "lat": -37.8982472,
+        "lon": 144.7507481
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Ringwood Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ringwoodknoxparish.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ringwood Lutheran Church",
+        "lat": -37.8221954,
+        "lon": 145.2277878
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Ivanhoe Baptist Church Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://ivanhoebaptist.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ivanhoe Baptist Church Chapel",
+        "address": "1 Livingstone Street",
+        "lat": -37.7676866,
+        "lon": 145.0427176
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Meat Market",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://meatmarket.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meat Market",
+        "address": "3 Blackwood Street",
+        "region": "VIC",
+        "postal_code": "3051",
+        "lat": -37.8015961,
+        "lon": 144.9543074
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Ithaca Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ithacapc.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ithaca Presbyterian Church",
+        "lat": -27.4568868,
+        "lon": 153.001716
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Queensland Target Sports",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://targetsports.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Queensland Target Sports",
+        "lat": -27.5088234,
+        "lon": 153.1329717
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Buddhist Vihara (Temple) of Queensland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://bvoqld.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buddhist Vihara (Temple) of Queensland",
+        "address": "108 Eric Street",
+        "region": "QLD",
+        "postal_code": "4300",
+        "lat": -27.6196097,
+        "lon": 152.8994989
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Aspley Leagues Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://aspleyleaguesclub.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aspley Leagues Club",
+        "address": "29 Kirby Road",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4034",
+        "lat": -27.3603727,
+        "lon": 153.0270145
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "East Leagues Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://eastsleagues.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "East Leagues Club",
+        "address": "40 Main Avenue",
+        "lat": -27.4974083,
+        "lon": 153.0498588
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Czechoslovakian Club of Queensland",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://csklubqld.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Czechoslovakian Club of Queensland",
+        "address": "25 Upfield Street",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4156",
+        "lat": -27.557799,
+        "lon": 153.1492342
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Living Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://livingchurch.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Living Church",
+        "address": "1541 Creek Road",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4152",
+        "lat": -27.4860742,
+        "lon": 153.0996749
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Kurilpa Senior Citizens Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.apsl.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kurilpa Senior Citizens Centre",
+        "postal_code": "4101",
+        "lat": -27.4822876,
+        "lon": 153.0121482,
+        "street_hint": "174-176 Boundary Street",
+        "aliases": [
+          "Kurilpa Hall"
+        ]
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Royal Queensland Yacht Squadron",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rqys.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Queensland Yacht Squadron",
+        "lat": -27.4604604,
+        "lon": 153.1906665
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Inala Community House",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ich.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Inala Community House",
+        "address": "38 Sittella Street",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4077",
+        "lat": -27.605571,
+        "lon": 152.975376
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Oasis Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://oasischurch.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oasis Church",
+        "address": "10 Youngs Crossing Road",
+        "region": "QLD",
+        "postal_code": "4500",
+        "lat": -27.2885199,
+        "lon": 152.9535848
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Mount Petrie Bowmen Archery Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://brisbanearchery.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Petrie Bowmen Archery Club",
+        "address": "Archery Road",
+        "lat": -27.5087236,
+        "lon": 153.1395865
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Cannington Uniting Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://unitingchurchwa.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cannington Uniting Church",
+        "lat": -32.0267873,
+        "lon": 115.9424438
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Rhein-Donau Club",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rheindonau.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rhein-Donau Club",
+        "address": "110 North Lake Road",
+        "region": "WA",
+        "postal_code": "6154",
+        "lat": -32.0425474,
+        "lon": 115.8161066
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "West Australian Gun Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://wagunclub.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West Australian Gun Club",
+        "address": "Jules Steiner Memorial Drive",
+        "region": "WA",
+        "postal_code": "6068",
+        "lat": -31.8091927,
+        "lon": 115.924503
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Adrenaline Vault Cockburn",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://adrenalinevault.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adrenaline Vault Cockburn",
+        "address": "443 Yangebup Road",
+        "lat": -32.1234762,
+        "lon": 115.8380975
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Centre for Stories",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://centreforstories.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre for Stories",
+        "address": "100 Aberdeen Street",
+        "region": "WA",
+        "postal_code": "6003",
+        "lat": -31.9461531,
+        "lon": 115.8584854
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Victoria Park Centre for the Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://vicparkarts.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Victoria Park Centre for the Arts",
+        "address": "12 Kent Street",
+        "lat": -31.9821977,
+        "lon": 115.9001049
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Quakers Friends' Meeting House",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.quakersaustralia.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quakers Friends' Meeting House",
+        "address": "35 Clifton Crescent",
+        "lat": -31.9286657,
+        "lon": 115.8719269
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Westminster Presbyterian Church Bull Creek",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://wpcbc.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westminster Presbyterian Church Bull Creek",
+        "address": "32 Bull Creek Drive",
+        "postal_code": "6149",
+        "lat": -32.0515745,
+        "lon": 115.8572571
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "St Andrew's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://standrewsubi.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Andrew's Anglican Church",
+        "address": "259 Barker Road",
+        "region": "WA",
+        "postal_code": "6008",
+        "lat": -31.9490519,
+        "lon": 115.8255761
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Gold Coast Turf Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+my-calendar",
+      "base_url": "https://gctc.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gold Coast Turf Club",
+        "address": "Racecourse Drive",
+        "region": "QLD",
+        "postal_code": "4217",
+        "lat": -28.0056648,
+        "lon": 153.4067102
+      },
+      "_metro": "Gold Coast, Australia"
+    },
+    {
+      "name": "Currumbin RSL",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.currumbinrsl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Currumbin RSL",
+        "address": "165 Duringan Street",
+        "postal_code": "4223",
+        "lat": -28.1374229,
+        "lon": 153.4739108
+      },
+      "_metro": "Gold Coast, Australia"
+    },
+    {
+      "name": "Crown Court",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://crowncourtchurch.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Crown Court",
+        "city": "London",
+        "lat": 51.513419,
+        "lon": -0.1209833
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "BethWall Climbing Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://londonclimbingcentres.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BethWall Climbing Centre",
+        "address": "Hollybush Place",
+        "city": "London",
+        "postal_code": "E2 9QX",
+        "lat": 51.5277422,
+        "lon": -0.056381
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lynwood Christian Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://cogop.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lynwood Christian Fellowship",
+        "address": "14-16 Lynwood Road",
+        "city": "London",
+        "postal_code": "SW17 8SA",
+        "lat": 51.4327823,
+        "lon": -0.1623587
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "English National Ballet School",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event",
+      "base_url": "https://www.enbschool.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "English National Ballet School",
+        "address": "Hortensia Road",
+        "city": "London",
+        "lat": 51.4815828,
+        "lon": -0.1852632
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Tara GFC",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://taragfc.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tara GFC",
+        "address": "Cayton Road",
+        "city": "Greenford",
+        "postal_code": "UB6 8BJ",
+        "lat": 51.5365645,
+        "lon": -0.3387099
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Hammersmith Chess Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hammerchess.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hammersmith Chess Club",
+        "lat": 51.4936598,
+        "lon": -0.2350475
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Selsdon Village Club",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.selsdonvillageclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Selsdon Village Club",
+        "address": "151 Addington Road",
+        "city": "South Croydon",
+        "postal_code": "CR2 8LH",
+        "lat": 51.344476,
+        "lon": -0.061128
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Enfield Town Islamic Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etic.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Enfield Town Islamic Centre",
+        "address": "5 Silver Street",
+        "city": "Enfield",
+        "postal_code": "EN1 3EF",
+        "lat": 51.6525763,
+        "lon": -0.0804612
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Hounslow Jamia Masjid & Islamic Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hounslowmasjid.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hounslow Jamia Masjid & Islamic Centre",
+        "address": "367 Wellington Road South",
+        "postal_code": "TW4 5HU",
+        "lat": 51.4591959,
+        "lon": -0.3749235
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Westminster Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://westminstercathedral.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westminster Cathedral",
+        "address": "Francis Street",
+        "city": "London",
+        "postal_code": "SW1P 1QW",
+        "lat": 51.4958198,
+        "lon": -0.1395187
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Mary le Strand",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmarylestrand.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mary le Strand",
+        "address": "Strand",
+        "city": "London",
+        "postal_code": "WC2R 1ES",
+        "lat": 51.5121899,
+        "lon": -0.1168414
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Peter de Beauvoir Town",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "http://www.stpeterdebeauvoir.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Peter de Beauvoir Town",
+        "lat": 51.5408083,
+        "lon": -0.0801426
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Teresa of the Child Jesus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rcdow.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Teresa of the Child Jesus",
+        "address": "291 Shenley Road",
+        "city": "Borehamwood",
+        "postal_code": "WD6 1TG",
+        "lat": 51.6603529,
+        "lon": -0.2690022
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Weston-super-Mare",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://wsm-tc.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Weston-super-Mare",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Weston-super-Mare, United Kingdom"
+    },
+    {
+      "name": "Godalming",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://godalming-tc.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Godalming",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Godalming, United Kingdom"
+    },
+    {
+      "name": "St Mary-at-Hill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmaryathill.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mary-at-Hill",
+        "address": "Lovat Lane",
+        "city": "London",
+        "lat": 51.510106,
+        "lon": -0.0837121
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Set Social",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://setspace.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Set Social",
+        "address": "55 Nigel Road",
+        "city": "London",
+        "postal_code": "SE15 4NP",
+        "lat": 51.4665381,
+        "lon": -0.066568
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Tower Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.towertheatre.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tower Theatre",
+        "address": "16 Northwold Road",
+        "city": "London",
+        "postal_code": "N16 7HR",
+        "lat": 51.5628069,
+        "lon": -0.0719688
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Dutch Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://dutchchurch.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dutch Church",
+        "address": "7 Austin Friars",
+        "city": "London",
+        "postal_code": "EC2N 2HA",
+        "lat": 51.5155144,
+        "lon": -0.0856275
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "De Havilland Aircraft Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dehavillandmuseum.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Havilland Aircraft Museum",
+        "address": "Salisbury Hall",
+        "city": "St Albans",
+        "postal_code": "AL2 1BU",
+        "lat": 51.7107477,
+        "lon": -0.2716626
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Chats Palace",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://chatspalace.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chats Palace",
+        "address": "42-44 Brooksby's Walk",
+        "city": "London",
+        "postal_code": "E9 6DF",
+        "lat": 51.5502689,
+        "lon": -0.0426032
+      },
+      "_metro": "London, United Kingdom",
+      "crawl_delay": 2.0
+    },
+    {
+      "name": "Beckenham Place Mansion",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.beckenhamplace.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beckenham Place Mansion",
+        "lat": 51.4185912,
+        "lon": -0.0187543
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Magnus the Martyr",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.stmagnusmartyr.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Magnus the Martyr",
+        "address": "Lower Thames Street",
+        "city": "London",
+        "postal_code": "EC3R 6DN",
+        "lat": 51.5093347,
+        "lon": -0.0862095
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St James, Sussex Gardens",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stjamespaddington.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St James, Sussex Gardens",
+        "address": "Sussex Gardens",
+        "city": "London",
+        "lat": 51.5130541,
+        "lon": -0.176502
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Our Lady of The Assumption and Saint Gregory",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://warwickstreet.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Lady of The Assumption and Saint Gregory",
+        "address": "Warwick Street",
+        "city": "London",
+        "postal_code": "W1B 5LZ",
+        "lat": 51.5112299,
+        "lon": -0.1378686
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Lighthouse",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thelighthouseandgardens.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Lighthouse",
+        "city": "London",
+        "lat": 51.5459024,
+        "lon": -0.0077786,
+        "street_hint": "38 Celebration Avenue"
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Parade's End Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://paradesendbooks.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parade's End Books",
+        "address": "406 Richmond Road",
+        "city": "Kingston upon Thames",
+        "postal_code": "KT2 5PU",
+        "country": "GB",
+        "lat": 51.4303194,
+        "lon": -0.3065071
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The English-Speaking Union",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.esu.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The English-Speaking Union",
+        "address": "37 Charles Street",
+        "city": "London",
+        "postal_code": "W1J 5ED",
+        "lat": 51.5077809,
+        "lon": -0.1467274
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Housmans",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://housmans.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Housmans",
+        "address": "5 Caledonian Road",
+        "city": "London",
+        "lat": 51.5311707,
+        "lon": -0.1212699
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St. Peter's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stpetersfulham.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Peter's",
+        "address": "St. Peter's Terrace",
+        "city": "London",
+        "postal_code": "SW6 7JS",
+        "lat": 51.4791582,
+        "lon": -0.2083525
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New River Studios",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://newriverstudios.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New River Studios",
+        "address": "199 Eade Road",
+        "city": "London",
+        "postal_code": "N4 1DN",
+        "lat": 51.5749263,
+        "lon": -0.0881482
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Dalston Superstore",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://dalstonsuperstore.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dalston Superstore",
+        "address": "117 Kingsland High Street",
+        "city": "London",
+        "postal_code": "E8 2PB",
+        "lat": 51.5500999,
+        "lon": -0.0754909
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Heath Robinson Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heathrobinsonmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heath Robinson Museum",
+        "address": "West End Lane",
+        "city": "Pinner",
+        "postal_code": "HA5 1AE",
+        "country": "GB",
+        "lat": 51.5927152,
+        "lon": -0.3866848
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Brockwell Park Community Greenhouses",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brockwellgreenhouses.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brockwell Park Community Greenhouses",
+        "lat": 51.4500022,
+        "lon": -0.1091423
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Kingdom Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://thekingdom.church",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Kingdom Church",
+        "address": "93 Camberwell Station Road",
+        "city": "London",
+        "postal_code": "SE5 9JJ",
+        "country": "GB",
+        "lat": 51.4727633,
+        "lon": -0.0983809
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Jesus House for All The Nations",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.jesushouse.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jesus House for All The Nations",
+        "address": "112 Brent Terrace",
+        "city": "London",
+        "postal_code": "NW2 1LT",
+        "lat": 51.5713389,
+        "lon": -0.22669
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Centre for Armenian Information & Advice",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+wp-event-manager+event-organiser+jsonld-event+ics",
+      "base_url": "https://caia.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre for Armenian Information & Advice",
+        "lat": 51.505179,
+        "lon": -0.2784956
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Titsey Brewing Co",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event",
+      "base_url": "https://titseybrewingco.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Titsey Brewing Co",
+        "lat": 51.2857525,
+        "lon": 0.0245087
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The People Speak",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://thepeoplespeak.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The People Speak",
+        "address": "27 Aberfeldy Street",
+        "city": "London",
+        "lat": 51.5130805,
+        "lon": -0.0055972
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Sidcup Recreation Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sidcuprecreationclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sidcup Recreation Club",
+        "lat": 51.4226734,
+        "lon": 0.1050042
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Weybridge Sailing and Recreational Boating Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://weybridgeboating.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Weybridge Sailing and Recreational Boating Club",
+        "address": "Walton Lane",
+        "city": "Weybridge",
+        "postal_code": "KT13 8LU",
+        "lat": 51.3819297,
+        "lon": -0.4555001
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Royal Connections",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+events-manager",
+      "base_url": "https://royalconnections.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Connections",
+        "address": "199 Freemasons Road",
+        "city": "London",
+        "postal_code": "E16 3PG",
+        "lat": 51.5162923,
+        "lon": 0.0246588
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Bowmen of Bruntwood",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.bowmenofbruntwood.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bowmen of Bruntwood",
+        "lat": 53.3802545,
+        "lon": -2.2096862
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Stubborn Mule Brewery and Tap",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://stubbornmulebrewery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stubborn Mule Brewery and Tap",
+        "address": "1 Skelton Road",
+        "city": "Altrincham",
+        "postal_code": "WA14 1SJ",
+        "lat": 53.4000547,
+        "lon": -2.3427996
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Aatma",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://aatmavenue.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aatma",
+        "address": "14-16 Faraday Street",
+        "lat": 53.4826285,
+        "lon": -2.2329323
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "House of Books and Friends",
+      "category": "community",
+      "_found": "osm:cafe -> tribe+jsonld-event+ics",
+      "base_url": "https://houseofbooksandfriends.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "House of Books and Friends",
+        "address": "53 King Street",
+        "city": "Manchester",
+        "postal_code": "M2 4LQ",
+        "lat": 53.4809273,
+        "lon": -2.2423184
+      },
+      "_metro": "Manchester, United Kingdom",
+      "crawl_delay": 7.0
+    },
+    {
+      "name": "The Moor Club",
+      "category": "community",
+      "_found": "osm:social_club -> tribe+jsonld-event+ics",
+      "base_url": "https://themoorclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Moor Club",
+        "address": "35 Heaton Moor Road",
+        "city": "Stockport",
+        "postal_code": "SK4 4PB",
+        "lat": 53.4233737,
+        "lon": -2.1819015
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Ramsbottom Cricket Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://ramsbottomcc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ramsbottom Cricket Club",
+        "address": "Acre Bottom Lane",
+        "city": "Ramsbottom",
+        "postal_code": "BL0 0BS",
+        "lat": 53.6458695,
+        "lon": -2.3134426
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Monton Sports Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://montonsportsclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Monton Sports Club",
+        "address": "Welbeck Road",
+        "city": "Manchester",
+        "postal_code": "M30 9EH",
+        "lat": 53.4939056,
+        "lon": -2.3433792
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Saddleworth Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.saddleworthmuseum.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saddleworth Museum",
+        "lat": 53.5469002,
+        "lon": -2.0076449
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Lymm Rugby Football Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lymmrugby.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lymm Rugby Football Club",
+        "lat": 53.3729818,
+        "lon": -2.4788428
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Romiley Cricket Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://romileycricketclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Romiley Cricket Club",
+        "address": "Birchvale Drive",
+        "city": "Stockport",
+        "postal_code": "SK6 4LD",
+        "lat": 53.4159262,
+        "lon": -2.0765445
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "St Nicholas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stnicholaswarwick.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Nicholas",
+        "address": "St Nicholas Church Street",
+        "city": "Warwick",
+        "postal_code": "CV34 4JD",
+        "lat": 52.2817969,
+        "lon": -1.5818067
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Talisman Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://talismantheatre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Talisman Theatre",
+        "address": "Barrow Road",
+        "city": "Kenilworth",
+        "postal_code": "CV8 1EG",
+        "lat": 52.3406631,
+        "lon": -1.5822325
+      },
+      "_metro": "Birmingham, United Kingdom",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Blackwell",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://blackwellclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blackwell",
+        "address": "84 Linthurst Newtown",
+        "city": "Blackwell",
+        "postal_code": "B60 1BS",
+        "lat": 52.3493029,
+        "lon": -2.0059547
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Kenilworth Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kenilworthbooks.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kenilworth Books",
+        "address": "Talisman Square",
+        "city": "Kenilworth",
+        "postal_code": "CV8 1JB",
+        "lat": 52.342741,
+        "lon": -1.57765
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Chepstow Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.monlife.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chepstow Museum",
+        "address": "Bridge Street",
+        "city": "Chepstow",
+        "postal_code": "NP16 5EZ",
+        "lat": 51.6446056,
+        "lon": -2.6722693
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Saint Mary's Bathwick",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bathwickparishes.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Mary's Bathwick",
+        "address": "Darlington Street",
+        "city": "Bath",
+        "postal_code": "BA2 4EB",
+        "lat": 51.3843158,
+        "lon": -2.350878
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "New Bristol Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.newbristolbrewery.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Bristol Brewery",
+        "address": "20A Wilson Street",
+        "city": "Bristol",
+        "postal_code": "BS2 9HH",
+        "lat": 51.4610311,
+        "lon": -2.5826336
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Church of St Mary",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://compton-dando.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of St Mary",
+        "city": "Bristol",
+        "postal_code": "BS39 4LB",
+        "lat": 51.3798005,
+        "lon": -2.5106002
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The HiFi Club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://thehificlub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The HiFi Club",
+        "address": "2 Central Road",
+        "city": "Leeds",
+        "postal_code": "LS1 6DE",
+        "lat": 53.7961276,
+        "lon": -1.5412804
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Seven",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sevenleeds.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seven",
+        "lat": 53.8277943,
+        "lon": -1.5377236
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Minster Church of St-Peter-at-Leeds",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://leedsminster.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Minster Church of St-Peter-at-Leeds",
+        "lat": 53.7951424,
+        "lon": -1.5360776
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Etz Chayim Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etzchaim.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Etz Chayim Synagogue",
+        "lat": 53.8501627,
+        "lon": -1.534619
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Lindley Liberal Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://lindleylib.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lindley Liberal Club",
+        "address": "36 Occupation Road",
+        "city": "Huddersfield",
+        "postal_code": "HD3 3EQ",
+        "lat": 53.6586691,
+        "lon": -1.8212286
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Hollands Kroon",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hollandskroon.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Hollands Kroon",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Hollands Kroon, Netherlands"
+    },
+    {
+      "name": "Wageningen",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.wageningen.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Wageningen",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Wageningen, Netherlands"
+    },
+    {
+      "name": "Moerdijk",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://www.moerdijk.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Moerdijk",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Moerdijk, Netherlands"
+    },
+    {
+      "name": "Waddinxveen",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.waddinxveen.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Waddinxveen",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Waddinxveen, Netherlands"
+    },
+    {
+      "name": "Collective - City Observatory",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.collective-edinburgh.art",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Collective - City Observatory",
+        "address": "38 Calton Hill",
+        "city": "Edinburgh",
+        "postal_code": "EH7 5AA",
+        "lat": 55.9550001,
+        "lon": -3.1835262
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Fruitmarket",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event",
+      "base_url": "https://www.fruitmarket.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fruitmarket",
+        "address": "45 Market Street",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1DF",
+        "lat": 55.9512566,
+        "lon": -3.1896986
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Edinburgh Free Church Continuing",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.freechurchcontinuing.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edinburgh Free Church Continuing",
+        "address": "29 Arthur Street",
+        "city": "Edinburgh",
+        "postal_code": "EH6 5DA",
+        "lat": 55.9646747,
+        "lon": -3.1785716
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "St Cuthbert's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stcuthbertscolinton.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Cuthbert's",
+        "address": "Colinton Road",
+        "postal_code": "EH13 0BB",
+        "lat": 55.9076065,
+        "lon": -3.2536268
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Fire Station Creative",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://firestationcreative.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fire Station Creative",
+        "address": "Carnegie Drive",
+        "city": "Dunfermline",
+        "postal_code": "KY12 7AN",
+        "lat": 56.0731641,
+        "lon": -3.462451
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Lost Shore Surf Resort",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lostshore.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lost Shore Surf Resort",
+        "address": "11 South Platt Hill",
+        "city": "Newbridge",
+        "postal_code": "EH28 8AY",
+        "lat": 55.9194059,
+        "lon": -3.3982633
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Parish Church of St Mary and All Saints",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://crookedspire.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parish Church of St Mary and All Saints",
+        "lat": 53.2361927,
+        "lon": -1.4244216
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "National Emergency Services Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://visitnesm.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Emergency Services Museum",
+        "address": "101-109 West Bar",
+        "city": "Sheffield",
+        "postal_code": "S3 8PT",
+        "lat": 53.3855011,
+        "lon": -1.4710046
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Vibrant Warsop",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.vibrantwarsop.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vibrant Warsop",
+        "lat": 53.2043149,
+        "lon": -1.1518777
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Denby Dale Community Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ddcp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Denby Dale Community Library",
+        "city": "Huddersfield",
+        "postal_code": "HD8 8RX",
+        "lat": 53.5736659,
+        "lon": -1.654108,
+        "street_hint": "344 Wakefield Road"
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Barrow Hill Roundhouse Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.barrowhill.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Barrow Hill Roundhouse Museum",
+        "lat": 53.2766867,
+        "lon": -1.384187
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sword and Board (Ukiah, CA)",
+      "category": "community",
+      "_found": "refind:ics -> tribe+jsonld-event+ics",
+      "geocode_suffix": ", Ukiah, CA",
+      "base_url": "https://swordandboard.net",
+      "within_days": 120,
+      "max_pages": 10
+    },
+    {
+      "name": "The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK)",
+      "category": "outdoors",
+      "_found": "refind:ics -> tribe+jsonld-event+ics",
+      "geocode_suffix": "",
+      "_metro": "Liverpool, United Kingdom",
+      "base_url": "https://merseyforest.org.uk",
+      "within_days": 120,
+      "max_pages": 10
+    },
+    {
+      "name": "Evangelisch-Lutherische Kirche",
+      "category": "community",
+      "_found": "refind:tribe -> tribe+jsonld-event+ics",
+      "_metro": "Berlin, Germany",
+      "venue": {
+        "name": "Evangelisch-Lutherische Kirche",
+        "address": "53 Annenstraße",
+        "city": "Berlin",
+        "postal_code": "10179",
+        "country": "DE",
+        "lat": 52.5068836,
+        "lon": 13.4155893
+      },
+      "base_url": "https://selk-mitte.de",
+      "within_days": 120,
+      "max_pages": 10
+    },
+    {
+      "name": "New Tecumseth",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.newtecumseth.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "New Tecumseth",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "New Tecumseth, Canada"
+    },
+    {
+      "name": "Whitehorse",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.whitehorse.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Whitehorse",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Whitehorse, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Beaumont",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.beaumont.ab.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Beaumont",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Beaumont, Canada"
+    },
+    {
+      "name": "Selkirk",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.myselkirk.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Selkirk",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Selkirk, Canada",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "South Bruce Peninsula",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://southbrucepeninsula.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "South Bruce Peninsula",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "South Bruce Peninsula, Canada"
+    },
+    {
+      "name": "Chatsworth",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://chatsworth.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Chatsworth",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Chatsworth, Canada"
     }
   ],
   "_not_included": {
@@ -29268,6 +31309,28 @@
     "https://marjcc.org": "Michael-Ann Russell JCC (North Miami Beach) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 312 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
     "https://mainstreettakoma.org": "Main Street Takoma (Takoma Park / Takoma DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 272 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
     "https://www.sixthandi.org": "Sixth & I (Washington, DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 38 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
-    "https://cvc.ca": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-18: http 403. Recheck 2026-10-29: 3 events, 3/3 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9."
+    "https://cvc.ca": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-18: http 403. Recheck 2026-10-29: 3 events, 3/3 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://malagacha-gallery.com": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://malagacha.com/evenements/, which did not verify). Malagacha Gallery.",
+    "https://mncp.cultura.gob.mx": "Retired 2026-11-01: robots.txt unreachable (https://mncp.cultura.gob.mx/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Museo Nacional de Culturas Populares (Mexico City).",
+    "https://museolercaro.it": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (tribe at https://www.museolercaro.it/, which did not verify). Raccolta Lercaro.",
+    "https://plugin.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Plug In Institute of Contemporary Art.",
+    "https://teatrodellago.cl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Teatro del Lago (Frutillar, Chile).",
+    "https://collaroysurfclub.com.au": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://collaroysurfclub.com.au/, which did not verify). Collaroy Surf Life Saving Club.",
+    "https://fsduisburg.de": "Retired 2026-11-01: robots.txt unreachable (https://fsduisburg.de/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Freie Schwimmer Duisburg 1920 e.V..",
+    "https://ggdru.nl": "Retired 2026-11-01: HTTP 401 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Consultatiebureau.",
+    "https://lachai-roi.nl": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://www.lachai-roi.nl/agenda/, which did not verify). Lachai Roï.",
+    "https://skafferiet.dk": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://skafferiet.dk/spis-med-os/, which did not verify). Skafferiet.",
+    "https://wzhkwarszawa.pl": "Retired 2026-11-01: not json. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (tribe at https://wzhkwarszawa.pl/, which did not verify). Wojewódzki Związek Hodowców Koni w Warszawie.",
+    "https://zielonki.pl": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://zielonki.pl/program-opieki-nad-zabytkami/, which did not verify). Folwark Kultura.",
+    "https://indoorkartingbarcelona.com": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Indoor Karting Barcelona.",
+    "https://childrens-museum.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Children's Museum of New Hampshire (Dover, NH).",
+    "https://todaysfamily.ca": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Today's Family - EarlyON drop-ins (Hamilton, Ontario).",
+    "https://biblio.kuldiga.lv": "Retired 2026-11-01: robots.txt unreachable (https://biblio.kuldiga.lv/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Kuldīgas Galvenā bibliotēka (Kuldīga Main Library).",
+    "https://mohai.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. MOHAI - Museum of History & Industry public programs (South Lake Union).",
+    "https://wakefieldlibrary.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Lucius Beebe Memorial Library.",
+    "https://westdeptford.lib.nj.us": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://westdeptford.lib.nj.us/events/, which did not verify). West Deptford Library.",
+    "https://corkartstheatre.com": "Retired 2026-11-01: robots.txt: Disallow: /wp-json/. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. The Cork Arts Theatre.",
+    "https://pand-p.nl": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Pand P.",
+    "https://tripodia.nl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Tripodia."
   }
 }

@@ -135,19 +135,6 @@
       "_metro": "Calgary, CA"
     },
     {
-      "name": "The Polaris Theatre",
-      "category": "theater",
-      "_found": "osm:theatre -> squarespace",
-      "collection": "https://www.polariscentre.ca/upcoming-events",
-      "max_events": 200,
-      "venue": {
-        "name": "The Polaris Theatre",
-        "lat": 51.2006528,
-        "lon": -113.9574811
-      },
-      "_metro": "Calgary, CA"
-    },
-    {
       "name": "Commonwealth Bar & Stage",
       "category": "music",
       "_found": "osm:nightclub -> squarespace",
@@ -3377,12 +3364,947 @@
         "lon": -123.1334983
       },
       "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Renfrew Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.renfrewbaptist.ca/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Renfrew Baptist Church",
+        "address": "1208 Renfrew Drive NE",
+        "postal_code": "T2E 5J5",
+        "lat": 51.0625957,
+        "lon": -114.0334153
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Calgary Rifle and Pistol Club",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.crpc.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Calgary Rifle and Pistol Club",
+        "address": "1910 39 Avenue NE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2E 7Y9",
+        "lat": 51.0885179,
+        "lon": -114.0139626
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Next Door Market & Event Space",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://nextdoorottawa.ca/events-list",
+      "max_events": 200,
+      "venue": {
+        "name": "Next Door Market & Event Space",
+        "address": "955 A Gladstone Avenue",
+        "postal_code": "K1Y 3E5",
+        "lat": 45.4038162,
+        "lon": -75.7152539
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "St. Stephen's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ststephensottawa.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Stephen's Anglican Church",
+        "address": "930 Watson Street",
+        "postal_code": "K2B 6B9",
+        "lat": 45.354502,
+        "lon": -75.7943935
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Le Pantoum",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.lepantoum.com/programmation",
+      "max_events": 200,
+      "venue": {
+        "name": "Le Pantoum",
+        "address": "76 Rue Saint-Joseph Ouest",
+        "city": "Québec",
+        "region": "Québec",
+        "lat": 46.8115441,
+        "lon": -71.2326193
+      },
+      "_metro": "Quebec City, Canada"
+    },
+    {
+      "name": "Grain & Grit",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.grainandgritbeer.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Grain & Grit",
+        "address": "11 Ewen Road",
+        "postal_code": "L8S 3C3",
+        "lat": 43.2567407,
+        "lon": -79.9315816
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "King's College Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.kingschapel.ca/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "King's College Chapel",
+        "address": "6350 Coburg Road",
+        "city": "Halifax",
+        "region": "Nova Scotia",
+        "postal_code": "B3H 1Z9",
+        "lat": 44.6378103,
+        "lon": -63.5951816
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Lighthouse Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.lighthouseartscentre.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Lighthouse Arts Centre",
+        "address": "1800 Argyle Street",
+        "city": "Halifax",
+        "postal_code": "B3J 2V9",
+        "lat": 44.648506,
+        "lon": -63.5758182
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Crag X Climbing Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.cragx.ca/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Crag X Climbing Centre",
+        "address": "769 Pandora Avenue",
+        "lat": 48.4276435,
+        "lon": -123.3624874
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Centre of the Universe",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.centreoftheuniverse.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Centre of the Universe",
+        "lat": 48.5202755,
+        "lon": -123.4187761
+      },
+      "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Newtown Mission",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.newtownmission.org.au/events/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Newtown Mission",
+        "lat": -33.8964166,
+        "lon": 151.1806282
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Narrabeen Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.narrabeenbaptist.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Narrabeen Baptist Church",
+        "address": "13 Grenfell Avenue",
+        "lat": -33.7102942,
+        "lon": 151.2934018
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Good Vibes Yoga",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://goodvibesyoga.com.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Good Vibes Yoga",
+        "address": "116 High Street",
+        "lat": -37.7793273,
+        "lon": 144.9971488
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Centrestage Performing Arts School",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.showfitstudios.com/calendar-2025",
+      "max_events": 200,
+      "venue": {
+        "name": "Centrestage Performing Arts School",
+        "address": "15 Albert Street",
+        "lat": -37.7706935,
+        "lon": 144.9805507
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Tempo Rubato",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.temporubato.com.au/tempo-concerts",
+      "max_events": 200,
+      "venue": {
+        "name": "Tempo Rubato",
+        "address": "34 Breese Street",
+        "lat": -37.7620474,
+        "lon": 144.9617907
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Quadraphonic Club",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.quadclub.com.au/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Quadraphonic Club",
+        "address": "345 Victoria Street",
+        "region": "VIC",
+        "postal_code": "3056",
+        "lat": -37.7663588,
+        "lon": 144.9583431
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Gerard Majella Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.olaparishchermside.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Gerard Majella Catholic Church",
+        "address": "146 Maundrell Terrace",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4032",
+        "lat": -27.3804908,
+        "lon": 153.0123542
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Bardon Bowls Club",
+      "category": "community",
+      "_found": "osm:licenced_club -> squarespace",
+      "collection": "https://www.bardonbowls.com/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Bardon Bowls Club",
+        "address": "69 Bowman Parade",
+        "lat": -27.4564579,
+        "lon": 152.9788782
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Bracken Ridge Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.brbc.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bracken Ridge Baptist Church",
+        "address": "47 Norris Road",
+        "lat": -27.314054,
+        "lon": 153.0275995
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "St Marks, Clayfield",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmarksclayfield.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Marks, Clayfield",
+        "address": "103 Bonney Avenue",
+        "postal_code": "4011",
+        "lat": -27.4227197,
+        "lon": 153.0473903
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "New Edition Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.newedition.com.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Edition Bookshop",
+        "address": "41 High Street",
+        "lat": -32.0552806,
+        "lon": 115.744283
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Wanneroo Sports and Social Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://wanneroossc.com/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "Wanneroo Sports and Social Club",
+        "lat": -31.7555261,
+        "lon": 115.8024534
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Saint Alban's Anglican Church Highgate",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://stalbans.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Alban's Anglican Church Highgate",
+        "address": "423 Beaufort Street",
+        "lat": -31.9402268,
+        "lon": 115.8681232
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Canberra Environment Centre",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.canberraenvironment.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Canberra Environment Centre",
+        "lat": -35.19351,
+        "lon": 149.1541998
+      },
+      "_metro": "Canberra, Australia"
+    },
+    {
+      "name": "The Dome",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.domelondon.co.uk/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "The Dome",
+        "address": "2A Dartmouth Park Hill",
+        "city": "London",
+        "postal_code": "N19 5QH",
+        "lat": 51.5574348,
+        "lon": -0.1386581
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Cartoon Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.cartoonmuseum.org/whats-on-exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "The Cartoon Museum",
+        "address": "63 Wells Street",
+        "city": "London",
+        "postal_code": "W1A 3AE",
+        "lat": 51.5175767,
+        "lon": -0.1385815
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Night Tales Loft",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.ntloft.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Night Tales Loft",
+        "address": "Westgate Street",
+        "city": "London",
+        "lat": 51.5374845,
+        "lon": -0.057773
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "art in the docks",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.artinthedocks.com/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "art in the docks",
+        "address": "25 Shackleton Way",
+        "city": "London",
+        "postal_code": "E16 2XJ",
+        "lat": 51.5055578,
+        "lon": 0.07711
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ichthusnewlife.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Life Church",
+        "address": "96 Woolwich Road",
+        "city": "London",
+        "postal_code": "SE10 0LE",
+        "lat": 51.4861479,
+        "lon": 0.0166191
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St. Andrew's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://standrewsthornhillsquare.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Andrew's",
+        "city": "London",
+        "postal_code": "N1 1BQ",
+        "lat": 51.5410911,
+        "lon": -0.1152482
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St. Sepulchre's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://hsl.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Sepulchre's Church",
+        "address": "Holborn Viaduct",
+        "city": "London",
+        "lat": 51.5166696,
+        "lon": -0.1022347
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Walworth Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://walworthgarden.org.uk/workshop-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Walworth Garden",
+        "address": "206 Manor Place",
+        "city": "London",
+        "postal_code": "SE17 3BN",
+        "lat": 51.487133,
+        "lon": -0.1022447
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Holy Trinity Brompton",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://htb.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Holy Trinity Brompton",
+        "address": "Brompton Road",
+        "city": "London",
+        "postal_code": "SW7 1JA",
+        "lat": 51.4978711,
+        "lon": -0.1698959
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Church of the Immaculate Conception",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.farmstreet.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Church of the Immaculate Conception",
+        "address": "Farm Street",
+        "city": "London",
+        "lat": 51.5094246,
+        "lon": -0.1491337
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St John the Evangelist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stjohnschurchfriernbarnet.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "St John the Evangelist",
+        "address": "Friern Barnet Road",
+        "city": "London",
+        "postal_code": "N11 3EQ",
+        "lat": 51.6130942,
+        "lon": -0.154477
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New Beacon Books",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.newbeaconbooks.com/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Beacon Books",
+        "address": "76 Stroud Green Road",
+        "city": "London",
+        "lat": 51.5681328,
+        "lon": -0.1094556
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Lighthouse Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.lighthouselondon.org/calendar-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Lighthouse Church",
+        "address": "Finchley Road",
+        "city": "London",
+        "postal_code": "NW3 5HT",
+        "lat": 51.5469454,
+        "lon": -0.1790319
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Saint Mary's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmaryswimbledon.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Mary's",
+        "address": "30 St Mary's Road",
+        "city": "London",
+        "postal_code": "SW19 7BP",
+        "lat": 51.4284392,
+        "lon": -0.2105575
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Parish Church of Saint John The Baptist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://hollandparkbenefice.org/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Parish Church of Saint John The Baptist",
+        "address": "Holland Road",
+        "city": "London",
+        "lat": 51.5032645,
+        "lon": -0.2141849
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "St Andrew by the Wardrobe",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.standrewbythewardrobe.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Andrew by the Wardrobe",
+        "address": "Queen Victoria Street",
+        "city": "London",
+        "lat": 51.5123839,
+        "lon": -0.1012605
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Spitalfields City Farm",
+      "category": "community",
+      "_found": "osm:yes -> squarespace",
+      "collection": "https://www.spitalfieldscityfarm.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Spitalfields City Farm",
+        "lat": 51.522171,
+        "lon": -0.0671452
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Colour Factory",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.colourfactory.com/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "Colour Factory",
+        "address": "8a Queens Yard",
+        "city": "London",
+        "lat": 51.5432441,
+        "lon": -0.0227726
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Christ Church Spitalfields",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://spitalfields.church/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Christ Church Spitalfields",
+        "address": "Commercial Street",
+        "city": "London",
+        "postal_code": "E1 6LY",
+        "lat": 51.5191005,
+        "lon": -0.0737211
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Jamia Masjid Newham",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://newhammosque.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Jamia Masjid Newham",
+        "address": "266 High Street North",
+        "lat": 51.5416491,
+        "lon": 0.0509392
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Waltham Abbey Royal Gunpowder Mills",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.gunpowdermills.com/whats-on-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Waltham Abbey Royal Gunpowder Mills",
+        "address": "Beaulieu Drive",
+        "city": "Waltham Abbey",
+        "postal_code": "EN9 1JY",
+        "lat": 51.6976352,
+        "lon": -0.0076093
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Lighthouse",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.reuk.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Lighthouse",
+        "address": "60-62 High Street Harlesden",
+        "city": "London",
+        "postal_code": "NW10 4LL",
+        "lat": 51.5355884,
+        "lon": -0.2471311
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "West Park Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.thesilkmuseum.co.uk/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "West Park Museum",
+        "address": "Prestbury Road",
+        "postal_code": "SK10 3BJ",
+        "lat": 53.263019,
+        "lon": -2.1365729
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "The American Museum (Claverton Manor)",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.americanmuseum.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "The American Museum (Claverton Manor)",
+        "lat": 51.3751643,
+        "lon": -2.3112398
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Roseberry Road Studios",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.roseberryroadstudios.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Roseberry Road Studios",
+        "address": "25-28 Roseberry Road",
+        "city": "Bath",
+        "postal_code": "BA2 3DX",
+        "lat": 51.3825674,
+        "lon": -2.3836858
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "St. Michael's Without",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmichaelsbath.org.uk/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Michael's Without",
+        "address": "Broad Street",
+        "city": "Bath",
+        "postal_code": "BA1 5LP",
+        "lat": 51.3836529,
+        "lon": -2.3598305
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "St Nicholas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stnicholasbristol.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Nicholas",
+        "address": "Saint Nicholas Street",
+        "city": "Bristol",
+        "postal_code": "BS1 1UE",
+        "lat": 51.4539454,
+        "lon": -2.5923017
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The Mission Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.missiontheatre.co.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "The Mission Theatre",
+        "address": "32 Corn Street",
+        "city": "Bath",
+        "postal_code": "BA1 1UF",
+        "lat": 51.3791386,
+        "lon": -2.361613
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Iford Manor Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.ifordmanor.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Iford Manor Gardens",
+        "lat": 51.3295179,
+        "lon": -2.2871769
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bristol International Student Centre",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://www.bisc.org.uk/termprogramme",
+      "max_events": 200,
+      "venue": {
+        "name": "Bristol International Student Centre",
+        "address": "45 Woodland Road",
+        "city": "Bristol",
+        "postal_code": "BS8 1UT",
+        "lat": 51.4572733,
+        "lon": -2.6032132
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Jamyang",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://jamyangleeds.co.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Jamyang",
+        "address": "31 St Paul's Street",
+        "city": "Leeds",
+        "postal_code": "LS1 2JG",
+        "lat": 53.7979479,
+        "lon": -1.551275
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Amity Brew Co",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.amitybrew.co/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Amity Brew Co",
+        "address": "83-85 Town Street",
+        "city": "Pudsey",
+        "postal_code": "LS28 5UJ",
+        "lat": 53.8143332,
+        "lon": -1.6716632
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Collective Space",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.wearecollectivespace.org/events-1-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Collective Space",
+        "city": "Edinburgh",
+        "lat": 55.9624374,
+        "lon": -3.1768744,
+        "street_hint": "21 Albert Street"
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Hillsborough Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.hillsboroughbookshop.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Hillsborough Bookshop",
+        "address": "89 Middlewood Road",
+        "postal_code": "S6 4GX",
+        "lat": 53.4046585,
+        "lon": -1.5040054
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sheffield Botanical Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.sbg.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Sheffield Botanical Gardens",
+        "lat": 53.3719743,
+        "lon": -1.4971366
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sheffield Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sheffieldcathedral.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Sheffield Cathedral",
+        "city": "Sheffield",
+        "country": "GB",
+        "lat": 53.3832132,
+        "lon": -1.4693806
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Stephen Hill Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stcolumbacrosspool.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Stephen Hill Methodist Church",
+        "address": "547 Manchester Road",
+        "city": "Sheffield",
+        "postal_code": "S10 5PL",
+        "lat": 53.3804329,
+        "lon": -1.5222787
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Saint David",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.whvchurches.org.uk/special-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint David",
+        "address": "Woodhead Road",
+        "city": "Holmfirth",
+        "postal_code": "HD9 2NQ",
+        "lat": 53.5572413,
+        "lon": -1.8189657
+      },
+      "_metro": "Sheffield, United Kingdom"
     }
   ],
   "_not_included": {
     "_why": "Editorial NOs, read by discovery (catalog_curate._not_included) so the OSM walk does not re-propose them. Each of these is a MULTI-SITE organisation whose Squarespace posts carry no address: discovery would attach the organisation's own OSM point as the venue fallback and pin every event there, which is the confidently-wrong pin the venue block exists to avoid.",
     "https://www.goldeneagleaudubon.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Golden Eagle Audubon Society (Boise): 0 of 15 upcoming placeable - field trips and restoration days across the Treasure Valley, none with an address.",
     "https://www.ktmb.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Keep Truckee Meadows Beautiful (Reno): 0 of 3 upcoming placeable - clean-ups at sites the posts do not name.",
-    "https://www.fronteralandalliance.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Frontera Land Alliance (El Paso): 1 of 20 upcoming placeable - preserve walks across the county."
+    "https://www.fronteralandalliance.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Frontera Land Alliance (El Paso): 1 of 20 upcoming placeable - preserve walks across the county.",
+    "https://polariscentre.ca/upcoming-events": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (ics at https://www.polariscentre.ca/event-insurance, which did not verify). The Polaris Theatre."
   }
 }

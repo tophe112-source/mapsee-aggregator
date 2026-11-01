@@ -744,7 +744,11 @@
   site's path; WSU Snohomish is not the Thurston feed's), and a test over the
   live configs fails if a non-US one is missed. Retiring the ics entry hands
   the calendar to tribe, and its stored ics rows stay beside the new ones
-  until they are past. `python test_ingest_tribe.py`.
+  until they are past. `python test_ingest_tribe.py`. Done on 2026-11-01 for
+  all 31 shared sites, because the export caps at 30 upcoming where the route
+  pages the whole calendar (curation-and-discovery.md, "ONE SITE, ONE FEED");
+  the live-config check now asserts no shared host, and the yield stays as the
+  guard for a pair added by hand.
 
 - **ONE UID ON SEVERAL DATES WAS ONE ROW, WITH THE LAST DATE'S KEY AND THE
   FIRST DATE'S START (2026-10-25).** The ics parser reads no RECURRENCE-ID,

@@ -43,6 +43,7 @@ python test_retire_perday.py        # collapsing per-day rows never empties a ve
 python test_curate_reapply.py       # putting a finished curation run back on a main that moved
 python test_curate_audit.py         # the weekly audit: a budget, the oldest check first, saves on the way, Crawl-delay, the deadline's grace, robots.txt obeyed, nothing written undecided; CivicPlus lists; empty calendars by platform (The Events Calendar, Mobilizon, MEC); the adapter's dates
 python test_standing_pass.py         # R1 walkers: standing rows read by id keyset through events_standing_walk_idx, never by their window
+python test_curate_mirror.py        # one site, one feed: an iCal export beside its REST feed is a mirror; a single event's download is not a calendar
 python test_curate_coverage.py      # the report that AIMS the loop: real countries, real targets
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
 python test_cancellations.py        # the row we already wrote leaves too: tombstones, absence from a whole read, un-cancel only ours
@@ -87,7 +88,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 101 test scripts include 99 distinct CI gate scripts (`tests.yml`). They print one line per
+The 102 test scripts include 100 distinct CI gate scripts (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
