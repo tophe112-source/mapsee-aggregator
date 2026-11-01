@@ -31213,6 +31213,591 @@
       "default_region": null,
       "default_country": "CA",
       "_metro": "Chatsworth, Canada"
+    },
+    {
+      "name": "Tyne Bridge Harriers",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tynebridgeharriers.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tyne Bridge Harriers",
+        "address": "Hadrian Square",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE6 1AL",
+        "lat": 54.9767395,
+        "lon": -1.5781119
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "EverReady Band",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://everreadyband.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EverReady Band",
+        "address": "View Lane",
+        "city": "Stanley",
+        "postal_code": "DH9 0DX",
+        "country": "GB",
+        "lat": 54.8743366,
+        "lon": -1.6960117
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "The Franklin Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://thefranklinclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Franklin Club",
+        "address": "9 Franklin Street",
+        "city": "South Shields",
+        "postal_code": "NE33 1PR",
+        "lat": 54.9960664,
+        "lon": -1.4319112
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "The Common Room",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://thecommonroom.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Common Room",
+        "address": "Westgate Road",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE1 1SE",
+        "lat": 54.9694499,
+        "lon": -1.6143519
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Jesmond Pool",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jesmondpool.online",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jesmond Pool",
+        "address": "St Georges Terrace",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE2 2DL",
+        "lat": 54.994222,
+        "lon": -1.6061541
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Blaydon Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.blaydontennisclub.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blaydon Tennis Club",
+        "city": "Blaydon-on-Tyne",
+        "postal_code": "NE21 6JA",
+        "lat": 54.9482355,
+        "lon": -1.6995685
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Fans Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://fansmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fans Museum",
+        "postal_code": "SR5 1AP",
+        "lat": 54.9122431,
+        "lon": -1.3836676
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Seaham Scouts",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://durhamscouts.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seaham Scouts",
+        "address": "South Crescent",
+        "postal_code": "SR7 7HD",
+        "lat": 54.8374539,
+        "lon": -1.331417
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom",
+      "crawl_delay": 2.0
+    },
+    {
+      "name": "Cardiff Buddhist Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cardiffbuddhistcentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cardiff Buddhist Centre",
+        "address": "12 Saint Peter's Street",
+        "city": "Cardiff",
+        "postal_code": "CF24 3BA",
+        "lat": 51.4869611,
+        "lon": -3.1676282
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Saint Mark's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stmarks-cardiff.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Mark's Church",
+        "lat": 51.5020391,
+        "lon": -3.1960068
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "The Bus Depot Barry",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ctpg.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Bus Depot Barry",
+        "lat": 51.4023023,
+        "lon": -3.2756306
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Weston Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://westonmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Weston Museum",
+        "lat": 51.3490175,
+        "lon": -2.9751836
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Cwmgelli Lodge",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ivolve.care",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cwmgelli Lodge",
+        "address": "Lon Pennant",
+        "city": "Blackwood",
+        "postal_code": "NP12 1BR",
+        "lat": 51.6765061,
+        "lon": -3.1947281
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "No Alibis",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://noalibis.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "No Alibis",
+        "address": "83 Botanic Avenue",
+        "city": "Belfast",
+        "postal_code": "BT7 1JL",
+        "lat": 54.5869429,
+        "lon": -5.9327208
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "St. Mary's Parish Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://connor.anglican.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Mary's Parish Church",
+        "address": "Crumlin Road",
+        "city": "Belfast",
+        "postal_code": "BT13 1RU",
+        "lat": 54.6100541,
+        "lon": -5.950703
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "Trent Windsurfing Club",
+      "category": "community",
+      "_found": "osm:clubhouse -> tribe",
+      "base_url": "https://www.trentwindsurfingclub.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trent Windsurfing Club",
+        "address": "Pasture Lane",
+        "city": "Nottingham",
+        "postal_code": "NG10 2FZ",
+        "lat": 52.8822553,
+        "lon": -1.244972
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Nottingham and Nottinghamshire United Services Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.thenottinghamclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nottingham and Nottinghamshire United Services Club",
+        "address": "Castle Gate",
+        "city": "Nottingham",
+        "postal_code": "NG1 6AF",
+        "lat": 52.9507878,
+        "lon": -1.1521707
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Ruddington Framework Knitters Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://frameworkknittersmuseum.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruddington Framework Knitters Museum",
+        "address": "Chapel Street",
+        "city": "Nottingham",
+        "postal_code": "NG11 6HE",
+        "country": "GB",
+        "lat": 52.891121,
+        "lon": -1.1517718
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Nottingham Women's Centre",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.nottinghamwomenscentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nottingham Women's Centre",
+        "address": "30 Chaucer Street",
+        "city": "Nottingham",
+        "postal_code": "NG1 5LP",
+        "lat": 52.9571767,
+        "lon": -1.1566822
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "St Mary's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stmarysnottingham.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Mary's Church",
+        "address": "40 High Pavement",
+        "city": "Nottingham",
+        "postal_code": "NG1 1HN",
+        "lat": 52.9511787,
+        "lon": -1.1430488
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Great Northern Classics",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.greatnorthernclassics.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Great Northern Classics",
+        "address": "274-278 Osmaston Road",
+        "city": "Derby",
+        "postal_code": "DE24 8AE",
+        "lat": 52.9060409,
+        "lon": -1.4637891
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Boulton St. Mary's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://boultonstmarys.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boulton St. Mary's Church",
+        "address": "Boulton Lane",
+        "city": "Derby",
+        "postal_code": "DE24 0GE",
+        "lat": 52.8934235,
+        "lon": -1.4300792
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Muslim Cultural Centre Wollaton",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.karimia.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Muslim Cultural Centre Wollaton",
+        "address": "43 Radford Bridge Road",
+        "city": "Nottingham",
+        "postal_code": "NG8 1NB",
+        "lat": 52.9565446,
+        "lon": -1.1939007
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Newhaven Local & Maritime Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://newhavenhistoricalsociety.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Newhaven Local & Maritime Museum",
+        "address": "Avis Road",
+        "city": "Newhaven",
+        "postal_code": "BN9 0DH",
+        "lat": 50.8028811,
+        "lon": 0.0530192
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "The Queery",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://thequeery.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Queery",
+        "address": "46 George Street",
+        "postal_code": "BN2 1RJ",
+        "lat": 50.8216145,
+        "lon": -0.1343975
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Wagner Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.wagnerhallbrighton.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wagner Hall",
+        "address": "Regency Road",
+        "city": "Brighton",
+        "postal_code": "BN1 2RU",
+        "lat": 50.8224153,
+        "lon": -0.1447044
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Lancing Sailing Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://lancingsc.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lancing Sailing Club",
+        "address": "Shopsdam Road",
+        "city": "Lancing",
+        "postal_code": "BN15 8ES",
+        "lat": 50.8215491,
+        "lon": -0.3129814
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Sussex Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sussexyachtclub.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sussex Yacht Club",
+        "address": "85/89 Brighton Road",
+        "city": "Shoreham-by-Sea",
+        "postal_code": "BN43 6RF",
+        "lat": 50.8315703,
+        "lon": -0.2736494
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "New York Society for Ethical Culture Hall",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ethical.nyc",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New York Society for Ethical Culture Hall",
+        "address": "2 West 64th Street",
+        "city": "New York",
+        "lat": 40.7710808,
+        "lon": -73.9800976
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Hoboken Historical Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://hobokenmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hoboken Historical Museum",
+        "address": "1301 Hudson Street",
+        "city": "Hoboken",
+        "region": "NJ",
+        "postal_code": "07030",
+        "lat": 40.7521438,
+        "lon": -74.0249925
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Museum of the Moving Image",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://movingimage.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of the Moving Image",
+        "address": "35th Avenue",
+        "city": "Astoria",
+        "region": "NY",
+        "postal_code": "11106",
+        "lat": 40.7561949,
+        "lon": -73.9240069
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "New York Transit Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.nytransitmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New York Transit Museum",
+        "address": "99 Schermerhorn Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11201",
+        "lat": 40.6905176,
+        "lon": -73.9899802
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Staten Island Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.statenislandmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Staten Island Museum",
+        "postal_code": "10301",
+        "lat": 40.6445211,
+        "lon": -74.1027489
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Dar-ul-Islah",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.darulislah.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dar-ul-Islah",
+        "lat": 40.8716448,
+        "lon": -74.0013893
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Dyckman Farmhouse Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://dyckmanfarmhouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dyckman Farmhouse Museum",
+        "address": "4881 Broadway",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10034",
+        "country": "US",
+        "lat": 40.8673822,
+        "lon": -73.9228859
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

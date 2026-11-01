@@ -4298,6 +4298,181 @@
         "lon": -1.8189657
       },
       "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Wesley Memorial Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.wesleymemorialchurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Wesley Memorial Methodist Church",
+        "address": "557 Durham Road",
+        "city": "Gateshead",
+        "postal_code": "NE9 5EY",
+        "lat": 54.9347123,
+        "lon": -1.5987811
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Temple Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.templebaptist.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Temple Baptist Church",
+        "address": "Gelliwastad Road",
+        "city": "Pontypridd",
+        "postal_code": "CF37 2BP",
+        "lat": 51.6034199,
+        "lon": -3.3416264
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Newbridge Memo",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.newbridgememo.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Newbridge Memo",
+        "address": "High Street",
+        "city": "Caerphilly",
+        "postal_code": "NP11 4FH",
+        "lat": 51.6640929,
+        "lon": -3.1472294
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Surface Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.surfacegallery.org/exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "Surface Gallery",
+        "address": "16 Southwell Road",
+        "city": "Nottingham",
+        "postal_code": "NG1 1DL",
+        "lat": 52.9532933,
+        "lon": -1.137724
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "The Carousel",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.thecarousel.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "The Carousel",
+        "address": "25 Hockley",
+        "city": "Nottingham",
+        "postal_code": "NG1 1FH",
+        "lat": 52.9538171,
+        "lon": -1.140063
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "St Mary's Arnold",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmarysarnold.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Mary's Arnold",
+        "address": "Church Lane",
+        "city": "Nottingham",
+        "postal_code": "NG5 8HJ",
+        "lat": 53.0094251,
+        "lon": -1.12689
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Oculist",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.oculist.pub/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Oculist",
+        "address": "2 Boyces Street",
+        "city": "Brighton",
+        "postal_code": "BN1 1AN",
+        "lat": 50.8222527,
+        "lon": -0.1439719
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "The Old Market",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.theoldmarket.com/shows",
+      "max_events": 200,
+      "venue": {
+        "name": "The Old Market",
+        "address": "11A Upper Market Street",
+        "city": "Hove",
+        "postal_code": "BN3 1AS",
+        "lat": 50.8246101,
+        "lon": -0.1573632
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Henfield Leisure Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.henfieldleisurecentre.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Henfield Leisure Centre",
+        "address": "Northcroft",
+        "city": "Henfield",
+        "postal_code": "BN5 9QB",
+        "lat": 50.9349293,
+        "lon": -0.2771922
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Fraunces Tavern Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.frauncestavernmuseum.org/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Fraunces Tavern Museum",
+        "address": "54 Pearl Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10004",
+        "lat": 40.703387,
+        "lon": -74.011354
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Noble Maritime Collection",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://noblemaritime.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Noble Maritime Collection",
+        "postal_code": "10301",
+        "lat": 40.6443066,
+        "lon": -74.1017627
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

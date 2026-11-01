@@ -247,14 +247,9 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 174,
-  "metro_key": "GB:Newcastle upon Tyne",
-  "stuck": {
-   "GB:Newcastle upon Tyne": {
-    "day": 20261101,
-    "n": 1
-   }
-  }
+  "metro": 179,
+  "metro_key": "US:New York",
+  "stuck": {}
  },
  "osm|community_centre,library": {
   "metro": 225,

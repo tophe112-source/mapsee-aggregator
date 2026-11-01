@@ -22525,6 +22525,527 @@
       ],
       "link_pattern": "https://www\\.cineteatropax\\.it/(?:event|events)/[a-z0-9\\-]+/?",
       "max_events": 150
+    },
+    {
+      "name": "The Gate Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://thegatechurch.org.uk/whats-on/"
+      ],
+      "link_pattern": "https://thegatechurch\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Gate Church",
+        "address": "Swalwell Close (off South Road)",
+        "city": "Prudhoe",
+        "postal_code": "NE42 6EX",
+        "lat": 54.9596098,
+        "lon": -1.852689
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "British Arena",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://britisharena.com/events/"
+      ],
+      "link_pattern": "https://britisharena\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "British Arena",
+        "address": "Stadium Way",
+        "city": "Sunderland",
+        "postal_code": "SR5 1AT",
+        "lat": 54.9143393,
+        "lon": -1.3852023
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Riverside",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.yourfutureisdigital.com/events/"
+      ],
+      "link_pattern": "https://www\\.yourfutureisdigital\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Riverside",
+        "address": "Close",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE1 3RQ",
+        "country": "GB",
+        "lat": 54.9678933,
+        "lon": -1.6090277
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Utilita Arena",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.utilitaarena.co.uk/events"
+      ],
+      "link_pattern": "https://www\\.utilitaarena\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Utilita Arena",
+        "address": "Arena Way",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE4 7NA",
+        "lat": 54.9638047,
+        "lon": -1.6232775
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Greenside Cricket Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.greensidecricketclub.co.uk/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Greenside Cricket Club",
+        "address": "Woodside Lane",
+        "city": "Greenside",
+        "lat": 54.9560491,
+        "lon": -1.7832253
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Caerphilly Workmen's Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://caerphillyworkmenshall.org/events-2/"
+      ],
+      "link_pattern": "https://caerphillyworkmenshall\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Caerphilly Workmen's Hall",
+        "address": "20 Castle Street",
+        "city": "Caerphilly",
+        "postal_code": "CF83 1NY",
+        "lat": 51.5777906,
+        "lon": -3.2175245
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "CULTVR",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.cultvr.cymru/whats-on/"
+      ],
+      "link_pattern": "https://www\\.cultvr\\.cymru/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CULTVR",
+        "address": "325-327 Penarth Road",
+        "city": "Cardiff",
+        "postal_code": "CF11 8TT",
+        "lat": 51.4595684,
+        "lon": -3.1964981
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Flashpoint",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://flashpointcardiff.com/events/"
+      ],
+      "link_pattern": "https://flashpointcardiff\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Flashpoint",
+        "address": "236 Penarth Road",
+        "city": "Cardiff",
+        "postal_code": "CF11 8EQ",
+        "lat": 51.4615854,
+        "lon": -3.197905
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Cowbridge United Free Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.cowbridgeunitedfreechurch.org.uk/what-s-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Cowbridge United Free Church",
+        "address": "The Broad Shoard",
+        "city": "Cowbridge",
+        "postal_code": "CF71 7DA",
+        "lat": 51.4636282,
+        "lon": -3.4531209
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Bridging the Gap Together CIC",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://bridgingthegaptogether.org.uk/events.html"
+      ],
+      "link_pattern": "https://bridgingthegaptogether\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bridging the Gap Together CIC",
+        "address": "59-61 Meadow Street",
+        "city": "Weston-super-Mare",
+        "postal_code": "BS23 1QL",
+        "lat": 51.3487628,
+        "lon": -2.9753513
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "The O2 Belfast",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://theo2belfast.com/events/brian-cox"
+      ],
+      "link_pattern": "https://theo2belfast\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The O2 Belfast",
+        "lat": 54.6041115,
+        "lon": -5.9151075
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "The MAC",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://themaclive.com/event/n%C5%8Ds"
+      ],
+      "link_pattern": "https://themaclive\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The MAC",
+        "address": "10 Exchange Street West",
+        "city": "Belfast",
+        "postal_code": "BT1 2NJ",
+        "lat": 54.6035707,
+        "lon": -5.9274777
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "Lyric Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://lyrictheatre.co.uk/whats-on/faith-healer"
+      ],
+      "link_pattern": "https://lyrictheatre\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lyric Theatre",
+        "lat": 54.57716,
+        "lon": -5.9309508
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "Saint Nicholas Roman Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.carrickparish.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Nicholas Roman Catholic Church",
+        "address": "Minorca Place",
+        "city": "Carrickfergus",
+        "lat": 54.7147987,
+        "lon": -5.8152745
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "Nutts Corner Raceway",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.nuttscornerraceway.co.uk/?P=viewFixture&FID=157"
+      ],
+      "link_pattern": "https://www\\.nuttscornerraceway\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nutts Corner Raceway",
+        "address": "41 Moira Road",
+        "city": "Crumlin",
+        "postal_code": "BT29 4JL",
+        "lat": 54.6278729,
+        "lon": -6.1562783
+      },
+      "_metro": "Belfast, United Kingdom"
+    },
+    {
+      "name": "Nottingham Squash Rackets Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.nsrc.co.uk/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Nottingham Squash Rackets Club",
+        "address": "Tattershall Drive",
+        "city": "Nottingham",
+        "postal_code": "NG7 1BX",
+        "lat": 52.9512861,
+        "lon": -1.1613423
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Citrey",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.citrey.co.uk/citrey-cic-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Citrey",
+        "address": "6A Sadler Gate",
+        "city": "Derby",
+        "postal_code": "DE1 3NF",
+        "lat": 52.9235321,
+        "lon": -1.478078
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Coxbench Hall Residential Home",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://coxbench-hall.co.uk/events/"
+      ],
+      "link_pattern": "https://coxbench\\-hall\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coxbench Hall Residential Home",
+        "address": "Alfreton Road",
+        "city": "Derby",
+        "postal_code": "DE21 5BB",
+        "country": "GB",
+        "lat": 52.9873872,
+        "lon": -1.4499829
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Ark Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.arkchurchnottingham.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ark Church",
+        "address": "88 Strelley Road",
+        "city": "Nottingham",
+        "postal_code": "NG8 3AQ",
+        "lat": 52.9737913,
+        "lon": -1.2237541
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Ultra Warehouse",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.ultrawarehouse.net/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ultra Warehouse",
+        "address": "9 Downing Road",
+        "city": "Derby",
+        "postal_code": "DE21 6HA",
+        "lat": 52.9205095,
+        "lon": -1.4495761
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Brookfield Barn",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://brookfieldbarn.co.uk/whats-on/"
+      ],
+      "link_pattern": "https://brookfieldbarn\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brookfield Barn",
+        "address": "Winterpit Lane",
+        "city": "Horsham",
+        "postal_code": "RH13 6LY",
+        "lat": 51.0423236,
+        "lon": -0.2668099
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Old Tree Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.oldtreebrewery.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Old Tree Brewery",
+        "address": "Unit 2 Lacys Hill",
+        "city": "Glynde",
+        "postal_code": "BN8 6SJ",
+        "lat": 50.8635974,
+        "lon": 0.0678038
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Daltons",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.daltonsbrighton.com/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Daltons",
+        "address": "Madeira Drive",
+        "city": "Brighton",
+        "postal_code": "BN2 1TB",
+        "lat": 50.8190245,
+        "lon": -0.1343902
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.whitemansgreensports.club/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "?",
+        "address": "Whitemans Green",
+        "city": "Haywards Heath",
+        "postal_code": "RH17 5HX",
+        "lat": 51.0150555,
+        "lon": -0.1504795
+      },
+      "_metro": "Brighton, United Kingdom"
+    },
+    {
+      "name": "Islamic Center of Passaic County",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event+ics",
+      "listing": [
+        "https://icpcnj.org/calendar/"
+      ],
+      "link_pattern": "https://icpcnj\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Islamic Center of Passaic County",
+        "address": "152 Derrom Avenue",
+        "city": "Paterson",
+        "postal_code": "07504",
+        "lat": 40.9175987,
+        "lon": -74.1401434
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Nitehawk Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://nitehawkcinema.com/williamsburg/movies/you-can-see-everything/"
+      ],
+      "link_pattern": "https://nitehawkcinema\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nitehawk Cinema",
+        "address": "136 Metropolitan Avenue",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11249",
+        "country": "US",
+        "lat": 40.7160632,
+        "lon": -73.9624442
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Bellevue",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.montclairfilm.org/cinemas/events-series/"
+      ],
+      "link_pattern": "https://www\\.montclairfilm\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Bellevue",
+        "address": "260 Bellevue Avenue",
+        "city": "Upper Montclair",
+        "region": "NJ",
+        "postal_code": "07043",
+        "country": "US",
+        "lat": 40.8411733,
+        "lon": -74.2089346
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {
