@@ -1759,21 +1759,23 @@ how = T.StreetPlacer(claimed.geocode, lambda: False, 0.0, CAL).place(
 check("...while the same street on a calendar it does not read is asked",
       how == "town not found by the geocoder" and claimed.asked == ["L1S 1P2 Ajax, Canada"], (how, claimed.asked))
 
-# The live configs: every Tribe site whose host an ics feed reads is that
-# feed's to place, unless it is another calendar on that host (another path)
-# whose rows are the sync's Census rows.
+# The live configs, since 2026-11-01: NO Tribe site shares a calendar with an
+# ics feed. The 32 that did were handed to the REST route, which is the fuller
+# writer: the plugin's iCal export caps at 30 upcoming where the route pages
+# the whole calendar (chattlibrary.org 831 events against 30, Miami Beach 503,
+# Godalming 114, FortWhyte 98), and catalog_curate.mirror_of now keeps a new
+# export off a site whose route is configured (test_curate_mirror.py). The
+# yield above still protects a pair that slips through by hand. The four with
+# no block are placed by the street placer now; their stored ics rows stay
+# beside the REST rows until they are past (sync-eventstore-and-paging.md).
 LIVE_ICS = T.ics_calendars()
 LIVE_SITES = json.load(open(Path(__file__).parent / "tribe_sources.json", encoding="utf-8"))["sites"]
-shared = [s for s in LIVE_SITES if T._calendar_at(s.get("base_url"))[0] in LIVE_ICS]
-loose = [s["name"] for s in shared if not T.read_by_ics(s.get("base_url"), LIVE_ICS)
-         and str(s.get("default_country") or "").replace(".", "").strip().lower() not in T.CENSUS_COUNTRIES]
-check("no live Tribe site shares a calendar with a live ics feed and is left to the placer",
-      len(shared) >= 23 and loose == [], (len(shared), loose))
-four = {T._calendar_at(s["base_url"])[0] for s in LIVE_SITES if T.read_by_ics(s["base_url"], LIVE_ICS)
-        and not s.get("venue")
-        and str(s.get("default_country") or "").lower() not in T.CENSUS_COUNTRIES}
-check("...among them the four that had no block, which the ics rows alone put on the map",
-      {"ajax.ca", "bairrobenfica.pt", "torrent.es", "teruel.es"} <= four, four)
+shared = [s["name"] for s in LIVE_SITES if T.read_by_ics(s.get("base_url"), LIVE_ICS)]
+check("no live Tribe site shares a calendar with a live ics feed: the REST route is the writer",
+      shared == [], shared)
+hosts = {T._calendar_at(s["base_url"])[0] for s in LIVE_SITES}
+check("...and the four that the ics rows alone used to put on the map are still read, by their route",
+      {"ajax.ca", "bairrobenfica.pt", "torrent.es", "teruel.es"} <= hosts)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

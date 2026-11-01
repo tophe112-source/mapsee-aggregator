@@ -38,13 +38,6 @@
     "limit": 300
   },
   {
-    "name": "Town Hall Seattle",
-    "url": "https://townhallseattle.org/events/?ical=1",
-    "category": "learning",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 200
-  },
-  {
     "name": "San Antonio City Calendar",
     "url": "https://www.trumba.com/calendars/sanantonio.ics",
     "category": "community",
@@ -635,13 +628,6 @@
     "url": "https://gatech.libcal.com/ical_subscribe.php?cid=19127",
     "category": "learning",
     "geocode_suffix": ", Atlanta, GA",
-    "limit": 300
-  },
-  {
-    "name": "City of Miami Beach Events (Miami)",
-    "url": "https://events.miamibeachfl.gov/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Miami, FL",
     "limit": 300
   },
   {
@@ -2027,13 +2013,6 @@
     "limit": 300
   },
   {
-    "name": "Godalming Town Council (Godalming, UK)",
-    "url": "https://godalming-tc.gov.uk/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Godalming, UK",
-    "limit": 300
-  },
-  {
     "name": "Attenborough Arts Centre (Leicester, UK)",
     "url": "https://attenborougharts.com/whats-on/?ical=1",
     "category": "arts",
@@ -2066,20 +2045,6 @@
     "url": "https://downtownwinnipegbiz.com/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", Winnipeg, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Textile Museum of Canada (Toronto, Canada)",
-    "url": "https://textilemuseum.ca/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Toronto, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Meat Market (Melbourne, Australia)",
-    "url": "https://meatmarket.org.au/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Melbourne, Australia",
     "limit": 300
   },
   {
@@ -2143,13 +2108,6 @@
     "url": "https://www.saintpaulaudubon.org/events/?ical=1",
     "category": "outdoors",
     "geocode_suffix": ", St. Paul, MN",
-    "limit": 300
-  },
-  {
-    "name": "Neponset River Watershed Association (Canton, MA)",
-    "url": "https://www.neponset.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Canton, MA",
     "limit": 300
   },
   {
@@ -2246,20 +2204,6 @@
     "limit": 300
   },
   {
-    "name": "Schlitz Audubon Nature Center (Milwaukee, WI)",
-    "url": "https://www.schlitzaudubon.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Milwaukee, WI",
-    "limit": 300
-  },
-  {
-    "name": "Schuylkill Center for Environmental Education (Philadelphia, PA)",
-    "url": "https://schuylkillcenter.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Philadelphia, PA",
-    "limit": 300
-  },
-  {
     "name": "The Contemporary Austin (Austin, TX)",
     "url": "https://thecontemporaryaustin.org/events/?ical=1",
     "category": "arts",
@@ -2324,24 +2268,10 @@
     "limit": 300
   },
   {
-    "name": "Tacoma Art Museum (Tacoma, WA)",
-    "url": "https://www.tacomaartmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Tacoma, WA",
-    "limit": 300
-  },
-  {
     "name": "Stanley Park Ecology Society (Vancouver, Canada)",
     "url": "https://www.stanleyparkecology.ca/events/?ical=1",
     "category": "outdoors",
     "geocode_suffix": ", Vancouver, Canada",
-    "limit": 300
-  },
-  {
-    "name": "FortWhyte Alive (Winnipeg, Canada)",
-    "url": "https://www.fortwhyte.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Winnipeg, Canada",
     "limit": 300
   },
   {
@@ -4053,13 +3983,6 @@
     "limit": 300
   },
   {
-    "name": "Bangalore International Centre (Bengaluru, India)",
-    "url": "https://bangaloreinternationalcentre.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Bengaluru, India",
-    "limit": 300
-  },
-  {
     "name": "UCT Libraries (Cape Town, South Africa)",
     "url": "https://uct.ac.za.libcal.com/ical_subscribe.php?cid=497",
     "category": "learning",
@@ -4186,13 +4109,6 @@
     "limit": 300
   },
   {
-    "name": "OCCII (Amsterdam)",
-    "url": "https://occii.org/agenda/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Amsterdam, Netherlands",
-    "limit": 300
-  },
-  {
     "name": "Universidad de Monterrey Events (Monterrey)",
     "url": "https://udem.libcal.com/ical_subscribe.php?cid=16310",
     "category": "learning",
@@ -4211,20 +4127,6 @@
     "url": "https://up-mx.libcal.com/ical_subscribe.php?cid=19179",
     "category": "learning",
     "geocode_suffix": ", Universidad Panamericana, Guadalajara, Mexico",
-    "limit": 300
-  },
-  {
-    "name": "BASE Milano (Milan, Italy)",
-    "url": "https://base.milano.it/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Milano, Italy",
-    "limit": 300
-  },
-  {
-    "name": "Impact Hub Madrid (Madrid, Spain)",
-    "url": "https://madrid.impacthub.net/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Madrid, Spain",
     "limit": 300
   },
   {
@@ -4270,13 +4172,6 @@
     "limit": 300
   },
   {
-    "name": "Kulturstedet Lindegaarden (Kgs. Lyngby, Denmark)",
-    "url": "https://kulturstedetlindegaarden.dk/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Kgs. Lyngby, Denmark",
-    "limit": 300
-  },
-  {
     "name": "Alliance Francaise de Bangalore (Bengaluru, India)",
     "url": "https://bangalore.afindia.org/events/?ical=1",
     "category": "arts",
@@ -4305,13 +4200,6 @@
     "limit": 300
   },
   {
-    "name": "Footscray Community Arts (Melbourne, Australia)",
-    "url": "https://footscrayarts.com/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Footscray, VIC, Australia",
-    "limit": 300
-  },
-  {
     "name": "Keep New Zealand Beautiful (New Zealand)",
     "url": "https://www.knzb.org.nz/events/?ical=1",
     "category": "volunteer",
@@ -4330,13 +4218,6 @@
     "url": "https://wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
     "geocode_suffix": ", Asheville, NC",
-    "limit": 300
-  },
-  {
-    "name": "Sword and Board (Ukiah, CA)",
-    "url": "https://swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Ukiah, CA",
     "limit": 300
   },
   {
@@ -4620,13 +4501,6 @@
     "limit": 300
   },
   {
-    "name": "Amador Vintners Wine Events (California)",
-    "url": "https://amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Amador County, CA",
-    "limit": 300
-  },
-  {
     "name": "El Dorado Wines Events (California)",
     "url": "https://eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "food",
@@ -4704,13 +4578,6 @@
     "limit": 300
   },
   {
-    "name": "Cromane Seafest (Co. Kerry, Ireland)",
-    "url": "https://www.cromaneseafest.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Cromane, Co. Kerry, Ireland",
-    "limit": 300
-  },
-  {
     "name": "Clitheroe Food Festival (Clitheroe, UK)",
     "url": "https://www.clitheroefoodfestival.com/events/?ical=1",
     "category": "food",
@@ -4723,13 +4590,6 @@
     "category": "learning",
     "geocode_suffix": ", Burlington, VT",
     "limit": 400
-  },
-  {
-    "name": "Chattanooga Public Library",
-    "url": "https://chattlibrary.org/events/?ical=1",
-    "category": "learning",
-    "geocode_suffix": ", Chattanooga, TN",
-    "limit": 300
   },
   {
     "name": "Buffalo Niagara Waterkeeper",
@@ -5011,15 +4871,6 @@
     "_metro": "Adelaide, AU"
   },
   {
-    "name": "Smith’s Alternative",
-    "category": "music",
-    "_found": "osm:music_venue -> ics",
-    "url": "https://www.smithsalternative.com/infomaxim/api/v1/events/search.ics",
-    "geocode_suffix": ", Canberra, AU",
-    "limit": 300,
-    "_metro": "Canberra, AU"
-  },
-  {
     "name": "UW Department of Classics Events Calendar (Seattle)",
     "url": "https://classics.washington.edu/calendar.ics",
     "category": "learning",
@@ -5145,15 +4996,6 @@
     "_metro": "Wollongong, AU"
   },
   {
-    "name": "Long Bay Baptist Church",
-    "category": "community",
-    "_found": "osm:place_of_worship -> ics",
-    "url": "https://www.longbaybaptist.co.nz/events.ics",
-    "geocode_suffix": ", Auckland",
-    "limit": 300,
-    "_metro": "Auckland, NZ"
-  },
-  {
     "name": "Titirangi Baptist Church",
     "category": "community",
     "_found": "osm:place_of_worship -> ics",
@@ -5195,24 +5037,6 @@
     "_found": "osm:community_centre -> ics",
     "url": "https://www.maisonpop.fr/spip.php?page=ical",
     "geocode_suffix": ", Paris, FR",
-    "limit": 300,
-    "_metro": "Paris, FR"
-  },
-  {
-    "name": "Petit Théâtre de l’Arche",
-    "category": "theater",
-    "_found": "osm:theatre -> events-manager",
-    "url": "https://www.ville-torcy.fr/culture/salles-de-spectacles/petit-theatre-de-larche/?ical=1",
-    "geocode_suffix": ", Torcy",
-    "limit": 300,
-    "_metro": "Paris, FR"
-  },
-  {
-    "name": "Office Municipal d’Animation de la Cité",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://www.ville-torcy.fr/jeunesse/office-municipal-danimation-de-la-cite/?ical=1",
-    "geocode_suffix": ", Torcy",
     "limit": 300,
     "_metro": "Paris, FR"
   },
@@ -5943,15 +5767,6 @@
     "geocode_suffix": ", Tampere",
     "limit": 300,
     "_metro": "Tampere, FI"
-  },
-  {
-    "name": "TJ Sokol Vršovice",
-    "category": "fitness",
-    "_found": "osm:sports_centre -> my-calendar",
-    "url": "https://www.sokolprahavrsovice.cz/?feed=my-calendar-ics",
-    "geocode_suffix": ", Praha 10",
-    "limit": 300,
-    "_metro": "Prague, CZ"
   },
   {
     "name": "Bike Kitchen Brno",
@@ -7559,15 +7374,6 @@
     "_metro": "Warsaw, PL"
   },
   {
-    "name": "Izba Pamięci przy Cmentarzu Powstańców Warszawy",
-    "category": "arts",
-    "_found": "osm:museum -> events-manager",
-    "url": "https://izbapamieci.muzeumwarszawy.pl/?ical=1",
-    "geocode_suffix": ", Warszawa",
-    "limit": 300,
-    "_metro": "Warsaw, PL"
-  },
-  {
     "name": "?",
     "category": "learning",
     "_found": "osm:library -> events-manager",
@@ -8547,42 +8353,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Recreation & Parks]",
     "_metro": "Rancho Palos Verdes, California"
-  },
-  {
-    "name": "Schertz — Library - Adults",
-    "category": "learning",
-    "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
-    "geocode_suffix": ", Schertz, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Library - Adults]",
-    "_metro": "Schertz, Texas"
-  },
-  {
-    "name": "Schertz — Library - Kids & Teens",
-    "category": "kids",
-    "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
-    "geocode_suffix": ", Schertz, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Library - Kids & Teens]",
-    "_metro": "Schertz, Texas"
-  },
-  {
-    "name": "Schertz — Parks & Recreation Programs",
-    "category": "community",
-    "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
-    "geocode_suffix": ", Schertz, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Parks & Recreation Programs]",
-    "_metro": "Schertz, Texas"
-  },
-  {
-    "name": "Schertz — Events",
-    "category": "community",
-    "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
-    "geocode_suffix": ", Schertz, Texas",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Events]",
-    "_metro": "Schertz, Texas"
   },
   {
     "name": "Lancaster — Parks & Recreation",
@@ -15915,15 +15685,6 @@
     "_metro": "Basel, CH"
   },
   {
-    "name": "Sprachmobil",
-    "category": "community",
-    "_found": "osm:club -> events-manager+ics",
-    "url": "https://sprachmobil.ch/events/das-sprachmobil-nach-riehen-bs-2026-09-21/ical/",
-    "geocode_suffix": ", Basel, CH",
-    "limit": 300,
-    "_metro": "Basel, CH"
-  },
-  {
     "name": "Parc Zoologique et Botanique de Mulhouse",
     "category": "outdoors",
     "_found": "osm:zoo -> events-manager",
@@ -16111,15 +15872,6 @@
     "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show): 5 events, none with a LOCATION: the club's own regattas (Régate des Feuilles Mortes, Saint-Nicolas, Coupe de l'Avent), a junior final and its general assembly, sailed and held from its harbour. Harbour coordinates from French Wikipedia's list of Lake Geneva ports. cvmc.ch serves a bot challenge even on robots.txt, so nothing here was read from it."
   },
   {
-    "name": "Maison de Quartier Sous-Gare",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager+ics",
-    "url": "https://maisondequartiersousgare.ch/events/perfect-days/ical/",
-    "geocode_suffix": ", Lausanne",
-    "limit": 300,
-    "_metro": "Lausanne, Switzerland"
-  },
-  {
     "name": "Le Jardin aux 1000 mains",
     "category": "outdoors",
     "_found": "osm:garden -> events-manager",
@@ -16175,15 +15927,6 @@
     "_metro": "Rome, Italy"
   },
   {
-    "name": "Mudec - Museo delle Culture",
-    "category": "arts",
-    "_found": "osm:gallery -> events-manager+ics",
-    "url": "https://www.mudec.it/events/comunita-di-destini/ical/",
-    "geocode_suffix": ", Milano",
-    "limit": 300,
-    "_metro": "Milan, Italy"
-  },
-  {
     "name": "KVIC Brno-Vinohrady",
     "category": "community",
     "_found": "osm:community_centre -> events-manager",
@@ -16211,15 +15954,6 @@
     "_metro": "Milan, Italy"
   },
   {
-    "name": "CasaLarga",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager+ics",
-    "url": "https://www.casalarga.it/wp/events/assistenza-cie/ical/",
-    "geocode_suffix": ", Bologna",
-    "limit": 300,
-    "_metro": "Bologna, Italy"
-  },
-  {
     "name": "麻布子ども中高生プラザ",
     "category": "community",
     "_found": "osm:community_centre -> my-calendar+jsonld-event",
@@ -16238,29 +15972,11 @@
     "_metro": "Tokyo, Japan"
   },
   {
-    "name": "Soup",
-    "category": "music",
-    "_found": "osm:nightclub -> events-manager",
-    "url": "https://ochiaisoup.com/?ical=1",
-    "geocode_suffix": ", 東京都",
-    "limit": 300,
-    "_metro": "Tokyo, Japan"
-  },
-  {
     "name": "日本近代文学館",
     "category": "arts",
     "_found": "osm:museum -> my-calendar",
     "url": "https://www.bungakukan.or.jp/?feed=my-calendar-ics",
     "geocode_suffix": ", 目黒区, 東京都",
-    "limit": 300,
-    "_metro": "Tokyo, Japan"
-  },
-  {
-    "name": "所沢航空発祥記念館",
-    "category": "arts",
-    "_found": "osm:museum -> my-calendar",
-    "url": "http://tam-web.jsf.or.jp/?feed=my-calendar-ics",
-    "geocode_suffix": ", Tokyo, Japan",
     "limit": 300,
     "_metro": "Tokyo, Japan"
   },
@@ -20319,15 +20035,6 @@
     "_note": "Sligo County Library events (The Events Calendar): storytime, Gaeilge classes, digital skills, craft groups. robots.txt disallows only /wp-admin/ and cart paths. ICS: venues carry no geo."
   },
   {
-    "name": "West Leeds Dispatch Community Events (Leeds)",
-    "url": "https://westleedsdispatch.com/events/list/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Leeds, United Kingdom",
-    "limit": 300,
-    "_metro": "Leeds, GB",
-    "_note": "Community news co-op's West Leeds calendar: playgroups, lunch clubs, wellbeing walks, nature reserve days, litter picks. robots.txt: * Allow /. ICS (30/fetch): venues carry no geo."
-  },
-  {
     "name": "Dublin Festival of History (Dublin, Ireland)",
     "url": "https://dublinfestivalofhistory.ie/events/list/?ical=1",
     "category": "learning",
@@ -20354,16 +20061,6 @@
     "_metro": "Dunstable, GB",
     "_found": "civic:city -> tribe+jsonld-event+ics",
     "_note": "Town council civic calendar: markets, heritage and ghost walks, remembrance, park events. robots.txt blocks only Woo paths. ICS, not tribe: venues carry addresses but no geo."
-  },
-  {
-    "name": "Abingdon-on-Thames Town Council What's On (Abingdon)",
-    "url": "https://www.abingdon.gov.uk/events/list/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Abingdon, United Kingdom",
-    "limit": 300,
-    "_metro": "Abingdon, GB",
-    "_found": "civic:city -> tribe",
-    "_note": "Town council's community listings: coffee mornings, board-game socials, health programmes, museum talks; some paid classes. robots.txt disallows only /wp-admin/. ICS: tribe venues carry no geo."
   },
   {
     "name": "Thame Town Council Events (Thame)",
@@ -20708,16 +20405,6 @@
     "_note": "Town of Hoenheim (Strasbourg suburb), The Events Calendar iCal export; its REST route is off (404). robots.txt allows. 5 VEVENTs, all future with street LOCATIONs on 2026-09-27: flea market, toy fair."
   },
   {
-    "name": "Ville de Roquevaire (Roquevaire, France)",
-    "url": "https://ville-de-roquevaire.fr/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Roquevaire, France",
-    "limit": 300,
-    "_metro": "Marseille, France",
-    "_found": "osm:library -> tribe",
-    "_note": "Town of Roquevaire (20 km east of Marseille). iCal, not the REST route: venues carry street addresses but no geo, so Photon places them. robots.txt allows. 13 future VEVENTs on 2026-09-27, most free."
-  },
-  {
     "name": "Kiezkalender Lichtenberg (Berlin)",
     "url": "https://kiezkalender-lichtenberg.de/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
@@ -20788,15 +20475,6 @@
     "limit": 300,
     "_metro": "Cologne, Germany",
     "_note": "Joint programme of Cologne's eleven Bürgerzentren (Kölner Elf): talks, forum theatre, councillor surgeries, kids' theatre in Nippes, MüZe, Bocklemünd, Engelshof; 12 upcoming. TEC iCal (venues lack geo). robots.txt allows."
-  },
-  {
-    "name": "Sendlinger Kulturschmiede (Munich)",
-    "url": "https://www.sendlinger-kulturschmiede.de/events.ics",
-    "category": "community",
-    "geocode_suffix": ", München, Germany",
-    "limit": 300,
-    "_metro": "Munich, Germany",
-    "_note": "Sendling neighbourhood culture association (Daiserstraße 22), one of the city's Stadtteilkultur houses: film talks, lectures, travel talks, exhibitions. Events Manager iCal, 6 upcoming. robots.txt disallows /wp-admin/ only."
   },
   {
     "name": "Junta de Freguesia de Belém (Lisbon)",
@@ -21732,15 +21410,6 @@
     "_note": "LibCal bilingual programme calendar of the Eleanor London Cote Saint-Luc library (Montreal island); robots.txt allows ical_subscribe.php. Rooms named 'MPR' do not geocode; 'CSL Library' does."
   },
   {
-    "name": "Ville de Montreal-Est calendar (Montreal-Est, Canada)",
-    "url": "https://ville.montreal-est.qc.ca/services-citoyens/calendrier/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Montréal-Est, QC, Canada",
-    "limit": 200,
-    "_metro": "Montreal, Canada",
-    "_note": "The Events Calendar iCal export of the Montreal-Est municipal calendar: library programmes, park events, a council sitting. robots.txt allows it. Montreal had one configured source."
-  },
-  {
     "name": "Montreal centre-ville SDC (Montreal, Canada)",
     "url": "https://montrealcentreville.ca/evenements/?ical=1",
     "category": "community",
@@ -21931,15 +21600,6 @@
     "limit": 300,
     "_metro": "Brisbane, Australia",
     "_note": "Brisbane City Council's Chillout youth programme on Trumba: scooter clinics, basketball drills, learn to skate, fishing; 159 of 196 Free. trumba.com robots.txt allows all."
-  },
-  {
-    "name": "Picabeen Community Centre (Brisbane, Australia)",
-    "url": "https://picabeen.org.au/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Brisbane, Queensland, Australia",
-    "limit": 300,
-    "_metro": "Brisbane, Australia",
-    "_note": "Picabeen Community Association (Mitchelton) The Events Calendar ical: playgroup, free BBQ lunch, conversational English, board games. robots.txt disallows only /wp-admin/."
   },
   {
     "name": "博多の魅力 (Fukuoka)",
@@ -23134,16 +22794,6 @@
     "_note": "City of Laguna Niguel parks and recreation events (fall flicks, crafts faire, senior centre). robots.txt allows the iCalendar path."
   },
   {
-    "name": "Santa Ana - City Events (Santa Ana)",
-    "_found": "civic:city -> events-manager",
-    "url": "https://santa-ana.gov/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Santa Ana, CA",
-    "limit": 300,
-    "_metro": "Los Angeles, United States",
-    "_note": "City of Santa Ana Events Manager feed: WORK Center job workshops, library, community centres, neighbourhood associations; civic _found enables the governance filter. robots.txt allows."
-  },
-  {
     "name": "Tualatin Hills Park & Recreation - Elsie Stuhr Center (Beaverton)",
     "_found": "civic:city -> civicplus[THPRD]",
     "url": "https://www.tualatinhillsparks.org/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar",
@@ -23781,15 +23431,6 @@
     "_note": "District III municipality calendar: community houses (Csillaghegy, Békásmegyer, 3K), Platán library branches, Óbudai Múzeum; 102 events in 120 days. TEC list export (30/fetch) because venues carry addresses but no geo. robots.txt allows."
   },
   {
-    "name": "unser-seligenstadt.de Veranstaltungen (Seligenstadt)",
-    "url": "https://www.unser-seligenstadt.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Seligenstadt, Germany",
-    "limit": 300,
-    "_metro": "Frankfurt, Germany",
-    "_note": "Town-wide calendar for Seligenstadt (Offenbach district, Frankfurt metro): museum talks, guided walks, markets, parish and hospice groups; 225 events in 120 days, 52 marked free. TEC list export (venues lack geo). robots.txt allows."
-  },
-  {
     "name": "Langenhain Veranstaltungen (Hofheim am Taunus)",
     "url": "https://www.langenhain.com/events.ics",
     "category": "community",
@@ -23806,60 +23447,6 @@
     "limit": 300,
     "_metro": "Cologne, Germany",
     "_note": "Beginen women's community association, Köln: shared singing, meditation, senior advice sessions, walks and talks; Events Manager iCal, 35 upcoming, every one with GEO. robots.txt allows."
-  },
-  {
-    "name": "Treffpunkt Rodenkirchen Veranstaltungen (Cologne)",
-    "url": "https://treffpunkt-rodenkirchen.koeln/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Köln, Germany",
-    "limit": 300,
-    "_metro": "Cologne, Germany",
-    "_note": "Local magazine calendar for Köln-Rodenkirchen and the south: library readings, hospital health talks, parish concerts, markets; 100 events in 120 days, 36 free. TEC list export (venues lack geo). robots.txt disallows /wp-admin/ only."
-  },
-  {
-    "name": "Kulturkinder e.V. (Cologne)",
-    "url": "https://www.kulturkinder.net/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "kids",
-    "geocode_suffix": ", Köln, Germany",
-    "limit": 300,
-    "_metro": "Cologne, Germany",
-    "_note": "Free children's art sessions in Ehrenfeld and Bickendorf (open Tuesday, open studio, Kunstraum Bickendorf), all marked free; ~9 in the next weeks. TEC list export, LOCATION carries the address. robots.txt: Disallow empty."
-  },
-  {
-    "name": "Nachbarschaftstreffs Moosach (Munich)",
-    "url": "https://www.nachbarschaftstreff-moosach.de/events.ics",
-    "category": "community",
-    "geocode_suffix": ", München, Germany",
-    "limit": 300,
-    "_metro": "Munich, Germany",
-    "_note": "Two municipal neighbourhood meeting points in Moosach (Untermenzinger Str., Karlingerstr. 60): reading support, homework help, kids' chess, literature café, Schafkopf, choir; Events Manager iCal, 2,912 dated with GEO. robots.txt allows."
-  },
-  {
-    "name": "Netzwerk HafenCity Veranstaltungen (Hamburg)",
-    "url": "https://unsere-hafencity.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Hamburg, Germany",
-    "limit": 300,
-    "_metro": "Hamburg, Germany",
-    "_note": "HafenCity residents' network calendar: Gemeinschaftshaus Grasbrookpark, neighbourhood flea markets, kids' sport, promenade walks, art canteen; 414 events in 60 days. TEC list export (30/fetch), venues carry addresses but no geo. robots.txt allows."
-  },
-  {
-    "name": "Wir für Niendorf – Begegnungszentrum Alte Villa (Hamburg)",
-    "url": "https://www.wirfuerniendorf.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Hamburg, Germany",
-    "limit": 300,
-    "_metro": "Hamburg, Germany",
-    "_note": "Niendorf neighbourhood network: Alte Villa encounter centre, Plattdeutsch circle, German orientation courses, knitting café, bike repair workshop; 132 events in 120 days. TEC list export, venues carry addresses. robots.txt: Disallow empty."
-  },
-  {
-    "name": "lebensnah Familienzentren Juli und Rigatoni (Berlin)",
-    "url": "https://www.lebensnah.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "kids",
-    "geocode_suffix": ", Berlin, Germany",
-    "limit": 300,
-    "_metro": "Berlin, Germany",
-    "_note": "Two Friedrichshain family centres (Rigaer Str. 71A, Gürtelstr. 20): open café, playgroups, baby music, kids' dance, free counselling; 40 events in 90 days. TEC list export, LOCATION carries the address. robots.txt allows."
   },
   {
     "name": "Interkulturanstalten Westend – Ulme 35 (Berlin)",
@@ -23880,42 +23467,6 @@
     }
   },
   {
-    "name": "Junta de Freguesia de Benfica (Lisbon)",
-    "url": "https://bairrobenfica.pt/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Lisboa, Portugal",
-    "limit": 300,
-    "_metro": "Lisbon, Portugal",
-    "_note": "Benfica parish council (Lisbon) agenda, The Events Calendar iCal list export; robots.txt disallows only /wp-admin/. Fairs, concerts for babies, talks, cinema at Cine-Teatro Turim."
-  },
-  {
-    "name": "Bibliotecas Municipales de Torrent (Torrent)",
-    "url": "https://torrent.es/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "learning",
-    "geocode_suffix": ", Torrent, Valencia, Spain",
-    "limit": 300,
-    "_metro": "Valencia, Spain",
-    "_note": "Torrent city council agenda (Valencia metro), The Events Calendar iCal export; robots.txt allows the path. Free library programme: reading clubs, storytelling, book fair. Every LOCATION has a street address."
-  },
-  {
-    "name": "Gemeente Hollands Kroon (Hollands Kroon)",
-    "url": "https://www.hollandskroon.nl/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Hollands Kroon, Netherlands",
-    "limit": 300,
-    "_metro": "Hollands Kroon, Netherlands",
-    "_note": "Municipal community agenda (Noord-Holland), The Events Calendar iCal export; robots.txt allows it. Taalcafés, repair cafés, church concerts, workshops; many marked Gratis. Export returns the next 30."
-  },
-  {
-    "name": "Gemeente Moerdijk (Moerdijk)",
-    "url": "https://www.moerdijk.nl/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Moerdijk, Netherlands",
-    "limit": 300,
-    "_metro": "Moerdijk, Netherlands",
-    "_note": "Municipal agenda (Noord-Brabant), The Events Calendar iCal export; robots.txt allows it. Free village-table meetings, clean-ups, fall-prevention sessions, port open day; street addresses on every event."
-  },
-  {
     "name": "Ayuntamiento de Mérida (Mérida)",
     "url": "https://merida.es/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
@@ -23923,15 +23474,6 @@
     "limit": 300,
     "_metro": "Mérida, Spain",
     "_note": "Mérida city council agenda, The Events Calendar iCal export; no robots.txt (404). Talks, literary meetings, concerts and theatre at municipal venues, each with a street address."
-  },
-  {
-    "name": "Ayuntamiento de Teruel (Teruel)",
-    "url": "https://www.teruel.es/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "learning",
-    "geocode_suffix": ", Teruel, Spain",
-    "limit": 300,
-    "_metro": "Teruel, Spain",
-    "_note": "Teruel city council agenda, The Events Calendar iCal export; robots.txt allows it. Free (Gratuito) lecture series and book presentations at the Aljibes Medievales and Casino de Teruel."
   },
   {
     "name": "DEPANA - Lliga per a la Defensa del Patrimoni Natural (Barcelona)",
@@ -23999,15 +23541,6 @@
     "_note": "LibCal programme calendar of Airdrie Public Library (Calgary region); robots.txt allows ical_subscribe.php (only /process_ disallowed). Storytimes, LEGO, book clubs; Calgary PL's own gateway 403s."
   },
   {
-    "name": "Town of Ajax events (Ajax, Canada)",
-    "url": "https://www.ajax.ca/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Ajax, ON, Canada",
-    "limit": 200,
-    "_metro": "Toronto, Canada",
-    "_note": "Municipal events calendar of the Town of Ajax (Durham, GTA), The Events Calendar iCal export (next 30); REST venues carry no geo. robots.txt allows it. Community walks, arts centre, recreation."
-  },
-  {
     "name": "Carleton Place community calendar (Carleton Place, Canada)",
     "url": "https://carletonplace.ca/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
@@ -24017,15 +23550,6 @@
     "_note": "Town of Carleton Place community calendar (Ottawa's western commuter belt), The Events Calendar iCal (next 30 of ~300). Community lunches, library, farmers market, walking tours. robots.txt allows."
   },
   {
-    "name": "New Edinburgh Community Alliance (Ottawa, Canada)",
-    "url": "https://newedinburgh.ca/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Ottawa, ON, Canada",
-    "limit": 100,
-    "_metro": "Ottawa, Canada",
-    "_note": "Ottawa neighbourhood association calendar: seniors social group, fieldhouse events, board meetings at New Edinburgh Park Fieldhouse. The Events Calendar iCal; robots.txt allows."
-  },
-  {
     "name": "Nature Vancouver (Vancouver, Canada)",
     "url": "https://naturevancouver.ca/events.ics",
     "category": "outdoors",
@@ -24033,15 +23557,6 @@
     "limit": 100,
     "_metro": "Vancouver, Canada",
     "_note": "Vancouver Natural History Society's Events Manager iCal: bird walks, birding field trips, evening talks across Metro Vancouver. robots.txt allows /events.ics."
-  },
-  {
-    "name": "Burnaby Neighbourhood House (Burnaby, Canada)",
-    "url": "https://burnabynh.ca/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Burnaby, BC, Canada",
-    "limit": 100,
-    "_metro": "Vancouver, Canada",
-    "_note": "Burnaby Neighbourhood House (North and South houses): seniors English conversation, dementia-friendly cafes, form-filling help. The Events Calendar iCal; robots.txt allows."
   },
   {
     "name": "ものづくり創造拠点SENTAN (Toyota)",
@@ -24120,26 +23635,6 @@
     "limit": 300,
     "_metro": "Detroit, US",
     "_note": "CivicPlus 'City Events' of Wyandotte (Downriver). robots.txt allows the iCalendar path. 8 upcoming 2026-09-27: movie nights, Sunday Socials, hazardous-waste day.",
-    "_found": "civic:city -> civicplus (hand-curated)"
-  },
-  {
-    "name": "Mabel C. Fry Public Library, Yukon (Oklahoma City)",
-    "url": "https://www.yukonok.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
-    "category": "learning",
-    "geocode_suffix": ", Yukon, OK",
-    "limit": 300,
-    "_metro": "Oklahoma City, US",
-    "_note": "City of Yukon's library calendar (CivicPlus). robots.txt allows the iCalendar path. 75 upcoming 2026-09-27: storytimes, clubs. OKC's Metropolitan Library is LibraryMarket (robots-refused); OKC had 1.",
-    "_found": "civic:city -> civicplus (hand-curated)"
-  },
-  {
-    "name": "City of Yukon Main Calendar (Oklahoma City)",
-    "url": "https://www.yukonok.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-    "category": "community",
-    "geocode_suffix": ", Yukon, OK",
-    "limit": 300,
-    "_metro": "Oklahoma City, US",
-    "_note": "CivicPlus main calendar of Yukon OK. robots.txt allows the iCalendar path. 32 upcoming 2026-09-27, community conversations and library events; the adapter drops closure rows. OKC had 1.",
     "_found": "civic:city -> civicplus (hand-curated)"
   },
   {
@@ -26376,15 +25871,6 @@
     "_metro": "Eindhoven, Netherlands"
   },
   {
-    "name": "Helmondse Tennisvereniging",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://htv.nl/?ical=1",
-    "geocode_suffix": ", Helmond",
-    "limit": 300,
-    "_metro": "Eindhoven, Netherlands"
-  },
-  {
     "name": "De Holm",
     "category": "community",
     "_found": "osm:community_centre -> gcal-embed",
@@ -26707,15 +26193,6 @@
     "_metro": "Leipzig, Germany"
   },
   {
-    "name": "Mädchentreff Mümmelmannsberg",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://trockendock-hamburg.de/site/assets/files/4691/event.ics",
-    "geocode_suffix": ", Hamburg",
-    "limit": 300,
-    "_metro": "Hamburg, Germany"
-  },
-  {
     "name": "Allgemeiner Studierenden Ausschuss TUHH",
     "category": "community",
     "_found": "osm:community_centre -> ics",
@@ -26843,15 +26320,6 @@
     "_metro": "Leipzig, Germany"
   },
   {
-    "name": "Hoffnungszentrum",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager+ics",
-    "url": "https://hoffnungszentrum.de/events/ue50-cafe-5/ical/",
-    "geocode_suffix": ", Leipzig",
-    "limit": 300,
-    "_metro": "Leipzig, Germany"
-  },
-  {
     "name": "Stadtbücherei",
     "category": "learning",
     "_found": "osm:library -> ics",
@@ -26876,15 +26344,6 @@
     "_found": "osm:library -> gcal-embed",
     "url": "https://calendar.google.com/calendar/ical/celrenewals%40gmail.com/public/basic.ics",
     "geocode_suffix": ", Stuttgart, Germany",
-    "limit": 300,
-    "_metro": "Stuttgart, Germany"
-  },
-  {
-    "name": "casa nostra",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://www.casanostra-bb.de/termine/event/termin/weltmaedchentag-20261006-1530-1730.ics",
-    "geocode_suffix": ", Böblingen",
     "limit": 300,
     "_metro": "Stuttgart, Germany"
   },
@@ -26932,15 +26391,6 @@
     "geocode_suffix": ", São Paulo, Brazil",
     "limit": 300,
     "_metro": "São Paulo, Brazil"
-  },
-  {
-    "name": "Bürgerhaus Botnang",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://buergerhaus-botnang.de/events/mulle/?ical=1",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "_metro": "Stuttgart, Germany"
   },
   {
     "name": "International English Library",
@@ -27092,15 +26542,6 @@
     "geocode_suffix": ", Dresden, Germany",
     "limit": 300,
     "_metro": "Dresden, Germany"
-  },
-  {
-    "name": "Quartierstreff Empelde",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://win-e-v.de/programm-august-empelde-2/?ical=1",
-    "geocode_suffix": ", Hannover, Germany",
-    "limit": 300,
-    "_metro": "Hannover, Germany"
   },
   {
     "name": "Quartierstreff Wiesenau",
@@ -27320,42 +26761,6 @@
           "country": "SI",
           "lat": 46.5619033,
           "lon": 15.6528684
-        }
-      }
-    ]
-  },
-  {
-    "name": "Knjižnica Antona Tomaža Linharta Radovljica (Radovljica, Bled, Bohinj)",
-    "url": "https://www.knjiznica-radovljica.si/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "learning",
-    "geocode_suffix": ", Slovenia",
-    "limit": 300,
-    "_metro": "Ljubljana, Slovenia",
-    "_found": "manual:2026-10-03 OSM libraries Slovenia -> The Events Calendar iCal",
-    "_note": "Gorenjska public library with branches in Radovljica, Bled and Bohinjska Bistrica: 30 upcoming free events (the REST API has 35 in 180 days). Every LOCATION is a street address, and 8 of 9 distinct ones geocode. Events include English story time, reading clubs, crafts for kids and exhibition openings.",
-    "location_overrides": [
-      {
-        "location": "Knjižnica Blaža Kumerdeja Bled, Ulica Jule Vovk Molnar 2, Bled, 4260",
-        "venue": {
-          "name": "Knjižnica Blaža Kumerdeja Bled",
-          "address": "Ulica Jule Vovk Molnar 2",
-          "city": "Bled",
-          "postal_code": "4260",
-          "country": "SI",
-          "lat": 46.3707863,
-          "lon": 14.1171682
-        }
-      },
-      {
-        "location": "Kulturni dom Kropa, Kropa 3, Kropa, 4245, Slovenija",
-        "venue": {
-          "name": "Kulturni dom Kropa",
-          "address": "Kropa 3",
-          "city": "Kropa",
-          "postal_code": "4245",
-          "country": "SI",
-          "lat": 46.2918069,
-          "lon": 14.2060588
         }
       }
     ]
@@ -27881,15 +27286,6 @@
     "_metro": "Belo Horizonte, Brazil"
   },
   {
-    "name": "Quartierstreff Empelde",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://win-e-v.de/events/49869-2026-10-08/?ical=1",
-    "geocode_suffix": ", Hannover, Germany",
-    "limit": 300,
-    "_metro": "Hannover, Germany"
-  },
-  {
     "name": "Zweigbibliothek FAU Campus Regensburger Straße",
     "category": "learning",
     "_found": "osm:library -> events-manager",
@@ -27906,26 +27302,6 @@
     "geocode_suffix": ", Nuremberg, Germany",
     "limit": 300,
     "_metro": "Nuremberg, Germany"
-  },
-  {
-    "name": "Maison des Fêtes Familiales",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://www.ville-torcy.fr/locations-demandes-de-salles/maison-des-fetes-familiales/?ical=1",
-    "geocode_suffix": ", Torcy",
-    "limit": 300,
-    "_metro": "Paris, France",
-    "crawl_delay": 3.0
-  },
-  {
-    "name": "Ferme du Couvent",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://www.ville-torcy.fr/evenements/?ical=1",
-    "geocode_suffix": ", Torcy",
-    "limit": 300,
-    "_metro": "Paris, France",
-    "crawl_delay": 3.0
   },
   {
     "name": "Ferme de la Croix-Rousse",
@@ -27953,16 +27329,6 @@
     "geocode_suffix": ", Lille, France",
     "limit": 300,
     "_metro": "Lille, France"
-  },
-  {
-    "name": "Allende !",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://www.monsenbaroeul.fr/node/3954/field_date/full/0/addtocal.ics",
-    "geocode_suffix": ", Lille, France",
-    "limit": 300,
-    "_metro": "Lille, France",
-    "crawl_delay": 10.0
   },
   {
     "name": "Institut Confucius de Bretagne",
@@ -30906,26 +30272,6 @@
     "_note": "Everett Public Library runs its own CivicPlus site (epls.org), separate from everettwa.gov (configured catID=31, which carried 7 EPL programmes in 90 days). LOCATION is 'Main Library > Activity Room - 2702 Hoyt Ave Everett WA 98201' / 'Evergreen Branch ... 9512 Evergreen Way', so location_attempts' dash split geocodes the street. Other categories measured: 32 (Storytimes, 28 rows) is a subset of 27; 14 is 'Library Closed' notices only; 35 empty; 26 (Adult Services), 30 and 33 were not read (host request budget spent; one attempt was a proxy reset) and are worth a verify pass."
   },
   {
-    "name": "WSU Extension Thurston County Master Gardeners - Dirt Works open garden and workshops (Olympia)",
-    "url": "https://extension.wsu.edu/thurston/events/category/mg/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Olympia, WA",
-    "limit": 200,
-    "_metro": "Olympia, WA",
-    "_found": "manual:2026-10-10 extension.wsu.edu/thurston (The Events Calendar), category 'mg' iCal export (the ?tribe_events_cat=mg form redirects here)",
-    "_note": "Category-filtered so the 4-H project meetings (13 of 34 REST rows) never arrive. iCal rather than the tribe adapter because extension.wsu.edu is one host for many county subsites and tribe IDs are scoped by host."
-  },
-  {
-    "name": "WSU Extension Pierce County Master Gardeners - garden talks (Puyallup, Tacoma)",
-    "url": "https://extension.wsu.edu/pierce/events/category/master-gardener-program/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "learning",
-    "geocode_suffix": ", Pierce County, WA",
-    "limit": 100,
-    "_metro": "Tacoma, WA",
-    "_found": "manual:2026-10-10 extension.wsu.edu/pierce (The Events Calendar), category 'master-gardener-program' iCal export",
-    "_note": "Same multisite caveat as the Thurston entry. The other 11 of 18 REST rows are 4-H board/leader meetings, excluded by the category."
-  },
-  {
     "name": "Puget Soundkeeper Alliance - cleanups (Seattle, WA)",
     "url": "https://pugetsoundkeeper.org/events/list/?ical=1",
     "category": "volunteer",
@@ -31136,15 +30482,6 @@
     "geocode_suffix": ", Claymont, DE",
     "limit": 300,
     "_metro": "Philadelphia, United States"
-  },
-  {
-    "name": "Christian Science Reading Room",
-    "category": "learning",
-    "_found": "osm:library -> events-manager+ics",
-    "url": "https://christianscienceatlanta.com/events/the-science-of-christianity-divine-love-in-action/ical/",
-    "geocode_suffix": ", Atlanta",
-    "limit": 300,
-    "_metro": "Atlanta, United States"
   },
   {
     "name": "Weston Public Library",
@@ -32900,15 +32237,6 @@
     "_metro": "Amsterdam, Netherlands"
   },
   {
-    "name": "Mezrab",
-    "category": "theater",
-    "_found": "osm:theatre -> events-manager",
-    "url": "https://mezrab.nl/events/parviz/?ical=1",
-    "geocode_suffix": ", Amsterdam",
-    "limit": 300,
-    "_metro": "Amsterdam, Netherlands"
-  },
-  {
     "name": "De Hoop",
     "category": "theater",
     "_found": "osm:theatre -> events-manager",
@@ -34089,26 +33417,6 @@
     "_metro": "Bern, Switzerland"
   },
   {
-    "name": "Maison de Quartier Sous-Gare",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager+ics",
-    "url": "https://maisondequartiersousgare.ch/events/edition-limitee/ical/",
-    "geocode_suffix": ", Lausanne",
-    "limit": 300,
-    "venue": {
-      "name": "Maison de Quartier Sous-Gare",
-      "city": "Lausanne",
-      "postal_code": "1006",
-      "country": "CH",
-      "lat": 46.5151291,
-      "lon": 6.6261227,
-      "street_hint": "50 Avenue Edouard-Dapples",
-      "pin_unnamed": false
-    },
-    "_metro": "Lausanne, Switzerland",
-    "crawl_delay": 10.0
-  },
-  {
     "name": "Centro di Nonviolenza Attiva",
     "category": "community",
     "_found": "osm:community_centre -> gcal-embed",
@@ -34371,7 +33679,7 @@
     "category": "fitness",
     "_found": "osm:sports_centre -> ics",
     "url": "https://www.rvdehertog.nl/index.php?option=com_dpcalendar&task=ical.download&id=47",
-    "geocode_suffix": ", 's-Hertogenbosch",
+    "geocode_suffix": ", 's-Hertogenbosch, Netherlands",
     "limit": 300,
     "_metro": "Tilburg, Netherlands"
   },
@@ -34707,15 +34015,6 @@
     "_metro": "Munich, Germany"
   },
   {
-    "name": "Theater an der Parkaue",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.parkaue.de/kalender-eintrag/1961/ical-2026-10-25-1961.ics",
-    "geocode_suffix": ", Berlin",
-    "limit": 300,
-    "_metro": "Berlin, Germany"
-  },
-  {
     "name": "Museum für Kommunikation",
     "category": "arts",
     "_found": "osm:museum -> my-calendar+jsonld-event",
@@ -34729,15 +34028,6 @@
     "category": "music",
     "_found": "osm:music_venue -> events-manager",
     "url": "https://quasimodo.club/events/?ical=1",
-    "geocode_suffix": ", Berlin",
-    "limit": 300,
-    "_metro": "Berlin, Germany"
-  },
-  {
-    "name": "Komische Oper Berlin",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.komische-oper-berlin.de/kalender-eintrag/1299/ical-2026-10-23-1299.ics",
     "geocode_suffix": ", Berlin",
     "limit": 300,
     "_metro": "Berlin, Germany"
@@ -34926,27 +34216,6 @@
       "name": "Bibliothek, Max-Planck-Institut für ausländisches und internationales Privatrecht",
       "lat": 53.5627859,
       "lon": 9.9947759,
-      "pin_unnamed": false
-    },
-    "_metro": "Hamburg, Germany"
-  },
-  {
-    "name": "Mädchentreff Mümmelmannsberg",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://trockendock-hamburg.de/site/assets/files/4700/event.ics",
-    "geocode_suffix": ", Hamburg",
-    "limit": 300,
-    "venue": {
-      "name": "Mädchentreff Mümmelmannsberg",
-      "city": "Hamburg",
-      "postal_code": "22115",
-      "lat": 53.5236674,
-      "lon": 10.1527071,
-      "street_hint": "20a Heideblöck",
-      "aliases": [
-        "Lass 1000 Steine rollen! Mümmelmannsberg"
-      ],
       "pin_unnamed": false
     },
     "_metro": "Hamburg, Germany"
@@ -35422,43 +34691,6 @@
     "_metro": "Essen, Germany"
   },
   {
-    "name": "Mosaik Treff",
-    "category": "community",
-    "_found": "osm:social_centre -> my-calendar+jsonld-event",
-    "url": "https://kultur-vor-ort.com/mosaik/?feed=my-calendar-ics",
-    "geocode_suffix": ", Bremen",
-    "limit": 300,
-    "venue": {
-      "name": "Mosaik Treff",
-      "city": "Bremen",
-      "postal_code": "28237",
-      "lat": 53.1124077,
-      "lon": 8.7555642,
-      "street_hint": "26 Liegnitzstraße",
-      "pin_unnamed": false
-    },
-    "_metro": "Bremen, Germany"
-  },
-  {
-    "name": "Gemeindehaus",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=5e575a12-55b4-4fa9-bab5-465b197bd380",
-    "geocode_suffix": ", Langwedel",
-    "limit": 300,
-    "venue": {
-      "name": "Gemeindehaus",
-      "city": "Langwedel",
-      "postal_code": "27299",
-      "country": "DE",
-      "lat": 52.9960675,
-      "lon": 9.1216526,
-      "street_hint": "6 Am Denkmal",
-      "pin_unnamed": false
-    },
-    "_metro": "Bremen, Germany"
-  },
-  {
     "name": "Änderei",
     "category": "community",
     "_found": "osm:community_centre -> ics",
@@ -35476,39 +34708,6 @@
       "pin_unnamed": false
     },
     "_metro": "Dresden, Germany"
-  },
-  {
-    "name": "Quartierstreff Empelde",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://win-e-v.de/programm-oktober-empelde-2/?ical=1",
-    "geocode_suffix": ", Hannover, Germany",
-    "limit": 300,
-    "venue": {
-      "name": "Quartierstreff Empelde",
-      "lat": 52.3401261,
-      "lon": 9.6706858,
-      "pin_unnamed": false
-    },
-    "_metro": "Hannover, Germany"
-  },
-  {
-    "name": "Quartierstreff Wiesenau",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://win-e-v.de/events/fahrradtour-11/?ical=1",
-    "geocode_suffix": ", Langenhagen",
-    "limit": 300,
-    "venue": {
-      "name": "Quartierstreff Wiesenau",
-      "city": "Langenhagen",
-      "postal_code": "30851",
-      "lat": 52.4246592,
-      "lon": 9.7258751,
-      "street_hint": "11 Freiligrathstraße",
-      "pin_unnamed": false
-    },
-    "_metro": "Hannover, Germany"
   },
   {
     "name": "University of Oregon - Grove Community Garden Work Parties (Eugene)",
@@ -35890,27 +35089,6 @@
     "_metro": "Hamburg, Germany"
   },
   {
-    "name": "Mädchentreff Mümmelmannsberg",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://trockendock-hamburg.de/site/assets/files/4695/event.ics",
-    "geocode_suffix": ", Hamburg",
-    "limit": 300,
-    "venue": {
-      "name": "Mädchentreff Mümmelmannsberg",
-      "city": "Hamburg",
-      "postal_code": "22115",
-      "lat": 53.5236674,
-      "lon": 10.1527071,
-      "street_hint": "20a Heideblöck",
-      "aliases": [
-        "Lass 1000 Steine rollen! Mümmelmannsberg"
-      ],
-      "pin_unnamed": false
-    },
-    "_metro": "Hamburg, Germany"
-  },
-  {
     "name": "Deutsches Rotes Kreuz",
     "category": "community",
     "_found": "osm:social_facility -> gcal-embed",
@@ -35981,42 +35159,6 @@
       "pin_unnamed": false
     },
     "_metro": "Toulouse, France"
-  },
-  {
-    "name": "The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK)",
-    "url": "https://merseyforest.org.uk/events/list/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": "",
-    "limit": 300,
-    "location_overrides": [
-      {
-        "location": "Whitby Park Community Garden, Whitby Park Lodge Whitby Park, Stanney Ln, Ellesmere Port , Liverpool, CH65 6QY, United Kingdom",
-        "venue": {
-          "name": "Whitby Park Community Garden",
-          "address": "Whitby Park Lodge, Stanney Lane",
-          "city": "Ellesmere Port",
-          "postal_code": "CH65 6QY",
-          "country": "GB",
-          "lat": 53.2720553,
-          "lon": -2.9036689
-        }
-      },
-      {
-        "location": "Vickersway Park, Vickersway Park, Vickers Way, Northwich, CW9 5PG, United Kingdom",
-        "venue": {
-          "name": "Vickersway Park",
-          "address": "Vickers Way",
-          "city": "Northwich",
-          "postal_code": "CW9 5PG",
-          "country": "GB",
-          "lat": 53.2565702,
-          "lon": -2.5062744
-        }
-      }
-    ],
-    "_metro": "Liverpool, United Kingdom",
-    "_found": "manual:2026-10-23 volunteer seed (UK community forests) -> The Events Calendar iCal list export",
-    "_note": "2026-10-23: Natural Health Service sessions at six Cheshire West sites, every one free and 'everybody welcome' / drop-in in its own description: Health Walks, Healthy Conservation (practical conservation volunteering: balsam pulling, litter removal, path repair, tree planting), Gardening for All, Mindful Contact with Nature. REST holds 998 future rows but no geo (UK), so read as the iCal list export, which carries 30 rows (about three weeks) and rolls forward daily. Photon placed 4 of the 6 LOCATIONs bare; the two it missed (the 'Liverpool' in Whitby Park Community Garden's string is wrong, it is Ellesmere Port) are pinned by exact location_overrides at the OSM park polygons (way/326714003, way/1001429137). Default outdoors because every row is an outdoor nature session; the classifier promotes Healthy Conservation to volunteer; Health Walks gain no fitness secondary (0 of 9) and 3 Mindful Contact with Nature rows do (checked with derive_categories). robots.txt allows /events/; the HTML pages challenge other User-Agents but not ours."
   },
   {
     "name": "Randall's Island Park Alliance - farm volunteer days, cleanups and park events (New York, NY)",
@@ -36578,29 +35720,11 @@
     "_metro": "Hamburg, Germany"
   },
   {
-    "name": "Zum Guten Hirten",
-    "category": "community",
-    "_found": "osm:place_of_worship -> events-manager+ics",
-    "url": "https://www.kirche-tangstedt.de/events/gottesdienst-pastor-i-r-gunnar-urbach-musik-von-andrea-paffrath/ical/",
-    "geocode_suffix": ", Tangstedt",
-    "limit": 300,
-    "_metro": "Hamburg, Germany"
-  },
-  {
     "name": "St. Nikolai",
     "category": "community",
     "_found": "osm:place_of_worship -> ics",
     "url": "https://www.termine-e.de/api/events/ca5384fe-32f9-4118-8699-a34a57030d44.ics",
     "geocode_suffix": ", Borstel",
-    "limit": 300,
-    "_metro": "Hamburg, Germany"
-  },
-  {
-    "name": "St. Martini",
-    "category": "community",
-    "_found": "osm:place_of_worship -> ics",
-    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=79ed4f69-a961-4ce5-9630-bad92c97d253",
-    "geocode_suffix": ", Estebrügge",
     "limit": 300,
     "_metro": "Hamburg, Germany"
   },
@@ -36630,15 +35754,6 @@
     "geocode_suffix": ", Hamburg, Germany",
     "limit": 300,
     "_metro": "Hamburg, Germany"
-  },
-  {
-    "name": "Museum Ludwig",
-    "category": "arts",
-    "_found": "osm:museum -> ics",
-    "url": "https://www.museum-ludwig.de/de/besuch/veranstaltungen/kalender/54743-die-sammlung-leo-schoenecker-ein-filmprogramm-mit-filmen-aus-dem-archiv-schoeneckerschatten-eine-naechtliche-halluzination.ics",
-    "geocode_suffix": ", Cologne, Germany",
-    "limit": 300,
-    "_metro": "Cologne, Germany"
   },
   {
     "name": "Evangelisch-Freikirchliche Gemeinde Köln-West",
@@ -36801,22 +35916,6 @@
     "geocode_suffix": ", Wermelskirchen",
     "limit": 300,
     "_metro": "Cologne, Germany"
-  },
-  {
-    "name": "Allende !",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://www.monsenbaroeul.fr/node/3964/field_date/full/0/addtocal.ics",
-    "geocode_suffix": ", Lille, France",
-    "limit": 300,
-    "venue": {
-      "name": "Allende !",
-      "lat": 50.6415498,
-      "lon": 3.1117245,
-      "pin_unnamed": false
-    },
-    "_metro": "Lille, France",
-    "crawl_delay": 10.0
   },
   {
     "name": "Centre culturel canadien japonais (CCCJ)",
@@ -37044,15 +36143,6 @@
     "_metro": "Lucena, Spain"
   },
   {
-    "name": "Museum Ludwig",
-    "category": "arts",
-    "_found": "osm:museum -> ics",
-    "url": "https://www.museum-ludwig.de/de/besuch/veranstaltungen/kalender/54753-fuehrung-der-freunde-verfremdung-als-stilmittel-in-der-kunst-der-1960er-jahre.ics",
-    "geocode_suffix": ", Cologne, Germany",
-    "limit": 300,
-    "_metro": "Cologne, Germany"
-  },
-  {
     "name": "B9! Fitness",
     "category": "fitness",
     "_found": "osm:sports_centre -> my-calendar",
@@ -37224,15 +36314,6 @@
     "_metro": "Frankfurt, Germany"
   },
   {
-    "name": "Nellinistift",
-    "category": "community",
-    "_found": "osm:social_facility -> ics",
-    "url": "https://www.nellinistift.de/netzwerk/termine/kalender-termin/termin/stiftscafe-20261028.ics",
-    "geocode_suffix": ", Frankfurt am Main",
-    "limit": 300,
-    "_metro": "Frankfurt, Germany"
-  },
-  {
     "name": "Kinder- und Jugendfarm",
     "category": "outdoors",
     "_found": "osm:garden -> gcal-embed",
@@ -37249,15 +36330,6 @@
     "geocode_suffix": ", Oberursel (Taunus)",
     "limit": 300,
     "_metro": "Frankfurt, Germany"
-  },
-  {
-    "name": "Antikenmuseum der Universität Leipzig",
-    "category": "arts",
-    "_found": "osm:museum -> ics",
-    "url": "https://www.gkr.uni-leipzig.de/antikenmuseum/veranstaltungsdetail/termin/drink-draw-zeichenabend-20261119.ics",
-    "geocode_suffix": ", Leipzig",
-    "limit": 300,
-    "_metro": "Leipzig, Germany"
   },
   {
     "name": "Theatrium großstadtKINDER e.V",
@@ -37539,25 +36611,6 @@
     "_metro": "Stuttgart, Germany"
   },
   {
-    "name": "casa nostra",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://www.casanostra-bb.de/termine/event/termin/fitnessworkshop-20261026-1730-1900.ics",
-    "geocode_suffix": ", Böblingen",
-    "limit": 300,
-    "venue": {
-      "name": "casa nostra",
-      "city": "Böblingen",
-      "postal_code": "71034",
-      "country": "DE",
-      "lat": 48.6838811,
-      "lon": 9.0024456,
-      "street_hint": "4 Calwer Straße",
-      "pin_unnamed": false
-    },
-    "_metro": "Stuttgart, Germany"
-  },
-  {
     "name": "Vereinsheim Tauchsportgruppe Teck e.V.",
     "category": "community",
     "_found": "osm:club -> gcal-embed",
@@ -37576,24 +36629,6 @@
     "_metro": "Stuttgart, Germany"
   },
   {
-    "name": "Opernhaus",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.staatsoper-stuttgart.de/kalender-eintrag/9518/ical-2026-10-25-9518.ics",
-    "geocode_suffix": ", Stuttgart",
-    "limit": 300,
-    "_metro": "Stuttgart, Germany"
-  },
-  {
-    "name": "Tennisanlage Aspen",
-    "category": "fitness",
-    "_found": "osm:sports_centre -> events-manager+ics",
-    "url": "https://tchr.de/events/adventsfeier-ue66/ical/",
-    "geocode_suffix": ", Stuttgart, Germany",
-    "limit": 300,
-    "_metro": "Stuttgart, Germany"
-  },
-  {
     "name": "SV Hardt e.V.",
     "category": "community",
     "_found": "osm:club -> ics",
@@ -37601,15 +36636,6 @@
     "geocode_suffix": ", Stuttgart, Germany",
     "limit": 300,
     "_metro": "Stuttgart, Germany"
-  },
-  {
-    "name": "Aalto-Theater",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.theater-essen.de/kalender-eintrag/3965/ical-2026-10-25-3965.ics",
-    "geocode_suffix": ", Essen",
-    "limit": 300,
-    "_metro": "Dusseldorf, Germany"
   },
   {
     "name": "Akron-Summit County Public Library - Main, Mogadore, Fairlawn-Bath (Akron, OH)",
@@ -57475,15 +56501,6 @@
     "_metro": "Dusseldorf, Germany"
   },
   {
-    "name": "Deutsche Oper am Rhein /Kulturbetriebe Stadt Duisburg",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.operamrhein.de/kalender-eintrag/4101/ical-2026-10-27-4101.ics",
-    "geocode_suffix": ", Duisburg",
-    "limit": 300,
-    "_metro": "Dusseldorf, Germany"
-  },
-  {
     "name": "Krefelder Segel-Klub e.V.",
     "category": "community",
     "_found": "osm:marina -> gcal-embed",
@@ -57497,15 +56514,6 @@
     "category": "fitness",
     "_found": "osm:sports_centre -> events-manager",
     "url": "https://ttc-schwarz-gold-moers.de/events/mannschaftskampf-im-rahmen-des-tags-der-offenen-tuer/?ical=1",
-    "geocode_suffix": ", Moers",
-    "limit": 300,
-    "_metro": "Dusseldorf, Germany"
-  },
-  {
-    "name": "Wassersportverein Moers e.V.",
-    "category": "community",
-    "_found": "osm:club -> events-manager+ics",
-    "url": "https://wsv-moers.de/events/arbeitstag-6/ical/",
     "geocode_suffix": ", Moers",
     "limit": 300,
     "_metro": "Dusseldorf, Germany"
@@ -57570,24 +56578,6 @@
     "_found": "osm:sports_centre -> events-manager",
     "url": "https://tc-vluyn.de/veranstaltungen/?ical=1",
     "geocode_suffix": ", Dusseldorf, Germany",
-    "limit": 300,
-    "_metro": "Dusseldorf, Germany"
-  },
-  {
-    "name": "Stadttheater / Duisburger Philharmoniker",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.theater-duisburg.de/kalender-eintrag/2416/ical-2026-10-30-2416.ics",
-    "geocode_suffix": ", Duisburg",
-    "limit": 300,
-    "_metro": "Dusseldorf, Germany"
-  },
-  {
-    "name": "Philharmonie/ Saalbau",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.theater-essen.de/kalender-eintrag/4430/ical-2026-10-27-4430.ics",
-    "geocode_suffix": ", Essen",
     "limit": 300,
     "_metro": "Dusseldorf, Germany"
   },
@@ -58025,15 +57015,6 @@
     "_metro": "Dresden, Germany"
   },
   {
-    "name": "Staatsoperette Dresden",
-    "category": "theater",
-    "_found": "osm:theatre -> ics",
-    "url": "https://www.staatsoperette.de/kalender-eintrag/2317/ical-2026-10-26-2317.ics",
-    "geocode_suffix": ", Dresden",
-    "limit": 300,
-    "_metro": "Dresden, Germany"
-  },
-  {
     "name": "INTERACT4WORK",
     "category": "community",
     "_found": "osm:club -> events-manager",
@@ -58224,21 +57205,6 @@
     "url": "https://mgt-gehrden.de/veranstaltungen/?ical=1",
     "geocode_suffix": ", Gehrden",
     "limit": 300,
-    "_metro": "Hannover, Germany"
-  },
-  {
-    "name": "Quartierstreff Empelde",
-    "category": "community",
-    "_found": "osm:community_centre -> events-manager",
-    "url": "https://win-e-v.de/events/49869-2026-10-29/?ical=1",
-    "geocode_suffix": ", Hannover, Germany",
-    "limit": 300,
-    "venue": {
-      "name": "Quartierstreff Empelde",
-      "lat": 52.3401261,
-      "lon": 9.6706858,
-      "pin_unnamed": false
-    },
     "_metro": "Hannover, Germany"
   },
   {
@@ -58568,16 +57534,6 @@
     "_metro": "Paris, France"
   },
   {
-    "name": "Les Passerelles",
-    "category": "arts",
-    "_found": "osm:arts_centre -> ics",
-    "url": "https://www.lespasserelles.fr/information-transversale/agenda/les-forteresses-16013/calendar.ics",
-    "geocode_suffix": ", Pontault-Combault",
-    "limit": 300,
-    "_metro": "Paris, France",
-    "crawl_delay": 5.0
-  },
-  {
     "name": "Les Archers du Donjon",
     "category": "community",
     "_found": "osm:club -> ics",
@@ -58600,15 +57556,6 @@
     "category": "fitness",
     "_found": "osm:sports_centre -> gcal-embed",
     "url": "https://calendar.google.com/calendar/ical/e8c6ff0703cea5ee25cf77705bb7fae2dd0c7de88f3b7b24d4221474fcb4f5f9%40group.calendar.google.com/public/basic.ics",
-    "geocode_suffix": ", Paris, France",
-    "limit": 300,
-    "_metro": "Paris, France"
-  },
-  {
-    "name": "Église Sainte-Cécile",
-    "category": "community",
-    "_found": "osm:place_of_worship -> events-manager+ics",
-    "url": "https://stececile.fr/events/lage-dor/ical/",
     "geocode_suffix": ", Paris, France",
     "limit": 300,
     "_metro": "Paris, France"
@@ -58857,16 +57804,6 @@
     "geocode_suffix": ", MONTREUIL SUR ILLE",
     "limit": 300,
     "_metro": "Rennes, France"
-  },
-  {
-    "name": "Nouvelle Librairie Sétoise",
-    "category": "learning",
-    "_found": "osm:books -> ics",
-    "url": "https://www.nouvellelibrairiesetoise.fr/rencontres/59564/event.ics",
-    "geocode_suffix": ", Sète",
-    "limit": 300,
-    "_metro": "Montpellier, France",
-    "crawl_delay": 5.0
   },
   {
     "name": "Foyer Municipal des Retraités",
@@ -61269,5 +60206,24 @@
     "geocode_suffix": ", Edinburgh, United Kingdom",
     "limit": 300,
     "_metro": "Edinburgh, United Kingdom"
+  },
+  {
+    "name": "Museum Ludwig",
+    "category": "arts",
+    "_found": "refind:ics -> ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "_metro": "Cologne, Germany",
+    "url": "https://www.museum-ludwig.de/de/besuch/veranstaltungen/kalender/54977-familienfuehrungen-voller-staunen-familien-mit-kindern-ab-5-jahren-teilnahme-kostenlos.ics",
+    "limit": 300
+  },
+  {
+    "name": "Uxbridge",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://www.uxbridge.ca//public/ics/8605",
+    "geocode_suffix": ", Uxbridge, Canada",
+    "limit": 300,
+    "_metro": "Uxbridge, Canada",
+    "crawl_delay": 1.0
   }
 ]

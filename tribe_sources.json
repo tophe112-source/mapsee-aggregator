@@ -652,22 +652,6 @@
       "_metro": "Edmonton, CA"
     },
     {
-      "name": "Plug In Institute of Contemporary Art",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe+jsonld-event+ics",
-      "base_url": "https://plugin.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Plug In Institute of Contemporary Art",
-        "address": "460 Portage Avenue",
-        "postal_code": "R3C 0E8",
-        "lat": 49.8904395,
-        "lon": -97.1512172
-      },
-      "_metro": "Winnipeg, CA"
-    },
-    {
       "name": "Devil May Care Brew Co.",
       "category": "food",
       "_found": "osm:brewery -> tribe+jsonld-event",
@@ -1087,20 +1071,6 @@
         "name": "St Thomas' Anglican Church North Sydney",
         "lat": -33.8337257,
         "lon": 151.2058416
-      },
-      "_metro": "Sydney, AU"
-    },
-    {
-      "name": "Collaroy Surf Life Saving Club",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://collaroysurfclub.com.au",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Collaroy Surf Life Saving Club",
-        "lat": -33.733081,
-        "lon": 151.3024137
       },
       "_metro": "Sydney, AU"
     },
@@ -1690,24 +1660,6 @@
         "lon": -6.1168158
       },
       "_metro": "Dublin, IE"
-    },
-    {
-      "name": "The Cork Arts Theatre",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe",
-      "base_url": "https://corkartstheatre.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "The Cork Arts Theatre",
-        "address": "Knapp's Square",
-        "city": "Cork",
-        "postal_code": "T23 X72D",
-        "country": "IE",
-        "lat": 51.9014931,
-        "lon": -8.4728875
-      },
-      "_metro": "Cork, IE"
     },
     {
       "name": "Grace Church",
@@ -2974,20 +2926,6 @@
         "name": "Firgårde Forsamlingshus",
         "lat": 56.0886943,
         "lon": 9.8068428
-      },
-      "_metro": "Aarhus, DK"
-    },
-    {
-      "name": "Skafferiet",
-      "category": "community",
-      "_found": "osm:events_venue -> tribe",
-      "base_url": "https://skafferiet.dk",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Skafferiet",
-        "lat": 56.3257863,
-        "lon": 10.0448711
       },
       "_metro": "Aarhus, DK"
     },
@@ -5007,23 +4945,6 @@
       "_metro": "Warsaw, PL"
     },
     {
-      "name": "Wojewódzki Związek Hodowców Koni w Warszawie",
-      "category": "community",
-      "_found": "osm:ngo -> tribe",
-      "base_url": "https://wzhkwarszawa.pl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Wojewódzki Związek Hodowców Koni w Warszawie",
-        "address": "49 Onufrego Zagłoby",
-        "city": "Marki",
-        "postal_code": "05-270",
-        "lat": 52.3208846,
-        "lon": 21.0834981
-      },
-      "_metro": "Warsaw, PL"
-    },
-    {
       "name": "QueerMuzeum",
       "category": "arts",
       "_found": "osm:museum -> tribe",
@@ -5260,20 +5181,6 @@
         "country": "PL",
         "lat": 50.0716297,
         "lon": 19.927118
-      },
-      "_metro": "Krakow, PL"
-    },
-    {
-      "name": "Folwark Kultura",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://zielonki.pl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Folwark Kultura",
-        "lat": 50.1725984,
-        "lon": 19.9152505
       },
       "_metro": "Krakow, PL"
     },
@@ -7292,22 +7199,6 @@
       "_metro": "Barcelona, ES"
     },
     {
-      "name": "Indoor Karting Barcelona",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://indoorkartingbarcelona.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Indoor Karting Barcelona",
-        "address": "430 Carretera de Laureà Miró",
-        "postal_code": "08980",
-        "lat": 41.3948441,
-        "lon": 2.034236
-      },
-      "_metro": "Barcelona, ES"
-    },
-    {
       "name": "Nau Bostik",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -9026,23 +8917,6 @@
       "_metro": "Bologna, Italy"
     },
     {
-      "name": "Raccolta Lercaro",
-      "category": "arts",
-      "_found": "osm:museum -> tribe",
-      "base_url": "https://www.museolercaro.it",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Raccolta Lercaro",
-        "address": "57 Via Riva di Reno",
-        "city": "Bologna",
-        "postal_code": "40122",
-        "lat": 44.4987097,
-        "lon": 11.3375785
-      },
-      "_metro": "Bologna, Italy"
-    },
-    {
       "name": "Link",
       "category": "music",
       "_found": "osm:nightclub -> tribe+jsonld-event+ics",
@@ -10349,24 +10223,6 @@
       "default_country": "US",
       "_metro": "Jacksonville, United States",
       "_note": "Monthly creek cleanups and free LaVilla history walks. robots.txt: Crawl-delay 10 (honoured), nothing disallowed. community, the cleanups promote to volunteer at sync."
-    },
-    {
-      "name": "Museo Nacional de Culturas Populares (Mexico City)",
-      "category": "arts",
-      "base_url": "https://mncp.cultura.gob.mx",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Museo Nacional de Culturas Populares",
-        "lat": 19.34995,
-        "lon": -99.16102,
-        "address": "Av. Miguel Hidalgo 289, Del Carmen, Coyoacán",
-        "city": "Ciudad de México",
-        "country": "Mexico"
-      },
-      "_metro": "Mexico City, Mexico",
-      "_note": "Federal (Secretaría de Cultura) museum in Coyoacán; free festivals, book launches, concerts. The Events Calendar REST API; robots.txt disallows only /Propuestas/. Fills Mexico City.",
-      "_found": "wikidata:museum -> tribe"
     },
     {
       "name": "Facultad de Música UNAM (Mexico City)",
@@ -11999,23 +11855,6 @@
       "_metro": "Utrecht, Netherlands"
     },
     {
-      "name": "Consultatiebureau",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://ggdru.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Consultatiebureau",
-        "address": "2 Lisidunalaan",
-        "city": "Leusden",
-        "postal_code": "3833BR",
-        "lat": 52.1348275,
-        "lon": 5.4263758
-      },
-      "_metro": "Utrecht, Netherlands"
-    },
-    {
       "name": "De Hangar",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -12386,7 +12225,7 @@
     },
     {
       "name": "Familientreff RIGATONI",
-      "category": "community",
+      "category": "kids",
       "_found": "osm:community_centre -> tribe",
       "base_url": "https://www.lebensnah.de",
       "within_days": 120,
@@ -13143,7 +12982,7 @@
     },
     {
       "name": "Torrent",
-      "category": "community",
+      "category": "learning",
       "_found": "civic:city -> tribe+jsonld-event+ics",
       "base_url": "https://torrent.es",
       "within_days": 365,
@@ -14796,33 +14635,6 @@
       }
     },
     {
-      "name": "Kuldīgas Galvenā bibliotēka (Kuldīga Main Library)",
-      "base_url": "https://biblio.kuldiga.lv",
-      "category": "learning",
-      "within_days": 180,
-      "max_pages": 15,
-      "default_city": "Kuldīga",
-      "default_country": "LV",
-      "skip_title": "^Metodisk[aā] diena",
-      "_metro": "Liepāja, Latvia",
-      "_found": "manual:2026-10-03 OSM libraries Latvia -> The Events Calendar REST (its iCal export stamps a fixed wrong zone)",
-      "venue": {
-        "name": "Kuldīgas Galvenā bibliotēka",
-        "address": "1905. gada iela 6",
-        "city": "Kuldīga",
-        "postal_code": "LV-3301",
-        "country": "LV",
-        "lat": 56.9693109,
-        "lon": 21.9684827,
-        "names": [
-          "Kuldīgas Galvenā bibliotēka",
-          "Kuldīgas Galvenās bibliotēkas",
-          "Mākslas nams"
-        ]
-      },
-      "_note": "Kuldīga main library: free author meetings, forest-school storytelling for children, the readers' club, lectures and financial-literacy seminars. None of the REST venues carries an address or coordinates, so the block places the rows that name the library or the Art House (Mākslas nams, 36 m away); the Zoom discussion club names neither and drops. 'Metodiskā diena' is a recurring closure notice."
-    },
-    {
       "name": "Jewish Community Center of the East Bay",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
@@ -16272,27 +16084,6 @@
       "_note": "The city calendar is mostly governance: of 183 rows in 90 days, CIVIC_TITLE_RX takes 114 and this skip_title 54 more (meetings, hearings, council office hours, firefighter information sessions, business workshops). The rest are public: Green Tacoma Day, open-space volunteer work parties (Wapato Hills, Trafton Slope, Fern Hill, McKinley), a Code Update open house at the Moore Branch library, the City Services Expo and hiring fair at the Tacoma Dome, the Diwali lamp lighting, blood drives. Rows carry no categories, so include_categories cannot do this. Metro Parks Tacoma answers 403 and is not proposed."
     },
     {
-      "name": "MOHAI - Museum of History & Industry public programs (South Lake Union)",
-      "base_url": "https://mohai.org",
-      "category": "learning",
-      "within_days": 90,
-      "per_page": 50,
-      "max_pages": 2,
-      "venue": {
-        "name": "MOHAI",
-        "address": "860 Terry Ave N",
-        "city": "Seattle",
-        "region": "WA",
-        "postal_code": "98109",
-        "country": "US",
-        "lat": 47.6275114,
-        "lon": -122.3367506
-      },
-      "_metro": "Seattle, WA",
-      "_found": "manual:2026-10-10 mohai.org homepage (The Events Calendar)",
-      "_note": "Every row is at MOHAI (rooms: Faye G. Allen Grand Atrium, Joshua Green Foundation Theater) with address 'MOHAI 860 Terry Ave N' and no geo; the block supplies the point (OSM tourism=museum via Photon)."
-    },
-    {
       "name": "Bellevue Botanical Garden - walks, story times and garden programs (Bellevue)",
       "base_url": "https://bellevuebotanical.org",
       "category": "outdoors",
@@ -16307,7 +16098,7 @@
     {
       "name": "WSU Extension Snohomish County - repair cafe, beach cleanups, master gardener talks",
       "base_url": "https://extension.wsu.edu/snohomish",
-      "category": "community",
+      "category": "learning",
       "within_days": 90,
       "per_page": 50,
       "max_pages": 2,
@@ -16713,20 +16504,6 @@
       "_metro": "Philadelphia, United States"
     },
     {
-      "name": "West Deptford Library",
-      "category": "learning",
-      "_found": "osm:library -> tribe+jsonld-event+ics",
-      "base_url": "https://westdeptford.lib.nj.us",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "West Deptford Library",
-        "lat": 39.8452925,
-        "lon": -75.1905172
-      },
-      "_metro": "Philadelphia, United States"
-    },
-    {
       "name": "Audubon Public Library",
       "category": "learning",
       "_found": "osm:library -> tribe+jsonld-event+ics",
@@ -16897,24 +16674,6 @@
       "_metro": "Boston, United States"
     },
     {
-      "name": "Lucius Beebe Memorial Library",
-      "category": "learning",
-      "_found": "osm:library -> tribe",
-      "base_url": "https://wakefieldlibrary.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Lucius Beebe Memorial Library",
-        "address": "345 Main Street",
-        "city": "Wakefield",
-        "region": "MA",
-        "postal_code": "01880",
-        "lat": 42.5045911,
-        "lon": -71.0719069
-      },
-      "_metro": "Boston, United States"
-    },
-    {
       "name": "Walpole Public Library",
       "category": "learning",
       "_found": "osm:library -> tribe+jsonld-event+ics",
@@ -17059,7 +16818,7 @@
     },
     {
       "name": "Town Hall Seattle",
-      "category": "community",
+      "category": "learning",
       "_found": "osm:community_centre -> tribe+jsonld-event",
       "base_url": "https://townhallseattle.org",
       "within_days": 120,
@@ -18923,23 +18682,6 @@
       "_metro": "Rotterdam, Netherlands"
     },
     {
-      "name": "Lachai Roï",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe+jsonld-event",
-      "base_url": "https://www.lachai-roi.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Lachai Roï",
-        "address": "11 Antoon Coolenstraat",
-        "city": "Sommelsdijk",
-        "postal_code": "3245MC",
-        "lat": 51.7625984,
-        "lon": 4.1544779
-      },
-      "_metro": "Rotterdam, Netherlands"
-    },
-    {
       "name": "Oude Kerk Charlois",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe",
@@ -19638,20 +19380,6 @@
       "_metro": "Utrecht, Netherlands"
     },
     {
-      "name": "Tripodia",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event+ics",
-      "base_url": "https://tripodia.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Tripodia",
-        "lat": 52.2065591,
-        "lon": 4.4176518
-      },
-      "_metro": "The Hague, Netherlands"
-    },
-    {
       "name": "DUNAatelier",
       "category": "arts",
       "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
@@ -19699,23 +19427,6 @@
       },
       "_metro": "Eindhoven, Netherlands",
       "crawl_delay": 10.0
-    },
-    {
-      "name": "Pand P",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event+ics",
-      "base_url": "https://pand-p.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Pand P",
-        "address": "65 Leenderweg",
-        "city": "Eindhoven",
-        "postal_code": "5614HL",
-        "lat": 51.4271073,
-        "lon": 5.4891089
-      },
-      "_metro": "Eindhoven, Netherlands"
     },
     {
       "name": "TPC Boshoven",
@@ -21169,24 +20880,6 @@
       "_metro": "Berlin, Germany"
     },
     {
-      "name": "Evangelisch-Lutherische Kirche",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
-      "base_url": "https://selk-mitte.de",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Evangelisch-Lutherische Kirche",
-        "address": "53 Annenstraße",
-        "city": "Berlin",
-        "postal_code": "10179",
-        "country": "DE",
-        "lat": 52.5068836,
-        "lon": 13.4155893
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
       "name": "Martin-Luther-Kirche",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
@@ -22425,17 +22118,6 @@
       "_note": "2026-10-23: 112 events in 120 days; 34 are 'MUSEUM CLOSED' (skipped). The rest: Seeds & Sprouts, Wee Wednesday, Fine Art Friday, Animal Meet & Greet, STEAM Saturday and a Pajama Storytime the museum runs at Southside Library (own address and geo). The block carries `names`, so only rows naming the museum or nothing take its point (Census exact match)."
     },
     {
-      "name": "Children's Museum of New Hampshire (Dover, NH)",
-      "base_url": "https://childrens-museum.org",
-      "category": "kids",
-      "within_days": 120,
-      "max_pages": 10,
-      "skip_title": "MUSEUM OPEN|Birthday Parties|^CLOSED\\b|week class",
-      "_metro": "Dover, United States",
-      "_found": "manual:2026-10-23 children's-museum seed -> find_calendar tribe -> REST",
-      "_note": "2026-10-23: 356 events in 120 days, every one at the museum's own venue with street address (6 Washington Street). 176 of the first 300 are not events (MUSEUM OPEN 83, Birthday Parties Available 75, CLOSED 18), which skip_title removes; what remains is the programme: Science Friday, Wacky Art Wednesdays, Cultural Crafts, Toddler Tinker Time, Baby Storytime, Early Birds Playgroup."
-    },
-    {
       "name": "Mississippi Children's Museum - Jackson and Meridian",
       "base_url": "https://mschildrensmuseum.org",
       "category": "kids",
@@ -22805,34 +22487,6 @@
       },
       "_metro": "Seoul, South Korea",
       "_found": "manual:2026-10-23 ledger ok (ics) but never configured; read through the tribe REST instead"
-    },
-    {
-      "name": "Teatro del Lago (Frutillar, Chile)",
-      "base_url": "https://teatrodellago.cl",
-      "category": "arts",
-      "within_days": 120,
-      "max_pages": 10,
-      "default_city": "Frutillar",
-      "default_region": "Los Lagos",
-      "default_country": "CL",
-      "timezone": "America/Santiago",
-      "venue": {
-        "name": "Teatro del Lago",
-        "address": "Avenida Bernardo Philippi 1000",
-        "city": "Frutillar",
-        "region": "Los Lagos",
-        "postal_code": "5690000",
-        "country": "CL",
-        "lat": -41.1394537,
-        "lon": -73.0252738,
-        "names": [
-          "Teatro del Lago",
-          "Espacio Tronador"
-        ]
-      },
-      "_metro": "Puerto Montt, Chile",
-      "_found": "manual:2026-10-23 hand list of Chilean cultural centres, fingerprinted (tribe+ics on /agenda-eventos/)",
-      "skip_title": "Licitaci[oó]n"
     },
     {
       "name": "Žvejų rūmai - Klaipėda city cultural centre (Klaipėda, Lithuania)",
@@ -23558,7 +23212,7 @@
     },
     {
       "name": "Kulturkinder e.V.",
-      "category": "community",
+      "category": "kids",
       "_found": "osm:club -> tribe+jsonld-event+ics",
       "base_url": "https://www.kulturkinder.net",
       "within_days": 120,
@@ -23971,7 +23625,7 @@
     },
     {
       "name": "Teruel",
-      "category": "community",
+      "category": "learning",
       "_found": "civic:city -> tribe+jsonld-event+ics",
       "base_url": "https://www.teruel.es",
       "within_days": 365,
@@ -24962,18 +24616,6 @@
       "_metro": "Stuttgart, Germany"
     },
     {
-      "name": "Today's Family - EarlyON drop-ins (Hamilton, Ontario)",
-      "base_url": "https://www.todaysfamily.ca",
-      "category": "kids",
-      "within_days": 60,
-      "max_pages": 30,
-      "default_country": "CA",
-      "default_region": "ON",
-      "_metro": "Hamilton, Canada",
-      "_found": "manual:2026-10-25",
-      "_note": "2026-10-25 dry run (scratch store, this branch's StreetPlacer): 1,261 upcoming rows in 60 days (2,454 in 120, which is 50 pages), 23 titles, EarlyON drop-ins, songs and stories, infant programmes and community meals; plugin categories drop-in 2,136 and register 214 of 2,454. 1,240 placed by a geocoded street, at the 16 venues those 60 days name; the other 21 are 'Virtual via Zoom' or name no venue. No venue carries geo_lat, so without the placer none would reach the map. default_country CA places the 17 Mohawk College rows, which name no country. CHECK: 'Fieldcote Outdoor' (64 Sulphur Springs Road, Ancaster; 120 of the 2,454 rows) is answered with Ancaster Sports Centre, about 2.4 km off, the one wrong pin among its venues (Photon's properties name another street, which the shared geocoder does not return); 17 rows name no venue, so a venue block with names would pin those at Fieldcote too. robots.txt: Allow: / for *, Content-Signal search=yes, ai-train=no, use=reference. The bare host 301s the API to www. 1,496 rows say timezone 'UTC+0' with a local wall clock; the sync's starts_at for them matched America/Toronto's in a to_row check (08:45 -> 12:45Z)."
-    },
-    {
       "name": "Libraries Unlimited - Devon and Torbay library events",
       "base_url": "https://librariesunlimited.org.uk",
       "category": "community",
@@ -25067,20 +24709,6 @@
         "name": "Lokschuppen Hochdahl - Eisenbahn-und Heimatmuseum Erkrath-Hochdahl e.V.",
         "lat": 51.2180691,
         "lon": 6.948818
-      },
-      "_metro": "Dusseldorf, Germany"
-    },
-    {
-      "name": "Freie Schwimmer Duisburg 1920 e.V.",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://fsduisburg.de",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Freie Schwimmer Duisburg 1920 e.V.",
-        "lat": 51.4068283,
-        "lon": 6.7941505
       },
       "_metro": "Dusseldorf, Germany"
     },
@@ -27840,23 +27468,6 @@
       },
       "_metro": "Strasbourg, France",
       "crawl_delay": 10.0
-    },
-    {
-      "name": "Malagacha Gallery",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe",
-      "base_url": "https://malagacha-gallery.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Malagacha Gallery",
-        "address": "9 Rue du Parchemin",
-        "city": "Strasbourg",
-        "postal_code": "67000",
-        "lat": 48.584633,
-        "lon": 7.7538498
-      },
-      "_metro": "Strasbourg, France"
     },
     {
       "name": "Offenburger Hexenzunft e.V.",
@@ -31491,6 +31102,117 @@
         "lon": -1.384187
       },
       "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Sword and Board (Ukiah, CA)",
+      "category": "community",
+      "_found": "refind:ics -> tribe+jsonld-event+ics",
+      "geocode_suffix": ", Ukiah, CA",
+      "base_url": "https://swordandboard.net",
+      "within_days": 120,
+      "max_pages": 10
+    },
+    {
+      "name": "The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK)",
+      "category": "outdoors",
+      "_found": "refind:ics -> tribe+jsonld-event+ics",
+      "geocode_suffix": "",
+      "_metro": "Liverpool, United Kingdom",
+      "base_url": "https://merseyforest.org.uk",
+      "within_days": 120,
+      "max_pages": 10
+    },
+    {
+      "name": "Evangelisch-Lutherische Kirche",
+      "category": "community",
+      "_found": "refind:tribe -> tribe+jsonld-event+ics",
+      "_metro": "Berlin, Germany",
+      "venue": {
+        "name": "Evangelisch-Lutherische Kirche",
+        "address": "53 Annenstraße",
+        "city": "Berlin",
+        "postal_code": "10179",
+        "country": "DE",
+        "lat": 52.5068836,
+        "lon": 13.4155893
+      },
+      "base_url": "https://selk-mitte.de",
+      "within_days": 120,
+      "max_pages": 10
+    },
+    {
+      "name": "New Tecumseth",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.newtecumseth.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "New Tecumseth",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "New Tecumseth, Canada"
+    },
+    {
+      "name": "Whitehorse",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.whitehorse.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Whitehorse",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Whitehorse, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Beaumont",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.beaumont.ab.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Beaumont",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Beaumont, Canada"
+    },
+    {
+      "name": "Selkirk",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.myselkirk.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Selkirk",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Selkirk, Canada",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "South Bruce Peninsula",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://southbrucepeninsula.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "South Bruce Peninsula",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "South Bruce Peninsula, Canada"
+    },
+    {
+      "name": "Chatsworth",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://chatsworth.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Chatsworth",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Chatsworth, Canada"
     }
   ],
   "_not_included": {
@@ -31587,6 +31309,28 @@
     "https://marjcc.org": "Michael-Ann Russell JCC (North Miami Beach) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 312 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
     "https://mainstreettakoma.org": "Main Street Takoma (Takoma Park / Takoma DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 272 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
     "https://www.sixthandi.org": "Sixth & I (Washington, DC) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-11 and 2026-10-18: http 403. Recheck 2026-10-29: 38 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
-    "https://cvc.ca": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-18: http 403. Recheck 2026-10-29: 3 events, 3/3 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9."
+    "https://cvc.ca": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON) - tribe. RETIRED 2026-10-29 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: 2026-10-23, 10-25, 10-27 and 10-28 each p1 HTTP 403 (10-24's run stopped before it). Audit on a GitHub runner 2026-10-18: http 403. Recheck 2026-10-29: 3 events, 3/3 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 10f27b9.",
+    "https://malagacha-gallery.com": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://malagacha.com/evenements/, which did not verify). Malagacha Gallery.",
+    "https://mncp.cultura.gob.mx": "Retired 2026-11-01: robots.txt unreachable (https://mncp.cultura.gob.mx/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Museo Nacional de Culturas Populares (Mexico City).",
+    "https://museolercaro.it": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (tribe at https://www.museolercaro.it/, which did not verify). Raccolta Lercaro.",
+    "https://plugin.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Plug In Institute of Contemporary Art.",
+    "https://teatrodellago.cl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Teatro del Lago (Frutillar, Chile).",
+    "https://collaroysurfclub.com.au": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://collaroysurfclub.com.au/, which did not verify). Collaroy Surf Life Saving Club.",
+    "https://fsduisburg.de": "Retired 2026-11-01: robots.txt unreachable (https://fsduisburg.de/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Freie Schwimmer Duisburg 1920 e.V..",
+    "https://ggdru.nl": "Retired 2026-11-01: HTTP 401 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Consultatiebureau.",
+    "https://lachai-roi.nl": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://www.lachai-roi.nl/agenda/, which did not verify). Lachai Roï.",
+    "https://skafferiet.dk": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://skafferiet.dk/spis-med-os/, which did not verify). Skafferiet.",
+    "https://wzhkwarszawa.pl": "Retired 2026-11-01: not json. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (tribe at https://wzhkwarszawa.pl/, which did not verify). Wojewódzki Związek Hodowców Koni w Warszawie.",
+    "https://zielonki.pl": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://zielonki.pl/program-opieki-nad-zabytkami/, which did not verify). Folwark Kultura.",
+    "https://indoorkartingbarcelona.com": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Indoor Karting Barcelona.",
+    "https://childrens-museum.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Children's Museum of New Hampshire (Dover, NH).",
+    "https://todaysfamily.ca": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Today's Family - EarlyON drop-ins (Hamilton, Ontario).",
+    "https://biblio.kuldiga.lv": "Retired 2026-11-01: robots.txt unreachable (https://biblio.kuldiga.lv/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Kuldīgas Galvenā bibliotēka (Kuldīga Main Library).",
+    "https://mohai.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. MOHAI - Museum of History & Industry public programs (South Lake Union).",
+    "https://wakefieldlibrary.org": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Lucius Beebe Memorial Library.",
+    "https://westdeptford.lib.nj.us": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://westdeptford.lib.nj.us/events/, which did not verify). West Deptford Library.",
+    "https://corkartstheatre.com": "Retired 2026-11-01: robots.txt: Disallow: /wp-json/. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. The Cork Arts Theatre.",
+    "https://pand-p.nl": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Pand P.",
+    "https://tripodia.nl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Tripodia."
   }
 }

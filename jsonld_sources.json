@@ -986,23 +986,6 @@
       "_metro": "Porto, PT"
     },
     {
-      "name": "Associação Quebra-Dados",
-      "category": "community",
-      "_found": "osm:club -> modern-events+jsonld-event",
-      "listing": [
-        "https://quebradados.com/eventos/"
-      ],
-      "link_pattern": "https://quebradados\\.com/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Associação Quebra-Dados",
-        "address": "82 Rua de Brito Capelo",
-        "lat": 41.1621578,
-        "lon": -8.6194995
-      },
-      "_metro": "Porto, PT"
-    },
-    {
       "name": "Fila Church Helsinki",
       "category": "community",
       "_found": "osm:place_of_worship -> jsonld-event",
@@ -1459,22 +1442,6 @@
       "_metro": "Gothenburg, SE"
     },
     {
-      "name": "Science Village Hall",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://sciencevillagehall.se/event/sjunggung/?cd=20261017"
-      ],
-      "link_pattern": "https://sciencevillagehall\\.se/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Science Village Hall",
-        "lat": 55.7301081,
-        "lon": 13.2433663
-      },
-      "_metro": "Malmo, SE"
-    },
-    {
       "name": "Bærum bibliotek, Bekkestua",
       "category": "learning",
       "_found": "osm:library -> modern-events+jsonld-event",
@@ -1487,22 +1454,6 @@
         "name": "Bærum bibliotek, Bekkestua",
         "lat": 59.9179022,
         "lon": 10.5846279
-      },
-      "_metro": "Oslo, NO"
-    },
-    {
-      "name": "Rådhusteatret",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.nordrefolloscener.no/program/8367-janneloven-et-one-woman-show/"
-      ],
-      "link_pattern": "https://www\\.nordrefolloscener\\.no/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Rådhusteatret",
-        "lat": 59.7203205,
-        "lon": 10.8380073
       },
       "_metro": "Oslo, NO"
     },
@@ -1813,26 +1764,6 @@
         "country": "AT",
         "lat": 47.0743764,
         "lon": 15.4406932
-      },
-      "_metro": "Graz, AT"
-    },
-    {
-      "name": "DruckZeug",
-      "category": "arts",
-      "_found": "osm:museum -> modern-events+jsonld-event",
-      "listing": [
-        "https://druckzeug.at/veranstaltungen/"
-      ],
-      "link_pattern": "https://druckzeug\\.at/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "DruckZeug",
-        "address": "19 Annenstraße",
-        "city": "Graz",
-        "postal_code": "8020",
-        "country": "AT",
-        "lat": 47.0707074,
-        "lon": 15.4293805
       },
       "_metro": "Graz, AT"
     },
@@ -2728,25 +2659,6 @@
       "_metro": "Barcelona, ES"
     },
     {
-      "name": "Espai Jove La Fontana",
-      "category": "community",
-      "_found": "osm:community_centre -> jsonld-event",
-      "listing": [
-        "https://lafontana.org/events/"
-      ],
-      "link_pattern": "https://lafontana\\.org/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Espai Jove La Fontana",
-        "address": "190-192 Gran de Gràcia",
-        "city": "Barcelona",
-        "postal_code": "08012",
-        "lat": 41.4032429,
-        "lon": 2.1524501
-      },
-      "_metro": "Barcelona, ES"
-    },
-    {
       "name": "Centro Arrupe - Jesuitas",
       "category": "community",
       "_found": "osm:place_of_worship -> modern-events+jsonld-event",
@@ -2762,25 +2674,6 @@
         "postal_code": "46008",
         "lat": 39.4765403,
         "lon": -0.3883233
-      },
-      "_metro": "Valencia, ES"
-    },
-    {
-      "name": "Lambda",
-      "category": "community",
-      "_found": "osm:community_centre -> modern-events+jsonld-event",
-      "listing": [
-        "https://lambdavalencia.org/agenda/"
-      ],
-      "link_pattern": "https://lambdavalencia\\.org/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Lambda",
-        "address": "22 Carrer de la República Argentina",
-        "city": "València",
-        "postal_code": "46021",
-        "lat": 39.4732479,
-        "lon": -0.3511243
       },
       "_metro": "Valencia, ES"
     },
@@ -3502,22 +3395,6 @@
       "_metro": "Lausanne, Switzerland"
     },
     {
-      "name": "Musée romain de Lausanne-Vidy",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.lausanne.ch/agenda-et-actualites/agenda/evenement/un-dimanche-anime"
-      ],
-      "link_pattern": "https://www\\.lausanne\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Musée romain de Lausanne-Vidy",
-        "lat": 46.5189571,
-        "lon": 6.5986725
-      },
-      "_metro": "Lausanne, Switzerland"
-    },
-    {
       "name": "Centre Pluriculturel et social d'Ouchy",
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event",
@@ -3755,25 +3632,6 @@
         "name": "Casa degli artisti",
         "lat": 45.4767357,
         "lon": 9.1833517
-      },
-      "_metro": "Milan, Italy"
-    },
-    {
-      "name": "CineTeatro Pax",
-      "category": "theater",
-      "_found": "osm:theatre -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.cineteatropax.it/events/"
-      ],
-      "link_pattern": "https://www\\.cineteatropax\\.it/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "CineTeatro Pax",
-        "address": "4 Vicolo Fiume",
-        "city": "Cinisello Balsamo",
-        "postal_code": "20092",
-        "lat": 45.5564849,
-        "lon": 9.2169222
       },
       "_metro": "Milan, Italy"
     },
@@ -4598,19 +4456,6 @@
       "_note": "Neighbourhood cultural centre in Haarlem; Modern Events Calendar pages carry schema.org Event; robots.txt disallows only /wp-admin/. Kids and adult cardboard-craft workshops, improv theatre, exhibitions."
     },
     {
-      "name": "京都観光Navi 伝統行事 (Kyoto)",
-      "category": "community",
-      "listing": [
-        "https://ja.kyoto.travel/event/search.php?category_id=1&display_count=0"
-      ],
-      "link_pattern": "data-is_finished=\"0\"[\\s\\S]{0,400}?/event/single\\.php\\?event_id=(\\d+)",
-      "url_template": "/event/single.php?event_id={}",
-      "max_events": 180,
-      "_found": "manual: city tourism site -> schema.org Event with geo on each event page",
-      "_metro": "Kyoto, Japan",
-      "_note": "Kyoto City's official event guide (京都観光Navi), the 伝統行事 listing: public shrine and temple festivals, unfinished events only (70 on 2026-09-27). Event pages carry schema.org Event with geo. No robots.txt (404). The グルメ/マーケット listing is left out: restaurant, hotel and ticketed-sport promotions."
-    },
-    {
       "name": "Remy's",
       "category": "community",
       "_found": "osm:events_venue -> wix",
@@ -4854,22 +4699,6 @@
       "_metro": "Berlin, Germany"
     },
     {
-      "name": "Bibliothek Leegebruch",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.leegebruch.de/veranstaltungen/2931311/2026/10/30/lesecaf%C3%A9.html"
-      ],
-      "link_pattern": "https://www\\.leegebruch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Bibliothek Leegebruch",
-        "lat": 52.725361,
-        "lon": 13.1936188
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
       "name": "BENN Marzahn-Süd",
       "category": "community",
       "_found": "osm:community_centre -> modern-events+jsonld-event",
@@ -4886,22 +4715,6 @@
         "country": "DE",
         "lat": 52.5343727,
         "lon": 13.5522245
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
-      "name": "FC Internationale Berlin",
-      "category": "community",
-      "_found": "osm:community_centre -> jsonld-event",
-      "listing": [
-        "https://www.inter-berlin.de/veranstaltungen/2836149/2026/10/28/club-voltaire-im-oktober.html"
-      ],
-      "link_pattern": "https://www\\.inter\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "FC Internationale Berlin",
-        "lat": 52.4724736,
-        "lon": 13.3569324
       },
       "_metro": "Berlin, Germany"
     },
@@ -5035,26 +4848,6 @@
         "address": "21 Beethovenstraße",
         "lat": 50.7742063,
         "lon": 7.2794046
-      },
-      "_metro": "Cologne, Germany"
-    },
-    {
-      "name": "Gemeindezentrum St. Maria Magdalena",
-      "category": "community",
-      "_found": "osm:community_centre -> jsonld-event",
-      "listing": [
-        "https://www.puk-bonn.de/veroeffentlichungen/events/Abendmusiken-im-Oktober-2026.10.04/?instancedate=1791122040000"
-      ],
-      "link_pattern": "https://www\\.puk\\-bonn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Gemeindezentrum St. Maria Magdalena",
-        "address": "25 Magdalenenstraße",
-        "city": "Bonn",
-        "postal_code": "53121",
-        "country": "DE",
-        "lat": 50.7259937,
-        "lon": 7.0752122
       },
       "_metro": "Cologne, Germany"
     },
@@ -5483,25 +5276,6 @@
       "_measured": "2026-10-04: the listing was one event's own page (www.brausyndikat.ch/event-details/oranje-feest), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 5 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
     },
     {
-      "name": "Gestüt Waidhof",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> wix+jsonld-event",
-      "listing": [
-        "https://www.waidhof.net/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Gestüt Waidhof",
-        "address": "5 Waidhof",
-        "lat": 47.6002999,
-        "lon": 7.7043057
-      },
-      "_metro": "Basel, CH",
-      "_measured": "2026-10-04: the listing was one event's own page (www.waidhof.net/event-details/reitabzeichen-2026), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
       "category": "community",
       "_found": "osm:social_facility -> wix+jsonld-event",
@@ -5763,30 +5537,6 @@
       },
       "_metro": "Lyon, FR",
       "_note": "Centre social in Bron (Métropole de Lyon), from the fede69.centres-sociaux.fr annuaire. MEC: 9 Event blocks inline on /evenement/, 8 in the next 90 days (intercultural cooking workshops x3, troc evening, bourse aux loisirs, community dinner-dance, réveillon solidaire, chants gourmands); all carry MEC's default price 0. Dry run: 8 in 90 days, 8 placed (1 at the centre's other site, Maison des Genêts, which carries its own address)."
-    },
-    {
-      "name": "Whitehorn Community Association",
-      "category": "community",
-      "_found": "seed:community_centre -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.whitehorncommunity.com/calendar/"
-      ],
-      "max_events": 150,
-      "skip_title": "^Whitehorn Total Fitness$",
-      "venue": {
-        "name": "Whitehorn Community Association",
-        "address": "228 Whitehorn Rd NE",
-        "city": "Calgary",
-        "region": "AB",
-        "country": "CA",
-        "lat": 51.0887954,
-        "lon": -113.9669642
-      },
-      "_metro": "Calgary, Canada",
-      "_seed": "Federation of Calgary Communities directory, calgarycommunities.com/ca-map-list-view/?letter=w",
-      "_venue_source": "data.calgary.ca x34e-bcjz Community Services (address match '228 Whitehorn Rd NE')",
-      "_measured": "2026-10-03/04: 20 rows in 90 days, 20 placeable (16 'WCA Main Hall', 4 'WCA Market Hall', both 228 Whitehorn Rd NE). 8 Whitehorn Total Fitness ($40 for 8 weeks, members only: a registered course, hence skip_title), 4 Yoga with Vic ($10 drop-in), 4 Seniors Games Day, 4 WCA Pop-Up Pantry. With the skip: 12 rows, all drop-in; 0 of 12 tagged free after the MEC fix (its pages do not say free in words).",
-      "_note": "Modern Events Calendar writes offers.price '0' where the event's cost field is empty (not on every event); since 2026-10-04 mapsee_ingest_jsonld reads that zero as an unset price, so nothing here is tagged free from it. skip_title removes the members-only registered course."
     },
     {
       "name": "Kensington Community League",
@@ -6822,26 +6572,6 @@
       "_metro": "Montreal, Canada"
     },
     {
-      "name": "Bibliothèque d'Hochelaga",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://montreal.ca/evenements/completement-jeu-2-6-ans-117276"
-      ],
-      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Bibliothèque d'Hochelaga",
-        "address": "1870 Rue Davidson",
-        "city": "Montréal",
-        "region": "Québec",
-        "postal_code": "H1W 2Y6",
-        "lat": 45.5423301,
-        "lon": -73.5455697
-      },
-      "_metro": "Montreal, Canada"
-    },
-    {
       "name": "Bibliothèque Maisonneuve",
       "category": "learning",
       "_found": "osm:library -> jsonld-event",
@@ -7532,23 +7262,6 @@
         "lon": -84.4108705
       },
       "_metro": "Atlanta, United States"
-    },
-    {
-      "name": "Japanese Cultural and Community Center of Northern California",
-      "category": "community",
-      "_found": "osm:community_centre -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.jcccnc.org/programs-events/"
-      ],
-      "link_pattern": "https://www\\.jcccnc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Japanese Cultural and Community Center of Northern California",
-        "address": "1840 Sutter Street",
-        "lat": 37.7866721,
-        "lon": -122.4309213
-      },
-      "_metro": "San Francisco, United States"
     },
     {
       "name": "The Bridge",
@@ -9334,25 +9047,6 @@
       "_metro": "Rotterdam, Netherlands"
     },
     {
-      "name": "Wijkberaad Vruchtenbuurt",
-      "category": "community",
-      "_found": "osm:social_facility -> wp-event-manager+jsonld-event",
-      "listing": [
-        "https://www.wijkberaad-vruchtenbuurt.nl/evenement/spelletjesmiddag-96/"
-      ],
-      "link_pattern": "https://www\\.wijkberaad\\-vruchtenbuurt\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Wijkberaad Vruchtenbuurt",
-        "address": "207 Abrikozenstraat",
-        "city": "'s-Gravenhage",
-        "postal_code": "2564VP",
-        "lat": 52.0680768,
-        "lon": 4.2546727
-      },
-      "_metro": "Rotterdam, Netherlands"
-    },
-    {
       "name": "De Blije Borgh",
       "category": "community",
       "_found": "osm:social_facility -> modern-events+jsonld-event",
@@ -9709,25 +9403,6 @@
         "postal_code": "3551EM",
         "lat": 52.099809,
         "lon": 5.0973031
-      },
-      "_metro": "Utrecht, Netherlands"
-    },
-    {
-      "name": "Stadsschouwburg",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://stadsschouwburg-utrecht.nl/agenda/seizoen-2026-2027/badkeremix-lageste"
-      ],
-      "link_pattern": "https://stadsschouwburg\\-utrecht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadsschouwburg",
-        "address": "24 Lucasbolwerk",
-        "city": "Utrecht",
-        "postal_code": "3512EJ",
-        "lat": 52.0933912,
-        "lon": 5.1274954
       },
       "_metro": "Utrecht, Netherlands"
     },
@@ -10639,26 +10314,6 @@
       "_metro": "Berlin, Germany"
     },
     {
-      "name": "Kulturhaus \"Johannes R. Becher\"",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "http://www.fv-kulturhaus-jrbecher.de/veranstaltungen/2217406/2026/10/21/beratertag-lotsendienst.html"
-      ],
-      "link_pattern": "https://www\\.fv\\-kulturhaus\\-jrbecher\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kulturhaus \"Johannes R. Becher\"",
-        "address": "67 Havelländer Weg",
-        "city": "Falkensee",
-        "postal_code": "14612",
-        "country": "DE",
-        "lat": 52.5803643,
-        "lon": 13.0744186
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
       "name": "Schlossplatztheater",
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
@@ -10831,46 +10486,6 @@
       "_metro": "Cologne, Germany"
     },
     {
-      "name": "Muckerhaus",
-      "category": "community",
-      "_found": "osm:community_centre -> jsonld-event",
-      "listing": [
-        "https://www.muckerhaus.de/veranstaltungen/1620658/2026/10/21/hausaufgabenhilfe.html"
-      ],
-      "link_pattern": "https://www\\.muckerhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Muckerhaus",
-        "city": "Darmstadt",
-        "postal_code": "64291",
-        "country": "DE",
-        "lat": 49.9124791,
-        "lon": 8.6661926,
-        "street_hint": "112a Messeler Straße"
-      },
-      "_metro": "Frankfurt, Germany"
-    },
-    {
-      "name": "Kulturhaus \"Johannes R. Becher\"",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "http://www.fv-kulturhaus-jrbecher.de/veranstaltungen/2985902/2026/10/23/17.-europ.-filmfestival-der-generationen.html"
-      ],
-      "link_pattern": "https://www\\.fv\\-kulturhaus\\-jrbecher\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kulturhaus \"Johannes R. Becher\"",
-        "address": "67 Havelländer Weg",
-        "city": "Falkensee",
-        "postal_code": "14612",
-        "country": "DE",
-        "lat": 52.5803643,
-        "lon": 13.0744186
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
       "name": "Tanzclub Bernau",
       "category": "fitness",
       "_found": "osm:dance -> jsonld-event",
@@ -10886,25 +10501,6 @@
         "postal_code": "16321",
         "lat": 52.6766668,
         "lon": 13.5817449
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
-      "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://www.lkg-woltersdorf.de/veranstaltungen/2347906/2026/10/31/lutherfest.html"
-      ],
-      "link_pattern": "https://www\\.lkg\\-woltersdorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
-        "address": "9 Werderstraße",
-        "city": "Woltersdorf",
-        "postal_code": "15569",
-        "lat": 52.4470663,
-        "lon": 13.7602482
       },
       "_metro": "Berlin, Germany"
     },
@@ -10985,26 +10581,6 @@
         "country": "DE",
         "lat": 52.3987176,
         "lon": 13.0621772
-      },
-      "_metro": "Berlin, Germany"
-    },
-    {
-      "name": "Neuapostolische Gemeinde Berlin-Tegel",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "http://berlin-tegel.nak-nordost.de/db/629497/Termine/Gottesdienst"
-      ],
-      "link_pattern": "https://berlin\\-tegel\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Neuapostolische Gemeinde Berlin-Tegel",
-        "address": "39 Medebacher Weg",
-        "city": "Berlin",
-        "postal_code": "13507",
-        "country": "DE",
-        "lat": 52.5894342,
-        "lon": 13.2781511
       },
       "_metro": "Berlin, Germany"
     },
@@ -11573,26 +11149,6 @@
       "_metro": "Munich, Germany"
     },
     {
-      "name": "Stadtbibliothek Neukirchen",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.stadtbuecherei-neukirchen-vluyn.de/veranstaltungen/2900188/2026/10/26/werkstatt-kreatives-schreiben-held-innen.html"
-      ],
-      "link_pattern": "https://www\\.stadtbuecherei\\-neukirchen\\-vluyn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadtbibliothek Neukirchen",
-        "city": "Neukirchen-Vluyn",
-        "postal_code": "47506",
-        "country": "DE",
-        "lat": 51.4510773,
-        "lon": 6.579238,
-        "street_hint": "5 Missionshof"
-      },
-      "_metro": "Dusseldorf, Germany"
-    },
-    {
       "name": "Bücherei St. Cyriakus Krefeld-Hüls",
       "category": "learning",
       "_found": "osm:library -> jsonld-event",
@@ -11628,29 +11184,6 @@
       "_metro": "Dusseldorf, Germany"
     },
     {
-      "name": "Stadt- und Landesbibliothek",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_146884.html"
-      ],
-      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadt- und Landesbibliothek",
-        "city": "Dortmund",
-        "postal_code": "44137",
-        "country": "DE",
-        "lat": 51.5165234,
-        "lon": 7.4608722,
-        "street_hint": "1-3 Max-von-der-Grün-Platz",
-        "aliases": [
-          "Zentralbibliothek"
-        ]
-      },
-      "_metro": "Dortmund, Germany"
-    },
-    {
       "name": "Mütterzentrum Dortmund",
       "category": "community",
       "_found": "osm:social_centre -> modern-events+jsonld-event",
@@ -11667,25 +11200,6 @@
         "lat": 51.5096268,
         "lon": 7.4198657,
         "street_hint": "6 Hospitalstraße"
-      },
-      "_metro": "Dortmund, Germany"
-    },
-    {
-      "name": "Stadtteilbibliothek Scharnhorst",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_146962.html"
-      ],
-      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadtteilbibliothek Scharnhorst",
-        "city": "Dortmund",
-        "postal_code": "44328",
-        "lat": 51.5512153,
-        "lon": 7.5451592,
-        "street_hint": "15 Mackenrothweg"
       },
       "_metro": "Dortmund, Germany"
     },
@@ -12660,26 +12174,6 @@
       "_metro": "Hamburg, Germany"
     },
     {
-      "name": "Pfingstgemeinde Hamburg",
-      "category": "community",
-      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.pg-hamburg.de/events-der-woche/"
-      ],
-      "link_pattern": "https://www\\.pg\\-hamburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Pfingstgemeinde Hamburg",
-        "address": "30 Eimsbütteler Straße",
-        "city": "Hamburg",
-        "postal_code": "22769",
-        "country": "DE",
-        "lat": 53.5656352,
-        "lon": 9.956234
-      },
-      "_metro": "Hamburg, Germany"
-    },
-    {
       "name": "Neuapostolische Kirche",
       "category": "community",
       "_found": "osm:place_of_worship -> jsonld-event",
@@ -12693,26 +12187,6 @@
         "address": "17 Curschmannstraße",
         "lat": 53.5859598,
         "lon": 9.9787165
-      },
-      "_metro": "Hamburg, Germany"
-    },
-    {
-      "name": "Christuskirche",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://www.kirchengemeinde-eidelstedt.de/termine/1474258-makeover-fur-den-jugendraum"
-      ],
-      "link_pattern": "https://www\\.kirchengemeinde\\-eidelstedt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Christuskirche",
-        "address": "22 Halstenbeker Weg",
-        "city": "Hamburg",
-        "postal_code": "22523",
-        "country": "DE",
-        "lat": 53.6149134,
-        "lon": 9.8904232
       },
       "_metro": "Hamburg, Germany"
     },
@@ -12867,25 +12341,6 @@
         "country": "DE",
         "lat": 53.5343972,
         "lon": 9.6721416
-      },
-      "_metro": "Hamburg, Germany"
-    },
-    {
-      "name": "Schützenverein Rönneburg und Umgegend von 1897 e. V.",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> jsonld-event",
-      "listing": [
-        "http://www.schuetzenverein-roenneburg.de/veranstaltungen/2930692/2026/10/31/schnitzeljagd.html"
-      ],
-      "link_pattern": "https://www\\.schuetzenverein\\-roenneburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Schützenverein Rönneburg und Umgegend von 1897 e. V.",
-        "address": "15 Küstersweg",
-        "city": "Hamburg",
-        "postal_code": "21079",
-        "lat": 53.4366846,
-        "lon": 10.0039507
       },
       "_metro": "Hamburg, Germany"
     },
@@ -13444,26 +12899,6 @@
       "_metro": "Cologne, Germany"
     },
     {
-      "name": "Alte Schlossfabrik",
-      "category": "community",
-      "_found": "osm:events_venue -> modern-events+jsonld-event",
-      "listing": [
-        "https://alteschlossfabrik.de/public-events/"
-      ],
-      "link_pattern": "https://alteschlossfabrik\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Alte Schlossfabrik",
-        "address": "Burgtal",
-        "city": "Solingen",
-        "postal_code": "42659",
-        "country": "DE",
-        "lat": 51.1464197,
-        "lon": 7.1558003
-      },
-      "_metro": "Cologne, Germany"
-    },
-    {
       "name": "Clarenbachkirche",
       "category": "community",
       "_found": "osm:place_of_worship -> modern-events+jsonld-event",
@@ -13518,22 +12953,6 @@
         "lon": 6.9744573
       },
       "_metro": "Cologne, Germany"
-    },
-    {
-      "name": "Médiathèque Alfred Jarry",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.mediathequealfredjarry.fr/agenda/animations-a-venir"
-      ],
-      "link_pattern": "https://www\\.mediathequealfredjarry\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Médiathèque Alfred Jarry",
-        "lat": 48.1537267,
-        "lon": -1.5804689
-      },
-      "_metro": "Rennes, France"
     },
     {
       "name": "Exploratoire",
@@ -14447,41 +13866,6 @@
       "_metro": "Cologne, Germany"
     },
     {
-      "name": "Verklärung Christi",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://bistummainz.de/region-oberhessen/pfarrei/taunusblick/aktuell/veranstaltungen/m-event/Sternsinger-Infotreffen-2026.10.30/?instancedate=1793374200000"
-      ],
-      "link_pattern": "https://bistummainz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Verklärung Christi",
-        "lat": 50.1716206,
-        "lon": 8.7310114
-      },
-      "_metro": "Frankfurt, Germany"
-    },
-    {
-      "name": "Städel Museum",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.staedelmuseum.de/de/programm/gastkommentar/2026-10-25/12-00"
-      ],
-      "link_pattern": "https://www\\.staedelmuseum\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Städel Museum",
-        "address": "63 Schaumainkai",
-        "city": "Frankfurt am Main",
-        "postal_code": "60596",
-        "lat": 50.1032949,
-        "lon": 8.6738582
-      },
-      "_metro": "Frankfurt, Germany"
-    },
-    {
       "name": "Kino Kelkheim",
       "category": "theater",
       "_found": "osm:cinema -> jsonld-event",
@@ -14688,22 +14072,6 @@
       "_metro": "Frankfurt, Germany"
     },
     {
-      "name": "Museum Schloss Fechenbach",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.museumserver.de/veranstaltungen/2929713/2026/10/30/schlossgeister.html"
-      ],
-      "link_pattern": "https://www\\.museumserver\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Museum Schloss Fechenbach",
-        "lat": 49.8998077,
-        "lon": 8.8385959
-      },
-      "_metro": "Frankfurt, Germany"
-    },
-    {
       "name": "Zoom",
       "category": "music",
       "_found": "osm:nightclub -> jsonld-event",
@@ -14875,26 +14243,6 @@
       "_metro": "Frankfurt, Germany"
     },
     {
-      "name": "Das Rind",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "https://dasrind.de/event-detail/2026-11-01-soft-machine/"
-      ],
-      "link_pattern": "https://dasrind\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Das Rind",
-        "address": "11 Mainstraße",
-        "city": "Rüsselsheim am Main",
-        "postal_code": "65428",
-        "country": "DE",
-        "lat": 49.9959851,
-        "lon": 8.4119093
-      },
-      "_metro": "Frankfurt, Germany"
-    },
-    {
       "name": "Hundeverein Erzhausen e.V.",
       "category": "fitness",
       "_found": "osm:sports_centre -> jsonld-event",
@@ -15037,26 +14385,6 @@
         "country": "DE",
         "lat": 51.2904861,
         "lon": 12.0262206
-      },
-      "_metro": "Leipzig, Germany"
-    },
-    {
-      "name": "Neuapostolische Kirche Gemeinde Zwenkau",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://zwenkau.nak-nordost.de/db/629478/Termine/Gottesdienst"
-      ],
-      "link_pattern": "https://zwenkau\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Neuapostolische Kirche Gemeinde Zwenkau",
-        "address": "1 Marktstraße",
-        "city": "Zwenkau",
-        "postal_code": "04442",
-        "country": "DE",
-        "lat": 51.2164189,
-        "lon": 12.3241488
       },
       "_metro": "Leipzig, Germany"
     },
@@ -15234,26 +14562,6 @@
       "_metro": "Leipzig, Germany"
     },
     {
-      "name": "?",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://wurzen.nak-nordost.de/db/629445/Termine/Gottesdienst"
-      ],
-      "link_pattern": "https://wurzen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "?",
-        "address": "17 Muldengasse",
-        "city": "Wurzen",
-        "postal_code": "04808",
-        "country": "DE",
-        "lat": 51.3714653,
-        "lon": 12.7329632
-      },
-      "_metro": "Leipzig, Germany"
-    },
-    {
       "name": "Neuapostolische Kirche Leipzig-Plagwitz",
       "category": "community",
       "_found": "osm:place_of_worship -> jsonld-event",
@@ -15289,22 +14597,6 @@
       "_metro": "Leipzig, Germany"
     },
     {
-      "name": "Sportpark Tresenwald",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> jsonld-event",
-      "listing": [
-        "https://www.sportpark-tresenwald.de/veranstaltungen/2930581/2026/10/31/tanznacht-in-machern.html"
-      ],
-      "link_pattern": "https://www\\.sportpark\\-tresenwald\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Sportpark Tresenwald",
-        "lat": 51.3615719,
-        "lon": 12.6156803
-      },
-      "_metro": "Leipzig, Germany"
-    },
-    {
       "name": "Bandhaus Manufaktur",
       "category": "community",
       "_found": "osm:events_venue -> jsonld-event",
@@ -15320,26 +14612,6 @@
         "postal_code": "04179",
         "lat": 51.3261675,
         "lon": 12.3113116
-      },
-      "_metro": "Leipzig, Germany"
-    },
-    {
-      "name": "Zoo Leipzig",
-      "category": "outdoors",
-      "_found": "osm:zoo -> jsonld-event",
-      "listing": [
-        "https://www.zoo-leipzig.de/event/halloween-im-zoo-39/"
-      ],
-      "link_pattern": "https://www\\.zoo\\-leipzig\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Zoo Leipzig",
-        "address": "29 Pfaffendorfer Straße",
-        "city": "Leipzig",
-        "postal_code": "04105",
-        "country": "DE",
-        "lat": 51.3508968,
-        "lon": 12.3678125
       },
       "_metro": "Leipzig, Germany"
     },
@@ -16380,29 +15652,6 @@
       "_metro": "Dortmund, Germany"
     },
     {
-      "name": "Stadt- und Landesbibliothek",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_146575.html"
-      ],
-      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Stadt- und Landesbibliothek",
-        "city": "Dortmund",
-        "postal_code": "44137",
-        "country": "DE",
-        "lat": 51.5165234,
-        "lon": 7.4608722,
-        "street_hint": "1-3 Max-von-der-Grün-Platz",
-        "aliases": [
-          "Zentralbibliothek"
-        ]
-      },
-      "_metro": "Dortmund, Germany"
-    },
-    {
       "name": "Bücherwurm GmbH",
       "category": "learning",
       "_found": "osm:books -> jsonld-event",
@@ -16454,26 +15703,6 @@
         "postal_code": "44143",
         "lat": 51.5246007,
         "lon": 7.5285198
-      },
-      "_metro": "Dortmund, Germany"
-    },
-    {
-      "name": "Museum für Kunst und Kulturgeschichte",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_126172.html"
-      ],
-      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Museum für Kunst und Kulturgeschichte",
-        "address": "3 Hansastraße",
-        "city": "Dortmund",
-        "postal_code": "44137",
-        "country": "DE",
-        "lat": 51.5166724,
-        "lon": 7.4630051
       },
       "_metro": "Dortmund, Germany"
     },
@@ -17281,26 +16510,6 @@
       "_metro": "Dresden, Germany"
     },
     {
-      "name": "MiBERZ",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.museen-dippoldiswalde.de/veranstaltungen/2968492/2026/10/27/dr.-christiane-hemker-die-silberbergwerke-von-dippoldiswalde-im-12.-und-13.-jahrhundert-montanarch%C3%A4ologie-im-welterbe.html"
-      ],
-      "link_pattern": "https://www\\.museen\\-dippoldiswalde\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "MiBERZ",
-        "address": "8 Kirchplatz",
-        "city": "Dippoldiswalde",
-        "postal_code": "01744",
-        "country": "DE",
-        "lat": 50.8957246,
-        "lon": 13.6663587
-      },
-      "_metro": "Dresden, Germany"
-    },
-    {
       "name": "Gemeindezentrum St.-Pauli-Kirchgemeinde",
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event",
@@ -17313,25 +16522,6 @@
         "name": "Gemeindezentrum St.-Pauli-Kirchgemeinde",
         "lat": 51.075256,
         "lon": 13.7485828
-      },
-      "_metro": "Dresden, Germany"
-    },
-    {
-      "name": "SV Wacker Mohorn e.V.",
-      "category": "community",
-      "_found": "osm:club -> jsonld-event",
-      "listing": [
-        "https://www.sv-wacker-mohorn.de/veranstaltungen/2974258/2026/10/31/fu%C3%9Fball-kreisoberliga-c-jugend.html"
-      ],
-      "link_pattern": "https://www\\.sv\\-wacker\\-mohorn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "SV Wacker Mohorn e.V.",
-        "address": "2 Am Tharandter Wald",
-        "city": "Wilsdruff",
-        "postal_code": "01723",
-        "lat": 50.9982268,
-        "lon": 13.4756143
       },
       "_metro": "Dresden, Germany"
     },
@@ -17370,26 +16560,6 @@
         "postal_code": "01127",
         "lat": 51.0821801,
         "lon": 13.721872
-      },
-      "_metro": "Dresden, Germany"
-    },
-    {
-      "name": "Teilhabeberatung",
-      "category": "community",
-      "_found": "osm:social_facility -> jsonld-event",
-      "listing": [
-        "https://www.stadt-ag-dresden.de/veranstaltungen/2967934/2026/10/28/wie-gehts-stille-stunde.html"
-      ],
-      "link_pattern": "https://www\\.stadt\\-ag\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Teilhabeberatung",
-        "address": "21 Hoyerswerdaer Straße",
-        "city": "Dresden",
-        "postal_code": "01099",
-        "country": "DE",
-        "lat": 51.0608458,
-        "lon": 13.7522572
       },
       "_metro": "Dresden, Germany"
     },
@@ -17549,22 +16719,6 @@
       "_metro": "Dresden, Germany"
     },
     {
-      "name": "Tiergarten Höckendorfer Heide",
-      "category": "outdoors",
-      "_found": "osm:zoo -> jsonld-event",
-      "listing": [
-        "https://www.gemeinde-klingenberg.de/veranstaltungen/2968982/2026/10/30/kreatives-k%C3%BCrbisschnitzen-1.-termin-beim-landschaftspflegeverband-s%C3%A4chsische-schweiz-osterzgebirge-e.v.html"
-      ],
-      "link_pattern": "https://www\\.gemeinde\\-klingenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Tiergarten Höckendorfer Heide",
-        "lat": 50.9242802,
-        "lon": 13.5924714
-      },
-      "_metro": "Dresden, Germany"
-    },
-    {
       "name": "Neuapostolische Kirche - Gemeinde Meißen",
       "category": "community",
       "_found": "osm:place_of_worship -> jsonld-event",
@@ -17690,25 +16844,6 @@
         "postal_code": "31134",
         "lat": 52.1526448,
         "lon": 9.9498194
-      },
-      "_metro": "Hannover, Germany"
-    },
-    {
-      "name": "Jugend-, Familien- und Erziehungsberatung",
-      "category": "community",
-      "_found": "osm:social_facility -> jsonld-event",
-      "listing": [
-        "http://www.vahrenheide.info/veranstaltungen/2940304/2026/10/29/internationales-kochen.html"
-      ],
-      "link_pattern": "https://www\\.vahrenheide\\.info/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Jugend-, Familien- und Erziehungsberatung",
-        "address": "12A Plauener Straße",
-        "city": "Hannover",
-        "postal_code": "30179",
-        "lat": 52.4125478,
-        "lon": 9.7596982
       },
       "_metro": "Hannover, Germany"
     },
@@ -18833,23 +17968,6 @@
       "_metro": "Nantes, France"
     },
     {
-      "name": "CinéPHIL",
-      "category": "theater",
-      "_found": "osm:cinema -> jsonld-event",
-      "listing": [
-        "https://www.cinephil.fr/events/82643-cine-gouter-le-corset/"
-      ],
-      "link_pattern": "https://www\\.cinephil\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "CinéPHIL",
-        "address": "2 Rue des Anciens Combattants",
-        "lat": 47.0345,
-        "lon": -1.6421465
-      },
-      "_metro": "Nantes, France"
-    },
-    {
       "name": "Zénith Nantes Métropole",
       "category": "arts",
       "_found": "osm:arts_centre -> jsonld-event",
@@ -18884,22 +18002,6 @@
         "postal_code": "06300",
         "lat": 43.7106044,
         "lon": 7.2854335
-      },
-      "_metro": "Nice, France"
-    },
-    {
-      "name": "Cineplanet",
-      "category": "theater",
-      "_found": "osm:cinema -> jsonld-event",
-      "listing": [
-        "https://www.cineplanet-antibes.fr/events/84550-infirmary/"
-      ],
-      "link_pattern": "https://www\\.cineplanet\\-antibes\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Cineplanet",
-        "lat": 43.5823187,
-        "lon": 7.1236364
       },
       "_metro": "Nice, France"
     },
@@ -18955,22 +18057,6 @@
         "postal_code": "77694",
         "lat": 48.5703669,
         "lon": 7.8435806
-      },
-      "_metro": "Strasbourg, France"
-    },
-    {
-      "name": "Next Club",
-      "category": "music",
-      "_found": "osm:nightclub -> jsonld-event",
-      "listing": [
-        "https://nextclub.fr/agenda"
-      ],
-      "link_pattern": "https://nextclub\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Next Club",
-        "lat": 48.5797876,
-        "lon": 7.7430054
       },
       "_metro": "Strasbourg, France"
     },
@@ -19132,25 +18218,6 @@
         "name": "Centre régional information jeunesse",
         "lat": 50.6333012,
         "lon": 3.0665053
-      },
-      "_metro": "Lille, France"
-    },
-    {
-      "name": "Concertzaal De Kreun",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.wildewesten.be/nl/event/high-hi-2"
-      ],
-      "link_pattern": "https://www\\.wildewesten\\.be/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Concertzaal De Kreun",
-        "address": "1 Conservatoriumplein",
-        "city": "Kortrijk",
-        "postal_code": "8500",
-        "lat": 50.8249284,
-        "lon": 3.2617192
       },
       "_metro": "Lille, France"
     },
@@ -22745,24 +21812,6 @@
       "_metro": "Leeds, United Kingdom"
     },
     {
-      "name": "St George's Hall",
-      "category": "theater",
-      "_found": "osm:theatre -> jsonld-event",
-      "listing": [
-        "https://www.bradford-theatres.co.uk/whats-on/brainiac-live"
-      ],
-      "link_pattern": "https://www\\.bradford\\-theatres\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "St George's Hall",
-        "city": "Bradford",
-        "postal_code": "BD1 1JT",
-        "lat": 53.7925225,
-        "lon": -1.7509775
-      },
-      "_metro": "Leeds, United Kingdom"
-    },
-    {
       "name": "Bradford Industrial Museum",
       "category": "arts",
       "_found": "osm:museum -> jsonld-event",
@@ -23066,6 +22115,416 @@
         "lon": -1.4817479
       },
       "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Das Rind",
+      "category": "arts",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Frankfurt, Germany",
+      "venue": {
+        "name": "Das Rind",
+        "address": "11 Mainstraße",
+        "city": "Rüsselsheim am Main",
+        "postal_code": "65428",
+        "country": "DE",
+        "lat": 49.9959851,
+        "lon": 8.4119093
+      },
+      "listing": [
+        "https://dasrind.de/event-detail/2026-11-01-ausverkauft-soft-machine/"
+      ],
+      "link_pattern": "https://dasrind\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "MiBERZ",
+      "category": "arts",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Dresden, Germany",
+      "venue": {
+        "name": "MiBERZ",
+        "address": "8 Kirchplatz",
+        "city": "Dippoldiswalde",
+        "postal_code": "01744",
+        "country": "DE",
+        "lat": 50.8957246,
+        "lon": 13.6663587
+      },
+      "listing": [
+        "https://www.museen-dippoldiswalde.de/veranstaltungen/2991696/2026/11/28/bimmelbahn-lichterglanz"
+      ],
+      "link_pattern": "https://www\\.museen\\-dippoldiswalde\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Museum Schloss Fechenbach",
+      "category": "arts",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Frankfurt, Germany",
+      "venue": {
+        "name": "Museum Schloss Fechenbach",
+        "lat": 49.8998077,
+        "lon": 8.8385959
+      },
+      "listing": [
+        "https://www.museumserver.de/veranstaltungen/2929719/2026/12/13/kunsthandwerkermarkt-im-advent"
+      ],
+      "link_pattern": "https://www\\.museumserver\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Städel Museum",
+      "category": "arts",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Frankfurt, Germany",
+      "venue": {
+        "name": "Städel Museum",
+        "address": "63 Schaumainkai",
+        "city": "Frankfurt am Main",
+        "postal_code": "60596",
+        "lat": 50.1032949,
+        "lon": 8.6738582
+      },
+      "listing": [
+        "https://www.staedelmuseum.de/de/programm/abendfuehrung/2026-11-05/17-30"
+      ],
+      "link_pattern": "https://www\\.staedelmuseum\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Neuapostolische Gemeinde Berlin-Tegel",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Berlin, Germany",
+      "venue": {
+        "name": "Neuapostolische Gemeinde Berlin-Tegel",
+        "address": "39 Medebacher Weg",
+        "city": "Berlin",
+        "postal_code": "13507",
+        "country": "DE",
+        "lat": 52.5894342,
+        "lon": 13.2781511
+      },
+      "listing": [
+        "http://berlin-tegel.nak-nordost.de/db/632446/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://berlin\\-tegel\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "FC Internationale Berlin",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Berlin, Germany",
+      "venue": {
+        "name": "FC Internationale Berlin",
+        "lat": 52.4724736,
+        "lon": 13.3569324
+      },
+      "listing": [
+        "https://www.inter-berlin.de/veranstaltungen/2836151/2026/11/25/club-voltaire-im-november"
+      ],
+      "link_pattern": "https://www\\.inter\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Christuskirche",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Hamburg, Germany",
+      "venue": {
+        "name": "Christuskirche",
+        "address": "22 Halstenbeker Weg",
+        "city": "Hamburg",
+        "postal_code": "22523",
+        "country": "DE",
+        "lat": 53.6149134,
+        "lon": 9.8904232
+      },
+      "listing": [
+        "https://www.kirchengemeinde-eidelstedt.de/termine/1474857-mitsingkonzert-fur-die-seele"
+      ],
+      "link_pattern": "https://www\\.kirchengemeinde\\-eidelstedt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Berlin, Germany",
+      "venue": {
+        "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+        "address": "9 Werderstraße",
+        "city": "Woltersdorf",
+        "postal_code": "15569",
+        "lat": 52.4470663,
+        "lon": 13.7602482
+      },
+      "listing": [
+        "https://www.lkg-woltersdorf.de/veranstaltungen/2436864/2026/11/05/kindertreff"
+      ],
+      "link_pattern": "https://www\\.lkg\\-woltersdorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Muckerhaus",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Frankfurt, Germany",
+      "venue": {
+        "name": "Muckerhaus",
+        "city": "Darmstadt",
+        "postal_code": "64291",
+        "country": "DE",
+        "lat": 49.9124791,
+        "lon": 8.6661926,
+        "street_hint": "112a Messeler Straße"
+      },
+      "listing": [
+        "https://www.muckerhaus.de/veranstaltungen/2408487/2026/11/03/wohlfuehlmalen"
+      ],
+      "link_pattern": "https://www\\.muckerhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "SV Wacker Mohorn e.V.",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Dresden, Germany",
+      "venue": {
+        "name": "SV Wacker Mohorn e.V.",
+        "address": "2 Am Tharandter Wald",
+        "city": "Wilsdruff",
+        "postal_code": "01723",
+        "lat": 50.9982268,
+        "lon": 13.4756143
+      },
+      "listing": [
+        "https://www.sv-wacker-mohorn.de/veranstaltungen/2978102/2026/11/13/mitgliederversammlung-2026"
+      ],
+      "link_pattern": "https://www\\.sv\\-wacker\\-mohorn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Teilhabeberatung",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Dresden, Germany",
+      "venue": {
+        "name": "Teilhabeberatung",
+        "address": "21 Hoyerswerdaer Straße",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "country": "DE",
+        "lat": 51.0608458,
+        "lon": 13.7522572
+      },
+      "listing": [
+        "https://www.stadt-ag-dresden.de/veranstaltungen/2941300/2026/11/02/stadt-ag-im-wandel-struktur"
+      ],
+      "link_pattern": "https://www\\.stadt\\-ag\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Leipzig, Germany",
+      "venue": {
+        "name": "?",
+        "address": "17 Muldengasse",
+        "city": "Wurzen",
+        "postal_code": "04808",
+        "country": "DE",
+        "lat": 51.3714653,
+        "lon": 12.7329632
+      },
+      "listing": [
+        "https://wurzen.nak-nordost.de/db/632915/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://wurzen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+      "category": "community",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Leipzig, Germany",
+      "venue": {
+        "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+        "address": "1 Marktstraße",
+        "city": "Zwenkau",
+        "postal_code": "04442",
+        "country": "DE",
+        "lat": 51.2164189,
+        "lon": 12.3241488
+      },
+      "listing": [
+        "https://zwenkau.nak-nordost.de/db/632948/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://zwenkau\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Sportpark Tresenwald",
+      "category": "fitness",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Leipzig, Germany",
+      "venue": {
+        "name": "Sportpark Tresenwald",
+        "lat": 51.3615719,
+        "lon": 12.6156803
+      },
+      "listing": [
+        "https://www.sportpark-tresenwald.de/veranstaltungen/2987595/2027/04/11/tresenwalder-schatzmarkt-hauseigener-flohmarkt-im-sportpark-tresenwald"
+      ],
+      "link_pattern": "https://www\\.sportpark\\-tresenwald\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Bibliothèque d'Hochelaga",
+      "category": "learning",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Montreal, Canada",
+      "venue": {
+        "name": "Bibliothèque d'Hochelaga",
+        "address": "1870 Rue Davidson",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1W 2Y6",
+        "lat": 45.5423301,
+        "lon": -73.5455697
+      },
+      "listing": [
+        "https://montreal.ca/evenements/forum-citoyen-sur-la-mise-jour-du-plan-climat-de-mhm-premiere-seance-120599"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Bibliothek Leegebruch",
+      "category": "learning",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Berlin, Germany",
+      "venue": {
+        "name": "Bibliothek Leegebruch",
+        "lat": 52.725361,
+        "lon": 13.1936188
+      },
+      "listing": [
+        "https://www.leegebruch.de/veranstaltungen/2969885/2026/11/04/bauausschuss-tagt-am"
+      ],
+      "link_pattern": "https://www\\.leegebruch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Stadtbibliothek Neukirchen",
+      "category": "learning",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Dusseldorf, Germany",
+      "venue": {
+        "name": "Stadtbibliothek Neukirchen",
+        "city": "Neukirchen-Vluyn",
+        "postal_code": "47506",
+        "country": "DE",
+        "lat": 51.4510773,
+        "lon": 6.579238,
+        "street_hint": "5 Missionshof"
+      },
+      "listing": [
+        "https://www.stadtbuecherei-neukirchen-vluyn.de/veranstaltungen/2973829/2026/11/04/die-buecherbabys-mit-miriam"
+      ],
+      "link_pattern": "https://www\\.stadtbuecherei\\-neukirchen\\-vluyn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Tiergarten Höckendorfer Heide",
+      "category": "outdoors",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Dresden, Germany",
+      "venue": {
+        "name": "Tiergarten Höckendorfer Heide",
+        "lat": 50.9242802,
+        "lon": 13.5924714
+      },
+      "listing": [
+        "https://www.gemeinde-klingenberg.de/veranstaltungen/2891308/2026/11/01/amtsblatt-november"
+      ],
+      "link_pattern": "https://www\\.gemeinde\\-klingenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Rådhusteatret",
+      "category": "theater",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Oslo, NO",
+      "venue": {
+        "name": "Rådhusteatret",
+        "lat": 59.7203205,
+        "lon": 10.8380073
+      },
+      "listing": [
+        "https://www.nordrefolloscener.no/program/9099-hvorfor-er-mennesker-skapt-for-a-bli-avhengige/"
+      ],
+      "link_pattern": "https://www\\.nordrefolloscener\\.no/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Stadsschouwburg",
+      "category": "theater",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Utrecht, Netherlands",
+      "venue": {
+        "name": "Stadsschouwburg",
+        "address": "24 Lucasbolwerk",
+        "city": "Utrecht",
+        "postal_code": "3512EJ",
+        "lat": 52.0933912,
+        "lon": 5.1274954
+      },
+      "listing": [
+        "https://stadsschouwburg-utrecht.nl/agenda/seizoen-2026-2027/wier-8-laika"
+      ],
+      "link_pattern": "https://stadsschouwburg\\-utrecht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "Concertzaal De Kreun",
+      "category": "theater",
+      "_found": "refind:jsonld -> jsonld-event",
+      "_metro": "Lille, France",
+      "venue": {
+        "name": "Concertzaal De Kreun",
+        "address": "1 Conservatoriumplein",
+        "city": "Kortrijk",
+        "postal_code": "8500",
+        "lat": 50.8249284,
+        "lon": 3.2617192
+      },
+      "listing": [
+        "https://www.wildewesten.be/nl/event/macy-gray"
+      ],
+      "link_pattern": "https://www\\.wildewesten\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
+    },
+    {
+      "name": "CineTeatro Pax",
+      "category": "theater",
+      "_found": "refind:jsonld -> modern-events+jsonld-event",
+      "_metro": "Milan, Italy",
+      "venue": {
+        "name": "CineTeatro Pax",
+        "address": "4 Vicolo Fiume",
+        "city": "Cinisello Balsamo",
+        "postal_code": "20092",
+        "lat": 45.5564849,
+        "lon": 9.2169222
+      },
+      "listing": [
+        "https://www.cineteatropax.it/events/"
+      ],
+      "link_pattern": "https://www\\.cineteatropax\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150
     }
   ],
   "_not_included": {
@@ -23179,6 +22638,63 @@
     "https://www.oskaloosaiowa.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": "Oskaloosa — Park Shelter Reservations (Oskaloosa, Iowa) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes private renters' names. Its own Calendar.aspx?CID=35&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 355 entries (2023: 42, 2024: 100, 2025: 94, 2026: 119), every one a shelter booking or a closure: 199 name the renter in brackets, mostly a surname, e.g. 'Rotary Shelter Reservation (R.)', 'Shelter A Reservation (S.)' and 'Kiwanis Shelter Reservation (B.'s Grad)'; 10 mark the shelters first-come, first-served or closed; 1 is a public occasion (the library's Summer Reading Kick Off Party). Production kept 0 of 7 VEVENTs on 2026-10-25, 10-27 and 10-28, all 7 in the past. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
     "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar": "Ferndale — Star Park Picnic Shelter (Ferndale, Washington) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-29: a reservation schedule, not events, which publishes some renters' names. Its own Calendar.aspx?CID=49&showPastEvents=true, read 2026-10-29 with the production UA (robots.txt allows the page; its Crawl-delay of 10 s was honoured), lists 60 entries, all 2026: 57 are private bookings ('STAR PARK - Private Event' 28, 'BIRTHDAY PARTY' 13, 'Private Party' 11, a preschool party, a school field trip), three of them naming a child or a family, e.g. 'STAR PARK - M.'s Late Birthday Party'; 3 are public occasions (a ribbon cutting, a walk for peace, a yard-games tournament), and all 3 appear on the same day with the same title in the configured Park Facility Rentals calendar (catID 47), which stays configured. The feed on 2026-10-29 holds 1 VEVENT, 'STAR PARK - Private Event'. Production kept 1 of 1 VEVENTs on 2026-10-24, 10-25, 10-27 and 10-28. To restore: only if the city publishes events there; copy the entry back from ics_sources.json at 10f27b9.",
     "https://www.lotto-arena.be": "Lotto Arena, Antwerp (Merksem). Reverted 2026-10-29 and declined as a site, homepage and sitemap both. It came from the venue walk (osm:events_venue -> jsonld-event) as the page of ONE event (GLORY 110, 2026-10-17 16:00Z), which read '1/1 sampled events future' on 10-11 and 'no schema.org Event blocks found' on 10-18 and 10-29. The site's sitemap (100 Dutch /evenement/ pages) verifies, but each requests session's first event page is answered through a 5-hop silent sign-in measured 2026-10-29: lotto-arena.be/auth/callback -> api.mybeat.beatvenues.be/start-auth (whose robots.txt answered 403) -> auth.beatvenues.be/oauth2/authorize?...prompt=none -> back. Reading any event page drives a third party's OAuth endpoint through a host whose robots.txt refuses us, so no page of this site is configured. The way in is to ask the operator for a feed. Ledger rows: lotto-arena.be/evenement/glory-110-a200be7a (fail) and lotto-arena.be/sitemap.xml (refused).",
-    "https://www.lotto-arena.be/sitemap.xml": "Lotto Arena's sitemap: see https://www.lotto-arena.be above (a sign-in chain through a host whose robots.txt answered 403; reverted 2026-10-29)."
+    "https://www.lotto-arena.be/sitemap.xml": "Lotto Arena's sitemap: see https://www.lotto-arena.be above (a sign-in chain through a host whose robots.txt answered 403; reverted 2026-10-29).",
+    "https://druckzeug.at/veranstaltungen": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://druckzeug.at/veranstaltungen/, which did not verify). DruckZeug.",
+    "https://fv-kulturhaus-jrbecher.de/veranstaltungen/2217406/2026/10/21/beratertag-lotsendienst.html": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Kulturhaus \"Johannes R. Becher\".",
+    "https://fv-kulturhaus-jrbecher.de/veranstaltungen/2985902/2026/10/23/17.-europ.-filmfestival-der-generationen.html": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Kulturhaus \"Johannes R. Becher\".",
+    "https://gkr.uni-leipzig.de/antikenmuseum/veranstaltungsdetail/termin/drink-draw-zeichenabend-20261119.ics": "Retired 2026-11-01: http 404 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Antikenmuseum der Universität Leipzig.",
+    "https://izbapamieci.muzeumwarszawy.pl/?ical=1": "Retired 2026-11-01: 0 vevents / 0 future; The Events Calendar REST answers 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (ics at https://izbapamieci.muzeumwarszawy.pl/, which did not verify). Izba Pamięci przy Cmentarzu Powstańców Warszawy.",
+    "https://lausanne.ch/agenda-et-actualites/agenda/evenement/un-dimanche-anime": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://www.lausanne.ch/agenda-et-actualites/agenda, which did not verify). Musée romain de Lausanne-Vidy.",
+    "https://lespasserelles.fr/information-transversale/agenda/les-forteresses-16013/calendar.ics": "Retired 2026-11-01: 0 vevents / 0 future. Audited on the GitHub runner and rechecked from a second network; no entry matched for a homepage probe. Les Passerelles.",
+    "https://mudec.it/events/comunita-di-destini/ical": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Mudec - Museo delle Culture.",
+    "https://tacomaartmuseum.org/events/?ical=1": "Retired 2026-11-01: http 200 / no VCALENDAR; The Events Calendar REST lists 50 upcoming: the tribe adapter would read it (a fix to propose, . Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (tribe at https://www.tacomaartmuseum.org/, which did not verify). Tacoma Art Museum (Tacoma, WA).",
+    "https://tam-web.jsf.or.jp/?feed=my-calendar-ics": "Retired 2026-11-01: http 200 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar. 所沢航空発祥記念館.",
+    "https://abingdon.gov.uk/events/list/?ical=1": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Abingdon-on-Thames Town Council What's On (Abingdon).",
+    "https://alteschlossfabrik.de/public-events": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://alteschlossfabrik.de/business-events/, which did not verify). Alte Schlossfabrik.",
+    "https://bistummainz.de/region-oberhessen/pfarrei/taunusblick/aktuell/veranstaltungen/m-event/sternsinger-infotreffen-2026.10.30/?instancedate=1793374200000": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://bistummainz.de/aktionen/, which did not verify). Verklärung Christi.",
+    "https://buergerhaus-botnang.de/events/mulle/?ical=1": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Bürgerhaus Botnang.",
+    "https://ja.kyoto.travel/event/search.php?category_id=1&display_count=0": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. 京都観光Navi 伝統行事 (Kyoto).",
+    "https://jcccnc.org/programs-events": "Retired 2026-11-01: no schema.org Event blocks found; 6 link page(s) of 8: 6 fetched (6 answered 500). Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://www.jcccnc.org/programs-events/, which did not verify). Japanese Cultural and Community Center of Northern California.",
+    "https://kultur-vor-ort.com/mosaik/?feed=my-calendar-ics": "Retired 2026-11-01: robots.txt unreachable (https://kultur-vor-ort.com/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Mosaik Treff.",
+    "https://lafontana.org/events": "Retired 2026-11-01: robots.txt: Disallow: /. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Espai Jove La Fontana.",
+    "https://lambdavalencia.org/agenda": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://lambdavalencia.org/agenda/, which did not verify). Lambda.",
+    "https://longbaybaptist.co.nz/events.ics": "Retired 2026-11-01: 0 vevents / 0 future. Audited on the GitHub runner and rechecked from a second network; no entry matched for a homepage probe. Long Bay Baptist Church.",
+    "https://madrid.impacthub.net/events/?ical=1": "Retired 2026-11-01: http 200 / no VCALENDAR; The Events Calendar REST lists 18 upcoming: the tribe adapter would read it (a fix to propose, . Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (tribe at https://madrid.impacthub.net/agenda/, which did not verify). Impact Hub Madrid (Madrid, Spain).",
+    "https://pg-hamburg.de/events-der-woche": "Retired 2026-11-01: robots.txt unreachable (https://www.pg-hamburg.de/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Pfingstgemeinde Hamburg.",
+    "https://puk-bonn.de/veroeffentlichungen/events/abendmusiken-im-oktober-2026.10.04/?instancedate=1791122040000": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://www.puk-bonn.de/veroeffentlichungen/detail/Lebendiger-Adventskalender-00013/, which did not verify). Gemeindezentrum St. Maria Magdalena.",
+    "https://quebradados.com/eventos": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://quebradados.com/eventos-espaco/, which did not verify). Associação Quebra-Dados.",
+    "https://santa-ana.gov/events/?ical=1": "Retired 2026-11-01: http 500 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (ics at https://santa-ana.gov/events/, which did not verify). Santa Ana - City Events (Santa Ana).",
+    "https://schertz.com/common/modules/icalendar/icalendar.aspx?catid=28&feed=calendar": "Retired 2026-11-01: http 404 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered offsite:rec1.com (a page at https://www.schertz.com/calendar/, which did not verify). Schertz — Parks & Recreation Programs.",
+    "https://schertz.com/common/modules/icalendar/icalendar.aspx?catid=30&feed=calendar": "Retired 2026-11-01: http 404 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered offsite:rec1.com (a page at https://www.schertz.com/calendar/, which did not verify). Schertz — Events.",
+    "https://swordandboard.net/?post_type=tribe_events&ical=1&eventdisplay=list": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Sword and Board (Ukiah, CA).",
+    "https://vahrenheide.info/veranstaltungen/2940304/2026/10/29/internationales-kochen.html": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Jugend-, Familien- und Erziehungsberatung.",
+    "https://ville-torcy.fr/evenements/?ical=1": "Retired 2026-11-01: robots.txt: Disallow: *ical=*. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Ferme du Couvent.",
+    "https://ville-torcy.fr/jeunesse/office-municipal-danimation-de-la-cite/?ical=1": "Retired 2026-11-01: robots.txt: Disallow: *ical=*. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Office Municipal d’Animation de la Cité.",
+    "https://ville-torcy.fr/locations-demandes-de-salles/maison-des-fetes-familiales/?ical=1": "Retired 2026-11-01: robots.txt: Disallow: *ical=*. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Maison des Fêtes Familiales.",
+    "https://westleedsdispatch.com/events/list/?ical=1": "Retired 2026-11-01: http 200 / no VCALENDAR; The Events Calendar REST answers 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. West Leeds Dispatch Community Events (Leeds).",
+    "https://whitehorncommunity.com/calendar": "Retired 2026-11-01: no schema.org Event blocks found. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://whitehorncommunity.com/news, which did not verify). Whitehorn Community Association.",
+    "https://wijkberaad-vruchtenbuurt.nl/evenement/spelletjesmiddag-96": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Wijkberaad Vruchtenbuurt.",
+    "https://yukonok.gov/common/modules/icalendar/icalendar.aspx?catid=14&feed=calendar": "Retired 2026-11-01: robots.txt unreachable (https://www.yukonok.gov/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. City of Yukon Main Calendar (Oklahoma City).",
+    "https://schuetzenverein-roenneburg.de/veranstaltungen/2930692/2026/10/31/schnitzeljagd.html": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Schützenverein Rönneburg und Umgegend von 1897 e. V..",
+    "https://sokolprahavrsovice.cz/?feed=my-calendar-ics": "Retired 2026-11-01: robots.txt unreachable (https://www.sokolprahavrsovice.cz/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. TJ Sokol Vršovice.",
+    "https://waidhof.net": "Retired 2026-11-01: no schema.org Event blocks found; no link matches link_pattern. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (jsonld at https://www.waidhof.net/, which did not verify). Gestüt Waidhof.",
+    "https://amadorwine.com/?post_type=tribe_events&ical=1&eventdisplay=list": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Amador Vintners Wine Events (California).",
+    "https://cromaneseafest.com/events/?ical=1": "Retired 2026-11-01: http 200 / no VCALENDAR; The Events Calendar REST answers 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://www.cromaneseafest.com/events/, which did not verify). Cromane Seafest (Co. Kerry, Ireland).",
+    "https://schertz.com/common/modules/icalendar/icalendar.aspx?catid=33&feed=calendar": "Retired 2026-11-01: http 404 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered offsite:rec1.com (a page at https://www.schertz.com/calendar/, which did not verify). Schertz — Library - Kids & Teens.",
+    "https://knjiznica-radovljica.si/?post_type=tribe_events&ical=1&eventdisplay=list": "Retired 2026-11-01: http 200 / no VCALENDAR; The Events Calendar REST answers 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Knjižnica Antona Tomaža Linharta Radovljica (Radovljica, Bled, Bohinj).",
+    "https://mediathequealfredjarry.fr/agenda/animations-a-venir": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Médiathèque Alfred Jarry.",
+    "https://schertz.com/common/modules/icalendar/icalendar.aspx?catid=32&feed=calendar": "Retired 2026-11-01: http 404 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered offsite:rec1.com (a page at https://www.schertz.com/calendar/, which did not verify). Schertz — Library - Adults.",
+    "https://yukonok.gov/common/modules/icalendar/icalendar.aspx?catid=24&feed=calendar": "Retired 2026-11-01: robots.txt unreachable (https://www.yukonok.gov/robots.txt). The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Mabel C. Fry Public Library, Yukon (Oklahoma City).",
+    "https://nextclub.fr/agenda": "Retired 2026-11-01: HTTP 402 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Next Club.",
+    "https://ochiaisoup.com/?ical=1": "Retired 2026-11-01: 0 vevents / 0 future; The Events Calendar REST answers 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok-homepage (ics at https://ochiaisoup.com/, which did not verify). Soup.",
+    "https://smithsalternative.com/infomaxim/api/v1/events/search.ics": "Retired 2026-11-01: http 200 / no VCALENDAR. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://www.smithsalternative.com/app/calendar, which did not verify). Smith’s Alternative.",
+    "https://merseyforest.org.uk/events/list/?ical=1": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK).",
+    "https://neponset.org/events/?ical=1": "Retired 2026-11-01: robots.txt: Disallow: /events/*?*. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Neponset River Watershed Association (Canton, MA).",
+    "https://zoo-leipzig.de/event/halloween-im-zoo-39": "Retired 2026-11-01: no schema.org Event blocks found; 2 link page(s) of 2: 2 fetched (1 answered 400). Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://www.zoo-leipzig.de/event/halloween-im-zoo-39/, which did not verify). Zoo Leipzig.",
+    "https://bradford-theatres.co.uk/whats-on/brainiac-live": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. St George's Hall.",
+    "https://cinephil.fr/events/82643-cine-gouter-le-corset": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://www.cinephil.fr/evenements/, which did not verify). CinéPHIL.",
+    "https://cineplanet-antibes.fr/events/84550-infirmary": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered no-calendar (a page at https://www.cineplanet-antibes.fr/tous-nos-evenements/, which did not verify). Cineplanet.",
+    "https://sciencevillagehall.se/event/sjunggung/?cd=20261017": "Retired 2026-11-01: no schema.org Event blocks found; 1 link page(s) of 1: 1 fetched. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (jsonld at https://sciencevillagehall.se/event/odeum-mozart-palsson/?cd=20261121, which did not verify). Science Village Hall.",
+    "https://ville-torcy.fr/culture/salles-de-spectacles/petit-theatre-de-larche/?ical=1": "Retired 2026-11-01: robots.txt: Disallow: *ical=*. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. Petit Théâtre de l’Arche."
   }
 }

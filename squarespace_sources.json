@@ -135,19 +135,6 @@
       "_metro": "Calgary, CA"
     },
     {
-      "name": "The Polaris Theatre",
-      "category": "theater",
-      "_found": "osm:theatre -> squarespace",
-      "collection": "https://www.polariscentre.ca/upcoming-events",
-      "max_events": 200,
-      "venue": {
-        "name": "The Polaris Theatre",
-        "lat": 51.2006528,
-        "lon": -113.9574811
-      },
-      "_metro": "Calgary, CA"
-    },
-    {
       "name": "Commonwealth Bar & Stage",
       "category": "music",
       "_found": "osm:nightclub -> squarespace",
@@ -4317,6 +4304,7 @@
     "_why": "Editorial NOs, read by discovery (catalog_curate._not_included) so the OSM walk does not re-propose them. Each of these is a MULTI-SITE organisation whose Squarespace posts carry no address: discovery would attach the organisation's own OSM point as the venue fallback and pin every event there, which is the confidently-wrong pin the venue block exists to avoid.",
     "https://www.goldeneagleaudubon.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Golden Eagle Audubon Society (Boise): 0 of 15 upcoming placeable - field trips and restoration days across the Treasure Valley, none with an address.",
     "https://www.ktmb.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Keep Truckee Meadows Beautiful (Reno): 0 of 3 upcoming placeable - clean-ups at sites the posts do not name.",
-    "https://www.fronteralandalliance.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Frontera Land Alliance (El Paso): 1 of 20 upcoming placeable - preserve walks across the county."
+    "https://www.fronteralandalliance.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Frontera Land Alliance (El Paso): 1 of 20 upcoming placeable - preserve walks across the county.",
+    "https://polariscentre.ca/upcoming-events": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (ics at https://www.polariscentre.ca/event-insurance, which did not verify). The Polaris Theatre."
   }
 }

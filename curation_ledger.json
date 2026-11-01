@@ -8261,6 +8261,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "acwtownship.ca": {
+    "checked": 20261101,
+    "name": "Ashfield\u2013Colborne\u2013Wawanosh",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "acz-capelle.nl": {
     "checked": 20261017,
     "name": "Algemene Capelse Zwemvereniging",
@@ -22005,6 +22012,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "amaranth.ca": {
+    "checked": 20261101,
+    "name": "Amaranth",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "amare.nl": {
     "cal_url": "https://www.amare.nl/nl/agenda",
     "checked": 20261017,
@@ -23117,6 +23131,13 @@
     "reason": "30 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "amherstburg.ca/en/index.aspx": {
+    "checked": 20261101,
+    "name": "Amherstburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "amherstcenterforseniorservices.com/general-1": {
     "checked": 20261101,
@@ -27514,6 +27535,13 @@
     "reason": "osm probe: unreachable (ConnectionError)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "antownship.ca": {
+    "checked": 20261101,
+    "name": "Asphodel-Norwood",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "antram.pt": {
     "checked": 20260901,
@@ -34314,6 +34342,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arnprior.ca": {
+    "checked": 20261101,
+    "name": "Arnprior",
+    "offsite_url": "https://townofarnprior.perfectmind.com/24502/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406&amp;_mid_=10194",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "arnsdorfer-fv.de": {
     "checked": 20261026,
     "name": "Arnsdorfer FV",
@@ -34707,6 +34743,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "arran-elderslie.com": {
+    "checked": 20261101,
+    "name": "Arran\u2013Elderslie",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "arrayane.be": {
     "checked": 20261017,
@@ -58949,6 +58992,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "beaumont.ab.ca": {
+    "checked": 20261101,
+    "name": "Beaumont",
+    "reason": "15 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "beaumontheritage.com/index.php/la-maison-historique-st-jacques-heritage-house": {
     "checked": 20261029,
     "name": "St. Jacques Heritage House",
@@ -62611,6 +62661,13 @@
     "name": "Neuapostolische Gemeinde Berlin-Tegel",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "berlin-tegel.nak-nordost.de/db/632446/Termine/Gottesdienst": {
+    "checked": 20261101,
+    "name": "Neuapostolische Gemeinde Berlin-Tegel",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "berlin-tempelhof.feg.de": {
@@ -68873,7 +68930,7 @@
   "biblio.kuldiga.lv": {
     "checked": 20261101,
     "name": "Kuld\u012bgas Galven\u0101 bibliot\u0113ka (Kuld\u012bga Main Library)",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='biblio.kuldiga.lv', port=443): Max retries e",
+    "reason": "robots.txt unreachable (https://biblio.kuldiga.lv/robots.txt)",
     "status": "fail",
     "type": "tribe"
   },
@@ -80367,6 +80424,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "blandfordblenheim.ca": {
+    "checked": 20261101,
+    "name": "Blandford-Blenheim",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "blandfordnaturecenter.org/?mec-ical-feed=1": {
     "checked": 20260928,
     "name": "Blandford Nature Center (Grand Rapids)",
@@ -91634,6 +91698,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "bracebridge.ca": {
+    "checked": 20261101,
+    "name": "Bracebridge",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "brackenridgepark.org": {
     "checked": 20261101,
     "name": "Brackenridge Park Conservancy (San Antonio, TX)",
@@ -92365,6 +92436,14 @@
     "reason": "339 vevents / 197 future",
     "status": "ok",
     "type": "ics"
+  },
+  "brant.ca": {
+    "checked": 20261101,
+    "name": "County of Brant",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/brant/home",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "brantford.ca": {
     "checked": 20261015,
@@ -94435,8 +94514,8 @@
   "brettspielhelden-dresden.de": {
     "checked": 20261101,
     "name": "Brettspielhelden Dresden e. V.",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='brettspielhelden-dresden.de', port=443): Max",
-    "status": "fail",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "breugemmeetingpoint.nl": {
@@ -96540,6 +96619,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brockton.ca": {
+    "checked": 20261101,
+    "name": "Brockton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "brocktonpavilion.ca": {
     "cal_url": "https://brocktonpavilion.ca/event-photos/",
     "checked": 20261029,
@@ -96548,6 +96634,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "brockville.com": {
+    "checked": 20261101,
+    "name": "Brockville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "brockwellgreenhouses.org.uk": {
     "checked": 20261101,
@@ -118512,6 +118605,14 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "camrose.ca": {
+    "checked": 20261101,
+    "name": "Camrose",
+    "offsite_url": "https://cityofcamrose.perfectmind.com/24136/Clients/BookMe4?widgetId=f6566c6d-eb3b-4cd6-8ff0-234f22ca05d5",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "camrosebc.org.uk/welcome.htm": {
     "checked": 20261031,
     "name": "Camrose Baptist Church",
@@ -136153,6 +136254,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "charlottetown.ca": {
+    "checked": 20261101,
+    "name": "Charlottetown",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "charlottewall.com": {
     "checked": 20261029,
     "name": "Charlotte Wall Works",
@@ -136939,6 +137047,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "chatsworth.ca": {
+    "checked": 20261101,
+    "name": "Chatsworth",
+    "reason": "168 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "chattanoogaaudubon.org": {
     "checked": 20260928,
@@ -138083,6 +138198,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "chestermere.ca": {
+    "checked": 20261101,
+    "name": "Chestermere",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "chestermerepubliclibrary.com": {
     "checked": 20261029,
@@ -147734,8 +147856,8 @@
   "cineteatropax.it/events": {
     "checked": 20261101,
     "name": "CineTeatro Pax",
-    "reason": "http 500",
-    "status": "fail",
+    "reason": "12/12 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "cineteatrosanluigi.it": {
@@ -151039,6 +151161,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.portage-la-prairie.mb.ca": {
+    "checked": 20261101,
+    "name": "Portage la Prairie",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "city.saga.lg.jp": {
     "checked": 20261022,
     "name": "Saga",
@@ -153687,6 +153816,14 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofflinflon.ca": {
+    "checked": 20261101,
+    "name": "Flin Flon",
+    "offsite_url": "https://cityofflinflon.perfectmind.com/SocialSite/MemberRegistration/MemberSignIn",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofflorence.com": {
     "checked": 20260913,
     "name": "Florence",
@@ -154523,6 +154660,13 @@
   "cityofmustang.org": {
     "checked": 20260913,
     "name": "Mustang",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofnb.ca": {
+    "checked": 20261101,
+    "name": "North Battleford",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -155673,6 +155817,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofwinkler.ca": {
+    "checked": 20261101,
+    "name": "Winkler",
+    "reason": "civic probe: robots.txt Disallow: / (http://www.cityofwinkler.ca/robots.txt)",
+    "status": "refused",
+    "type": "civic-city"
+  },
   "cityofwinona-mn.com": {
     "checked": 20260913,
     "name": "Winona",
@@ -155736,6 +155887,14 @@
     "reason": "19 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "citypa.ca": {
+    "checked": 20261101,
+    "name": "Prince Albert",
+    "offsite_url": "https://citypa.perfectmind.com/31421/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406&amp;embed=False&amp;redirectedFromEmbededMode=False",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityparksfoundation.org/events/?ical=1": {
     "checked": 20261101,
@@ -157311,6 +157470,13 @@
     "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
+  },
+  "clearview.ca": {
+    "checked": 20261101,
+    "name": "Clearview",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "clearview.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20261101,
@@ -162532,6 +162698,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cobourg.ca": {
+    "checked": 20261101,
+    "name": "Cobourg",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/cobourgcommunitycentre/activity/search?onlineSiteId=0&amp;activity_select_param=2&amp;activity_keyword=learn%20to%20skate&amp;viewMode=list",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cobra-museum.nl": {
     "cal_url": "https://cobra-museum.nl/museum/verhuur-evenementen/",
     "checked": 20261016,
@@ -163362,6 +163536,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "coldlake.com": {
+    "checked": 20261101,
+    "name": "Cold Lake",
+    "offsite_url": "https://www.ticketmaster.ca/tom-cochrane-amanda-marshall-white-hot-cold-lake-alberta-11-06-2026/event/110064EDA9CF6D0B",
+    "reason": "civic probe: offsite:ticketmaster",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "coldtownbeer.com": {
     "cal_url": "https://coldtownbeer.com/news/",
     "checked": 20261101,
@@ -163661,6 +163843,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "collegedaletn.gov": {
+    "checked": 20261101,
+    "name": "Collegedale",
+    "offsite_url": "https://collegedale.recdesk.com/Community/Home",
+    "reason": "civic probe: offsite:recdesk.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "collegedesbernardins.fr": {
     "checked": 20260830,
@@ -168864,6 +169054,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "cornwall.ca/fr": {
+    "checked": 20261101,
+    "name": "Cornwall",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cornwallgardens.org": {
     "cal_key": "cornwallgardens.org/events",
     "checked": 20261031,
@@ -169538,6 +169735,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cotesaintluc.org": {
+    "checked": 20261101,
+    "name": "C\u00f4te Saint-Luc",
+    "offsite_url": "https://app.amilia.com/store/fr/city-of-cote-saint-luc/shop/programs",
+    "reason": "civic probe: offsite:amilia.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cotfbbham.com/branches.htm": {
     "cal_url": "https://www.cotfbbham.com/news.htm",
@@ -173016,6 +173221,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cromaneseafest.com": {
+    "checked": 20261101,
+    "name": "Cromane Seafest (Co. Kerry, Ireland)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "cromaneseafest.com/events/?ical=1": {
     "checked": 20261101,
@@ -181862,6 +182074,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "dasrind.de/event-detail/2026-11-01-ausverkauft-soft-machine": {
+    "checked": 20261101,
+    "name": "Das Rind",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "dasrind.de/event-detail/2026-11-01-soft-machine": {
     "checked": 20261101,
     "name": "Das Rind",
@@ -182344,6 +182563,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "dauphin.ca": {
+    "checked": 20261101,
+    "name": "Dauphin",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "dav-altdorf.de/kletterhalle": {
     "checked": 20261027,
@@ -207137,6 +207363,14 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "dryden.ca": {
+    "checked": 20261101,
+    "name": "Dryden",
+    "offsite_url": "https://app.amilia.com/store/en/city-of-dryden/shop/programs",
+    "reason": "civic probe: offsite:amilia.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "drygate.com": {
     "cal_url": "https://www.drygate.com/events",
     "checked": 20261031,
@@ -211244,6 +211478,13 @@
     "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
+  },
+  "eastgwillimbury.ca": {
+    "checked": 20261101,
+    "name": "East Gwillimbury",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "easthambaptist.org.uk": {
     "cal_url": "https://easthambaptist.org.uk/events-calendar/",
@@ -235548,8 +235789,8 @@
   "eventos.sociales.unam.mx": {
     "checked": 20261101,
     "name": "Instituto de Investigaciones Sociales UNAM (Mexico City)",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='eventos.sociales.unam.mx', port=443): Max re",
-    "status": "fail",
+    "reason": "16 events, 10/10 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "eventos.unam.mx/wordpress/?post_type=tribe_events&ical=1&eventDisplay=list": {
@@ -257521,6 +257762,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fortsask.ca": {
+    "checked": 20261101,
+    "name": "Fort Saskatchewan",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "fortsask.ca/en/things-to-do/recreation-centre.aspx": {
     "cal_url": "https://www.fortsask.ca/culture-tourism/facility-event-rentals/",
     "checked": 20261029,
@@ -263422,7 +263670,7 @@
   "fsduisburg.de": {
     "checked": 20261101,
     "name": "Freie Schwimmer Duisburg 1920 e.V.",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='fsduisburg.de', port=443): Max retries excee",
+    "reason": "robots.txt unreachable (https://fsduisburg.de/robots.txt)",
     "status": "fail",
     "type": "tribe"
   },
@@ -266198,8 +266446,8 @@
   "fzs.de": {
     "checked": 20261101,
     "name": "freier zusammenschluss von studentInnenschaften",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.fzs.de', port=443): Max retries exceeded",
-    "status": "fail",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "fzst-boomerang.de": {
@@ -274148,6 +274396,13 @@
     "reason": "osm probe: found jsonld",
     "status": "found",
     "type": "osm-venue"
+  },
+  "gemeinde-klingenberg.de/veranstaltungen/2891308/2026/11/01/amtsblatt-november": {
+    "checked": 20261101,
+    "name": "Tiergarten H\u00f6ckendorfer Heide",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "gemeinde-klingenberg.de/veranstaltungen/2968982/2026/10/30/kreatives-k%C3%BCrbisschnitzen-1.-termin-beim-landschaftspflegeverband-s%C3%A4chsische-schweiz-osterzgebirge-e.v.html": {
     "checked": 20261101,
@@ -287652,6 +287907,14 @@
     "reason": "osm probe: http403",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "gravenhurst.ca/en/doing-business/doing-business2.aspx": {
+    "checked": 20261101,
+    "name": "Gravenhurst",
+    "offsite_url": "http://ca.apm.activecommunities.com/gravenhurst/Activity_Search/2786?onlineSiteId=0&amp;activity_select_param=2&amp;drop_in=0&amp;viewMode=list",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "gravity9.ch/events/actinglab-tnagm-te5z5": {
     "checked": 20260918,
@@ -303497,6 +303760,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hbmtwp.ca": {
+    "checked": 20261101,
+    "name": "Havelock-Belmont-Methuen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hbok.nl": {
     "cal_url": "https://www.hbok.nl/sites/BBCY61K/custom/clubPages/019e6a35-6f7f-7cc5-8b85-af7c3f569014",
     "checked": 20261016,
@@ -306071,8 +306341,8 @@
   "heilsarmee.de/berlinsuedwest/termineveranstaltungen.html": {
     "checked": 20261101,
     "name": "Die Heilsarmee Berlin-S\u00fcdwest",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='www.heilsarmee.de', port=443): Max retries e",
-    "status": "fail",
+    "reason": "8/8 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "heilsarmee.de/ewh/ueber-uns.html": {
@@ -306087,8 +306357,8 @@
   "heilsarmee.de/hamburgkorps/termineveranstaltungen.html": {
     "checked": 20261101,
     "name": "Die Heilsarmee",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='www.heilsarmee.de', port=443): Max retries e",
-    "status": "fail",
+    "reason": "3/3 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "heilsarmee.de/jakobjunkerhaus/ueber-uns.html": {
@@ -306169,8 +306439,8 @@
   "heilsarmee.de/solingen/termineveranstaltungen.html": {
     "checked": 20261101,
     "name": "Heilsarmee Solingen",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='www.heilsarmee.de', port=443): Max retries e",
-    "status": "fail",
+    "reason": "9/9 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "heilsarmee.de/solingen/ueber-uns.html": {
@@ -306202,15 +306472,15 @@
   "heilsarmee.de/stuttgartkorps/termineveranstaltungen.html": {
     "checked": 20261101,
     "name": "Heilsarmee Vorposten Bad Cannstatt",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='www.heilsarmee.de', port=443): Max retries e",
-    "status": "fail",
+    "reason": "4/4 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "heilsarmee.de/termineveranstaltungen.html": {
     "checked": 20261101,
     "name": "Evangeline-Booth-Haus",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='www.heilsarmee.de', port=443): Max retries e",
-    "status": "fail",
+    "reason": "10/11 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "heilsarmeethun.ch": {
@@ -330200,6 +330470,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "huntsville.ca": {
+    "checked": 20261101,
+    "name": "Huntsville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "huntsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
     "checked": 20261101,
     "name": "Huntsville \u2014 Library",
@@ -330280,6 +330557,13 @@
     "reason": "355 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "huronkinloss.com": {
+    "checked": 20261101,
+    "name": "Huron-Kinloss",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hurricaneroom.co.uk/colindale-hurricane-room-intro": {
     "checked": 20261030,
@@ -341221,6 +341505,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "inter-berlin.de/veranstaltungen/2836151/2026/11/25/club-voltaire-im-november": {
+    "checked": 20261101,
+    "name": "FC Internationale Berlin",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "inter-city.nl": {
     "cal_url": "https://www.inter-city.nl/events",
     "checked": 20261017,
@@ -342621,6 +342912,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "iqaluit.ca/calendar-node-field-event-date/ical/%2A/calendar.ics": {
+    "checked": 20261101,
+    "name": "Iqaluit",
+    "reason": "http 500 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
   },
   "iqm.unicamp.br": {
     "checked": 20260928,
@@ -369574,6 +369872,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "king.ca": {
+    "checked": 20261101,
+    "name": "King",
+    "offsite_url": "https://townshipofking.perfectmind.com/23793/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kinga.diecezja.krakow.pl": {
     "checked": 20260909,
     "name": "Ko\u015bci\u00f3\u0142 pw. \u015awi\u0119tej Kingi",
@@ -374397,6 +374703,13 @@
     "name": "Christuskirche",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "kirchengemeinde-eidelstedt.de/termine/1474857-mitsingkonzert-fur-die-seele": {
+    "checked": 20261101,
+    "name": "Christuskirche",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "kirchengemeinde-goetzenhain.ekhn.de/startseite.html": {
@@ -384841,8 +385154,8 @@
   "kplmo.org": {
     "checked": 20261101,
     "name": "Kirkwood Public Library (St. Louis)",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='kplmo.org', port=443): Max retries exceeded ",
-    "status": "fail",
+    "reason": "88 events, 10/10 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "kplusgruppe.de/home.html": {
@@ -388415,7 +388728,7 @@
   "kultur-vor-ort.com/mosaik/?feed=my-calendar-ics": {
     "checked": 20261101,
     "name": "Mosaik Treff",
-    "reason": "SSLError: HTTPSConnectionPool(host='kultur-vor-ort.com', port=443): Max retries ",
+    "reason": "robots.txt unreachable (https://kultur-vor-ort.com/robots.txt)",
     "status": "fail",
     "type": "ics"
   },
@@ -399587,6 +399900,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lanarkhighlands.ca": {
+    "checked": 20261101,
+    "name": "Lanark Highlands",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/lanarkhighlands/home",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lanaubarcelona.es/agenda": {
     "checked": 20260915,
     "name": "La Nau",
@@ -406315,6 +406636,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "leamington.ca": {
+    "checked": 20261101,
+    "name": "Leamington",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "leamingtonhealthclub.co.uk": {
     "cal_url": "https://leamingtonhealthclub.co.uk/gym-memberships/",
     "checked": 20261031,
@@ -408508,8 +408836,8 @@
   "leeds.libcal.com/ical_subscribe.php?cid=8882": {
     "checked": 20261101,
     "name": "University of Leeds Skills@Library Workshops (Leeds, United Kingdom)",
-    "reason": "ChunkedEncodingError: ('Connection broken: IncompleteRead(1847 bytes read, 201 more expected",
-    "status": "fail",
+    "reason": "151 vevents / 81 future",
+    "status": "ok",
     "type": "ics"
   },
   "leeds.libcal.com/ical_subscribe.php?cid=8929": {
@@ -408525,6 +408853,13 @@
     "reason": "0 vevents / 0 future; a valid empty LibCal calendar, and a missing one answers 200 'invalid calendar id', so this one exists",
     "status": "empty",
     "type": "ics"
+  },
+  "leeds1000islands.ca": {
+    "checked": 20261101,
+    "name": "Leeds and the Thousand Islands",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "leedsbuddhistcentre.org/events.ics": {
     "checked": 20261101,
@@ -408683,6 +409018,13 @@
     "name": "Bibliothek Leegebruch",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "leegebruch.de/veranstaltungen/2969885/2026/11/04/bauausschuss-tagt-am": {
+    "checked": 20261101,
+    "name": "Bibliothek Leegebruch",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "leeghwaterbad.nl": {
@@ -411797,36 +412139,36 @@
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261101,
     "name": "Leominster \u2014 City Events",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.leominster-ma.gov', port=443): Read time",
-    "status": "fail",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
     "checked": 20261101,
     "name": "Leominster \u2014 Ribbon Cuttings",
-    "reason": "0 vevents / 0 future; /iCalendar.aspx unreadable (robots.txt refuses it: (robots.txt unreachable: RFC 9309 says assume Disallow: /))",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; catID 31 still listed on /iCalendar.aspx as 'Ribbon Cuttings'",
+    "status": "empty",
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
     "checked": 20261101,
     "name": "Leominster \u2014 Community Events",
-    "reason": "0 vevents / 0 future; /iCalendar.aspx unreadable (robots.txt refuses it: (robots.txt unreachable: RFC 9309 says assume Disallow: /))",
-    "status": "fail",
+    "reason": "0 vevents / 0 future; catID 33 still listed on /iCalendar.aspx as 'Community Events'",
+    "status": "empty",
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
     "checked": 20261101,
     "name": "Leominster \u2014 Health Department Events",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.leominster-ma.gov', port=443): Read time",
-    "status": "fail",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
     "type": "ics"
   },
   "leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar": {
     "checked": 20261101,
     "name": "Leominster \u2014 Holiday Events",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.leominster-ma.gov', port=443): Read time",
-    "status": "fail",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
     "type": "ics"
   },
   "leonard-lorenz.com/events": {
@@ -417214,8 +417556,8 @@
   "libcal.vu.nl/ical_subscribe.php?cid=7052": {
     "checked": 20261101,
     "name": "VU Amsterdam University Library (Amsterdam)",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='libcal.vu.nl', port=443): Max retries exceed",
-    "status": "fail",
+    "reason": "36 vevents / 19 future",
+    "status": "ok",
     "type": "ics"
   },
   "libcat.renfrewshire.gov.uk/iguana/www.main.cls?p=13961a65-033a-4fdd-b6b1-cd91360ede1d&v=*": {
@@ -428489,6 +428831,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "lkg-woltersdorf.de/veranstaltungen/2436864/2026/11/05/kindertreff": {
+    "checked": 20261101,
+    "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "lkk.se": {
     "checked": 20260905,
     "name": "Sankt Mikaels och Alla \u00c4nglars kyrka",
@@ -428692,6 +429041,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lloydminster.ca": {
+    "checked": 20261101,
+    "name": "Lloydminster",
+    "offsite_url": "https://www.showpass.com/worldjuniorslloydminster/",
+    "reason": "civic probe: offsite:showpass.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "llucmajor.org": {
     "checked": 20261025,
@@ -441870,6 +442227,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "malagacha.com": {
+    "checked": 20261101,
+    "name": "Malagacha Gallery",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "malagageriatrica.es": {
     "checked": 20260916,
     "name": "M\u00e1laga Geri\u00e1trica",
@@ -452452,6 +452816,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "meadowlake.ca": {
+    "checked": 20261101,
+    "name": "Meadow Lake",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "meadowlarkpark.org": {
     "checked": 20261024,
     "name": "Meadowlark Park Community Hall",
@@ -457974,6 +458345,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "merriam.org": {
+    "checked": 20261101,
+    "name": "Merriam",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "merricat.cat": {
     "checked": 20260915,
     "name": "Llibreria Merricat",
@@ -458028,6 +458406,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "merseyforest.org.uk": {
+    "checked": 20261101,
+    "name": "The Mersey Forest - health walks, conservation and gardening sessions (Cheshire and Merseyside, UK)",
+    "reason": "172 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "merseyforest.org.uk/events/list/?ical=1": {
     "checked": 20261101,
@@ -461820,6 +462205,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "midland.ca": {
+    "checked": 20261101,
+    "name": "Midland",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "midlandheart.org.uk/find-a-home/homes-with-support-search/little-sutton-lane": {
     "checked": 20261031,
     "name": "Midland Heart",
@@ -464536,6 +464928,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mission.ca": {
+    "checked": 20261101,
+    "name": "Mission",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mission100tonnes.com": {
     "checked": 20260928,
@@ -467358,7 +467757,7 @@
   "mncp.cultura.gob.mx": {
     "checked": 20261101,
     "name": "Museo Nacional de Culturas Populares (Mexico City)",
-    "reason": "ConnectionError: HTTPSConnectionPool(host='mncp.cultura.gob.mx', port=443): Max retries",
+    "reason": "robots.txt unreachable (https://mncp.cultura.gob.mx/robots.txt)",
     "status": "fail",
     "type": "tribe"
   },
@@ -472191,6 +472590,13 @@
     "status": "empty",
     "type": "jsonld"
   },
+  "montreal.ca/evenements/forum-citoyen-sur-la-mise-jour-du-plan-climat-de-mhm-premiere-seance-120599": {
+    "checked": 20261101,
+    "name": "Biblioth\u00e8que d'Hochelaga",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "montreal.ca/evenements/gym-douce-113978": {
     "checked": 20261101,
     "name": "Biblioth\u00e8que de Parc-Extension",
@@ -474353,6 +474759,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mordenmb.com": {
+    "checked": 20261101,
+    "name": "Morden",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mordusdelapiste.fr": {
     "cal_url": "https://www.mordusdelapiste.fr/evenementiel/",
@@ -479097,6 +479510,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "muckerhaus.de/veranstaltungen/2408487/2026/11/03/wohlfuehlmalen": {
+    "checked": 20261101,
+    "name": "Muckerhaus",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "mucomnisports.fr": {
     "cal_url": "https://www.mucomnisports.fr/activite-piscine/",
     "checked": 20261028,
@@ -480496,6 +480916,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mulmur.ca": {
+    "checked": 20261101,
+    "name": "Mulmur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "multatuli-museum.nl": {
     "cal_url": "https://www.multatuli-museum.nl/agenda",
@@ -483201,6 +483628,13 @@
     "name": "MiBERZ",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "museen-dippoldiswalde.de/veranstaltungen/2991696/2026/11/28/bimmelbahn-lichterglanz": {
+    "checked": 20261101,
+    "name": "MiBERZ",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "museen-dresden.de/index.php?node=kuegelgenhaus": {
@@ -486043,6 +486477,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "museum-ludwig.de/de/besuch/veranstaltungen/kalender/54977-familienfuehrungen-voller-staunen-familien-mit-kindern-ab-5-jahren-teilnahme-kostenlos.ics": {
+    "checked": 20261101,
+    "name": "Museum Ludwig",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "museum-luetzen-1632.de": {
     "cal_url": "https://museum-luetzen-1632.de/aktuelles/der-dreissigjaehrige-krieg-zeugnisse-vom-leben-mit-gewalt",
     "checked": 20261025,
@@ -487888,6 +488329,13 @@
     "name": "Museum Schloss Fechenbach",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "museumserver.de/veranstaltungen/2929719/2026/12/13/kunsthandwerkermarkt-im-advent": {
+    "checked": 20261101,
+    "name": "Museum Schloss Fechenbach",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "museumsfeldbahn.de": {
@@ -491715,6 +492163,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "myselkirk.ca": {
+    "checked": 20261101,
+    "name": "Selkirk",
+    "reason": "13 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "myseminole.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
     "checked": 20261101,
     "name": "Seminole \u2014 Recreation Calendar",
@@ -495464,6 +495919,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nationmun.ca": {
+    "checked": 20261101,
+    "name": "The Nation",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/nationmun/home",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "nations.co.nz": {
     "checked": 20261014,
@@ -501113,6 +501576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "newtecumseth.ca": {
+    "checked": 20261101,
+    "name": "New Tecumseth",
+    "reason": "34 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "newtennisdavinci.wixsite.com/website": {
     "checked": 20260922,
     "name": "Tennis Club Fratta \"Leonardo Da Vinci\"",
@@ -506589,6 +507059,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "nordrefolloscener.no/program/9099-hvorfor-er-mennesker-skapt-for-a-bli-avhengige": {
+    "checked": 20261101,
+    "name": "R\u00e5dhusteatret",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "nordreisa.kommune.no": {
     "checked": 20261020,
     "name": "Nordreisa Municipality",
@@ -506988,6 +507465,13 @@
     "status": "fail",
     "type": "squarespace"
   },
+  "northbrucepeninsula.ca": {
+    "checked": 20261101,
+    "name": "Northern Bruce Peninsula",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "northcantonohio.com": {
     "checked": 20260913,
     "name": "North Canton",
@@ -507116,6 +507600,13 @@
     "reason": "0 vevents / 0 future; a valid empty My Calendar calendar, and a missing one answers 404 (wp_die), so this one exists",
     "status": "empty",
     "type": "ics"
+  },
+  "northdundas.com": {
+    "checked": 20261101,
+    "name": "North Dundas",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "northeastmuseums.org.uk/whats-on": {
     "checked": 20261004,
@@ -509496,8 +509987,8 @@
   "nrw.mehr-demokratie.de/service-beratung/termine/einzelansicht-termine/sprechen-zuhoeren-heimat-7807": {
     "checked": 20261101,
     "name": "Mehr Demokratie",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='nrw.mehr-demokratie.de', port=443): Max retr",
-    "status": "fail",
+    "reason": "1 events / 0 future; no link matches link_pattern",
+    "status": "empty",
     "type": "jsonld"
   },
   "nrwjazz.net": {
@@ -523197,6 +523688,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "orangeville.ca": {
+    "checked": 20261101,
+    "name": "Orangeville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "orangutan.de": {
     "cal_url": "https://www.orangutan.de/engagieren/aktiv-werden-auf-borneo/volontarprogramme/",
     "checked": 20261021,
@@ -528641,6 +529139,13 @@
   "owensboro.org": {
     "checked": 20260906,
     "name": "Owensboro",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "owensound.ca": {
+    "checked": 20261101,
+    "name": "Owen Sound",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -544064,6 +544569,14 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "pembroke.ca": {
+    "checked": 20261101,
+    "name": "Pembroke",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/pembroke/home?onlineSiteId=0&amp;from_original_cui=true",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "pembrokehouse.org.uk/church/index.html": {
     "checked": 20261031,
     "name": "St Christopher's",
@@ -545120,6 +545633,14 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "perth.ca": {
+    "checked": 20261101,
+    "name": "Perth",
+    "offsite_url": "https://www.facebook.com/groups/2639113906364720",
+    "reason": "civic probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "perth.cambodianbuddhists.com": {
     "checked": 20261030,
@@ -549353,7 +549874,7 @@
   "pg-hamburg.de/events-der-woche": {
     "checked": 20261101,
     "name": "Pfingstgemeinde Hamburg",
-    "reason": "SSLError: HTTPSConnectionPool(host='www.pg-hamburg.de', port=443): Max retries e",
+    "reason": "robots.txt unreachable (https://www.pg-hamburg.de/robots.txt)",
     "status": "fail",
     "type": "jsonld"
   },
@@ -563812,6 +564333,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "princerupert.ca": {
+    "checked": 20261101,
+    "name": "Prince Rupert",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "princes-foundation.org": {
     "checked": 20261030,
@@ -583578,8 +584106,8 @@
   "richmondheightslibrary.org": {
     "checked": 20261101,
     "name": "Richmond Heights Memorial Library",
-    "reason": "ConnectTimeout: HTTPSConnectionPool(host='www.richmondheightslibrary.org', port=443): ",
-    "status": "fail",
+    "reason": "22 events, 10/10 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "richmondhill-ga.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
@@ -607339,6 +607867,13 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "saugeenshores.ca": {
+    "checked": 20261101,
+    "name": "Saugeen Shores",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "saughtonhall.com": {
     "checked": 20261101,
     "name": "Saughtonhall Church",
@@ -613602,6 +614137,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sciencevillagehall.se/event/odeum-mozart-palsson/?cd=20261121": {
+    "checked": 20261101,
+    "name": "Science Village Hall",
+    "reason": "robots.txt unreachable (https://sciencevillagehall.se/robots.txt)",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "sciencevillagehall.se/event/sjunggung/?cd=20261017": {
     "checked": 20261101,
     "name": "Science Village Hall",
@@ -618642,8 +619184,8 @@
   "selk-mitte.de": {
     "checked": 20261101,
     "name": "Evangelisch-Lutherische Kirche",
-    "reason": "http 500",
-    "status": "fail",
+    "reason": "34 events, 10/10 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "selk-muenchen.de": {
@@ -618798,6 +619340,13 @@
   "seltjarnarnes.is": {
     "checked": 20260921,
     "name": "Seltjarnarnes",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "selwyntownship.ca": {
+    "checked": 20261101,
+    "name": "Selwyn",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -631051,6 +631600,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "skafferiet.dk/spis-med-os": {
+    "checked": 20261101,
+    "name": "Skafferiet",
+    "reason": "no schema.org Event blocks found; no link matches link_pattern",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "skagafjordur.is": {
     "checked": 20260921,
     "name": "Skagafj\u00f6r\u00f0ur",
@@ -636325,7 +636881,7 @@
   "sokolprahavrsovice.cz/?feed=my-calendar-ics": {
     "checked": 20261101,
     "name": "TJ Sokol Vr\u0161ovice",
-    "reason": "SSLError: HTTPSConnectionPool(host='www.sokolprahavrsovice.cz', port=443): Max r",
+    "reason": "robots.txt unreachable (https://www.sokolprahavrsovice.cz/robots.txt)",
     "status": "fail",
     "type": "ics"
   },
@@ -638862,6 +639418,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southbrucepeninsula.com": {
+    "checked": 20261101,
+    "name": "South Bruce Peninsula",
+    "reason": "67 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "southburlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
     "checked": 20261101,
     "name": "South Burlington \u2014 Recreation Calendar",
@@ -638934,6 +639497,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "southdundas.com": {
+    "checked": 20261101,
+    "name": "South Dundas",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "southdunedinbaptist.org": {
     "cal_url": "http://www.southdunedinbaptist.org/activities",
@@ -639061,10 +639631,25 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southfrontenac.net": {
+    "checked": 20261101,
+    "name": "South Frontenac",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "southgate-mi.org": {
     "checked": 20260913,
     "name": "Southgate",
     "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "southgate.ca": {
+    "checked": 20261101,
+    "name": "Southgate",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/southgate/home",
+    "reason": "civic probe: offsite:activecommunities.com",
     "status": "fail",
     "type": "civic-city"
   },
@@ -644958,6 +645543,13 @@
     "name": "Sportpark Tresenwald",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "sportpark-tresenwald.de/veranstaltungen/2987595/2027/04/11/tresenwalder-schatzmarkt-hauseigener-flohmarkt-im-sportpark-tresenwald": {
+    "checked": 20261101,
+    "name": "Sportpark Tresenwald",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "sportpark-willemalexander.nl": {
@@ -651621,12 +652213,26 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "stadsschouwburg-utrecht.nl/agenda/seizoen-2026-2027/wier-8-laika": {
+    "checked": 20261101,
+    "name": "Stadsschouwburg",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "stadsteatern.goteborg.se": {
     "checked": 20260905,
     "name": "G\u00f6teborgs Stadsteater",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stadt-ag-dresden.de/veranstaltungen/2941300/2026/11/02/stadt-ag-im-wandel-struktur": {
+    "checked": 20261101,
+    "name": "Teilhabeberatung",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "stadt-ag-dresden.de/veranstaltungen/2967934/2026/10/28/wie-gehts-stille-stunde.html": {
     "checked": 20261101,
@@ -653106,6 +653712,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "stadtbuecherei-neukirchen-vluyn.de/veranstaltungen/2973829/2026/11/04/die-buecherbabys-mit-miriam": {
+    "checked": 20261101,
+    "name": "Stadtbibliothek Neukirchen",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "stadtbuecherei-nuertingen.de": {
     "checked": 20261021,
     "name": "Stadtb\u00fccherei N\u00fcrtingen - Zweigstelle Ro\u00dfdorf",
@@ -654558,6 +655171,13 @@
     "reason": "osm probe: found jsonld",
     "status": "found",
     "type": "osm-venue"
+  },
+  "staedelmuseum.de/de/programm/abendfuehrung/2026-11-05/17-30": {
+    "checked": 20261101,
+    "name": "St\u00e4del Museum",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "staedelmuseum.de/de/programm/gastkommentar/2026-10-25/12-00": {
     "checked": 20261101,
@@ -658091,6 +658711,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stclairtownship.ca": {
+    "checked": 20261101,
+    "name": "St. Clair",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "stclara-phoenixsee.de/orte/gemeinden/st-kaiser-heinrich": {
     "cal_url": "https://stclara-phoenixsee.de/menschen/praevention/",
     "checked": 20261026,
@@ -658867,6 +659494,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "steinbach.ca": {
+    "checked": 20261101,
+    "name": "Steinbach",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "steinbruchmuseum.de": {
     "checked": 20261026,
@@ -669479,6 +670113,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "strathroy-caradoc.ca": {
+    "checked": 20261101,
+    "name": "Strathroy-Caradoc",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "stratmanns.de": {
     "cal_url": "https://www.stratmanns.de:443/index.php?view=tours&filter=eventtype&id=3",
     "checked": 20261026,
@@ -673856,6 +674497,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "summerside.ca": {
+    "checked": 20261101,
+    "name": "Summerside",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "summerstown.org.uk": {
     "cal_url": "https://www.summerstown.org.uk/Groups/380788/Church_Calendar.aspx",
     "checked": 20261031,
@@ -677005,6 +677653,13 @@
     "name": "SV Wacker Mohorn e.V.",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "sv-wacker-mohorn.de/veranstaltungen/2978102/2026/11/13/mitgliederversammlung-2026": {
+    "checked": 20261101,
+    "name": "SV Wacker Mohorn e.V.",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "sv-web.de": {
@@ -680853,6 +681508,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "swordandboard.net": {
+    "checked": 20261101,
+    "name": "Sword and Board (Ukiah, CA)",
+    "reason": "32 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20261101,
     "name": "Sword and Board (Ukiah, CA)",
@@ -680890,6 +681552,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "swox.org": {
+    "checked": 20261101,
+    "name": "South-West Oxford",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "swp-potsdam.de/de/b%C3%A4der/stadtbad-park-babelsberg": {
     "cal_url": "https://www.swp-potsdam.de/de/entsorgung/abfallkalender/",
@@ -688011,6 +688680,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "tay.ca": {
+    "checked": 20261101,
+    "name": "Tay",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "taya-josenji.jp": {
     "checked": 20260926,
     "name": "\u5b9a\u6cc9\u5bfa",
@@ -688064,6 +688740,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "tayvalleytwp.ca": {
+    "checked": 20261101,
+    "name": "Tay Valley",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "taz.ca": {
     "cal_url": "https://www.taz.ca/evenements/",
@@ -692939,6 +693622,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tecumseh.ca": {
+    "checked": 20261101,
+    "name": "Tecumseh",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "teczowa.house": {
     "checked": 20260910,
@@ -710897,6 +711587,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thompson.ca": {
+    "checked": 20261101,
+    "name": "Thompson",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "thompsonhealthcare.com.au/our-homes/st-ives-house": {
     "cal_url": "https://thompsonhealthcare.com.au/wp-content/uploads/2026/09/Social-Support-Calendar-Brochure.pdf",
     "checked": 20261030,
@@ -710999,6 +711696,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "thorold.ca/en/index.aspx": {
+    "checked": 20261101,
+    "name": "Thorold",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/thoroldrec/calendars?onlineSiteId=0&amp;no_scroll_top=true&amp;defaultCalendarId=3&amp;locationId=3&amp;displayType=0&amp;view=2",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "thorolf.dk/begivenhed/indmeldelsesgebyr-ny-spejder": {
     "checked": 20261101,
@@ -712215,6 +712920,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tillsonburg.ca": {
+    "checked": 20261101,
+    "name": "Tillsonburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "tilsiter-lichtspiele.de": {
     "cal_url": "http://tilsiter-lichtspiele.de/index.html",
     "checked": 20261021,
@@ -712413,6 +713125,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "timmins.ca": {
+    "checked": 20261101,
+    "name": "Timmins",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "timmitohelp.de": {
     "cal_url": "https://timmitohelp.de/umgekehrter-adventskalender/",
@@ -718125,6 +718844,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "town.greaternapanee.on.ca": {
+    "checked": 20261101,
+    "name": "Greater Napanee",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "town.kaita.lg.jp/soshiki/31": {
     "checked": 20260929,
     "name": "\u3075\u308b\u3055\u3068\u9928",
@@ -718167,6 +718893,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "town.petrolia.on.ca": {
+    "checked": 20261101,
+    "name": "Petrolia",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "town.richmond-hill.on.ca/subpage.asp?pageid=parks_the_richmond_hill_heritage_centre": {
     "cal_url": "https://www.richmondhill.ca/en/arts-and-culture.aspx",
@@ -718263,6 +718996,20 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "townoflakeshore.on.ca": {
+    "checked": 20261101,
+    "name": "Lakeshore",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "townofmono.com": {
+    "checked": 20261101,
+    "name": "Mono",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "townofpalmer.com": {
     "checked": 20260919,
     "name": "Palmer",
@@ -718288,6 +719035,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "township.montague.on.ca": {
+    "checked": 20261101,
+    "name": "Montague",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "toxotes.de": {
     "cal_url": "https://www.toxotes.de/termine-und-b%C3%B6rsen/",
@@ -720614,6 +721368,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "trentlakes.ca": {
+    "checked": 20261101,
+    "name": "Trent Lakes",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "trentonmi.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
     "checked": 20261101,
@@ -727676,6 +728437,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "twp.beckwith.on.ca": {
+    "checked": 20261101,
+    "name": "Beckwith",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "twpusc.libcal.com/ical_subscribe.php?src=p&cid=10170": {
     "checked": 20261101,
@@ -735513,6 +736281,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "urbanaohio.com": {
+    "checked": 20261101,
+    "name": "Urbana",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "urbanapes.de/basement": {
     "cal_url": "https://www.urbanapes.de/event/eventkalender/",
     "checked": 20261021,
@@ -737486,6 +738261,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "uxbridge.ca//public/ics/8605": {
+    "checked": 20261101,
+    "name": "Uxbridge",
+    "reason": "380 vevents / 53 future",
+    "status": "ok",
+    "type": "ics"
   },
   "uxbridgeroadtabernacle.co.uk": {
     "checked": 20261101,
@@ -764781,6 +765563,13 @@
     "status": "fail",
     "type": "squarespace"
   },
+  "wellington-north.com": {
+    "checked": 20261101,
+    "name": "Wellington North",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "wellington.cancernz.org.nz": {
     "cal_url": "https://www.cancer.org.nz/about-us/work-with-us/programme-manager/",
     "checked": 20261013,
@@ -768214,6 +769003,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "weyburn.ca": {
+    "checked": 20261101,
+    "name": "Weyburn",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "weyfarers.org.uk": {
     "checked": 20261031,
     "name": "Weybridge Rowing Club",
@@ -768997,6 +769793,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "whitehorse.ca": {
+    "checked": 20261101,
+    "name": "Whitehorse",
+    "reason": "70 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "whitehorse.unitingchurch.org.au": {
     "cal_key": "calendar.google.com/calendar/ical/5120982bf72a2a33710cb606e0bd0e1789f6fc94201ae7c598e4aace943a0dde%40group.calendar.google.com/public/basic.ics",
@@ -771018,6 +771821,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "wildewesten.be/nl/event/macy-gray": {
+    "checked": 20261101,
+    "name": "Concertzaal De Kreun",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "wildflower.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
@@ -771955,6 +772765,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wilmot.ca": {
+    "checked": 20261101,
+    "name": "Wilmot",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wilmot.ca/en/Castle-Kilbride-Museum.aspx": {
     "cal_url": "https://www.wilmot.ca/recreation-and-culture/events/",
@@ -778258,6 +779075,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "wurzen.nak-nordost.de/db/632915/Termine/Gottesdienst": {
+    "checked": 20261101,
+    "name": "?",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "wuttigseventtechnik.com": {
     "checked": 20261025,
     "name": "Eventtechnik & DJ Booking - Jan Wuttig",
@@ -783454,14 +784278,14 @@
   "yukonok.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261101,
     "name": "City of Yukon Main Calendar (Oklahoma City)",
-    "reason": "SSLError: HTTPSConnectionPool(host='www.yukonok.gov', port=443): Max retries exc",
+    "reason": "robots.txt unreachable (https://www.yukonok.gov/robots.txt)",
     "status": "fail",
     "type": "ics"
   },
   "yukonok.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
     "checked": 20261101,
     "name": "Mabel C. Fry Public Library, Yukon (Oklahoma City)",
-    "reason": "SSLError: HTTPSConnectionPool(host='www.yukonok.gov', port=443): Max retries exc",
+    "reason": "robots.txt unreachable (https://www.yukonok.gov/robots.txt)",
     "status": "fail",
     "type": "ics"
   },
@@ -789138,6 +789962,13 @@
     "name": "Neuapostolische Kirche Gemeinde Zwenkau",
     "reason": "http 404",
     "status": "fail",
+    "type": "jsonld"
+  },
+  "zwenkau.nak-nordost.de/db/632948/Termine/Gottesdienst": {
+    "checked": 20261101,
+    "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
     "type": "jsonld"
   },
   "zwergenlandfreunde.de/wohngruppen/an-der-bahn?id=111&amp=": {
