@@ -31798,6 +31798,711 @@
         "lon": -73.9228859
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Hare Krishna Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://krishnanyc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hare Krishna Temple",
+        "address": "26 2nd Avenue",
+        "city": "New York",
+        "postal_code": "10003",
+        "lat": 40.7244764,
+        "lon": -73.9904429
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Spoke the Hub",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://spokethehub.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spoke the Hub",
+        "lat": 40.6754153,
+        "lon": -73.9783171
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Flux Factory",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fluxfactory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Flux Factory",
+        "address": "39-31 29th Street",
+        "lat": 40.7527012,
+        "lon": -73.9350775
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Explorers Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.explorers.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Explorers Club",
+        "address": "46 East 70th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10021",
+        "lat": 40.7699545,
+        "lon": -73.9655721
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Brick",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.bricktheater.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Brick",
+        "address": "579 Metropolitan Avenue",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11211",
+        "lat": 40.714199,
+        "lon": -73.9497604
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Kids FunTime",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://kidsfuntimenj.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kids FunTime",
+        "address": "265 Route 46 West",
+        "city": "Totowa",
+        "region": "NJ",
+        "postal_code": "07512",
+        "lat": 40.8948947,
+        "lon": -74.2296222
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Museum of Contemporary African Diasporan Arts",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://mocada.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Contemporary African Diasporan Arts",
+        "address": "80 Hanson Place",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11217",
+        "lat": 40.68535,
+        "lon": -73.9744276
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Sage Center at Stonewall House",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://sageserves.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sage Center at Stonewall House",
+        "address": "271 Myrtle Avenue",
+        "postal_code": "11201",
+        "lat": 40.6936502,
+        "lon": -73.9783354
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Casa Belvedere, The Italian Cultural Foundation",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://casa-belvedere.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa Belvedere, The Italian Cultural Foundation",
+        "lat": 40.6285635,
+        "lon": -74.0880908
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "CAMBA",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://camba.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CAMBA",
+        "address": "1720 Church Avenue",
+        "postal_code": "11226",
+        "lat": 40.6491453,
+        "lon": -73.9635012
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "UnionDocs Center for Documentary Art",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://uniondocs.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "UnionDocs Center for Documentary Art",
+        "address": "352 Onderdonk Avenue",
+        "city": "Ridgewood",
+        "region": "NY",
+        "postal_code": "11385",
+        "lat": 40.7083835,
+        "lon": -73.9148723
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "HOPE Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://hopecenterharlem.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HOPE Center",
+        "address": "228 West 116th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10026",
+        "lat": 40.8036225,
+        "lon": -73.9539357
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Society for the Advancement of Judaism - Judaism that Stands for All",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://saj.nyc",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Society for the Advancement of Judaism - Judaism that Stands for All",
+        "address": "15 West 86th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10024-3601",
+        "lat": 40.7858059,
+        "lon": -73.9701184
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "QIAA",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://queensaa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "QIAA",
+        "lat": 40.7101059,
+        "lon": -73.8472805
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://nylifechurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Life Church",
+        "address": "2777 Atlantic Avenue",
+        "postal_code": "11207",
+        "lat": 40.6765185,
+        "lon": -73.89182
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Teatro LATEA",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://teatrolatea.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro LATEA",
+        "address": "107 Suffolk Street",
+        "postal_code": "10002",
+        "lat": 40.719061,
+        "lon": -73.9862353
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Winchester Gardens",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://winchestergardens.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Winchester Gardens",
+        "address": "333 Elmwood Avenue",
+        "city": "Maplewood",
+        "region": "NJ",
+        "postal_code": "07040",
+        "lat": 40.7267524,
+        "lon": -74.254934
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "City Tabernacle of Seventh-day Adventists",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://citytabsda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "City Tabernacle of Seventh-day Adventists",
+        "address": "562 W 150th St",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10031",
+        "country": "US",
+        "lat": 40.8291511,
+        "lon": -73.9474011
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Kaye Playhouse",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hunter.cuny.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Kaye Playhouse",
+        "address": "695 Park Avenue",
+        "postal_code": "10065",
+        "lat": 40.7683492,
+        "lon": -73.9644685
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Queens Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://queensbotanical.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Queens Botanical Garden",
+        "lat": 40.749948,
+        "lon": -73.8293932
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Grace Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://gracechurchnyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Church",
+        "address": "802 Broadway",
+        "city": "New York",
+        "region": "NY",
+        "lat": 40.7319828,
+        "lon": -73.9909081
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Kingdom Life Ministries",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://klministries.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kingdom Life Ministries",
+        "address": "770 Park Place",
+        "postal_code": "11216",
+        "lat": 40.6732549,
+        "lon": -73.9521149
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Saint Ann's and the Holy Trinity Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.stannholytrinity.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Ann's and the Holy Trinity Episcopal Church",
+        "address": "157 Montague Street",
+        "postal_code": "11201",
+        "lat": 40.6945736,
+        "lon": -73.9926982
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "National Lighthouse Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://lighthousemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Lighthouse Museum",
+        "address": "200 The Promenade at Lighthouse Point",
+        "city": "Staten Island",
+        "region": "NY",
+        "postal_code": "10301",
+        "lat": 40.6407356,
+        "lon": -74.0734107
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Metropolitan Rod and Gun Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://metrorgc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Metropolitan Rod and Gun Club",
+        "address": "162 Pacific Street",
+        "postal_code": "11201",
+        "lat": 40.6892579,
+        "lon": -73.9943054
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Lenox Road Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://lrbc.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lenox Road Baptist Church",
+        "address": "1356 Nostrand Avenue",
+        "postal_code": "11226",
+        "lat": 40.6537216,
+        "lon": -73.9501848
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Mark Morris Dance Center",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://markmorrisdancegroup.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mark Morris Dance Center",
+        "address": "3 Lafayette Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11217",
+        "lat": 40.6870205,
+        "lon": -73.9788898
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Episcopal Diocese of Newark",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://dioceseofnewark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Episcopal Diocese of Newark",
+        "address": "31 Mulberry Street",
+        "city": "Newark",
+        "lat": 40.7382018,
+        "lon": -74.1666896
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Church of the Holy Apostles",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://holyapostlesnyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Holy Apostles",
+        "city": "New York",
+        "lat": 40.749225,
+        "lon": -73.9987868
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Calvary Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cbcnyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calvary Baptist Church",
+        "address": "123 West 57th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10019",
+        "lat": 40.7651119,
+        "lon": -73.9783705
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Mount Vernon Hotel Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://mvhm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Vernon Hotel Museum",
+        "address": "421 East 61st Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10065",
+        "lat": 40.7605217,
+        "lon": -73.9597128
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Saint James Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.stjames.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint James Church",
+        "address": "865 Madison Avenue",
+        "city": "New York",
+        "postal_code": "10021",
+        "lat": 40.7711245,
+        "lon": -73.9653809
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Immanuel Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.immanuelnyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Immanuel Lutheran Church",
+        "address": "124 East 88th Street",
+        "postal_code": "10128",
+        "lat": 40.7806955,
+        "lon": -73.9549979
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Congregation Rodeph Sholom",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rodephsholom.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Rodeph Sholom",
+        "address": "7 West 83rd Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10024",
+        "lat": 40.7838978,
+        "lon": -73.9714958
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Saint Michael's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://www.saintmichaelschurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Michael's Church",
+        "address": "225 West 99th Street",
+        "city": "New York",
+        "region": "NY",
+        "lat": 40.7963556,
+        "lon": -73.9690789
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Saint Nicholas of Tolentine Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stnicholasoftolentinebronx.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Nicholas of Tolentine Catholic Church",
+        "address": "100 West Fordham Road",
+        "postal_code": "10468",
+        "lat": 40.862436,
+        "lon": -73.905875
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "St. Nicholas Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stnicholaswtc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Nicholas Greek Orthodox Church",
+        "address": "130 Liberty Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10006",
+        "lat": 40.710143,
+        "lon": -74.0132253
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Meadowlands Exposition Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mecexpo.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meadowlands Exposition Center",
+        "address": "355 Plaza Drive",
+        "city": "Secaucus",
+        "region": "NJ",
+        "postal_code": "07094",
+        "lat": 40.7883595,
+        "lon": -74.042218
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Saint Calixtus Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://calvaryandalliedcemeteries.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Calixtus Chapel",
+        "address": "34-02 Greenpoint Ave",
+        "city": "Long Island City",
+        "region": "NY",
+        "postal_code": "11101",
+        "lat": 40.7320842,
+        "lon": -73.93217
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Louis Armstrong House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.louisarmstronghouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Louis Armstrong House Museum",
+        "address": "34-56 107th Street",
+        "city": "Corona",
+        "region": "NY",
+        "postal_code": "11368",
+        "lat": 40.75457,
+        "lon": -73.8615384
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "West Side Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event",
+      "base_url": "https://www.westsidecommunitygarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West Side Community Garden",
+        "lat": 40.7892872,
+        "lon": -73.9718337
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Waterfront Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://waterfrontmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Waterfront Museum",
+        "address": "290 Conover Street",
+        "postal_code": "11231",
+        "lat": 40.6752349,
+        "lon": -74.018312
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

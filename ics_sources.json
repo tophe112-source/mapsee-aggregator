@@ -60530,5 +60530,383 @@
     "geocode_suffix": ", New York, United States",
     "limit": 300,
     "_metro": "New York, United States"
+  },
+  {
+    "name": "Dancewave",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_49o8rgijkggd98st59d5enjaic%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Word Up Community Bookshop",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5er15j631e9v4lr8nsd6rrm7kc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "LIC Community Boathouse",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5upok5dlgjdhnge7925a25nvmg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Long Island City, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "PowerHouse Arena",
+    "category": "learning",
+    "_found": "osm:books -> events-manager",
+    "url": "https://powerhousearena.com/events/?ical=1",
+    "geocode_suffix": ", Brooklyn",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Kolot Chayeinu",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f038q1ejhk3j5jle0ba12r8n2s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Hybrid Movement Company",
+    "category": "community",
+    "_found": "osm:school -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_d93b4f8cb3dbf20cae40246b65dee62e759e05aac0d1fd947410d8768b5f5d21%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Mary Magdalen Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/22663d911fb61135d8bb065c9eceb981a3d28f512fa8df4603e84ee9299c891f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "The AKC Museum of the Dog",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar",
+    "url": "https://museumofthedog.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Superchief Gallery",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vs5m85m9bu9n146hb25k61bofs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Temple Beth-El of Rockaway Park",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e5162c394b169f321bb4e1fb41c2a2673d75da0df4e0a657812ec3ad55755872%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rockaway Park, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Principles GI Coffee House",
+    "category": "community",
+    "_found": "osm:cafe -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_a87a091d7d5788d5aa48e60ca44676b78c9dfdda970e960e44f24a2028b93518%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brooklyn, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Brooklyn Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/alex.yuen%40brooklynalliancechurch.org/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Sure Foundation Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fm27ecei82e512aa00rr9251tg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Inwood Canoe Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0ae03e5e8991e98545d44271b0b756dfacbf935f0a56d488dc7f456af7fcb4c1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Marshall Chess Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40marshallchessclub.org/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Reform Temple of Forest Hills",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rtfh.org_8a0lsfk8f4hihmijdbooo0v3b8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Forest Hills, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "More Montclair Mud Clay Studio",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eb1092eaa5edd0e3e796aa5b6bbdcaf183b32007c251ba8e4845f65b26a298ad%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montclair, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Woodcliff Community Church Food Pantry",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.woodcliff.org/events.ics",
+    "geocode_suffix": ", North Bergen, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Passaic River Rowing Association",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/prra.org_nkfdi276qjs6gqolprmkoi3tjk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyndhurst, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Prospect Heights Community Farm",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l17hudbot2et78kl3cjuabpvc4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Charles Borromeo Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/usomr5n4gl9ogn5bodt6cchh3o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Immaculate Conception Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_537bbd425badceea068f113d44ccc10edc594bbdf54840bb747189a969235b1c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Jamaica, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Oratory Parish of the Assumption",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://oratorychurch.org/events/icalendar_feed",
+    "geocode_suffix": ", Brooklyn, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Fire Lotus Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dharma.net_vj893pr8vq0hu224msh4rg5ouc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Fellowship Baptist Church Of Coney Island",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.coneyfbc.com/events.ics",
+    "geocode_suffix": ", Brooklyn, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Holy Trinity Evangelical Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_60e69da9846bfc17f4f6ab888f326a2eae63fcc2a9b27f779005fd9cda1bc0f9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bellerose",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "MAS Youth Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9a79a820a6e7e57512c86cd830a6e8ca20a1ed5321bf515eb6951dc0cedc70fd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brooklyn, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Rose of Lima Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stroseoflimabrooklyn.org/events/icalendar_feed",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Church of the Village",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchofthevillage.org_eq8aqb9mlvcj9m0j5mt7papbmk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Gustavus Adolphus Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2d1e9a4c8feb9243e4636de7bcad376056b90b35a46b3d410e3c4ebf96d9de02%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint George Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/873f7f6adcb7108510e53d86acfbe5eee5e71dfb49c6a300c4a5a0bf280a3cea%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Cathedral of the Holy Trinity",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/thecathedralnyc.org_vq7hthu961gaqk3pfunlckv6o8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Park Avenue Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4a402aeea291caca68aecf6517005b34aae4b95afdb644d759aa4c9a8871a6e3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "St. Volodymyr Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stvolodymyr%40stvuoc.org/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/annunciation-nyc.org_3afjeo4fkof9a0srnr0v2mc590%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "St. Mary's Episcopal Church Harlem",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fd2b9f5cf58814af067fb0715638bdd7dcd4500dde97eb264a8f0f34982e8333%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saints Anargyroi Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/oe8q6nti92in6b13jcnjad1s58%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "St. James Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hne5p6h906rnc233f59b82dms0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montclair, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "6/15 Green",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cp45hlvd344sekttmsi7gpkat0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Francis Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/communications%40stfrancishoboken.net/public/basic.ics",
+    "geocode_suffix": ", Hoboken",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "North Woodmere Swimming Pool",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.nassaucountyny.gov/common/modules/iCalendar/iCalendar.aspx?catID=74&feed=calendar",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Unitarian Universalist Congregation at Montclair",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uumontclair.org_9kptanknnvqcom49ks44nnaaak%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Montclair, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
   }
 ]

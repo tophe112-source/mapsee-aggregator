@@ -4473,6 +4473,460 @@
         "lon": -74.1017627
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Anyone Comics",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.anyonecomics.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Anyone Comics",
+        "address": "1216 Union Street",
+        "postal_code": "11225",
+        "lat": 40.6688713,
+        "lon": -73.951002
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "9 Bob Note",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.3dollarbillbk.com/rsvp",
+      "max_events": 200,
+      "venue": {
+        "name": "9 Bob Note",
+        "address": "270 Meserole Street",
+        "postal_code": "11206",
+        "lat": 40.7084243,
+        "lon": -73.9377081
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Starr Bar",
+      "category": "community",
+      "_found": "osm:bar -> squarespace",
+      "collection": "https://www.starrbar.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Starr Bar",
+        "address": "214 Starr Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11237",
+        "lat": 40.7050054,
+        "lon": -73.9230385
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Centro Español de Queens",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://centroespanoldequeens.org/en/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Centro Español de Queens",
+        "address": "31-89 41st Street",
+        "lat": 40.7587409,
+        "lon": -73.9179254
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Film Noir Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> squarespace",
+      "collection": "https://www.filmnoircinema.com/program",
+      "max_events": 200,
+      "venue": {
+        "name": "Film Noir Cinema",
+        "address": "122 Meserole Avenue",
+        "city": "Brooklyn",
+        "lat": 40.7273136,
+        "lon": -73.951608
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Essex Kitchen",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.essexmarket.nyc/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Essex Kitchen",
+        "lat": 40.7177748,
+        "lon": -73.988277
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Hana Makgeoli",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.hanamakgeolli.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Hana Makgeoli",
+        "address": "201 Dupont Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11222",
+        "lat": 40.7363383,
+        "lon": -73.9514989
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Beam Center",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.beamcenter.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Beam Center",
+        "address": "60 Sackett Street",
+        "postal_code": "11231",
+        "lat": 40.6856727,
+        "lon": -74.0052798
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Black Spring Books",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.blackspringbookstore.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Black Spring Books",
+        "address": "672 Driggs Avenue",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11211",
+        "lat": 40.7143972,
+        "lon": -73.9594227
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Word Is Change",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.thewordischange.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Word Is Change",
+        "address": "368 Tompkins Avenue",
+        "postal_code": "11216",
+        "lat": 40.6848605,
+        "lon": -73.944379
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The FLAG Art Foundation",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.flagartfoundation.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The FLAG Art Foundation",
+        "address": "545 West 25th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10001",
+        "lat": 40.749778,
+        "lon": -74.0055421
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Print Center New York",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.printcenternewyork.org/public-programs",
+      "max_events": 200,
+      "venue": {
+        "name": "Print Center New York",
+        "address": "535 West 24th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10011",
+        "lat": 40.749162,
+        "lon": -74.0052774
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Columbus Amsterdam BID",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://columbusamsterdambid.org/community-news-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Columbus Amsterdam BID",
+        "address": "991 Amsterdam Avenue",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10025",
+        "lat": 40.8020701,
+        "lon": -73.9642698
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Brooklyn Poets",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://brooklynpoets.org/events/all",
+      "max_events": 200,
+      "venue": {
+        "name": "Brooklyn Poets",
+        "lat": 40.6943939,
+        "lon": -73.9935672
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "St. John - St. Matthew-Emanuel Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stjme.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. John - St. Matthew-Emanuel Lutheran Church",
+        "postal_code": "11215",
+        "lat": 40.6635366,
+        "lon": -73.9888048
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Signal",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.signalnyc.club/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Signal",
+        "address": "175 Morgan Avenue",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11237",
+        "lat": 40.7101272,
+        "lon": -73.9335081
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Althea’s Hideway",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.altheasrooftop.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Althea’s Hideway",
+        "address": "634 West 52nd Street",
+        "city": "New York",
+        "region": "NY",
+        "lat": 40.7677439,
+        "lon": -73.9957135
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Strother School of Radical Attention",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://www.schoolofattention.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Strother School of Radical Attention",
+        "address": "55 Washington Street",
+        "postal_code": "11201",
+        "lat": 40.7028593,
+        "lon": -73.9894458
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "14BC Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.14bcgallery.org/upcoming-exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "14BC Gallery",
+        "address": "626 East 14th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10009",
+        "lat": 40.7287829,
+        "lon": -73.9768896
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Brooklyn Heights Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.bhsbrooklyn.org/bhs-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Brooklyn Heights Synagogue",
+        "address": "131 Remsen Street",
+        "city": "Brooklyn",
+        "postal_code": "11201",
+        "lat": 40.693953,
+        "lon": -73.993192
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Oak Ridge",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://forestparktrust.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Oak Ridge",
+        "address": "1 Forest Park",
+        "city": "Woodhaven",
+        "region": "NY",
+        "lat": 40.6960267,
+        "lon": -73.866434
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Judson Memorial Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.judson.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Judson Memorial Church",
+        "address": "239 Thompson Street",
+        "lat": 40.7301922,
+        "lon": -73.9984067
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Union Church of Bay Ridge",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.unionchurchbayridge.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Union Church of Bay Ridge",
+        "address": "7915 Ridge Boulevard",
+        "postal_code": "11209",
+        "lat": 40.6285907,
+        "lon": -74.0315559
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Saint Mary's Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://smaoc.squarespace.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Mary's Orthodox Church",
+        "address": "192 81st Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11209",
+        "lat": 40.6275777,
+        "lon": -74.0326811
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Kingsboro Temple of Seventh-day Adventists",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.kbtsda.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kingsboro Temple of Seventh-day Adventists",
+        "address": "415 7th Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11215",
+        "lat": 40.6691922,
+        "lon": -73.982272
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Christ Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.christchurchnyc.online/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Christ Church",
+        "address": "524 Park Avenue",
+        "city": "New York",
+        "postal_code": "10065",
+        "lat": 40.7638882,
+        "lon": -73.9696447
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Sutton Place Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.spsnyc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Sutton Place Synagogue",
+        "address": "225 East 51st Street",
+        "postal_code": "10022",
+        "lat": 40.7561897,
+        "lon": -73.9690909
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "John Bowne House",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.bownehouse.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "John Bowne House",
+        "address": "37-01 Bowne Street",
+        "postal_code": "11354",
+        "lat": 40.7628819,
+        "lon": -73.8248834
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "CUMAC Food Bank",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.cumac.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "CUMAC Food Bank",
+        "address": "223 Ellison Street",
+        "city": "Paterson",
+        "region": "NJ",
+        "postal_code": "07505",
+        "lat": 40.9173767,
+        "lon": -74.1676967
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

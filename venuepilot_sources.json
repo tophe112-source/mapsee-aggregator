@@ -1,6 +1,43 @@
 {
   "_comment": "Venues that ticket through VenuePilot (public GraphQL API, no key). Each site: account_ids from the venue's widget config (window.venuepilotSettings.general.accountIds), a Mapsee category, and a venue block for location (the public API returns only the venue NAME, so supply address+city+region for the sync to geocode, or lat+lon). Single venue per site.",
-  "sites": [],
+  "sites": [
+    {
+      "name": "Trans-Pecos",
+      "category": "community",
+      "_found": "osm:club -> venuepilot",
+      "account_ids": [
+        140
+      ],
+      "within_days": 120,
+      "venue": {
+        "name": "Trans-Pecos",
+        "address": "915 Wyckoff Avenue",
+        "city": "Ridgewood",
+        "region": "NY",
+        "postal_code": "11385",
+        "lat": 40.696986,
+        "lon": -73.906323
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Market Hotel",
+      "category": "arts",
+      "_found": "osm:arts_centre -> venuepilot",
+      "account_ids": [
+        100
+      ],
+      "within_days": 120,
+      "venue": {
+        "name": "Market Hotel",
+        "address": "1140 Myrtle Avenue",
+        "postal_code": "11221",
+        "lat": 40.6969323,
+        "lon": -73.934588
+      },
+      "_metro": "New York, United States"
+    }
+  ],
   "_not_included": {
     "Baba Yaga (VenuePilot account 2906)": "Baba Yaga - VenuePilot's GraphQL endpoint. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.venuepilot.co/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our POST /graphql falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from venuepilot_sources.json at f8465bf; `verify` will then pass it."
   }

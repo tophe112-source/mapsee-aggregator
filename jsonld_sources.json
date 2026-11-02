@@ -23046,6 +23046,760 @@
         "lon": -74.2089346
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "St. Mark's Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.stmarkscomedyclub.com/calendar"
+      ],
+      "link_pattern": "https://www\\.stmarkscomedyclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Mark's Comedy Club",
+        "address": "12 Saint Marks Place",
+        "lat": 40.729044,
+        "lon": -73.9892596
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Zero G Brazilian Jiu-jitsu",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://zerogbjj.com/"
+      ],
+      "link_pattern": "https://zerogbjj\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zero G Brazilian Jiu-jitsu",
+        "address": "65 Woodhull Street",
+        "postal_code": "11231",
+        "lat": 40.6812776,
+        "lon": -74.0024138
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Producers Club Theaters and Bar",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://producersclub.com/shows/"
+      ],
+      "link_pattern": "https://producersclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Producers Club Theaters and Bar",
+        "address": "358 West 44th Street",
+        "postal_code": "10036",
+        "lat": 40.7595017,
+        "lon": -73.9914437
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Slipper Room",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.slipperroom.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Slipper Room",
+        "address": "167 Stanton Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10002",
+        "lat": 40.7214075,
+        "lon": -73.9886878
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Kew & Willow Books",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://kewandwillow.com/event/2026-11-21/breakfast-shop"
+      ],
+      "link_pattern": "https://kewandwillow\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kew & Willow Books",
+        "address": "81-63 Lefferts Boulevard",
+        "city": "Kew Gardens",
+        "region": "NY",
+        "postal_code": "11415",
+        "lat": 40.7078868,
+        "lon": -73.8308112
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Cafe con Libros",
+      "category": "community",
+      "_found": "osm:cafe -> wix",
+      "listing": [
+        "https://www.cafeconlibrosbk.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Cafe con Libros",
+        "address": "724 Prospect Place",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11216",
+        "country": "US",
+        "lat": 40.6743416,
+        "lon": -73.9525653
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Yonkers Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.yonkersbrewing.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Yonkers Brewing Company",
+        "address": "92 Main Street",
+        "city": "Yonkers",
+        "region": "NY",
+        "postal_code": "10701",
+        "lat": 40.9345744,
+        "lon": -73.9029331
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Salsa Salsa Dance Studio",
+      "category": "fitness",
+      "_found": "osm:dance -> wix",
+      "listing": [
+        "https://www.salsasalsadancestudio.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Salsa Salsa Dance Studio",
+        "lat": 40.6827005,
+        "lon": -73.979191
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Eastville Comedy Club & Bar",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.eastvillecomedy.com/calendar"
+      ],
+      "link_pattern": "https://www\\.eastvillecomedy\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Eastville Comedy Club & Bar",
+        "lat": 40.6858601,
+        "lon": -73.9816535
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Dizzy’s Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://jazz.org/dizzys/"
+      ],
+      "link_pattern": "https://jazz\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dizzy’s Club",
+        "address": "10 Columbus Circle",
+        "lat": 40.7685685,
+        "lon": -73.9824278
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Martin E. Segal Theatre Center",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.thesegalcenter.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Martin E. Segal Theatre Center",
+        "address": "365 5th Avenue",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10016",
+        "lat": 40.7486227,
+        "lon": -73.984166
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "New York Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://newyorkcomedyclub.com/calendar"
+      ],
+      "link_pattern": "https://newyorkcomedyclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "New York Comedy Club",
+        "address": "241 East 24th Street",
+        "postal_code": "10010",
+        "lat": 40.7388641,
+        "lon": -73.9808406
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Method Climbing Gym",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://methodclimb.com/events"
+      ],
+      "link_pattern": "https://methodclimb\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Method Climbing Gym",
+        "address": "16 Lombardy Street",
+        "city": "Newark",
+        "region": "NJ",
+        "postal_code": "07102",
+        "lat": 40.7430122,
+        "lon": -74.1686127
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Tiny Cupboard",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thetinycupboard.com/calendar"
+      ],
+      "link_pattern": "https://www\\.thetinycupboard\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Tiny Cupboard",
+        "address": "10 Cooper Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11207",
+        "lat": 40.6836915,
+        "lon": -73.9112136
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Gigi's Princess Palace",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.gigisprincesspalace.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Gigi's Princess Palace",
+        "address": "382 Broad Street",
+        "city": "Bloomfield",
+        "region": "NJ",
+        "postal_code": "07003",
+        "lat": 40.8065976,
+        "lon": -74.1928672
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Lehmann Maupin",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://www.lehmannmaupin.com/news/events/timaeus-and-the-teacher-foreword"
+      ],
+      "link_pattern": "https://www\\.lehmannmaupin\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lehmann Maupin",
+        "address": "501 West 24th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10011",
+        "lat": 40.7485353,
+        "lon": -74.0038445
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Grove 34",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://grove34.com/shows/hell-yeah-nov07"
+      ],
+      "link_pattern": "https://grove34\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grove 34",
+        "address": "31-83 34th Street",
+        "postal_code": "11106",
+        "lat": 40.7610844,
+        "lon": -73.9226348
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Millennium Film Workshop",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.millenniumfilm.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Millennium Film Workshop",
+        "address": "167 Wilson Avenue",
+        "postal_code": "11237",
+        "lat": 40.6999878,
+        "lon": -73.9242333
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Ki Smith Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> wix",
+      "listing": [
+        "https://www.kismithgallery.com/events-2"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ki Smith Gallery",
+        "address": "170 Forsyth Street",
+        "postal_code": "10002",
+        "lat": 40.7212881,
+        "lon": -73.9912165
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Holographic Studios NYC",
+      "category": "arts",
+      "_found": "osm:gallery -> wix",
+      "listing": [
+        "https://www.holostudios.nyc/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holographic Studios NYC",
+        "address": "172 East 2nd Street",
+        "postal_code": "10009",
+        "lat": 40.7226517,
+        "lon": -73.9846926
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The DL",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.thedl-nyc.com/events"
+      ],
+      "link_pattern": "https://www\\.thedl\\-nyc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The DL",
+        "address": "95 Delancey Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10002",
+        "lat": 40.7186239,
+        "lon": -73.9892818
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Bushwick Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.bushwickcomedy.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bushwick Comedy Club",
+        "address": "259 Melrose Street",
+        "postal_code": "11206",
+        "lat": 40.7019749,
+        "lon": -73.9299108
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Pinot's Palette",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.pinotspalette.com/montclair/"
+      ],
+      "link_pattern": "https://www\\.pinotspalette\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pinot's Palette",
+        "address": "351 Bloomfield Avenue",
+        "city": "Montclair",
+        "region": "NJ",
+        "postal_code": "07042",
+        "lat": 40.8120817,
+        "lon": -74.2149902
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Kaufman Music Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.kaufmanmusiccenter.org/mch/event/jonathan-leibovitz-clarinet/"
+      ],
+      "link_pattern": "https://www\\.kaufmanmusiccenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kaufman Music Center",
+        "address": "129 West 67th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10023",
+        "lat": 40.7752527,
+        "lon": -73.9829864
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "All Souls Bethehem Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.allsoulsbethlehem.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "All Souls Bethehem Church",
+        "address": "566 East 7th Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11218",
+        "lat": 40.6378063,
+        "lon": -73.9718796
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "The Bell House",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thebellhouseny.com/shows"
+      ],
+      "link_pattern": "https://www\\.thebellhouseny\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Bell House",
+        "address": "149 7th Street",
+        "postal_code": "11215",
+        "lat": 40.67373,
+        "lon": -73.9916766
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Jacques Marchais Museum of Tibetan Art",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.tibetanmuseum.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Jacques Marchais Museum of Tibetan Art",
+        "address": "338 Lighthouse Avenue",
+        "postal_code": "10306",
+        "lat": 40.5763101,
+        "lon": -74.1381567
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Nitehawk",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://nitehawkcinema.com/prospectpark/movies/klara-and-the-sun/"
+      ],
+      "link_pattern": "https://nitehawkcinema\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nitehawk",
+        "address": "188 Prospect Park West",
+        "postal_code": "11215",
+        "lat": 40.6616195,
+        "lon": -73.9798458
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Salem Missionary Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.salembrooklyn.com/coming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Salem Missionary Baptist Church",
+        "address": "305 East 21st Street",
+        "postal_code": "11226",
+        "lat": 40.6470128,
+        "lon": -73.9591079
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Turtle Back Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.turtlebackzoo.com/events/"
+      ],
+      "link_pattern": "https://www\\.turtlebackzoo\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Turtle Back Zoo",
+        "address": "560 Northfield Avenue",
+        "city": "West Orange",
+        "region": "NJ",
+        "postal_code": "07052",
+        "lat": 40.7673513,
+        "lon": -74.2807499
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "St. Paul's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stpaulny.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/en/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St. Paul's Church",
+        "address": "315 West 22nd Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10011",
+        "lat": 40.7451531,
+        "lon": -73.9996321
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Calvary Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.calvarystgeorges.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Calvary Church",
+        "address": "273 Park Avenue South",
+        "city": "New York",
+        "region": "NY",
+        "lat": 40.7389284,
+        "lon": -73.9867599
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Gramercy Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.livenation.com/venue/KovZpZAEAElA/xfinity-center-events"
+      ],
+      "link_pattern": "https://www\\.livenation\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gramercy Theatre",
+        "address": "127 East 23rd Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10010",
+        "country": "US",
+        "lat": 40.7399075,
+        "lon": -73.9849292
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "New York City Center",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.nycitycenter.org/events/2026-2027-ndt2"
+      ],
+      "link_pattern": "https://www\\.nycitycenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "New York City Center",
+        "address": "131 West 55th Street",
+        "region": "NY",
+        "postal_code": "10019",
+        "lat": 40.7639365,
+        "lon": -73.9794055
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Brick Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.brickchurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Brick Presbyterian Church",
+        "address": "1140 Park Avenue",
+        "city": "New York",
+        "postal_code": "10128",
+        "lat": 40.7837334,
+        "lon": -73.9551879
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Apollo Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.apollotheater.org/event/hopeboykindance"
+      ],
+      "link_pattern": "https://www\\.apollotheater\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Apollo Theater",
+        "address": "253 West 125th Street",
+        "city": "New York",
+        "postal_code": "10027",
+        "lat": 40.810129,
+        "lon": -73.9498627
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Warsaw Concerts",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.warsawconcerts.com/shows"
+      ],
+      "link_pattern": "https://www\\.warsawconcerts\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Warsaw Concerts",
+        "address": "267 Driggs Avenue",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11222",
+        "lat": 40.7223925,
+        "lon": -73.9484695
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "First Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.presbyfh.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "First Presbyterian Church",
+        "address": "70-35 112th Street",
+        "city": "Queens",
+        "postal_code": "11375",
+        "lat": 40.7233724,
+        "lon": -73.8391805
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Temple Beth-El of City Island",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://yourshulbythesea.org/events/"
+      ],
+      "link_pattern": "https://yourshulbythesea\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple Beth-El of City Island",
+        "address": "480 City Island Avenue",
+        "postal_code": "10464",
+        "lat": 40.8517116,
+        "lon": -73.7885488
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {
