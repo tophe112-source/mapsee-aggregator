@@ -264,6 +264,8 @@ jobs:
       # concatenated candidate list, so a catalog having a bad morning costs its
       # own cycle and nothing else. `set +e` for the same reason; verify handles
       # an empty candidate list correctly and merge is guarded on a non-empty file.
+      # A merge failure is different: finish the other backends, then fail the
+      # step. The always() snapshot/commit steps still preserve completed work.
       #
       # The backend is a POSITIONAL argument and must come before the flags:
       # main() reads it as argv[2:3] and locates --limit/--out by index. A
@@ -281,6 +283,8 @@ jobs:
           OSM_WORKERS: ${{ inputs.osm_workers }}
         run: |
           set +e
+          set -o pipefail
+          MERGE_FAILED=0
           # The 09:30 cron is the full sweep's second pass (see the schedule
           # block): osm only, every kind, 40 metros, on the shared cursor. A
           # dispatch that names osm_kinds is the pinned community walk by hand,
@@ -411,7 +415,10 @@ jobs:
             [ -f "cand-$b.json" ] || echo '[]' > "cand-$b.json"
             python catalog_curate.py verify "cand-$b.json" | tee "verify-$b.txt"
             if [ "${{ inputs.dry_run }}" != "true" ] && [ -s "cand-$b.verified.json" ]; then
-              python catalog_curate.py merge "cand-$b.verified.json" | tee "merge-$b.txt"
+              if ! python catalog_curate.py merge "cand-$b.verified.json" | tee "merge-$b.txt"; then
+                echo "::error::catalog merge failed for $b"
+                MERGE_FAILED=1
+              fi
             else
               echo "no merge for $b" | tee "merge-$b.txt"
             fi
@@ -428,6 +435,7 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
             echo "::endgroup::"
           done
+          exit "$MERGE_FAILED"
 
       # The trend, not just today's number. One JSON line per run, appended and
       # committed: "is the catalog improving" was previously answerable only by

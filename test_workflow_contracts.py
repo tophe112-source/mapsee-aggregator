@@ -990,7 +990,7 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('run: python test_standing_pass.py', tests)
 
     @staticmethod
-    def _curate_discovers(context, dow='1'):
+    def _curate_discovers(context, dow='1', merge_failure=''):
         """Run curate-catalog's discover step with python and date stubbed:
         -> (exit code, [(backend, argv of its `discover` call)] in call order).
 
@@ -1019,13 +1019,16 @@ class WorkflowContracts(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             stubs = Path(tmp, 'bin')
             stubs.mkdir()
-            (stubs / 'python').write_text('#!/bin/sh\necho "CALL $*"\n')
+            (stubs / 'python').write_text(
+                '#!/bin/sh\necho "CALL $*"\n'
+                'if [ "$2" = verify ]; then echo "[]" > "${3%.json}.verified.json"; fi\n'
+                'if [ "$2" = merge ] && [ "$3" = "$MERGE_FAILURE" ]; then exit 23; fi\n')
             (stubs / 'date').write_text('#!/bin/sh\n'
                                         f'if [ "$*" = "-u +%u" ]; then echo {dow}; else exec {real_date} "$@"; fi\n')
             for f in stubs.iterdir():
                 f.chmod(0o755)
             env = dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}",
-                       GITHUB_STEP_SUMMARY=str(Path(tmp, 'summary.md')))
+                       GITHUB_STEP_SUMMARY=str(Path(tmp, 'summary.md')), MERGE_FAILURE=merge_failure)
             env.update({k: sub(v) for k, v in (step.get('env') or {}).items()})
             out = subprocess.run(['bash', '--noprofile', '--norc', '-eo', 'pipefail', '-c', sub(step['run'])],
                                  cwd=tmp, capture_output=True, text=True, env=env)
@@ -1040,6 +1043,20 @@ class WorkflowContracts(unittest.TestCase):
     @staticmethod
     def _flag(argv, name):
         return argv[argv.index(name) + 1] if name in argv else None
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_curate_merge_failure_is_visible_without_abandoning_other_backends(self):
+        # Execute the actual step under Actions' shell, with a failing merge
+        # behind a successful tee. A later backend must not erase its status.
+        context = {'inputs.backend': 'all'}
+        for failed in ('cand-socrata.verified.json', 'cand-osm.verified.json', ''):
+            with self.subTest(failed=failed):
+                code, calls = self._curate_discovers(context, merge_failure=failed)
+                self.assertEqual(code, 1 if failed else 0)
+                self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        code, _ = self._curate_discovers(dict(context, **{'inputs.dry_run': 'true'}),
+                                        merge_failure='cand-socrata.verified.json')
+        self.assertEqual(code, 0, 'a dry run must not invoke merge')
 
     @unittest.skipUnless(shutil.which('bash'), 'needs bash')
     def test_curate_schedules_spend_their_osm_and_ckan_time_where_it_was_measured(self):

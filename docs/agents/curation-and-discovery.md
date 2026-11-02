@@ -2236,3 +2236,18 @@
   cineteatropax.it/events, each replaced under its own old key) came back as
   FEED_DOWN after the fold-back and were verified again after it. Fold the
   walks back first, verify last.
+
+- **MERGE USES A SOURCE'S IDENTITY, NOT THE FIRST VALUE IN ITS CONFIG KEY
+  (2026-11-02).** Run 41436632518 verified 163 OSM candidates, including 2
+  VenuePilot venues, then crashed after writing 161 additions to four other
+  catalogs: `_canon` called `strip()` on an integer account ID. The commit
+  step repeated the same failure, so none of the additions landed. VenuePilot's
+  `account_ids` are valid integers; `_key_of` already sorts and joins the whole
+  list into its `venuepilot:` identity. `cmd_merge` now uses `_entry_keys` for
+  existing entries and candidates, also indexing every JSON-LD listing alias
+  immediately. `test_curate_reapply.py` reproduces the empty-catalog crash and
+  covers existing IDs, reordered IDs, distinct account groups, URL aliases,
+  ODS and retries. The workflow's `set +e` also hid the first failure: the shell
+  regression returned 0 for failures in both the first and last backend before
+  the fix, and 1 afterward while still visiting all 5 backends. Successful and
+  dry runs return 0; the existing always() snapshot/commit steps remain.

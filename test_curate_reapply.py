@@ -244,6 +244,80 @@ check("...and the cursor and the coverage line still land",
 cc.HERE, cc.LEDGER_FILE, cc.CURSOR_FILE, cc.COVERAGE_HISTORY_FILE = keep
 shutil.rmtree(tmp, ignore_errors=True)
 
+# --- merge identities: account IDs are not URLs ----------------------------
+# Run 41436632518 verified 163 candidates, then crashed on a VenuePilot int.
+# Its catalog was empty; a retry also has to read already-configured ID lists.
+with tempfile.TemporaryDirectory(prefix="curate-identities-") as tmp:
+    keep_here, cc.HERE = cc.HERE, tmp
+    try:
+        venuepath = os.path.join(tmp, "venuepilot_sources.json")
+        verified = os.path.join(tmp, "candidates.verified.json")
+        wrapper = {"_comment": "Keep the catalog metadata", "sites": [],
+                   "_not_included": {"retired.example": "Retired on purpose"}}
+        write(venuepath, wrapper)
+        venues = [
+            {"type": "venuepilot", "name": "First", "account_ids": [421, 87]},
+            {"type": "venuepilot", "name": "Same accounts reordered", "account_ids": [87, 421]},
+            {"type": "venuepilot", "name": "Different accounts", "account_ids": [421, 88]},
+            {"type": "venuepilot", "name": "No accounts", "account_ids": []},
+        ]
+        write(verified, venues)
+        check("merge accepts numeric VenuePilot account IDs in an empty catalog",
+              run(cc.cmd_merge, verified) == 0)
+        merged = read(venuepath)
+        check("VenuePilot deduplicates the whole identity, independent of order",
+              lambda: [e["account_ids"] for e in merged["sites"]] == [[421, 87], [421, 88]], merged)
+        check("merge preserves the wrapper, exclusions and numeric ID values",
+              lambda: merged == dict(wrapper, sites=[{k: v for k, v in e.items() if k != "type"}
+                                                     for e in (venues[0], venues[2])]), merged)
+        check("a retry reads existing numeric IDs without raising",
+              run(cc.cmd_merge, verified) == 0)
+        check("a VenuePilot retry leaves the catalog identical", read(venuepath) == merged)
+        write(verified, [{"type": "venuepilot", "name": "Next", "account_ids": [99]}])
+        check("merge can add to an existing numeric-ID catalog", run(cc.cmd_merge, verified) == 0)
+        check("the new account is added exactly once beside existing accounts",
+              lambda: [e["account_ids"] for e in read(venuepath)["sites"]] == [[421, 87], [421, 88], [99]])
+
+        # The same identity path must preserve URL canonicalisation, query
+        # distinctions, every JSON-LD listing alias, and ODS's derived URL.
+        icspath = os.path.join(tmp, "ics_sources.json")
+        jsonldpath = os.path.join(tmp, "jsonld_sources.json")
+        odspath = os.path.join(tmp, "ods_sources.json")
+        write(icspath, [{"name": "Calendar", "url": "https://www.calendar.example/feed/"}])
+        write(jsonldpath, {"sites": [
+            {"name": "Existing", "listing": ["https://old.example/events", "https://old.example/other"]},
+            {"name": "Scalar", "listing": "https://scalar.example/events"},
+        ]})
+        write(odspath, {"_comment": "ODS wrapper", "sources": [{"domain": "data.example", "dataset": "events"}]})
+        write(verified, [
+            {"type": "ics", "name": "Alias", "url": "http://CALENDAR.example/feed"},
+            {"type": "ics", "name": "Query one", "url": "https://calendar.example/feed?id=1"},
+            {"type": "ics", "name": "Query two", "url": "https://calendar.example/feed?id=2"},
+            {"type": "jsonld", "name": "Existing alias", "listing": ["http://www.old.example/other/"]},
+            {"type": "jsonld", "name": "Scalar alias", "listing": ["http://scalar.example/events/"]},
+            {"type": "jsonld", "name": "New", "listing": ["https://new.example/events", "https://new.example/other"]},
+            {"type": "jsonld", "name": "New alias", "listing": ["http://new.example/other/"]},
+            {"type": "ods", "name": "Existing dataset", "domain": "data.example", "dataset": "events"},
+            {"type": "ods", "name": "New dataset", "domain": "data.example", "dataset": "concerts"},
+        ])
+        check("URL and derived-key candidates still merge", run(cc.cmd_merge, verified) == 0)
+        check("URL aliases collapse while distinct queries survive",
+              lambda: [e["name"] for e in read(icspath)] == ["Calendar", "Query one", "Query two"])
+        check("all JSON-LD listing aliases are indexed, including additions in this batch",
+              lambda: [e["name"] for e in read(jsonldpath)["sites"]] == ["Existing", "Scalar", "New"])
+        check("ODS uses its derived URL and preserves its wrapper",
+              lambda: read(odspath) == {"_comment": "ODS wrapper", "sources": [
+                  {"domain": "data.example", "dataset": "events"},
+                  {"name": "New dataset", "domain": "data.example", "dataset": "concerts",
+                   "url": "https://data.example/api/explore/v2.1/catalog/datasets/concerts/records"},
+              ]})
+        first = [read(p) for p in (icspath, jsonldpath, odspath)]
+        check("mixed URL catalogs can be merged again", run(cc.cmd_merge, verified) == 0)
+        check("mixed URL catalogs remain identical on retry",
+              [read(p) for p in (icspath, jsonldpath, odspath)] == first)
+    finally:
+        cc.HERE = keep_here
+
 # --- the weekly audit keeps what it probed ------------------------------------
 # 2026-10-04: the audit probed 3,240 feeds in 94 minutes, then crashed formatting
 # jsonld's `listing` (a LIST) for its log line. Its one save sat after the loop,

@@ -3756,10 +3756,9 @@ def cmd_merge(path):
         cur = _entries(fname, doc)
         seen = set()
         for c in cur:
-            v = c.get(key) or (_ods_url(c) if t == "ods" else None)
-            for one in (v if isinstance(v, list) else [v]):   # jsonld's `listing`
-                if one:
-                    seen.add(_canon(one))
+            # Use the same typed identity as verification: VenuePilot carries
+            # account IDs, JSON-LD carries listing URLs, and ODS derives a URL.
+            seen.update(_entry_keys(dict(c, type=t)))
         added = 0
         for e in adds:
             if _blocked_cpl_opendata(e, chipublib_configured):
@@ -3775,11 +3774,11 @@ def cmd_merge(path):
             if t == "ods":
                 entry["url"] = _ods_url(entry)     # derived key, kept for dedup
             kv = entry.get(key)
-            ck = _canon(kv[0] if isinstance(kv, list) and kv else kv)
-            if not ck or ck in seen:
+            keys = _entry_keys(dict(entry, type=t))
+            if not keys or keys & seen:
                 continue
             cur.append(entry)
-            seen.add(ck)
+            seen.update(keys)
             added += 1
             if t in ("ics", "tribe") and isinstance(kv, str):
                 feeds_by_host.setdefault(_host_of(kv), []).append((t, kv))
