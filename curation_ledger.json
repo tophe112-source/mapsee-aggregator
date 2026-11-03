@@ -66167,6 +66167,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bergischgladbach.de": {
+    "checked": 20261103,
+    "name": "Bergisch Gladbach",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "bergischgladbach.de/paffrath.aspx": {
     "cal_url": "https://www.bergischgladbach.de/termine.aspx",
     "checked": 20261021,
@@ -99795,6 +99802,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "bremerhaven.de": {
+    "checked": 20261103,
+    "name": "Bremerhaven",
+    "reason": "civic probe: robots.txt Disallow: / (https://www.bremerhaven.de/robots.txt)",
+    "status": "refused",
+    "type": "civic-city"
   },
   "bremerhockeyclub.de": {
     "cal_url": "https://www.bremerhockeyclub.de/club/aktuelles",
@@ -179507,6 +179521,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cottbus.de": {
+    "checked": 20261103,
+    "name": "Cottbus",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cottbus.vonunten.org": {
     "checked": 20261101,
     "name": "Cottbus von Unten",
@@ -219696,6 +219717,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dueren.de": {
+    "checked": 20261103,
+    "name": "D\u00fcren",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "duererschule.de": {
     "cal_url": "https://www.duererschule.de/termine.html",
     "checked": 20261026,
@@ -243364,6 +243392,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "esslingen.de": {
+    "checked": 20261103,
+    "name": "Esslingen am Neckar",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "esslinger-moschee.de": {
     "checked": 20261025,
     "name": "Yunus Emre Camii",
@@ -266750,6 +266785,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "flensburg.de": {
+    "checked": 20261103,
+    "name": "Flensburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "fletch-bizzel.de": {
     "cal_url": "https://www.fletch-bizzel.de/programm",
     "checked": 20261026,
@@ -278371,6 +278413,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "fuerth.de": {
+    "checked": 20261103,
+    "name": "F\u00fcrth",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "fuerth.de/desktopdefault.aspx/tabid-39/287_read-3885": {
     "checked": 20261027,
@@ -290645,6 +290694,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gera.de": {
+    "checked": 20261103,
+    "name": "Gera",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "geraardsbergen.be": {
     "checked": 20261028,
     "name": "Geraardsbergen",
@@ -292930,6 +292986,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "giessen.de": {
+    "checked": 20261103,
+    "name": "Giessen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "giesserei-gesewo.ch/raeume/grosser-saal": {
     "checked": 20260917,
@@ -297848,6 +297911,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "goettingen.de": {
+    "checked": 20261103,
+    "name": "G\u00f6ttingen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "goetzis.at": {
     "checked": 20261005,
@@ -307840,6 +307910,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "guetersloh.de": {
+    "checked": 20261103,
+    "name": "G\u00fctersloh",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "guevenpflege.de": {
     "checked": 20261025,
     "name": "G\u00fcven",
@@ -314090,6 +314167,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hanau.de": {
+    "checked": 20261103,
+    "name": "Hanau",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hanau.de/contentpool/adressen/001185.html": {
     "cal_url": "https://www.hanau.de/freizeit/veranstaltungsorte/index.html",
@@ -321828,6 +321912,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "heilbronn.de": {
+    "checked": 20261103,
+    "name": "Heilbronn",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "heilehaus-berlin.de": {
     "checked": 20261021,
@@ -356609,6 +356700,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ingolstadt.de": {
+    "checked": 20261103,
+    "name": "Ingolstadt",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ingv.it/it/risorse-e-servizi/biblioteche?highlight=WyJiaWJsaW90ZWNoZSJd#la-biblioteca-centrale-di-bologna": {
     "cal_url": "https://www.ingv.it/comunicazione-e-divulgazione/eventi",
     "checked": 20261018,
@@ -361435,6 +361533,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "iserlohn.de": {
+    "checked": 20261103,
+    "name": "Iserlohn",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "iserlohn.de/buergerservice-politik/buergerservice/adressen-servicezeiten.html": {
     "checked": 20261026,
@@ -366945,6 +367050,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jena.de": {
+    "checked": 20261103,
+    "name": "Jena",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "jenbach.at": {
     "checked": 20261023,
@@ -399819,6 +399931,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "koblenz.de": {
+    "checked": 20261103,
+    "name": "Koblenz",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kobukan.com": {
     "checked": 20261022,
     "name": "Kobukan e.V.",
@@ -402010,6 +402129,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "konstanz.de": {
+    "checked": 20261103,
+    "name": "Constance",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "konstframjandet.se": {
     "checked": 20260905,
@@ -454407,6 +454533,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ludwigsburg.de": {
+    "checked": 20261103,
+    "name": "Ludwigsburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ludwigsburg.de/site/Ludwigsburg-Internet-2020/node/17649976/index.html?nodeID=523100234401": {
     "cal_url": "https://www.ludwigsburg.de/start/kultur+und+freizeit/veranstaltungen+und+tickets.html",
     "checked": 20261025,
@@ -468138,6 +468271,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "marl.de": {
+    "checked": 20261103,
+    "name": "Marl",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "marl.de/index.php?id=2809": {
     "cal_url": "https://marl.de/fileadmin/user_upload/Halbjahr2026_3.pdf",
@@ -491006,6 +491146,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "moers.de": {
+    "checked": 20261103,
+    "name": "Moers",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "moers.de/de/ansprechpartner/41-grafschafter-museum-im-schloss": {
     "checked": 20261025,
@@ -523122,6 +523269,13 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "neuss.de": {
+    "checked": 20261103,
+    "name": "Neuss",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "neuss.de/kultur/musik/accoustic-concerts": {
     "cal_url": "https://www.neuss.de/veranstaltungskalender",
     "checked": 20261025,
@@ -542424,6 +542578,13 @@
     "reason": "osm probe: found tribe",
     "status": "found",
     "type": "osm-venue"
+  },
+  "offenbach.de": {
+    "checked": 20261103,
+    "name": "Offenbach am Main",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "offenbach.de/microsite/haus_der_stadtgeschichte/index.php": {
     "cal_url": "https://www.offenbach.de/microsite/haus_der_stadtgeschichte/druckwerkstatt/veranstaltungen/index.php",
@@ -577114,6 +577275,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pforzheim.de": {
+    "checked": 20261103,
+    "name": "Pforzheim",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "pfungen.biblioweb.ch": {
     "checked": 20261018,
     "name": "Bibliothek Pfungen",
@@ -605456,6 +605624,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "recklinghausen.de": {
+    "checked": 20261103,
+    "name": "Recklinghausen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "recklinghausen.de/Inhalte/Startseite/Rathaus_Politik/Buergerservice/Buergerservice/_bso.asp?seite=oe&id=993": {
     "checked": 20261026,
     "name": "Jugendzentrum Extra 3",
@@ -607136,6 +607311,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "regensburg.de": {
+    "checked": 20261103,
+    "name": "Regensburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "regensdorf.ch/aemter/5481": {
     "checked": 20260918,
@@ -611717,6 +611899,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "reutlingen.de": {
+    "checked": 20261103,
+    "name": "Reutlingen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "revenge.co.uk": {
     "checked": 20261101,
@@ -633979,6 +634168,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "salzgitter.de": {
+    "checked": 20261103,
+    "name": "Salzgitter",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "salzgrotte-lavita.de": {
     "cal_url": "https://salzgrotte-lavita.de/category/neuigkeiten/veranstaltung/",
     "checked": 20261026,
@@ -644718,6 +644914,13 @@
     "reason": "osm probe: found ics",
     "status": "found",
     "type": "osm-venue"
+  },
+  "schwerin.de": {
+    "checked": 20261103,
+    "name": "Schwerin",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "schwerterkirchen.de/locations/st-antonius": {
     "cal_url": "https://www.schwerterkirchen.de/termine/",
@@ -659441,6 +659644,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "siegen.de": {
+    "checked": 20261103,
+    "name": "Siegen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "sieghartskirchen.gv.at": {
     "checked": 20261023,
@@ -684973,6 +685183,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "stadt-hildesheim.de": {
+    "checked": 20261103,
+    "name": "Hildesheim",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "stadt-kerpen.de/index.phtml?sNavID=1708.28&object=tx%7C1708.918.1": {
     "checked": 20261024,
     "name": "Haus f\u00fcr Kunst und Geschichte",
@@ -685127,6 +685344,13 @@
     "reason": "14/14 sampled events future",
     "status": "ok",
     "type": "jsonld"
+  },
+  "stadt-ratingen.de": {
+    "checked": 20261103,
+    "name": "Ratingen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "stadt-ratingen.de/freizeit_kultur_sport_tourismus/senioren/staedtische_seniorentreffs/sued/index.php": {
     "checked": 20261025,
@@ -759656,6 +759880,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "trier.de": {
+    "checked": 20261103,
+    "name": "Trier",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "trifectasingapore.com": {
     "checked": 20260910,
     "name": "Trifecta",
@@ -763731,6 +763962,13 @@
     "reason": "109 upcoming, sample: Ana Lucia // Standup Comedy",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "tuebingen.de": {
+    "checked": 20261103,
+    "name": "T\u00fcbingen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "tuebke-stiftung-leipzig.de": {
     "checked": 20261025,
@@ -789571,6 +789809,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "villingen-schwenningen.de": {
+    "checked": 20261103,
+    "name": "Villingen-Schwenningen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "villivyohyke.fi": {
     "checked": 20260904,
     "name": "Villi vy\u00f6hyke ry",
@@ -814758,6 +815003,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "witten.de": {
+    "checked": 20261103,
+    "name": "Witten",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "wittenau-sued.de": {
     "cal_url": "https://www.wittenau-sued.de/mitmachen/kalender",
     "checked": 20261020,
@@ -815973,6 +816225,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wolfsburg.de": {
+    "checked": 20261103,
+    "name": "Wolfsburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wolfschneiderhof.de/veranstaltungen.html?day=20261011": {
     "checked": 20261101,
@@ -819369,6 +819628,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wuerzburg.de": {
+    "checked": 20261103,
+    "name": "W\u00fcrzburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wuhletal.de/krankenhauskirche": {
     "cal_url": "https://wuhletal.de/wp-content/uploads/2026/09/WG-Kirche-Veranstaltungsvorschau-Oktober-bis-November-2026-1.pdf",
