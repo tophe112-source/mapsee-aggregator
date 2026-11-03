@@ -247,14 +247,9 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 179,
-  "metro_key": "US:New York",
-  "stuck": {
-   "US:New York": {
-    "day": 20261103,
-    "n": 1
-   }
-  }
+  "metro": 181,
+  "metro_key": "US:Chicago",
+  "stuck": {}
  },
  "osm|community_centre,library": {
   "metro": 225,

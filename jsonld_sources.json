@@ -23800,6 +23800,650 @@
         "lon": -73.7885488
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Muslim Federation of NJ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.mfnj.net/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Muslim Federation of NJ",
+        "address": "530 Montgomery Street",
+        "city": "Jersey City",
+        "region": "NJ",
+        "postal_code": "07302",
+        "lat": 40.7227603,
+        "lon": -74.0600819
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Costa del Sol Healthcare",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://costadelsolhc.com/our-events/"
+      ],
+      "link_pattern": "https://costadelsolhc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Costa del Sol Healthcare",
+        "address": "1017 South Record Avenue",
+        "city": "Los Angeles",
+        "postal_code": "90023",
+        "lat": 34.0216351,
+        "lon": -118.1823582
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Last Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.lastbookstorela.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Last Bookstore",
+        "address": "453 South Spring Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90013",
+        "country": "US",
+        "lat": 34.0476682,
+        "lon": -118.2497228
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Chinese Community Service Center",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.centralcommunityservices.org/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Chinese Community Service Center",
+        "address": "1725 Beverly Boulevard",
+        "city": "Los Angeles",
+        "postal_code": "90026",
+        "lat": 34.0653936,
+        "lon": -118.2665761
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Wiltern",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.wiltern.com/shows"
+      ],
+      "link_pattern": "https://www\\.wiltern\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Wiltern",
+        "address": "3790 Wilshire Boulevard",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90010",
+        "lat": 34.0614963,
+        "lon": -118.308908
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Skiptown Playhouse",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.skiptownplayhouse.com/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Skiptown Playhouse",
+        "address": "665 North Heliotrope Drive",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90004",
+        "lat": 34.0832422,
+        "lon": -118.2954718
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Echo",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.theecho.com/shows"
+      ],
+      "link_pattern": "https://www\\.theecho\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Echo",
+        "address": "1822 West Sunset Boulevard",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90026",
+        "lat": 34.0777328,
+        "lon": -118.2601037
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Ministerios Llamada Final",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.llamadafinal.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ministerios Llamada Final",
+        "address": "12145 Woodruff Avenue",
+        "city": "Downey",
+        "region": "CA",
+        "postal_code": "90241",
+        "lat": 33.9232999,
+        "lon": -118.1181258
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Cinépolis Luxury Cinemas Inglewood IMAX",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinepolisusa.com/inglewood/showtimes/"
+      ],
+      "link_pattern": "https://www\\.cinepolisusa\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cinépolis Luxury Cinemas Inglewood IMAX",
+        "address": "1233 District Drive",
+        "city": "Inglewood",
+        "region": "CA",
+        "postal_code": "90303",
+        "lat": 33.9463476,
+        "lon": -118.3430746
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "San Marino Masonic Center",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.sanmarinolodge408.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "San Marino Masonic Center",
+        "address": "3130 Huntington Drive",
+        "city": "San Marino",
+        "region": "CA",
+        "postal_code": "91108",
+        "lat": 34.1274339,
+        "lon": -118.088277
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Hollywood Bowl",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.hollywoodbowl.com/events/instances/nf7prwbs/2026-11-21/steve-lacy"
+      ],
+      "link_pattern": "https://www\\.hollywoodbowl\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hollywood Bowl",
+        "lat": 34.1121858,
+        "lon": -118.3392659
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Arlington Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> jsonld-event",
+      "listing": [
+        "https://www.arlingtongardenpasadena.org/calendar/"
+      ],
+      "link_pattern": "https://www\\.arlingtongardenpasadena\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Arlington Garden",
+        "address": "275 Arlington Drive",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91105",
+        "lat": 34.1287119,
+        "lon": -118.1556068
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Gamble House",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://gamblehouse.org/events/"
+      ],
+      "link_pattern": "https://gamblehouse\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Gamble House",
+        "address": "4 Westmoreland Place",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91103",
+        "lat": 34.1516251,
+        "lon": -118.1609189
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Hollywood Palladium",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.hollywoodpalladium.com/shows"
+      ],
+      "link_pattern": "https://www\\.hollywoodpalladium\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hollywood Palladium",
+        "address": "6215 Sunset Blvd",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90028",
+        "lat": 34.0984868,
+        "lon": -118.3243265
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Saint Bede's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stbedesla.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Bede's Episcopal Church",
+        "address": "3590 Grand View Boulevard",
+        "city": "Los Angeles",
+        "region": "CA",
+        "lat": 34.009433,
+        "lon": -118.4340226
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Hollywood Heritage Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.hollywoodheritage.org/event-schedule"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hollywood Heritage Museum",
+        "region": "CA",
+        "lat": 34.1085321,
+        "lon": -118.3361185
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Mayan Music Venue",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://mayanmusicvenue.com/event/EVE229190100020261113/club-2010-s/"
+      ],
+      "link_pattern": "https://mayanmusicvenue\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mayan Music Venue",
+        "address": "1038 South Hill Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90015",
+        "lat": 34.0404732,
+        "lon": -118.2590642
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Belasco",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thebelasco.com/shows"
+      ],
+      "link_pattern": "https://www\\.thebelasco\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Belasco",
+        "lat": 34.0402587,
+        "lon": -118.2592642
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "?",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://1720.la/event/gutalax-2/1720/los-angeles-california/"
+      ],
+      "link_pattern": "https://1720\\.la/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "address": "1720 East 16th Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90021",
+        "lat": 34.0230293,
+        "lon": -118.2416765
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Comedy Chateau",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thecomedychateau.com/shows/393191"
+      ],
+      "link_pattern": "https://www\\.thecomedychateau\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Comedy Chateau",
+        "address": "4615 Lankershim Boulevard",
+        "city": "North Hollywood",
+        "region": "CA",
+        "postal_code": "91602",
+        "lat": 34.1543828,
+        "lon": -118.368589
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Los Angeles University Bible Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://laubf.org/events"
+      ],
+      "link_pattern": "https://laubf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Los Angeles University Bible Fellowship",
+        "address": "11625 Paramount Boulevard",
+        "city": "Downey",
+        "region": "CA",
+        "postal_code": "90241",
+        "lat": 33.9384503,
+        "lon": -118.1414333
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "YouTube Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.youtubetheater.com/events"
+      ],
+      "link_pattern": "https://www\\.youtubetheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "YouTube Theater",
+        "address": "1011 South Stadium Drive",
+        "city": "Inglewood",
+        "region": "CA",
+        "postal_code": "90301",
+        "lat": 33.9517775,
+        "lon": -118.3369622
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Walt Disney Concert Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.laphil.com/events/instances/11j63r3g/2026-11-28/elf-in-concert"
+      ],
+      "link_pattern": "https://www\\.laphil\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Walt Disney Concert Hall",
+        "region": "CA",
+        "lat": 34.0554272,
+        "lon": -118.2499631
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Greek Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.lagreektheatre.com/event/two-feet/213/"
+      ],
+      "link_pattern": "https://www\\.lagreektheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Greek Theatre",
+        "address": "2700",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90027",
+        "lat": 34.119509,
+        "lon": -118.2963412
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Pantages Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.broadwayinhollywood.com/events"
+      ],
+      "link_pattern": "https://www\\.broadwayinhollywood\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pantages Theater",
+        "address": "6233 Hollywood Boulevard",
+        "region": "CA",
+        "postal_code": "90028",
+        "lat": 34.1021978,
+        "lon": -118.3257136
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Neofuturists",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://neofuturists.org/events/"
+      ],
+      "link_pattern": "https://neofuturists\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neofuturists",
+        "lat": 41.9757947,
+        "lon": -87.6693323
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "The Museum of Contemporary Photography",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.mocp.org/events/"
+      ],
+      "link_pattern": "https://www\\.mocp\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Museum of Contemporary Photography",
+        "lat": 41.8742073,
+        "lon": -87.6245139
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "National Veterans Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.nvam.org/programs"
+      ],
+      "link_pattern": "https://www\\.nvam\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "National Veterans Art Museum",
+        "address": "4041 North Milwaukee Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60641",
+        "lat": 41.9543845,
+        "lon": -87.7486367
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Andy's Jazz Club & Restaurant",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://andysjazzclub.com/music-calendar/"
+      ],
+      "link_pattern": "https://andysjazzclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Andy's Jazz Club & Restaurant",
+        "address": "11 East Hubbard Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60611",
+        "lat": 41.8899353,
+        "lon": -87.627363
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Little Black Pearl Art Gallery",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.blackpearl.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Little Black Pearl Art Gallery",
+        "address": "1060 East 47th Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60653",
+        "lat": 41.8097751,
+        "lon": -87.599505
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "American Writers Museum",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://americanwritersmuseum.org/calendar/"
+      ],
+      "link_pattern": "https://americanwritersmuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "American Writers Museum",
+        "address": "180 North Michigan Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60601",
+        "lat": 41.8855608,
+        "lon": -87.6249909
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Howl at the Moon Chicago",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://home.howlatthemoon.com/"
+      ],
+      "link_pattern": "https://home\\.howlatthemoon\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Howl at the Moon Chicago",
+        "address": "26 West Hubbard Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60654",
+        "lat": 41.8902485,
+        "lon": -87.6291445
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Plaza Garibaldi",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events",
+      "listing": [
+        "https://vivatumusica.com/vivatumusica-events/"
+      ],
+      "link_pattern": "https://vivatumusica\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Plaza Garibaldi",
+        "address": "South Rockwell Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60623",
+        "lat": 41.8423217,
+        "lon": -87.690702
+      },
+      "_metro": "Chicago, United States"
     }
   ],
   "_not_included": {

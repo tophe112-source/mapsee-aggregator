@@ -4927,6 +4927,207 @@
         "lon": -74.1676967
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "The Episcopal Church of St. Andrew and Holy Communion",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sahchurchnj.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Episcopal Church of St. Andrew and Holy Communion",
+        "address": "160 South Orange Avenue",
+        "city": "South Orange",
+        "region": "NJ",
+        "postal_code": "07079",
+        "lat": 40.7471365,
+        "lon": -74.2631758
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Schindler House and Studio",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.makcenter.org/exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "Schindler House and Studio",
+        "address": "833 North Kings Road",
+        "city": "West Hollywood",
+        "region": "CA",
+        "postal_code": "90069",
+        "lat": 34.0864294,
+        "lon": -118.3721833
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Junior High",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "http://juniorhighlosangeles.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Junior High",
+        "address": "601,603 South Brand Boulevard",
+        "city": "Glendale",
+        "region": "CA",
+        "postal_code": "91204",
+        "lat": 34.1392687,
+        "lon": -118.2553068
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Mosaic",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.mosaic.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mosaic",
+        "address": "1023 Fair Oaks Avenue",
+        "city": "South Pasadena",
+        "region": "CA",
+        "postal_code": "91030",
+        "lat": 34.1140112,
+        "lon": -118.150672
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "dym",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.dympasadena.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "dym",
+        "address": "2057 North Los Robles Avenue",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91104",
+        "lat": 34.1812053,
+        "lon": -118.1422785
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Echo Park Film Center",
+      "category": "theater",
+      "_found": "osm:cinema -> squarespace",
+      "collection": "https://www.epfccollective.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Echo Park Film Center",
+        "address": "1200 Alvarado Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90026",
+        "lat": 34.0782245,
+        "lon": -118.2628478
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Columbia Memorial Space Center",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.columbiaspacescience.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Columbia Memorial Space Center",
+        "address": "12400 Columbia Way",
+        "city": "Downey",
+        "region": "CA",
+        "postal_code": "90242",
+        "country": "US",
+        "lat": 33.9198282,
+        "lon": -118.1336438
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Maxwell House",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.maxwellhousepasadena.com/scheduled-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Maxwell House",
+        "address": "55 South Grand Avenue",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91105",
+        "lat": 34.1447272,
+        "lon": -118.162163
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Old Mill Garden and Arboretum",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.old-mill.org/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Old Mill Garden and Arboretum",
+        "lat": 34.1193436,
+        "lon": -118.1275407
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "First Aid Comics",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.firstaidcomics.com/first-aid-comics-march26bookclub",
+      "max_events": 200,
+      "venue": {
+        "name": "First Aid Comics",
+        "address": "1617 East 55th Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60615",
+        "lat": 41.79507,
+        "lon": -87.5858598
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Burning Bush Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.burningbushbrewery.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Burning Bush Brewery",
+        "address": "4014 North Rockwell Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60618",
+        "lat": 41.9545903,
+        "lon": -87.6934383
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Shine Bright In Life! Healing Arts Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.shinebrightinlife.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Shine Bright In Life! Healing Arts Center",
+        "address": "841 West Sheridan Road",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60613",
+        "lat": 41.9525821,
+        "lon": -87.6513027
+      },
+      "_metro": "Chicago, United States"
     }
   ],
   "_not_included": {

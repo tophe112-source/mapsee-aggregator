@@ -36,6 +36,25 @@
         "lon": -73.934588
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Los Globos",
+      "category": "music",
+      "_found": "osm:nightclub -> venuepilot",
+      "account_ids": [
+        689
+      ],
+      "within_days": 120,
+      "venue": {
+        "name": "Los Globos",
+        "address": "3040 West Sunset Boulevard",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90026",
+        "lat": 34.0838096,
+        "lon": -118.2743338
+      },
+      "_metro": "Los Angeles, United States"
     }
   ],
   "_not_included": {

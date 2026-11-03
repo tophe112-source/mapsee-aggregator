@@ -60908,5 +60908,778 @@
     "geocode_suffix": ", Montclair, NJ",
     "limit": 300,
     "_metro": "New York, United States"
+  },
+  {
+    "name": "Good Shepherd Parish at Most Holy Rosary",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://goodshepherdpanj.org/icalendar1.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Church of the Good Shepherd",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/goodshepherdnyc.org_23mb15r5a7iudmvt8b6g0i908s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Our Lady of Mount Carmel - Saint Benedicta Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://olmcsi.org/icalendar0.ics",
+    "geocode_suffix": ", Staten Island, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Roch Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stastr.org/icalendar.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Charles Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stcharlessi.org/icalendar1.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Church of Saint Clare",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40stclaresi.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Church of The Holy Innocents",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://shrineofholyinnocents.org/icalendar.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Patrick’s Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintpatrickscathedral.org/icalendar54241.ics",
+    "geocode_suffix": ", New York",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Good Counsel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://olgcstm.org/icalendar0.ics",
+    "geocode_suffix": ", New York",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Name of Jesus Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.holynamenyc.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Ann Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saint-ann.org/icalendar.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Charles Borromeo Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://scbrchurch.org/icalendar1.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Lourdes Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.lourdesnyc.org/icalendar543295.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Church of the Annunciation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.theannunciation.net/icalendar1.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Church of the Incarnation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://incarnationnyc.com/icalendar.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Rita of Cascia Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://santaritabronx.com/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Anselm Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stanselmnyc.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Sacred Heart Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://bronxaltar.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Saviour Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://churchoursaviour.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Simon Stock Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://saintsimonstockchurch.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Angels Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3d0b0a01e1ad69f3b0f62002c61db424b60753e176e2aa9f06d030aff0380190%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Philip Neri Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://church.stphilipneribronx.org/icalendar1.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Frances of Rome Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://sfrbronx.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Peter Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://spcolr.org/icalendar194.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Helena Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://churchofsthelena.com/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Anthony Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stanthonybronx.org/icalendar.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Benedict Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stbenedictchurchny.org/icalendar.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Trinity Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.holytrinityrcparish.org/icalendar1022891.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cathedral of Saint John the Baptist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://rcdopcathedral.org/icalendar.ics",
+    "geocode_suffix": ", Paterson, NJ",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Agnes Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0528bf20843b9f123f9b94d25a68732f657b88cee30ebf43ffca58b332f1833e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paterson",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Church of Saint Anastasia",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintanastasia.org/icalendar.ics",
+    "geocode_suffix": ", Teaneck, NJ",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Liberty Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.lbcnj.org/upcoming-events/?ical=1",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Prophet Elias Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/prophet%40prophetelias.ny.goarch.org/public/basic.ics",
+    "geocode_suffix": ", Yonkers, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "NYC parks",
+    "category": "outdoors",
+    "_found": "osm:garden -> ics",
+    "url": "https://www.nyc.gov/html/dot/downloads/misc/2026-alternate-side.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "First Presbyterian Church of Woodbridge",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40fpcwoodbridgenj.org/public/basic.ics",
+    "geocode_suffix": ", Woodbridge, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Nicholas Ukrainian Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40stnicholasucc.org/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Hedwig Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sainthedwignj.org/icalendar1.ics",
+    "geocode_suffix": ", Elizabeth, NJ",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Mary - Our Lady of Mount Carmel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stmarys-ny.com/icalendar0.ics",
+    "geocode_suffix": ", Mount Vernon, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Crane's Mill",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://www.cranesmill.org/events-articles/?ical=1",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Saint Gabriel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stgabrielstjoseph.org/icalendar1.ics",
+    "geocode_suffix": ", New Rochelle, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Friendship Unified Free Will Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ufwbchurches.com/events.ics",
+    "geocode_suffix": ", Mount Vernon, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Christ Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lqeov53b97h5ll1uaopj9bm0to%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Glen Ridge, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Our Lady of Perpetual Help Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.olph-stcatharine.org/icalendar1.ics",
+    "geocode_suffix": ", Pelham, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Colonial Rifle & Pistol Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ulm995rg32juggvnnd69l76e7g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Staten Island, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Holy Name of Jesus Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://hnjparish.com/icalendar0.ics",
+    "geocode_suffix": ", New Rochelle, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Perpetual Help Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://olph-pelhammanor.org/icalendar1.ics",
+    "geocode_suffix": ", Pelham, NY",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Brendan Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://saintbrendanchurch.org/icalendar0.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Spyridon Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/oten0vcf5l89gn0hkag617hlvo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Ss. Nicholas, Constantine & Helen Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0ot455r5jusca47sqdhdr5hheo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Roseland, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Nativity Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nativitytorrance.org_lmfsi8ali2bibf7a4bguvr2gpk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Our Lady of Solitude Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ourladyofsolitude.org/icalendar1.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Central Spanish Seventh Day Adventist Church",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40centralspanish.org/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Self-Realization Fellowship Glendale Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2gt12j4i9esrtkb808p4gp9o2g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Glendale, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Lutheran Church of the Master",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40lutheran.churchofthemaster.org/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Pasadena Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ppc.net/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Pasadena, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Orange Grove Friends Meeting",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ogmm.org_37paunop5m2iu8qv4jbn88ahv4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Pasadena Scottish Rite",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/m6pbhldt0sin6ojm2fh6mcemco%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pasadena, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "All Power Books",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8821f795e0d339a86cfba4ceff45775883ff632ba6a086a98491fd57b16900c3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Cathedral of Our Lady of the Angels",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.olacathedral.org/icalendar0.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Mount Wilson Observatory Museum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.mtwilson.edu/events/?ical=1",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 20.0
+  },
+  {
+    "name": "Saint Andrew Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5g5upolbfnivb8iqp9nflfgtt4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Temple Beth Shir Shalom",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j8o5p29rulbb1mvu4hitoabkd0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Santa Monica",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Saint Mary Magdalen Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://smmla.org/icalendar0.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Victors Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintvictor.org/icalendar1.ics",
+    "geocode_suffix": ", West Hollywood, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Joy of All Who Sorrow Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/upl9bcc0585anhegl7sb2ljvn0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Marina del Rey, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Koyasan Beikoku Betsuin of Los Angeles",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/itq4nvv2vfjtigucnssj0ommneju6t0i%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Saint Mary and Saint Athanasius Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/st-athanasius.org_2nbofdrp6f6i6fi5bpujaruto0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Northridge, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Goodwill Donation Center & Bookstore",
+    "category": "learning",
+    "_found": "osm:books -> events-manager",
+    "url": "https://www.goodwillsocal.org/news-events/?ical=1",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "St. James Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stjamesparish.org/icalendar.ics",
+    "geocode_suffix": ", Redondo Beach, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "St. Peter Chanel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://spcomv.com/icalendar1.ics",
+    "geocode_suffix": ", Hawaiian Gardens, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Perpetual Help Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/k4b3l2m9jb5n9m2tjs62b29ahc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Downey, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Good Shepherd Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2tjfk31kpmienco2rrtlhf3cag%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Downey, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Our Lady of the Miraculous Medal Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://olmmparish.com/icalendar.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "St. Philip Neri Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://spneri.com/icalendar1.ics",
+    "geocode_suffix": ", Lynwood, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Joseph of Jacob Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.josephofjacob.org/events.ics",
+    "geocode_suffix": ", Paramount, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Saint James' Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7ff504e6d9b51c7d1074386aba12c878e3fe989169fb6d9e9a9c665845372033%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Cottonwood Urban Farm",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_76db7da56672eda31a8c4245fb88637d742faa6615b86b55ebdfa6aea1490cee%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Chicago Filmmakers",
+    "category": "theater",
+    "_found": "osm:cinema -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5e927e6503eeeb2848972a636898b02b8edb26d88fd2662a1cee134f8166b96d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Norwood Park Historical Society",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/31qjed9uobkghg51open1e1gbo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Weber Leisure Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/646fd314383cac22bdf3f5e72c9e4d6a0ad14f8270145ed29bfed1961f96cf1d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Skokie, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Niles Historical Society",
+    "category": "arts",
+    "_found": "osm:museum -> civicplus",
+    "url": "https://www.vniles.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Niles, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States",
+    "crawl_delay": 10.0
   }
 ]

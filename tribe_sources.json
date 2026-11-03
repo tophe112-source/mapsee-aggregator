@@ -32503,6 +32503,571 @@
         "lon": -74.018312
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Poster House",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://posterhouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Poster House",
+        "address": "119 West 23rd Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10011",
+        "lat": 40.7435904,
+        "lon": -73.9933334
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Cathedral International",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cathedralinternational.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cathedral International",
+        "address": "277 Madison Avenue",
+        "city": "Perth Amboy",
+        "region": "NJ",
+        "postal_code": "08861",
+        "lat": 40.5086519,
+        "lon": -74.2709332
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Liberty Hall Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://libertyhall.kean.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Liberty Hall Museum",
+        "address": "1003 Morris Avenue",
+        "city": "Union",
+        "region": "NJ",
+        "postal_code": "07083",
+        "lat": 40.6770988,
+        "lon": -74.2267249
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "First Presbyterian Church at Caldwell",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.firstprescaldwell.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Presbyterian Church at Caldwell",
+        "lat": 40.839119,
+        "lon": -74.2760758
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Museum of Chinese in America",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.mocanyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Chinese in America",
+        "address": "215 Centre Street",
+        "postal_code": "10013",
+        "lat": 40.7194554,
+        "lon": -73.9991571
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Arden Courts – ProMedica Memory Care Community (West Orange)",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.arden-courts.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arden Courts – ProMedica Memory Care Community (West Orange)",
+        "address": "510 Prospect Avenue",
+        "city": "West Orange",
+        "region": "NJ",
+        "postal_code": "07052",
+        "lat": 40.787063,
+        "lon": -74.2556508
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Meadowlands Racing & Entertainment",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://playmeadowlands.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meadowlands Racing & Entertainment",
+        "address": "1 Racetrack Drive",
+        "city": "East Rutherford",
+        "region": "NJ",
+        "postal_code": "07073",
+        "country": "US",
+        "lat": 40.8195593,
+        "lon": -74.0732732
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Congregation Beth Elohim",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://cbebk.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Beth Elohim",
+        "address": "274 Garfield Place",
+        "postal_code": "11215",
+        "lat": 40.6710296,
+        "lon": -73.9744169
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Cathedral of St. Sava",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stsavanyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cathedral of St. Sava",
+        "address": "20 West 26th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10010",
+        "lat": 40.7437647,
+        "lon": -73.989894
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Pasadena Playhouse",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.pasadenaplayhouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pasadena Playhouse",
+        "address": "39 South El Molino Avenue",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91101",
+        "lat": 34.1451288,
+        "lon": -118.1372956
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Hare Krishna Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://iskconla.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hare Krishna Temple",
+        "address": "3764 Watseka Avenue",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90034-4000",
+        "lat": 34.0251431,
+        "lon": -118.39708
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Vincent Price Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://vpam.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vincent Price Art Museum",
+        "address": "1301 Avenida Cesar Chavez",
+        "city": "Monterey Park",
+        "region": "CA",
+        "postal_code": "91754",
+        "lat": 34.0387048,
+        "lon": -118.1470474
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Leonard Nimoy Event Horizon Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://griffithobservatory.lacity.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leonard Nimoy Event Horizon Theater",
+        "lat": 34.118281,
+        "lon": -118.3003713
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Fanatic Salon Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://fanaticsalon.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fanatic Salon Theater",
+        "address": "3815 Sawtelle Boulevard",
+        "city": "Culver City",
+        "region": "CA",
+        "postal_code": "90066",
+        "lat": 34.0110141,
+        "lon": -118.4195911
+      },
+      "_metro": "Los Angeles, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Institute for Art and Olfaction",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://artandolfaction.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Institute for Art and Olfaction",
+        "address": "932 Chung King Road",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90012",
+        "lat": 34.0656154,
+        "lon": -118.2385854
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Parson’s Nose Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://parsonsnose.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parson’s Nose Theater",
+        "address": "95 North Marengo Avenue",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91101",
+        "lat": 34.1478169,
+        "lon": -118.1463084
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Mildred E. Mathias Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://www.botgard.ucla.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mildred E. Mathias Botanical Garden",
+        "lat": 34.0654764,
+        "lon": -118.4410347
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Kidspace Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://kidspacemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kidspace Children's Museum",
+        "address": "480 North Arroyo Boulevard",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91103",
+        "lat": 34.1557121,
+        "lon": -118.1638902
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Harbor Regional Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.harborrc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Harbor Regional Center",
+        "address": "21309 Hawthorne Boulevard",
+        "lat": 33.8357389,
+        "lon": -118.3565086
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Torrance Historical Society Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://torrancehistoricalsociety.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Torrance Historical Society Museum",
+        "address": "1345 Post Avenue",
+        "city": "Torrance",
+        "region": "CA",
+        "postal_code": "90501",
+        "lat": 33.8352526,
+        "lon": -118.3181769
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "The Vermont Hollywood",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://www.vermonthollywood.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Vermont Hollywood",
+        "address": "1020 North Vermont Avenue",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90029",
+        "lat": 34.0903856,
+        "lon": -118.2912658
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Saint Sophia Greek Orthodox Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://saintsophia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Sophia Greek Orthodox Cathedral",
+        "address": "1324 South Normandie Avenue",
+        "city": "Los Angeles",
+        "region": "CA",
+        "lat": 34.0457657,
+        "lon": -118.2995883
+      },
+      "_metro": "Los Angeles, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Unitarian Universalist Community Church of Santa Monica",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://uusm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Community Church of Santa Monica",
+        "address": "1260 18th Street",
+        "city": "Santa Monica",
+        "postal_code": "90404",
+        "lat": 34.028401,
+        "lon": -118.4839954
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "First Samoan Full Gospel Outreach",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ucc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Samoan Full Gospel Outreach",
+        "address": "300 North Central Avenue",
+        "city": "Compton",
+        "region": "CA",
+        "postal_code": "90220",
+        "lat": 33.8976902,
+        "lon": -118.25193
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Vietnamese Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://elmontesda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vietnamese Seventh-day Adventist Church",
+        "address": "11601 Bryant Road",
+        "city": "El Monte",
+        "region": "CA",
+        "postal_code": "91732",
+        "lat": 34.0786913,
+        "lon": -118.0201716
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Descanso Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.descansogardens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Descanso Gardens",
+        "lat": 34.2009785,
+        "lon": -118.2121403
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Flint Canyon Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://flintcanyontennisclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Flint Canyon Tennis Club",
+        "address": "265 Berkshire Avenue",
+        "lat": 34.1887663,
+        "lon": -118.1820183
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "San Gabriel Mission Playhouse",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://missionplayhouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "San Gabriel Mission Playhouse",
+        "address": "320 South Mission Drive",
+        "city": "San Gabriel",
+        "region": "CA",
+        "postal_code": "91776",
+        "lat": 34.0984215,
+        "lon": -118.1082905
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Rock of Our Salvation Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rockofoursalvation.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rock of Our Salvation Church",
+        "lat": 41.8824959,
+        "lon": -87.7662432
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Evanston History Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://evanstonhistorycenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evanston History Center",
+        "address": "225 Greenwood Street",
+        "city": "Evanston",
+        "region": "IL",
+        "postal_code": "60201",
+        "lat": 42.0430176,
+        "lon": -87.6737374
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Big Surf Wave Pool",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.mppd.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Big Surf Wave Pool",
+        "address": "411 South Maple Street",
+        "city": "Mount Prospect",
+        "region": "IL",
+        "postal_code": "60056",
+        "lat": 42.0583592,
+        "lon": -87.9323585
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Senior Suites of Chatham",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.seniorlifestyle.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Senior Suites of Chatham",
+        "address": "8300 South Cottage Grove Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60619",
+        "lat": 41.743605,
+        "lon": -87.6054951
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Gymnastics and Recreation Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://pdop.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gymnastics and Recreation Center",
+        "address": "21 Lake Street",
+        "city": "Oak Park",
+        "region": "IL",
+        "postal_code": "60302",
+        "lat": 41.8877797,
+        "lon": -87.7758362
+      },
+      "_metro": "Chicago, United States"
     }
   ],
   "_not_included": {
