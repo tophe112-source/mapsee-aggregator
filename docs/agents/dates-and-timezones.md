@@ -38,9 +38,11 @@
   other **4** Anacortes calendars remain. Sidney Main filters **11** exact
   reminder titles while Parks and TNR remain. Public `venues_near` reads
   confirmed all **7** replacement venues; hidden source rows left `events_map`.
-  Mapsee v626 separately restores stored clocks on **81** overmatched windows,
-  keeping all **45,088** genuine local day boundaries and **158** Ypsilanti
-  records, including their 00:01–23:59 placeholders. The full corpus contains
+  Mapsee v626's duration experiment changed **81** labels while keeping all
+  **45,088** genuine local day boundaries and **158** Ypsilanti records, but
+  near-midnight source placeholders were still not real opening clocks.
+  **v627 reverted that heuristic change**; the **49** source-verified repairs
+  above remain. The full corpus contains
   **18,088** parkrun occurrences on **20** hosts; every host's robots read
   returned 403 and the permitted public event list has no clock fields.
   Those start times remain unverified; a real run is not a permanent venue.
