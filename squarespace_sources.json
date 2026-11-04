@@ -5436,6 +5436,225 @@
         "lon": -95.3705483
       },
       "_metro": "Houston, United States"
+    },
+    {
+      "name": "Dumbarton United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.dumbartonumc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Dumbarton United Methodist Church",
+        "address": "3133 Dumbarton Street Northwest",
+        "lat": 38.9078893,
+        "lon": -77.0624775
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Transformer",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.transformerdc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Transformer",
+        "address": "1404 P Street Northwest",
+        "postal_code": "20005",
+        "lat": 38.9095036,
+        "lon": -77.032374
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Lucy Burns Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.workhousearts.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Lucy Burns Museum",
+        "lat": 38.6977957,
+        "lon": -77.254049
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Jackson Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.jacksonartcenter.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Jackson Art Center",
+        "lat": 38.9126888,
+        "lon": -77.0613128
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Navy Memorial Visitor Center",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.navymemorial.org/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Navy Memorial Visitor Center",
+        "address": "701 Pennsylvania Avenue Northwest",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20004",
+        "lat": 38.8944503,
+        "lon": -77.0227566
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Saint Monica & Saint James Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stmonica-stjames.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Monica & Saint James Episcopal Church",
+        "address": "222 8th Street Northeast",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20002",
+        "lat": 38.8929662,
+        "lon": -76.9953292
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Saint John United Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stjohnunitedbaptist.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint John United Baptist Church",
+        "address": "6343 13th Street Northwest",
+        "lat": 38.9672384,
+        "lon": -77.0293108
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Arlington Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://arlingtoncc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Arlington Community Church",
+        "address": "6040 Wilson Boulevard",
+        "city": "Arlington",
+        "region": "VA",
+        "postal_code": "22205",
+        "lat": 38.8731039,
+        "lon": -77.1403002
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Right Proper Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.rightproperbrewing.com/our-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Right Proper Brewing Company",
+        "address": "920 Girard Street Northeast",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20017",
+        "lat": 38.9267501,
+        "lon": -76.9930701
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Joe's Movement Emporium",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.joesmovement.org/listofevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Joe's Movement Emporium",
+        "address": "3309 Bunker Hill Road",
+        "city": "Mount Rainier",
+        "region": "MD",
+        "postal_code": "20712",
+        "lat": 38.9378585,
+        "lon": -76.9613116
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "National Capital Trolley Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.dctrolley.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "National Capital Trolley Museum",
+        "address": "1313 Bonifant Road",
+        "city": "Colesville",
+        "region": "MD",
+        "postal_code": "20905",
+        "lat": 39.0980318,
+        "lon": -77.0316435
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Middletown Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.middletown.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Middletown Church",
+        "address": "273 South Old Middletown Road",
+        "city": "Media",
+        "region": "PA",
+        "postal_code": "19063",
+        "lat": 39.9049145,
+        "lon": -75.4081756
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Church of Saint Monica",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.saintmonicachurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Church of Saint Monica",
+        "address": "635 First Avenue",
+        "city": "Berwyn",
+        "region": "PA",
+        "postal_code": "19312",
+        "lat": 40.0459587,
+        "lon": -75.4404959
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Powel House",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.philalandmarks.org/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Powel House",
+        "address": "244 South 3rd Street",
+        "lat": 39.9457758,
+        "lon": -75.1469838
+      },
+      "_metro": "Philadelphia, United States"
     }
   ],
   "_not_included": {

@@ -62217,5 +62217,818 @@
     "geocode_suffix": ", Houston, TX",
     "limit": 300,
     "_metro": "Houston, United States"
+  },
+  {
+    "name": "Saint Basil the Great Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b90c3c45a00e63b06c97fdb6c1b92fa62a24330346bd25a3ba6d1de79413cf34%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Westway Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://westwaybaptist.com/events-calendar/?ical=1",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "St. Cyril of Alexandria Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stcyrilhouston.org/icalendar0.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Westbury Community Garden",
+    "category": "outdoors",
+    "_found": "osm:garden -> events-manager",
+    "url": "https://westburycommunitygarden.org/events/?ical=1",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Southside Place Pool",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.southsideplacetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Tabernáculo de Vida",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8lrcdprg6gklmrjk41a5bd0lo6jv5k79%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Lanham United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_14ba43cf831a3e10801d91d4427129a8ca9b89ed589a493a2604e9961fb5304a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lanham, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Second Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.secondbaptistchurchdc.org/events.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Augustana Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.augustanadc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Third Street Church of God",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jo6da7022223o79mnt64snf1m0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Accotink Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/accotinkuu.org_5ge8qqicqprbhf5o9rarslcn98%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Burke, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Philip the Apostle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stphiliptheapostlechurch.org/icalendar1.ics",
+    "geocode_suffix": ", Suitland, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "New Covenant Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.refreshingspringministries.org/mod/schedule/icalendar.php?calendar_ids=333,335",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "The Anthem",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://theanthemdc.com/wp-json/events/event-data.ics?event_id=435593",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Greenbelt Arts Center",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/o77ke5db8q7i1nqtokpl9trs6o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greenbelt, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Solace Outpost",
+    "category": "community",
+    "_found": "osm:pub -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_81872c01230a1e2a19950379cffece76cfb4c99e93bfa5a74ef2c3c26715c165%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Falls Church, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Misión San Andrés Iglesia Católica",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://misionsanandres.org/icalendar0.ics",
+    "geocode_suffix": ", Silver Spring, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Scouts BSA",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wpc-alex.org_bodnd0pliilkn67p93o2dro8vc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Perfect Pointe",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dodgersden.com_opkg94lc0b235urjm1fdbc8ra0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Central United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_edb364c7d0b3f28182826b4c99cfebe4d4efa2b48b89390b477262c3b8803090%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Nativity Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/huip3mu3oh5vp2608guhhc2qmc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Holy Redeemer Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://hrkensington.org/icalendar1.ics",
+    "geocode_suffix": ", Kensington, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Rosary Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.holyrosarychurchdc.org/icalendar0.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Patricks Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintpatrickdc.org/icalendar1.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint John's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_8d2bb5385c8823ef00a282c8a3589fe37f6a3074cd609cb3ff1c9cc196a747b8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Shiloh Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6c7n0ie36j4b8ev3lmkjoimasg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Matthews Memorial Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/529ba52a07be45f7db404773661136d9a4df291c4afb0325686479178508341b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Holy Trinity Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/trinity.org_fumkqhhnobj6if1f334kisnumc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Georgetown Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40gtownpres.org/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Epiphany Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://georgetownepiphany.org/icalendar1.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "National Museum Of American Jewish Military History",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar",
+    "url": "https://nmajmh.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Washington International Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lij4uoudm9up36d4136a85d1d8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Ann Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stanndc.org/icalendar0.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "National City Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nationalcitycc.org_192q7m4aghqkjqq21dsvbt7qu8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Assumption Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://assumptiondc.org/icalendar.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Capitol Hill Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/capitolhillpreschurch.org_thn4g384pboa0i95atfolo4ac8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Albans Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_81f0a10de1cb155fc65509f932ce4a6c6d2ed450831bd42f66a487fc39a18d49%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Nicholas Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/92fc09a8df367cc0a67699901313da9748401d01b09864bc96d55f5b26517167%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Sophia Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/djokgrihfi47ujtooeisefb1h0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Shrine of the Most Blessed Sacrament",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.blessedsacramentdc.org/icalendar1.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint David's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stdavidsdc.org_p6h4q60ojcflvsuqmm3pfh1vvk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Lawrence Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40stlawrencealex.org/public/basic.ics",
+    "geocode_suffix": ", Alexandria, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Our Lady of Victory Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.olvparishdc.org/icalendar1.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Hugh of Grenoble Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/os27of49vdo2gd18vv8j5c8hes%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greenbelt, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Fairfax Baptist Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jsnkoh69ui4f9p7btung59l3p2tkt7bl%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fairfax Station, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Capital Life Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/78d9upd6l1klidsmduouac9hptilsd3n%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "9:30 Club",
+    "category": "music",
+    "_found": "osm:nightclub -> ics",
+    "url": "https://www.930.com/wp-json/events/event-data.ics?event_id=436749",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Washington Community Fellowship Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.wcfchurch.org/events.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Jerome Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0af8qm0epjpsa6ekjjegrossho%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hyattsville, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint James' Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2k58f8hjfjuhdqsmu20hbthh1s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Potomac",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint James Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i9kp5ru8h8a561jmnbbvu4qg78%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Falls Church, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Christ Our Shepherd Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cca51afbceb53c3b28357774b83ff5018fe6764df73c49c4ab66aec0534613f2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Temple Emanuel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4gqhvv0c4t3m1km51d1aiq5rkg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kensington",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Katherine Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/accounting%40stkchurch.com/public/basic.ics",
+    "geocode_suffix": ", Falls Church, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Ann Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/aogden%40stann.org/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Bethesda Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/njlc62ei7g4c4rqhbiog2ucv68%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Rising Sun Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/contact%40risingsundc.org/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Holy Transfiguration Melkite Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/12dpcrh2vba5dv6nok2061909s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mclean, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Luke Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/youthministry%40saintlukemclean.org/public/basic.ics",
+    "geocode_suffix": ", McLean, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Joseph Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stjosephva.org/icalendar1.ics",
+    "geocode_suffix": ", Alexandria, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Concord-Saint Andrews United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/81e65c705e6dc1aed806dfbe2e73996d60c6e782331065d0d9999113d3bfc644%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bethesda, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Arlington Centennial Glebe Lodge No. 81",
+    "category": "community",
+    "_found": "osm:social_club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/facilities%40acgl81.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Raymond of Peñafort",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/straymonds.org_mkl0ofqcob5b1b70tkg6qjqkbo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Springfield, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Clarendon Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nucnbtu5poukrfqsmbho2ki2s3lbmc6n%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Sydenstricker United Methodist Church;Sydentstricker United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sydenstrickerumc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", West Springfield",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Queen of Apostles Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/queenofapostlesschool.org_tqr6tt5bmc12e3k3or1iumnh54%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Alexandria, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Camillus Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stcamilluschurch.org/icalendar0.ics",
+    "geocode_suffix": ", Silver Spring, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Michael's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmichaelsarlington.org_gn43hc23ko4p0krqdnh11herog%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Ambrose Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stambroseschool.org_d3aqeavtn1d7db8othp901cl8k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Annandale, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Kenmont Swim & Tennis Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/membership%40kenmont.com/public/basic.ics",
+    "geocode_suffix": ", Kensington, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Islamic Community Center of Laurel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/icclmd.org_cm0mn5rtirh58rbcs7pg8qf9fg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Laurel",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Our Lady of Lourdes Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ololcc.net/calendar.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Michael the Archangel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stmichaelsilverspring.org/icalendar0.ics",
+    "geocode_suffix": ", Silver Spring, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Andrew Apostle Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://standrewapostle.org/icalendar1.ics",
+    "geocode_suffix": ", Silver Spring, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Catherine Laboure Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://sclwheaton.org/icalendar1.ics",
+    "geocode_suffix": ", Wheaton, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Lourdes Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://lourdesbethesda.org/icalendar1.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Tactical Airsoft Arena",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/70qibgv9a2grfk6rmbhdji8mv4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rockville, MD",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Church of the Covenant",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9ij4l1fdip83aqqn118brnf600%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Saint Marks Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40stmarks-elca.org/public/basic.ics",
+    "geocode_suffix": ", Springfield, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Bethany Evangelical Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v5kiivnjmrn502fpvr1qc3enko%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Havertown, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Ardsley Bible Chapel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ardsleyblast%40ardsleybiblechapel.com/public/basic.ics",
+    "geocode_suffix": ", Glenside, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Or Shalom",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n3h7pv461vcm9bom7lq9cvn0p0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berwyn, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Oreland Evangelical Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://almanac.cloversites.com/orelandevangelicalpresbyterianchurch/ics/0e367cfb-d2d6-4482-a9a3-f3679b2729e9.ics",
+    "geocode_suffix": ", Oreland, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Saint Katherine of Siena",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stkatharineofsienaschool.org_mrf34e2is8cks11uqnj4o9bei4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wayne, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Ambler Theater",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://www.amblertheater.org/cal.php",
+    "geocode_suffix": ", Ambler, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Bnai Israel Ohab Zedek",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.biozshul.org/calendar/?ical=1",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Stedman Gallery",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://rcca.camden.rutgers.edu/events/?ical=1",
+    "geocode_suffix": ", Camden, NJ",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Chester Eastside",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/executivedirector%40ceichester.org/public/basic.ics",
+    "geocode_suffix": ", Chester, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
   }
 ]

@@ -24929,6 +24929,583 @@
         "lon": -95.5177194
       },
       "_metro": "Houston, United States"
+    },
+    {
+      "name": "Sligo Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://sligochurch.org/events/"
+      ],
+      "link_pattern": "https://sligochurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sligo Seventh-day Adventist Church",
+        "address": "7700 Carroll Avenue",
+        "city": "Takoma Park",
+        "region": "MD",
+        "postal_code": "20912",
+        "lat": 38.9853881,
+        "lon": -76.9983096
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Warner Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.warnertheatredc.com/shows"
+      ],
+      "link_pattern": "https://www\\.warnertheatredc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Warner Theatre",
+        "region": "DC",
+        "lat": 38.8965108,
+        "lon": -77.0293531
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Washington Youth Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> jsonld-event",
+      "listing": [
+        "https://www.fona.org/events_programs/"
+      ],
+      "link_pattern": "https://www\\.fona\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Washington Youth Garden",
+        "lat": 38.9077627,
+        "lon": -76.9655966
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Suns Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://sunscinema.com/"
+      ],
+      "link_pattern": "https://sunscinema\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Suns Cinema",
+        "address": "3107 Mount Pleasant Street Northwest",
+        "lat": 38.9289593,
+        "lon": -77.0372153
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Lost Boy Cidery",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event+ics",
+      "listing": [
+        "https://lostboycider.com/events/"
+      ],
+      "link_pattern": "https://lostboycider\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lost Boy Cidery",
+        "address": "317 Hooffs Run Drive",
+        "lat": 38.7987804,
+        "lon": -77.0633025
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Nepenthe Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> modern-events+jsonld-event",
+      "listing": [
+        "https://nepenthegallery.com/events/"
+      ],
+      "link_pattern": "https://nepenthegallery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nepenthe Gallery",
+        "address": "7918 Fort Hunt Road",
+        "city": "Alexandria",
+        "postal_code": "22308",
+        "lat": 38.7425945,
+        "lon": -77.0571447
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "The Comedy Loft of DC",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.dccomedyloft.com/shows/388836"
+      ],
+      "link_pattern": "https://www\\.dccomedyloft\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Comedy Loft of DC",
+        "address": "1523 22nd St NW",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20037",
+        "lat": 38.9102917,
+        "lon": -77.0485854
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Temple of Praise",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event+ics",
+      "listing": [
+        "https://thetempleofpraise.org/events-page/"
+      ],
+      "link_pattern": "https://thetempleofpraise\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple of Praise",
+        "address": "700 Southern Avenue Southeast",
+        "lat": 38.8260774,
+        "lon": -76.9962708
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "The Miracle Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> modern-events+jsonld-event",
+      "listing": [
+        "https://themiracletheatre.com/calendar/"
+      ],
+      "link_pattern": "https://themiracletheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Miracle Theatre",
+        "address": "535 8th Street Southeast",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20003",
+        "country": "US",
+        "lat": 38.8816842,
+        "lon": -76.99534
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Macedonia Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://macedoniadc.org/upcoming-events/"
+      ],
+      "link_pattern": "https://macedoniadc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Macedonia Baptist Church",
+        "address": "2625 Stanton Road Southeast",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20020",
+        "country": "US",
+        "lat": 38.8581851,
+        "lon": -76.9919476
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Church of the Holy City",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://holycitydc.org/events/"
+      ],
+      "link_pattern": "https://holycitydc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Church of the Holy City",
+        "address": "1611 16th Street Northwest",
+        "lat": 38.9116779,
+        "lon": -77.0360493
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Reston Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.restonpres.org/calendar/"
+      ],
+      "link_pattern": "https://www\\.restonpres\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Reston Presbyterian Church",
+        "address": "10610 Sunset Hills Road",
+        "region": "VA",
+        "postal_code": "20190",
+        "lat": 38.9490912,
+        "lon": -77.3130285
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Lutheran Church of Saint Andrew",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.mystandrew.org/events-calendar/"
+      ],
+      "link_pattern": "https://www\\.mystandrew\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lutheran Church of Saint Andrew",
+        "address": "15300 New Hampshire Avenue",
+        "city": "Silver Spring",
+        "region": "MD",
+        "postal_code": "20905",
+        "lat": 39.1074613,
+        "lon": -77.0016602
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Grace Orthodox Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://gracevienna.org/members/calendar/"
+      ],
+      "link_pattern": "https://gracevienna\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grace Orthodox Presbyterian Church",
+        "address": "2381 Cedar Lane",
+        "city": "Vienna",
+        "region": "VA",
+        "postal_code": "22180",
+        "lat": 38.8948212,
+        "lon": -77.2361777
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Durga Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.durgatemple.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Durga Temple",
+        "address": "8400 Durga Place",
+        "postal_code": "22039",
+        "lat": 38.7284663,
+        "lon": -77.2510823
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Port City Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.portcitybrewing.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Port City Brewing Company",
+        "address": "3950 Wheeler Avenue",
+        "city": "Alexandria",
+        "region": "VA",
+        "postal_code": "22304",
+        "lat": 38.80797,
+        "lon": -77.1014617
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Zion Baptist Church of Eastland Gardens",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://zionbaptistchurcheg.org/events/"
+      ],
+      "link_pattern": "https://zionbaptistchurcheg\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zion Baptist Church of Eastland Gardens",
+        "address": "1234 Kenilworth Avenue Northeast",
+        "postal_code": "20019",
+        "lat": 38.9067032,
+        "lon": -76.9398614
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Sankofa Cafe & Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.sankofa.com/sankofaevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Sankofa Cafe & Bookstore",
+        "address": "2714 Georgia Avenue Northwest",
+        "postal_code": "20001",
+        "lat": 38.9255633,
+        "lon": -77.0230927
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Cinépolis Luxury Cinemas",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinepolisusa.com/gaithersburg/showtimes/"
+      ],
+      "link_pattern": "https://www\\.cinepolisusa\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cinépolis Luxury Cinemas",
+        "address": "629 Center Point Way",
+        "city": "Gaithersburg",
+        "region": "MD",
+        "postal_code": "20878",
+        "lat": 39.1215663,
+        "lon": -77.2340554
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Pershing Drive Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ccapca.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Pershing Drive Christian Church",
+        "address": "3020 North Pershing Drive",
+        "region": "VA",
+        "lat": 38.8787181,
+        "lon": -77.0940467
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Restoration Arlington",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://restorationarlington.org/events/"
+      ],
+      "link_pattern": "https://restorationarlington\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Restoration Arlington",
+        "address": "1815 North Quincy Street",
+        "city": "Arlington",
+        "region": "VA",
+        "postal_code": "22207",
+        "lat": 38.8936343,
+        "lon": -77.107266
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Largo Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.largocc.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Largo Community Church",
+        "address": "1701 Enterprise Road",
+        "city": "Mitchellville",
+        "region": "MD",
+        "postal_code": "20721",
+        "lat": 38.9136991,
+        "lon": -76.7982378
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Trinity Reformed Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://trcopc.org/calendar/"
+      ],
+      "link_pattern": "https://trcopc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Trinity Reformed Church",
+        "address": "9630 Annapolis Road",
+        "city": "Lanham",
+        "region": "MD",
+        "postal_code": "20706",
+        "lat": 38.9638722,
+        "lon": -76.8339345
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Potomac Swim and Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.potomacswimandtennis.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Potomac Swim and Tennis Club",
+        "address": "10531 Oaklyn Drive",
+        "city": "Potomac",
+        "region": "MD",
+        "postal_code": "20854",
+        "lat": 39.0071649,
+        "lon": -77.2172082
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Episcopal Church of the Resurrection",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.welcometoresurrection.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Episcopal Church of the Resurrection",
+        "address": "2800 Hope Way",
+        "city": "Alexandria",
+        "region": "VA",
+        "postal_code": "22311",
+        "lat": 38.8360735,
+        "lon": -77.114369
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Peoples Congregational United Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://peopleschurchucc.org/calendar/"
+      ],
+      "link_pattern": "https://peopleschurchucc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Peoples Congregational United Church of Christ",
+        "address": "4704 13th Street Northwest",
+        "postal_code": "20011",
+        "lat": 38.9471861,
+        "lon": -77.0301698
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "The Fillmore Philadelphia",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.thefillmorephilly.com/shows"
+      ],
+      "link_pattern": "https://www\\.thefillmorephilly\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Fillmore Philadelphia",
+        "address": "29 East Allen Street",
+        "city": "Philadelphia",
+        "region": "NJ",
+        "postal_code": "19123",
+        "lat": 39.9657812,
+        "lon": -75.1350039
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Kung Fu Necktie",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://kungfunecktie.com/event/liim/kung-fu-necktie/philadelphia-pennsylvania/"
+      ],
+      "link_pattern": "https://kungfunecktie\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kung Fu Necktie",
+        "address": "1248 North Front Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19122",
+        "lat": 39.9702775,
+        "lon": -75.1359278
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Punch Line Philly",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.punchlinephilly.com/shows"
+      ],
+      "link_pattern": "https://www\\.punchlinephilly\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Punch Line Philly",
+        "address": "33 East Laurel Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19123",
+        "lat": 39.9653617,
+        "lon": -75.1353867
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Ridley Park Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://rppcusa.org/events/"
+      ],
+      "link_pattern": "https://rppcusa\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ridley Park Presbyterian Church",
+        "address": "300 North Swarthmore Avenue",
+        "city": "Ridley Park",
+        "region": "PA",
+        "lat": 39.8798623,
+        "lon": -75.3254028
+      },
+      "_metro": "Philadelphia, United States"
     }
   ],
   "_not_included": {

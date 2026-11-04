@@ -33893,6 +33893,685 @@
         "lon": -95.4792488
       },
       "_metro": "Houston, United States"
+    },
+    {
+      "name": "Genoa Friendship Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://txmg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Genoa Friendship Gardens",
+        "lat": 29.6291305,
+        "lon": -95.1784931
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "East River 9",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://eastriver9.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "East River 9",
+        "address": "65 Hirsch Road",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77020",
+        "lat": 29.7617259,
+        "lon": -95.3317488
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Al-Ghadeer",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://alghadeer.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Al-Ghadeer",
+        "address": "9260 South Course Drive",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77099",
+        "lat": 29.6794424,
+        "lon": -95.5630604
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Lighthouse Living Center II",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://houstonlighthouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lighthouse Living Center II",
+        "address": "8650 Wednesbury Lane",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77074",
+        "lat": 29.6864576,
+        "lon": -95.5266379
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "First Presbyterian Houston",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://fpchouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Presbyterian Houston",
+        "address": "5300 Main Street",
+        "city": "Houston",
+        "region": "TX",
+        "lat": 29.7277939,
+        "lon": -95.3894226
+      },
+      "_metro": "Houston, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "St. Stephen's United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ststephensfairfax.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Stephen's United Methodist Church",
+        "lat": 38.8096395,
+        "lon": -77.2627741
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Capital Wesleyan Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.wesleyan.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Capital Wesleyan Church",
+        "address": "3831 14th Street Northwest",
+        "lat": 38.9383594,
+        "lon": -77.0324687
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Potomac Riverkeeper Network",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://potomacriverkeepernetwork.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Potomac Riverkeeper Network",
+        "address": "3070 M Street Northwest",
+        "city": "Washington",
+        "lat": 38.9050519,
+        "lon": -77.0609485
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Florida House on Capitol Hill",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.floridahousedc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Florida House on Capitol Hill",
+        "address": "1 2nd Street Northeast",
+        "postal_code": "20002",
+        "lat": 38.890099,
+        "lon": -77.0033105
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Anacostia Watershed Society",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event",
+      "base_url": "https://www.anacostiaws.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Anacostia Watershed Society",
+        "lat": 38.9412641,
+        "lon": -76.9410942
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Pyramid Atlantic Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://pyramidatlanticartcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pyramid Atlantic Art Center",
+        "address": "4318 Gallatin Street",
+        "city": "Hyattsville",
+        "region": "MD",
+        "postal_code": "20781",
+        "lat": 38.9526857,
+        "lon": -76.9409543
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Sitar Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sitarartscenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sitar Art Center",
+        "address": "1700 kalorama street",
+        "lat": 38.921005,
+        "lon": -77.0392357
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Washington-Liberty Aquatics Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.apsva.us",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Washington-Liberty Aquatics Center",
+        "address": "1301 North Stafford Street",
+        "city": "Arlington",
+        "region": "VA",
+        "postal_code": "22201",
+        "lat": 38.8881199,
+        "lon": -77.1095996
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Gallery B",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bethesda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gallery B",
+        "address": "7700 Wisconsin Avenue",
+        "city": "Bethesda",
+        "region": "MD",
+        "postal_code": "20814",
+        "lat": 38.9865457,
+        "lon": -77.0954488
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Jubilee",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://jubileemd.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jubilee",
+        "address": "10408 Montgomery Avenue",
+        "city": "Kensington",
+        "region": "MD",
+        "postal_code": "20895",
+        "lat": 39.0262986,
+        "lon": -77.0724504
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Vertical Rock Tysons",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://climb-va.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vertical Rock Tysons",
+        "address": "8461 Leesburg Pike",
+        "city": "Tysons",
+        "region": "VA",
+        "postal_code": "22182",
+        "lat": 38.9246326,
+        "lon": -77.2402512
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "The Theatre Lab School of the Dramatic Arts",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theatrelab.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Theatre Lab School of the Dramatic Arts",
+        "address": "900 Massachusetts Avenue Northwest",
+        "lat": 38.9029354,
+        "lon": -77.0250018
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "American Legion Post 139",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://arlpost139.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "American Legion Post 139",
+        "lat": 38.8862384,
+        "lon": -77.1023985
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "One Heart Sangha-Silver Spring Zendo",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://oneheartsangha.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "One Heart Sangha-Silver Spring Zendo",
+        "address": "7750 16th Street Northwest",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20012",
+        "lat": 38.9852993,
+        "lon": -77.0366559
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Carpe Librum",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://turningthepage.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Carpe Librum",
+        "address": "1350 I St NW",
+        "lat": 38.9012413,
+        "lon": -77.0312958
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Sudanese American Community Development Organization (SACDO)",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://sacdo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sudanese American Community Development Organization (SACDO)",
+        "address": "5252 Lyngate Court",
+        "city": "Burke",
+        "region": "VA",
+        "postal_code": "22015",
+        "lat": 38.8084364,
+        "lon": -77.2572118
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Hebrew Home of Greater Washington",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+ics",
+      "base_url": "https://www.smithlifecommunities.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hebrew Home of Greater Washington",
+        "address": "6121 Montrose Road",
+        "city": "Rockville",
+        "region": "MD",
+        "postal_code": "20852",
+        "lat": 39.0549376,
+        "lon": -77.1234792
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Calvary Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://calvarydc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calvary Baptist Church",
+        "address": "755 8th Street Northwest",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20001",
+        "lat": 38.8995889,
+        "lon": -77.0226021
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Anderson House",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.americanrevolutioninstitute.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Anderson House",
+        "address": "2118 Massachusetts Avenue Northwest",
+        "city": "Washington",
+        "region": "DC",
+        "lat": 38.9107345,
+        "lon": -77.0477044
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Zion Hill Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ziondc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zion Hill Baptist Church",
+        "address": "841 Shepherd Street Northwest",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20011-5822",
+        "lat": 38.939922,
+        "lon": -77.0247308
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Cleveland Park Congregational United Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cpcchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cleveland Park Congregational United Church of Christ",
+        "address": "3400 Lowell Street Northwest",
+        "lat": 38.9323145,
+        "lon": -77.066682
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Adas Israel Congregation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://calendar.adasisrael.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adas Israel Congregation",
+        "address": "2850 Quebec Street Northwest",
+        "lat": 38.9368046,
+        "lon": -77.0575172
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Pauline Books and Media",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://pauline.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pauline Books and Media",
+        "address": "1125 King Street",
+        "city": "Alexandria",
+        "region": "VA",
+        "postal_code": "22314",
+        "lat": 38.805825,
+        "lon": -77.0511801
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Torpedo Factory Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://torpedofactory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Torpedo Factory Art Center",
+        "address": "105 North Union Street",
+        "region": "VA",
+        "lat": 38.8049155,
+        "lon": -77.03981
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Del Ray Artisans",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://delrayartisans.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Del Ray Artisans",
+        "address": "2704 Mount Vernon Avenue",
+        "city": "Alexandria",
+        "region": "VA",
+        "postal_code": "22301",
+        "lat": 38.8296657,
+        "lon": -77.0595968
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Church of the Atonement",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://atonement.life",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Atonement",
+        "address": "10613 Georgia Avenue",
+        "city": "Silver Spring",
+        "region": "MD",
+        "postal_code": "20902",
+        "lat": 39.0296556,
+        "lon": -77.0470143
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Third Hill Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.thirdhillbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Third Hill Brewing Company",
+        "address": "8216 Georgia Avenue",
+        "city": "Silver Spring",
+        "region": "MD",
+        "postal_code": "20910",
+        "lat": 38.9921326,
+        "lon": -77.0269989
+      },
+      "_metro": "Washington DC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "UNCF",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://uncf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "UNCF",
+        "address": "1805 7th Street Northwest",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20001",
+        "lat": 38.9144556,
+        "lon": -77.0215491
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Basilica of the National Shrine of the Immaculate Conception",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.nationalshrine.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Basilica of the National Shrine of the Immaculate Conception",
+        "address": "400 Michigan Avenue Northeast",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20017",
+        "lat": 38.9333568,
+        "lon": -77.0006863
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Burnt Mills Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://burntmillssda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burnt Mills Seventh Day Adventist Church",
+        "address": "10915 Lockwood Drive",
+        "city": "Silver Spring",
+        "postal_code": "20901",
+        "lat": 39.0344935,
+        "lon": -76.9971349
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Resurrection Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://resurrectionadw.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Resurrection Catholic Church",
+        "address": "3315 Greencastle Road",
+        "city": "Burtonsville",
+        "region": "MD",
+        "postal_code": "20866",
+        "country": "US",
+        "lat": 39.0971651,
+        "lon": -76.9434338
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Adat Shalom Reconstructionist Congregation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.adatshalomdmv.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adat Shalom Reconstructionist Congregation",
+        "address": "7727 Persimmon Tree Lane",
+        "lat": 38.988832,
+        "lon": -77.1737745
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Lehigh Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://lehighbaptistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lehigh Baptist Church",
+        "address": "934 Alburger Avenue",
+        "city": "Philadelphia",
+        "region": "PA",
+        "lat": 40.092453,
+        "lon": -75.0488706
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Walter K Gordon Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://vmpa.camden.rutgers.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Walter K Gordon Theater",
+        "lat": 39.9490922,
+        "lon": -75.1217259
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Print Center",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://printcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Print Center",
+        "address": "1614 Latimer Street",
+        "city": "Philadelphia",
+        "lat": 39.9481506,
+        "lon": -75.1685543
+      },
+      "_metro": "Philadelphia, United States",
+      "crawl_delay": 3.0
     }
   ],
   "_not_included": {

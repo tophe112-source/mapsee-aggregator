@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 183,
-  "metro_key": "US:Houston",
+  "metro": 185,
+  "metro_key": "US:Philadelphia",
   "stuck": {}
  },
  "osm|community_centre,library": {
