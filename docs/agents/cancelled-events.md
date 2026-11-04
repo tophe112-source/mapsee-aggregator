@@ -3,6 +3,30 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an event on the map that is not happening, a source that says cancelled and a row that does not, what counts as evidence before a row comes off the map.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **AN INCOMPLETE PRUNE MUST FINISH ITS SAFE WORK AND STILL FAIL THE RUN (2026-11-04).**
+  The R1 rollout audit found **2** successful Actions conclusions hiding
+  failed standing reads: run **41547870896** (November 2, slice **1/14**,
+  **0** rows after HTTP 500 retries) and run **41728378845** (November 3,
+  slice **3/14**, HTTP 521 and `INCOMPLETE`). In contrast, runs
+  **41491454286** / **41664461737** completed slices **0/14** / **2/14**,
+  reading **11,771 / 11,954** standing rows. A successful Actions conclusion
+  alone therefore cannot satisfy Mapsee 0248's every-slice rollout gate.
+
+  `mapsee_prune_cancelled.main()` now carries incomplete dated-window or
+  standing-slice reads to every return path as exit **1**. It still probes
+  collected rows and applies only the existing evidence-backed safe hides;
+  one failed read does not discard useful work. Empty failed reads, a partial
+  standing read with a valid dated cancellation, and a partial dated read all
+  fail after preserving that work. An ordinary probe budget stop remains exit
+  **0**; caps and robots refusals are not database-read failures. The workflow's
+  cache save and optional backfill already use `always()` and remain reachable.
+  `test_standing_pass.py` passes **88** checks and `test_prune_cancelled.py`
+  **45**. The full required gate passed **100/100** scripts in **249.8 s**
+  cumulative script time, including **8** reruns after Windows' cp1252 console
+  rejected Unicode fixture output. Set `PYTHONIOENCODING=utf-8` and
+  `PYTHONUTF8=1` for this gate on Windows. No schedule or cancellation criterion
+  changed.
+
 - **NEARLY EVERY CANCELLATION HAPPENS AFTER WE HAVE ALREADY TAKEN THE EVENT, and
   until 2026-09-13 nothing in the repo could see one.** Every check was at
   ingest — Dice and Venuepilot read a status field, Eventbrite reads

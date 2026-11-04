@@ -755,6 +755,7 @@ def main():
     if skipped_windows:
         print(f"  INCOMPLETE: {len(skipped_windows)} window(s) errored and were not read to their end: "
               f"{', '.join(skipped_windows[:6])}")
+    incomplete = bool(skipped_windows)
     # Written BEFORE the probing, which is what can run into the job's timeout:
     # the cache save after this step runs always(), and saves what is here.
     if args.write_url_index:
@@ -777,9 +778,10 @@ def main():
               f"{len(std_by_url)} source URL(s), {len(standing_urls)} of them new to this run")
         if std_skipped:
             print(f"  INCOMPLETE: the standing slice {k}/{n} was not read to its end")
+            incomplete = True
     if not rows_by_url:
         print("  nothing to check.")
-        return 0
+        return 1 if incomplete else 0
 
     # ONE probe per distinct URL. A weekly series shares one listing, so the
     # naive loop would ask the same server the same question every week.
@@ -835,7 +837,7 @@ def main():
            if v in ("cancelled", "gone") and _host(u) not in refusing}
     if not off:
         print("  nothing to hide.")
-        return 0
+        return 1 if incomplete else 0
 
     affected = {}
     for u in off:
@@ -870,7 +872,7 @@ def main():
         if args.url_index:
             print(f"\n  far rows the URL index would hide: {len(far)}")
         print("\n  DRY RUN — nothing written. Read the table above, then re-run with --apply.")
-        return 0
+        return 1 if incomplete else 0
 
     # ONE hide path for both: batched, and carrying the collect's filters, so a
     # row hidden or claimed since it was read keeps the state it has now.
@@ -883,7 +885,7 @@ def main():
         far_hidden, far_failed = hide([rid for rid in far if rid not in done], stamp)
         print(f"  far rows hidden from the URL index: {len(far_hidden)}"
               + (f" · {far_failed} failed" if far_failed else ""))
-    return 0
+    return 1 if incomplete else 0
 
 
 if __name__ == "__main__":

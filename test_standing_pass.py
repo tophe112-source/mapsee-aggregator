@@ -708,9 +708,40 @@ try:
                          [patch.object(PC.robots_txt, "Robots", _Robots),
                           patch.object(PC, "cancellation_verdict",
                                        lambda u, robots=None, **k: probed.append(u) or "gone")])
-    check("A6: a slice that cannot be read is said aloud, and the dated run goes on as before",
+    check("A6: a partial standing-read failure keeps safe dated hides and fails the run",
           (code, "INCOMPLETE: the standing slice 0/1" in out, probed, patched_ids(nowalk)),
-          (0, True, ["https://tix.test/e/1"], [uid("60")]))
+          (1, True, ["https://tix.test/e/1"], [uid("60")]))
+
+    empty_standing = FakeDB([])
+    code, out = run_main(PC, ["--delay", "0", "--standing-slice", "0/1"], empty_standing,
+                         [patch.object(PC, "collect", return_value=(0, {}, [])),
+                          patch.object(PC, "collect_standing", return_value=(0, {}, ["standing 0/1"]))])
+    check("A6: an empty failed standing read is an incomplete run",
+          (code, "INCOMPLETE: the standing slice 0/1" in out), (1, True))
+
+    emptydb = FakeDB(shared_world(True))
+    code, out = run_main(PC, ["--delay", "0"], emptydb,
+                         [patch.object(PC, "collect", return_value=(0, {}, ["2026-11-03"]))])
+    check("A6: an empty failed dated read is an incomplete run, not a successful empty pass",
+          (code, "INCOMPLETE:" in out, emptydb.patches()), (1, True, []))
+
+    partial = ev(uid("61"), title="Partial read", desc="Tickets / info: https://tix.test/partial")
+    partialdb = FakeDB([partial])
+    code, out = run_main(PC, ["--delay", "0", "--apply"], partialdb,
+                         [patch.object(PC, "collect", return_value=(1, {"https://tix.test/partial": [partial]},
+                                                                       ["2026-11-03"])),
+                          patch.object(PC.robots_txt, "Robots", _Robots),
+                          patch.object(PC, "cancellation_verdict", lambda *a, **k: "gone")])
+    check("A6: dated partial-read cancellation is safely hidden and the incomplete run fails",
+          (code, patched_ids(partialdb), "INCOMPLETE:" in out), (1, [uid("61")], True))
+
+    budgetdb = FakeDB([partial])
+    code, out = run_main(PC, ["--delay", "0", "--max-seconds", "1"], budgetdb,
+                         [patch.object(PC, "collect", return_value=(1, {"https://tix.test/partial": [partial]}, [])),
+                          patch.object(PC.robots_txt, "Robots", _Robots),
+                          patch.object(PC, "probe_all", lambda *a: ({}, 1, PC.collections.Counter()))])
+    check("A6: a normal budget-limited pass remains successful",
+          (code, "BUDGET:" in out, patched_ids(budgetdb)), (0, True, []))
     # The probe queue: the slice's own URLs take every other place from the front.
     r_d = [{"id": f"d{n}", "starts_at": iso(NOW + 3600 * (n + 1))} for n in range(4)]
     r_s = [{"id": f"s{n}", "starts_at": iso(NOW - 86400 * (10 - n))} for n in range(4)]
