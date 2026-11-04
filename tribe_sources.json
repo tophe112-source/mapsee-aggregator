@@ -33074,6 +33074,825 @@
         "lon": -87.7758362
       },
       "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Fulton Street Collective",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://fultonstreetcollective.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fulton Street Collective",
+        "address": "1821 West Hubbard Street",
+        "postal_code": "60623",
+        "lat": 41.8889734,
+        "lon": -87.672837
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "DuSable Black History Museum and Education Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://dusablemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "DuSable Black History Museum and Education Center",
+        "address": "740 East 56th Place",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60637",
+        "lat": 41.7918722,
+        "lon": -87.6072653
+      },
+      "_metro": "Chicago, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Hyde Park Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hydeparkart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hyde Park Art Center",
+        "address": "5020 South Cornell Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60615",
+        "lat": 41.8034265,
+        "lon": -87.5867824
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Casa Sor Juana",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://resurrectionproject.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa Sor Juana",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60623",
+        "lat": 41.8424097,
+        "lon": -87.7138803,
+        "street_hint": "2700 South Drake Avenue"
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "First Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.fccw.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Congregational Church",
+        "address": "1125 Wilmette Avenue",
+        "city": "Wilmette",
+        "region": "IL",
+        "postal_code": "60091",
+        "lat": 42.0782899,
+        "lon": -87.7051331
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Beverly Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thebeverlyartscenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beverly Art Center",
+        "address": "2407 West 111th Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60655",
+        "lat": 41.691455,
+        "lon": -87.681787
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "The SelfHelp Home",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://selfhelphome.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The SelfHelp Home",
+        "address": "908 West Argyle Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60640",
+        "lat": 41.9735793,
+        "lon": -87.653341
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "South Side Community Art Center (SSCAC)",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://sscartcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Side Community Art Center (SSCAC)",
+        "address": "3831 South Michigan Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60653",
+        "lat": 41.8246059,
+        "lon": -87.6227105
+      },
+      "_metro": "Chicago, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Marwen",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.marwen.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Marwen",
+        "address": "833 North Orleans Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60610",
+        "lat": 41.8976165,
+        "lon": -87.6369119
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "International Museum of Surgical Science",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://imss.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "International Museum of Surgical Science",
+        "address": "1524 North Lake Shore Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60610",
+        "lat": 41.9102188,
+        "lon": -87.6267398
+      },
+      "_metro": "Chicago, United States",
+      "crawl_delay": 3.0
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.dpparks.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "city": "Des Plaines",
+        "region": "IL",
+        "postal_code": "60018",
+        "lat": 42.012709,
+        "lon": -87.8784079,
+        "street_hint": "2222 Birch Street"
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Al Sadiq Mosque",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ahmadiyya.us",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Al Sadiq Mosque",
+        "address": "4448 South Wabash Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60653",
+        "lat": 41.8132752,
+        "lon": -87.6249039
+      },
+      "_metro": "Chicago, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Wilmette Historical Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wilmettehistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wilmette Historical Museum",
+        "address": "609 Ridge Road",
+        "city": "Wilmette",
+        "region": "IL",
+        "postal_code": "60091",
+        "lat": 42.0758764,
+        "lon": -87.7229405
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Ethical Humanist Society of Chicago",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://ethicalhumanistsociety.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ethical Humanist Society of Chicago",
+        "address": "7574 Lincoln Avenue",
+        "city": "Skokie",
+        "region": "IL",
+        "postal_code": "60077",
+        "lat": 42.0187056,
+        "lon": -87.7486649
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Mosque Foundation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mosquefoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mosque Foundation",
+        "address": "7360 West 93rd Street",
+        "city": "Bridgeview",
+        "region": "IL",
+        "postal_code": "60455",
+        "lat": 41.7228415,
+        "lon": -87.802971
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Seniors Assistance Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.agingcareconnections.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seniors Assistance Center",
+        "address": "7774 West Irving Park Road",
+        "city": "Norridge",
+        "region": "IL",
+        "postal_code": "60706",
+        "lat": 41.9526896,
+        "lon": -87.8214123
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Gichigamiin Indigenous Nations Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://gichigamiin-museum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gichigamiin Indigenous Nations Museum",
+        "address": "3001 Central Street",
+        "city": "Evanston",
+        "region": "IL",
+        "postal_code": "60201",
+        "lat": 42.0647113,
+        "lon": -87.7180827
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Evanston Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://evanstonfirstil.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evanston Seventh-day Adventist Church",
+        "address": "1825 Dodge Avenue",
+        "city": "Evanston",
+        "region": "IL",
+        "postal_code": "60201",
+        "lat": 42.0513061,
+        "lon": -87.6985837
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Wilmette Community Recreation Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://wilmettepark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wilmette Community Recreation Center",
+        "address": "3000 Glenview Road",
+        "city": "Wilmette",
+        "region": "IL",
+        "postal_code": "60091",
+        "lat": 42.0693702,
+        "lon": -87.7493259
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Lincoln Park Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe",
+      "base_url": "https://www.lpzoo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lincoln Park Zoo",
+        "address": "2001 North Clark Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60614",
+        "lat": 41.9203762,
+        "lon": -87.6335049
+      },
+      "_metro": "Chicago, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Lincoln Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://lincolnparkconservancy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lincoln Gardens",
+        "lat": 41.9118656,
+        "lon": -87.6302436
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "The Merion",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.merionevanston.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Merion",
+        "address": "1611 Chicago Avenue",
+        "city": "Evanston",
+        "region": "IL",
+        "postal_code": "60201",
+        "lat": 42.0465108,
+        "lon": -87.6789829
+      },
+      "_metro": "Chicago, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Carrington at Lincolnwood",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.srgseniorliving.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Carrington at Lincolnwood",
+        "address": "3501 Northeast Parkway",
+        "city": "Lincolnwood",
+        "region": "IL",
+        "postal_code": "60712",
+        "lat": 42.0056753,
+        "lon": -87.715679
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "C.R. Smith Aviation Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://crsmithmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "C.R. Smith Aviation Museum",
+        "address": "4601 Highway 360",
+        "city": "Fort Worth",
+        "region": "TX",
+        "postal_code": "76155",
+        "lat": 32.8329239,
+        "lon": -97.063696
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Valley Ranch Islamic Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vric.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Valley Ranch Islamic Center",
+        "address": "351 Ranchview Drive",
+        "city": "Irving",
+        "region": "TX",
+        "lat": 32.9172725,
+        "lon": -96.9478424
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Knights of Columbus",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kofcdallas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Knights of Columbus",
+        "lat": 32.8655503,
+        "lon": -96.7126154,
+        "street_hint": "10110 Shoreview Road"
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Islamic Association of North Texas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://iant.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islamic Association of North Texas",
+        "address": "840 Abrams Road",
+        "city": "Richardson",
+        "region": "TX",
+        "postal_code": "75081",
+        "lat": 32.9393224,
+        "lon": -96.7305505
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Meadows Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://meadowsmuseumdallas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meadows Museum",
+        "address": "5900 Bishop Boulevard",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75205",
+        "lat": 32.8384165,
+        "lon": -96.784375
+      },
+      "_metro": "Dallas, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Cowboys Dancehall Dallas",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://cowboysdancehall.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cowboys Dancehall Dallas",
+        "address": "10310 Technology Boulevard",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75220",
+        "lat": 32.8616461,
+        "lon": -96.8983587
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Episcopal Church of the Transfiguration",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.transfiguration.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Episcopal Church of the Transfiguration",
+        "address": "14115 Hillcrest Road",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75254",
+        "lat": 32.9408935,
+        "lon": -96.7876124
+      },
+      "_metro": "Dallas, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Dallas CASA",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "http://www.dallascasa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dallas CASA",
+        "address": "2757 Swiss Avenue",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75204",
+        "lat": 32.7880624,
+        "lon": -96.7873221
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Rosine Smith Sammons Butterfly House and Insectarium",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe",
+      "base_url": "https://txdg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rosine Smith Sammons Butterfly House and Insectarium",
+        "lat": 32.7755976,
+        "lon": -96.7604812
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Temple Shalom",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://templeshalomdallas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Shalom",
+        "address": "6930 Alpha Road",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75240",
+        "lat": 32.9323117,
+        "lon": -96.785088
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Temple Emanu-El",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tedallas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Emanu-El",
+        "address": "8500 Hillcrest Road",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75225",
+        "lat": 32.8682569,
+        "lon": -96.7854988
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "First Unitarian Church of Dallas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://dallasuu.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Unitarian Church of Dallas",
+        "address": "4015 Normandy Avenue",
+        "city": "Dallas",
+        "postal_code": "75205",
+        "lat": 32.8388033,
+        "lon": -96.8038348
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "The Heights Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.theheights.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Heights Baptist Church",
+        "address": "201 West Renner Road",
+        "city": "Richardson",
+        "postal_code": "75080",
+        "lat": 32.9961133,
+        "lon": -96.711928
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Congregation Emanu El",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.emanuelhouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Emanu El",
+        "address": "1500 Sunset Boulevard",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77005",
+        "lat": 29.7233673,
+        "lon": -95.3983045
+      },
+      "_metro": "Houston, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Virtuosi of Houston",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://virtuosiofhouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Virtuosi of Houston",
+        "address": "303 Memorial City Way",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77024",
+        "lat": 29.7822052,
+        "lon": -95.541001
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Contemporary Arts Museum Houston",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://camh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Contemporary Arts Museum Houston",
+        "address": "5216 Montrose Boulevard",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77006",
+        "lat": 29.7263958,
+        "lon": -95.3915113
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Christ Evangelical Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cpchouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Evangelical Presbyterian Church",
+        "address": "8300 Katy Freeway",
+        "city": "Houston",
+        "region": "TX",
+        "lat": 29.7860422,
+        "lon": -95.4902487
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Stafford Center",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://staffordcentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stafford Center",
+        "address": "10505 Cash Road",
+        "city": "Stafford",
+        "postal_code": "77477",
+        "lat": 29.626232,
+        "lon": -95.562578
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Holocaust Museum Houston",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://hmh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holocaust Museum Houston",
+        "address": "5401 Caroline Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77004",
+        "lat": 29.7251235,
+        "lon": -95.3856375
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Eureka Heights Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.eurekaheights.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eureka Heights Brewing Company",
+        "address": "941 West 18th Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77008",
+        "lat": 29.8021167,
+        "lon": -95.4163525
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Numbers Night Club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://numbersnightclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Numbers Night Club",
+        "address": "300 Westheimer Road",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77006",
+        "lat": 29.7448477,
+        "lon": -95.385054
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Shri Krishna Vrundavana",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://skvhouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shri Krishna Vrundavana",
+        "address": "10223 Synott Road",
+        "city": "Sugar Land",
+        "region": "TX",
+        "postal_code": "77498",
+        "lat": 29.6678452,
+        "lon": -95.6157472
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Houston Congregation for Reform Judaism",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hcrj.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Houston Congregation for Reform Judaism",
+        "address": "801 Bering Drive",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77057",
+        "lat": 29.758135,
+        "lon": -95.4792488
+      },
+      "_metro": "Houston, United States"
     }
   ],
   "_not_included": {

@@ -61676,5 +61676,546 @@
     "limit": 300,
     "_metro": "Chicago, United States",
     "crawl_delay": 10.0
+  },
+  {
+    "name": "Columbia — City Calendar",
+    "category": "community",
+    "url": "https://www.columbiail.gov/common/modules/iCalendar/iCalendar.aspx?catID=15&feed=calendar",
+    "geocode_suffix": ", Columbia",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Calendar]",
+    "_metro": "Columbia, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Fife — Events",
+    "category": "community",
+    "url": "https://www.fifewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+    "geocode_suffix": ", Fife, Washington",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Fife, Washington",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "West Point",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://www.westpointutah.gov/event_times/1957/calendar.ics",
+    "geocode_suffix": ", West Point, Utah",
+    "limit": 300,
+    "_metro": "West Point, Utah"
+  },
+  {
+    "name": "Unity Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cf9f8441693d3ca08c8cee557b19ef08511276453cd025a25a40fe97b78bfdf4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oak Park, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Second Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5lkc7k6i80der9429tbg4rjf8c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Evanston, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint Basil Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cjgjg3n05c5g65fiu41c2sobe4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Sv. Ivan Rilski Bulgarian Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f292ee8d8032fbc68474b40c7cd0fefc5c5fbc7bed635e683ae3e65b5e19dcf4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint Francis Xavier Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/irt0ofaa24tojo32kds2knvqqo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wilmette, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saints Peter & Paul Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_q3kgtkmbhrsbtn5vt7urjddvjg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Glenview, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Holy Taxiarhai and Saint Haralambos Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/qsnl336ss0a8qurj7ukpeqpo4c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Niles, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Japanese American Service Committee",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eventscalendar%40jasc-chicago.org/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Christ Church of Chicago",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q8e4otk83cca51vqqjmlooc74g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint Paul's Bible Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stpaulsbible%40yahoo.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Wicker Park Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7sfb9epv704a57q1qlefog84s9cj4dfi%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "International Krishna Consciousness",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://iskconchicago.com/events.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Beth Eden Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l0s38v8mm1svu0jfjvglt5227o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "The Edge Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/edgetheater.com_83rcjscdk2r497ct2av9uuspvs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s72a665qj3j4ikpvecr7u9nu1k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Narrow Bridge Arts Club",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/28d94ae5024f8b8457a3c645446cf1b6fbf3cfcd2da52940979e07a1c907448f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Morning Star Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40morningstarbcofchicago.org/public/basic.ics",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Western Springs Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wsbc%40wsbc.info/public/basic.ics",
+    "geocode_suffix": ", Western Springs, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint Vincent Ferrer Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4c3dbce715dac3151e36128c573657eda87ecf73b560220ce5e54cba9b3b63e1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", River Forest, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "North Shore Senior Center",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lifelonglearning%40nssc.org/public/basic.ics",
+    "geocode_suffix": ", Northfield, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint Catherine Laboure Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stcatherinelaboure.com/icalendar0.ics",
+    "geocode_suffix": ", Glenview, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Evanston Friends Meeting House",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f6agqs4op1n9k8tqih5mbueglg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Evanston, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Hazel Green Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.hazelgreenbaptist.com/events.ics",
+    "geocode_suffix": ", Alsip, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint Nicholas Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5rghruhlq93890i386vit59484%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oak Lawn, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Unity on the North Shore Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.unityns.org/events.ics",
+    "geocode_suffix": ", Evanston, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Saint James at Sag Bridge Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://historicstjames.org/icalendar0.ics",
+    "geocode_suffix": ", Lemont, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Thomas the Apostle Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/thedoubter.org_n8grnq3qf2dn2vbfd0nch5ho60%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dallas, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Mater Dei Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/materdeiparish.com_uh2t4fu9nu16a6mh0pl8od5lr0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Irving, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Equest",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar+jsonld-event",
+    "url": "https://equest.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dallas, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Saint Pius X Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.spxdallas.org/icalendar0.ics",
+    "geocode_suffix": ", Dallas, United States",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Divine Mercy of Our Lord Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.divinemercytx.org/icalendar1.ics",
+    "geocode_suffix": ", Mesquite, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Cecilia Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stceciliadallas.org/icalendar1.ics",
+    "geocode_suffix": ", Dallas, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Monica Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stmonicachurch.org/icalendar1.ics",
+    "geocode_suffix": ", Dallas, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Luke Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stlukeirving.org/icalendar.ics",
+    "geocode_suffix": ", Irving, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Michael the Archangel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stmichaelgarland.org/icalendar0.ics",
+    "geocode_suffix": ", Garland, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Evans Recreation Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.cityofmesquite.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Mesquite, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Our Lady of Perpetual Help Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.olphdallas.org/icalendar.ics",
+    "geocode_suffix": ", Dallas, United States",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Rita Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stritaparish.net/icalendar1.ics",
+    "geocode_suffix": ", Dallas, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holford Sports Complex",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.garlandparks.com/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+    "geocode_suffix": ", Garland, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Ghost Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://holyghostchurch.net/icalendar0.ics",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Pius V Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stpiusvchurch.com/icalendar0.ics",
+    "geocode_suffix": ", Pasadena",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Masjid Bilal - ISGH",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b3cf241e9b3db99e5c83d103f1ed7c8c04f6b50c23dfa04230dfaccacba6a7c2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "City Church Houston",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.citychurchhouston.com/events.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Pasadena Historical Museum",
+    "category": "arts",
+    "_found": "osm:museum -> civicplus",
+    "url": "https://www.pasadenatx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Pasadena, TX",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Westbury Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.westburycoc.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Houston",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Bedrock City Comic Company",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fedfdd3799987fc7b1b3bdfd721555e7dce9c9ffcabc225ae89db78b02a329f1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Saint Luke's Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7bfac68e2567f82caf6024da0a0b19d87b56b81feb1c4409346fbec955f94eed%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Co-Cathedral of the Sacred Heart",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sacredhearthouston.org/icalendar1.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Episcopal Church of The Epiphany",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.epiphany-hou.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/frnrlk8gg9e05094ck1g9ecbm8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Lakeside United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.thelakesideumc.org/events.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Vietnamese Martyrs Church;Thánh Đường Các Thánh Tử Đạo Việt Nam",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/06885f1a1b08e544c48650b69ef48e67d0ed81b7ae85df7d12e9ec472f949fb1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Notre Dame Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://ndgh.org/icalendar6004.ics",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Advent Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.adventhouston.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Uptown Dance Centre",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hto33hbu0eime6nghiv1as5ieg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300,
+    "_metro": "Houston, United States"
   }
 ]

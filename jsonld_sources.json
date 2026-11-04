@@ -24446,6 +24446,489 @@
         "lon": -87.690702
       },
       "_metro": "Chicago, United States"
+    },
+    {
+      "name": "House of Belonging",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.collaboraction.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "House of Belonging",
+        "address": "1757 North Kimball Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60647",
+        "lat": 41.913368,
+        "lon": -87.7115446
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "The Lyric Theater",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.lyrictheater.com/all-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Lyric Theater",
+        "address": "12952 Western Avenue",
+        "city": "Blue Island",
+        "region": "IL",
+        "postal_code": "60406",
+        "lat": 41.657529,
+        "lon": -87.6804608
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Heritage Museum of Asian Art",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.heritageasianart.org/hmaaevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Heritage Museum of Asian Art",
+        "address": "3500 South Morgan Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60609",
+        "lat": 41.8305279,
+        "lon": -87.6512007
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Bethel Family Chicago",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bethelfamilychicago.org/events/sunday-services/"
+      ],
+      "link_pattern": "https://bethelfamilychicago\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bethel Family Chicago",
+        "address": "1450 West 19th Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60608",
+        "lat": 41.8561912,
+        "lon": -87.6634167
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Ramova Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.ramovachicago.com/calendar"
+      ],
+      "link_pattern": "https://www\\.ramovachicago\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ramova Theatre",
+        "address": "3518 South Halsted Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60609",
+        "lat": 41.830263,
+        "lon": -87.6464912
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Chicago Children's Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://chicagochildrenstheatre.org/event/"
+      ],
+      "link_pattern": "https://chicagochildrenstheatre\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chicago Children's Theatre",
+        "address": "100 South Racine Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60607",
+        "lat": 41.8801457,
+        "lon": -87.6574684
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Epiphany Center for the Arts",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://epiphanychi.com/tickets/"
+      ],
+      "link_pattern": "https://epiphanychi\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Epiphany Center for the Arts",
+        "address": "201-207 South Ashland Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60607",
+        "lat": 41.8787163,
+        "lon": -87.6662458
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Skokie Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theskokie.com/event/the-good-life/"
+      ],
+      "link_pattern": "https://www\\.theskokie\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Skokie Theatre",
+        "address": "7924 Lincoln Avenue",
+        "city": "Skokie",
+        "region": "IL",
+        "postal_code": "60077",
+        "lat": 42.0254092,
+        "lon": -87.7558088
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "The Children's Museum in Oak Lawn",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.cmoaklawn.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Children's Museum in Oak Lawn",
+        "address": "5100 Museum Drive",
+        "city": "Oak Lawn",
+        "region": "IL",
+        "postal_code": "60453",
+        "lat": 41.7197074,
+        "lon": -87.7476503
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Muslim Community Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://mccchicago.org/all-events/"
+      ],
+      "link_pattern": "https://mccchicago\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Muslim Community Center",
+        "address": "4380 North Elston Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60641",
+        "lat": 41.9601203,
+        "lon": -87.7289276
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "House of Blues",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://chicago.houseofblues.com/shows"
+      ],
+      "link_pattern": "https://chicago\\.houseofblues\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "House of Blues",
+        "address": "329 North Dearborn Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60654",
+        "lat": 41.888259,
+        "lon": -87.6291116
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Smittox Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.smittoxbrewing.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Smittox Brewing",
+        "address": "930 East Clarendon Drive",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75203",
+        "lat": 32.7435324,
+        "lon": -96.8104291
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "The Wild Detectives",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://thewilddetectives.com/event-directory/"
+      ],
+      "link_pattern": "https://thewilddetectives\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Wild Detectives",
+        "address": "314 West 8th Street",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75208",
+        "lat": 32.7478752,
+        "lon": -96.8272523
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Ascension Dallas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ascensiondallas.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ascension Dallas",
+        "address": "8787 Greenville Avenue",
+        "lat": 32.8967606,
+        "lon": -96.7521076
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Saint Mary Syro-Malankara Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stmarysmalankaradallas.org/events/"
+      ],
+      "link_pattern": "https://stmarysmalankaradallas\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Mary Syro-Malankara Catholic Church",
+        "address": "2650 East Scyene Road",
+        "city": "Mesquite",
+        "region": "TX",
+        "postal_code": "75181",
+        "lat": 32.7622795,
+        "lon": -96.5584292
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Dallas Holocaust and Human Rights Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.dhhrm.org/programs-and-events/"
+      ],
+      "link_pattern": "https://www\\.dhhrm\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dallas Holocaust and Human Rights Museum",
+        "address": "300 North Houston Street",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75202",
+        "lat": 32.780773,
+        "lon": -96.8079359
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Bayou Music Center",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bayoumusiccenter.com/shows"
+      ],
+      "link_pattern": "https://www\\.bayoumusiccenter\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bayou Music Center",
+        "address": "520 Texas Avenue",
+        "city": "Houston",
+        "postal_code": "77002",
+        "lat": 29.7624308,
+        "lon": -95.3671894
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "BFE Rock Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://bferockclub.com/go/events/6764697?feature_id=1106516&amp;occurrence_id=782949720&amp;popup=1"
+      ],
+      "link_pattern": "https://bferockclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BFE Rock Club",
+        "address": "11528 Jones Road",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77070",
+        "lat": 29.9410038,
+        "lon": -95.5843438
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "713 Music Hall",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.713musichall.com/shows"
+      ],
+      "link_pattern": "https://www\\.713musichall\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "713 Music Hall",
+        "address": "401 Franklin Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77201",
+        "lat": 29.7659195,
+        "lon": -95.3640251
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "The End",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://theendhtx.com/shows/"
+      ],
+      "link_pattern": "https://theendhtx\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The End",
+        "address": "7124 Lawndale Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77023",
+        "lat": 29.7171842,
+        "lon": -95.293748
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Frost Town Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.frosttownbrew.com/visit"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Frost Town Brewing",
+        "address": "100 North Jackson Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77002",
+        "lat": 29.7608827,
+        "lon": -95.3524687
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "MATCH",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://matchouston.org/events/2026/kima"
+      ],
+      "link_pattern": "https://matchouston\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MATCH",
+        "address": "3400 Main Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77002",
+        "lat": 29.7403542,
+        "lon": -95.3787466
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "ShowBiz Cinemas Liberty Lakes",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://libertylakes.showbizcinemas.com/movie/jimmy/"
+      ],
+      "link_pattern": "https://libertylakes\\.showbizcinemas\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "ShowBiz Cinemas Liberty Lakes",
+        "address": "7102 East Sam Houston Parkway North",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77049",
+        "lat": 29.8313245,
+        "lon": -95.1681931
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Arena Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://arenahouston.com/event/"
+      ],
+      "link_pattern": "https://arenahouston\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Arena Theatre",
+        "address": "7326 Southwest Freeway",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77074",
+        "lat": 29.7022688,
+        "lon": -95.5177194
+      },
+      "_metro": "Houston, United States"
     }
   ],
   "_not_included": {

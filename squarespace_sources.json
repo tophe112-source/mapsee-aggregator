@@ -5128,6 +5128,314 @@
         "lon": -87.6513027
       },
       "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Chicago Maritime Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.chicagomaritimemuseum.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Chicago Maritime Museum",
+        "address": "1200 West 35th Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60609",
+        "lat": 41.8315361,
+        "lon": -87.6566736
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Winnie's Playroom",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://winniesplayroom.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Winnie's Playroom",
+        "address": "9039 Monroe Avenue",
+        "city": "Brookfield",
+        "region": "IL",
+        "postal_code": "60513",
+        "lat": 41.8292941,
+        "lon": -87.8486973
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Museum of Broadcast Communications",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.museum.tv/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Museum of Broadcast Communications",
+        "address": "440 West Randolph Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60606",
+        "lat": 41.8846038,
+        "lon": -87.6393207
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Saint Sabina Roman Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://saintsabina.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Sabina Roman Catholic Church",
+        "address": "1210 West 78th Place",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60620",
+        "lat": 41.7516401,
+        "lon": -87.6546605
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Saint George Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stgeorgechicago.net/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint George Greek Orthodox Church",
+        "address": "2701-2715 North Sheffield Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60614",
+        "lat": 41.9311222,
+        "lon": -87.6534445
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Saint Andrew's Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.standreworthodox.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Andrew's Greek Orthodox Church",
+        "address": "5649 North Sheridan Road",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60660",
+        "lat": 41.9853062,
+        "lon": -87.6546587
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Progressive Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.progressivechicago.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Progressive Baptist Church",
+        "address": "3658 South Wentworth Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60609",
+        "lat": 41.8276264,
+        "lon": -87.6317825
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "First Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.fbcoakpark.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Baptist Church",
+        "address": "820 Ontario Street",
+        "city": "Oak Park",
+        "region": "IL",
+        "postal_code": "60302",
+        "lat": 41.8904682,
+        "lon": -87.79535
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Ernest Hemingway Birthplace Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.hemingwaybirthplace.com/programs-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Ernest Hemingway Birthplace Museum",
+        "address": "339 North Oak Park Avenue",
+        "city": "Oak Park",
+        "region": "IL",
+        "postal_code": "60302",
+        "lat": 41.8927733,
+        "lon": -87.7950512
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "American Legion Hall Post 1941",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.al1941.org/events-one",
+      "max_events": 200,
+      "venue": {
+        "name": "American Legion Hall Post 1941",
+        "city": "La Grange",
+        "region": "IL",
+        "postal_code": "60525",
+        "lat": 41.797483,
+        "lon": -87.8693957,
+        "street_hint": "900 South La Grange Road"
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Saints Constantine & Helen Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stconstantinehelen.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saints Constantine & Helen Greek Orthodox Church",
+        "address": "11025 South Roberts Road",
+        "city": "Palos Hills",
+        "region": "IL",
+        "postal_code": "60465",
+        "lat": 41.6908637,
+        "lon": -87.8160267
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Glessner House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.glessnerhouse.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Glessner House Museum",
+        "address": "1600 South Indiana Avenue",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60616",
+        "lat": 41.8577219,
+        "lon": -87.6212227
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Urban Rivers Floating Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://urbanrivers.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Urban Rivers Floating Garden",
+        "lat": 41.9085582,
+        "lon": -87.6533086
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Bird's Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.birdsbookstore.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bird's Bookstore",
+        "lat": 32.8959355,
+        "lon": -96.8022771
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Mary Immaculate Catholic Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.maryimmaculatechurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mary Immaculate Catholic Parish",
+        "lat": 32.9367454,
+        "lon": -96.8845175
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Dallas Contemporary",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.dallascontemporary.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Dallas Contemporary",
+        "address": "161 Glass Street",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75207",
+        "lat": 32.7905958,
+        "lon": -96.822751
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Arts Mission Oak Cliff",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.artsmissionoc.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Arts Mission Oak Cliff",
+        "address": "410 South Windomere Avenue",
+        "lat": 32.7414883,
+        "lon": -96.8450415
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Saint Ann Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stannparish.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Ann Catholic Church",
+        "address": "180 Samuel Boulevard",
+        "city": "Coppell",
+        "region": "TX",
+        "postal_code": "75019",
+        "lat": 32.9715013,
+        "lon": -96.9713795
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Iglesia Pentecostal Unida Hispana-Central",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ipuhcentral.com/calendario",
+      "max_events": 200,
+      "venue": {
+        "name": "Iglesia Pentecostal Unida Hispana-Central",
+        "address": "6518 ful",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77022",
+        "lat": 29.8173111,
+        "lon": -95.3705483
+      },
+      "_metro": "Houston, United States"
     }
   ],
   "_not_included": {
