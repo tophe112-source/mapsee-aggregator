@@ -40,6 +40,8 @@ on:
       - "drupal_fullcalendar_sources.json"
       - "revize_sources.json"
       - "glenecho_sources.json"
+      - "tribe_sources.json"
+      - "ics_sources.json"
       - "natuurwerkdag_sources.json"
       - "repaircafe_ch_sources.json"
       - "fixtures/repaircafe_ch/**"
@@ -83,6 +85,8 @@ on:
       - "drupal_fullcalendar_sources.json"
       - "revize_sources.json"
       - "glenecho_sources.json"
+      - "tribe_sources.json"
+      - "ics_sources.json"
       - "natuurwerkdag_sources.json"
       - "repaircafe_ch_sources.json"
       - "fixtures/repaircafe_ch/**"
@@ -288,7 +292,9 @@ jobs:
       # coordinates supply a timezone, and the closure notices a venue posts to
       # its own calendar, which are well-formed events that must not be on a map.
       - name: JSON-LD venue sites (placeholder locations, naive times, non-events)
-        run: python test_ingest_jsonld.py
+        run: |
+          python test_ingest_jsonld.py
+          python test_jsonld_dortmund_hours.py
 
       # Discovery from the map. The trap it exists for: Squarespace and Wix match
       # on every page of every site built with them, so "detected Squarespace" is
@@ -504,7 +510,9 @@ jobs:
       - name: Revize town calendars (Manassas VA)
         run: python test_ingest_revize.py
       - name: Glen Echo Park (the park's time line over its <time>, open hours, one timeout is one page)
-        run: python test_ingest_glenecho.py
+        run: |
+          python test_ingest_glenecho.py
+          python test_standing_business_sources.py
       - name: Natuurwerkdag (the finder decides, a title naming another day or a closed job is refused, every guard wired)
         run: python test_ingest_natuurwerkdag.py
       - name: Galaxy Digital volunteer shifts (absence judged only on a finished read, no person copied, every pin measured)

@@ -7286,6 +7286,7 @@
     {
       "name": "The San Diego LGBT Community Center",
       "category": "community",
+      "description_hours": "center_when",
       "_found": "osm:community_centre -> modern-events+jsonld-event",
       "listing": [
         "https://thecentersd.org/calendar/"
@@ -11186,6 +11187,7 @@
     {
       "name": "Mütterzentrum Dortmund",
       "category": "community",
+      "description_hours": "dortmund_schedule",
       "_found": "osm:social_centre -> modern-events+jsonld-event",
       "listing": [
         "https://muetterzentrum-dortmund.de/events/"
@@ -24447,6 +24449,7 @@
     }
   ],
   "_not_included": {
+    "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": "RETIRED 2026-11-03: Anacortes History is a calendar of historical anniversary facts, not present-day activities. Fresh publisher feed: 3,665 records / 88 historical titles. Exact UID/title/local-date and exclusive-calendar matches proved 597 stored future rows, all naming a past historical year; EID=6554 describes the newspaper's first issue in 1928. Recorded here because ics_sources.json is a bare list: catalog verification/merge/discovery must not restore this source from its still-ok ledger row. Only cat40 is retired. Keep Anacortes Library cat32, Main cat14, Featured Community Events cat43 and Mayor cat55; no host-wide or global title exclusion.",
     "https://winnipegtrails.ca/events/": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Winnipeg Trails Association: 1 upcoming event (a Cycleloopia ride that FortWhyte Alive's own calendar also carries). Multi-site, and too thin to be a source.",
     "https://dmhsus.org/events/": "Deconstructing the Mental Health System (Seattle 501c3). Refused from TWO independent networks, which is what settles it: this sandbox gets 202 with an sgcaptcha body on every path including /robots.txt, and a GitHub runner (172.208.127.83, an entirely different provider) gets a 403 on every path including /robots.txt. An earlier note here guessed the block was IP reputation against a datacenter address, because the challenge URL carries the caller's IP in its y= parameter; the two-network probe disproved that. The site is closed to automated clients, robots.txt cannot be read to establish permission, and we do not impersonate a browser to get round bot management - same line as sfbike.org. Re-probe with catalog_probe.py if that ever changes; the calendar itself is worth having. The route that does not depend on their WAF is to ask the org for an iCal feed.",
     "https://volcanictheatre.com/calendar": "Volcanic Theatre Pub, Bend OR. VERIFIES and does not INGEST: the listing carries 25 schema.org Event blocks and every one of them is future, but none has a `url`, so all 25 take the listing's page URL as source_id and EventStore's (source, source_id) guard keeps ONE. The real links are tixr.com, which answers 403 to the production UA, so following them is a refusal too. Measured 2026-09-20: `verify` said 25/25 sampled events future, a full ingest kept 1. Not a jsonld bug — 239 of the 240 sites carry a link_pattern that matches real event pages, and the one that does not (Nectar Lounge) works because its Event blocks each carry a url.",

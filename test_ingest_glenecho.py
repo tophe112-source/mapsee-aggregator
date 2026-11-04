@@ -278,6 +278,12 @@ _, why = G.build_event({"id": "9746", "title": "ACO ARTIST DISCUSSION", "date": 
 check("Location 'Virtual' is online-only, not an unplaceable room", why == "online only", why)
 names = SITE["open_hours_titles"]
 check("a studio's own name is its opening hours", G.is_open_hours("SILVERWORKS", names))
+check("the aquarium's daily admission window is opening hours",
+      G.is_open_hours("GLEN ECHO PARK AQUARIUM", names))
+check("an aquarium talk remains an occasion",
+      not G.is_open_hours("GLEN ECHO PARK AQUARIUM FAMILY TALK", names))
+check("an aquarium title is not globally refused without the site's configured name",
+      not G.is_open_hours("GLEN ECHO PARK AQUARIUM", ["SILVERWORKS"]))
 check("a gallery's name + ' |' + exhibition is its opening hours",
       G.is_open_hours("PARK VIEW GALLERY | INHERITED THREADS", names))
 check("an artist talk is not", not G.is_open_hours("ACO ARTIST DISCUSSION WITH ALEX AND OLMSTED", names))

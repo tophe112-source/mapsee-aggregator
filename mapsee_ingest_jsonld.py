@@ -35,6 +35,10 @@ Config (jsonld_sources.json):
       naive_is_utc + timezone   the site prints a UTC instant with no offset
                   ("2026-10-24T09:00:00" for a noon start in Tartu); such stamps
                   are turned into `timezone`'s wall clock with its offset.
+      description_hours "center_when" opts thecentersd.org into its labelled
+                  When:/Time: clock reader, only for matching single-day dates.
+                  "dortmund_schedule" reads the verified Stricken mit Ursel
+                  Wann:/Wo: range, only on its source's matching Wednesdays.
     link_pattern matches either literal hrefs (no url_template) or captures a
     fragment that url_template turns into a page URL — Wix pages, for example,
     embed the FULL event list as {"slug": ...} JSON while only rendering the
@@ -796,10 +800,188 @@ def previous_starts(item: Dict[str, Any]) -> List[str]:
     return list(dict.fromkeys(p.strip() for p in prev if isinstance(p, str) and len(p.strip()) >= 10))
 
 
+_CENTER_WEEKDAYS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+_CENTER_DAY_RX = re.compile(r"\b(" + "|".join(_CENTER_WEEKDAYS) + r")s?\b", re.I)
+_CENTER_PERIOD = r"([ap])\.?\s*m\.?"
+_CENTER_RANGE_RX = re.compile(
+    r"(?<![\d:])(\d{1,2})(?::([0-5]\d))?\s*(?:" + _CENTER_PERIOD + r")?"
+    r"\s*(?:[-\u2013\u2014]|to|and)\s*(\d{1,2})(?::([0-5]\d))?\s*" + _CENTER_PERIOD + r"\b", re.I)
+
+
+def _center_place_url(url):
+    parsed = urlparse(str(url or ""))
+    if parsed.hostname == "thecentersd.org" and parsed.path.rstrip("/") in (
+            "/events/center-library", "/events/cyber-center"):
+        return "https://thecentersd.org" + parsed.path.rstrip("/") + "/"
+    return None
+
+
+def _center_minutes(match):
+    ah, am, ap, bh, bm, bp = match.groups()
+    if not (1 <= int(ah) <= 12 and 1 <= int(bh) <= 12):
+        return None
+    a = (int(ah) % 12 + (12 if (ap or bp).lower() == "p" else 0)) * 60 + int(am or 0)
+    b = (int(bh) % 12 + (12 if bp.lower() == "p" else 0)) * 60 + int(bm or 0)
+    return (f"{a // 60:02d}:{a % 60:02d}", f"{b // 60:02d}:{b % 60:02d}") if b > a else None
+
+
+def _center_place_hours(item, canonical):
+    """Only the two reviewed places, from their freshly published week clocks."""
+    text = _clean(item.get("description")) or ""
+    library = canonical.endswith("/center-library/")
+    weekday = re.search(r"(?:Regular Hours:\s*Open\s+)?Monday\s*[-\u2013]\s*Friday,\s*", text, re.I)
+    if not weekday or (library and not weekday.group(0).lower().startswith("regular hours")):
+        return None
+    clock = _CENTER_RANGE_RX.match(text, weekday.end())
+    span = _center_minutes(clock) if clock else None
+    if not span:
+        return None
+    days = {str(d): [list(span)] for d in range(5)}
+    if not library:
+        saturday = re.search(r"Saturdays\s+from\s*", text, re.I)
+        clock = _CENTER_RANGE_RX.match(text, saturday.end()) if saturday else None
+        weekend = _center_minutes(clock) if clock else None
+        if not weekend or not re.search(r"excluding holidays", text, re.I) or not re.search(r"excluding holiday weekends", text, re.I):
+            return None
+        days["5"] = [list(weekend)]
+    return days
+
+
+def _center_owns_record(rec, canonical=None):
+    refs = rec.get("sources") or []
+    return bool(refs) and all(isinstance(ref, dict) and ref.get("source") == "jsonld"
+        and urlparse(str(ref.get("source_id") or "")).hostname == "thecentersd.org"
+        and (canonical is None or _center_place_url(ref.get("source_id")) == canonical) for ref in refs)
+
+
+def _drop_center_cached_places(store):
+    # Retire the old per-date CACHE too: a full sync otherwise recreates dated
+    # rows after the one-time database backfill hid them. Preserve mixed owners.
+    records = getattr(store, "records", {})
+    drop = set()
+    for fp, rec in records.items():
+        places = {_center_place_url(ref.get("source_id")) for ref in rec.get("sources") or [] if isinstance(ref, dict)}
+        if len(places) == 1 and None not in places and _center_owns_record(rec, next(iter(places))) and not rec.get("recurring_days"):
+            drop.add(fp)
+    for fp in drop:
+        records.pop(fp, None)
+    if drop:
+        store.source_to_fp = {key: fp for key, fp in store.source_to_fp.items() if fp not in drop}
+    return len(drop)
+
+
+def _center_when_hours(item: Dict[str, Any], page_url: str):
+    """Recover only this publisher's labelled, weekday-matched session range.
+
+    Its MEC markup names a day while its description says When: Tuesdays,
+    3-5pm. Other clocks (reservations, opening hours, an exhibition reception)
+    are not the session. No title fallback, overnight inference or date edits.
+    """
+    if urlparse(page_url).hostname != "thecentersd.org":
+        return None
+    start, end = str(item.get("startDate") or ""), str(item.get("endDate") or "")
+    if len(start) != 10 or (end and end != start):
+        return None
+    text = _clean(item.get("description")) or ""
+    if re.search(r"\b(?:virtual|zoom|online)\b", str(item.get("name") or "") + " " + text, re.I):
+        return None
+    labels = list(re.finditer(r"\bWhen\s*:\s*(.*?)(?=\b(?:Where|Contact)\s*:|$)", text, re.I))
+    if len(labels) != 1:
+        return None
+    when = labels[0].group(1)
+    if re.search(r"\b(?:register|registration|reservations?|deadline|sign.?up|jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b|\d{1,2}/\d{1,2}|\b\d{4}\b", when, re.I):
+        return None
+    days = list(_CENTER_DAY_RX.finditer(when))
+    if not days:
+        return None
+    try:
+        day = datetime.strptime(start, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+    weekdays = [_CENTER_WEEKDAYS.index(m.group(1).lower()) for m in days]
+    if len(days) == 2 and re.fullmatch(r"\s*(?:through|to|[-\u2013\u2014])\s*", when[days[0].end():days[1].start()], re.I):
+        weekdays = [(weekdays[0] + n) % 7 for n in range((weekdays[1] - weekdays[0]) % 7 + 1)]
+    elif len(days) != 1:
+        return None
+    if day.weekday() not in weekdays:
+        return None
+    ordinals = {"first": 1, "1st": 1, "second": 2, "2nd": 2, "third": 3, "3rd": 3,
+                "fourth": 4, "4th": 4, "fifth": 5, "5th": 5}
+    orders = re.findall(r"\b(first|second|third|fourth|fifth|1st|2nd|3rd|4th|5th)\b", when, re.I)
+    if re.search(r"\blast\b", when, re.I) or (orders and (day.day - 1) // 7 + 1 not in {ordinals[x.lower()] for x in orders}):
+        return None
+    ranges = list(_CENTER_RANGE_RX.finditer(when))
+    if len(ranges) != 1:
+        return None
+    remaining = when[:ranges[0].start()] + when[ranges[0].end():]
+    if re.search(r"\d\s*(?:[ap]\.?\s*m\.?|:[0-5]\d)", remaining, re.I):
+        return None
+    span = _center_minutes(ranges[0])
+    return (f"{start}T{span[0]}:00", f"{start}T{span[1]}:00") if span else None
+
+
+def _dortmund_schedule_url(url: Any) -> bool:
+    if not isinstance(url, str):
+        return False
+    try:
+        parsed = urlparse(url)
+    except ValueError:
+        return False
+    return (parsed.scheme == "https" and parsed.netloc == "muetterzentrum-dortmund.de"
+            and parsed.path.rstrip("/") == "/events/stricken-mit-ursel"
+            and not parsed.query)
+
+
+def _dortmund_schedule_hours(item: Dict[str, Any], page_url: str):
+    """This one publisher's labelled session range, never its office hours.
+
+    Verified 2026-11-04: the Event dates are bare, while its own description
+    says Wann: Mittwochs von 10:00 - 16:00 Uhr. Read the current range, not a
+    configured fixed clock. Keep dates and the call-before-coming qualification.
+    """
+    if (not (_dortmund_schedule_url(page_url)
+             or page_url.rstrip("/") == "https://muetterzentrum-dortmund.de/events")
+            or not _dortmund_schedule_url(item.get("url") or page_url)
+            or _clean(item.get("name")) != "Stricken mit Ursel"):
+        return None
+    start, end = item.get("startDate"), item.get("endDate")
+    if not isinstance(start, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", start) or (end and end != start):
+        return None
+    try:
+        if datetime.strptime(start, "%Y-%m-%d").weekday() != 2:
+            return None
+    except ValueError:
+        return None
+    location = _ld_get(item, "location")
+    if (not isinstance(location, dict) or location.get("@type") != "Place"
+            or _clean(_ld_get(location, "name")) != "Caf\u00e9"
+            or _clean(_ld_get(location, "address")) != "Hospitalstra\u00dfe 6, 44149 Dortmund"):
+        return None
+    text = _clean(item.get("description")) or ""
+    if (re.search(r"\b(?:virtual|zoom|online)\b", text, re.I)
+            or "OnlineEventAttendanceMode" in str(item.get("eventAttendanceMode") or "")):
+        return None
+    if len(re.findall(r"\bWann\s*:", text, re.I)) != 1 or len(re.findall(r"\bWo\s*:", text, re.I)) != 1:
+        return None
+    labelled = re.search(r"\bWann\s*:\s*(.*?)\s*\bWo\s*:", text, re.I)
+    match = re.fullmatch(
+        r"Mittwochs\s+von\s+([01]\d|2[0-3]):([0-5]\d)\s*[-\u2013\u2014]\s*"
+        r"([01]\d|2[0-3]):([0-5]\d)\s+Uhr"
+        r"(?:\s*[-\u2013\u2014]\s*ihr\s+k\u00f6nnt\s+zu\s+jeder\s+Uhrzeit\s+dazusto\u00dfen!)?",
+        labelled.group(1) if labelled else "", re.I)
+    if not match:
+        return None
+    lo, hi = ":".join(match.group(1, 2)), ":".join(match.group(3, 4))
+    if hi <= lo:
+        return None
+    return f"{start}T{lo}:00", f"{start}T{hi}:00"
+
+
 def to_event(item: Dict[str, Any], page_url: str, category: str, session,
              venue_default: Optional[Dict[str, Any]] = None,
              skip_rx: Optional[re.Pattern] = None, *, occurrence_key: bool = False,
-             price_withdrawn: bool = False, tombstone: bool = False) -> Optional[NormalizedEvent]:
+             price_withdrawn: bool = False, tombstone: bool = False,
+             description_hours: Optional[str] = None) -> Optional[NormalizedEvent]:
     """occurrence_key: this url carries other dates on the same page (_shared_urls).
     price_withdrawn: a price the page printed was set aside (_mec_unset_price), so an
     empty result must still be sent as {} - the sync then CLEARS facts an earlier
@@ -837,6 +1019,34 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
     date_key = start[:10]
     if date_key < datetime.now(timezone.utc).strftime("%Y-%m-%d"):
         return None                                        # past — the sync would drop it anyway
+    end = (item.get("endDate") or "").strip() or None
+    center_place, center_days = None, None
+    center_target = (_center_place_url(item.get("url") or page_url)
+                     if urlparse(page_url).hostname == "thecentersd.org" else None)
+    if description_hours == "center_when" and tombstone and center_target:
+        return None  # A dated closure is not evidence that a permanent place closed.
+    if description_hours == "center_when" and not tombstone:
+        center_place = center_target
+        if center_place:
+            if _center_place_url(item.get("url") or page_url) != center_place:
+                return None
+            center_days = _center_place_hours(item, center_place)
+            try:
+                weekday = str(datetime.strptime(date_key, "%Y-%m-%d").weekday())
+            except ValueError:
+                return None
+            if not center_days or weekday not in center_days:
+                return None                         # unknown hours, never a dated substitute
+            start = date_key + "T" + center_days[weekday][0][0] + ":00"
+            end = date_key + "T" + center_days[weekday][-1][1] + ":00"
+        else:
+            recovered = _center_when_hours(item, page_url)
+            if recovered:
+                start, end = recovered
+    elif description_hours == "dortmund_schedule" and not tombstone:
+        recovered = _dortmund_schedule_hours(item, page_url)
+        if recovered:
+            start, end = recovered
     loc = _ld_get(item, "location") or {}
     if isinstance(loc, list):
         loc = next((l for l in loc if isinstance(l, dict) and l.get("@type") != "VirtualLocation"), {})
@@ -918,7 +1128,7 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
         name=name,
         description=description,
         start_local=start,
-        end_local=(item.get("endDate") or "").strip() or None,
+        end_local=end,
         venue_name=venue,
         latitude=float(lat) if lat is not None else None,
         longitude=float(lon) if lon is not None else None,
@@ -936,6 +1146,13 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
         admission_checked=True,
     )
     ev.fingerprint = make_fingerprint(name, date_key, venue)
+    if center_place:
+        ev.name = "Center Library" if center_place.endswith("/center-library/") else "Cyber Center"
+        ev.source_id = center_place + "#place"
+        ev.fingerprint = make_fingerprint(center_place, "standing", "thecentersd.org")
+        ev.recurring_days = center_days
+        ev.icon = "\U0001f4d6" if center_place.endswith("/center-library/") else "\U0001f3d8"
+        ev.ticket_url = center_place
     return ev
 
 
@@ -963,6 +1180,25 @@ def store_item(store: EventStore, item: Dict[str, Any], page_url: str, category:
                 and store.cancel(old, "EventRescheduled") == "cancelled":
             tally["rescheduled"] = tally.get("rescheduled", 0) + 1
     store.upsert(ev)
+    if opts.get("description_hours") == "center_when":
+        cached = getattr(store, "records", {}).get(ev.fingerprint)
+        if cached and _center_owns_record(cached):
+            # EventStore fills missing fields. This publisher has now explicitly
+            # corrected the clock/pattern, so its sole-owned cache must refresh.
+            for field in ("start_local", "end_local", "recurring_days", "icon"):
+                cached[field] = getattr(ev, field)
+    elif (opts.get("description_hours") == "dortmund_schedule"
+          and _dortmund_schedule_url(item.get("url") or page_url)
+          and ev.name == "Stricken mit Ursel"
+          and ev.start_local and ev.end_local
+          and len(ev.start_local) > 10 and len(ev.end_local) > 10
+          and ev.start_local[:10] == ev.end_local[:10]):
+        cached = getattr(store, "records", {}).get(ev.fingerprint)
+        refs = (cached or {}).get("sources") or []
+        if refs and all(isinstance(ref, dict) and ref.get("source") == "jsonld"
+                        and _dortmund_schedule_url(ref.get("source_id")) for ref in refs):
+            for field in ("start_local", "end_local"):
+                cached[field] = getattr(ev, field)
     return True
 
 
@@ -992,6 +1228,11 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
     seen = set()
     kept = 0
     tally: Dict[str, Any] = {}
+    if site.get("description_hours") == "center_when" and any(
+            urlparse(u).hostname == "thecentersd.org" for u in site.get("listing", [])):
+        dropped = _drop_center_cached_places(store)
+        if dropped:
+            print(f"[jsonld] {name}: retired {dropped} cached per-date place rows")
     inline_seen = 0
     for listing in site.get("listing", []):
         now = time.monotonic() if deadline is not None else None
@@ -1010,6 +1251,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
             continue
         # harvest Event blocks embedded in the listing page itself
         for item, opts in _prepared(r.text, listing, detail=False, utc_zone=utc_zone):
+            if site.get("description_hours") == "center_when":
+                opts["description_hours"] = "center_when"
+            elif site.get("description_hours") == "dortmund_schedule":
+                opts["description_hours"] = "dortmund_schedule"
             if inline_seen < start_inline:
                 inline_seen += 1
                 continue
@@ -1044,6 +1289,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
             continue
         for item, opts in _prepared(r.text, u, detail=True, meta_description=use_meta_description,
                                     utc_zone=utc_zone):
+            if site.get("description_hours") == "center_when":
+                opts["description_hours"] = "center_when"
+            elif site.get("description_hours") == "dortmund_schedule":
+                opts["description_hours"] = "dortmund_schedule"
             if store_item(store, item, u, category, session, venue_default, skip_rx, opts, tally):
                 kept += 1
     print(f"[jsonld] {name}: kept {kept} events from {min(len(urls), cap)} pages"

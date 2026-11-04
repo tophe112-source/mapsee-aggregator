@@ -40,6 +40,8 @@
   {
     "name": "San Antonio City Calendar",
     "url": "https://www.trumba.com/calendars/sanantonio.ics",
+    "skip_title": "^City Sightseeing San Antonio$",
+    "_why_skip_title": "2026-11-03: partial all-day census found 53 identical City Sightseeing San Antonio rows linking to one operator timetable. The allowed live city feed contains 133 date-only copies of that same business/service and address. Exact title exclusion is confined to this calendar; other tours and dated events remain. The parent business belongs in Venues with unknown hours until its operator's timetable can be verified (operator robots.txt timed out).",
     "category": "community",
     "geocode_suffix": ", San Antonio, TX",
     "limit": 700
@@ -12174,6 +12176,8 @@
     "name": "Sidney — Main Calendar",
     "category": "community",
     "url": "https://www.sidneyoh.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "skip_title": "^(?:4th Quarter Business Estimate Tax Due|4th Quarter Individual Income Tax Estimates Due|Alert System Test|Extended Tax Returns Due|First Quarter Estimate Tax Payment Due|SW3 and W2 Forms Due|Second Quarter Estimate Tax Payment Due|Sidney Income Tax Return Due|Sidney Utility Bills Due|Test Smoke Detectors|Third Quarter Estimate Tax Payment Due)$",
+    "_note": "2026-11-03 publisher review: 11 exact billing/tax/household-testing reminder titles match 424 of 1,969 source records and 168 stored all-day rows; they are not occasions to attend. Filter only these exact titles in this Main Calendar. Parks cat27, TNR cat29, dated activities and longer event titles remain configured. Existing 365-day adapter horizon also prevents new distant-future copies.",
     "geocode_suffix": ", Sidney, Ohio",
     "limit": 300,
     "_found": "civic:city -> civicplus[Main Calendar]",
@@ -13150,15 +13154,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Event Calender]",
     "_metro": "Southbridge, Massachusetts"
-  },
-  {
-    "name": "Anacortes — Anacortes History",
-    "category": "community",
-    "url": "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
-    "geocode_suffix": ", Anacortes, Washington",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Anacortes History]",
-    "_metro": "Anacortes, Washington"
   },
   {
     "name": "Anacortes — Library",

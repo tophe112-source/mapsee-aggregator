@@ -902,6 +902,8 @@
       "category": "community",
       "_found": "osm:licensed_club -> tribe+ics",
       "base_url": "https://gladesvillersl.com.au",
+      "skip_title": "^(?:2 for \\$32\\.50 Cocktails|Beer Bucket Deal|Glades Asian Platter)$",
+      "_why_skip_title": "2026-11-03: partial all-day census found 125 source-proven standing promotion rows (51 cocktails, 50 beer buckets, 24 platters); the publisher's allowed Tribe API confirms these exact titles as all-day offers. The parent club belongs in Venues; these promotions are not separate venues or occasions. Exact titles preserve Trivia, Pick the Jokers, raffles and other dated events. Parent operating hours remain unknown; Happy Hours are not business hours.",
       "within_days": 120,
       "max_pages": 10,
       "venue": {
@@ -20008,6 +20010,8 @@
       "category": "community",
       "_found": "osm:club -> tribe+jsonld-event+ics",
       "base_url": "https://rsgyc.ie",
+      "skip_title": "^(?:Catering Options|Cafe \\+ Bar)$",
+      "_why_skip_title": "2026-11-03: partial all-day census found 57 Catering Options and 27 Cafe + Bar rows; the allowed publisher API confirms catering links and cafe/bar operating windows, not occasions. The parent yacht club belongs in Venues. Exact titles preserve regattas and other events; varying cafe/bar hours do not establish universal club opening hours.",
       "within_days": 120,
       "max_pages": 10,
       "venue": {
@@ -29264,6 +29268,8 @@
       "category": "fitness",
       "_found": "osm:sports_centre -> tribe+jsonld-event",
       "base_url": "https://cabrabowls.com.au",
+      "skip_title": "^(?:Dine At Ocean Treasure|Just Pho You!|Members 25% Off|Courtesy Bus)$",
+      "_why_skip_title": "2026-11-03: partial all-day census found 120 source-proven business/service rows (42 dining, 37 Pho, 28 member discounts, 13 courtesy buses); the allowed publisher API confirms these exact all-day titles. The parent club belongs in Venues; a discount is not itself a venue. Bingo, Mahjong, Trivia Thursday and Poker (31 sampled rows) remain events. Parent opening hours remain unknown; Happy Hour is not an operating-hours source.",
       "within_days": 120,
       "max_pages": 10,
       "venue": {

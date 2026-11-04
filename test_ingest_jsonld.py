@@ -853,6 +853,137 @@ def check_meta_description_fallback():
           mapsee_ingest_jsonld._prepared(page, page_url, detail=True)[0][0].get("description"), None)
 
 
+def check_center_hours():
+    print()
+    print("San Diego Center: opt-in labelled hours preserve occurrence identity")
+    tuesday = _D + timedelta(days=(1 - _D.weekday()) % 7)
+    ds = tuesday.strftime("%Y-%m-%d")
+    url = "https://thecentersd.org/events/game-day/"
+    item = {"@context": "https://schema.org", "@type": "Event", "name": "Game Day",
+            "url": url, "startDate": ds, "endDate": ds,
+            "description": "When: Every Tuesday, 11:30 am - 3:30 pm Where: The Center's Library"}
+
+    def read(over=None, enabled=True, page_url=url):
+        site = {"listing": [page_url]}
+        if enabled:
+            site["description_hours"] = "center_when"
+        return _ingest({page_url: _page("", dict(item, **(over or {})))}, site)[0]
+
+    before, after = read(enabled=False), read()
+    check("default still keeps a bare day", before.start_local, ds)
+    check("labelled When range reaches the real normalizer", after.start_local, ds + "T11:30:00")
+    check("its published end is recovered too", after.end_local, ds + "T15:30:00")
+    check("recovering hours preserves the fingerprint", after.fingerprint, before.fingerprint)
+    check("recovering hours preserves source_id", after.source_id, before.source_id)
+    for text, start, end in [
+        ("When: Tuesdays, 3-5pm Where: Hillcrest", "15:00", "17:00"),
+        ("When: Tuesdays, 1\u20133pm Contact: staff", "13:00", "15:00"),
+        ("When: Tuesdays, 5:00 \u2013 6:30 PM Where: The Center", "17:00", "18:30"),
+        ("When: Tuesdays, 11am-1pm Where: Hillcrest", "11:00", "13:00"),
+        ("Reservations by 3:00 pm the day before. When: Monday through Friday, between 11:30 a.m. and 12:30 p.m. Where: The Center", "11:30", "12:30"),
+        ("When: Tuesdays Time: 3:00 pm \u2013 6:00 pm Where: SBYC", "15:00", "18:00"),
+    ]:
+        event = read({"description": text})
+        check("published range: " + text, (event.start_local, event.end_local),
+              (ds + "T" + start + ":00", ds + "T" + end + ":00"))
+    first_tuesday = tuesday.replace(day=1)
+    first_tuesday += timedelta(days=(1 - first_tuesday.weekday()) % 7)
+    first_ds = first_tuesday.strftime("%Y-%m-%d")
+    ordinal = {"startDate": first_ds, "endDate": first_ds,
+               "description": "When: First Tuesday of the month Time: 3-6PM Where: SBYC"}
+    check("first-weekday rule matches its occurrence", read(ordinal).start_local, first_ds + "T15:00:00")
+    for label, over in [
+        ("wrong weekday", {"description": "When: Wednesdays, 3-6pm Where: SBYC"}),
+        ("wrong ordinal", dict(ordinal, startDate=(first_tuesday + timedelta(days=7)).strftime("%Y-%m-%d"), endDate=(first_tuesday + timedelta(days=7)).strftime("%Y-%m-%d"))),
+        ("no labelled When", {"description": "Register by 3pm. The talk is 4-5pm."}),
+        ("opening hours are a venue", {"description": "Regular Hours: Open Monday-Friday, 10AM - 4PM"}),
+        ("multi-date election clocks", {"description": "Vote Sat, Oct 31 to Mon, Nov 2, 8am-5pm Tues, Nov 3, 7am-8pm"}),
+        ("virtual title", {"name": "Discussion (Virtual)"}),
+        ("virtual destination", {"description": "When: Tuesdays, 3-5pm Where: Virtually via ZOOM"}),
+        ("two ranges", {"description": "When: Tuesdays, 3-5pm or 6-7pm Where: Center"}),
+        ("another clock in the label", {"description": "When: Tuesdays, 3-5pm; arrive at 2pm Where: Center"}),
+        ("registration range in the label", {"description": "When: Registration Tuesdays, 3-5pm Where: Center"}),
+        ("a separately dated session", {"description": "When: Tuesday November 17, 3-5pm Where: Center"}),
+        ("an abbreviated dated session", {"description": "When: Tuesday Dec. 22, 3-5pm Where: Center"}),
+        ("overnight ambiguity", {"description": "When: Tuesdays, 11-1pm Where: Center"}),
+        ("multi-day source window", {"endDate": (tuesday + timedelta(days=1)).strftime("%Y-%m-%d")}),
+        ("a source clock stays authoritative", {"startDate": ds + "T09:00:00", "endDate": ds + "T10:00:00"}),
+        ("a timed end stays authoritative", {"endDate": ds + "T18:00:00"}),
+    ]:
+        event = read(over)
+        check("refuses " + label, (event.start_local, event.end_local),
+              (over.get("startDate", ds), over.get("endDate", ds)))
+    check("opt-in cannot affect another host", read(page_url="https://example.org/events/game-day/").start_local, ds)
+    with open("jsonld_sources.json", encoding="utf-8") as source_file:
+        config = json.load(source_file)
+    enabled = [s for s in config["sites"] if s.get("description_hours") == "center_when"]
+    check("only the measured source opts in", [s["name"] for s in enabled], ["The San Diego LGBT Community Center"])
+    center_site = enabled[0]
+    library_url = "https://thecentersd.org/events/center-library/"
+    cyber_url = "https://thecentersd.org/events/cyber-center/"
+    library = dict(item, url=library_url, name="Center Library is open Monday-Friday, 10AM-4PM",
+                   description="Regular Hours: Open Monday-Friday, 10AM - 4PM")
+    cyber = dict(item, url=cyber_url, name="Cyber Center",
+                 description="Monday-Friday, 10am-6pm, excluding holidays. The Cyber Center is also open on Saturdays from 10am-3pm, excluding holiday weekends.")
+    def place(raw, address=None):
+        return to_event(raw, raw["url"], "community", None, address or center_site["venue"], description_hours="center_when")
+    for raw, glyph, opening, closing, saturday in [
+        (library, "\U0001f4d6", "10:00", "16:00", None),
+        (cyber, "\U0001f3d8", "10:00", "18:00", [["10:00", "15:00"]]),
+    ]:
+        ev = place(raw)
+        check("permanent place has its reviewed glyph", ev.icon, glyph)
+        check("published weekday opening clocks survive normalization", ev.recurring_days["1"], [[opening, closing]])
+        check("published Saturday rule survives normalization", ev.recurring_days.get("5"), saturday)
+        db_row = to_row(ev.__dict__, "00000000-0000-0000-0000-000000000001")
+        check("real adapter->row carries the weekly pattern", db_row["recurring_hours"]["days"], ev.recurring_days)
+        check("place is an openable venue, not scenery", db_row["pin_only"], False)
+        future_ds = (tuesday + timedelta(days=7)).strftime("%Y-%m-%d")
+        future = place(dict(raw, name="Reworded place name", startDate=future_ds, endDate=future_ds,
+                            url=raw["url"] + "?occurrence=" + future_ds))
+        check("place identity ignores dates, query and name wording", (future.fingerprint, future.source_id), (ev.fingerprint, ev.source_id))
+        check("unknown hours never become another dated occasion", place(dict(raw, description="Please call for current opening hours")), None)
+        inline = to_event(raw, "https://thecentersd.org/calendar/", "community", None, center_site["venue"], description_hours="center_when")
+        check("the calendar's inline place uses the same standing identity", (inline.fingerprint, inline.recurring_days), (ev.fingerprint, ev.recurring_days))
+        closed = to_event(dict(raw, eventStatus="https://schema.org/EventCancelled"), raw["url"], "community", None, center_site["venue"], description_hours="center_when", tombstone=True)
+        check("one cancelled date cannot cancel a permanent venue", closed, None)
+    changed = place(dict(library, description="Regular Hours: Open Monday-Friday, 11AM - 5PM"))
+    check("changed published hours are read, never hardcoded", changed.recurring_days["1"], [["11:00", "17:00"]])
+    check("ordinary timed programs remain occasions", after.recurring_days, None)
+    check("another URL cannot become a standing place", read({"description": library["description"]}).recurring_days, None)
+    with tempfile.TemporaryDirectory() as td:
+        store = EventStore(os.path.join(td, "events.json"))
+        old = to_event(library, library_url, "community", None, center_site["venue"])
+        store.upsert(old)
+        before_fp = old.fingerprint
+        store.records[before_fp]["sources"].append({"source": "ics", "source_id": "another-calendar"})
+        check("cache retirement preserves another publisher's merged row", mapsee_ingest_jsonld._drop_center_cached_places(store), 0)
+        store.records[before_fp]["sources"].pop()
+        pages = {library_url: _page("", library)}
+        with patch.object(mapsee_ingest_jsonld.time, "sleep"), contextlib.redirect_stdout(io.StringIO()):
+            mapsee_ingest_jsonld.ingest_site(store, _Pages(pages), dict(center_site, listing=[library_url], link_pattern=None))
+        check("cached per-date venue cannot be recreated by a full sync", before_fp in store.records, False)
+        check("the cache holds exactly one standing replacement", len(store.records), 1)
+        standing = next(iter(store.records.values()))
+        check("cached replacement carries the readable schedule", standing["recurring_days"]["1"], [["10:00", "16:00"]])
+        pages[library_url] = _page("", dict(library, description="Regular Hours: Open Monday-Friday, 11AM - 5PM"))
+        with patch.object(mapsee_ingest_jsonld.time, "sleep"), contextlib.redirect_stdout(io.StringIO()):
+            mapsee_ingest_jsonld.ingest_site(store, _Pages(pages), dict(center_site, listing=[library_url], link_pattern=None))
+        check("EventStore cache refreshes changed hours under the same key", next(iter(store.records.values()))["recurring_days"]["1"], [["11:00", "17:00"]])
+        program = to_event(item, url, "community", None, center_site["venue"])
+        store.upsert(program)
+        with patch.object(mapsee_ingest_jsonld.time, "sleep"), contextlib.redirect_stdout(io.StringIO()):
+            mapsee_ingest_jsonld.ingest_site(store, _Pages({url: _page("", item)}), dict(center_site, listing=[url], link_pattern=None))
+        check("an existing cached occasion receives its recovered clock", store.records[program.fingerprint]["start_local"], ds + "T11:30:00")
+    with tempfile.TemporaryDirectory() as td:
+        store = EventStore(os.path.join(td, "inline.json"))
+        listing = "https://thecentersd.org/calendar/"
+        with patch.object(mapsee_ingest_jsonld.time, "sleep"), contextlib.redirect_stdout(io.StringIO()):
+            mapsee_ingest_jsonld.ingest_site(store, _Pages({listing: _page("", library)}), dict(center_site, listing=[listing], link_pattern=None))
+        check("the real inline calendar reader creates one venue", len(store.records), 1)
+        check_true("the inline calendar cache has a weekly venue, never a dated copy", next(iter(store.records.values())).get("recurring_days"))
+
+
 def main():
     item = _parse_ld(LIVE_LD)
     check_true("the live JSON-LD block parses", item is not None)
@@ -1037,6 +1168,7 @@ def main():
 
     check_mec()
     check_mec_clock()
+    check_center_hours()
     check_shared_urls()
     check_meta_description_fallback()
     check_pacing()
