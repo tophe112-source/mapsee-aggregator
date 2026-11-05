@@ -26130,6 +26130,485 @@
         "lon": -70.8794186
       },
       "_metro": "Boston, United States"
+    },
+    {
+      "name": "Bay State Model Railroad Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.bsmrm.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bay State Model Railroad Museum",
+        "address": "760 South Street",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02131",
+        "lat": 42.2871205,
+        "lon": -71.1296155
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Larz Anderson Auto Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.larzanderson.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Larz Anderson Auto Museum",
+        "address": "15 Newton Street",
+        "city": "Brookline",
+        "region": "MA",
+        "postal_code": "02445",
+        "lat": 42.3104855,
+        "lon": -71.1347946
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Wang Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bochcenter.org/events/all"
+      ],
+      "link_pattern": "https://www\\.bochcenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wang Theater",
+        "address": "270 Tremont Street",
+        "city": "Boston",
+        "region": "MA",
+        "lat": 42.3504564,
+        "lon": -71.0642681
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Cabot Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://thecabot.org/event/geoff-tate/"
+      ],
+      "link_pattern": "https://thecabot\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cabot Theatre",
+        "address": "286 Cabot Street",
+        "city": "Beverly",
+        "region": "MA",
+        "postal_code": "01915",
+        "lat": 42.5514716,
+        "lon": -70.8790374
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "First Parish Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.uubillerica.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "First Parish Church",
+        "address": "7 Concord Road",
+        "city": "Billerica",
+        "postal_code": "01821",
+        "lat": 42.559166,
+        "lon": -71.2697443
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Lynn Museum & Arts Center",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://lynnmuseum.org/calendar/"
+      ],
+      "link_pattern": "https://lynnmuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lynn Museum & Arts Center",
+        "address": "590 Washington Street",
+        "city": "Lynn",
+        "region": "MA",
+        "postal_code": "01901",
+        "lat": 42.4630429,
+        "lon": -70.94397
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Millis Church of Christ, Congregational",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.millisucc.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Millis Church of Christ, Congregational",
+        "address": "142 Exchange Street",
+        "lat": 42.1705314,
+        "lon": -71.3600526
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Unitarian Universalist Society of Wellesley Hills",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.uuwellesleyhills.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Unitarian Universalist Society of Wellesley Hills",
+        "address": "309 Washington Street",
+        "city": "Wellesley Hills",
+        "postal_code": "02481",
+        "lat": 42.3118795,
+        "lon": -71.2756881
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "First Baptist Church of Reading",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.fbcreading.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "First Baptist Church of Reading",
+        "address": "45 Woburn Street",
+        "city": "Reading",
+        "region": "MA",
+        "postal_code": "01867",
+        "lat": 42.524892,
+        "lon": -71.105362
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "The Fillmore",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thefillmore.com/shows"
+      ],
+      "link_pattern": "https://www\\.thefillmore\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Fillmore",
+        "address": "1805 Geary Boulevard",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94115",
+        "lat": 37.7840838,
+        "lon": -122.433171
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "San Francisco Historical Society Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.sfhistory.org/sfhsevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "San Francisco Historical Society Museum",
+        "address": "608 Commercial Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94111",
+        "lat": 37.794275,
+        "lon": -122.4036121
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Saint Matthews Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.stmatthews-sf.org/event/clothing-swap"
+      ],
+      "link_pattern": "https://www\\.stmatthews\\-sf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Matthews Lutheran Church",
+        "address": "3281 16th Street",
+        "city": "San Francisco",
+        "postal_code": "94103",
+        "lat": 37.7644817,
+        "lon": -122.4258437
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Cobb's Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.cobbscomedy.com/shows"
+      ],
+      "link_pattern": "https://www\\.cobbscomedy\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cobb's Comedy Club",
+        "address": "915 Columbus Avenue",
+        "city": "San Francisco",
+        "lat": 37.8029233,
+        "lon": -122.4142026
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Boom Boom Room",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://boomboomroom.com/event/the-goodstuff-w-growler/client-club-demo/san-francisco-california/"
+      ],
+      "link_pattern": "https://boomboomroom\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Boom Boom Room",
+        "address": "1601 Fillmore Street",
+        "lat": 37.7846021,
+        "lon": -122.433137
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "BOSS",
+      "category": "community",
+      "_found": "osm:ngo -> wix",
+      "listing": [
+        "https://www.self-sufficiency.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "BOSS",
+        "lat": 37.8714612,
+        "lon": -122.272502
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Cornerstone Craft Beer & Live Music",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://cornerstoneberkeley.com/events"
+      ],
+      "link_pattern": "https://cornerstoneberkeley\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cornerstone Craft Beer & Live Music",
+        "lat": 37.8666586,
+        "lon": -122.2669392
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Palace of Fine Arts Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.palaceoffinearts.org/event/the-tallest-man-on-earth/"
+      ],
+      "link_pattern": "https://www\\.palaceoffinearts\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palace of Fine Arts Theatre",
+        "address": "3301 Lyon Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94123",
+        "lat": 37.8023338,
+        "lon": -122.4492258
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "The Compound Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> wp-event-manager",
+      "listing": [
+        "https://thecompoundgallery.com/events/"
+      ],
+      "link_pattern": "https://thecompoundgallery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Compound Gallery",
+        "address": "1339 61st Street",
+        "lat": 37.8425295,
+        "lon": -122.2899231
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Book Society",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.booksociety.social/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Book Society",
+        "lat": 37.857569,
+        "lon": -122.2529757
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Provocation Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.provocationtheatre.com/experiences"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Provocation Theatre",
+        "address": "2177 Bancroft Way",
+        "city": "Berkeley",
+        "lat": 37.8678874,
+        "lon": -122.2664554
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Mission Loteria",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://mission-loteria.com/events"
+      ],
+      "link_pattern": "https://mission\\-loteria\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mission Loteria",
+        "address": "2884 Mission Street",
+        "lat": 37.7508764,
+        "lon": -122.418464
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Punch Line Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.punchlinecomedyclub.com/shows"
+      ],
+      "link_pattern": "https://www\\.punchlinecomedyclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Punch Line Comedy Club",
+        "address": "444 Battery Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94111",
+        "lat": 37.7955305,
+        "lon": -122.4000104
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Hillside Club",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.hillsideclub.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hillside Club",
+        "address": "2286 Cedar Street",
+        "city": "Berkeley",
+        "region": "CA",
+        "postal_code": "94709-1532",
+        "country": "US",
+        "lat": 37.8787675,
+        "lon": -122.2649253
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "The Midway",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://themidwaysf.com/events/"
+      ],
+      "link_pattern": "https://themidwaysf\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Midway",
+        "address": "900 Marin Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94124",
+        "lat": 37.7494882,
+        "lon": -122.3860313
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Julia Morgan Center For The Arts",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://berkeleyplayhouse.org/event/"
+      ],
+      "link_pattern": "https://berkeleyplayhouse\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Julia Morgan Center For The Arts",
+        "address": "2640 College Avenue",
+        "city": "Berkeley",
+        "region": "CA",
+        "lat": 37.8622673,
+        "lon": -122.2541126
+      },
+      "_metro": "San Francisco, United States"
     }
   ],
   "_not_included": {

@@ -63553,5 +63553,625 @@
     "geocode_suffix": ", Malden, MA",
     "limit": 300,
     "_metro": "Boston, United States"
+  },
+  {
+    "name": "Malden Senior Center",
+    "category": "community",
+    "_found": "osm:social_centre -> civicplus",
+    "url": "https://www.cityofmalden.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Malden, MA",
+    "limit": 300,
+    "venue": {
+      "name": "Malden Senior Center",
+      "city": "Malden",
+      "region": "MA",
+      "postal_code": "02148",
+      "lat": 42.4274513,
+      "lon": -71.0703351,
+      "street_hint": "7 Washington Street",
+      "aliases": [
+        "John & Christina Markey Malden Senior Community Center"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Boston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Kadampa Meditation Center Boston",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40meditationinboston.org/public/basic.ics",
+    "geocode_suffix": ", Cambridge, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "University Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/unilu.org_39vijbiih1nq1shdq0gk36jnsg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Cathedral of New England",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_0c40e768828dc2c2b99117dd861556802a3aae028fbdc55072a5616c95f265bc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Congregational Church in Melrose",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fccmelrose.org_83itn8u12sd2kh8nb7noui5ais%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Melrose, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Center for Arts at the Armory",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://artsatthearmory.org/upcoming-events/?ical=1",
+    "geocode_suffix": ", Somerville, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Holy Resurrection Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hrocboston.org_kbdmlcfnon06r8b3otbi13ico8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Allston, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Trinity Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_a46270b40c39f75943bf5b5b99897c4c76368ec650654bac934e4bf36551efad%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Melrose, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "All Saints Parish / Evergreen Church of Boston",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/allsaintsadmin.org_hrkthovpk9kr421qhoan1nhmt0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Winchester Unitarian Society",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c43b9ae4b3f7f1ccb121500539039e7c35b504ec2f14b0c9697c82c8bc5785ca%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winchester",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Church of Our Saviour",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/87ea3cb03c247102b5ebd47e07fd38d37c4a3e2bdd74f90131933e4f2deb3810%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arlington, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Islamic Society of Boston",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_41b36e28e5fe5c5dc566dbe82c737d63334e76fdff84ffffbc88edefb138c8e8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cambridge, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Belmont-Watertown United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q2v4qqoa4kfeofk0qtfbttr89k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Mystic Valley Gun Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bm82kikdg6hdrloh32q251be3o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Malden, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Annunciation Of The Virgin Mary Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/358ef395751bc5fb0e9729276af645c16c99685917e1150c4b25167324fb8626%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Woburn, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/flc-boston.org_6mqran61ie3gs26emocncl4bg4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Amazin Billiards",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.amazinbilliards.com/events/?ical=1",
+    "geocode_suffix": ", Malden, MA",
+    "limit": 300,
+    "_metro": "Boston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Greater Lynn Photographic Association",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/glpacalendar%40yahoo.com/public/basic.ics",
+    "geocode_suffix": ", Lynn, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Trinity Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40trinityepiscopal-canton.org/public/basic.ics",
+    "geocode_suffix": ", Canton",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Parish Unitarian Universalist Canton",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6120f333571e9239bda1e51b92917d1865f2cdecdc028757ee97eb2958344a0b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Canton",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Parish Concord",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/firstparishinconcord%40firstparish.org/public/basic.ics",
+    "geocode_suffix": ", Concord, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Parish Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cb135356b63e2fe49c647a8458c8778d7576e8d206abdc4fbc195f926a7104eb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Scituate, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Friendship Lodge AF & AM",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8a03badadda51aa31f864fb83f512a50253083cecd084015d195cbba21970655%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wilmington",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Temple Emunah",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/templeemunah.org_c06m73r9uh76krmkbubaja7q44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Saint Nicholas Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_78ba3eb073100d92d817e6c9bab0d1a6361a1d0d007fa9c60dc393a4b86e490e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "The Episcopal Parish of Saint Paul",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1t7366ufcfbkfnem8vvkab2dl8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Newton, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Unitarian Society in Newton",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_51831f96b52775e8a3639e6d8758d47cd1e3d61bc0d9743b6bc539aee0911217%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Newton",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Saint Vasilios Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40stvasilios.org/public/basic.ics",
+    "geocode_suffix": ", Peabody, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Saint Nicholas Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4034891745b18a36c9a1a5593e66d664a69df10ab2dfacde8f1f77da638cb467%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salem, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Islamic Center of Boston",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/icbcalendar%40icbwayland.org/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Wellesley Friends Meeting",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_d7de5ebaa6ca03b2a944302cd6306d7e89e60f17e6c0f8161487e08fbfb7fc36%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wellesley, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "First Congregational Church of Reading",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_r15f11h2q99pd9bo0n2en57jeo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Reading, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Church of the Covenant",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i2hh3ttq7a8o840jtntc9mjem8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Eastie Farm",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/09hee7ug33p0jan41c78iqk9gc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "St John's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stjohnsoakland.org_srf756mr3qqkb8k5bt2n1jocnk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oakland, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "California Genealogical Society",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/events%40californiaancestors.org/public/basic.ics",
+    "geocode_suffix": ", Berkeley, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Congregation Beth Sholom",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_cce82f1c72cd91742c7d908c88ce7f64726e5bc12196e6ef2dc44054936d5d47%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Berkeley Student Cooperative",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6sl10bq7lhrrtn00kphrjo7qpc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berkeley",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Queer Arts Featured",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e5f720e1308c9eccb1a4cab1bdd537d2dec9a3e879a5e9a79e1d41e75fd3e785%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "arc gallery & studios",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/98qkbpkk1duhpjb7cv4vvg7sog%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Two Pitchers Brewing Company",
+    "category": "community",
+    "_found": "osm:pub -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_ngfhid3blib51aveejrtdn9jag%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oakland",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Ocean View Brew Works",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/oceanviewbrews.com_vvtdgec2ih8scvv0j9hqs9is60%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albany, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Alameda community sailing center",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sailalameda.org_4p5ijiom1n61292f946hh682oo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Training Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1695d2a0c55838d72b091defc2be6ecbaef91d3d5362c6a3612c35fdb097454a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berkeley, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "The New Farm",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9f0d3b6e01ee91f01fcc369299baa41355b4e274169992d9c79c78003af88bcb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "West Coast Dance Theatre",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4npe3vttrgaa7pgju9oo5g1k8c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Alameda, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Fellow Feathers",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/inv2iq3sku0jqu7nob7roie0rc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "BERKELEY ANIMAL RIGHTS CENTER",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/directactioneverywhere.com_g5gbpddon12e4pc1nvml1kjbbc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berkeley, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Mission Masonic Lodge No. 169",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q1akklptrn6gqchh1m8o9ejpks%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "venue": {
+      "name": "Mission Masonic Lodge No. 169",
+      "city": "San Francisco",
+      "region": "CA",
+      "postal_code": "94110",
+      "lat": 37.7542168,
+      "lon": -122.4188392,
+      "street_hint": "2668 Mission Street",
+      "pin_unnamed": false
+    },
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Orinda Masonic Center",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40orindalodge.org/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Berkeley Unified School District",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40berkeley.net/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Chapel of the Flowers",
+    "category": "community",
+    "_found": "osm:events_venue -> ics",
+    "url": "https://calendar.google.com/calendar/ical/29e0d686a60a2707cba6cf15778c26fc2a768bb6d29e00b2bdb3d77f1d4103e2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berkeley",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Restorative Justice for Oakland Youth",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f6d545f8ea222df738e00f7abac0362d7960fd6804e104427940bf1d30f1a504%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Hayward Shoreline Interpretive Center",
+    "category": "arts",
+    "_found": "osm:museum -> civicplus",
+    "url": "https://www.haywardrec.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Pardee Home Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kgcr58r6svn96stvs5sqmkn72k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Saint Mary Magdalen Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/marymagdalen.org_dcr5qs2e944ig3j9580eimgh6k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Christ Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/christchurcheastbay.org_e59nq0uhclsdo0m57bafr1ihno%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berkeley, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Noe Valley Ministry",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3a9336b9ea313bf333f1c59aacd6de77b616bc4b572a62c4efeeabff471196e5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Saint John Coltrane African Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.coltranechurch.org/events.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "St John's United Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40sfstjohnsucc.org/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Park Boulevard Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pbpc%40pbpc.org/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Aquarium of the Bay",
+    "category": "outdoors",
+    "_found": "osm:aquarium -> events-manager",
+    "url": "https://www.aquariumofthebay.org/events/?ical=1",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Cal Sailing Club",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.cal-sailing.org/index.php?option=com_dpcalendar&task=ical.download&id=61",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Skyline Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_i3ftrad7t87hfghedejvpmvtuo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Phyllis Wattis Theater",
+    "category": "theater",
+    "_found": "osm:cinema -> event-organiser",
+    "url": "https://www.sfmoma.org/?feed=eo-events",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "25th Street Green Space",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40greenbenefit.org/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
   }
 ]

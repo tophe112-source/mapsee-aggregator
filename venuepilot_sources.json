@@ -55,6 +55,24 @@
         "lon": -118.2743338
       },
       "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Ashkenaz Music & Dance",
+      "category": "theater",
+      "_found": "osm:theatre -> venuepilot",
+      "account_ids": [
+        1228
+      ],
+      "within_days": 120,
+      "venue": {
+        "name": "Ashkenaz Music & Dance",
+        "address": "1317 San Pablo Avenue",
+        "region": "CA",
+        "country": "US",
+        "lat": 37.8801404,
+        "lon": -122.295347
+      },
+      "_metro": "San Francisco, United States"
     }
   ],
   "_not_included": {

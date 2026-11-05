@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 187,
-  "metro_key": "US:Boston",
+  "metro": 188,
+  "metro_key": "US:San Francisco",
   "stuck": {}
  },
  "osm|community_centre,library": {

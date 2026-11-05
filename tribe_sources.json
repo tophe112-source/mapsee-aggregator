@@ -35324,6 +35324,675 @@
         "lon": -71.0075188
       },
       "_metro": "Boston, United States"
+    },
+    {
+      "name": "LEO Inc.",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event",
+      "base_url": "https://leoinc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LEO Inc.",
+        "address": "181 Union Street",
+        "city": "Lynn",
+        "region": "MA",
+        "postal_code": "01901",
+        "lat": 42.4668763,
+        "lon": -70.9423043
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Boston Lyric Opera",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://blo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boston Lyric Opera",
+        "address": "15 Channel Street",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02210",
+        "lat": 42.3455391,
+        "lon": -71.0513942
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Medford Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://medfordbrew.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Medford Brewing Company",
+        "address": "30 Harvard Avenue",
+        "city": "Medford",
+        "region": "MA",
+        "postal_code": "02155",
+        "lat": 42.4204055,
+        "lon": -71.1336293
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "The Boston Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bostonsynagogue.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Boston Synagogue",
+        "address": "55 Martha Road",
+        "city": "Boston",
+        "region": "MA",
+        "country": "US",
+        "lat": 42.3653308,
+        "lon": -71.0662736
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Reservoir Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.reservoirchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reservoir Church",
+        "address": "15 Notre Dame Avenue",
+        "city": "Cambridge",
+        "region": "MA",
+        "postal_code": "02140",
+        "country": "US",
+        "lat": 42.3928078,
+        "lon": -71.1312856
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Temple Emanuel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.templeemanuel.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Emanuel",
+        "address": "385 Ward Street",
+        "lat": 42.338947,
+        "lon": -71.1888245
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Temple Israel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://www.tisrael.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Israel",
+        "address": "477 Longwood Avenue",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02215",
+        "lat": 42.3404044,
+        "lon": -71.108989
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Emmanuel Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.emmanuelboston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Emmanuel Church",
+        "address": "15 Newbury Street",
+        "city": "Boston",
+        "postal_code": "02116",
+        "lat": 42.3526116,
+        "lon": -71.0724037
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Job Lane Farm Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+ics",
+      "base_url": "https://joblanefarmmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Job Lane Farm Museum",
+        "region": "MA",
+        "lat": 42.5126504,
+        "lon": -71.2835929
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "House of the Seven Gables",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://7gables.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "House of the Seven Gables",
+        "address": "115 Derby Street",
+        "city": "Salem",
+        "region": "MA",
+        "postal_code": "01970",
+        "lat": 42.5218158,
+        "lon": -70.8838139
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "First Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fbcbeverly.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Baptist Church",
+        "address": "221 Cabot Street",
+        "city": "Beverly",
+        "postal_code": "01915",
+        "lat": 42.5484083,
+        "lon": -70.8782392
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Jain Center of Boston",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://jcgb.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jain Center of Boston",
+        "address": "556 Nichols Street",
+        "city": "Norwood",
+        "region": "MA",
+        "postal_code": "02062",
+        "lat": 42.1822517,
+        "lon": -71.2271431
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Biserica Ortodoxă Română „Sfânta Parascheva” Boston",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.saintparascheva.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biserica Ortodoxă Română „Sfânta Parascheva” Boston",
+        "address": "171 Water Street",
+        "city": "Wakefield",
+        "region": "MA",
+        "postal_code": "01880",
+        "lat": 42.5025037,
+        "lon": -71.0633241
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://tbewellesley.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "10 Bethel Road",
+        "city": "Wellesley",
+        "region": "MA",
+        "postal_code": "02481",
+        "lat": 42.3192886,
+        "lon": -71.2524723
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Wellesley Hills Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://hillschurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wellesley Hills Congregational Church",
+        "address": "207 Washington Street",
+        "city": "Wellesley Hills",
+        "postal_code": "02481",
+        "lat": 42.31561,
+        "lon": -71.2712079
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Saint Andrews Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://standrewswellesley.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Andrews Episcopal Church",
+        "address": "79 Denton Road",
+        "city": "Wellesley",
+        "region": "MA",
+        "postal_code": "02482",
+        "lat": 42.2931646,
+        "lon": -71.2944244
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Arlington Street Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://arlingtonstreet.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arlington Street Church",
+        "address": "351 Boylston Street",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02116",
+        "lat": 42.3520251,
+        "lon": -71.0712798
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Concord Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://concordmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Concord Museum",
+        "address": "200 Lexington Road",
+        "city": "Concord",
+        "region": "MA",
+        "postal_code": "01742",
+        "country": "US",
+        "lat": 42.4576815,
+        "lon": -71.3419166
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "CuriOdyssey",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://curiodyssey.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CuriOdyssey",
+        "region": "CA",
+        "lat": 37.5906177,
+        "lon": -122.3197282
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Oakland-Elmhurst Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://oaklandelmhurstca.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oakland-Elmhurst Seventh-day Adventist Church",
+        "lat": 37.7512904,
+        "lon": -122.1582804
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Fairhaven Bible Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://www.fairhavenbiblechapel.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fairhaven Bible Chapel",
+        "address": "401 MacArthur Boulevard",
+        "postal_code": "94577",
+        "lat": 37.738818,
+        "lon": -122.1452432
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Berkeley Memory Care Community",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.silverado.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Berkeley Memory Care Community",
+        "address": "2235 Sacramento Street",
+        "city": "Berkeley",
+        "postal_code": "94702",
+        "country": "US",
+        "lat": 37.8662168,
+        "lon": -122.281245
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "SOMArts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://somarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SOMArts",
+        "address": "934 Brannan Street",
+        "lat": 37.771181,
+        "lon": -122.406516
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Museum of Craft and Design",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://sfmcd.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Craft and Design",
+        "lat": 37.7569273,
+        "lon": -122.387959
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Townsend Amphitheater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://botanicalgarden.berkeley.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Townsend Amphitheater",
+        "lat": 37.875272,
+        "lon": -122.240269
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Gyuto Foundation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gyutofoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gyuto Foundation",
+        "address": "6401 Bernhard Avenue",
+        "city": "Richmond",
+        "region": "CA",
+        "postal_code": "94805",
+        "lat": 37.9430358,
+        "lon": -122.310093
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Japantown Peace Gallery",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.njahs.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Japantown Peace Gallery",
+        "address": "1684 Post Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94115",
+        "lat": 37.7857378,
+        "lon": -122.4294507
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Covenant Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://thecovberkeley.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Covenant Church",
+        "address": "2618 San Pablo Avenue",
+        "lat": 37.858559,
+        "lon": -122.2890069
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Oakland United Beerworks",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://oaklandunitedbeerworks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oakland United Beerworks",
+        "lat": 37.7945171,
+        "lon": -122.2719943
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Green Gulch Farm Zen Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sfzc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Green Gulch Farm Zen Center",
+        "lat": 37.8660792,
+        "lon": -122.5633871
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Chabot Space and Science Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://chabotspace.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chabot Space and Science Center",
+        "address": "10000 Skyline Boulevard",
+        "city": "Oakland",
+        "region": "CA",
+        "lat": 37.8184631,
+        "lon": -122.1806867
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Peninsula Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://peninsulabooks.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Peninsula Books",
+        "address": "441 Westlake Center",
+        "city": "Daly City",
+        "region": "CA",
+        "postal_code": "94015",
+        "lat": 37.69991,
+        "lon": -122.4824741
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Artists Television Access",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.atasite.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Artists Television Access",
+        "address": "992 Valencia Street",
+        "lat": 37.7570846,
+        "lon": -122.4212905
+      },
+      "_metro": "San Francisco, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Conservatory of Flowers",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://gggp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Conservatory of Flowers",
+        "address": "100 John F Kennedy Drive",
+        "region": "CA",
+        "postal_code": "94118-4504",
+        "lat": 37.7726146,
+        "lon": -122.4602244
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Bird and Beckett",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://birdbeckett.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bird and Beckett",
+        "address": "653 Chenery Street",
+        "lat": 37.734369,
+        "lon": -122.4329885
+      },
+      "_metro": "San Francisco, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Rhoda Goldman Plaza",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+ics",
+      "base_url": "https://rgplaza.jfcs.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rhoda Goldman Plaza",
+        "address": "2180 Post Street",
+        "lat": 37.7850499,
+        "lon": -122.4376834
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Temple Beth Abraham",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tbaoakland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Beth Abraham",
+        "address": "327 MacArthur Boulevard",
+        "city": "Oakland",
+        "postal_code": "94610",
+        "lat": 37.8136964,
+        "lon": -122.2518103
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "San Francisco Chinese Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sanfranciscochineseca.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "San Francisco Chinese Seventh-Day Adventist Church",
+        "address": "7777 Geary Boulevard",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94121",
+        "country": "US",
+        "lat": 37.778959,
+        "lon": -122.5026323
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Tourist Club Oakland",
+      "category": "community",
+      "_found": "osm:biergarten -> tribe+jsonld-event+ics",
+      "base_url": "https://naturefriendsoakland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tourist Club Oakland",
+        "address": "3115 Butters Drive",
+        "city": "Oakland",
+        "lat": 37.8072873,
+        "lon": -122.1889099
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Heart & Soul Center of Light",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heartsoulcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heart & Soul Center of Light",
+        "address": "5811 Racine Street",
+        "lat": 37.8443175,
+        "lon": -122.261831
+      },
+      "_metro": "San Francisco, United States"
     }
   ],
   "_not_included": {

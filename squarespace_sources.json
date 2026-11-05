@@ -6100,6 +6100,457 @@
         "lon": -71.0746568
       },
       "_metro": "Boston, United States"
+    },
+    {
+      "name": "Bread of Life",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.breadoflifemalden.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bread of Life",
+        "address": "54 Eastern Avenue",
+        "city": "Malden",
+        "region": "MA",
+        "postal_code": "02148",
+        "lat": 42.4243732,
+        "lon": -71.0660011
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Portico Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://porticobrewing.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Portico Brewing",
+        "address": "101 South Street",
+        "city": "Somerville",
+        "region": "MA",
+        "postal_code": "02143",
+        "lat": 42.3747988,
+        "lon": -71.091198
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Coastal Mass Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://coastalmassbrewing.com/our-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Coastal Mass Brewing",
+        "address": "95 Rantoul Street",
+        "lat": 42.5448195,
+        "lon": -70.8846913
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Upstairs at Bow",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.upstairsatbow.com/public-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Upstairs at Bow",
+        "address": "1 Bow Market Way",
+        "city": "Somerville",
+        "region": "MA",
+        "postal_code": "02143",
+        "lat": 42.3810431,
+        "lon": -71.0980085
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Life Drawing Boston",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.lifedrawingboston.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Life Drawing Boston",
+        "address": "72 Joy Street",
+        "city": "Somerville",
+        "region": "MA",
+        "postal_code": "02143",
+        "lat": 42.3786056,
+        "lon": -71.0865864
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Shirley-Eustis House",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.shirleyeustishouse.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Shirley-Eustis House",
+        "address": "33 Shirley Street",
+        "lat": 42.3235208,
+        "lon": -71.0717786
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://allsaintsbelmont.org/calendar-1",
+      "max_events": 200,
+      "venue": {
+        "name": "?",
+        "address": "17 Clark Street",
+        "city": "Belmont",
+        "lat": 42.3933832,
+        "lon": -71.1757104
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Saint Bartholomew's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stbartscambridge.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Bartholomew's Episcopal Church",
+        "address": "239;241 Harvard Street",
+        "lat": 42.3681392,
+        "lon": -71.1005464
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Wilmington Dance Academy",
+      "category": "fitness",
+      "_found": "osm:dance -> squarespace",
+      "collection": "http://wilmingtondanceacademy.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Wilmington Dance Academy",
+        "address": "442 Main Street",
+        "city": "Wilmington",
+        "region": "MA",
+        "postal_code": "01887",
+        "lat": 42.5462885,
+        "lon": -71.1732557
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "The Chapel of St. Anne",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.chapelofstanne.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Chapel of St. Anne",
+        "address": "22 Claremont Avenue",
+        "city": "Arlington",
+        "region": "MA",
+        "postal_code": "02474",
+        "lat": 42.4213135,
+        "lon": -71.185298
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Anchor Bay Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.anchorbaychurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Anchor Bay Church",
+        "address": "10 Dane Street",
+        "city": "Beverly",
+        "postal_code": "01915",
+        "lat": 42.5518745,
+        "lon": -70.877669
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Hingham Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://hccucc.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Hingham Congregational Church",
+        "address": "378 Main Street",
+        "lat": 42.2288765,
+        "lon": -70.8811623
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Palmer Cove Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.pcyc-salem.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Palmer Cove Yacht Club",
+        "address": "74 Leavitt Street",
+        "lat": 42.5144876,
+        "lon": -70.8879438
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Urban Farming Institute",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://www.urbanfarminginstitute.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Urban Farming Institute",
+        "lat": 42.2799361,
+        "lon": -71.0891708
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "GLBT History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.glbthistory.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "GLBT History Museum",
+        "address": "4127 18th Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94114",
+        "lat": 37.7607664,
+        "lon": -122.435607
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Unbound",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://unbound-sf.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Unbound",
+        "address": "1018 Valencia Street",
+        "city": "San Francisco",
+        "lat": 37.7565551,
+        "lon": -122.4212482
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Comix Experience",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.comixexperience.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Comix Experience",
+        "address": "305 Divisadero Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94117",
+        "lat": 37.7723937,
+        "lon": -122.437438
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Eastside Cultural Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.eastsideartsalliance.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Eastside Cultural Center",
+        "lat": 37.7835103,
+        "lon": -122.2363945
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "The Sound Room",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.soundroom.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Sound Room",
+        "lat": 37.8191534,
+        "lon": -122.261706
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Tint Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.thetintgallery.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Tint Gallery",
+        "address": "149 Gough Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94102",
+        "lat": 37.7747795,
+        "lon": -122.4227285
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "2727 California Street",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.2727.today/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "2727 California Street",
+        "address": "2727 California Street",
+        "city": "Berkeley",
+        "region": "CA",
+        "postal_code": "94703",
+        "lat": 37.8580268,
+        "lon": -122.2776872
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Medicine for Nightmares",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://medicinefornightmares.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Medicine for Nightmares",
+        "address": "3036 24th Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94110",
+        "lat": 37.7527054,
+        "lon": -122.4126904
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Islamic Cultural Center of Northern California",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://iccnc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Islamic Cultural Center of Northern California",
+        "address": "1453 Madison Street",
+        "lat": 37.8023404,
+        "lon": -122.2640805
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Ebenezer / herchurch Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.herchurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Ebenezer / herchurch Lutheran Church",
+        "address": "678 Portola Drive",
+        "postal_code": "94127",
+        "lat": 37.7450942,
+        "lon": -122.4532284
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Limitless Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.limitlesschurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Limitless Church",
+        "address": "1120 Bayswater Avenue",
+        "city": "Burlingame",
+        "region": "CA",
+        "postal_code": "94010",
+        "lat": 37.5769455,
+        "lon": -122.3433267
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Old Saint Mary's Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.osmsf.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Old Saint Mary's Cathedral",
+        "address": "660 California Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94108",
+        "lat": 37.7928532,
+        "lon": -122.4057335
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Holy Trinity Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.holytrinitysf.org/events-upcoming",
+      "max_events": 200,
+      "venue": {
+        "name": "Holy Trinity Greek Orthodox Church",
+        "address": "999 Brotherhood Way",
+        "city": "San Francisco",
+        "region": "CA",
+        "lat": 37.7133963,
+        "lon": -122.4809765
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Regional Parks Botanic Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://nativeplants.org/events-and-classes/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Regional Parks Botanic Garden",
+        "lat": 37.8936348,
+        "lon": -122.2432687
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Home of Truth Spiritual Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.thehomeoftruth.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Home of Truth Spiritual Center",
+        "address": "1300 Grand Street",
+        "city": "Alameda",
+        "region": "CA",
+        "postal_code": "94501",
+        "lat": 37.7695167,
+        "lon": -122.2572222
+      },
+      "_metro": "San Francisco, United States"
     }
   ],
   "_not_included": {
