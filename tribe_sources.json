@@ -34572,6 +34572,758 @@
       },
       "_metro": "Philadelphia, United States",
       "crawl_delay": 3.0
+    },
+    {
+      "name": "Iffy Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://iffybooks.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Iffy Books",
+        "address": "404 South 20th Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19146",
+        "lat": 39.9465598,
+        "lon": -75.1747954
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Museum for Art in Wood",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museumforartinwood.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum for Art in Wood",
+        "address": "141 North 3rd Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19106",
+        "lat": 39.9533851,
+        "lon": -75.1448564
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Immanuel Orthodox Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://immanuelopc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Immanuel Orthodox Presbyterian Church",
+        "city": "Bellmawr",
+        "region": "NJ",
+        "postal_code": "08031",
+        "lat": 39.8745101,
+        "lon": -75.1117251
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Rose Valley Museum at Thunderbird Lodge",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://rosevalleymuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Rose Valley Museum at Thunderbird Lodge",
+        "address": "41 Rose Valley Road",
+        "city": "Rose Valley",
+        "region": "PA",
+        "postal_code": "19063",
+        "lat": 39.8987246,
+        "lon": -75.3879111
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Please Touch Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.pleasetouchmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Please Touch Museum",
+        "address": "4231 Avenue of the Republic",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19131",
+        "lat": 39.9794914,
+        "lon": -75.2090399
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Abington Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://abingtonartcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Abington Art Center",
+        "address": "515 Meetinghouse Road",
+        "city": "Jenkintown",
+        "region": "PA",
+        "postal_code": "19046",
+        "lat": 40.0922886,
+        "lon": -75.1170411
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Congregation Rodeph Shalom",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rodephshalom.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Rodeph Shalom",
+        "address": "615 North Broad Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19123",
+        "lat": 39.9637209,
+        "lon": -75.1604608
+      },
+      "_metro": "Philadelphia, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "St. John Chrysostom Albanian Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stjcaoc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. John Chrysostom Albanian Orthodox Church",
+        "address": "237 North 17th Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19103",
+        "lat": 39.9578719,
+        "lon": -75.1670926
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Elmwood Park Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+my-calendar+jsonld-event+ics",
+      "base_url": "https://elmwoodparkzoo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Elmwood Park Zoo",
+        "lat": 40.1326945,
+        "lon": -75.3384996
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Christ Church Philadelphia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://christchurchphila.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Church Philadelphia",
+        "address": "22 North 2nd Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19106",
+        "country": "US",
+        "lat": 39.9507256,
+        "lon": -75.1438805
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Temple Beth Zion-Beth Israel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://bzbi.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Beth Zion-Beth Israel",
+        "address": "300 South 18th Street",
+        "city": "Philadelphia",
+        "lat": 39.947559,
+        "lon": -75.1714451
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "National Liberty Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.libertymuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Liberty Museum",
+        "address": "321 Chestnut Street",
+        "city": "Philadelphia",
+        "postal_code": "19106",
+        "lat": 39.949077,
+        "lon": -75.1468412
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Philadelphia Aviation County Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.paccwings.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Philadelphia Aviation County Club",
+        "address": "1399 Narcissa Road",
+        "lat": 40.1350633,
+        "lon": -75.26435
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Scottish Rite Auditorium",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://scottishriteauditorium.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scottish Rite Auditorium",
+        "address": "315 White Horse Pike",
+        "city": "Collingswood",
+        "region": "NJ",
+        "postal_code": "08107",
+        "lat": 39.9144757,
+        "lon": -75.0846881
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Beth Am Israel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bethamisrael.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beth Am Israel",
+        "address": "1301 Hagys Ford Road",
+        "city": "Penn Valley",
+        "region": "PA",
+        "postal_code": "19072",
+        "country": "US",
+        "lat": 40.0286773,
+        "lon": -75.2514398
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Philadelphia Boulevard Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://philadelphiaboulevardpa.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Philadelphia Boulevard Seventh-day Adventist Church",
+        "address": "8441 Roosevelt Boulevard",
+        "city": "Philadelphia",
+        "postal_code": "19152-2080",
+        "lat": 40.0639167,
+        "lon": -75.0412849
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Simpson House",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.simpsonsenior.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Simpson House",
+        "lat": 39.9959026,
+        "lon": -75.2167371
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Callanwolde Fine Arts Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://callanwolde.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Callanwolde Fine Arts Center",
+        "address": "980 Briarcliff Road Northeast",
+        "region": "GA",
+        "lat": 33.7817721,
+        "lon": -84.3452031
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Alliance Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.alliancetheatre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alliance Theatre",
+        "address": "1280 Peachtree Street Northeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30309",
+        "lat": 33.7891563,
+        "lon": -84.385621
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Georgia Trust for Historic Preservation",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.georgiatrust.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Georgia Trust for Historic Preservation",
+        "address": "1516 Peachtree Street Northeast",
+        "lat": 33.7960359,
+        "lon": -84.388201
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Treetop Quest Dunwoody",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.treetopquest.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Treetop Quest Dunwoody",
+        "lat": 33.9337246,
+        "lon": -84.3023859
+      },
+      "_metro": "Atlanta, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Laughing Skull Lounge",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://laughingskulllounge.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Laughing Skull Lounge",
+        "address": "878 Peachtree Street Northeast",
+        "lat": 33.7788416,
+        "lon": -84.3844753
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Whole World Improv Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.wholeworldtheatre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Whole World Improv Theatre",
+        "address": "1216 Spring Street Northwest",
+        "city": "Atlanta",
+        "postal_code": "30309",
+        "lat": 33.7879325,
+        "lon": -84.3895418
+      },
+      "_metro": "Atlanta, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Atlanta History Center - Midtown",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://www.atlantahistorycenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Atlanta History Center - Midtown",
+        "address": "979 Peachtree Street Northeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30309",
+        "lat": 33.7814213,
+        "lon": -84.3845272
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Museum of Contemporary Art of Georgia",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://mocaga.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Contemporary Art of Georgia",
+        "address": "1260 Foster Street Northwest",
+        "city": "Atlanta",
+        "postal_code": "30318",
+        "lat": 33.7861721,
+        "lon": -84.4149986
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Cobb Galleria Centre",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe",
+      "base_url": "https://cobbconvention.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cobb Galleria Centre",
+        "address": "2 Galleria Parkway Southeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30339",
+        "lat": 33.8839367,
+        "lon": -84.4662479
+      },
+      "_metro": "Atlanta, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Marietta Cobb Museum of Art",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://mariettacobbartmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Marietta Cobb Museum of Art",
+        "address": "30 Atlanta Street Southeast",
+        "city": "Marietta",
+        "postal_code": "30060",
+        "lat": 33.9513296,
+        "lon": -84.5493374
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Olde Towne Athletic Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://oldetowneathleticclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Olde Towne Athletic Club",
+        "address": "4950 Olde Towne Parkway Northeast",
+        "lat": 33.9677528,
+        "lon": -84.408073
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "The William Bremen Jewish Home",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.jewishhomelife.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The William Bremen Jewish Home",
+        "address": "3156 Howell Mill Road Northwest",
+        "city": "Atlanta",
+        "postal_code": "30327",
+        "lat": 33.8401682,
+        "lon": -84.4282879
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "North Avenue Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://napc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Avenue Presbyterian Church",
+        "address": "607 Peachtree Street Northeast",
+        "city": "Atlanta",
+        "postal_code": "30308",
+        "lat": 33.770918,
+        "lon": -84.3843029
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "The Church & Ponce & Highland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.churchatponceandhighland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Church & Ponce & Highland",
+        "address": "1085 Ponce de Leon Avenue Northeast",
+        "city": "Atlanta",
+        "postal_code": "30306",
+        "lat": 33.7734418,
+        "lon": -84.3520378
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Chamblee First United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://chambleeumc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chamblee First United Methodist Church",
+        "address": "4147 Chamblee Dunwoody Road",
+        "city": "Chamblee",
+        "postal_code": "30341",
+        "lat": 33.9111936,
+        "lon": -84.308658
+      },
+      "_metro": "Atlanta, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Theodore Parker Unitarian Universalist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tparkerchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theodore Parker Unitarian Universalist Church",
+        "address": "1859 Centre Street",
+        "city": "West Roxbury",
+        "postal_code": "02132",
+        "lat": 42.2863266,
+        "lon": -71.1553007
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Pierce/Hichborn House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.paulreverehouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pierce/Hichborn House Museum",
+        "region": "MA",
+        "lat": 42.3635312,
+        "lon": -71.0537681
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "YMCA of Greater Boston",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ymcaboston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YMCA of Greater Boston",
+        "address": "615 Washington Street",
+        "city": "Brighton",
+        "region": "MA",
+        "postal_code": "02135",
+        "lat": 42.3508987,
+        "lon": -71.167253
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Harpoon Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://harpoonbrewery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Harpoon Brewery",
+        "address": "306 Northern Avenue",
+        "city": "Boston",
+        "postal_code": "02210",
+        "lat": 42.3472714,
+        "lon": -71.0339692
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Old Town Hall",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.salem.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old Town Hall",
+        "address": "32 Derby Square",
+        "city": "Salem",
+        "region": "MA",
+        "postal_code": "01970",
+        "lat": 42.5208842,
+        "lon": -70.89463
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Rockwell",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://therockwell.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rockwell",
+        "address": "255 Elm Street",
+        "city": "Somerville",
+        "region": "MA",
+        "postal_code": "02144",
+        "lat": 42.3955069,
+        "lon": -71.121822
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "South Shore Art Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ssac.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Shore Art Center",
+        "address": "119 Ripley Road",
+        "lat": 42.2407157,
+        "lon": -70.8037882
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Co|So: Copley Society of Art",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://copleysociety.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Co|So: Copley Society of Art",
+        "address": "158 Newbury Street",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02116",
+        "lat": 42.3505044,
+        "lon": -71.078326
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "PKL Boston",
+      "category": "community",
+      "_found": "osm:restaurant -> tribe+jsonld-event+ics",
+      "base_url": "https://playpkl.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "PKL Boston",
+        "address": "64 C Street",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02127",
+        "lat": 42.3370827,
+        "lon": -71.0557947
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "The Dance Complex",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+ics",
+      "base_url": "https://www.dancecomplex.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Dance Complex",
+        "address": "536 Massachusetts Avenue",
+        "city": "Cambridge",
+        "region": "MA",
+        "postal_code": "02139",
+        "lat": 42.3643035,
+        "lon": -71.102235
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "New England Aquarium",
+      "category": "outdoors",
+      "_found": "osm:aquarium -> tribe+jsonld-event+ics",
+      "base_url": "https://www.neaq.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New England Aquarium",
+        "address": "1 Central Wharf",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02110",
+        "lat": 42.3591988,
+        "lon": -71.0493558
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Dorothy Quincy Homestead",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://nscdama.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dorothy Quincy Homestead",
+        "lat": 42.2580028,
+        "lon": -71.0075188
+      },
+      "_metro": "Boston, United States"
     }
   ],
   "_not_included": {

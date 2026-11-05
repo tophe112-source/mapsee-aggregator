@@ -5655,6 +5655,451 @@
         "lon": -75.1469838
       },
       "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Hamilton Mansion",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.woodlandsphila.org/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Hamilton Mansion",
+        "lat": 39.9456925,
+        "lon": -75.2037357
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Elfreth's Alley Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.elfrethsalley.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Elfreth's Alley Museum",
+        "lat": 39.9527083,
+        "lon": -75.1424059
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "First Presbyterian Church Philadelphia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.fpcphila.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Presbyterian Church Philadelphia",
+        "address": "201 South 21st Street",
+        "lat": 39.9503956,
+        "lon": -75.1755995
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Saint Nicholas Russian Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stnicholaseoc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Nicholas Russian Orthodox Church",
+        "address": "817 North 7th Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19123",
+        "lat": 39.965329,
+        "lon": -75.148819
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Epic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.epic.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Epic Church",
+        "address": "6035 Ridge Avenue",
+        "city": "Philadelphia",
+        "region": "PA",
+        "lat": 40.032838,
+        "lon": -75.2136345
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Woodford Mansion",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.woodfordmansion.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Woodford Mansion",
+        "lat": 39.9931695,
+        "lon": -75.187843
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Emerald Wildflower Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.emeraldwildflowergarden.org/calendar2024",
+      "max_events": 200,
+      "venue": {
+        "name": "Emerald Wildflower Garden",
+        "address": "2321 Emerald Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19125",
+        "lat": 39.9838065,
+        "lon": -75.130999
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Rosenbach Museum & Library",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.rosenbach.org/programs",
+      "max_events": 200,
+      "venue": {
+        "name": "The Rosenbach Museum & Library",
+        "address": "2008 Delancey Place",
+        "city": "Philadelphia",
+        "region": "PA",
+        "lat": 39.9473534,
+        "lon": -75.1750226
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Saint Marks Reformed Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.saintmarksrec.org/parish-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Marks Reformed Episcopal Church",
+        "address": "1162 Beverly Road",
+        "city": "Rydal",
+        "region": "PA",
+        "postal_code": "19046",
+        "lat": 40.09657,
+        "lon": -75.1131455
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Mi Salud Wellness Center",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://misaludwellness.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mi Salud Wellness Center",
+        "address": "200 East Wyoming Avenue",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19120",
+        "lat": 40.0210067,
+        "lon": -75.1222346
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "ISKCON Philadelphia Hare Krishna temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.iskconphiladelphia.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "ISKCON Philadelphia Hare Krishna temple",
+        "address": "51 West Allens Lane",
+        "city": "Philadelphia",
+        "region": "PA",
+        "lat": 40.0606104,
+        "lon": -75.1933084
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Trinity Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.trinityberwyn.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Trinity Presbyterian Church",
+        "address": "640 Berwyn Avenue",
+        "city": "Berwyn",
+        "region": "PA",
+        "postal_code": "19312",
+        "lat": 40.0463474,
+        "lon": -75.4414743
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Neighborhood Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.neighborhoodchurchatl.com/happenings",
+      "max_events": 200,
+      "venue": {
+        "name": "Neighborhood Church",
+        "address": "1561 McLendon Avenue Northeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30307",
+        "lat": 33.7646032,
+        "lon": -84.3368464
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "The Ellis Center",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.elliscenter.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Ellis Center",
+        "address": "739 West Peachtree Street Northwest",
+        "city": "Atlanta",
+        "postal_code": "30308",
+        "lat": 33.7749515,
+        "lon": -84.3868366
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "The Reading Attic",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.thereadingattic.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Reading Attic",
+        "address": "21 West Park Square Northwest",
+        "city": "Marietta",
+        "region": "GA",
+        "postal_code": "30060",
+        "lat": 33.9525109,
+        "lon": -84.5504184
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "First United Methodist Church of Marietta",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.mariettafumc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First United Methodist Church of Marietta",
+        "address": "56 Whitlock Avenue Southwest",
+        "city": "Marietta",
+        "region": "GA",
+        "postal_code": "30064",
+        "lat": 33.9538626,
+        "lon": -84.5540238
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "First Baptist Church of Decatur",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.fbcdecatur.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Baptist Church of Decatur",
+        "address": "308 Clairemont Avenue",
+        "city": "Decatur",
+        "region": "GA",
+        "postal_code": "30030",
+        "lat": 33.7787742,
+        "lon": -84.2977942
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Mountain Partk United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.mountainparkumc.org/eventlist",
+      "max_events": 200,
+      "venue": {
+        "name": "Mountain Partk United Methodist Church",
+        "address": "1405 Rockbridge Road",
+        "city": "Stone Mountain",
+        "postal_code": "30087",
+        "lat": 33.8370631,
+        "lon": -84.1304555
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Dad's Garage",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.dadsgarage.com/shows",
+      "max_events": 200,
+      "venue": {
+        "name": "Dad's Garage",
+        "address": "569 Ezzard Street Southeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30312",
+        "lat": 33.7530548,
+        "lon": -84.3686547
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Romanian Orthodox Church Sts. Constantine and Helen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.scechurch.org/evenimente",
+      "max_events": 200,
+      "venue": {
+        "name": "Romanian Orthodox Church Sts. Constantine and Helen",
+        "address": "664 Dickens Road Northwest",
+        "city": "Lilburn",
+        "region": "GA",
+        "postal_code": "30047",
+        "lat": 33.8934288,
+        "lon": -84.1647676
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "First Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.fccnorwood.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Congregational Church",
+        "address": "100 Winter Street",
+        "city": "Norwood",
+        "region": "MA",
+        "postal_code": "02062",
+        "lat": 42.1909319,
+        "lon": -71.2058867
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Cohasset Historical Society Building",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.cohassethistoricalsociety.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Cohasset Historical Society Building",
+        "address": "106 South Main Street",
+        "lat": 42.2387652,
+        "lon": -70.7996633
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Democracy Brewing",
+      "category": "community",
+      "_found": "osm:restaurant -> squarespace",
+      "collection": "https://www.democracybrewing.com/public-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Democracy Brewing",
+        "address": "35 Temple Place",
+        "postal_code": "02111",
+        "lat": 42.3551144,
+        "lon": -71.0620624
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Notch Brewery, Tap Room & Biergarten",
+      "category": "community",
+      "_found": "osm:restaurant -> squarespace",
+      "collection": "https://www.notchbrewing.com/salem-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Notch Brewery, Tap Room & Biergarten",
+        "address": "283R Derby Street",
+        "city": "Salem",
+        "region": "MA",
+        "postal_code": "01970",
+        "lat": 42.5196686,
+        "lon": -70.8907968
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "turtle studios",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.turtlestudios.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "turtle studios",
+        "address": "213 California Street",
+        "city": "Newton",
+        "region": "MA",
+        "postal_code": "02458",
+        "lat": 42.3649285,
+        "lon": -71.1968201
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Unbound Visual Arts Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.unboundvisualarts.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Unbound Visual Arts Gallery",
+        "address": "43 North Beacon Street",
+        "postal_code": "02134",
+        "lat": 42.3539812,
+        "lon": -71.1394867
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Farthest Star Sake",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.fartheststarsake.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Farthest Star Sake",
+        "lat": 42.1935118,
+        "lon": -71.3281423
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Idle Hands Craft Ales",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.idlehandscraftales.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Idle Hands Craft Ales",
+        "address": "89 Commercial Street",
+        "city": "Malden",
+        "region": "MA",
+        "postal_code": "02148",
+        "lat": 42.4243208,
+        "lon": -71.0746568
+      },
+      "_metro": "Boston, United States"
     }
   ],
   "_not_included": {

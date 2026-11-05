@@ -63030,5 +63030,528 @@
     "geocode_suffix": ", Chester, PA",
     "limit": 300,
     "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Old Academy Players",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/oldacademyplayers.org_l4hmlnkafr3nnbmpt9n091c490%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "City Winery",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://awsapi.citywinery.com/feeds/Philadelphia/events.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Chestnut Hill Brewing Company",
+    "category": "community",
+    "_found": "osm:bar -> events-manager",
+    "url": "https://www.chestnuthillbrewingcompany.com/events/?ical=1",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Wooden Shoe Books",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/t8qmive63n27mdj7gt03ntc2u8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Kadampa Meditation Center Philadelphia",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/9dc8fbtg70vojl56vl82su20mk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "New Life Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4v3a4dpd6jdjmoja7nmc3qd5tg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Glenside, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Bonesaw Brewing Deptford Pilot House",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ffe912bfbffb95a4464ad0af8fe8033d7360051c4136eb203553f0d0438d0a00%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Deptford, NJ",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Springton Lake Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1dd0375c1581fb77311fca7ece3d251c6f70dcefa4f9818218f6f38fdf075f3e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Newtown Square",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Old Zion Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/856e5795b805b90c118d725f75f5bc5dc36e19efb79d6ddacc53ba405a58887c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Highway Mission Tabernacle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40reslifeag.org/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Lehman Memorial United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40lehmanumc.org/public/basic.ics",
+    "geocode_suffix": ", Hatboro, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Saints Agatha and James Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4od1gvmqg6i6ag1i80f1o1o65k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Lutheran Church of the Holy Communion",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.lc-hc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Church of the Lord Jesus Christ of the Apostolic Faith",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bhd0bvr53hof45edl8d2tpb8eg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "First Unitarian Church of Philadelphia",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/afdng7e6u1t56cisad10qkkbto%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Thomas Paine Unitarian Universalist Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://tpuuf.org/fundraising-events/?ical=1",
+    "geocode_suffix": ", Collegeville",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/george%40anngoc.org/public/basic.ics",
+    "geocode_suffix": ", Elkins Park, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "First Christian Assembly",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.fcaphila.org/events.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Oxford Valley Chapel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://oxfordvalleychapel.org/events.ics",
+    "geocode_suffix": ", Levittown, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Hiway Theatre",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://www.hiwaytheater.org/cal.php",
+    "geocode_suffix": ", Jenkintown, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "All Saints Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/allsaintstorresdale.org_nbvg6dhoflbku766dlskr0v0s4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Calvary Center for Culture and Community",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fghdqpeuh8c7kom0cn1or2jfr0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Charles H. Trout Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/harcum.edu_eu5l353akgvhsbo24qk0naq5uo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", PA",
+    "limit": 300,
+    "venue": {
+      "name": "Charles H. Trout Library",
+      "region": "PA",
+      "country": "US",
+      "lat": 40.0211221,
+      "lon": -75.3123556,
+      "street_hint": "750 West Montgomery Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Calvary Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendars%40calvarypreswyncote.org/public/basic.ics",
+    "geocode_suffix": ", Wyncote, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Word Formed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://wordformed.org/events.ics",
+    "geocode_suffix": ", Drexel Hill, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Saint George Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c6aba0a3ae0c1c42905e12035c728db78d3383442af5d214bdcfbafe70750ec7%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Norristown, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Fort Washington Swim and Tennis Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tennis%40fortswimtennis.org/public/basic.ics",
+    "geocode_suffix": ", Ambler, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Grace Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gracebroomall.org/events.ics",
+    "geocode_suffix": ", Broomall, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "St. Timothy’s Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/secretary%40sttimsaston.com/public/basic.ics",
+    "geocode_suffix": ", Aston, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Proclamation Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sb03er46gc4jh0mjgmg9ugke41pchn4h%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bryn Mawr, PA",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Washington Memorial Chapel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40wmchapel.org/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Manayunk Bridge Garden",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/383fc50d0ec6f851a8a5b554fc34d2d7ae47194cc1ce25b2367e50d0f3c53e34%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "The Lord's New Church which is Nova Hierosolyma",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vh5h47vu0m3vfma78embs0o534%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Decatur First United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f5abf482f258d22ebdd1d692e986a95edca6905d50ea8af1acde01f947a31f94%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "DramaTech",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v5q5mlog7n393me926h4nsige8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "University Catholic Center at Emory University",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_iasvg6g1dgrg4b5a0lsi7rt75c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "West Cobb Islamic Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_999f16dec3ab2d74543a26b80abc094d235b4980f6c4337d34808365a6603141%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "ATL BitLab",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://atlbitlab.com/calendar/events.ics",
+    "geocode_suffix": ", Atlanta, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Apostolic Johannite Church, Parish of Saint John the Baptist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9747f29d2c44f3492b529721431cd3e0bca36ea22e9d0ce43653f11ce5e8a3f8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Winnwood",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://winnwoodretire.com/events/?ical=1",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Grace House",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/team%40gracepeople.org/public/basic.ics",
+    "geocode_suffix": ", Atlanta",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Spivey Hall",
+    "category": "theater",
+    "_found": "osm:theatre -> event-organiser",
+    "url": "https://spiveyhall.org/?feed=eo-events",
+    "geocode_suffix": ", Morrow",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Mountain Park First Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9hp5inomi3ct95n21cadnsfiq8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stone Mountain",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Cornerstone Bible Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://cbclilburn.org/events.ics",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Cogregation Anshi S'Fard",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fjmpcm0vi9q3ardnbo1c8vjba0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Central Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/central%40cpcatlanta.org/public/basic.ics",
+    "geocode_suffix": ", Atlanta, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Embry Hills United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendars%40embryhillsumc.org/public/basic.ics",
+    "geocode_suffix": ", Atlanta",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Saint Stephen the Martyr Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/solutiosoftware.net_8msm9288ui8epu6ugdn14f27ts%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lilburn, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Hollydale United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v893f6vpofkohs2qlflht6v2ms%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Marietta, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "All Saints Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qgrgknrfollfcms1u54lo4cjtc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dunwoody, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "North River Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/d3cd33d21b7d0e573f9d0fa29f1587291bd11103c39f9cda42b789f19e82b63b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Marietta, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Church of the Redeemer in Chestnut Hill",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/redeemerch.org_uu639evhibs3pgjkmvn63i8lao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chestnut Hill, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Saint Demetrios Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e5ks70o2ir33ong9tqcigt1cqg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Weston, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "The Footlight Club",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rentals%40footlight.org/public/basic.ics",
+    "geocode_suffix": ", Jamaica Plain, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Comicazi",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q4fqj74if3smgobn8au8bh0f5g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Somerville, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Walden Woods Project",
+    "category": "community",
+    "_found": "osm:ngo -> events-manager",
+    "url": "https://www.walden.org/upcoming-events-and-event-catalog/?ical=1",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Alpha Krav Maga Boston",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_6099b1c1b17724e72365c2c4ba71e0e5f4f967203ee35abeb57eabd543cc05ca%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Malden, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
   }
 ]

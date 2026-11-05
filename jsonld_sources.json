@@ -25506,6 +25506,630 @@
         "lon": -75.3254028
       },
       "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Cresheim Valley Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://cvcpca.org/events-2/"
+      ],
+      "link_pattern": "https://cvcpca\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cresheim Valley Church",
+        "address": "501 West Springfield Avenue",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19118",
+        "lat": 40.06198,
+        "lon": -75.2090748
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Brooklyn Bowl",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://philadelphia.brooklynbowl.com/shows"
+      ],
+      "link_pattern": "https://philadelphia\\.brooklynbowl\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brooklyn Bowl",
+        "address": "1009 Canal Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19123",
+        "lat": 39.96525,
+        "lon": -75.1348956
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Attic Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.atticbrewing.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Attic Brewing Company",
+        "address": "137 Berkley Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19144",
+        "lat": 40.0229838,
+        "lon": -75.1616517
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Lower Providence Rod and Gun Club",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event+ics",
+      "listing": [
+        "https://lprgc.org/calendar/"
+      ],
+      "link_pattern": "https://lprgc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lower Providence Rod and Gun Club",
+        "lat": 40.1348871,
+        "lon": -75.4374893
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Underground Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://undergroundarts.org/events/"
+      ],
+      "link_pattern": "https://undergroundarts\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Underground Arts",
+        "address": "1200 Callowhill Street",
+        "postal_code": "19123",
+        "lat": 39.9590941,
+        "lon": -75.1590111
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Freedom Mortgage Pavilion",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.waterfrontamphitheater.com/events/"
+      ],
+      "link_pattern": "https://www\\.waterfrontamphitheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Freedom Mortgage Pavilion",
+        "lat": 39.94075,
+        "lon": -75.1297832
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Wilma Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://wilmatheater.org/event/"
+      ],
+      "link_pattern": "https://wilmatheater\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wilma Theater",
+        "address": "265 South Broad Street",
+        "city": "Philadelphia",
+        "postal_code": "19107",
+        "lat": 39.9471856,
+        "lon": -75.1643044
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Tenth Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.tenth.org/events/congregational-town-hall/"
+      ],
+      "link_pattern": "https://www\\.tenth\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tenth Presbyterian Church",
+        "address": "1701 Delancey Street",
+        "city": "Philadelphia",
+        "lat": 39.9472883,
+        "lon": -75.1699423
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Met",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.themetphilly.com/shows"
+      ],
+      "link_pattern": "https://www\\.themetphilly\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Met",
+        "lat": 39.9698307,
+        "lon": -75.1602976
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "MilkBoy Philadelphia",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://milkboyphilly.com/events/"
+      ],
+      "link_pattern": "https://milkboyphilly\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MilkBoy Philadelphia",
+        "address": "1100 Chestnut Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19107",
+        "lat": 39.9500041,
+        "lon": -75.1588037
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Mother Bethel African Methodist Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://motherbethel.org/church-events-calendar/"
+      ],
+      "link_pattern": "https://motherbethel\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mother Bethel African Methodist Episcopal Church",
+        "address": "419 South 6th Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19147",
+        "lat": 39.9433245,
+        "lon": -75.15176
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Camden County Historical Society",
+      "category": "arts",
+      "_found": "osm:museum -> wp-event-manager",
+      "listing": [
+        "https://cchsnj.org/events/"
+      ],
+      "link_pattern": "https://cchsnj\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Camden County Historical Society",
+        "lat": 39.9309044,
+        "lon": -75.0938516
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Holy Trinity Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.holytrinitynarberth.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holy Trinity Lutheran Church",
+        "address": "196 Woodbine Avenue",
+        "city": "Narberth",
+        "region": "PA",
+        "postal_code": "19072",
+        "country": "US",
+        "lat": 40.0091174,
+        "lon": -75.2611035
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Penn Cinema Huntingdon Valley",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://huntingdonvalley.penncinema.com/home/"
+      ],
+      "link_pattern": "https://huntingdonvalley\\.penncinema\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Penn Cinema Huntingdon Valley",
+        "address": "2068 County Line Road",
+        "city": "Huntingdon Valley",
+        "region": "PA",
+        "postal_code": "19006",
+        "lat": 40.1686739,
+        "lon": -75.0720041
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "R3 Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.r3church-icf.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "R3 Church",
+        "address": "812 Main Street",
+        "city": "Darby",
+        "region": "PA",
+        "postal_code": "19023",
+        "lat": 39.9181488,
+        "lon": -75.2588065
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Valley View Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.valleyviewseek.org/newsandevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Valley View Community Church",
+        "address": "778 Sunnyside Avenue",
+        "city": "Norristown",
+        "region": "PA",
+        "postal_code": "19403",
+        "lat": 40.143222,
+        "lon": -75.4149495
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Atlanta Symphony Orchestra",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.aso.org/events"
+      ],
+      "link_pattern": "https://www\\.aso\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Atlanta Symphony Orchestra",
+        "address": "1280 Peachtree Street Northeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30309",
+        "lat": 33.7888698,
+        "lon": -84.3854319
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "All The Tropes Romance Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.allthetropesbookstore.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "All The Tropes Romance Bookstore",
+        "address": "27 Doyle Street Southeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30317",
+        "lat": 33.7519095,
+        "lon": -84.3245034
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "The Book Bird",
+      "category": "learning",
+      "_found": "osm:books -> wix+jsonld-event",
+      "listing": [
+        "https://www.thebook-bird.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Book Bird",
+        "address": "70 North Avondale Road",
+        "city": "Avondale Estates",
+        "region": "GA",
+        "postal_code": "30002",
+        "lat": 33.7760496,
+        "lon": -84.2694919
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Georgia Aquarium",
+      "category": "outdoors",
+      "_found": "osm:aquarium -> jsonld-event",
+      "listing": [
+        "https://www.georgiaaquarium.org/event-calendar/"
+      ],
+      "link_pattern": "https://www\\.georgiaaquarium\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Georgia Aquarium",
+        "address": "225 Baker Street Northwest",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30313",
+        "country": "US",
+        "lat": 33.7633392,
+        "lon": -84.3950088
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "ArtsXchange",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.artsxchange.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "ArtsXchange",
+        "address": "2148 Newnan Street",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30344",
+        "lat": 33.6961159,
+        "lon": -84.4319742
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Atlanta Coliseum",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://atlantacoliseum.com/events/friendsgiving-duluth-ga-2026-11-22"
+      ],
+      "link_pattern": "https://atlantacoliseum\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Atlanta Coliseum",
+        "address": "2075 Market Street",
+        "city": "Duluth",
+        "region": "GA",
+        "postal_code": "30096",
+        "lat": 33.9580873,
+        "lon": -84.1294733
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Our Lady of the Assumption Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.olachurch.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Our Lady of the Assumption Catholic Church",
+        "address": "1350 Hearst Drive Northeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30319",
+        "lat": 33.8854077,
+        "lon": -84.3307428
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "First Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.firstpresatl.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "First Presbyterian Church",
+        "address": "1328 Peachtree Street Northeast",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30309",
+        "country": "US",
+        "lat": 33.7908063,
+        "lon": -84.3862
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Christ Orthodox Presbyterian Church (OPC)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://christopcatl.org/calendar/"
+      ],
+      "link_pattern": "https://christopcatl\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Christ Orthodox Presbyterian Church (OPC)",
+        "address": "495 Terrell Mill Road Southeast",
+        "city": "Marietta",
+        "lat": 33.9399716,
+        "lon": -84.4618351
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "City Church Marietta",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.citychurchmarietta.org/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "City Church Marietta",
+        "address": "176 Roswell Street Southeast",
+        "city": "Marietta",
+        "region": "GA",
+        "postal_code": "30060",
+        "lat": 33.9520277,
+        "lon": -84.548387
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Regent Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://regenttheatre.com/events/"
+      ],
+      "link_pattern": "https://regenttheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Regent Theatre",
+        "address": "7 Medford Street",
+        "city": "Arlington",
+        "region": "MA",
+        "lat": 42.4149692,
+        "lon": -71.1507453
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "All She Wrote",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.allshewrotebooks.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "All She Wrote",
+        "address": "451 Artisan Way",
+        "city": "Somerville",
+        "region": "MA",
+        "postal_code": "02145",
+        "country": "US",
+        "lat": 42.3951191,
+        "lon": -71.0785451
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Brattle Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://brattlefilm.org:443/"
+      ],
+      "link_pattern": "https://brattlefilm\\.org:443/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brattle Theatre",
+        "address": "40 Brattle Street",
+        "lat": 42.3735328,
+        "lon": -71.1214761
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "The West End Museum",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://thewestendmuseum.org/"
+      ],
+      "link_pattern": "https://thewestendmuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The West End Museum",
+        "lat": 42.364276,
+        "lon": -71.0637633
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "House of Blues Music Hall",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://boston.houseofblues.com/shows"
+      ],
+      "link_pattern": "https://boston\\.houseofblues\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "House of Blues Music Hall",
+        "address": "15 Lansdowne Street",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02215",
+        "lat": 42.3474106,
+        "lon": -71.0957606
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Off Cabot",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://thecabot.org/event/jeffrey-gaines/"
+      ],
+      "link_pattern": "https://thecabot\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Off Cabot",
+        "address": "9 Wallis Street",
+        "city": "Beverly",
+        "region": "MA",
+        "postal_code": "01915",
+        "lat": 42.5481039,
+        "lon": -70.8794186
+      },
+      "_metro": "Boston, United States"
     }
   ],
   "_not_included": {
