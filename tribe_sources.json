@@ -11661,6 +11661,14 @@
     {
       "name": "Bangalore International Centre - BIC",
       "category": "community",
+      "_category_aliases": "BIC's Around the World in 50 Sundays is the library series for children and parents. Its Young BIC, Film, Visual Arts and Performing Arts categories also have direct Mapsee equivalents.",
+      "category_aliases": {
+        "around-the-world-in-50-sundays": "kids",
+        "children-youngsters": "kids",
+        "art": "arts",
+        "performance-art": "arts",
+        "film": "arts"
+      },
       "_found": "osm:community_centre -> tribe",
       "base_url": "https://bangaloreinternationalcentre.org",
       "within_days": 120,

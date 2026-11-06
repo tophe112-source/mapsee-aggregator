@@ -172,6 +172,20 @@ check("a slug outside mapsee's vocabulary is dropped",
 check("a slug inside it is kept as a secondary",
       ev is not None and "outdoors" in (ev.categories or []), ev and ev.categories)
 
+bic = next(s for s in json.loads(Path("tribe_sources.json").read_text(encoding="utf-8"))["sites"]
+           if s["base_url"] == "https://bangaloreinternationalcentre.org")
+series = row(categories=[{"slug": "around-the-world-in-50-sundays"}])
+check("BIC's children's library series reaches families while retaining Community",
+      T.to_event(series, bic).category == "community" and T.to_event(series, bic).categories == ["kids"])
+check("BIC's local series names have no meaning at another publisher",
+      "kids" not in (T.to_event(series, SITE).categories or []))
+mixed = row(categories=[{"slug": "film"}, {"slug": "performance-art"}, {"slug": "music"}])
+check("recognized slugs survive and two BIC arts labels yield one Arts tag",
+      T.to_event(mixed, bic).categories == ["music", "arts"])
+full = row(categories=[{"slug": "art"}, {"slug": "food"}, {"slug": "music"}])
+check("a local alias cannot displace either of two recognized source categories",
+      T.to_event(full, bic).categories == ["food", "music"])
+
 # --------------------------------------------------------------------------- #
 # the config defaults only fill what the record left empty
 # --------------------------------------------------------------------------- #

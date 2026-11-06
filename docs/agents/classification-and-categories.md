@@ -3,6 +3,17 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a category key no lens opens, the kids/food/market regexes, category defaults, order pickup, a lens starved by its classifier.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **Bangalore International Centre's audience tags belong to the publisher (2026-11-06).**
+  Its Tribe API returned 11 event records for Nov 7–20. The November 15
+  drawing workshop for ages 6–10 carried a single category,
+  `around-the-world-in-50-sundays`, the centre's children's library series.
+  The site-scoped `category_aliases` map also reads its Film, Performing Arts
+  and Visual Arts labels. Five previously imported listings with room for
+  another category qualified for a targeted update: 4 Arts and 1 Kids. The
+  two existing secondary slots take precedence when both are occupied.
+  [Workshop](https://bangaloreinternationalcentre.org/event/create-your-exquisite-monsters/)
+  and [library series](https://bangaloreinternationalcentre.org/event/around-the-world-in-50-sundays/).
+
 - **A category key that no lens opens onto reaches only the two broad doors, mapsee.me and nearsie.com.** The
   vocabulary is `MAPSEE_CATEGORY_KEYS` in `mapsee_supabase_sync.py` (mirrored as
   `VALID_CATEGORIES` in `mapsee_ingest.py`) and it must match `CATEGORIES` in

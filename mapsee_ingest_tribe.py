@@ -571,9 +571,12 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     # vocabulary, so a source's private labels can never reach the database.
     primary = site.get("category", "community")
     cats = ev.get("categories")
-    extras = norm_categories(primary, [c.get("slug") or c.get("name")
-                                       for c in (cats if isinstance(cats, list) else [])
-                                       if isinstance(c, dict)])
+    labels = [str(c.get("slug") or c.get("name") or "").strip().lower()
+              for c in (cats if isinstance(cats, list) else []) if isinstance(c, dict)]
+    # A series slug can have a specific audience at one publisher. Keep its
+    # meaning local to that site and preserve recognized categories first.
+    aliases = site.get("category_aliases") or {}
+    extras = norm_categories(primary, labels, [aliases.get(label) for label in labels])
     description = _clean(ev.get("description"))
     # `website` is the organiser's free text, and a link without a scheme is no
     # link: 7 of BCUT Timisoara's 8 rows said "www.bcut.ro" and 26 of Trekanten's
