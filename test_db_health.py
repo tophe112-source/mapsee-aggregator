@@ -30,20 +30,40 @@ def probe(minutes_ago, **payload):
 ROLLER = {"kind": h.ROLLER_KIND, "computed_at": (NOW - timedelta(minutes=3)).isoformat(),
           "payload": {"ok": True, "moved": 13404, "stopped": "budget", "lag_listed_min": 0, "error": None}}
 
-v = h.verdict([probe(2), ROLLER], NOW)
+v = h.verdict([probe(2, component="events", component_status=200, component_ms=48, cheap_db_ms=23), ROLLER], NOW)
 check("a fresh, fast probe is ok, exit 0", v["state"] == "ok" and v["exit"] == 0, v)
-check("...and the report carries the latency and the roller's state", "300 ms" in v["lines"][0] and "moved 13404" in v["lines"][1], v["lines"])
+check("...and the report carries the total latency, both component timings and the roller's state",
+      "300 ms" in v["lines"][0] and "follow_links` check took 23 ms" in v["lines"][1]
+      and "`events` check answered in 48 ms" in v["lines"][2] and "moved 13404" in v["lines"][3], v["lines"])
 
 v = h.verdict([probe(3, ok=False, error="database probe: HTTP 503: {\"code\":\"PGRST002\"} after 59193 ms")], NOW)
 check("a failed probe is down, exit 1, with the Worker's reason", v["state"] == "down" and v["exit"] == 1 and "PGRST002" in v["lines"][0], v)
 check("...and points at the diagnosis file", any("DIAGNOSE_UNHEALTHY.sql" in line for line in v["lines"]), v["lines"])
 
-v = h.verdict([probe(1, db_ms=4120, slow=True)], NOW)
-check("a slow probe is slow, exit 1, with the latency", v["state"] == "slow" and v["exit"] == 1 and "4120 ms" in v["lines"][0], v)
+for component in ("events", "people"):
+    v = h.verdict([probe(1, ok=False, component=component, component_status=503,
+                         component_ms=5000, cheap_db_ms=35, error=f"database probe {component}: HTTP 503")], NOW)
+    report = " ".join(v["lines"])
+    check(f"a failed {component} functional check remains unhealthy with exit 1",
+          v["state"] == "component_failed" and v["exit"] == 1, v)
+    check(f"a failed {component} check reports the answered cheap probe and does not claim total DB failure",
+          "follow_links` check took 35 ms (HTTP 200)" in report
+          and f"functional `{component}` check failed in 5000 ms (HTTP 503)" in report
+          and f"Inspect the `{component}` query" in report
+          and "every door's database is not answering" not in report, report)
 
-v = h.verdict([probe(45)], NOW)
+v = h.verdict([probe(1, db_ms=4120, slow=True, component="people", component_status=200,
+                     component_ms=2210, cheap_db_ms=1910)], NOW)
+check("a slow probe is slow, exit 1, with the latency", v["state"] == "slow" and v["exit"] == 1 and "4120 ms" in v["lines"][0], v)
+check("...with both measured component timings", "follow_links` check took 1910 ms" in v["lines"][1]
+      and "`people` check answered in 2210 ms" in v["lines"][2], v["lines"])
+
+v = h.verdict([probe(45, component="events", component_status=200, component_ms=45, cheap_db_ms=12)], NOW)
 check("a probe 45 minutes old is stale, exit 2: the alarm is off, not the database down",
       v["state"] == "stale" and v["exit"] == 2 and "45 min ago" in v["lines"][0], v)
+check("...and a stale heartbeat still shows its last component timings",
+      any("follow_links` check took 12 ms" in line for line in v["lines"])
+      and any("`events` check answered in 45 ms" in line for line in v["lines"]), v["lines"])
 v = h.verdict([probe(45, ok=False, error="x")], NOW)
 check("...even when its last word was a failure (an old failure is not a current one)", v["state"] == "stale", v["state"])
 check("...and the age limit is the caller's", h.verdict([probe(45)], NOW, max_age_min=60)["state"] == "ok")

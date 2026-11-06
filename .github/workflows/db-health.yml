@@ -8,8 +8,8 @@ name: Database health
 # WHY THIS SHAPE. On 2026-10-19 a signup flood on a sibling app starved the
 # shared 1 GB instance for about two hours; the first person to notice was the
 # owner, pasting a migration into a SQL editor that would not answer. The
-# Worker now measures every five minutes, on time; this is the free channel to
-# a person. A scheduled run here can start hours late (the 06:17Z aggregate
+# Worker measures every five minutes and alerts separately through Cloudflare.
+# This issue preserves the diagnostic report. A scheduled run here can start hours late (the 06:17Z aggregate
 # started at 13:22Z that day), so the verdict is on the probe row's OWN clock:
 # a run that starts late still grades the latest probe, and a probe that has
 # stopped is reported as "the alarm is off", never as "healthy".
@@ -67,26 +67,17 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$STATUS" = "2" ]; then
-            TITLE="Database health: the probe is not running"
+            TITLE="Mapsee database heartbeat is stale or missing"
             LABEL="db-health-check"
             COLOR="D93F0B"
-            LABEL_DESC="The database probe is stale or missing: nothing is measuring"
+            LABEL_DESC="The database heartbeat is stale or missing"
           else
-            TITLE="Database health: the database is not answering"
+            TITLE="Mapsee database health check needs attention"
             LABEL="db-health"
             COLOR="B60205"
             LABEL_DESC="The Worker's five-minute probe is failing or slow"
           fi
           {
-            if [ "$STATUS" = "2" ]; then
-              echo "**The probe is not running.** Nothing here says the database is"
-              echo "unhealthy - only that nobody is measuring it. Fix this first."
-            else
-              echo "**The database is not answering its own probe.** Every door shares"
-              echo "it: the map, the city pages, chat and this pipeline's syncs (which"
-              echo "wait up to MAPSEE_DB_WAIT_SECONDS and then fail closed)."
-            fi
-            echo
             if [ -s db_health.md ]; then
               cat db_health.md
             else
@@ -128,8 +119,8 @@ jobs:
           STATUS: ${{ steps.db.outputs.status }}
         run: |
           if [ "$STATUS" = "2" ]; then
-            echo "::error::The database probe is stale or missing - nothing is measuring. See the open db-health-check issue."
+            echo "::error::The database heartbeat is stale or missing. See the db-health-check issue."
           else
-            echo "::error::The database is not answering its probe. See the open db-health issue."
+            echo "::error::A Mapsee database health check failed or was slow. See the db-health issue for the affected check."
           fi
           exit 1

@@ -3,6 +3,8 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: the health check and `stats_snapshot_all`, `external_source`, a green run with no baseline, a source with no retry.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **The database report distinguishes a failed Events or People read from a failed connection.** The five scheduled health runs from November 5 00:15 UTC to November 6 02:07 UTC started **4 h 16 m to 8 h 28 m** apart. The Worker checks the connection and one alternating functional read every five minutes. Its Cloudflare watchdog owns timely alerts. The existing GitHub job grades the latest database heartbeat and preserves the diagnostic in its issue. Fixtures with a **35 ms** successful connection and a **5,000 ms** failed functional read return `component_failed` and exit **1** for both Events and People. Historical heartbeat rows retain their previous verdicts.
+
 - **An active pg_cron job can still inherit the wrong timeout.** On 2026-09-09,
   `mapsee-refresh-stats` (job 4) was active at `23 */6 * * *`, but its last three
   runs each failed after 120s inside the category aggregate. The source snapshot

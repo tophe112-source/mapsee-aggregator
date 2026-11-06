@@ -2,23 +2,23 @@
 """
 mapsee_db_health.py — is the database answering, by the Worker's own probe.
 
-Every five minutes the mapsee Worker (../mapsee src/index.js, probeDb) makes the
-cheapest read the anon key can make and writes the result to the stats_snapshot
-heartbeat table as kind 'cron:probeDb': ok, ms, db_ms, slow, status, and the
-reason when it failed. This script reads that row through stats_snapshot_all()
-and turns it into a verdict and a markdown report, the way mapsee_health_check
-does for the sources, so db-health.yml can open, update and close an issue.
+Every five minutes the mapsee Worker (../mapsee src/index.js, probeDb) makes a
+cheap connection read, then alternates a public events read and the People
+pulse check. It writes the result to stats_snapshot as kind 'cron:probeDb': ok,
+ms, db_ms, slow, status, component timings, and the reason when it failed. This
+script reads that row through stats_snapshot_all() and turns it into a verdict
+and markdown report, the way mapsee_health_check does for the sources, so
+db-health.yml can open, update and close an issue.
 
-WHY HERE AND NOT IN THE WORKER. The Worker measures on time (a cron there fires
-to the minute) but has no free channel to a person. This repository has one:
-an issue, the channel source-health already uses. A scheduled run here can
-start late (hours, on 2026-10-19), so the row's own clock is what is graded,
-never this run's.
+The Worker also reports to its Cloudflare watchdog. This issue records the
+database's copy of the diagnostic. Scheduled runs can start hours late,
+so grade freshness using the time on the heartbeat itself.
 
 VERDICTS, exit codes:
   0  OK      the latest probe answered in time
-  1  DOWN    the latest probe failed (ok=false), or the snapshot itself could
-             not be read after retries - the database is not answering
+  1  DOWN    the cheap connection probe failed (ok=false), or the snapshot
+             itself could not be read after retries
+  1  COMPONENT the cheap probe answered but the Events or People check failed
   1  SLOW    the latest probe answered, over the Worker's threshold
   2  STALE   the latest probe is older than --max-age-min: the probe is not
              running (the Worker's cron, or its heartbeat write), so NOTHING
@@ -50,6 +50,23 @@ def _when(value):
         return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
     except ValueError:
         return None
+
+
+def _component_lines(payload: dict) -> list:
+    """Summarize the cheap connection read and a functional check when recorded."""
+    lines = []
+    cheap_ms = payload.get("cheap_db_ms")
+    if cheap_ms is not None:
+        lines.append(f"The cheap `follow_links` check took {cheap_ms} ms (HTTP {payload.get('status')}).")
+    component = payload.get("component")
+    if component in ("events", "people"):
+        duration = payload.get("component_ms")
+        status = payload.get("component_status")
+        outcome = "answered" if payload.get("ok") is not False else "failed"
+        detail = f" in {duration} ms" if duration is not None else ""
+        http = f" (HTTP {status})" if status is not None else ""
+        lines.append(f"The functional `{component}` check {outcome}{detail}{http}.")
+    return lines
 
 
 def fetch_rows(url: str, key: str, post=None, sleep=time.sleep):
@@ -110,13 +127,22 @@ def verdict(rows, now=None, max_age_min=MAX_AGE_MIN_DEFAULT) -> dict:
     if age_min is None or age_min > max_age_min:
         when = f"{age_min:.0f} min ago" if age_min is not None else "at an unreadable time"
         return {"state": "stale", "exit": EXIT_CANNOT_RUN,
-                "title": "Database: the probe has stopped running",
+                "title": "The database heartbeat is stale",
                 "lines": [f"The latest `{PROBE_KIND}` row is from {when}; the Worker writes one every five minutes. "
-                          f"Nothing here says the database is healthy - the alarm is off. Check the Worker's cron "
+                          f"Check the Worker's cron "
                           f"(wrangler.jsonc triggers) and its heartbeat write (cron.status_write_failed in Workers Logs).",
                           f"Its last word was ok={p.get('ok')}, db_ms={p.get('db_ms')}, slow={p.get('slow')}"
-                          + (f", error: {p.get('error')}" if p.get("error") else "") + "."] + lines}
+                          + (f", error: {p.get('error')}" if p.get("error") else "") + "."]
+                        + _component_lines(p) + lines}
     if p.get("ok") is False:
+        component = p.get("component")
+        if component in ("events", "people"):
+            return {"state": "component_failed", "exit": EXIT_UNHEALTHY,
+                    "title": f"Mapsee {component.capitalize()} check failed",
+                    "lines": [f"The latest probe ({age_min:.0f} min ago) failed its functional `{component}` check: "
+                              f"{p.get('error') or 'no reason recorded'}."]
+                            + _component_lines(p)
+                            + [f"The connection check answered. Inspect the `{component}` query and run the public health probes to check the other paths."] + lines}
         return {"state": "down", "exit": EXIT_UNHEALTHY,
                 "title": "Database: the probe is failing",
                 "lines": [f"The latest probe ({age_min:.0f} min ago) failed: {p.get('error') or 'no reason recorded'}.",
@@ -127,10 +153,10 @@ def verdict(rows, now=None, max_age_min=MAX_AGE_MIN_DEFAULT) -> dict:
         return {"state": "slow", "exit": EXIT_UNHEALTHY,
                 "title": "Database: the probe is slow",
                 "lines": [f"The latest probe ({age_min:.0f} min ago) answered in {p.get('db_ms')} ms, over the Worker's "
-                          f"threshold. A read that touches no row waiting this long means the instance is starved "
-                          f"(CPU, I/O budget, swap) or its connections are spent."] + lines}
+                          f"threshold. Inspect the component timings and current database load."] + _component_lines(p) + lines}
     return {"state": "ok", "exit": EXIT_OK, "title": "Database: answering",
             "lines": [f"The latest probe ({age_min:.0f} min ago) answered in {p.get('db_ms')} ms (HTTP {p.get('status')})."]
+            + _component_lines(p)
             + lines}
 
 
