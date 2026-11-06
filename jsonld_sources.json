@@ -26609,6 +26609,597 @@
         "lon": -122.2541126
       },
       "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Nomadic Bookshop",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://nomadicbookshop.org/events-2/"
+      ],
+      "link_pattern": "https://nomadicbookshop\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nomadic Bookshop",
+        "address": "326 23rd Street",
+        "lat": 37.8120331,
+        "lon": -122.2649231
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Covenant Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.berkeleyopc.org/event-calendar/"
+      ],
+      "link_pattern": "https://www\\.berkeleyopc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Covenant Presbyterian Church",
+        "address": "1623 University Avenue",
+        "region": "CA",
+        "country": "US",
+        "lat": 37.8710993,
+        "lon": -122.2787959
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Randall Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://randallmuseum.org/events/"
+      ],
+      "link_pattern": "https://randallmuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Randall Museum",
+        "address": "199 Museum Way",
+        "city": "San Francisco",
+        "region": "CA",
+        "lat": 37.7643906,
+        "lon": -122.4381827
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Treasure Island Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.treasureislandmuseum.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Treasure Island Museum",
+        "region": "CA",
+        "lat": 37.8170914,
+        "lon": -122.3711527
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "The Nile Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.theniletheater.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Nile Theater",
+        "address": "105 West Main Street",
+        "city": "Mesa",
+        "region": "AZ",
+        "postal_code": "85201",
+        "lat": 33.414537,
+        "lon": -111.8345096
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Palabras Bilingual Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://palabrasbookstore.com/event/2026-11-06/garden-nights-casa-caracol"
+      ],
+      "link_pattern": "https://palabrasbookstore\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palabras Bilingual Bookstore",
+        "address": "903 West Roosevelt Street",
+        "city": "Phoenix",
+        "region": "AZ",
+        "postal_code": "85007",
+        "lat": 33.4589816,
+        "lon": -112.0851448
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Mona Plummer Aquatic Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://thesundevils.com/sports/soccer/schedule"
+      ],
+      "link_pattern": "https://thesundevils\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mona Plummer Aquatic Center",
+        "lat": 33.4238206,
+        "lon": -111.934179
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Martin Auto Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.martinautomuseum.org/events"
+      ],
+      "link_pattern": "https://www\\.martinautomuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Martin Auto Museum",
+        "address": "4320 West Thunderbird Road",
+        "city": "Glendale",
+        "region": "AZ",
+        "postal_code": "85306",
+        "country": "US",
+        "lat": 33.612198,
+        "lon": -112.1525557
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Love Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://lovelife.church/events-and-calendar/"
+      ],
+      "link_pattern": "https://lovelife\\.church/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Love Life Church",
+        "address": "8016 West Camelback Road",
+        "city": "Glendale",
+        "region": "AZ",
+        "postal_code": "85303",
+        "lat": 33.5101023,
+        "lon": -112.2312621
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Japanese Friendship Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.japanesefriendshipgarden.org/calendar-tea"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Japanese Friendship Garden",
+        "lat": 33.4610586,
+        "lon": -112.0764086
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Neptune Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.stgpresents.org/events/"
+      ],
+      "link_pattern": "https://www\\.stgpresents\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neptune Theatre",
+        "address": "1303 Northeast 45th Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98105",
+        "lat": 47.6611364,
+        "lon": -122.3140309
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Emerald City Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.emeraldcitycomedy.com/events/"
+      ],
+      "link_pattern": "https://www\\.emeraldcitycomedy\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Emerald City Comedy Club",
+        "address": "210 Broadway East",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98102",
+        "country": "US",
+        "lat": 47.6202379,
+        "lon": -122.3206717
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Beguiled Books",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.beguiledbooks.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Beguiled Books",
+        "address": "109 1st Avenue South",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98104",
+        "lat": 47.6013882,
+        "lon": -122.3343939
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "The Royal Room",
+      "category": "theater",
+      "_found": "osm:theatre -> wp-event-manager",
+      "listing": [
+        "https://theroyalroomseattle.com/events/"
+      ],
+      "link_pattern": "https://theroyalroomseattle\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Royal Room",
+        "address": "5000 Rainier Avenue South",
+        "city": "Seattle",
+        "postal_code": "98118",
+        "lat": 47.5569023,
+        "lon": -122.2842722
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Theater Off Jackson",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://theatreoffjackson.org/event/"
+      ],
+      "link_pattern": "https://theatreoffjackson\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Theater Off Jackson",
+        "address": "409 7th Avenue South",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98104",
+        "country": "US",
+        "lat": 47.5988546,
+        "lon": -122.3239381
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "The Roadhouse",
+      "category": "community",
+      "_found": "osm:events_venue -> wp-event-manager",
+      "listing": [
+        "https://theroadhouse.art/events/"
+      ],
+      "link_pattern": "https://theroadhouse\\.art/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Roadhouse",
+        "lat": 47.4230063,
+        "lon": -122.2985418
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Run To Win",
+      "category": "community",
+      "_found": "osm:ngo -> wix",
+      "listing": [
+        "https://www.runtowin.org/outreach"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Run To Win",
+        "address": "7907 212th Street Southwest",
+        "city": "Edmonds",
+        "region": "WA",
+        "postal_code": "98026",
+        "lat": 47.8072488,
+        "lon": -122.3401835
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Kubota Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> wix",
+      "listing": [
+        "https://www.kubotagarden.org/event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kubota Garden",
+        "address": "9817 55th Avenue South",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98118",
+        "lat": 47.5129667,
+        "lon": -122.2673621
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Hidden Hall",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://hiddenhall.com/events/"
+      ],
+      "link_pattern": "https://hiddenhall\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hidden Hall",
+        "address": "400 North 35th Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98103",
+        "lat": 47.6516137,
+        "lon": -122.3542131
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "First United Methodist Church of Seattle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://firstchurchseattle.org/events-calendar/"
+      ],
+      "link_pattern": "https://firstchurchseattle\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "First United Methodist Church of Seattle",
+        "address": "180 Denny Way",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98109",
+        "lat": 47.6188231,
+        "lon": -122.3532271
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Virginia Mason Athletic Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.seahawks.com/schedule/"
+      ],
+      "link_pattern": "https://www\\.seahawks\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Virginia Mason Athletic Center",
+        "address": "12 Seahawks Way",
+        "city": "Renton",
+        "region": "WA",
+        "postal_code": "98056",
+        "lat": 47.5357819,
+        "lon": -122.1980086
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Finnish Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.finnishlutheranchurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Finnish Lutheran Church",
+        "address": "8504 13th Avenue Northwest",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98117",
+        "country": "US",
+        "lat": 47.6908806,
+        "lon": -122.3722549
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Rohr Chabad Jewish Student Center at the University of Washington",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.jewishuw.com/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Rohr Chabad Jewish Student Center at the University of Washington",
+        "address": "5200 21st Avenue Northeast",
+        "city": "Seattle",
+        "postal_code": "98105",
+        "lat": 47.6666012,
+        "lon": -122.3052691
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Seattle First Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.seattlefirstbaptist.org/calendar-events/"
+      ],
+      "link_pattern": "https://www\\.seattlefirstbaptist\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Seattle First Baptist Church",
+        "address": "1111 Harvard Avenue",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98122",
+        "lat": 47.61211,
+        "lon": -122.3219994
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Gold Summit Sagely Monastery",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.goldsummitmonastery.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Gold Summit Sagely Monastery",
+        "address": "233 1st Avenue West",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98119",
+        "lat": 47.6207764,
+        "lon": -122.3584196
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Alderwood Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://alderwood.cc/events/"
+      ],
+      "link_pattern": "https://alderwood\\.cc/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Alderwood Community Church",
+        "address": "3403 Alderwood Mall Boulevard",
+        "city": "Lynnwood",
+        "region": "WA",
+        "postal_code": "98036",
+        "lat": 47.8222928,
+        "lon": -122.2797125
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Mirrormont Country Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.mirrormont.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mirrormont Country Club",
+        "address": "25500 Southeast Mirrormont Drive",
+        "city": "Issaquah",
+        "region": "WA",
+        "postal_code": "98027",
+        "lat": 47.4640023,
+        "lon": -122.0009853
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Northlake Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.northlakelutheran.org/events-2-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Northlake Lutheran Church",
+        "address": "6620 Northeast 185th Street",
+        "lat": 47.763588,
+        "lon": -122.2517897
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Holy Apostles Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.holyapostlesgo.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holy Apostles Orthodox Church",
+        "address": "19421 Ashworth Avenue North",
+        "city": "Shoreline",
+        "region": "WA",
+        "postal_code": "98133",
+        "lat": 47.7700557,
+        "lon": -122.3412998
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Covenant Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://cpcissaquah.org/events-calendar/"
+      ],
+      "link_pattern": "https://cpcissaquah\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Covenant Presbyterian Church",
+        "address": "22116 Southeast 51st Place",
+        "city": "Issaquah",
+        "region": "WA",
+        "postal_code": "98029",
+        "lat": 47.5560682,
+        "lon": -122.0446473
+      },
+      "_metro": "Seattle, United States"
     }
   ],
   "_not_included": {

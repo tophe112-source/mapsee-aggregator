@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "MY",
+  "country": "JM",
   "offset": 2140,
   "offsets": {
    "AE": 13,
@@ -17,7 +17,7 @@
    "IE": 48,
    "IN": 120,
    "IS": 120,
-   "JM": 4,
+   "JM": 0,
    "JP": 400,
    "KR": 120,
    "LT": 120,
@@ -29,7 +29,7 @@
    "PT": 120,
    "SE": 80,
    "SI": 120,
-   "US": 2260,
+   "US": 2276,
    "ZA": 200
   },
   "visited": [
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 188,
-  "metro_key": "US:San Francisco",
+  "metro": 191,
+  "metro_key": "US:Detroit",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 400,
-  "events": 1000,
+  "community events": 0,
+  "events": 1100,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 100,
+  "library programs": 200,
+  "parks events": 200,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 300,
+  "recreation programs": 400,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 200,
-  "wellness programs": 400,
-  "youth programs": 0
+  "special events": 200,
+  "volunteer": 300,
+  "wellness programs": 500,
+  "youth programs": 100
  }
 }

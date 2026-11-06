@@ -6567,6 +6567,335 @@
       "_metro": "Portland, United States",
       "_found": "manual:2026-11-05 official events collection",
       "_note": "Bare Squarespace collection, no query exports. Read the event's own street address; the metadata-only venue block supplies city/state but no fallback address or coordinate, so an unlocated new event cannot inherit the building's pin. November 5 check: 24 dated listings with 417 Southeast 11th Avenue. Craft registrations and the film party's nonmember price must remain in event prose and source links."
+    },
+    {
+      "name": "Soto Zen Mission Sokoji",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sokoji.org/eventcalendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Soto Zen Mission Sokoji",
+        "address": "1691 Laguna Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "lat": 37.7865077,
+        "lon": -122.428596
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Sun City Church of the Nazarene",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.suncitynaz.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Sun City Church of the Nazarene",
+        "address": "14636 North Del Webb Boulevard",
+        "city": "Sun City",
+        "region": "AZ",
+        "postal_code": "85351",
+        "lat": 33.617914,
+        "lon": -112.2916989
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "Saint Katherine Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stkatherineaz.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Katherine Greek Orthodox Church",
+        "address": "2716 North Dobson Road",
+        "city": "Chandler",
+        "region": "AZ",
+        "lat": 33.3468324,
+        "lon": -111.877063
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "University District Food Bank",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.udistrictfoodbank.org/communityconnector",
+      "max_events": 200,
+      "venue": {
+        "name": "University District Food Bank",
+        "address": "5017 Roosevelt Way Northeast",
+        "city": "Seattle",
+        "postal_code": "98105",
+        "lat": 47.665583,
+        "lon": -122.317622
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Mary's Place",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.marysplaceseattle.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mary's Place",
+        "address": "1830 9th Avenue",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98101",
+        "lat": 47.6155239,
+        "lon": -122.333971
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Gray Sky",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.grayskygallery.com/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Gray Sky",
+        "address": "320 1st Avenue South",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98104",
+        "lat": 47.5994408,
+        "lon": -122.333962
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "On the Boards",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://ontheboards.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "On the Boards",
+        "address": "100 West Roy Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98119",
+        "lat": 47.6258303,
+        "lon": -122.3581949
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Wing Luke Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.wingluke.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Wing Luke Museum",
+        "address": "719 South King Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98104",
+        "lat": 47.5982461,
+        "lon": -122.3228705
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "The Church at Maltby",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.connection-church.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Church at Maltby",
+        "lat": 47.8002427,
+        "lon": -122.1062494
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Onyx Fine Art Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.onyxarts.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Onyx Fine Art Gallery",
+        "address": "600 Pine Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98101",
+        "lat": 47.6127078,
+        "lon": -122.3354719
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "The Seattle Light Room",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.theseattlelightroom.com/gallery-shows",
+      "max_events": 200,
+      "venue": {
+        "name": "The Seattle Light Room",
+        "address": "5040 Wilson Ave S",
+        "lat": 47.5559092,
+        "lon": -122.2701002
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Little Bit Therapeutic Riding Center",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.littlebit.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Little Bit Therapeutic Riding Center",
+        "address": "Northeast 106th Street",
+        "city": "Redmond",
+        "region": "WA",
+        "lat": 47.6932908,
+        "lon": -122.0900942
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Northwest African American Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.naamnw.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Northwest African American Museum",
+        "address": "2300 South Massachusetts Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98144",
+        "lat": 47.5891416,
+        "lon": -122.3018584
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Bayside Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.baysidecommunitychurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bayside Community Church",
+        "address": "25992 Barber Cut Off Road Northeast",
+        "city": "Kingston",
+        "region": "WA",
+        "postal_code": "98346",
+        "country": "US",
+        "lat": 47.7993118,
+        "lon": -122.5081898
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "The Cuff Complex",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://cuffcomplex.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Cuff Complex",
+        "address": "1533 13th Avenue",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98122",
+        "lat": 47.6150199,
+        "lon": -122.3159465
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Experience Momentum",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.experiencemomentum.com/classes-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Experience Momentum",
+        "address": "4030 Alderwood Mall Boulevard",
+        "city": "Lynnwood",
+        "region": "WA",
+        "postal_code": "98036",
+        "lat": 47.8169709,
+        "lon": -122.2886669
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Kenyon Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.kenyonhall.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kenyon Hall",
+        "address": "7904 35th Avenue Southwest",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98126",
+        "lat": 47.5316617,
+        "lon": -122.3761766
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Mountlake Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.mountlake.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mountlake Church",
+        "address": "23302 56th Avenue West",
+        "city": "Mountlake Terrace",
+        "region": "WA",
+        "postal_code": "98043",
+        "country": "US",
+        "lat": 47.7872281,
+        "lon": -122.3094378
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Bethesda Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://bethesdamlt.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bethesda Lutheran Church",
+        "address": "23406 56th Avenue West",
+        "city": "Mountlake Terrace",
+        "region": "WA",
+        "postal_code": "98043",
+        "country": "US",
+        "lat": 47.7862297,
+        "lon": -122.3087648
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Bainbridge History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.bainbridgehistorymuseum.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bainbridge History Museum",
+        "address": "215 Ericksen Avenue Northeast",
+        "lat": 47.6258864,
+        "lon": -122.5175668
+      },
+      "_metro": "Seattle, United States"
     }
   ],
   "_not_included": {

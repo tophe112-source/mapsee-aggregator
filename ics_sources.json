@@ -64400,5 +64400,730 @@
     "geocode_suffix": ", San Francisco, United States",
     "limit": 300,
     "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Fredericksburg — Parks & Recreation",
+    "category": "community",
+    "url": "https://www.fbgtx.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Fredericksburg, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks & Recreation]",
+    "_metro": "Fredericksburg, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Fredericksburg — Home Page Calendar",
+    "category": "community",
+    "url": "https://www.fbgtx.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Fredericksburg, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Home Page Calendar]",
+    "_metro": "Fredericksburg, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Fredericksburg — Police Department",
+    "category": "community",
+    "url": "https://www.fbgtx.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Fredericksburg, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Police Department]",
+    "_metro": "Fredericksburg, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Fredericksburg — Coffee With The City Manager",
+    "category": "community",
+    "url": "https://www.fbgtx.org/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+    "geocode_suffix": ", Fredericksburg, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Coffee With The City Manager]",
+    "_metro": "Fredericksburg, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Little Canada — Parks & Recreation",
+    "category": "community",
+    "url": "https://www.littlecanada.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Little Canada, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks & Recreation]",
+    "_metro": "Little Canada, Minnesota",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "San Francisco Buddhist Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://sfbuddhistcenter.org/calendar/?ical=1",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "San Mateo Buddhist Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vbsvev0pnhu7g0k7o6sks14ke4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Mateo, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Holy Trinity Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/epavdfcpre74nd7hchmjn549j0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Berkeley Higashi Honganji Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://bombu.org/index.php?option=com_dpcalendar&task=ical.download&id=38",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "San Rafael Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://sanrafael.gov/events/?ical=1",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "venue": {
+      "name": "San Rafael Community Center",
+      "lat": 37.969459,
+      "lon": -122.5291278,
+      "street_hint": "618 B Street",
+      "pin_unnamed": false
+    },
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "First Congregational Church of Berkeley",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/19q9o4n3obhdhs185e6ave6ivk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Greek Orthodox Church of the Ascension",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/98243de8783d753301d430051171b8804adf8a14dbc6dd1d4463eeeddb01dc6b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oakland, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Faith United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40umcfaithphx.org/public/basic.ics",
+    "geocode_suffix": ", Phoenix, United States",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Living Word",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iokevm6fhfuhoohi1fibumkras%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Tree of Life Congregation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/94b930510b5fefed0a809dafc2eb58f2a46f4d7725b2306f5f5f099d327cf9f5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "SaltFire Brewery Co Taphouse",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pfkf35k7qhk3s6g6ap42btr7d8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tempe, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Valley Unitarian Universalist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40vuu.org/public/basic.ics",
+    "geocode_suffix": ", Chandler, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Our Lady of Guadalupe Monastery",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4jn6g3ah2u8fdse771saq2g90s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Saint Marys Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b70bbf1aceaa318d9b2e514516552891916cb259e12213c0f45899d8d5975a4f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "The Door Christian Fellowship Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kvq344m92qakgra2hnr8i3hoq4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tempe, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Madison Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1759im1fg2kq61d5anobfs5agk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Beth El Congregation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bethelphoenix.com_9pn0kqtf0ekvdhc74fikrecips%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "St. Matthew Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fc8f8f1b2b58a085ccbba1f9d65495151f275eaddf74f577acf83d937d1b1431%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Faith Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.faithalive.com/events.ics",
+    "geocode_suffix": ", Phoenix, AZ",
+    "limit": 300,
+    "_metro": "Phoenix, United States"
+  },
+  {
+    "name": "Dai Bai Zan Cho Bo Zen Ji",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vj1eomu1ho02upkr4vdvtpbe9c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Northminster Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40northminsterpres.org/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "St. John United Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stjohnunited.org_110qok51c3upf71a4iu9q2s3gk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Nippon Kan Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f48ef6e8547d7d8f66f5c6d2757c10155aacd65d3421ed839bd031c1105897a9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Ballard-Eagleson VFW Post 3063",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/udl5i0vqkkdmf4jr6ebqbcsa6c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "venue": {
+      "name": "Ballard-Eagleson VFW Post 3063",
+      "city": "Seattle",
+      "postal_code": "98107",
+      "lat": 47.6688209,
+      "lon": -122.3934372,
+      "street_hint": "2812 Northwest Market Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Rock of Ages Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9h7125na1inflliunujbfkn33s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Zulu's Event Center",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pnnfrgkbp668db7eqkcj256e2s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bothell",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Flying Bike Co-op Brewery",
+    "category": "community",
+    "_found": "osm:pub -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/flyingbike.coop_io1qblhhb2n2h367j0jf7itchk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Bizarre Brewing",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_58537e1ae61f52215dc412e1640818c0d46d06699059619c5fb507908d6053c8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Fremont Abbey Arts Center",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e2avichif01pf6b1im7aa63gh4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "DeYoung House",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://woodinvilleheritage.org/events/calendar/my-calendar/ics/",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Belltown Yacht Club",
+    "category": "music",
+    "_found": "osm:nightclub -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9634942bd3d64faf87b763d231efc8e4e365ff67dc43c1f363386dc7b6aecc12%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Dabble",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/odrh4vcp2u65agag81iumg9qgs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Brechemin Auditorium",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://music.washington.edu/calendar.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Occidental Fine Arts Center",
+    "category": "arts",
+    "_found": "osm:gallery -> ics",
+    "url": "https://occidentalfinearts.org/events.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Saint Andrews Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h8ph3gf8j3ttrusc9bnjn7hbuk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Center for Wooden Boats",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1ac7fa22779168ab12ff1275d71c3e674e401c0f8b66b417bca74c7b0f28a322%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Wallingford United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40wallingfordumc.org/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Chapel of Saint Ignatius",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4dcb6662d0a9e421cbfd3545521b3675a706f5544792d0ac981bf9f0d76c9ea4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Medhane-Alem Evangelical Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/medhane.org_8pbg4oqbmdv96spjgp5jl7daqk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Gift of Grace Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/653qsou9tjvgngg0k15bhmk82s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Interfaith Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://interfaithcommunitysanctuary.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Northwest Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2glav945q6u5088bt3uv7upv3s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Trinity United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.tumseattle.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Midway Community Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_gspndtsadothrm80j1ampg68ug%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Des Moines, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "United Evangelical Free Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/aroeem64dfdahnogrclgmi2kbo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Blue Heron Zen Community",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2a866c495700983628b68a2027f47bcb9f88d77ff34f0a1cf7e9661d10c67e4c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "University Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c33883d8f00c7b5c7f20e2ceeab4cd52174d5ac33f6b49324efbae9f794f6544%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Seattle Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.seattlechurchofchrist.org/events.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Queen Anne Masonic Lodge",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_188evdtsr79eejvni84hgfnpqpd6e%40resource.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Our Lady Zarvanycia Mother of God",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vhi7cfq29gt2u40c90afc1nmv8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Saint John Chrysostom Byzantine Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40stjohnchrysostom.org/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Japanese Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gk1ob19jd7mejls178u61quo6s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Saint Spiridon Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9lrafg42bqeum21jugjc2nlpik%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Keystone United Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d3b018c66cb27fe92609ca9bd0f6d4282f2ca3071f6f5aebc61a3d8c3a6a911f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Grace & Truth Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_68dd452814b466e0b714d76e5431fb00719b7a53292a34f47850e76d1dcea25b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Salt House Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/217q7oe972ejfkbtbi79753noo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kirkland",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Arbor Heights Swim and Tennis Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> event-organiser+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ah-calendar%40ahstc.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Grace Fellowship of Kent",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gracekent.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Bremerton Foodline",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_6357770740330964588d46de42ad5faaf0a73a43a1096b79d9965924f243190d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bremerton, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Fairwood Community United Methodist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://fairwoodumc.org/events.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Luther Memorial Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40luthermemorialseattle.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Rock of Hope",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ficorlub1tvffl5ba4o3857ha8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonds, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Ascension Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/dh5p7uff95jn5kotpg07cnugtc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmonds, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Saint Peter's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/welcome%40stpeterseattle.org/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "St. Thomas Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c7035d253feb20c61683e473eb7e5a97d2b4c96acf64a7cac66f4552fc5e33c3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "First Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/44g57t12p1stfeh4euahs1uv3g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bothell",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Shoreline Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_92d9e739fd0f51ad2a8adf653ed066dc003fe48927674fef46c21ecbc4dbacfd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Shoreline, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Port Madison Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/portmadisonlutheranchurch.org_2d32383738373039372d343735%40resource.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Kings Gate 5 Pool Facility",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5rsmr2tlbsnis3q1ebjbfof4oc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, United States",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Tracyton United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40brownsvilleumc.org/public/basic.ics",
+    "geocode_suffix": ", Bremerton, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Saint Elizabeth Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hardin.ws_fm73fv8u5c49ki9kc9infr3jic%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Poulsbo, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Saint Demetrios Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/54pjfask479ts8nt6c0mi7hv34%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Northshore Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar-northshore.sundaybest.io/northshore/cal/all.ics",
+    "geocode_suffix": ", Kirkland",
+    "limit": 300,
+    "_metro": "Seattle, United States"
   }
 ]
