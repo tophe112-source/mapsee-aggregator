@@ -27200,6 +27200,457 @@
         "lon": -122.0446473
       },
       "_metro": "Seattle, United States"
+    },
+    {
+      "name": "The Fillmore",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thefillmoredetroit.com/shows"
+      ],
+      "link_pattern": "https://www\\.thefillmoredetroit\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Fillmore",
+        "address": "2115 Woodward Avenue",
+        "postal_code": "48201",
+        "lat": 42.3378334,
+        "lon": -83.051768
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "RollerCade",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.rollercadedetroit.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "RollerCade",
+        "address": "2130 Schaefer Highway South",
+        "city": "Detroit",
+        "region": "MI",
+        "postal_code": "48217-1205",
+        "lat": 42.2751222,
+        "lon": -83.1525152
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Saint Andrew's Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.saintandrewsdetroit.com/shows"
+      ],
+      "link_pattern": "https://www\\.saintandrewsdetroit\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Andrew's Hall",
+        "address": "431 East Congress Street",
+        "city": "Detroit",
+        "region": "MI",
+        "postal_code": "48226",
+        "lat": 42.3323497,
+        "lon": -83.0415972
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "The Biddle Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.thebiddlehall.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Biddle Hall",
+        "address": "3239 Biddle Avenue",
+        "city": "Wyandotte",
+        "region": "MI",
+        "postal_code": "48192",
+        "lat": 42.2003621,
+        "lon": -83.1500982
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Samaritas",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://samaritas.org/events/"
+      ],
+      "link_pattern": "https://samaritas\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Samaritas",
+        "address": "6257 Telegraph Road",
+        "city": "Bloomfield Hills",
+        "region": "MI",
+        "postal_code": "48301",
+        "lat": 42.5475761,
+        "lon": -83.2829667
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Dom Polski – Polish Peoples’ Home Association (SPDL)",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "http://poloniawindsor.ca/my-calendar/"
+      ],
+      "link_pattern": "https://poloniawindsor\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dom Polski – Polish Peoples’ Home Association (SPDL)",
+        "address": "1725 Langlois Avenue",
+        "city": "Windsor",
+        "region": "ON",
+        "postal_code": "N8X4L6",
+        "lat": 42.3090555,
+        "lon": -83.0164585
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Detroit Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://detroitzoo.org/events/"
+      ],
+      "link_pattern": "https://detroitzoo\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Detroit Zoo",
+        "address": "8450 West 10 Mile Road",
+        "city": "Royal Oak",
+        "region": "MI",
+        "postal_code": "48067",
+        "lat": 42.4777641,
+        "lon": -83.1553272
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Uptown Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.uptowntheatermn.com/shows"
+      ],
+      "link_pattern": "https://www\\.uptowntheatermn\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Uptown Theatre",
+        "address": "2900 Hennepin Avenue South",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55408",
+        "lat": 44.9490481,
+        "lon": -93.2984984
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "BlackStack Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.blackstackbrewing.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "BlackStack Brewing",
+        "address": "755 North Prior Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55104",
+        "lat": 44.9654101,
+        "lon": -93.1827333
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Hook and Ladder Theatre and Lounge",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://thehookmpls.com/shows/amerigrass-26-november-14-2026-711921/"
+      ],
+      "link_pattern": "https://thehookmpls\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hook and Ladder Theatre and Lounge",
+        "address": "3010 Minnehaha Avenue",
+        "lat": 44.9479667,
+        "lon": -93.2343779
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "The Comedy Corner Underground",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.comedycornerunderground.com/"
+      ],
+      "link_pattern": "https://www\\.comedycornerunderground\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Comedy Corner Underground",
+        "address": "400 Hennepin Avenue East",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55414",
+        "lat": 44.9884106,
+        "lon": -93.2546522
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Snake Discovery: A Reptile Experience",
+      "category": "outdoors",
+      "_found": "osm:zoo -> wp-event-manager",
+      "listing": [
+        "https://snakediscovery.com/events/"
+      ],
+      "link_pattern": "https://snakediscovery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Snake Discovery: A Reptile Experience",
+        "address": "931 Century Avenue North",
+        "lat": 44.9664726,
+        "lon": -92.9855808
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "The Fillmore Minneapolis",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.fillmoreminneapolis.com/shows"
+      ],
+      "link_pattern": "https://www\\.fillmoreminneapolis\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Fillmore Minneapolis",
+        "lat": 44.9839395,
+        "lon": -93.2788889
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Sisyphus Brewing",
+      "category": "community",
+      "_found": "osm:pub -> jsonld-event",
+      "listing": [
+        "https://www.sisyphusbrewing.com/products/stand-up-class-showcase"
+      ],
+      "link_pattern": "https://www\\.sisyphusbrewing\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sisyphus Brewing",
+        "address": "712 Ontario Avenue West",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9732283,
+        "lon": -93.2889191
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Varsity Theater",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.varsitytheater.com/shows"
+      ],
+      "link_pattern": "https://www\\.varsitytheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Varsity Theater",
+        "address": "1308 Southeast 4th Street",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55414",
+        "lat": 44.9805731,
+        "lon": -93.2369275
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "The Woman's Club of Minneapolis",
+      "category": "community",
+      "_found": "osm:social_centre -> wix",
+      "listing": [
+        "https://www.womansclub.org/get-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Woman's Club of Minneapolis",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9677762,
+        "lon": -93.2847417,
+        "street_hint": "410 Oak Grove Street"
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Mindekirken",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.mindekirken.org/calendar-news"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mindekirken",
+        "address": "924 East 21st Street",
+        "city": "Minneapolis",
+        "postal_code": "55404",
+        "lat": 44.9621098,
+        "lon": -93.2600901
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Skyway Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://skywaytheatre.com"
+      ],
+      "link_pattern": "https://skywaytheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Skyway Theatre",
+        "address": "711 Hennepin Avenue",
+        "lat": 44.9773663,
+        "lon": -93.274991
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Mystic Lake Amphitheater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.mysticlakeamp.com/shows"
+      ],
+      "link_pattern": "https://www\\.mysticlakeamp\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mystic Lake Amphitheater",
+        "address": "700 Canterbury Road",
+        "city": "Shakopee",
+        "region": "MN",
+        "postal_code": "55379",
+        "lat": 44.7913212,
+        "lon": -93.4729117
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Eagle Brook Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.eaglebrookchurch.com/event/800"
+      ],
+      "link_pattern": "https://www\\.eaglebrookchurch\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Eagle Brook Church",
+        "address": "2401 Buffalo Street",
+        "city": "White Bear",
+        "region": "MN",
+        "postal_code": "55110",
+        "lat": 45.1056524,
+        "lon": -92.998227
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "El Flow",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://www.elflowdance.com/schedule"
+      ],
+      "link_pattern": "https://www\\.elflowdance\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "El Flow",
+        "address": "9474 Black Mountain Road",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92126",
+        "country": "US",
+        "lat": 32.8951153,
+        "lon": -117.1238772
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "The Observatory North Park",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.observatorysd.com/shows"
+      ],
+      "link_pattern": "https://www\\.observatorysd\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Observatory North Park",
+        "address": "2891 University Avenue",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92104",
+        "lat": 32.7480228,
+        "lon": -117.1312918
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "Columbine Unitarian Universalist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.columbineuuchurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Columbine Unitarian Universalist Church",
+        "address": "6724 South Webster Street",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80128",
+        "lat": 39.5944444,
+        "lon": -105.076944
+      },
+      "_metro": "Denver, United States"
     }
   ],
   "_not_included": {

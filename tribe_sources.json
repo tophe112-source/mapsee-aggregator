@@ -36816,6 +36816,1249 @@
         "lon": -122.5574912
       },
       "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Polish Cultural Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.americanpolishcenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Polish Cultural Center",
+        "lat": 42.5499896,
+        "lon": -83.0898805
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Michael A. Guido Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dearborntheater.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Michael A. Guido Theater",
+        "lat": 42.3141751,
+        "lon": -83.1973162
+      },
+      "_metro": "Detroit, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Belle Isle Nature Center",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe",
+      "base_url": "https://belleislenaturecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Belle Isle Nature Center",
+        "address": "176 Lakeside Drive",
+        "city": "Detroit",
+        "region": "MI",
+        "postal_code": "48207",
+        "lat": 42.3468689,
+        "lon": -82.9637367
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Capuchin Soup Kitchen",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cskdetroit.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Capuchin Soup Kitchen",
+        "address": "4390 Conner Street",
+        "city": "Detroit",
+        "region": "MI",
+        "postal_code": "48215",
+        "country": "US",
+        "lat": 42.3866242,
+        "lon": -82.9696641
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Saint Malachy Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://saintmalachychurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Malachy Catholic Church",
+        "address": "14115 East 14 Mile Road",
+        "city": "Sterling Heights",
+        "region": "MI",
+        "postal_code": "48312",
+        "lat": 42.5387697,
+        "lon": -82.9824654
+      },
+      "_metro": "Detroit, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Cottam United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cottamunitedchurch.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cottam United Church",
+        "address": "137 Talbot Street West",
+        "city": "Cottam",
+        "region": "Ontario",
+        "postal_code": "N0R 1B0",
+        "lat": 42.1294595,
+        "lon": -82.7463891
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Judson Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://judsoncenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Judson Center",
+        "address": "4410 West 13 Mile Road",
+        "city": "Royal Oak",
+        "region": "MI",
+        "postal_code": "48073",
+        "country": "US",
+        "lat": 42.5187902,
+        "lon": -83.2029366
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Gibb's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://rchs.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gibb's Museum",
+        "lat": 44.9925468,
+        "lon": -93.1886745
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "All God's Children Metropolitan Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://agcmcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All God's Children Metropolitan Community Church",
+        "lat": 44.9463953,
+        "lon": -93.2656211
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Day Block Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event",
+      "base_url": "https://www.dayblockbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Day Block Brewing Company",
+        "address": "1105 South Washington Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55415",
+        "lat": 44.9751548,
+        "lon": -93.2531116
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Boom Island Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://boomislandbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boom Island Brewing Company",
+        "address": "2014 North Washington Avenue",
+        "city": "Minneapolis",
+        "postal_code": "55411",
+        "lat": 44.9998557,
+        "lon": -93.281608
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Vision Loss Resources",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://visionlossresources.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vision Loss Resources",
+        "address": "1936 Lyndale Avenue South",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9632017,
+        "lon": -93.2882897
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "56 Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://56brewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "56 Brewing",
+        "address": "3055 Northeast Columbia Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55418",
+        "lat": 45.0235903,
+        "lon": -93.2721458
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "10k Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://10kbrew.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "10k Brewing",
+        "address": "2005 2nd Avenue",
+        "city": "Anoka",
+        "region": "MN",
+        "postal_code": "55303",
+        "lat": 45.1982659,
+        "lon": -93.3895499
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Dakota Jazz Club and Restaurant",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dakotacooks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dakota Jazz Club and Restaurant",
+        "address": "1010 Nicollet Mall",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9737604,
+        "lon": -93.2751428
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Dual Citizen Brewing",
+      "category": "community",
+      "_found": "osm:bar -> tribe",
+      "base_url": "https://dcbc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dual Citizen Brewing",
+        "address": "725 Raymond Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55114",
+        "lat": 44.9631096,
+        "lon": -93.1978006
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Utepils Brewing",
+      "category": "community",
+      "_found": "osm:bar -> tribe",
+      "base_url": "https://utepilsbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Utepils Brewing",
+        "address": "225 Thomas Avenue North",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55405",
+        "lat": 44.9787458,
+        "lon": -93.3123529
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Twin City Model Railroad Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tcmrm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Twin City Model Railroad Museum",
+        "address": "668 Transfer Road",
+        "city": "55114",
+        "region": "MN",
+        "lat": 44.9608348,
+        "lon": -93.185557
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "American School of Storytelling",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://amsstory.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "American School of Storytelling",
+        "address": "1762 Hennepin Avenue South",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9661109,
+        "lon": -93.2889262
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Nine Mile Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://9milebrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nine Mile Brewing Company",
+        "address": "9555 James Avenue South",
+        "city": "Bloomington",
+        "region": "MN",
+        "postal_code": "55431",
+        "lat": 44.8304491,
+        "lon": -93.2992144
+      },
+      "_metro": "Minneapolis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "St. Mary of the Lake Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmarys-wbl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Mary of the Lake Catholic Church",
+        "postal_code": "55110",
+        "lat": 45.0847743,
+        "lon": -93.0160134
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Community Meals",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://haumc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Meals",
+        "address": "511 Groveland Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9665436,
+        "lon": -93.287533
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Minnesota Museum Of American Art",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://mmaa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Minnesota Museum Of American Art",
+        "address": "350 Robert Street North",
+        "lat": 44.9470505,
+        "lon": -93.0902963
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Rainbow Wardrobe",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://tcpride.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rainbow Wardrobe",
+        "address": "1201 Harmon Place",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403",
+        "lat": 44.9732447,
+        "lon": -93.2793572
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Loaves & Fishes: Life Center Free Meal",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.loavesandfishesmn.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Loaves & Fishes: Life Center Free Meal",
+        "address": "1812 Park Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55404",
+        "lat": 44.9647792,
+        "lon": -93.2654244
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Millers Landing Senior Living",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.millerslandingseniorliving.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Millers Landing Senior Living",
+        "address": "155 5th Avenue South",
+        "lat": 44.9797057,
+        "lon": -93.2597356
+      },
+      "_metro": "Minneapolis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Mobile Food Pantry at Season’s Park",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://veap.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mobile Food Pantry at Season’s Park",
+        "address": "951 East 77th Street",
+        "city": "Richfield",
+        "region": "MN",
+        "postal_code": "55423",
+        "lat": 44.8629015,
+        "lon": -93.2605473
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Leonardo's Basement",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://leonardosbasement.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leonardo's Basement",
+        "address": "2 Malcolm Ave SE",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55414",
+        "lat": 44.9714815,
+        "lon": -93.2122543
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Minnesota Assistance Council for Veterans (MACV)",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.mac-v.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Minnesota Assistance Council for Veterans (MACV)",
+        "lat": 44.9554816,
+        "lon": -93.1421055
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Bridging",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://bridging.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bridging",
+        "address": "12864 State Hwy 55 Service Road",
+        "city": "Plymouth",
+        "region": "MN",
+        "postal_code": "55441",
+        "lat": 45.001511,
+        "lon": -93.4419894
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Basilica of Saint Mary",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Basilica of Saint Mary",
+        "address": "88 17th Street North",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55403-1295",
+        "lat": 44.9731344,
+        "lon": -93.2862707
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Gay 90's",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://gay90s.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gay 90's",
+        "address": "408 Hennepin Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55401",
+        "lat": 44.9805062,
+        "lon": -93.2719756
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Mount Olivet Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mtolivet.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Olivet Lutheran Church",
+        "address": "5025 Knox Avenue South",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55419",
+        "lat": 44.9117787,
+        "lon": -93.3017819
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Landmark Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.landmarkcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Landmark Center",
+        "address": "75 West 5th Street",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55102",
+        "lat": 44.9456153,
+        "lon": -93.0971253
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Northern Clay Center",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://northernclaycenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Northern Clay Center",
+        "address": "2424 East Franklin Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55406",
+        "lat": 44.963017,
+        "lon": -93.2367139
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "The Playwrights' Center",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://pwcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Playwrights' Center",
+        "address": "2301 East Franklin Avenue",
+        "city": "Minneapolis",
+        "postal_code": "55406",
+        "lat": 44.9624851,
+        "lon": -93.2390926
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Creekside United Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.mayflowermpls.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Creekside United Church of Christ",
+        "address": "106 East Diamond Lake Road",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55419",
+        "lat": 44.9041801,
+        "lon": -93.2765848
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "St. Mark's Episcopal Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ourcathedral.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Mark's Episcopal Cathedral",
+        "address": "519 Oak Grove Street",
+        "city": "Minneapolis",
+        "postal_code": "55403",
+        "lat": 44.9680733,
+        "lon": -93.2869996
+      },
+      "_metro": "Minneapolis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Delta Gamma Sorority",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.deltagamma.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Delta Gamma Sorority",
+        "address": "1026 Southeast 5th Street",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55414",
+        "lat": 44.983069,
+        "lon": -93.2396451
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Summit Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://www.summitbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Summit Brewing Company",
+        "address": "910 Montreal Circle",
+        "city": "Saint Paul",
+        "postal_code": "55102",
+        "lat": 44.9140139,
+        "lon": -93.1395366
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Lake Harriet United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://lakeharrietumc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lake Harriet United Methodist Church",
+        "address": "4901 Chowen Avenue South",
+        "city": "Minneapolis",
+        "postal_code": "55410",
+        "lat": 44.9139206,
+        "lon": -93.3245488
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Medina Entertainment Center",
+      "category": "community",
+      "_found": "osm:bar -> tribe",
+      "base_url": "https://medinaentertainment.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Medina Entertainment Center",
+        "lat": 45.0455039,
+        "lon": -93.5344889
+      },
+      "_metro": "Minneapolis, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Iglesia Adventista del Séptimo Día Hispana de Minneapolis",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://minneapolishispanicmn.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Iglesia Adventista del Séptimo Día Hispana de Minneapolis",
+        "address": "2700 Stevens Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55408",
+        "lat": 44.9534845,
+        "lon": -93.2756413
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Modist Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://modistbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Modist Brewing",
+        "address": "505 3rd Street North",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55401",
+        "lat": 44.9852729,
+        "lon": -93.2764961
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Kappa Kappa Gamma Sorority",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.kappakappagamma.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kappa Kappa Gamma Sorority",
+        "address": "329 Southeast 10th Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55414",
+        "lat": 44.9826425,
+        "lon": -93.2418072
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Minneapolis First Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://minneapolisfirst.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Minneapolis First Seventh-day Adventist Church",
+        "address": "2315 Nicollet Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55404",
+        "lat": 44.9595583,
+        "lon": -93.277414
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "EMERGE Career and Technology Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://emerge-mn.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EMERGE Career and Technology Center",
+        "address": "1834 North Emerson Avenue",
+        "lat": 44.9986109,
+        "lon": -93.2937502
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Beth El Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.besyn.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beth El Synagogue",
+        "address": "5225 West Barry Street",
+        "city": "Saint Louis Park",
+        "region": "MN",
+        "postal_code": "55416",
+        "lat": 44.9561507,
+        "lon": -93.3459481
+      },
+      "_metro": "Minneapolis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Hennepin History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://hennepinhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hennepin History Museum",
+        "address": "2303 3rd Avenue South",
+        "lat": 44.9601435,
+        "lon": -93.2723694
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Temple of ECK",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.eckankar.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple of ECK",
+        "address": "7450 Powers Boulevard",
+        "city": "Chanhassen",
+        "postal_code": "55317",
+        "lat": 44.8682118,
+        "lon": -93.5502493
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Mount Zion Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://mzion.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Zion Temple",
+        "address": "1300 Summit Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55105",
+        "lat": 44.9408798,
+        "lon": -93.1556064
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Emmanuel Christian Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.emmanuelcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Emmanuel Christian Center",
+        "address": "7777 University Avenue Northeast",
+        "lat": 45.1089439,
+        "lon": -93.2613076
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Oak Hills Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.oakhillschurch.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oak Hills Church",
+        "lat": 44.8327951,
+        "lon": -93.1792103
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Faith United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://faithumcmn.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Faith United Methodist Church",
+        "address": "3239 70th Street East",
+        "city": "Inver Grove Heights",
+        "region": "MN",
+        "postal_code": "55076",
+        "country": "US",
+        "lat": 44.8485591,
+        "lon": -93.0392582
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Bell Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bellmuseum.umn.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bell Museum",
+        "address": "2088 Larpenteur Avenue West",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55113",
+        "lat": 44.9911481,
+        "lon": -93.1880283
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Gustavus Adolphus Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gachurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gustavus Adolphus Lutheran Church",
+        "address": "1669 Arcade Street",
+        "lat": 44.991083,
+        "lon": -93.0669366
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Birch's on the Lake Brewhouse & Supperclub",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://birchsonthelake.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Birch's on the Lake Brewhouse & Supperclub",
+        "address": "1310 Wayzata Boulevard",
+        "city": "Long Lake",
+        "region": "MN",
+        "postal_code": "55356",
+        "lat": 44.9853464,
+        "lon": -93.5561823
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Arbor Lakes Senior Living",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://portwindmaplegrove.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arbor Lakes Senior Living",
+        "address": "12001 80th Avenue North",
+        "city": "Maple Grove",
+        "region": "MN",
+        "postal_code": "55369",
+        "lat": 45.0986002,
+        "lon": -93.4328158
+      },
+      "_metro": "Minneapolis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "St. Peder's Evangelical Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://www.stpeders.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Peder's Evangelical Lutheran Church",
+        "address": "4600 East 42nd Street",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55406",
+        "lat": 44.9273678,
+        "lon": -93.2071606
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Shakopee Brewhall",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.shakopeebrewhall.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shakopee Brewhall",
+        "address": "124 1st Avenue East",
+        "city": "Shakopee",
+        "region": "MN",
+        "postal_code": "55379",
+        "lat": 44.7983904,
+        "lon": -93.52581
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Saint John's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stjohns-mpls.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint John's Episcopal Church",
+        "address": "4201 Sheridan Avenue South",
+        "city": "Minneapolis",
+        "postal_code": "55410",
+        "lat": 44.9272892,
+        "lon": -93.3127258
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Capri",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://thecapri.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Capri",
+        "address": "2027 West Broadway Avenue",
+        "lat": 45.0023743,
+        "lon": -93.3064382
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Congregational Church of La Jolla",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://lajollaucc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregational Church of La Jolla",
+        "address": "1216 Cave Street",
+        "city": "La Jolla",
+        "region": "CA",
+        "postal_code": "92037",
+        "lat": 32.8479505,
+        "lon": -117.272127
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "San Diego Museum of Art",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sdmart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "San Diego Museum of Art",
+        "address": "1450 El Prado",
+        "city": "San Diego",
+        "region": "CA",
+        "lat": 32.7321695,
+        "lon": -117.1504503
+      },
+      "_metro": "San Diego, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Water Conservation Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://thegarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Water Conservation Garden",
+        "lat": 32.7427171,
+        "lon": -116.9395776
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "Cheer",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://cheerhomecare.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cheer",
+        "address": "5622 La Jolla Boulevard",
+        "city": "La Jolla",
+        "region": "CA",
+        "postal_code": "92037",
+        "country": "US",
+        "lat": 32.8142687,
+        "lon": -117.2700451
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "Adams Ave Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://adamsavetheater.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adams Ave Theater",
+        "address": "3325 Adams Avenue",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92116",
+        "lat": 32.7632157,
+        "lon": -117.1224112
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "EQ San Diego",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://www.eqsandiego.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EQ San Diego",
+        "address": "1271 University Avenue",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92103",
+        "lat": 32.7481057,
+        "lon": -117.1519644
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "La Jolla Cove Bridge Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+gcal-embed",
+      "base_url": "https://lajollacovebridgeclub.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Jolla Cove Bridge Club",
+        "address": "1160 Coast Boulevard",
+        "lat": 32.8506752,
+        "lon": -117.2737412
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "Covenant Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://covenantsd.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Covenant Church",
+        "address": "2930 Howard Avenue",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92104",
+        "lat": 32.7544293,
+        "lon": -117.1305301
+      },
+      "_metro": "San Diego, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Greenwood Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://greenwoodcc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Greenwood Community Church",
+        "address": "5600 East Belleview Avenue",
+        "city": "Greenwood Village",
+        "region": "CO",
+        "postal_code": "80111",
+        "lat": 39.6231334,
+        "lon": -104.9213527
+      },
+      "_metro": "Denver, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Museo De Las Americas",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://museo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo De Las Americas",
+        "address": "861 North Santa Fe Drive",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80204",
+        "lat": 39.7300463,
+        "lon": -104.998839
+      },
+      "_metro": "Denver, United States"
     }
   ],
   "_not_included": {

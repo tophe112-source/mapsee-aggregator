@@ -6896,6 +6896,490 @@
         "lon": -122.5175668
       },
       "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Vander",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.vanderdetroit.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Vander",
+        "address": "626 Harper Avenue",
+        "city": "Detroit",
+        "region": "MI",
+        "postal_code": "48202",
+        "lat": 42.3680362,
+        "lon": -83.0620394
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Saint Paul Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://splconline.com/coming-up",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Paul Lutheran Church",
+        "address": "2550 Edsel Drive",
+        "city": "Trenton",
+        "region": "MI",
+        "postal_code": "48183",
+        "lat": 42.1441537,
+        "lon": -83.1981387
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Assumption Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.goassumption.org/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Assumption Greek Orthodox Church",
+        "address": "21800 Marter Road",
+        "city": "Saint Clair Shores",
+        "region": "MI",
+        "lat": 42.4517225,
+        "lon": -82.8906494
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "The Freehouse",
+      "category": "community",
+      "_found": "osm:restaurant -> squarespace",
+      "collection": "https://www.freehousempls.com/eventscalendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Freehouse",
+        "lat": 44.9876648,
+        "lon": -93.2773417
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Arbeiter Brewery",
+      "category": "community",
+      "_found": "osm:bar -> squarespace",
+      "collection": "https://www.arbeiterbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Arbeiter Brewery",
+        "address": "3038 Minnehaha Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55406",
+        "lat": 44.9471797,
+        "lon": -93.233691
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Sojourn Campus Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sojourncampuschurch.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Sojourn Campus Church",
+        "address": "310 Southeast 18th Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55414",
+        "lat": 44.9775617,
+        "lon": -93.2304428
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Zoma House",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.zomahouse.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Zoma House",
+        "address": "1426 West Lake Street",
+        "lat": 44.9484974,
+        "lon": -93.2987918
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Wandering Leaf Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://wanderingleafbrewing.com/foodevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Wandering Leaf Brewing Company",
+        "address": "2463 7th Street West",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55116",
+        "lat": 44.902804,
+        "lon": -93.1703415
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Heavy Rotation Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.heavyrotationbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Heavy Rotation Brewing Co.",
+        "address": "9801 Xenia Avenue North",
+        "city": "Brooklyn Park",
+        "region": "MN",
+        "postal_code": "55443",
+        "lat": 45.1346888,
+        "lon": -93.3557026
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Nokomis Gallery At CAFAC",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.cafac.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Nokomis Gallery At CAFAC",
+        "lat": 44.934518,
+        "lon": -93.2623207
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "North 20 Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://north20brewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "North 20 Brewing",
+        "address": "12266 Bacardi Ave W",
+        "city": "Rosemount",
+        "region": "MN",
+        "postal_code": "55068",
+        "lat": 44.7710946,
+        "lon": -93.1052588
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Eat My Words Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.eatmywordsbooks.com/events-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Eat My Words Bookstore",
+        "address": "201 Southeast 6th Street",
+        "postal_code": "55414",
+        "lat": 44.9894574,
+        "lon": -93.2506642
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Strive Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://strivepubandco.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Strive Bookstore",
+        "lat": 44.975113,
+        "lon": -93.2729756
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Strange Loop Laboratory",
+      "category": "fitness",
+      "_found": "osm:dance -> squarespace",
+      "collection": "https://www.strangeloopprojects.com/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Strange Loop Laboratory",
+        "address": "1629 Hennepin Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "lat": 44.9719237,
+        "lon": -93.2862638
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "The Hive Collaborative",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.thehivecollaborativemn.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Hive Collaborative",
+        "address": "677 Hamline Avenue North",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55104",
+        "lat": 44.9616857,
+        "lon": -93.1570241
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "SAW Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.saw-brewing.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "SAW Brewing",
+        "address": "1750 West Thomas Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55104",
+        "lat": 44.959095,
+        "lon": -93.174192
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Cedar Cultural Center",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.thecedar.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Cedar Cultural Center",
+        "address": "416 Cedar Avenue South",
+        "city": "Minneapolis",
+        "postal_code": "55454",
+        "lat": 44.9694215,
+        "lon": -93.2476492
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "In the Heart of the Beast",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.hobt.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "In the Heart of the Beast",
+        "address": "2411 Hennepin Avenue South",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55405",
+        "lat": 44.9586759,
+        "lon": -93.2941162
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Saint Peter's Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stpetersedina.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Peter's Lutheran Church",
+        "address": "5421 France Avenue South",
+        "city": "Edina",
+        "region": "MN",
+        "postal_code": "55410",
+        "lat": 44.9046537,
+        "lon": -93.3283299
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Calvary Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.calvarychurchmpls.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Calvary Baptist Church",
+        "address": "2608 Blaisdell Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55408",
+        "lat": 44.9552408,
+        "lon": -93.2800808
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Art House North",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.arthousenorth.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Art House North",
+        "address": "793 Armstrong Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55102",
+        "country": "US",
+        "lat": 44.9252362,
+        "lon": -93.1334176
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Cities Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.citieschurch.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Cities Church",
+        "address": "1524 Summit Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55105",
+        "lat": 44.9409852,
+        "lon": -93.1648788
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "The Bakken Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://thebakken.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Bakken Museum",
+        "address": "Zenith Avenue South",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55416",
+        "lat": 44.9382384,
+        "lon": -93.321124
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Steel Toe Brewing",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://www.steeltoebrewing.com/food-truck-event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Steel Toe Brewing",
+        "address": "4848 35th Street West",
+        "city": "Saint Louis Park",
+        "region": "MN",
+        "postal_code": "55416",
+        "lat": 44.9415319,
+        "lon": -93.3413212
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Trinity City Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.trinitycitychurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Trinity City Church",
+        "address": "1849 Marshall Avenue",
+        "city": "Saint Paul",
+        "region": "MN",
+        "lat": 44.9487654,
+        "lon": -93.1782243
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Mount Olivet Lutheran Church of Plymouth",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.moply.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mount Olivet Lutheran Church of Plymouth",
+        "address": "12235 Old Rockford Road",
+        "city": "Plymouth",
+        "region": "MN",
+        "postal_code": "55441",
+        "lat": 45.0280842,
+        "lon": -93.4355767
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Open Book",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.openbookmn.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Open Book",
+        "address": "1011 Washington Avenue South",
+        "postal_code": "55415",
+        "lat": 44.9754964,
+        "lon": -93.2541551
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "College Area Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.collegeareagarden.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "College Area Community Garden",
+        "lat": 32.7735617,
+        "lon": -117.0653976
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "Aurora Fox Arts Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.aurorafoxartscenter.org/onstage",
+      "max_events": 200,
+      "venue": {
+        "name": "Aurora Fox Arts Center",
+        "address": "9900 East Colfax Avenue",
+        "city": "Aurora",
+        "region": "CO",
+        "postal_code": "80010",
+        "lat": 39.7399511,
+        "lon": -104.8726719
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "4 Noses Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.4nosesbrewing.com/broomfield-events",
+      "max_events": 200,
+      "venue": {
+        "name": "4 Noses Brewing Company",
+        "address": "8855 West 116th Circle",
+        "city": "Broomfield",
+        "region": "CO",
+        "postal_code": "80021",
+        "lat": 39.9064891,
+        "lon": -105.098632
+      },
+      "_metro": "Denver, United States"
     }
   ],
   "_not_included": {

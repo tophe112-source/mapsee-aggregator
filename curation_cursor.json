@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 191,
-  "metro_key": "US:Detroit",
+  "metro": 194,
+  "metro_key": "US:Denver",
   "stuck": {}
  },
  "osm|community_centre,library": {

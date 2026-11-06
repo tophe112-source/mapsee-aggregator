@@ -65125,5 +65125,651 @@
     "geocode_suffix": ", Kirkland",
     "limit": 300,
     "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Mount Zion Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hvpnoelttgvb4k22fg6r1bfma8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison Heights, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "John McGivney Children's Centre",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar+jsonld-event",
+    "url": "https://jmccentre.ca/?feed=my-calendar-ics",
+    "geocode_suffix": ", Windsor",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Korean Presbyterian Church of Metro Detroit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4bd23f78a5732b8afb12960db0787c506039e4e256d049fdbe6289e2b6751e8e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Metro Detroit, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "The Baumgartner House Museum And Fraser Depot Visitor Center",
+    "category": "arts",
+    "_found": "osm:museum -> civicplus",
+    "url": "https://www.frasercitymi.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Detroit, United States",
+    "limit": 300,
+    "_metro": "Detroit, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Guardian Angels Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_o4dqlmnt5ui7rgchions2g0hjs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Clawson, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "First Unitarian Universalist Church of Detroit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1stuu.org_q3qp3lgmvcq5eb0ob9g8n688jg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Detroit, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Christ Church, Detroit",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/christcd.org_ejvnt7r7l8asotjsvof46hr77c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Detroit, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Saint Dorothy Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h6a4v8ge7joaq8ci8a5hbh3ugo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Warren, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Rouge Free Will Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r736ghmi1uavbv8gt855l0eafo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wyandotte, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Grosse Pointe Unitarian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s2i6ipkckr8dank1e6q44ffgso%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grosse Pointe, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Saint Blase Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hrpik692cn6e7d9m0hq72tef50%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sterling Heights, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Fraser Senior Housing",
+    "category": "community",
+    "_found": "osm:social_facility -> civicplus",
+    "url": "https://www.micityoffraser.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Fraser, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint George Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6uj7ishjbb04lj52uh5ujv7fpg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Southgate, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Christ Church Fraser",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.christchurchfraser.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Fraser, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "Christ Church Grosse Pointe",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f04dd4031611769f6c72930ec3a3f929d36e0bbe9d5a8aea72a3e349beb6eab2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grosse Pointe Farms, MI",
+    "limit": 300,
+    "_metro": "Detroit, United States"
+  },
+  {
+    "name": "All Saints Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fli3ldiu6g2jjo5pec7l10cpvc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Trylon Cinema",
+    "category": "theater",
+    "_found": "osm:cinema -> my-calendar+jsonld-event",
+    "url": "https://www.trylon.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Vertical Endevours",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2mtmo8locqqctr5jhe23vt9q08%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Paul",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Faith Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.faithlutherancr.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Coon Rapids",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Peace Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d008845444b9a1199ca20977cec666c66bfc854c1087e6a57a6c14826aa49a68%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Coon Rapids",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Lynnhurst Congrational UCC",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.lynnhurstucc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Brühaven Craft Company",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_646b7a125efa745d2c3055a33e595c9da7a3f1d088259b81bf0c157ed2f8f69b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "The Atelier",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_31ir462fm5ld5ih3i69huun348%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Centennial United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kvjqob8kckj3jgp3im93o5eaos%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Paul, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "FamilyWise",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar",
+    "url": "https://familywiseservices.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Head Start",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r9h2ht327cp944khhvh8t4qkjc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Bald Man Brewing",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_0scvpq7ss7eemb8n0jfh1g3b0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Eagan, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Silver Lake United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://silverlakeunitedmethodist.org/events.ics",
+    "geocode_suffix": ", Oakdale, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Mt Calvary Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/krehwaldt%40mtcalvaryrichfield.org/public/basic.ics",
+    "geocode_suffix": ", Richfield, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Wings of the North Air Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wotn.org_j8bg5ubpucgboj6f75nv7cr3j8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Eden Prairie, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Wooden Ship Brewing Company",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_272lg178asps2uj2gqlc7e27uk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "New City Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ek5lc0h7qt6qmcdtfe1k9iiie4s8566q%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Bancroft Meridian Garden",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_caeb0f10fdfb1505061d5218c7870fb8e5054a8688ee6e10903801346a65fc5b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Prospect Park United Methodist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f3d59c873eaf1d38ca6cf7ece33737eb85eef2c2bc9e441158101586fc31871f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Beth Jacob Congregatoin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.google.com/calendar/ical/beth-jacob.org_r50t8npaoacr253m2en1gde784%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mendota Heights, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Hillel House",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hillel%40umn.edu/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Church of the Annunciation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/annunciationmsp.org_75t5ohf5rq5n54msouer3q99og%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Saint Mary's Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmarysgoc%40stmarysgoc.org/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Saint Annes Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintannehamel.org/icalendar.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Central Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.centralbaptistchurch.com/events.ics",
+    "geocode_suffix": ", Saint Paul, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Hennepin Overland Railway Historical Society",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f5rqql0q7j076vt3e65rpumks8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Clouds in Water Zen Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cloudsinwater.org_jaj9mpkgi0k7mif65vparvgrgc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Paul, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "St. Frances Cabrini Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.cabrinimn.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "St. Albert the Great",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.saintalbertthegreat.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Minneapolis",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Dakota Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40dakotauu.org/public/basic.ics",
+    "geocode_suffix": ", Burnsville, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Eagan Art House",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://cityofeagan.com/index.php?option=com_dpcalendar&task=ical.download&id=915",
+    "geocode_suffix": ", Eagan, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Holy Trinity Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/23624621b5926d3053c1bc90683aacf7c8f6deb52abbb9036791df8f493d655c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Paul, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Arlington Hills Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40ahlc-stp.org/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "First Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/first-covenant.org_sl7gp5959ouqj8njvmdk8ruuec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "First Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/firstlutheran-ch%40q.com/public/basic.ics",
+    "geocode_suffix": ", Columbia Heights, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "St. James Lutheran Church ELCA",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dqak5tu6cldhm7gmq9svbiask8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Crystal, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Maple Grove Lutheran Church ELCA",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mglc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Maple Grove, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Rice Lake Bible Chapel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hj1jpvijk8oer0ebtfspo4pkuo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Maple Grove, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Harriet Alexander Nature Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.cityofroseville.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Roseville, MN",
+    "limit": 300,
+    "venue": {
+      "name": "Harriet Alexander Nature Center",
+      "city": "Roseville",
+      "region": "MN",
+      "postal_code": "55113",
+      "lat": 45.0161771,
+      "lon": -93.1239941,
+      "street_hint": "2520 Dale Street North",
+      "pin_unnamed": false
+    },
+    "_metro": "Minneapolis, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Winthrop Community Garden",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2af9df6533d56c4d25b7b610f6b2ea9e4b4eee325f56881477043a797c4ec935%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Woodlake Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_k1v85mdrlv01kegksuvbcmtv08%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richfield, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Saint Stephen Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ststephen.net/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Bloomington, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "New Life Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.newlifelamesa.org/events.ics",
+    "geocode_suffix": ", La Mesa",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Taoist Sanctuary of San Diego",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/50t9drs0kn0enm5cc82elkjsfc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "San Diego Ice Arena",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ko6ar18uisjo0oec1dgpqpdq3l4qn2db%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, United States",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Calvary Chapel Santee",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/miegl62j6jmu98lcqmlr4d4e1s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Santee",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Saint Vincent de Paul Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ubb28bbm247rgjnkvimr1tl7k8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Linda Vista United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://lindavistaumc.org/events.ics",
+    "geocode_suffix": ", San Diego",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Christian Life Center of San Diego",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/heoqbrc8v59unhavib1i54s74c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Spring Valley, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Saint John the Evangelist Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9k3i2fgflphutbbai93i3qqpp8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Islamic Center of San Diego",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40icsd.org/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Saint Anthony Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/6301ee25a094425d95b6892e45ae30e3@st-anthony.org/94a33cce38f346b599efda64c432f69316011339366467933353/calendar.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "First Baptist Church of Denver",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rethinkbaptist.org_qjg65ul17kb8482ckjpp2ovl98%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Denver, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Mamie Doud Eisenhower Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.broomfield.org/common/modules/iCalendar/iCalendar.aspx?catID=73&feed=calendar",
+    "geocode_suffix": ", Broomfield, CO",
+    "limit": 300,
+    "venue": {
+      "name": "Mamie Doud Eisenhower Public Library",
+      "city": "Broomfield",
+      "region": "CO",
+      "postal_code": "80020",
+      "lat": 39.9177065,
+      "lon": -105.0688718,
+      "street_hint": "3 Community Park Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Denver, United States",
+    "crawl_delay": 10.0
   }
 ]
