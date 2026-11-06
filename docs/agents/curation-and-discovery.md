@@ -1,5 +1,59 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **A NEW CALENDAR CAN BE A DUPLICATE, AND ITS EVENT LINK CAN BE A DROPPED FIELD (2026-11-05).**
+  This pass adds **1** source: Art Design Xchange's bare Squarespace `/events`
+  collection in Portland. Production UA and robots allow the page; **1,017,313**
+  body bytes carry **24** dated listings. The real reader and row builder retain
+  **23** (November 6-February 14), each with its own published event page and
+  **417 Southeast 11th Avenue** address; **1** Census address match places all
+  23. The config's venue block supplies only city/state/country, no street or
+  fallback coordinate: a future unlocated event cannot inherit ADX's pin.
+  The film party's **$25 nonmember** price and required registration survive
+  the public prose cap. The **2** “Butch Bootcamp: Craft Circle” sessions
+  initially became fitness; a fitness-only guard for that exact branded phrase
+  keeps both primary and secondary categories in community. A genuine Yoga
+  signal elsewhere still promotes; bare fitness bootcamps remain unchanged.
+  - Long Beach Public Library's **324/324** future UIDs already appear in the
+    configured City of Long Beach calendar's **510** future UIDs. Its separately
+    validated library feed is **not added**. Comparing whole feeds, not URL
+    strings, prevented an entirely duplicate source.
+    The existing city source instead gains **16** exact LOCATION variants for
+    **14** library/partner venue addresses, verified with Census exact matches
+    (including the published directional prefixes on El Dorado and Fire
+    Station #8). Captured-feed replay places **312** unique rows on these pins,
+    with the same fingerprints before/after and **0** library geocoding calls.
+    Other city locations keep their existing handling. The old city feed has no
+    GEO for these events and the local Photon cache has no corresponding entries;
+    no claim is made that the previous production pins were wrong.
+  - Trumba supplies its published event-page URL in folded `X-TRUMBA-LINK`,
+    which `parse_ics` previously discarded. The reader now retains that field
+    and uses a valid absolute HTTP(S) link when there is no distinct ordinary
+    `URL`; a real signup URL keeps precedence. The captured city feed has
+    **650/650 VEVENTs** with usable published links, including event id
+    **210934780**. Offline replay through the adapter and real row builder
+    preserves its exact encoded `trumbaEmbed` URL without a detail-page request.
+    Of the **312** pinned library-program rows, **309** use specific Trumba
+    event links and **3** retain their explicit ordinary source URLs.
+    This improves existing supply; it is not 650 new events. Stored rows receive
+    prose/link updates on the regular full refresh, while new rows get them at
+    their first import.
+  - Holds: The Arc Portland Metro has **4** physical activities, but a malformed
+    mall address drops **1** and a repeated description pushes the dance night's
+    **$5** entry fee beyond the **800-character** public prose cap. NAAM's
+    application/training notice has no event location. AS220 names multiple
+    rooms without streets in the collection. ReBuilding Center's calendar block
+    yields **0/0** to the existing reader; Depave yields **0/4** with missing
+    addresses across different sites. No guessed venue fallback or new adapter
+    is shipped for these leads. Local evidence: `.catalog-probe/nov05-*`.
+  Public `/api/near` also confirms the October 22 batch is live: **18** current
+  Bike Works rows, **397** Spartanburg rows at **10** branch names, and **13**
+  Grove work parties at the curated garden point. November 5's incremental feed
+  import and sync passed; November 4's full ICS refresh hit its **20-minute**
+  checkpoint and full-sync step caps after **255,676** unique records. That is
+  a separate weekly-refresh follow-up, not evidence these new rows are live.
+  All **102** CI gate scripts passed locally in **138.6 s**, plus the final
+  exact-location source contract and the captured-feed placement replay.
+
 - **A COMMUNITY SOURCE EARNS ITS PLACE AFTER THE PUBLIC ROW, NOT THE FEED COUNT.**
   On 2026-10-22, **3** new sources passed production-UA/robots verification and
   actual adapter -> EventStore -> `build_rows`: **411** retained dated listings,

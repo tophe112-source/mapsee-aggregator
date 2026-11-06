@@ -6551,6 +6551,22 @@
         "lon": -122.2572222
       },
       "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Art Design Xchange - Community Events (Portland)",
+      "collection": "https://artdesignxchange.com/events",
+      "category": "community",
+      "timezone": "America/Los_Angeles",
+      "max_events": 100,
+      "venue": {
+        "name": "ADX",
+        "city": "Portland",
+        "region": "OR",
+        "country": "US"
+      },
+      "_metro": "Portland, United States",
+      "_found": "manual:2026-11-05 official events collection",
+      "_note": "Bare Squarespace collection, no query exports. Read the event's own street address; the metadata-only venue block supplies city/state but no fallback address or coordinate, so an unlocated new event cannot inherit the building's pin. November 5 check: 24 dated listings with 417 Southeast 11th Avenue. Craft registrations and the film party's nonmember price must remain in event prose and source links."
     }
   ],
   "_not_included": {

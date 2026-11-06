@@ -945,6 +945,37 @@ DOOR_CASES = [
     ("Outdoor Bootcamp", "fitness", "A bootcamp workout for all levels.", {"fitness"}, {"learning"}),
     ("Info night", "community", "Learn about our coding bootcamp and data bootcamp.", {"learning"}, set()),
 ]
+
+# ADX's branded “Butch Bootcamp: Craft Circle” is a craft programme, not a
+# workout. Test its actual published excerpt through both category paths, then
+# make sure a genuine fitness term elsewhere in the title still wins.
+ADX_CRAFT = {
+    "name": "Butch Bootcamp: Craft Circle",
+    "category": "community",
+    "description": ("Butch Bootcamp: Craft Circle Make things with your hands. "
+                    "Make time for your art. Make new friends. Make a mess. "
+                    "Make your Pinterest dreams come to life. Whatever you want "
+                    "to make (and have probably been putting off), bring it here. "
+                    "Register Here! View Event →"),
+}
+adx_primary = map_category(ADX_CRAFT)
+adx_derived, adx_extras = derive_categories(ADX_CRAFT)
+adx_ok = (adx_primary == "community" and adx_derived == "community"
+          and "fitness" not in (adx_extras or []))
+print(f"{'ok ' if adx_ok else 'FAIL'} ADX Butch Bootcamp: Craft Circle stays community "
+      f"through primary and secondary classification -> {adx_primary}, {adx_derived} + {adx_extras}")
+if not adx_ok:
+    cfails.append("ADX Butch Bootcamp craft false positive")
+
+adx_mixed = dict(ADX_CRAFT, name="Butch Bootcamp: Craft Circle and Yoga")
+adx_mixed_primary = map_category(adx_mixed)
+adx_mixed_derived, adx_mixed_extras = derive_categories(adx_mixed)
+adx_mixed_ok = (adx_mixed_primary == "fitness" and adx_mixed_derived == "fitness")
+print(f"{'ok ' if adx_mixed_ok else 'FAIL'} fitness vocabulary elsewhere in the ADX title still promotes "
+      f"-> {adx_mixed_primary}, {adx_mixed_derived} + {adx_mixed_extras}")
+if not adx_mixed_ok:
+    cfails.append("ADX mixed title fitness signal")
+
 gfails = []
 for name, cat, desc, must, must_not in DOOR_CASES:
     p, e = derive_categories({"name": name, "category": cat, "description": desc})

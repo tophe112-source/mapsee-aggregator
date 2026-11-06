@@ -1290,6 +1290,37 @@ with patch.object(ICS, "HORIZON_DAYS", HORIZON_DAYS), \
           not hz.rows and "in the PAST" not in out.getvalue()
           and "; 1 beyond the 365-day horizon" in out.getvalue(), out.getvalue())
 
+# Trumba's published event link is a folded extension property, not URL.
+# Exercise the final row so dropping it cannot silently regress to a feed link.
+TRUMBA_LINK = "https://www.longbeach.gov/library/events/?trumbaEmbed=view%3Devent%26eventid%3D210934780"
+TRUMBA_ICS = (
+    "BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:http://uid.trumba.com/event/210934780\r\n"
+    "SUMMARY:Library Craft Circle\r\nDTSTART:20991106T190000Z\r\nDTEND:20991106T200000Z\r\n"
+    "GEO:33.78;-118.18\r\n"
+    "X-TRUMBA-LINK:https://www.longbeach.gov/library/events/?trumbaEmbed=view%3D\r\n"
+    " event%26eventid%3D210934780\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+)
+trumba_source = {"name": "Trumba library", "category": "learning",
+                 "url": "https://www.trumba.com/calendars/library.ics"}
+trumba_event = ICS.parse_ics(TRUMBA_ICS)[0]
+check("a folded X-TRUMBA-LINK is retained and used as the event page",
+      ICS._event_url(trumba_event, trumba_source) == TRUMBA_LINK)
+check("a normal event URL still takes precedence over the Trumba extension",
+      ICS._event_url(dict(trumba_event, URL=("https://tickets.example.test/signup", {})),
+                     trumba_source) == "https://tickets.example.test/signup")
+check("an invalid Trumba extension cannot become an active link",
+      ICS._event_url(dict(trumba_event, **{"X-TRUMBA-LINK": ("javascript:alert(1)", {})}),
+                     trumba_source) is None)
+with tempfile.TemporaryDirectory() as td:
+    trumba_path = os.path.join(td, "events.json")
+    trumba_store = EventStore(trumba_path)
+    with patch.object(ICS, "_fetch_ics", return_value=(TRUMBA_ICS, "200")):
+        ICS.ingest_ics(trumba_store, None, trumba_source)
+    trumba_store.save()
+    trumba_row = build_rows(trumba_path, "host")[0]
+check("the published Trumba event page reaches the final Tickets/info line",
+      f"Tickets / info: {TRUMBA_LINK}" in trumba_row["description"])
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")

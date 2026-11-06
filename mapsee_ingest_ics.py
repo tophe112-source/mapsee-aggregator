@@ -363,7 +363,7 @@ def parse_ics(text: str) -> List[Dict[str, Any]]:
         # dropping the property on the floor, which made every cancellation
         # invisible to the whole pipeline.
         if prop in ("SUMMARY", "LOCATION", "DESCRIPTION", "URL", "UID", "GEO", "DTSTART", "DTEND",
-                    "STATUS"):
+                    "STATUS", "X-TRUMBA-LINK"):
             cur[prop] = (value, params)
     return events
 
@@ -1083,6 +1083,12 @@ def _event_url(ev: Dict[str, Any], src: Dict[str, Any]) -> Optional[str]:
         subscription = same_path and (civic or parse_qs(link.query) == parse_qs(feed.query))
         if url and not subscription:
             return url                             # includes third-party signup URLs
+        # Trumba publishes its individual event page in this extension rather
+        # than URL. Keep the unfolded, publisher-supplied link, without making
+        # another request or inventing a URL from the calendar's UID.
+        trumba = _html.unescape(_unescape(ev.get("X-TRUMBA-LINK", ("", {}))[0] or "")).strip()
+        if urlparse(trumba).scheme.lower() in ("http", "https") and urlparse(trumba).netloc:
+            return trumba
         uid = (ev.get("UID", ("", {}))[0] or "").strip()
         if civic and uid.isdecimal():
             description = _html.unescape(_unescape(ev.get("DESCRIPTION", ("", {}))[0] or ""))

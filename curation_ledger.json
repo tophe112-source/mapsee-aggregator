@@ -40746,6 +40746,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "artdesignxchange.com/events": {
+    "checked": 20261105,
+    "name": "Art Design Xchange - Community Events (Portland)",
+    "reason": "24/54 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "artdock.ch": {
     "checked": 20260917,
     "name": "Art Dock Z\u00fcrich",

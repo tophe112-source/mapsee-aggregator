@@ -52,7 +52,234 @@
     "category": "community",
     "geocode_suffix": ", Los Angeles, CA",
     "limit": 900,
-    "_note": "Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs reaching 14 days (2026-10-10..10-24). With ?events=2000 (Trumba's own parameter, as montgomery-county.ics and kalendaro.ics are configured) the same calendar returns 756 VEVENTs, the whole of it (under 2000), out to 2027-04-07; 661 start in the next 90 days (reaching day 90) and they hold all 200 of the old feed's UIDs. limit 300 -> 900: 8.9 events/day Oct-Dec, so about 800 in a busy 90 days. 104 distinct LOCATION strings (67 before), 6 VEVENTs with none. Body 3.7 MB, over FEED_BODY_MAX, so it is fetched whole each run. Unchanged from before and worth a follow-up: 32 of the 661 are City Council and commission meetings (the entry is not civic-tagged and has no skip_title). Trumba's ceiling is 2000: ?events=2001 and ?events=4000 both fall back to the 200 default (measured on SAPL's calendar). trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
+    "_note": "Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs reaching 14 days (2026-10-10..10-24). With ?events=2000 (Trumba's own parameter, as montgomery-county.ics and kalendaro.ics are configured) the same calendar returns 756 VEVENTs, the whole of it (under 2000), out to 2027-04-07; 661 start in the next 90 days (reaching day 90) and they hold all 200 of the old feed's UIDs. limit 300 -> 900: 8.9 events/day Oct-Dec, so about 800 in a busy 90 days. 104 distinct LOCATION strings (67 before), 6 VEVENTs with none. Body 3.7 MB, over FEED_BODY_MAX, so it is fetched whole each run. Unchanged from before and worth a follow-up: 32 of the 661 are City Council and commission meetings (the entry is not civic-tagged and has no skip_title). Trumba's ceiling is 2000: ?events=2001 and ?events=4000 both fall back to the 200 default (measured on SAPL's calendar). trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay.",
+    "location_overrides": [
+      {
+        "location": "Billie Jean King Main Library, 200 W. Broadway 90802",
+        "venue": {
+          "name": "Billie Jean King Main Library",
+          "address": "200 W Broadway",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90802",
+          "country": "US",
+          "lat": 33.76923940834,
+          "lon": -118.194173563682,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Michelle Obama Neighborhood Library, 5870 Atlantic Ave. 90805",
+        "venue": {
+          "name": "Michelle Obama Neighborhood Library",
+          "address": "5870 Atlantic Ave",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90805",
+          "country": "US",
+          "lat": 33.861339445082,
+          "lon": -118.184907716861,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "El Dorado Neighborhood Library, 2900 Studebaker Rd. 90815",
+        "venue": {
+          "name": "El Dorado Neighborhood Library",
+          "address": "2900 N Studebaker Rd",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90815",
+          "country": "US",
+          "lat": 33.806288217184,
+          "lon": -118.09912068818,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Los Altos Neighborhood Library, 5614 E. Britton Dr. 90815",
+        "venue": {
+          "name": "Los Altos Neighborhood Library",
+          "address": "5614 E Britton Dr",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90815",
+          "country": "US",
+          "lat": 33.79352889447,
+          "lon": -118.122524636552,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Los Altos Neighborhood Library, 5614 Britton Dr. 90815",
+        "venue": {
+          "name": "Los Altos Neighborhood Library",
+          "address": "5614 E Britton Dr",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90815",
+          "country": "US",
+          "lat": 33.79352889447,
+          "lon": -118.122524636552,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Harte Neighborhood Library, 1595 W. Willow St. 90810",
+        "venue": {
+          "name": "Harte Neighborhood Library",
+          "address": "1595 W Willow St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90810",
+          "country": "US",
+          "lat": 33.804437154833,
+          "lon": -118.214208390633,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Brewitt Neighborhood Library, 4036 E. Anaheim St. 90804",
+        "venue": {
+          "name": "Brewitt Neighborhood Library",
+          "address": "4036 E Anaheim St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90804",
+          "country": "US",
+          "lat": 33.782538094836,
+          "lon": -118.145472171271,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Bach Neighborhood Library, 4055 N. Bellflower Blvd. 90808",
+        "venue": {
+          "name": "Bach Neighborhood Library",
+          "address": "4055 N Bellflower Blvd",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90808",
+          "country": "US",
+          "lat": 33.831805047864,
+          "lon": -118.125220319877,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Dana Neighborhood Library, 3680 Atlantic Ave. 90807",
+        "venue": {
+          "name": "Dana Neighborhood Library",
+          "address": "3680 Atlantic Ave",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90807",
+          "country": "US",
+          "lat": 33.823796545659,
+          "lon": -118.184945816389,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Mark Twain Neighborhood Library, 1401 E. Anaheim St. 90813",
+        "venue": {
+          "name": "Mark Twain Neighborhood Library",
+          "address": "1401 E Anaheim St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90813",
+          "country": "US",
+          "lat": 33.782663661974,
+          "lon": -118.174087503166,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Burnett Neighborhood Library, 560 E. Hill St. 90806",
+        "venue": {
+          "name": "Burnett Neighborhood Library",
+          "address": "560 E Hill St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90806",
+          "country": "US",
+          "lat": 33.797057034261,
+          "lon": -118.186027673508,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Alamitos Neighborhood Library, 1836 E. Third St. 90802",
+        "venue": {
+          "name": "Alamitos Neighborhood Library",
+          "address": "1836 E Third St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90802",
+          "country": "US",
+          "lat": 33.769083405114,
+          "lon": -118.168947963139,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Recreation Park Community Center, 4900 E 7th St. 90804",
+        "venue": {
+          "name": "Recreation Park Community Center",
+          "address": "4900 E 7th St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90804",
+          "country": "US",
+          "lat": 33.77526905938,
+          "lon": -118.136323797943,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Fire Station #8, 5365 2nd St. 90803",
+        "venue": {
+          "name": "Fire Station #8",
+          "address": "5365 E 2nd St",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90803",
+          "country": "US",
+          "lat": 33.758685481089,
+          "lon": -118.131000886663,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "The Bembridge House, 953 N. Park Circle Long Beach, CA 90813",
+        "venue": {
+          "name": "The Bembridge House",
+          "address": "953 N Park Circle",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90813",
+          "country": "US",
+          "lat": 33.778676444078,
+          "lon": -118.201687565783,
+          "coords_exact": true
+        }
+      },
+      {
+        "location": "Michelle Obama Neighborhood Library, 5870 Atlantic Ave. Long Beach, CA 90805",
+        "venue": {
+          "name": "Michelle Obama Neighborhood Library",
+          "address": "5870 Atlantic Ave",
+          "city": "Long Beach",
+          "region": "CA",
+          "postal_code": "90805",
+          "country": "US",
+          "lat": 33.861339445082,
+          "lon": -118.184907716861,
+          "coords_exact": true
+        }
+      }
+    ],
+    "_placement_note": "2026-11-05: 16 exact LOCATION variants for 14 library/partner venue addresses verified from the library calendar and Census exact matches (El Dorado and Fire Station #8 use published street directions). The library feed is a 324/324 UID subset of this city calendar, so no second feed is added. Offline adapter replay keeps 312 library-program fingerprints on verified address pins without library geocoding. Other city locations retain existing handling."
   },
   {
     "name": "Beverly Hills Public Library Events (Los Angeles)",

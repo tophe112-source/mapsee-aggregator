@@ -1246,6 +1246,22 @@ _FITNESS_METAPHOR_RX = re.compile(
     re.I)
 
 
+# ADX's “Butch Bootcamp: Craft Circle” is a craft programme; remove the brand
+# phrase only in this exact context. A bare bootcamp remains fitness evidence.
+_FITNESS_NONWORKOUT_TITLE_RX = re.compile(
+    r"\bButch\s+Bootcamp\s*:\s*Craft\s+Circle\b", re.I)
+
+
+def _fitness_text(rec: Dict[str, Any], limit: int = 0) -> str:
+    """Fitness-only title/description text with known non-workout names removed."""
+    return _FITNESS_NONWORKOUT_TITLE_RX.sub(" ", _classify_text(rec, limit))
+
+
+def _fitness_title(rec: Dict[str, Any]) -> str:
+    """The title-only fitness predicate, after narrow brand-name suppression."""
+    return _FITNESS_NONWORKOUT_TITLE_RX.sub(" ", rec.get("name") or "")
+
+
 def _classify_text(rec: Dict[str, Any], limit: int = 0) -> str:
     """The text a keyword rule is allowed to classify on.
 
@@ -1271,7 +1287,7 @@ def _fitness_strong_hit(rec: Dict[str, Any]) -> bool:
     disagree about what fired. URLs are removed (a slug is not a claim about the
     event) and figurative uses of "workout" are neutralised before matching.
     """
-    return bool(_FITNESS_STRONG_RX.search(_classify_text(rec)))
+    return bool(_FITNESS_STRONG_RX.search(_fitness_text(rec)))
 
 
 def _strong_fitness_override(rec: Dict[str, Any], base: str) -> bool:
@@ -1360,6 +1376,7 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     #    fitness SECONDARY off the slug, and an event whose only mention of yoga
     #    is inside our own generated Google search URL reaches wegosie on it.
     text = _classify_text(rec, _DESC_SCAN_CHARS)
+    fitness_text = _fitness_text(rec, _DESC_SCAN_CHARS)
     title = _strip_urls(rec.get("name") or "")
     for key, rx in _SECONDARY_RX:
         if len(extras) >= MAX_EXTRA_CATEGORIES:
@@ -1413,7 +1430,7 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
             if _volunteer_hit(rec):
                 add(key)
             continue
-        if rx.search(text):
+        if (rx.search(fitness_text) if key == "fitness" else rx.search(text)):
             add(key)
 
     return primary, (extras[:MAX_EXTRA_CATEGORIES] or None)
@@ -1573,7 +1590,7 @@ def map_category(rec: Dict[str, Any]) -> str:
     # Last in the chain deliberately: a volunteer trail-work party, a kids' karate
     # storytime or a boxing-themed club night should keep the more specific layer
     # the rules above already found for it.
-    if key in _PROMOTABLE_TO_FITNESS and _FITNESS_RX.search(rec.get("name") or ""):
+    if key in _PROMOTABLE_TO_FITNESS and _FITNESS_RX.search(_fitness_title(rec)):
         return "fitness"           # yoga/HIIT/climbing hiding in community/learning
     # …and the strong rule, which may also read the description and may override a
     # keyword-derived key (see _WEAK_KEY_FOR_FITNESS). URLs are stripped first —
