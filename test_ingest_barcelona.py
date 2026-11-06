@@ -710,6 +710,38 @@ check("its sessions leave the written rows, and exactly their fingerprints are s
 check("no row without a point: no second pass", T.seen_events(AGENDA, FACILITIES, EVS, SRC, CFG, TZ, TODAY, STATS)
       == [] or not STATS.get("unplaceable (no point)"))
 
+# A trimmed city race row, outside the community-facility register. Its 03:00
+# timestamp is the export's placeholder and another register covers road closures.
+race = dict(synth('99400030494', '27a Vueling Cursa de Bombers de Barcelona 2026',
+                  '2026-11-08', '2026-11-08', tt(('Diumenge', 'a les 08.50 h', '16 a 20 €', ''))),
+            addresses_road_name="Avinguda del Marquès de l'Argentera", addresses_start_street_number='1',
+            geo_epgs_4326_lat='41.38331968', geo_epgs_4326_lon='2.18365135')
+race_events, _ = run([race], [])
+check("a reviewed race uses its street start, published clock, fee and public register link",
+      len(race_events) == 1 and race_events[0].start_utc == '2026-11-08T07:50:00Z'
+      and race_events[0].category == 'running' and race_events[0].longitude == 2.18365135
+      and '20 €' in race_events[0].description and '99400030494.html' in race_events[0].ticket_url)
+revised = dict(race, timetable=tt(('Diumenge', 'a les 09.00 h', '', '')))
+later, _ = run([revised], [])
+check("a revised race clock updates the same occurrence",
+      later and race_events and later[0].fingerprint == race_events[0].fingerprint
+      and later[0].start_utc == '2026-11-08T08:00:00Z')
+for label, changes in [('a traffic notice', {'register_id': '99400765356'}),
+                       ('a changed start', {'addresses_start_street_number': '21'}),
+                       ('a missing timetable', {'timetable': ''}),
+                       ('a missing coordinate', {'geo_epgs_4326_lat': None})]:
+    check(f"{label} cannot make a race pin", not run([dict(race, **changes)], [])[0])
+off_race = dict(race, name=race['name'] + ' *Anul·lat*')
+off_events, _ = run([off_race], [])
+cancelled = T.cancelled_events([off_race], [], off_events, SRC, CFG, TZ, TODAY)
+check("the city's cancellation reaches the same race occurrence",
+      not off_events and race_events and [e.fingerprint for e in cancelled] == [race_events[0].fingerprint])
+no_point = [dict(race, geo_epgs_4326_lat=None)]
+unpinned, unpinned_stats = run(no_point, [])
+check("a race that loses its point stays seen without publishing a pin",
+      not unpinned and race_events and T.seen_events(no_point, [], unpinned, SRC, CFG, TZ, TODAY, unpinned_stats)
+      == [race_events[0].fingerprint])
+
 print()
 print(f"{len(fails)} failed" if fails else "all passed")
 sys.exit(1 if fails else 0)

@@ -324,6 +324,12 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     # The description is the only place a reader learns the cadence, and calling a
     # second-Saturday flea market "Weekly" is a promise it does not keep.
     cadence = "Monthly" if len(nths) == 1 else ("Weekly" if not nths else "Recurring")
+    description = f"{cadence} market" if mk.get("hours") else f"{cadence} community market"
+    if len(nths) == 1 and len(weekdays) == 1:
+        ordinal = {-1: "Last", 1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth"}
+        description += f" · {ordinal[next(iter(nths))]} {_DAY_NAMES[weekdays[0]].title()}"
+    if mk.get("hours"):
+        description += f" · {mk['hours']}"
     out: List[NormalizedEvent] = []
     for d in _occurrences(weekdays, src.get("horizon_days", 42),
                           _as_date(mk.get("season_start")), _as_date(mk.get("season_end")),
@@ -336,8 +342,7 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
             source=label,
             source_id=fp,
             name=name,
-            description=(f"{cadence} market · {mk.get('hours')}" if mk.get("hours")
-                         else f"{cadence} community market"),
+            description=description,
             start_local=sl, start_utc=su,
             end_local=el, end_utc=eu,
             venue_name=place,
@@ -411,11 +416,23 @@ def _osm_season(text: str) -> Tuple[Optional[str], Optional[str]]:
 
 
 def parse_opening_hours(oh: str) -> Optional[Dict[str, Any]]:
-    """OSM opening_hours -> {days, hours, season_start, season_end}, or None when
-    it is not a market day (open too often, or no parseable day + time)."""
+    """Return the market schedule, or None if we cannot date it faithfully."""
     text = (oh or "").lower().strip()
     if not text or text == "off" or "closed" in text:
         return None
+    if "[" in text or "]" in text:
+        # Porto's antiques fair is Sa[3]. A weekday alone would invent the
+        # other Saturdays. Only accept a complete rule the expander can express.
+        ordinal = r"(?:[1-5]|-1)"
+        rule = re.fullmatch(
+            rf"(mo|tu|we|th|fr|sa|su)\s*\[\s*({ordinal}(?:\s*,\s*{ordinal})*)\s*\]"
+            r"\s+(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})(?:\s+open)?", text)
+        if not rule:
+            return None
+        weekday, positions, start, end = rule.groups()
+        nth = ["last" if n.strip() == "-1" else int(n) for n in positions.split(",")]
+        return {"days": _DAY_NAMES[_OSM_ABBR[weekday]], "hours": f"{start}-{end}",
+                "nth": nth, "season_start": None, "season_end": None}
     s_start, s_end = _osm_season(text)
     days: set = set()
     times: List[Tuple[str, str]] = []

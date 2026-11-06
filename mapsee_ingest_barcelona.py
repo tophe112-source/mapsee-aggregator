@@ -2,7 +2,8 @@
 """
 mapsee_ingest_barcelona.py - what is on at Barcelona's community places: the
 centres civics, casals de barri, youth and children's casals, seniors' casals
-and municipal libraries, read from the City's own daily agenda.
+and municipal libraries, read from the City's own daily agenda. Reviewed road
+races use their published start addresses and timetables from that same read.
 
     python mapsee_ingest_barcelona.py --config barcelona_sources.json \
         --store feeds_events.json [--max-minutes 3]
@@ -1344,6 +1345,46 @@ def _fmt_day(d: date) -> str:
     return f"{d.day} {d.strftime('%b')} {d.year}"
 
 
+def reviewed_race(row: Dict[str, Any], rid: str, day: date, point: Optional[Tuple[float, float]],
+                  start_address: str, src: Dict[str, Any], cfg: Dict[str, Any], tz,
+                  as_if_live: bool) -> Optional[NormalizedEvent]:
+    """One reviewed road race. The agenda date column's clock is a placeholder.
+
+    A register ID survives a new edition. Check its start address each time:
+    the city's point can also represent the finish or the bib collection site.
+    """
+    title = _s(row.get("name"))
+    off = called_off(title)
+    if off and not as_if_live:
+        return None
+    title = off or title
+    address = f"{_s(row.get('addresses_road_name'))} {_s(row.get('addresses_start_street_number'))}".strip()
+    if not re.search(r"\bcursa\b", title, re.I) or _norm(address) != _norm(start_address):
+        return None
+    rows = timetable(row.get("timetable"))
+    if len(rows) != 1:
+        return None
+    hours = parse_hours(rows[0].get("hours"))
+    if hours.closed or hours.ranges or len(hours.starts) != 1:
+        return None
+    start = hours.starts[0]
+    local, utc = _stamp(day, start, tz)
+    _, price = price_line(rows)
+    source_id = f"race|{rid}|{day.isoformat()}"
+    ev = NormalizedEvent(
+        source=src.get("source", "barcelona-agenda"), source_id=source_id, name=title,
+        description=f"First published start at {hm(start)}. {price}\n\n{cfg['attribution']}",
+        start_local=local, start_utc=utc, timezone=cfg["timezone"],
+        venue_name=address, address=address, latitude=point[0] if point else None,
+        longitude=point[1] if point else None, coords_exact=True,
+        city=cfg["city"], region=cfg.get("region"), country=cfg["country"],
+        postal_code=_s(row.get("addresses_zip_code")).zfill(5) if row.get("addresses_zip_code") else None,
+        category="running", ticket_url=cfg["link_template"].format(slug=slug(title), id=rid),
+    )
+    ev.fingerprint = make_fingerprint(f"Barcelona race {rid}", day.isoformat(), cfg["city"])
+    return ev
+
+
 def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: Dict[str, Any],
            cfg: Dict[str, Any], tz, today: date, stats: Dict[str, int],
            as_if_live: bool = False, as_if_placed: bool = False) -> List[NormalizedEvent]:
@@ -1367,6 +1408,7 @@ def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: 
 
     groups: Dict[Tuple[str, str, str], List[Dict[str, Any]]] = {}
     runs: List[Dict[str, Any]] = []
+    out: List[NormalizedEvent] = []
     for row in agenda:
         lo = _day(row.get("start_date"))
         hi = _day(row.get("end_date")) or lo
@@ -1385,6 +1427,15 @@ def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: 
             continue
         if pt is not None and box and not (box[0] <= pt[0] <= box[2] and box[1] <= pt[1] <= box[3]):
             _bump(stats, "outside Barcelona's box")
+            continue
+        rid = _rid(row.get("register_id"))
+        start_address = cfg.get("race_starts", {}).get(rid)
+        if start_address:
+            if lo == hi:
+                race = reviewed_race(row, rid, lo, pt, start_address, src, cfg, tz, as_if_live)
+                if race:
+                    out.append(race)
+                    _bump(stats, "rows written: reviewed race starts")
             continue
         addr = (_s(row.get("addresses_road_id")), _s(row.get("addresses_start_street_number")))
         here = idx.get(addr) if all(addr) else None
@@ -1468,7 +1519,6 @@ def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: 
             groups.setdefault((venue["id"], _norm(title), d.isoformat()), []).append(dict(rec, _hours=h))
 
     attribution = cfg["attribution"]
-    out: List[NormalizedEvent] = []
 
     def build(rec: Dict[str, Any], title: str, sl: str, su: Optional[str], el: Optional[str],
               eu: Optional[str], source_id: str, fp_day: str, fp_key: str, schedule_line: Optional[str],

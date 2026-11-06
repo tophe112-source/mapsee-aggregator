@@ -303,14 +303,31 @@ check("no nth still means weekly — every existing market is untouched",
       M._nth_set(None) == set() and rule_dates("Saturday", None, "2026-08-01", "2026-08-31")
       == ["2026-08-01", "2026-08-08", "2026-08-15", "2026-08-22", "2026-08-29"])
 
+# The Porto fair's node and way both publish Sa[3]. Pass the parsed tag to
+# the same date expansion as inline markets, including through a year boundary.
+porto = M.parse_opening_hours("Sa[3] 08:00-18:00")
+check("Porto's OSM hours produce only the published third Saturdays",
+      porto and porto['hours'] == '08:00-18:00'
+      and rule_dates(porto['days'], porto['nth'], '2026-11-01', '2027-01-31')
+      == ['2026-11-21', '2026-12-19', '2027-01-16'])
+first_last = M.parse_opening_hours("Th[1, -1] 09:00-14:00 open")
+check("a first and last weekday is correct in four- and five-Thursday months",
+      first_last and rule_dates(first_last['days'], first_last['nth'], '2026-11-01', '2026-12-31')
+      == ['2026-11-05', '2026-11-26', '2026-12-03', '2026-12-31'])
+check("mixed rules and offset weekdays never silently become weekly markets",
+      all(M.parse_opening_hours(tag) is None for tag in (
+          'Sa[3] 08:00-18:00; Su 09:00-12:00', 'Su[1],Su[1] +1 day 06:00-12:00',
+          'Sa[-2] 08:00-18:00', 'Sa[3] 08:00-18:00; PH off')))
+
 # A monthly market must not be DESCRIBED as weekly either; the description line
 # is the only place a reader learns the cadence.
 evs = M.market_events({"name": "Magnolia Flea Market", "lat": 47.65926, "lon": -122.38796,
                        "days": "Saturday", "nth": "second", "hours": "10 a.m. - 4 p.m."},
                       {"name": "t", "horizon_days": 365, "timezone": "America/Los_Angeles"},
                       None)
-check("a second-Saturday market is not advertised as weekly",
-      evs and "Weekly" not in evs[0].description, evs and evs[0].description)
+check("the market listing gives the exact monthly recurrence and opening hours",
+      evs and evs[0].description == "Monthly market · Second Saturday · 10 a.m. - 4 p.m.",
+      evs and evs[0].description)
 check("a year of a second-Saturday market is ~12 dates, not ~52",
       10 <= len(evs) <= 13, len(evs))
 check("and every one of them really is a second Saturday",

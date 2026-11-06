@@ -3,6 +3,19 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an offset that belongs to the server, a bare date, a sentinel date, `starts_at`'s first ten characters, two dates on one listing, a year on the wrong side.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **PORTO MARKET RECURRENCE AND BARCELONA RACE STARTS (2026-11-06).**
+  Porto's Feira de Antiguidades e Velharias had 6 upcoming listings. Five fell
+  outside the municipal schedule. Both OSM objects (node 13409166068 and way
+  1034841469) say `Sa[3] 08:00-18:00`. The next 3 third Saturdays are Nov 21,
+  Dec 19 and Jan 16. Preserve the weekday position in `parse_opening_hours`
+  and on the listing. [Municipal calendar](https://www.agenda-porto.pt/evento/feira-de-antiguidades-e-velharias-nov26/).
+  A Guia BCN agenda search for `Cursa` returned 11 registers. Four had a
+  verified race start street and a single published timetable start, including
+  Bombers at 08:50 on Nov 8. The agenda date field alone gave 03:00. Check
+  the edition's start address and timetable on every import. Keep the register
+  and local date as the identity when an organizer changes the clock.
+  [Guia BCN race listing](https://guia.barcelona.cat/detall/27a-vueling-cursa-de-bombers-de-barcelona-2026_99400030494.html).
+
 - **AN ALL-DAY CENSUS IS A SHAPE READ, AND A CLOCK FIX MUST REACH THE CACHE.**
   2026-11-04. The live observed-set walk read **822,616** current/future dated
   imported `events_map` rows and **200,016** listed standing rows: **46,300**

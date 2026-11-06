@@ -1,5 +1,5 @@
 {
-  "_comment": "Ajuntament de Barcelona open data, read by mapsee_ingest_barcelona.py through the CKAN datastore API only (a documented public API: catalog_curate.DOCUMENTED_API_TYPES has ckan; and so exempt from robots.txt; the portal's /robots.txt answers 302 to /challenge, a 'Bot Detection' page, 2026-10-05). The JSON download of the same resource redirects to /challenge and the ASIA XML feeds on w10.bcn.cat are refused by robots.txt: neither is ever requested. Read the adapter header before changing a rule: only what anyone can turn up to at a community facility is written, and every price sentence is read by ../mapsee migration 0227 as an offer tag.",
+  "_comment": "Ajuntament de Barcelona open data, read by mapsee_ingest_barcelona.py through the CKAN datastore API only (a documented public API: catalog_curate.DOCUMENTED_API_TYPES has ckan; and so exempt from robots.txt; the portal's /robots.txt answers 302 to /challenge, a 'Bot Detection' page, 2026-10-05). The JSON download of the same resource redirects to /challenge and the ASIA XML feeds on w10.bcn.cat are refused by robots.txt: neither is ever requested. Read the adapter header before changing a rule: community drop-ins and reviewed road race starts have separate admission rules. Every price sentence is read by ../mapsee migration 0227 as an offer tag.",
   "api": "https://opendata-ajuntament.barcelona.cat/data/api/3/action/datastore_search",
   "crawl_delay": 1,
   "_crawl_delay": "The portal states none (its /robots.txt is a bot-challenge page, not a file); one request a second anyway. A run is 2 requests.",
@@ -15,6 +15,13 @@
   "join_max_m": 250,
   "_join_max_m": "Address joined to a facility (road id + street number), and the row's point within this of the facility's (whose point is then used). Measured 2026-10-03: 2,672 of 2,753 joined rows within 1 m; Brusi 51 (Espai Jove Casa Sagnier) 205 m and Ronda del Guinardo 113 (Centre Civic Guinardo) 138 m are the same buildings geocoded twice.",
   "link_template": "https://guia.barcelona.cat/ca/detall/{slug}_{id}.html",
+  "_race_starts": "Reviewed Guia BCN register IDs and start addresses. The city also publishes traffic notices, bib collection points and finish lines. Read the timetable, price and coordinates afresh on every run. A changed address needs another review.",
+  "race_starts": {
+    "99400030494": "Avinguda del Marquès de l'Argentera 1",
+    "99400064626": "Carrer de Provença 591",
+    "99400347926": "Rda Guinardó 49",
+    "99400331523": "Carrer de Josep Estivill 10"
+  },
   "_link_template": "The City's public page per register id. robots.txt (guia.barcelona.cat) allows /ca/detall/ with Crawl-delay 10; the server ignores the slug (a wrong one returned the same 200 page, 2026-10-05). Never fetched by this adapter; mapsee_prune_cancelled.py probes it as the row's Tickets / info link and keeps the 10 s Crawl-delay (probe_all).",
   "venue_kinds": ["Centres cívics", "Casals de barri", "Casals i espais per a joves", "Casals infantils",
                   "Biblioteques municipals", "Casals d'avis", "Ateneus de fabricació", "Bancs del Temps"],
