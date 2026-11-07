@@ -7806,6 +7806,438 @@
         "lon": -90.1755406
       },
       "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "First Baptist Church Maryville",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://fbmaryville.org/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "First Baptist Church Maryville",
+        "address": "7110 State Route 162",
+        "city": "Maryville",
+        "region": "IL",
+        "postal_code": "62062",
+        "lat": 38.736423,
+        "lon": -89.932692
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "East End Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.eastendbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "East End Brewing Company",
+        "address": "147 Julius Street",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15206",
+        "lat": 40.4592466,
+        "lon": -79.9117717
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Artists Image Resource Inc",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.airpgh.org/events/exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "Artists Image Resource Inc",
+        "address": "518 Foreland Street",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15212",
+        "lat": 40.4545456,
+        "lon": -80.0001716
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Victory Lane Indoor Karting",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.victorylanekarting.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Victory Lane Indoor Karting",
+        "address": "2330 Tipton Drive",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28206",
+        "lat": 35.2711941,
+        "lon": -80.8428755
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Charlotte Art League",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://queencityart.org/event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Charlotte Art League",
+        "address": "4237 Raleigh Street",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28213",
+        "lat": 35.2539373,
+        "lon": -80.7898144
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "The Barrel Room",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.triplecbrewing.com/live-music-events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Barrel Room",
+        "lat": 35.2014403,
+        "lon": -80.8690479
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Providence United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.providenceumc.org/upcoming",
+      "max_events": 200,
+      "venue": {
+        "name": "Providence United Methodist Church",
+        "address": "2810 Providence Road",
+        "lat": 35.1716676,
+        "lon": -80.8101927
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Blair Road United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace+gcal-embed",
+      "collection": "https://www.blairroadumc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Blair Road United Methodist Church",
+        "address": "9135 Blair Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28227",
+        "lat": 35.1944816,
+        "lon": -80.6391268
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Groovers Charlotte",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.grooversclt.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Groovers Charlotte",
+        "address": "1510 South Mint Street",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28203",
+        "lat": 35.2191627,
+        "lon": -80.8611695
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Stelo",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.steloarts.org/stelo-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Stelo",
+        "address": "412 Northwest 8th Avenue",
+        "city": "Portland",
+        "postal_code": "97209",
+        "lat": 45.5260325,
+        "lon": -122.6783973
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "CAP Northwest",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.capnw.org/cap-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "CAP Northwest",
+        "address": "520 Northwest Davis Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5243838,
+        "lon": -122.6759142
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "New Vision Dance Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.newvisiondance.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Vision Dance Center",
+        "address": "12305 Southwest Horizon Boulevard",
+        "city": "Beaverton",
+        "region": "OR",
+        "postal_code": "97007",
+        "lat": 45.4311502,
+        "lon": -122.8299039
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Children's Healing Art Project",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.chappdx.org/events-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Children's Healing Art Project",
+        "address": "8065 Southeast Grand Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.4649034,
+        "lon": -122.6613023
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Transition Projects Resource Center",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.tprojects.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Transition Projects Resource Center",
+        "address": "650 Northwest Irving Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5277529,
+        "lon": -122.6773414
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Portland Housing Center",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://arrivehomeownership.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Portland Housing Center",
+        "address": "3233 Northeast Sandy Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97232",
+        "lat": 45.5315513,
+        "lon": -122.631527
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Art at the Cave",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://artatthecave.com/calendar-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Art at the Cave",
+        "address": "108 East Evergreen Boulevard",
+        "city": "Vancouver",
+        "region": "WA",
+        "postal_code": "98660",
+        "lat": 45.6288978,
+        "lon": -122.6710408
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Binary Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://binarybrewing.co/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Binary Brewing",
+        "address": "12375 Southwest Broadway Street",
+        "city": "Beaverton",
+        "region": "OR",
+        "postal_code": "97005",
+        "lat": 45.4878075,
+        "lon": -122.8033928
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Skyhook Bouldering",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.skyhookbouldering.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Skyhook Bouldering",
+        "address": "2436 Southeast 12th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97214",
+        "lat": 45.5053187,
+        "lon": -122.6535076
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Rae Loft",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.raeloftpdx.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Rae Loft",
+        "address": "2222 Northeast Oregon Street",
+        "postal_code": "97232",
+        "lat": 45.528456,
+        "lon": -122.6428662
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Quest Center for Integrative Health",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://quest-center.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Quest Center for Integrative Health",
+        "address": "3231 Southeast 50th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97206",
+        "lat": 45.4991215,
+        "lon": -122.6116285
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Holy Rosary Catholic Church and Priory",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://holyrosarypdx.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Holy Rosary Catholic Church and Priory",
+        "address": "375 Northeast Clackamas Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97232",
+        "lat": 45.5331273,
+        "lon": -122.6621862
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Ori Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://oriartgallery.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Ori Gallery",
+        "address": "4038 North Mississippi Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97227",
+        "lat": 45.5527108,
+        "lon": -122.6753326
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Living Häus Beer Co",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.livinghausbeer.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Living Häus Beer Co",
+        "address": "630 Southeast Belmont Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97214",
+        "lat": 45.5162846,
+        "lon": -122.6590281
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "West Hills Friends Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://westhillsfriends.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "West Hills Friends Church",
+        "address": "7425 Southwest 52nd Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97219",
+        "lat": 45.4710733,
+        "lon": -122.7309987
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Faith On Hill Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.faithonhill.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Faith On Hill Church",
+        "address": "3615 Southeast Hill Road",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97267",
+        "lat": 45.4197585,
+        "lon": -122.6254255
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Spirit of Grace",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://spiritofgracepdx.org/upcomingeventscalendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Spirit of Grace",
+        "address": "7400 Southwest Scholls Ferry Road",
+        "city": "Beaverton",
+        "region": "OR",
+        "postal_code": "97008",
+        "lat": 45.4664253,
+        "lon": -122.7763852
+      },
+      "_metro": "Portland OR, United States"
     }
   ],
   "_not_included": {

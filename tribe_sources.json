@@ -38767,6 +38767,935 @@
         "lon": -90.3029344
       },
       "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Brightside Demo Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brightsidestl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brightside Demo Garden",
+        "lat": 38.6123451,
+        "lon": -90.2673983
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "The Improv Shop",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://theimprovshop.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Improv Shop",
+        "address": "3960 Chouteau Avenue",
+        "city": "St. Louis",
+        "region": "MO",
+        "postal_code": "63110",
+        "lat": 38.6277956,
+        "lon": -90.2471139
+      },
+      "_metro": "St. Louis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Jewish Community Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jccstl.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jewish Community Center",
+        "address": "2 Millstone Campus Drive",
+        "city": "Creve Coeur",
+        "region": "MO",
+        "postal_code": "63146",
+        "lat": 38.6857085,
+        "lon": -90.4096765
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Catholic Renewal Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "http://www.archstl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Catholic Renewal Center",
+        "address": "6120 Pebble Hill Drive",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63123",
+        "lat": 38.569055,
+        "lon": -90.3191609
+      },
+      "_metro": "St. Louis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "First Baptist Church of Ferguson",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://fbcferguson.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Baptist Church of Ferguson",
+        "lat": 38.7504914,
+        "lon": -90.3089383
+      },
+      "_metro": "St. Louis, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Waverly Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://waverlychurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Waverly Presbyterian Church",
+        "address": "590 South Braddock Avenue",
+        "postal_code": "15221",
+        "lat": 40.439951,
+        "lon": -79.898153
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Temple Sinai",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://beitkulanu.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Sinai",
+        "address": "5505 Forbes Avenue",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15217",
+        "lat": 40.4380347,
+        "lon": -79.9298529
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Pittsburgh Glass Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.pittsburghglasscenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pittsburgh Glass Center",
+        "address": "5472 Penn Avenue",
+        "lat": 40.4641218,
+        "lon": -79.9328361
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "The Clemente Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://clementemuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Clemente Museum",
+        "lat": 40.4624602,
+        "lon": -79.9677114
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Arcade Comedy Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.arcadecomedytheater.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arcade Comedy Theatre",
+        "address": "943 Liberty Avenue",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15222",
+        "lat": 40.4434569,
+        "lon": -79.9965012
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Squatch Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://squatch-brewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Squatch Brewing",
+        "address": "203 Townsend Drive",
+        "postal_code": "15146",
+        "lat": 40.4606037,
+        "lon": -79.7641367
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "August Wilson Center for African American Culture",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://awaacc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "August Wilson Center for African American Culture",
+        "address": "980 Liberty Avenue",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15222",
+        "country": "US",
+        "lat": 40.4431849,
+        "lon": -79.9958516
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Pittsburgh Community Services",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://pghcsi.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pittsburgh Community Services",
+        "address": "249 North Craig Street",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15213",
+        "lat": 40.4512734,
+        "lon": -79.9519691
+      },
+      "_metro": "Pittsburgh, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "North Way Christian Community",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://northway.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Way Christian Community",
+        "address": "12121 Perry Highway",
+        "city": "Wexford",
+        "region": "PA",
+        "postal_code": "15090",
+        "lat": 40.6339685,
+        "lon": -80.0625234
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Senator John Heinz History Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.heinzhistorycenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Senator John Heinz History Center",
+        "address": "1212 Smallman Street",
+        "postal_code": "15222",
+        "lat": 40.4465766,
+        "lon": -79.9921947
+      },
+      "_metro": "Pittsburgh, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Temple Emanuel of South Hills",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://templeemanuelpgh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Emanuel of South Hills",
+        "address": "1250 Bower Hill Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15243",
+        "lat": 40.3751688,
+        "lon": -80.0727627
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Reformed Presbyterian Church of North Hills",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://rpcnh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reformed Presbyterian Church of North Hills",
+        "address": "606 Thompson Run Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15237",
+        "lat": 40.5391124,
+        "lon": -79.9896406
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Mount Lebanon United Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mtlebanonlutheran.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Lebanon United Lutheran Church",
+        "address": "975 Washington Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15228",
+        "lat": 40.3737306,
+        "lon": -80.0481468
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Saint Paul's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://stpaulspgh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Paul's Episcopal Church",
+        "address": "1066 Washington Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15228",
+        "lat": 40.3707609,
+        "lon": -80.0500586
+      },
+      "_metro": "Pittsburgh, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Pittsburgh Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://pittsburghsda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pittsburgh Seventh Day Adventist Church",
+        "address": "4021 Evergreen Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15214",
+        "lat": 40.4926274,
+        "lon": -80.0135726
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://westridge.cc",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "220 West Allegheny Road",
+        "city": "Imperial",
+        "region": "PA",
+        "postal_code": "15126",
+        "lat": 40.4474161,
+        "lon": -80.2320432
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Unitarian Universalist Church of the North Hills",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://uucnh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Church of the North Hills",
+        "address": "2359 West Ingomar Road",
+        "lat": 40.5842111,
+        "lon": -80.0819984
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Holy Cross Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://holycrosspgh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Cross Greek Orthodox Church",
+        "address": "123 Gilkeson Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15228",
+        "lat": 40.3554843,
+        "lon": -80.0530801
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "The Lindsay Theater & Cultural Center",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://thelindsaytheater.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Lindsay Theater & Cultural Center",
+        "address": "418 Walnut Street",
+        "city": "Sewickley",
+        "region": "PA",
+        "postal_code": "15143",
+        "lat": 40.5402288,
+        "lon": -80.1820139
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "St. Colman",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://integritync.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Colman",
+        "address": "100 Tri-Boro Expressway",
+        "city": "Turtle Creek",
+        "region": "PA",
+        "postal_code": "15145",
+        "lat": 40.4061155,
+        "lon": -79.827291
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Dancing Gnome",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://dancinggnomebeer.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dancing Gnome",
+        "address": "1025 Main Street",
+        "city": "Sharpsburg",
+        "region": "PA",
+        "postal_code": "15215",
+        "lat": 40.493881,
+        "lon": -79.9317084
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "The Andy Warhol Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.warhol.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Andy Warhol Museum",
+        "address": "117 Sandusky Street",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15212",
+        "lat": 40.4483756,
+        "lon": -80.0025031
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Westminster Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://westminster-church.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westminster Presbyterian Church",
+        "address": "2040 Washington Road",
+        "city": "Pittsburgh",
+        "postal_code": "15241",
+        "lat": 40.3399373,
+        "lon": -80.0654908
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "The Light Factory",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://lightfactory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Light Factory",
+        "lat": 35.2317433,
+        "lon": -80.8355776
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Mercy Church - Providence Road",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mercycharlotte.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mercy Church - Providence Road",
+        "address": "7200 Providence Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28226",
+        "lat": 35.1092079,
+        "lon": -80.7791046
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Northeast Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://northeastadventist.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Northeast Seventh-Day Adventist Church",
+        "address": "827 Tom Hunter Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28213",
+        "lat": 35.2780674,
+        "lon": -80.7799519
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Unitarian Universalist Church of Charlotte",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.uuccharlotte.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Church of Charlotte",
+        "address": "234 North Sharon Amity Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28211",
+        "lat": 35.1761505,
+        "lon": -80.79568
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Cabarrus Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cabarrusbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cabarrus Brewing Company",
+        "address": "329 McGill Avenue Northwest",
+        "city": "Concord",
+        "region": "NC",
+        "postal_code": "28027",
+        "lat": 35.4138049,
+        "lon": -80.6031184
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Mint Hill Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://minthillbc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mint Hill Baptist Church",
+        "address": "7835 Matthews-Mint Hill Road",
+        "city": "Mint Hill",
+        "region": "NC",
+        "postal_code": "28227",
+        "lat": 35.1795602,
+        "lon": -80.649057
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Lines for Life",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.linesforlife.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lines for Life",
+        "address": "5100 South Macadam Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97239",
+        "lat": 45.4860081,
+        "lon": -122.6749987
+      },
+      "_metro": "Portland OR, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Russian Oregon Social Services",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://emoregon.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Russian Oregon Social Services",
+        "address": "4033 Southeast Woodstock Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.4793469,
+        "lon": -122.6208307
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Literary Arts",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://literary-arts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Literary Arts",
+        "address": "925 Southwest Washington Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97205",
+        "lat": 45.5213647,
+        "lon": -122.6809839
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Darcelle XV",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://darcellexv.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Darcelle XV",
+        "address": "208 Northwest 3rd Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5248209,
+        "lon": -122.673258
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Embold Credit Union",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.emboldcu.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Embold Credit Union",
+        "address": "15099 Southeast McLoughlin Boulevard",
+        "city": "Oak Grove",
+        "region": "OR",
+        "postal_code": "97267",
+        "lat": 45.4134067,
+        "lon": -122.6317884
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "El Programa Hispano Catolico",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://elprograma.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "El Programa Hispano Catolico",
+        "address": "333 Southeast 223rd Avenue",
+        "city": "Gresham",
+        "region": "OR",
+        "postal_code": "97030",
+        "lat": 45.5201819,
+        "lon": -122.4342969
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Rose Haven",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://rosehaven.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rose Haven",
+        "address": "410 Northwest 18th Avenue",
+        "lat": 45.5261982,
+        "lon": -122.6890468
+      },
+      "_metro": "Portland OR, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "The Headliners Club",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://theheadlinersclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Headliners Club",
+        "address": "17880 McEwan Road",
+        "city": "Lake Oswego",
+        "region": "OR",
+        "postal_code": "97035",
+        "lat": 45.3956209,
+        "lon": -122.7428241
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Center for an Untold Tomorrow",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event",
+      "base_url": "https://portlandartmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Center for an Untold Tomorrow",
+        "address": "934 Southwest Salmon Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97205",
+        "lat": 45.5177499,
+        "lon": -122.6830756
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Portland Metro Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://pdxmetroarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Portland Metro Arts",
+        "address": "9003 Southeast Stark Street",
+        "postal_code": "97216",
+        "lat": 45.5193059,
+        "lon": -122.5710887
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Lan Su Chinese Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://lansugarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lan Su Chinese Garden",
+        "address": "239 Northwest Everett Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5256457,
+        "lon": -122.6729696
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "World Forestry Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://worldforestry.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "World Forestry Center",
+        "address": "4033 Southwest Canyon Road",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97221",
+        "lat": 45.5108123,
+        "lon": -122.7182618
+      },
+      "_metro": "Portland OR, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Crystal Ballroom",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.crystalballroompdx.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Crystal Ballroom",
+        "address": "406 Southwest 14th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97205",
+        "lat": 45.5227117,
+        "lon": -122.6848207
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Milagro",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://milagro.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Milagro",
+        "address": "525 Southeast Stark Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97214",
+        "lat": 45.5195754,
+        "lon": -122.6600267
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Clinton Street Theater",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://cstpdx.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clinton Street Theater",
+        "address": "2522 Southeast Clinton Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.5031621,
+        "lon": -122.6399955
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Bethany Athletic Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bethanyathleticclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bethany Athletic Club",
+        "address": "15670 Northwest Central Drive",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97229",
+        "lat": 45.554286,
+        "lon": -122.837596
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Virginia Garcia Memorial Health Center",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://virginiagarcia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Virginia Garcia Memorial Health Center",
+        "address": "3305 Northeast Aloclek Drive",
+        "city": "Hillsboro",
+        "postal_code": "97124",
+        "lat": 45.5437752,
+        "lon": -122.8920381
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Lifeworks Northwest",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lifeworksnw.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lifeworks Northwest",
+        "address": "8770 Southwest Scoffins Street",
+        "city": "Tigard",
+        "region": "OR",
+        "postal_code": "97223",
+        "lat": 45.4308083,
+        "lon": -122.7672118
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Serenity Lane",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://serenitylane.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Serenity Lane",
+        "address": "10920 Southwest Barbur Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97219",
+        "lat": 45.4462366,
+        "lon": -122.7295357
+      },
+      "_metro": "Portland OR, United States"
     }
   ],
   "_not_included": {

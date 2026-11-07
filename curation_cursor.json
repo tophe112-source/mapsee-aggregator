@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 198,
-  "metro_key": "US:St. Louis",
+  "metro": 201,
+  "metro_key": "US:Portland OR",
   "stuck": {}
  },
  "osm|community_centre,library": {

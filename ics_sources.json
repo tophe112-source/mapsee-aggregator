@@ -66150,5 +66150,663 @@
     "geocode_suffix": ", Saint Louis, MO",
     "limit": 300,
     "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Glen Ed Pantry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c046768e3f3e587a643f18630f245740e2854ade0dafaf9596376a731a1b85e4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edwardsville",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "All Saints of North America Antiochian Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/allsaintsofna-stl%40att.net/public/basic.ics",
+    "geocode_suffix": ", Maryland Heights, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "The Big Idea Bookstore and Cafe",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/551909cc2014e94d050e87b942d19bb6faebbaf79cd0ae97c937d32c9c1c6fdf%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Carnegie Museum of Art",
+    "category": "arts",
+    "_found": "osm:gallery -> event-organiser",
+    "url": "https://carnegieart.org/?feed=eo-events",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Century Square Luxury Cinemas",
+    "category": "theater",
+    "_found": "osm:cinema -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/goldenstartheaters.com_7hk51t02409ehe0apielfk34pc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", West Mifflin, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "City Reformed Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cityreformed.org_qi7lpmn15hoog6h4v81i3sbngg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Grace Orthodox Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://graceopcpgh.org/calendar.ics",
+    "geocode_suffix": ", Pittsburgh, United States",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Zion Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_iff9had83jkbge0sdgue95qt50%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Tree of Life Open Bible Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u8bm4lq56loar561bd4oe6sjes%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Mifflin Avenue United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mifflinave.org_nbm1r0i67h365r4a61damh4408%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Islamic Center of Pittsburgh",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_vjef0q1p49lc4qgl6r5skje268%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Attawheed Islamic Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ed0f0616a7be3bd95fd890a0ef8f8dc373e3255a69b717ec3d44ee751c9a8915%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Carnegie, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Third Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40thirdchurch.org/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Pittsburgh's Syria Shriners",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s3gf3gtd8fq7fp0ooskp1f590g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cheswick, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Beverly Heights Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://beverlyheights.org/mediafiles/event-list.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Kimisis Tis Theotokou Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ss1nvapvfp0dahoj49jqp0hvds%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aliquippa, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "St. David's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gopbmg7jnqnpnl0783idn48s34%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Venetia, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Presentation of Christ Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/55gjnbvu2ivrnimac3rl463knc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", East Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Unitarian Universalist Church of the South Hills",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.sunnyhill.org/uucsh-events/?ical=1",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Wooden Robot",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_470688d81770ffbb65c55d6b5dcd788670e3b3812206789f29d25168d9563b3e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Mint Hill Arts",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3a810965154a1023d9f9ff05ef08d62e31ddef7c44f7f7bef15050955b42c9b3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mint Hill, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Mecklenburg Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/communications%40mecklenburg.org/public/basic.ics",
+    "geocode_suffix": ", Charlotte",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Cross & Crown Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.crossandcrown.org/events.ics",
+    "geocode_suffix": ", Matthews, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Wellspring Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://wellspringchurchnc.org/upcoming-events/?ical=1",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "St James Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40sjnc.net/public/basic.ics",
+    "geocode_suffix": ", Concord, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Nativity of the Holy Theotokos Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://holyvirgin.net/events.ics",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Charlotte Rugby Club Clubhouse",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4276532f9d9aa55213ae436aefec899cc9658d7d9045d609b7cc26e93aed2155%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Abundant Life Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/abundantlifechurchav%40abundantlife4me.com/public/basic.ics",
+    "geocode_suffix": ", Matthews, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Saint Michael the Archangel Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8326071191c1bfd7623fed02384d76910d65fda05abad5e46c6a9b1c105c4ed0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Matthews, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Caldwell Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_n176u8g7j8vgdu15ehrdke16ds%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Mt. Harmony Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mtharmony.net_lmr324g34gtn4li2c13b19avt8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Matthews, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Van Landingham Glen",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_08a23e237ad26abc1ad2e43230cee8431a96ceb62d8e86f1d509b6710e08fb76%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Charlotte, United States",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "The Oasis Shriners",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5edb3cd83bd3ac84b34ff2ad347ccc15759b27bccb666949569e7cb545d54728%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300,
+    "venue": {
+      "name": "The Oasis Shriners",
+      "city": "Charlotte",
+      "region": "NC",
+      "postal_code": "28262",
+      "country": "US",
+      "lat": 35.3160023,
+      "lon": -80.7533878,
+      "street_hint": "604 Doug Mayes Place",
+      "pin_unnamed": false
+    },
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Memorial Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mlc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Vancouver, WA",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Calvary Chapel Oregon City",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dckgiiq3advmkpicrt8g0ggbjo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oregon City, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Mountainview Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mvcclive.com/events/kids-christmas-choir/2026-12-13.ics",
+    "geocode_suffix": ", Gresham, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Congregation Ahavath Achim",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4re7n40dhrmncvvl7fj6ehtvh4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Oregon Entrepreneurs Network",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_22d686e3b4ee6da5c0cadfc7cfa3db84cbbe053c2fd59f347ace52b70e5f0f15%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Northwest Fencing Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/marketing%40nwfencing.org/public/basic.ics",
+    "geocode_suffix": ", Tigard",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "The Community For Positive Aging",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hollywoodseniorcenter.org_0shb0dl2u8tiv9mq83ad6rojc0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Fulcrum Fitness",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eoe8p4iqvtneb7iffpdps3ddpc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Sanctuary",
+    "category": "music",
+    "_found": "osm:nightclub -> ics",
+    "url": "https://pdxsanctuary.com/events/calendar/sanctuary/ics/",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Hellenic-American Cultural Center & Museum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://hellenicamericancc.org/upcoming-events/?ical=1",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Japanese Arts Learning Center",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://japanesegarden.org/pjg-events/?ical=1",
+    "geocode_suffix": ", Portland OR, United States",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Paragon Arts Center",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pcc.edu_al4s4t27tmfjdkks5hieon1464%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "West Hills Unitarian Universalist Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://whuuf.net/events/?ical=1",
+    "geocode_suffix": ", Tigard, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c3swwa.com_rkn4nsocgd4efqjbe0rl4mfcdk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, WA",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "North Clackamas Watersheds Council",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3566f6b5ff60105562c416015fa09a075d9628853e2e200011af4775c9d47aea%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukie, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Nichiren Buddhist Temple of Portland",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c94a5bbc7aa8c8da2eaa4f375ddfa5d0389e678c77725205df1c2b34a963edb6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Our Lady of the Lake",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jj67oteu18og312pfpatoslusu9o71lg%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lake Oswego, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Holy Redeemer Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1k2efvsvqvanffrk1hrlbotm7k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Beaverton City Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.beavertonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "venue": {
+      "name": "Beaverton City Library",
+      "city": "Beaverton",
+      "region": "OR",
+      "postal_code": "97005-2823",
+      "lat": 45.4841438,
+      "lon": -122.804063,
+      "street_hint": "12375 Southwest 5th Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Portland OR, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Montavilla United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3631b6f65349851548917f090ecc3e2ec5de25ebd4bdf44bc206a647f7aa41fc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Shepherd of the Valley Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sovlutheran.com_f4fnmfl1n6br83467677bvmo54%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "West Linn Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wllcoffice%40wllc.org/public/basic.ics",
+    "geocode_suffix": ", West Linn",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "First Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.fccpdx.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Wichita Center for Family & Community",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_k3easek3tlgrkamnhrc6ipjgv4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukie, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Patrick Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_08dc973f33f0b0da6ab7856f423e2153664de375ef2469c39a2e5f2b2b689392%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Bartholomews Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stbartsbeaverton.org_r7jqrmfftplv63slihoackbi6c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Mary Magdalene Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/events%40themadeleine.edu/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "All Saints Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://allsaints179.tithelysetup2.com/events.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Missio Community",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://missiocommunity.org/events.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Eden Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40oregoneden.com/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Hillsboro Elks",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_708d4209ed9faf1f06bd1e4d81bb2f625a5a78e483949a07b7320fad8c4b0fec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hillsboro, OR",
+    "limit": 300,
+    "venue": {
+      "name": "Hillsboro Elks",
+      "city": "Hillsboro",
+      "region": "OR",
+      "postal_code": "97124",
+      "lat": 45.5239811,
+      "lon": -122.9027909,
+      "street_hint": "7553 Northeast Quatama Street",
+      "aliases": [
+        "Benevolent and Protective Order of Elks",
+        "BPOE"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Baha'is of Lake Oswego",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lakeoswego%40bahai.us/public/basic.ics",
+    "geocode_suffix": ", Lake Oswego, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Paul's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/treasurer%40stpaulsoregoncity.org/public/basic.ics",
+    "geocode_suffix": ", Oregon City, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Reedville Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pptonjl8fksge1mqjeq5v359p8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Valley Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.vccwilsonville.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Wilsonville, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Westside United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40westsidejourney.org/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
   }
 ]

@@ -29277,6 +29277,629 @@
         "lon": -90.2104815
       },
       "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "St. Louis Bridge Center",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event+ics",
+      "listing": [
+        "https://www.stlouisbridge.org/events/series-7-2026-11-10-tuesday-evening-open"
+      ],
+      "link_pattern": "https://www\\.stlouisbridge\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Louis Bridge Center",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63132",
+        "lat": 38.6806571,
+        "lon": -90.3674181,
+        "street_hint": "1270 North Price Road"
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Judah Ministries International Worship Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://judahministries.net/events-2/"
+      ],
+      "link_pattern": "https://judahministries\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Judah Ministries International Worship Center",
+        "address": "525 Market Street",
+        "city": "McKeesport",
+        "region": "PA",
+        "postal_code": "15132",
+        "lat": 40.3499079,
+        "lon": -79.8662699
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Preserving Underground",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.preservingconcerts.com/shows"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Preserving Underground",
+        "address": "1101 5th Avenue",
+        "city": "New Kensington",
+        "region": "PA",
+        "postal_code": "15068",
+        "lat": 40.568328,
+        "lon": -79.7662231
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Northmont United Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event+ics",
+      "listing": [
+        "https://northmontchurch.org/northmont-event-calendar/"
+      ],
+      "link_pattern": "https://northmontchurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Northmont United Presbyterian Church",
+        "address": "8169 Perry Highway",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15237",
+        "lat": 40.5559566,
+        "lon": -80.0395539
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Saint Andrews Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.standrewspgh.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Andrews Episcopal Church",
+        "address": "5801 Hampton Street",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15206",
+        "lat": 40.4746049,
+        "lon": -79.9210536
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Holiday Park Bible Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.hpbchurch.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holiday Park Bible Church",
+        "lat": 40.4830104,
+        "lon": -79.7040065
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Bower Hill Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.bowerhillchurch.org/news-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bower Hill Community Church",
+        "address": "70 Moffett Street",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15243",
+        "lat": 40.3844826,
+        "lon": -80.0605218
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "The Independent Picture House",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://independentpicturehouse.org/movies/vertigo/"
+      ],
+      "link_pattern": "https://independentpicturehouse\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Independent Picture House",
+        "address": "4237 Raleigh Street",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28213",
+        "lat": 35.2537856,
+        "lon": -80.7900702
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Blackbox Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.blackboxcharlotte.com/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Blackbox Theater",
+        "address": "421 East Sugar Creek Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28213",
+        "lat": 35.2538778,
+        "lon": -80.7914804
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Carolina Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.thecarolina.com/events"
+      ],
+      "link_pattern": "https://www\\.thecarolina\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Carolina Theater",
+        "address": "230 North Tryon Street",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28202",
+        "lat": 35.2283899,
+        "lon": -80.8407086
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Levine Museum of the New South",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.museumofthenewsouth.org/events/"
+      ],
+      "link_pattern": "https://www\\.museumofthenewsouth\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Levine Museum of the New South",
+        "address": "200 East 7th Street",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28202",
+        "lat": 35.2281955,
+        "lon": -80.8387317
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "NarroWay Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://narroway.net/dinner-shows/love-story"
+      ],
+      "link_pattern": "https://narroway\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "NarroWay Theatre",
+        "address": "3327 Highway 51",
+        "city": "Fort Mill",
+        "region": "SC",
+        "postal_code": "29715",
+        "lat": 35.0854124,
+        "lon": -80.9323714
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Lakewood Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.lakewoodfamily.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lakewood Baptist Church",
+        "address": "3520 Mount Gallant Road",
+        "city": "Rock Hill",
+        "region": "SC",
+        "postal_code": "29732",
+        "lat": 35.0114009,
+        "lon": -81.0293858
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "The Olde Mecklenburg Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event",
+      "listing": [
+        "https://www.ombbeer.com/events/"
+      ],
+      "link_pattern": "https://www\\.ombbeer\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Olde Mecklenburg Brewery",
+        "lat": 35.0566681,
+        "lon": -80.8455775
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "St. Stephen United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event+ics",
+      "listing": [
+        "https://www.ststephenumc.net/event/fall-craft-festival-2026"
+      ],
+      "link_pattern": "https://www\\.ststephenumc\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Stephen United Methodist Church",
+        "address": "6800 Sardis Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "lat": 35.1469913,
+        "lon": -80.7734969
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Safe House Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.safehouse.church/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Safe House Church",
+        "address": "10670 Southeast 52nd Avenue",
+        "city": "Milwaukie",
+        "region": "OR",
+        "postal_code": "97222",
+        "lat": 45.4460954,
+        "lon": -122.6089141
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Vivienne Kitchen & Pantry",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.vivienneculinarybooks.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Vivienne Kitchen & Pantry",
+        "address": "4128 Northeast Sandy Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "lat": 45.5356611,
+        "lon": -122.6206
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Victim Rights Law Center",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://victimrights.org/events/"
+      ],
+      "link_pattern": "https://victimrights\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Victim Rights Law Center",
+        "address": "520 Southwest Yamhill Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97204",
+        "lat": 45.5181347,
+        "lon": -122.678659
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Adi Parashakti & Sai Educational Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.adiparashaktisaipdx.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Adi Parashakti & Sai Educational Center",
+        "address": "10250 Northwest Walker Road",
+        "city": "Hillsboro",
+        "region": "OR",
+        "postal_code": "97006",
+        "lat": 45.5286018,
+        "lon": -122.873749
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Community of Faith Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://cofaith.net/calendar/"
+      ],
+      "link_pattern": "https://cofaith\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Community of Faith Church",
+        "address": "1889 Willamette Falls Drive",
+        "city": "West Linn",
+        "region": "OR",
+        "postal_code": "97068",
+        "lat": 45.3442276,
+        "lon": -122.6542884
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Rock Creek Taekwondo",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.allkidslovetkd.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Rock Creek Taekwondo",
+        "address": "3290 Northwest 185th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97229",
+        "lat": 45.5433321,
+        "lon": -122.8664344
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "VanCity Ballroom",
+      "category": "fitness",
+      "_found": "osm:dance -> modern-events+jsonld-event",
+      "listing": [
+        "https://vancityballroom.com/events/"
+      ],
+      "link_pattern": "https://vancityballroom\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "VanCity Ballroom",
+        "address": "9212 Northeast Highway 99",
+        "city": "Vancouver",
+        "postal_code": "98665",
+        "lat": 45.6887606,
+        "lon": -122.6600817
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Student Recreation Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.pdx.edu/recreation/events/queer-climb-night-5"
+      ],
+      "link_pattern": "https://www\\.pdx\\.edu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Student Recreation Center",
+        "address": "1800 Southwest 6th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97201",
+        "lat": 45.5114028,
+        "lon": -122.6821596
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Hawthorne Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://hawthornetheatre.com/event/2slimey/hawthorne-theatre/portland-oregon/"
+      ],
+      "link_pattern": "https://hawthornetheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hawthorne Theatre",
+        "address": "1507 Southeast César E. Chávez Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97214",
+        "lat": 45.5118064,
+        "lon": -122.6231462
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "St. Philip the Deacon Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.stphilipthedeacon.org/calendar/"
+      ],
+      "link_pattern": "https://www\\.stphilipthedeacon\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Philip the Deacon Episcopal Church",
+        "address": "120 Northeast Knott Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97212",
+        "lat": 45.541697,
+        "lon": -122.6638213
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Roseland Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://roselandpdx.com/event/bonobo/roseland-theater/portland-oregon/"
+      ],
+      "link_pattern": "https://roselandpdx\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roseland Theater",
+        "address": "8 Northwest 6th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5233222,
+        "lon": -122.6761407
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "TPK Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.tpkbrewing.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "TPK Brewing Co.",
+        "address": "5051 Southeast Hawthorne Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97215",
+        "lat": 45.5122582,
+        "lon": -122.6105627
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "St. Vincent de Paul",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.svdppdx.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St. Vincent de Paul",
+        "address": "8101 Southeast Cornwell Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97206",
+        "lat": 45.4604168,
+        "lon": -122.5801009
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Tomorrow Theater",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://tomorrowtheater.org:443/"
+      ],
+      "link_pattern": "https://tomorrowtheater\\.org:443/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tomorrow Theater",
+        "address": "3530 Southeast Division Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.5046124,
+        "lon": -122.6276121
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Trinity Episcopal Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.trinity-episcopal.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Trinity Episcopal Cathedral",
+        "address": "147 Northwest 19th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5244926,
+        "lon": -122.6908474
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Community of Hope",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.commhope.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Community of Hope",
+        "address": "27817 Southwest Stafford Road",
+        "city": "Wilsonville",
+        "region": "OR",
+        "postal_code": "97070",
+        "lat": 45.3187475,
+        "lon": -122.7442138
+      },
+      "_metro": "Portland OR, United States"
     }
   ],
   "_not_included": {
