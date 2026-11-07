@@ -7380,6 +7380,432 @@
         "lon": -105.098632
       },
       "_metro": "Denver, United States"
+    },
+    {
+      "name": "Denver Museum of Miniatures, Dolls And Toys",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.dmmdt.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Denver Museum of Miniatures, Dolls And Toys",
+        "address": "1880 Gaylord Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7457133,
+        "lon": -104.9606539
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "FlyteCo Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://flytecotower.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "FlyteCo Brewing",
+        "address": "4437 West 38th Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80212",
+        "lat": 39.7696119,
+        "lon": -105.04489
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Next Step Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.nextstepchurch.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Next Step Church",
+        "address": "12156 Grant Circle",
+        "city": "Thornton",
+        "region": "CO",
+        "postal_code": "80241",
+        "lat": 39.9193291,
+        "lon": -104.9820698
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "PlatteForum",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://platteforum.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "PlatteForum",
+        "address": "2400 Curtis Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7547078,
+        "lon": -104.9848145
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Cannonball Creek Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.cannonballcreekbrewing.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Cannonball Creek Brewery",
+        "address": "393 North Washington Avenue",
+        "city": "Golden",
+        "region": "CO",
+        "postal_code": "80403",
+        "lat": 39.7687016,
+        "lon": -105.2350952
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "The Barn at Raccoon Creek",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.thebarnatraccooncreek.com/publiceventscalendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Barn at Raccoon Creek",
+        "address": "7301 West Bowles Avenue",
+        "lat": 39.6120768,
+        "lon": -105.0772001
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Cohesion Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.cohesionbeer.com/taproom-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Cohesion Brewing",
+        "address": "3851 Steele Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7698862,
+        "lon": -104.9577424
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Fleur",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://fleurdenver.com/workshops",
+      "max_events": 200,
+      "venue": {
+        "name": "Fleur",
+        "address": "13 East 4th Avenue",
+        "postal_code": "80203",
+        "lat": 39.7226919,
+        "lon": -104.9870882
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Station 26 Brewery",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://www.station26brewing.co/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Station 26 Brewery",
+        "address": "7045 East 38th Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80207",
+        "lat": 39.7695919,
+        "lon": -104.9059423
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Relish",
+      "category": "community",
+      "_found": "osm:food_court -> squarespace",
+      "collection": "https://www.visitrelish.com/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Relish",
+        "address": "550 McCaslin Boulevard",
+        "city": "Louisville",
+        "region": "CO",
+        "postal_code": "80027",
+        "lat": 39.9627665,
+        "lon": -105.1601773
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Community of Grace",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.communityofgracearvada.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Community of Grace",
+        "address": "7755 Vance Drive",
+        "city": "Arvada",
+        "region": "CO",
+        "postal_code": "80003",
+        "lat": 39.838702,
+        "lon": -105.0810558
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Assumption of the Theotokos Greek Orthodox Metropolis Cathedral of Denver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.assumptioncathedral.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Assumption of the Theotokos Greek Orthodox Metropolis Cathedral of Denver",
+        "address": "4610 East Alameda Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80246",
+        "lat": 39.7105198,
+        "lon": -104.9321452
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Our Lady of Mount Carmel Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ourladymountcarmel.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Our Lady of Mount Carmel Catholic Church",
+        "address": "3555 Navajo Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80211",
+        "lat": 39.7666722,
+        "lon": -105.0044894
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Mountain Toad Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.mountaintoadbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mountain Toad Brewing",
+        "address": "900 Washington Avenue",
+        "city": "Golden",
+        "region": "CO",
+        "lat": 39.7580791,
+        "lon": -105.2242562
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Rafka Maronite Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.strafkadenver.org/calendar-of-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Rafka Maronite Catholic Church",
+        "lat": 39.7515598,
+        "lon": -105.0825482
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Green Mountain Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.gmpc.net/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Green Mountain Presbyterian Church",
+        "address": "12900 West Alameda Parkway",
+        "city": "Lakewood",
+        "region": "CO",
+        "postal_code": "80228",
+        "lat": 39.697795,
+        "lon": -105.1424594
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Church Of Christ North Tampa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://northtampa.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Church Of Christ North Tampa",
+        "address": "3611 County Line Road",
+        "city": "Lutz",
+        "postal_code": "33559",
+        "lat": 28.1705986,
+        "lon": -82.4109786
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Common Dialect Beerworks",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://www.commondialectbeer.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Common Dialect Beerworks",
+        "address": "5023 North Florida Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33603",
+        "lat": 27.9921074,
+        "lon": -82.4590532
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Northwest Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.nwcctampa.com/upcoming-events-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Northwest Community Church",
+        "address": "14913 Hutchison Road",
+        "postal_code": "33625",
+        "lat": 28.0862831,
+        "lon": -82.5389972
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Saint Peters Episcopal Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace+gcal-embed",
+      "collection": "https://spcathedral.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Peters Episcopal Cathedral",
+        "address": "140 4th Street North",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "lat": 27.7730968,
+        "lon": -82.6389473
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "opendoor",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.theopendoorchurch.com/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "opendoor",
+        "address": "2908 Bell Shoals Road",
+        "city": "Brandon",
+        "region": "FL",
+        "postal_code": "33511",
+        "lat": 27.9026006,
+        "lon": -82.2700108
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "University Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.upcorlando.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "University Presbyterian Church",
+        "address": "2562 Rouse Road",
+        "city": "Orlando",
+        "postal_code": "32817",
+        "lat": 28.5819296,
+        "lon": -81.2248045
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Schlafly Bottleworks",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.schlafly.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Schlafly Bottleworks",
+        "address": "7260 Southwest Avenue",
+        "city": "Maplewood",
+        "region": "MO",
+        "postal_code": "63143",
+        "lat": 38.6130109,
+        "lon": -90.3148521
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "The Hawthorn",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.thehawthornstl.com/tickets",
+      "max_events": 200,
+      "venue": {
+        "name": "The Hawthorn",
+        "address": "2231 Washington Avenue",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63103",
+        "lat": 38.6350164,
+        "lon": -90.2113916
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Foundry Art Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "http://foundryartcentre.org/event-calendar-fac",
+      "max_events": 200,
+      "venue": {
+        "name": "Foundry Art Centre",
+        "address": "520 North Main Center",
+        "city": "Saint Charles",
+        "postal_code": "63301",
+        "lat": 38.7848485,
+        "lon": -90.4788531
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Pops",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.popsrocks.com/concerts",
+      "max_events": 200,
+      "venue": {
+        "name": "Pops",
+        "address": "1403 Monsanto Avenue",
+        "city": "Sauget",
+        "region": "IL",
+        "postal_code": "62201",
+        "lat": 38.6024891,
+        "lon": -90.1755406
+      },
+      "_metro": "St. Louis, United States"
     }
   ],
   "_not_included": {

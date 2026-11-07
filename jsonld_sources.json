@@ -27651,6 +27651,1632 @@
         "lon": -105.076944
       },
       "_metro": "Denver, United States"
+    },
+    {
+      "name": "Martin Luther King Junior Branch Aurora Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://auroraco.libnet.info/event/17605038"
+      ],
+      "link_pattern": "https://auroraco\\.libnet\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Martin Luther King Junior Branch Aurora Public Library",
+        "region": "CO",
+        "postal_code": "80010",
+        "lat": 39.7396593,
+        "lon": -104.873538,
+        "street_hint": "9898 East Colfax Avenue"
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Cervantes' Other Side",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://cervantesmasterpiece.com/event/magoo/cervantes-other-side/denver-colorado/"
+      ],
+      "link_pattern": "https://cervantesmasterpiece\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cervantes' Other Side",
+        "address": "2627 Welton Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7543573,
+        "lon": -104.9788465
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Diamond After Dark",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.thediamondcabaret.com/event/FightNIghts_23504/"
+      ],
+      "link_pattern": "https://www\\.thediamondcabaret\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Diamond After Dark",
+        "address": "1222 Glenarm Place",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80204",
+        "lat": 39.7403021,
+        "lon": -104.9944718
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Counterterrorism Education Learning Lab",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events",
+      "listing": [
+        "https://thecell.org/events/"
+      ],
+      "link_pattern": "https://thecell\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Counterterrorism Education Learning Lab",
+        "address": "99 West 12th Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80204",
+        "lat": 39.7355396,
+        "lon": -104.9885135
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Downhill Brewing",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.downhillbrews.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Downhill Brewing",
+        "address": "18921 Plaza Drive",
+        "city": "Parker",
+        "region": "CO",
+        "postal_code": "80134",
+        "lat": 39.5270221,
+        "lon": -104.7702451
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "The Bug Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.bugtheatre.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Bug Theatre",
+        "address": "3654 Navajo Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80211",
+        "lat": 39.7678747,
+        "lon": -105.0040095
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Buffalo Rose",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://buffalorosegolden.com/shows/"
+      ],
+      "link_pattern": "https://buffalorosegolden\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Buffalo Rose",
+        "address": "1119 Washington Avenue",
+        "city": "Golden",
+        "region": "CO",
+        "postal_code": "80401",
+        "lat": 39.7557325,
+        "lon": -105.2214458
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "ReelWorks Denver",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://reelworksdenver.com/events/"
+      ],
+      "link_pattern": "https://reelworksdenver\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "ReelWorks Denver",
+        "address": "1399 35th Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7675683,
+        "lon": -104.9750652
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "St. Francis Center",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.sfcdenver.org/events/sfc-tour/"
+      ],
+      "link_pattern": "https://www\\.sfcdenver\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Francis Center",
+        "address": "2323 Curtis Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7543202,
+        "lon": -104.9860832
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Club Vinyl",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://vinylnightclub.com/event/romare-friday-february-12-2027/"
+      ],
+      "link_pattern": "https://vinylnightclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Club Vinyl",
+        "address": "1082 Broadway",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80203",
+        "lat": 39.7335431,
+        "lon": -104.98702
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Sexploratorium",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.sexploratoriumdenver.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Sexploratorium",
+        "address": "1800 S Broadway",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80210",
+        "lat": 39.6837904,
+        "lon": -104.9872242
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "The Federal Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event+ics",
+      "listing": [
+        "https://thefederaltheatre.com/event/468454/Love45"
+      ],
+      "link_pattern": "https://thefederaltheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Federal Theatre",
+        "address": "3830 Federal Boulevard",
+        "lat": 39.7699781,
+        "lon": -105.0250846
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Oriental Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event+ics",
+      "listing": [
+        "https://www.theorientaltheater.com/event/468708/Elder"
+      ],
+      "link_pattern": "https://www\\.theorientaltheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Oriental Theater",
+        "address": "4335 West 44th Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80212",
+        "lat": 39.7768406,
+        "lon": -105.0435325
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Ignatius Loyola Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.stignatiusdenver.org/event-list.html"
+      ],
+      "link_pattern": "https://www\\.stignatiusdenver\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Ignatius Loyola Catholic Church",
+        "address": "2301 York Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7510191,
+        "lon": -104.9603309
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Red Rocks Amphitheatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.ticketsqueeze.com/tickets/517041/porter-robinson-b2b-ninajirachi-2027-03-25-18-00-00-red-rocks-amphitheatre"
+      ],
+      "link_pattern": "https://www\\.ticketsqueeze\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Red Rocks Amphitheatre",
+        "address": "18300 West Alameda Parkway",
+        "city": "Morrison",
+        "region": "CO",
+        "postal_code": "80465",
+        "lat": 39.665388,
+        "lon": -105.2057119
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Louis Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stlenglewood.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Louis Catholic Church",
+        "address": "3310 South Sherman Street",
+        "city": "Englewood",
+        "region": "CO",
+        "postal_code": "80113",
+        "lat": 39.6565723,
+        "lon": -104.9848957
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Summit Music Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.summitdenver.com/shows"
+      ],
+      "link_pattern": "https://www\\.summitdenver\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Summit Music Hall",
+        "address": "1902 Blake Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80202",
+        "lat": 39.7533361,
+        "lon": -104.995064
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Padmasambhava Meditation Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://padmasambhavameditationcenter.org/programs/"
+      ],
+      "link_pattern": "https://padmasambhavameditationcenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Padmasambhava Meditation Center",
+        "address": "1900 South Cook Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80210",
+        "lat": 39.6818317,
+        "lon": -104.9475872
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Dominic Catholic Parish of Denver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stdominicdenver.org/event-calender"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Dominic Catholic Parish of Denver",
+        "address": "2905 Federal Boulevard",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80211",
+        "lat": 39.7590168,
+        "lon": -105.0257371
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Holy Rosary Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.holyrosarydenver.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holy Rosary Catholic Church",
+        "address": "4688 Pearl Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80216",
+        "lat": 39.7816343,
+        "lon": -104.9797263
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Jefferson Unitarian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://commonflameuu.org/events-2/"
+      ],
+      "link_pattern": "https://commonflameuu\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jefferson Unitarian Church",
+        "address": "14350 West 32nd Avenue",
+        "city": "Golden",
+        "region": "CO",
+        "postal_code": "80401-1563",
+        "lat": 39.7608963,
+        "lon": -105.1601832
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Joan of Arc Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stjoanarvada.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Joan of Arc Catholic Church",
+        "address": "12735 West 58th Avenue",
+        "city": "Arvada",
+        "region": "CO",
+        "postal_code": "80002",
+        "lat": 39.8024523,
+        "lon": -105.1422012
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Presentation of Our Lady Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.presentationdenver.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Presentation of Our Lady Catholic Church",
+        "address": "695 Julian Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80204",
+        "lat": 39.7274694,
+        "lon": -105.0317059
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Rose of Lima Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.srldenver.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Rose of Lima Catholic Church",
+        "address": "355 South Navajo Street",
+        "city": "Denver",
+        "region": "CO",
+        "lat": 39.7099771,
+        "lon": -105.0043922
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Holy Trinity Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.htcatholic.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holy Trinity Catholic Church",
+        "address": "7595 Federal Boulevard",
+        "city": "Westminster",
+        "region": "CO",
+        "postal_code": "80030",
+        "lat": 39.8340317,
+        "lon": -105.0268699
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Light of the World Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.lotw.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Light of the World Catholic Church",
+        "address": "10316 West Bowles Avenue",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80127",
+        "lat": 39.6091913,
+        "lon": -105.1141788
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Holy Name Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.holynamedenver.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holy Name Catholic Church",
+        "address": "3290 West Milan Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80236-6186",
+        "lat": 39.6462108,
+        "lon": -105.0290098
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Holidaily Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> modern-events+jsonld-event",
+      "listing": [
+        "https://holidailybrewing.com/events/"
+      ],
+      "link_pattern": "https://holidailybrewing\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Holidaily Brewing",
+        "address": "801 Brickyard Circle",
+        "city": "Golden",
+        "region": "CO",
+        "postal_code": "80403",
+        "lat": 39.7799903,
+        "lon": -105.2331276
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Abiding Word Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.awlc.org/fellowship"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Abiding Word Lutheran Church",
+        "address": "8391 Burnley Court",
+        "city": "Highlands Ranch",
+        "region": "CO",
+        "postal_code": "80126",
+        "lat": 39.560988,
+        "lon": -104.9628523
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "All Saints Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.allsaintscatholicparish.org/events-news"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "All Saints Catholic Church",
+        "address": "2559 South Federal Boulevard",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80219",
+        "lat": 39.6722379,
+        "lon": -105.0257573
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "ISKCON Denver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.krishnadenver.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "ISKCON Denver",
+        "address": "1400 North Cherry Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80220",
+        "lat": 39.7384859,
+        "lon": -104.9334947
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Elias Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://steliasarvada.com/events"
+      ],
+      "link_pattern": "https://steliasarvada\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Elias Orthodox Church",
+        "address": "7580 Pierce Street",
+        "city": "Arvada",
+        "region": "CO",
+        "lat": 39.834632,
+        "lon": -105.0716891
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Culmer-Overtown Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17754580"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Culmer-Overtown Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33136",
+        "lat": 25.7863162,
+        "lon": -80.2012591,
+        "street_hint": "350 Northwest 13th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "West Kendall Regional Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16383548"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "West Kendall Regional Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33196",
+        "lat": 25.6728901,
+        "lon": -80.4408108,
+        "street_hint": "10201 Hammocks Boulevard"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Country Walk Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695191"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Country Walk Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33177",
+        "lat": 25.6239403,
+        "lon": -80.4130982,
+        "street_hint": "15433 Southwest 137th Avenue"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Arcola Lakes Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695021"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Arcola Lakes Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33150",
+        "lat": 25.8502629,
+        "lon": -80.2097857,
+        "street_hint": "8240 Northwest 7th Avenue"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Concord Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16401085"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Concord Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33165",
+        "lat": 25.7333885,
+        "lon": -80.3761988,
+        "street_hint": "3882 Southwest 112th Avenue"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Coconut Grove Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17518358"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coconut Grove Branch Library",
+        "postal_code": "33133",
+        "lat": 25.7267826,
+        "lon": -80.24034,
+        "street_hint": "2875 Mcfarlane Road"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Bay Harbor Islands Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17371632"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bay Harbor Islands Branch Library",
+        "city": "Bay Harbor Islands",
+        "region": "FL",
+        "postal_code": "33154",
+        "lat": 25.8858066,
+        "lon": -80.1325342,
+        "street_hint": "1175 95th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Pinecrest Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/15510195"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pinecrest Public Library",
+        "city": "Pinecrest",
+        "region": "FL",
+        "postal_code": "33156",
+        "lat": 25.6686526,
+        "lon": -80.2868229,
+        "street_hint": "5835 Southwest 111th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Doral Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17786085"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Doral Branch Library",
+        "city": "Doral",
+        "region": "FL",
+        "postal_code": "33166",
+        "lat": 25.8199708,
+        "lon": -80.3368042,
+        "street_hint": "8551 Northwest 53rd Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "BOHO Edgewater Miami",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://airemia.com/events"
+      ],
+      "link_pattern": "https://airemia\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BOHO Edgewater Miami",
+        "address": "111 Northeast 20th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33137",
+        "lat": 25.795824,
+        "lon": -80.1924475
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "California Club Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695058"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "California Club Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33179",
+        "lat": 25.9602211,
+        "lon": -80.1883536,
+        "street_hint": "700 Ives Dairy Road"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Sunset Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695792"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sunset Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33173",
+        "lat": 25.7027522,
+        "lon": -80.3694524,
+        "street_hint": "10855 Southwest 72nd Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Palm Springs North Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695683"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palm Springs North Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33015-3630",
+        "lat": 25.9335214,
+        "lon": -80.3265977,
+        "street_hint": "17601 Northwest 78th Avenue"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Tamiami Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17263048"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tamiami Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33184",
+        "lat": 25.7605769,
+        "lon": -80.4013612,
+        "street_hint": "12700 Southwest 8th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami-Dade Public Library, South Shore Branch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17359314"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami-Dade Public Library, South Shore Branch",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33139-6708",
+        "lat": 25.7705006,
+        "lon": -80.1378305,
+        "street_hint": "131 Alton Road"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "FPL Solar Amphitheater at Bayfront Park",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.fplsolaramphitheaterbayfront.com/shows"
+      ],
+      "link_pattern": "https://www\\.fplsolaramphitheaterbayfront\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "FPL Solar Amphitheater at Bayfront Park",
+        "address": "301 Biscayne Boulevard",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33132",
+        "lat": 25.7762049,
+        "lon": -80.1860602
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Villa Vizcaya",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://vizcaya.org/calendar/"
+      ],
+      "link_pattern": "https://vizcaya\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Villa Vizcaya",
+        "address": "3251 South Miami Avenue",
+        "postal_code": "33129",
+        "lat": 25.7443837,
+        "lon": -80.2104967
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Coral Gables Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695123"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coral Gables Public Library",
+        "city": "Coral Gables",
+        "region": "FL",
+        "postal_code": "33134",
+        "country": "US",
+        "lat": 25.7396818,
+        "lon": -80.2658641,
+        "street_hint": "3443 Segovia Street",
+        "aliases": [
+          "Coral Gables Branch Library"
+        ]
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Lemon City Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17549476"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lemon City Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "lat": 25.832283,
+        "lon": -80.1871396,
+        "street_hint": "430 Northeast 61st Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Edison Center Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17264557"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Edison Center Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33150",
+        "lat": 25.8326437,
+        "lon": -80.2052021,
+        "street_hint": "531 Northwest 62nd Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami-Dade Public Library, North Shore Branch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17478613"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami-Dade Public Library, North Shore Branch",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33141",
+        "lat": 25.8609234,
+        "lon": -80.1206978,
+        "street_hint": "7501 Collins Avenue"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Kendall Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695324"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kendall Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33176",
+        "lat": 25.6854352,
+        "lon": -80.3505921,
+        "street_hint": "9101 Southwest 97th Avenue"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Westchester Regional Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17523197"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Westchester Regional Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33165",
+        "lat": 25.7484281,
+        "lon": -80.3483918,
+        "street_hint": "9445 Southwest 24th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Coral Reef Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17373429"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coral Reef Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33157",
+        "lat": 25.6293784,
+        "lon": -80.3429998,
+        "street_hint": "9211 Coral Reef Drive"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Shenandoah Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695715"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Shenandoah Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33145",
+        "lat": 25.754717,
+        "lon": -80.2285943,
+        "street_hint": "2111 Southwest 19th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami-Dade Public Library, Miami Beach Regional",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695432"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami-Dade Public Library, Miami Beach Regional",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33139",
+        "lat": 25.7980181,
+        "lon": -80.1288444,
+        "street_hint": "227 22nd Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami Springs Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/15780442"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami Springs Branch Library",
+        "city": "Miami Springs",
+        "region": "FL",
+        "postal_code": "33166",
+        "lat": 25.8214889,
+        "lon": -80.2876817,
+        "street_hint": "401 Westward Drive"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Little River Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695357"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Little River Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33138;33138-4858",
+        "lat": 25.8473046,
+        "lon": -80.1936793,
+        "street_hint": "160 Northeast 79th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "South Miami Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17482427"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "South Miami Library",
+        "city": "South Miami",
+        "region": "FL",
+        "postal_code": "33143",
+        "lat": 25.703836,
+        "lon": -80.2912526,
+        "street_hint": "6000 Southwest 72nd Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Kendale Lakes Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17171424"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kendale Lakes Public Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33196",
+        "lat": 25.6850685,
+        "lon": -80.4417082,
+        "street_hint": "15205 Southwest 88th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Palmetto Bay Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17555887"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palmetto Bay Branch Library",
+        "city": "Palmetto Bay;Miami",
+        "region": "FL",
+        "postal_code": "33157",
+        "lat": 25.6069199,
+        "lon": -80.3112565,
+        "street_hint": "17641 Old Cutler Road"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Virrick Park Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695835"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Virrick Park Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33133-4903",
+        "lat": 25.7307417,
+        "lon": -80.2505198,
+        "street_hint": "3255 Plaza Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Hispanic Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17227052"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hispanic Branch Library",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33135",
+        "lat": 25.7721545,
+        "lon": -80.217593,
+        "street_hint": "1398 Southwest 1st Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "International Mall Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695255"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "International Mall Branch Library",
+        "city": "Doral",
+        "region": "FL",
+        "postal_code": "33172",
+        "lat": 25.7841842,
+        "lon": -80.3626616,
+        "street_hint": "10315 Northwest 12th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Institute of Contemporary Art, Miami",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://icamiami.org/calendar/"
+      ],
+      "link_pattern": "https://icamiami\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Institute of Contemporary Art, Miami",
+        "address": "61 Northeast 41st Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33137",
+        "lat": 25.814353,
+        "lon": -80.1943011
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Northeast Dade - Aventura Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16695650"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Northeast Dade - Aventura Branch Library",
+        "city": "Aventura",
+        "region": "FL",
+        "postal_code": "33180",
+        "lat": 25.9604079,
+        "lon": -80.1427537,
+        "street_hint": "2930 Northeast 199th Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Fairchild Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> jsonld-event",
+      "listing": [
+        "https://fairchildgarden.org/events-at-fairchild/"
+      ],
+      "link_pattern": "https://fairchildgarden\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fairchild Botanical Garden",
+        "lat": 25.6771453,
+        "lon": -80.2729147
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Riviera United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.rivieraumc.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Riviera United Methodist Church",
+        "address": "175 62nd Avenue North",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33702",
+        "lat": 27.82897,
+        "lon": -82.635394
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "District 8",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.district8tampa.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "District 8",
+        "address": "1509 East 8th Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33605",
+        "lat": 27.9608691,
+        "lon": -82.4425687
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Bayshore Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.bayshorepc.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bayshore Presbyterian Church",
+        "address": "2515 Bayshore Boulevard",
+        "city": "Tampa",
+        "lat": 27.9241738,
+        "lon": -82.4856988
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "The State Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.startickets.com/other-tickets"
+      ],
+      "link_pattern": "https://www\\.startickets\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The State Theatre",
+        "address": "687 Central Avenue",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "lat": 27.7714584,
+        "lon": -82.6433674
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Tampa Convention Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> jsonld-event",
+      "listing": [
+        "https://www.tampa.gov/events/fertilizer-show/191251"
+      ],
+      "link_pattern": "https://www\\.tampa\\.gov/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tampa Convention Center",
+        "address": "333 South Franklin Street",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33602",
+        "country": "US",
+        "lat": 27.9419599,
+        "lon": -82.4567992
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Florida Aquarium",
+      "category": "outdoors",
+      "_found": "osm:aquarium -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.flaquarium.org/news-events/attend-an-event/calendar/"
+      ],
+      "link_pattern": "https://www\\.flaquarium\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Florida Aquarium",
+        "address": "701 Channelside Drive",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33602",
+        "lat": 27.9440393,
+        "lon": -82.444863
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Heritage Foundation History Center",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.wghf.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Heritage Foundation History Center",
+        "region": "FL",
+        "lat": 28.56584,
+        "lon": -81.586297
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "The Woodshed Orlando",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.thewoodshedorlando.com/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Woodshed Orlando",
+        "address": "6431 Milner Boulevard",
+        "city": "Orlando",
+        "region": "FL",
+        "postal_code": "32809",
+        "lat": 28.4638327,
+        "lon": -81.3681169
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Remnant Christian Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.remnantchristiancenter.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Remnant Christian Center",
+        "address": "170 South Washington Avenue",
+        "city": "Apopka",
+        "region": "FL",
+        "postal_code": "32703",
+        "lat": 28.676365,
+        "lon": -81.5161729
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Hope Vineyard Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.vineyard-stl.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hope Vineyard Church",
+        "address": "2923 Telegraph Road",
+        "city": "Saint Louis",
+        "postal_code": "63125",
+        "lat": 38.5042761,
+        "lon": -90.2970602
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Florissant Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://florissant.church/events-calendar/"
+      ],
+      "link_pattern": "https://florissant\\.church/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Florissant Church of Christ",
+        "address": "16460 New Halls Ferry Road",
+        "city": "Florissant",
+        "postal_code": "63031",
+        "lat": 38.8391972,
+        "lon": -90.3173495
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Gene Slay's Girls and Boys Club of St. Louis",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.gsgbcstl.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Gene Slay's Girls and Boys Club of St. Louis",
+        "address": "2524 South 11th Street",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63104",
+        "lat": 38.6022385,
+        "lon": -90.2104815
+      },
+      "_metro": "St. Louis, United States"
     }
   ],
   "_not_included": {

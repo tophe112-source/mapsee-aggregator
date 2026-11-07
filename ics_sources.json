@@ -65771,5 +65771,384 @@
     },
     "_metro": "Denver, United States",
     "crawl_delay": 10.0
+  },
+  {
+    "name": "Central Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cd192481991012518dd2345f168b553c2b72ce188c63ceb2773c2a5a1cb32dec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Denver, United States",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Belmar Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.belmarchurch.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Lakewood",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Mutiny Comics & Coffee",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3u9drgi8ipolpeugeedc08l92g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Englewood, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "SomePlace Else Brewery",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/357f3800eb7aaeaf85f6be1d026c7b9a90a9f5fc1f11c603f9b753b04afc3a51%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arvada, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Daniel L. Ritchie Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4u0hkl9u6ii0o39uk1v90nnv6o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Denver, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Wheat Ridge Recreation Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.rootedinfun.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Denver, United States",
+    "limit": 300,
+    "_metro": "Denver, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Protection of the Mother of God Byzantine Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_jmidbm3ncfuvr7sg8g4pmmmvm0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Denver, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "First Unitarian Society of Denver",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/web%40fusden.org/public/basic.ics",
+    "geocode_suffix": ", Denver, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Holy Shepherd Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.holyshepherd.com/events.ics",
+    "geocode_suffix": ", Lakewood, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Gateway Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/asqqoo6tolkgbchfj55dmgf3ao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aurora, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Saint Herman Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_a426788d5ae09b7716c4d06deed34a648f786b37efbfe7fa860b091d068a7c57%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Littleton, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "St. Luke's United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/musicartsadmin%40stlukeshr.com/public/basic.ics",
+    "geocode_suffix": ", Highlands Ranch, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Covenant Presbyterian DTC",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://covenantdtc.org/events.ics",
+    "geocode_suffix": ", Greenwood Village, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Hope United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.hopechangeslives.org/events.ics",
+    "geocode_suffix": ", Greenwood Village, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Fellowship Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_dh9ajfp9vvnh5te37l6nqn756g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arvada, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Holy Cross Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40holycrosswheatridge.org/public/basic.ics",
+    "geocode_suffix": ", Wheat Ridge, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Haitian Church of the Brethren",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cobweb%40brethren.org/public/basic.ics",
+    "geocode_suffix": ", Miami, FL",
+    "limit": 300,
+    "_metro": "Miami, United States"
+  },
+  {
+    "name": "Patricia & Phillip Frost Art Museum",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://frost.fiu.edu/whats-on/events/2026/11/fall-season-opening.ics",
+    "geocode_suffix": ", Miami, FL",
+    "limit": 300,
+    "_metro": "Miami, United States"
+  },
+  {
+    "name": "Saint Andrew Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchoffice%40standrewfl.com/public/basic.ics",
+    "geocode_suffix": ", Miami, FL",
+    "limit": 300,
+    "_metro": "Miami, United States"
+  },
+  {
+    "name": "Saint George Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5ae5507c768aba22116148d3e3b586b54aa835e4bbdc614d98df89b57f83f8d4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Coral Gables, FL",
+    "limit": 300,
+    "_metro": "Miami, United States"
+  },
+  {
+    "name": "Davis Islands Garden Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/digardenclub%40yahoo.com/public/basic.ics",
+    "geocode_suffix": ", Tampa",
+    "limit": 300,
+    "_metro": "Tampa, United States"
+  },
+  {
+    "name": "Hyde Park Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mdg244tmktt603i43t59sir2qo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampa",
+    "limit": 300,
+    "_metro": "Tampa, United States"
+  },
+  {
+    "name": "Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uustpete.org_c868btbcgk5u8u1sfu4m1el910%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampa, United States",
+    "limit": 300,
+    "_metro": "Tampa, United States"
+  },
+  {
+    "name": "New Life Tabernacle UPC",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40yournlt.com/public/basic.ics",
+    "geocode_suffix": ", Seffner, FL",
+    "limit": 300,
+    "_metro": "Tampa, United States"
+  },
+  {
+    "name": "Plant High Rowing Association",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iqus3bemnpoa0h9q0tdvc0p9h4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampa, FL",
+    "limit": 300,
+    "_metro": "Tampa, United States"
+  },
+  {
+    "name": "Winter Park Historical Museum",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar",
+    "url": "https://www.wphistory.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", FL",
+    "limit": 300,
+    "_metro": "Orlando, United States"
+  },
+  {
+    "name": "UCF Catholic Campus Ministry",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lh12eve8mj07h81333tkbtsp4k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oviedo",
+    "limit": 300,
+    "_metro": "Orlando, United States"
+  },
+  {
+    "name": "King of Kings Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/visitkok.com_rjnvnpkti7612cf8l7l1co68g8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Orlando, United States",
+    "limit": 300,
+    "_metro": "Orlando, United States"
+  },
+  {
+    "name": "Cornerstone Church of Orlando",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/publiccalendar%40cornerstoneorlando.org/public/basic.ics",
+    "geocode_suffix": ", Oviedo, FL",
+    "limit": 300,
+    "_metro": "Orlando, United States"
+  },
+  {
+    "name": "Saint Stephen Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/64h2uui5vqejmpn173as92qlmg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Winter Springs, FL",
+    "limit": 300,
+    "_metro": "Orlando, United States"
+  },
+  {
+    "name": "Old Orchard Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_8dcj03cpr2i0tddsmn4ms39uig%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", St. Louis, United States",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Heroic Adventures Comics and Games",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nbs5tkshklskk466g9m6ivmme0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edwardsville",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Saint Angela Merici Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/saintangelamerici.org_36aup8otnnh0q41c4mgk3sqbug%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Florissant",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Saint Margaret Mary Alacoque Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_a61720fb02c3abd6cb802432d6108f1593ee0f9b155a4410571eb8934163c9d3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", St. Louis, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Immaculate Conception Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iccmail%40iccmail.org/public/basic.ics",
+    "geocode_suffix": ", Columbia, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Saint Norbert Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2d27cf4d85dcb5d61c11cd22b2058c381137f8599e558434910190d7cf0f6967%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Florissant",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Saint Ambrose Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stambroseonthehill.com_7vr6ba0psg8acl22fnqkfkt24o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Louis, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Cathedral Basilica of Saint Louis",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cathedralstl.org_aqb9vgtrdtvkmkifntbqlt78do%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Louis, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "St. Basil the Great",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/23nvm0p3vfbi1ov192thh1vbk0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Des Peres",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Meadow Heights Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mhbc.org/events/small-groups--25/2026-11-08.ics",
+    "geocode_suffix": ", Collinsville, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Revive Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_iigfkv9d2gk1hv5grrbgv6a0ug%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Collinsville, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Timothy Evangelical Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40timothystl.org/public/basic.ics",
+    "geocode_suffix": ", Saint Louis, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
   }
 ]

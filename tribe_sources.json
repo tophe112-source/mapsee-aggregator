@@ -38059,6 +38059,714 @@
         "lon": -104.998839
       },
       "_metro": "Denver, United States"
+    },
+    {
+      "name": "Project Angel Heart",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.projectangelheart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Project Angel Heart",
+        "address": "4950 Washington Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80216",
+        "lat": 39.7867981,
+        "lon": -104.9777093
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Life Center Littleton",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lifecenterlittleton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Life Center Littleton",
+        "address": "5804 South Datura Street",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80120",
+        "lat": 39.6115211,
+        "lon": -105.0039003
+      },
+      "_metro": "Denver, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "William Matthews Studio",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event",
+      "base_url": "https://williammatthewsstudio.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "William Matthews Studio",
+        "address": "2540 Walnut Street",
+        "lat": 39.7586489,
+        "lon": -104.9864049
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Grant Family Education Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.fourmilepark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grant Family Education Center",
+        "address": "715 South Forest Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80246",
+        "lat": 39.703335,
+        "lon": -104.9291205
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Momentum Athletic Center",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://momentumathleticcenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Momentum Athletic Center",
+        "address": "10490 Progress Way",
+        "city": "Parker",
+        "region": "CO",
+        "postal_code": "80134",
+        "lat": 39.52593,
+        "lon": -104.7678688
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "SNÖBAHN - Action Sports Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://snobahn.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SNÖBAHN - Action Sports Center",
+        "address": "6955 South York Street",
+        "city": "Centennial",
+        "region": "CO",
+        "postal_code": "80122",
+        "lat": 39.5909456,
+        "lon": -104.9626173
+      },
+      "_metro": "Denver, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Greek Amphitheatre",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://civiccenterpark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Greek Amphitheatre",
+        "address": "101 West 14th Avenue Parkway",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80204",
+        "lat": 39.7381729,
+        "lon": -104.9888304
+      },
+      "_metro": "Denver, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Colorado Railroad Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://coloradorailroadmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Colorado Railroad Museum",
+        "region": "CO",
+        "lat": 39.7717725,
+        "lon": -105.1931146
+      },
+      "_metro": "Denver, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Historic Elitch Gardens Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://historicelitchtheatre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Historic Elitch Gardens Theatre",
+        "address": "4550 West 38th Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80212",
+        "lat": 39.7682749,
+        "lon": -105.0463948
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "RISE Comedy",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://risecomedy.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RISE Comedy",
+        "address": "1260 22nd Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80205",
+        "lat": 39.7543719,
+        "lon": -104.990059
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Wings Over the Rockies Air & Space Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wingsmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wings Over the Rockies Air & Space Museum",
+        "address": "7711 East Academy Boulevard",
+        "region": "CO",
+        "postal_code": "80230",
+        "lat": 39.7210706,
+        "lon": -104.8955421
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Legacy Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://legacychapel.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Legacy Chapel",
+        "address": "8373 Burnley Court",
+        "city": "Highlands Ranch",
+        "region": "CO",
+        "postal_code": "80126",
+        "lat": 39.5615569,
+        "lon": -104.962684
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "The Hudson Gardens & Events Center",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://hudsongardens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Hudson Gardens & Events Center",
+        "address": "6115 South Santa Fe Drive",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80120",
+        "lat": 39.6040028,
+        "lon": -105.0222935
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Our Lady of Mount Carmel Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.olmcfssp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Lady of Mount Carmel Catholic Church",
+        "address": "5612 South Hickory Circle",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80120",
+        "lat": 39.6147859,
+        "lon": -104.9987682
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "New Terrain Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://newterrainbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Terrain Brewing Co.",
+        "address": "16401 Table Mountain Parkway",
+        "city": "Golden",
+        "region": "CO",
+        "postal_code": "80403",
+        "lat": 39.7796508,
+        "lon": -105.1862338
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Saint Mary Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stmarylittleton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Mary Catholic Church",
+        "address": "6853 South Prince Street",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80120",
+        "lat": 39.5951838,
+        "lon": -105.017005
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Stockyards Event Center",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://nationalwesterncenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stockyards Event Center",
+        "address": "5004 North National Western Drive",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80216",
+        "lat": 39.7858,
+        "lon": -104.9696369
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Cuban Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://coralgablesmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cuban Museum",
+        "region": "FL",
+        "lat": 25.7511035,
+        "lon": -80.2591403
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Cosford Cinema",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://cosfordcinema.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cosford Cinema",
+        "lat": 25.7226195,
+        "lon": -80.2772367
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Bass Museum of Art",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://thebass.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bass Museum of Art",
+        "address": "2100 Collins Avenue",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33139",
+        "lat": 25.7975692,
+        "lon": -80.1301139
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami Shores Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mspc.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Miami Shores Presbyterian Church",
+        "address": "602 Northeast 96th Street",
+        "city": "Miami Shores",
+        "region": "FL",
+        "postal_code": "33138",
+        "lat": 25.8633038,
+        "lon": -80.1846157
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Cracker Country",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://floridastatefairgrounds.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cracker Country",
+        "lat": 27.9883477,
+        "lon": -82.3618495
+      },
+      "_metro": "Tampa, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Gallery at 1920",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://1920yborcity.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Gallery at 1920",
+        "address": "1920 East 7th Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33605",
+        "country": "US",
+        "lat": 27.9605359,
+        "lon": -82.4374306
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Quantum Leap Farm",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.quantumleapfarm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quantum Leap Farm",
+        "address": "10401 Woodstock Road",
+        "city": "Odessa",
+        "region": "FL",
+        "postal_code": "33556",
+        "lat": 28.1579742,
+        "lon": -82.602725
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "The Florida Holocaust Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.thefhm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Florida Holocaust Museum",
+        "address": "55 5th St S",
+        "city": "St. Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "lat": 27.7705518,
+        "lon": -82.6405345
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Bayshore Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bayshorebaptistchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bayshore Baptist Church",
+        "address": "3111 West Morrison Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33629",
+        "country": "US",
+        "lat": 27.9343305,
+        "lon": -82.4942858
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Tampa Bay History Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://tampabayhistorycenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tampa Bay History Center",
+        "address": "801 Water Street",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33602",
+        "country": "US",
+        "lat": 27.9422446,
+        "lon": -82.4499013
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Salvador Dalí Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://thedali.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salvador Dalí Museum",
+        "address": "1 Dali Boulevard",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "country": "US",
+        "lat": 27.7659779,
+        "lon": -82.6314771
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Florida Avenue Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://floridaavebrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Florida Avenue Brewing Co.",
+        "address": "4315 North Florida Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33603",
+        "lat": 27.9849416,
+        "lon": -82.459153
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Holy Trinity Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://orlandogreekfest.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Trinity Greek Orthodox Church",
+        "address": "1217 Trinity Woods Lane",
+        "city": "Maitland",
+        "region": "FL",
+        "lat": 28.6411418,
+        "lon": -81.3869726
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Orangewood Church, PCA",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://orangewood.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Orangewood Church, PCA",
+        "address": "1300 Maitland Blvd",
+        "lat": 28.6302989,
+        "lon": -81.3807778
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "The Abbey",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event",
+      "base_url": "https://abbeyorlando.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Abbey",
+        "address": "100 South Eola Drive",
+        "city": "Orlando",
+        "region": "FL",
+        "postal_code": "32801",
+        "lat": 28.5411671,
+        "lon": -81.3705012
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Orlando Family Stage",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://orlandofamilystage.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Orlando Family Stage",
+        "address": "1001 E Princeton Street",
+        "city": "Orlando",
+        "region": "FL",
+        "postal_code": "32803",
+        "lat": 28.5710204,
+        "lon": -81.3654406
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Ten 10 Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://ten10brewingcompany.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ten 10 Brewing Company",
+        "address": "1010 Virginia Drive",
+        "city": "Orlando",
+        "region": "FL",
+        "postal_code": "32803",
+        "lat": 28.5638213,
+        "lon": -81.3659459
+      },
+      "_metro": "Orlando, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Focal Point Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.focalpointchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Focal Point Church",
+        "address": "12890 South John Young Parkway",
+        "city": "Orlando",
+        "postal_code": "32837",
+        "lat": 28.3769973,
+        "lon": -81.4267667
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "South Broadway Athletic Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sbacstl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Broadway Athletic Club",
+        "address": "2301 South 7th Street",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63104",
+        "lat": 38.604158,
+        "lon": -90.205193
+      },
+      "_metro": "St. Louis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Phyllis Wheatley Heritage Center",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://www.ywcastl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Phyllis Wheatley Heritage Center",
+        "address": "2711 Locust Street",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63103",
+        "lat": 38.6350258,
+        "lon": -90.2166611
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Campbell House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://campbellhousemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Campbell House Museum",
+        "address": "1508 Locust Street",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63103",
+        "lat": 38.6312762,
+        "lon": -90.2018605
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Route 66 Museum and Interpretative Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://illinoisroute66.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Route 66 Museum and Interpretative Center",
+        "address": "620 Saint Louis Street",
+        "city": "Edwardsville",
+        "region": "IL",
+        "postal_code": "62025",
+        "lat": 38.810654,
+        "lon": -89.9637586
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Eighth Church of Christ, Scientist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.christiansciencestl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eighth Church of Christ, Scientist",
+        "address": "6221 Alexander Drive",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63105",
+        "lat": 38.6442249,
+        "lon": -90.3029344
+      },
+      "_metro": "St. Louis, United States"
     }
   ],
   "_not_included": {

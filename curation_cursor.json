@@ -1,9 +1,9 @@
 {
  "civic": {
-  "country": "JM",
+  "country": "AE",
   "offset": 2140,
   "offsets": {
-   "AE": 13,
+   "AE": 0,
    "AT": 240,
    "AU": 203,
    "BE": 227,
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 194,
-  "metro_key": "US:Denver",
+  "metro": 198,
+  "metro_key": "US:St. Louis",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 0,
-  "events": 1100,
+  "community events": 100,
+  "events": 1200,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 200,
-  "parks events": 200,
+  "library programs": 0,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 400,
+  "recreation programs": 0,
   "road races": 0,
-  "special events": 200,
-  "volunteer": 300,
-  "wellness programs": 500,
-  "youth programs": 100
+  "special events": 0,
+  "volunteer": 0,
+  "wellness programs": 0,
+  "youth programs": 200
  }
 }
