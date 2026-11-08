@@ -420,6 +420,19 @@ class JResp(Resp):
         return self._data
 
 
+# A URL inside a list is a request too: annual_sources.json's `pages`, each
+# named after its entry. A string in a list that is not a URL is not one.
+_walked = list(cc._walk_urls({"_comment": "https://not.a.request/", "sites": [
+    {"key": "k", "name": "An annual fest", "url": "https://fest.example/",
+     "pages": ["https://fest.example/programme/", "https://fest.example/visit/", "not a url"]}]}))
+check("_walk_urls reads a site's url and both its pages, and names each after its entry",
+      _walked == [("An annual fest", "https://fest.example/"),
+                  ("An annual fest", "https://fest.example/programme/"),
+                  ("An annual fest", "https://fest.example/visit/")], _walked)
+check("...and a top-level list of bare URLs with no entry is named '?'",
+      list(cc._walk_urls({"feeds": ["https://a.example/x.ics"]})) == [("?", "https://a.example/x.ics")])
+
+
 LOCALIST = {"events": [{"event": {"event_instances": [{"event_instance": {"start": "2099-10-10T10:00:00"}}]}}]}
 tmp = tempfile.mkdtemp(prefix="robots-api-")
 keep = (cc.HERE, cc.LEDGER_FILE, cc._session)

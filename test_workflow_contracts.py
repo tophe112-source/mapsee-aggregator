@@ -41,7 +41,7 @@ class WorkflowContracts(unittest.TestCase):
             'local': {'markets', 'parkrun', 'fairs', 'programs', 'jsonld', 'squarespace',
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu',
-                      'ava', 'rallybound', 'luminate', 'recitals', 'waterfront', 'kct'},
+                      'ava', 'rallybound', 'luminate', 'recitals', 'waterfront', 'kct', 'annual'},
             'rec': {'toronto_rec', 'linkedevents', 'perfectmind', 'drupal_fullcalendar', 'revize',
                     'glenecho', 'montreal_loisirs', 'phl_parks', 'barcelona', 'lcsd', 'madrid',
                     'facility_hours', 'natuurwerkdag', 'galaxydigital'},
@@ -114,9 +114,12 @@ class WorkflowContracts(unittest.TestCase):
         # The rec group's first sync of ~103,600 rows ran out 20 minutes
         # (2026-10-04), and so did civic's Wednesday refresh of 143,128 events
         # (2026-09-30); both keep a longer cap, and ics and local keep 20.
+        # civic has 90 since OpenAgenda France is read past the ODS offset cap
+        # (2026-11-08): a first windowed run on a Wednesday projects to 84.2
+        # min (test_ingest_ods.py does the arithmetic against this line).
         sync = next(s for s in steps if s.get('id') == 'sync')
         self.assertEqual(sync['timeout-minutes'],
-                         "${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}")
+                         "${{ matrix.group == 'civic' && 90 || matrix.group == 'rec' && 60 || 20 }}")
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
 
     def test_rec_timetables_retire_absent_sessions_against_a_cached_manifest(self):
@@ -1053,7 +1056,7 @@ class WorkflowContracts(unittest.TestCase):
             with self.subTest(failed=failed):
                 code, calls = self._curate_discovers(context, merge_failure=failed)
                 self.assertEqual(code, 1 if failed else 0)
-                self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+                self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
         code, _ = self._curate_discovers(dict(context, **{'inputs.dry_run': 'true'}),
                                         merge_failure='cand-socrata.verified.json')
         self.assertEqual(code, 0, 'a dry run must not invoke merge')
@@ -1076,14 +1079,23 @@ class WorkflowContracts(unittest.TestCase):
         self.assertNotIn('--kinds', osm)
         self.assertNotIn('--workers', osm)
         self.assertEqual(self._flag(dict(calls)['civic'], '--max-minutes'), '10')
+        # The fediverse backends probe every candidate once (2026-11-08:
+        # mobilizon 28 s, gancio 65 s); five minutes is a backstop.
+        self.assertEqual(self._flag(dict(calls)['mobilizon'], '--max-minutes'), '5')
+        self.assertEqual(self._flag(dict(calls)['mobilizon'], '--limit'), '300')
 
+        # gancio reads the whole pool, so weekly; its first read found 128
+        # candidates, so a scheduled run proposes at most 25 of them.
         code, calls = self._curate_discovers(daily, dow='3')
-        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
+        self.assertEqual(self._flag(dict(calls)['gancio'], '--limit'), '25')
+        self.assertEqual(self._flag(dict(calls)['gancio'], '--max-minutes'), '5')
+        self.assertEqual(self._flag(dict(calls)['ckan'], '--limit'), '300')
 
         # The gap sweep is the Wednesday 03:50 cron and keeps ckan, pinned.
         gap = {'github.event.schedule': '50 3 * * 3', 'steps.target.outputs.cats': 'running,volunteer'}
         code, calls = self._curate_discovers(gap, dow='3')
-        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
         self.assertEqual(self._flag(dict(calls)['ckan'], '--category'), 'running,volunteer')
         self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
 
@@ -1131,10 +1143,15 @@ class WorkflowContracts(unittest.TestCase):
         # only ckan; a dispatch's osm keeps OSM_METROS_PER_RUN (no --metros)
         # unless it names osm_metros; osm_kinds is still the pinned walk.
         code, calls = self._curate_discovers({'inputs.backend': 'all'}, dow='1')
-        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
         self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
         code, calls = self._curate_discovers({'inputs.backend': 'ckan'}, dow='1')
         self.assertEqual([b for b, _ in calls], ['ckan'])
+        # A dispatch of gancio alone keeps the 25 unless it names a limit.
+        code, calls = self._curate_discovers({'inputs.backend': 'gancio'}, dow='1')
+        self.assertEqual([(b, self._flag(c, '--limit')) for b, c in calls], [('gancio', '25')])
+        code, calls = self._curate_discovers({'inputs.backend': 'gancio', 'inputs.limit': '200'}, dow='1')
+        self.assertEqual([(b, self._flag(c, '--limit')) for b, c in calls], [('gancio', '200')])
         code, calls = self._curate_discovers({'inputs.backend': 'osm', 'inputs.osm_metros': '5',
                                               'inputs.osm_kinds': 'community_centre,library'})
         osm = calls[0][1]

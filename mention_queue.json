@@ -1,0 +1,1365 @@
+{
+  "_comment": "Named events (festivals, fairs, expos, cons, biennials, art walks, open studios, weeks) that rows in our configured feeds mention and the map does not carry. Written by catalog_mentions.py from the feeds-* artifacts of aggregate-events.yml, daily in curate-catalog.yml. A pending mention is a lead for a human: an organiser's own prose-only site goes in annual_sources.json, a feed in the ordinary catalog. Set state to \"declined\" (with a reason in _not_included if it should never come back) to stop seeing one. URLs only; never copy a contact address in here.",
+  "_not_included": {
+    "BIJC and NYC Jewelry Week": "2026-11-08 hand check: two presenters joined by 'and' (Black in Jewelry Coalition, NYC Jewelry Week); NYC Jewelry Week itself is already carried as a title (covered).",
+    "Congo Week": "2026-11-08 hand check: an awareness campaign held in many places, not an occasion in one.",
+    "ELPL Animation Film Festival": "2026-11-08 hand check: East Lansing Public Library's own youth-club screening; the organiser is the configured BiblioCommons feed.",
+    "Essence Festival": "2026-11-08 hand check: named only in a film synopsis (Girls Trip), not as an occasion the row belongs to. This bans the NAME: the festival itself (New Orleans, every July) is a real occasion, so take this line out when a source names it as one.",
+    "Jane Austen Week": "2026-11-08 hand check: a library's own passport challenge, run by the configured feed itself.",
+    "Virginia Cider Week": "2026-11-08 hand check: a statewide promotion week, the same class as a restaurant week (OBSERVANCE_RX keeps dining weeks out).",
+    "Woodson Youth Theatre Festival": "2026-11-08 hand check: a Chicago Public Library branch's own programme; the organiser is the configured BiblioCommons feed."
+  },
+  "mentions": {
+    "aca's open studios": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "ACA’s Open Studios",
+      "ref_keys": [
+        "a46f92891ec2"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Red Letter Poets LIVE!",
+          "url": "https://www.robbinslibrary.org/event/red-letter-poets-live/"
+        }
+      ],
+      "sample": "In collaboration with ACA’s Open Studios.",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "all-ireland one health festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "All-Ireland One Health Festival",
+      "ref_keys": [
+        "faaaf40a2279"
+      ],
+      "referrers": [
+        {
+          "source": "ics:wexford-public-libraries---wexford-town-library-(wexford,-ireland)",
+          "start": "2026-11-23",
+          "title": "Lunchtime Talk: Interconnected: One Health in Your Community at Wexford Library",
+          "url": "https://wexfordcoco.libcal.com/event/4622669"
+        }
+      ],
+      "sample": "As part of the All-Ireland One Health Festival, and in conjunction with the Institute for Health Logistics & Analytics, Georgia Southern University, Wexford Library invites you to a talk exploring the connections between human, animal, plant, and environmental health. Libraries across County Wexford",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "ashland festival of lights parade": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Ashland Festival of Lights Parade",
+      "ref_keys": [
+        "7186a7cd9776"
+      ],
+      "referrers": [
+        {
+          "source": "ics:jackson-county-library-services---ashland-library,-central-point-library,-eagle-point-library,-gold-hill-library,-medford-library-(medford,-or)",
+          "start": "2026-11-24",
+          "title": "Paper Lantern Craft, 5 YRS",
+          "url": "https://jcls.libcal.com/event/14801969"
+        }
+      ],
+      "sample": "Decorate a paper lantern to use during the Ashland Festival of Lights Parade!",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "aurora biennial": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "AURORA Biennial",
+      "ref_keys": [
+        "2863f66716b4"
+      ],
+      "referrers": [
+        {
+          "source": "squarespace",
+          "start": "2026-11-19",
+          "title": "Artist Talk | Contemporary Myths: The Stories That Build, Unite, and Divide",
+          "url": "https://www.dallascontemporary.org/calendar/29rhn1diw7eehi2uncswt00a4bhk1c"
+        }
+      ],
+      "sample": "Presented in conjunction with the AURORA Biennial, the series creates a forum for critical exchange around contemporary artistic practices and the social, cultural, and technological conditions shaping how we understand and experience art today. Dallas Contemporary - Individual Event Modal HTML Free",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    },
+    "australian ceramics open studios": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Australian Ceramics Open Studios",
+      "ref_keys": [
+        "49b6d781de4f",
+        "c82462f13702"
+      ],
+      "referrers": [
+        {
+          "source": "ics:redland-city-council-events-(brisbane,-australia)",
+          "start": "2026-11-07",
+          "title": "Open Studio with Carys Martin | Ritual, Folklore & Gifts with Meaning",
+          "url": "https://carysmartinceramics.com/products/open-studio-with-carys-martin-ritual-folklore-gifts-with-meaning"
+        },
+        {
+          "source": "ics:redland-city-council-events-(brisbane,-australia)",
+          "start": "2026-11-08",
+          "title": "Open Studio with Carys Martin | Ritual, Folklore & Gifts with Meaning",
+          "url": "https://carysmartinceramics.com/products/open-studio-with-carys-martin-ritual-folklore-gifts-with-meaning"
+        }
+      ],
+      "sample": "As part of Australian Ceramics Open Studios, I’m opening my doors and inviting you to come and meet me, explore my work and start your Christmas shopping. Discover my ritual mugs and handmade ceramics, created for quiet moments, treasured spaces and daily use. Explore our Close to Earth teas, blende",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "brant fan fest": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Brant Fan Fest",
+      "ref_keys": [
+        "1d240475b3e8",
+        "c146e9a73bf3"
+      ],
+      "referrers": [
+        {
+          "source": "ics:county-of-brant-public-library-(paris,-canada)",
+          "start": "2026-11-14",
+          "title": "PokéCraft & Play (Drop-In)",
+          "url": "https://brant-ca.libcal.com/event/4081084"
+        },
+        {
+          "source": "ics:county-of-brant-public-library-(paris,-canada)",
+          "start": "2026-11-14",
+          "title": "Pokémon Storytime (Drop-In)",
+          "url": "https://brant-ca.libcal.com/event/4051367"
+        }
+      ],
+      "sample": "Catch some fun with Pokémon-inspired crafts, games and activities as part of Brant Fan Fest 2026! Create your own Pokémon, try your hand at Poke Ball Bowling, capture Pokémon around the library and more. Drop-in program for ages 0-10 years with a parent/caregiver Program Policies By signing up to at",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "bridgeport art center's third friday open studios": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Bridgeport Art Center's Third Friday Open Studios",
+      "ref_keys": [
+        "9fbdf789c881"
+      ],
+      "referrers": [
+        {
+          "source": "squarespace",
+          "start": "2026-11-20",
+          "title": "Third Friday Presents Shivered Timbers: The Royal Navy's Breaking Point",
+          "url": "https://www.chicagomaritimemuseum.org/upcoming-events/third-friday-presents-shivered-timbers-the-royal-navys-breaking-point"
+        }
+      ],
+      "sample": "This lecture is held in conjunction with Bridgeport Art Center's Third Friday Open Studios. Please consider joining CMM for an annual family membership of $35 to enjoy unlimited visits, access to the monthly newsletter and discounted tickets to special events. View Event →",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "contemporanea film festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Contemporanea Film Festival",
+      "ref_keys": [
+        "90fffcb4d4d7"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Michelle Williams Gamaker",
+          "url": "https://www.castellodirivoli.org/evento/michelle-williams-gamaker/"
+        }
+      ],
+      "sample": "Michelle Williams Gamaker Sabato 7 novembre, ore 16.30 Nell’ambito di Contemporanea Film Festival a cura di Distretto Cinema Il Castello di Rivoli, in collaborazione con Contemporanea Film Festival, dedica un focus a Michelle Williams Gamaker, artista e filmmaker che rilegge criticamente la storia d",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "copenhagen jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Copenhagen Jazz Festival",
+      "ref_keys": [
+        "0a6b63126c7f",
+        "405eb11cd6d7",
+        "47df42a26d55",
+        "656150b0129f",
+        "6fe5910184ee",
+        "850b17aa6623",
+        "91ecf2703f29",
+        "add9645c80f8",
+        "b39af2222a8d",
+        "b67ed9b39fe9",
+        "b83edf0eb605",
+        "b87276c51737",
+        "cef0c8d537f6",
+        "e8962bcc0cc2",
+        "eae34179c144",
+        "f7a1d41b3b33",
+        "fa54adbd3055",
+        "fc2d94e8c84f"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-08",
+          "title": "Sunday Jazz Service (in English)",
+          "url": "https://www.folkekirken-vesterbro.dk/arrangement/sunday-jazz-service-in-english-16/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-15",
+          "title": "Sunday Jazz Service (in English) og en dåb",
+          "url": "https://www.folkekirken-vesterbro.dk/arrangement/sunday-jazz-service-in-english-15/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-22",
+          "title": "Sunday Jazz Service (in English)",
+          "url": "https://www.folkekirken-vesterbro.dk/arrangement/sunday-jazz-service-in-english-14/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-29",
+          "title": "Sunday Jazz Service (in English)",
+          "url": "https://www.folkekirken-vesterbro.dk/arrangement/sunday-jazz-service-in-english-13/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-06",
+          "title": "Sunday Jazz Service (in English)",
+          "url": "https://www.folkekirken-vesterbro.dk/arrangement/sunday-jazz-service-in-english-12/"
+        }
+      ],
+      "sample": "Our Sunday services are also an integral part of the annual Copenhagen Jazz Festival. We welcome everyone equally, regardless of nationality, denomination, gender or sexuality. Pastor: Maria Fihl Music Morten Kjær – vokal Claus Waidtløw – tenorsax Olivier Antunes – piano 8 November 2026 1 pm – 2 pm ",
+      "state": "pending",
+      "times_seen": 18,
+      "venue": null
+    },
+    "dagen van de sociale film festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Dagen van de Sociale Film festival",
+      "ref_keys": [
+        "13b354b988c7"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-19",
+          "title": "DVDSF: Porte Bagage (2025)",
+          "url": "https://Klappei.stager.co/shop/default/events/111698985"
+        }
+      ],
+      "sample": "19u00 deuren open 19u30 inleiding 20u15 start film Vertoning in het kader van Dagen van de Sociale Film festival.",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "dhaatu international puppet festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Dhaatu International Puppet Festival",
+      "ref_keys": [
+        "5eb297491c70",
+        "cd9a44db54df"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-28",
+          "title": "Chadar Badoni Puppet Making Workshop (CHILDREN) – DIPF 2027",
+          "url": "https://mandalabengaluru.com/event/chadar-badoni-puppet-workshop-children/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-29",
+          "title": "Chadar Badoni Puppet Making Workshop (ADULTS) – DIPF 2027",
+          "url": "https://mandalabengaluru.com/event/chadar-badoni-puppet-making-workshop-adults/"
+        }
+      ],
+      "sample": "@ Traditional Santhali Chadar Badoni Puppet Making workshop for children as part of the Dhaatu International Puppet Festival 2027. AGES 8-15 Make a puppet & take it home! Materials will be provided. Chadar Badoni: A Santhal Puppet-Making Workshop The Santhals are one of India’s largest Adivasi commu",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "diocesan convention": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Diocesan Convention",
+      "ref_keys": [
+        "e284fcf7b42a"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-14",
+          "title": "From unheard voice to real-life action",
+          "url": "https://dioceseofnewark.org/event/from-unheard-voice-to-real-life-action/"
+        }
+      ],
+      "sample": "ere every child truly belongs? This two-part program, presented by the First Third of Life Commission during the Annual Diocesan Convention, begins with an honest panel discussion featuring parents, caregivers, and church leaders. Panelists will share the challenges families of children with disabil",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    },
+    "empatica festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Empatica Festival",
+      "ref_keys": [
+        "def84f8254bc"
+      ],
+      "referrers": [
+        {
+          "source": "ods:Bologna Agenda Cultura (Bologna, Italy)",
+          "start": "2026-11-18",
+          "title": "STRONG(HER) – Il lavoro può fare la differenza",
+          "url": "https://culturabologna.it/events/578287"
+        }
+      ],
+      "sample": "Incontro nell’ambito di Empatica Festival",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "feast festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Feast Festival",
+      "ref_keys": [
+        "5cf9842161c6"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-20",
+          "title": "Queer. China. Now.",
+          "url": "https://events.humanitix.com/queer-china-now"
+        }
+      ],
+      "sample": "launches as part of Feast Festival, bringing contemporary Chinese queer short films to Adelaide audiences. Curated by Adelaide-based artist and curator Xu Xiong, the programme brings together fiction, documentary and experimental filmmaking to explore how queer people live, love and imagine their fu",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "fold kids book fest": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "FOLD Kids Book Fest",
+      "ref_keys": [
+        "b19f4cc4e38e"
+      ],
+      "referrers": [
+        {
+          "source": "ics:brampton-library---gore-meadows,-chinguacousy,-claireville,-community-location-(brampton,-canada)",
+          "start": "2026-11-07",
+          "title": "Storytime Shows with FOLD Kids Authors",
+          "url": null
+        }
+      ],
+      "sample": "Celebrate FOLD Kids Book Fest with a day of storytelling magic. Enjoy live interactive storytimes presented by authors and special guests, followed by authors signings and photos.",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    },
+    "head on photo festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Head On Photo Festival",
+      "ref_keys": [
+        "df044f7ea0d9"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-15",
+          "title": "Exhibition Opening: ‘Idyllic | Industrial’ Kym McDowell",
+          "url": "https://vicparkarts.org.au/event/exhibition-opening-idyllic-industrial-kym-mcdowell/"
+        }
+      ],
+      "sample": "ng towers, too, eventually become romantic relics of a bygone era also worthy of preservation? Presented as part of the Head On Photo Festival. (Pictured: Idyllic Industrial 7, Kym McDowell)",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "islamic arts festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Islamic Arts Festival",
+      "ref_keys": [
+        "94c2ccc3eb99"
+      ],
+      "referrers": [
+        {
+          "source": "bibliocommons",
+          "start": "2026-11-14",
+          "title": "Next Chapter Saturday Series - The Turkish Art of Ebru (Registration Required)",
+          "url": "https://hcpl.bibliocommons.com/events/6ad7c7e49dbc2b002c8fe97f"
+        }
+      ],
+      "sample": "At the upcoming 13 th Annual Islamic Arts Festival, visitors of all backgrounds are invited to explore the many art forms and traditions of the Muslim world. On November 14, local artist and Islamic Arts Society member, Shaheen Rahman will share the art of Ebru, an ancient Turkish paper marbling tec",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "jaipur literature festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Jaipur Literature Festival",
+      "ref_keys": [
+        "46240d507a96",
+        "727903a7da98",
+        "82e5828cc1cf",
+        "8a6405e4987a",
+        "9420ebc05dbe",
+        "a75d6f42585c",
+        "b1d895ec575e",
+        "baee9127bb20",
+        "d5f08e0f3876",
+        "e93a9b07f9e1"
+      ],
+      "referrers": [
+        {
+          "source": "ics:boulder-public-library---main-library-(boulder)",
+          "start": "2026-11-12",
+          "title": "Great Indian Novel",
+          "url": null
+        },
+        {
+          "source": "ics:boulder-public-library---main-library-(boulder)",
+          "start": "2026-12-10",
+          "title": "Great Indian Novel",
+          "url": null
+        },
+        {
+          "source": "ics:boulder-public-library---main-library-(boulder)",
+          "start": "2027-01-14",
+          "title": "Great Indian Novel",
+          "url": null
+        },
+        {
+          "source": "ics:boulder-public-library---main-library-(boulder)",
+          "start": "2027-02-11",
+          "title": "Great Indian Novel",
+          "url": null
+        },
+        {
+          "source": "ics:boulder-public-library---main-library-(boulder)",
+          "start": "2027-03-11",
+          "title": "Great Indian Novel",
+          "url": null
+        }
+      ],
+      "sample": "Some of the authors we read visit Boulder during the Jaipur Literature Festival at the library. For more information or to join online please contact:",
+      "state": "pending",
+      "times_seen": 10,
+      "venue": null
+    },
+    "laneway festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Laneway Festival",
+      "ref_keys": [
+        "d93ab784a4c7",
+        "e00bdbc41300"
+      ],
+      "referrers": [
+        {
+          "source": "moshtix",
+          "start": "2027-02-10",
+          "title": "horsegiirL",
+          "url": "https://www.moshtix.com.au/v2/event/horsegiirl/201944"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-02-17",
+          "title": "horsegiirL",
+          "url": "https://www.moshtix.com.au/v2/event/horsegiirl/201670"
+        }
+      ],
+      "sample": "Nature isn’t either.” Prepare for an unforgettable, high-energy celebration when horsegiirL returns to Laneway Festival and performs two headline shows in Sydney and Melbourne.",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "manchester literature festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Manchester Literature Festival",
+      "ref_keys": [
+        "64dab8065b7a",
+        "d50a35eb4beb",
+        "def707855b29"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-27",
+          "title": "Little Reads",
+          "url": "https://hla.oldham.gov.uk/event/little-reads/2026-11-27/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-04",
+          "title": "Little Reads at Failsworth Library",
+          "url": "https://hla.oldham.gov.uk/event/little-reads-3/2026-12-04/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-25",
+          "title": "Little Reads",
+          "url": "https://hla.oldham.gov.uk/event/little-reads/2026-12-25/"
+        }
+      ],
+      "sample": "Perfect for under 4’s and their families in partnership with Manchester Literature Festival. No need to book, just come along. Oldham Libraries View Organiser Website Add to calendar Google Calendar iCalendar Outlook 365 Outlook Live",
+      "state": "pending",
+      "times_seen": 3,
+      "venue": null
+    },
+    "maryland stem fest": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Maryland STEM Fest",
+      "ref_keys": [
+        "4241dca9f56f"
+      ],
+      "referrers": [
+        {
+          "source": "ics:enoch-pratt-free-library-(baltimore)",
+          "start": "2026-11-09",
+          "title": "STEM Crafternoon",
+          "url": "https://calendar.prattlibrary.org/event/stem-crafternoon"
+        }
+      ],
+      "sample": "Join us for a STEM-themed crafternoon in honor of Maryland STEM Fest. Learn how to make your own windmill and try out some fun STEM tools!",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "melbourne women's international jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Melbourne Women's International Jazz Festival",
+      "ref_keys": [
+        "1016a24e9c88",
+        "bc6767d7ee5b",
+        "cb0472f9248d"
+      ],
+      "referrers": [
+        {
+          "source": "ics:university-of-melbourne-events-(melbourne)",
+          "start": "2026-11-08",
+          "title": "Gender Defying Jazz 2026",
+          "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
+        },
+        {
+          "source": "ics:university-of-melbourne-events-(melbourne)",
+          "start": "2026-11-09",
+          "title": "Gender Defying Jazz 2026",
+          "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
+        },
+        {
+          "source": "ics:university-of-melbourne-events-(melbourne)",
+          "start": "2026-11-10",
+          "title": "Gender Defying Jazz 2026",
+          "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
+        }
+      ],
+      "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
+      "state": "pending",
+      "times_seen": 3,
+      "venue": null
+    },
+    "melt festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "MELT Festival",
+      "ref_keys": [
+        "05c15497be25",
+        "138df499b6f0",
+        "1ba50d930c75",
+        "1c1aaddb7266",
+        "1e366ec5c672",
+        "26fd1e1c9a08",
+        "30840e95ab15",
+        "31582fbc2c2f",
+        "3dc85eeb12dd",
+        "46e8c8553d36",
+        "7fd5b24a701a",
+        "858ac256a87c",
+        "9448306f0241",
+        "9c952090783d",
+        "ad47224f13d1",
+        "b823c7afeb47",
+        "c9908bebd8c6",
+        "d1e1384a6781",
+        "e12d5432cc27",
+        "e7504f3b0317",
+        "e9ed3c36f745",
+        "f8c0edfdbba0"
+      ],
+      "referrers": [
+        {
+          "source": "ics:brisbane-creative-events-(brisbane,-australia)",
+          "start": "2026-11-11",
+          "title": "WILD ABANDON by Seán Dowling, Ian Lawson, and Merlynn Tong",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D208708790"
+        },
+        {
+          "source": "ods:Brisbane Creative Events (Brisbane)",
+          "start": "2026-11-11",
+          "title": "WILD ABANDON by Seán Dowling, Ian Lawson, and Merlynn Tong",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D208708790"
+        },
+        {
+          "source": "ics:brisbane-creative-events-(brisbane,-australia)",
+          "start": "2026-11-12",
+          "title": "WILD ABANDON by Seán Dowling, Ian Lawson, and Merlynn Tong",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D208708791"
+        },
+        {
+          "source": "ods:Brisbane Creative Events (Brisbane)",
+          "start": "2026-11-12",
+          "title": "WILD ABANDON by Seán Dowling, Ian Lawson, and Merlynn Tong",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D208708791"
+        },
+        {
+          "source": "ics:brisbane-creative-events-(brisbane,-australia)",
+          "start": "2026-11-13",
+          "title": "WILD ABANDON by Seán Dowling, Ian Lawson, and Merlynn Tong",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D208708792"
+        }
+      ],
+      "sample": "Bookings required: Yes A bold, sensual new multi-narrative drama comes to MELT Festival 2026. Wild Abandon is a daring new work by Seán Dowling, Ian Lawson, and Merlynn Tong — a funny, messy, and unexpectedly tender play about sex, intimacy, and the rules we make to feel safe. Set across a single ni",
+      "state": "pending",
+      "times_seen": 22,
+      "venue": null
+    },
+    "miami art week": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Miami Art Week",
+      "ref_keys": [
+        "2c3a5636a685",
+        "513dacda7b86"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-29",
+          "title": "PRESENTED BY PUBLIC ART FUND: Between Tides",
+          "url": "https://thebass.org/art/between-tides/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-05",
+          "title": "Cafecito Conversations—Littlest Art Fair",
+          "url": "https://museumofmiami.org/event/cafecito-conversations-littlest-art-fair/"
+        }
+      ],
+      "sample": "t Rockaway Beach in New York City, Public Art Fund will bring a new presentation of Between Tides to Miami Beach during Miami Art Week and Art Basel Miami Beach. From November 29 through December 6, 2026, six playable sculptural ping-pong tables by Moko Fukuyama, Ilana Harris-Babou, Las Hermanas Igl",
+      "state": "covered",
+      "times_seen": 2,
+      "venue": null
+    },
+    "neufneuf festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "NEUFNEUF Festival",
+      "ref_keys": [
+        "6d3151b654cd"
+      ],
+      "referrers": [
+        {
+          "source": "ics:centres-culturels-de-toulouse-(toulouse,-france)",
+          "start": "2026-11-21",
+          "title": "Banc d’essai",
+          "url": "https://openagenda.com/toulouse-centres-culturels/events/44571305_banc-dessai"
+        }
+      ],
+      "sample": "Danse / Cies MayGetSin & Tetrapode / Dans le cadre du NEUFNEUF Festival - Voir plus: https://openagenda.com/toulouse-centres-culturels/events/44571305_banc-dessai",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "new york baltic film festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "New York Baltic Film Festival",
+      "ref_keys": [
+        "3a5c24bc9a21",
+        "642b3c958e23",
+        "86f5afcacfa2",
+        "a2d2569cfaee",
+        "b1ffe418f5c6",
+        "d3e88121beef",
+        "d9654b6edf97",
+        "dec848746bf4",
+        "fe930d8000e6"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "A GOODNIGHT KISS | NYBFF",
+          "url": "https://www.scandinaviahouse.org/event/a-goodnight-kiss-nybff/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "BALTIC SHORTS | NYBFF",
+          "url": "https://www.scandinaviahouse.org/event/baltic-shorts-nybff-2/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "HOLY DESTRUCTORS | NYBFF",
+          "url": "https://www.scandinaviahouse.org/event/holy-destructors-nybff/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "MORTEN | NYBFF",
+          "url": "https://www.scandinaviahouse.org/event/morten-nybff/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "SOLD OUT — ULYA | NYBFF",
+          "url": "https://www.scandinaviahouse.org/event/ulya-nybff/"
+        }
+      ],
+      "sample": "See a screening of A Goodnight Kiss ( Irena ) in the the 9th Annual New York Baltic Film Festival (NYBFF). A Goodnight Kiss is an homage to a remarkable woman, Irena Veisaitė, and her unabating spirit. As Irena turns 92 in 2020, birthday greetings pour in for one of Lithuania’s wisest women, much ad",
+      "state": "pending",
+      "times_seen": 9,
+      "venue": null
+    },
+    "new york comedy festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "New York Comedy Festival",
+      "ref_keys": [
+        "02339beeb748",
+        "1258d6f2372a",
+        "28d171fca1bb",
+        "2db2213cb5fe",
+        "37c1a06ee8b2",
+        "47578dee7428",
+        "580a853a952e",
+        "60b10575e532",
+        "63fb548d1d64",
+        "87ba229c6ec6",
+        "b2456d5f5130",
+        "c12fc02e9753",
+        "c2f88a03e63b",
+        "c3bb3195f809",
+        "d0f82527f77f",
+        "e96b898d16f3",
+        "f90dc24e6c5b"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Drew Michael: Love Me (in NYC)",
+          "url": "https://ci.ovationtix.com/35583/production/1290563"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Drunk Black History (in NYC)",
+          "url": "https://www.eventbrite.com/e/drunk-black-history-new-york-comedy-festival-edition-tickets-1997797177136"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-08",
+          "title": "Drew Michael: Love Me (in NYC)",
+          "url": "https://ci.ovationtix.com/35583/production/1290563"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-08",
+          "title": "Hot Guy Draft: A Comedy Fantasy Draft (in NYC)",
+          "url": "https://www.eventbrite.com/e/ny-comedy-festival-presents-hot-guy-draft-a-comedy-fantasy-draft-tickets-1998384216988"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-09",
+          "title": "Comedy Jamwich (in LA)",
+          "url": "https://www.instagram.com/comedyjamwich/"
+        }
+      ],
+      "sample": "Presented as part of the 2026 New York Comedy Festival, and following an acclaimed 2023 run at the Edinburgh Fringe Festival, LOVE ME is the off-Broadway debut from Emmy-nominated comedian Drew Michael, directed by Peabody Award winner Prashanth Venkataramanujam. In this immersive and hilarious thea",
+      "state": "covered",
+      "times_seen": 17,
+      "venue": null
+    },
+    "nyc jewelry week": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "NYC Jewelry Week",
+      "ref_keys": [
+        "29f623311a76"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-19",
+          "title": "Rock the Jewels: Black in Jewelry Coalition Gala",
+          "url": "https://mocada.org/event/rock-the-jewels-black-in-jewelry-coalition-gala/"
+        }
+      ],
+      "sample": "Rock the Jewel s is Black in Jewelry Coalition ’s annual fundraiser and signature celebration during NYC Jewelry Week . Presented by BIJC and NYC Jewelry Week, this high-energy evening brings together industry leaders, designers, retailers, manufacturers, museum curators, media, trade associations, ",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    },
+    "one health festival": {
+      "dates": [
+        "2026-11-20",
+        "2026-11-20/2026-11-27"
+      ],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "One Health Festival",
+      "ref_keys": [
+        "399180e1707e",
+        "434bad2ec0dd",
+        "539a88e372e4",
+        "7bbb761a3472"
+      ],
+      "referrers": [
+        {
+          "source": "ics:trinity-college-dublin-events-(dublin,-ireland)",
+          "start": "2026-11-20",
+          "title": "Climate Change is a Health Emergency: A Call for Ireland to Act!",
+          "url": "https://www.eventbrite.ie/e/climate-change-is-a-health-emergency-a-call-for-ireland-to-act-tickets-1995909097840?aff=oddtdtcreator&_gl=1*lg18xb*_up*MQ..*_ga*MjA2MTMyMjY0MC4xNzkxNTQ4NTcw*_ga_TQVES5V6SH*czE3OTE1NDg1NjgkbzEkZzEkdDE3OTE1NDg3ODQkajYwJGwwJGgw"
+        },
+        {
+          "source": "ics:trinity-college-dublin-events-(dublin,-ireland)",
+          "start": "2026-11-24",
+          "title": "People’s Emergency Briefing – Documentary Screening and Group Discussion",
+          "url": "https://www.eventbrite.com/e/peoples-emergency-briefing-documentary-screening-and-group-discussion-tickets-2002788380961"
+        },
+        {
+          "source": "ics:trinity-college-dublin-events-(dublin,-ireland)",
+          "start": "2026-11-25",
+          "title": "Social Science’s Role within One Health",
+          "url": "https://www.eventbrite.com/e/social-sciences-role-land-food-and-health-interdisciplinary-workshop-tickets-2004234172362"
+        },
+        {
+          "source": "ics:trinity-college-dublin-events-(dublin,-ireland)",
+          "start": "2026-11-26",
+          "title": "Celebrating the Connection Between Botany and Medicine",
+          "url": "https://www.eventbrite.com/e/celebrating-the-connection-between-botany-and-medicine-tickets-2004131843293?aff=oddtdtcreator"
+        }
+      ],
+      "sample": "It launches the inaugural One Health Festival running from 20th November to 27th November 2026, an initiative of the All-Ireland One Health Collaborative Network. It is funded by Trinity School of Medicine, Healthy Trinity within Trinity Sustainability and supported by Wellcome Trust [336423/Z/25/Z]",
+      "state": "pending",
+      "times_seen": 4,
+      "venue": null
+    },
+    "photonola festival": {
+      "dates": [
+        "2026-12-02/2026-12-06"
+      ],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "PhotoNOLA Festival",
+      "ref_keys": [
+        "ce1f53902f57"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-02",
+          "title": "NOMA x PhotoNOLA: Gallery Talk, Panel Discussion, and Book Signing Celebrating Confluence",
+          "url": "https://noma.org/event/noma-x-photonola-gallery-talk-panel-discussion-and-book-signing-celebrating-confluence/"
+        }
+      ],
+      "sample": "During the 2026 PhotoNOLA Festival (December 2 – 6, 2026), admission to NOMA is free with presentation of a PhotoNOLA participant pass at the admissions desk. Schedule of Events 5:30-6:15 PM | Zita and Luther Templeman Galleries, Second Floor Gallery Talk with Brian Piper, NOMA’s Freeman Family Cura",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "richmond environmental film festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Richmond Environmental Film Festival",
+      "ref_keys": [
+        "abe4dd4566e2"
+      ],
+      "referrers": [
+        {
+          "source": "ics:henrico-county-public-library---libbie-mill-area-library-(richmond,-va)",
+          "start": "2027-02-25",
+          "title": "RVA Environmental Film Festival: The River Runs On",
+          "url": "https://henricolibrary-va.libcal.com/event/17644776"
+        }
+      ],
+      "sample": "A community screening of The River Runs On (2023, NR, 55 min) as part of the 2027 Richmond Environmental Film Festival. This documentary film follows conservationists throughout Southern Appalachia as they struggle to manage two of the most important national forest in America- the Pisgah and Nantah",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "roma summer fest": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Roma Summer Fest",
+      "ref_keys": [
+        "12854e5ae1cc",
+        "2e65efff22d8",
+        "ec1a920090fc"
+      ],
+      "referrers": [
+        {
+          "source": "mobilizon",
+          "start": "2027-07-05",
+          "title": "Lynyrd Skynyrd",
+          "url": "https://ticketzon.it/events/6d1d5c30-a499-4032-abc8-0729b89e1b01"
+        },
+        {
+          "source": "mobilizon",
+          "start": "2027-07-06",
+          "title": "Lynyrd Skynyrd",
+          "url": "https://ticketzon.it/events/76b2db0e-5177-400c-b7ee-d6ddba9d3d2e"
+        },
+        {
+          "source": "mobilizon",
+          "start": "2027-07-14",
+          "title": "Tokio Hotel - Summer Encore 2027",
+          "url": "https://ticketzon.it/events/63916f20-da11-46b7-ad2c-9ff16b72680e"
+        }
+      ],
+      "sample": "vendita solo posti a sedere) e il 6 luglio 2027 alla Cavea Auditorium Parco della Musica Ennio Morricone nell’ambito di Roma Summer Fest. Biglietti in vendita secondo le seguenti modalità: in prevendita il 16 settembre 2026 tramite il sito dell'artista dalle ore 10:00 vendita generale su Mc2 Live, V",
+      "state": "pending",
+      "times_seen": 3,
+      "venue": null
+    },
+    "san francisco silent film festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "San Francisco Silent Film Festival",
+      "ref_keys": [
+        "fc54818763e7"
+      ],
+      "referrers": [
+        {
+          "source": "mylisting",
+          "start": "2026-11-22",
+          "title": "Frank Buxton Silent Film Festival 2026",
+          "url": "https://www.bainbridgeisland.com/event/frank-buxton-silent-film-festival-2026/"
+        }
+      ],
+      "sample": "This year's Festival is curated by Buxton's friend and frequent creative partner, John Ellis, in collaboration with the San Francisco Silent Film Festival. Individual Film Tickets: Member Price: $15 / Non-member Price: $18 Day Pass: Member Price: $45 / Non-member Price: $55 1:00 PM | Silent Comedy S",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "seattle forest week": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Seattle Forest Week",
+      "ref_keys": [
+        "1e0b880a6b2a",
+        "373e82414867",
+        "68f080a16188",
+        "a10fe362c98b",
+        "f22734c264fe"
+      ],
+      "referrers": [
+        {
+          "source": "ics:seattle-city-calendar",
+          "start": "2026-11-07",
+          "title": "2026 Seattle Arbor Day",
+          "url": "https://forms.cloud.microsoft/Pages/DesignPageV2.aspx?origin=NeoPortalPage&subpage=design&id=RR7meOtrCUCPmTWdi1T0G1FsSd8N11BMhnO_RtIAmJ5UME9DMU1QRjZUTlU4V09FUkdaMFdLSko2TyQlQCN0PWcu"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Arbor Day at E.C. Hughes Park with Trees for Seattle",
+          "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=RR7meOtrCUCPmTWdi1T0G1FsSd8N11BMhnO_RtIAmJ5UME9DMU1QRjZUTlU4V09FUkdaMFdLSko2TyQlQCN0PWcu&amp;route=shorturl"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Leschi Natural Area Planting Party!",
+          "url": "http://seattle.greencitypartnerships.org/event/45003/"
+        },
+        {
+          "source": "ics:heron's-nest-outdoor-education-center",
+          "start": "2026-11-11",
+          "title": "VOLUNTEER: Serving the Forest",
+          "url": null
+        },
+        {
+          "source": "ics:heron's-nest-outdoor-education-center",
+          "start": "2026-11-14",
+          "title": "VOLUNTEER: Serving the Forest",
+          "url": null
+        }
+      ],
+      "sample": "ign&id=RR7meOtrCUCPmTWdi1T0G1FsSd8N11BMhnO_RtIAmJ5UME9DMU1QRjZUTlU4V09FUkdaMFdLSko2TyQlQCN0PWcu Join us as we celebrate Seattle Forest Week, fall planting season, trees, and our community at Arbor Day! We will be planting about 10 street trees along Southwest Holden Street as part of Arbor Day and t",
+      "state": "covered",
+      "times_seen": 5,
+      "venue": null
+    },
+    "short run comix festival": {
+      "dates": [
+        "2026-11-07"
+      ],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Short Run Comix Festival",
+      "ref_keys": [
+        "eaf940cfed39"
+      ],
+      "referrers": [
+        {
+          "source": "ics:the-seattle-public-library---events-(seattle)",
+          "start": "2026-11-08",
+          "title": "The Public Life of Comics",
+          "url": "https://www.spl.org/event-calendar?trumbaEmbed=view%3Devent%26eventid%3D210004648"
+        }
+      ],
+      "sample": "This event is in coordination with the 14th annual Short Run Comix Festival, taking place on Saturday, November 7th from 11 am to 6 pm at Seattle Design Center in Georgetown. About the panelists: Meredith Li-Vollmer works in communications for Public Health – Seattle & King County where she has deve",
+      "site": "short-run",
+      "state": "configured",
+      "times_seen": 1,
+      "venue": "Seattle Design Center"
+    },
+    "singapore art week": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Singapore Art Week",
+      "ref_keys": [
+        "a7e910b02bc2",
+        "cf6e82d8f919"
+      ],
+      "referrers": [
+        {
+          "source": "ics:national-library-board-golibrary---bishan-library-(singapore)",
+          "start": "2026-11-07",
+          "title": "Collage Poetry Workshop with Elisa & Jin",
+          "url": "https://nlb.libcal.com/event/5976244"
+        },
+        {
+          "source": "ics:national-library-board-golibrary---bishan-library-(singapore)",
+          "start": "2026-11-14",
+          "title": "Collage Poetry Workshop with Elisa & Jin",
+          "url": "https://nlb.libcal.com/event/5976245"
+        }
+      ],
+      "sample": "The finished artworks will come together as part of a multi-disciplinary community art installation presented during Singapore Art Week 2027. Together, these works will form a collective portrait of the neighbourhood and the memories that live within its everyday spaces. No artmaking experience requ",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "spirit and place festival": {
+      "dates": [
+        "2026-11-05/2026-11-15"
+      ],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Spirit & Place Festival",
+      "ref_keys": [
+        "a12558e545ba",
+        "dc8e5f97b8a3"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-10",
+          "title": "Common Read Conversation: Daniel Kraus and Dr. Abigail Fraeman",
+          "url": "https://events.iu.edu/research/event/2368484-the-indianapolis-common-read-community"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-11",
+          "title": "Beyond These Gates: Remembering Home, the Prison, and Place Yet to Be",
+          "url": "https://kankanindy.com/events/BEYONDTHESEGATES"
+        }
+      ],
+      "sample": "This event is part of the Spirit & Place Festival (Nov. 5–15). Learn more at spiritandplace.org. The Indianapolis Common Read Conversation is a Spirit & Place event.",
+      "state": "covered",
+      "times_seen": 2,
+      "venue": null
+    },
+    "stemz fest": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "STEMz Fest",
+      "ref_keys": [
+        "5291af475b68",
+        "5c40083004d6",
+        "5e3a21afddcd",
+        "7f6cf4ab2649",
+        "fd9f86ed1dd5"
+      ],
+      "referrers": [
+        {
+          "source": "ics:scenic-hudson-(poughkeepsie,-ny)",
+          "start": "2026-11-14",
+          "title": "Sigma Gamma Rho Sorority Inc., Meeting",
+          "url": "https://www.scenichudson.org/events/sigma-gamma-rho-sorority-inc-meeting-2/"
+        },
+        {
+          "source": "ics:scenic-hudson-(poughkeepsie,-ny)",
+          "start": "2026-11-16",
+          "title": "Northern Dutchess NAACP",
+          "url": "https://www.scenichudson.org/events/northern-dutchess-naacp/"
+        },
+        {
+          "source": "ics:scenic-hudson-(poughkeepsie,-ny)",
+          "start": "2026-11-17",
+          "title": "Northside Collaborative Meeting",
+          "url": "https://www.scenichudson.org/events/northside-collaborative-meeting/"
+        },
+        {
+          "source": "ics:scenic-hudson-(poughkeepsie,-ny)",
+          "start": "2026-11-20",
+          "title": "Growing Homes Annual Event",
+          "url": "https://www.scenichudson.org/events/growing-homes-annual-event/"
+        },
+        {
+          "source": "ics:scenic-hudson-(poughkeepsie,-ny)",
+          "start": "2026-11-21",
+          "title": "Leaders by Choice Board Retreat",
+          "url": "https://www.scenichudson.org/events/leaders-by-choice-board-retreat/"
+        }
+      ],
+      "sample": " Ave, Poughkeepsie, NY, United States Open to the Public The Growing STEMz Foundation will be hosting it's first annual STEMz Fest at the Northside Hub! This day will feature an exploration of science, technology, engineering, arts, math as well […] Tue 17 Northside Collaborative Meeting November 17",
+      "state": "covered",
+      "times_seen": 5,
+      "venue": null
+    },
+    "sydney festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Sydney Festival",
+      "ref_keys": [
+        "80884198aa84",
+        "ed3a10067a36"
+      ],
+      "referrers": [
+        {
+          "source": "moshtix",
+          "start": "2027-01-16",
+          "title": "WASIA PROJECT - Nocturne Live 2027",
+          "url": "https://www.moshtix.com.au/v2/event/wasia-project-nocturne-live-2027/201511"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-01-19",
+          "title": "Wasia Project | Nocturne Live 2027",
+          "url": "https://www.moshtix.com.au/v2/event/wasia-project-nocturne-live-2027/201576"
+        }
+      ],
+      "sample": "It all kicks off on January 15th, with a show at the storied City Recital Hall, as part of the Sydney Festival, continues onto Melbourne at Northcote Theatre the next night and wraps up at the Triffid in Brisbane on the 19th. Get tickets while you can – the full scale majesty of Wasia Project live i",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "ucb's new york comedy festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "UCB’s New York Comedy Festival",
+      "ref_keys": [
+        "ff9fd15f5928"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-11",
+          "title": "Best of NY Sketch ft. First Wife & Pamela (in NYC w/Livestream)",
+          "url": "https://ucbcomedy.com/show/best-of-ny-sketch-nycf-11-11-26/"
+        }
+      ],
+      "sample": "As part of UCB’s New York Comedy Festival programming of 2026, they will perform their best sketches of this year so far! WRITERS: JR Atkinson, Henry Block (The Onion), Rel Francis, Orly Lewittes, and Charlotte Polk ACTORS: Allisha Edwards (ASSSSKETCH Actor ’26, Ars Nova Resident Artist ’25, SNL Men",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    },
+    "vancouver writers fest": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Vancouver Writers Fest",
+      "ref_keys": [
+        "a9b48f9be7de"
+      ],
+      "referrers": [
+        {
+          "source": "bibliocommons",
+          "start": "2026-12-09",
+          "title": "Incite: Tales of Christmas",
+          "url": "https://vpl.bibliocommons.com/events/6aecb485377296003a5148b4"
+        }
+      ],
+      "sample": "Presented by the Vancouver Writers Fest and Vancouver Public Library, Incite is a free quarterly series offering fascinating conversations with celebrated authors and emerging talents. Incite is open to all, in-person at the VPL’s Central Library or online. Books will be for sale at the event, and m",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "washington state science and engineering fair": {
+      "dates": [
+        "2027-04-02/2027-04-03"
+      ],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Washington State Science & Engineering Fair",
+      "ref_keys": [
+        "cb071176d11e",
+        "cc4a8ac964cd"
+      ],
+      "referrers": [
+        {
+          "source": "bibliocommons",
+          "start": "2026-11-18",
+          "title": "Science Project Launch",
+          "url": "https://krl.bibliocommons.com/events/6ac911929dbc2b002c8d767a"
+        },
+        {
+          "source": "bibliocommons",
+          "start": "2027-01-23",
+          "title": "Science Project Launch",
+          "url": "https://krl.bibliocommons.com/events/6ac911929dbc2b002c8d767b"
+        }
+      ],
+      "sample": "Learn what the 70th Annual Washington State Science & Engineering Fair (WSSEF) has to offer students in grades 1–12. Whether your student already has a project idea or simply loves asking questions and exploring how things work, this session is a great place to start. The WSSEF offers students oppor",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
+    "wellington heritage festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Wellington Heritage Festival",
+      "ref_keys": [
+        "1bbe606ee691"
+      ],
+      "referrers": [
+        {
+          "source": "ics:wellington-city-libraries-(wellington,-new-zealand)",
+          "start": "2026-11-08",
+          "title": "Georgina Beyer: Diamonds are Forever",
+          "url": "https://WellingtonCityLibraries.trumba.com/Georgina-Beyer-Diamonds-are-Forever/E206673759"
+        }
+      ],
+      "sample": "This talk is part of Wellington Heritage Festival. Location: Ngā Pou Ruahine (Level 2). Blending live storytelling, historic images, archival audio and personal memories, we'll explore Georgina's Wellington. Along the way, we’ll honour some of her heroes and listen to first-hand archival audio clips",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "westchester book festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Westchester Book Festival",
+      "ref_keys": [
+        "7147222c8c18"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-07",
+          "title": "Literacy at Lasdon: Autumn Nature Journaling",
+          "url": "https://parksevents.westchestercountyny.gov/event/literacy-at-lasdon-autumn-nature-journaling/"
+        }
+      ],
+      "sample": "In partnership with the Westchester Book Festival, Lasdon is offering seasonal book recommendations, a writing prompt, and journaling materials in the Welcome Center. Contact [address] with any questions or special accessibility needs. This is an outdoor program. Cancellation in c",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "whitaker st louis international film festival": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Whitaker St. Louis International Film Festival",
+      "ref_keys": [
+        "d592eb739818"
+      ],
+      "referrers": [
+        {
+          "source": "ics:contemporary-art-museum-st.-louis-(st.-louis,-mo)",
+          "start": "2026-11-10",
+          "title": "Gallery Talk and Film Screening: Every Line Becomes a Circle",
+          "url": "https://camstl.org/event/gallery-talk-and-film-screening-every-line-becomes-a-circle/"
+        }
+      ],
+      "sample": "CAM is pleased to partner with the 35th Annual Whitaker St. Louis International Film Festival to present a gallery talk and film screening event that explores the world of contemporary art through a cinematic lens. In collaboration with the Goethe-Institut St. Louis, the event explores connections b",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "winter festival of lights": {
+      "dates": [],
+      "first_seen": "2026-11-08",
+      "last_seen": "2026-11-08",
+      "name": "Winter Festival of Lights",
+      "ref_keys": [
+        "7146d3ac5196"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Trot for a Turkey",
+          "url": "https://www.pgparks.com/event_list/trot-for-a-turkey"
+        }
+      ],
+      "sample": "d by running or walking through the beautiful Winter Festival of Lights! For more than 30 years, visitors to the annual Winter Festival of Lights have been dazzled by twinkling light displays as they drove through Watkins Regional Park. This year, register to walk or run through the almost three-mil",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    }
+  }
+}

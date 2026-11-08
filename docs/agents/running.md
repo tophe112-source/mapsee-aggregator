@@ -45,6 +45,11 @@ python test_curate_audit.py         # the weekly audit: a budget, the oldest che
 python test_standing_pass.py         # R1 walkers: standing rows read by id keyset through events_standing_walk_idx, never by their window
 python test_curate_mirror.py        # one site, one feed: an iCal export beside its REST feed is a mirror; a single event's download is not a calendar
 python test_curate_coverage.py      # the report that AIMS the loop: real countries, real targets
+python test_discover_fedi.py        # Mobilizon and Gancio discovery: two directories each, aliases, mirrors, demos, adult and online-only calendars, refusals parked, a deadline
+python test_mentions.py             # named events our own feeds mention: the queue folds deterministically, a broken hand edit is refused, no half an address
+python test_seeds.py                # every reported miss is fixed for its kind, and the fix is a file in the repo
+python test_ingest_annual.py        # a date stated only in a sentence (Short Run): near the event's name, not a byline, over when its hours are, robots.txt and Crawl-delay
+python test_ingest_ods.py           # Opendatasoft past its 10,000-row offset cap in date windows, paced, and the civic sync's time for the rows
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
 python test_cancellations.py        # the row we already wrote leaves too: tombstones, absence from a whole read, un-cancel only ours
 python test_platform_cancellations.py  # Meetup, Eventbrite, DICE, Venuepilot, SeatGeek, AXS, Moshtix: the tombstone carries the stored row's fingerprint
@@ -88,7 +93,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 104 test scripts include 102 distinct CI gate scripts (`tests.yml`). They print one line per
+The 109 test scripts include 107 distinct CI gate scripts (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

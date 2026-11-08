@@ -32,9 +32,11 @@ for exactly that reason; throw it away and discovery converges again.
 DISCOVERY BACKENDS
   socrata    the federated US open-data catalog (api.us.socrata.com)
   ckan       eleven national data.gov.* portals, i.e. everywhere Socrata is not
-  mobilizon  the joinmobilizon.org directory of live federated instances - the
-             one backend whose supply GROWS on its own, because new instances
+  mobilizon  the joinmobilizon.org directory of live federated instances, and
+             FediDB's - supply that GROWS on its own, because new instances
              appear without anyone publishing a dataset
+  gancio     the same for Gancio: FediDB and gancio.org/instances, less the
+             aliases, mirrors, demos, adult and online-only calendars
   osm        venue calendars, from the map. See catalog_discover_osm.py
   civic      a whole TOWN's calendar - the city's own and its tourism board's -
              from Wikidata. See catalog_discover_civic.py
@@ -51,10 +53,11 @@ Usage:
   #      "map":{"id":"...","title":"...","start":"...","venue":"..."}}]
   # propose NEW sources. The backend is POSITIONAL and must come before the
   # flags (main() reads argv[2:3]); omitted means socrata.
-  python catalog_curate.py discover [socrata|ckan|mobilizon|osm|civic] [--limit 400]
+  python catalog_curate.py discover [socrata|ckan|mobilizon|osm|civic|gancio] [--limit 400]
          [--out candidates.json] [--metros N]      # --metros: osm only
          [--kinds community_centre,library]        # osm only: pin the walk to these OSM kinds
          [--workers N]                             # osm only: venues probed at once (default OSM_PROBE_WORKERS)
+         [--max-minutes N]                         # osm, civic, mobilizon, gancio: a wall-clock budget
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -1175,7 +1178,10 @@ def verify_ckan(s, e):
 # The probe is deliberately the SAME shape mapsee_ingest_mobilizon.py sends —
 # searchEvents(beginsOn:) rather than events(), and every field inside
 # `... on Event` because `elements` is a union and a bare field errors on every
-# instance. A verifier that asks an easier question than the adapter does is a
+# instance. All but sortBy: the adapter asks START_TIME_ASC since 2026-11-08,
+# and an instance that refuses the argument (HTU Events) is read unsorted
+# through its fallback, so a probe without it is the one every readable
+# instance answers. A verifier that asks an easier question than the adapter does is a
 # verifier that green-lights feeds the adapter cannot read.
 MOBILIZON_PROBE = """
 query($b:DateTime,$l:Int){
@@ -1943,7 +1949,12 @@ def _discover_socrata(session, seen_keys, led, limit, cursor, queries):
 #
 # This is the one backend where "continually discovers new sources" is literally
 # true: next quarter's directory contains instances that do not exist today.
-BACKENDS = ("socrata", "ckan", "mobilizon", "osm", "civic")
+#
+# gancio is the same shape of supply (2026-11-08): federated, self-hosted, and
+# listed by FediDB and gancio.org/instances, 220 hosts between them against 30
+# configured by hand. See _discover_gancio for what a directory row must clear
+# before it is proposed.
+BACKENDS = ("socrata", "ckan", "mobilizon", "osm", "civic", "gancio")
 
 # How many metros one `discover osm` run walks. Each is an Overpass call plus a
 # site probe per venue with a website (~600 in a big city, most of them one
@@ -3067,6 +3078,182 @@ MOBILIZON_DIRECTORY = "https://instances.joinmobilizon.org/api/v1/instances"
 MOBILIZON_MIN_EVENTS = 5
 MOBILIZON_MIN_HEALTH = 50
 
+# --- FediDB: Mobilizon's second directory and Gancio's first ------------------
+# ONE DIRECTORY WAS A SINGLE POINT OF FAILURE, AND IT FAILED FOR A MONTH IN
+# SILENCE. instances.joinmobilizon.org could not be reached from the GitHub
+# runners on any daily curate run from 2026-10-12 to 2026-11-07: 27 runs, 0
+# candidates, after a last good read of 86 instances on 2026-10-11. Each run
+# printed "(instance directory unreachable: ...)", a line the curate-catalog
+# step summary never shows. FediDB (api.fedidb.org: keyless, documented at
+# fedidb.com/resources/api-docs, its robots.txt an empty `Disallow:`) crawls
+# nodeinfo across the fediverse and on
+# 2026-11-07 listed 135 Mobilizon servers and 205 Gancio ones, cursor-paged 40
+# at a time (Mobilizon 4 pages, Gancio 6). Whether the runners can reach it is
+# UNMEASURED, which is why it is the SECOND Mobilizon directory and not the
+# only one, and why a run that reads neither now prints a FLAG ... UNREAD line
+# (the step summary greps `^  .*UNREAD` from discover's output).
+FEDIDB_SERVERS = "https://api.fedidb.org/v1/servers"
+FEDIDB_PAGE = 40
+# A bound, not a budget: 10 pages is 400 servers, about twice Gancio's 205. A
+# listing that outgrows it says so (FLAG ... UNREAD) rather than quietly
+# reading its head.
+FEDIDB_MAX_PAGES = 10
+
+
+def _fold_host(h):
+    """A directory's host, lowercased, with a leading www. and any port or
+    trailing dot dropped: FediDB lists www.aleale.org, gancio.org/instances
+    links aleale.org, and both are one server (205 FediDB rows, 204 hosts)."""
+    h = str(h or "").strip().lower()
+    h = re.sub(r"^[a-z]+://", "", h).split("/", 1)[0].split(":", 1)[0].rstrip(".")
+    return h[4:] if h.startswith("www.") else h
+
+
+def _fedi_past(deadline):
+    """Has a fedi discovery run's wall-clock `deadline` (time.time(); 0 = none) passed?"""
+    return bool(deadline) and time.time() >= deadline
+
+
+def _fedidb_servers(session, software, max_pages=FEDIDB_MAX_PAGES, stats=None, deadline=0.0):
+    """(rows, why): every server FediDB lists for `software`, or None and why.
+
+    Paged by the cursor FediDB hands back (`meta.next_cursor`; its docs: "public,
+    read only and needs no key"), and only as far as `max_pages`. A page that
+    fails after the first keeps what was read: a partial directory still
+    proposes real servers, and the next run reads the rest. A 403 or 429 is
+    FediDB's answer and is not asked again this run. `stats["pages"]` counts
+    the requests made. Past `deadline` no page after the first is asked; the
+    run's probes are then past it too, so nothing is proposed (see
+    _discover_gancio's REQUEST COST).
+    """
+    rows, cursor, seen = [], None, set()
+    stats = stats if stats is not None else {}
+    stats["pages"] = 0
+    for page in range(max_pages):
+        if page and _fedi_past(deadline):
+            print(f"  FLAG fedidb {software}: the deadline passed before page {page + 1}; "
+                  f"the rest of the listing is UNREAD")
+            return rows, None
+        stats["pages"] += 1
+        params = {"software": software, "limit": FEDIDB_PAGE}
+        if cursor:
+            params["cursor"] = cursor
+        try:
+            r = session.get(FEDIDB_SERVERS, params=params, timeout=30)
+            r.raise_for_status()
+            body = r.json()
+            data = body.get("data") if isinstance(body, dict) else None
+            if not isinstance(data, list):
+                raise ValueError("no `data` list in the answer")
+        except Exception as exc:  # noqa: BLE001
+            why = f"{type(exc).__name__}: {str(exc)[:60]}"
+            if not rows:
+                return None, why
+            print(f"  (fedidb {software}: page {page + 1} unreadable ({why}); "
+                  f"kept the {len(rows)} server(s) before it)")
+            return rows, None
+        rows += [d for d in data if isinstance(d, dict)]
+        cursor = (body.get("meta") or {}).get("next_cursor")
+        if not data or not cursor or cursor in seen:
+            return rows, None
+        seen.add(cursor)
+    print(f"  FLAG fedidb {software}: the listing goes past {max_pages} pages; the rest "
+          f"is UNREAD (raise FEDIDB_MAX_PAGES)")
+    return rows, None
+
+
+# A TEST SERVER IS NOT A SOURCE, AND SOME ARE COPIES OF ONE WE DECLINED. A
+# crawler lists whatever answers nodeinfo, demos and staging servers included.
+# Of FediDB's 135 Mobilizon hosts 6 are named for it (test2, test3, test4 and
+# tests.keskonfai.fr, mobilizon.demo-dev2.der-smarte-gemeinschaftskalender.de,
+# klimatkalendern-dev.kompismoln.se), and the four keskonfai servers are test
+# copies of keskonfai.fr, which mobilizon_sources.json declines (tourist-office
+# feeds, licence unchecked): tests.keskonfai.fr answered 1,689 upcoming events
+# on 2026-11-07, so verify would have passed it. Of 220 Gancio hosts the name
+# rule matches demo.gancio.org and legacy.gancio.org, and only the description
+# rule catches des.convoca.la ("Gancio para pruebas ... eventos de prueba (se
+# borrarán en cualquier momento)": 94 distinct events, 83 of them re-published
+# from two configured instances). The TLD is not read as a label:
+# flypost-gancio.fly.dev is a real calendar on .dev. A hyphenated label counts
+# only by a -dev/-test SUFFIX (klimatkalendern-dev, demo-dev2), so that
+# dev-meetup.example and demo-kalender.example stay calendars. Over the 206
+# Gancio names and descriptions read on 2026-11-08 the text rule matches those
+# three and nothing else; a bare "demo" is not in it, because in German and
+# Czech a Demo is a protest march and activist calendars say so.
+_TEST_LABEL_RX = re.compile(r"^(?:demo|test|tests|testing|dev|staging|sandbox|legacy)\d*$"
+                            r"|-(?:dev|test|tests|testing|staging|sandbox)\d*$")
+_TEST_TEXT_RX = re.compile(
+    r"\b(?:demo|test(?:ing)?)[\s-]+(?:instance|instanz|server|site)\b"
+    r"|\b(?:instance|istanza|instancia)\s+(?:de\s+|di\s+)?(?:d[eé]mo|test|prueba)s?\b"
+    r"|\bpara\s+pruebas\b|\beventos?\s+de\s+prueba\b|\btestinstanz\b", re.I)
+
+
+def _host_words(host):
+    """The host as words, for a keyword rule: kinkcalendar.site -> 'kinkcalendar site'."""
+    return re.sub(r"[.\-_]+", " ", host or "")
+
+
+def _plain(text):
+    return re.sub(r"<[^>]+>", " ", str(text or ""))
+
+
+def _test_instance(host, text=""):
+    """Why this server is a demo or test instance, or None."""
+    labels = (host or "").split(".")[:-1]
+    for lab in labels:
+        if _TEST_LABEL_RX.search(lab):
+            return f"host label {lab!r}"
+    m = _TEST_TEXT_RX.search(_plain(text))
+    return f"described as {m.group(0)!r}" if m else None
+
+
+# ADULT CALENDARS ARE NEVER PROPOSED. The app's store listings answer "Sexual
+# content, nudity, suggestive material: No" (../mapsee/store/CONTENT-RATING.md),
+# and the curate workflow merges what verifies without a human, so the rule has
+# to hold before verify ever sees the host. Measured 2026-11-08 over the host,
+# nodeinfo name and description of 209 Gancio instances: these words match
+# kinkcalendar.site, puppycalendar.eu ("Your fetish and puppy events calendar")
+# and bootblack.events and nothing else, and none of FediDB's 135 Mobilizon
+# hosts. Left OUT, each measured: `sex` (band names in 5 of mkeshows.com's
+# all-ages bills, Toronto's Bovine Sex Club venue, "Hex and Sex" in Warsaw's
+# goth festival), `leather` and `latex` (crafts), `xxx`
+# (demo.gancio.org's description), and `puppy` alone (a pet calendar's word;
+# puppycalendar.eu is caught by `fetish`). The three are also declined on the
+# record in gancio_sources.json, so this rule is for the next one.
+#
+# The events' own titles and tags are a backstop, read as a SHARE because a
+# general calendar carries the odd word: of the events in each one's 90-day
+# window, 26 of 31 on kinkcalendar.site, 20 of 34 on puppycalendar.eu and 4 of
+# 5 on bootblack.events carry one; the next highest instance is mlg.convoca.la
+# at 1 of 7, and the configured offbeat.amsterdam is 3 of 500.
+#
+# ONE HIT REFUSES A WHOLE CALENDAR, so each word is cut to what is adult and
+# nothing else (review of 2026-11-08). The first version matched `porn\w*` in
+# Pornic and Pornichet (two French towns, on two French-heavy backends),
+# `kink\w*` in Kinky Boots (the musical: a theatre's season of it counts
+# toward the event share), `f[eé]tiche\w*` in the idiom "le lieu fétiche des
+# Rennais" (a favourite haunt) and `swinger\w*` in a Lindy Hop club's
+# "Swingers". This one refuses all five and, over the same host, nodeinfo name
+# and description of the 220 Gancio hosts, still matches exactly the three
+# above; the event shares are unchanged (26/31, 20/34, 4/5, then 1 of 7, and
+# offbeat.amsterdam 3/500), and it matches none of 1,444 Mobilizon titles
+# read the same day. French and Spanish fetishism (`fétichiste`,
+# `fetichismo`) is caught by `f[eé]tichis`, which the old `fétiche` missed.
+# An English "swingers club" with a space is not caught: only the German
+# compounds are unambiguous.
+_ADULT_RX = re.compile(
+    r"(?<![^\W\d_])(?:kink(?!y\s+boots)\w*|bdsm|fetish\w*|fetisch\w*|f[eé]tichis\w*"
+    r"|bootblack\w*|porn(?!ic)\w*|nsfw|erotic\w*|erotik\w*|swinger(?:club|party|treff)\w*"
+    r"|bondage|playparty)(?![^\W\d_])", re.I)
+ADULT_EVENT_SHARE = 1 / 3
+ADULT_EVENT_MIN = 3
+
+
+def _adult_words(text):
+    """The first adult word in `text`, or None (see _ADULT_RX)."""
+    m = _ADULT_RX.search(_plain(text))
+    return m.group(0) if m else None
+
 
 def _not_included(fname):
     """URLs a human has looked at and rejected ON THE RECORD.
@@ -3119,27 +3306,221 @@ def _entry_keys(e):
     return {k for k in keys if k}
 
 
-def _discover_mobilizon(session, seen_keys, led, limit):
-    found = {}
-    skipped = {"configured": 0, "ledger": 0, "declined": 0, "too_quiet": 0, "unhealthy": 0}
-    declined = _not_included("mobilizon_sources.json")
+def _mobilizon_directory(session):
+    """(rows, why): joinmobilizon's instance list, or None and why not."""
     try:
         r = session.get(MOBILIZON_DIRECTORY, params={"count": 500}, timeout=45)
         r.raise_for_status()
-        rows = (r.json() or {}).get("data") or []
+        rows = (r.json() or {}).get("data")
     except Exception as exc:  # noqa: BLE001
-        print(f"  (instance directory unreachable: {str(exc)[:60]})")
-        return found, skipped
-    print(f"  directory lists {len(rows)} instance(s)")
-    # Busiest first: an instance with 9,000 local events is worth a probe before
-    # one with 6, and the limit should bite on the tail rather than on the head.
-    for inst in sorted(rows, key=lambda i: -(i.get("totalLocalEvents") or 0)):
-        host = (inst.get("host") or "").strip().lower()
-        if not host:
+        return None, str(exc)[:60]
+    if not isinstance(rows, list):
+        return None, "no `data` list in the answer"
+    return [x for x in rows if isinstance(x, dict)], None
+
+
+# THE UNION, AND THE GATE A HOST ONLY FEDIDB KNOWS CANNOT SKIP. joinmobilizon's
+# rows carry `totalLocalEvents` and `health`, and MOBILIZON_MIN_EVENTS and
+# MOBILIZON_MIN_HEALTH keep reading them for free. FediDB's carry neither, and
+# the one count they do carry, `stats.status_count` (nodeinfo's localPosts),
+# does not predict a calendar: against a searchEvents(beginsOn: now) probe of
+# 72 instances on 2026-11-07, events.amanite.be had status_count 0 and 63
+# upcoming, agenda.gayfr.social 1 and 91, mobilizon.colibris-outilslibres.org 7
+# and 1,746, while even.tooot.im had 3,442 and none. Gated at
+# MOBILIZON_MIN_EVENTS it would have dropped 12 hosts, 6 of them with
+# upcoming events.
+#
+# "LET VERIFY DECIDE" WAS MEASURED AND IS NOT ENOUGH. verify_mobilizon proves
+# an instance answers with events; it cannot see whose events they are. Of the
+# 134 hosts FediDB listed on 2026-11-08, 67 were in no config, decline, ledger
+# row or test-server name. Probed once each (the query below, production UA):
+# 29 had nothing STARTING from today, 6 gave no usable answer, and of the 32
+# with upcoming events 14 served mostly the CONFIGURED instances' events,
+# because an instance that follows another serves its events through
+# searchEvents and the adapter reads it unscoped: f.termine.di.day 100 of 100
+# from events.diday.org, mobilizon.cdp89.fr, mobilizon.cirkau.art and
+# mobilizon.colibris-outilslibres.org 81 of 81 from agenda.collectifs.net,
+# events.nomad.wf 92 of 97 from lekalepin.fr, events.daoine.eu 79 of 100 from
+# mobilizon.ie, the lowest termine.refa.digital at 2 of 4. Each of the 14 has
+# upcoming events, so verify passes it and merge writes a second copy (the
+# RheinMain lesson, adapters-and-sources.md). So every candidate that clears
+# the free gates gets ONE probe, and so does every configured instance: a
+# candidate with nothing starting from today is quiet (searchEvents also
+# answers events that began years ago with no end, and
+# events.doesliverpool.com's 6 and mobilizon.libreon.fr's 5 were all past and
+# all advertising), and one whose events the configured instances already
+# serve is a mirror, by the rule Gancio uses (_resolve_mirrors), ordered by
+# searchEvents' `total` because the 100 read are a sample. 67 + 66 probes took
+# 24 s at 6 at a time; the 18 left all verified (verify_mobilizon, live).
+#
+# What this does NOT catch is an instance that is all advertising. Two of those
+# 18 were: meetup.furryfederation.com, FediDB's busiest unlisted host
+# (status_count 40,669), answered 42 upcoming events and all 42 were betting
+# sites, drug sales and predatory-conference listings (mapsee_spam.is_spam
+# refused none of them), and mobilizon.public.cat's 20 read were IPTV and
+# e-bike adverts. An editorial no for mobilizon_sources.json's `_not_included`,
+# not a rule to guess at here, and it has to be there BEFORE this code runs on
+# the daily schedule, because merge needs no human: test_discover_fedi.py
+# reads the real file and fails while either host is missing from it.
+#
+# THE CONVERSE MIRROR: A CONFIGURED INSTANCE THAT RE-SERVES A CANDIDATE. The
+# test above compares samples by title and start, and searchEvents with no
+# sortBy answers latest start first (mobilizon.tavias.de's first 20 ran from
+# 2028-05-27 down to 2028-01-15, and 87 of the 89 instances that answered more
+# than two on 2026-11-08 came back in that order), so a big
+# configured instance's sample is its
+# far future, and a small candidate's near-term events never meet it there.
+# Each event's own `url` names the instance it was published on, so an event
+# in a configured sample whose url is on the candidate is the candidate's own,
+# served again: no extra request, and it catches the converse direction where
+# a sample reaches it. MOBILIZON_SERVED_MIN such events make a mirror, the
+# floor Gancio's title rule uses (GANCIO_MIRROR_MIN). Live on 2026-11-08 (28.0
+# s, 67 + 66 probes): the configured samples carried 3,746 events, 1,706 of
+# them published on 42 other hosts. Five candidate hosts had 2 or more:
+# mobilize.berlin 208, klimatkalendern.nu 189, f.termine.di.day 100,
+# termine.refa.digital 4, which the title rule drops as well, and
+# mobilizon.grin.hu, which answered no searchEvents itself. So it changed
+# nothing that day (mobilizon.chapril.org, proposed, had 1); it is there for
+# the instance whose own sample is near-term and a follower's is not.
+#
+# AND ONE CANDIDATE IS AN AGGREGATOR IN ITS OWN RIGHT. politikvonunten.org was
+# among the 18: 5,943 upcoming, its sample a federal funding call ("Förder-
+# aufruf Bundesprogramm ..."), a trade fair and Démosphère relays, and whether
+# its events are already read through configured ics or Demosphere feeds is
+# UNMEASURED. Of the 18 it was the one over 1,000; the next was
+# mobilizon.tavias.de at 606. Above MOBILIZON_MAX_TOTAL a candidate is held
+# (skipped `too_big`, printed) for an editorial look rather than proposed: it
+# is not written to the ledger, so it is asked again each run until a human
+# adds or declines it.
+MOBILIZON_SERVED_MIN = 2
+MOBILIZON_MAX_TOTAL = 1000
+MOBILIZON_PROBE_LIMIT = 100
+MOBILIZON_PROBE_WORKERS = 6
+MOBILIZON_DISCOVER_PROBE = """
+query($b:DateTime,$l:Int){
+  searchEvents(beginsOn:$b, limit:$l, page:1){
+    total
+    elements{ ... on Event { title beginsOn url physicalAddress{ geom } } }
+  }
+}"""
+# CONNECT IN 10 s, READ IN 20. A probe answered in 1-2 s on 2026-11-08 (67 +
+# 66 in 24 s at 6 at a time), so 20 s is room; a host that does not accept the
+# connection at all fails in 10 rather than holding a worker for the 30 the
+# first version allowed. The run's own wall clock is `--max-minutes`.
+FEDI_PROBE_TIMEOUT = (10, 20)
+
+
+def _mobilizon_probe(get_session, base, begins):
+    """One searchEvents POST: {"why": skip reason}, or {"total", "events":
+    {(title, beginsOn to the minute): has geom}, "future", "origins": {folded
+    host of each event's own `url`: count}}. A 401, 403 or 429 is a refusal
+    and is not asked again."""
+    try:
+        r = get_session().post(f"{base}/api", timeout=FEDI_PROBE_TIMEOUT,
+                               json={"query": MOBILIZON_DISCOVER_PROBE,
+                                     "variables": {"b": begins, "l": MOBILIZON_PROBE_LIMIT}},
+                               headers={"Content-Type": "application/json",
+                                        "Accept": "application/json"})
+    except Exception as exc:  # noqa: BLE001
+        return {"why": "unreachable", "note": type(exc).__name__}
+    if r.status_code in (401, 403, 429):
+        return {"why": "refused", "note": f"http {r.status_code}"}
+    if r.status_code != 200:
+        return {"why": "unreachable" if r.status_code >= 500 else "not_mobilizon",
+                "note": f"http {r.status_code}"}
+    try:
+        body = r.json()
+        node = (body.get("data") or {}).get("searchEvents") if isinstance(body, dict) else None
+    except Exception:  # noqa: BLE001
+        node = None
+    if not isinstance(node, dict):
+        return {"why": "not_mobilizon", "note": "no searchEvents in the answer"}
+    events, future, origins = {}, 0, {}
+    for e in node.get("elements") or []:
+        if not isinstance(e, dict):
             continue
-        base = f"https://{host}"
-        key = _canon(base)
-        if key in found or key in seen_keys:
+        begins_on = str(e.get("beginsOn") or "")
+        k = (re.sub(r"\s+", " ", str(e.get("title") or "")).strip().casefold(), begins_on[:16])
+        pa = e.get("physicalAddress")
+        has = bool(pa.get("geom")) if isinstance(pa, dict) else False
+        events[k] = events.get(k, False) or has
+        if begins_on[:10] >= begins[:10]:
+            future += 1
+        try:
+            o = _fold_host(urlparse(str(e.get("url") or "")).hostname)
+        except ValueError:
+            o = ""
+        if o:
+            origins[o] = origins.get(o, 0) + 1
+    try:
+        total = int(node.get("total") or 0)
+    except (TypeError, ValueError):
+        total = len(events)
+    return {"total": total, "events": events, "future": future, "origins": origins}
+
+
+def _fedi_refusal(led, host, kind, note):
+    """Park a candidate that answered 401, 403 or 429 for DEAD_TTL.
+
+    A refusal is the operator's answer and is not asked again (review of
+    2026-11-08: acties.todon.nl's 403 was counted and never written, so every
+    scheduled run sent it another GET). Status `fail`, the status a verify
+    writes for the same 403, which _dead_recently parks for DEAD_TTL just as
+    it parks `refused`; `refused` itself stays a robots.txt verdict
+    (_status_for). Keyed on the host the directory listed, which is what the
+    free gates ask the ledger about next run."""
+    led[_canon(f"https://{host}")] = {
+        "checked": _today_int(), "name": host[:80], "type": kind, "status": "fail",
+        "reason": f"discover {kind}: {note or 'refused'}, a refusal; not asked again "
+                  f"for {DEAD_TTL} days"[:300]}
+
+
+def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_WORKERS,
+                        deadline=0.0):
+    import concurrent.futures as cf
+    found = {}
+    skipped = {"configured": 0, "ledger": 0, "declined": 0, "too_quiet": 0, "unhealthy": 0,
+               "test_or_demo": 0, "adult": 0, "quiet": 0, "mirror": 0, "too_big": 0,
+               "refused": 0, "unreachable": 0, "not_mobilizon": 0, "unread": 0}
+    # Every CONFIG file's editorial no, as verify and merge read it.
+    declined = _declined_keys()
+    jm, jm_why = _mobilizon_directory(session)
+    fd, fd_why = _fedidb_servers(session, "mobilizon", deadline=deadline)
+    if jm is None and fd is None:
+        print(f"  FLAG every Mobilizon instance directory was UNREAD: joinmobilizon "
+              f"({jm_why}); fedidb ({fd_why})")
+        return found, skipped
+    rows, hosts = [], set()
+    if jm is None:
+        print(f"  (joinmobilizon directory unreachable: {jm_why}; FediDB alone this run)")
+    else:
+        print(f"  joinmobilizon lists {len(jm)} instance(s)")
+        # Busiest first: an instance with 9,000 local events is worth a probe
+        # before one with 6, and the limit should bite on the tail rather than
+        # on the head.
+        for inst in sorted(jm, key=lambda i: -(i.get("totalLocalEvents") or 0)):
+            h = _fold_host(inst.get("host"))
+            if h and h not in hosts:
+                hosts.add(h)
+                rows.append((h, inst, "joinmobilizon"))
+    if fd is None:
+        print(f"  (fedidb unreachable: {fd_why}; joinmobilizon alone this run)")
+    else:
+        extra = []
+        for srv in fd:
+            h = _fold_host(srv.get("domain"))
+            if h and h not in hosts:
+                hosts.add(h)
+                extra.append((h, srv, "fedidb"))
+        # An ORDER for the limit to bite on, never a gate (see above).
+        extra.sort(key=lambda row: -(((row[1].get("stats") or {}).get("status_count")) or 0))
+        print(f"  fedidb lists {len(fd)} instance(s), {len(extra)} "
+              + ("distinct host(s)" if jm is None else "of them not in joinmobilizon's list"))
+        rows += extra
+    cands = []
+    for host, inst, src in rows:
+        key = _canon(f"https://{host}")
+        if key in seen_keys:
             skipped["configured"] += 1
             continue
         if key in declined:
@@ -3148,22 +3529,117 @@ def _discover_mobilizon(session, seen_keys, led, limit):
         if _dead_recently(led, key):
             skipped["ledger"] += 1
             continue
-        if (inst.get("totalLocalEvents") or 0) < MOBILIZON_MIN_EVENTS:
-            skipped["too_quiet"] += 1
+        text = " ".join(_plain(inst.get(k)) for k in ("name", "description", "shortDescription"))
+        if _test_instance(host, text):
+            skipped["test_or_demo"] += 1
             continue
-        if (inst.get("health") or 0) < MOBILIZON_MIN_HEALTH:
-            skipped["unhealthy"] += 1
+        if _adult_words(_host_words(host) + " " + text):
+            skipped["adult"] += 1
             continue
+        if src == "joinmobilizon":
+            if (inst.get("totalLocalEvents") or 0) < MOBILIZON_MIN_EVENTS:
+                skipped["too_quiet"] += 1
+                continue
+            if (inst.get("health") or 0) < MOBILIZON_MIN_HEALTH:
+                skipped["unhealthy"] += 1
+                continue
+        cands.append((host, inst, src))
+    if not cands:
+        return found, skipped
+
+    conf_bases = []
+    p = os.path.join(HERE, CONFIG["mobilizon"][0])
+    if os.path.exists(p):
+        for e in _entries(CONFIG["mobilizon"][0], json.load(open(p, encoding="utf-8"))):
+            b = (e.get("base_url") or "").rstrip("/") if isinstance(e, dict) else ""
+            if b and b not in conf_bases:
+                conf_bases.append(b)
+    begins = _as_date(_today_int()).isoformat() + "T00:00:00Z"
+    # The configured instances FIRST: they are the yardstick a mirror is
+    # measured against, so a run the deadline cuts short leaves candidates
+    # unread rather than the yardstick.
+    jobs = conf_bases + [f"https://{h}" for h, _i, _s in cands]
+    get_session, close = _probe_sessions(session)
+
+    def probe(b):
+        if _fedi_past(deadline):
+            return {"why": "unread"}
+        return _mobilizon_probe(get_session, b, begins)
+    try:
+        with cf.ThreadPoolExecutor(max(1, workers)) as ex:
+            got = list(ex.map(probe, jobs))
+    finally:
+        close()
+    conf_got, cand_got = got[:len(conf_bases)], got[len(conf_bases):]
+    configured, served = {}, {}
+    for b, g in zip(conf_bases, conf_got):
+        ch = _fold_host(urlparse(b).hostname)
+        if g.get("events"):
+            configured[ch] = g["events"]
+        for o, n in (g.get("origins") or {}).items():
+            if o != ch:
+                served.setdefault(o, {})[ch] = n
+    mute = len(conf_bases) - len(configured)
+    if mute:
+        print(f"  ({mute} of {len(conf_bases)} configured instance(s) answered no events; "
+              f"a mirror of one of them goes unseen this run)")
+    live = {}
+    for (host, _inst, _src), g in zip(cands, cand_got):
+        if g.get("why"):
+            skipped[g["why"]] += 1
+            if g["why"] == "refused":
+                _fedi_refusal(led, host, "mobilizon", g.get("note"))
+        elif not g["future"]:
+            skipped["quiet"] += 1
+        elif sum(served.get(host, {}).values()) >= MOBILIZON_SERVED_MIN:
+            # The converse direction; see MOBILIZON_SERVED_MIN.
+            by = sorted(served[host], key=lambda c: (-served[host][c], c))
+            skipped["mirror"] += 1
+            print(f"  mirror: {host} {sum(served[host].values())} of the configured instances' "
+                  f"sampled events are its own (url on {host}), served by "
+                  f"{', '.join(by[:3])}{' ...' if len(by) > 3 else ''}")
+        else:
+            live[host] = g
+    unread = sum(1 for g in got if g.get("why") == "unread")
+    if unread:
+        # A mirror is judged against every instance, configured and candidate
+        # (_resolve_mirrors, smallest first), so a pool the deadline cut short
+        # cannot clear anything: an aggregator whose sources went unread would
+        # pass, and once configured it would make each of them a mirror.
+        print(f"  FLAG mobilizon: {unread} host(s) UNREAD past the deadline "
+              f"({sum(1 for g in conf_got if g.get('why') == 'unread')} of them configured); "
+              f"the {len(live)} read candidate(s) are not proposed this run either")
+        skipped["unread"] += len(live)
+        print(f"  requests: searchEvents {len(cands)} candidate(s) + {len(conf_bases)} "
+              f"configured, {unread} of them unasked")
+        return found, skipped
+    kept, dropped = _resolve_mirrors({h: g["events"] for h, g in live.items()}, configured,
+                                     size={h: g["total"] for h, g in live.items()})
+    for h, (sh, by) in sorted(dropped.items(), key=lambda kv: -kv[1][0]):
+        skipped["mirror"] += 1
+        print(f"  mirror: {h} {sh:.0%} of the {len(live[h]['events'])} read already served by "
+              f"{', '.join(by[:3])}{' ...' if len(by) > 3 else ''}")
+    kept = set(kept)
+    for host, inst, src in cands:
+        if host not in kept:
+            continue
+        if live[host]["total"] > MOBILIZON_MAX_TOTAL:
+            skipped["too_big"] += 1
+            print(f"  too big: {host} answers {live[host]['total']:,} upcoming; held for an "
+                  f"editorial look (MOBILIZON_MAX_TOTAL {MOBILIZON_MAX_TOTAL:,})")
+            continue
+        base = f"https://{host}"
         # Country from the TLD, NOT from the directory's `country` — that field
         # is where the server is hosted, and it is wrong in the way that matters:
         # the directory files ticketzon.it under FI and mobilizon.fr under DE.
         # The hand-curated entries say Italy and France, and they are right.
         # It only ever fills a gap anyway (the adapter prefers the event's own
         # physicalAddress, and coordinates come from geom regardless), so an
-        # unknown TLD is better left blank than filled in from hosting.
+        # unknown TLD is better left blank than filled in from hosting. FediDB's
+        # `location.country` is hosting too (gancio.cisti.org, in Turin: Austria).
         entry = {
             "type": "mobilizon",
-            "name": (inst.get("name") or host)[:90],
+            "name": (_plain(inst.get("name")).strip() or host)[:90],
             "base_url": base,
             "category": "community",
             "limit": 100,
@@ -3172,9 +3648,521 @@ def _discover_mobilizon(session, seen_keys, led, limit):
         country = _url_country(base)   # already a NAME, not an ISO code
         if country:
             entry["default_country"] = country
-        found[key] = entry
+        found[_canon(base)] = entry
         if len(found) >= limit:
             break
+    print(f"  requests: searchEvents {len(cands)} candidate(s) + {len(conf_bases)} configured")
+    return found, skipped
+
+
+# --- gancio: the other federated calendar, which nothing went looking for ------
+# gancio_sources.json said "There is no public directory API (gancio.org/
+# instances is HTML), so this list is seeded by hand": 30 sites and 2 declined
+# on 2026-11-07. There are two directories, and between them 220 hosts on
+# 2026-11-08: FediDB's 205 Gancio servers (204 once www. is folded) and the 74
+# instance roots gancio.org/instances links, 15 of them not in FediDB
+# (balotta.org, fuori.org, jamme.la ...). Reading both is also what keeps
+# Gancio discovery from depending on FediDB alone. gancio.org's page is a
+# publisher's own page, so its robots.txt is asked first (it answers 404,
+# which RFC 9309 reads as allow-all); FediDB is a documented API.
+#
+# WHAT A DIRECTORY LISTS IS NOT WHAT A CONFIG WANTS. Measured over the 220 with
+# one GET of /api/events each (90 days ahead, production UA, 2026-11-08: 214
+# answered a list, 35 of them empty, 4 unreachable, one 403, one 404):
+#   - REDIRECT ALIASES. FediDB lists a host and the host it redirects to as two
+#     servers: agenda.askapunk.nl -> calendar.askapunk.nl, gancio.daghe.xyz ->
+#     gancio.daghe.org, cal.fs-physik-meteo -> cal.fs-physik-atmo.uni-mainz.de,
+#     and fomo.rheinmain.social -> events.rheinmain.social, where the CONFIGURED
+#     rheinmain.social lands too (the duplicate retired 2026-10-24). The probe
+#     follows redirects, and the configured sites are probed alongside so that
+#     their final hosts are known; a candidate that lands on a configured host
+#     or on another candidate's is an alias. That one request per host is also
+#     the one the mirror test reads, so aliases cost nothing extra.
+#   - FEDERATION. An instance can follow others and re-publish their events, so
+#     one calendar reaches several hosts under the same title and start. See
+#     _resolve_mirrors, and the numbers there.
+#   - DEMOS AND TEST SERVERS (_TEST_LABEL_RX), ADULT CALENDARS (_ADULT_RX).
+#   - ONLINE-ONLY CALENDARS. meet.harmreduction.works: 18 of 20 events at a
+#     place named "online", which places nothing. GANCIO_ONLINE_SHARE.
+#
+# REQUEST COST, one request per host per phase: FediDB 6 pages, gancio.org's
+# robots.txt and page, /api/events for every candidate the free gates leave
+# plus the 30 configured sites, and nodeinfo for the candidates still standing
+# after that. A configured site that redirects (rheinmain.social) can land on
+# a host that is also a candidate, and only there can one host be asked twice
+# in a phase. The live run of 2026-11-08 (`discover gancio --limit 12`) made
+# 6 + 2 + 182 + 30 + 131 requests in 65 s at 6 at a time. It reads the whole
+# pool every run, the way Mobilizon's directory is read whole: the mirror test
+# is only sound over all of it, because a smaller instance that the run did not
+# reach is exactly what would make a bigger one an aggregator. `limit` cuts
+# what is PROPOSED; GANCIO_MAX_PROBES bounds what is asked. So a pool that is
+# CUT proposes nothing and says so in a `FLAG ... UNREAD` line the step summary
+# keeps: past GANCIO_MAX_PROBES nothing is asked at all, and past the
+# `--max-minutes` deadline (checked as each request starts; the configured
+# sites go first, so it is candidates that go unread) the run stops asking.
+# The worst case without a deadline was about 12 minutes of /api/events at 20
+# s a hung host and 7 more of nodeinfo, against 65 s measured; at 6 workers a
+# request in flight overruns the deadline by at most FEDI_PROBE_TIMEOUT
+# (10 s to connect, 20 to read). A 401, 403 or 429 is parked in the ledger
+# for DEAD_TTL (_fedi_refusal), and an alias whose final host the ledger has
+# parked is skipped as that host is.
+GANCIO_DIRECTORY_PAGE = "https://gancio.org/instances"
+GANCIO_PROBE_DAYS = 90
+GANCIO_PROBE_MAX = 500
+GANCIO_PROBE_WORKERS = 6
+GANCIO_MAX_PROBES = 400
+# 0.5 sits in a wide measured gap. Over the 174 distinct live calendars of
+# 2026-11-08, every candidate the rule drops was 0.98 or more already read
+# (all.askapunk.net 0.99 of its 261 distinct events; on the live run,
+# agendamilitantloiret.emancipe.org 41 of 42 from agenda.info-gaucho.fr), and
+# des.convoca.la, a test server, 0.88; every one it keeps with two or more
+# shared events is at 0.25 or less (gancio.pl 18 of 72 from
+# warszawa.askapunk.net, backend.prikbord.page 25 of 159 from
+# calendar.askapunk.nl).
+GANCIO_MIRROR_SHARE = 0.5
+# ONE SHARED EVENT IS A HAPPENING TWO CALENDARS BOTH LIST, NOT A MIRROR:
+# vigo.acontece.gal shares 1 of its 2 with corunha.acontece.gal, and
+# agenda.radwende-rheinsieg.de its only one with the configured bonn.jetzt.
+# The smallest real mirror measured is 6 of 6 (tucsontimeline).
+GANCIO_MIRROR_MIN = 2
+# 4 instances sit at 0.9 or more of their events "online" (cal.gravitons.org
+# 18/18, meet.harmreduction.works 18/20, two with 2/2); the next is 0.5
+# (organize.frontrange.co, 3 of 6), and no configured site is above 0.29.
+GANCIO_ONLINE_SHARE = 0.8
+_GANCIO_ONLINE_PLACES = frozenset({"online", "on line", "on-line", "en ligne", "in rete",
+                                   "virtual", "zoom", "internet"})
+
+
+def _probe_sessions(session):
+    """(get, close): a session per probe thread, carrying `session`'s headers.
+
+    requests does not promise that one Session survives being shared across
+    threads (robots_txt.Robots.prefetch says the same), so each worker gets its
+    own. A test's fake session is not a requests.Session and is shared as is.
+    """
+    if not isinstance(session, requests.Session):
+        return (lambda: session), (lambda: None)
+    import threading
+    local, made, headers = threading.local(), [], dict(session.headers)
+
+    def get():
+        s = getattr(local, "s", None)
+        if s is None:
+            s = local.s = requests.Session()
+            s.headers.update(headers)
+            made.append(s)
+        return s
+
+    def close():
+        for s in made:
+            s.close()
+    return get, close
+
+
+def _gancio_org_hosts(session):
+    """(hosts, why): the instance roots gancio.org/instances links, or None and why.
+
+    The page is HTML (a VitePress build of the project's docs/instances.md);
+    an instance is a link to a bare origin, and the other links on the page
+    (FediDB, fedilist, framagit, the project's Mastodon account) all carry a
+    path, so a bare origin is the whole test. 82 links, 74 roots, 2026-11-08.
+    """
+    ans = robots_txt.Robots(session).check(GANCIO_DIRECTORY_PAGE)
+    if ans["allowed"] is not True:
+        return None, f"robots.txt: {ans.get('rule') or ans['status']}"
+    try:
+        r = session.get(GANCIO_DIRECTORY_PAGE, timeout=30)
+        r.raise_for_status()
+        html = r.text
+    except Exception as exc:  # noqa: BLE001
+        return None, f"{type(exc).__name__}: {str(exc)[:60]}"
+    hosts = []
+    for href in re.findall(r'href="(https?://[^"]+)"', html or ""):
+        u = urlparse(href.replace("&amp;", "&"))
+        h = _fold_host(u.hostname)
+        if u.path in ("", "/") and not u.query and h and h != "gancio.org" and h not in hosts:
+            hosts.append(h)
+    if not hosts:
+        return None, "no instance links on the page"
+    return hosts, None
+
+
+def _gancio_window():
+    """(start, end) in UNIX seconds: today 00:00 UTC (MAPSEE_TODAY) and GANCIO_PROBE_DAYS on."""
+    import calendar as _cal
+    start = _cal.timegm(_as_date(_today_int()).timetuple())
+    return start, start + GANCIO_PROBE_DAYS * 86400
+
+
+def _gancio_event_key(e):
+    """(title, start): what two hosts serving one calendar agree on. Gancio's ids
+    and slugs are per instance, so a re-published event gets new ones."""
+    try:
+        start = int(e.get("start_datetime") or 0)
+    except (TypeError, ValueError):
+        start = 0
+    return re.sub(r"\s+", " ", str(e.get("title") or "")).strip().casefold(), start
+
+
+def _gancio_probe(get_session, base, window):
+    """One GET of {base}/api/events, redirects followed.
+
+    {"why": skip reason} when it is not a calendar to read, else {"origin": the
+    final scheme://host, "final": its folded host, "events": {(title, start):
+    has coordinates}, "n", "online", "adult", "coords"}. A 401, 403 or 429 is
+    a refusal and is not asked again.
+    """
+    url = f"{base}/api/events?start={window[0]}&end={window[1]}&max={GANCIO_PROBE_MAX}"
+    try:
+        r = get_session().get(url, timeout=FEDI_PROBE_TIMEOUT, allow_redirects=True)
+    except Exception as exc:  # noqa: BLE001
+        return {"why": "unreachable", "note": type(exc).__name__}
+    p = urlparse(getattr(r, "url", None) or url)
+    out = {"origin": f"{p.scheme}://{p.netloc}".lower(), "final": _fold_host(p.hostname)}
+    if r.status_code in (401, 403, 429):
+        return dict(out, why="refused", note=f"http {r.status_code}")
+    if r.status_code != 200:
+        return dict(out, why="unreachable" if r.status_code >= 500 else "not_gancio",
+                    note=f"http {r.status_code}")
+    try:
+        evs = r.json()
+    except Exception:  # noqa: BLE001
+        return dict(out, why="not_gancio", note="not json")
+    if not isinstance(evs, list):
+        return dict(out, why="not_gancio", note="not a list")
+    events, online, adult, n = {}, 0, 0, 0
+    for e in evs:
+        if not isinstance(e, dict):
+            continue
+        n += 1
+        place = e.get("place") if isinstance(e.get("place"), dict) else {}
+        has = place.get("latitude") not in (None, "", 0) and place.get("longitude") not in (None, "", 0)
+        k = _gancio_event_key(e)
+        events[k] = events.get(k, False) or has
+        if str(place.get("name") or "").strip().casefold() in _GANCIO_ONLINE_PLACES:
+            online += 1
+        if _adult_words(" ".join([str(e.get("title") or "")]
+                                 + [str(t) for t in (e.get("tags") or [])])):
+            adult += 1
+    return dict(out, events=events, n=n, online=online, adult=adult,
+                coords=sum(1 for v in events.values() if v))
+
+
+def _gancio_nodeinfo(get_session, origin):
+    """{"name", "description"} from Gancio's own nodeinfo route, or {}.
+
+    /.well-known/nodeinfo/2.0 answers directly on Gancio (no discovery hop):
+    206 of 209 live instances on 2026-11-08, 206 with a nodeName and 199 with a
+    nodeDescription. Federation metadata, read under the same documented-API
+    footing as /api/events.
+    """
+    try:
+        r = get_session().get(f"{origin}/.well-known/nodeinfo/2.0", timeout=FEDI_PROBE_TIMEOUT)
+        if r.status_code != 200:
+            return {}
+        md = (r.json() or {}).get("metadata") or {}
+    except Exception:  # noqa: BLE001
+        return {}
+    if not isinstance(md, dict):
+        return {}
+    return {"name": _plain(md.get("nodeName")).strip(),
+            "description": _plain(md.get("nodeDescription")).strip(),
+            "tz": str(md.get("nodeTimezone") or "")}
+
+
+# A ccTLD CAN BE A PUN. sapratza.in is Sardinian ("sa pratza", the square) and
+# _url_country reads .in as India. The instance's own nodeTimezone says Europe,
+# and only at that grain is it worth reading: Gancio's default zone is
+# Europe/Rome, and berlin.askapunk.de, live-siegen.de and termine.linxxnet.de
+# all still carry it. Of the 64 Gancio hosts whose TLD names a country
+# (2026-11-08), sapratza.in is the one whose zone names another continent.
+_TZ_AREA_OF = {**{c: "Europe" for c in ("GR", "HU", "LT", "SI", "GB", "IE", "DE", "FR", "NL",
+                                         "BE", "CH", "ES", "IT", "SE", "NO", "DK", "FI", "AT",
+                                         "PL", "PT", "CZ")},
+               **{c: "America" for c in ("CR", "BR", "US", "CA", "MX")},
+               **{c: "Asia" for c in ("IN", "JP", "KR", "SG", "HK", "AE")},
+               "AU": "Australia", "NZ": "Pacific", "ZA": "Africa"}
+
+
+def _gancio_country(origin, tz=""):
+    """default_country from the TLD (_url_country, a NAME), unless the
+    instance's nodeTimezone puts it on another continent."""
+    country = _url_country(origin)
+    m = re.match(r"https?://([^/]+)", origin or "")
+    code = _TLD_COUNTRY.get(m.group(1).rsplit(".", 1)[-1].lower()) if m else None
+    area = (tz or "").split("/", 1)[0]
+    if country and code in _TZ_AREA_OF and area in set(_TZ_AREA_OF.values()) \
+            and _TZ_AREA_OF[code] != area:
+        return None
+    return country
+
+
+# ONE CALENDAR ON SEVERAL HOSTS: smallest first, against everything already read.
+# Gancio's numbers; Mobilizon's are at _discover_mobilizon, and the rule is one.
+# Measured 2026-11-08, title+start over the 174 distinct live calendars:
+#   all.askapunk.net        259 of 263 from 13 other askapunk instances, two of
+#                           them configured (berlin 73, montreal 34)
+#   des.convoca.la          all 54 of the configured mad.convoca.la and all 29 of
+#                           the configured calendari.cc (83 of its 94)
+#   events.karlsruhe-social 107 of 107 inside the configured keepkarlsruheboring
+#   flypost.ie / flypost-gancio.fly.dev  42 of 42 both ways
+#   tucsontimeline.info / tucsontimeline.detritus.net  6 of 6 both ways
+# Smallest first is what makes an aggregator lose to its sources rather than
+# the other way round: the city instances are decided (and kept) before
+# all.askapunk.net, whose events are then already covered. Equal sets keep the
+# host with fewer labels (flypost.ie, tucsontimeline.info). An event counts as
+# covered only when the copy already read is at least as placeable: devent.cz
+# re-publishes akce.nolog.cz without coordinates (0 of 49, 2026-10-04), which
+# is why the origin was configured beside it, and the same rule keeps an
+# origin whose only other copy cannot be placed.
+#
+# The cost is the one request per host already made: no extra request at all.
+def _resolve_mirrors(cands, configured, share=GANCIO_MIRROR_SHARE, size=None):
+    """(kept, dropped): which candidate hosts add a calendar, smallest first.
+
+    `cands` and `configured` map host -> {(title, start): has coordinates}.
+    `size` orders them when the sets are samples (Mobilizon's searchEvents
+    `total`); by default a set's own size does. `dropped` maps host ->
+    (share covered, [the hosts that already carry it]).
+    """
+    size = size or {h: len(evs) for h, evs in cands.items()}
+    covered = {}
+
+    def add(host, evs):
+        for k, has in evs.items():
+            got = covered.get(k)
+            if got is None or (has and not got[0]):
+                covered[k] = (has, host)
+
+    for h in sorted(configured):
+        add(h, configured[h])
+    kept, dropped = [], {}
+    for h in sorted(cands, key=lambda x: (size.get(x, len(cands[x])), x.count("."), len(x), x)):
+        evs = cands[h]
+        hit = [k for k, has in evs.items() if k in covered and (covered[k][0] or not has)]
+        if evs and len(hit) >= GANCIO_MIRROR_MIN and len(hit) / len(evs) >= share:
+            by = {}
+            for k in hit:
+                by[covered[k][1]] = by.get(covered[k][1], 0) + 1
+            dropped[h] = (len(hit) / len(evs), sorted(by, key=lambda x: (-by[x], x)))
+            continue
+        kept.append(h)
+        add(h, evs)
+    return kept, dropped
+
+
+def _discover_gancio(session, seen_keys, led, limit, workers=GANCIO_PROBE_WORKERS, deadline=0.0):
+    import concurrent.futures as cf
+    found = {}
+    skipped = {k: 0 for k in ("configured", "declined", "ledger", "test_or_demo", "adult",
+                              "alias", "mirror", "quiet", "online_only", "refused",
+                              "unreachable", "not_gancio", "unread")}
+    declined = _declined_keys()
+    fd_stats = {}
+    fd, fd_why = _fedidb_servers(session, "gancio", stats=fd_stats, deadline=deadline)
+    org, org_why = _gancio_org_hosts(session)
+    if fd is None and org is None:
+        print(f"  FLAG every Gancio instance directory was UNREAD: fedidb ({fd_why}); "
+              f"gancio.org/instances ({org_why})")
+        return found, skipped
+    listed = {}                                   # host -> the directory that named it first
+    if fd is None:
+        print(f"  (fedidb unreachable: {fd_why}; gancio.org/instances alone this run)")
+    else:
+        for srv in fd:
+            h = _fold_host(srv.get("domain"))
+            if h:
+                listed.setdefault(h, "fedidb")
+        print(f"  fedidb lists {len(fd)} Gancio server(s)")
+    if org is None:
+        print(f"  (gancio.org/instances unreadable: {org_why}; fedidb alone this run)")
+    else:
+        fresh = [h for h in org if h not in listed]
+        for h in org:
+            listed.setdefault(h, "gancio.org/instances")
+        print(f"  gancio.org/instances links {len(org)} instance(s), {len(fresh)} not in fedidb's")
+    print(f"  {len(listed)} distinct host(s) listed")
+
+    # The free gates: no request.
+    pool = []
+    for host in listed:
+        key = _canon("https://" + host)
+        if key in seen_keys:
+            skipped["configured"] += 1
+        elif key in declined:
+            skipped["declined"] += 1
+        elif _dead_recently(led, key):
+            skipped["ledger"] += 1
+        elif _test_instance(host):
+            skipped["test_or_demo"] += 1
+        elif _adult_words(_host_words(host)):
+            skipped["adult"] += 1
+            print(f"  adult: {host} (by its name)")
+        else:
+            pool.append(host)
+    if len(pool) > GANCIO_MAX_PROBES:
+        # Not cut and read: a cut pool cannot judge a mirror (see REQUEST COST).
+        print(f"  FLAG gancio: {len(pool)} listed host(s) UNREAD, past GANCIO_MAX_PROBES "
+              f"({GANCIO_MAX_PROBES}); nothing is asked or proposed until it is raised")
+        skipped["unread"] += len(pool)
+        return found, skipped
+    if not pool:
+        return found, skipped
+
+    # One request per candidate AND per configured site: the configured ones are
+    # what an alias lands on and what a mirror repeats.
+    conf_bases = []
+    p = os.path.join(HERE, CONFIG["gancio"][0])
+    if os.path.exists(p):
+        for e in _entries(CONFIG["gancio"][0], json.load(open(p, encoding="utf-8"))):
+            b = (e.get("base_url") or "").rstrip("/") if isinstance(e, dict) else ""
+            if b and b not in conf_bases:
+                conf_bases.append(b)
+    window = _gancio_window()
+    get_session, close = _probe_sessions(session)
+    # Configured first, so a deadline leaves candidates unread, not the yardstick.
+    jobs = [("conf", b, b) for b in conf_bases] + [("cand", h, "https://" + h) for h in pool]
+
+    def probe(j):
+        if _fedi_past(deadline):
+            return {"why": "unread"}
+        return _gancio_probe(get_session, j[2], window)
+
+    def nodeinfo(f):
+        return None if _fedi_past(deadline) else _gancio_nodeinfo(get_session, live[f]["origin"])
+    names, infos = [], {}
+    try:
+        with cf.ThreadPoolExecutor(max(1, workers)) as ex:
+            got = list(ex.map(probe, jobs))
+        probes = {h: g for (kind, h, _u), g in zip(jobs, got) if kind == "cand"}
+        configured, conf_finals = {}, set()
+        for (kind, b, _u), g in zip(jobs, got):
+            if kind == "conf":
+                conf_finals.add(_fold_host(urlparse(b).hostname))
+                if g.get("final"):
+                    conf_finals.add(g["final"])
+                if "events" in g:
+                    configured[g["final"] or _fold_host(urlparse(b).hostname)] = g["events"]
+        mute = len(conf_bases) - len(configured)
+        if mute:
+            print(f"  ({mute} of {len(conf_bases)} configured site(s) did not answer a list; "
+                  f"a mirror of one of them goes unseen this run)")
+
+        # Aliases: one final host, one candidate. A host that IS the final host
+        # is the one kept; otherwise the first by name.
+        by_final = {}
+        for h in sorted(pool, key=lambda x: (x not in probes or probes[x].get("final") != x, x)):
+            g = probes[h]
+            if g.get("why"):
+                skipped[g["why"]] += 1
+                if g["why"] == "refused":
+                    _fedi_refusal(led, h, "gancio", g.get("note"))
+                continue
+            f = g["final"] or h
+            # events.rheinmain.social is listed on its own, never redirects, and
+            # is where the configured rheinmain.social lands: an alias too.
+            if _canon("https://" + f) in seen_keys or f in conf_finals:
+                skipped["alias"] += 1
+                print(f"  alias: {h}{' -> ' + f if f != h else ''}, where a configured site lands")
+                continue
+            if f != h and _canon("https://" + f) in declined:
+                skipped["declined"] += 1
+                print(f"  alias: {h} -> {f}, which is declined on the record")
+                continue
+            # The free gates asked the ledger about the LISTED host only; the
+            # host it lands on gets the same question, or a parked host comes
+            # back under every name that redirects to it (review of 2026-11-08).
+            if f != h and _dead_recently(led, _canon("https://" + f)):
+                skipped["ledger"] += 1
+                print(f"  alias: {h} -> {f}, which the ledger has parked")
+                continue
+            if f in by_final:
+                skipped["alias"] += 1
+                print(f"  alias: {h} -> {f}, already a candidate")
+                continue
+            by_final[f] = dict(g, listed_as=h)
+
+        live = {}
+        for f, g in by_final.items():
+            if not g["events"]:
+                skipped["quiet"] += 1
+            elif g["online"] / max(1, g["n"]) >= GANCIO_ONLINE_SHARE:
+                skipped["online_only"] += 1
+                print(f"  online-only: {f} ({g['online']} of {g['n']} events at an online place)")
+            elif g["adult"] >= ADULT_EVENT_MIN and g["adult"] / max(1, g["n"]) >= ADULT_EVENT_SHARE:
+                skipped["adult"] += 1
+                print(f"  adult: {f} ({g['adult']} of {g['n']} events by their own words)")
+            else:
+                live[f] = g
+        unread = sum(1 for g in got if g.get("why") == "unread")
+        if unread:
+            print(f"  FLAG gancio: {unread} host(s) UNREAD past the deadline "
+                  f"({sum(1 for (k, _h, _u), g in zip(jobs, got) if k == 'conf' and g.get('why') == 'unread')}"
+                  f" of them configured); the {len(live)} read candidate(s) are not "
+                  f"proposed this run either")
+            skipped["unread"] += len(live)
+            return found, skipped
+
+        # nodeinfo, only for what is still standing: the name an entry is
+        # written under, and the description the demo and adult rules read.
+        names = list(live)
+        with cf.ThreadPoolExecutor(max(1, workers)) as ex:
+            infos = dict(zip(names, ex.map(nodeinfo, names)))
+        unread = [f for f in names if infos[f] is None]
+        if unread:
+            # Unread, its description has not been asked whether it is a demo
+            # or an adult calendar.
+            print(f"  FLAG gancio: nodeinfo of {len(unread)} host(s) UNREAD past the deadline; "
+                  f"the {len(live)} read candidate(s) are not proposed this run")
+            skipped["unread"] += len(live)
+            return found, skipped
+    finally:
+        close()
+    for f in names:
+        info = infos.get(f) or {}
+        text = f"{info.get('name', '')} {info.get('description', '')}"
+        why = _test_instance(f, text)
+        if why:
+            skipped["test_or_demo"] += 1
+            print(f"  test or demo: {f} ({why})")
+            del live[f]
+            continue
+        word = _adult_words(f"{_host_words(f)} {text}")
+        if word:
+            skipped["adult"] += 1
+            print(f"  adult: {f} ({word!r} in its name or description)")
+            del live[f]
+
+    kept, dropped = _resolve_mirrors({f: g["events"] for f, g in live.items()}, configured)
+    for f, (sh, by) in sorted(dropped.items(), key=lambda kv: -kv[1][0]):
+        skipped["mirror"] += 1
+        print(f"  mirror: {f} {sh:.0%} of {len(live[f]['events'])} already read via "
+              f"{', '.join(by[:3])}{' ...' if len(by) > 3 else ''}")
+
+    # Most placeable first, so a small limit takes what lands on the map.
+    for f in sorted(kept, key=lambda x: (-live[x]["coords"], -live[x]["n"], x)):
+        g, info = live[f], infos.get(f) or {}
+        name = info.get("name") or ""
+        if name.casefold() in ("", "gancio", f, g["listed_as"]):
+            name = f
+        entry = {
+            "type": "gancio",
+            "name": name[:90],
+            "base_url": g["origin"],
+            "category": "community",
+            "within_days": 180,
+            "max": 500,
+        }
+        country = _gancio_country(g["origin"], info.get("tz"))   # a NAME, as Mobilizon's
+        if country:
+            entry["default_country"] = country
+        entry["_found"] = f"discover gancio:{listed[g['listed_as']]} {_now_iso()[:10]}"
+        found[_canon(g["origin"])] = entry
+        if len(found) >= limit:
+            break
+    print(f"  requests: fedidb {fd_stats.get('pages', 0)} page(s), gancio.org robots.txt + page, "
+          f"/api/events {len(pool)} candidate(s) + {len(conf_bases)} configured, "
+          f"nodeinfo {len(names)}")
     return found, skipped
 
 
@@ -3251,7 +4239,27 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
                   "category-pinned run)")
             found, skipped = {}, {}
         else:
-            found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
+            found, skipped = _discover_mobilizon(
+                session, seen_keys, led, limit,
+                deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0)
+            # A 401/403/429 parked for DEAD_TTL (_fedi_refusal).
+            if skipped.get("refused"):
+                _save_ledger(led)
+    elif backend == "gancio":
+        # Mobilizon's shape: two directories read whole, no cursor, no query
+        # list, and no category to pin. A Gancio instance is a neighbourhood's
+        # or a scene's calendar; the adapter's tag table and the classifier
+        # decide each event's door, so a category-pinned run skips it.
+        if only:
+            print("  (gancio carries no per-source category — skipped for a "
+                  "category-pinned run)")
+            found, skipped = {}, {}
+        else:
+            found, skipped = _discover_gancio(
+                session, seen_keys, led, limit,
+                deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0)
+            if skipped.get("refused"):
+                _save_ledger(led)
     elif backend == "osm":
         # Geographic, not textual: there is no query list to gap-report and no
         # category to pin, because what a venue programmes is not knowable from
@@ -3567,23 +4575,34 @@ _ROBOTS_EXTRA = ("fair_sources.json", "market_sources.json", "openactive_sources
                  "kct_sources.json",
                  # Swiss repair cafés' session pages (2026-10-24), read from
                  # the publisher's own sitemaps; it asks robots.txt itself too.
-                 "repaircafe_ch_sources.json")
+                 "repaircafe_ch_sources.json",
+                 # Annual events read from their organisers' own sites
+                 # (2026-11-08): {"sites": [{"key", "url", "pages"?}]}.
+                 "annual_sources.json")
 
 
-def _walk_urls(o):
+def _walk_urls(o, name=None):
     """Every http(s) value in a config, skipping `_`-prefixed keys (the
-    `_not_included` lists and the notes)."""
+    `_not_included` lists and the notes). A URL inside a LIST counts too:
+    annual_sources.json's `pages` and lcsd_sources.json's lists are fetched
+    as well (2026-11-08: the audit read 178 requests, 180 with lists, and
+    only lcsd's changed, 7 to 9). It is named after its nearest entry."""
     if isinstance(o, dict):
+        nm = o.get("name") or name
         for k, v in o.items():
             if k.startswith("_"):
                 continue
             if isinstance(v, str) and v.startswith(("http://", "https://")):
-                yield o.get("name") or "?", v
+                yield nm or "?", v
             else:
-                yield from _walk_urls(v)
+                yield from _walk_urls(v, nm)
     elif isinstance(o, list):
         for x in o:
-            yield from _walk_urls(x)
+            if isinstance(x, str):
+                if x.startswith(("http://", "https://")):
+                    yield name or "?", x
+            else:
+                yield from _walk_urls(x, name)
 
 
 def _configured_requests():

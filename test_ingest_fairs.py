@@ -166,6 +166,140 @@ check(len(links) > 1 and "general-information" in links[1],
 check(all("other.test" not in u for u in links),
       "and never another host, however well its link is named")
 
+# ---------------------------------------------------- 7. the page's own entities
+# WordPress writes the dash between two days as &#8211;, which RANGE_RX's
+# [-–—] never matched: idahofair.com and statefair.org (Nebraska) both read as
+# "no date range on the page" on 2026-11-07 with their 2027 dates on the
+# homepage. Through text_of itself, because that is where the bytes become text.
+ID_HTML = '<div class="hero"><p>August 13 &#8211; 29, 2027</p></div>'
+check("August 13 – 29, 2027" in F.text_of(ID_HTML), "text_of decodes &#8211; to an en dash")
+check(dates(F.text_of(ID_HTML)) == (date(2027, 8, 13), date(2027, 8, 29)),
+      "Idaho's 'August 13 &#8211; 29, 2027' is read through text_of")
+check(dates(F.text_of('<h2>August 27 &#8211; September 6, 2027</h2>'))
+      == (date(2027, 8, 27), date(2027, 9, 6)),
+      "...and Nebraska's 'August 27 &#8211; September 6, 2027'")
+check(dates(F.text_of('<p>Aug&nbsp;12&ndash;22,&nbsp;2027</p>')) == (date(2027, 8, 12), date(2027, 8, 22)),
+      "&nbsp; collapses with the whitespace and &ndash; is a dash too")
+check("<b>" in F.text_of("<p>a &lt;b&gt; tag in prose</p>") and "<p>" not in F.text_of("<p>x</p>"),
+      "an escaped tag in prose stays text; real tags are still stripped")
+check(dates(F.text_of('<script>{"d":"August 1 &#8211; 9, 2027"}</script><p>soon</p>')) is None,
+      "a script body's dates are still not the page's")
+
+
+# ---------------------------------------------------- 8. robots.txt and the host's pace
+# Read live 2026-11-07: azstatefair.com and oregonstatefair.org answer
+# /robots.txt with a bot challenge, castatefair.org's cannot be reached, and
+# durhamfair.com and sdstatefair.com ask Crawl-delay: 30. Until then this
+# adapter asked none of them and paced every fair at 1.0 s and 0.4 s.
+class Resp:
+    def __init__(self, status=200, text="", headers=None):
+        self.status_code, self.text, self.headers = status, text, headers or {}
+        self.content = text.encode("utf-8")
+
+
+class Session:
+    def __init__(self, routes):
+        self.routes, self.calls, self.headers = routes, [], {}
+
+    def get(self, url, timeout=None, allow_redirects=True, **kw):
+        self.calls.append(url)
+        got = self.routes.get(url, Resp(404, "not found"))
+        if isinstance(got, Exception):
+            raise got
+        return got
+
+
+class Clock:
+    def __init__(self):
+        self.t, self.sleeps = 1000.0, []
+
+    def __call__(self):
+        return self.t
+
+    def sleep(self, s):
+        self.sleeps.append(round(s, 3))
+        self.t += s
+
+
+def fair_run(routes, url="https://fair.test/", deadline=None):
+    import os
+    import tempfile
+    from mapsee_ingest import EventStore
+    s, clk = Session(routes), Clock()
+    polite = F.Polite(s, min_interval=1.0, sleep=clk.sleep, clock=clk,
+                      deadline=None if deadline is None else clk.t + deadline)
+    store = EventStore(os.path.join(tempfile.mkdtemp(), "e.json"))
+    fair = dict(site, url=url)
+    kept = F.ingest_site(store, polite, fair, TODAY)
+    return kept, s, clk, store, polite
+
+
+R = "https://fair.test/robots.txt"
+HOME_NO_DATES = ('<p>Thanks for a great fair!</p><a href="/dates">Fair Dates</a>'
+                 '<a href="/general-info">General Information</a><a href="/tickets">Tickets</a>')
+DATES = "<p>The fair returns August 26 &#8211; September 6, 2027</p>"
+
+kept, s, clk, store, _ = fair_run({R: Resp(200, "User-agent: *\nCrawl-delay: 30\n"),
+                                   "https://fair.test/": Resp(200, HOME_NO_DATES),
+                                   "https://fair.test/dates": Resp(200, DATES)})
+check(kept == 1 and s.calls == [R, "https://fair.test/", "https://fair.test/dates"],
+      "robots.txt first, the homepage, then the best hinted page")
+check(clk.sleeps == [30.0, 30.0], "Crawl-delay: 30 is waited before each page, robots.txt read included")
+kept, s, *_ = fair_run({R: Resp(200, "User-agent: *\nDisallow: /dates\n"),
+                        "https://fair.test/": Resp(200, HOME_NO_DATES),
+                        "https://fair.test/dates": Resp(200, DATES),
+                        "https://fair.test/general-info": Resp(200, "<p>no dates here</p>")})
+check(kept == 0 and "https://fair.test/dates" not in s.calls
+      and "https://fair.test/general-info" in s.calls,
+      "a Disallowed hinted page is skipped and never fetched; the next one is read")
+kept, s, *_ = fair_run({R: Resp(200, "<title>Just a moment...</title><div>challenge-platform</div>")})
+check(kept == 0 and s.calls == [R], "a bot challenge on robots.txt (Arizona, Oregon) asks nothing more")
+kept, s, *_ = fair_run({R: ConnectionError("reset")})
+check(kept == 0 and s.calls == [R], "an unreachable robots.txt (California) is assume-Disallow")
+kept, s, *_ = fair_run({R: Resp(503, "busy")})
+check(kept == 0 and s.calls == [R], "...as is a 5xx")
+kept, s, *_ = fair_run({R: Resp(404, "none"), "https://fair.test/": Resp(200, DATES)})
+check(kept == 1, "a missing robots.txt (4xx) allows everything, RFC 9309 2.3.1")
+kept, s, *_ = fair_run({R: Resp(200, ""), "https://fair.test/": Resp(200, HOME_NO_DATES),
+                        "https://fair.test/dates": Resp(403, "Forbidden"),
+                        "https://fair.test/general-info": Resp(200, DATES)})
+check(kept == 0 and "https://fair.test/general-info" not in s.calls,
+      "a 403 on one page ends that fair for the run: no retry, no next page")
+kept, s, *_ = fair_run({R: Resp(200, ""), "https://fair.test/": Resp(429, "slow down")})
+check(kept == 0 and s.calls.count("https://fair.test/") == 1, "a 429 is not retried")
+CF_TAIL = ("<html><body><p>The fair returns August 26 - September 6, 2027</p>" + "x" * 7000
+           + '<script src="/cdn-cgi/challenge-platform/scripts/jsd/main.js"></script></body></html>')
+kept, *_ = fair_run({R: Resp(200, ""), "https://fair.test/": Resp(200, CF_TAIL)})
+check(kept == 1, "Cloudflare's script at the END of a normal page (Florida, NJ, Texas, Wyoming) is not a challenge")
+kept, s, *_ = fair_run({R: Resp(200, ""),
+                        "https://fair.test/": Resp(200, "<title>Just a moment...</title>" + DATES)})
+check(kept == 0, "...but a challenge in the page's head is")
+kept, s, *_ = fair_run({R: Resp(200, ""),
+                        "https://fair.test/": Resp(301, "", {"Location": "https://www.fair.test/"}),
+                        "https://www.fair.test/robots.txt": Resp(200, "User-agent: *\nDisallow: /\n"),
+                        "https://www.fair.test/": Resp(200, DATES)})
+check(kept == 0 and "https://www.fair.test/robots.txt" in s.calls and "https://www.fair.test/" not in s.calls,
+      "a redirect to another host asks THAT host's robots.txt before following")
+kept, s, *_ = fair_run({R: Resp(200, ""),
+                        "https://fair.test/": Resp(301, "", {"Location": "https://www.fair.test/"}),
+                        "https://www.fair.test/": Resp(200, DATES)})
+check(kept == 1, "...and follows it when allowed")
+kept, s, clk, store, polite = fair_run({R: Resp(200, "User-agent: *\nCrawl-delay: 30\n"),
+                                        "https://fair.test/": Resp(200, DATES)}, deadline=20)
+check(kept == 0 and s.calls == [R] and not clk.sleeps,
+      "a Crawl-delay the run's deadline cannot hold asks nothing rather than overrun it")
+# robots_txt reads every 4xx as RFC 9309's "unavailable, allow all"; a 403 or a
+# 429 on /robots.txt is nonetheless the host saying no (the owner's rule), and
+# until 2026-11-08 this door went on to ask for the homepage.
+for code in (429, 403):
+    kept, s, clk, store, polite = fair_run({R: Resp(code, ""), "https://fair.test/": Resp(200, DATES)})
+    check(kept == 0 and s.calls == [R] and "fair.test" in polite.refused
+          and f"HTTP {code} on {R}" in polite.refused["fair.test"],
+          f"a {code} on robots.txt refuses the host: the homepage is never asked")
+kept, s, *_ = fair_run({R: Resp(404, "not found"), "https://fair.test/": Resp(200, DATES)})
+check(kept == 1 and s.calls == [R, "https://fair.test/"],
+      "...while a 404 is still 'no robots.txt', and the homepage is read (5 of the 48 fairs)")
+
 # ---------------------------------------------------- report
 bad = [l for ok, l in checks if not ok]
 for ok, l in checks:

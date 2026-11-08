@@ -646,6 +646,27 @@ jobs:
           else
             echo "no fair_sources.json — skipping state fairs"
           fi
+      # ANNUAL EVENTS WHOSE OWN SITE STATES THE DATE ONLY IN A SENTENCE, the
+      # fairs' parser plus single days. Short Run Comix Festival (shortrun.org)
+      # has no feed, no Event JSON-LD and no calendar: its date, hours and FREE
+      # are one paragraph of its homepage hero, so every verifier refused it.
+      # Identity and venue live in annual_sources.json, the date is read every
+      # run, and an edition that is over contributes nothing. robots.txt is read
+      # first and its Crawl-delay kept: shortrun.org's is 10 s, so one entry is
+      # ~11 s (measured 2026-11-08: robots.txt, a 10 s wait, the homepage).
+      # --max-seconds is a deadline no request or wait crosses; 5 minutes holds
+      # it and the save.
+      - name: Import annual events stated only in prose (Short Run; dates read per run)
+        id: ingest_annual
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 5
+        run: |
+          if [ -f annual_sources.json ]; then
+            python mapsee_ingest_annual.py --config annual_sources.json --store feeds_events.json --max-seconds 180
+          else
+            echo "no annual_sources.json — skipping annual prose events"
+          fi
       # WALKS ANYBODY CAN JOIN, three sources measured 2026-10-11 (each adapter's
       # header has the rules). AVA volksmarches: one year list plus one page per
       # event starting within 120 days, at 1 s - 123 requests and 2.0 minutes for
@@ -1420,6 +1441,15 @@ jobs:
       # 36716083467), after its store doubled from 68,705 to 143,128 events, and
       # gets the same 60 (owner's decision, 2026-10-05). ics and local keep 20.
       #
+      # civic 90 since 2026-11-08: OpenAgenda France is read in date windows
+      # past Opendatasoft's 10,000-row offset cap (ods_sources.json, max
+      # 30,000), and an adapter's budget is paid HERE, in rows. The civic sync
+      # took 22.6-43.7 min on the Wednesdays 10-21..11-04 at 14.4-70.8 ms a
+      # row; a first windowed run that falls on a Wednesday projects to 84.2
+      # min (about 20,000 new rows plus about 11,000 rewritten for the credit
+      # line), past 60. The civic job ran 113-167 min of its 300, so the extra
+      # 30 fits. test_ingest_ods.py reads this line and fails if it does not.
+      #
       # The ics group imports nothing after the checkpoint, so once that synced
       # this pass re-reads the same store to write nothing: 0 rows after a
       # 239.2 s state read of 130,979 ids on 2026-10-23 (163.5 s, 0 rows on
@@ -1432,7 +1462,7 @@ jobs:
         id: sync
         if: matrix.group != 'ics' || steps.checkpoint.outcome != 'success'
         continue-on-error: true
-        timeout-minutes: ${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}
+        timeout-minutes: ${{ matrix.group == 'civic' && 90 || matrix.group == 'rec' && 60 || 20 }}
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
