@@ -3,6 +3,29 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: the health check and `stats_snapshot_all`, `external_source`, a green run with no baseline, a source with no retry.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A large feed finding must not prevent the alert, and a timeout is not permanent removal.**
+  Source-health run `42495413069` on 2026-11-08 evaluated **262 findings** but
+  GitHub rejected `createIssue`: **maximum 65,536 characters**. `health_issue.py`
+  now caps both issue and comment bodies at **60,000 UTF-8 bytes**, reserving the
+  truncation notice and run link. The original report remains in logs/summary
+  and the `source-health-report` artifact; a failed upload or formatter cannot
+  suppress the shell fallback notification. Replaying the current ledger with
+  an empty source fixture produced **73,707 report bytes / 59,733 issue bytes**.
+  The report groups causes before its long table and dates each ledger probe.
+  The weekly audit recorded **242 connection timeouts, 1 connection error and
+  18 HTTP 403s**, plus **1 robots refusal**; **260 of 261 failures** were
+  CivicPlus calendars across **102 domains**, all previously `ok` or `empty` on
+  November 1. Original-URL, original-identity, robots-compliant `verify_ics`
+  checks on Altamonte catID31 and Concord catID37 returned **2 and 189 future
+  events** in **0.4 and 0.3 seconds** afterward. This establishes recovery from
+  another network, not why the GitHub runner timed out. Preserve the findings
+  until revalidated; never bulk retire feeds or bypass refusals. The production
+  ICS fetch reuses its cached body on connection failures, or raises before
+  changing the store when there is no cache. `test_health_issue.py` exercises
+  create/comment bodies, Unicode, exact limits, missing reports and a failed
+  formatter; `test_health_check.py` pins cause/date reporting without changing
+  alert eligibility. No source config or ledger was rewritten for this repair.
+
 - **The database report distinguishes a failed Events or People read from a failed connection.** The five scheduled health runs from November 5 00:15 UTC to November 6 02:07 UTC started **4 h 16 m to 8 h 28 m** apart. The Worker checks the connection and one alternating functional read every five minutes. Its Cloudflare watchdog owns timely alerts. The existing GitHub job grades the latest database heartbeat and preserves the diagnostic in its issue. Fixtures with a **35 ms** successful connection and a **5,000 ms** failed functional read return `component_failed` and exit **1** for both Events and People. Historical heartbeat rows retain their previous verdicts.
 
 - **An active pg_cron job can still inherit the wrong timeout.** On 2026-09-09,

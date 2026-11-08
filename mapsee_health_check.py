@@ -626,6 +626,7 @@ def configured_dead() -> list[dict]:
                       + (row.get("reason") or "?"),
             "category": entry.get("category") or "-",
             "config": fname,
+            "checked": row.get("checked"),
         })
     for key, (fname, entry) in wired.items():
         if key in seen or not entry.get("_hold"):
@@ -638,8 +639,25 @@ def configured_dead() -> list[dict]:
                       + (f" (ledger {row.get('status')}: {row.get('reason')})" if row else ""),
             "category": entry.get("category") or "-",
             "config": fname,
+            "checked": row.get("checked"),
         })
     return sorted(out, key=lambda d: (d["category"], d["url"]))
+
+
+def feed_finding(reason: str) -> str:
+    """Group the observed cause, without treating a timeout as permanent loss."""
+    reason = reason.lower()
+    if reason.startswith("held for the owner:"):
+        return "owner hold"
+    if "robots.txt" in reason:
+        return "robots refusal"
+    if "timeout" in reason:
+        return "connection/read timeout"
+    if "connectionerror" in reason:
+        return "connection error"
+    if "http 403" in reason:
+        return "HTTP 403 refusal"
+    return "other feed failure"
 
 
 # --- checks ----------------------------------------------------------------
@@ -710,15 +728,20 @@ def evaluate(rows: list[dict], baseline: dict, drop_pct: float, now: datetime):
         known = set(baseline.get("configured_dead") or [])
         fresh = [d for d in cd if d["url"] not in known]
         for d in fresh:
+            checked = str(d.get("checked") or "")
+            # Ledger dates are YYYYMMDD, not the current health run's clock.
+            when = (f"; last probed {checked[:4]}-{checked[4:6]}-{checked[6:]}"
+                    if len(checked) == 8 and checked.isdigit() else "")
             problems.append({
                 "kind": "FEED_DOWN", "source": d["name"],
-                "detail": f"`{d['url']}` ({d['category']}, {d['config']}) - {d['reason']}",
+                "detail": f"`{d['url']}` ({d['category']}, {d['config']}) - {d['reason']}{when}",
+                "finding": feed_finding(d["reason"]),
             })
         by_cat: dict[str, int] = {}
         for d in cd:
             by_cat[d["category"]] = by_cat.get(d["category"], 0) + 1
         spread = ", ".join(f"{k} x{v}" for k, v in sorted(by_cat.items(), key=lambda kv: -kv[1]))
-        notes.append(f"FEEDS  {len(cd)} configured feed(s) currently dead: {spread}")
+        notes.append(f"FEEDS  {len(cd)} configured feed(s) unreadable or held at last review: {spread}")
         for d in cd:
             if d["url"] not in {f["url"] for f in fresh}:
                 notes.append(f"       (known) [{d['category']}] {d['url']} - {d['reason'][:60]}")
@@ -743,6 +766,17 @@ def render(problems, notes, live, baseline, computed_at=None, via="") -> str:
     if problems:
         out.append(f"### {len(problems)} source(s) need attention")
         out.append("")
+        causes: dict[str, int] = {}
+        for p in problems:
+            if p["kind"] == "FEED_DOWN":
+                cause = p.get("finding") or "other feed failure"
+                causes[cause] = causes.get(cause, 0) + 1
+        if causes:
+            out.append("Feed findings at last probe/review: " + "; ".join(
+                f"{count} {cause}" for cause, count in sorted(causes.items(), key=lambda kv: (-kv[1], kv[0]))) + ".")
+            out.append("A timeout records reachability from that runner, not permanent feed removal. "
+                       "Recheck before changing a URL or retiring a feed; do not bypass refusals.")
+            out.append("")
         out.append("| | Source | What happened |")
         out.append("|---|---|---|")
         for p in problems:
@@ -753,8 +787,8 @@ def render(problems, notes, live, baseline, computed_at=None, via="") -> str:
         out.append("`MISSING` — the source has no rows left at all.  ")
         out.append("`DRAINED` — still ingesting, but a fraction of what it used to.  ")
         out.append("`FEED_DOWN` — a feed still listed in a `*_sources.json` that the "
-                   "curator audit now can't read. Fix the URL, or retire it from the "
-                   "config so the run stops paying for it.")
+                   "curator audit could not read at its last probe, or that is held "
+                   "for an owner decision. This is not proof the feed is permanently gone.")
     else:
         out.append("### All baseline sources are healthy ✅")
 

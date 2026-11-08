@@ -158,6 +158,7 @@ jobs:
       - name: Automation contracts and interrupted ICS recovery
         run: |
           python test_workflow_contracts.py
+          python test_health_issue.py
           python test_ingest_ics.py
           python test_ics_source_overrides.py
           python test_ics_venue_location.py

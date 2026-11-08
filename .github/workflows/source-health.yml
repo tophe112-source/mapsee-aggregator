@@ -117,11 +117,26 @@ jobs:
         run: |
           set +e
           python mapsee_health_check.py --seed-baseline --markdown health_report.md
-          echo "status=$?" >> "$GITHUB_OUTPUT"
+          STATUS=$?
+          # A crash (or missing interpreter) is a failed CHECK, not a dead feed.
+          if [ "$STATUS" != "0" ] && [ "$STATUS" != "1" ]; then STATUS=2; fi
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
 
       - name: Summary
         if: ${{ !inputs.update_baseline }}
         run: cat health_report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      # The issue is deliberately bounded; retain every finding separately.
+      # A missing report or failed upload must not suppress the notification.
+      - name: Preserve the full health report
+        if: ${{ !inputs.update_baseline }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-health-report
+          path: health_report.md
+          if-no-files-found: warn
+          retention-days: 30
 
       # A seeded baseline is worthless uncommitted: the next run would find the
       # file missing again and re-seed for ever, and the check would never
@@ -166,41 +181,24 @@ jobs:
             COLOR="D93F0B"
             LABEL_DESC="The health check could not evaluate anything"
           else
-            TITLE="Ingest health: one or more sources have gone quiet"
+            TITLE="Ingest health: one or more sources need attention"
             LABEL="ingest-health"
             COLOR="B60205"
-            LABEL_DESC="A source has stopped delivering events"
+            LABEL_DESC="Source freshness, feed reachability or owner decisions need attention"
           fi
-          {
-            if [ "$STATUS" = "2" ]; then
-              echo "**The health check could not run.** It did not evaluate a single"
-              echo "source, so nothing here says the pipeline is unhealthy — only that"
-              echo "the alarm is off. Fix this first; until it is fixed, a genuinely"
-              echo "dead feed would go unreported."
-            else
-              echo "One or more event sources have stopped delivering. The aggregate"
-              echo "workflow will still be reporting success — it is failure-tolerant"
-              echo "by design — so this issue is the only signal."
-            fi
-            echo
-            # NEVER let a missing report kill the notifier. This step runs on any
-            # non-zero exit, and `cat` of an absent file under `set -e` took the
-            # whole job down with "cat: health_report.md: No such file" — so the
-            # one run that most needed to raise an alarm raised nothing but a red
-            # tick. mapsee_health_check.py now writes a report on every failing
-            # path; this is the belt to that pair of braces.
-            if [ -s health_report.md ]; then
-              cat health_report.md
-            else
-              echo "**The check exited non-zero without writing a report.**"
+          # GitHub caps BOTH issues and comments at 65,536 characters. The
+          # formatter reserves the run link and truncation notice within a
+          # stricter 60,000-byte budget, including Unicode-heavy feed names.
+          # It also supplies a diagnostic if the checker left no report.
+          if ! python health_issue.py --status "$STATUS"; then
+            # A formatter/interpreter failure must not silence the alarm either.
+            # This fallback contains only short, runner-controlled metadata.
+            {
+              echo "The health check exited with status $STATUS, but its report formatter failed."
               echo
-              echo "That is a fault in the check itself, not a finding about any"
-              echo "source — nothing was evaluated. See the run log for the cause."
-            fi
-            echo
-            echo "---"
-            echo "_Checked by [\`source-health\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) on $(date -u '+%Y-%m-%d %H:%M UTC'). This issue closes itself once the condition clears._"
-          } > issue_body.md
+              echo "[See the workflow summary and logs]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID) for the complete diagnostic."
+            } > issue_body.md
+          fi
 
           EXISTING=$(gh issue list --label "$LABEL" --state open \
                        --json number --jq '.[0].number // empty')
@@ -221,7 +219,7 @@ jobs:
       # whatever the sources are doing. Closing it only on a fully-green run
       # would leave it open through every genuine source outage.
       - name: Close the "cannot run" issue once the check runs again
-        if: ${{ !inputs.update_baseline && steps.health.outputs.status != '2' }}
+        if: ${{ !inputs.update_baseline && (steps.health.outputs.status == '0' || steps.health.outputs.status == '1') }}
         run: |
           set -euo pipefail
           EXISTING=$(gh issue list --label ingest-health-check --state open \

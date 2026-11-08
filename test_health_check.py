@@ -506,6 +506,36 @@ def t_a_feed_robots_txt_now_refuses_is_reported():
           sorted(got) == ["club.example/events/?ical=1"], str(sorted(got)))
 
 
+def t_feed_failures_explain_the_observation_not_permanent_removal():
+    reasons = ["ConnectTimeout: HTTPSConnectionPool", "ReadTimeout: read timed out",
+               "ConnectionError: unreachable", "http 403 / no VCALENDAR",
+               "robots.txt: Disallow: /", "held for the owner: reservation schedule",
+               "http 404 / no VCALENDAR"]
+    findings = [hc.feed_finding(reason) for reason in reasons]
+    check("transport failures, refusals and owner holds stay distinct",
+          findings == ["connection/read timeout", "connection/read timeout", "connection error",
+                       "HTTP 403 refusal", "robots refusal", "owner hold", "other feed failure"], str(findings))
+    dead = [dict(url=f"city{i}.example/feed", name=f"City {i}", reason=reason,
+                 category="community", config="ics_sources.json", checked=20261108)
+            for i, reason in enumerate(reasons)]
+    original_dead, original_summary = hc.configured_dead, hc.ledger_summary
+    try:
+        hc.configured_dead = lambda: dead
+        hc.ledger_summary = lambda: (0, 0)
+        problems, notes, live = hc.evaluate([], {"sources": {}}, .6, datetime.now(timezone.utc))
+        rendered = hc.render(problems, notes, live, {})
+    finally:
+        hc.configured_dead, hc.ledger_summary = original_dead, original_summary
+    check("all seven observations remain alertable FEED_DOWN findings",
+          len(problems) == 7 and all(p["kind"] == "FEED_DOWN" for p in problems))
+    check("the cause summary precedes the potentially oversized table",
+          rendered.index("2 connection/read timeout") < rendered.index("| | Source |"))
+    check("each finding carries the audit date, not today's clock",
+          all("last probed 2026-11-08" in p["detail"] for p in problems))
+    check("the report does not call a timeout permanent loss",
+          "not permanent feed removal" in rendered and "currently dead" not in rendered)
+
+
 def main():
     for fn in (t_reads_the_snapshot_not_the_dead_rpc,
                t_server_error_body_reaches_the_report,
@@ -528,7 +558,8 @@ def main():
                t_no_credentials_is_a_skip,
                t_configured_dead_reads_every_config_shape,
                t_a_pending_owner_decision_stays_reported,
-               t_a_feed_robots_txt_now_refuses_is_reported):
+               t_a_feed_robots_txt_now_refuses_is_reported,
+               t_feed_failures_explain_the_observation_not_permanent_removal):
         print(f"\n--- {fn.__name__} ---")
         fn()
     print()
