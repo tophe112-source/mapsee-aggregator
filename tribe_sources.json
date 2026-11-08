@@ -39696,6 +39696,602 @@
         "lon": -122.7295357
       },
       "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Special Olympics Oregon",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://soor.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Special Olympics Oregon",
+        "address": "5901 South Macadam Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97239",
+        "lat": 45.4808874,
+        "lon": -122.6736386
+      },
+      "_metro": "Portland OR, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Japanese American Museum of Oregon",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://jamo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Japanese American Museum of Oregon",
+        "address": "411 Northwest Flanders Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.5261047,
+        "lon": -122.6747179
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "City Club of Portland",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://pdxcityclub.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "City Club of Portland",
+        "address": "901 Southwest Washington Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97205",
+        "lat": 45.5212522,
+        "lon": -122.6805464
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Feed the Mass",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://feedthemass.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Feed the Mass",
+        "address": "80 Northwest Davis Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.524356,
+        "lon": -122.6708749
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Portland Friends of the Dhamma",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://pdxdhamma.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Portland Friends of the Dhamma",
+        "address": "1404 Southeast 25th Avenue",
+        "lat": 45.5127278,
+        "lon": -122.6400242
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Oak Hills Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.oakhillspres.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oak Hills Presbyterian Church",
+        "address": "5101 Southeast Thiessen Road",
+        "city": "Milwaukie",
+        "region": "OR",
+        "postal_code": "97267",
+        "lat": 45.4130799,
+        "lon": -122.6111023
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Congregation Shaarie Torah",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://shaarietorah.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Shaarie Torah",
+        "address": "925 Northwest 25th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97210",
+        "country": "US",
+        "lat": 45.5293856,
+        "lon": -122.7021193
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Saint Michael and All Angels Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stmaa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Michael and All Angels Church",
+        "address": "1704 Northeast 43rd Avenue",
+        "city": "Portland",
+        "postal_code": "97213",
+        "lat": 45.5354126,
+        "lon": -122.6186047
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Woodstock Bible Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://woodstockbiblechurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Woodstock Bible Church",
+        "address": "5101 Southeast Mitchell Street",
+        "city": "Portland",
+        "postal_code": "97206",
+        "lat": 45.4859914,
+        "lon": -122.6096059
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Rockwood Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://rockwoodadventist.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rockwood Seventh-day Adventist Church",
+        "address": "1910 Southeast 182nd Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97233",
+        "lat": 45.5087257,
+        "lon": -122.4750174
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Hope Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hopefellowship.life",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hope Fellowship",
+        "address": "5215 Southeast Golden Road",
+        "city": "Hillsboro",
+        "region": "OR",
+        "postal_code": "97123",
+        "lat": 45.5081705,
+        "lon": -122.9287628
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Asian Health & Service Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ahscpdx.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Asian Health & Service Center",
+        "address": "3430 Southeast Powell Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.4962528,
+        "lon": -122.6288488
+      },
+      "_metro": "Portland OR, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Victorian Belle",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://victorianbelle.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Victorian Belle",
+        "address": "1441 North McClellan Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97217",
+        "lat": 45.5833565,
+        "lon": -122.6823403
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Sunnyside Foursquare Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://sunnyside4.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sunnyside Foursquare Church",
+        "address": "13231 Southeast Sunnyside Road",
+        "city": "Happy Valley",
+        "region": "OR",
+        "postal_code": "97015",
+        "lat": 45.4273736,
+        "lon": -122.5259356
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Trinity Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://trinityvancouver.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trinity Lutheran Church",
+        "address": "309 West 39th Street",
+        "city": "Vancouver",
+        "postal_code": "98660",
+        "lat": 45.649543,
+        "lon": -122.6740755
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Sharon Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sharonor.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sharon Seventh Day Adventist Church",
+        "address": "5209 Northeast 22nd Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97211",
+        "lat": 45.5605945,
+        "lon": -122.643198
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Sabin Community Orchard",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://portlandfruit.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sabin Community Orchard",
+        "lat": 45.5531274,
+        "lon": -122.6467436
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Bethlehem House of Bread",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://bethlehemhouseofbread.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bethlehem House of Bread",
+        "address": "9055 Southwest Locust Street",
+        "city": "Tigard",
+        "region": "OR",
+        "postal_code": "97223",
+        "lat": 45.4472935,
+        "lon": -122.7700509
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Patricia Reser Center for the Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://thereser.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Patricia Reser Center for the Arts",
+        "address": "12625 Southwest Crescent Street",
+        "city": "Beaverton",
+        "region": "OR",
+        "postal_code": "97005",
+        "lat": 45.491361,
+        "lon": -122.8070881
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Healing Hope Seventh-day Adventist Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://healinghopesda.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Healing Hope Seventh-day Adventist Fellowship",
+        "address": "15150 Northeast Glisan Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97230",
+        "lat": 45.5259628,
+        "lon": -122.507319
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Congregation Neveh Shalom",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://nevehshalom.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Neveh Shalom",
+        "address": "2900 Southwest Peaceful Lane",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97239",
+        "lat": 45.4835263,
+        "lon": -122.7059505
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Rolling Hills Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rollinghills.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rolling Hills Community Church",
+        "address": "3550 Southwest Borland Road",
+        "city": "Tualatin",
+        "region": "OR",
+        "postal_code": "97062",
+        "lat": 45.3735363,
+        "lon": -122.7123984
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Bike Dog Brewing Co.",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://bikedogbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bike Dog Brewing Co.",
+        "lat": 38.5660851,
+        "lon": -121.5433734
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "The Center for the Musical Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://centermusicalarts.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Center for the Musical Arts",
+        "address": "2564 21st Street",
+        "city": "Sacramento",
+        "region": "CA",
+        "postal_code": "95818",
+        "lat": 38.5588064,
+        "lon": -121.4863255
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Ole Red",
+      "category": "community",
+      "_found": "osm:bar -> tribe",
+      "base_url": "https://olered.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ole Red",
+        "address": "3627 South Las Vegas Boulevard",
+        "city": "Las Vegas",
+        "region": "NV",
+        "postal_code": "89109",
+        "lat": 36.1142855,
+        "lon": -115.1724679
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Rita Deanin Abbey Art Museum",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://ritadeaninabbeymuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rita Deanin Abbey Art Museum",
+        "address": "5850 North Park Street",
+        "city": "Las Vegas",
+        "region": "NV",
+        "postal_code": "89149",
+        "lat": 36.2671645,
+        "lon": -115.3023324
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Pro Gun Vegas Clubhouse",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://progunvegas.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pro Gun Vegas Clubhouse",
+        "address": "12801 Old US 95",
+        "city": "Boulder City",
+        "region": "NV",
+        "postal_code": "89005",
+        "lat": 35.9581529,
+        "lon": -114.9221321
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Mountain View Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://come2mountainviewnow.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mountain View Church",
+        "address": "6001 West Oakey Boulevard",
+        "city": "Las Vegas",
+        "region": "NV",
+        "postal_code": "89146",
+        "lat": 36.1508404,
+        "lon": -115.2238991
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Queen City Clay",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.queencityclay.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Queen City Clay",
+        "address": "2760 Highland Avenue",
+        "city": "Norwood",
+        "region": "OH",
+        "postal_code": "45212",
+        "lat": 39.1669737,
+        "lon": -84.4402472
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "CityLink Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.citylinkcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CityLink Center",
+        "address": "800 Bank Street",
+        "city": "Cincinnati",
+        "region": "OH",
+        "lat": 39.1198607,
+        "lon": -84.5276522
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Promont House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://milfordhistory.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Promont House Museum",
+        "address": "906 Main Street",
+        "city": "Milford",
+        "region": "OH",
+        "postal_code": "45150",
+        "lat": 39.1770845,
+        "lon": -84.2795114
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Saint Timothy Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://saint-timothy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Timothy Catholic Church",
+        "address": "10272 US 42",
+        "city": "Union",
+        "region": "KY",
+        "postal_code": "41091-0120",
+        "lat": 38.9367063,
+        "lon": -84.6748408
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Kay Barnes Grand Ballroom",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://kcconvention.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kay Barnes Grand Ballroom",
+        "lat": 39.0962918,
+        "lon": -94.5864089
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Hillcrest Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kcparks.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hillcrest Community Center",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64134",
+        "lat": 38.9361743,
+        "lon": -94.5202839,
+        "street_hint": "10401 Hillcrest Road"
+      },
+      "_metro": "Kansas City, United States"
     }
   ],
   "_not_included": {

@@ -29900,6 +29900,543 @@
         "lon": -122.7442138
       },
       "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Grace Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://gbcnewberg.org/calendar/"
+      ],
+      "link_pattern": "https://gbcnewberg\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grace Baptist Church",
+        "address": "1619 East 2nd Street",
+        "city": "Newberg",
+        "region": "OR",
+        "postal_code": "97132",
+        "lat": 45.2998053,
+        "lon": -122.9590273
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Saved by Grace Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://savedbygracelutheranchurch.org/calendar/"
+      ],
+      "link_pattern": "https://savedbygracelutheranchurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saved by Grace Lutheran Church",
+        "address": "2010 Northeast Division Street",
+        "city": "Gresham",
+        "region": "OR",
+        "postal_code": "97030",
+        "lat": 45.5045443,
+        "lon": -122.4116239
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Highland Christian Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.hccpdx.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Highland Christian Center",
+        "address": "7600 Northeast Glisan Street",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97213",
+        "lat": 45.5261904,
+        "lon": -122.5841421
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Studio One Theaters",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.studioonetheater.com/events/"
+      ],
+      "link_pattern": "https://www\\.studioonetheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Studio One Theaters",
+        "address": "3945 Southeast Powell Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.4981928,
+        "lon": -122.6213615
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "PDX RC Underground",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.pdxrcraceway.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "PDX RC Underground",
+        "address": "8532 Southwest Apple Way",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97225",
+        "lat": 45.4852162,
+        "lon": -122.7655515
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Unitarian Universalist Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://uucvan.org/events/"
+      ],
+      "link_pattern": "https://uucvan\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Unitarian Universalist Church of Vancouver",
+        "address": "4505 East 18th Street",
+        "city": "Vancouver",
+        "region": "WA",
+        "postal_code": "98661",
+        "lat": 45.6343204,
+        "lon": -122.6221704
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Oregon Military Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://oregonmilitarymuseum.org/event-directory/"
+      ],
+      "link_pattern": "https://oregonmilitarymuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Oregon Military Museum",
+        "address": "15300 Southeast Minuteman Way",
+        "city": "Clackamas",
+        "postal_code": "97015",
+        "lat": 45.4110498,
+        "lon": -122.5596226
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Laughs Unlimited Comedy Club and Lounge",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.laughsunlimited.com/shows/390250"
+      ],
+      "link_pattern": "https://www\\.laughsunlimited\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Laughs Unlimited Comedy Club and Lounge",
+        "address": "1207 Front Street",
+        "city": "Sacramento",
+        "region": "CA",
+        "lat": 38.5810021,
+        "lon": -121.5063279
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Project R.I.D.E.",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events",
+      "listing": [
+        "https://projectride.org/events/"
+      ],
+      "link_pattern": "https://projectride\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Project R.I.D.E.",
+        "address": "8840 Southside Avenue",
+        "city": "Elk Grove",
+        "region": "CA",
+        "postal_code": "95624",
+        "lat": 38.4056359,
+        "lon": -121.373933
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Ace of Spades",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.aceofspadessac.com/shows"
+      ],
+      "link_pattern": "https://www\\.aceofspadessac\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ace of Spades",
+        "address": "1417 R Street",
+        "city": "Sacramento",
+        "postal_code": "95811",
+        "lat": 38.5699259,
+        "lon": -121.4909477
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "The Gun Range",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://shop.thegunrange.biz/events/california-ccw-course-6-counties-3-cities-16-hour-06-01-2024-6-2-2024-2-2-3-2-2-3-3-3-2-2-3-2-2-2-2-2-2-3__trashed-2-2-2-3-2-2-2-2-2-2-2-2-4-2-2-2-2-3-2-2/"
+      ],
+      "link_pattern": "https://shop\\.thegunrange\\.biz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Gun Range",
+        "address": "3479 Orange Grove Avenue",
+        "postal_code": "95660",
+        "lat": 38.6488755,
+        "lon": -121.3842008
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "SALAM",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://salamcenter.org/events/"
+      ],
+      "link_pattern": "https://salamcenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SALAM",
+        "lat": 38.6473448,
+        "lon": -121.351168
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Spring Meadows Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://springmeadowspres.org/events-calendar/"
+      ],
+      "link_pattern": "https://springmeadowspres\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Spring Meadows Presbyterian Church",
+        "address": "4870 West Oquendo Road",
+        "city": "Las Vegas",
+        "region": "NV",
+        "postal_code": "89118",
+        "lat": 36.083437,
+        "lon": -115.2072333
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Oasis Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.oasislv.church/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Oasis Baptist Church",
+        "address": "1620 West Sunset Road",
+        "city": "Henderson",
+        "region": "NV",
+        "postal_code": "89014",
+        "lat": 36.0642115,
+        "lon": -115.0566546
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Buffy's Book Boutique",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.buffysbooks.com/shop"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Buffy's Book Boutique",
+        "address": "3585 South Durango Drive",
+        "postal_code": "89147",
+        "lat": 36.1248086,
+        "lon": -115.2798392
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Las Vegas Natural History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.lvnhm.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Las Vegas Natural History Museum",
+        "address": "900 Las Vegas Boulevard North",
+        "city": "Las Vegas",
+        "region": "NV",
+        "postal_code": "89101",
+        "lat": 36.1799391,
+        "lon": -115.1338241
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "YMCA",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://lasvegasymca.org/events/"
+      ],
+      "link_pattern": "https://lasvegasymca\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "YMCA",
+        "address": "6601 North Buffalo Drive",
+        "city": "Las Vegas",
+        "region": "NV",
+        "postal_code": "89131",
+        "lat": 36.2824433,
+        "lon": -115.2638712
+      },
+      "_metro": "Las Vegas, United States"
+    },
+    {
+      "name": "Queen City Sportsplex",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://queencitysportsplex.com/events/2026/11/redhawk-rally"
+      ],
+      "link_pattern": "https://queencitysportsplex\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Queen City Sportsplex",
+        "address": "10765 Reading Road",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45241",
+        "lat": 39.2633235,
+        "lon": -84.4193759
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Bright Star Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.brightstarcc.org/church-events/"
+      ],
+      "link_pattern": "https://www\\.brightstarcc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bright Star Community Church",
+        "address": "809 Charlotte Street",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45214",
+        "lat": 39.1165398,
+        "lon": -84.5275618
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Bogart's",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://www.bogarts.com/shows"
+      ],
+      "link_pattern": "https://www\\.bogarts\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bogart's",
+        "address": "2621 Short Vine Street",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45219",
+        "country": "US",
+        "lat": 39.1299925,
+        "lon": -84.5100133
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "American Legion Hall",
+      "category": "community",
+      "_found": "osm:social_centre -> wix",
+      "listing": [
+        "https://www.post318.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "American Legion Hall",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45244",
+        "lat": 39.0999091,
+        "lon": -84.3687001,
+        "street_hint": "6660 Clough Pike"
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "First Church of Christ, Scientist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://csandersontownship.com/upcoming-events/events-calendar/"
+      ],
+      "link_pattern": "https://csandersontownship\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "First Church of Christ, Scientist",
+        "address": "620 Springfield Pike",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45215",
+        "lat": 39.2294747,
+        "lon": -84.472013
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Milford Masonic Temple",
+      "category": "community",
+      "_found": "osm:social_centre -> wix",
+      "listing": [
+        "https://www.milfordfreemasons.com/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Milford Masonic Temple",
+        "city": "Milford",
+        "region": "OH",
+        "postal_code": "45150",
+        "lat": 39.1726167,
+        "lon": -84.2969041,
+        "street_hint": "32 Water Street"
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "River Roots Plant Shop & Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> wix",
+      "listing": [
+        "https://www.riverrootsgallery.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "River Roots Plant Shop & Gallery",
+        "address": "400 Front Street",
+        "city": "New Richmond",
+        "region": "OH",
+        "postal_code": "45157",
+        "lat": 38.9531158,
+        "lon": -84.28452
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Mt. Lookout Observatory",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.cincinnatiobservatory.org/events/all-events-and-programs/"
+      ],
+      "link_pattern": "https://www\\.cincinnatiobservatory\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mt. Lookout Observatory",
+        "address": "3489 Observatory Place",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45208",
+        "lat": 39.1390749,
+        "lon": -84.4229395
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Jewell Theatre Company",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://jewell.edu/events/"
+      ],
+      "link_pattern": "https://jewell\\.edu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jewell Theatre Company",
+        "city": "Liberty",
+        "region": "MO",
+        "postal_code": "64068",
+        "lat": 39.2480034,
+        "lon": -94.4117053
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Rainy Day Books",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://rainydaybooks.com/event/2026-11-11/adam-grant-vibe"
+      ],
+      "link_pattern": "https://rainydaybooks\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rainy Day Books",
+        "address": "2706 West 53rd Street",
+        "city": "Fairway",
+        "region": "KS",
+        "postal_code": "66208",
+        "lat": 39.0335734,
+        "lon": -94.6169767
+      },
+      "_metro": "Kansas City, United States"
     }
   ],
   "_not_included": {

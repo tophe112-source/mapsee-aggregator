@@ -247,14 +247,9 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 201,
-  "metro_key": "US:Portland OR",
-  "stuck": {
-   "US:Portland OR": {
-    "day": 20261108,
-    "n": 1
-   }
-  }
+  "metro": 205,
+  "metro_key": "US:Kansas City",
+  "stuck": {}
  },
  "osm|community_centre,library": {
   "metro": 225,

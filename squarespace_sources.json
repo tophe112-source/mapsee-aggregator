@@ -8238,6 +8238,151 @@
         "lon": -122.7763852
       },
       "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Kairos-Milwaukie United Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.kairosmilwaukieucc.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Kairos-Milwaukie United Church of Christ",
+        "address": "4790 Southeast Logus Road",
+        "city": "Milwaukie",
+        "postal_code": "97222",
+        "lat": 45.4500474,
+        "lon": -122.613584
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Echo Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.echotheaterpdx.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Echo Theater",
+        "address": "1515 Southeast 37th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97214",
+        "lat": 45.5117441,
+        "lon": -122.6260671
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "The Black Pearl",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.blackpearlonthecolumbia.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Black Pearl",
+        "address": "56 South 1st Street",
+        "city": "Washougal",
+        "region": "WA",
+        "postal_code": "98671",
+        "country": "US",
+        "lat": 45.5785173,
+        "lon": -122.3791401
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Multnomah County Master Gardener Demonstration Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.multnomahmastergardeners.org/events/speakerseries",
+      "max_events": 200,
+      "venue": {
+        "name": "Multnomah County Master Gardener Demonstration Garden",
+        "address": "Southeast 57th Avenue",
+        "postal_code": "97206",
+        "lat": 45.4744776,
+        "lon": -122.6037137
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Terwilliger Plaza",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.terwilligerplaza.com/connect/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Terwilliger Plaza",
+        "address": "2545 Southwest Terwilliger Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97201",
+        "lat": 45.5048565,
+        "lon": -122.6849073
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Aerospace Museum of California",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.aerospaceca.org/all-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Aerospace Museum of California",
+        "address": "3200 Freedom Park Drive",
+        "city": "McClellan",
+        "region": "CA",
+        "lat": 38.6749332,
+        "lon": -121.3911989
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Roebling Books and Coffee",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.roeblingbooks.com/community-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Roebling Books and Coffee",
+        "address": "601 Overton Street",
+        "postal_code": "41071",
+        "lat": 39.0935807,
+        "lon": -84.4895692
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Loveland Museum Center",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.lovelandmuseum.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Loveland Museum Center",
+        "region": "OH",
+        "lat": 39.2705792,
+        "lon": -84.261521
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Crest Bible Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://crestbiblechurch.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Crest Bible Church",
+        "address": "4815 Gibbs Road",
+        "city": "Kansas City",
+        "region": "KS",
+        "postal_code": "66106",
+        "lat": 39.0583003,
+        "lon": -94.6901745
+      },
+      "_metro": "Kansas City, United States"
     }
   ],
   "_not_included": {

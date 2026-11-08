@@ -66808,5 +66808,604 @@
     "geocode_suffix": ", Beaverton, OR",
     "limit": 300,
     "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Cathedral Park Performing Arts Collective",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cathedralparkarts.org_0pc8u2top5va273rs42dga9d9o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Portland Buddhist Priory Incorporated",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f3bdd8588e9acd6b2611750168e09cb8a562746c6953a74b9611e6949f13a98c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Metropolitan Community Church of Portland",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mccportland.com_q0hg7p8q5pt59amgba1mlld4v4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint David of Wales",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i69u1r49hut4phhuga0l1fkrbqfnjhdm%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Therese Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c28cec72634e2cfc33b3f5760ce6045d8e40ec2a49f034d74e0d78feb8fda482%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Unity Spiritual Center of Portland",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.unityofportland.org/events.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Parklane Christian Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/parklanechurch.org_64aq9rldmqchajp1p9dibveerc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Lake Oswego United Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40loucc.org/public/basic.ics",
+    "geocode_suffix": ", Lake Oswego, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "The Mazama Mountaineering Center",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://mazamas.org/calendar/all.ics",
+    "geocode_suffix": ", Portland",
+    "limit": 300,
+    "_metro": "Portland OR, United States",
+    "crawl_delay": 15.0
+  },
+  {
+    "name": "Apostolic Faith Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ssgft3hbe9ic2ckqa0965k6894%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Happy Valley Evangelical Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40hvcommunity.church/public/basic.ics",
+    "geocode_suffix": ", Happy Valley, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Clear Creek Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchoffice%40clearcreekpdx.com/public/basic.ics",
+    "geocode_suffix": ", Gresham, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Luke the Physician Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_a9bbb8f10db4d78948d394fadfb5c3be68639cc79e242642ceb30c9e07a1a3f1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gresham, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Archers Afield",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/15ho76hukt37fncio61qq0c7lc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tigard, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Real Life Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/reguisinger%40aol.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, WA",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Westgate Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n734b5icf0f2fscnr6v1aiidjs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tigard, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Meadow Springs Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/meadowsprings.org_q07brjvnktlqpoho0bbtdnbbq0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Unitarian Universalist Congregation at Willamette Falls",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40uucwf.org/public/basic.ics",
+    "geocode_suffix": ", Oregon City, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Bethel Congregational United Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_21de8f0d18fa4f4c2b47a646080e2c6dbf5ff5f7380ef45398da534eb70095cf%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Bethel Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7oemvau68ttiguf8277bt7r1q8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Mennonite Church of Portland",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9eec918f5589ed356d37a4d0ba26a16f52c103be4ac9ee3e19ea04097b209207%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Pauls United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40stpaulsumc.us/public/basic.ics",
+    "geocode_suffix": ", Milwaukie, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Holy Apostles Orthodox Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/holy12.org_rv6a3skf7lg9ib78pmmd3g9ef0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, WA",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Radiant Church Camas",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_06eebf8e2bba1b917330e4c82ee2d2fdbd9cdd2059f56c5a2d03745d2238101f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Camas, WA",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "End of the Oregon Trail Interpretive Center",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2e4138d53ae00e4216e4492b89d75df6f5852c2f07669d13bfd065166b84894a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oregon City",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint George Antiochian Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/92kgmnr7veca5err23s6c0e9pg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Calvary Parkside",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/parkside%40thecalvary.org/public/basic.ics",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Gethsemane Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b251dc60f39ac3c95ec83800122b7bde8ca0aa2b8cac560f1e33580d40ab2e92%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "German American Society",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_6e5d2d0145b365abd047157af5dd9baa8638634f13fbd544714238e509ee99ab%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "venue": {
+      "name": "German American Society",
+      "city": "Portland",
+      "region": "OR",
+      "postal_code": "97213",
+      "lat": 45.5423099,
+      "lon": -122.6055444,
+      "street_hint": "5626 Northeast Alameda Street",
+      "aliases": [
+        "German American Society of Portland"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Portland International Raceway",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jd05v24d7gn06407lpul3545e0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland OR, United States",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Saint Paul’s Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://stpaulssacramento.org/events.ics",
+    "geocode_suffix": ", Sacramento, United States",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "University Covenant Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qq7gh87r7kcqq2mb79n8h0b4sc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sacramento, United States",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Saint George Melkite-Greek Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_058bfa7c5f8da864fd2cb25b9dec77bd6159aa0fbf810ec78f3f66a3f5ca849d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sacramento, CA",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Sam Len Hillel House",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/e161073200419d57a92fbcbba7e71fd71fd71c04a804bc54a03f72dd856a7aad%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sacramento, United States",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Saint Clare Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d2e981aa1b419f21f072bd68de7ab2e2811fa7defdc0d4daf2d4edc30dcbc2e6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Roseville, CA",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Divine Mercy Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/parish%40divinemercynatomas.com/public/basic.ics",
+    "geocode_suffix": ", Sacramento, CA",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Davis United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3bb9edd45a01bbd40bb76ecd1751b7441ac9b5ea9e07d7f1a72b633539aeb733%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Davis",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Holy Spirit Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fvuogbmj7ots6kqkot5ve0bsao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sacramento, CA",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Saint Mel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e237eae0e7b82813cc5c900a3da03e376f7e177dccff1a470316ea7665824e52%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fair Oaks, CA",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Fair Oaks Estates Assisted Living",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/activities%40fairoaksestates.com/public/basic.ics",
+    "geocode_suffix": ", Sacramento, United States",
+    "limit": 300,
+    "_metro": "Sacramento, United States"
+  },
+  {
+    "name": "Unitarian Universalist Congregation of Las Vegas",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_30084074fb600940c5e4a0e06b8e9cb555140cbaa277d024a8800d69c2af2e16%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Las Vegas",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Mojave Brewing Company",
+    "category": "community",
+    "_found": "osm:bar -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ae011f34cbcac5de8c566a45baad6c260d62c3574268db2d1c0622c46629e144%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Henderson, NV",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Arabesque Dance & Fitness Studio",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40dancefitlv.com/public/basic.ics",
+    "geocode_suffix": ", Las Vegas, NV",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Broadway Kids Academy",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3k884gg45e3dh2u7v9ap02pmm4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Henderson, NV",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Copper Cat Books",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/14bnrebqvr9itq8285lb4me298%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Henderson, NV",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Burlesque Hall of Fame",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/945iqfgp550lt5sm409j7nkqus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Las Vegas, NV",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Saint Paul the Apostle Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40lasvegasorthodox.com/public/basic.ics",
+    "geocode_suffix": ", Las Vegas, NV",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Desert Sportsman Rifle & Pistol Club",
+    "category": "community",
+    "_found": "osm:club -> my-calendar+jsonld-event",
+    "url": "https://dsrpc.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Las Vegas, United States",
+    "limit": 300,
+    "_metro": "Las Vegas, United States"
+  },
+  {
+    "name": "Premier Studio for Dance",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/er7jm0m176o9ltkodbi17pov9g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Loveland, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Saint Gertrude the Great Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e87f31f853e1efe0f7d249d98c3d7fc436ef93a0db504c409738f194513c3719%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "The Izaak Walton League Cincinnati Chapter",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ikessec%40cinci-iwla.org/public/basic.ics",
+    "geocode_suffix": ", Loveland, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Branches Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tech%40brancheschurch.us/public/basic.ics",
+    "geocode_suffix": ", Loveland, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Saint Barnabas Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lveqt18qldhvalreur6p1jggfcq9gu24%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "신시내티 능력 침례 교회;Power Mission Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/65132ec04c7d123c9a20bf70b2d77f959e854869454665f6f69d54f58ce09603%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Greater Cincinnati Police Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sgqth0ev08tueutssqil6dbpbg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Saint John’s Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://stjohnsuu.org/weeklynewsletter/events/?ical=1",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Saint Francis DeSales Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stfrancisds.com_otheca5gbetf3l198vu59ii2tg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Center for Spiritual Living",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nvk0c85fntnfi77jjqqh5mb6j0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fairfax, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Saint Paul Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stpaulschool.net_ar9olb38grr7ik1941do391lr8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Florence, KY",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Saint Patrick Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/m62gf31tcjf08g1ubj6ejhp914%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Heritage Universalist Unitarian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.huuc.net/events.ics",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Ambassador Free Will Baptist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40ambassador.church/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "The People's Garden on Boyd St.",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ec292r3gr6plg3n57dj9ov86g0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Forest Hills Swim Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> event-organiser",
+    "url": "https://www.foresthillsswimclub.org/?feed=eo-events",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Armstrong Chapel United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.armstrongchapel.org/events.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
   }
 ]
