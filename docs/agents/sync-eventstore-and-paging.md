@@ -943,3 +943,72 @@
   hides. No other aggregator REST read combines recurring_hours=not.is.null
   with order=ends_at (grep, 2026-10-27). test_retire_perday.py pins the URL by
   driving main() with the REST call stubbed.
+
+- **THE ODS OFFSET CAP CUT OPENAGENDA FRANCE AT 10,000 ROWS EVERY DAY,
+  SILENTLY; IT IS NOW READ IN DATE WINDOWS (2026-11-08).** The Explore v2.1
+  records endpoint serves offset + limit up to 10,000 (`OFFSET_CAP`) and no
+  deeper. `mapsee_ingest_ods` pages 100 at a time ordered by
+  `firstdate_begin`. On six runs (2026-11-01, -03 to -07) "OpenAgenda France"
+  made exactly 100 requests, no page failed, and it kept 9,982-9,990 rows. So
+  the far end of its 90-day window was never read, and nothing was printed:
+  the 2026-11-07 civic recovery artifact's 8,617 France records start on 12
+  of the 90 days (11-07 to 11-18). The OFFSET-paging note above calls the
+  third-party `offset=` callers "bounded, so they are not the same bug":
+  bounded, yes, and for this source, truncating. One count probe on
+  2026-11-08 (a review's, HTTP 200 in 0.7 s) said the 90-day French query
+  holds 28,495; probes from the sandbox were reset after 10.3 s, so that
+  number was not reproduced.
+
+  A source with `window` (only France: `max_windows` 32, `max_requests` 500,
+  `max` 30,000) whose first page reports `total_count` >= 10,000 goes to
+  `ingest_windowed`, which halves it by start date until each window is under
+  the cap, earliest half first. Each window is the ORIGINAL query (its
+  `now()` bounds and country filter) plus half-open `date'YYYY-MM-DD'`
+  bounds, so the windows split it exactly. A row seen twice is dropped by
+  `source_id`. One day is the smallest window, and a day still over 10,000 is
+  read to the cap with the loss printed (a 12,500-row test day keeps 10,000
+  and names the 2,500). An over-cap source WITHOUT `window` now prints how
+  many rows it did not read. The build had `max` 45,000; it is 30,000
+  because the rows are paid for in the civic sync step, not here, and that
+  step's timeout is now 105 minutes for civic, Mobilizon's one-off rows
+  included (ci-and-jobs.md's 95.4-MINUTES note has the arithmetic).
+
+  The open ends are anchored on the first page's earliest row, not on the
+  machine's date. With MAPSEE_TODAY 23 days late (2026-12-01 against a
+  portal on 2026-11-08) and the open end anchored on "today", a 12,023-row
+  open window could not be split and 2,023 rows were lost; anchored, all
+  25,090 rows came back in 257 requests, as with the right date. A date 14
+  days early (2026-10-25) also reads exactly the 25,090.
+
+  Only the `>= date'...'` form has been seen to parse on this dataset
+  (`verify_ods` logged "41760 future records" with it on 2026-11-01). So a
+  400 to a windowed query falls back to the plain read of the original
+  query: 10,000 rows in 1 + 1 + 99 requests, never less than before; after a
+  window that worked, the plain read tops up to the same 10,000, each stored
+  once. A 403 or 429 ends the walk with no fallback (a 429 on the fifth
+  request: 5 requests). Below the cap nothing changes: a 3,000-row source
+  asks the same 31 URLs, byte for byte, with or without `window`.
+
+  Cost: the step took 165-182 s for about 210 requests, at most 0.84 s a page
+  with the 0.3 s `PAUSE_S`, which every windowed request after the first now
+  waits too (256 waits in 257 requests). The front-loaded 25,090-row fixture
+  took 257 requests (7 windows, 3 splits). At the 500-request bound the step
+  is about 8.6 min (400 pages more than the plain read); `test_ingest_ods.py`
+  counts all 499 on top of 182 s and prints 10.0 min of the `ingest_ods`
+  step's 60.
+
+  UNMEASURED:
+  - Whether `<date'...'` parses live. The first windowed CI run prints "the
+    query holds N" and "the windows read hold N", which is the production
+    check that the windows split the query.
+  - Whether one French day ever passes 10,000 (a national day such as the
+    Journees du patrimoine).
+  - Whether ties on the non-unique `firstdate_begin` skip rows across pages:
+    dedupe catches repeats, not skips.
+  - The `/exports/json` endpoint as a one-request alternative: no offset cap,
+    but its size, time and throttling on this dataset are unknown.
+
+  `test_ingest_ods.py`, 60 cases (section 12's 7 are the per-host refusal in
+  adapters-and-sources.md). At build it had 44 and caught 15 mutations; a
+  review then found that deleting the windowed sleep passed all 44, and the
+  PAUSE_S case now fails it.

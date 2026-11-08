@@ -126,13 +126,16 @@ on:
     - cron: "30 9 * * *"
   workflow_dispatch:
     inputs:
+      # Blank, not "300": GitHub fills an omitted input with its default, so a
+      # default of 300 made every dispatch name a limit and gancio's 25 never
+      # applied by hand. Blank is 300 for every backend but gancio (25).
       limit:
-        description: "How many candidates to probe PER BACKEND (each costs a live request)"
-        default: "300"
+        description: "How many candidates to probe PER BACKEND (each costs a live request). Blank = 300, and 25 for gancio."
+        default: ""
       backend:
         description: "Which catalog to sweep. 'all' is what the schedule runs (the 03:20 daily reads ckan on Wednesdays only)."
         type: choice
-        options: [all, socrata, ckan, mobilizon, civic, osm]
+        options: [all, socrata, ckan, mobilizon, gancio, civic, osm]
         default: all
       category:
         description: "Pin the sweep to these lens categories (comma-separated). 'gaps' = whatever has zero sources. Blank = sweep everything."
@@ -157,6 +160,7 @@ concurrency:
 
 permissions:
   contents: write      # to commit newly verified sources + the refreshed ledger
+  actions: read        # to find aggregate-events.yml's newest run and download its feeds-* stores
 
 jobs:
   curate:
@@ -327,8 +331,15 @@ jobs:
             # again. Its cursor is cheap, so one unpinned read a week keeps it
             # moving. The Wednesday gap sweep, which pins it to the thin
             # categories, and every dispatch read it as before.
+            #
+            # gancio READS ON WEDNESDAYS ONLY TOO, and before the crawlers. Its
+            # whole pool is re-read each time: on 2026-11-08 FediDB plus
+            # gancio.org/instances listed 220 hosts, and one read was about
+            # 350 requests and 65 s to volunteer-run servers that change
+            # slowly. It carries no category, so a pinned gap sweep skips it
+            # without a request. mobilizon stays daily (133 POSTs, 28 s).
             all)
-              BACKENDS="socrata ckan mobilizon civic osm"
+              BACKENDS="socrata ckan mobilizon gancio civic osm"
               if [ "${{ github.event.schedule }}" = "20 3 * * *" ] && [ "$(date -u +%u)" != "3" ]; then
                 BACKENDS="socrata mobilizon civic osm"
               fi ;;
@@ -367,6 +378,13 @@ jobs:
           # meant it still committed its cursors and ledger).
           OSM_BUDGET_MIN=55
           for b in $BACKENDS; do
+            # GANCIO PROPOSES AT MOST 25 A RUN unless a dispatch names a limit.
+            # The first read of the pool on 2026-11-08 found 128 candidates;
+            # at the shared 300 the first scheduled run would merge all of
+            # them in one commit nobody reviewed. 25 a week arrives in about
+            # five commits, the most placeable first.
+            BLIMIT="$LIMIT"
+            if [ "$b" = "gancio" ] && [ -z "${{ inputs.limit }}" ]; then BLIMIT=25; fi
             echo "::group::$b"
             # socrata is the default and takes no positional; the others do.
             # tee'd because DISCOVER's own output is where the skip breakdown
@@ -407,10 +425,16 @@ jobs:
             # non-US turn that ends early now spends the rest of its ten on the
             # US (catalog_curate.CIVIC_TOPUP_COUNTRY), so expect the full ten.
             [ "$b" = "civic" ] && BUDGET="--max-minutes 10"
+            # The fediverse backends probe every candidate once (mobilizon:
+            # 67 candidates + 66 configured, 28.0 s; gancio: ~350 requests,
+            # 65 s, both 2026-11-08). Five minutes is a backstop against a
+            # slow volunteer server, not a size: a run it cuts proposes
+            # nothing and prints `FLAG <backend>: N host(s) UNREAD`.
+            if [ "$b" = "mobilizon" ] || [ "$b" = "gancio" ]; then BUDGET="--max-minutes 5"; fi
             if [ "$b" = "socrata" ]; then
-              python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
+              python catalog_curate.py discover --limit "$BLIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
             else
-              python catalog_curate.py discover "$b" --limit "$LIMIT" $CATFLAG $BUDGET --out "cand-$b.json" | tee "discover-$b.txt"
+              python catalog_curate.py discover "$b" --limit "$BLIMIT" $CATFLAG $BUDGET --out "cand-$b.json" | tee "discover-$b.txt"
             fi
             [ -f "cand-$b.json" ] || echo '[]' > "cand-$b.json"
             python catalog_curate.py verify "cand-$b.json" | tee "verify-$b.txt"
@@ -427,8 +451,11 @@ jobs:
               echo '```'
               # The FLAG lines are the ones worth reading at a glance: a category
               # with no discovery query is a door that cannot grow supply.
+              # DISCOVER's own FLAGs too: joinmobilizon's directory was
+              # unreachable for 27 daily runs (2026-10-12 to 11-07) and the
+              # line saying so was printed where no summary looked.
               grep -h '^  FLAG' "verify-$b.txt" "merge-$b.txt" 2>/dev/null
-              grep -hE '^(skipped:|  advanced |  .*UNREAD|  .*SKIPPING)' "discover-$b.txt" 2>/dev/null
+              grep -hE '^(skipped:|  advanced |  FLAG |  requests: |  .*UNREAD|  .*SKIPPING)' "discover-$b.txt" 2>/dev/null
               tail -25 "verify-$b.txt"
               cat "merge-$b.txt"
               echo '```'
@@ -472,6 +499,95 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # NAMED EVENTS THE FEEDS WE ALREADY READ MENTION, AND THE MAP DOES NOT
+      # CARRY. Short Run Comix Festival (Seattle, free, 2026-11-07) was on no
+      # discovery channel - its date is prose on its own site - yet SPL's Trumba
+      # feed named it, its date and its venue a month ahead ("in coordination
+      # with the 14th annual Short Run Comix Festival, taking place on Saturday,
+      # November 7th ... at Seattle Design Center"). catalog_mentions.py reads
+      # every stored row's prose for such names and queues the ones no row
+      # carries as a title in mention_queue.json, for a human to put in
+      # annual_sources.json. On the 2026-11-07 stores: 611,881 rows, 57 s, 4.1 GB
+      # peak, 41 pending of which 34 were real on a hand check.
+      #
+      # The stores are aggregate-events.yml's feeds-* artifacts (7-day
+      # retention), read from the NEWEST COMPLETED RUN THAT HAS THEM: the Mon and
+      # Thu 06:40 runs never run the feeds job, so "the latest run" alone can
+      # have none. Daily (the 03:20 cron) and on dispatch, never on the gap
+      # sweep or the second osm pass, so it reads each day's stores once.
+      #
+      # IT CANNOT FAIL THE JOB: continue-on-error, and every path ends `exit
+      # 0`. Nothing is committed here: the scan is saved in the snapshot
+      # (atomically) and the commit step re-applies it onto the queue main
+      # holds then, as it does the ledger. A dry run still writes the summary.
+      #
+      # ITS TIMEOUT IS SPENT FROM THE COMMIT'S SLACK, so it is sized to what
+      # the step was measured to need, not to a round number. The job's cap is
+      # 90 minutes and the last 20 runs before this step took 27.5 to 73.8
+      # (2026-11-04 11:09: the sweep alone 73.3). At 15 minutes a stalled step
+      # on such a day would have left 1.2 for "Commit new sources", whose push
+      # loop sleeps 5-20 s between tries, and a job cancelled there loses the
+      # sources. Measured 2026-11-08: the download of one run's four feeds-*
+      # artifacts (115 MB zipped, 1.06 GB unpacked) took 9.3 s, the scan 59 s.
+      # The inner `timeout`s stop the download at 90 s (ten times its measure)
+      # and the scan at 210 s (3.5 times), leaving a minute of the 6 for the
+      # run lookup and the summary, so the step reports its own failure. 73.8
+      # + 6 = 79.8, under 90 with ten minutes for the commit (10 s on
+      # 2026-11-04).
+      - name: Named events the feeds mention
+        if: ${{ !cancelled() && (github.event.schedule == '20 3 * * *' || github.event_name == 'workflow_dispatch') }}
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          mkdir -p "$SNAPSHOT"
+          STORES="$RUNNER_TEMP/mention-stores"
+          RUN_ID=""
+          # main's runs only: a dispatch on a work branch runs changed
+          # adapters, and its stores must not decide main's committed queue.
+          # ALL FOUR GROUPS' stores, or none: a recovery dispatch with
+          # feed_group set uploads one group's store, and "covered" is decided
+          # against the stores read, so a mention titled in another group's
+          # store would flip back to pending and be committed as a false lead.
+          for id in $(gh run list --repo "$GITHUB_REPOSITORY" --workflow aggregate-events.yml \
+                        --branch main --status completed --limit 10 --json databaseId --jq '.[].databaseId'); do
+            n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$id/artifacts?per_page=100" \
+                  --jq '[.artifacts[] | select((.name | startswith("feeds-")) and (.expired | not)) | .name | split("-")[1]] | unique | length')
+            if [ "${n:-0}" -ge 4 ] 2>/dev/null; then RUN_ID="$id"; break; fi
+          done
+          if [ -z "$RUN_ID" ]; then
+            echo "::warning::no completed aggregate-events run with all four groups' feeds-* artifacts among the last 10 - mention scan skipped"
+            printf '## Named events the feeds mention\nskipped: no run with all four feeds-* stores to read\n' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if ! timeout 90 gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --pattern 'feeds-*' --dir "$STORES"; then
+            echo "::warning::could not download run $RUN_ID's feeds-* artifacts - mention scan skipped"
+            printf '## Named events the feeds mention\nskipped: run %s artifacts did not download\n' "$RUN_ID" >> "$GITHUB_STEP_SUMMARY"
+            rm -rf "$STORES"
+            exit 0
+          fi
+          # rc 124 is the timeout; 1 is no store, or a queue that does not parse.
+          timeout 210 python catalog_mentions.py --stores "$STORES" --queue mention_queue.json \
+            --save-hits "$SNAPSHOT/mention_hits.json" | tee mentions.txt
+          RC=${PIPESTATUS[0]}
+          if [ "$RC" != 0 ]; then
+            # No saved scan means the commit step leaves the queue as main has it.
+            echo "::warning::catalog_mentions.py exited $RC - mention queue not updated"
+            rm -f "$SNAPSHOT/mention_hits.json"
+          fi
+          {
+            echo '## Named events the feeds mention'
+            echo "Stores from aggregate-events run $RUN_ID. Pending leads go in annual_sources.json, or are declined in mention_queue.json."
+            [ "$RC" != 0 ] && echo "catalog_mentions.py exited $RC; the queue is unchanged."
+            echo '```'
+            grep -E '^(catalog_mentions|queue|  MENTION )' mentions.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          rm -rf "$STORES"
+          exit 0
+
       # The candidate/verify scratch files are run artifacts, not sources — only
       # the configs and the ledger are committed, and the `git add` names them,
       # so nothing scratch can reach a commit whatever is lying around the
@@ -505,7 +621,7 @@ jobs:
       # attempt is not a special case that only gets exercised on a good day.
       #
       # Re-reading is only correct because every part of what this run produced
-      # is re-appliable, which is a property of these four files and not a
+      # is re-appliable, which is a property of these files and not a
       # general one:
       #   *_sources.json         `merge` dedups by canonical URL against the
       #                          config as it stands, so re-running it adds our
@@ -513,6 +629,12 @@ jobs:
       #   ledger/cursor/history  `reapply` unions them onto the fresh base;
       #                          catalog_curate.py carries the merge rules and
       #                          test_curate_reapply.py grades them.
+      #   mention_queue.json     catalog_mentions.py --hits folds this run's
+      #                          saved scan onto the queue main holds now, so
+      #                          a hand edit pushed meanwhile (a decline) is
+      #                          kept; a second fold of the same scan changes
+      #                          nothing (test_mentions.py). Its failure
+      #                          costs the mentions, never the sources.
       # The verified-candidate files are the INPUT to that, so they must outlive
       # the reset: they are untracked, which is what makes them survive
       # `git reset --hard` (the same trick osm-food's `cursors/` relies on).
@@ -535,7 +657,12 @@ jobs:
             for v in cand-*.verified.json; do
               if [ -s "$v" ]; then python catalog_curate.py merge "$v"; fi
             done
+            if [ -s "$SNAPSHOT/mention_hits.json" ]; then
+              python catalog_mentions.py --hits "$SNAPSHOT/mention_hits.json" --queue mention_queue.json --quiet \
+                || echo "::warning::mention queue not re-applied"
+            fi
             git add -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl
+            if [ -f mention_queue.json ]; then git add -- mention_queue.json; fi
             if git diff --staged --quiet; then
               echo "No config, ledger or cursor change — nothing to commit."
               exit 0
@@ -563,3 +690,24 @@ jobs:
           done
           echo "::error::could not push the curated sources after 5 attempts"
           exit 1
+
+      # seeds.json's 30-day rule, with today pinned. test_seeds.py fails a seed
+      # pending past its limit only when MAPSEE_TODAY is set, and tests.yml runs
+      # on push without it (an aged seed must not turn an unrelated commit red).
+      # This is the run that reads the calendar: daily, and on dispatch. What it
+      # finds is a warning on the run and a list in its summary, not a red
+      # schedule: the rule asks a person to act, and a failed run would say the
+      # catalog broke. Last, so nothing here can skip the commit. GitHub's bash
+      # is -eo pipefail, hence `|| rc=$?` and the `|| true` after the grep.
+      - name: Reported misses are resolved within 30 days
+        if: ${{ !cancelled() && (github.event.schedule == '20 3 * * *' || github.event_name == 'workflow_dispatch') }}
+        run: |
+          rc=0
+          MAPSEE_TODAY=$(date -u +%Y%m%d) python test_seeds.py > seeds.log 2>&1 || rc=$?
+          if [ "$rc" -ne 0 ]; then
+            echo "::warning::seeds.json: a reported miss is past its limit, or the file breaks a rule (test_seeds.py with today pinned exited $rc)"
+            {
+              echo "## Reported misses (seeds.json)"
+              grep '^FAIL' seeds.log | sed 's/^FAIL  */- /' || true
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

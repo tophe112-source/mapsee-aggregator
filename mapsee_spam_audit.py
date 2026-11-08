@@ -85,20 +85,17 @@ def audit_site(session, site: Dict[str, Any], pages: int) -> Dict[str, Any]:
         return out
     begins = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     limit = int(site.get("limit", 100))
+    # THROUGH THE ADAPTER'S OWN PAGE FETCH, for the reason above: since
+    # 2026-11-08 it asks for START_TIME_ASC, and an instance that refuses the
+    # order (HTU Events) is asked once more without it. Audits from then on
+    # read the coming events first, as the adapter does; earlier audits read
+    # the server's default, latest start first, and are not the same sample.
+    query = MOB.QUERY
     for page in range(1, pages + 1):
-        payload = {"query": MOB.QUERY, "variables": {"b": begins, "l": limit, "p": page}}
-        try:
-            r = session.post(f"{base}/api", data=json.dumps(payload), timeout=45)
-        except Exception as exc:  # noqa: BLE001
-            out["error"] = f"{type(exc).__name__}: {str(exc)[:60]}"
-            break
-        if r.status_code != 200:
-            out["error"] = f"HTTP {r.status_code}"
-            break
-        try:
-            body = r.json()
-        except Exception as exc:  # noqa: BLE001
-            out["error"] = f"bad JSON: {str(exc)[:60]}"
+        payload = {"query": query, "variables": {"b": begins, "l": limit, "p": page}}
+        body, query, why = MOB.fetch_page(session, f"{base}/api", payload, site)
+        if body is None:
+            out["error"] = why[:80]
             break
         if body.get("errors"):
             out["error"] = f"query errors: {str(body['errors'])[:80]}"

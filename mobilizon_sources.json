@@ -6,24 +6,27 @@
       "base_url": "https://mobilisons.ch",
       "category": "community",
       "limit": 100,
-      "max_pages": 5,
-      "default_country": "Switzerland"
+      "max_pages": 25,
+      "default_country": "Switzerland",
+      "_note": "max_pages 25, was 5 (2026-11-08). With START_TIME_ASC, 5 pages of 100 reached only 2026-11-22 (about 35 events a day); p8 ended 2026-12-03, p12 2026-12-19, p16 2027-02-24, and the instance's 2,149 upcoming are 22 pages (the walk stops at `total`; 21 of the last page's 49 lie beyond the 365-day horizon). 0.54-0.87 s a page plus the 1 s crawl_delay: about 40 s. 94-99 of 100 rows carry a geom and 92-99 are MUSIC. Before the order was asked for, 0 of the 479 rows kept were within 90 days."
     },
     {
       "name": "Mobilizon.fr (FR)",
       "base_url": "https://mobilizon.fr",
       "category": "community",
       "limit": 100,
-      "max_pages": 5,
-      "default_country": "France"
+      "max_pages": 20,
+      "default_country": "France",
+      "_note": "max_pages 20, was 5 (2026-11-08). With START_TIME_ASC, 5 pages of 100 reached only 2026-11-20: page 1 was 83 rows of 100 already begun (since 2025-03-14) with an end ahead, so about 4 pages were upcoming, and nothing between about 2 weeks and a year out was kept (latest-first had kept 499 rows from 2027-02 to 2027-11, 0 within 90 days). The 1,873 upcoming are 19 pages; the walk stops at `total`. Measured 2026-11-08 (full run, replayed offline): 19 pages in 27.5 s against about 8 s for 5, 1,854 kept, and the store grew from 10,587 to 11,657 rows (8,366 starting 14-365 days out, was 7,302). This instance federates the other three big French ones: of the 1,204 events their deep pages added, it alone carries 1,192, so they stay at 5."
     },
     {
       "name": "Ticketzon (IT)",
       "base_url": "https://ticketzon.it",
       "category": "community",
       "limit": 100,
-      "max_pages": 5,
-      "default_country": "Italy"
+      "max_pages": 55,
+      "default_country": "Italy",
+      "_note": "max_pages 55, was 5 (2026-11-08). The adapter now asks searchEvents for START_TIME_ASC, so page 1 starts today, and at about 100 events a day 5 pages of 100 reached only 2026-11-13. Sampled pages (limit 100): p15 ended 2026-11-24, p30 2026-12-13, p45 2027-01-22, p60 2027-02-21, so 90 days out (2027-02-06) is about page 53, of 92 (9,199 upcoming). A page answered in 0.62-0.74 s, no slower at page 92 than page 8, plus the 1 s crawl_delay: about 95 s of the step's 60 minutes, whose whole run took 206 s on 2026-11-06. 6-21 of every 100 rows are CANCELLED (never imported), 72-86 carry a geom, and THEATRE plus MUSIC are 74-97 of 100 from page 8 on. Before the order was asked for, 0 of the 452 rows kept were within 90 days."
     },
     {
       "name": "events.graz.social",
@@ -97,7 +100,8 @@
       "base_url": "https://agenda.collectifs.net",
       "category": "community",
       "limit": 100,
-      "max_pages": 5
+      "max_pages": 5,
+      "_note": "max_pages 5 on purpose (2026-11-08). With START_TIME_ASC its 5 pages reach about 13 days ahead (latest kept 2026-11-21), but it is a federated near-mirror of mobilizon.fr, which walks to `total`. Walked to its own `total` the same day it kept 1,700 rows, only 0 of them on no other configured instance. Replayed offline: with mobilizon.fr at 20, also walking this one and its two fellow mirrors (agenda.collectifs.net, event.portes-imaginaire.org, libretic) to `total` grew the store from 11,657 rows to 11,668, for about 50 s and 51 more requests a day to three volunteer-run servers."
     },
     {
       "name": "Mobilizon de Défis",
@@ -299,7 +303,8 @@
       "base_url": "https://event.portes-imaginaire.org",
       "category": "community",
       "limit": 100,
-      "max_pages": 5
+      "max_pages": 5,
+      "_note": "max_pages 5 on purpose (2026-11-08). With START_TIME_ASC its 5 pages reach about 13 days ahead (latest kept 2026-11-21), but it is a federated near-mirror of mobilizon.fr, which walks to `total`. Walked to its own `total` the same day it kept 1,537 rows, only 4 of them on no other configured instance. Replayed offline: with mobilizon.fr at 20, also walking this one and its two fellow mirrors (agenda.collectifs.net, event.portes-imaginaire.org, libretic) to `total` grew the store from 11,657 rows to 11,668, for about 50 s and 51 more requests a day to three volunteer-run servers."
     },
     {
       "name": "MobiliZon",
@@ -360,7 +365,8 @@
       "category": "community",
       "limit": 100,
       "max_pages": 5,
-      "default_country": "France"
+      "default_country": "France",
+      "_note": "max_pages 5 on purpose (2026-11-08). With START_TIME_ASC its 5 pages reach about 13 days ahead (latest kept 2026-11-21), but it is a federated near-mirror of mobilizon.fr, which walks to `total`. Walked to its own `total` the same day it kept 1,577 rows, only 4 of them on no other configured instance. Replayed offline: with mobilizon.fr at 20, also walking this one and its two fellow mirrors (agenda.collectifs.net, event.portes-imaginaire.org, libretic) to `total` grew the store from 11,657 rows to 11,668, for about 50 s and 51 more requests a day to three volunteer-run servers."
     },
     {
       "name": "treff.tech \"treff punkt tech\"",
@@ -500,6 +506,8 @@
     "https://tummeln.kreatives-leipzig.de": "measured 2026-09-03: 25 of 34 refused, and the nine that got through are SEO product spam the gate does not recognise (dumbbells, LED fixtures, IPTV resellers, Roman blinds). Zero real events, which is the whole case: a source the per-row gate cannot protect us from because there is nothing behind it.",
     "https://mobilizon.picasoft.net": "Instance Mobilizon de Picasoft - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://mobilizon.picasoft.net/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it.",
     "https://jura-biel-seeland.fedievents.ch": "Jura-Biel-Seeland - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://jura-biel-seeland.fedievents.ch/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it.",
-    "https://eventos.xalapacode.com": "Eventos Xalapacode - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://eventos.xalapacode.com/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it."
+    "https://eventos.xalapacode.com": "Eventos Xalapacode - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://eventos.xalapacode.com/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it.",
+    "https://meetup.furryfederation.com": "measured 2026-11-08: 42 of 42 upcoming listings are advertising - Vietnamese betting sites and SEO articles, agency adverts and 7 predatory-conference calls - and mapsee_spam.is_spam refused none. FediDB's busiest unlisted Mobilizon host (status_count 40,669); catalog_curate's FediDB union proposed it and verify_mobilizon passed it, which proves an instance answers, not that we want it. Declined before the daily curate run could merge it with no human.",
+    "https://mobilizon.public.cat": "measured 2026-11-08: 149 upcoming, and its first 100 are 13 distinct title-and-start pairs of adverts (IPTV resellers, LED drivers, a fat-tyre e-bike). No event. Proposed by catalog_curate's FediDB union and passed by verify_mobilizon; declined before the daily curate run could merge it with no human."
   }
 }

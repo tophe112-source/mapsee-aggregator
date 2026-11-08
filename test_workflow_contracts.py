@@ -41,7 +41,7 @@ class WorkflowContracts(unittest.TestCase):
             'local': {'markets', 'parkrun', 'fairs', 'programs', 'jsonld', 'squarespace',
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu',
-                      'ava', 'rallybound', 'luminate', 'recitals', 'waterfront', 'kct'},
+                      'ava', 'rallybound', 'luminate', 'recitals', 'waterfront', 'kct', 'annual'},
             'rec': {'toronto_rec', 'linkedevents', 'perfectmind', 'drupal_fullcalendar', 'revize',
                     'glenecho', 'montreal_loisirs', 'phl_parks', 'barcelona', 'lcsd', 'madrid',
                     'facility_hours', 'natuurwerkdag', 'galaxydigital'},
@@ -114,9 +114,13 @@ class WorkflowContracts(unittest.TestCase):
         # The rec group's first sync of ~103,600 rows ran out 20 minutes
         # (2026-10-04), and so did civic's Wednesday refresh of 143,128 events
         # (2026-09-30); both keep a longer cap, and ics and local keep 20.
+        # civic has 105 since OpenAgenda France is read past the ODS offset cap
+        # and Mobilizon reads the coming months (2026-11-08): a first run on a
+        # Wednesday projects to 95.4 min with both (test_ingest_ods.py does the
+        # arithmetic against this line).
         sync = next(s for s in steps if s.get('id') == 'sync')
         self.assertEqual(sync['timeout-minutes'],
-                         "${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}")
+                         "${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || 20 }}")
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
 
     def test_rec_timetables_retire_absent_sessions_against_a_cached_manifest(self):
@@ -1004,6 +1008,16 @@ class WorkflowContracts(unittest.TestCase):
         crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
         when = context.get('github.event.schedule')
         assert when is None or when in crons, f"{when!r} is not one of curate-catalog's crons {crons}"
+        # A DISPATCH CARRIES EVERY INPUT: GitHub fills an omitted one with its
+        # declared default, so a case that names any input gets the rest as
+        # GitHub would send them. Leaving them blank here once hid that a
+        # limit defaulting to "300" made gancio's 25 unreachable by hand.
+        if any(k.startswith('inputs.') for k in context):
+            inputs = workflow.get('on', workflow.get(True))['workflow_dispatch']['inputs']
+            context = dict(context)
+            for name, spec in inputs.items():
+                default = spec.get('default', '')
+                context.setdefault(f'inputs.{name}', str(default).lower() if isinstance(default, bool) else str(default))
 
         def expr(m):
             for term in m[1].split('||'):
@@ -1053,7 +1067,7 @@ class WorkflowContracts(unittest.TestCase):
             with self.subTest(failed=failed):
                 code, calls = self._curate_discovers(context, merge_failure=failed)
                 self.assertEqual(code, 1 if failed else 0)
-                self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+                self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
         code, _ = self._curate_discovers(dict(context, **{'inputs.dry_run': 'true'}),
                                         merge_failure='cand-socrata.verified.json')
         self.assertEqual(code, 0, 'a dry run must not invoke merge')
@@ -1076,14 +1090,23 @@ class WorkflowContracts(unittest.TestCase):
         self.assertNotIn('--kinds', osm)
         self.assertNotIn('--workers', osm)
         self.assertEqual(self._flag(dict(calls)['civic'], '--max-minutes'), '10')
+        # The fediverse backends probe every candidate once (2026-11-08:
+        # mobilizon 28 s, gancio 65 s); five minutes is a backstop.
+        self.assertEqual(self._flag(dict(calls)['mobilizon'], '--max-minutes'), '5')
+        self.assertEqual(self._flag(dict(calls)['mobilizon'], '--limit'), '300')
 
+        # gancio reads the whole pool, so weekly; its first read found 128
+        # candidates, so a scheduled run proposes at most 25 of them.
         code, calls = self._curate_discovers(daily, dow='3')
-        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
+        self.assertEqual(self._flag(dict(calls)['gancio'], '--limit'), '25')
+        self.assertEqual(self._flag(dict(calls)['gancio'], '--max-minutes'), '5')
+        self.assertEqual(self._flag(dict(calls)['ckan'], '--limit'), '300')
 
         # The gap sweep is the Wednesday 03:50 cron and keeps ckan, pinned.
         gap = {'github.event.schedule': '50 3 * * 3', 'steps.target.outputs.cats': 'running,volunteer'}
         code, calls = self._curate_discovers(gap, dow='3')
-        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
         self.assertEqual(self._flag(dict(calls)['ckan'], '--category'), 'running,volunteer')
         self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
 
@@ -1098,6 +1121,60 @@ class WorkflowContracts(unittest.TestCase):
         # where it was once the rows an older probe wrote have lapsed.
         cursor = json.loads((ROOT / 'curation_cursor.json').read_text(encoding='utf-8'))
         self.assertIn('osm|community_centre,library,social_centre', cursor)
+
+    def test_mention_scan_reads_one_complete_main_run_and_cannot_fail_the_job(self):
+        # catalog_mentions.py decides "covered" against the stores it reads,
+        # and its queue is committed unattended, so it reads main's runs only
+        # and only a run carrying all four groups' feeds-* stores: a
+        # feed_group recovery dispatch uploads one store, which would flip
+        # every mention titled in another group back to a pending lead. Its
+        # 6 minutes come out of the commit's slack under the job's 90.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['curate']['steps']
+        scan = next(s for s in steps if s.get('name') == 'Named events the feeds mention')
+        self.assertIn('--branch main', scan['run'])
+        self.assertIn('split("-")[1]] | unique | length', scan['run'])
+        self.assertIn('-ge 4', scan['run'])
+        self.assertTrue(scan['continue-on-error'])
+        self.assertEqual(scan['timeout-minutes'], 6)
+        self.assertIn('timeout 90 gh run download', scan['run'])
+        self.assertIn('timeout 210 python catalog_mentions.py', scan['run'])
+        self.assertEqual(workflow['permissions'].get('actions'), 'read')
+        commit = next(s for s in steps if s.get('name', '').startswith('Commit'))
+        self.assertIn('git add -- mention_queue.json', commit['run'])
+
+    def test_the_gate_runs_when_a_file_its_new_scripts_read_changes(self):
+        # tests.yml runs only when a changed path matches its filter. None of
+        # these seven was listed when the free-arts scripts that read them
+        # landed (2026-11-08), so a hand edit to one alone (a decline, a seed,
+        # an annual site, a queue edit) would not have run its checks.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/tests.yml').read_text(encoding='utf-8'))
+        on = workflow.get('on', workflow.get(True))
+        for event in ('push', 'pull_request'):
+            paths = on[event]['paths']
+            for f in ('annual_sources.json', 'seeds.json', 'mention_queue.json', 'ods_sources.json',
+                      'mobilizon_sources.json', 'gancio_sources.json', 'fair_sources.json'):
+                self.assertIn(f, paths, f'{event}: {f}')
+
+    def test_curate_reads_the_seed_age_rule_daily_with_today_pinned_and_never_fails_for_it(self):
+        # tests.yml runs test_seeds.py unpinned, where an aged seed only warns;
+        # the daily curate run is where the 30-day rule is read against today.
+        # It warns and writes the summary rather than failing the schedule,
+        # and it comes after the commit so it cannot cost the sources.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['curate']['steps']
+        names = [s.get('name', '') for s in steps]
+        i = names.index('Reported misses are resolved within 30 days')
+        self.assertGreater(i, next(n for n, x in enumerate(names) if x.startswith('Commit')))
+        step = steps[i]
+        self.assertIn('MAPSEE_TODAY=$(date -u +%Y%m%d) python test_seeds.py', step['run'])
+        self.assertIn('|| rc=$?', step['run'])
+        self.assertIn('::warning::', step['run'])
+        self.assertIn('GITHUB_STEP_SUMMARY', step['run'])
+        self.assertNotIn('exit $rc', step['run'])
+        self.assertNotIn('exit 1', step['run'])
+        self.assertIn("github.event.schedule == '20 3 * * *'", step['if'])
+        self.assertIn('!cancelled()', step['if'])
 
     def test_curate_compares_only_its_own_crons_and_runs_one_at_a_time(self):
         # The 03:20 and 09:30 crons walk one `osm` cursor slot (2026-10-23).
@@ -1131,10 +1208,23 @@ class WorkflowContracts(unittest.TestCase):
         # only ckan; a dispatch's osm keeps OSM_METROS_PER_RUN (no --metros)
         # unless it names osm_metros; osm_kinds is still the pinned walk.
         code, calls = self._curate_discovers({'inputs.backend': 'all'}, dow='1')
-        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'civic', 'osm'])
+        self.assertEqual([b for b, _ in calls], ['socrata', 'ckan', 'mobilizon', 'gancio', 'civic', 'osm'])
         self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
         code, calls = self._curate_discovers({'inputs.backend': 'ckan'}, dow='1')
         self.assertEqual([b for b, _ in calls], ['ckan'])
+        # A dispatch of gancio alone keeps the 25 unless it names a limit, and
+        # so does gancio inside a dispatch of all; the others keep 300.
+        code, calls = self._curate_discovers({'inputs.backend': 'gancio'}, dow='1')
+        self.assertEqual([(b, self._flag(c, '--limit')) for b, c in calls], [('gancio', '25')])
+        code, calls = self._curate_discovers({'inputs.backend': 'all'}, dow='1')
+        self.assertEqual({b: self._flag(c, '--limit') for b, c in calls},
+                         {'socrata': '300', 'ckan': '300', 'mobilizon': '300', 'gancio': '25',
+                          'civic': '300', 'osm': '300'})
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        limit = workflow.get('on', workflow.get(True))['workflow_dispatch']['inputs']['limit']
+        self.assertEqual(limit.get('default'), '', 'a "300" default reaches gancio as a named limit')
+        code, calls = self._curate_discovers({'inputs.backend': 'gancio', 'inputs.limit': '200'}, dow='1')
+        self.assertEqual([(b, self._flag(c, '--limit')) for b, c in calls], [('gancio', '200')])
         code, calls = self._curate_discovers({'inputs.backend': 'osm', 'inputs.osm_metros': '5',
                                               'inputs.osm_kinds': 'community_centre,library'})
         osm = calls[0][1]

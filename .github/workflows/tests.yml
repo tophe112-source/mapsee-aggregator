@@ -64,6 +64,16 @@ on:
       - "ava_sources.json"
       - "rallybound_sources.json"
       - "luminate_sources.json"
+      # Read by the free-arts gates (2026-11-08): a hand edit to any of these
+      # is how a lead is declined, a site added, France's max raised, or an
+      # advertising instance declined, and each has a test that must run.
+      - "annual_sources.json"
+      - "seeds.json"
+      - "mention_queue.json"
+      - "ods_sources.json"
+      - "mobilizon_sources.json"
+      - "gancio_sources.json"
+      - "fair_sources.json"
       - ".github/workflows/tests.yml"
   pull_request:
     paths:
@@ -109,6 +119,16 @@ on:
       - "ava_sources.json"
       - "rallybound_sources.json"
       - "luminate_sources.json"
+      # Read by the free-arts gates (2026-11-08): a hand edit to any of these
+      # is how a lead is declined, a site added, France's max raised, or an
+      # advertising instance declined, and each has a test that must run.
+      - "annual_sources.json"
+      - "seeds.json"
+      - "mention_queue.json"
+      - "ods_sources.json"
+      - "mobilizon_sources.json"
+      - "gancio_sources.json"
+      - "fair_sources.json"
       - ".github/workflows/tests.yml"
   workflow_dispatch:
 
@@ -146,6 +166,7 @@ jobs:
           python test_admission_refresh.py
           python test_feed_budgets.py
           python test_ingest_opendata.py
+          python test_ingest_ods.py
 
       - name: Festival schedules and agenda sync
         run: |
@@ -315,6 +336,18 @@ jobs:
       - name: Civic calendar discovery (deny list, closure feeds, city-wide shape)
         run: python test_discover_civic.py
 
+      # Fediverse discovery: Mobilizon's two directories (joinmobilizon was
+      # unreachable on 27 daily runs, 2026-10-12..11-07, and said so where no
+      # summary looked) and Gancio's (FediDB and gancio.org/instances). Pins
+      # every row a directory lists that is not a new calendar: redirect
+      # aliases (to a declined or ledger-parked host too), federated mirrors in
+      # both directions, demos, adult and online-only calendars, the size hold,
+      # refusals parked for DEAD_TTL, the --max-minutes deadline, and the two
+      # all-advertising Mobilizon instances declined in the REAL
+      # mobilizon_sources.json, which this code must not ship without.
+      - name: Fediverse calendar discovery (Mobilizon + Gancio)
+        run: python test_discover_fedi.py
+
       # A state fair's website is marketing copy, so its dates are the headline
       # and so is everything that looks like them: a ticket sale window, a horse
       # show, and iowastatefair.org's table of every year since 1966 with the
@@ -323,6 +356,15 @@ jobs:
       # wrong before the rule existed.
       - name: State fairs (sale windows, other events, the year in the wrong place)
         run: python test_ingest_fairs.py
+
+      # An annual event whose own site states its date only in a sentence
+      # (Short Run Comix Festival, 2026-11-07, missed by every channel): the
+      # fairs' parser plus single days, believed only near the EVENT's name
+      # (not the organiser's: every post on its homepage says that), never from
+      # a byline or across a paragraph, over once its stated hours are, and
+      # every request through robots.txt and Crawl-delay against a fake session.
+      - name: Annual events stated only in prose (Short Run's hero, bylines, deny words, robots)
+        run: python test_ingest_annual.py
 
       # The free museum days are MONTHLY rules on a weekly adapter: a museum that
       # is free on the first Sunday is not free on the other three, and Bank of
@@ -652,9 +694,14 @@ jobs:
         run: python test_platform_cancellations.py
 
       # Mobilizon's searchEvents(beginsOn: now) also answers events that began
-      # years ago with no end (240 rows on 2026-10-26, inserted and deleted
-      # again every day) and a weekly meeting out to 2038. Neither is kept; an
-      # event still running, a cancellation and a site's within_days are.
+      # long ago with an end the store drops (over 400 days after the start):
+      # 269 such rows on 2026-11-08 reached the sync with no end and were
+      # inserted and deleted again every day. Neither they nor a weekly meeting
+      # out to 2038 is kept; an event still running, a cancellation and a site's
+      # within_days are. The query asks for START_TIME_ASC (latest-first had
+      # kept 0 events within 90 days on the seven biggest instances), and an
+      # instance that refuses it is asked once more without it, by the adapter
+      # and by mapsee_spam_audit alike; a 403 or 429 is never asked twice.
       - name: A Mobilizon answer keeps what can still be shown
         run: python test_ingest_mobilizon.py
 
@@ -708,6 +755,23 @@ jobs:
       # the only trend anybody reads).
       - name: Re-applying a curation run onto a main that moved
         run: python test_curate_reapply.py
+
+      # Named events our own feeds mention. Short Run Comix Festival was in
+      # SPL's Trumba feed a month ahead, with its date and venue, and on no
+      # discovery channel. The queue is committed daily by curate-catalog.yml,
+      # so its fold must be deterministic, a broken hand edit must be refused
+      # rather than rebuilt, and no sample may carry part of an address.
+      - name: Named-event mentions are read out of stored rows, and the queue folds deterministically
+        run: python test_mentions.py
+
+      # seeds.json is the owner's list of reported misses. Each must be fixed
+      # for its KIND and backed by a file in the repo (annual_sources.json, a
+      # config, a _not_included map), not asserted. A pending seed older than
+      # 30 days only WARNs here (a ::warning:: annotation), since this gate
+      # breaks on code, not the calendar; curate-catalog.yml's daily run reads
+      # it with today pinned and puts any aged seed in its summary.
+      - name: Every reported miss is fixed for its kind, backed by the repo
+        run: python test_seeds.py
 
       # FEED_DOWN listed 130 configured feeds on 2026-10-29, every one from an
       # audit eleven days old: the 10-25 audit ran four hours, was cancelled,

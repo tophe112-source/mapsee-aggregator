@@ -52,23 +52,46 @@ positive this made before the rule existed:
 The earliest surviving range wins, so a fair running RIGHT NOW beats the one it
 is already advertising for next year.
 
+EVERY REQUEST ASKS ROBOTS.TXT FIRST AND KEEPS THE HOST'S PACE (2026-11-08).
+Until then this adapter fetched 48 homepages and up to six hinted pages each
+with no robots.txt read at all, 1.0 s between fairs and 0.4 s between one
+fair's own pages. Read live on 2026-11-07: azstatefair.com and oregonstatefair.org
+answer /robots.txt with a bot challenge, castatefair.org's could not be reached
+at all (RFC 9309: assume everything is disallowed), durhamfair.com (Connecticut)
+and sdstatefair.com publish `Crawl-delay: 30`, floridastatefair.com and
+kystatefair.org `Crawl-delay: 10`. `Polite` below
+is the one door every request goes through: robots.txt per origin
+(robots_txt.Robots, RFC 9309; a challenge, an unreachable file, or a 403 or 429
+on /robots.txt itself is a refusal),
+the host's Crawl-delay between any two requests to it (the robots.txt read
+counts as one), every redirect hop asked again, and a 403, a 429 or a challenge
+page ends that fair for the run without a retry. What it costs, run live
+2026-11-08: 535 s for the 48 (164 page requests, 428 s of it waiting on a host's
+pace), against 3 min 01 s and 3 min 07 s for the step on 11-06 and 11-07; 25
+fairs dated, Arizona, Oregon and California not read. --max-minutes (45) keeps
+the save inside the step's 60.
+
     python mapsee_ingest_fairs.py --config fair_sources.json --store events.json
 """
 from __future__ import annotations
 
 import argparse
+import html as _html
 import json
 import re
 import sys
 import time
+from collections import namedtuple
 from datetime import date, datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urljoin, urlparse
 
 try:
     import requests
 except ImportError:                                               # pragma: no cover
     requests = None
 
+import robots_txt
 from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint, norm_categories
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
@@ -115,9 +138,18 @@ CONTEXT_CHARS = 45
 
 def text_of(html: str) -> str:
     """Visible text. Script and style bodies go first — a JSON blob in a script
-    tag carries dates that are not on the page at all."""
+    tag carries dates that are not on the page at all.
+
+    ENTITIES ARE DECODED, because WordPress writes every dash between two days
+    as `&#8211;` and RANGE_RX's `[-–—]` never matched it. Measured on the 45
+    fair homepages read 2026-11-07: idahofair.com's "August 13 &#8211; 29,
+    2027" and statefair.org's (Nebraska) "August 27 &#8211; September 6, 2027"
+    read as "no date range on the page"; decoded, 16 dated fairs became 18 and
+    none of the other 16 answers moved. Decoded AFTER the tags are gone (so a
+    literal `&lt;b&gt;` in prose stays text) and BEFORE the whitespace is
+    collapsed (so `&nbsp;`, which decodes to U+00A0, collapses with it)."""
     html = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
+    return re.sub(r"\s+", " ", _html.unescape(re.sub(r"<[^>]+>", " ", html)))
 
 
 def _mk(month: int, day: int, year: int) -> Optional[date]:
@@ -264,34 +296,162 @@ def _hinted_links(html: str, base: str) -> List[str]:
     return [u for u, _ in sorted(scored.items(), key=lambda kv: kv[1])]
 
 
-def ingest_site(store: EventStore, session, site: Dict[str, Any],
+Page = namedtuple("Page", "url text")
+
+# A REFUSAL IS READ IN THE FIRST 6,000 CHARACTERS ONLY. Cloudflare injects
+# `/cdn-cgi/challenge-platform/scripts/jsd/main.js` at the END of pages it is
+# serving normally: 4 of the 45 fair homepages read 2026-11-07 (Florida, New
+# Jersey, Texas, Wyoming) carry it within 800 characters of `</html>`, and none
+# in the first 8,192. A real challenge page IS its head. robots_txt reads the
+# same 6,000 characters of a robots.txt for the same reason.
+CHALLENGE_HEAD = 6000
+REDIRECTS = (301, 302, 303, 307, 308)
+
+
+class Polite:
+    """Every request an adapter makes to a publisher, through one door.
+
+    get(url) -> (Page | None, why-not):
+      * robots.txt is read once per origin (robots_txt.Robots, with the caller's
+        session, so it is read with the User-Agent it judges) and asked about
+        every URL, every redirect hop included. A bot challenge on /robots.txt
+        (allowed None) and an unreachable file (allowed False, RFC 9309 2.3.1)
+        are refusals like a Disallow, and a 403 or a 429 on /robots.txt
+        refuses the host for the run; any other 4xx is "no file, allow all".
+      * Two requests to one host are at least max(min_interval, Crawl-delay)
+        apart, and the robots.txt read is the first of them.
+      * A 403, a 429 or a challenge page is a refusal: the host is not asked
+        again in this run, with any header.
+      * A deadline (time.monotonic seconds) is never crossed by a wait: the
+        request that would need to wait past it is not made.
+
+    `sleep` and `clock` are injectable so a test can count the waits without
+    spending them.
+    """
+
+    def __init__(self, session, robots=None, min_interval: float = 1.0,
+                 deadline: Optional[float] = None, sleep=time.sleep,
+                 clock=time.monotonic, timeout: float = 25.0, max_bytes: int = 2_000_000):
+        self.session = session
+        self.robots = robots if robots is not None else robots_txt.Robots(session, timeout=15.0)
+        self.min_interval = float(min_interval)
+        self.deadline = deadline
+        self.sleep, self.clock = sleep, clock
+        self.timeout = timeout
+        self.max_bytes = max_bytes
+        self._last: Dict[str, float] = {}       # host -> clock() of the last request to it
+        self._read: set = set()                 # origins whose robots.txt has been asked for
+        self.refused: Dict[str, str] = {}       # host -> why, for the rest of the run
+        self.waited = 0.0
+        self.requests = 0
+        self.delays: Dict[str, float] = {}      # host -> the Crawl-delay it published
+
+    def _pace(self, host: str, delay: float) -> Optional[str]:
+        last = self._last.get(host)
+        if last is None:
+            return None
+        wait = last + delay - self.clock()
+        if wait <= 0:
+            return None
+        if self.deadline is not None and self.clock() + wait >= self.deadline:
+            return (f"run deadline: the host asks {delay:.0f} s between requests and the "
+                    f"budget ends first")
+        self.sleep(wait)
+        self.waited += wait
+        return None
+
+    def get(self, url: str, timeout: Optional[float] = None, hops: int = 5
+            ) -> Tuple[Optional[Page], str]:
+        for _ in range(hops + 1):
+            host = urlparse(url).netloc.lower()
+            if host in self.refused:
+                return None, self.refused[host]
+            if self.deadline is not None and self.clock() >= self.deadline:
+                return None, "run deadline reached"
+            origin = robots_txt.origin_of(url)
+            answer = self.robots.check(url)
+            if origin not in self._read:
+                self._read.add(origin)
+                self._last[host] = self.clock()     # the robots.txt read was a request
+            # A 403 OR A 429 ON /robots.txt IS THE HOST SAYING NO, whatever RFC
+            # 9309 2.3.1.3 lets a crawler read into a 4xx: robots_txt maps every
+            # 4xx to "unavailable, allow all", and until 2026-11-08 this door then
+            # asked the same host for its homepage (a fake session: robots.txt
+            # 429, then GET /). The owner's rule is that a 403 or a 429 is a
+            # refusal, and platforms-probed.md has always read a 403 on
+            # robots.txt as "permission cannot be established". Measured on the
+            # 48 fair origins and shortrun.org the same day: 39 ok, 2 html, 5
+            # http404 (Alaska, Minnesota, New Jersey, Tennessee, Wisconsin - still
+            # allow-all, as the RFC says), 2 challenge (Arizona and Oregon, whose
+            # 403 carries a challenge body and was already refused), 1
+            # unreachable (California), and no plain 403 or 429: no fair is lost.
+            if answer.get("status") in ("http403", "http429"):
+                self.refused[host] = (f"HTTP {answer['status'][4:]} on {answer.get('robots')}: "
+                                      f"a refusal, not retried")
+                return None, self.refused[host]
+            if answer.get("allowed") is not True:
+                why = (f"robots.txt ({answer.get('status')}) refuses {url}"
+                       + (f": {answer['rule']}" if answer.get("rule") else ""))
+                return None, why
+            cd = float(answer.get("crawl_delay") or 0)
+            if cd:
+                self.delays[host] = cd
+            late = self._pace(host, max(self.min_interval, cd))
+            if late:
+                return None, late
+            try:
+                r = self.session.get(url, timeout=timeout or self.timeout, allow_redirects=False)
+            except Exception as exc:                              # noqa: BLE001
+                self._last[host] = self.clock()
+                return None, f"unreachable ({type(exc).__name__})"
+            self._last[host] = self.clock()
+            self.requests += 1
+            location = (getattr(r, "headers", None) or {}).get("Location")
+            if r.status_code in REDIRECTS and location:
+                url = urljoin(url, location)            # asked of robots.txt on the next turn
+                continue
+            if r.status_code in (403, 429):
+                self.refused[host] = f"HTTP {r.status_code} from {host}: a refusal, not retried"
+                return None, self.refused[host]
+            text = (r.text or "")[:self.max_bytes]
+            head = text[:CHALLENGE_HEAD]
+            if (robots_txt.CHALLENGE_RX.search(head)
+                    and not re.search(r"(?im)^\s*user-agent\s*:", head)):
+                self.refused[host] = f"a bot challenge from {host}: a refusal, not retried"
+                return None, self.refused[host]
+            if r.status_code != 200:
+                return None, f"HTTP {r.status_code}"
+            return Page(url, text), ""
+        return None, f"more than {hops} redirects"
+
+
+def ingest_site(store: EventStore, polite: "Polite", site: Dict[str, Any],
                 today: Optional[date] = None, follow: int = 6) -> int:
     label = site.get("name", "?")
-    try:
-        r = session.get(site["url"], timeout=25, allow_redirects=True)
-    except Exception as exc:                                      # noqa: BLE001
-        print(f"[fair] {label}: unreachable ({type(exc).__name__})")
+    page, why = polite.get(site["url"])
+    if page is None:
+        print(f"[fair] {label}: not read — {why}")
         return 0
-    if r.status_code != 200:
-        print(f"[fair] {label}: HTTP {r.status_code}")
-        return 0
-    got, why = pick_fair_dates(text_of(r.text)[:80000], today)
+    got, why = pick_fair_dates(text_of(page.text)[:80000], today)
     # THE HOMEPAGE FIRST, ALWAYS. A deep page is where the promotions live —
     # wistatefair.com's deals page is the false positive that proves it — so the
     # hinted pages are only read when the homepage said nothing at all, never to
     # overrule it.
     if not got:
-        for u in _hinted_links(r.text, str(r.url))[:follow]:
-            try:
-                b = session.get(u, timeout=20).text
-            except Exception:                                     # noqa: BLE001
-                continue
-            got, why2 = pick_fair_dates(text_of(b)[:80000], today)
+        for u in _hinted_links(page.text, page.url)[:follow]:
+            sub, why_not = polite.get(u, timeout=20)
+            if sub is None:
+                # "run deadline..." is Polite's own out-of-time reason; a
+                # refused URL is quoted in its reason and may say "deadline".
+                if urlparse(u).netloc.lower() in polite.refused or why_not.startswith("run deadline"):
+                    why = why_not
+                    break                       # the host said no, or the run is out of time
+                continue                        # a Disallow or a 404 for this one page
+            got, why2 = pick_fair_dates(text_of(sub.text)[:80000], today)
             if got:
                 why = ""
                 break
             why = why2 or why
-            time.sleep(0.4)
     if not got:
         print(f"[fair] {label}: no dates — {why}")
         return 0
@@ -306,7 +466,12 @@ def main(argv=None) -> int:
     ap.add_argument("--config", required=True)
     ap.add_argument("--store", default="mapsee_events.json")
     ap.add_argument("--only", help="one fair by name or state code (substring match)")
-    ap.add_argument("--delay", type=float, default=1.0)
+    ap.add_argument("--delay", type=float, default=1.0,
+                    help="least seconds between two requests to one host; a longer "
+                         "Crawl-delay in its robots.txt wins")
+    # BELOW the step's timeout-minutes (60), so the store is saved by this
+    # process rather than lost with it: a step cut by GitHub saves nothing.
+    ap.add_argument("--max-minutes", type=float, default=45.0)
     args = ap.parse_args(argv)
 
     doc = json.load(open(args.config, encoding="utf-8"))
@@ -319,18 +484,26 @@ def main(argv=None) -> int:
         print("[fair] requests is not installed"); return 1
     session = requests.Session()
     session.headers["User-Agent"] = UA
+    t0 = time.monotonic()
+    polite = Polite(session, min_interval=args.delay, deadline=t0 + args.max_minutes * 60)
     store = EventStore(args.store)
     kept = 0
     for s in sites:
+        if time.monotonic() >= polite.deadline:
+            print(f"[fair] run deadline ({args.max_minutes:g} min) reached; "
+                  f"{len(sites) - sites.index(s)} fair(s) not read this run")
+            break
         # PER FAIR, not per run. One marketing site that hangs or serves a shape
         # nothing here expects must not cost the other forty-seven.
         try:
-            kept += ingest_site(store, session, s)
+            kept += ingest_site(store, polite, s)
         except Exception as exc:                                  # noqa: BLE001
             print(f"[fair] {s.get('name','?')} FAILED: {type(exc).__name__}: {exc}")
-        time.sleep(args.delay)
     store.save()
-    print(f"[fair] done: {kept} of {len(sites)} fairs have published dates; "
+    paced = ", ".join(f"{h} {d:g} s" for h, d in sorted(polite.delays.items()))
+    print(f"[fair] done in {time.monotonic() - t0:.0f} s: {kept} of {len(sites)} fairs have "
+          f"published dates; {polite.requests} page requests, {polite.waited:.0f} s spent "
+          f"waiting on Crawl-delay/pace ({paced or 'no host set a Crawl-delay'}); "
           f"store now holds {len(store.records)} unique events.")
     return 0
 

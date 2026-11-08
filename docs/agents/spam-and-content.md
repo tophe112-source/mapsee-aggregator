@@ -168,6 +168,97 @@
   inserts and 240 cascading deletes a day. The adapter now counts and skips an
   event that began more than STALE_AFTER (1 day) ago with no endsOn, or with
   an endsOn already past. An event whose end is still ahead is kept, however
-  old. It also has the ics adapter's 365-day cap (HORIZON_DAYS, or a site's
+  old, unless the store drops that end (over 400 days after the start): as
+  written, this rule never skipped a row (the 2026-11-08 note below). It also
+  has the ics adapter's 365-day cap (HORIZON_DAYS, or a site's
   within_days): 522 of 4,938 rows on 10-26, 441 of them one weekly 'Offener
   Techniktreff' running to 2038. test_ingest_mobilizon.py.
+
+- **THE 10-27 STALE RULE NEVER SKIPPED A ROW: MOBILIZON SENDS THOSE ROWS AN
+  END, AND THE STORE DROPS IT (2026-11-08).** The 240 rows of the 10-27 note
+  had no end in the STORE, not in the server's answer, and the rule read the
+  raw `endsOn`. On 2026-11-08, 0 of the 1,320 rows on the 66 first pages
+  (limit 20) had no `endsOn` or a past one, and the full run at 01:04 UTC
+  logged 0 "already over" on all 66 sites. That run's store still held 269
+  rows begun more than a day before with no end (32 with coordinates; median
+  482 days old, the oldest 6,848). Each had arrived with an `endsOn` ahead
+  more than `MAX_SPAN_DAYS` (400) after its start; `EventStore.upsert` drops
+  such an end (`mapsee_spam.implausible_end`), so the row reached the sync
+  endless, got its start plus a few hours (already past), and was inserted
+  and deleted again every day, as the 10-27 note describes. The adapter's new
+  `START_TIME_ASC` order brought more of them within reach: an ascending walk
+  starts with whatever began before today and has not ended, 312 such rows on
+  those 66 first pages. At limit 100, page 1 held 100 of 100 on
+  event.portes-imaginaire.org (16 more on page 2; median length 490 days, 71
+  lasting more than 365 days, the 400-day count not taken; one beginning in
+  the year 25), 83 on mobilizon.fr (median 262 days, 17 over a year, Spanish
+  SEO filler among them), 77 on agenda.collectifs.net, 64 on libretic and 6
+  on mobilisons. 30 of the 269 (15 with coordinates) came from those five
+  running heads, which the latest-first order never reached; among the 15 are
+  two loan-offer adverts (one with a personal address in the title), two
+  divorce-ritual adverts and two Korean SEO posts, and `mapsee_spam` refused
+  none. The 32 placed rows were mostly adverts: exam dumps, casinos, "AK74
+  RIFLES FOR SALE", loan offers with an e-mail address in the title, ritual
+  sellers. A few were real weekly activities filed as one event spanning
+  years (Saturday football in Nantes, a climbing club, a repair lab). Neither
+  kind could be shown. So `stale_or_far` now treats an end the store will
+  drop as no end (`end_dropped`). The full run at 02:54 UTC refused 402 rows
+  as over on 24 of 66 sites (335 distinct events, 70 with coordinates; span
+  median 1,009 days), all 402 for a dropped end and none for a missing one,
+  and the store held 0 rows begun over a day before with no end. A running
+  event whose end lies within 400 days of its start is kept as before (245
+  that day). The site line reads "N already over (begun, no end ahead; M of
+  them with an end ahead over 400 days after the start, which the store
+  drops)", then "K kept begun over a day ago with an end ahead". A page that
+  kept nothing, had nothing beyond the horizon and held a row already over
+  does not count against `max_pages`, for at most `OVER_PAGES_MAX` (5) such
+  pages a site: 0 such pages at 01:04, 1 at 02:54 (Social Org Mx, a one-row
+  instance). `python test_ingest_mobilizon.py`. UNMEASURED: the table's
+  insert and delete counts after deploy (the store is not the table). A
+  weekly activity filed as one multi-year event would need a standing-row
+  model to be shown (`openactive-and-standing-rows.md`); this change does not
+  attempt one.
+
+- **A MOBILIZON SPAM AUDIT SAMPLES THE COMING EVENTS FIRST FROM 2026-11-08,
+  SO ITS RATES DO NOT COMPARE WITH EARLIER AUDITS.** `audit_site` in
+  `mapsee_spam_audit.py` reads Mobilizon through the adapter's own
+  `MOB.fetch_page`, which asks for `START_TIME_ASC`, asks the same page once
+  more without the order when an instance refuses it (HTU Events, an older
+  Mobilizon), and never asks twice after a 403 or 429. The old loop sent
+  `MOB.QUERY` as is, and with the order in that query an instance that
+  refused it audited 0 rows and reported the GraphQL error.
+  Offline, with HTU Events' real error text: the old audit sent 1 POST and
+  read 0; through `fetch_page`, 3 POSTs for 2 pages read 4 of 4, and a 403 is
+  still read 0 after 1 POST. `test_ingest_mobilizon.py` pins it in three
+  checks: a refusing instance reads 5 of 5 with its POSTs [sorted, unsorted,
+  unsorted, unsorted], an accepting one is read sorted, and a 403 reads 0
+  after 1 request; the old audit fails the first. So an audit from this date
+  samples each instance's running head first. Page 1 of
+  event.portes-imaginaire.org is 100 already-begun rows of 100, 71 of them
+  lasting more than 365 days, and the audit scores a row over 400 days as
+  "undated" unless a content rule refuses it first (that count was not
+  taken). Earlier audits, the Mobilizon part of 2026-09-03's 11.8% among
+  them, sampled latest start first, so their rates are not the same
+  measurement. UNMEASURED: a live audit with the new order.
+
+- **A WHOLE MOBILIZON INSTANCE CAN BE ADVERTISING, AND NEITHER verify NOR THE
+  SPAM PREDICATE SEES IT (2026-11-08).** meetup.furryfederation.com is
+  FediDB's busiest Mobilizon host that no config knew (status_count 40,669,
+  39,660 users). It answered 42 upcoming events on 2026-11-08 and all 42 were
+  adverts: Vietnamese betting sites (RR88, KO66, ABC8), a cocaine/MDMA
+  listing, 7 "International Conference on ..." predatory-conference calls and
+  SEO copy. `mapsee_spam.is_spam` refused 0 of 42, because none carries a
+  phone number or a scam phrase. mobilizon.public.cat's 20 read were IPTV and
+  e-bike adverts and its one future event an LED-driver advert; its decline
+  records 149 answered to searchEvents(beginsOn: now), the first 100 being 13
+  distinct title-and-start pairs of adverts and no event. Both passed
+  `verify_mobilizon` live, because verify proves upcoming events exist and
+  nothing else, and discovery's mirror and quiet gates do not catch an
+  all-advert instance either. The configured events.rennes.tech carries the
+  same e-bike adverts (9 events, 0 future). The defence is the editorial no:
+  both hosts are in `mobilizon_sources.json`'s `_not_included` (11 entries),
+  and it had to be there before the discovery code shipped, because Mobilizon
+  discovery runs on the daily curate schedule and merge needs no human.
+  `python test_discover_fedi.py` reads the real file and fails while either
+  host is missing (123 cases, 0 failed). UNMEASURED: the spam share across
+  the other 16 proposed Mobilizon and 125 Gancio candidates.

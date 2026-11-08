@@ -387,8 +387,6 @@ API_ENTRIES = {
     "ods": {"domain": "data.example.fr", "dataset": "agenda"},
     "ckan": {"url": "https://data.example.ca/api/3/action/datastore_search?resource_id=1"},
     "localist": {"base_url": "https://events.example.edu"},
-    "gancio": {"base_url": "https://gancio.example"},
-    "mobilizon": {"base_url": "https://mobilizon.example"},
     "mapasculturais": {"url": "https://mapa.example.gov.br/api/event/find"},
     "openactive": {"url": "https://sessions.example.co.uk/api/feeds/sessions"},
 }
@@ -405,6 +403,10 @@ check("a documented public API is not held to robots.txt: " + ", ".join(sorted(A
       [t for t, e in API_ENTRIES.items() if cc._robots_gate(DenyAll(), t, dict(e)) is not None])
 check("...and a publisher's own pages and feeds still are: " + ", ".join(sorted(PUBLISHER_ENTRIES)),
       all((cc._robots_gate(DenyAll(), t, dict(e)) or ("",))[0] == "refused" for t, e in PUBLISHER_ENTRIES.items()))
+check("...except a Gancio or Mobilizon operator who refuses every crawler (`Disallow: /`, the owner's rule "
+      "of 2026-10-05): taken at its word, `refused`",
+      all((cc._robots_gate(DenyAll(), t, {"base_url": f"https://{t}.example"}) or ("",))[0] == "refused"
+          for t in ("gancio", "mobilizon")))
 check("the exemption names no publisher type",
       cc.DOCUMENTED_API_TYPES.isdisjoint({"ics", "tribe", "squarespace", "jsonld", "mylisting", "venuepilot",
                                           "fair", "parkrun", "festival", "dice_venue"}))
@@ -418,6 +420,19 @@ class JResp(Resp):
 
     def json(self):
         return self._data
+
+
+# A URL inside a list is a request too: annual_sources.json's `pages`, each
+# named after its entry. A string in a list that is not a URL is not one.
+_walked = list(cc._walk_urls({"_comment": "https://not.a.request/", "sites": [
+    {"key": "k", "name": "An annual fest", "url": "https://fest.example/",
+     "pages": ["https://fest.example/programme/", "https://fest.example/visit/", "not a url"]}]}))
+check("_walk_urls reads a site's url and both its pages, and names each after its entry",
+      _walked == [("An annual fest", "https://fest.example/"),
+                  ("An annual fest", "https://fest.example/programme/"),
+                  ("An annual fest", "https://fest.example/visit/")], _walked)
+check("...and a top-level list of bare URLs with no entry is named '?'",
+      list(cc._walk_urls({"feeds": ["https://a.example/x.ics"]})) == [("?", "https://a.example/x.ics")])
 
 
 LOCALIST = {"events": [{"event": {"event_instances": [{"event_instance": {"start": "2099-10-10T10:00:00"}}]}}]}

@@ -26,8 +26,10 @@ out. Only `/api/events` is public; `/api/places`, `/api/tags` and `/api/settings
 Gancio's stock robots.txt allows everything (`user-agent: *`, `allow: /`, no
 crawl-delay), and an operator can replace it: vagancio.partidopirata.com.ar
 serves `Disallow: /` (2026-10-04). /api/events is a documented public API, read
-under catalog_curate.DOCUMENTED_API_TYPES like Mobilizon's; an operator who asks
-is taken off. There is no terms page on any instance. A polite default delay is
+under catalog_curate.DOCUMENTED_API_TYPES like Mobilizon's, so a rule on one
+path does not bind it, but an operator whose robots.txt refuses every crawler
+(`Disallow: /`) is taken at its word (owner, 2026-10-05): vagancio was retired
+for it, and since 2026-11-08 discovery and verify refuse such a candidate. There is no terms page on any instance. A polite default delay is
 still applied - these are volunteer-run servers, several on home connections.
 """
 from __future__ import annotations
