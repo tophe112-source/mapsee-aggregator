@@ -720,3 +720,141 @@
   the plan, said once. FEED_DOWN reports a configured entry's `refused` row
   (0 on 10-29) as it does `fail`. `test_curate_audit.py`,
   `test_health_check.py`.
+
+- **THE MOBILIZON STEP READS 55 TICKETZON PAGES IN A 268-SECOND RUN OF ITS 60
+  MINUTES: THE STORE AND THE SYNC, NOT THE STEP, BOUND `max_pages`
+  (2026-11-08).** The step `ingest_mobilizon` (civic group, timeout-minutes 60,
+  continue-on-error) took 206 s on 2026-11-06 (15:52:30..15:55:56), store load
+  and save included. Once the query asked for START_TIME_ASC (`SORT` in
+  mapsee_ingest_mobilizon.py), five pages of 100 covered only 5 days of
+  ticketzon.it and 2 weeks of mobilisons.ch, so their `max_pages` went to 55
+  and 25 (mobilizon.fr's to 20: 19 pages in 27.5 s); each entry's `_note` in
+  mobilizon_sources.json carries its arithmetic. A production-shaped run of all
+  66 instances with that config took 268 s wall, into a fresh store. A sorted
+  page answers in a median 0.49 s, and no slower at offset 9,100 (ticketzon
+  page 92: 0.70 s); with the 1 s `crawl_delay` each extra page costs about
+  1.6 s. A page holding nothing but rows already over does not count against
+  `max_pages`, up to `OVER_PAGES_MAX` = 5 a site: at most 330 more pages over
+  66 sites, about 9 minutes at 1.6 s (a bound, not a measurement). So the
+  step's own budget is not what limits `max_pages`; the store and the sync are.
+  The 268 s run kept 13,551 rows against 7,118, and the first `--only-new`
+  civic sync after this lands inserts the difference once: about 6,400 unique
+  rows, roughly 130 fifty-row POSTs. That sync's time is UNMEASURED; the
+  OpenAgenda note below adds it to that sync's worst case. No test pins this
+  step's 60 minutes (`test_workflow_contracts.py` asks only that every import
+  step's timeout be under the job's 300); `test_ingest_mobilizon.py` pins the
+  order, the unsorted fallback and `OVER_PAGES_MAX`.
+
+- **THE FEDI DISCOVERY BACKENDS STOP AT A 5-MINUTE DEADLINE, AND A RUN THE
+  DEADLINE CUTS SHORT PROPOSES NOTHING (2026-11-08).** Mobilizon discovery runs
+  on every 03:20 curate run and had no budget, inside a 90-minute job whose
+  comments give essentially all of it to osm. Measured typical times:
+  23.8-28.0 s for Mobilizon (133 POSTs, 67 candidates and 66 configured; live
+  median probe 0.92 s, slowest 10.13 s) and 65 s for Gancio (6, 2, 182, 30 and
+  131 requests by phase; FediDB plus gancio.org/instances listed 220 hosts). A
+  review estimated, without measuring, about 11.5 minutes for Mobilizon and 12
+  plus 7 for Gancio if hosts hung at the first version's 20-30 s timeouts. Now
+  `--max-minutes` reaches both backends as a deadline, checked as each request
+  starts, and `_fedidb_servers` stops paging past it. Timeouts are
+  `FEDI_PROBE_TIMEOUT` = (10, 20), so a dead host fails on connect. Configured
+  instances are probed first, so a cut leaves candidates unread rather than the
+  instances they are compared against. A cut run proposes nothing and prints
+  `FLAG <backend>: N host(s) UNREAD past the deadline`, because the mirror test
+  (`_resolve_mirrors`) compares candidates smallest first against everything
+  read, and an aggregator whose sources went unread would pass.
+  `GANCIO_MAX_PROBES` (400; 182 probed on 11-08) works the same way: past it
+  nothing is asked or proposed, instead of the first 400 being read. Overrun
+  past the deadline is at most one request per worker (6 of them), 30 s. The
+  wiring in curate-catalog.yml: `--max-minutes 5` for each; mobilizon stays
+  daily; gancio reads on Wednesdays only (that day's 03:20 run, the 03:50 gap
+  sweep, where it skips itself because it carries no category, and any dispatch
+  of `all` or `gancio`), with `--limit 25` unless a dispatch names `limit` (its
+  first read found 128 candidates; the other backends keep 300). The step
+  summary now keeps discover's own `FLAG` and `requests:` lines too:
+  joinmobilizon's directory was unreachable for 27 daily runs (2026-10-12 to
+  11-07) and the line saying so never reached a summary.
+  `test_workflow_contracts.py` pins the backends, limits and budgets per
+  schedule; `test_discover_fedi.py` (123 cases) pins the deadline, the UNREAD
+  lines and the probe cap. UNMEASURED: timings on a GitHub runner, where
+  neither fedi backend has run with this code, and how often 5 minutes would be
+  hit.
+
+- **THE MENTION SCAN TAKES 6 MINUTES FROM THE COMMIT'S SLACK, READS THE NEWEST
+  MAIN RUN THAT STILL HAS `feeds-*` ARTIFACTS, AND CANNOT FAIL CURATION
+  (2026-11-08).** curate-catalog.yml's "Named events the feeds mention" step
+  runs on the 03:20 cron and on dispatch (never the gap sweep or the 09:30
+  pass), after "Coverage after" and before "Commit new sources", with
+  `actions: read` and `gh` on GITHUB_TOKEN. "The latest completed run" is not
+  enough: the Mon and Thu 06:40 aggregate runs never run the feeds job. So the
+  step walks the last 10 completed aggregate-events runs on `--branch main` (a
+  dispatch on a work branch runs changed adapters, and its stores must not
+  decide main's queue) and takes the first with unexpired feeds-* artifacts
+  (7-day retention). A run's conclusion is no filter: 5 of the last 8 completed
+  runs concluded "failure" and still uploaded every store under `always()`.
+  Live on 2026-11-08 it picked 42375501479: 4 artifacts, 115 MB zipped, 1.03 GB
+  of stores (1.06 GB unpacked); in a cloud session the download took 9.3 s and
+  the scan 57-59 s (611,881 rows, 4.1 GB peak). The step's timeout is spent
+  from the commit's slack. The job cap is 90 minutes, "Commit new sources" is
+  its last step, and a job cancelled there loses the sweep's verified sources.
+  The 20 runs before the step took 27.5 to 73.8 minutes (2026-11-04 11:09: the
+  sweep alone 73.3), so the first timeout, 15 minutes, could have left 1.2
+  minutes for a commit whose push loop sleeps 5-20 s between tries. Now it is
+  `timeout-minutes: 6`, with `timeout 90` on the download (ten times its
+  measure) and `timeout 210` on the scan (3.5 times), so the step writes its
+  own summary before the ceiling; 73.8 + 6 = 79.8 leaves ten minutes for the
+  commit (10 s on 11-04). It is continue-on-error and every path ends `exit 0`:
+  driven under stubs, a missing run, a refused download and a crashing scanner
+  each left a warning, a summary line and no saved scan. The scan is saved as
+  `$SNAPSHOT/mention_hits.json`, and the commit loop re-applies it with
+  `catalog_mentions.py --hits` after `git reset --hard`, as `reapply` does the
+  ledger, so a hand edit pushed meanwhile (a decline) is kept. A second fold of
+  one scan changed 0 bytes of the real queue (same sha1), and a corrupt
+  snapshot only warns while the sources still push. `test_mentions.py` pins the
+  re-apply, and `test_workflow_contracts.py` the step's wiring (its timeouts,
+  `--branch main`, a run carrying all four groups' stores, the staging).
+  UNMEASURED: both times on a GitHub-hosted runner, and the first scheduled
+  run. If the runner needs more than 3.5 times 59 s, the scan exits 124 every
+  day: the queue stays as it is and the commit is not touched.
+
+- **AN ADAPTER'S BUDGET IS PAID IN THE SYNC STEP: OPENAGENDA'S DATE WINDOWS
+  NEED THE CIVIC SYNC AT 90 MINUTES (2026-11-08).** The ODS date windows were
+  sized against the ingest step: at most 500 requests at 0.84 s a page, on a
+  step that took at most 182 s, is 10.0 of its 60 minutes (`test_ingest_ods.py`
+  prints it). A review the same day showed that the cost lands in the civic
+  job's "Sync feeds to Supabase (batch-geocoded)" step, whose `timeout-minutes`
+  was `(rec||civic) && 60`. A sync cut off at its timeout fails:
+  continue-on-error lets the job go on, but `Fail when an import or sync
+  failed` reads `steps.*.outcome`, so the job turns red, and the rows not yet
+  written are not written that day. Measured from the civic job's logs:
+  Wednesday full refreshes took 43.7 min (10-21), 22.6 (10-28) and 39.8
+  (11-04); only-new days took 4.4 to 11.8 min (11-01 to 11-07); upserts ran at
+  14.4 to 70.8 ms a row (the 70.8 is 16,290 rows in 1,152.7 s on 11-04, with
+  ReadTimeouts and 50 rows lost); preparing and comparing a row on a full
+  refresh took 6.2 to 11.8 ms, and an only-new day's state read and prepare
+  7.4 ms an id (34,883 in 257 s, 11-06). Windowing adds two one-off costs.
+  First, France's new rows: its max less the 9,982 the plain read kept, or
+  20,018 at max 30,000. Second, on the first Wednesday, every stored OpenAgenda
+  row is rewritten for its new credit line, because the description is a
+  compared column: up to 10,966 rows (9,990 + 976 kept). Taking the worst of
+  each measurement, a first windowed run on a weekday is 37.9 min, the first
+  Wednesday after it 60.6, and a first windowed run ON a Wednesday 84.2. At the
+  max of 45,000 that first shipped, that last case was 104.8. So France's max
+  is 30,000, and the civic sync's timeout is `matrix.group == 'civic' && 90 ||
+  matrix.group == 'rec' && 60 || 20`; on the days measured above the civic job
+  ran 113-167 min of its 300, so the extra 30 fits.
+  `test_workflow_contracts.py` pins that literal, and `test_ingest_ods.py` (53
+  cases) section 11 reads that timeout from the workflow and fails while the
+  worst case does not fit; the largest France max that fits is about 12,400 at
+  60 minutes and 34,200 at 90. The windowed reads wait `PAUSE_S` (0.3 s)
+  between requests as the plain read does (256 waits in 257 requests; deleting
+  the sleep fails the test). The test's sum counts OpenAgenda alone.
+  Mobilizon's one-off ~6,400 new rows (the note above) land in the same civic
+  sync: at the same worst rates, about 8.3 more minutes on a weekday (46.2) and
+  8.8 on a first run that is a Wednesday (about 93, past the 90). That is a
+  projection, not a measurement. UNMEASURED: the first windowed run's real sync
+  time; the steady cost after the first Wednesday (the rows will be stored and
+  identical, and each day adds about one day of the window); and whether about
+  30,000 extra writes on a Wednesday make ReadTimeouts more likely (11-04
+  already lost 50 rows to them). Same lesson as "AND THE BUDGET GOES WHERE THE
+  TIME GOES": count the step that pays for the rows, not the loop that reads
+  them.

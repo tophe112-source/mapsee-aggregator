@@ -119,7 +119,7 @@ class WorkflowContracts(unittest.TestCase):
         # min (test_ingest_ods.py does the arithmetic against this line).
         sync = next(s for s in steps if s.get('id') == 'sync')
         self.assertEqual(sync['timeout-minutes'],
-                         "${{ matrix.group == 'civic' && 90 || matrix.group == 'rec' && 60 || 20 }}")
+                         "${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || 20 }}")
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
 
     def test_rec_timetables_retire_absent_sessions_against_a_cached_manifest(self):
@@ -1007,6 +1007,16 @@ class WorkflowContracts(unittest.TestCase):
         crons = [c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']]
         when = context.get('github.event.schedule')
         assert when is None or when in crons, f"{when!r} is not one of curate-catalog's crons {crons}"
+        # A DISPATCH CARRIES EVERY INPUT: GitHub fills an omitted one with its
+        # declared default, so a case that names any input gets the rest as
+        # GitHub would send them. Leaving them blank here once hid that a
+        # limit defaulting to "300" made gancio's 25 unreachable by hand.
+        if any(k.startswith('inputs.') for k in context):
+            inputs = workflow.get('on', workflow.get(True))['workflow_dispatch']['inputs']
+            context = dict(context)
+            for name, spec in inputs.items():
+                default = spec.get('default', '')
+                context.setdefault(f'inputs.{name}', str(default).lower() if isinstance(default, bool) else str(default))
 
         def expr(m):
             for term in m[1].split('||'):
@@ -1111,6 +1121,27 @@ class WorkflowContracts(unittest.TestCase):
         cursor = json.loads((ROOT / 'curation_cursor.json').read_text(encoding='utf-8'))
         self.assertIn('osm|community_centre,library,social_centre', cursor)
 
+    def test_mention_scan_reads_one_complete_main_run_and_cannot_fail_the_job(self):
+        # catalog_mentions.py decides "covered" against the stores it reads,
+        # and its queue is committed unattended, so it reads main's runs only
+        # and only a run carrying all four groups' feeds-* stores: a
+        # feed_group recovery dispatch uploads one store, which would flip
+        # every mention titled in another group back to a pending lead. Its
+        # 6 minutes come out of the commit's slack under the job's 90.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['curate']['steps']
+        scan = next(s for s in steps if s.get('name') == 'Named events the feeds mention')
+        self.assertIn('--branch main', scan['run'])
+        self.assertIn('split("-")[1]] | unique | length', scan['run'])
+        self.assertIn('-ge 4', scan['run'])
+        self.assertTrue(scan['continue-on-error'])
+        self.assertEqual(scan['timeout-minutes'], 6)
+        self.assertIn('timeout 90 gh run download', scan['run'])
+        self.assertIn('timeout 210 python catalog_mentions.py', scan['run'])
+        self.assertEqual(workflow['permissions'].get('actions'), 'read')
+        commit = next(s for s in steps if s.get('name', '').startswith('Commit'))
+        self.assertIn('git add -- mention_queue.json', commit['run'])
+
     def test_curate_compares_only_its_own_crons_and_runs_one_at_a_time(self):
         # The 03:20 and 09:30 crons walk one `osm` cursor slot (2026-10-23).
         # Only the group keeps them apart: two at once would probe one metro
@@ -1147,9 +1178,17 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIsNone(self._flag(dict(calls)['osm'], '--metros'))
         code, calls = self._curate_discovers({'inputs.backend': 'ckan'}, dow='1')
         self.assertEqual([b for b, _ in calls], ['ckan'])
-        # A dispatch of gancio alone keeps the 25 unless it names a limit.
+        # A dispatch of gancio alone keeps the 25 unless it names a limit, and
+        # so does gancio inside a dispatch of all; the others keep 300.
         code, calls = self._curate_discovers({'inputs.backend': 'gancio'}, dow='1')
         self.assertEqual([(b, self._flag(c, '--limit')) for b, c in calls], [('gancio', '25')])
+        code, calls = self._curate_discovers({'inputs.backend': 'all'}, dow='1')
+        self.assertEqual({b: self._flag(c, '--limit') for b, c in calls},
+                         {'socrata': '300', 'ckan': '300', 'mobilizon': '300', 'gancio': '25',
+                          'civic': '300', 'osm': '300'})
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        limit = workflow.get('on', workflow.get(True))['workflow_dispatch']['inputs']['limit']
+        self.assertEqual(limit.get('default'), '', 'a "300" default reaches gancio as a named limit')
         code, calls = self._curate_discovers({'inputs.backend': 'gancio', 'inputs.limit': '200'}, dow='1')
         self.assertEqual([(b, self._flag(c, '--limit')) for b, c in calls], [('gancio', '200')])
         code, calls = self._curate_discovers({'inputs.backend': 'osm', 'inputs.osm_metros': '5',

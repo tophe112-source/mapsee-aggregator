@@ -2305,3 +2305,451 @@
   regression returned 0 for failures in both the first and last backend before
   the fix, and 1 afterward while still visiting all 5 backends. Successful and
   dry runs return 0; the existing always() snapshot/commit steps remain.
+
+- **MOBILIZON DISCOVERY'S DIRECTORY WAS UNREACHABLE FOR 27 RUNS AND NO SUMMARY
+  SAID SO; DISCOVERY NOW READS FEDIDB TOO (2026-11-08).**
+  instances.joinmobilizon.org could not be reached from the GitHub runners on
+  any daily curate run from 2026-10-12 to 2026-11-07: 27 runs and 0 Mobilizon
+  candidates, after a last good read of 86 instances on 2026-10-11, and on
+  2026-11-08 it was unreachable from a second network too. Each run printed
+  "(instance directory unreachable: ...)", and the step summary then kept only
+  verify's and merge's `^  FLAG` lines plus discover's `skipped:`, `advanced`,
+  `UNREAD` and `SKIPPING`, so nobody saw it. FediDB (api.fedidb.org) is keyless
+  and documented ("public, read only and needs no key"), its robots.txt an
+  empty `Disallow:`; it lists 135 Mobilizon servers (4 cursor pages of 40) and
+  205 Gancio ones (6 pages). `_discover_mobilizon` now reads both directories
+  and unions them by host (`_fold_host` drops a leading www.); joinmobilizon's
+  rows still face MOBILIZON_MIN_EVENTS (5) and MOBILIZON_MIN_HEALTH (50), and
+  FediDB's carry neither (next note). Paging stops at FEDIDB_MAX_PAGES (10, 400
+  servers) with a `FLAG ... UNREAD` line, and when neither directory answers
+  discover prints `  FLAG every Mobilizon instance directory was UNREAD: ...`.
+  curate-catalog.yml's summary now also keeps discover's own `  FLAG ` and
+  `  requests: ` lines. A run with only joinmobilizon down still prints
+  "(joinmobilizon directory unreachable: ...; FediDB alone this run)", which no
+  summary pattern matches; the `requests:` line is what shows. On 2026-11-08,
+  joinmobilizon down, FediDB alone gave 134 hosts: 59 configured, 2 declined, 6
+  test servers, 67 probed, 18 proposed and 18 of 18 verified, against 0
+  candidates on each of the 27 runs before (two of the 18 are declined since
+  and one is held for size: notes below). Mobilizon discovery stays on every
+  daily curate run, with a 5-minute `--max-minutes` backstop (ci-and-jobs.md).
+  UNMEASURED: whether api.fedidb.org is reachable from the runners;
+  joinmobilizon stays as the other source. `python test_discover_fedi.py`.
+
+- **A FEDIDB HOST'S `status_count` DOES NOT PREDICT A CALENDAR, AND VERIFY
+  CANNOT SEE A FEDERATED MIRROR (2026-11-08).** FediDB rows carry no
+  totalLocalEvents and no health score, and their `stats.status_count`
+  (nodeinfo localPosts) is no substitute. Against one searchEvents probe of 72
+  instances: events.amanite.be had status_count 0 and 63 upcoming,
+  agenda.gayfr.social 1 and 91, mobilizon.colibris-outilslibres.org 7 and
+  1,746, even.tooot.im 3,442 and none. Gated at MOBILIZON_MIN_EVENTS it would
+  have dropped 12 hosts, 6 of them with upcoming events, so it only orders the
+  candidates. "Let verify decide" was measured too, and it is not enough. Of
+  the 67 FediDB hosts that no config, decline, ledger row or test-server name
+  knew, one probe each found 29 with nothing starting today or later, 6 with no
+  usable answer, and 32 live, 14 of which mostly served the configured
+  instances' own events: an instance that follows another serves its events
+  through searchEvents, and the adapter reads it unscoped. f.termine.di.day 100
+  of 100 from events.diday.org; cdp89, cirkau and colibris-outilslibres 81 of
+  81 from agenda.collectifs.net; events.nomad.wf 92 of 97 from lekalepin.fr;
+  events.daoine.eu 79 of 100 from mobilizon.ie; the lowest
+  termine.refa.digital, 2 of 4. verify passes every one of them, and merge
+  would write a second copy. So every candidate that clears the free gates gets
+  one searchEvents probe (MOBILIZON_PROBE_LIMIT 100, no `sortBy`), and so does
+  each configured instance: 67 + 66 probes in 24 s at 6 at a time. A candidate
+  is quiet when no event begins today or later; searchEvents also returns
+  events that began years ago, which is how events.doesliverpool.com's 6 and
+  mobilizon.libreon.fr's 5 past-dated adverts looked live. A candidate is a
+  mirror by Gancio's rule (`_resolve_mirrors`), ordered by searchEvents'
+  `total` because the 100 read are a sample. The free gates also skip test
+  servers: 6 of FediDB's 134 Mobilizon hosts, four of them (test2, test3, test4
+  and tests.keskonfai.fr) copies of the declined keskonfai.fr;
+  tests.keskonfai.fr answered 1,689 upcoming events.
+  `python test_discover_fedi.py`.
+
+- **SEARCHEVENTS' DEFAULT ORDER HIDES A CONFIGURED INSTANCE'S COPIES OF A
+  CANDIDATE'S EVENTS; EACH EVENT'S `url` SHOWS THEM (2026-11-08).** Without
+  `sortBy`, searchEvents answers latest start first: of the 89 instances that
+  answered more than two events (limit 20, 2026-11-08), 87 came back in that
+  order, and mobilizon.tavias.de ran from 2028-05-27 down to 2028-01-15. So a
+  big configured instance's 100-event sample is its far future, and a small
+  candidate's near-term events never meet it by title and start. The discovery
+  probe (MOBILIZON_DISCOVER_PROBE) now also asks for each event's `url`, at no
+  extra request: an event in a configured instance's sample whose url is on the
+  candidate is the candidate's own event, served again, and
+  MOBILIZON_SERVED_MIN (2) of them make the candidate a mirror. Live run,
+  28.0 s for 67 candidate + 66 configured probes: the configured samples
+  carried 3,746 events, 1,706 of them published on 42 other hosts. Five
+  candidates had 2 or more: mobilize.berlin 208, klimatkalendern.nu 189,
+  f.termine.di.day 100 and termine.refa.digital 4, all four also dropped by the
+  title rule, and mobilizon.grin.hu, which answered no searchEvents itself. So
+  the check changed nothing that day (mobilizon.chapril.org, which was
+  proposed, had 1 such event). The other direction is visible and is NOT a
+  rule: all 52 upcoming events of mobilizon.com.br were published on
+  eventos.coletivos.org, which no config and no directory row names, so the
+  relay is proposed, and if the origin is listed after the relay is configured,
+  the origin will lose to it as a mirror. The ingest adapter now asks
+  START_TIME_ASC (adapters-and-sources.md); this probe still sends no `sortBy`.
+  UNMEASURED: how often that happens, and whether asking START_TIME_ASC here
+  would let the title test catch these on its own.
+  `python test_discover_fedi.py`.
+
+- **TWO OF MOBILIZON DISCOVERY'S 18 VERIFIED CANDIDATES WERE ALL ADVERTISING,
+  AND ONLY THE RECORD CAN REFUSE THEM (2026-11-08).** The FediDB union in
+  `_discover_mobilizon` proposed 18 instances on 2026-11-08, and
+  `verify_mobilizon` passed all 18. meetup.furryfederation.com, FediDB's
+  busiest unlisted host (status_count 40,669), answered 42 upcoming events and
+  all 42 are adverts: Vietnamese betting sites and SEO articles, agency adverts
+  and 7 predatory-conference calls; `mapsee_spam.is_spam` refused none of them.
+  mobilizon.public.cat answers 149 upcoming, and its first 100 are only 13
+  distinct title-and-start pairs: IPTV resellers, LED drivers and a fat-tyre
+  e-bike. Mobilizon discovery runs on every daily curate run (03:20) and merge
+  needs no human, so both hosts are declined in mobilizon_sources.json's
+  `_not_included` (11 entries now), which `_declined_keys()` reads before any
+  probe. test_discover_fedi.py reads the REAL file and fails while either key
+  is missing (123 cases, 0 failed), so the discovery code cannot ship ahead of
+  the declines. No rule for an all-advertising instance was attempted: one
+  sample's titles decided these two (spam-and-content.md has the instance from
+  the spam side). UNMEASURED: whether any of the other 15 proposed instances
+  (the 18, less these two and the one held for size, next note) carries adverts
+  that the per-row gate does not catch.
+
+- **A MOBILIZON CANDIDATE WITH MORE THAN 1,000 UPCOMING EVENTS IS HELD FOR A
+  HUMAN, NOT PROPOSED (2026-11-08).** politikvonunten.org answered 5,943
+  upcoming events. Its sample has a federal funding call ("Förderaufruf
+  Bundesprogramm ..."), a trade fair ("AGRAR Unternehmertage 2028") and
+  Démosphère relays. Of the 61 candidates that answered on 2026-11-08, 5 had
+  more than 1,000; four of those were already mirrors, so the hold took exactly
+  this one, and the next largest kept candidate was mobilizon.tavias.de at 606.
+  Size alone is not the objection: 7 of the 66 configured instances are over
+  1,000 too (ticketzon.it 9,199, mobilisons.ch 2,149, mobilizon.fr 1,874,
+  agenda.collectifs.net 1,724, event.portes-imaginaire.org 1,612,
+  mobilizon.libretic.fr 1,599, events.diday.org 1,235), and each of those was
+  added by hand, which is the point of the hold. MOBILIZON_MAX_TOTAL = 1000; a
+  held host is printed as `too big: ...` and counted as `too_big`. It is not
+  written to the ledger, so it costs one POST a run until someone adds or
+  declines it. UNMEASURED: how much of politikvonunten.org's content is already
+  read through configured ics or Demosphere feeds.
+  `python test_discover_fedi.py`.
+
+- **GANCIO HAS TWO DIRECTORIES, AND FIVE KINDS OF ROW IN THEM THAT ARE NOT A
+  NEW CALENDAR (2026-11-08).** gancio_sources.json was seeded by hand (30
+  sites). FediDB (205 rows, 204 hosts) and gancio.org/instances (74 bare
+  instance roots, 15 not in FediDB; robots.txt 404, which RFC 9309 reads as
+  allow-all) list 219 distinct hosts between them. One GET of /api/events per
+  host (90 days ahead) found five kinds of row that are not a new calendar.
+  REDIRECT ALIASES: FediDB lists a host and the host it redirects to as two
+  servers (agenda.askapunk.nl, gancio.daghe.xyz,
+  cal.fs-physik-meteo.uni-mainz.de, and fomo.rheinmain.social ->
+  events.rheinmain.social, which is also where the configured rheinmain.social
+  lands); three of the research's seven "mirror pairs" are redirects.
+  FEDERATION: all.askapunk.net carries 0.99 of its 261 distinct events from 13
+  other askapunk instances, events.karlsruhe-social.de repeats 107 of 107 from
+  the configured keepkarlsruheboring.org, flypost.ie and flypost-gancio.fly.dev
+  share 42 of 42, and tucsontimeline .info and .detritus.net 6 of 6. DEMOS AND
+  TEST SERVERS: demo.gancio.org, legacy.gancio.org and des.convoca.la ("Gancio
+  para pruebas", 83 of its 94 events from two configured instances).
+  ONLINE-ONLY CALENDARS: at least 0.9 of events at a place named "online" on 4
+  instances; the next is 0.5 and no configured site is above 0.29
+  (GANCIO_ONLINE_SHARE 0.8). ADULT CALENDARS: two notes on. `discover gancio`
+  follows redirects in the same single request, and probes the 30 configured
+  sites the same way so their final hosts and event sets are known. Mirrors are
+  resolved smallest first with title+start as the key (`_resolve_mirrors`): a
+  share of at least 0.5 (GANCIO_MIRROR_SHARE) and at least 2 shared events
+  (GANCIO_MIRROR_MIN). An event counts as covered only if the copy already read
+  is at least as placeable, which keeps an origin whose only other copy has no
+  coordinates (devent.cz carries akce.nolog.cz without them). Dropped
+  candidates were 0.98 or more covered; kept ones with 2 or more shared events
+  were at 0.25 or less (gancio.pl 18 of 72, backend.prikbord.page 25 of 159).
+  Smallest first keeps the 13 askapunk city instances and drops the aggregator.
+  Live run with `--limit 12`: 351 requests in 65 s. Gate counts: configured 29,
+  declined 5, ledger 1, test/demo 3, alias 4, quiet 35, online-only 4, refused
+  1, unreachable 5, not Gancio 2, mirror 5. That left 125; 12 were proposed and
+  11 verified (one connection reset). The whole pool is read every run, because
+  the mirror test is only sound over all of it; `limit` cuts what is proposed,
+  and GANCIO_MAX_PROBES (400) bounds what is asked. A replay of the same day
+  with no limit proposed 128, so curate-catalog.yml proposes at most 25 a run
+  unless a dispatch names a limit. It reads gancio on Wednesdays only, since
+  one read is about 350 requests to volunteer-run servers that change slowly
+  (the 03:20 run; the 03:50 gap sweep skips it when pinned to categories,
+  because gancio carries none), and on a dispatch of all or gancio, with
+  `--max-minutes 5`; test_workflow_contracts.py pins all three. default_country
+  comes from the TLD unless nodeTimezone names another continent: sapratza.in
+  is Sardinian, not Indian, and is the only one of the 64 TLD-country hosts
+  whose zone contradicts its TLD. Gancio's default zone, Europe/Rome, is still
+  set on German instances, so finer zone checks are not used.
+  `python test_discover_fedi.py`.
+
+- **FEDI DISCOVERY NOW RECORDS A REFUSAL, AND ASKS THE LEDGER ABOUT THE HOST AN
+  ALIAS REDIRECTS TO (2026-11-08).** A 401, 403 or 429 from a Gancio or
+  Mobilizon candidate used to be counted and never written down, so
+  acties.todon.nl's 403 would have been asked again on every run.
+  `_fedi_refusal` now writes a ledger row with status `fail`, the status verify
+  writes for a 403 (`refused` stays a robots.txt verdict, see `_status_for`),
+  and a reason like "discover gancio: http 403, a refusal; not asked again for
+  90 days". `_dead_recently` skips such a host for DEAD_TTL (90 days), and
+  `cmd_discover` saves the ledger whenever a refusal row was written. The free
+  gates also asked the ledger only about the LISTED host: if old.example
+  redirects to new.example and new.example is dead in the ledger, old.example's
+  probe proposed https://new.example again (reproduced offline). The alias loop
+  now asks `_dead_recently` about the host an alias lands on too, and prints
+  "alias: <host> -> <final>, which the ledger has parked". Replay of the
+  2026-11-08 Gancio data with calendar.askapunk.nl, gancio.daghe.org and
+  cal.fs-physik-atmo.uni-mainz.de marked dead: the three aliases count as
+  `ledger`, 179 candidates are probed and 125 proposed, none of them a dead
+  host. With the real ledger the replay is unchanged: 128 candidates, 353
+  requests, and one refusal row (acties.todon.nl).
+  `python test_discover_fedi.py`.
+
+- **ADULT CALENDARS ARE REFUSED BEFORE VERIFY, BY NAME AND BY THE SHARE OF
+  THEIR EVENTS, AND EACH WORD IS CUT TO ITS ADULT SENSE (2026-11-08).** The
+  app's store listings answer "Sexual content, nudity, suggestive material: No"
+  (../mapsee/store/CONTENT-RATING.md), and the curate workflow merges what
+  verifies with no human in the loop, so an adult calendar has to be refused
+  before verify, which would pass it. `_ADULT_RX` is read over the host,
+  nodeinfo name and description. Its first version (kink*, bdsm, fetish*,
+  fetisch*, fétiche*, bootblack*, porn*, nsfw, erotic*, erotik*, swinger*,
+  bondage, playparty) matched kinkcalendar.site, puppycalendar.eu and
+  bootblack.events of 209 Gancio instances and none of FediDB's 135 Mobilizon
+  hosts. But one hit refuses a whole calendar, and it also matched `porn\w*` in
+  Pornic and Pornichet (two French towns, on two French-heavy backends),
+  `kink\w*` in Kinky Boots (the musical), `f[eé]tiche\w*` in the idiom "le lieu
+  fétiche des Rennais" (a favourite haunt) and `swinger\w*` in a Lindy Hop
+  club's "Swingers". It is now `kink(?!y\s+boots)`, `porn(?!ic)`,
+  `f[eé]tichis\w*` and `swinger(?:club|party|treff)`, and over all 220 Gancio
+  hosts it still matches exactly those three, and none of 1,444 Mobilizon
+  titles read the same day. Gained: French and Spanish fetishism (`fétichiste`,
+  `fetichismo`). Lost: an English "swingers club" written with a space. Words
+  left out, each measured: `sex` (band names in 5 of mkeshows.com's all-ages
+  bills, Toronto's Bovine Sex Club, Warsaw's "Hex and Sex"), `xxx`
+  (demo.gancio.org's description), `leather` and `latex` (crafts), `puppy` (a
+  pet calendar's word; puppycalendar.eu is still caught by "fetish"). For
+  Gancio the events' own titles and tags are a backstop, read as a share: at
+  least 1/3 and at least 3 events (ADULT_EVENT_SHARE, ADULT_EVENT_MIN). The
+  three adult calendars score 26/31, 20/34 and 4/5; the next highest instance
+  is mlg.convoca.la at 1/7, and the configured offbeat.amsterdam is 3/500.
+  Mobilizon candidates are read by host, name and description only. The three
+  are also declined on the record in gancio_sources.json, with their numbers.
+  UNMEASURED: adult words in languages other than English, German, French,
+  Spanish and Italian. `python test_discover_fedi.py`.
+
+- **A CONFIGURED FEED NAMED SHORT RUN A MONTH AHEAD, AND NOW SOMETHING READS
+  IT: `catalog_mentions.py`, 34 REAL LEADS OF 41 ON ITS FIRST DAY
+  (2026-11-08).** Short Run Comix Festival (Seattle, free, 2026-11-07) was on
+  no discovery channel: its date is WordPress prose on its own site, and every
+  backend in catalog_curate.py starts from a catalog of datasets, a directory
+  of instances, a city or a venue, never from a festival's organiser. Yet SPL's
+  Trumba feed carried "The Public Life of Comics" (2026-11-08): "in
+  coordination with the 14th annual Short Run Comix Festival, taking place on
+  Saturday, November 7th from 11 am to 6 pm at Seattle Design Center". Nothing
+  read named events out of stored rows. `catalog_mentions.py` now does, over
+  aggregate-events' feeds-* stores, daily in curate-catalog.yml, into
+  mention_queue.json. On run 42375501479 (2026-11-07) it read 5 stores,
+  1.03 GB, 611,881 rows (557,303 with prose) in 57 s at 4.1 GB peak. It found
+  6,728 candidates: a capitalised run ending in festival, fest, fair, expo,
+  con, convention, biennial, week, art walk or open studios. It refused 5,436
+  with no frame, 835 with the keyword inside a longer name, 154 named by the
+  row's own title, 53 observances, 36 own programmes (a library's included), 19
+  holidays (a keyword with nothing before it; the bare "Festival of Lights" is
+  79 of the candidates), 7 generic names, 6 past years and 3 performer credits.
+  The 179 kept make 155 observations (one per row and name) and 53 distinct
+  names. 11 are covered: all 11 checked by hand, each a title such as "STEMz
+  Fest 2026" within 3 days. 1 is configured: Short Run,
+  annual_sources.json#short-run. 41 are pending, and every one was read by
+  hand: 34 real (83%). Real means the prose names a separate, organised,
+  current or annual occasion, judged from the row's own text with no site
+  visited. Short Run's entry has its name, 2026-11-07 resolved from the
+  yearless "Saturday, November 7th" against the referring row's start, and
+  Seattle Design Center. The first full rule set gave 61 pending, 32 real
+  (52%). Each rule added after that is a class the hand check found: performer
+  credits ("has performed at ... including the annual"), holidays, "during this
+  X", a past year on either side of the name, and a generic title that the name
+  ends with. The 7 false of the 41 are in mention_queue.json's `_not_included`
+  with reasons, so the queue started at 34 pending (46 mentions with the 11
+  covered and 1 configured): BIJC and NYC Jewelry Week, Congo Week, ELPL
+  Animation Film Festival, Woodson Youth Theatre Festival, Jane Austen Week,
+  Essence Festival and Virginia Cider Week. A decline is keyed by NAME, so it
+  refuses every later mention of that name: Essence Festival's reason (named
+  only in a film synopsis) says to take the line out once a source names the
+  real festival (New Orleans, every July). What the rules cost, by eye: the
+  inside-a-name rule refused 16 distinct framed names, and about 8 were real
+  festivals whose scraped prose lost its full stop ("Hague Justice Week This
+  activity ..."). A self misfire lost "Fall City Festival of Lights" under
+  "Festival of LEGO Lights". The generic list refuses 108 names, 4 of them
+  real, 2 since recovered. The observance list was cut to what matched: 50
+  guessed week-words and 5 adjectives matched nothing. The 1,028 unframed names
+  that pass every other rule are mostly performers' festival lists: 45 sampled,
+  3 real, all behind non-English frames. French, Italian, German and Dutch
+  frames are now read, adding 5 real pending. Left out after measuring: "at",
+  "for", "including", "with" and "of the", whose candidates were mostly credits
+  and the names of bodies. UNMEASURED: recall beyond that 45-name sample; any
+  day's stores but 2026-11-07's; how many of the 34 sites publish a date
+  mapsee_ingest_annual.py can parse; venue precision (1 venue read, and it was
+  right). `python test_mentions.py`.
+
+- **ONE RULE ADDS, KEEPS AND PRUNES A MENTION, OR A LEAD FLICKERS OUT OF THE
+  QUEUE (2026-11-08).** The merge in catalog_mentions.py used to decide twice
+  whether a date was stale. A NEW mention was refused only when its own
+  observation's dates had all ended more than 30 days (PRUNE_DAYS) earlier; the
+  prune looked instead at the dates folded into the entry from every referring
+  row. A key named by one row with a date and another without one fell between
+  the two rules: on the 2026-11-07 stores 1 of 53 keys, One Health Festival
+  (rows starting 2026-11-20 and 2026-11-26 carry a date, rows starting
+  2026-11-24 and 2026-11-25 do not). The real 2026-11-08 scan was replayed
+  daily for 140 days from 2026-11-09. From 2026-12-29 the undated row created
+  the mention and the stale-dated row's date pruned it IN THE SAME RUN, 90 days
+  running: each run printed "1 new ... 1 pruned" and the lead was gone. With
+  the stale-dated row sorting first, the mention was absent and present on
+  alternate days from 2026-12-21, with first_seen reset each time and the
+  committed bytes changing daily. Now `_current()` is the only rule: an
+  observation that names only stale dates is dropped before anything sees it,
+  only current dates are folded, and a key that a current observation named
+  this run is never pruned. The same 140 days now add nothing, and the bytes
+  change on 2 days, both real prunes. A consequence: a mention whose dates have
+  all passed, but which an undated row still names, keeps its old dates for as
+  long as that row is in the stores. UNMEASURED: how often both kinds of
+  referring row outlive the 30-day horizon. `python test_mentions.py`.
+
+- **A "COVERED" MENTION IS DECIDED AGAIN ON EVERY RUN, AND PRUNED LIKE A
+  PENDING ONE (2026-11-08).** Until 2026-11-08 the state moved one way only. A
+  pending mention became covered the first time any store titled the name
+  within 3 days (COVER_DAYS) of a mentioned date, nothing moved it back, and
+  the prune skipped every state except pending. So a festival covered this year
+  stayed covered when next year's edition, not yet on the map, was named, and
+  covered entries piled up, one per distinct name: 11 of the 46 mentions in the
+  first committed queue. Now each run that names a key with a current
+  observation sets covered if any of those observations is covered, and pending
+  otherwise; configured and declined belong to a human and are left alone;
+  covered and pending mentions are pruned by the same date rules (PRUNE_DAYS 30
+  for a dated one, UNDATED_PRUNE_DAYS 60 for an undated one). On the 2026-11-07
+  stores every key was either all-covered (11) or all-uncovered (42), so
+  re-deciding changed no state. In the 140-day replay of the 2026-11-08 scan,
+  one covered mention whose dates ended in mid-November was pruned on
+  2026-12-16. UNMEASURED: how often a covered festival's next edition is named
+  before its own row is listed. `python test_mentions.py`.
+
+- **A MENTION'S SAMPLE IS CUT AFTER ITS ADDRESSES ARE MASKED, NEVER BEFORE
+  (2026-11-08).** mention_queue.json is public, and each sample is a
+  300-character (SAMPLE_CHARS) cut of somebody's description. Scrubbing the cut
+  let half an address through: an address cut inside its domain no longer looks
+  like one to `_EMAIL`, and "+44 20 7946 " no longer looks like a phone number
+  to `_PHONE`. On the 2026-11-07 audit 11 of 6,728 candidate samples ended
+  inside an address or a phone-like run, 10 of them genuine ("questions to:
+  info@chessp" x4, "contact filmfestival@" x3, "email support@rtea", "email
+  access@chip", "Wexford Library 053 919 6"). None was among the 155 kept, so
+  the committed queue was clean ("@" appears in it only as "@ Traditional").
+  `mask()` now replaces every address and phone number in the WHOLE description
+  with a placeholder of the same length, and `excerpt()` cuts the masked text
+  and drops any word the cut split; referrer titles, cut at 140 characters, go
+  through the same two steps. Re-scanned, 0 of the 6,728 samples end in an
+  address or phone fragment. The 7 samples that still contain "x@y" are a
+  handle with no domain ("instagram@jrsdks"), a street corner
+  ("CentreSt@CoreySt") and a festival's name ("Music@Menlo" x5), all refused as
+  no-frame. The whole-word edges changed the text of 115 of the 155 kept
+  samples, but a sample is written only when a mention is created, so the
+  committed queue re-applied with the new code is byte-identical, and 0 of the
+  155 referrer titles (the `ref_key` input) changed. test_mentions.py places an
+  address and a phone number at every cut offset from 150 to 330 (362 cuts).
+
+- **A MENTION QUEUE THAT DOES NOT PARSE IS REFUSED, NEVER REBUILT FROM NOTHING
+  (2026-11-08).** mention_queue.json is edited by hand: declines, and reasons
+  in `_not_included`. The reader used to turn a parse error into {} and merge
+  into that. On 2026-11-08 the real scan was re-applied onto the committed
+  queue with one doubled comma added: the run exited 0, printed "53 new", and
+  wrote a queue with all 7 `_not_included` reasons gone and the 7 declined
+  names back as pending (34 -> 41). curate-catalog.yml's commit step would have
+  committed that file. `read_queue()` now makes the run exit 1, leaving the
+  bytes as they are, when the file does not parse, is not an object, or has a
+  `_not_included`, `mentions` or mention entry that is not an object; the check
+  runs before the scan. The workflow already reads rc 1 as "queue unchanged":
+  the scan step drops the saved scan, and the commit step's re-apply is
+  `|| echo`. test_mentions.py also parses the committed file and checks its 3
+  keys and 4 states, so a broken hand edit fails CI before a scheduled run
+  meets it. The saved scan (mention_hits.json) is now written atomically
+  (`_write_atomic`), because the step that writes it has a timeout and the
+  commit step re-applies whatever file is there.
+
+- **A DATE OR A VENUE NEAR A MENTIONED NAME IS BOUNDED BY WHERE IT STARTS, NOT
+  CUT (2026-11-08).** `dates_near` used to search text[start:start+240], so the
+  regex's lookahead could not see past the cut: "November 15" cut after its "1"
+  was read as November 1st, and a range cut before its end lost the end. It now
+  searches the whole text and keeps the first match that STARTS before the
+  sentence end (or the 240-character limit). `venue_near` had the same defect
+  with an endpos at 90 characters, which cut "Seattle Design Center" to
+  "Seattle Desig" in a constructed case. It now requires "at <Name>" to start
+  within 90 characters (VENUE_AFTER_DATE) of the date, and reads the name to
+  the end of its sentence. On the 2026-11-07 stores this changed 1 of the 155
+  kept observations: One Health Festival's 2026-11-20 became
+  2026-11-20/2026-11-27. No venue changed, and all 8 dated observations already
+  carried their festival's start date. A fixture lesson from the same day: the
+  first test put the cut between "1" and "5" in the raw string, but
+  `clean_text()` collapsed a double space in it, the cut moved past the "5",
+  and a mutant that searched a slice passed. The fixture now asserts
+  clean_text(text) == text before measuring the cut. `python test_mentions.py`.
+
+- **A REPORTED MISS IS FIXED FOR ITS KIND, AND `test_seeds.py` CHECKS THE FIX
+  IS IN THE REPO (2026-11-08).** seeds.json holds the owner's reported misses.
+  Each seed names a class, and `_classes` names the generator that finds that
+  class from now on. The first class is "prose-only annual festival on an
+  organiser's own site": catalog_mentions.py feeds hand-checked
+  annual_sources.json entries, which mapsee_ingest_annual.py reads every run.
+  test_seeds.py (24 checks, no network) fails unless each resolution is backed
+  by the repository. `annual` needs an annual_sources.json site with that key
+  on the seed's host. `configured` needs the host in `_config_keys()` (8,903
+  keys) or in a `_ROBOTS_EXTRA` file: fair_sources.json alone carries 48
+  state-fair hosts that no CONFIG key has, so a CONFIG-only check would fail a
+  fixed fair. `declined` needs a `_not_included` entry or a dated reason.
+  `held` and `pending` need a dated reason, and a pending seed reported more
+  than 30 days ago fails. A seed stores URLs only: Short Run's published
+  contact is a personal mailbox, and the test fails on any address anywhere in
+  a seed. First seed: https://shortrun.org/, reported 2026-11-07, resolved
+  `annual` as annual_sources.json#short-run. All 7 mutations of the checker
+  were caught. When annual_sources.json is missing, the real seeds are checked
+  against a fixture instead. UNMEASURED: nothing yet uses a seed's class to
+  choose the next discovery work.
+
+- **CLOUDFLARE'S CHALLENGE SCRIPT AT THE END OF A NORMAL PAGE IS NOT A
+  CHALLENGE; LOOK ONLY AT THE PAGE'S HEAD (2026-11-07).** Cloudflare injects
+  `/cdn-cgi/challenge-platform/scripts/jsd/main.js` into pages it serves
+  normally, and that string matches `robots_txt.CHALLENGE_RX`. Of the 45
+  state-fair homepages read 2026-11-07, 4 (Florida, New Jersey, Texas, Wyoming)
+  carry it within 800 characters of `</html>` while serving the full page, and
+  none has it in the first 8,192 characters. A whole-page check would have
+  refused all four as bot challenges; a real challenge page IS its head.
+  `mapsee_ingest_fairs.Polite`, the one door the fairs and annual adapters both
+  go through, therefore looks only at the first 6,000 characters
+  (CHALLENGE_HEAD), as robots_txt already does for a robots.txt.
+  test_ingest_fairs.py holds both cases: the script at the tail is a page, a
+  "Just a moment..." title is a refusal.
+
+- **A 403 OR A 429 ON /robots.txt ITSELF REFUSES THE HOST IN THE INGEST
+  ADAPTERS' POLITE DOOR; ANY OTHER 4XX IS STILL "NO FILE" (2026-11-08).**
+  `robots_txt.Robots` follows RFC 9309 2.3.1.3 and reads every 4xx on
+  /robots.txt as "unavailable, allow all". Until 2026-11-08
+  `mapsee_ingest_fairs.Polite`, the door both the fairs and the annual adapters
+  go through, then asked the same host for its homepage: a fake session showed
+  robots.txt 429 followed by GET /, and the same for 403. That contradicts the
+  owner's rule that a 403 or a 429 is a refusal, and this repo's long reading
+  of a 403 on robots.txt as "permission cannot be established"
+  (platforms-probed.md: reparatur-initiativen.de, ramblers.org.uk,
+  api.funraise.io, the WebTrac tenants). Polite now records `http403` and
+  `http429` as a refusal of the host for the run, with no retry. Measured
+  first, one GET of /robots.txt with the production UA on each of the 48 fair
+  origins plus shortrun.org: 39 ok, 2 html, 5 http404 (Alaska, Minnesota, New
+  Jersey, Tennessee, Wisconsin, still allow-all as the RFC says), 2 challenge
+  (Arizona and Oregon, whose 403 carries a challenge body and was already
+  refused), 1 unreachable (California), and no plain 403 or 429. No fair is
+  lost. Polite's own out-of-time reasons begin "run deadline", and both walks
+  stop on `why.startswith("run deadline")`: the earlier `"deadline" in why`
+  also matched a refused URL such as /entry-deadlines/, which is quoted in its
+  reason, and ended the walk (test_ingest_annual.py, 122 cases; a mutant is
+  caught). UNMEASURED: a 401 on /robots.txt is still read as allow-all, and how
+  many hosts send one is not known. `python test_ingest_fairs.py`.
+
+- **THE ROBOTS AUDIT READS A URL INSIDE A LIST TOO, NAMED AFTER ITS NEAREST
+  ENTRY (2026-11-08).** `_walk_urls` in catalog_curate.py lists the requests of
+  every `_ROBOTS_EXTRA` file for `catalog_curate.py robots`, and it skipped any
+  URL held in a list, though annual_sources.json's `pages` and
+  lcsd_sources.json's lists are fetched as well. It now yields each such URL
+  under the name of its nearest entry ("?" when there is none). The audited
+  `_ROBOTS_EXTRA` requests went from 178 to 180, and only lcsd_sources.json
+  changed (7 -> 9). `python test_robots.py` has 2 checks for it.

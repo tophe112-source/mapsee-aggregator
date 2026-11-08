@@ -279,3 +279,27 @@
   was green by timing. D is now that day at 12:00 UTC; the fixture's offsets
   span 0 to +6 h and never cross a day. Fixed and unfixed ran in the same
   minute, 23:52 UTC: 151 ok against 2 FAIL.
+
+- **A ONE-DAY EVENT WITH STATED HOURS IS OVER WHEN ITS HOURS ARE, NOT AT ITS
+  MIDNIGHT (2026-11-08).** Short Run Comix Festival ran 11:00-18:00 on
+  2026-11-07 in Seattle, which is 02:00 UTC on the 8th. By date alone (end date
+  before today, where it is held) the finished festival stays upcoming until
+  08:00 UTC, Seattle's midnight. The daily cron is 06:17 UTC, 22:17 the evening
+  before in Seattle, so a run on time, or a dispatch that evening, would have
+  read and written it again. The last 30 scheduled aggregate-events runs
+  (2026-10-15 to 11-07) actually started 10:48-16:31 UTC, every one after
+  midnight in Seattle (03:48 PDT at the earliest), which is why the date-only
+  rule has not shown it. `mapsee_ingest_annual.read_page` now takes
+  `now_minute`, the minute of the day where the event is held (`now_for` reads
+  it in the entry's `timezone`), and refuses a single day whose stated end has
+  passed. Live: kept at 17:44 PST, refused at 18:01 PST with "past: the
+  2026-11-07 edition ended at 18:00 where it is held". Once refused, the page
+  walk stops there (adapters-and-sources.md has why). MAPSEE_TODAY fixes the
+  day and leaves the minute None, so a run with a pinned date is date-only;
+  `test_ingest_annual.py` (122 cases) passes the minute itself: 18:00 refused,
+  17:44 kept. The same row's clock is stamped into start_utc/end_utc with the
+  entry's timezone (2026-11-07T19:00:00Z to 2026-11-08T02:00:00Z), never left
+  naive: `_to_utc_if_naive` in mapsee_supabase_sync.py zones a naive time from
+  the row's coordinates and passes it through unchanged without them, so on an
+  entry without coordinates '2026-11-07T11:00:00' would have been stored as
+  11:00 UTC.

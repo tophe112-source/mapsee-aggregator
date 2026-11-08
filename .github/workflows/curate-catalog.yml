@@ -126,9 +126,12 @@ on:
     - cron: "30 9 * * *"
   workflow_dispatch:
     inputs:
+      # Blank, not "300": GitHub fills an omitted input with its default, so a
+      # default of 300 made every dispatch name a limit and gancio's 25 never
+      # applied by hand. Blank is 300 for every backend but gancio (25).
       limit:
-        description: "How many candidates to probe PER BACKEND (each costs a live request)"
-        default: "300"
+        description: "How many candidates to probe PER BACKEND (each costs a live request). Blank = 300, and 25 for gancio."
+        default: ""
       backend:
         description: "Which catalog to sweep. 'all' is what the schedule runs (the 03:20 daily reads ckan on Wednesdays only)."
         type: choice
@@ -544,15 +547,19 @@ jobs:
           RUN_ID=""
           # main's runs only: a dispatch on a work branch runs changed
           # adapters, and its stores must not decide main's committed queue.
+          # ALL FOUR GROUPS' stores, or none: a recovery dispatch with
+          # feed_group set uploads one group's store, and "covered" is decided
+          # against the stores read, so a mention titled in another group's
+          # store would flip back to pending and be committed as a false lead.
           for id in $(gh run list --repo "$GITHUB_REPOSITORY" --workflow aggregate-events.yml \
                         --branch main --status completed --limit 10 --json databaseId --jq '.[].databaseId'); do
             n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$id/artifacts?per_page=100" \
-                  --jq '[.artifacts[] | select((.name | startswith("feeds-")) and (.expired | not))] | length')
-            if [ "${n:-0}" -gt 0 ] 2>/dev/null; then RUN_ID="$id"; break; fi
+                  --jq '[.artifacts[] | select((.name | startswith("feeds-")) and (.expired | not)) | .name | split("-")[1]] | unique | length')
+            if [ "${n:-0}" -ge 4 ] 2>/dev/null; then RUN_ID="$id"; break; fi
           done
           if [ -z "$RUN_ID" ]; then
-            echo "::warning::no completed aggregate-events run with feeds-* artifacts among the last 10 - mention scan skipped"
-            printf '## Named events the feeds mention\nskipped: no feeds-* artifacts to read\n' >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::no completed aggregate-events run with all four groups' feeds-* artifacts among the last 10 - mention scan skipped"
+            printf '## Named events the feeds mention\nskipped: no run with all four feeds-* stores to read\n' >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           if ! timeout 90 gh run download "$RUN_ID" --repo "$GITHUB_REPOSITORY" --pattern 'feeds-*' --dir "$STORES"; then

@@ -1462,7 +1462,7 @@ jobs:
         id: sync
         if: matrix.group != 'ics' || steps.checkpoint.outcome != 'success'
         continue-on-error: true
-        timeout-minutes: ${{ matrix.group == 'civic' && 90 || matrix.group == 'rec' && 60 || 20 }}
+        timeout-minutes: ${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || 20 }}
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
