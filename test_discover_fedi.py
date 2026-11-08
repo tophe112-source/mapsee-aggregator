@@ -50,6 +50,16 @@ What is pinned is what the measurements found:
     mirror (mobilizon.com.br, 52 of 52). No two requests to one operator are
     in flight at once, in any phase. gancio.org/instances is read through
     mapsee_ingest_fairs.Polite.
+  * FROM THE THIRD REVIEW OF 2026-11-08: a redirect is a request to another
+    host, so no probe lets requests follow one. Each hop is asked with
+    allow_redirects=False, and a host it leads to answers robots.txt first
+    (or, declined or parked, is not asked at all); refusing, it is parked
+    with the name that led there, in either alphabetical order, so no later
+    run knocks through the redirect. The fake now makes a followed redirect
+    a real second request, which the earlier fixtures never did. A Mobilizon
+    follower of one host must also have fewer than MOBILIZON_SERVED_MIN
+    events of its own: the share alone refused 20 of the 66 configured
+    instances' live samples.
 """
 import contextlib
 import io
@@ -60,7 +70,7 @@ import shutil
 import sys
 import tempfile
 import time
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, urljoin, urlparse
 
 os.environ["MAPSEE_TODAY"] = "20261108"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -79,11 +89,11 @@ SUMMARY_RX = re.compile(r"^(skipped:|  advanced |  .*UNREAD|  .*SKIPPING)")
 
 
 class Resp:
-    def __init__(self, code=200, body=None, url="", text=None):
+    def __init__(self, code=200, body=None, url="", text=None, headers=None):
         self.status_code, self._body, self.url = code, body, url
         self.text = text if text is not None else (json.dumps(body) if body is not None else "")
         self.content = self.text.encode("utf-8")
-        self.headers = {}
+        self.headers = dict(headers or {})
 
     def json(self):
         if self._body is None:
@@ -108,17 +118,40 @@ class Fake:
         ans = self.route(url, dict(params or {}))
         if isinstance(ans, Exception):
             raise ans
-        return ans
+        return self._follow(ans, allow_redirects, None)
 
-    def post(self, url, json=None, timeout=None, headers=None, **_kw):
+    def post(self, url, json=None, timeout=None, headers=None, allow_redirects=True, **_kw):
         self.calls.append((url, dict(json or {})))
         ans = self.route(url, dict(json or {}))
         if isinstance(ans, Exception):
             raise ans
-        return ans
+        return self._follow(ans, allow_redirects, json)
+
+    def _follow(self, ans, allow, body):
+        """A redirect is answered as a server answers one (`moved`), and
+        followed only when the caller lets requests follow it: then the next
+        hop is a REAL request to the other host, recorded like any other (the
+        review of 2026-11-08 found the earlier fixtures swapped the URL and
+        never made it). A 307/308 keeps a POST, anything else becomes a GET,
+        as requests does."""
+        loc = ans.headers.get("Location")
+        if not allow or ans.status_code not in REDIRECTS or not loc:
+            return ans
+        to = urljoin(ans.url, loc)
+        if body is not None and ans.status_code in (307, 308):
+            return self.post(to, json=body)
+        return self.get(to)
 
     def asked(self, host, path=""):
         return [u for u, _p in self.calls if urlparse(u).hostname == host and urlparse(u).path.startswith(path)]
+
+
+REDIRECTS = (301, 302, 303, 307, 308)
+
+
+def moved(u, to, code=301):
+    """A server's redirect from `u` to `to`."""
+    return Resp(code, None, u, "", headers={"Location": to})
 
 
 def run(fn, *a, **kw):
@@ -291,6 +324,8 @@ try:
                 if slow and host in slow:
                     time.sleep(slow[host])
                 ans = search[host]
+                if isinstance(ans, tuple):    # ("->", code, host): a redirect of the API
+                    return moved(u, u.replace(host, ans[2], 1), ans[1])
                 if isinstance(ans, int):
                     return Resp(ans, None, u, "forbidden")
                 return Resp(200, {"data": {"searchEvents": {"total": TOTALS.get(host, len(ans) * 10),
@@ -433,12 +468,13 @@ try:
              "challenged.example.cl": Resp(200, None, "", CHALLENGE)}
     M2 = ("nocrawl.example.cl", "tokenno.example.cl", "pathonly.example.cl", "down.example.cl", "waf.example.cl",
           "challenged.example.cl", "adultmob.example.de", "someadult.example.de", "copier.example.br",
-          "halfmirror.example.pt", "halfcopy.example.pt", "oneoff.example.pt")
+          "halfmirror.example.pt", "halfcopy.example.pt", "oneoff.example.pt", "onemine.example.pt",
+          "split.example.pt")
     JM2 = {"data": [{"host": h, "name": h.split(".")[0].title(), "totalLocalEvents": 50, "health": 90} for h in M2]}
 
     def own(h, titles, d0=1):
         return [mev(tt, d0 + i, on=h) for i, tt in enumerate(titles)]
-    ELSEWHERE = "eventos.elsewhere.example"
+    ELSEWHERE, OTHER = "eventos.elsewhere.example", "agenda.other.example"
     SEARCH2 = dict({h: own(h, ["never asked"]) for h in M2}, **{
         "mob.configured.example": CONF_M,
         "pathonly.example.cl": own("pathonly.example.cl", ["Path 1", "Path 2"]),
@@ -449,9 +485,19 @@ try:
                                     + [f"Talk {i}" for i in range(7)], d0=20),
         # mobilizon.com.br's shape: every event published on one host no config names
         "copier.example.br": [mev(f"Copied {i}", i, on=ELSEWHERE) for i in range(1, 6)],
-        # 2 of 4 published elsewhere (0.5, GANCIO_MIRROR_SHARE): a mirror; 2 of 5 (0.4): not
+        # A follower has (almost) nothing of its own (the third review: the
+        # share alone refused 20 of the 66 configured instances, among them
+        # mobilize.adminforge.de with 43 of its own). 2 of 4 elsewhere (0.5,
+        # GANCIO_MIRROR_SHARE) with 2 of its own (MOBILIZON_SERVED_MIN): kept;
+        # with 1 of its own, at the same 0.5 share: a mirror.
         "halfmirror.example.pt": [mev("HM a", 1, on=ELSEWHERE), mev("HM b", 2, on=ELSEWHERE)]
         + own("halfmirror.example.pt", ["HM own 1", "HM own 2"], d0=3),
+        "onemine.example.pt": [mev("OM a", 1, on=ELSEWHERE), mev("OM b", 2, on=ELSEWHERE),
+                               mev("OM c", 3, on=OTHER)] + own("onemine.example.pt", ["OM own"], d0=4),
+        # 2 of 5 (0.4) from the top host, 1 of its own: under the share, kept
+        "split.example.pt": [mev("SP a", 1, on=ELSEWHERE), mev("SP b", 2, on=ELSEWHERE),
+                             mev("SP c", 3, on=OTHER), mev("SP d", 4, on=OTHER)]
+        + own("split.example.pt", ["SP own"], d0=5),
         "halfcopy.example.pt": [mev("HC a", 1, on=ELSEWHERE), mev("HC b", 2, on=ELSEWHERE)]
         + own("halfcopy.example.pt", ["HC 1", "HC 2", "HC 3"], d0=3),
         # one event of one published elsewhere is under MOBILIZON_SERVED_MIN
@@ -462,8 +508,9 @@ try:
     (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), rled, 50)
     proposed = [e["base_url"] for e in found.values()]
     lines = out.splitlines()
-    check(proposed == ["https://pathonly.example.cl", "https://someadult.example.de", "https://halfcopy.example.pt",
-                       "https://oneoff.example.pt"], f"robots.txt run: what is proposed ({proposed})")
+    check(proposed == ["https://pathonly.example.cl", "https://someadult.example.de", "https://halfmirror.example.pt",
+                       "https://halfcopy.example.pt", "https://oneoff.example.pt", "https://split.example.pt"],
+          f"robots.txt run: what is proposed ({proposed})")
     for h in ("nocrawl.example.cl", "tokenno.example.cl", "down.example.cl", "waf.example.cl", "challenged.example.cl"):
         check(len(s.asked(h, "/robots.txt")) == 1 and not s.asked(h, "/api"),
               f"mobilizon {h}: robots.txt read once, and nothing else asked")
@@ -487,15 +534,81 @@ try:
           and any(l == f"  mirror: copier.example.br 5 of its 5 sampled events were published on {ELSEWHERE} "
                        f"(by their url)" for l in lines),
           "mobilizon: a follower of a host no config names is a mirror (mobilizon.com.br, 52 of 52)")
-    check("https://halfmirror.example.pt" not in proposed and "https://halfcopy.example.pt" in proposed
-          and "https://oneoff.example.pt" in proposed and skipped["mirror"] == 2,
-          "...2 of 4 elsewhere is one, 2 of 5 is not, and 1 of 1 is under MOBILIZON_SERVED_MIN")
+    check("https://onemine.example.pt" not in proposed
+          and any(l == f"  mirror: onemine.example.pt 2 of its 4 sampled events were published on {ELSEWHERE} "
+                       f"(by their url)" for l in lines) and skipped["mirror"] == 2,
+          "...2 of 4 from one host with 1 of its own is one (0.5, under MOBILIZON_SERVED_MIN own)")
+    check("https://halfmirror.example.pt" in proposed,
+          "...the same 2 of 4 with 2 of its own is a calendar that follows a hub, kept "
+          "(mobilize.adminforge.de: 43 own, 55 from mobilize.berlin)")
+    check("https://split.example.pt" in proposed and "https://halfcopy.example.pt" in proposed
+          and "https://oneoff.example.pt" in proposed,
+          "...2 of 5 from the top host is under the share, and 1 of 1 under MOBILIZON_SERVED_MIN")
     s2 = Fake(mob_route(jm=JM2, fd=[], search=SEARCH2, robots=ROB_M))
     (_f, sk2), _o = run(C._discover_mobilizon, s2, C._config_keys(), rled, 50)
     check(not any(s2.asked(h) for h in ("nocrawl.example.cl", "tokenno.example.cl", "down.example.cl",
                                          "waf.example.cl", "challenged.example.cl"))
           and sk2["ledger"] == 5 and sk2["robots"] == 0,
           "the next run asks none of the five robots.txt verdicts again")
+
+    # ------------------------------------------ 2c. a redirect is a request to another host
+    # The third review of 2026-11-08: a candidate serving its own robots.txt
+    # but sending /api elsewhere put a POST on a host refusing every crawler,
+    # whose robots.txt was never read. Every hop is now asked first. The
+    # fake makes a followed redirect a real request, as requests would.
+    def mob_hop(listing, search, robots, led_, workers=1):
+        jm = {"data": [{"host": h, "name": h.split(".")[0], "totalLocalEvents": 60 - i, "health": 90}
+                       for i, h in enumerate(listing)]}
+        sess = Fake(mob_route(jm=jm, fd=[], search=search, robots=robots))
+        return sess, run(C._discover_mobilizon, sess, C._config_keys(), led_, 50, workers=workers)
+    MH, MF = "mopen.example.com", "mclosed.example.org"
+    HOPS_M = dict(SEARCH2, **{MH: ("->", 308, MF), MF: own(MF, ["Closed 1", "Closed 2"]),
+                              "mtorefused.example.com": ("->", 307, "mrefused.example.org"),
+                              "mrefused.example.org": own("mrefused.example.org", ["never asked"]),
+                              "mtodeclined.example.com": ("->", 308, "keskonfai.example"),
+                              "keskonfai.example": own("keskonfai.example", ["never asked"]),
+                              "mold.example.com": ("->", 308, "mnew.example.com"),
+                              "mtoconf.example.com": ("->", 308, "mob.configured.example"),
+                              "mnew.example.com": [mev("New 1", 1), mev("New 2", 2)]})
+    ROB_H = {MF: Resp(200, None, "", DENY)}
+    for listing in ([MH], [MF, MH], [MH, MF]):
+        for w in (1, 3):
+            hled = {}
+            s, ((found, skipped), out) = mob_hop(listing, HOPS_M, ROB_H, hled, w)
+            s2, ((f2, sk2), _o) = mob_hop(listing, HOPS_M, ROB_H, hled, w)
+            check(found == {} and not s.asked(MF, "/api") and len(s.asked(MF, "/robots.txt")) == 1
+                  and (hled.get(MH) or {}).get("status") == "refused"
+                  and f"on {MF}, where it redirects" in (hled.get(MH) or {}).get("reason", "")
+                  and (hled.get(MF) or {}).get("status") == "refused"
+                  and any(l.startswith(f"  robots.txt: {MH} -> {MF}: robots.txt: Disallow: /") for l in out.splitlines())
+                  and not s2.asked(MH) and not s2.asked(MF),
+                  f"mobilizon {listing} (workers {w}): a 308 onto a host refusing every crawler: that host "
+                  f"gets robots.txt only, both names parked `refused`, the next run asks neither "
+                  f"({[u for u, _p in s.calls if urlparse(u).hostname == MF]})")
+    hled = {"mrefused.example.org": {"type": "mobilizon", "status": "refused", "checked": 20261101,
+                                     "reason": "robots.txt: Disallow: /"}}
+    s, ((found, skipped), out) = mob_hop(["mtorefused.example.com", "mtodeclined.example.com", "mold.example.com"],
+                                         HOPS_M, ROB_H, hled)
+    check(not s.asked("mrefused.example.org") and (hled.get("mtorefused.example.com") or {}).get("status") == "refused"
+          and any(l == "  alias: mtorefused.example.com -> mrefused.example.org, which the ledger has parked"
+                  for l in out.splitlines()),
+          "mobilizon: a redirect onto a host the ledger parked for robots.txt is not followed (not even its "
+          "robots.txt), and the name redirecting there is parked beside it")
+    check(not s.asked("keskonfai.example") and skipped["declined"] == 1
+          and any(l == "  alias: mtodeclined.example.com -> keskonfai.example, which is declined on the record"
+                  for l in out.splitlines()),
+          "mobilizon: a redirect onto a declined host is not followed")
+    order = [urlparse(u).path for u, _p in s.calls if urlparse(u).hostname == "mnew.example.com"]
+    check(list(found) == [C._canon("https://mold.example.com")] and order == ["/robots.txt", "/api"]
+          and skipped["ledger"] == 1,
+          f"mobilizon: a 308 onto a host that allows us: its robots.txt first, then the POST, kept ({order})")
+    hled = {}
+    s, ((found, skipped), out) = mob_hop(["mtoconf.example.com"], HOPS_M,
+                                         dict(ROB_H, **{"mob.configured.example": Resp(200, None, "", DENY)}), hled)
+    check(found == {} and skipped["mirror"] == 1 and not s.asked("mob.configured.example", "/robots.txt")
+          and hled == {},
+          f"mobilizon: a redirect onto the CONFIGURED instance is not re-judged by its robots.txt nor parked; "
+          f"its events make the candidate a mirror ({hled}, {skipped['mirror']})")
 
     # ------------------------------------------ 3. Gancio
     json.dump({"crawl_delay": 2, "sites": [
@@ -519,7 +632,7 @@ try:
         "plain.example.org": (None, [ev("Talk", 4)], {"nodeName": "Gancio", "nodeDescription": "x"}),
         "pun.example.in": (None, [ev("Sagra", 4)], {"nodeName": "Sa Pratza", "nodeDescription": "",
                                                     "nodeTimezone": "Europe/Rome"}),
-        "alias-old.example": ("alias-new.example", [ev("Same", 1), ev("Same 2", 2)], {}),
+        "alias-old.example": ("alias-new.example", [], {}),     # a 301: the host it names answers
         "alias-new.example": (None, [ev("Same", 1), ev("Same 2", 2)], {"nodeName": "New"}),
         "events.confr.example": (None, [ev("R1", 1), ev("R2", 2)], {}),
         "mirror.example": (None, list(CONF_A), {}),
@@ -553,8 +666,8 @@ try:
         # Listed hosts that redirect to a host the ledger has parked, and to one
         # declined on the record (old.example -> new.example, review 2026-11-08).
         "parked.example": (None, [ev("never asked", 1)], {}),
-        "toparked.example": ("parked.example", [ev("P1", 1), ev("P2", 2)], {}),
-        "todeclined.example": ("declined.example", [ev("D1", 1), ev("D2", 2)], {}),
+        "toparked.example": ("parked.example", [], {}),
+        "todeclined.example": ("declined.example", [], {}),
         # Each rule's KEPT side, just inside its threshold: 2 of 8 a configured
         # site's (0.25; gancio.pl's 18 of 72), 3 of 6 online (0.5;
         # organize.frontrange.co), 3 of 10 adult-tagged (0.3 < 1/3).
@@ -579,8 +692,11 @@ try:
         "waf.example.cl": (None, [ev("never asked", 1)], {}),
         "waf429.example.cl": (None, [ev("never asked", 1)], {}),
         "challenged.example.cl": (None, [ev("never asked", 1)], {}),
-        "toclosed.example.cl": ("closed.example.org", [ev("Closed 1", 1), ev("Closed 2", 2)], {"nodeName": "C"}),
+        "toclosed.example.cl": ("closed.example.org", [], {"nodeName": "C"}),
     }
+    # Where a redirect lands that no directory lists: it answers if asked, so
+    # a request the robots.txt gate should have stopped shows up as a proposal.
+    LANDING = {"closed.example.org": (None, [ev("Closed 1", 1), ev("Closed 2", 2)], {"nodeName": "C"})}
 
     def gancio_route(fd_ok=True, org_ok=True, slow=None, listed=None, robots=None, org_html=None):
         """`slow`: {host: seconds} its /api/events takes to answer. `listed`
@@ -607,12 +723,13 @@ try:
                 if host == "confa.example":
                     return Resp(200, CONF_SETS["confa.example"], u)
                 if host == "confr.example":   # rheinmain.social's shape: a 301 to events.<host>
-                    return Resp(200, INSTANCES["events.confr.example"][1],
-                                u.replace("confr.example", "events.confr.example"))
-                final, evs, _ni = INSTANCES.get(host) or EXTRA_G[host]
+                    return moved(u, u.replace("confr.example", "events.confr.example", 1))
+                final, evs, _ni = INSTANCES.get(host) or EXTRA_G.get(host) or LANDING[host]
+                if final:                     # a 301 the probe follows by hand
+                    return moved(u, u.replace(host, final, 1))
                 if isinstance(evs, int):
                     return Resp(evs, None, u, "<html>no</html>")
-                return Resp(200, evs, u.replace(host, final) if final else u)
+                return Resp(200, evs, u)
             if pu.path == "/.well-known/nodeinfo/2.0":
                 ni = (INSTANCES.get(host) or EXTRA_G.get(host) or (None, None, {}))[2]
                 return Resp(200, {"metadata": ni, "software": {"name": "gancio"}}, u)
@@ -767,7 +884,8 @@ try:
         check(row.get("status") == status and row.get("type") == "gancio" and why in row.get("reason", "")
               and C._dead_recently(rled, h),
               f"gancio {h}: ledger `{status}` ({why}), parked for DEAD_TTL ({row})")
-    check(len(s.asked("closed.example.org", "/robots.txt")) == 1 and not s.asked("closed.example.org", "/.well-known")
+    check(len(s.asked("closed.example.org", "/robots.txt")) == 1 and not s.asked("closed.example.org", "/api")
+          and not s.asked("closed.example.org", "/.well-known")
           and not s.asked("toclosed.example.cl", "/.well-known")
           and any(l.startswith("  robots.txt: toclosed.example.cl -> closed.example.org: robots.txt: Disallow: /")
                   for l in out.splitlines()),
@@ -781,6 +899,62 @@ try:
     check(not any(s2.asked(h) for h in EXTRA_G if h != "pathonly.example.cl") and not s2.asked("closed.example.org")
           and sk2["ledger"] == 7,
           f"the next run asks none of them again, nor where one redirects ({sk2['ledger']})")
+
+    # A redirect is a request to another host (the third review of 2026-11-08).
+    # zz-open serves its own robots.txt and sends /api/events to aa-closed,
+    # which refuses every crawler and, listed too, sorts FIRST: it was parked
+    # and the alias skipped unparked, so each later run knocked through the
+    # redirect. Both alphabetical orders, alone and together, 1 and 3 workers.
+    LANDING.update({
+        "aa-closed.example.org": (None, [ev("Closed A 1", 1), ev("Closed A 2", 2)], {}),
+        "zz-open.example.com": ("aa-closed.example.org", [], {}),
+        "aa-open.example.com": ("zz-closed.example.org", [], {}),
+        "zz-closed.example.org": (None, [ev("Closed Z 1", 1), ev("Closed Z 2", 2)], {}),
+        "torparked.example.com": ("rparked.example.org", [], {}),
+        "rparked.example.org": (None, [ev("never asked", 1)], {}),
+        "toconf.example.com": ("confa.example", [], {})})
+    ROB_GH = {"aa-closed.example.org": Resp(200, None, "", DENY), "zz-closed.example.org": Resp(200, None, "", DENY)}
+    # gancio.org/instances unread here (FediDB lists them): Polite's 1 s wait
+    # per run is not what these cases are about.
+    _org = C._gancio_org_hosts
+    C._gancio_org_hosts = lambda _s, deadline=0.0: (None, "not read in this case")
+    for opn, closed in (("zz-open.example.com", "aa-closed.example.org"),
+                        ("aa-open.example.com", "zz-closed.example.org")):
+        for listing in ([opn], [opn, closed]):
+            for w in (1, 3):
+                hled = {}
+                s = Fake(gancio_route(listed=listing, org_ok=False, robots=ROB_GH))
+                (fh, skh), out = run(C._discover_gancio, s, C._config_keys(), hled, 100, workers=w)
+                s2 = Fake(gancio_route(listed=listing, org_ok=False, robots=ROB_GH))
+                (_f, sk2), _o = run(C._discover_gancio, s2, C._config_keys(), hled, 100, workers=w)
+                to_closed = [urlparse(u).path for u, _p in s.calls if urlparse(u).hostname == closed]
+                check(fh == {} and to_closed == ["/robots.txt"]
+                      and (hled.get(opn) or {}).get("status") == "refused"
+                      and (hled.get(closed) or {}).get("status") == "refused"
+                      and not s2.asked(opn) and not s2.asked(closed) and sk2["ledger"] == len(listing),
+                      f"gancio {listing} (workers {w}): the refusing host a redirect leads to is asked its "
+                      f"robots.txt and nothing else, both names are parked `refused`, the next run asks "
+                      f"neither ({to_closed}, {sorted(hled)})")
+    hled = {"rparked.example.org": {"type": "gancio", "status": "refused", "checked": 20261101,
+                                    "reason": "robots.txt: Disallow: /"}}
+    s = Fake(gancio_route(listed=["torparked.example.com"], org_ok=False))
+    (fh, skh), out = run(C._discover_gancio, s, C._config_keys(), hled, 100, workers=1)
+    row = hled.get("torparked.example.com") or {}
+    check(fh == {} and not s.asked("rparked.example.org") and row.get("status") == "refused"
+          and "rparked.example.org refuses every crawler" in row.get("reason", "") and skh["ledger"] == 1,
+          f"gancio: a redirect onto a host the ledger parked for robots.txt is not followed, and the name "
+          f"redirecting there is parked beside it ({row})")
+    check("toparked.example" not in gled and "toparked.example" not in led,
+          "...while one onto a host parked for an http 500 is skipped, not parked itself")
+    hled = {}
+    s = Fake(gancio_route(listed=["toconf.example.com"], org_ok=False,
+                          robots={"confa.example": Resp(200, None, "", DENY)}))
+    (fh, skh), out = run(C._discover_gancio, s, C._config_keys(), hled, 100, workers=1)
+    check(fh == {} and skh["alias"] == 1 and hled == {} and not s.asked("confa.example", "/robots.txt")
+          and any(l == "  alias: toconf.example.com -> confa.example, where a configured site lands"
+                  for l in out.splitlines()),
+          f"gancio: a redirect onto a CONFIGURED site is not re-judged by its robots.txt nor parked: an alias ({hled})")
+    C._gancio_org_hosts = _org
 
     # The wall clock and the bound: a pool that is cut proposes nothing.
     def api_asked(sess):
@@ -1041,16 +1215,86 @@ try:
         if u == C.FEDIDB_SERVERS:
             return Resp(200, {"data": [{"domain": h} for h in OPS2], "meta": {}}, u)
         if pu.hostname == "r.opa.example" and pu.path == "/api/events":
-            return Resp(200, [ev("Landed 1", 1), ev("Landed 2", 2)], u.replace("r.opa.example", "landing.opb.example"))
+            return moved(u, u.replace("r.opa.example", "landing.opb.example", 1))
         return conc_route(u, p)
     s = Tracker(redirect_route)
     (fg2, _sk), _o = run(C._discover_gancio, s, C._config_keys(), {}, 50, workers=6)
-    check(len(s.asked("landing.opb.example", "/robots.txt")) == 1 and s.peak.get("opb.example") == 1
+    landed = [urlparse(u).path for u, _p in s.calls if urlparse(u).hostname == "landing.opb.example"]
+    check(landed[:2] == ["/robots.txt", "/api/events"] and landed.count("/robots.txt") == 1
+          and s.peak.get("opb.example") == 1
           and "https://landing.opb.example" in {e["base_url"] for e in fg2.values()},
           f"gancio: the host a redirect lands on is read under its own operator's lock ({s.peak})")
 finally:
     C.HERE, C.LEDGER_FILE = _keep2
     shutil.rmtree(tmp2, ignore_errors=True)
+
+# ---------------------------------------------- 6c'. one hop at a time (_fedi_follow)
+def hop_session(chain):
+    """chain: {url: Resp}; anything else is a 404. Records (method, url)."""
+    calls = []
+
+    class S:
+        def get(self, u, **kw):
+            assert kw.get("allow_redirects") is False, "every hop is asked with allow_redirects=False"
+            calls.append(("GET", u))
+            return chain.get(u) or Resp(404, None, u, "")
+
+        def post(self, u, **kw):
+            assert kw.get("allow_redirects") is False, "every hop is asked with allow_redirects=False"
+            calls.append(("POST", u))
+            return chain.get(u) or Resp(404, None, u, "")
+    sess = S()
+
+    def send(u, post):
+        return sess.post(u, allow_redirects=False) if post else sess.get(u, allow_redirects=False)
+    return send, calls
+
+
+def follow_in_thread(*a, **kw):
+    """_fedi_follow run where a deadlock would show as a timeout, not a hang."""
+    import threading
+    box = {}
+    t = threading.Thread(target=lambda: box.update(out=C._fedi_follow(*a, **kw)), daemon=True)
+    t.start()
+    t.join(5)
+    return box.get("out")
+
+
+gated = []
+send, calls = hop_session({"https://a.op.example/api": moved("https://a.op.example/api", "https://www.a.op.example/api"),
+                           "https://www.a.op.example/api": moved("https://www.a.op.example/api",
+                                                                 "https://b.op.example/api", 308),
+                           "https://b.op.example/api": Resp(200, {"ok": 1}, "https://b.op.example/api")})
+out = follow_in_thread(send, "https://a.op.example/api", C._OperatorLocks(), post=True,
+                       gate=lambda o: gated.append(o), stop=lambda h: gated.append("stop " + h))
+check(out and out.get("url") == "https://b.op.example/api" and out["r"].status_code == 200
+      and calls == [("POST", "https://a.op.example/api"), ("GET", "https://www.a.op.example/api"),
+                    ("GET", "https://b.op.example/api")]
+      and gated == ["https://a.op.example", "https://www.a.op.example", "stop b.op.example", "https://b.op.example"],
+      f"_fedi_follow: three hosts of one operator, no lock held across hops (no deadlock); robots.txt asked per "
+      f"origin (www. too), stop per new host; a 301 turns the POST into a GET, a 308 keeps the method "
+      f"({calls}, {gated})")
+send, calls = hop_session({"https://x.example/api": moved("https://x.example/api", "https://y.example/api", 307)})
+out = C._fedi_follow(send, "https://x.example/api", C._OperatorLocks(), post=True,
+                     gate=lambda o: ("robots", "refused", "no") if "y." in o else None)
+check(out == {"why": "robots", "gate": ("robots", "refused", "no"), "at": "y.example", "url": "https://y.example/api"}
+      and calls == [("POST", "https://x.example/api")],
+      f"_fedi_follow: a refusing gate on the second host ends the chain before it is asked ({out}, {calls})")
+loop = {f"https://l.example/{i}": moved(f"https://l.example/{i}", f"https://l.example/{i + 1}") for i in range(20)}
+send, calls = hop_session(loop)
+out = C._fedi_follow(send, "https://l.example/0", C._OperatorLocks())
+check(len(calls) == C.FEDI_MAX_HOPS + 1 and out["r"].status_code == 301,
+      f"_fedi_follow: at most FEDI_MAX_HOPS redirects followed, the last 3xx returned ({len(calls)})")
+send, calls = hop_session({"https://p.example/api": moved("https://p.example/api", "https://p.example/v2", 303),
+                           "https://p.example/v2": Resp(200, {}, "https://p.example/v2")})
+out = C._fedi_follow(send, "https://p.example/api", C._OperatorLocks(), post=True, gate=lambda o: None,
+                     deadline=time.time() + 60)
+check(calls == [("POST", "https://p.example/api"), ("GET", "https://p.example/v2")],
+      f"_fedi_follow: a 303 continues as a GET ({calls})")
+send, calls = hop_session({})
+out = C._fedi_follow(send, "https://p.example/api", C._OperatorLocks(), deadline=1.0)
+check(out.get("why") == "unread" and not calls, f"_fedi_follow: past the deadline nothing is asked ({out})")
+
 
 # ---------------------------------------------- 6d. gancio.org/instances through Polite
 def org_session(robots, page=None, more=None):

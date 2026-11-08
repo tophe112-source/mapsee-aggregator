@@ -174,39 +174,74 @@ def clean_text(s: Any) -> str:
 # title, nor in this file's comments.
 _EMAIL = re.compile(r"(?:mailto:)?[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 # A phone number's SHAPE, not "a run of digits". The examples are fictitious
-# numbers (NANP 555-01xx; Ofcom's and ARCEP's drama ranges; ACMA's list):
-#   1. groups of 3-4 after a 2-4 digit lead or "(area)", or a UK 5-digit
-#      "0xxxx": "(206) 555-0100", "206-555-0142", "+44 20 7946 0958",
-#      "07700 900123";
+# numbers (NANP 555-01xx; Ofcom's, ARCEP's and PTS's drama ranges; ACMA's):
+#   1. groups of 3-4 after a 2-4 digit lead or a 2-5 digit "(area)":
+#      "(206) 555-0100", "206-555-0142", "+44 20 7946 0958", "(01632) 960123";
+#   1b. after a 5-digit "0xxxx" lead, but only where the number ends: "07700
+#      900123", "01632 9601 234". Unguarded, a ZIP that starts with 0 was the
+#      lead ("CT 06103 860-555-0100" kept "-0100" in clear: 6 tribe rows); a
+#      fixed 3-3 tail instead lets 68 German 5-digit area codes through, 51
+#      of them right after an e-mail address;
 #   2. French pairs after "0x" or "+33 x", one separator throughout:
 #      "06 39 98 01 23", "+33 6 39 98 01 23";
 #   3. Spanish 3-2-2-2, one separator throughout: "555 01 01 23";
 #   4. a bare run of 9-11 digits, or 8-14 after +: "0491570156",
-#      "Contact Phone: 2065550100". An 8-digit date ("20261107") is shorter.
-# MEASURED on the 2026-11-07 stores (611,881 rows, 6,728 candidates, run with
-# --today 20261108): 2 to 4 change the sample of 16 candidates, none of the
-# 179 kept, leave every verdict, title and date as it was, and write a
-# byte-identical queue. Before 4 took any lead digit, 2,155 descriptions
-# still carried 2,582 bare 9-11 digit runs, 764 right after "phone". One
-# separator throughout is what keeps "07.11.26 14.00" a date and time, and
+#      "Contact Phone: 2065550100". An 8-digit date ("20261107") is shorter;
+#   5. (_PHONE_KW) any grouping at all, once a phone word introduces it.
+# MEASURED on the 2026-11-07 stores (611,881 rows, 557,268 with prose, 6,728
+# candidates, --today 20261108). Rules 2-4: before 4 took any lead digit,
+# 2,155 descriptions still carried 2,582 bare 9-11 digit runs, 764 right
+# after "phone". Rules 1b and 5: after a phone word, 1-4 had left 950 runs of
+# 9+ digits in 938 rows ("Tel. 0xxx-xxx xx xx", "puh. 0x xxx xxxxx", "Telefon
+# 0xxx/xxxxxxx", "call xxx- xxx-xxxx") and 178 of 8; now 0. They mask 4,789
+# more spans in 4,646 rows, none of them a date or a time, and change no
+# title. Each round left every verdict, title and date as it was and wrote a
+# byte-identical queue; this one changed the sample of 12 candidates, all
+# refused Hong Kong "Enquiries:" lines. STILL UNMASKED: 1,417 runs of 9-13
+# digits with separators, in 1,166 rows, with no phone word right before them
+# (a second number after "oder", an address that ends "Australia", "T :").
+# One separator throughout is what keeps "07.11.26 14.00" a date and time, and
 # "Mo 09.00-12.00 13.00-17.00" opening hours. "2026-11-07", "2016-2022",
 # "11:00-18:00", "75011 Paris" and a street number do not have any of these
-# shapes (test_mentions.py lists them).
+# shapes (test_mentions.py lists them). Rule 1b does take a 0-led postcode
+# before a season ("0xxxx 20xx-20xx"): no such text was in the stores.
 _PHONE = re.compile(
     r"(?<!\w)(?:"
-    r"(?:\+\d{1,3}[ .-]?)?(?:\(\d{2,4}\)[ .-]?|\d{2,4}[ .-]|0\d{4}[ .-])\d{3,4}[ .-]?\d{3,4}"
+    r"(?:\+\d{1,3}[ .-]?)?(?:\(\d{2,5}\)[ .-]?|\d{2,4}[ .-])\d{3,4}[ .-]?\d{3,4}"
+    r"|(?:\+\d{1,3}[ .-]?)?0\d{4}[ .-]\d{3,4}[ .-]?\d{3,4}(?![ .-]\d)"
     r"|(?:\+\d{1,3}[ .-]?(?:\(0\)[ .-]?)?\d|0\d)(?P<fr>[ .-])\d\d(?:(?P=fr)\d\d){3}"
     r"|(?:\+\d{1,3}[ .-]?)?\d{3}(?P<es>[ .-])\d\d(?:(?P=es)\d\d){2}"
     r"|\d{9,11}|\+\d{8,14}"
     r")(?!\w)")
+# 5. ANY grouping, once a phone word says what follows: the run of digits,
+# spaces, dots, slashes, hyphens and brackets after "Tel.", "puh.", "ring",
+# "call", "Enquiries:", "WhatsApp:", German "unter" ("Anmeldung unter
+# <number>")..., when it holds 7 digits or more.
+_PHONE_KW = re.compile(
+    r"(?i)(?<!\w)(?:tel|tél|tlf|telefon|telephone|téléphone|phone|ph|puh|puhelin|gsm|mobil|"
+    r"mobile|tfno|teléfono|telefono|telefonicznego|телефон|телефону|телефоном|تلفن|whatsapp|"
+    r"ring|call|enquiries|unter)\b\.?\s*:?\s*"
+    r"(?P<num>\+?\(?\d(?:[\d()]|[ ./-]{1,3}(?=[\d(]))*\d)")
+_KW_DIGITS = 7
+
+
+def _phones(s: str, label) -> str:
+    """Every phone number in `s` replaced by label(number): the ones a phone
+    word introduces first, then the ones whose shape alone says so."""
+    def after_word(m):
+        num = m.group("num")
+        if sum(c.isdigit() for c in num) < _KW_DIGITS:
+            return m.group()
+        return m.group()[:m.start("num") - m.start()] + label(num)
+    return _PHONE.sub(lambda m: label(m.group()), _PHONE_KW.sub(after_word, s))
 
 
 def scrub(s: str) -> str:
-    return _PHONE.sub("[phone]", _EMAIL.sub("[address]", s))
+    return _phones(_EMAIL.sub("[address]", s), lambda _n: "[phone]")
 
 
-def _same_length(label: str):
-    return lambda m: (label + " " * len(m.group()))[:len(m.group())]
+def _pad(label: str):
+    return lambda t: (label + " " * len(t))[:len(t)]
 
 
 def mask(s: str) -> str:
@@ -224,7 +259,7 @@ def mask(s: str) -> str:
     kept, so nothing had reached the committed queue. Masking the whole text
     first finds every address whole, wherever the cut then falls: the same
     stores re-scanned give 0 such samples of 6,728."""
-    return _PHONE.sub(_same_length("[phone]"), _EMAIL.sub(_same_length("[address]"), s))
+    return _phones(_EMAIL.sub(lambda m: _pad("[address]")(m.group()), s), _pad("[phone]"))
 
 
 def excerpt(masked: str, lo: int, n: int) -> str:

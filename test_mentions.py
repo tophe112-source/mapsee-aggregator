@@ -236,15 +236,52 @@ NOT_PHONES = ["On 2026-11-07 (2016-2022), 1000 4th Avenue, WA 98104", "2026-11-0
 check(f"mask() leaves dates, years, times, street numbers and prices alone ({len(NOT_PHONES)} cases)",
       lambda: [s for s in NOT_PHONES if M.mask(s) != s] == [],
       [(s, M.mask(s)) for s in NOT_PHONES if M.mask(s) != s])
+# The second 2026-11-08 review: after a phone word, Swedish, Belgian, German
+# slash, Finnish, Irish-style and "ddd- ddd-dddd" groupings passed whole (950
+# runs of 9+ digits in the 2026-11-07 stores). The shapes are the review's; the
+# digits are fictitious numbers regrouped (PTS's 070-174 06 xx and 08-465 004
+# xx, ARCEP, ACMA, Ofcom's 01632 960xxx, NANP 555-01xx). "0491 5701" is no
+# number anywhere: Hong Kong's start 2-9.
+KW_PHONES = ["ring 070-174 06 50", "tel 08-465 004 50", "tel 63 998 01 23", "gsm 0639 98 01 23",
+             "Tel. 0491/570156", "Telefon 0491 / 570-156", "Tel (01632) 960123", "puh. 07 555 01234",
+             "Tel: 0033 6 39 98 01 23", "Tel.: +46 70 174 06 50", "Phone: +61 7 5550 1234",
+             "call 206- 555-0100", "Tlf. 555-0123", "Enquiries: 0491 5701", "ph. 0491/570156",
+             "WhatsApp: +61 491 57 01 56", "Anmeldung unter 0639 / 98 01 23",
+             "Tel.: (01632) 960 12-34 5", "telefon 0639-98 01 23."]
+KW_LEFT = [(s, M.mask(s)) for s in KW_PHONES
+           if any(ch.isdigit() for ch in M.mask(s)) or len(M.mask(s)) != len(s) or M.mask(M.mask(s)) != M.mask(s)]
+check(f"after a phone word any grouping of 7+ digits is masked whole ({len(KW_PHONES)} numbers)",
+      lambda: not KW_LEFT, KW_LEFT)
+NOT_KW = ["Call for artists 2026", "Tel Aviv 2026-11-07", "Mobile, AL 36602", "boxing ring 3",
+          "Tel. 555 01", "phone 2026", "unter 18 Jahren", "call 811 before you dig"]
+check(f"a phone word with no 7-digit run after it masks nothing ({len(NOT_KW)} cases)",
+      lambda: [s for s in NOT_KW if M.mask(s) != s] == [], [(s, M.mask(s)) for s in NOT_KW if M.mask(s) != s])
+# The UK lead "0xxxx" swallowed a US ZIP that starts with 0, so the number
+# after it kept its last four digits: 6 tribe rows of the 2026-11-07 stores
+# ("CT 06xxx 860-xxx-xxxx"). The ZIP is not a phone number; the whole number is.
+ZIPS = ["Hartford, CT 06103 860-555-0100", "Newark, NJ 07102 973-555-0100", "Boston, MA 02115 617 555 0100"]
+check("a ZIP that starts with 0 is left alone and the number after it is masked whole",
+      lambda: all(M.mask(s)[:-12] == s[:-12] and not any(c.isdigit() for c in M.mask(s)[-12:]) for s in ZIPS),
+      [M.mask(s) for s in ZIPS])
+# ...and the "0xxxx" lead keeps a German 5-digit area code with 7-8 digits
+# after it. A fixed 3-3 tail (the review's first proposal) would let 68 runs
+# of the same stores through, in 68 rows, 51 of them right after an e-mail
+# address ("99999 9999 999" 32, "99999-9999999" 17).
+DE5 = ["someone@example.org · 01632 9601 234", "someone@example.org · 01632-9601234",
+       "(01632 9601234)", "Tel 01632 96012345"]
+check("a 5-digit area code with 7-8 digits after it is masked whole",
+      lambda: not [s for s in DE5 if any(c.isdigit() for c in M.mask(s))], [M.mask(s) for s in DE5])
 
 
 def quoted_contacts():
     """Every address in catalog_mentions.py and this file that is not at
     example.org/.com/.net (or a cut of one), and every phone-shaped number
-    that is not a fictitious one: NANP 555-01xx, Ofcom's 020 7946 0xxx and
-    07700 900xxx, ARCEP's 06 39 98 xx xx, ACMA's 0491 570 xxx. The 2026-11-08
-    review found a county officer's mailbox and a pastor's name at a church's
-    domain quoted here."""
+    that is not a fictitious one: NANP 555-01xx, Ofcom's 020 7946 0xxx,
+    07700 900xxx and 01632 960xxx, ARCEP's 06 39 98 xx xx, ACMA's 0491 570
+    xxx and (07) 5550 xxxx, PTS's 070-174 06 xx and 08-465 004 xx. A number
+    counts whether its shape says so (_PHONE) or a phone word does
+    (_PHONE_KW, 7 digits or more). The 2026-11-08 review found a county
+    officer's mailbox and a pastor's name at a church's domain quoted here."""
     out = []
     here = os.path.dirname(os.path.abspath(__file__))
     for fname in ("catalog_mentions.py", "test_mentions.py"):
@@ -255,10 +292,14 @@ def quoted_contacts():
             if not any(d.startswith(dom) or dom.startswith(d)
                        for d in ("example.org", "example.com", "example.net")):
                 out.append((fname, m.group()))
-        for m in M._PHONE.finditer(src):
-            digits = re.sub(r"\D", "", m.group())
-            if not any(f in digits for f in ("55501", "79460", "7700900", "63998", "491570")):
-                out.append((fname, m.group()))
+        numbers = [m.group() for m in M._PHONE.finditer(src)]
+        numbers += [m.group("num") for m in M._PHONE_KW.finditer(src)
+                    if sum(c.isdigit() for c in m.group("num")) >= M._KW_DIGITS]
+        for num in numbers:
+            digits = re.sub(r"\D", "", num)
+            if not any(f in digits for f in ("55501", "79460", "7700900", "1632960", "63998",
+                                             "491570", "7017406", "8465004")):
+                out.append((fname, num))
     return out
 
 

@@ -33,8 +33,10 @@ TWO SHAPES, chosen per entry in annual_sources.json:
 
   * "day" — the site IS the event's own (Short Run). Single days count ("Saturday,
     November 7th, 2026", "Sat, Nov. 7", "November 7 & 8, 2026") as well as
-    ranges, two dated days joined only by &, and, +, a dash, to or through are
-    one range (JOIN_RX), and `name_rx` is REQUIRED: a date is believed only
+    ranges, two or more dated days joined only by &, and, +, a dash, to,
+    through or a list's comma are one range (JOIN_RX, LIST_RX: "Friday,
+    November 6, Saturday, November 7 and Sunday, November 8, 2026"), and
+    `name_rx` is REQUIRED: a date is believed only
     with the event's name within NAME_BEFORE characters before it or in its
     own paragraph. On Short Run's programming page the pre-party, the
     after-party and Sunday's panel all carry a date, a clock and "FREE"; with
@@ -76,17 +78,22 @@ other-event words plus this site type's own (deadlines, calls for exhibitors or
 submissions, table and booth fees, applications, payment windows, recaps)
 within CONTEXT_CHARS either side (after the date, only its own paragraph when
 that paragraph goes on: see judge()), exhibitor load-in or set-up BEFORE the
-date, a volunteer orientation, a start month outside the entry's curated
-`months` (Short Run's [10, 11], from its five editions on the saved homepage:
-see annual_sources.json's `_months`), and a WordPress byline, anchored to the
-byline's own "Posted on <date>" shape so "Schedule published! Short Run is
-Saturday..." is not one, or marked by the theme itself (<time class="updated">,
-itemprop="dateModified"). The months are the guard that does not depend on
-wording: once an edition is past, any date near the name that a deny list does
-not foresee is a candidate for the next one. The byline matters most and is not
-the only guard: on the real homepage every post ends "Posted on October 28,
-2026 October 29, 2026", the second date the last edit — which is today on the
-day somebody fixes a typo. With the byline rule switched off the name rule
+date, a start month or weekday outside the entry's curated `months` and
+`weekdays` (Short Run's November and Saturday, its five editions on the saved
+homepage: see annual_sources.json's `_months`), a start within EDITION_GAP_DAYS
+after the newest past edition on the page (pick()), and a WordPress byline,
+anchored to the byline's own "Posted on <date>" shape so "Schedule published!
+Short Run is Saturday..." is not one, or marked by the theme itself (a time,
+span, abbr, div or p whose class or itemprop says published, updated, modified,
+posted-on, entry-date or post-date). The months, weekdays and gap are the
+guards that do not depend on wording: once an edition is past, any date near
+the name that a deny list does not foresee is a candidate for the next one.
+They narrow that, they do not close it: a named November Saturday a deny word
+does not foresee, more than EDITION_GAP_DAYS after the newest past edition on
+the page or with none there, is still read as the event. The byline matters
+most and is not the only guard: on the real homepage every post ends "Posted
+on October 28, 2026 October 29, 2026", the second date the last edit — which
+is today on the day somebody fixes a typo. With the byline rule switched off the name rule
 still keeps the hero (test_ingest_annual.py runs both ways), because no byline
 on that page has "Short Run Comix" before it within 90 characters except posts
 already over.
@@ -100,10 +107,11 @@ WHAT IT KEEPS FROM THE PAGE, and only from right after the chosen date:
     coordinates, and an entry without them would have read 11:00 as 11:00 UTC.
   * FREE within FREE_AFTER (90) characters, never across another date, after
     the perks are cut out ("Free parking. Tickets $10." is not free; neither is
-    "children 12 and under free") — or in the page's own headline (<title>,
-    og:/meta description, first <h1>). A hyphenated compound is never it ("a
-    scent-free event", "step-free entrance"), and a price in the date's
-    paragraph or that headline vetoes it ("Tickets $10").
+    "children 12 and under free", while "Kids and grown-ups get in FREE!" is)
+    — or in the page's own headline (<title>, og:/meta description, first
+    <h1>). A compound is never it, hyphenated or not ("a scent-free event",
+    "step free entrance"), and a price in the date's paragraph or that headline
+    vetoes it ("Tickets $10", "CHF 15", "ten dollars").
   * the DESCRIPTION is the publisher's own words: the date's paragraph, through
     the one holding the clock or FREE when they sit in the next. This adapter
     never writes "free" itself. ../mapsee's event_offers() (migration 0227)
@@ -170,19 +178,38 @@ _BLOCK_RX = re.compile(r"</?(?:p|div|h[1-6]|li|ul|ol|br|tr|td|th|dt|dd|section|a
                        r"table|form|hr)\b[^>]*>", re.I)
 
 
-# A <time> the theme marks as the post's own date. WordPress writes every byline
-# as <time class="entry-date published"> and <time class="updated"> (all 37
-# <time> elements on Short Run's saved homepage, 2026-11-07), and schema.org
+# An element the theme marks as the post's own date. WordPress writes every
+# byline as <time class="entry-date published"> and <time class="updated"> (all
+# 37 <time> elements on Short Run's saved homepage, 2026-11-07), and schema.org
 # themes say itemprop="datePublished"/"dateModified". The words in front of it
 # vary or are missing - "<a rel=category>Short Run Comix Festival</a> &middot;
 # <time class="updated">November 20, 2026</time>" has none, and on that day it
 # was kept as the festival - so the element's own markup is the byline.
-_BYLINE_TIME_RX = re.compile(
-    r"<time\b[^>]*?\b(?:class|itemprop)\s*=\s*"
-    r"(?:\"[^\"]*?(?:updated|modified|published)[^\"]*\"|"
-    r"'[^']*?(?:updated|modified|published)[^']*'|"
-    r"[^\s>\"']*(?:updated|modified|published))[^>]*>", re.I)
+#
+# NOT ONLY <time> (review, 2026-11-08): "<span class="published">Nov 20,
+# 2026</span>", "<span class="published" itemprop="datePublished">" inside a
+# "posted-on" span and hAtom's "<abbr class="updated">" were each kept as the
+# festival on 2026-11-20, months or not. Any time/span/abbr/div/p whose class
+# or itemprop says so is a mark; the attribute name stands alone, so
+# data-class="updated" is not one, and an element closed with nothing inside
+# (<time class="updated" datetime=...></time>) marks nothing, so it cannot
+# lend its mark to the next date on the page. A class that also says START is
+# hCalendar's event date, not a post's ("dt-start published", an events
+# plugin's "start-date published dtstart"): the event's own date, kept.
+_BYLINE_WORDS = r"(?:published|updated|modified|posted-on|entry-date|post-date)"
+_START = r"(?:dtstart|dt-start|start-?date|start-?time)"
+_BYLINE_MARK_RX = re.compile(
+    rf"<(?P<tag>time|span|abbr|div|p)\b[^>]*?(?<![-\w])(?:class|itemprop)\s*=\s*"
+    rf"(?:\"(?![^\"]*{_START})[^\"]*?{_BYLINE_WORDS}[^\"]*\"|"
+    rf"'(?![^']*{_START})[^']*?{_BYLINE_WORDS}[^']*'|"
+    rf"(?![^\s>\"']*{_START})[^\s>\"']*{_BYLINE_WORDS})[^>]*>(?!\s*</(?P=tag)\s*>)", re.I)
 _MARK = "\ue000"                    # private use: never a publisher's character
+
+
+def _mark(m) -> str:
+    # A block element is a paragraph break as _BLOCK_RX would make it, so the
+    # text is the same with or without marks.
+    return ("\n" if m.group("tag").lower() in ("div", "p") else " ") + _MARK
 
 
 def page_text(html: str, bylines_at: Optional[List[int]] = None) -> str:
@@ -193,22 +220,25 @@ def page_text(html: str, bylines_at: Optional[List[int]] = None) -> str:
     date split across a <br> still parses.
 
     Given a list, `bylines_at` receives the text position where each byline
-    <time> (_BYLINE_TIME_RX) has its first character. The text is the same
-    either way, except that a U+E000 of the page's own (the mark used here)
-    is dropped."""
+    element (_BYLINE_MARK_RX) has its first character; nested ones share one.
+    The text is the same either way, except that a U+E000 of the page's own
+    (the mark used here) is dropped."""
     html = re.sub(r"<(script|style|template|noscript)[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
     html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
     if bylines_at is not None:
-        html = _BYLINE_TIME_RX.sub(" " + _MARK, html.replace(_MARK, ""))
+        html = _BYLINE_MARK_RX.sub(_mark, html.replace(_MARK, ""))
     html = _BLOCK_RX.sub("\n", html)
     t = re.sub(r"<[^>]+>", " ", html)
     if bylines_at is None:
         t = _html.unescape(t)
     else:
         t = _MARK.join(_html.unescape(seg).replace(_MARK, "") for seg in t.split(_MARK))
-        # Each mark moves past the whitespace after it, onto its date's first
-        # character, so the collapsing below sees the runs it would without it.
-        t = re.sub(_MARK + r"(\s*)", lambda m: m.group(1) + _MARK, t)
+        # Each mark moves past the whitespace (and any other mark) after it,
+        # onto its date's first character, so the collapsing below sees the
+        # runs it would without it: "<span class=posted-on><span
+        # class=published> November 20" is one mark, not two with a space.
+        t = re.sub(_MARK + r"([\s" + _MARK + r"]*)",
+                   lambda m: m.group(1).replace(_MARK, "") + _MARK, t)
     t = re.sub(r"[^\S\n]+", " ", t)
     t = re.sub(r"\s*\n\s*", "\n", t).strip()
     if bylines_at is None or _MARK not in t:
@@ -280,11 +310,13 @@ NOT_THIS_EVENT_RX = re.compile(
     r"submissions?\s+(?:open|close|due)|registration\s+(?:opens?|closes?)|"
     r"table\s+(?:fees?|payments?)|booth\s+fees?|payments?\s+(?:due|window|opens?|closes?)|pay\s+by|"
     r"tickets?\s+(?:go|goes|went)\s+on\s+sale|"
-    r"recap|was\s+held|took\s+place|thank\s+you\s+for\s+(?:coming|joining|attending)|"
-    # The one adversarial date a curated `months` cannot refuse (2026-11-08):
-    # "Volunteer for Short Run Comix Festival! Orientation is Saturday, October
-    # 30th, 2027" is a Saturday inside the festival's months, the week before it.
-    r"orientation",
+    r"recap|was\s+held|took\s+place|thank\s+you\s+for\s+(?:coming|joining|attending)",
+    # NOT "orientation" (review, 2026-11-08). Unanchored, within 45 characters
+    # either way and across blocks before the date, it refused the festival's
+    # own "Saturday, November 6th, 2027" for "Every gender and orientation
+    # welcome!", a "Volunteer Orientation" nav link above the <h1> and
+    # "disorientation zines". The volunteer orientation it was added for, a
+    # Saturday in October, is now outside Short Run's curated months.
     re.I)
 # The exhibitors' own logistics disqualify a date only when they come FIRST:
 # "load-in and set-up is at 10 am on Saturday, November 7th" is the exhibitors'
@@ -335,7 +367,17 @@ class Cand:
 # so year-first ranking started the festival on its second day with Saturday's
 # clock. Between the two there may be nothing else; a sentence break is not a
 # connective, so two dates in two sentences stay two.
+#
+# AND SO ARE THREE OR MORE (review, 2026-11-08): joining pairs only left a
+# Friday-to-Sunday festival written day by day starting on its LAST day, the
+# one carrying the year: "Friday, November 6 & Saturday, November 7 & Sunday,
+# November 8, 2026", the same with "+", with ", ... , and" and with a day pair
+# at its head ("Friday & Saturday, November 6 & 7 and Sunday, November 8,
+# 2026") each gave 2026-11-08..11-08. A list's comma (LIST_RX) joins too, and
+# a chain longer than MAX_FAIR_DAYS is not one ("Saturday, November 7, 2026,
+# Saturday, November 6, 2027" is two editions).
 JOIN_RX = re.compile(r"\s*(?:&|and|\+|[-\u2013\u2014]|to|through|thru)\s*", re.I)
+LIST_RX = re.compile(r"\s*,\s*(?:(?:&|and|\+)\s*)?", re.I)
 
 
 def _resolve_year(mon: int, d1: int, wd: Optional[int], today: date) -> Tuple[Optional[int], str]:
@@ -397,29 +439,47 @@ def _single(text: str, m, today: date) -> Optional[Cand]:
                 "day", why, wd, wd2 if d2 else None)
 
 
-def _joined(text: str, a, b, today: date) -> Optional[Cand]:
-    """`a` JOIN_RX `b` as one range, the year `b`'s (stated, or its weekday's)
-    and one less for `a` when the month wraps; None when they are not that."""
-    if a.group("d2") or b.group("d2") or a.group("wd2") or b.group("wd2"):
-        return None                      # a day pair is already two days
-    if not JOIN_RX.fullmatch(text[a.end():b.start()]):
+def _chain(text: str, items: list, today: date) -> Optional[Cand]:
+    """Two or more SINGLE_RX matches, each joined to the next by JOIN_RX or
+    LIST_RX, as one range. The year is the LAST item's (stated, or its
+    weekday's); each earlier item takes the year of the one after it, one less
+    when the month wraps. None when they are not one run of days: an item that
+    states another year ("November 7, 2025 - November 8, 2026" is not a
+    weekend), days out of order, or longer than MAX_FAIR_DAYS. Every item's
+    weekday is checked against its own day."""
+    last = _single(text, items[-1], today)
+    if last is None or last.start == date.min:
+        return None                      # the last day has no year of its own
+    spans, nxt = [(last.start, last.end)], last.start
+    for m in reversed(items[:-1]):
+        mon = F.MONTHS[m.group("mon")[:3].lower()]
+        d1 = int(m.group("d1"))
+        dl = int(m.group("d2")) if m.group("d2") else d1
+        year = nxt.year - (1 if (mon, dl) > (nxt.month, nxt.day) else 0)
+        if m.group("yr") and int(m.group("yr")) != year:
+            return None
+        s, e = F._mk(mon, d1, year), F._mk(mon, dl, year)
+        if not s or not e or e < s or e >= nxt:
+            return None
+        spans.insert(0, (s, e))
+        nxt = s
+    start, end = spans[0][0], spans[-1][1]
+    if (end - start).days + 1 > F.MAX_FAIR_DAYS:
         return None
-    end = _single(text, b, today)
-    if end is None or end.start == date.min:
-        return None                      # the second day has no year of its own
-    mon, d1 = F.MONTHS[a.group("mon")[:3].lower()], int(a.group("d1"))
-    year = end.start.year - (1 if (mon, d1) > (end.start.month, end.start.day) else 0)
-    if a.group("yr") and int(a.group("yr")) != year:
-        return None                      # "November 7, 2025 - November 8, 2026" is not a weekend
-    start = F._mk(mon, d1, year)
-    if not start or start >= end.start:
-        return None
-    # The second day's "two years in play" was the first day's own year; only
+    why = ""
+    for m, (s, e) in zip(items, spans):
+        wd, wd2 = _wd(m, "wd"), _wd(m, "wd2")
+        if (wd is not None and s.weekday() != wd) or (m.group("d2") and wd2 is not None
+                                                      and e.weekday() != wd2):
+            why = "weekday disagrees"
+    # The last day's "two years in play" was an earlier item's own year; only
     # a year in front of the FIRST day is another one.
-    lead = F._YEAR_BEFORE_RX.search(text[max(0, a.start() - 12):a.start()])
-    why = "two years in play" if lead and int(lead.group(1)) != year else ""
-    return Cand(start, end.start, text[a.start():b.end()].strip(), a.start(), b.end(),
-                bool(a.group("yr") or b.group("yr")), "day", why, _wd(a, "wd"), _wd(b, "wd"))
+    head = items[0]
+    lead = F._YEAR_BEFORE_RX.search(text[max(0, head.start() - 12):head.start()])
+    if not why and lead and int(lead.group(1)) != start.year:
+        why = "two years in play"
+    return Cand(start, end, text[head.start():items[-1].end()].strip(), head.start(),
+                items[-1].end(), any(m.group("yr") for m in items), "day", why)
 
 
 def _days(text: str, today: date, ranges: List[Cand]) -> List[Cand]:
@@ -428,10 +488,18 @@ def _days(text: str, today: date, ranges: List[Cand]) -> List[Cand]:
           if not any(r.pos < m.end() and m.start() < r.stop for r in ranges)]
     out, i = [], 0
     while i < len(ms):
-        both = _joined(text, ms[i], ms[i + 1], today) if i + 1 < len(ms) else None
-        if both:
-            out.append(both)
-            i += 2
+        j = i                            # the run of matches joined by connectives
+        while j + 1 < len(ms) and (JOIN_RX.fullmatch(text[ms[j].end():ms[j + 1].start()])
+                                   or LIST_RX.fullmatch(text[ms[j].end():ms[j + 1].start()])):
+            j += 1
+        got = None
+        for k in range(j, i, -1):        # the longest prefix that is one run of days
+            got = _chain(text, ms[i:k + 1], today)
+            if got:
+                out.append(got)
+                i = k + 1
+                break
+        if got:
             continue
         one = _single(text, ms[i], today)
         if one:
@@ -490,10 +558,11 @@ def date_starts(text: str) -> List[int]:
 
 
 def judge(text: str, c: Cand, today: date, name_rx=None, bylines: bool = True,
-          starts: Optional[List[int]] = None, months=None, marked=()) -> str:
+          starts: Optional[List[int]] = None, months=None, marked=(), weekdays=None) -> str:
     """'' when the candidate may be the event, else the first reason it is not.
-    `months` is the entry's curated months (None: any); `marked` the byline
-    <time> positions page_text found."""
+    `months` is the entry's curated months and `weekdays` its curated starting
+    weekdays as numbers, Monday 0 (None: any); `marked` the byline element
+    positions page_text found."""
     if c.reason:
         return c.reason
     if c.end < today:
@@ -506,15 +575,23 @@ def judge(text: str, c: Cand, today: date, name_rx=None, bylines: bool = True,
         return "weekday disagrees"       # "Saturday, November 7th, 2027" is a Sunday
     if c.weekday2 is not None and c.end.weekday() != c.weekday2:
         return "weekday disagrees"
-    # THE EVENT'S OWN MONTHS, curated: not a word on the page. Once an edition
-    # is over, every other date near the name is a candidate for the next one,
-    # and a deny list is only as good as its phrasings: "Exhibitor applications
-    # ... are open until Friday, March 5th, 2027", "Submit your work to the ...
-    # anthology by", "Apply before", "sign-ups close" and a "Spring Market:
-    # Saturday, May 15th, 2027" each became the 2027 festival (review a7.py,
-    # today 2026-11-20). No wording can be the next one that gets through this.
+    # THE EVENT'S OWN MONTHS AND WEEKDAYS, curated: not a word on the page.
+    # Once an edition is over, every other date near the name is a candidate
+    # for the next one, and a deny list is only as good as its phrasings:
+    # "Exhibitor applications ... are open until Friday, March 5th, 2027",
+    # "Submit your work to the ... anthology by", "Apply before", "sign-ups
+    # close" and a "Spring Market: Saturday, May 15th, 2027" each became the
+    # 2027 festival (review a7.py, today 2026-11-20). These refuse ONLY a date
+    # outside them: a date inside, near the name and in no deny word, is still
+    # the event. With months [10, 11] a "feedback survey closes Friday,
+    # November 27th, 2026", a "Halloween zine swap: Saturday, October 30th,
+    # 2027" and an "exhibitor lottery results: Monday, October 4th, 2027" each
+    # were (review, 2026-11-20). Short Run's are now [11] and Saturday, its five
+    # editions exactly; the weeks after an edition are pick()'s gap rule.
     if months and c.start.month not in months:
         return "outside the event's months"
+    if weekdays and c.start.weekday() not in weekdays:
+        return "not the event's weekday"
     a, b = max(0, c.pos - F.CONTEXT_CHARS), min(len(text), c.stop + F.CONTEXT_CHARS)
     # AFTER THE DATE, ONLY ITS OWN PARAGRAPH - when that paragraph goes on. On
     # the real homepage the hero's paragraph ends ". FREE!" and the next one is
@@ -544,12 +621,41 @@ def judge(text: str, c: Cand, today: date, name_rx=None, bylines: bool = True,
     return ""
 
 
+WEEKDAY_NAMES = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+# AN ANNUAL EVENT DOES NOT COME BACK WITHIN HALF A YEAR. In the weeks after an
+# edition the most posts naming it get written, and each date in them that is
+# in the event's months and weekday and in no deny word was the next edition:
+# "leftover zine sale: Saturday, November 28th, 2026" beside the past hero
+# gave 2026-11-28 (review, today 2026-11-20). Short Run's five editions on the
+# saved homepage are 364 to 371 days apart.
+EDITION_GAP_DAYS = 180
+
+
 def pick(text: str, today: date, shape: str = "day", name_rx=None, bylines: bool = True,
-         months=None, marked=()) -> Tuple[Optional[Cand], str, List[Tuple[Cand, str]]]:
-    """(chosen, why-not, every candidate with its verdict)."""
+         months=None, marked=(), weekdays=None) -> Tuple[Optional[Cand], str, List[Tuple[Cand, str]]]:
+    """(chosen, why-not, every candidate with its verdict). `weekdays` are
+    names ("Saturday") as annual_sources.json writes them.
+
+    With a name rule, a candidate that starts within EDITION_GAP_DAYS after
+    the newest PAST one that passes every other rule (the name, the months
+    and weekdays, no deny word, not a byline: judged as of its own last day)
+    is refused: that past one was the edition. A past date that is not the
+    edition and passes all of them, in the half year before the real one,
+    refuses the real one too: for Short Run, a named November Saturday before
+    the festival in the same November. None of its three saved pages carries
+    one; the daily sweep of them reads the hero on all 311 days to 11-07."""
     starts = date_starts(text)
-    log = [(c, judge(text, c, today, name_rx, bylines, starts, months, marked))
+    wds = {WEEKDAY_NAMES.index(w.lower()) for w in weekdays} if weekdays else None
+    log = [(c, judge(text, c, today, name_rx, bylines, starts, months, marked, wds))
            for c in candidates(text, today, shape)]
+    if name_rx is not None:
+        was = [c.end for c, v in log if v == "past"
+               and not judge(text, c, c.end, name_rx, bylines, starts, months, marked, wds)]
+        if was:
+            last = max(was)
+            gap = f"within {EDITION_GAP_DAYS} days after the {last.isoformat()} edition"
+            log = [(c, gap if not v and c.start <= last + timedelta(days=EDITION_GAP_DAYS) else v)
+                   for c, v in log]
     kept = [c for c, v in log if not v]
     if kept:
         if shape == "range":
@@ -664,6 +770,8 @@ FREE_RX = re.compile(
     r"\b(?:admission|entry|entrance)\s*(?:is\s+)?(?:always\s+)?(?::\s*)?free\b|"
     r"\bno\s+(?:admission\s+(?:fee|charge)|entry\s+fee|cover(?:\s+charge)?)\b|"
     r"(?<![-\w])free(?=\s*[.\n]|\s*$)", re.I)
+_AGE = (r"(?:\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|"
+        r"thirteen|fourteen|fifteen|sixteen|seventeen|eighteen)")
 # CUT OUT, not vetoed, before FREE_RX is tried — the 0227 tagger's rule: "Free
 # parking. Free admission." stays free; "Free parking." alone does not make it.
 # On Short Run's exhibitor page all six "free" words are perks (parking three
@@ -677,21 +785,41 @@ FREE_PERK_RX = re.compile(
     r"kids|children|residents|volunteers|ticket\s*holders)\b|"
     r"\bfree\s+(?:with|before|until)\b[^.!\n]{0,30}|"
     r"\b(?:members|exhibitors)\s+(?:get\s+in\s+|enter\s+)?free\b|"
-    # FREE FOR CHILDREN ONLY, the age anywhere in the clause: "children 12 and
-    # under free." set free beside "Tickets $15" (review a4.py), because the
-    # kids word had to be right before "free".
-    r"\b(?:kids?|child(?:ren)?|toddlers?|bab(?:y|ies)|infants?|youth|under[- ]?\d+s?)\b"
-    r"[^.!?;,\n\u2013\u2014]{0,30}?\bfree\b|"
+    # A COMPOUND WRITTEN WITHOUT ITS HYPHEN: "A scent free event", "This is a
+    # smoke free event", "Step free entrance", "Barrier free entry" and
+    # "Alcohol free." each still wrote {'free': True, 'offer': {'price': '0'}}
+    # beside "Tickets at the door" (review p_free2.py, 2026-11-08).
+    r"\b(?:scent|smoke|fragrance|perfume|alcohol|drug|nut|peanut|gluten|dairy|latex|allergen|"
+    r"step|stair|barrier|car|cash|plastic|waste|stress|hassle|judge?ment)[\s-]+free\b|"
+    # FREE FOR CHILDREN ONLY: the kids word is the clause's SUBJECT, with only
+    # an age between it and "free". "children 12 and under free." set free
+    # beside "Tickets $15" (review a4.py), because the kids word had to be
+    # right before "free"; the next version took one anywhere in the clause,
+    # and "Kids and grown-ups get in FREE!", "Youth and adults free.",
+    # "Kid-friendly and free to attend" and a kids' festival's own <title>
+    # ("Kids Comic Fest is FREE!") lost their FREE (review p_free.py).
+    rf"\b(?:kids?|child(?:ren)?|toddlers?|bab(?:y|ies)|babes\s+in\s+arms|infants?|youth|"
+    rf"under[- ]?{_AGE}s?)"
+    rf"(?:\s+(?:under|aged?|up\s+to|below)\s+{_AGE}(?:\s*(?:years?|yrs?)(?:\s+old)?)?|"
+    rf"\s+{_AGE}\s*(?:years?\s+)?(?:and|&|or)\s+(?:under|younger|below)|"
+    rf"\s+\(?ages?\s+{_AGE}\s*(?:[-\u2013]|to)\s*{_AGE}\)?)?"
+    rf"\s*[:?]?\s*(?:(?:get|go|are|is|enter|in|always|attend|come)\s+){{0,3}}free\b|"
     r"\b\d+\s*(?:years?\s+)?(?:(?:and|&)\s+(?:under|younger)|or\s+(?:under|younger))\b"
     r"[^.!?;,\n\u2013\u2014]{0,15}?\bfree\b",
     re.I)
 FREE_NEG_RX = re.compile(r"\b(?:not|isn'?t)\s+(?:a\s+)?free\b", re.I)
 # A PRICE IN THE SAME PARAGRAPH VETOES FREE: the page contradicts itself, and a
 # missed FREE costs nothing while a false one is a wrong Event JSON-LD offer.
+# Other currencies and prices in words too: "Admission CHF 15. Free!", "Entry
+# 120 kr.", "Tickets \u00a510" and "Tickets: ten dollars" did not veto (review,
+# 2026-11-08). ("R$ 20" already did, through its "$".)
+_CODES = r"(?:usd|eur|gbp|cad|aud|nzd|chf|sek|nok|dkk|jpy|inr|mxn|brl|pln|czk)"
 PRICE_RX = re.compile(
-    r"[$\u20ac\u00a3]\s?\d+(?:[.,]\d+)?|\b\d+(?:[.,]\d+)?\s?[\u20ac\u00a3]|"
-    r"\b(?:usd|eur|gbp|cad|aud)\s?\d+|"
-    r"\b\d+(?:[.,]\d+)?\s?(?:usd|eur|gbp|cad|aud|dollars?|euros?|pounds?)\b|"
+    r"[$\u20ac\u00a3\u00a5\u20b9]\s?\d+(?:[.,]\d+)?|\b\d+(?:[.,]\d+)?\s?[\u20ac\u00a3\u00a5\u20b9]|"
+    rf"\b(?:{_CODES}|kr)\.?\s?\d+|"
+    rf"\b\d+(?:[.,]\d+)?\s?(?:{_CODES}|kr|z\u0142|dollars?|euros?|pounds?|bucks|quid)\b|"
+    r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|"
+    r"thirty|forty|fifty|hundred)\s+(?:dollars?|euros?|pounds?|bucks|quid)\b|"
     r"\btickets?\s*(?:are\s+|cost\s+|:\s*)?\d+(?:[.,]\d\d)?\b(?!\s*(?::\d|[ap]\.?\s?m\b))", re.I)
 
 
@@ -772,7 +900,7 @@ class Result:
 
 def read_page(html: str, today: date, shape: str = "day", name_rx=None,
               bylines: bool = True, now_minute: Optional[int] = None,
-              months=None) -> Result:
+              months=None, weekdays=None) -> Result:
     """`now_minute` is the minute of `today` where the event is; given, a single
     day whose stated hours have ended counts as over, as a date alone cannot
     say. Short Run 2026 ended at 18:00 on 2026-11-07 in Seattle, which is 02:00
@@ -780,11 +908,11 @@ def read_page(html: str, today: date, shape: str = "day", name_rx=None,
     though its last 30 scheduled runs (2026-10-15..11-07, read with `gh run
     list --event schedule` on 2026-11-08) started 10:48-16:31 UTC (the 8th
     there): a run on time, or a dispatch that evening, would by its date alone
-    have written the finished festival again. `months` is the entry's curated
-    `months` (None: any month)."""
+    have written the finished festival again. `months` and `weekdays` are the
+    entry's curated ones (None: any)."""
     marked: List[int] = []
     text = page_text(html, marked)[:120000]
-    c, why, log = pick(text, today, shape, name_rx, bylines, months, marked)
+    c, why, log = pick(text, today, shape, name_rx, bylines, months, marked, weekdays)
     r = Result(why=why, log=log)
     if not c:
         return r
@@ -905,6 +1033,13 @@ def validate_site(site: Dict[str, Any]) -> None:
             not isinstance(months, list) or not months or len(set(months)) != len(months)
             or any(isinstance(m, bool) or not isinstance(m, int) or not 1 <= m <= 12 for m in months)):
         raise ValueError(f"{label}: months must be a non-empty list of distinct month numbers 1-12")
+    wds = site.get("weekdays")
+    if wds is not None and (
+            not isinstance(wds, list) or not wds
+            or any(not isinstance(w, str) or w.lower() not in WEEKDAY_NAMES for w in wds)
+            or len({w.lower() for w in wds}) != len(wds)):
+        raise ValueError(f"{label}: weekdays must be a non-empty list of distinct day names "
+                         f"('Saturday')")
     if site.get("category") not in VALID_CATEGORIES:
         raise ValueError(f"{label}: category must be one of the lens keys")
     try:
@@ -968,7 +1103,7 @@ def ingest_site(store: EventStore, polite: "F.Polite", site: Dict[str, Any],
             continue
         read += 1
         r = read_page(page.text, today, site["shape"], name_rx, bylines, now_minute,
-                      site.get("months"))
+                      site.get("months"), site.get("weekdays"))
         if not r.start:
             verdicts.append(f"{url}: {r.why}")
             # ITS OWN HOURS ARE OVER, so no later page may bring it back. A

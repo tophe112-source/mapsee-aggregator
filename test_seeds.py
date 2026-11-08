@@ -26,9 +26,12 @@ A resolution has to be BACKED by the repository, not asserted:
                 has resolved in a month is a failure, not a backlog. The age
                 is read against MAPSEE_TODAY when it is set, and fails then.
                 Unset, it is read against the wall clock, and an ageing seed
-                is a WARN line that fails nothing: tests.yml runs on push
-                only, and a push gate must break only when the code changes
-                (2026-11-08 review)
+                is a WARN line that fails nothing (a `::warning::` annotation
+                under GitHub Actions): tests.yml runs on push only, and a
+                push gate must break only when the code changes (2026-11-08
+                review). So the age rule FAILS only where a run sets
+                MAPSEE_TODAY to today on a schedule; this file cannot do that
+                for itself
 
 and a seed stores a URL, never a contact address (Short Run's published
 contact is a personal mailbox).
@@ -203,6 +206,15 @@ def gate(doc, annual, config_hosts, declined, today, pinned, warned):
     return out
 
 
+def warn_line(w, env=os.environ):
+    """How an aged seed is printed when it fails nothing. Under GitHub Actions
+    (GITHUB_ACTIONS=true) it is a `::warning::` annotation, which the run's
+    summary page lists: a plain WARN line sits in a passing log nobody opens
+    (2026-11-08 review)."""
+    text = f"{w} (MAPSEE_TODAY is unset, so this is the wall clock and fails nothing)"
+    return f"::warning::{text}" if env.get("GITHUB_ACTIONS") == "true" else f"WARN  {text}"
+
+
 # ---------------------------------------------------------------------------
 PINNED = _pinned()
 TODAY = PINNED or dt.date.today()
@@ -331,9 +343,15 @@ check("a mailto: url fails as not http(s)",
 check("an unknown state fails",
       lambda: any("resolution.state" in p for p in problems(doc_with(resolution={"state": "done"}))))
 
+check("under GitHub Actions an aged seed is a ::warning:: annotation; elsewhere a WARN line",
+      lambda: warn_line("s: pending for 31 days", {"GITHUB_ACTIONS": "true"}).startswith(
+          "::warning::s: pending for 31 days (")
+      and warn_line("s: pending for 31 days", {}).startswith("WARN  s: pending for 31 days (")
+      and warn_line("s", {"GITHUB_ACTIONS": "false"}).startswith("WARN  "))
+
 print()
 for w in sorted(WARNED):
-    print(f"WARN  {w} (MAPSEE_TODAY is unset, so this is the wall clock and fails nothing)")
+    print(warn_line(w))
 if fails:
     print(f"{len(fails)} FAILED")
     sys.exit(1)

@@ -3410,20 +3410,32 @@ query($b:DateTime,$l:Int){
 FEDI_PROBE_TIMEOUT = (10, 20)
 
 
-def _mobilizon_probe(get_session, base, begins):
-    """One searchEvents POST: {"why": skip reason}, or {"total", "events":
-    {(title, beginsOn to the minute): has geom}, "future", "origins": {folded
-    host of each event's own `url`: count}, "n" events read, "adult" of them
-    with an adult word in the title, "titles": the first three distinct}. A
-    401, 403 or 429 is a refusal and is not asked again."""
+def _mobilizon_probe(get_session, base, begins, follow):
+    """One searchEvents POST, its redirects followed by `follow` (_fedi_follow
+    with this run's locks, deadline and, for a candidate, gate and stop):
+    {"why": skip reason} (with "gate" and "at" when follow stopped it), or
+    {"total", "events": {(title, beginsOn to the minute): has geom},
+    "future", "origins": {folded host of each event's own `url`: count}, "n"
+    events read, "adult" of them with an adult word in the title, "titles":
+    the first three distinct}. A 401, 403 or 429 is a refusal and is not
+    asked again."""
+    body = {"query": MOBILIZON_DISCOVER_PROBE,
+            "variables": {"b": begins, "l": MOBILIZON_PROBE_LIMIT}}
+
+    def send(u, post):
+        if post:
+            return get_session().post(u, timeout=FEDI_PROBE_TIMEOUT, allow_redirects=False,
+                                      json=body, headers={"Content-Type": "application/json",
+                                                          "Accept": "application/json"})
+        return get_session().get(u, timeout=FEDI_PROBE_TIMEOUT, allow_redirects=False,
+                                 headers={"Accept": "application/json"})
     try:
-        r = get_session().post(f"{base}/api", timeout=FEDI_PROBE_TIMEOUT,
-                               json={"query": MOBILIZON_DISCOVER_PROBE,
-                                     "variables": {"b": begins, "l": MOBILIZON_PROBE_LIMIT}},
-                               headers={"Content-Type": "application/json",
-                                        "Accept": "application/json"})
+        got = follow(send, f"{base}/api", post=True)
     except Exception as exc:  # noqa: BLE001
         return {"why": "unreachable", "note": type(exc).__name__}
+    if "r" not in got:
+        return got
+    r = got["r"]
     if r.status_code in (401, 403, 429):
         return {"why": "refused", "note": f"http {r.status_code}"}
     if r.status_code != 200:
@@ -3617,6 +3629,129 @@ class _OperatorLocks:
         return lk
 
 
+# A REDIRECT IS A REQUEST TO ANOTHER HOST, SO IT IS ASKED LIKE ONE (review of
+# 2026-11-08, the third). The probes let requests follow redirects and read
+# the landing host's robots.txt AFTERWARDS, so a candidate that serves its own
+# robots.txt but sends /api/events elsewhere put a request on a host that
+# refuses every crawler before that refusal was read; and once that host was
+# parked, the alias was skipped without being parked itself, so every later
+# run knocked again through the redirect (a fake whose redirect is a real
+# second request: 1 GET to the refusing host on each of 3 runs). Mobilizon
+# never read the landing host's file at all. So no probe follows a redirect:
+# _fedi_follow asks each hop with allow_redirects=False, and a NEW host is
+# first checked against `stop` (declined or ledger-parked: not asked at all)
+# and `gate` (its robots.txt, under its own operator's lock), exactly as the
+# candidate itself was. A whole-vhost 301 also moves robots.txt, which Robots
+# follows, so that case was already gated; this is the case where only the
+# API moves.
+FEDI_MAX_HOPS = 5
+_FEDI_REDIRECTS = frozenset({301, 302, 303, 307, 308})
+
+
+def _fedi_follow(send, url, locks, deadline=0.0, gate=None, stop=None, post=False):
+    """`send(url, post)` makes ONE request with allow_redirects=False; its
+    redirects are followed here, by hand, up to FEDI_MAX_HOPS.
+
+    Each hop is asked under its own operator's lock, and no lock is held from
+    one hop to the next, so two chains pointing at each other cannot deadlock.
+    A host the chain has not asked yet is first put to `stop(host)` (not on
+    the first hop: the free gates already asked that), and an origin it has
+    not asked yet to `gate(origin)`, under its lock; either one ends the chain
+    before that host is asked anything. A 303, or a 301 or 302 to a POST,
+    continues as a GET, as requests does.
+
+    -> {"r": the last response, "url": the URL it answered} or {"why": skip
+    reason ("unread", a gate's key or stop's), "gate": the gate tuple if one
+    refused, "at": the folded host not asked, "url": its URL}.
+    """
+    # Hosts are compared folded (www. is the ledger's same host), origins as
+    # they are: robots.txt is one file per scheme://host, so a 302 from
+    # lubakiagenda.net to www.lubakiagenda.net (live, 2026-11-08) asks again.
+    hosts, origins, r = set(), set(), None
+    for _hop in range(FEDI_MAX_HOPS + 1):
+        p = urlparse(url)
+        host, origin = _fold_host(p.hostname), f"{p.scheme}://{p.netloc}".lower()
+        if hosts and host not in hosts and stop is not None:
+            why = stop(host)
+            if why:
+                return {"why": why, "at": host, "url": url}
+        with locks(p.hostname):
+            if _fedi_past(deadline):
+                return {"why": "unread", "at": host, "url": url}
+            if origin not in origins and gate is not None:
+                g = gate(origin)
+                if g:
+                    return {"why": g[0], "gate": g, "at": host, "url": url}
+                if _fedi_past(deadline):
+                    return {"why": "unread", "at": host, "url": url}
+            hosts.add(host)
+            origins.add(origin)
+            r = send(url, post)
+        loc = (getattr(r, "headers", None) or {}).get("Location")
+        if r.status_code not in _FEDI_REDIRECTS or not loc:
+            return {"r": r, "url": url}
+        if r.status_code == 303 or (post and r.status_code in (301, 302)):
+            post = False
+        url = urljoin(url, loc)
+    # Too many hops: the last answer is a redirect, which no probe reads as a
+    # calendar (it is counted under its status).
+    return {"r": r, "url": url}
+
+
+def _fedi_gate(robots, seen_keys):
+    """The `gate` _fedi_follow puts to each origin a CANDIDATE's chain
+    reaches: _fedi_root_gate, except on a configured host, which is not
+    re-judged here (and must not be parked by discovery)."""
+    def gate(origin):
+        return None if _canon(origin) in seen_keys else _fedi_root_gate(robots, origin)
+    return gate
+
+
+def _fedi_stop(seen_keys, declined, led):
+    """The `stop` _fedi_follow puts to a host a CANDIDATE redirects to: a
+    declined host or one the ledger has parked is not asked anything (the
+    candidate is then skipped under that name). A configured host is asked:
+    the configured instances are read every day anyway, and landing there is
+    what makes the candidate an alias or a mirror."""
+    def stop(host):
+        k = _canon("https://" + host)
+        if k in seen_keys:
+            return None
+        if k in declined:
+            return "declined"
+        if _dead_recently(led, k):
+            return "ledger"
+        return None
+    return stop
+
+
+def _fedi_hop_skip(led, kind, h, g):
+    """Write and print what a candidate `h` whose probe stopped (g["why"])
+    leaves behind. The candidate's own robots.txt refusing parks `h`; the host
+    it redirects to refusing parks BOTH names, so the redirect is not followed
+    next run; a redirect to a host the ledger parked as `refused` (robots.txt)
+    parks `h` beside it for the same reason."""
+    at = g.get("at") or h
+    if g.get("gate"):
+        gate = g["gate"]
+        if at != h:
+            _fedi_park(led, at, kind, gate)
+            _fedi_park(led, h, kind, gate[:2] + (f"{gate[2]}, on {at}, where it redirects",))
+            print(f"  robots.txt: {h} -> {at}: {gate[2]}")
+        else:
+            _fedi_park(led, h, kind, gate)
+            print(f"  robots.txt: {h}: {gate[2]}")
+    elif g["why"] == "declined":
+        print(f"  alias: {h} -> {at}, which is declined on the record")
+    elif g["why"] == "ledger":
+        print(f"  alias: {h} -> {at}, which the ledger has parked")
+        if (led.get(_canon("https://" + at)) or {}).get("status") == "refused":
+            _fedi_park(led, h, kind, ("robots", "refused",
+                                      f"{at} refuses every crawler (ledger), and {h} redirects there"))
+    elif g["why"] == "refused":
+        _fedi_refusal(led, h, kind, g.get("note"))
+
+
 def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_WORKERS,
                         deadline=0.0):
     import concurrent.futures as cf
@@ -3705,21 +3840,17 @@ def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_
     get_session, close = _probe_sessions(session)
     robots = robots_txt.Robots(_ThreadSession(get_session), timeout=FEDI_PROBE_TIMEOUT)
     locks = _OperatorLocks()
+    stop, gate = _fedi_stop(seen_keys, declined, led), _fedi_gate(robots, seen_keys)
 
     def probe(i_b):
         i, b = i_b
-        with locks(urlparse(b).hostname):
-            if _fedi_past(deadline):
-                return {"why": "unread"}
-            # A candidate's robots.txt before its first request; a configured
-            # instance is not re-judged here.
-            if i >= len(conf_bases):
-                gate = _fedi_root_gate(robots, b)
-                if gate:
-                    return {"why": gate[0], "gate": gate}
-                if _fedi_past(deadline):
-                    return {"why": "unread"}
-            return _mobilizon_probe(get_session, b, begins)
+        # A candidate's robots.txt before its first request, and the robots.txt
+        # of every other host a redirect sends it to (_fedi_follow); a
+        # configured instance is not re-judged here.
+        cand = i >= len(conf_bases)
+        return _mobilizon_probe(get_session, b, begins, lambda send, u, post=False: _fedi_follow(
+            send, u, locks, deadline, post=post, stop=stop if cand else None,
+            gate=gate if cand else None))
     try:
         items, host_of = list(enumerate(jobs)), (lambda ib: urlparse(ib[1]).hostname)
         with cf.ThreadPoolExecutor(max(1, workers)) as ex:
@@ -3746,11 +3877,7 @@ def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_
         top = min(other, key=lambda o: (-other[o], o)) if other else None
         if g.get("why"):
             skipped[g["why"]] += 1
-            if g.get("gate"):
-                _fedi_park(led, host, "mobilizon", g["gate"])
-                print(f"  robots.txt: {host}: {g['gate'][2]}")
-            elif g["why"] == "refused":
-                _fedi_refusal(led, host, "mobilizon", g.get("note"))
+            _fedi_hop_skip(led, "mobilizon", host, g)
         elif not g["future"]:
             skipped["quiet"] += 1
         elif sum(served.get(host, {}).values()) >= MOBILIZON_SERVED_MIN:
@@ -3761,22 +3888,37 @@ def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_
                   f"sampled events are its own (url on {host}), served by "
                   f"{', '.join(by[:3])}{' ...' if len(by) > 3 else ''}")
         elif top and other[top] >= MOBILIZON_SERVED_MIN \
-                and other[top] / max(1, g.get("n") or 0) >= GANCIO_MIRROR_SHARE:
+                and other[top] / max(1, g.get("n") or 0) >= GANCIO_MIRROR_SHARE \
+                and (g.get("origins") or {}).get(host, 0) < MOBILIZON_SERVED_MIN:
             # A FOLLOWER OF ANY ONE HOST, configured or not (review of
             # 2026-11-08): mobilizon.com.br's 52 upcoming all carried urls on
             # eventos.coletivos.org, a Gancio host no config names, so neither
             # mirror rule saw it. Each event's `url` names where it was
-            # published. Of the 18 candidates proposed that day, 15 had no
-            # event published elsewhere, 2 had 1 of 1 (under
-            # MOBILIZON_SERVED_MIN) and mobilizon.com.br 52 of 52: the 0.5
-            # share (GANCIO_MIRROR_SHARE) sits in that gap.
+            # published. A SHARE ALONE REFUSES REAL CALENDARS (the third
+            # review): the sample is the far future, where a followed hub's
+            # recurring events pile up. Over the 66 CONFIGURED instances'
+            # samples (two live runs of 2026-11-08, production UA, up to 100
+            # events each) a top other host at >= 0.5 of the sample marked 20
+            # as followers both times, mobilize.adminforge.de with 43 of its
+            # own, mobilizon.ie 33-36, termine.social 21. So a follower must
+            # ALSO have fewer than MOBILIZON_SERVED_MIN events of its own: 9
+            # of the 66 in both runs, each with 0 or 1 own
+            # (agenda.collectifs.net, mobilizon.libretic.fr and
+            # event.portes-imaginaire.org 0 of 100, all mobilizon.fr's). Of
+            # the 60-61 other hosts each run read, 11 rather than 12 both
+            # times (events.hs3.pl, 2 own of 69, passes this rule and is
+            # caught by the title rule below), and mobilizon.com.br (0 own of
+            # 52) is still one.
             skipped["mirror"] += 1
             print(f"  mirror: {host} {other[top]} of its {g['n']} sampled events were "
                   f"published on {top} (by their url)")
         elif g.get("adult", 0) >= ADULT_EVENT_MIN \
                 and g["adult"] / max(1, g.get("n") or 0) >= ADULT_EVENT_SHARE:
             # Gancio's backstop on the events' own words (ADULT_EVENT_SHARE),
-            # over the sampled titles: the probe already holds them.
+            # over the sampled titles: the probe already holds them. Live on
+            # 2026-11-08 (production UA) it refused nothing: 1 adult-worded
+            # title in the 66 configured instances' 3,749 sampled events
+            # (wydarzenia.phub.pl, 1 of 100) and 0 in the candidates' 1,504.
             skipped["adult"] += 1
             print(f"  adult: {host} ({g['adult']} of {g['n']} sampled events by their own words)")
         else:
@@ -3874,10 +4016,12 @@ def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_
 #     gancio.daghe.org, cal.fs-physik-meteo -> cal.fs-physik-atmo.uni-mainz.de,
 #     and fomo.rheinmain.social -> events.rheinmain.social, where the CONFIGURED
 #     rheinmain.social lands too (the duplicate retired 2026-10-24). The probe
-#     follows redirects, and the configured sites are probed alongside so that
-#     their final hosts are known; a candidate that lands on a configured host
-#     or on another candidate's is an alias. That one request per host is also
-#     the one the mirror test reads, so aliases cost nothing extra.
+#     follows redirects (by hand: _fedi_follow, so a host a candidate sends
+#     us to is asked its robots.txt first), and the configured sites are
+#     probed alongside so that their final hosts are known; a candidate that
+#     lands on a configured host or on another candidate's is an alias. That
+#     one request per host is also the one the mirror test reads, so aliases
+#     cost nothing extra.
 #   - FEDERATION. An instance can follow others and re-publish their events, so
 #     one calendar reaches several hosts under the same title and start. See
 #     _resolve_mirrors, and the numbers there.
@@ -3906,8 +4050,9 @@ def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_
 # s a hung host and 7 more of nodeinfo, against 65 s measured; at 6 workers a
 # request in flight overruns the deadline by at most FEDI_PROBE_TIMEOUT
 # (10 s to connect, 20 to read). A 401, 403 or 429 is parked in the ledger
-# for DEAD_TTL (_fedi_refusal), and an alias whose final host the ledger has
-# parked is skipped as that host is.
+# for DEAD_TTL (_fedi_refusal), and an alias whose final host is declined or
+# parked is skipped as that host is, without the redirect being followed
+# (_fedi_stop); one parked for robots.txt parks the alias beside it.
 GANCIO_DIRECTORY_PAGE = "https://gancio.org/instances"
 GANCIO_PROBE_DAYS = 90
 GANCIO_PROBE_MAX = 500
@@ -4013,20 +4158,27 @@ def _gancio_event_key(e):
     return re.sub(r"\s+", " ", str(e.get("title") or "")).strip().casefold(), start
 
 
-def _gancio_probe(get_session, base, window):
-    """One GET of {base}/api/events, redirects followed.
+def _gancio_probe(get_session, base, window, follow):
+    """One GET of {base}/api/events, its redirects followed by `follow`
+    (_fedi_follow with this run's locks, deadline and, for a candidate, gate
+    and stop).
 
-    {"why": skip reason} when it is not a calendar to read, else {"origin": the
+    {"why": skip reason} when it is not a calendar to read (with "gate" and
+    "final", the host not asked, when follow stopped it), else {"origin": the
     final scheme://host, "final": its folded host, "events": {(title, start):
     has coordinates}, "n", "online", "adult", "coords"}. A 401, 403 or 429 is
     a refusal and is not asked again.
     """
     url = f"{base}/api/events?start={window[0]}&end={window[1]}&max={GANCIO_PROBE_MAX}"
     try:
-        r = get_session().get(url, timeout=FEDI_PROBE_TIMEOUT, allow_redirects=True)
+        got = follow(lambda u, _post: get_session().get(u, timeout=FEDI_PROBE_TIMEOUT,
+                                                        allow_redirects=False), url)
     except Exception as exc:  # noqa: BLE001
         return {"why": "unreachable", "note": type(exc).__name__}
-    p = urlparse(getattr(r, "url", None) or url)
+    if "r" not in got:
+        return dict(got, final=got["at"])
+    r = got["r"]
+    p = urlparse(got["url"])
     out = {"origin": f"{p.scheme}://{p.netloc}".lower(), "final": _fold_host(p.hostname)}
     if r.status_code in (401, 403, 429):
         return dict(out, why="refused", note=f"http {r.status_code}")
@@ -4057,17 +4209,24 @@ def _gancio_probe(get_session, base, window):
                 coords=sum(1 for v in events.values() if v))
 
 
-def _gancio_nodeinfo(get_session, origin):
+def _gancio_nodeinfo(get_session, origin, follow):
     """{"name", "description"} from Gancio's own nodeinfo route, or {}.
 
     /.well-known/nodeinfo/2.0 answers directly on Gancio (no discovery hop):
     206 of 209 live instances on 2026-11-08, 206 with a nodeName and 199 with a
     nodeDescription. Federation metadata, read under the same documented-API
-    footing as /api/events.
+    footing as /api/events. A redirect is followed by `follow`, as the events
+    probe's is; one it stops reads as no answer, and None means the deadline
+    passed before it was asked.
     """
     try:
-        r = get_session().get(f"{origin}/.well-known/nodeinfo/2.0", timeout=FEDI_PROBE_TIMEOUT)
-        if r.status_code != 200:
+        got = follow(lambda u, _post: get_session().get(u, timeout=FEDI_PROBE_TIMEOUT,
+                                                        allow_redirects=False),
+                     f"{origin}/.well-known/nodeinfo/2.0")
+        if got.get("why") == "unread":
+            return None
+        r = got.get("r")
+        if r is None or r.status_code != 200:
             return {}
         md = (r.json() or {}).get("metadata") or {}
     except Exception:  # noqa: BLE001
@@ -4234,38 +4393,27 @@ def _discover_gancio(session, seen_keys, led, limit, workers=GANCIO_PROBE_WORKER
     robots = robots_txt.Robots(_ThreadSession(get_session), timeout=FEDI_PROBE_TIMEOUT)
     locks = _OperatorLocks()
 
+    stop, gate = _fedi_stop(seen_keys, declined, led), _fedi_gate(robots, seen_keys)
+
+    def cand_follow(send, u, post=False):
+        # A candidate's robots.txt before its first request (_fedi_root_gate),
+        # and the robots.txt of every other host a redirect sends it to, each
+        # under its own operator's lock; a declined or parked host is not
+        # asked at all (_fedi_stop), a configured one is not re-judged.
+        return _fedi_follow(send, u, locks, deadline, post=post, stop=stop, gate=gate)
+
+    def conf_follow(send, u, post=False):
+        # A configured site is not re-judged here.
+        return _fedi_follow(send, u, locks, deadline, post=post)
+
     def probe(j):
-        kind, h, url = j
-        with locks(urlparse(url).hostname):
-            if _fedi_past(deadline):
-                return {"why": "unread"}
-            # A candidate's robots.txt before its first request (_fedi_root_gate);
-            # a configured site is not re-judged here.
-            if kind == "cand":
-                gate = _fedi_root_gate(robots, url)
-                if gate:
-                    return {"why": gate[0], "gate": gate}
-                if _fedi_past(deadline):
-                    return {"why": "unread"}
-            g = _gancio_probe(get_session, url, window)
-        # The host a candidate LANDS on answers for itself, before anything
-        # else is asked of it or it is proposed, under its own operator's
-        # lock (taken after the first is let go, so two never deadlock). A
-        # candidate's own file is already read, and Robots answers from memory.
-        # Not for a host configured, declined or parked: it is skipped below
-        # for that, and a parked host is not asked anything.
-        fk = _canon("https://" + (g.get("final") or ""))
-        if (kind == "cand" and not g.get("why") and g.get("final") and g["final"] != h
-                and fk not in seen_keys and fk not in declined and not _dead_recently(led, fk)):
-            with locks(g["final"]):
-                if _fedi_past(deadline):
-                    return {"why": "unread"}
-                g["final_gate"] = _fedi_root_gate(robots, g["origin"])
-        return g
+        kind, _h, url = j
+        return _gancio_probe(get_session, url, window,
+                             cand_follow if kind == "cand" else conf_follow)
 
     def nodeinfo(f):
-        with locks(f):
-            return None if _fedi_past(deadline) else _gancio_nodeinfo(get_session, live[f]["origin"])
+        return None if _fedi_past(deadline) else _gancio_nodeinfo(
+            get_session, live[f]["origin"], cand_follow)
     names, infos = [], {}
     try:
         with cf.ThreadPoolExecutor(max(1, workers)) as ex:
@@ -4292,12 +4440,11 @@ def _discover_gancio(session, seen_keys, led, limit, workers=GANCIO_PROBE_WORKER
         for h in sorted(pool, key=lambda x: (x not in probes or probes[x].get("final") != x, x)):
             g = probes[h]
             if g.get("why"):
+                # Its own robots.txt, or that of a host it redirects to, said
+                # no before that host was asked anything; or the redirect led
+                # to a host declined or parked, which was not asked at all.
                 skipped[g["why"]] += 1
-                if g.get("gate"):
-                    _fedi_park(led, h, "gancio", g["gate"])
-                    print(f"  robots.txt: {h}: {g['gate'][2]}")
-                elif g["why"] == "refused":
-                    _fedi_refusal(led, h, "gancio", g.get("note"))
+                _fedi_hop_skip(led, "gancio", h, g)
                 continue
             f = g["final"] or h
             # events.rheinmain.social is listed on its own, never redirects, and
@@ -4313,18 +4460,11 @@ def _discover_gancio(session, seen_keys, led, limit, workers=GANCIO_PROBE_WORKER
             # The free gates asked the ledger about the LISTED host only; the
             # host it lands on gets the same question, or a parked host comes
             # back under every name that redirects to it (review of 2026-11-08).
+            # _fedi_stop asks it before the redirect is followed; this is for
+            # a host this very loop has just parked.
             if f != h and _dead_recently(led, _canon("https://" + f)):
                 skipped["ledger"] += 1
                 print(f"  alias: {h} -> {f}, which the ledger has parked")
-                continue
-            # The host it LANDS on answers for itself (read in probe). Both
-            # names are parked, so the redirect is not followed next run.
-            gate = g.get("final_gate") if f != h else None
-            if gate:
-                skipped[gate[0]] += 1
-                _fedi_park(led, f, "gancio", gate)
-                _fedi_park(led, h, "gancio", gate[:2] + (f"{gate[2]}, on {f}, where it redirects",))
-                print(f"  robots.txt: {h} -> {f}: {gate[2]}")
                 continue
             if f in by_final:
                 skipped["alias"] += 1
