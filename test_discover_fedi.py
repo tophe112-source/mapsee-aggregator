@@ -517,12 +517,15 @@ try:
     check(s.asked("pathonly.example.cl", "/api") and "https://pathonly.example.cl" in proposed,
           "mobilizon: `Disallow: /admin` is a path rule, which the documented API is not bound by: probed")
     for h, status, why in (("nocrawl.example.cl", "refused", "Disallow: /"), ("tokenno.example.cl", "refused", "Disallow: /"),
-                           ("down.example.cl", "fail", "unreachable"), ("challenged.example.cl", "fail", "challenged"),
+                           ("challenged.example.cl", "fail", "challenged"),
                            ("waf.example.cl", "fail", "http 403")):
         row = rled.get(h) or {}
         check(row.get("status") == status and row.get("type") == "mobilizon" and why in row.get("reason", "")
               and row.get("checked") == 20261108 and C._dead_recently(rled, h),
               f"mobilizon {h}: ledger `{status}` ({why}), parked for DEAD_TTL ({row})")
+    check("down.example.cl" not in rled and not C._dead_recently(rled, "down.example.cl"),
+          f"mobilizon: an UNREACHABLE robots.txt writes no ledger row; the host is asked again next run "
+          f"({rled.get('down.example.cl')})")
     check(skipped["robots"] == 2 and skipped["robots_unread"] == 2 and skipped["refused"] == 1,
           f"robots 2 (`*` and our token), robots_unread 2, a 403 on robots.txt a refusal ({skipped})")
     check("https://adultmob.example.de" not in proposed
@@ -546,10 +549,13 @@ try:
           "...2 of 5 from the top host is under the share, and 1 of 1 under MOBILIZON_SERVED_MIN")
     s2 = Fake(mob_route(jm=JM2, fd=[], search=SEARCH2, robots=ROB_M))
     (_f, sk2), _o = run(C._discover_mobilizon, s2, C._config_keys(), rled, 50)
-    check(not any(s2.asked(h) for h in ("nocrawl.example.cl", "tokenno.example.cl", "down.example.cl",
+    check(not any(s2.asked(h) for h in ("nocrawl.example.cl", "tokenno.example.cl",
                                          "waf.example.cl", "challenged.example.cl"))
-          and sk2["ledger"] == 5 and sk2["robots"] == 0,
-          "the next run asks none of the five robots.txt verdicts again")
+          and sk2["ledger"] == 4 and sk2["robots"] == 0,
+          "the next run asks none of the four robots.txt verdicts again")
+    check(len(s2.asked("down.example.cl", "/robots.txt")) == 1 and not s2.asked("down.example.cl", "/api")
+          and sk2["robots_unread"] == 1,
+          f"...and asks the unreachable one's robots.txt again, and nothing else of it ({sk2['robots_unread']})")
 
     # ------------------------------------------ 2c. a redirect is a request to another host
     # The third review of 2026-11-08: a candidate serving its own robots.txt
@@ -876,7 +882,7 @@ try:
         check(len(s.asked(h, "/robots.txt")) == 1 and not s.asked(h, "/api") and not s.asked(h, "/.well-known"),
               f"gancio {h}: robots.txt read once, and nothing else asked")
     for h, status, why in (("nocrawl.example.cl", "refused", "Disallow: /"), ("tokenno.example.cl", "refused", "Disallow: /"),
-                           ("down.example.cl", "fail", "unreachable"), ("challenged.example.cl", "fail", "challenged"),
+                           ("challenged.example.cl", "fail", "challenged"),
                            ("waf.example.cl", "fail", "http 403"), ("waf429.example.cl", "fail", "http 429"),
                            ("closed.example.org", "refused", "Disallow: /"),
                            ("toclosed.example.cl", "refused", "on closed.example.org, where it redirects")):
@@ -894,11 +900,16 @@ try:
     check(skr["robots"] == 3 and skr["robots_unread"] == 2 and skr["refused"] == 2
           and sum(skr.values()) + len(fr) == len(EXTRA_G),
           f"robots 3, robots_unread 2, refused 2 (403, 429), each host counted once ({skr})")
+    check("down.example.cl" not in rled,
+          f"gancio: an UNREACHABLE robots.txt writes no ledger row ({rled.get('down.example.cl')})")
     s2 = Fake(gancio_route(listed=list(EXTRA_G), org_ok=False, robots=ROB_G))
     (_f, sk2), _o = run(C._discover_gancio, s2, C._config_keys(), rled, 100, workers=3)
-    check(not any(s2.asked(h) for h in EXTRA_G if h != "pathonly.example.cl") and not s2.asked("closed.example.org")
-          and sk2["ledger"] == 7,
-          f"the next run asks none of them again, nor where one redirects ({sk2['ledger']})")
+    check(not any(s2.asked(h) for h in EXTRA_G if h not in ("pathonly.example.cl", "down.example.cl"))
+          and not s2.asked("closed.example.org") and sk2["ledger"] == 6,
+          f"the next run asks none of the parked ones again, nor where one redirects ({sk2['ledger']})")
+    check(len(s2.asked("down.example.cl", "/robots.txt")) == 1 and not s2.asked("down.example.cl", "/api")
+          and sk2["robots_unread"] == 1,
+          f"...and asks the unreachable one's robots.txt again, and nothing else of it ({sk2['robots_unread']})")
 
     # A redirect is a request to another host (the third review of 2026-11-08).
     # zz-open serves its own robots.txt and sends /api/events to aa-closed,
@@ -1110,6 +1121,40 @@ for t in ("gancio", "mobilizon"):
     check(g and g[0] == "fail" and "unreachable" in g[1], f"...an unreachable robots.txt is `fail` ({t}: {g})")
     g = C._robots_gate(R, t, {"type": t, "base_url": "https://waf.example"})
     check(g and g[0] == "fail" and "403" in g[1], f"...a 403 on robots.txt is a refusal, `fail` ({t}: {g})")
+# `catalog_curate.py robots` (report only) agrees with _robots_gate: a
+# configured gancio or mobilizon instance whose operator refuses every crawler
+# is listed as DISALLOWED, not under the documented APIs "not bound by it";
+# a path rule on its API still is.
+_saved = (C._configured_requests, C._session, C.robots_txt.Robots.prefetch)
+# prefetch opens its own requests.Session per worker: kept off the network
+# here, so check() reads each file through the Fake below.
+C.robots_txt.Robots.prefetch = lambda self, urls, workers=16, make_session=None: None
+C._configured_requests = lambda: [
+    ("gancio_sources.json", "gancio", "Closed", "GET", "https://deny.example/api/events?start=1"),
+    ("mobilizon_sources.json", "mobilizon", "Token", "POST", "https://token.example/api"),
+    ("gancio_sources.json", "gancio", "Path", "GET", "https://apionly.example/api/events?start=1")]
+try:
+    _route = {"deny.example": "User-agent: *\nDisallow: /\n",
+              "token.example": "User-agent: MapseeAggregator\nDisallow: /\n\nUser-agent: *\nAllow: /\n",
+              "apionly.example": "User-agent: *\nDisallow: /api\n"}
+
+    def _rob(u, _params):
+        h = urlparse(u).hostname
+        return Resp(200, None, u, _route[h]) if h in _route else Resp(404, None, u, "not found")
+    C._session = lambda: Fake(_rob)
+    _buf = io.StringIO()
+    with contextlib.redirect_stdout(_buf):
+        C.cmd_robots(workers=1)
+    _out = _buf.getvalue()
+    _dis = _out.split("DISALLOWED", 1)[1].split("DOCUMENTED APIs", 1)[0]
+    _api = _out.split("DOCUMENTED APIs", 1)[1].split("UNPACED", 1)[0]
+    check("deny.example" in _dis and "token.example" in _dis and "deny.example" not in _api
+          and "token.example" not in _api,
+          "robots report: a fedi instance refusing every crawler is DISALLOWED, as _robots_gate binds it")
+    check("apionly.example" in _api and "apionly.example" not in _dis,
+          "...while a path rule on its API is listed with the documented APIs, not bound")
+finally:
+    C._configured_requests, C._session, C.robots_txt.Robots.prefetch = _saved
 check(C._robots_gate(R, "localist", {"base_url": "https://deny.example"}) is None
       and C._robots_gate(R, "ckan", {"url": "https://deny.example/api/3/action/datastore_search?x=1"}) is None,
       "the other documented APIs are still not asked")

@@ -186,7 +186,10 @@ _EMAIL = re.compile(r"(?:mailto:)?[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 #      "06 39 98 01 23", "+33 6 39 98 01 23";
 #   3. Spanish 3-2-2-2, one separator throughout: "555 01 01 23";
 #   4. a bare run of 9-11 digits, or 8-14 after +: "0491570156",
-#      "Contact Phone: 2065550100". An 8-digit date ("20261107") is shorter;
+#      "Contact Phone: 2065550100". An 8-digit date ("20261107") is shorter.
+#      It also masks ids that are not phones (a meetup "/events/<9 digits>",
+#      a Zoom meeting number): 1,410 of its 3,819 runs in the stores were in
+#      a URL. Harmless in a sample; the referrer `url` field is not masked;
 #   5. (_PHONE_KW) any grouping at all, once a phone word introduces it.
 # MEASURED on the 2026-11-07 stores (611,881 rows, 557,268 with prose, 6,728
 # candidates, --today 20261108). Rules 2-4: before 4 took any lead digit,
@@ -253,7 +256,7 @@ def mask(s: str) -> str:
     inside the domain) does not look like an address to _EMAIL, and "+44 20
     7946 " does not look like a phone number to _PHONE. On the 2026-11-07
     audit 11 of the 6,728 candidate samples ended inside an address or a
-    phone-like run, 10 of them real: an info@ address cut inside its domain
+    phone-like run, 10 of them real: an "info" address cut inside its domain
     (four times), a festival's address cut right after its "@" (three), and
     a library's number cut after its seventh digit. None was among the 155
     kept, so nothing had reached the committed queue. Masking the whole text

@@ -303,3 +303,38 @@
   the row's coordinates and passes it through unchanged without them, so on an
   entry without coordinates '2026-11-07T11:00:00' would have been stored as
   11:00 UTC.
+
+- **TWO OR MORE DATED DAYS JOINED ONLY BY CONNECTIVES ARE ONE EVENT, NOT
+  SINGLES (2026-11-08).** mapsee_ingest_annual read "Saturday, November 7 &
+  Sunday, November 8, 2026" as two single days. The shared trailing year sat on
+  Sunday alone, so year-first ranking started the festival on its second day,
+  with Saturday's 11:00-18:00 clock (review a6.py, today 2026-10-01); "November
+  7, 2026 - November 8, 2026" kept only the first day, and "December 31, 2026 -
+  January 1, 2027" lost January 1 as "two years in play". Joining pairs fixed
+  those, and a second review found the same failure one day longer: "Friday,
+  November 6 & Saturday, November 7 & Sunday, November 8, 2026", the same with
+  "+", with ", ..., and", and with a day pair at its head ("Friday & Saturday,
+  November 6 & 7 and Sunday, November 8, 2026") each gave 2026-11-08..11-08.
+  Now _days folds every run of single days whose gaps are only &, and, +, a
+  dash, to, through, thru or a list's comma (JOIN_RX, LIST_RX) into one range.
+  The year is the last day's, stated or from its weekday; each earlier day
+  takes the year of the day after it, one less across a year end; and every
+  day's weekday is checked. A run is not joined when a day states another year,
+  when the days go backwards, or when it is longer than MAX_FAIR_DAYS (21):
+  "Saturday, November 7, 2026, Saturday, November 6, 2027" stays two dates. A
+  year written in front of the first day still refuses it ("2025: November 7 &
+  November 8, 2026"). Each string above now reads its whole span, all day, and
+  Short Run's saved pages are unchanged (the hero on 311 of 311 days). `python
+  test_ingest_annual.py`, section 3b. A reschedule, "moves from Saturday,
+  November 6th, 2027 to Saturday, November 13th, 2027", reads as one range
+  2027-11-06..11-13 (the pair rule did the same; before it, the old day alone):
+  both are wrong. A LIST JOINS ONLY NEIGHBOURING DAYS: "&", "and", "+" and a
+  comma list days, while a dash, "to" or "through" spans them, and the chain
+  treated both alike, so "workshops: Saturday, October 24 and Saturday, October
+  31, 2026" read as one eight-day all-day event (the review's p_join.py).
+  Across a listing connective the next day must now be the day after (SPAN_RX
+  names the gaps that span); "Saturday, November 7 through Saturday, November
+  14" still spans. Neither a chain nor a RANGE_RX match crosses a line:
+  "<p>Saturday, October 31</p><p>&#8211; Saturday, November 7, 2026</p>" was
+  one range through RANGE_RX. Three mutants (no neighbour rule, a chain across
+  a line, a RANGE_RX match across a line) each fail 1 or 2 of 295 cases.

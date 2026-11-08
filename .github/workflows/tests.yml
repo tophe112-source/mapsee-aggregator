@@ -767,8 +767,9 @@ jobs:
       # seeds.json is the owner's list of reported misses. Each must be fixed
       # for its KIND and backed by a file in the repo (annual_sources.json, a
       # config, a _not_included map), not asserted. A pending seed older than
-      # 30 days only WARNs here, since this gate breaks on code, not the
-      # calendar; curate-catalog.yml's daily run fails its age check loudly.
+      # 30 days only WARNs here (a ::warning:: annotation), since this gate
+      # breaks on code, not the calendar; curate-catalog.yml's daily run reads
+      # it with today pinned and puts any aged seed in its summary.
       - name: Every reported miss is fixed for its kind, backed by the repo
         run: python test_seeds.py
 

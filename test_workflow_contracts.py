@@ -1143,6 +1143,39 @@ class WorkflowContracts(unittest.TestCase):
         commit = next(s for s in steps if s.get('name', '').startswith('Commit'))
         self.assertIn('git add -- mention_queue.json', commit['run'])
 
+    def test_the_gate_runs_when_a_file_its_new_scripts_read_changes(self):
+        # tests.yml runs only when a changed path matches its filter. None of
+        # these seven was listed when the free-arts scripts that read them
+        # landed (2026-11-08), so a hand edit to one alone (a decline, a seed,
+        # an annual site, a queue edit) would not have run its checks.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/tests.yml').read_text(encoding='utf-8'))
+        on = workflow.get('on', workflow.get(True))
+        for event in ('push', 'pull_request'):
+            paths = on[event]['paths']
+            for f in ('annual_sources.json', 'seeds.json', 'mention_queue.json', 'ods_sources.json',
+                      'mobilizon_sources.json', 'gancio_sources.json', 'fair_sources.json'):
+                self.assertIn(f, paths, f'{event}: {f}')
+
+    def test_curate_reads_the_seed_age_rule_daily_with_today_pinned_and_never_fails_for_it(self):
+        # tests.yml runs test_seeds.py unpinned, where an aged seed only warns;
+        # the daily curate run is where the 30-day rule is read against today.
+        # It warns and writes the summary rather than failing the schedule,
+        # and it comes after the commit so it cannot cost the sources.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/curate-catalog.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['curate']['steps']
+        names = [s.get('name', '') for s in steps]
+        i = names.index('Reported misses are resolved within 30 days')
+        self.assertGreater(i, next(n for n, x in enumerate(names) if x.startswith('Commit')))
+        step = steps[i]
+        self.assertIn('MAPSEE_TODAY=$(date -u +%Y%m%d) python test_seeds.py', step['run'])
+        self.assertIn('|| rc=$?', step['run'])
+        self.assertIn('::warning::', step['run'])
+        self.assertIn('GITHUB_STEP_SUMMARY', step['run'])
+        self.assertNotIn('exit $rc', step['run'])
+        self.assertNotIn('exit 1', step['run'])
+        self.assertIn("github.event.schedule == '20 3 * * *'", step['if'])
+        self.assertIn('!cancelled()', step['if'])
+
     def test_curate_compares_only_its_own_crons_and_runs_one_at_a_time(self):
         # The 03:20 and 09:30 crons walk one `osm` cursor slot (2026-10-23).
         # Only the group keeps them apart: two at once would probe one metro

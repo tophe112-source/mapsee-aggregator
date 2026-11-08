@@ -287,10 +287,15 @@ def quoted_contacts():
     for fname in ("catalog_mentions.py", "test_mentions.py"):
         with open(os.path.join(here, fname), encoding="utf-8") as fh:
             src = fh.read()
-        for m in re.finditer(r"[\w.+-]+@([\w.-]*)", src):
-            dom = m.group(1).lower()
-            if not any(d.startswith(dom) or dom.startswith(d)
-                       for d in ("example.org", "example.com", "example.net")):
+        for m in re.finditer(r"([\w.+-]+)@([\w.-]*)", src):
+            local, dom = m.group(1), m.group(2).lower()
+            # A bare local part ("name" and an @) is a cut of nothing: the
+            # 2026-11-08 quotation was exactly that. Only a regex's own `+@`
+            # has no domain.
+            if not dom and local != "+":
+                out.append((fname, m.group()))
+            elif not any(d.startswith(dom) or dom.startswith(d)
+                         for d in ("example.org", "example.com", "example.net")):
                 out.append((fname, m.group()))
         numbers = [m.group() for m in M._PHONE.finditer(src)]
         numbers += [m.group("num") for m in M._PHONE_KW.finditer(src)

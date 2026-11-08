@@ -376,8 +376,19 @@ class Cand:
 # 2026") each gave 2026-11-08..11-08. A list's comma (LIST_RX) joins too, and
 # a chain longer than MAX_FAIR_DAYS is not one ("Saturday, November 7, 2026,
 # Saturday, November 6, 2027" is two editions).
-JOIN_RX = re.compile(r"\s*(?:&|and|\+|[-\u2013\u2014]|to|through|thru)\s*", re.I)
-LIST_RX = re.compile(r"\s*,\s*(?:(?:&|and|\+)\s*)?", re.I)
+#
+# A LIST JOINS ONLY NEIGHBOURING DAYS; A DASH SPANS (same review). "&", "and",
+# "+" and a comma list days, a dash, "to" or "through" spans them, and the
+# chain treated both alike: "workshops: Saturday, October 24 and Saturday,
+# October 31, 2026" read as one eight-day all-day event, 10-24..10-31, and
+# "November 7 and Saturday, November 14" as 11-07..11-14. Across a listing
+# connective the next day must be the day after (SPAN_RX says which gaps
+# span). Neither may cross a line, and nor may a RANGE_RX match:
+# "<p>Saturday, October 31</p><p>&#8211; Saturday, November 7, 2026</p>" is
+# two blocks, not 10-31..11-07.
+JOIN_RX = re.compile(r"[^\S\n]*(?:&|and|\+|[-\u2013\u2014]|to|through|thru)[^\S\n]*", re.I)
+LIST_RX = re.compile(r"[^\S\n]*,[^\S\n]*(?:(?:&|and|\+)[^\S\n]*)?", re.I)
+SPAN_RX = re.compile(r"[^\S\n]*(?:[-\u2013\u2014]|to|through|thru)[^\S\n]*", re.I)
 
 
 def _resolve_year(mon: int, d1: int, wd: Optional[int], today: date) -> Tuple[Optional[int], str]:
@@ -400,6 +411,8 @@ def _resolve_year(mon: int, d1: int, wd: Optional[int], today: date) -> Tuple[Op
 def _ranges(text: str) -> List[Cand]:
     out = []
     for m in F.RANGE_RX.finditer(text):
+        if "\n" in m.group(0):
+            continue                     # a range does not cross a block (see SPAN_RX)
         # Same arithmetic as the fairs: parse_ranges on the match alone, then
         # the same leading-year refusal against the page.
         got = F.parse_ranges(m.group(0))
@@ -463,6 +476,10 @@ def _chain(text: str, items: list, today: date) -> Optional[Cand]:
             return None
         spans.insert(0, (s, e))
         nxt = s
+    for k in range(len(items) - 1):      # a listed day is the day after the last
+        gap = text[items[k].end():items[k + 1].start()]
+        if not SPAN_RX.fullmatch(gap) and spans[k + 1][0] != spans[k][1] + timedelta(days=1):
+            return None
     start, end = spans[0][0], spans[-1][1]
     if (end - start).days + 1 > F.MAX_FAIR_DAYS:
         return None

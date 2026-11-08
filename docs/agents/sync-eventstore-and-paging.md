@@ -970,8 +970,8 @@
   and names the 2,500). An over-cap source WITHOUT `window` now prints how
   many rows it did not read. The build had `max` 45,000; it is 30,000
   because the rows are paid for in the civic sync step, not here, and that
-  step's timeout is now 90 minutes for civic (ci-and-jobs.md has the
-  arithmetic).
+  step's timeout is now 105 minutes for civic, Mobilizon's one-off rows
+  included (ci-and-jobs.md's 95.4-MINUTES note has the arithmetic).
 
   The open ends are anchored on the first page's earliest row, not on the
   machine's date. With MAPSEE_TODAY 23 days late (2026-12-01 against a
@@ -1008,6 +1008,7 @@
   - The `/exports/json` endpoint as a one-request alternative: no offset cap,
     but its size, time and throttling on this dataset are unknown.
 
-  `test_ingest_ods.py`, 53 cases. At build it had 44 and caught 15 mutations;
-  a review then found that deleting the windowed sleep passed all 44, and the
+  `test_ingest_ods.py`, 60 cases (section 12's 7 are the per-host refusal in
+  adapters-and-sources.md). At build it had 44 and caught 15 mutations; a
+  review then found that deleting the windowed sleep passed all 44, and the
   PAUSE_S case now fails it.

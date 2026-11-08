@@ -3509,13 +3509,20 @@ def _fedi_refusal(led, host, kind, note):
 # its first request, and only its root is asked about: the API stays exempt
 # from a path rule (DOCUMENTED_API_TYPES), not from a refusal of the whole
 # site. A Disallow of `/` is `refused`, parked for DEAD_TTL like verify's;
-# an unreachable or challenged file is `fail` (_robots_gate's statuses); a
-# 401, 403 or 429 on robots.txt is a refusal, parked as _fedi_refusal parks
-# one on the API (mapsee_ingest_fairs.Polite reads it the same way).
+# a challenged file is `fail` (_robots_gate's statuses); a 401, 403 or 429 on
+# robots.txt is a refusal, parked as _fedi_refusal parks one on the API
+# (mapsee_ingest_fairs.Polite reads it the same way). An UNREACHABLE file
+# (a timeout, a reset, a 5xx) is skipped for this run and written nowhere,
+# as an unreachable API is: on a live `discover gancio` that day 9 of 182
+# candidates were unreadable, and asked again one at a time minutes later 7
+# of the 9 answered 200, so a `fail` row would have kept 7 reachable
+# instances out for DEAD_TTL on one bad read. verify still parks it `fail`.
 # Configured instances are not re-judged here.
 _FEDI_TYPES = frozenset({"gancio", "mobilizon"})
 # skipped[...] keys that mean discovery wrote a ledger row cmd_discover must save.
 _FEDI_LEDGER_KEYS = ("refused", "robots", "robots_unread")
+# The note an unreachable robots.txt carries: discovery parks nothing on it.
+_ROBOTS_DOWN = "robots.txt unreachable"
 
 
 def _fedi_root_gate(robots, base):
@@ -3530,7 +3537,7 @@ def _fedi_root_gate(robots, base):
     if st == "challenge" or ans.get("allowed") is None:
         return "robots_unread", "fail", f"robots.txt challenged ({ans.get('robots')})"
     if st == "unreachable":
-        return "robots_unread", "fail", f"robots.txt unreachable ({ans.get('robots')})"
+        return "robots_unread", "fail", f"{_ROBOTS_DOWN} ({ans.get('robots')})"
     if ans.get("allowed") is False:
         return ("robots", "refused",
                 f"robots.txt: {ans.get('rule')} (GET /), the operator refuses every crawler")
@@ -3539,8 +3546,11 @@ def _fedi_root_gate(robots, base):
 
 def _fedi_park(led, host, kind, gate):
     """Write the ledger row a _fedi_root_gate verdict calls for, keyed as
-    _fedi_refusal keys one."""
+    _fedi_refusal keys one. An unreachable robots.txt writes none: the host
+    is asked again next run (see _FEDI_TYPES)."""
     why, status, note = gate
+    if note.startswith(_ROBOTS_DOWN):
+        return
     if why == "refused":
         _fedi_refusal(led, host, kind, note)
         return
@@ -3952,7 +3962,7 @@ def _discover_mobilizon(session, seen_keys, led, limit, workers=MOBILIZON_PROBE_
                   f"editorial look (MOBILIZON_MAX_TOTAL {MOBILIZON_MAX_TOTAL:,})")
             continue
         if src == "fedidb":
-            # A HOST ONLY FEDIDB LISTS WAITS FOR A HUMAN (the owner's call,
+            # A HOST ONLY FEDIDB LISTS WAITS FOR A HUMAN (review of
             # 2026-11-08). Two of the 18 it led to that day were all
             # advertising (see above) and nothing here can see that; merge
             # needs no human and Mobilizon runs daily. joinmobilizon's
@@ -5033,7 +5043,10 @@ def cmd_robots(workers=16):
 
     A publisher's pages and feeds are listed as DISALLOWED. A documented
     public API is listed apart: robots.txt does not bind it
-    (DOCUMENTED_API_TYPES), but the line should stay visible.
+    (DOCUMENTED_API_TYPES), but the line should stay visible. A Gancio or
+    Mobilizon instance whose robots.txt refuses its whole site (`/`) is the
+    exception _robots_gate makes (the owner's rule of 2026-10-05): listed
+    under DISALLOWED, as bound.
 
     Changes nothing - no config, no ledger. What to do about a refused source is
     the owner's call (see the parkrun `_decision` for what that looks like), and
@@ -5052,7 +5065,14 @@ def cmd_robots(workers=16):
                 else "challenged" if ans["allowed"] is None
                 else "allowed")
         origin = robots_txt.origin_of(url)
-        if t in DOCUMENTED_API_TYPES:
+        whole_site = False
+        if t in _FEDI_TYPES:
+            # An operator refusing every crawler binds even the API
+            # (_robots_gate): the site root's answer, not the API path's.
+            root = robots.check(origin + "/")
+            if root["allowed"] is False and root["status"] not in ("unreachable",):
+                ans, kind, whole_site = root, "disallowed", True
+        if t in DOCUMENTED_API_TYPES and not whole_site:
             # Not bound by robots.txt (see DOCUMENTED_API_TYPES), and reported
             # apart so that line stays visible rather than silently applied.
             if kind == "disallowed":

@@ -1028,8 +1028,9 @@
     subtracting the three mirrors' measured walls); rows lost at page
     boundaries (START_TIME_ASC sorts on a non-unique key and pages by offset,
     so a duplicate shows in the count where a missed row would not); the civic
-    sync's time to insert the one-off ~6,400 new rows; and whether the mirror
-    relation holds as instances follow and unfollow each other.
+    sync's time to insert the one-off new rows (at most 8,117, 6,561 of them
+    placed; ci-and-jobs.md's 95.4-MINUTES note projects it); and whether the
+    mirror relation holds as instances follow and unfollow each other.
 
 - **OPENAGENDA FRANCE READ 12 OF ITS 90 DAYS: THE OPENDATASOFT OFFSET CAP CUT
   IT SILENTLY, AND A SOURCE WITH `window` IS NOW READ IN DATE WINDOWS
@@ -1061,13 +1062,35 @@
     splits).
   - Why France's `max` is 30,000: the sync pays for it, not this step. Every
     row read here is written by the civic job's sync step, whose timeout is
-    now 90 minutes (ci-and-jobs.md has the arithmetic). The other OpenAgenda
-    entry kept 715 to 976 and the largest city dataset 1,933, so neither is
-    windowed. `python test_ingest_ods.py` (53 cases).
+    now 105 minutes, Mobilizon's one-off rows of the same commit included
+    (ci-and-jobs.md's 95.4-MINUTES note has the arithmetic). The other
+    OpenAgenda entry kept 715 to 976 and the largest city dataset 1,933, so
+    neither is windowed. `python test_ingest_ods.py` (60 cases).
   - UNMEASURED: whether the portal parses the `<date'...'` bound. Only `>=`
     has been seen to work, through verify_ods; the 400 fallback covers it. The
     first windowed run's summary line prints the query's total_count and the
     windows, splits and requests it used.
+
+- **A 403 OR 429 FROM AN OPENDATASOFT PORTAL REFUSES THE HOST FOR THE REST OF
+  THE RUN, NOT ONE SOURCE (2026-11-08).** Both OpenAgenda entries in
+  ods_sources.json are on public.opendatasoft.com (France first), and 12 of
+  the 18 sources share prod-brisbane-queensland.opendatasoft.com. main() kept
+  no state between sources: with France's first page reporting 25,000 and
+  every later request to the host answered 429, the code before this fix
+  asked public.opendatasoft.com three times, the third for the next source
+  right after the refusal, while the windowed read's comment said a refusal
+  was not asked again; France's windows raise its requests to that host from
+  about 100 to up to 500 (`max_requests`). Now a 403 or 429 in the plain
+  read, the windowed walk, or the plain read a windowed 400 falls back to puts
+  the host in main()'s `refused` (host -> why), and every later source on it
+  prints `not asked; <host> refused this run (HTTP 429 to OpenAgenda France)`
+  instead of being read. A 400 refuses nothing: it is the portal rejecting a
+  query. Through main() with the real config, the same stub's requests went
+  from public.opendatasoft.com x3 then the next host to x2 then the next host.
+  `test_ingest_ods.py` section 12 (7 of its 60 cases) runs main() over the
+  real two OpenAgenda entries and a source on another host; removing the skip
+  in main(), the record in any of the three read paths or the map passed to
+  the windowed read, or counting a 400 as a refusal, each fails 1-4 cases.
 
 - **NO OPENDATASOFT ROW CARRIED A CREDIT; THE TWO OPENAGENDA ENTRIES NOW END
   WITH ONE, AND THE LICENSOR AND DATE ARE STILL MISSING (2026-11-08).**
@@ -1154,8 +1177,9 @@
     bylines.
   - The fairs adapter reads flattened text and is unaffected. `python
     test_ingest_annual.py`. UNMEASURED: other WordPress themes' bylines, such
-    as an author name of three words or more before "on", and any range-shape
-    annual entry (none is configured).
+    as an author name of three words or more before "on" (A BYLINE IS MARKED
+    BY ITS ELEMENT'S CLASS, below, covers those a theme marks up), and any
+    range-shape annual entry (none is configured).
 
 - **ONCE AN EDITION'S OWN STATED HOURS HAVE ENDED TODAY, NO LATER PAGE MAY
   BRING IT BACK AS ALL-DAY (2026-11-08).** mapsee_ingest_annual reads the
@@ -1176,3 +1200,87 @@
   `"deadline" in why`, and a refused URL such as /entry-deadlines/, quoted in
   its own reason, ended the walk. `python test_ingest_annual.py` (122 cases)
   pins both, and the substring version fails it.
+
+- **AN ANNUAL EVENT'S NEXT EDITION IS CHECKED BY ITS MONTHS, ITS WEEKDAY AND A
+  HALF-YEAR GAP, NOT BY WORDS ALONE (2026-11-08).** Once an edition is past,
+  mapsee_ingest_annual took any date near the event's name that its deny list
+  did not foresee as the next edition. With the real hero plus one paragraph
+  and the config's name_rx, today 2026-11-20 (review a7.py), "Exhibitor
+  applications ... are open until Friday, March 5th, 2027" and three like it
+  gave 2027-03-05, a "Spring Market: Saturday, May 15th, 2027" gave 2027-05-15
+  and a volunteer "Orientation is Saturday, October 30th, 2027" gave
+  2027-10-30. A curated `months` of [10, 11] refused five of the six, and a
+  second review found six more inside it, each written as "Short Run Comix
+  Festival <year>": a "feedback survey closes Friday, November 27th, 2026", a
+  "leftover zine sale: Saturday, November 28th, 2026", an "exhibitor list goes
+  live Friday, October 1st, 2027", "Volunteer training is Saturday, October
+  30th, 2027", a "Halloween zine swap" the same day and "lottery results:
+  Monday, October 4th, 2027". Now annual_sources.json takes `months` and
+  `weekdays` (day names; load_sites refuses anything else), and Short Run's are
+  [11] and ["Saturday"] with no margin: its five editions on the saved homepage
+  (2022-11-05, 2023-11-04, 2024-11-02, 2025-11-01, 2026-11-07) are each the
+  first Saturday of November, 364 to 371 days apart. pick() also refuses a
+  candidate that starts within EDITION_GAP_DAYS (180) after the newest past
+  date that passes every other rule. Every string above is now refused; the
+  next edition, 364 days after the past hero, is read beside it; and a past fee
+  deadline 57 days before an edition refuses nothing, because it fails a deny
+  word. The deny word "orientation" is gone: unanchored, it refused the
+  festival's own "Saturday, November 6th, 2027" for "Every gender and
+  orientation welcome!", a "Volunteer Orientation" nav link above the <h1> and
+  "disorientation zines". The daily sweep of the three saved pages, byline rule
+  on and off, is unchanged: the hero (11:00-18:00, FREE!) on all 311 days
+  2026-01-01 to 11-07 and nothing on all 419 days 2026-11-08 to 2027-12-31.
+  `python test_ingest_annual.py`, sections 2b, 2d, 9 and 10. STILL OPEN: a
+  named November Saturday that no deny word foresees, more than 180 days after
+  the newest past edition on the page or with none on it, is read as the event;
+  and an edition moved to October or off a Saturday reads as none until the
+  config is widened.
+
+- **A BYLINE IS MARKED BY ITS ELEMENT'S CLASS, AND NOT ONLY ON A <time>
+  (2026-11-08).** In the review's a8.py, "<a rel=category>Short Run Comix
+  Festival</a> &middot; <time class="updated">November 20, 2026</time>" put the
+  name 12 characters before the date with no "Posted" word, and the date was
+  kept as the festival on 2026-11-20. A <time> whose class or itemprop said
+  updated, modified or published became a byline mark. A second review then
+  kept the same date as the festival from <span class="published">, from a
+  <span class="published" itemprop="datePublished"> inside a "posted-on" span
+  and from hAtom's <abbr class="updated">, with months or without.
+  _BYLINE_MARK_RX now marks a time, span, abbr, div or p whose class or
+  itemprop contains published, updated, modified, posted-on, entry-date or
+  post-date. The attribute name stands alone (data-class="updated" is not one),
+  an element with nothing inside marks nothing, nested marks merge into one,
+  and a class that also says dtstart, dt-start, start-date or start-time is an
+  events plugin's own date and is kept. A mark refuses only the date it sits
+  on, so a post's byline above the hero refuses nothing. On the saved homepage
+  page_text is byte-identical with marks asked. It carries 57 marks: 37 on
+  <time> dates and 20 on the "Posted on" words of "posted-on" spans. Judging
+  each of its 48 dates as of its own day, the markup alone and the anchored
+  BYLINE_RX each refuse the same 35. `python test_ingest_annual.py`, section
+  2c. UNMEASURED: which classes other themes write. The span shapes are the
+  reviewer's memory of Divi- and Astra-style themes, and the dtstart case is
+  from memory of The Events Calendar; neither was read from a live site.
+
+- **FREE ADMISSION: A COMPOUND, A CHILD'S FREE OR A PRICE BESIDE IT IS NOT;
+  FREE FOR KIDS AND GROWN-UPS IS (2026-11-08).** mapsee_ingest_annual's FREE_RX
+  matched \bfree after a hyphen, so beside "Tickets $10" each of "A scent-free
+  event", "Step-free entrance", "barrier-free entry" and "Alcohol-free." wrote
+  source_details {'free': True, 'offer': {'price': '0'}}, a free offer for
+  Event JSON-LD (review a1.py, a2.py); so did "children 12 and under free"
+  (a4.py). Refusing the hyphen and vetoing on a $, euro or pound price fixed
+  those. A second review found more. The same compounds without a hyphen ("A
+  scent free event", "Step free entrance", "Alcohol free.") were still free,
+  and so were prices in other currencies or in words ("Admission CHF 15",
+  "Entry 120 kr.", "Tickets ¥10", "Tickets: ten dollars", "ten bucks"). The
+  clause-wide child rule also took FREE from "Kids and grown-ups get in FREE!",
+  "Youth and adults free.", "Kid-friendly and free to attend" and four kids'
+  festival titles ("Kids Comic Fest is FREE!"). Now FREE_PERK_RX cuts 22
+  compounds, hyphenated or not (scent, smoke, alcohol, step, barrier, judgment,
+  ...). A kids word counts only as the clause's subject, with nothing but an
+  age between it and free ("Kids under 12 get in free", "children under five
+  free", "Under 12? Free!"). PRICE_RX also reads ¥ and ₹, codes such as CHF,
+  SEK, NOK, DKK, JPY and INR, kr, zł and a price in words. Every string above
+  now gives the intended answer, and Short Run's own "11am - 6 pm. FREE!" stays
+  free on all 311 days of the saved-homepage sweep. `python
+  test_ingest_annual.py`, section 5. A price anywhere in the date's paragraph
+  still vetoes a real FREE ("FREE! Tote bags $5", "bring 2 pounds of canned
+  food"): a missed FREE costs nothing, while a false one is a wrong offer.

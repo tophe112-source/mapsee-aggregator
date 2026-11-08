@@ -448,6 +448,29 @@ r = text_case("Short Run Comix Festival returns Friday, November 7 &amp; Saturda
               date(2026, 10, 1), name_rx=CONFIG_NAME)
 check(r.start is None and "weekday disagrees" in r.why,
       "a merged pair still checks each day's weekday (2026-11-07 is a Saturday)")
+# A LIST JOINS ONLY NEIGHBOURING DAYS (review, 2026-11-08): "and" between two
+# Saturdays a week apart read as one eight-day all-day event.
+r = text_case("Short Run Comix Festival workshops: Saturday, October 24 and Saturday, October 31, 2026.",
+              date(2026, 10, 1), name_rx=CONFIG_NAME)
+check(len(r.log) == 2 and all(c.start == c.end for c, _ in r.log)
+      and not any((c.start, c.end) == (date(2026, 10, 24), date(2026, 10, 31)) for c, _ in r.log),
+      f"two Saturdays a week apart joined by 'and' are two dates, not 10-24..10-31 ({[(c.start, c.end) for c, _ in r.log]})")
+r = text_case("Short Run Comix Festival: Saturday, November 7, Saturday, November 14 &amp; "
+              "Saturday, November 21, 2026.", date(2026, 10, 1), name_rx=CONFIG_NAME)
+check(len(r.log) == 3 and all(c.start == c.end for c, _ in r.log),
+      "...nor a comma list of three Saturdays")
+r = text_case("Short Run Comix Festival: Saturday, November 7 through Saturday, November 14, 2026.",
+              date(2026, 10, 1), name_rx=CONFIG_NAME)
+check((r.start, r.end) == (date(2026, 11, 7), date(2026, 11, 14)),
+      "'through' still spans a week: a dash, 'to' or 'through' is a span, not a list")
+r = read("<h1>Short Run Comix Festival</h1><p>Short Run Comix Festival: Saturday, October 31</p>"
+         "<p>&#8211; Saturday, November 7, 2026</p>", date(2026, 10, 1), name_rx=CONFIG_NAME)
+check(not any((c.start, c.end) == (date(2026, 10, 31), date(2026, 11, 7)) for c, _ in r.log),
+      f"a dash at the start of the next block does not join across the line ({[(c.start, c.end) for c, _ in r.log]})")
+r = read("<h1>Short Run Comix Festival</h1><p>Short Run Comix Festival: Saturday, November 7</p>"
+         "<p>&amp; Sunday, November 8, 2026: the exhibitors' brunch</p>", date(2026, 10, 1), name_rx=CONFIG_NAME)
+check(not any((c.start, c.end) == (date(2026, 11, 7), date(2026, 11, 8)) for c, _ in r.log),
+      f"...nor an '&' that opens the next block ({[(c.start, c.end) for c, _ in r.log]})")
 
 # ---------------------------------------------------- 4. dates that are not the event
 DENY = [

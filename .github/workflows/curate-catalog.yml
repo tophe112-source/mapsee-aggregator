@@ -690,3 +690,24 @@ jobs:
           done
           echo "::error::could not push the curated sources after 5 attempts"
           exit 1
+
+      # seeds.json's 30-day rule, with today pinned. test_seeds.py fails a seed
+      # pending past its limit only when MAPSEE_TODAY is set, and tests.yml runs
+      # on push without it (an aged seed must not turn an unrelated commit red).
+      # This is the run that reads the calendar: daily, and on dispatch. What it
+      # finds is a warning on the run and a list in its summary, not a red
+      # schedule: the rule asks a person to act, and a failed run would say the
+      # catalog broke. Last, so nothing here can skip the commit. GitHub's bash
+      # is -eo pipefail, hence `|| rc=$?` and the `|| true` after the grep.
+      - name: Reported misses are resolved within 30 days
+        if: ${{ !cancelled() && (github.event.schedule == '20 3 * * *' || github.event_name == 'workflow_dispatch') }}
+        run: |
+          rc=0
+          MAPSEE_TODAY=$(date -u +%Y%m%d) python test_seeds.py > seeds.log 2>&1 || rc=$?
+          if [ "$rc" -ne 0 ]; then
+            echo "::warning::seeds.json: a reported miss is past its limit, or the file breaks a rule (test_seeds.py with today pinned exited $rc)"
+            {
+              echo "## Reported misses (seeds.json)"
+              grep '^FAIL' seeds.log | sed 's/^FAIL  */- /' || true
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

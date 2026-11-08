@@ -738,9 +738,12 @@
   66 sites, about 9 minutes at 1.6 s (a bound, not a measurement). So the
   step's own budget is not what limits `max_pages`; the store and the sync are.
   The 268 s run kept 13,551 rows against 7,118, and the first `--only-new`
-  civic sync after this lands inserts the difference once: about 6,400 unique
-  rows, roughly 130 fifty-row POSTs. That sync's time is UNMEASURED; the
-  OpenAgenda note below adds it to that sync's worst case. No test pins this
+  civic sync after this lands inserts the new ones once: replayed offline with
+  the committed config, 8,117 of the captured run's 11,657 store records have
+  a fingerprint the civic job's 11-07 store lacks, an upper bound (6,561 carry
+  coordinates: about 132 fifty-row POSTs' worth). That sync's time is
+  UNMEASURED; the 95.4-MINUTES note below projects it, and
+  `test_ingest_ods.py` counts all 8,117 in it. No test pins this
   step's 60 minutes (`test_workflow_contracts.py` asks only that every import
   step's timeout be under the job's 300); `test_ingest_mobilizon.py` pins the
   order, the unsorted fallback and `OVER_PAGES_MAX`.
@@ -769,27 +772,33 @@
   daily; gancio reads on Wednesdays only (that day's 03:20 run, the 03:50 gap
   sweep, where it skips itself because it carries no category, and any dispatch
   of `all` or `gancio`), with `--limit 25` unless a dispatch names `limit` (its
-  first read found 128 candidates; the other backends keep 300). The step
+  first read found 128 candidates; the other backends keep 300). The dispatch
+  input `limit` therefore defaults to blank, read as 300: with 300 as its
+  default a dispatch could not tell "named 300" from "named nothing", and a
+  dispatch of gancio would have proposed up to 300 unattended. The step
   summary now keeps discover's own `FLAG` and `requests:` lines too:
   joinmobilizon's directory was unreachable for 27 daily runs (2026-10-12 to
   11-07) and the line saying so never reached a summary.
   `test_workflow_contracts.py` pins the backends, limits and budgets per
-  schedule; `test_discover_fedi.py` (123 cases) pins the deadline, the UNREAD
+  schedule; `test_discover_fedi.py` (227 cases) pins the deadline, the UNREAD
   lines and the probe cap. UNMEASURED: timings on a GitHub runner, where
   neither fedi backend has run with this code, and how often 5 minutes would be
   hit.
 
 - **THE MENTION SCAN TAKES 6 MINUTES FROM THE COMMIT'S SLACK, READS THE NEWEST
-  MAIN RUN THAT STILL HAS `feeds-*` ARTIFACTS, AND CANNOT FAIL CURATION
-  (2026-11-08).** curate-catalog.yml's "Named events the feeds mention" step
+  MAIN RUN THAT STILL HAS ALL FOUR GROUPS' `feeds-*` STORES, AND CANNOT FAIL
+  CURATION (2026-11-08).** curate-catalog.yml's "Named events the feeds mention" step
   runs on the 03:20 cron and on dispatch (never the gap sweep or the 09:30
   pass), after "Coverage after" and before "Commit new sources", with
   `actions: read` and `gh` on GITHUB_TOKEN. "The latest completed run" is not
   enough: the Mon and Thu 06:40 aggregate runs never run the feeds job. So the
   step walks the last 10 completed aggregate-events runs on `--branch main` (a
   dispatch on a work branch runs changed adapters, and its stores must not
-  decide main's queue) and takes the first with unexpired feeds-* artifacts
-  (7-day retention). A run's conclusion is no filter: 5 of the last 8 completed
+  decide main's queue) and takes the first whose unexpired feeds-* artifacts
+  (7-day retention) cover all four feed groups: a feed_group recovery dispatch
+  uploads one store, and read alone it would flip every mention titled in
+  another group's rows back to a pending lead. The jq counts distinct groups
+  (`split("-")[1]`, then `unique | length`) and asks for 4. A run's conclusion is no filter: 5 of the last 8 completed
   runs concluded "failure" and still uploaded every store under `always()`.
   Live on 2026-11-08 it picked 42375501479: 4 artifacts, 115 MB zipped, 1.03 GB
   of stores (1.06 GB unpacked); in a cloud session the download took 9.3 s and
@@ -816,45 +825,70 @@
   run. If the runner needs more than 3.5 times 59 s, the scan exits 124 every
   day: the queue stays as it is and the commit is not touched.
 
-- **AN ADAPTER'S BUDGET IS PAID IN THE SYNC STEP: OPENAGENDA'S DATE WINDOWS
-  NEED THE CIVIC SYNC AT 90 MINUTES (2026-11-08).** The ODS date windows were
-  sized against the ingest step: at most 500 requests at 0.84 s a page, on a
-  step that took at most 182 s, is 10.0 of its 60 minutes (`test_ingest_ods.py`
-  prints it). A review the same day showed that the cost lands in the civic
-  job's "Sync feeds to Supabase (batch-geocoded)" step, whose `timeout-minutes`
-  was `(rec||civic) && 60`. A sync cut off at its timeout fails:
-  continue-on-error lets the job go on, but `Fail when an import or sync
-  failed` reads `steps.*.outcome`, so the job turns red, and the rows not yet
-  written are not written that day. Measured from the civic job's logs:
-  Wednesday full refreshes took 43.7 min (10-21), 22.6 (10-28) and 39.8
-  (11-04); only-new days took 4.4 to 11.8 min (11-01 to 11-07); upserts ran at
-  14.4 to 70.8 ms a row (the 70.8 is 16,290 rows in 1,152.7 s on 11-04, with
-  ReadTimeouts and 50 rows lost); preparing and comparing a row on a full
-  refresh took 6.2 to 11.8 ms, and an only-new day's state read and prepare
-  7.4 ms an id (34,883 in 257 s, 11-06). Windowing adds two one-off costs.
-  First, France's new rows: its max less the 9,982 the plain read kept, or
-  20,018 at max 30,000. Second, on the first Wednesday, every stored OpenAgenda
-  row is rewritten for its new credit line, because the description is a
-  compared column: up to 10,966 rows (9,990 + 976 kept). Taking the worst of
-  each measurement, a first windowed run on a weekday is 37.9 min, the first
-  Wednesday after it 60.6, and a first windowed run ON a Wednesday 84.2. At the
-  max of 45,000 that first shipped, that last case was 104.8. So France's max
-  is 30,000, and the civic sync's timeout is `matrix.group == 'civic' && 90 ||
-  matrix.group == 'rec' && 60 || 20`; on the days measured above the civic job
-  ran 113-167 min of its 300, so the extra 30 fits.
-  `test_workflow_contracts.py` pins that literal, and `test_ingest_ods.py` (53
-  cases) section 11 reads that timeout from the workflow and fails while the
-  worst case does not fit; the largest France max that fits is about 12,400 at
-  60 minutes and 34,200 at 90. The windowed reads wait `PAUSE_S` (0.3 s)
-  between requests as the plain read does (256 waits in 257 requests; deleting
-  the sleep fails the test). The test's sum counts OpenAgenda alone.
-  Mobilizon's one-off ~6,400 new rows (the note above) land in the same civic
-  sync: at the same worst rates, about 8.3 more minutes on a weekday (46.2) and
-  8.8 on a first run that is a Wednesday (about 93, past the 90). That is a
-  projection, not a measurement. UNMEASURED: the first windowed run's real sync
-  time; the steady cost after the first Wednesday (the rows will be stored and
-  identical, and each day adds about one day of the window); and whether about
-  30,000 extra writes on a Wednesday make ReadTimeouts more likely (11-04
-  already lost 50 rows to them). Same lesson as "AND THE BUDGET GOES WHERE THE
-  TIME GOES": count the step that pays for the rows, not the loop that reads
-  them.
+- **THE CIVIC SYNC'S WORST FIRST DAY IS 95.4 MINUTES ONCE MOBILIZON'S 8,117
+  ONE-OFF ROWS ARE COUNTED; ITS TIMEOUT IS 105 (2026-11-08).** An adapter's
+  budget is paid in the sync step, in rows. The ODS date windows were sized
+  against the ingest step: at most 500 requests at 0.84 s a page, on a step
+  that took at most 182 s, is 10.0 of its 60 minutes (`test_ingest_ods.py`
+  prints it). The rows land in the civic job's "Sync feeds to Supabase
+  (batch-geocoded)" step, whose `timeout-minutes` was `(rec||civic) && 60`. A
+  sync cut off at its timeout fails: continue-on-error lets the job go on, but
+  `Fail when an import or sync failed` reads `steps.*.outcome`, so the job
+  turns red, and the rows not yet written are not written that day. Measured
+  from the civic job's logs: Wednesday full refreshes took 43.7 min (10-21),
+  22.6 (10-28) and 39.8 (11-04); only-new days took 4.4 to 11.8 min (11-01 to
+  11-07); upserts ran at 14.4 to 70.8 ms a row (the 70.8 is 16,290 rows in
+  1,152.7 s on 11-04, with ReadTimeouts and 50 rows lost); preparing and
+  comparing a row on a full refresh took 6.2 to 11.8 ms, and an only-new
+  day's state read and prepare 7.4 ms an id (34,883 in 257 s, 11-06). The
+  commit adds three one-off costs. France's new rows: its max less the 9,982
+  the plain read kept, 20,018 at max 30,000. On the first Wednesday, every
+  stored OpenAgenda row rewritten for its new credit line, because the
+  description is a compared column: up to 10,966 (9,990 + 976 kept). And
+  Mobilizon's, which the first version of this arithmetic left out: the same
+  commit made it ask START_TIME_ASC and walk 55 pages of ticketzon, 25 of
+  mobilisons and 20 of mobilizon.fr, into the same step. Its captured full run
+  of 11-08, replayed offline through the real ingest_site with the committed
+  mobilizon_sources.json, stores 11,657 records, 8,117 of them with a
+  fingerprint (the sync's external_id) that the civic job's 11-07 store lacks
+  (run 42375501479: 212,193 records, 4,377 from Mobilizon); a rebuild of the
+  old latest-first 5-page read from the same capture gives 8,089. It is an
+  upper bound: 6,561 carry coordinates, and of the other 1,556 one has an
+  address the Census batch answers; the rest are dropped unwritten. Taking the
+  worst of each measurement and all 28,135 new rows, a first run on a weekday
+  is 48.5 min, the first Wednesday after it 62.2, and a first run ON a
+  Wednesday 95.4 (OpenAgenda alone: 37.9, 60.6 and 84.2; at the max of 45,000
+  that first shipped, 104.8). So France's max is 30,000, and the civic sync's
+  timeout is `matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60
+  || 20`, 9.6 min over the worst case; on the days measured above the civic
+  job ran 113-167 min of its 300, so the extra 45 fits.
+  `test_workflow_contracts.py` pins that literal, and `test_ingest_ods.py` (60
+  cases) section 11 reads it from the workflow, adds `MOBILIZON_NEW_ROWS` =
+  8117, and fails while any of the three cases does not fit, printing all
+  three and the largest France max that fits (36,993 at 105; 26,097 at 90). It
+  fails with the timeout at 90 or 95 and passes at 96; with the Mobilizon rows
+  taken out it passed at 90, which was the defect. The windowed reads wait
+  `PAUSE_S` (0.3 s) between requests as the plain read does (256 waits in 257
+  requests; deleting the sleep fails the test). UNMEASURED: the first run's
+  real sync time; the steady cost after the first Wednesday (the rows will be
+  stored and identical, and each day adds about one day of the window); and
+  whether about 39,000 extra writes on a Wednesday (20,018 + 10,966 + 8,117)
+  make ReadTimeouts more likely (11-04 already lost 50 rows to them). Same
+  lesson as "AND THE BUDGET GOES WHERE THE TIME GOES": count the step that
+  pays for the rows, not the loop that reads them, and every adapter the
+  commit changed, not only the one it is about.
+
+- **THE TEST GATE RUNS ONLY WHEN A CHANGED PATH IS IN ITS FILTER, AND THE
+  FREE-ARTS SCRIPTS' SEVEN FILES WERE NOT (2026-11-08).** tests.yml runs on
+  push to main and on pull_request, each with a `paths` list (50 entries each
+  now). The free-arts commit added five gate scripts (test_ingest_annual,
+  test_mentions, test_seeds, test_discover_fedi, test_ingest_ods) that read
+  annual_sources.json, seeds.json, mention_queue.json, ods_sources.json,
+  mobilizon_sources.json, gancio_sources.json and fair_sources.json, and none
+  of the seven was listed: a commit changing only a seed, a decline in
+  `_not_included`, an annual site or a hand edit of the queue would not have
+  run the scripts that check it. Both lists now name all seven.
+  curate-catalog.yml's own commits are pushed with GITHUB_TOKEN and start no
+  workflow, so the filter matters for a person's commits only.
+  `test_workflow_contracts.py` pins the seven in both lists. When a gate script
+  starts reading a file, add the file to both lists in the same commit.

@@ -2383,11 +2383,12 @@
   f.termine.di.day 100 and termine.refa.digital 4, all four also dropped by the
   title rule, and mobilizon.grin.hu, which answered no searchEvents itself. So
   the check changed nothing that day (mobilizon.chapril.org, which was
-  proposed, had 1 such event). The other direction is visible and is NOT a
-  rule: all 52 upcoming events of mobilizon.com.br were published on
-  eventos.coletivos.org, which no config and no directory row names, so the
-  relay is proposed, and if the origin is listed after the relay is configured,
-  the origin will lose to it as a mirror. The ingest adapter now asks
+  proposed, had 1 such event). The other direction is visible: all 52
+  upcoming events of mobilizon.com.br were published on eventos.coletivos.org,
+  which no config and no directory row names. It was not a rule here; since
+  the review of the same day a follower of ANY one host with fewer than
+  MOBILIZON_SERVED_MIN events of its own is a mirror (A MOBILIZON CANDIDATE
+  ONLY FEDIDB LISTS WAITS FOR A HUMAN, below). The ingest adapter now asks
   START_TIME_ASC (adapters-and-sources.md); this probe still sends no `sortBy`.
   UNMEASURED: how often that happens, and whether asking START_TIME_ASC here
   would let the title test catch these on its own.
@@ -2406,10 +2407,10 @@
   needs no human, so both hosts are declined in mobilizon_sources.json's
   `_not_included` (11 entries now), which `_declined_keys()` reads before any
   probe. test_discover_fedi.py reads the REAL file and fails while either key
-  is missing (123 cases, 0 failed), so the discovery code cannot ship ahead of
-  the declines. No rule for an all-advertising instance was attempted: one
-  sample's titles decided these two (spam-and-content.md has the instance from
-  the spam side). UNMEASURED: whether any of the other 15 proposed instances
+  is missing, so the discovery code cannot ship ahead of the declines. No rule
+  for an all-advertising instance was attempted: one sample's titles decided
+  these two (spam-and-content.md has the instance from the spam side). Both
+  came from FediDB alone, and such a candidate is now held for a human (below). UNMEASURED: whether any of the other 15 proposed instances
   (the 18, less these two and the one held for size, next note) carries adverts
   that the per-row gate does not catch.
 
@@ -2451,7 +2452,8 @@
   ONLINE-ONLY CALENDARS: at least 0.9 of events at a place named "online" on 4
   instances; the next is 0.5 and no configured site is above 0.29
   (GANCIO_ONLINE_SHARE 0.8). ADULT CALENDARS: two notes on. `discover gancio`
-  follows redirects in the same single request, and probes the 30 configured
+  follows redirects (now hop by hop, each asked like a request of its own: A
+  REDIRECT IS A REQUEST TO ANOTHER HOST, below), and probes the 30 configured
   sites the same way so their final hosts and event sets are known. Mirrors are
   resolved smallest first with title+start as the key (`_resolve_mirrors`): a
   share of at least 0.5 (GANCIO_MIRROR_SHARE) and at least 2 shared events
@@ -2527,8 +2529,10 @@
   least 1/3 and at least 3 events (ADULT_EVENT_SHARE, ADULT_EVENT_MIN). The
   three adult calendars score 26/31, 20/34 and 4/5; the next highest instance
   is mlg.convoca.la at 1/7, and the configured offbeat.amsterdam is 3/500.
-  Mobilizon candidates are read by host, name and description only. The three
-  are also declined on the record in gancio_sources.json, with their numbers.
+  Mobilizon candidates were read by host, name and description only; the
+  probe's sampled titles are now read by the same share (the hold note below
+  measures it). The three are also declined on the record in
+  gancio_sources.json, with their numbers.
   UNMEASURED: adult words in languages other than English, German, French,
   Spanish and Italian. `python test_discover_fedi.py`.
 
@@ -2693,14 +2697,15 @@
   class from now on. The first class is "prose-only annual festival on an
   organiser's own site": catalog_mentions.py feeds hand-checked
   annual_sources.json entries, which mapsee_ingest_annual.py reads every run.
-  test_seeds.py (24 checks, no network) fails unless each resolution is backed
+  test_seeds.py (29 checks, no network) fails unless each resolution is backed
   by the repository. `annual` needs an annual_sources.json site with that key
   on the seed's host. `configured` needs the host in `_config_keys()` (8,903
   keys) or in a `_ROBOTS_EXTRA` file: fair_sources.json alone carries 48
   state-fair hosts that no CONFIG key has, so a CONFIG-only check would fail a
   fixed fair. `declined` needs a `_not_included` entry or a dated reason.
   `held` and `pending` need a dated reason, and a pending seed reported more
-  than 30 days ago fails. A seed stores URLs only: Short Run's published
+  than 30 days ago fails where today is pinned (AN AGEING PENDING SEED, below;
+  on a push it only warns). A seed stores URLs only: Short Run's published
   contact is a personal mailbox, and the test fails on any address anywhere in
   a seed. First seed: https://shortrun.org/, reported 2026-11-07, resolved
   `annual` as annual_sources.json#short-run. All 7 mutations of the checker
@@ -2742,8 +2747,8 @@
   lost. Polite's own out-of-time reasons begin "run deadline", and both walks
   stop on `why.startswith("run deadline")`: the earlier `"deadline" in why`
   also matched a refused URL such as /entry-deadlines/, which is quoted in its
-  reason, and ended the walk (test_ingest_annual.py, 122 cases; a mutant is
-  caught). UNMEASURED: a 401 on /robots.txt is still read as allow-all, and how
+  reason, and ended the walk (test_ingest_annual.py, then 122 cases; a mutant
+  is caught). UNMEASURED: a 401 on /robots.txt is still read as allow-all, and how
   many hosts send one is not known. `python test_ingest_fairs.py`.
 
 - **THE ROBOTS AUDIT READS A URL INSIDE A LIST TOO, NAMED AFTER ITS NEAREST
@@ -2754,3 +2759,171 @@
   under the name of its nearest entry ("?" when there is none). The audited
   `_ROBOTS_EXTRA` requests went from 178 to 180, and only lcsd_sources.json
   changed (7 -> 9). `python test_robots.py` has 2 checks for it.
+
+- **DISCOVERED FEDI INSTANCES ARE ASKED ROBOTS.TXT BEFORE THE FIRST REQUEST
+  (2026-11-08).** `discover mobilizon` and `discover gancio` probed and
+  proposed a candidate whose operator refuses every crawler, the owner's
+  2026-10-05 rule notwithstanding, and merge needs no human:
+  gancio.antroposofiachile.net (`User-agent: *` / `Disallow: /`) was 9th of 12
+  in that day's live `discover gancio --limit 12`, and verify passed it 20/20,
+  because `_robots_gate` exempted both types. Each candidate's robots.txt is
+  now read once per run, before anything else is asked of it, and only `/` is
+  asked, so a path rule such as `Disallow: /api` still does not bind the
+  documented API. `Disallow: /` for `*` or for MapseeAggregator is parked
+  `refused` for DEAD_TTL; a challenged file is `fail`; a 401, 403 or 429 on it
+  is `fail`, as a refusal on the API is. verify's `_robots_gate` refuses the
+  same for a hand-written gancio or mobilizon entry; configured instances are
+  not re-judged. A live `discover gancio` later that day (182 candidates)
+  refused jamme.la, gancio.antroposofiachile.net and eventos.pelumpen.com, and
+  could not read 9 more files; asked again one at a time minutes later, 7 of
+  the 9 answered 200 (bilbi.info's certificate failed, infoates.cat timed out).
+  So an UNREACHABLE file (a timeout, a reset, a 5xx) is skipped for the run and
+  written nowhere, as an unreachable API is, and asked again next run: a `fail`
+  row would have kept 7 reachable instances out for DEAD_TTL on one bad read.
+  verify still parks it `fail`. `catalog_curate.py robots` (report only) now
+  lists a configured instance whose operator refuses every crawler under
+  DISALLOWED, as bound, where it said "Not bound by it"; the Sunday audit still
+  exempts both types, so such an instance is reported there and nowhere else.
+  Pinned by `test_discover_fedi.py` (2b, the Gancio robots.txt run, 6b, the
+  robots report): removing the candidate gate failed 27 (gancio) and 22
+  (mobilizon) of its then 223 cases; parking an unreachable file again fails 6
+  of 227, and the report's old exemption 1.
+
+- **A REDIRECT IS A REQUEST TO ANOTHER HOST, SO FEDI DISCOVERY ASKS IT LIKE ONE
+  (2026-11-08).** Both probes let requests follow redirects. Gancio read the
+  landing host's robots.txt only afterwards and Mobilizon never: a candidate
+  serving its own robots.txt but sending /api elsewhere put a request on a host
+  refusing every crawler, and once that host was parked the alias was skipped
+  unparked, so a fake whose redirect is a real second request saw 1 GET to the
+  refusing host on each of 3 runs (a 308 POST for Mobilizon). `_fedi_follow`
+  now asks every hop with allow_redirects=False under its own operator's lock:
+  a host not asked yet goes to `_fedi_stop` (declined or ledger-parked: not
+  asked at all), an origin not asked yet to robots.txt (`_fedi_gate`, per
+  origin, so www. is asked apart; a configured host is not re-judged), and a
+  refusal parks both names. A 303, or a 301/302 to a POST, goes on as a GET, as
+  requests does. Live that day: 5 Gancio redirects, same aliases as before, and
+  2 Mobilizon ones (a 302 and a 301, both still 400 as GET). The old fixtures
+  swapped Resp.url and never made the landing request. Pinned by
+  `test_discover_fedi.py` 2c, 3 and 6c': 16 mutants, 1 to 26 of 223 cases each.
+
+- **A MOBILIZON CANDIDATE ONLY FEDIDB LISTS WAITS FOR A HUMAN (2026-11-08).**
+  On the first FediDB read, 2 of the 18 candidates that verified were all
+  advertising (meetup.furryfederation.com 42 of 42, mobilizon.public.cat) and
+  `mapsee_spam.is_spam` refused none; merge needs no human and Mobilizon runs
+  daily. Such a host is now printed as `  FLAG mobilizon: held for a human,
+  only FediDB lists it: <host> (<total> upcoming; e.g. "<title>", ...)`,
+  counted as `held`, not written for merge and not parked, so it is asked again
+  every run. With joinmobilizon unreachable every candidate is held (15 on a
+  live run that day). Two rules read the probe's sample. ADULT_EVENT_SHARE over
+  the titles refused nothing live: 1 adult-worded title in the 66 configured
+  instances' 3,749 sampled events, 0 in the candidates' 1,504. A follower of
+  ANY one host is a mirror when at least MOBILIZON_SERVED_MIN and half of the
+  sample was published there (each event's `url`) AND fewer than
+  MOBILIZON_SERVED_MIN events are its own: the share alone marked 20 of the 66
+  configured in two live runs (mobilize.adminforge.de 43 own, termine.social
+  21); with the floor 9, each with 0 or 1 own. mobilizon.com.br (0 of 52) is
+  still one. Pinned by `test_discover_fedi.py` 2 and 2b (2 of 4 from one host
+  with 1 own a mirror, with 2 own kept; 2 of 5 kept).
+
+- **ONE OPERATOR, ONE REQUEST AT A TIME, IN FEDI DISCOVERY (2026-11-08).** The
+  probe pools sent up to six requests at once with no per-host limit: over the
+  real gancio_sources.json and five candidates, a fake session saw 3 in flight
+  at once on convoca.la, 3 on askapunk.net and 2 on acontece.gal. Requests are
+  now grouped by operator (`_operator_of`: the last two labels, three under a
+  ccTLD's generic second level such as com.br or org.uk), each group run by one
+  worker, biggest first, in every phase of both backends, and every request,
+  each redirect hop included, holds that operator's lock. A lock alone is not a
+  schedule: 14 side-by-side subdomains among 40 loners, at 0.1 s a request,
+  took 6.40 s with the lock alone, 6.60 s taking operators in turns and 4.99 s
+  grouped, where the 14-host chain alone is 4.2 s. Live with the grouping and
+  every robots.txt read (production UA, 2026-11-08): `discover gancio` 86.4 s
+  (182 candidates, 30 configured, 124 nodeinfo) and `discover mobilizon` 28.4 s
+  (65 + 66 probes), inside the workflow's `--max-minutes 5`; a cut run proposes
+  nothing. Pinned by `test_discover_fedi.py` 6c (peak 1 per operator at 6
+  workers, every phase and a cross-operator redirect).
+
+- **GANCIO.ORG/INSTANCES IS READ THROUGH POLITE (2026-11-08).** Its own robots
+  check took a 403 or 429 on robots.txt as allow-all, fetched the page 0.0 s
+  after a `Crawl-delay: 30`, and followed redirects without asking again
+  (reproduced on a fake session). `_gancio_org_hosts` now goes through
+  `mapsee_ingest_fairs.Polite` with the run's session: a 403, a 429 or a
+  challenge refuses, the page waits max(1 s, Crawl-delay) after robots.txt and
+  never past the run's deadline, and every redirect hop is asked of its own
+  robots.txt. The review read gancio.org's robots.txt as a 404 (allow-all) on
+  2026-11-08, so a run costs 1 s more. Pinned by `test_discover_fedi.py` 6d.
+
+- **THE PHONE MASK READS ANY GROUPING AFTER A PHONE WORD, AND A 0-LED ZIP IS
+  NOT A LEAD (2026-11-08).** `mask()` in catalog_mentions.py is the only filter
+  on the samples and titles of mention_queue.json, which curate-catalog.yml
+  commits daily unreviewed. Round one added French pairs and the Spanish
+  3-2-2-2 (one separator throughout, so "07.11.26 14.00" stays a date) and bare
+  9-11 digit runs whatever the first digit (2,155 descriptions held 2,582 of
+  them, 764 right after "phone"). Round two measured what that still left right
+  after a phone word in the 2026-11-07 stores (557,268 described rows): 950
+  runs of 9+ digits in 938 rows and 178 of 8 digits, such as Swedish "0xxx-xxx
+  xx xx", Finnish "0x xxx xxxxx", German "0xxx/xxxxxxx" and "xxx- xxx-xxxx".
+  `_PHONE_KW` now masks the whole run after 26 phone words (tel, puh, gsm,
+  ring, call, Enquiries, WhatsApp, German "unter", Cyrillic and Persian ones)
+  once it holds 7 digits. That leaves 0 of the 950 and 0 of the 178, and it
+  masks 4,789 more spans in 4,646 rows, none of them a date or a time, with no
+  title changed. The UK "0xxxx" lead took a ZIP such as "CT 06xxx" for an area
+  code and left the last 4 digits of the number after it in clear (6 tribe
+  rows). It is now a branch that must end where the number ends. The review's
+  fixed 3-3 tail would have unmasked 68 German 5-digit area-code numbers, 51 of
+  them right after an e-mail address. Old and new code over the same 6,728
+  candidates (--today 20261108) give the same verdicts, titles and dates, the
+  same 179 kept, and a byte-identical queue; 12 samples change, all refused
+  Hong Kong "Enquiries:" lines. The committed queue re-masked: 0 of 138 texts
+  change. STILL UNMASKED: 1,417 separated 9-13 digit runs in 1,166 rows with no
+  phone word right before them (a second number after "oder", an address that
+  ends "Australia", "T :"). Over-masked: a 0-led postcode before a season
+  ("0xxxx 20xx-20xx"), 0 of them in the stores. `python test_mentions.py` (19
+  groupings after a phone word, 8 phone words with nothing to mask, 3 ZIPs, 4
+  German area codes).
+
+- **A FIXTURE QUOTES NO REAL ADDRESS OR NUMBER, AND test_mentions.py READS ITS
+  OWN SOURCE FOR ONE (2026-11-08).** The review found catalog_mentions.py
+  quoting a county officer's mailbox local part (the 2026-11-07 civic store
+  holds exactly one address with it, at a .gov domain naming the county),
+  test_mentions.py pairing it with the real festival and the county's
+  switchboard, and a firstname.lastname address at a real church domain for a
+  pastor the committed queue names (the name occurs 18 times in the civic
+  store, and the fixture's address nowhere, so it was invented, but
+  deliverable-looking). Fixtures now use example.org, invented names and
+  fictitious numbers only: NANP 555-01xx, Ofcom's 020 7946 0xxx, 07700 900xxx
+  and 01632 960xxx, ARCEP's 06 39 98 xx xx, ACMA's 0491 570 xxx and (07) 5550
+  xxxx, PTS's 070-174 06 xx and 08-465 004 xx. A shape with no fictitious range
+  of its own (a Belgian 2-3-2-2, a Finnish 2-3-5) is one of those numbers
+  regrouped, and a comment writes a shape with x's. `quoted_contacts()` fails
+  on any address in catalog_mentions.py or test_mentions.py that is not at
+  example.org/.com/.net (or a cut of one), and on a bare local part with no
+  domain at all, which the first guard read as a cut of example.org although
+  the quotation it was written for was exactly that, and on any number outside
+  those ranges, whether `_PHONE` finds it or `_PHONE_KW` finds it after a phone
+  word. Restoring either quotation, in the fixture or in the docstring, fails
+  it (4 of 4 mutations). A Swedish-shaped number with real-looking digits put
+  back in a comment fails it too, and passes once the keyword scan is removed
+  (mutation); so does a bare mailbox local part put back in a comment
+  (mutation). `python test_mentions.py`.
+
+- **AN AGEING PENDING SEED FAILS ONLY WHERE MAPSEE_TODAY IS SET; ON A PUSH IT
+  IS A ::warning:: ANNOTATION (2026-11-08).** test_seeds.py read the wall
+  clock, so a seed pending more than 30 days would have turned the push gate
+  red on the next unrelated commit, although tests.yml runs on push only.
+  Unpinned, `gate()` prints that one rule and exits 0. It is a `::warning::`
+  annotation under GitHub Actions (`warn_line()`), which the run's summary page
+  lists, and a WARN line elsewhere; every other rule fails either way. Measured
+  in a mirror whose seeds.json holds a seed reported 2026-10-01: unset, one
+  "pending for 38 days" line and exit 0, prefixed `::warning::` with
+  GITHUB_ACTIONS=true; MAPSEE_TODAY=20261108, two FAIL lines and exit 1.
+  tests.yml does not pin the date, so curate-catalog.yml's last step, "Reported
+  misses are resolved within 30 days", runs `MAPSEE_TODAY=$(date -u +%Y%m%d)
+  python test_seeds.py` on the daily 03:20 run and on dispatch. It warns and
+  does not fail, because the rule asks a person to act and a red schedule would
+  say the catalog broke: run as Actions runs it (`bash --noprofile --norc -eo
+  pipefail`), on the same mirror it exits 0 with a `::warning::` and a step
+  summary listing the seed's FAIL lines, and on the real seeds.json 0 with
+  nothing written. `test_workflow_contracts.py` pins it: after the commit,
+  today pinned, no `exit $rc`. Its json reads are with-blocks: `python -X dev`
+  counted 26 unclosed-file ResourceWarnings from test_seeds.py before and 0
+  after. `python test_seeds.py` (29 checks).
