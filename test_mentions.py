@@ -20,6 +20,7 @@ import datetime as dt
 import io
 import json
 import os
+import re
 import sys
 import tempfile
 
@@ -196,34 +197,99 @@ check("no venue without a date (a tour's next stop is not the festival's venue)"
                     "Northcote Theatre the next night.")[0]["venue"] is None)
 
 # --- what is never copied --------------------------------------------------------
+# Every address, number, name and festival here is invented: example.org, and
+# fictitious numbers (NANP 555-01xx; Ofcom's 020 7946 0xxx and 07700 900xxx;
+# ARCEP's 06 39 98 xx xx; ACMA's 0491 570 156). A real one, even a public
+# office's, is never a fixture: this repository is public.
+FEST = "In partnership with the Fernhollow Book Festival, "
 check("a sample never carries an e-mail address or a phone number",
-      lambda: "@" not in found("Journal", "In partnership with the Westchester Book Festival, write to "
-                               "dbnn@example.gov or call (914) 864-7000.")[0]["sample"]
-      and "864-7000" not in found("Journal", "In partnership with the Westchester Book Festival, "
-                                  "call (914) 864-7000.")[0]["sample"])
+      lambda: "@" not in found("Journal", FEST + "write to someone@example.org or call "
+                               "(206) 555-0100.")[0]["sample"]
+      and "555-0100" not in found("Journal", FEST + "call (206) 555-0100.")[0]["sample"])
 check("scrub leaves dates, year ranges and street numbers alone",
       lambda: M.scrub("On 2026-11-07 (2016-2022), 1000 4th Avenue, WA 98104") ==
       "On 2026-11-07 (2016-2022), 1000 4th Avenue, WA 98104")
+# The 2026-11-08 review: the French pairs, the UK mobile's 5-6, the Spanish
+# 3-2-2-2 and a bare 0-led run passed mask() whole. Re-scanning the 2026-11-07
+# stores also found a bare 9-10 digit run in 12 refused candidates' samples,
+# 11 of them right after "Contact Phone:" (2065550100 stands in for them).
+PHONES = ["(206) 555-0100", "206-555-0142", "+44 20 7946 0958", "020 7946 0958",
+          "06 39 98 01 23", "06.39.98.01.23", "+33 6 39 98 01 23", "+33 (0)6 39 98 01 23",
+          "07700 900123", "07700 900 123", "+44 7700 900123", "555 01 01 23", "+34 555 01 01 23",
+          "0491570156", "0491 570 156", "+61491570156", "2065550100", "+12065550100"]
+UNMASKED = [p for p in PHONES for ctx in ("call {} now", "{}", "Tel: {}.", "({})")
+            if any(ch.isdigit() for ch in M.mask(ctx.format(p)))]
+check(f"mask() masks every phone shape whole ({len(PHONES)} numbers, 4 contexts each)",
+      lambda: not UNMASKED, UNMASKED)
+# ...and none of what a description is full of. "07.11.26 14.00" and the
+# opening hours are what the French pairs would take with any separator
+# between them: one separator throughout is what refuses them.
+NOT_PHONES = ["On 2026-11-07 (2016-2022), 1000 4th Avenue, WA 98104", "2026-11-07T11:00:00-08:00",
+              "2026-11-07 11:00-18:00", "07.11.2026", "07.11.2026 14:00", "01.07.2026 10.00",
+              "07.11.26 14.00", "Mo 09.00-12.00 13.00-17.00", "08.00-10.00 14.00-16.00",
+              "11/07/2026", "06/12/2026 18h", "2026/11/07", "Saturday 7 November 2026 at 11:00",
+              "Nov 7-8, 2026", "30 11 2026", "20261107", "01022026", "2016 - 2022", "1900-1950",
+              "11:00-18:00", "08.00 - 12.00", "09.00-17.00", "10 am - 6 pm", "19h30",
+              "doors 19:30, show 20:00-23:00", "1201 2nd Ave", "75011 Paris", "01000 Bourg",
+              "$1,250.00", "€12.50", "£5-£10", "$10 - $15", "1.500.000", "tickets 15 / 12 €",
+              "ages 5-12", "Room 101", "the 14th annual"]
+check(f"mask() leaves dates, years, times, street numbers and prices alone ({len(NOT_PHONES)} cases)",
+      lambda: [s for s in NOT_PHONES if M.mask(s) != s] == [],
+      [(s, M.mask(s)) for s in NOT_PHONES if M.mask(s) != s])
+
+
+def quoted_contacts():
+    """Every address in catalog_mentions.py and this file that is not at
+    example.org/.com/.net (or a cut of one), and every phone-shaped number
+    that is not a fictitious one: NANP 555-01xx, Ofcom's 020 7946 0xxx and
+    07700 900xxx, ARCEP's 06 39 98 xx xx, ACMA's 0491 570 xxx. The 2026-11-08
+    review found a county officer's mailbox and a pastor's name at a church's
+    domain quoted here."""
+    out = []
+    here = os.path.dirname(os.path.abspath(__file__))
+    for fname in ("catalog_mentions.py", "test_mentions.py"):
+        with open(os.path.join(here, fname), encoding="utf-8") as fh:
+            src = fh.read()
+        for m in re.finditer(r"[\w.+-]+@([\w.-]*)", src):
+            dom = m.group(1).lower()
+            if not any(d.startswith(dom) or dom.startswith(d)
+                       for d in ("example.org", "example.com", "example.net")):
+                out.append((fname, m.group()))
+        for m in M._PHONE.finditer(src):
+            digits = re.sub(r"\D", "", m.group())
+            if not any(f in digits for f in ("55501", "79460", "7700900", "63998", "491570")):
+                out.append((fname, m.group()))
+    return out
+
+
+QUOTED = []
+check("no real address or phone number is quoted in catalog_mentions.py or this file",
+      lambda: not (QUOTED.extend(quoted_contacts()) or QUOTED), QUOTED)
+FR = "Dans le cadre du Fernhollow Festival. Réservation auprès de Jeanne : 06 39 98 01 23."
+check("a French mobile in a kept sample is masked (the review's end-to-end case)",
+      lambda: "39 98" not in found("Soirée", FR, start="2026-11-20T20:00:00+01:00")[0]["sample"],
+      found("Soirée", FR, start="2026-11-20T20:00:00+01:00"))
 check("mask() keeps every offset: the masked text is exactly as long",
-      lambda: len(M.mask("write to dbnn@example.gov or call (914) 864-7000 now"))
-      == len("write to dbnn@example.gov or call (914) 864-7000 now"))
-# The cut used to come before the scrub: "info@chessp" and "053 919 6" were
-# among the 2026-11-07 audit's samples. Every pad from 150 to 330 characters
-# puts the cut somewhere in, before or after the address and the number.
+      lambda: len(M.mask("write to someone@example.org or call (206) 555-0100 or 06 39 98 01 23 now"))
+      == len("write to someone@example.org or call (206) 555-0100 or 06 39 98 01 23 now"))
+# The cut used to come before the scrub: an address cut inside its domain and
+# a number cut after its seventh digit were among the 2026-11-07 audit's
+# samples. Every pad from 150 to 330 characters puts the cut somewhere in,
+# before or after the address and the number.
 LEAK = []
 for pad in range(150, 331):
-    for tail, bits in ((" write to maria.fihl@kirken.dk please.", ("@", "maria", "fihl", "kirken")),
+    for tail, bits in ((" write to jane.roe@example.org please.", ("@", "jane", "roe", "example")),
                        (" call +44 20 7946 0958 now.", ("7946", "0958", "+44 2"))):
-        got = found("Journal", "In partnership with the Westchester Book Festival, " + "x" * pad + tail)
+        got = found("Journal", FEST + "x" * pad + tail)
         s = got[0]["sample"] if got else ""
         if any(b in s for b in bits) or len(s) > M.SAMPLE_CHARS:
             LEAK.append((pad, s[-40:]))
 check("a sample never carries part of an address or a phone number, wherever the cut falls (362 cuts)",
       lambda: not LEAK, LEAK[:3])
 check("a sample never ends inside a word: a cut word is dropped",
-      lambda: found("J", "In partnership with the Westchester Book Festival, " + "abcdefghij " * 40)[0]
+      lambda: found("J", FEST + "abcdefghij " * 40)[0]
       ["sample"].endswith("abcdefghij"))
-TITLES = [M._referrer({"name": "Ask " + "y" * n + " maria.fihl@kirken.dk today"})["title"]
+TITLES = [M._referrer({"name": "Ask " + "y" * n + " jane.roe@example.org today"})["title"]
           for n in (120, 130)]                 # the cut at 140 falls after, and inside, "[address]"
 check("a referrer title is masked and cut on a word, too",
       lambda: TITLES == ["Ask " + "y" * 120 + " [address]", "Ask " + "y" * 130], TITLES)
@@ -422,6 +488,24 @@ check("the committed mention_queue.json parses, has exactly its three keys, ever
       committed_ok)
 check("the committed queue carries no e-mail address",
       lambda: not M._EMAIL.search(open(QUEUE_FILE, encoding="utf-8").read()))
+
+
+def unmasked_in_queue():
+    """Every committed sample and referrer title that today's mask() would
+    change: 0 of 138 (46 samples, 92 titles) on 2026-11-08, when _PHONE was
+    widened to the French, Spanish, UK-mobile and bare-run shapes."""
+    with open(QUEUE_FILE, encoding="utf-8") as fh:
+        q = json.load(fh)
+    texts = []
+    for m in q["mentions"].values():
+        texts.append(m.get("sample") or "")
+        texts.extend(r.get("title") or "" for r in m.get("referrers") or [])
+    return [t[:60] for t in texts if M.mask(t) != t]
+
+
+UNMASKED_Q = []
+check("every committed sample and referrer title is already masked by today's mask()",
+      lambda: not (UNMASKED_Q.extend(unmasked_in_queue()) or UNMASKED_Q), UNMASKED_Q)
 und, _ = merged({}, [ob(dates=[], key="copenhagen jazz festival", name="Copenhagen Jazz Festival")])
 und_keep, _ = merged(und, [ob(dates=[], key="copenhagen jazz festival", name="Copenhagen Jazz Festival")],
                      today=dt.date(2027, 3, 1))

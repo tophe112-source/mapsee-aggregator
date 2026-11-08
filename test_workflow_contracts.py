@@ -114,9 +114,10 @@ class WorkflowContracts(unittest.TestCase):
         # The rec group's first sync of ~103,600 rows ran out 20 minutes
         # (2026-10-04), and so did civic's Wednesday refresh of 143,128 events
         # (2026-09-30); both keep a longer cap, and ics and local keep 20.
-        # civic has 90 since OpenAgenda France is read past the ODS offset cap
-        # (2026-11-08): a first windowed run on a Wednesday projects to 84.2
-        # min (test_ingest_ods.py does the arithmetic against this line).
+        # civic has 105 since OpenAgenda France is read past the ODS offset cap
+        # and Mobilizon reads the coming months (2026-11-08): a first run on a
+        # Wednesday projects to 95.4 min with both (test_ingest_ods.py does the
+        # arithmetic against this line).
         sync = next(s for s in steps if s.get('id') == 'sync')
         self.assertEqual(sync['timeout-minutes'],
                          "${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || 20 }}")

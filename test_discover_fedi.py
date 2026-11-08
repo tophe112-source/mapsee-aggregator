@@ -37,6 +37,19 @@ What is pinned is what the measurements found:
     musical, an idiom and a swing club; and the two all-advertising Mobilizon
     instances declined in the REAL mobilizon_sources.json, which this code
     must not ship without.
+  * FROM THE SECOND REVIEW OF 2026-11-08: a candidate's robots.txt is read
+    before its first request, and an operator refusing every crawler
+    (`Disallow: /` for `*` or for us; gancio.antroposofiachile.net was
+    proposed) is parked `refused` and never probed, an unreadable file is
+    `fail`, a 403/429 on it a refusal, while a path rule (`Disallow: /admin`,
+    `/api/`) does not bind the documented API; the host a redirect lands on
+    answers for itself; verify's _robots_gate refuses the same for a
+    hand-written gancio or mobilizon entry. A Mobilizon candidate only
+    FediDB lists is held for a human (a `  FLAG mobilizon: held` line); its
+    sampled titles meet ADULT_EVENT_SHARE; a follower of any one host is a
+    mirror (mobilizon.com.br, 52 of 52). No two requests to one operator are
+    in flight at once, in any phase. gancio.org/instances is read through
+    mapsee_ingest_fairs.Polite.
 """
 import contextlib
 import io
@@ -204,6 +217,7 @@ try:
               {"domain": "zero.example.de", "stats": {"status_count": 0}},
               {"domain": "big.example.it", "stats": {"status_count": 9000}},
               {"domain": "follower.example.nl", "stats": {"status_count": 800}},
+              {"domain": "importer.example.nl", "stats": {"status_count": 790}},
               {"domain": "past.example", "stats": {"status_count": 700}},
               {"domain": "refuser.example", "stats": {"status_count": 600}},
               {"domain": "edge.example.de", "stats": {"status_count": 500}},
@@ -235,6 +249,9 @@ try:
         "big.example.it": [mev("Big 1", 4), mev("Configured talk 1", 1)],
         # follows the configured instance and serves its events back
         "follower.example.nl": CONF_M[:5] + [mev("Own one", 9)],
+        # imports them under its OWN urls: only title and start give it away
+        "importer.example.nl": [dict(e, url=e["url"].replace("mob.configured.example", "importer.example.nl"))
+                                for e in CONF_M[:5]] + [mev("Importer own", 9, on="importer.example.nl")],
         # only events that began long ago: searchEvents still answers them
         "past.example": [{"title": "IPTV deals", "beginsOn": "2025-01-01T10:00:00Z", "physicalAddress": None}],
         "refuser.example": 403,
@@ -248,23 +265,32 @@ try:
     # searchEvents' `total`; by default ten times what the sample shows.
     TOTALS = {"huge.example.de": C.MOBILIZON_MAX_TOTAL + 1, "edge.example.de": C.MOBILIZON_MAX_TOTAL}
 
-    def mob_route(jm_ok=True, fd_ok=True, slow=None, fd_pages=1):
+    def mob_route(jm_ok=True, fd_ok=True, slow=None, fd_pages=1, jm=None, fd=None, search=None,
+                  robots=None):
         """`slow`: {host: seconds} a probe of that host takes. `fd_pages`: how
-        many pages FediDB's listing is cut into."""
+        many pages FediDB's listing is cut into. `jm`, `fd`, `search` replace
+        JM, FD_MOB and SEARCH; `robots`: {host: its robots.txt answer}, by
+        default a 404 (no file, allow all)."""
+        jm = JM if jm is None else jm
+        fd_rows = FD_MOB if fd is None else fd
+        search = SEARCH if search is None else search
+
         def r(u, p):
             if u == C.MOBILIZON_DIRECTORY:
-                return Resp(200, JM, u) if jm_ok else ConnectionError("502 Bad Gateway")
+                return Resp(200, jm, u) if jm_ok else ConnectionError("502 Bad Gateway")
             if u == C.FEDIDB_SERVERS:
                 if not fd_ok:
                     return ConnectionError("Max retries exceeded")
-                return fedidb_route(FD_MOB, page=-(-len(FD_MOB) // fd_pages))(p)
+                return fedidb_route(fd_rows, page=-(-len(fd_rows) // fd_pages))(p)
+            if urlparse(u).path == "/robots.txt":
+                return (robots or {}).get(urlparse(u).hostname) or Resp(404, None, u, "not found")
             if urlparse(u).path == "/api":
                 assert p["variables"] == {"b": "2026-11-08T00:00:00Z", "l": C.MOBILIZON_PROBE_LIMIT}, p
                 assert " url " in p["query"], "the probe asks each event's url"
                 host = urlparse(u).hostname
                 if slow and host in slow:
                     time.sleep(slow[host])
-                ans = SEARCH[host]
+                ans = search[host]
                 if isinstance(ans, int):
                     return Resp(ans, None, u, "forbidden")
                 return Resp(200, {"data": {"searchEvents": {"total": TOTALS.get(host, len(ans) * 10),
@@ -272,13 +298,26 @@ try:
             return ConnectionError("unexpected " + u)
         return r
 
+    HELD_RX = re.compile(r"^  FLAG mobilizon: held for a human, only FediDB lists it: (\S+) ")
+
+    def held_of(text):
+        """The hosts a run held for a human, in the order it printed them."""
+        return ["https://" + m.group(1) for m in map(HELD_RX.match, text.splitlines()) if m]
+
     s = Fake(mob_route())
     mled = {}
     (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), mled, 50)
-    hosts = [e["base_url"] for e in found.values()]
+    proposed, held = [e["base_url"] for e in found.values()], held_of(out)
+    # What cleared every rule, proposed or held: the rules below are about this.
+    hosts = proposed + held
     check(hosts == ["https://busy.example.fr", "https://big.example.it", "https://edge.example.de",
                     "https://once.example.pt", "https://zero.example.de"],
           f"union by host: joinmobilizon's busiest first, then FediDB-only by status_count ({hosts})")
+    check(proposed == ["https://busy.example.fr"] and skipped["held"] == 4,
+          f"only the host joinmobilizon lists is proposed; the four only FediDB lists are held ({proposed})")
+    check(any(l == '  FLAG mobilizon: held for a human, only FediDB lists it: zero.example.de '
+                   '(10 upcoming; e.g. "Zero 1")' for l in out.splitlines()),
+          "a held host prints one `  FLAG mobilizon: held` line with its total and sampled titles")
     check(skipped["too_quiet"] == 1 and "https://quiet.example" not in hosts and not s.asked("quiet.example"),
           "a host joinmobilizon gates as too quiet stays out though FediDB also lists it, unasked")
     check("https://zero.example.de" in hosts,
@@ -288,13 +327,18 @@ try:
     check(hosts.count("https://busy.example.fr") == 1 and len(s.asked("busy.example.fr", "/api")) == 1,
           "www.busy.example.fr in FediDB and busy.example.fr in joinmobilizon are one host, asked once")
     check("https://follower.example.nl" not in hosts
-          and any(l.startswith("  mirror: follower.example.nl 83%") for l in out.splitlines()),
-          "an instance serving the configured instance's events back is a mirror (f.termine.di.day)")
+          and any(l.startswith("  mirror: follower.example.nl 5 of its 6 sampled events were published on "
+                               "mob.configured.example (by their url)") for l in out.splitlines()),
+          "an instance serving the configured instance's events back, their url on it, is a mirror "
+          "(f.termine.di.day)")
+    check("https://importer.example.nl" not in hosts
+          and any(l.startswith("  mirror: importer.example.nl 83%") for l in out.splitlines()),
+          "...and one re-publishing them under its own urls is a mirror by title and start")
     check("https://big.example.it" in hosts,
           "one configured event among a candidate's own is not a mirror")
     check("https://past.example" not in hosts and skipped["quiet"] == 1,
           "events that all began before today are not upcoming (events.doesliverpool.com)")
-    check(skipped["refused"] == 1 and len(s.asked("refuser.example")) == 1,
+    check(skipped["refused"] == 1 and len(s.asked("refuser.example", "/api")) == 1,
           "a 403 is a refusal, asked once")
     row = mled.get("refuser.example") or {}
     check(row.get("status") == "fail" and row.get("type") == "mobilizon" and "http 403" in row.get("reason", "")
@@ -311,7 +355,7 @@ try:
     check("https://once.example.pt" in hosts,
           f"one of a candidate's events served by a configured instance is not a mirror "
           f"(MOBILIZON_SERVED_MIN {C.MOBILIZON_SERVED_MIN})")
-    check(skipped["mirror"] == 2, f"two mirrors, one each way ({skipped['mirror']})")
+    check(skipped["mirror"] == 3, f"three mirrors: by url, by title, and the converse ({skipped['mirror']})")
     check("https://huge.example.de" not in hosts and skipped["too_big"] == 1
           and any(l.startswith("  too big: huge.example.de answers 1,001 upcoming; held")
                   for l in out.splitlines()),
@@ -319,12 +363,15 @@ try:
           "(politikvonunten.org, 5,943)")
     check("https://edge.example.de" in hosts and "huge.example.de" not in mled,
           "...exactly MOBILIZON_MAX_TOTAL is proposed, and a held one is not parked in the ledger")
-    e = found.get(C._canon("https://zero.example.de"))
-    check(e == {"type": "mobilizon", "name": "zero.example.de", "base_url": "https://zero.example.de",
-                "category": "community", "limit": 100, "max_pages": 5, "default_country": "Germany"},
-          f"a FediDB-only entry has the Mobilizon shape, named for its host ({e})")
-    check("FLAG" not in out and "requests: searchEvents 10 candidate(s) + 1 configured" in out,
-          "both directories answering prints no FLAG, and the request count")
+    e = found.get(C._canon("https://busy.example.fr"))
+    check(e == {"type": "mobilizon", "name": "Busy", "base_url": "https://busy.example.fr",
+                "category": "community", "limit": 100, "max_pages": 5, "default_country": "France"},
+          f"a proposed entry has the Mobilizon shape, country a NAME from the TLD ({e})")
+    check(not [l for l in out.splitlines() if "FLAG" in l and not HELD_RX.match(l)]
+          and "requests: searchEvents 11 candidate(s) + 1 configured, robots.txt 11" in out,
+          "both directories answering prints no FLAG but the held lines, and the request count")
+    check(len(s.asked("busy.example.fr", "/robots.txt")) == 1 and not s.asked("mob.configured.example", "/robots.txt"),
+          "each candidate's robots.txt is read once; a configured instance is not re-judged")
 
     s = Fake(mob_route())
     (_f, sk2), _o = run(C._discover_mobilizon, s, C._config_keys(), mled, 50)
@@ -333,9 +380,9 @@ try:
 
     s = Fake(mob_route(jm_ok=False))
     (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), {}, 50)
-    check(len(found) == 6 and C._canon("https://quiet.example") in found and "FLAG" not in out
-          and "FediDB alone" in out,
-          f"joinmobilizon down: FediDB alone proposes, with no FLAG ({len(found)})")
+    check(found == {} and len(held_of(out)) == 6 and "https://quiet.example" in held_of(out)
+          and "FediDB alone" in out and skipped["held"] == 6,
+          f"joinmobilizon down: every candidate came from FediDB alone, and all 6 are held ({len(found)})")
     s = Fake(mob_route(fd_ok=False))
     (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), {}, 50)
     check([e["base_url"] for e in found.values()] == ["https://busy.example.fr"] and "FLAG" not in out,
@@ -347,14 +394,15 @@ try:
           and "joinmobilizon" in flag[0] and "fedidb" in flag[0],
           f"EVERY directory down: one `  FLAG` line the step summary keeps, naming both ({flag})")
     (lim, _sk), _o = run(C._discover_mobilizon, Fake(mob_route()), C._config_keys(), {}, 1)
-    check([e["base_url"] for e in lim.values()] == ["https://busy.example.fr"], "the limit cuts what is proposed")
+    check([e["base_url"] for e in lim.values()] == ["https://busy.example.fr"] and len(held_of(_o)) == 4,
+          "the limit cuts what is proposed, not what is held for a human")
 
     # The wall clock. A deadline already gone: FediDB's first page is read
     # (paging stops after it), no instance is asked, nothing is proposed.
     s = Fake(mob_route(fd_pages=3))
     (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), {}, 50, deadline=1.0)
     flag = [l for l in out.splitlines() if l.startswith("  FLAG mobilizon:")]
-    check(found == {} and not [u for u, _p in s.calls if urlparse(u).path == "/api"]
+    check(found == {} and not [u for u, _p in s.calls if urlparse(u).path in ("/api", "/robots.txt")]
           and len(s.asked("api.fedidb.org")) == 1 and len(flag) == 1 and SUMMARY_RX.match(flag[0])
           and any("FLAG fedidb mobilizon: the deadline passed before page 2" in l for l in out.splitlines()),
           f"past the deadline: one FediDB page, no probe, nothing proposed, a FLAG the summary keeps ({flag})")
@@ -364,10 +412,90 @@ try:
     (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), {}, 50, workers=1,
                                 deadline=time.time() + 0.5)
     check(found == {} and len(s.asked("mob.configured.example", "/api")) == 1
-          and not s.asked("busy.example.fr", "/api") and skipped["unread"] == 10
-          and any("FLAG mobilizon: 10 host(s) UNREAD past the deadline (0 of them configured)" in l
+          and not s.asked("busy.example.fr") and skipped["unread"] == 11
+          and any("FLAG mobilizon: 11 host(s) UNREAD past the deadline (0 of them configured)" in l
                   for l in out.splitlines()),
           f"a deadline mid-run: configured read first, every candidate unread, nothing proposed ({skipped['unread']})")
+
+    # ------------------------------------------ 2b. robots.txt, adult titles, a follower of anyone
+    # The operator's robots.txt is read before the first request to a
+    # candidate (review of 2026-11-08: gancio.antroposofiachile.net answers
+    # `User-agent: *` / `Disallow: /` and was proposed). All listed by
+    # joinmobilizon, so what clears every rule is proposed, not held.
+    DENY = "User-agent: *\nDisallow: /\n"
+    TOKEN_DENY = "User-agent: MapseeAggregator\nDisallow: /\n\nUser-agent: *\nDisallow:\n"
+    CHALLENGE = "<html><head><title>Just a moment...</title></head><body>checking your browser</body></html>"
+    ROB_M = {"nocrawl.example.cl": Resp(200, None, "", DENY),
+             "tokenno.example.cl": Resp(200, None, "", TOKEN_DENY),
+             "pathonly.example.cl": Resp(200, None, "", "User-agent: *\nDisallow: /admin\n"),
+             "down.example.cl": ConnectionError("timed out"),
+             "waf.example.cl": Resp(403, None, "", "Forbidden"),
+             "challenged.example.cl": Resp(200, None, "", CHALLENGE)}
+    M2 = ("nocrawl.example.cl", "tokenno.example.cl", "pathonly.example.cl", "down.example.cl", "waf.example.cl",
+          "challenged.example.cl", "adultmob.example.de", "someadult.example.de", "copier.example.br",
+          "halfmirror.example.pt", "halfcopy.example.pt", "oneoff.example.pt")
+    JM2 = {"data": [{"host": h, "name": h.split(".")[0].title(), "totalLocalEvents": 50, "health": 90} for h in M2]}
+
+    def own(h, titles, d0=1):
+        return [mev(tt, d0 + i, on=h) for i, tt in enumerate(titles)]
+    ELSEWHERE = "eventos.elsewhere.example"
+    SEARCH2 = dict({h: own(h, ["never asked"]) for h in M2}, **{
+        "mob.configured.example": CONF_M,
+        "pathonly.example.cl": own("pathonly.example.cl", ["Path 1", "Path 2"]),
+        # 3 of 4 sampled titles adult: refused, as Gancio's event share is
+        "adultmob.example.de": own("adultmob.example.de", ["Fetish night", "BDSM workshop", "Kink social", "Quiz"]),
+        # 3 of 10: under ADULT_EVENT_SHARE (1/3), kept
+        "someadult.example.de": own("someadult.example.de", ["Fetish fair", "BDSM talk", "Kink picnic"]
+                                    + [f"Talk {i}" for i in range(7)], d0=20),
+        # mobilizon.com.br's shape: every event published on one host no config names
+        "copier.example.br": [mev(f"Copied {i}", i, on=ELSEWHERE) for i in range(1, 6)],
+        # 2 of 4 published elsewhere (0.5, GANCIO_MIRROR_SHARE): a mirror; 2 of 5 (0.4): not
+        "halfmirror.example.pt": [mev("HM a", 1, on=ELSEWHERE), mev("HM b", 2, on=ELSEWHERE)]
+        + own("halfmirror.example.pt", ["HM own 1", "HM own 2"], d0=3),
+        "halfcopy.example.pt": [mev("HC a", 1, on=ELSEWHERE), mev("HC b", 2, on=ELSEWHERE)]
+        + own("halfcopy.example.pt", ["HC 1", "HC 2", "HC 3"], d0=3),
+        # one event of one published elsewhere is under MOBILIZON_SERVED_MIN
+        "oneoff.example.pt": [mev("Shared 1", 1, on=ELSEWHERE)],
+    })
+    s = Fake(mob_route(jm=JM2, fd=[], search=SEARCH2, robots=ROB_M))
+    rled = {}
+    (found, skipped), out = run(C._discover_mobilizon, s, C._config_keys(), rled, 50)
+    proposed = [e["base_url"] for e in found.values()]
+    lines = out.splitlines()
+    check(proposed == ["https://pathonly.example.cl", "https://someadult.example.de", "https://halfcopy.example.pt",
+                       "https://oneoff.example.pt"], f"robots.txt run: what is proposed ({proposed})")
+    for h in ("nocrawl.example.cl", "tokenno.example.cl", "down.example.cl", "waf.example.cl", "challenged.example.cl"):
+        check(len(s.asked(h, "/robots.txt")) == 1 and not s.asked(h, "/api"),
+              f"mobilizon {h}: robots.txt read once, and nothing else asked")
+    check(s.asked("pathonly.example.cl", "/api") and "https://pathonly.example.cl" in proposed,
+          "mobilizon: `Disallow: /admin` is a path rule, which the documented API is not bound by: probed")
+    for h, status, why in (("nocrawl.example.cl", "refused", "Disallow: /"), ("tokenno.example.cl", "refused", "Disallow: /"),
+                           ("down.example.cl", "fail", "unreachable"), ("challenged.example.cl", "fail", "challenged"),
+                           ("waf.example.cl", "fail", "http 403")):
+        row = rled.get(h) or {}
+        check(row.get("status") == status and row.get("type") == "mobilizon" and why in row.get("reason", "")
+              and row.get("checked") == 20261108 and C._dead_recently(rled, h),
+              f"mobilizon {h}: ledger `{status}` ({why}), parked for DEAD_TTL ({row})")
+    check(skipped["robots"] == 2 and skipped["robots_unread"] == 2 and skipped["refused"] == 1,
+          f"robots 2 (`*` and our token), robots_unread 2, a 403 on robots.txt a refusal ({skipped})")
+    check("https://adultmob.example.de" not in proposed
+          and any(l == "  adult: adultmob.example.de (3 of 4 sampled events by their own words)" for l in lines),
+          "mobilizon: 3 of 4 sampled titles adult refuses the calendar (ADULT_EVENT_SHARE)")
+    check("https://someadult.example.de" in proposed and skipped["adult"] == 1,
+          "...and 3 of 10 does not")
+    check("https://copier.example.br" not in proposed
+          and any(l == f"  mirror: copier.example.br 5 of its 5 sampled events were published on {ELSEWHERE} "
+                       f"(by their url)" for l in lines),
+          "mobilizon: a follower of a host no config names is a mirror (mobilizon.com.br, 52 of 52)")
+    check("https://halfmirror.example.pt" not in proposed and "https://halfcopy.example.pt" in proposed
+          and "https://oneoff.example.pt" in proposed and skipped["mirror"] == 2,
+          "...2 of 4 elsewhere is one, 2 of 5 is not, and 1 of 1 is under MOBILIZON_SERVED_MIN")
+    s2 = Fake(mob_route(jm=JM2, fd=[], search=SEARCH2, robots=ROB_M))
+    (_f, sk2), _o = run(C._discover_mobilizon, s2, C._config_keys(), rled, 50)
+    check(not any(s2.asked(h) for h in ("nocrawl.example.cl", "tokenno.example.cl", "down.example.cl",
+                                         "waf.example.cl", "challenged.example.cl"))
+          and sk2["ledger"] == 5 and sk2["robots"] == 0,
+          "the next run asks none of the five robots.txt verdicts again")
 
     # ------------------------------------------ 3. Gancio
     json.dump({"crawl_delay": 2, "sites": [
@@ -442,19 +570,34 @@ try:
     CONF_SETS = {"confa.example": CONF_A + [ev("Coord 1", 1, coords=False), ev("Coord 2", 2, coords=False)],
                  "confr.example": None}
     LISTED = [h for h in INSTANCES if h not in ("orgonly.example",)] + ["www.fine.example.it"]
+    # Only the robots.txt run (below) lists these, so the main run's counts stand.
+    EXTRA_G = {
+        "nocrawl.example.cl": (None, [ev("never asked", 1)], {}),
+        "tokenno.example.cl": (None, [ev("never asked", 1)], {}),
+        "pathonly.example.cl": (None, [ev("Path rule 1", 1), ev("Path rule 2", 2)], {"nodeName": "Path Only"}),
+        "down.example.cl": (None, [ev("never asked", 1)], {}),
+        "waf.example.cl": (None, [ev("never asked", 1)], {}),
+        "waf429.example.cl": (None, [ev("never asked", 1)], {}),
+        "challenged.example.cl": (None, [ev("never asked", 1)], {}),
+        "toclosed.example.cl": ("closed.example.org", [ev("Closed 1", 1), ev("Closed 2", 2)], {"nodeName": "C"}),
+    }
 
-    def gancio_route(fd_ok=True, org_ok=True, slow=None):
-        """`slow`: {host: seconds} its /api/events takes to answer."""
-        fd = fedidb_rows(*LISTED)
+    def gancio_route(fd_ok=True, org_ok=True, slow=None, listed=None, robots=None, org_html=None):
+        """`slow`: {host: seconds} its /api/events takes to answer. `listed`
+        replaces LISTED as FediDB's list; `robots`: {host: its robots.txt
+        answer}, by default a 404 (no file, allow all); `org_html` replaces
+        gancio.org/instances."""
+        fd = fedidb_rows(*(LISTED if listed is None else listed))
 
         def r(u, p):
             pu = urlparse(u)
             if u == C.FEDIDB_SERVERS:
                 return fedidb_route(fd)(p) if fd_ok else ConnectionError("timed out")
-            if u == "https://gancio.org/robots.txt":
-                return Resp(404, None, u, "not found")
+            if pu.path == "/robots.txt":
+                return (robots or {}).get(pu.hostname) or Resp(404, None, u, "not found")
             if u == C.GANCIO_DIRECTORY_PAGE:
-                return Resp(200, None, u, GANCIO_ORG_HTML) if org_ok else Resp(503, None, u, "down")
+                return (Resp(200, None, u, org_html or GANCIO_ORG_HTML) if org_ok
+                        else Resp(503, None, u, "down"))
             host = pu.hostname
             if pu.path == "/api/events":
                 q = parse_qs(pu.query)
@@ -466,12 +609,12 @@ try:
                 if host == "confr.example":   # rheinmain.social's shape: a 301 to events.<host>
                     return Resp(200, INSTANCES["events.confr.example"][1],
                                 u.replace("confr.example", "events.confr.example"))
-                final, evs, _ni = INSTANCES[host]
+                final, evs, _ni = INSTANCES.get(host) or EXTRA_G[host]
                 if isinstance(evs, int):
                     return Resp(evs, None, u, "<html>no</html>")
                 return Resp(200, evs, u.replace(host, final) if final else u)
             if pu.path == "/.well-known/nodeinfo/2.0":
-                ni = INSTANCES.get(host, (None, None, {}))[2]
+                ni = (INSTANCES.get(host) or EXTRA_G.get(host) or (None, None, {}))[2]
                 return Resp(200, {"metadata": ni, "software": {"name": "gancio"}}, u)
             return ConnectionError("unexpected " + u)
         return r
@@ -542,7 +685,8 @@ try:
           "an online-only calendar places nothing and is skipped")
     check(skipped["quiet"] == 1 and skipped["refused"] == 1 and skipped["not_gancio"] == 1,
           f"empty, 403 and 404 each counted under their own name ({skipped})")
-    check(len(s.asked("refuses.example")) == 1, "a 403 is asked exactly once: a refusal is not retried")
+    check(len(s.asked("refuses.example", "/api/events")) == 1,
+          "a 403 is asked exactly once: a refusal is not retried")
     row = gled.get("refuses.example") or {}
     check(row.get("status") == "fail" and row.get("type") == "gancio" and "http 403" in row.get("reason", "")
           and C._dead_recently(gled, "refuses.example") and "refuses.example" not in led,
@@ -593,6 +737,51 @@ try:
     check(found3 == {} and len(flag) == 1 and SUMMARY_RX.match(flag[0]),
           f"EVERY Gancio directory down: one FLAG the summary keeps ({flag})")
 
+    # robots.txt, before the first request to a candidate; the host a
+    # candidate redirects to answers for itself before nodeinfo or a proposal.
+    ROB_G = {"nocrawl.example.cl": Resp(200, None, "", DENY),
+             "tokenno.example.cl": Resp(200, None, "", TOKEN_DENY),
+             "pathonly.example.cl": Resp(200, None, "", "User-agent: *\nDisallow: /admin\nDisallow: /api/\n"),
+             "down.example.cl": ConnectionError("timed out"),
+             "waf.example.cl": Resp(403, None, "", "Forbidden"),
+             "waf429.example.cl": Resp(429, None, "", "Too Many Requests"),
+             "challenged.example.cl": Resp(200, None, "", CHALLENGE),
+             "closed.example.org": Resp(200, None, "", DENY)}
+    s = Fake(gancio_route(listed=list(EXTRA_G), org_ok=False, robots=ROB_G))
+    rled = {}
+    (fr, skr), out = run(C._discover_gancio, s, C._config_keys(), rled, 100, workers=3)
+    check([e["base_url"] for e in fr.values()] == ["https://pathonly.example.cl"],
+          f"gancio robots.txt run: only the path-rule host is proposed ({[e['base_url'] for e in fr.values()]})")
+    check(s.asked("pathonly.example.cl", "/api/events") and s.asked("pathonly.example.cl", "/.well-known"),
+          "gancio: `Disallow: /admin` and `/api/` are path rules the documented API is not bound by: probed")
+    for h in ("nocrawl.example.cl", "tokenno.example.cl", "down.example.cl", "waf.example.cl", "waf429.example.cl",
+              "challenged.example.cl"):
+        check(len(s.asked(h, "/robots.txt")) == 1 and not s.asked(h, "/api") and not s.asked(h, "/.well-known"),
+              f"gancio {h}: robots.txt read once, and nothing else asked")
+    for h, status, why in (("nocrawl.example.cl", "refused", "Disallow: /"), ("tokenno.example.cl", "refused", "Disallow: /"),
+                           ("down.example.cl", "fail", "unreachable"), ("challenged.example.cl", "fail", "challenged"),
+                           ("waf.example.cl", "fail", "http 403"), ("waf429.example.cl", "fail", "http 429"),
+                           ("closed.example.org", "refused", "Disallow: /"),
+                           ("toclosed.example.cl", "refused", "on closed.example.org, where it redirects")):
+        row = rled.get(h) or {}
+        check(row.get("status") == status and row.get("type") == "gancio" and why in row.get("reason", "")
+              and C._dead_recently(rled, h),
+              f"gancio {h}: ledger `{status}` ({why}), parked for DEAD_TTL ({row})")
+    check(len(s.asked("closed.example.org", "/robots.txt")) == 1 and not s.asked("closed.example.org", "/.well-known")
+          and not s.asked("toclosed.example.cl", "/.well-known")
+          and any(l.startswith("  robots.txt: toclosed.example.cl -> closed.example.org: robots.txt: Disallow: /")
+                  for l in out.splitlines()),
+          "gancio: a candidate that redirects to a host refusing every crawler: that host's robots.txt read, "
+          "no nodeinfo, both parked")
+    check(skr["robots"] == 3 and skr["robots_unread"] == 2 and skr["refused"] == 2
+          and sum(skr.values()) + len(fr) == len(EXTRA_G),
+          f"robots 3, robots_unread 2, refused 2 (403, 429), each host counted once ({skr})")
+    s2 = Fake(gancio_route(listed=list(EXTRA_G), org_ok=False, robots=ROB_G))
+    (_f, sk2), _o = run(C._discover_gancio, s2, C._config_keys(), rled, 100, workers=3)
+    check(not any(s2.asked(h) for h in EXTRA_G if h != "pathonly.example.cl") and not s2.asked("closed.example.org")
+          and sk2["ledger"] == 7,
+          f"the next run asks none of them again, nor where one redirects ({sk2['ledger']})")
+
     # The wall clock and the bound: a pool that is cut proposes nothing.
     def api_asked(sess):
         return [u for u, _p in sess.calls if urlparse(u).path == "/api/events"]
@@ -608,9 +797,11 @@ try:
           and len(api_asked(s)) == 1
           and any("FLAG gancio:" in l and "(1 of them configured)" in l for l in out.splitlines()),
           "a deadline mid-probe: the configured sites go first, the candidates go unread, nothing proposed")
-    s = Fake(gancio_route(slow={"orgonly.example": 1.0}))
+    # 1.5 s: gancio.org/instances, which alone lists orgonly.example, is read
+    # through Polite, 1 s after its robots.txt.
+    s = Fake(gancio_route(slow={"orgonly.example": 2.0}))
     (fd_, sk_), out = run(C._discover_gancio, s, C._config_keys(), led, 100, workers=1,
-                          deadline=time.time() + 0.5)
+                          deadline=time.time() + 1.5)
     check(fd_ == {} and s.asked("orgonly.example", "/api/events") and not s.asked("fine.example.it", "/.well-known")
           and any(l.startswith("  FLAG gancio: nodeinfo of ") for l in out.splitlines()),
           "a deadline before nodeinfo: no description read, so nothing proposed")
@@ -662,12 +853,21 @@ try:
         check(rc == 0 and len(seen) == 3 and "skipped for a category-pinned run" in out
               and json.load(open(cand)) == [],
               "a category-pinned run skips gancio, like mobilizon")
+
+        def robots_discover(*a, **k):
+            a[2]["nocrawl.example.cl"] = {"checked": 20261108, "name": "nocrawl.example.cl", "type": "mobilizon",
+                                          "status": "refused", "reason": "discover mobilizon: robots.txt: Disallow: /"}
+            return {}, {"robots": 1, "refused": 0}
+        C._discover_mobilizon = robots_discover
+        rc, out = run(C.main, ["catalog_curate.py", "discover", "mobilizon", "--out", cand])
+        check(rc == 0 and (C._load_ledger().get("nocrawl.example.cl") or {}).get("status") == "refused",
+              "a robots.txt verdict the backend parked is saved to the ledger file, with no 403 beside it")
     finally:
         C._discover_gancio, C.curated_categories, C._session = real, real_cats, real_sess
         C._discover_mobilizon = real_mob
 
     # ------------------------------------------ 5. robots: annual_sources.json
-    check(C._ROBOTS_EXTRA[-1] == "annual_sources.json", "annual_sources.json is in _ROBOTS_EXTRA")
+    check("annual_sources.json" in C._ROBOTS_EXTRA, "annual_sources.json is in _ROBOTS_EXTRA")
     json.dump({"sites": [{"key": "fair", "name": "A Fair", "url": "https://fair.example/"}]},
               open(os.path.join(tmp, "annual_sources.json"), "w"))
     reqs = [r for r in C._configured_requests() if r[0] == "annual_sources.json"]
@@ -703,6 +903,213 @@ _s1 = _get()
 check(_s1.headers.get("User-Agent") == C.UA == "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
       and _get() is _s1, "each probe thread's session carries the production User-Agent, one per thread")
 _close()
+
+# ---------------------------------------------- 6b. verify's gate, for a hand-written candidate
+def robots_of(files):
+    """A robots_txt.Robots over a fake session: {host: robots.txt text,
+    an int status, or an Exception}; anything else a 404."""
+    def route(u, _p):
+        ans = files.get(urlparse(u).hostname)
+        if isinstance(ans, Exception):
+            return ans
+        if isinstance(ans, int):
+            return Resp(ans, None, u, "no")
+        return Resp(200, None, u, ans) if ans is not None else Resp(404, None, u, "not found")
+    return C.robots_txt.Robots(Fake(route))
+
+
+R = robots_of({"deny.example": "User-agent: *\nDisallow: /\n",
+               "token.example": "User-agent: MapseeAggregator\nDisallow: /\n\nUser-agent: *\nAllow: /\n",
+               "apionly.example": "User-agent: *\nDisallow: /api\n",
+               "down.example": ConnectionError("timed out"),
+               "waf.example": 403,
+               "cal.example": "User-agent: *\nDisallow: /cal\n"})
+for t in ("gancio", "mobilizon"):
+    g = C._robots_gate(R, t, {"type": t, "base_url": "https://deny.example"})
+    check(g and g[0] == "refused" and "Disallow: /" in g[1],
+          f"verify refuses a hand-written {t} candidate whose host says `User-agent: *` / `Disallow: /` ({g})")
+    g = C._robots_gate(R, t, {"type": t, "base_url": "https://token.example/"})
+    check(g and g[0] == "refused", f"...and one that refuses MapseeAggregator by name ({t}: {g})")
+    check(C._robots_gate(R, t, {"type": t, "base_url": "https://apionly.example"}) is None,
+          f"...but not one whose `Disallow: /api` is a path rule: the documented API stays exempt ({t})")
+    g = C._robots_gate(R, t, {"type": t, "base_url": "https://down.example"})
+    check(g and g[0] == "fail" and "unreachable" in g[1], f"...an unreachable robots.txt is `fail` ({t}: {g})")
+    g = C._robots_gate(R, t, {"type": t, "base_url": "https://waf.example"})
+    check(g and g[0] == "fail" and "403" in g[1], f"...a 403 on robots.txt is a refusal, `fail` ({t}: {g})")
+check(C._robots_gate(R, "localist", {"base_url": "https://deny.example"}) is None
+      and C._robots_gate(R, "ckan", {"url": "https://deny.example/api/3/action/datastore_search?x=1"}) is None,
+      "the other documented APIs are still not asked")
+g = C._robots_gate(R, "ics", {"url": "https://cal.example/cal/feed.ics"})
+check(g and g[0] == "refused" and "Disallow: /cal" in g[1], f"a publisher's feed is still refused by a path rule ({g})")
+
+# ---------------------------------------------- 6c. one request per operator at a time
+for h, op in (("warszawa.askapunk.net", "askapunk.net"), ("WWW.Example.org", "example.org"),
+              ("mobilizon.com.br", "mobilizon.com.br"), ("a.b.mobilizon.com.br", "mobilizon.com.br"),
+              ("swindonguide.org.uk", "swindonguide.org.uk"), ("mlg.convoca.la", "convoca.la"),
+              ("events.campus.ltu.se", "ltu.se"), ("gorzow.org.pl", "gorzow.org.pl")):
+    check(C._operator_of(h) == op, f"the operator of {h} is {op} ({C._operator_of(h)})")
+
+
+class Tracker(Fake):
+    """A Fake whose every request takes `pause` s, counting what is in flight
+    per operator (C._operator_of) and at all."""
+
+    def __init__(self, route, pause=0.02):
+        super().__init__(route)
+        import threading
+        self.pause, self.lock = pause, threading.Lock()
+        self.now, self.peak, self.all, self.peak_all = {}, {}, 0, 0
+
+    def _track(self, url, fn):
+        op = C._operator_of(urlparse(url).hostname)
+        with self.lock:
+            self.now[op] = self.now.get(op, 0) + 1
+            self.peak[op] = max(self.peak.get(op, 0), self.now[op])
+            self.all += 1
+            self.peak_all = max(self.peak_all, self.all)
+        try:
+            time.sleep(self.pause)
+            return fn()
+        finally:
+            with self.lock:
+                self.now[op] -= 1
+                self.all -= 1
+
+    def get(self, url, **kw):
+        return self._track(url, lambda: Fake.get(self, url, **kw))
+
+    def post(self, url, **kw):
+        return self._track(url, lambda: Fake.post(self, url, **kw))
+
+
+# Four subdomains of one operator, three of another, two under a ccTLD's
+# second level, and two loners, as askapunk.net's and convoca.la's are.
+OPS = ["w.op1.example", "a.op1.example", "m.op1.example", "b.op1.example", "x.op2.example", "y.op2.example",
+       "z.op2.example", "p.op3.co.uk", "q.op3.co.uk", "solo.example.de", "lone.example.it"]
+
+
+def conc_route(u, p):
+    pu = urlparse(u)
+    if u == C.MOBILIZON_DIRECTORY:
+        return Resp(200, {"data": [{"host": h, "name": h, "totalLocalEvents": 50, "health": 90} for h in OPS]}, u)
+    if u == C.FEDIDB_SERVERS:
+        return Resp(200, {"data": [{"domain": h} for h in OPS], "meta": {}}, u)
+    if pu.path == "/robots.txt":
+        return Resp(404, None, u, "not found")
+    if u == C.GANCIO_DIRECTORY_PAGE:
+        return Resp(503, None, u, "down")
+    if pu.path == "/api":
+        return Resp(200, {"data": {"searchEvents": {"total": 2, "elements": [
+            {"title": f"{pu.hostname} {i}", "beginsOn": f"2026-11-1{i}T19:00:00Z", "url": f"https://{pu.hostname}/e/{i}",
+             "physicalAddress": {"geom": "1;2"}} for i in (1, 2)]}}}, u)
+    if pu.path == "/api/events":
+        return Resp(200, [ev(f"{pu.hostname} {i}", i) for i in (1, 2)], u)
+    if pu.path == "/.well-known/nodeinfo/2.0":
+        return Resp(200, {"metadata": {"nodeName": pu.hostname}}, u)
+    return ConnectionError("unexpected " + u)
+
+
+_keep2 = (C.HERE, C.LEDGER_FILE)
+tmp2 = tempfile.mkdtemp(prefix="fedi-conc-")
+C.HERE, C.LEDGER_FILE = tmp2, os.path.join(tmp2, "curation_ledger.json")
+try:
+    json.dump({"sites": [{"name": "Conf", "base_url": "https://conf.op1.example"}]},
+              open(os.path.join(tmp2, "mobilizon_sources.json"), "w"))
+    json.dump({"sites": [{"name": "Conf", "base_url": "https://conf.op2.example"}]},
+              open(os.path.join(tmp2, "gancio_sources.json"), "w"))
+    s = Tracker(conc_route)
+    (fm, _sk), _o = run(C._discover_mobilizon, s, C._config_keys(), {}, 50, workers=6)
+    probes = [u for u, _p in s.calls if urlparse(u).path in ("/api", "/robots.txt")]
+    check(len(fm) == len(OPS) and len(probes) == 2 * len(OPS) + 1
+          and max(s.peak[C._operator_of(h)] for h in OPS) == 1 and s.peak_all >= 2,
+          f"mobilizon, 6 workers: never two requests to one operator at once, several operators at once "
+          f"({ {o: n for o, n in s.peak.items()} }, all {s.peak_all})")
+    s = Tracker(conc_route)
+    (fg, _sk), _o = run(C._discover_gancio, s, C._config_keys(), {}, 50, workers=6)
+    infos = [u for u, _p in s.calls if urlparse(u).path == "/.well-known/nodeinfo/2.0"]
+    check(len(fg) == len(OPS) and len(infos) == len(OPS)
+          and max(s.peak[C._operator_of(h)] for h in OPS) == 1 and s.peak_all >= 2,
+          f"gancio, 6 workers, the probe and nodeinfo phases: never two requests to one operator at once "
+          f"({ {o: n for o, n in s.peak.items()} }, all {s.peak_all})")
+    # A candidate of one operator that redirects onto another's host: that
+    # host's robots.txt is read under ITS operator's lock, while that
+    # operator's own candidates are being read in another worker.
+    OPS2 = ["r.opa.example"] + [f"c{i}.opb.example" for i in range(5)]
+
+    def redirect_route(u, p):
+        pu = urlparse(u)
+        if u == C.FEDIDB_SERVERS:
+            return Resp(200, {"data": [{"domain": h} for h in OPS2], "meta": {}}, u)
+        if pu.hostname == "r.opa.example" and pu.path == "/api/events":
+            return Resp(200, [ev("Landed 1", 1), ev("Landed 2", 2)], u.replace("r.opa.example", "landing.opb.example"))
+        return conc_route(u, p)
+    s = Tracker(redirect_route)
+    (fg2, _sk), _o = run(C._discover_gancio, s, C._config_keys(), {}, 50, workers=6)
+    check(len(s.asked("landing.opb.example", "/robots.txt")) == 1 and s.peak.get("opb.example") == 1
+          and "https://landing.opb.example" in {e["base_url"] for e in fg2.values()},
+          f"gancio: the host a redirect lands on is read under its own operator's lock ({s.peak})")
+finally:
+    C.HERE, C.LEDGER_FILE = _keep2
+    shutil.rmtree(tmp2, ignore_errors=True)
+
+# ---------------------------------------------- 6d. gancio.org/instances through Polite
+def org_session(robots, page=None, more=None):
+    """robots: gancio.org's robots.txt (text or a status); page: the page's
+    Resp; more: {url: Resp} for anywhere a redirect leads."""
+    def route(u, _p):
+        if u == "https://gancio.org/robots.txt":
+            return Resp(robots, None, u, "no") if isinstance(robots, int) else Resp(200, None, u, robots)
+        if u == C.GANCIO_DIRECTORY_PAGE:
+            return page or Resp(200, None, u, GANCIO_ORG_HTML)
+        if more and u in more:
+            return more[u]
+        return ConnectionError("unexpected " + u)
+    return Fake(route)
+
+
+def fake_clock():
+    box, waits = [1000.0], []
+
+    def sleep(w):
+        waits.append(w)
+        box[0] += w
+    return (lambda: box[0]), sleep, waits
+
+
+for code in (403, 429):
+    s = org_session(code)
+    clk, slp, waits = fake_clock()
+    hosts, why = C._gancio_org_hosts(s, sleep=slp, clock=clk)
+    check(hosts is None and str(code) in (why or "") and not s.asked("gancio.org", "/instances"),
+          f"gancio.org: a {code} on robots.txt is a refusal, and the page is not asked ({why})")
+s = org_session("User-agent: *\nCrawl-delay: 30\nAllow: /\n")
+clk, slp, waits = fake_clock()
+hosts, why = C._gancio_org_hosts(s, sleep=slp, clock=clk)
+check(hosts == ["orgonly.example", "aggr.example"] and waits and abs(sum(waits) - 30) < 0.01
+      and [u for u, _p in s.calls] == ["https://gancio.org/robots.txt", C.GANCIO_DIRECTORY_PAGE],
+      f"gancio.org: its Crawl-delay of 30 s is waited out between robots.txt and the page ({waits})")
+s = org_session(404)
+clk, slp, waits = fake_clock()
+hosts, why = C._gancio_org_hosts(s, sleep=slp, clock=clk)
+check(hosts == ["orgonly.example", "aggr.example"] and abs(sum(waits) - 1.0) < 0.01,
+      f"gancio.org: no file is allow-all (RFC 9309), the page read 1 s after it ({waits})")
+moved = Resp(301, None, C.GANCIO_DIRECTORY_PAGE, "")
+moved.headers = {"Location": "https://docs.gancio.example/instances"}
+s = org_session(404, page=moved, more={
+    "https://docs.gancio.example/robots.txt": Resp(200, None, "", "User-agent: *\nDisallow: /\n"),
+    "https://docs.gancio.example/instances": Resp(200, None, "", GANCIO_ORG_HTML)})
+clk, slp, waits = fake_clock()
+hosts, why = C._gancio_org_hosts(s, sleep=slp, clock=clk)
+check(hosts is None and s.asked("docs.gancio.example", "/robots.txt") and not s.asked("docs.gancio.example", "/instances"),
+      f"gancio.org: a redirect is asked of the new host's robots.txt, which refuses it ({why})")
+s = org_session(404, page=Resp(200, None, C.GANCIO_DIRECTORY_PAGE,
+                               "<html><title>Just a moment...</title>checking your browser</html>"))
+clk, slp, waits = fake_clock()
+hosts, why = C._gancio_org_hosts(s, sleep=slp, clock=clk)
+check(hosts is None and "challenge" in (why or ""), f"gancio.org: a bot challenge on the page is a refusal ({why})")
+s = org_session(404)
+hosts, why = C._gancio_org_hosts(s, deadline=1.0)
+check(hosts is None and not s.calls, f"gancio.org: past the deadline nothing is asked ({why})")
 
 # ---------------------------------------------- 7. the declines this code depends on
 # Discovery proposed both on 2026-11-08 and verify passed both (18 of 18):

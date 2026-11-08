@@ -73,7 +73,8 @@ SITE = {"key": "short-run", "name": "Short Run Comix Festival", "name_rx": CONFI
         "url": "https://shortrun.org/", "shape": "day", "category": "arts",
         "venue": "Seattle Design Center", "address": "5701 6th Ave S, Seattle, WA 98108",
         "city": "Seattle", "region": "Washington", "country": "United States",
-        "lat": 47.551473, "lon": -122.328325, "timezone": "America/Los_Angeles"}
+        "lat": 47.551473, "lon": -122.328325, "timezone": "America/Los_Angeles",
+        "months": [10, 11]}
 
 
 def read(html, today, **kw):
@@ -138,8 +139,10 @@ nameless = A.read_page(HOME, date(2026, 11, 6), "day", None, bylines=False)
 check(nameless.start == date(2026, 11, 6),
       "with neither rule, 'Posted on ... November 6, 2026' beats the hero (why both exist)")
 # A NAME NEVER VOUCHES ACROSS ANOTHER DATE. "...to Short Run on Nov. 7th! Read
-# more..." sits 36 characters above "Posted on July 10, 2026"; before July 10,
-# with the byline rule off, that byline was the nearest named date.
+# more..." ends 35 characters before "July 10, 2026" in "Posted on July 10,
+# 2026" (measured 2026-11-08 in page_text of HOME and of the saved homepage
+# alike); before July 10, with the byline rule off, that byline was the
+# nearest named date.
 check(read(HOME, date(2026, 7, 1), bylines=False).start == date(2026, 11, 7),
       "the name above 'Nov. 7th' does not vouch for the byline after it")
 check(text_case("Short Run 2027 call for exhibitors! Applications are due Friday, March 5th, "
@@ -181,6 +184,82 @@ for today in (date(2026, 7, 1), date(2026, 10, 29), date(2026, 11, 6), date(2026
               f"homepage with the config's name_rx on {today}, byline rule "
               f"{'on' if bylines else 'OFF'}: the hero")
 
+# ---------------------------------------------------- 2c. a byline <time> by its markup
+# The review's a8.py: a category link names the festival 12 characters before
+# a theme's "updated" <time>, with no "Posted"/"updated" WORD in front of the
+# date. On that day it was kept as the festival, all day.
+POST_UPDATED = ('<article><h2>Thank you!</h2><p>See you next year.</p>'
+                '<div class="entry-meta"><a rel="category">Short Run Comix Festival</a> &middot; '
+                '<time class="updated">November 20, 2026</time> by kelly</div></article>')
+for months in (None, [10, 11]):
+    got = read(HERO + POST_UPDATED, date(2026, 11, 20), name_rx=CONFIG_NAME, months=months)
+    check(got.start is None and any(v == "byline" for c, v in got.log if c.start == date(2026, 11, 20)),
+          f"a8: <time class=\"updated\"> after a category link is a byline (months {months})")
+for attr in ('class="entry-date published"', "itemprop='dateModified'", "itemprop=datePublished"):
+    got = read(HERO + POST_UPDATED.replace('class="updated"', attr), date(2026, 11, 20),
+               name_rx=CONFIG_NAME)
+    check(got.start is None, f"...and so is <time {attr}>")
+got = read(HERO + POST_UPDATED, date(2026, 11, 20), name_rx=CONFIG_NAME, bylines=False)
+check(got.start == date(2026, 11, 20), "(the danger) with the byline rule off it is the festival")
+got = read("<h1>Short Run Comix Festival</h1><p>Returns <time datetime=\"2027-11-06\">Saturday, "
+           "November 6th, 2027</time> at Seattle Design Center.</p>", date(2026, 11, 20),
+           name_rx=CONFIG_NAME)
+check(got.start == date(2027, 11, 6), "a <time> with no byline class is the event's own date, kept")
+marks = []
+check(A.page_text(HOME, marks) == A.page_text(HOME) and marks == [],
+      "page_text's text is the same with marks asked; the fixture's bare <time>s carry none")
+for post in (POST_UPDATED, POST_UPDATED.replace('class="updated">November 20, 2026',
+                                                 'class="updated">\n <span>November 20, 2026</span> ')):
+    marks = []
+    t = A.page_text(post, marks)
+    check(t == A.page_text(post) and len(marks) == 1 and t[marks[0]:].startswith("November 20"),
+          f"...and a byline <time>'s mark points at its date, the text unchanged ({len(post)} chars)")
+
+# ---------------------------------------------------- 2d. the event's own months
+# Once the edition is past, every other date near the name is a candidate for
+# the next one. The review's a7.py strings, beside the real hero on
+# 2026-11-20, each became the 2027 festival; the deny list cannot know every
+# phrasing, the curated months (annual_sources.json: [10, 11]) can.
+A7 = [
+    ("<p>Exhibitor applications for Short Run Comix Festival 2027 are open until Friday, "
+     "March 5th, 2027.</p>", date(2027, 3, 5)),
+    ("<p>Submit your work to the Short Run Comix Festival anthology by Friday, March 5th, "
+     "2027.</p>", date(2027, 3, 5)),
+    ("<p>Want a table at Short Run Comix Festival 2027? Apply before Friday, March 5th, "
+     "2027!</p>", date(2027, 3, 5)),
+    ("<p>Short Run Comix Festival exhibitor sign-ups close Friday, March 5th, 2027.</p>",
+     date(2027, 3, 5)),
+    ("<p>Volunteer for Short Run Comix Festival! Orientation is Saturday, October 30th, "
+     "2027.</p>", None),
+    ("<p>Short Run Comix Festival Spring Market: Saturday, May 15th, 2027 at Washington "
+     "Hall.</p>", date(2027, 5, 15)),
+]
+for post, danger in A7:
+    got = read(HERO + post, date(2026, 11, 20), name_rx=CONFIG_NAME, months=SITE["months"])
+    check(got.start is None and "past 1 (newest 2026-11-07)" in got.why,
+          f"a7 refused with the festival's months: {post[3:60]}...")
+    if danger:
+        check(read(HERO + post, date(2026, 11, 20), name_rx=CONFIG_NAME).start == danger,
+              f"(the danger) without months it was the {danger} festival")
+check("not-this-event:orientation" in read(HERO + A7[4][0], date(2026, 11, 20), name_rx=CONFIG_NAME,
+                                           months=SITE["months"]).why,
+      "the orientation is inside the months (a Saturday, October 30th): refused by its word")
+got = read(HERO + A7[5][0], date(2026, 11, 1), name_rx=CONFIG_NAME, months=SITE["months"])
+check(got.start == date(2026, 11, 7) and got.clock == (660, 1080) and got.free == "FREE!",
+      "inside the months the hero still reads, clock and FREE with it")
+# THE DAILY SWEEP of the homepage fixture: the hero every day up to and
+# including the festival, and nothing after it into 2027, with the config's
+# name_rx and months (the saved homepage gives the same, measured 2026-11-08:
+# 311 of 311 days, then 419 of 419 empty).
+sweep, d = {}, date(2026, 1, 1)
+while d <= date(2027, 12, 31):
+    got = read(HOME + "".join(p for p, _ in A7), d, name_rx=CONFIG_NAME, months=SITE["months"])
+    sweep.setdefault(d <= date(2026, 11, 7), set()).add((got.start, got.clock, got.free))
+    d = date.fromordinal(d.toordinal() + 1)
+check(sweep[True] == {(date(2026, 11, 7), (660, 1080), "FREE!")},
+      "daily sweep 2026-01-01..11-07, the a7 posts on the page: the hero, its clock and FREE, every day")
+check(sweep[False] == {(None, None, None)}, "...and from 2026-11-08 to 2027-12-31: nothing")
+
 # ---------------------------------------------------- 3. the weekday
 r = text_case("Short Run returns Saturday, November 7th, 2027!", date(2026, 11, 8))
 check(r.start is None and "weekday disagrees" in r.why,
@@ -194,6 +273,36 @@ check(r.start is None and "past" in r.why,
 r = text_case("We can't wait to welcome these artists to Short Run on Nov. 7th!", date(2026, 11, 1))
 check(r.start is None and "no year and no weekday" in r.why,
       "a yearless date with no weekday is not believed")
+
+# ---------------------------------------------------- 3b. two dated days are one event
+# Read as two singles, each lost something (the review's a5.py/a6.py, today
+# 2026-10-01): the shared trailing year sat on Sunday alone, so the festival
+# started on its second day with the clock; two full dates lost the end.
+r = text_case("Short Run Comix Festival returns Saturday, November 7 &amp; Sunday, November 8, "
+              "2026 at Seattle Design Center, 11am &#8211; 6pm both days.", date(2026, 10, 1),
+              name_rx=CONFIG_NAME)
+check((r.start, r.end) == (date(2026, 11, 7), date(2026, 11, 8)) and r.clock is None,
+      "'Saturday, November 7 & Sunday, November 8, 2026': both days, all day, from the 7th")
+r = text_case("Short Run Comix Festival: November 7, 2026 &#8211; November 8, 2026.", date(2026, 10, 1),
+              name_rx=CONFIG_NAME)
+check((r.start, r.end) == (date(2026, 11, 7), date(2026, 11, 8)),
+      "'November 7, 2026 – November 8, 2026': the end is kept")
+r = text_case("Short Run Comix Festival: December 31, 2026 &#8211; January 1, 2027.", date(2026, 10, 1),
+              name_rx=CONFIG_NAME)
+check((r.start, r.end) == (date(2026, 12, 31), date(2027, 1, 1)),
+      "'December 31, 2026 – January 1, 2027': across the year, not 'two years in play'")
+r = text_case("Short Run Comix Festival: Thursday, December 31 through Friday, January 1, 2027.",
+              date(2026, 10, 1), name_rx=CONFIG_NAME)
+check((r.start, r.end) == (date(2026, 12, 31), date(2027, 1, 1)),
+      "...and a yearless first day takes the trailing year less one when the month wraps")
+r = text_case("Short Run Comix Festival is Saturday, November 7th, 2026. Sunday, November 8th, 2026 "
+              "is for the exhibitors' own picnic.", date(2026, 10, 1), name_rx=CONFIG_NAME)
+check((r.start, r.end) == (date(2026, 11, 7), date(2026, 11, 7)) and len(r.log) == 2,
+      "two dates in two sentences are NOT merged: the festival is one day")
+r = text_case("Short Run Comix Festival returns Friday, November 7 &amp; Saturday, November 8, 2026.",
+              date(2026, 10, 1), name_rx=CONFIG_NAME)
+check(r.start is None and "weekday disagrees" in r.why,
+      "a merged pair still checks each day's weekday (2026-11-07 is a Saturday)")
 
 # ---------------------------------------------------- 4. dates that are not the event
 DENY = [
@@ -275,6 +384,37 @@ r = read("<title>Short Run - Free admission!</title>" + "<p>Short Run is Saturda
          "2026.</p>", date(2026, 11, 1))
 check(r.free and r.free_where == "headline" and "Free admission" in r.description,
       "FREE in the page's own headline counts, and is quoted into the description")
+# NOT FREE ADMISSION (the review's a1.py/a2.py/a4.py): each of these set
+# {'free': True, 'offer': {'price': '0'}} beside a ticket price.
+SR_DAY = ("<h1>Short Run Comix Festival</h1><p>Saturday, November 7th, 2026 at Seattle Design "
+          "Center. 11am &#8211; 6pm. ")
+NOT_FREE = ["Tickets $10. A scent-free event.", "Step-free entrance on 6th Ave S. Tickets $10.",
+            "Tickets $10; barrier-free entry.", "Tickets $10 at the door. Alcohol-free.",
+            "Tickets $10; children 12 and under free."]
+for tail in NOT_FREE:
+    r = read(SR_DAY + tail + "</p>", date(2026, 10, 1), name_rx=CONFIG_NAME)
+    ev = A.to_event(SITE, r)
+    check(r.start == date(2026, 11, 7) and r.free is None and ev.source_details == {},
+          f"not free beside a price: {tail!r}")
+# ...and each rule alone, with no price in the paragraph to veto it.
+for tail in ("A scent-free event.", "Step-free entrance on 6th Ave S.", "Barrier-free entry.",
+             "Alcohol-free.", "Children 12 and under free.", "Kids under 12 get in free.",
+             "Ages 5 and under free."):
+    r = read(SR_DAY + tail + "</p>", date(2026, 10, 1), name_rx=CONFIG_NAME)
+    check(r.start and r.free is None and r.free_where == "",
+          f"a hyphenated compound or a child's free is not free admission: {tail!r}")
+for tail, price in (("Free entry to the hall. Workshop tickets &pound;5.", "£5"),
+                    ("FREE! Tickets: 12 at the door for the party.", "Tickets: 12"),
+                    ("Free admission; a 10 € suggested donation.", "10 €")):
+    r = read(SR_DAY + tail + "</p>", date(2026, 10, 1), name_rx=CONFIG_NAME)
+    check(r.start and r.free is None and price in r.free_where,
+          f"a price in the date's paragraph vetoes FREE: {tail!r}")
+r = read("<title>Short Run Comix Festival - Free admission!</title><p>Short Run Comix Festival is "
+         "Saturday, November 7th, 2026. Tickets $10.</p>", date(2026, 11, 1), name_rx=CONFIG_NAME)
+check(r.start and r.free is None, "...and a headline's FREE beside a priced date paragraph")
+r = read(SR_DAY + "FREE! Tickets for the 2 pm panel are at the door.</p>", date(2026, 10, 1),
+         name_rx=CONFIG_NAME)
+check(r.free == "FREE!", "a ticket word with a clock after it is not a price")
 
 # ---------------------------------------------------- 6. the name rule on a programming page
 SCHED = ("<p>Friday, Nov. 6th</p><p>6:00 &#8211; 9:00 pm FREE</p>"
@@ -428,6 +568,15 @@ out, s, clk, store = run({ROBOTS: Resp(200, SR_ROBOTS), "https://shortrun.org/":
                          today=date(2026, 11, 8))
 check(out["kept"] == 0 and len(store.records) == 0 and "past" in out["verdict"],
       "a live run the day after keeps 0 rows and says 'past'")
+# The entry's own months reach the page reader: a Spring Market post after the
+# festival is over writes nothing with them, and a 2027 "festival" without.
+for site, rows in ((SITE, 0), ({k: v for k, v in SITE.items() if k != "months"}, 1)):
+    out, s, clk, store = run({ROBOTS: Resp(200, SR_ROBOTS),
+                              "https://shortrun.org/": Resp(200, HOME + A7[5][0])},
+                             site=site, today=date(2026, 11, 20))
+    check(out["kept"] == rows and len(store.records) == rows,
+          f"ingest_site with{'' if 'months' in site else 'out'} the entry's months: {rows} row(s)"
+          + ("" if rows == 0 else " (the danger: the Spring Market as the 2027 festival)"))
 # ITS OWN HOURS ARE OVER: no later page may bring it back. The programming page
 # says "Saturday, Nov. 7th" with no clock; read after the homepage's 18:00 it
 # wrote the finished festival as an all-day row with admission {}.
@@ -473,7 +622,21 @@ check(47.54 < sr["lat"] < 47.56 and -122.34 < sr["lon"] < -122.32 and "231286803
 check(re.search(sr["name_rx"], "Short Run Comix Festival", re.I), "...and its name_rx matches its own name")
 check(sr["name_rx"] == CONFIG_RX and not re.search(sr["name_rx"], "Short Run Spring Market", re.I),
       "...the festival's name, not the organiser's (SITE here mirrors it)")
-for bad, why in ((dict(SITE, name_rx=None), "name_rx"),
+check(sr.get("months") == SITE["months"] == [10, 11]
+      and all(d in sr.get("_months", "") for d in ("2026-11-07", "2025-11-01", "2024-11-02",
+                                                    "2023-11-04", "2022-11-05")),
+      "...its months are [10, 11], and '_months' names the five editions they come from")
+for months in ([11], [1, 12], None):
+    try:
+        A.validate_site(dict(SITE, months=months))
+        check(True, f"months {months} is a valid entry")
+    except ValueError as exc:
+        check(False, f"months {months} is a valid entry: {exc}")
+for bad, why in ((dict(SITE, months=[]), "months"), (dict(SITE, months=[0]), "months"),
+                 (dict(SITE, months=[13]), "months"), (dict(SITE, months=[11, 11]), "months"),
+                 (dict(SITE, months="11"), "months"), (dict(SITE, months=[True]), "months"),
+                 (dict(SITE, months=[11.0]), "months"),
+                 (dict(SITE, name_rx=None), "name_rx"),
                  (dict(SITE, pages=["https://elsewhere.example/dates"]), "every page"),
                  (dict(SITE, shape="week"), "shape"),
                  (dict(SITE, timezone="Seattle"), "timezone"),

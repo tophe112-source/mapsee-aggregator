@@ -23,7 +23,12 @@ A resolution has to be BACKED by the repository, not asserted:
                 reason
     held        a dated reason
     pending     a dated reason, and no older than PENDING_DAYS: a miss nobody
-                has resolved in a month is a failure, not a backlog
+                has resolved in a month is a failure, not a backlog. The age
+                is read against MAPSEE_TODAY when it is set, and fails then.
+                Unset, it is read against the wall clock, and an ageing seed
+                is a WARN line that fails nothing: tests.yml runs on push
+                only, and a push gate must break only when the code changes
+                (2026-11-08 review)
 
 and a seed stores a URL, never a contact address (Short Run's published
 contact is a personal mailbox).
@@ -33,7 +38,8 @@ missing, the real seeds are checked against a fixture handed in through
 check_seeds()'s `annual` parameter, and the real-file case runs whenever the
 file exists. No network.
 
-Run: python test_seeds.py        (MAPSEE_TODAY=YYYYMMDD fixes "today")
+Run: python test_seeds.py        (MAPSEE_TODAY=YYYYMMDD fixes "today", and
+                                  makes an ageing pending seed a failure)
 """
 import datetime as dt
 import json
@@ -74,11 +80,17 @@ def host_of(url):
     return re.sub(r"^www\.", "", h.lower().rstrip("."))
 
 
-def _today():
-    env = os.environ.get("MAPSEE_TODAY")
-    if env and re.fullmatch(r"\d{8}", env):
-        return dt.date(int(env[:4]), int(env[4:6]), int(env[6:8]))
-    return dt.date.today()
+def _pinned(env=os.environ):
+    """MAPSEE_TODAY as a date, or None when it is unset (or not YYYYMMDD)."""
+    v = env.get("MAPSEE_TODAY")
+    if v and re.fullmatch(r"\d{8}", v):
+        return dt.date(int(v[:4]), int(v[4:6]), int(v[6:8]))
+    return None
+
+
+def _load(path):
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)
 
 
 def configured_hosts():
@@ -91,7 +103,7 @@ def configured_hosts():
         if not os.path.exists(p):
             continue
         try:
-            doc = json.load(open(p, encoding="utf-8"))
+            doc = _load(p)
         except ValueError:
             continue
         for _name, url in cc._walk_urls(doc):
@@ -109,11 +121,13 @@ def _dated_reason(res):
             and isinstance(res.get("date"), str) and bool(_DATE.match(res["date"])))
 
 
-def check_seeds(doc, annual, config_hosts, declined, today):
+def check_seeds(doc, annual, config_hosts, declined, today, aged=None):
     """Problems with a seeds document, as a list of strings ([] when clean).
 
     `annual` is the annual_sources.json document (or a fixture); the host sets
-    come from configured_hosts() / declined_hosts() or a fixture."""
+    come from configured_hosts() / declined_hosts() or a fixture. A pending
+    seed older than PENDING_DAYS on `today` is a problem, unless an `aged`
+    list is passed: then it goes there instead, and the caller decides."""
     out = []
     classes = doc.get("_classes") if isinstance(doc, dict) else None
     if not isinstance(classes, dict) or not classes:
@@ -173,13 +187,27 @@ def check_seeds(doc, annual, config_hosts, declined, today):
             if state == "pending" and _DATE.match(str(seed.get("reported") or "")):
                 age = (today - dt.date.fromisoformat(seed["reported"])).days
                 if age > PENDING_DAYS:
-                    out.append(f"{tag}: pending for {age} days (limit {PENDING_DAYS})")
+                    (out if aged is None else aged).append(
+                        f"{tag}: pending for {age} days (limit {PENDING_DAYS})")
+    return out
+
+
+def gate(doc, annual, config_hosts, declined, today, pinned, warned):
+    """check_seeds() as this script runs it on the real seeds. `pinned` is
+    MAPSEE_TODAY's date, or None: unpinned, `today` is the wall clock, so a
+    pending seed that ages past PENDING_DAYS goes into `warned` (a set) and
+    fails nothing. Pinned, it fails like every other problem."""
+    aged = None if pinned else []
+    out = check_seeds(doc, annual, config_hosts, declined, today, aged)
+    warned.update(aged or [])
     return out
 
 
 # ---------------------------------------------------------------------------
-TODAY = _today()
-SEEDS_DOC = json.load(open(SEEDS, encoding="utf-8"))
+PINNED = _pinned()
+TODAY = PINNED or dt.date.today()
+WARNED = set()
+SEEDS_DOC = _load(SEEDS)
 CONFIG_HOSTS = configured_hosts()
 DECLINED_HOSTS = declined_hosts()
 
@@ -189,13 +217,13 @@ FIXTURE_ANNUAL = {"sites": [{"key": "short-run", "name": "Short Run Comix Festiv
                              "name_rx": r"short\s+run", "url": "https://shortrun.org/"}]}
 
 check("the real seeds against an annual_sources.json fixture",
-      lambda: check_seeds(SEEDS_DOC, FIXTURE_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY) == [],
-      check_seeds(SEEDS_DOC, FIXTURE_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY))
+      lambda: gate(SEEDS_DOC, FIXTURE_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY, PINNED, WARNED) == [],
+      gate(SEEDS_DOC, FIXTURE_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY, PINNED, WARNED))
 if os.path.exists(ANNUAL):
-    REAL_ANNUAL = json.load(open(ANNUAL, encoding="utf-8"))
+    REAL_ANNUAL = _load(ANNUAL)
     check("the real seeds against the real annual_sources.json",
-          lambda: check_seeds(SEEDS_DOC, REAL_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY) == [],
-          check_seeds(SEEDS_DOC, REAL_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY))
+          lambda: gate(SEEDS_DOC, REAL_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY, PINNED, WARNED) == [],
+          gate(SEEDS_DOC, REAL_ANNUAL, CONFIG_HOSTS, DECLINED_HOSTS, TODAY, PINNED, WARNED))
 else:
     print("skip  annual_sources.json does not exist yet; the fixture case stands in for it")
 
@@ -280,6 +308,22 @@ check("pending: 30 days old with a dated reason passes",
 check("pending: 31 days old fails",
       lambda: any("pending for 31 days" in p for p in problems(doc_with(reported="2026-10-08", resolution={
           "state": "pending", "reason": "r", "date": "2026-10-08"}))))
+# The push gate reads the wall clock unless MAPSEE_TODAY pins it (2026-11-08
+# review): unpinned, the same seed is a WARN line and no failure.
+OLD = doc_with(reported="2026-10-08", resolution={"state": "pending", "reason": "r", "date": "2026-10-08"})
+W_UNPINNED, W_PINNED = set(), set()
+check("pending: 31 days old, MAPSEE_TODAY unset: no failure, one warning",
+      lambda: gate(OLD, FIXTURE_ANNUAL, HOSTS, DECL, D, None, W_UNPINNED) == []
+      and W_UNPINNED == {"https://shortrun.org/: pending for 31 days (limit 30)"}, W_UNPINNED)
+check("pending: 31 days old, MAPSEE_TODAY set: it fails, and nothing is only a warning",
+      lambda: any("pending for 31 days" in p for p in gate(OLD, FIXTURE_ANNUAL, HOSTS, DECL, D, D, W_PINNED))
+      and W_PINNED == set())
+check("unpinned, every other problem still fails (a held seed with no date)",
+      lambda: any("held needs" in p for p in gate(doc_with(resolution={"state": "held", "reason": "r"}),
+                                                  FIXTURE_ANNUAL, HOSTS, DECL, D, None, set())))
+check("MAPSEE_TODAY=20261108 pins 2026-11-08; unset, or not YYYYMMDD, pins nothing",
+      lambda: _pinned({"MAPSEE_TODAY": "20261108"}) == D and _pinned({}) is None
+      and _pinned({"MAPSEE_TODAY": "2026-11-08"}) is None)
 check("a contact address anywhere in a seed fails",
       lambda: any("contact address" in p for p in problems(doc_with(why="write to someone@example.com"))))
 check("a mailto: url fails as not http(s)",
@@ -288,6 +332,8 @@ check("an unknown state fails",
       lambda: any("resolution.state" in p for p in problems(doc_with(resolution={"state": "done"}))))
 
 print()
+for w in sorted(WARNED):
+    print(f"WARN  {w} (MAPSEE_TODAY is unset, so this is the wall clock and fails nothing)")
 if fails:
     print(f"{len(fails)} FAILED")
     sys.exit(1)

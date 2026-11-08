@@ -2633,16 +2633,17 @@
   let half an address through: an address cut inside its domain no longer looks
   like one to `_EMAIL`, and "+44 20 7946 " no longer looks like a phone number
   to `_PHONE`. On the 2026-11-07 audit 11 of 6,728 candidate samples ended
-  inside an address or a phone-like run, 10 of them genuine ("questions to:
-  info@chessp" x4, "contact filmfestival@" x3, "email support@rtea", "email
-  access@chip", "Wexford Library 053 919 6"). None was among the 155 kept, so
+  inside an address or a phone-like run, 10 of them genuine: an info@ address
+  cut inside its domain (four), a festival's address cut right after its @
+  (three), two more addresses cut inside their domains, and a library's number
+  cut after its seventh digit. None was among the 155 kept, so
   the committed queue was clean ("@" appears in it only as "@ Traditional").
   `mask()` now replaces every address and phone number in the WHOLE description
   with a placeholder of the same length, and `excerpt()` cuts the masked text
   and drops any word the cut split; referrer titles, cut at 140 characters, go
   through the same two steps. Re-scanned, 0 of the 6,728 samples end in an
   address or phone fragment. The 7 samples that still contain "x@y" are a
-  handle with no domain ("instagram@jrsdks"), a street corner
+  handle with no domain (an "instagram@" handle), a street corner
   ("CentreSt@CoreySt") and a festival's name ("Music@Menlo" x5), all refused as
   no-frame. The whole-word edges changed the text of 115 of the 155 kept
   samples, but a sample is written only when a mention is created, so the

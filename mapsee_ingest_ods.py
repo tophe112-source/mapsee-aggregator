@@ -68,6 +68,11 @@ on requests. Only the `>=` form of that literal has been seen to parse here;
 if the portal answers 400 to a windowed query, the plain read of the original
 query runs from the page already in hand, so a window never keeps less than
 the plain read did (a 403, a 429 or a dead connection still ends the walk).
+A 403 or a 429, in either read, is the operator refusing this reader, not
+one query: the host goes into main()'s `refused` and no later source on it
+is asked in that run. Both OpenAgenda entries are on public.opendatasoft.com,
+and France's windows raise its share of that host from about 100 requests
+to up to 500 (test_ingest_ods.py, 12).
 A source WITHOUT `window`, or one under the cap, takes the old path with the
 same requests as before; an over-cap source without `window` now says how
 many rows it did not read instead of saying nothing.
@@ -86,7 +91,7 @@ about 9 min of its 60-minute timeout; the civic job ran 113-167 min of its 300
 
 THE BUDGET, PART TWO: THE SYNC, WHICH IS WHERE THE TIME GOES. Every row read
 here is written by the civic job's "Sync feeds to Supabase" step, and that
-step, not this one, is the limit: `timeout-minutes` 60 for civic, and a step
+step, not this one, is the limit: `timeout-minutes` was 60 for civic; a step
 cut off at it is a failure that turns the job red and loses the rest of that
 day's writes. Measured from CI logs, civic group: the Wednesday full refresh
 took 43.7 (2026-10-21), 22.6 (10-28) and 39.8 min (11-04); only-new days
@@ -104,13 +109,18 @@ description is a compared column. Taking the worst of each measurement:
     = 60.6 min (each of the three Wednesdays with its own rates: 27-55 min)
   - first windowed run ON a Wednesday: the line above plus the 20,018 inserts
     at 70.8 ms = 84.2 min (each Wednesday with its own rates: 32-79 min).
-So France's max is 30,000, not more, and the sync step needs 90 minutes for
-civic; test_ingest_ods.py section 11 reads that timeout from the workflow and
-fails while the worst case does not fit. At 60 minutes the largest max that
-fits is about 12,400; at 90 it is about 34,200. At max 45,000 the same worst
-case is 104.8 min. After the first windowed Wednesday the steady cost is
-small: the rows are stored and identical, and each day's new far end is about
-one day of the window. That steady cost, and the first run's, are UNMEASURED
+So France's max is 30,000, not more. The same step also inserts, once, the
+rows Mobilizon's change of the same commit adds (START_TIME_ASC, max_pages
+55/25/20): its captured full run of 2026-11-08, replayed offline with the
+committed config, stores 11,657 records, 8,117 of them with a fingerprint the
+civic job's 2026-11-07 store (run 42375501479, sync "success") lacks, an upper
+bound (test_ingest_ods.py's MOBILIZON_NEW_ROWS). With both, the three cases
+above are 48.5, 62.2 and 95.4 min, so the civic sync step has 105 minutes;
+section 11 reads that timeout from the workflow and fails while any case does
+not fit. At 105 the largest France max that fits is about 37,000; at 90 about
+26,100. After the first windowed Wednesday the steady cost is small: the
+rows are stored and identical, and each day's new far end is about one day of
+the window. That steady cost, and the first run's, are UNMEASURED
 until the first windowed run's log.
 
 The exports endpoint (/exports/json on the same Explore v2.1 API) has no offset
@@ -290,7 +300,21 @@ def _base_conds(src: Dict[str, Any]) -> List[str]:
     return conds
 
 
-def ingest_source(store: EventStore, session, src: Dict[str, Any]) -> int:
+# A 403 or a 429 is the operator refusing this reader, not one query (header).
+REFUSED_STATUSES = (403, 429)
+
+
+def _refuse(refused: Optional[Dict[str, str]], src: Dict[str, Any], status: Any) -> None:
+    """Record the source's host as refused for the rest of the run, when the
+    failure was a 403 or a 429 and the caller keeps a `refused` map."""
+    if refused is not None and status in REFUSED_STATUSES:
+        refused.setdefault(src["domain"], f"HTTP {status} to {src['name']}")
+
+
+def ingest_source(store: EventStore, session, src: Dict[str, Any],
+                  refused: Optional[Dict[str, str]] = None) -> int:
+    """Read one source into the store. `refused` (host -> why), when given,
+    gains the source's host on a 403 or a 429 in either read path."""
     m = src["map"]
     base = f"https://{src['domain']}/api/explore/v2.1/catalog/datasets/{src['dataset']}/records"
     _attribution(src)                                  # a bad credit fails the source up front
@@ -305,11 +329,13 @@ def ingest_source(store: EventStore, session, src: Dict[str, Any]) -> int:
         params = {"where": where, "limit": PAGE, "offset": offset}
         if order:
             params["order_by"] = order
+        r = None
         try:
             r = session.get(base + "?" + urllib.parse.urlencode(params), timeout=45)
             r.raise_for_status()
         except Exception as exc:
             print(f"[ods] {src['name']} offset {offset} failed: {exc}")
+            _refuse(refused, src, getattr(r, "status_code", None))
             break
         payload = r.json() or {}
         if offset == 0:
@@ -319,7 +345,7 @@ def ingest_source(store: EventStore, session, src: Dict[str, Any]) -> int:
             # decision costs no request. Under the cap nothing below changes.
             if win and total is not None and total >= OFFSET_CAP:
                 return ingest_windowed(store, session, src, base, conds, total, win,
-                                       payload.get("results") or [])
+                                       payload.get("results") or [], refused=refused)
         rows = payload.get("results") or []
         if not rows:
             break
@@ -348,7 +374,8 @@ class _Stop(Exception):
 
 def ingest_windowed(store: EventStore, session, src: Dict[str, Any], base: str,
                     conds: List[str], total: int, limits: Tuple[int, int],
-                    first_rows: Optional[List[Dict[str, Any]]] = None) -> int:
+                    first_rows: Optional[List[Dict[str, Any]]] = None,
+                    refused: Optional[Dict[str, str]] = None) -> int:
     """Read an over-cap query in consecutive date windows, earliest first.
 
     A window is (lo, hi): day offsets from today on the start column, None for
@@ -413,8 +440,10 @@ def ingest_windowed(store: EventStore, session, src: Dict[str, Any], base: str,
             r.raise_for_status()
             payload = r.json() or {}
         except Exception as exc:
-            # One failure ends the walk, as one ends the plain read: a 403 or a
-            # 429 is a refusal and is not asked again, with or without a window.
+            # One failure ends the walk, as one ends the plain read. A 403 or a
+            # 429 is a refusal: the caller puts the host in `refused`, so main()
+            # asks no later source on it this run (the other OpenAgenda entry is
+            # on the same host), with or without a window.
             stop = _Stop(f"failure at offset {offset}: {exc}")
             stop.status = getattr(r, "status_code", None)
             raise stop
@@ -503,6 +532,9 @@ def ingest_windowed(store: EventStore, session, src: Dict[str, Any], base: str,
             read(" and ".join(conds), first_rows or None)
         except _Stop as stop:
             print(f"[ods] {name}: the plain read stopped by the {stop} at offset {pos}")
+            _refuse(refused, src, getattr(stop, "status", None))
+    elif stopped is not None:
+        _refuse(refused, src, getattr(stopped, "status", None))
     print(f"[ods] {name}: kept {kept} events")
     return kept
 
@@ -517,9 +549,15 @@ def main(argv=None) -> int:
     session.headers.update({"User-Agent": UA, "Accept": "application/json", "Accept-Encoding": "identity"})
     store = EventStore(a.store)
     total = 0
+    refused: Dict[str, str] = {}                           # host -> why, for the rest of the run
     for src in cfg.get("sources", []):
+        host = src.get("domain")
+        if host in refused:
+            print(f"[ods] {src.get('name', '?')}: not asked; {host} refused this run "
+                  f"({refused[host]}), and a refusal is not asked again")
+            continue
         try:
-            total += ingest_source(store, session, src)
+            total += ingest_source(store, session, src, refused)
         except Exception as exc:                           # one dataset failing must not abort the rest
             print(f"[ods] {src.get('name','?')} FAILED: {exc}")
     store.save()

@@ -18,8 +18,11 @@ never read, and nothing said so. mapsee_ingest_ods now reads a source with a
     before (1, 7)
   - the credit line survives the sync's description cap (10)
   - the real config fits the step's timeout at its bounds, and the rows it
-    adds fit the civic SYNC step's timeout on the worst landing day, a
-    Wednesday full refresh (11) - this fails until that step has 90 minutes
+    adds, with Mobilizon's one-off rows of the same commit, fit the civic
+    SYNC step's timeout on the worst landing day, a Wednesday full refresh
+    (11) - 95.4 min projected, so this fails below 96 minutes
+  - a 403 or a 429, windowed or plain, refuses the HOST: main() asks no
+    later source on it that run; a 400 does not, nor another host (12)
 
 FakeODS is the portal: it answers 400 past the cap, as the portal does, and it
 fails the test on a `where` clause it cannot parse rather than matching
@@ -107,8 +110,9 @@ class _Resp:
 class FakeODS:
     """The Explore v2.1 /records endpoint over an in-memory dataset."""
 
-    def __init__(self, rows, fail_at=None, reject=None):
+    def __init__(self, rows, fail_at=None, reject=None, fail_status=429):
         self.rows, self.fail_at, self.reject = rows, fail_at, reject
+        self.fail_status = fail_status
         self.calls, self.urls, self.refused = [], [], 0
         self._cache = {}
 
@@ -119,7 +123,7 @@ class FakeODS:
         self.calls.append({"where": where, "offset": offset, "limit": limit, "order_by": order})
         self.urls.append(url)
         if self.fail_at is not None and len(self.calls) == self.fail_at:
-            return _Resp({"error_code": "TooManyRequests"}, 429)
+            return _Resp({"error_code": "TooManyRequests"}, self.fail_status)
         if self.reject is not None and self.reject(where):
             return _Resp({"error_code": "ODSQLError", "message": "unsupported query"}, 400)
         if limit > 100 or offset + limit > CAP:
@@ -229,6 +233,22 @@ STATE_READ_MS = 7.4
 PLAIN_KEPT = {"OpenAgenda France": 9982}
 MEASURED_KEPT = {"OpenAgenda France": 9990,
                  "OpenAgenda (GB/IE/DE/NL/CA/BE/CH/ES/IT/SE)": 976}
+# THE OTHER ADAPTER THAT SHIPPED NEW ROWS INTO THE SAME STEP. Mobilizon's
+# change of the same commit (START_TIME_ASC; max_pages 55 ticketzon, 25
+# mobilisons, 20 mobilizon.fr) is synced by the same civic "Sync feeds to
+# Supabase" step. Replayed offline from its captured full run of 2026-11-08
+# (every configured site, production User-Agent) through the real ingest_site
+# with the committed mobilizon_sources.json: 11,657 store records, of which
+# 8,117 have a fingerprint (the sync's external_id) that the civic job's
+# 2026-11-07 store lacks (run 42375501479, ingest_mobilizon and sync both
+# "success"; 212,193 records, 4,377 from Mobilizon). Carried by (a record on
+# two sites counts for both): ticketzon 5,042, mobilisons 1,612, mobilizon.fr
+# 1,046, each French mirror 382-438, di.day 377, eight small sites 29. A
+# rebuild of the old read from the same capture (latest start first, 5
+# pages) agrees: 8,089. An UPPER bound: the table may
+# hold rows that store had dropped, and only 6,561 of the 8,117 carry
+# coordinates (the sync drops the rest unwritten); all are counted here.
+MOBILIZON_NEW_ROWS = 8117
 
 _TOKEN = re.compile(r"\s*(matrix\.group|'[^']*'|\d+|==|!=|&&|\|\||\(|\))")
 
@@ -524,9 +544,11 @@ def main():
     # there, the step fails, the job turns red and the rest of the day's
     # writes are lost. The worst day is the first windowed run landing ON a
     # Wednesday full refresh: each windowed source's new rows (its max, less
-    # what the plain read already kept) prepared and inserted, and every row
-    # of a credited source already stored rewritten for its new last
-    # paragraph. Worst of each measurement, civic CI logs 2026-10-21..11-07:
+    # what the plain read already kept) and Mobilizon's one-off rows of the
+    # same commit prepared and inserted, and every row of a credited source
+    # already stored rewritten for its new last paragraph. All three
+    # projections must fit; the failure prints them all. Worst of each
+    # measurement, civic CI logs 2026-10-21..11-07:
     # a 43.7-min Wednesday, 70.8 ms an upserted row, 11.8 ms to prepare one.
     for expr, group, want in (
             ("${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}", "civic", 60),
@@ -542,21 +564,122 @@ def main():
     sync_min = _timeout_minutes(m.group(1), "civic") if m else None
     checks.append((sync_min is not None,
                    f"the civic sync step's timeout-minutes is read from the workflow ({sync_min})"))
-    new_rows = sum(int(x["max"]) - PLAIN_KEPT.get(x["name"], 0) for x in windowed)
+    # Mobilizon's one-off rows (MOBILIZON_NEW_ROWS) land on the same first run
+    # and cost what France's do: inserted that day, prepared on a Wednesday.
+    ods_new = sum(int(x["max"]) - PLAIN_KEPT.get(x["name"], 0) for x in windowed)
+    new_rows = ods_new + MOBILIZON_NEW_ROWS
     credited = sum(MEASURED_KEPT.get(x["name"], int(x.get("max", 6000)))
                    for x in sources if ODS._attribution(x))
     weekday = SYNC_ONLY_NEW_MIN + new_rows * (UPSERT_MS + STATE_READ_MS) / 60000
     after = SYNC_WEDNESDAY_MIN + credited * UPSERT_MS / 60000 + new_rows * PREPARE_MS / 60000
     on_wed = after + new_rows * UPSERT_MS / 60000
     fits = int(PLAIN_KEPT["OpenAgenda France"] + max(0.0, (sync_min or 0) - SYNC_WEDNESDAY_MIN
-               - credited * UPSERT_MS / 60000) * 60000 / (UPSERT_MS + PREPARE_MS))
-    checks.append((sync_min is not None and on_wed <= sync_min,
+               - credited * UPSERT_MS / 60000
+               - MOBILIZON_NEW_ROWS * (UPSERT_MS + PREPARE_MS) / 60000)
+               * 60000 / (UPSERT_MS + PREPARE_MS))
+    checks.append((sync_min is not None and max(weekday, after, on_wed) <= sync_min,
                    f"the civic sync step at its worst: a first windowed run on a weekday "
                    f"{weekday:.1f} min, the Wednesday after {after:.1f}, ON a Wednesday "
-                   f"{on_wed:.1f}, of its {sync_min}-minute timeout ({new_rows:,} new rows, "
-                   f"{credited:,} credited; France's max fits up to about {fits:,})"))
+                   f"{on_wed:.1f}, of its {sync_min}-minute timeout ({new_rows:,} new rows: "
+                   f"{ods_new:,} OpenAgenda + {MOBILIZON_NEW_ROWS:,} Mobilizon; {credited:,} "
+                   f"credited; France's max fits up to about {fits:,})"))
     checks.append(("MapseeAggregator/1.0" in ODS.UA and "+https://mapsee.me" in ODS.UA,
                    "the module's own User-Agent is unchanged"))
+
+    # ----------------------------------------- 12. a refusal is the host's
+    #
+    # Both OpenAgenda entries are on public.opendatasoft.com, France first. A
+    # 429 or a 403 is the operator refusing the reader, so after France earns
+    # one main() must not ask the next entry on that host in the same run (a
+    # review, 2026-11-08: it did, at once). Another host is still asked, and a
+    # 400 (the portal rejecting a query) refuses nothing. Through main(), with
+    # the real two OpenAgenda entries and a third source on another host.
+    oa = [x for x in sources if x["domain"] == "public.opendatasoft.com"]
+    checks.append((len(oa) >= 2 and oa[0]["name"] == "OpenAgenda France",
+                   f"ods_sources.json: OpenAgenda France and {len(oa) - 1} more source(s) "
+                   f"share public.opendatasoft.com"))
+    other = src(name="Other host", domain="other.test", countries=["FR"])
+
+    class _Hosts:
+        """A requests.Session stand-in that routes each URL to a FakeODS by host."""
+
+        def __init__(self, by_host):
+            self.by_host, self.headers, self.asked = by_host, {}, []
+
+        def get(self, url, timeout=None):
+            host = urllib.parse.urlsplit(url).hostname
+            self.asked.append(host)
+            return self.by_host[host].get(url, timeout=timeout)
+
+    def run_main(by_host, config_sources):
+        sess = _Hosts(by_host)
+        real_requests = ODS.requests
+        ODS.requests = type("R", (), {"Session": staticmethod(lambda: sess)})
+        out = io.StringIO()
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                cfgp = os.path.join(d, "ods.json")
+                with open(cfgp, "w", encoding="utf-8") as fh:
+                    json.dump({"sources": config_sources}, fh)
+                with contextlib.redirect_stdout(out):
+                    rc = ODS.main(["--config", cfgp, "--store", os.path.join(d, "s.json")])
+        finally:
+            ODS.requests = real_requests
+        return rc, sess, out.getvalue()
+
+    os.environ["MAPSEE_TODAY"] = TODAY
+    over = dataset([(0, 29, 15000), (30, 89, 10000)])        # France is over the cap
+    small = dataset([(0, 89, 300)], extras=False)
+    gb = [_row(f"gb{i:03d}", NOW + timedelta(days=1 + i % 80), country="GB") for i in range(50)]
+    # France's first page reports 25,090, so the windowed read takes over; its
+    # first windowed request (the portal's second) gets 429.
+    shared = FakeODS(over + gb, fail_at=2)
+    rc, sess, log = run_main({"public.opendatasoft.com": shared, "other.test": FakeODS(small)},
+                             [oa[0], oa[1], other])
+    checks.append((rc == 0 and len(shared.calls) == 2
+                   and sess.asked.count("public.opendatasoft.com") == 2
+                   and "windowed read stopped by the failure" in log,
+                   f"a 429 in France's windowed read: public.opendatasoft.com asked "
+                   f"{sess.asked.count('public.opendatasoft.com')} times, the second refused, "
+                   f"never again"))
+    checks.append((f"{oa[1]['name']}: not asked; public.opendatasoft.com refused this run "
+                   f"(HTTP 429 to OpenAgenda France)" in log,
+                   "...the next source on that host is not asked, and the log says why"))
+    checks.append((sess.asked.count("other.test") == 4 and "Other host: kept 300 events" in log,
+                   f"...and a source on another host still is "
+                   f"({sess.asked.count('other.test')} requests, all 300 kept)"))
+
+    # The plain read: a 403 on France's first page, no window involved.
+    plain_fr = dict(oa[0]); plain_fr.pop("window", None)
+    shared = FakeODS(over + gb, fail_at=1, fail_status=403)
+    rc, sess, log = run_main({"public.opendatasoft.com": shared, "other.test": FakeODS(small)},
+                             [plain_fr, oa[1], other])
+    checks.append((len(shared.calls) == 1 and "(HTTP 403 to OpenAgenda France)" in log
+                   and sess.asked.count("other.test") == 4,
+                   f"a 403 on the plain read refuses the host too ({len(shared.calls)} request "
+                   f"to it), and the other host is still read"))
+
+    # The windowed read's own fallback: every date window answers 400, the
+    # plain read takes over from the page in hand, and ITS next page gets 429.
+    shared = FakeODS(over + gb, fail_at=3, reject=lambda w: "date'" in w)
+    rc, sess, log = run_main({"public.opendatasoft.com": shared, "other.test": FakeODS(small)},
+                             [oa[0], oa[1], other])
+    checks.append((len(shared.calls) == 3 and "the plain read stopped by the failure" in log
+                   and "(HTTP 429 to OpenAgenda France)" in log,
+                   f"a 429 in the plain read a windowed 400 fell back to refuses the host "
+                   f"({len(shared.calls)} requests to it)"))
+
+    # A 400 is the query, not the reader: the next source on the host is asked.
+    shared = FakeODS(over + gb, reject=lambda w: "'FR'" in w and "date'" not in w)
+    rc, sess, log = run_main({"public.opendatasoft.com": shared, "other.test": FakeODS(small)},
+                             [plain_fr, oa[1], other])
+    gb_asked = [c for c in shared.calls if "'GB'" in c["where"]]
+    theirs = sum(1 for r in over + gb if r["location_countrycode"] in oa[1]["countries"]
+                 and NOW <= r["_dt"] <= NOW + timedelta(days=90))
+    checks.append((len(gb_asked) >= 1 and "not asked" not in log
+                   and f"{oa[1]['name']}: kept {theirs} events" in log,
+                   f"a 400 refuses nothing: the next source on the host is still asked "
+                   f"({len(gb_asked)} request(s), its {theirs} rows kept)"))
 
     failed = 0
     for ok, why in checks:
