@@ -41628,6 +41628,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arneshreppur.is": {
+    "checked": 20261108,
+    "name": "\u00c1rneshreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "arnhem.nl": {
     "checked": 20261008,
     "name": "Arnhem",
@@ -45334,6 +45341,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "asahreppur.is": {
+    "checked": 20261108,
+    "name": "\u00c1sahreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "asaintlaurent.com": {
     "checked": 20261101,
@@ -248802,6 +248816,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "drangsnes.is": {
+    "checked": 20261108,
+    "name": "Kaldrananeshreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "draperutah.gov": {
     "checked": 20260908,
     "name": "Draper",
@@ -271684,6 +271705,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "en.bildudalur.is": {
+    "checked": 20261108,
+    "name": "B\u00edldudalur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "en.cechurch.org": {
     "checked": 20261107,
     "name": "Chinese Evangelical Church",
@@ -287856,6 +287884,13 @@
   "eyjafjardarsveit.is": {
     "checked": 20260921,
     "name": "Eyjafjar\u00f0arsveit",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "eyjaogmikla.is": {
+    "checked": 20261108,
+    "name": "Eyja- og Miklaholtshreppur",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -307239,6 +307274,13 @@
   "fljotsdalsherad.is": {
     "checked": 20260921,
     "name": "Flj\u00f3tsdalsh\u00e9ra\u00f0",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "fljotsdalur.is": {
+    "checked": 20261108,
+    "name": "Flj\u00f3tsdalshreppur",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -349703,6 +349745,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "grenivik.is": {
+    "checked": 20261108,
+    "name": "Gr\u00fdtubakkahreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "grenoble.ecles.fr": {
     "checked": 20261028,
@@ -453517,6 +453566,13 @@
     "reason": "1 events / 0 future",
     "status": "empty",
     "type": "jsonld"
+  },
+  "kjos.is": {
+    "checked": 20261108,
+    "name": "Kj\u00f3sarhreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kjp-bernsteinstrasse.de": {
     "checked": 20261025,
@@ -698753,6 +698809,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "reykholar.is": {
+    "checked": 20261108,
+    "name": "Reykh\u00f3lahreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "reykjanesbaer.is": {
     "checked": 20260921,
     "name": "Reykjanesb\u00e6r",
@@ -758966,9 +759029,23 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "skagabyggd.is": {
+    "checked": 20261108,
+    "name": "Skagabygg\u00f0",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "skagafjordur.is": {
     "checked": 20260921,
     "name": "Skagafj\u00f6r\u00f0ur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "skagastrond.is": {
+    "checked": 20261108,
+    "name": "Sveitarf\u00e9lagi\u00f0 Skagastr\u00f6nd",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -760254,6 +760331,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "skorradalur.is": {
+    "checked": 20261108,
+    "name": "Skorradalshreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "skovbakkenodder.dk": {
     "checked": 20260831,
@@ -814133,6 +814217,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sudavik.is": {
+    "checked": 20261108,
+    "name": "S\u00fa\u00f0av\u00edkurhreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "sudetendeutsches-museum.de/veranstaltungen/?ical=1": {
     "checked": 20261023,
     "name": "Sudetendeutsches Museum",
@@ -863875,6 +863966,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tjorneshreppur.is": {
+    "checked": 20261108,
+    "name": "Tj\u00f6rneshreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "tjoy.jp/t-joy_hakata": {
     "checked": 20260927,
