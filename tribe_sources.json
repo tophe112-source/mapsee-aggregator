@@ -40901,6 +40901,872 @@
         "lon": -97.6519655
       },
       "_metro": "Austin, United States"
+    },
+    {
+      "name": "Mexic-Arte Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://mexic-artemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mexic-Arte Museum",
+        "address": "419 Congress Avenue",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78701",
+        "lat": 30.2668383,
+        "lon": -97.7428148
+      },
+      "_metro": "Austin, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "First Unitarian Universalist Church of San Antonio",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://uusat.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Unitarian Universalist Church of San Antonio",
+        "address": "7150 Interstate Highway 10 West",
+        "city": "San Antonio",
+        "postal_code": "78213",
+        "lat": 29.499661,
+        "lon": -98.5468699
+      },
+      "_metro": "San Antonio, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "ChildSafe",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.childsafe-sa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ChildSafe",
+        "address": "3730 Interstate 10 East",
+        "postal_code": "78220",
+        "lat": 29.4214925,
+        "lon": -98.422621
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "The Carver Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thecarver.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Carver Center",
+        "lat": 29.4218045,
+        "lon": -98.4717573
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "The Witte Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.wittemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Witte Museum",
+        "address": "3801 Broadway",
+        "city": "San Antonio",
+        "region": "TX",
+        "postal_code": "78209",
+        "lat": 29.4619987,
+        "lon": -98.4672946
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Highland Hills Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sanantoniohighlandhillstx.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Highland Hills Seventh Day Adventist Church",
+        "address": "2526 Goliad Road",
+        "city": "San Antonio",
+        "region": "TX",
+        "postal_code": "78223",
+        "lat": 29.3588063,
+        "lon": -98.4347692
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Guadalupe County Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://guadalupecountymastergardeners.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Guadalupe County Community Garden",
+        "lat": 29.566407,
+        "lon": -98.260455
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Empower House",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://empowerhousesa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Empower House",
+        "address": "801 North Olive Street",
+        "city": "San Antonio",
+        "region": "TX",
+        "postal_code": "78202",
+        "lat": 29.4297417,
+        "lon": -98.4720648
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Walters Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://thewalters.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Walters Art Museum",
+        "lat": 39.2965698,
+        "lon": -76.6161063
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "The Ivy Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.theivybookshop.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Ivy Bookshop",
+        "address": "5928 Falls Road",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21209",
+        "lat": 39.369955,
+        "lon": -76.6492936
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Baltimore Clayworks",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event",
+      "base_url": "https://baltimoreclayworks.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Baltimore Clayworks",
+        "lat": 39.3681698,
+        "lon": -76.6532727
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Saint John the Evangelist Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://sjcolumbia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint John the Evangelist Catholic Church",
+        "lat": 39.2192418,
+        "lon": -76.872575
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "RISE Early Learning and Family Support Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://marylandfamilynetwork.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RISE Early Learning and Family Support Center",
+        "address": "940 Madison Avenue",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21201",
+        "country": "US",
+        "lat": 39.3003736,
+        "lon": -76.6240439
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Clifton Pleasure Club",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://cpcbalt.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clifton Pleasure Club",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21214",
+        "lat": 39.3436688,
+        "lon": -76.5735761,
+        "street_hint": "2803 Grindon Avenue"
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Baltimore Museum of Industry",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.thebmi.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Baltimore Museum of Industry",
+        "region": "MD",
+        "lat": 39.2737558,
+        "lon": -76.6009983
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Set the Captives Free Outreach Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stcfoc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Set the Captives Free Outreach Center",
+        "address": "7111 Windsor Boulevard",
+        "city": "Windsor Mill",
+        "region": "MD",
+        "postal_code": "21244",
+        "country": "US",
+        "lat": 39.3330815,
+        "lon": -76.747417
+      },
+      "_metro": "Baltimore, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Moses Montefiore Anshe Emunah",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mmae.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Moses Montefiore Anshe Emunah",
+        "address": "7000 Rockland Hills Drive",
+        "city": "Mount Washington",
+        "region": "MD",
+        "postal_code": "21209",
+        "lat": 39.384804,
+        "lon": -76.6689217
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Town Square",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.townsquare.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Town Square",
+        "address": "9708 Belair Road",
+        "city": "Nottingham",
+        "region": "MD",
+        "postal_code": "21236",
+        "lat": 39.4171045,
+        "lon": -76.4597028
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Northeast Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://northeastsdaparkville.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Northeast Seventh-Day Adventist Church",
+        "address": "1834 A East Joppa Road",
+        "city": "Parkville",
+        "region": "MD",
+        "postal_code": "21234",
+        "lat": 39.4012012,
+        "lon": -76.5527423
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Mount Pleasant Church and Ministries",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mountpleasant.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Pleasant Church and Ministries",
+        "address": "6000 Radecke Avenue",
+        "city": "Raspeburg",
+        "region": "MD",
+        "postal_code": "21206",
+        "lat": 39.3322199,
+        "lon": -76.5301903
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Monument City Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event",
+      "base_url": "https://monumentcitybrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Monument City Brewing",
+        "address": "1 North Haven Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21224",
+        "country": "US",
+        "lat": 39.2929852,
+        "lon": -76.5624011
+      },
+      "_metro": "Baltimore, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Creative Alliance at the Patterson",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://creativealliance.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Creative Alliance at the Patterson",
+        "address": "3134 Eastern Avenue",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21224",
+        "country": "US",
+        "lat": 39.2867352,
+        "lon": -76.5717946
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Jewish Museum of Maryland",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://jewishmuseummd.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jewish Museum of Maryland",
+        "address": "15 Lloyd Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21202",
+        "lat": 39.2902404,
+        "lon": -76.6011374
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Flag House and Star-Spangled Banner Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://flaghouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Flag House and Star-Spangled Banner Museum",
+        "address": "844 East Pratt Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21202",
+        "country": "US",
+        "lat": 39.2875062,
+        "lon": -76.6033329
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Reginald F Lewis Museum of Maryland African-American History and Culture",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lewismuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reginald F Lewis Museum of Maryland African-American History and Culture",
+        "address": "830 East Pratt Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21202",
+        "country": "US",
+        "lat": 39.2874772,
+        "lon": -76.6038847
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Peabody Heights Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event",
+      "base_url": "https://peabodyheightsbrewery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Peabody Heights Brewery",
+        "address": "401 East 30th Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21218",
+        "country": "US",
+        "lat": 39.3243253,
+        "lon": -76.6104132
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Community Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cbcjessup.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Baptist Church",
+        "address": "7344 Cedar Avenue",
+        "city": "Jessup",
+        "region": "MD",
+        "postal_code": "20794",
+        "lat": 39.1684144,
+        "lon": -76.7912976
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Hospice of the Chesapeake",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hospicechesapeake.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hospice of the Chesapeake",
+        "address": "90 Ritchie Highway",
+        "city": "Pasadena",
+        "region": "MD",
+        "postal_code": "21122",
+        "lat": 39.1039696,
+        "lon": -76.5728736
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Grace United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://graceunitedmethodist.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace United Methodist Church",
+        "address": "5407 North Charles Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21210",
+        "country": "US",
+        "lat": 39.3617017,
+        "lon": -76.6240692
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Todd Wehr Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.marcuscenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Todd Wehr Theater",
+        "lat": 43.0427327,
+        "lon": -87.9122915
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Blue Ribbon Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://bestplacemilwaukee.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blue Ribbon Hall",
+        "lat": 43.045559,
+        "lon": -87.9234899
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Lake Park Friends",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://lakeparkfriends.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lake Park Friends",
+        "lat": 43.0720193,
+        "lon": -87.8700882
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Reiman Aquarium",
+      "category": "outdoors",
+      "_found": "osm:aquarium -> tribe",
+      "base_url": "https://discoveryworld.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reiman Aquarium",
+        "lat": 43.0367533,
+        "lon": -87.8954677
+      },
+      "_metro": "Milwaukee, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Torzala Brewing Company",
+      "category": "community",
+      "_found": "osm:bar -> tribe+jsonld-event+ics",
+      "base_url": "https://torzalabrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Torzala Brewing Company",
+        "address": "2018 South 1st Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53207",
+        "lat": 43.0073894,
+        "lon": -87.9105779
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Sherman Park Community Association",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://shermanpark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sherman Park Community Association",
+        "address": "3526 West Fond du Lac Avenue",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53216",
+        "lat": 43.0758144,
+        "lon": -87.9578846
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Gallery 507",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://bcamke.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gallery 507",
+        "address": "507 West North Avenue",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53212",
+        "lat": 43.0601678,
+        "lon": -87.9174605
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Miller High Life Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://millerhighlifetheatre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Miller High Life Theatre",
+        "address": "500 West Kilbourn Avenue",
+        "city": "Milwaukee",
+        "postal_code": "53203",
+        "lat": 43.0422283,
+        "lon": -87.9181622
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Milwaukee County Historical Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://milwaukeehistory.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Milwaukee County Historical Center",
+        "address": "910 North Doctor Martin Luther King Junior Drive",
+        "city": "Milwaukee",
+        "postal_code": "53203-1591",
+        "lat": 43.0418788,
+        "lon": -87.9141354
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Little Red Store",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wauwatosahistoricalsociety.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Little Red Store",
+        "address": "7720 Harwood Avenue",
+        "city": "Wauwatosa",
+        "region": "WI",
+        "postal_code": "53213",
+        "lat": 43.0492893,
+        "lon": -88.0091477
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Grace Evangelical Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gracedowntown.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Evangelical Lutheran Church",
+        "address": "1209 North Broadway",
+        "city": "Milwaukee",
+        "postal_code": "53202",
+        "lat": 43.0460492,
+        "lon": -87.9089965
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "First Unitarian Society of Milwaukee",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://uumilwaukee.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Unitarian Society of Milwaukee",
+        "address": "1342 North Astor Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53202",
+        "lat": 43.0478562,
+        "lon": -87.8993373
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Eagle Park Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://www.eagleparkbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eagle Park Brewing Company",
+        "address": "823 East Hamilton Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53202",
+        "lat": 43.0542247,
+        "lon": -87.9014679
+      },
+      "_metro": "Milwaukee, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Milwaukee Catholic Home",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://trinityseniorservices.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Milwaukee Catholic Home",
+        "address": "2462 North Prospect Avenue",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53211",
+        "lat": 43.0624567,
+        "lon": -87.8807042
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Meadowbrook Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mbctosa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meadowbrook Church",
+        "address": "1025 North 70th Street",
+        "city": "Wauwatosa",
+        "region": "WI",
+        "postal_code": "53213",
+        "lat": 43.0427585,
+        "lon": -88.0003156
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Universal Unitarian Church West",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://uucw.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Universal Unitarian Church West",
+        "address": "13001 West North Avenue",
+        "city": "Brookfield",
+        "region": "WI",
+        "postal_code": "53005",
+        "lat": 43.0596925,
+        "lon": -88.074771
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Elite Mequon",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://eliteclubs.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Elite Mequon",
+        "address": "11616 North Port Washington Lane",
+        "city": "Mequon",
+        "region": "WI",
+        "postal_code": "53092",
+        "lat": 43.2298119,
+        "lon": -87.9214956
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Vision Forward",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://vision-forward.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vision Forward",
+        "address": "912 North Hawley Road",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53213",
+        "lat": 43.0405931,
+        "lon": -87.9821268
+      },
+      "_metro": "Milwaukee, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Azura Memory Care",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://azuraliving.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Azura Memory Care",
+        "address": "7770 North Port Washington Road",
+        "city": "Fox Point",
+        "region": "WI",
+        "postal_code": "53217",
+        "lat": 43.1575296,
+        "lon": -87.9117442
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Trinity Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://trinitymequon.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trinity Lutheran Church",
+        "lat": 43.2351001,
+        "lon": -88.0438513
+      },
+      "_metro": "Milwaukee, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Baird Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bairdcenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Baird Center",
+        "address": "400 West Wisconsin Avenue",
+        "city": "Milwaukee",
+        "postal_code": "53203",
+        "lat": 43.0401708,
+        "lon": -87.9174441
+      },
+      "_metro": "Milwaukee, United States"
     }
   ],
   "_not_included": {

@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 210,
-  "metro_key": "US:Austin",
+  "metro": 213,
+  "metro_key": "US:Milwaukee",
   "stuck": {}
  },
  "osm|community_centre,library": {

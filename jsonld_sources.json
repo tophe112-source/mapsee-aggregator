@@ -31182,6 +31182,656 @@
         "lon": -97.818859
       },
       "_metro": "Austin, United States"
+    },
+    {
+      "name": "Harvey E. Najim Family YMCA",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.athleteguild.com/event/boerne-tx/2026-boerne-family-ymca-15th-annual-turkey-trot-5k-10k"
+      ],
+      "link_pattern": "https://www\\.athleteguild\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Harvey E. Najim Family YMCA",
+        "address": "3122 Roosevelt Avenue",
+        "lat": 29.3656864,
+        "lon": -98.4793091
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Saint Marks Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stmarks-sa.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Marks Episcopal Church",
+        "address": "315 East Pecan Street",
+        "city": "San Antonio",
+        "postal_code": "78205",
+        "lat": 29.4289344,
+        "lon": -98.4888779
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Grace Orthodox Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://graceopc.net/events-calendar/"
+      ],
+      "link_pattern": "https://graceopc\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grace Orthodox Presbyterian Church",
+        "address": "5602 Utex Boulevard",
+        "city": "San Antonio",
+        "region": "TX",
+        "postal_code": "78249",
+        "lat": 29.5786686,
+        "lon": -98.5967768
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "The Recher",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://therechermd.com/event/love-nut/the-recher/towson-maryland/"
+      ],
+      "link_pattern": "https://therechermd\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Recher",
+        "address": "512 York Road",
+        "city": "Towson",
+        "region": "MD",
+        "postal_code": "21204",
+        "lat": 39.4009454,
+        "lon": -76.6021005
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "City Harbor Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://cityharborchurch.com/calendar/"
+      ],
+      "link_pattern": "https://cityharborchurch\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "City Harbor Church",
+        "address": "3451 Falls Road",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21211",
+        "lat": 39.3296988,
+        "lon": -76.6343258
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "The Pantry",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://communitycc.net/events/"
+      ],
+      "link_pattern": "https://communitycc\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Pantry",
+        "address": "8032 Belair Road",
+        "lat": 39.3768527,
+        "lon": -76.5063251
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Lillie Carroll Jackson Civil Rights Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.lilliecarrolljacksonmuseum.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lillie Carroll Jackson Civil Rights Museum",
+        "address": "1320 Eutaw Place",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21217",
+        "lat": 39.3043119,
+        "lon": -76.6270173
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Unitarian Universalist Congregation of Columbia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://uucolumbia.net/calendar/"
+      ],
+      "link_pattern": "https://uucolumbia\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Unitarian Universalist Congregation of Columbia",
+        "address": "7246 Cradlerock Way",
+        "city": "Columbia",
+        "region": "MD",
+        "postal_code": "21045",
+        "lat": 39.1871696,
+        "lon": -76.8449923
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "8x10 Club",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://the8x10.com/"
+      ],
+      "link_pattern": "https://the8x10\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "8x10 Club",
+        "lat": 39.2769641,
+        "lon": -76.6138559
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.woodsonministries.net/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "?",
+        "address": "2288 Blue Water Boulevard",
+        "city": "Odenton",
+        "region": "MD",
+        "postal_code": "21113",
+        "lat": 39.1007049,
+        "lon": -76.7171485
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Amazing Grace Evangelical Lutheran Church - Food Distribution Center",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.amazinggracelutheran.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Amazing Grace Evangelical Lutheran Church - Food Distribution Center",
+        "address": "2426 McElderry Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21205",
+        "country": "US",
+        "lat": 39.2978566,
+        "lon": -76.5827447
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Le Mondo",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.lemondo.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Le Mondo",
+        "address": "406 North Howard Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21201",
+        "lat": 39.2942082,
+        "lon": -76.6200876
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Reisterstown Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://events.bcpl.info/event/17266551"
+      ],
+      "link_pattern": "https://events\\.bcpl\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Reisterstown Library",
+        "city": "Reisterstown",
+        "region": "MD",
+        "postal_code": "21136",
+        "lat": 39.4636571,
+        "lon": -76.8310244,
+        "street_hint": "21 Cockeys Mill Road"
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Baltimore County Public Library - Pikesville Branch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://events.bcpl.info/event/17335374"
+      ],
+      "link_pattern": "https://events\\.bcpl\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Baltimore County Public Library - Pikesville Branch",
+        "region": "MD",
+        "postal_code": "21208",
+        "country": "US",
+        "lat": 39.3756683,
+        "lon": -76.7233624,
+        "street_hint": "1301 Reisterstown Road"
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Our Lady's Center Marian Shrine",
+      "category": "community",
+      "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+      "listing": [
+        "https://ourladyscenter.net/my-calendar/"
+      ],
+      "link_pattern": "https://ourladyscenter\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Our Lady's Center Marian Shrine",
+        "address": "3301 Rogers Avenue",
+        "city": "Ellicott City",
+        "postal_code": "21043",
+        "lat": 39.2820415,
+        "lon": -76.805999
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Aisquith Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://aisquith.org/events-calendar/"
+      ],
+      "link_pattern": "https://aisquith\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Aisquith Presbyterian Church",
+        "address": "7515 Harford Road",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21234",
+        "country": "US",
+        "lat": 39.3709646,
+        "lon": -76.5447144
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Essex Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://events.bcpl.info/event/16704840"
+      ],
+      "link_pattern": "https://events\\.bcpl\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Essex Library",
+        "city": "Essex",
+        "region": "MD",
+        "postal_code": "21221",
+        "lat": 39.3148295,
+        "lon": -76.4638038,
+        "street_hint": "1110 Eastern Boulevard"
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Trinity Evangelical Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.trinityjoppa.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Trinity Evangelical Lutheran Church",
+        "address": "1100 Philadelphia Road",
+        "city": "Joppa",
+        "region": "MD",
+        "postal_code": "21085",
+        "lat": 39.440006,
+        "lon": -76.3397676
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Academy Of Dance Arts Of Brown Deer",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://adaofwisc.com/calendar/"
+      ],
+      "link_pattern": "https://adaofwisc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Academy Of Dance Arts Of Brown Deer",
+        "address": "9036 North 51st Street",
+        "city": "Brown Deer",
+        "region": "WI",
+        "postal_code": "53223",
+        "country": "US",
+        "lat": 43.1820217,
+        "lon": -87.9740618
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Milwaukee Admirals",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.milwaukeeadmirals.com/schedule/"
+      ],
+      "link_pattern": "https://www\\.milwaukeeadmirals\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Milwaukee Admirals",
+        "lat": 43.0419913,
+        "lon": -87.9171829
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "America’s Black Holocaust Museum",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.abhmuseum.org/events-calendar/"
+      ],
+      "link_pattern": "https://www\\.abhmuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "America’s Black Holocaust Museum",
+        "lat": 43.0601514,
+        "lon": -87.9158059
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Milwaukee Repertory Theater",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.milwaukeerep.com/events/heist"
+      ],
+      "link_pattern": "https://www\\.milwaukeerep\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Milwaukee Repertory Theater",
+        "lat": 43.0408952,
+        "lon": -87.9112498
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Farmhouse Paint Bar & Banquet Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.farmhouseart.com/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Farmhouse Paint Bar & Banquet Hall",
+        "address": "4511 South 6th Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53221",
+        "lat": 42.9629563,
+        "lon": -87.9201117
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Black Husky Brewing",
+      "category": "community",
+      "_found": "osm:bar -> wix",
+      "listing": [
+        "https://www.blackhuskybrewing.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Black Husky Brewing",
+        "address": "909 East Locust Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53212",
+        "lat": 43.071003,
+        "lon": -87.8999675
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Component Brewing Company",
+      "category": "community",
+      "_found": "osm:bar -> wix",
+      "listing": [
+        "https://www.componentbrewing.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Component Brewing Company",
+        "address": "2018 South 1st Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53207",
+        "lat": 43.0067162,
+        "lon": -87.9106993
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Wonderland Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.wonderlandbookshop.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Wonderland Bookshop",
+        "address": "4001 North Downer Avenue",
+        "city": "Shorewood",
+        "region": "WI",
+        "postal_code": "53211",
+        "lat": 43.0893536,
+        "lon": -87.8778129
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Old Saint Mary Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.oldsaintmary.org/upcoming-events/"
+      ],
+      "link_pattern": "https://www\\.oldsaintmary\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Old Saint Mary Church",
+        "address": "844 North Broadway",
+        "city": "Milwaukee",
+        "postal_code": "53202",
+        "lat": 43.0421664,
+        "lon": -87.9077847
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Lakefront Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event",
+      "listing": [
+        "https://lakefrontbrewery.com/events"
+      ],
+      "link_pattern": "https://lakefrontbrewery\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lakefront Brewery",
+        "address": "1872 North Commerce Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53212",
+        "lat": 43.0546566,
+        "lon": -87.9051592
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Immanuel Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.immanuelwi.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Immanuel Presbyterian Church",
+        "address": "1100 North Astor Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53202",
+        "lat": 43.0449829,
+        "lon": -87.8992388
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Woodland Pattern Book Center",
+      "category": "learning",
+      "_found": "osm:books -> modern-events+jsonld-event",
+      "listing": [
+        "https://woodlandpattern.org/calendar"
+      ],
+      "link_pattern": "https://woodlandpattern\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Woodland Pattern Book Center",
+        "address": "720 East Locust Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53212-2547",
+        "lat": 43.0712398,
+        "lon": -87.9019991
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Elmbrook Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.elmbrook.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Elmbrook Church",
+        "address": "777 South Barker Road",
+        "city": "Brookfield",
+        "region": "WI",
+        "postal_code": "53045",
+        "lat": 43.0227531,
+        "lon": -88.168856
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Adventure Rock",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://adventurerock.com/events/"
+      ],
+      "link_pattern": "https://adventurerock\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Adventure Rock",
+        "address": "21250 West Capitol Drive",
+        "city": "Brookfield",
+        "region": "WI",
+        "postal_code": "53072",
+        "lat": 43.084507,
+        "lon": -88.1766619
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "New Testament Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.newtchurch.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "New Testament Church",
+        "address": "10201 West Bradley Road",
+        "city": "Milwaukee",
+        "region": "WI",
+        "lat": 43.1619939,
+        "lon": -88.0372624
+      },
+      "_metro": "Milwaukee, United States"
     }
   ],
   "_not_included": {

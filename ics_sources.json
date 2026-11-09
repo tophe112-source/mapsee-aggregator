@@ -68083,5 +68083,609 @@
     "geocode_suffix": ", Austin, United States",
     "limit": 300,
     "_metro": "Austin, United States"
+  },
+  {
+    "name": "Image Dance",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8pq7pd5e74phmift7p9b5tgmjg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Antonio",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Northwest Hills Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.nwhbc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", San Antonio",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "First United Pentecostal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40firstupcsa.org/public/basic.ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Blessed Sacrament Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5872f8db8184a1833a78a90016dbec97e77721726b43b96138f61722c2a5a779%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Saint Anthony Mary Claret Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://samcsa.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Old Path Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/310nuj596ujv1721nbh7um5b8g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Adkins, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Good Shepherd Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/70pm81olt88sq5hjt5ek5al5m8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Schertz, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Colonial Hills United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/chumc.org_8hlo0fvirirglf58hotfvpnqh8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Saint Leonard Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/54e2ed24754abbe9749135ce2299ca1f9452714429c6603a60ce6369b0e2d048%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Holy Rosary Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3lsuotf0e0cugu71hpv8e405dk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Saint Philip of Jesus Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/parishinfo%40stphilipofjesus.org/public/basic.ics",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Saint Anthony Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_abc6d6b439f221906605ca4fd43f1996b4f469de4b5a937f9d31112a22aee6c9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Elmendorf, TX",
+    "limit": 300,
+    "_metro": "San Antonio, United States"
+  },
+  {
+    "name": "Beth Am Synagogue",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/un4f4upa14mnarc4su2h1oolo8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, United States",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Harbor View Center",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_6289ae8f12d3929eca1db3555cae980b1395d37d2d09e3788c5f6941d97470f0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Monthly Food Distribution",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h6rj3mcu6uk5v4sk32ncfuhf90%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, United States",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Church of the Resurrection",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/voosjv3au8budrr8a8gogu5qihtqo952%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lutherville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Saint Paul's Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6e5o9mbs0vcjin70903f5gpmb4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lutherville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Abiding Savior Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7mcu6oohro8j7poivb19egfsio%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Columbia",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Towson Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchoffice%40towsonuuc.org/public/basic.ics",
+    "geocode_suffix": ", Lutherville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Saint Jane Frances de Chantal Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40olchesapeake.org/public/basic.ics",
+    "geocode_suffix": ", Pasadena, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Arnolia Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.arnolia.org/events.ics",
+    "geocode_suffix": ", Parkville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Saint Michael Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stmichaelperryhall.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Nottingham",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Catholic Community of Saint Francis Xavier",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sharedwiththeteam%40ccsfx.org/public/basic.ics",
+    "geocode_suffix": ", Cockeysville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Saint Paul's Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/llj0lj1berq4o5ds88sd7cmvpc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kingsville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Perry Hall United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://perryhallumc.org/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events&cb=297638034",
+    "geocode_suffix": ", Nottingham, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Linden Heights United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9477id4uceobaok6mtdeibbooo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, United States",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Ascension Evangelical Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ascensiontowson.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Towson, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Creekside Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://ourcreeksidechurch.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dundalk, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Saint Ursula Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4on869vo0ijlr7psa64ngqm8uc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Parkville, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Episcopal Church of the Messiah",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4jlcb4asgq7aouufe1ihr4h0is%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Abbott Memorial Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j34per6da1um9oij4p69fd428k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Saint Johns of Baltimore City United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stjohnsbaltimore.org_pub0kpijolpuhjh1rsn8ljq4oc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Cathedral of the Annunciation Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_njg6rshtgbecsgbdm62mgqco74%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Roland Park Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rolandparkchurch.org_p7ta6md88aa9grvi4vkj5v2ob4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Bolton Street Synagogue",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8klbl48ai4k4nad5aki3156do8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "The Church of the Resurrection, Copley Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tonyroman%40copleyparish.org/public/basic.ics",
+    "geocode_suffix": ", Joppatowne, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Joppatowne Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rckgkegjl8om6usfe235m9ls9k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Joppa, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Cedarhurst Unitarian Universalists",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cedarhurstuu.org_vfhv1atin92ncfj8m9p2csug70%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Finksburg, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Hope Springs Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://hsc.church/?feed=my-calendar-ics",
+    "geocode_suffix": ", Baltimore, United States",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "White Marsh Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://whitemarshbaptist.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Perry Hall, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "St. Alphonsus Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stals%40st-alphonsus.org/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Oak Creek Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.oakcreeklibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Oak Creek, WI",
+    "limit": 300,
+    "venue": {
+      "name": "Oak Creek Public Library",
+      "city": "Oak Creek",
+      "region": "WI",
+      "postal_code": "53154",
+      "lat": 42.8984224,
+      "lon": -87.9180834,
+      "street_hint": "8040 South 6th Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Milwaukee, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cooley Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.matc.edu/events/_data/current.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Frederick Layton Gallery",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/miad.edu_vqoqi7llit83i5n9nvko9bud38%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Milwaukee LGBT Community Center",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_17579910aab450bcb10b8259e34a7b0fc41286950779599353d74112e23f3577%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Todd Wehr Athletic Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmarcus.org_moulafmr6qs6mok6eg6an8d07g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "St. Roman Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pdeleon%40stromans.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Medhanialem Ethiopian Evangelical Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.eecmke.org/events.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Friendship Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2hhbj295n1mqj3b1nsv6nhutlk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Gathering Meal at Mount Carmel",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.mountcarmelchurch.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Unity Food Pantry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/664c9bf5aeb93cc0941aeab289ce31dda4de8cf00aac77763b651604025f57cb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Jazz Gallery Center for the Arts",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5he5tc8u8lgjcem1tpgbkhl0s8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Central United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://centralumcmilwaukee.org/events.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "St. Monica Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fb6706e538297e27f090a063bbba1571359d748fb726821819163a7a8a03fdfd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "American Federation of Teachers MATC Local 212",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b7fa428a40cb6ed7bebd0e82368f3bcfc34aaa884a468985ad4db37f6cce16d5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "venue": {
+      "name": "American Federation of Teachers MATC Local 212",
+      "postal_code": "53233",
+      "lat": 43.0454504,
+      "lon": -87.9212025,
+      "street_hint": "739 West Juneau Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Christ Alone Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calvarylutheran.org_uh175a8dh4f3l9q8mt8jptjpk0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "South Shore Lodge #3",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://wi.moriapp.com/connect/connect_groups/5a9b19e648259486e4ae37a5149c01e7/calendar_events/019fd99b-fed2-70eb-9e07-89b6cc0a4eca.ics",
+    "geocode_suffix": ", Franklin, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Mount Lebanon Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_109bbaa815f0c4ac0d5efe8297001ba0f97bdab05c093e883188ddb4d1d613d1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40annunciationwi.org/public/basic.ics",
+    "geocode_suffix": ", Wauwatosa, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "St. Margaret Mary Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b922bebbeda4c8959fb7da543d1411cacefcf864831df521cb48641f6f56ba3b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "St. Augustine Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/adore%40southshorecatholic.org/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "St. Mary & St. Antonious Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/schedule%40wiscopts.net/public/basic.ics",
+    "geocode_suffix": ", Oak Creek, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Saint Boniface Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lrdin71s98t5u348e7g8e0c1g8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Saint Stanislaus Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3bbea8161f048bdc79f3f0b2576bee0f7643747e82df3d64ba38d04ece6e8bce%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "St. Robert Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_muktnne7uokcluk7a9g9vc607c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Shorewood, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
   }
 ]

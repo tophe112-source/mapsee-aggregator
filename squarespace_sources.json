@@ -8791,6 +8791,206 @@
         "lon": -97.6537245
       },
       "_metro": "Austin, United States"
+    },
+    {
+      "name": "Lago Vista Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.lagovistabrewingco.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Lago Vista Brewing",
+        "address": "8001 Bronco Lane",
+        "city": "Lago Vista",
+        "region": "TX",
+        "postal_code": "78645",
+        "lat": 30.4763157,
+        "lon": -97.9733973
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Armadillo Boulder",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://armadilloboulders.com/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Armadillo Boulder",
+        "address": "1119 Camden Street",
+        "city": "San Antonio",
+        "lat": 29.4397515,
+        "lon": -98.4841005
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "2640 Space",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.2640space.net/events",
+      "max_events": 200,
+      "venue": {
+        "name": "2640 Space",
+        "address": "2640 Saint Paul Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21218",
+        "lat": 39.3204756,
+        "lon": -76.6158314
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "CrossLife Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.crosslifeonline.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "CrossLife Community Church",
+        "postal_code": "21075",
+        "lat": 39.1909827,
+        "lon": -76.7512143
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Ellicott Mills Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.hchsmd.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Ellicott Mills Children's Museum",
+        "address": "3725 Park Avenue",
+        "city": "Ellicott City",
+        "region": "MD",
+        "postal_code": "21043",
+        "lat": 39.2680807,
+        "lon": -76.7982243
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Saint John the Evangelist Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://stjohnsp.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint John the Evangelist Catholic Church",
+        "address": "689 Governor Ritchie Highway",
+        "city": "Severna Park",
+        "region": "MD",
+        "postal_code": "21146",
+        "lat": 39.0705354,
+        "lon": -76.5381527
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Our Lady of Good Counsel Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.southbaltcatholic.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Our Lady of Good Counsel Catholic Church",
+        "address": "1532 East Fort Avenue",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21230",
+        "country": "US",
+        "lat": 39.2688488,
+        "lon": -76.5924696
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Grace Pointe Community Church of the Nazarene",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://gpccn.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Grace Pointe Community Church of the Nazarene",
+        "address": "61 Gambrills Road",
+        "city": "Severn",
+        "region": "MD",
+        "postal_code": "21144",
+        "lat": 39.0992486,
+        "lon": -76.6521126
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "The Cooperage",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.cooperagemke.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Cooperage",
+        "address": "822 South Water Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53204",
+        "lat": 43.0226067,
+        "lon": -87.9061509
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "The Milwaukee Alano Club",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.mkealanoclub.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Milwaukee Alano Club",
+        "address": "1521 North Prospect Avenue",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53202",
+        "lat": 43.0497472,
+        "lon": -87.8940762
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Unity Center in Milwaukee",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.unityofmilwaukee.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Unity Center in Milwaukee",
+        "address": "1717 North 73rd Street",
+        "city": "Wauwatosa",
+        "region": "WI",
+        "postal_code": "53213",
+        "lat": 43.052733,
+        "lon": -88.0038218
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "The Gathering Place",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.thegatheringplacemke.org/next-gathering",
+      "max_events": 200,
+      "venue": {
+        "name": "The Gathering Place",
+        "address": "11530 West Layton Avenue",
+        "city": "Greenfield",
+        "region": "WI",
+        "postal_code": "53228",
+        "lat": 42.9597668,
+        "lon": -88.0567561
+      },
+      "_metro": "Milwaukee, United States"
     }
   ],
   "_not_included": {
