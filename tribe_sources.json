@@ -40292,6 +40292,615 @@
         "street_hint": "10401 Hillcrest Road"
       },
       "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "The Grand Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://musictheaterheritage.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Grand Theater",
+        "lat": 39.0830806,
+        "lon": -94.5824844
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Woodside Health Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+modern-events+jsonld-event+ics",
+      "base_url": "https://clubwoodside.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Woodside Health Club",
+        "lat": 39.0432316,
+        "lon": -94.610169
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Stone Manor",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://stonemanorkc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stone Manor",
+        "address": "7400 West 79th Street",
+        "city": "Overland Park",
+        "region": "KS",
+        "postal_code": "66204",
+        "lat": 38.9860626,
+        "lon": -94.6716168
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Overland Park Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://oplutheran.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Overland Park Lutheran Church",
+        "address": "7810 West 79th Street",
+        "city": "Overland Park",
+        "region": "KS",
+        "postal_code": "66204",
+        "lat": 38.9862908,
+        "lon": -94.6764471
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Village Shalom Assisted Living Facility",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.villageshalom.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Village Shalom Assisted Living Facility",
+        "address": "5500,5600 West 123rd Street",
+        "city": "Overland Park",
+        "region": "KS",
+        "postal_code": "66209",
+        "lat": 38.906925,
+        "lon": -94.6509143
+      },
+      "_metro": "Kansas City, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Connection",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "http://theconnection.ws",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Connection",
+        "address": "5532 Sinclair Road",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43229",
+        "lat": 40.0779835,
+        "lon": -82.9970581
+      },
+      "_metro": "Columbus, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Worthington Doll Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "http://worthingtonhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Worthington Doll Museum",
+        "lat": 40.0870023,
+        "lon": -83.0200736
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Congregation Beth Tikvah",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://bethtikvahcolumbus.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Beth Tikvah",
+        "address": "6121 Olentangy River Road",
+        "city": "Worthington",
+        "postal_code": "43085",
+        "lat": 40.0850305,
+        "lon": -83.0399577
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Saint Johns Evangelical Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.stjohnsgc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Johns Evangelical Lutheran Church",
+        "address": "3220 Columbus Street",
+        "city": "Grove City",
+        "region": "OH",
+        "postal_code": "43123",
+        "lat": 39.882228,
+        "lon": -83.088521
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Agudas Achim Congregation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://agudasachim.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Agudas Achim Congregation",
+        "address": "2767 East Broad Street",
+        "city": "Bexley",
+        "region": "OH",
+        "postal_code": "43209",
+        "lat": 39.9700972,
+        "lon": -82.9270327
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Columbus Karma Thegsum Chöling",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://columbusktc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Columbus Karma Thegsum Chöling",
+        "address": "645 West Rich Street",
+        "postal_code": "43215",
+        "lat": 39.9552855,
+        "lon": -83.016992
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "The Viridian Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://viridianbookshop.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Viridian Bookshop",
+        "address": "4077 Erie Street",
+        "city": "Willoughby",
+        "region": "OH",
+        "postal_code": "44094",
+        "lat": 41.6409516,
+        "lon": -81.4064834
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Maltz Museum of Jewish Heritage",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.maltzmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maltz Museum of Jewish Heritage",
+        "lat": 41.476621,
+        "lon": -81.4968252
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Unitarian Universalist Society of Cleveland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://uucleveland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Society of Cleveland",
+        "address": "2728 Lancashire Road",
+        "city": "Cleveland Heights",
+        "region": "OH",
+        "postal_code": "44106",
+        "lat": 41.5083035,
+        "lon": -81.5823319
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Polka Hall of Fame",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://clevelandstyle.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Polka Hall of Fame",
+        "address": "605 East 222nd Street",
+        "city": "Euclid",
+        "region": "OH",
+        "postal_code": "44123",
+        "lat": 41.598845,
+        "lon": -81.5263265
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "The Redemption Center Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://theredemptioncenter.church",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Redemption Center Church",
+        "address": "1200 Broadway Avenue",
+        "city": "Bedford",
+        "region": "OH",
+        "postal_code": "44146",
+        "lat": 41.3807121,
+        "lon": -81.5222266
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Indianapolis Fire Fighters Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://l416.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indianapolis Fire Fighters Museum",
+        "address": "748 Massachusetts Avenue",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46204",
+        "lat": 39.7773119,
+        "lon": -86.1460716
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "The HiFi",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://hifiindy.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The HiFi",
+        "address": "1043 Virginia Avenue",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46203",
+        "lat": 39.7525992,
+        "lon": -86.1406446
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Indianapolis Motor Speedway Hall of Fame & Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://imsmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indianapolis Motor Speedway Hall of Fame & Museum",
+        "address": "4790 W 16th Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46222",
+        "lat": 39.7903139,
+        "lon": -86.2336926
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Eiteljorg Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://eiteljorg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eiteljorg Museum",
+        "address": "500 West Washington Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46204",
+        "country": "US",
+        "lat": 39.7685493,
+        "lon": -86.1677967
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Indianapolis Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe",
+      "base_url": "https://www.indianapoliszoo.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indianapolis Zoo",
+        "address": "1200 West Washington Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46222",
+        "lat": 39.7671673,
+        "lon": -86.1801129
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Christ Church Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://cccindy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Church Cathedral",
+        "address": "125 Monument Circle",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46204",
+        "country": "US",
+        "lat": 39.7693073,
+        "lon": -86.1575737
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Indiana Convention Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.icclos.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indiana Convention Center",
+        "address": "100 South Capitol Avenue",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46225",
+        "lat": 39.7636943,
+        "lon": -86.1643912
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Adventure Science Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.adventuresci.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adventure Science Center",
+        "region": "TN",
+        "lat": 36.1464461,
+        "lon": -86.7755543
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "National Museum of African American Music",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.nmaam.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Museum of African American Music",
+        "address": "510 Broadway",
+        "lat": 36.1608246,
+        "lon": -86.7792151
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Museum of Christian and Gospel Music",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cgmmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Christian and Gospel Music",
+        "address": "402 Commerce Street",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37219",
+        "lat": 36.162472,
+        "lon": -86.7783978
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Nashville Gun Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.nashvillegunclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nashville Gun Club",
+        "address": "1100 County Hospital Road",
+        "postal_code": "37218",
+        "lat": 36.1908214,
+        "lon": -86.8693049
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Rock Castle",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://historicrockcastle.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rock Castle",
+        "region": "TN",
+        "lat": 36.2792489,
+        "lon": -86.5964204
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Lone Star Curling Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lonestarcurling.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lone Star Curling Club",
+        "address": "9402 United Drive",
+        "postal_code": "78758",
+        "lat": 30.3791451,
+        "lon": -97.7301479
+      },
+      "_metro": "Austin, United States",
+      "crawl_delay": 3.0
+    },
+    {
+      "name": "Austin Ecstatic Dance Center",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://austinecstaticdancecenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Austin Ecstatic Dance Center",
+        "address": "10203 Old Manchaca Road",
+        "lat": 30.1727375,
+        "lon": -97.8302804
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Dell Jewish Community Campus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://shalomaustin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dell Jewish Community Campus",
+        "lat": 30.3580128,
+        "lon": -97.7572858
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Central Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cccaustin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Central Christian Church",
+        "address": "1110 Guadalupe Street",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78701",
+        "lat": 30.2745805,
+        "lon": -97.744581
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Islamic Center of Greater Austin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://austinmosque.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islamic Center of Greater Austin",
+        "address": "5110 Manor Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78723",
+        "lat": 30.2996687,
+        "lon": -97.6867872
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "The Church at Highland Park",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://thechurchathp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Church at Highland Park",
+        "lat": 30.3351593,
+        "lon": -97.7600264
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Saint Matthew's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://stmattsaustin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Matthew's Episcopal Church",
+        "address": "8134 Mesa Drive",
+        "city": "Austin",
+        "postal_code": "78759",
+        "lat": 30.3747445,
+        "lon": -97.7564935
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Our Savior Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.oslaustin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Savior Lutheran Church",
+        "address": "1513 East Yager Lane",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78753",
+        "lat": 30.3866188,
+        "lon": -97.6519655
+      },
+      "_metro": "Austin, United States"
     }
   ],
   "_not_included": {

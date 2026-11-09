@@ -30437,6 +30437,751 @@
         "lon": -94.6169767
       },
       "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Leedy-Voulkos Art Center",
+      "category": "arts",
+      "_found": "osm:gallery -> wix",
+      "listing": [
+        "https://www.leedy-voulkos.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Leedy-Voulkos Art Center",
+        "address": "2012 Baltimore Avenue",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64108",
+        "lat": 39.0885565,
+        "lon": -94.5850894
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Boulevard Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.boulevard.com/visit-us/"
+      ],
+      "link_pattern": "https://www\\.boulevard\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Boulevard Brewing Company",
+        "address": "2501-2525 Southwest Boulevard",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64108",
+        "lat": 39.0819989,
+        "lon": -94.5968247
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "The National Museum of Toys and Miniatures",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://toyandminiaturemuseum.org/museum-events-in-kansas-city/"
+      ],
+      "link_pattern": "https://toyandminiaturemuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The National Museum of Toys and Miniatures",
+        "address": "5235 Oak Street",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64112",
+        "lat": 39.0307755,
+        "lon": -94.5820507
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "New City Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.newcitykc.org/events/hygge-night"
+      ],
+      "link_pattern": "https://www\\.newcitykc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "New City Church",
+        "lat": 38.9699756,
+        "lon": -94.594948
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "First Baptist Church of Grandview",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://firstbaptistgrandview.org/events/"
+      ],
+      "link_pattern": "https://firstbaptistgrandview\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "First Baptist Church of Grandview",
+        "lat": 38.8895804,
+        "lon": -94.5284438
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Lifegate Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://lifegatekc.org/events/"
+      ],
+      "link_pattern": "https://lifegatekc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lifegate Church",
+        "address": "2911 Blue Ridge Boulevard",
+        "city": "Independence",
+        "region": "MO",
+        "postal_code": "64052",
+        "lat": 39.0700303,
+        "lon": -94.4688931
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Overland Park Convention Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://opconventioncenter.com/events/"
+      ],
+      "link_pattern": "https://opconventioncenter\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Overland Park Convention Center",
+        "address": "6000 College Boulevard",
+        "lat": 38.9285273,
+        "lon": -94.6552448
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Blue Valley Recreation Sports Complex",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.bluevalleyrec.org/events/"
+      ],
+      "link_pattern": "https://www\\.bluevalleyrec\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Blue Valley Recreation Sports Complex",
+        "address": "9701 West 135th Street",
+        "city": "Overland Park",
+        "region": "KS",
+        "postal_code": "66221",
+        "lat": 38.8799449,
+        "lon": -94.694904
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Chicken N Pickle - Overland Park",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://chickennpickle.com/overland-park-events/"
+      ],
+      "link_pattern": "https://chickennpickle\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chicken N Pickle - Overland Park",
+        "address": "5901 West 135th Street",
+        "city": "Overland Park",
+        "region": "KS",
+        "postal_code": "66223",
+        "lat": 38.8830282,
+        "lon": -94.654802
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "The Regnier Family Wonderscope",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://wonderscope.org/events/"
+      ],
+      "link_pattern": "https://wonderscope\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Regnier Family Wonderscope",
+        "address": "433 East Red Bridge Road",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64131",
+        "lat": 38.9250643,
+        "lon": -94.5876211
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "The Bookloft",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://bookloft.com/event/2026-11-22/roddy-bottum-w-rob-harvilla-bexley-public-library"
+      ],
+      "link_pattern": "https://bookloft\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Bookloft",
+        "address": "631 South Third Street",
+        "city": "German Village",
+        "region": "OH",
+        "postal_code": "43206",
+        "lat": 39.9494989,
+        "lon": -82.9956826
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Short North Stage",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.shortnorthstage.org/rockyhorror"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Short North Stage",
+        "address": "1187 North High Street",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43201",
+        "lat": 39.9865757,
+        "lon": -83.0056941
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "The King of Clubs",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.tkoc.live/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The King of Clubs",
+        "address": "6252 Busch Boulevard",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43229",
+        "lat": 40.0936422,
+        "lon": -82.9921864
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Beth Messiah Congregation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.bethmessiah.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Beth Messiah Congregation",
+        "address": "4950 Morse Road",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43230",
+        "lat": 40.0561999,
+        "lon": -82.8595333
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Hofbräuhaus Columbus",
+      "category": "community",
+      "_found": "osm:restaurant -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.hofbrauhauscolumbus.com/experience/"
+      ],
+      "link_pattern": "https://www\\.hofbrauhauscolumbus\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hofbräuhaus Columbus",
+        "address": "800 Goodale Boulevard",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43212",
+        "lat": 39.9745002,
+        "lon": -83.0240623
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Masjid Bilal",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "http://masjidbilalofcleveland.org/calendar/"
+      ],
+      "link_pattern": "https://masjidbilalofcleveland\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Masjid Bilal",
+        "address": "7401 Euclid Avenue",
+        "city": "Cleveland",
+        "region": "OH",
+        "postal_code": "44103",
+        "lat": 41.5043614,
+        "lon": -81.6367228
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "The Cleveland Board Gamers",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.meetup.com/clevelandgamers/"
+      ],
+      "link_pattern": "https://www\\.meetup\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Cleveland Board Gamers",
+        "lat": 41.4199085,
+        "lon": -81.9192127
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Chagrin Valley Islamic Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://cvicohio.com/events/"
+      ],
+      "link_pattern": "https://cvicohio\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chagrin Valley Islamic Center",
+        "address": "6909 Liberty Road",
+        "city": "Solon",
+        "region": "OH",
+        "postal_code": "44139",
+        "lat": 41.3704577,
+        "lon": -81.4189876
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "MashCraft",
+      "category": "community",
+      "_found": "osm:restaurant -> jsonld-event",
+      "listing": [
+        "https://mashcraft.com/upcoming-events/"
+      ],
+      "link_pattern": "https://mashcraft\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MashCraft",
+        "lat": 39.797666,
+        "lon": -86.153191
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Old National Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.livenation.com/venue/KovZpvEk7A/ruoff-music-center-events"
+      ],
+      "link_pattern": "https://www\\.livenation\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Old National Centre",
+        "address": "502 North New Jersey Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46204",
+        "country": "US",
+        "lat": 39.7745579,
+        "lon": -86.1510739
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Indianapolis Motor Speedway",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.indianapolismotorspeedway.com/events/indy500"
+      ],
+      "link_pattern": "https://www\\.indianapolismotorspeedway\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Indianapolis Motor Speedway",
+        "lat": 39.7960604,
+        "lon": -86.2346698
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Mount Auburn United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event+ics",
+      "listing": [
+        "https://mountauburn.church/events/"
+      ],
+      "link_pattern": "https://mountauburn\\.church/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mount Auburn United Methodist Church",
+        "lat": 39.5788027,
+        "lon": -86.1614645
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Everwise Ampitheater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.everwiseamphitheater.com/shows"
+      ],
+      "link_pattern": "https://www\\.everwiseamphitheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Everwise Ampitheater",
+        "address": "801 West Washington Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46204",
+        "lat": 39.7659288,
+        "lon": -86.1718108
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Belle Meade Plantation",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://visitbellemeade.com/holiday-open-house/"
+      ],
+      "link_pattern": "https://visitbellemeade\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Belle Meade Plantation",
+        "address": "5025 Harding Pike",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37205",
+        "lat": 36.1057096,
+        "lon": -86.8646108
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Brooklyn Bowl Nashville",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://nashville.brooklynbowl.com/shows"
+      ],
+      "link_pattern": "https://nashville\\.brooklynbowl\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brooklyn Bowl Nashville",
+        "address": "925 3rd Avenue North",
+        "postal_code": "37201",
+        "lat": 36.1732175,
+        "lon": -86.7837223
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Grand Ole Opry House",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.opry.com/events"
+      ],
+      "link_pattern": "https://www\\.opry\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grand Ole Opry House",
+        "address": "2804 Opryland Drive",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37214",
+        "lat": 36.2068718,
+        "lon": -86.6918319
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Cross Timbers Free Will Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.crosstimbersfwbc.com/events/"
+      ],
+      "link_pattern": "https://www\\.crosstimbersfwbc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cross Timbers Free Will Baptist Church",
+        "address": "201 Cross Timbers Drive",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37221",
+        "lat": 36.0786719,
+        "lon": -86.9361859
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Elisabet Ney Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.austintexas.gov/ney/events/celestial-evening-ney"
+      ],
+      "link_pattern": "https://www\\.austintexas\\.gov/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Elisabet Ney Museum",
+        "region": "TX",
+        "lat": 30.3066283,
+        "lon": -97.7262854
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Celis Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.celisbeers.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Celis Brewery",
+        "address": "10001 Metric Boulevard",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78758",
+        "lat": 30.3797449,
+        "lon": -97.7160184
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "RCCG Cornerstone Church Austin, ATX",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://cornerstoneatx.org/events"
+      ],
+      "link_pattern": "https://cornerstoneatx\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "RCCG Cornerstone Church Austin, ATX",
+        "address": "9309 Cameron Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78754",
+        "lat": 30.3496975,
+        "lon": -97.6758518
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Hope Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hope.org/calendar/"
+      ],
+      "link_pattern": "https://hope\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hope Chapel",
+        "address": "6701 Arroyo Seco",
+        "city": "Austin",
+        "postal_code": "78757",
+        "lat": 30.3398424,
+        "lon": -97.73008
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "The ROCK ATX",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.therockatx.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The ROCK ATX",
+        "address": "12224 Jourdan Crossing Boulevard",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78753",
+        "lat": 30.386986,
+        "lon": -97.6529868
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "The Long Center for the Performing Arts",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://thelongcenter.org/upcoming-calendar/"
+      ],
+      "link_pattern": "https://thelongcenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Long Center for the Performing Arts",
+        "address": "701 West Riverside Drive",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78704",
+        "lat": 30.2602601,
+        "lon": -97.7511192
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "German Texans Heritage Society",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.germantexans.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "German Texans Heritage Society",
+        "address": "507 East 10th Street",
+        "postal_code": "78701",
+        "lat": 30.2700675,
+        "lon": -97.73641
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Highland Village Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hvchurchofchrist.org/events-2/"
+      ],
+      "link_pattern": "https://hvchurchofchrist\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Highland Village Church of Christ",
+        "address": "4716 Bull Creek Road",
+        "lat": 30.324636,
+        "lon": -97.751522
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "All Saints' Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://allsaints-austin.org/events/"
+      ],
+      "link_pattern": "https://allsaints\\-austin\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "All Saints' Episcopal Church",
+        "address": "209 West 27th Street",
+        "postal_code": "78705",
+        "lat": 30.2916695,
+        "lon": -97.7397335
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Emo's",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.emosaustin.com/shows"
+      ],
+      "link_pattern": "https://www\\.emosaustin\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Emo's",
+        "address": "2015 East Riverside Drive",
+        "postal_code": "78741",
+        "lat": 30.239592,
+        "lon": -97.728019
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "St. James' Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://stjamesaustin.org/calendar/"
+      ],
+      "link_pattern": "https://stjamesaustin\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. James' Episcopal Church",
+        "address": "1941 Webberville Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78721",
+        "lat": 30.2823412,
+        "lon": -97.6731956
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Southwest Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://swcofc.org/events-calendar/"
+      ],
+      "link_pattern": "https://swcofc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Southwest Church of Christ",
+        "address": "8900 Manchaca Road",
+        "city": "Austin",
+        "postal_code": "78748",
+        "lat": 30.183856,
+        "lon": -97.818859
+      },
+      "_metro": "Austin, United States"
     }
   ],
   "_not_included": {

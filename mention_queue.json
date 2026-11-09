@@ -171,6 +171,48 @@
       "times_seen": 1,
       "venue": null
     },
+    "cascadia nw arts and music festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Cascadia NW Arts & Music Festival",
+      "ref_keys": [
+        "5b3e67517029",
+        "ba49d2d61c95",
+        "dc5d3bf5d9ef",
+        "ff7b2ccb6143"
+      ],
+      "referrers": [
+        {
+          "source": "jsonld",
+          "start": "2026-12-18",
+          "title": "CASCADIA WINTER SOLSTICE WEEKENDER Ft High Step Society, Willdabeast",
+          "url": "https://www.tixr.com/groups/hiddenhall/events/cascadia-winter-solstice-weekender-ft-high-step-society-willdabeast-203002"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-12-19",
+          "title": "CASCADIA WINTER SOLSTICE WEEKENDER Ft. Desert Dwellers, David Starfire, Loveli",
+          "url": "https://www.tixr.com/groups/hiddenhall/events/cascadia-winter-solstice-weekender-ft-desert-dwellers-david-starfire-loveli-203004"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-12-20",
+          "title": "CASCADIA WINTER SOLSTICE WEEKEND Ft. Atyya, Chmura, Duffrey, Rob Noble",
+          "url": "https://www.tixr.com/groups/nectarlounge/events/cascadia-winter-solstice-weekend-ft-atyya-chmura-duffrey-rob-noble-202998"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-12-20",
+          "title": "CASCADIA WINTER SOLSTICE WEEKENDER Ft. MARQUES WYATT, SABO, Jamie Schwabl B2B Onyx, Michael Manahan",
+          "url": "https://www.tixr.com/groups/hiddenhall/events/cascadia-winter-solstice-weekender-ft-marques-wyatt-sabo-jamie-schwabl-b2b-onyx-michael-manahan-203008"
+        }
+      ],
+      "sample": "festival Passes available! Join us for a weekend of House, Techno, Bass Music, Electro-Swing and more presented by Cascadia NW Arts & Music Festival! Buy tickets to a single show at either venue on any night, or grab a Single-day or full weekend pass for access to shows at both venues! Nectar",
+      "state": "pending",
+      "times_seen": 4,
+      "venue": null
+    },
     "contemporanea film festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -345,6 +387,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "escales du lille poésie festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Escales du Lille Poésie Festival",
+      "ref_keys": [
+        "ac097f07eb25"
+      ],
+      "referrers": [
+        {
+          "source": "ods:OpenAgenda France",
+          "start": "2026-11-28",
+          "title": "Atelier de cuisine poétique !",
+          "url": "https://openagenda.com/planlibre/events/atelier-de-cuisine-poetique"
+        }
+      ],
+      "sample": "poè-te-tesse qui est en vous, réalisez un glaçage poétique et écrivez même sur un support gourmand ! Dans le cadre des Escales du Lille Poésie Festival, organisées par la Maison de la Poésie, en lien avec Escales des lettres et l'association des éditeurs. Event data: OpenAgenda (openagenda.com),",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "feast festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -404,6 +467,27 @@
         }
       ],
       "sample": "ng towers, too, eventually become romantic relics of a bygone era also worthy of preservation? Presented as part of the Head On Photo Festival. (Pictured: Idyllic Industrial 7, Kym McDowell)",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "international fly fishing film festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "International Fly Fishing Film Festival",
+      "ref_keys": [
+        "05a5a65b5bd9"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-08",
+          "title": "Fly Fusion’s Trout Tour",
+          "url": "https://flyfusionmag.com/trouttour-portlandor/"
+        }
+      ],
+      "sample": "@ Presented by Scientific Anglers and Orvis , in association with the International Fly Fishing Film Festival , Fly Fusion’s Trout Tour is back for another epic season. Join us for an unforgettable night of fly-fishing films featuring monster fish, stunning cinematography, and storytelling that",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -481,6 +565,27 @@
       "sample": "Some of the authors we read visit Boulder during the Jaipur Literature Festival at the library. For more information or to join online please contact:",
       "state": "pending",
       "times_seen": 10,
+      "venue": null
+    },
+    "jazz clubs du festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Jazz Clubs du festival",
+      "ref_keys": [
+        "553bcb97f8dd"
+      ],
+      "referrers": [
+        {
+          "source": "ods:OpenAgenda France",
+          "start": "2026-11-21",
+          "title": "MONSIEUR PINK",
+          "url": "https://openagenda.com/festival-eclats-demail-jazz-edition-2026/events/monsieur-pink"
+        }
+      ],
+      "sample": "Après quatre années de silence, le quartet électro-jazz renoue avec le live dans le cadre des Jazz Clubs du festival Éclats d’Émail. Batterie, percussions, saxophones, basse, contrebasse, guitare, platines et machines : Monsieur Pink fait dialoguer énergie acoustique, textures électroniques et",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "laneway festival": {
@@ -570,10 +675,11 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-09",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "1016a24e9c88",
+        "95520f3d7ef6",
         "bc6767d7ee5b",
         "cb0472f9248d"
       ],
@@ -595,11 +701,17 @@
           "start": "2026-11-10",
           "title": "Gender Defying Jazz 2026",
           "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
+        },
+        {
+          "source": "ics:university-of-melbourne-events-(melbourne)",
+          "start": "2026-11-11",
+          "title": "Gender Defying Jazz 2026",
+          "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
         }
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 3,
+      "times_seen": 4,
       "venue": null
     },
     "melt festival": {
@@ -696,6 +808,27 @@
       "times_seen": 2,
       "venue": null
     },
+    "more than a festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "MORE THAN A FESTIVAL",
+      "ref_keys": [
+        "eac3e98823b3"
+      ],
+      "referrers": [
+        {
+          "source": "ods:OpenAgenda France",
+          "start": "2027-01-27",
+          "title": "CLUB IN EUROPE 2027 - FESTIVAL",
+          "url": "https://openagenda.com/shotgun/events/club-in-europe-2027-festival"
+        }
+      ],
+      "sample": "HOUSE MUSIC & DANCE CULTURE CELEBRATION ELEVATION JOUR & NUIT I DAY & NIGHT ELEVATION : MEET - DISCOVER - CELEBRATE MORE THAN A FESTIVAL : A COMMUNITY from AN HERITAGE to the FUTURE @club.in.europe https://clubineurope.eu/ [FR] ◙ FESTIVAL : Club in Europe, c’est le premier rendez-vous européen",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "neufneuf festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -773,7 +906,7 @@
     "new york comedy festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-09",
       "name": "New York Comedy Festival",
       "ref_keys": [
         "02339beeb748",
@@ -827,7 +960,7 @@
         }
       ],
       "sample": "Presented as part of the 2026 New York Comedy Festival, and following an acclaimed 2023 run at the Edinburgh Fringe Festival, LOVE ME is the off-Broadway debut from Emmy-nominated comedian Drew Michael, directed by Peabody Award winner Prashanth Venkataramanujam. In this immersive and hilarious thea",
-      "state": "covered",
+      "state": "pending",
       "times_seen": 17,
       "venue": null
     },
@@ -895,6 +1028,76 @@
       "sample": "It launches the inaugural One Health Festival running from 20th November to 27th November 2026, an initiative of the All-Ireland One Health Collaborative Network. It is funded by Trinity School of Medicine, Healthy Trinity within Trinity Sustainability and supported by Wellcome Trust [336423/Z/25/Z]",
       "state": "pending",
       "times_seen": 4,
+      "venue": null
+    },
+    "oregon contemporary artists' biennial": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Oregon Contemporary Artists’ Biennial",
+      "ref_keys": [
+        "842db4adbe35"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-15",
+          "title": "York Panel",
+          "url": "https://portlandartmuseum.org/event/york-panel/"
+        }
+      ],
+      "sample": "This Spring, the Portland Art Museum debuted the bronze bust of York , temporarily, as a part of the 2026 Oregon Contemporary Artists’ Biennial: The Price of the Ticket . In collaboration with Oregon Contemporary and the City of Portland’s Office of Arts & Culture, Portland State University, a",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "pam cut's plus plus festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "PAM CUT’s PLUS PLUS Festival",
+      "ref_keys": [
+        "560dc591720b"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Truthiness: Featuring Sterlin Harjo & Reginald Dwayne Betts",
+          "url": "https://portlandartmuseum.org/event/truthiness-featuring-sterlin-harjo-reginald-dwayne-betts/"
+        }
+      ],
+      "sample": "Presented as part of PAM CUT’s PLUS PLUS Festival , join us for a FREE hosted discussion exploring questions like: What are truths? What makes them true? In this moderated conversation, we ask multidisciplinary artists Sterlin Harjo and Reginald Dwayne Betts to consider truth and truthiness. Sterlin",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "petit festival": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Petit festival",
+      "ref_keys": [
+        "abd91cbc5c48",
+        "d0b6d1192279"
+      ],
+      "referrers": [
+        {
+          "source": "ods:OpenAgenda France",
+          "start": "2027-01-31",
+          "title": "Oh, les oiseaux !",
+          "url": "https://openagenda.com/ardenne-metropole/events/oh-les-oiseaux-1393944"
+        },
+        {
+          "source": "ods:OpenAgenda France",
+          "start": "2027-02-02",
+          "title": "17 Chameaux, ou comment avoir la bosse des maths",
+          "url": "https://openagenda.com/ardenne-metropole/events/17-chameaux-ou-comment-avoir-la-bosse-des-maths"
+        }
+      ],
+      "sample": "Dans le cadre du Petit festival des langues bien pendues ______________ Ecriture et jeu : Sophie Wilhelm Regard chorégraphique : Aïcha AOUAD Composition musicale et création de l’instrumentarium : Jean-François VROD Event data: OpenAgenda (openagenda.com), via the Opendatasoft public dataset",
+      "state": "covered",
+      "times_seen": 2,
       "venue": null
     },
     "photonola festival": {
@@ -997,6 +1200,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "scottsdale's western week": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Scottsdale’s Western Week",
+      "ref_keys": [
+        "346fe8dfd500"
+      ],
+      "referrers": [
+        {
+          "source": "ics:phoenix-local-events-(phoenix)",
+          "start": "2027-02-06",
+          "title": "Arizona Indian Festival",
+          "url": "https://phoenixlocalevents.com/event/arizona-indian-festival-scottsdale/"
+        }
+      ],
+      "sample": "The festival is held in conjunction with Scottsdale’s Western Week. The Arizona Indian Festival is unique in its format and ability to present Arizona tribes in its program and event footprint that includes traditional Indian Villages, traditional arts and craft demonstrations, native food vendors,",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "seattle forest week": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -1044,6 +1268,27 @@
       "sample": "ign&id=RR7meOtrCUCPmTWdi1T0G1FsSd8N11BMhnO_RtIAmJ5UME9DMU1QRjZUTlU4V09FUkdaMFdLSko2TyQlQCN0PWcu Join us as we celebrate Seattle Forest Week, fall planting season, trees, and our community at Arbor Day! We will be planting about 10 street trees along Southwest Holden Street as part of Arbor Day and t",
       "state": "covered",
       "times_seen": 5,
+      "venue": null
+    },
+    "senior citizen fest": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Senior Citizen Fest",
+      "ref_keys": [
+        "919546845868"
+      ],
+      "referrers": [
+        {
+          "source": "jsonld",
+          "start": "2026-11-14",
+          "title": "Dorothy Roberson presents: Tribute to Tina Turner",
+          "url": "https://epiphanychi.com/events/dorothy-roberson-presents-tribute-to-tina-turner/"
+        }
+      ],
+      "sample": "The attendance for this event was over 3 thousand plus people in attendance for the City of Chicago annual Senior Citizen Fest of 2025 sponsored by the Mayor’s office of Special Event. Opened for The Chi-Lites - UIC Forum - Annual Fundraiser Benefit for Veterans of Chicago Dorothy's heart swelled",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "short run comix festival": {
@@ -1208,7 +1453,7 @@
     "ucb's new york comedy festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-09",
       "name": "UCB’s New York Comedy Festival",
       "ref_keys": [
         "ff9fd15f5928"
@@ -1222,7 +1467,7 @@
         }
       ],
       "sample": "As part of UCB’s New York Comedy Festival programming of 2026, they will perform their best sketches of this year so far! WRITERS: JR Atkinson, Henry Block (The Onion), Rel Francis, Orly Lewittes, and Charlotte Polk ACTORS: Allisha Edwards (ASSSSKETCH Actor ’26, Ars Nova Resident Artist ’25, SNL Men",
-      "state": "covered",
+      "state": "pending",
       "times_seen": 1,
       "venue": null
     },
@@ -1243,6 +1488,27 @@
         }
       ],
       "sample": "Presented by the Vancouver Writers Fest and Vancouver Public Library, Incite is a free quarterly series offering fascinating conversations with celebrated authors and emerging talents. Incite is open to all, in-person at the VPL’s Central Library or online. Books will be for sale at the event, and m",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "venice biennale": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Venice Biennale",
+      "ref_keys": [
+        "03c0c7250a1d"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-15",
+          "title": "Tea with Mytris",
+          "url": "https://awc.culturaldistrict.org/production/110621/tea-talk"
+        }
+      ],
+      "sample": "the inaugural African American curator of The Afro-Futurist Manifesto: Blackness Reimagined, presented during the 59th Venice Biennale. The Maryland Institute College of Art awarded her an honorary Doctorate of Fine Art in 2023 in recognition of her curatorial leadership and scholarly",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -1315,6 +1581,27 @@
         }
       ],
       "sample": "In partnership with the Westchester Book Festival, Lasdon is offering seasonal book recommendations, a writing prompt, and journaling materials in the Welcome Center. Contact [address] with any questions or special accessibility needs. This is an outdoor program. Cancellation in c",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "western week": {
+      "dates": [],
+      "first_seen": "2026-11-09",
+      "last_seen": "2026-11-09",
+      "name": "Western Week",
+      "ref_keys": [
+        "346fe8dfd500"
+      ],
+      "referrers": [
+        {
+          "source": "ics:phoenix-local-events-(phoenix)",
+          "start": "2027-02-06",
+          "title": "Arizona Indian Festival",
+          "url": "https://phoenixlocalevents.com/event/arizona-indian-festival-scottsdale/"
+        }
+      ],
+      "sample": "wineries, and craft breweries, the city maintains its Old West charm and heritage, which is celebrated during Western Week. For more about the festival, visit; https://www.arizonaindiantourism.org; for more about Western Week, visit https://www.scottsdalewesternweek.com",
       "state": "pending",
       "times_seen": 1,
       "venue": null

@@ -8383,6 +8383,414 @@
         "lon": -94.6901745
       },
       "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Stray Cat Film Center",
+      "category": "theater",
+      "_found": "osm:cinema -> squarespace",
+      "collection": "https://www.straycatfilmcenter.com/screeningsandevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Stray Cat Film Center",
+        "address": "1662 Broadway Boulevard",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64108",
+        "lat": 39.0931714,
+        "lon": -94.5889023
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Peace Church UCC",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://peacechristianchurch.org/events-peace-church-kc-ucc",
+      "max_events": 200,
+      "venue": {
+        "name": "Peace Church UCC",
+        "address": "1801 McGee Street",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64108",
+        "lat": 39.091409,
+        "lon": -94.579941
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Boone Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.boonetheaterkc.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Boone Theater",
+        "address": "1701 East 18th Street",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64108",
+        "lat": 39.0908976,
+        "lon": -94.5619795
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Museum at Prairiefire",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.visitthemap.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Museum at Prairiefire",
+        "lat": 38.881969,
+        "lon": -94.6520982
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Oakwood Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.obckc.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Oakwood Baptist Church",
+        "address": "7600 Lee's Summit Road",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64139",
+        "lat": 38.9826838,
+        "lon": -94.3901637
+      },
+      "_metro": "Kansas City, United States"
+    },
+    {
+      "name": "Wolf's Ridge Brewing",
+      "category": "community",
+      "_found": "osm:restaurant -> squarespace",
+      "collection": "https://www.wolfsridgebrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Wolf's Ridge Brewing",
+        "lat": 39.9672867,
+        "lon": -82.9974335
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "The Kitchen",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.thekitchencolumbus.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Kitchen",
+        "address": "233 East Livingston Avenue",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43215",
+        "lat": 39.9524583,
+        "lon": -82.9922864
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Grove City Church of the Nazarene",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://thenaz.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Grove City Church of the Nazarene",
+        "address": "4770 Hoover Road",
+        "city": "Grove City",
+        "region": "OH",
+        "postal_code": "43123",
+        "lat": 39.865942,
+        "lon": -83.0689614
+      },
+      "_metro": "Columbus, United States"
+    },
+    {
+      "name": "Dunham Tavern Museum and Gardens",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.dunhamtavern.org/programs-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Dunham Tavern Museum and Gardens",
+        "address": "6709 Euclid Avenue",
+        "city": "Cleveland",
+        "region": "OH",
+        "postal_code": "44103",
+        "lat": 41.5052374,
+        "lon": -81.6428227
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "The church in Willoughby",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.thechurchinwilloughby.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The church in Willoughby",
+        "address": "5563 Som Center Road",
+        "city": "Willoughby",
+        "region": "OH",
+        "postal_code": "44094",
+        "lat": 41.6150112,
+        "lon": -81.4376486
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Fairfield Friends Meeting",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.fairfieldfriends.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Fairfield Friends Meeting",
+        "address": "10441 East County Road 700 South",
+        "city": "Camby",
+        "region": "IN",
+        "postal_code": "46113",
+        "lat": 39.660621,
+        "lon": -86.3370114
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Black Circle Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://www.blackcirclebrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Black Circle Brewing Company",
+        "address": "2201 East 46th Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46205",
+        "lat": 39.8396473,
+        "lon": -86.1239156
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Curious Squirrel Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.curioussquirrelbooks.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Curious Squirrel Bookshop",
+        "postal_code": "46077",
+        "lat": 39.9504947,
+        "lon": -86.2617852
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Redeemer Presbyterian Church (PCA)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.redeemindy.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Redeemer Presbyterian Church (PCA)",
+        "address": "1505 North Delaware Street",
+        "city": "Indianapolis",
+        "region": "IN",
+        "postal_code": "46202",
+        "lat": 39.7879083,
+        "lon": -86.1534736
+      },
+      "_metro": "Indianapolis, United States"
+    },
+    {
+      "name": "Nashville Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.nashvillelifechurch.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Nashville Life Church",
+        "address": "2639 Nolensville Pike",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37211",
+        "lat": 36.114659,
+        "lon": -86.747552
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Tennessee Brew Works",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.tnbrew.com/livemusic",
+      "max_events": 200,
+      "venue": {
+        "name": "Tennessee Brew Works",
+        "address": "809 Ewing Avenue",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37203",
+        "lat": 36.1503752,
+        "lon": -86.7762132
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "Woodlawn Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace+gcal-embed",
+      "collection": "https://www.woodlawnbc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Woodlawn Baptist Church",
+        "address": "4600 Manchaca Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78745",
+        "lat": 30.2271038,
+        "lon": -97.7910429
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "St. George's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sgchurch.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "St. George's Episcopal Church",
+        "address": "4301 North Interstate Highway 35 Service Road",
+        "postal_code": "78722",
+        "lat": 30.3001672,
+        "lon": -97.715464
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Stargazer",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.stargazerbar.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Stargazer",
+        "address": "979 Springdale Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78702",
+        "lat": 30.2628616,
+        "lon": -97.6961854
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Go Dance Studio",
+      "category": "fitness",
+      "_found": "osm:dance -> squarespace",
+      "collection": "https://godancestudio.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Go Dance Studio",
+        "address": "4477 South Lamar Boulevard",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78745",
+        "lat": 30.2302626,
+        "lon": -97.7988955
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Uptown Dance",
+      "category": "fitness",
+      "_found": "osm:dance -> squarespace",
+      "collection": "https://www.austinuptowndance.com/main-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Uptown Dance",
+        "address": "8868 Research Boulevard",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78758",
+        "lat": 30.3682976,
+        "lon": -97.7199786
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "University United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.uumc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "University United Methodist Church",
+        "address": "2409 Guadalupe Street",
+        "city": "Austin",
+        "postal_code": "78705",
+        "lat": 30.2879315,
+        "lon": -97.7412195
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Central Machine Works Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace+jsonld-event",
+      "collection": "https://www.cmwbrewery.com/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Central Machine Works Brewery",
+        "address": "4824 East Cesar Chavez Street",
+        "postal_code": "78702",
+        "lat": 30.252021,
+        "lon": -97.701521
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Westover Hills Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.westover.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Westover Hills Church of Christ",
+        "address": "8332 Mesa Drive",
+        "city": "Austin",
+        "postal_code": "78759",
+        "lat": 30.37604,
+        "lon": -97.7551995
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "High Pointe Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.highpointeaustin.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "High Pointe Baptist Church",
+        "address": "12030 Dessau Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78753",
+        "lat": 30.3836505,
+        "lon": -97.6537245
+      },
+      "_metro": "Austin, United States"
     }
   ],
   "_not_included": {

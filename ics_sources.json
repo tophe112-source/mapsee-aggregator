@@ -67407,5 +67407,681 @@
     "geocode_suffix": ", Cincinnati, United States",
     "limit": 300,
     "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Bellefontaine Neighbors",
+    "category": "community",
+    "_found": "civic:city -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2qlc92bqg9pq9dd43589vamtk4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bellefontaine Neighbors, Missouri",
+    "limit": 300,
+    "_metro": "Bellefontaine Neighbors, Missouri"
+  },
+  {
+    "name": "Sebring — Community Events",
+    "category": "community",
+    "url": "https://www.mysebring.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Sebring, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Sebring, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Malibu — Palisades/Rebuild",
+    "category": "community",
+    "url": "https://www.malibucity.org/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
+    "geocode_suffix": ", Malibu, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Palisades/Rebuild]",
+    "_metro": "Malibu, California",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Malibu — Woolsey / Rebuild",
+    "category": "community",
+    "url": "https://www.malibucity.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar",
+    "geocode_suffix": ", Malibu, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Woolsey / Rebuild]",
+    "_metro": "Malibu, California",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Malibu — Special Events",
+    "category": "community",
+    "url": "https://www.malibucity.org/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar",
+    "geocode_suffix": ", Malibu, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Special Events]",
+    "_metro": "Malibu, California",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Malibu — Aquatics",
+    "category": "fitness",
+    "url": "https://www.malibucity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Malibu, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Aquatics]",
+    "_metro": "Malibu, California",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Malibu — Environmental Programs",
+    "category": "community",
+    "url": "https://www.malibucity.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Malibu, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Environmental Programs]",
+    "_metro": "Malibu, California",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Congregation Beth Torah",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_qvopksr0l25fef3slcsbt4not8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Overland Park",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Holy Family Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/holyfamily.com_ikftg8pvst2jofuk2pbop2qvsk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Holy Trinity Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4du95ci3482a8v5d96p6m41pug%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Overland Park, KS",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "North Oak Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40nocckc.org/public/basic.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Melrose Abbey",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_93e698143c0e310eb658fa99cb715eb14eecf00d4b1604b62ec34969be424547%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Manheim Gardens",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0970579c3107d8a3a8a03438ea33307a0a47c8ff0fedc009505a7139d96f9861%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, United States",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Heartland Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://heartlandchurch.us/events.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Reformed Presbyterian Church of Shawnee",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lcj3a0gjjch5tnrdp02reb6gds%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Shawnee, KS",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Faith Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fcccalendar%40faithcommunity.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Saint Matthew's Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmatthew%40gracefaithlove.org/public/basic.ics",
+    "geocode_suffix": ", Kansas City, United States",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Greek Orthodox Church of the Annunciation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/annunciationkc.org_m77dsk5c8hk1gpoi6ps4tqu2c8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Saint Agnes Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stagneskc.org_ijftc9bohffs01rf26pmrp8ls8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Roeland Park, KS",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Ward Parkway Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wppresbyterian.org_nobls5qqphftpd78mmke7385hs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Restoration Church of Jesus Christ of Latter Day Saints",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/65248f90268b0c7af08d4bcb156439e49ae7658ad9c68a09df8823752848b600%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Independence, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Lighthouse Church of Independence",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mylighthousechurch.net_a1btglghnek9siplughbbvd74s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, United States",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "The Gathering Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nolandroadbaptist.org_kdmdqer5b5dj7ebi0n9u8ipp2o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kansas City, United States",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "The Temple, Congregation B'nai Jehudah",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://bnaijehudah.org/calendar/?ical=1",
+    "geocode_suffix": ", Overland Park",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Roeland Park Aquatic Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.roelandpark.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Kansas City, United States",
+    "limit": 300,
+    "_metro": "Kansas City, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bethany Lutheran Church of Overland Park",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.bethany-joco.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Overland Park, KS",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "The University of Kansas Health System Training Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/d9830403e8f7cc7789d67fc38036d6cc36bba23ace28ae6e958bc74460541b08%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Riverside, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Eastgate Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3483dc1817816383efd3828bcf52767048a6e073de897fe61dd90310a22a9e8d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Independence, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "EAA Chapter 9",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r03mla1fijf6gf6gj7sutnptas%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Columbus, OH",
+    "limit": 300,
+    "_metro": "Columbus, United States"
+  },
+  {
+    "name": "Greek Orthodox Church of the Annunciation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.google.com/calendar/ical/bdojm12furtfcftoe5dpivbcec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Columbus, OH",
+    "limit": 300,
+    "_metro": "Columbus, United States"
+  },
+  {
+    "name": "Central Vineyard Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.centralvineyard.com/events.ics",
+    "geocode_suffix": ", Columbus, OH",
+    "limit": 300,
+    "_metro": "Columbus, United States"
+  },
+  {
+    "name": "Brice United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kk9m8ppdbo3nv3vdjb6elph0h8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brice",
+    "limit": 300,
+    "_metro": "Columbus, United States"
+  },
+  {
+    "name": "St. Leo the Great Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/leothegreat.org_ap3mjobkdoirtl9cu11mg6n4f4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cleveland, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Grace Church of North Olmsted",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/so1s4j4mnpo2u5jlj7v4sn3a1c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", North Olmsted, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "North Olmsted United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40noumc.org/public/basic.ics",
+    "geocode_suffix": ", North Olmsted",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "New Hope Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.newhoperca.com/events.ics",
+    "geocode_suffix": ", Fairview Park",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Highland Heights Community Pool",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.highlandhtsohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cleveland, United States",
+    "limit": 300,
+    "_metro": "Cleveland, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Annunciation Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/03kujpqaqbujob6glk2642aj6k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cleveland, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Saints Constantine and Helen Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stsconstantine.com_q9eaj0uv2c3ofu7sprdnlof3oc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cleveland Heights, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Dan Kostel Recreation Center",
+    "category": "community",
+    "_found": "osm:club -> civicplus",
+    "url": "https://garfieldhts.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Garfield Heights, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Matthew Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/o3uplt7d36jesplrgbph9t2r7k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", North Royalton, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Harvest Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_seotja6e7h8m5m772enfkm1nnc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Willoughby Hills, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Saint Paul Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/messenger%40stpaulgoc.org/public/basic.ics",
+    "geocode_suffix": ", North Royalton, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Willoughby United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/willoughbyumc.org_5sjvq683jusd28sk5lruuo6820%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Willoughby, OH",
+    "limit": 300,
+    "_metro": "Cleveland, United States"
+  },
+  {
+    "name": "Northview Church of the Brethren",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0qjb6j65sh0glstj06r4kbed1c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Indianapolis",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Hindu Temple of Central Indiana",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/htci.org_98m1srpu6julj5fe4pufoh233c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Indianapolis, IN",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Holy Apostles Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vouni77l4ipqepjspli4e2fm20%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Indianapolis, IN",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Indianapolis Neighborhood Resource Center (INRC)",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_d6763a01a91dba0cc9c9069f1bffc9bdc7e34c2dc2faab32f8d48f3ae2affea0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Indianapolis, United States",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Heron Concert Lawn",
+    "category": "community",
+    "_found": "osm:events_venue -> civicplus",
+    "url": "https://www.avonindiana.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Indianapolis, United States",
+    "limit": 300,
+    "_metro": "Indianapolis, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Indianapolis Bahá'í Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5897f3ee8bc4394234a043bbf069296d944e0fba04e76f0baf9f7a2e456a4102%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Indianapolis",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Holy Trinity Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cb9f337aa2b414510f0f5424782c3e97b1a70a7463f483300d20cc9acfe59c7a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Carmel, IN",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Mooresville Friends Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8c6rmvdrjltr6tup0p8ud5lno8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mooresville, IN",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Sts. Constantine & Elena Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dbb89q1e39rpomrlk7v8l5k2ug%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Indianapolis, IN",
+    "limit": 300,
+    "_metro": "Indianapolis, United States"
+  },
+  {
+    "name": "Tusculum Cumberland Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fk653tcgb7lo0u9p1csejia7gs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nashville",
+    "limit": 300,
+    "_metro": "Nashville, United States"
+  },
+  {
+    "name": "First Unitarian Universalist Church of Nashville",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.firstuunash.org/events.ics",
+    "geocode_suffix": ", Nashville",
+    "limit": 300,
+    "_metro": "Nashville, United States"
+  },
+  {
+    "name": "Ashland City Free Will Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mail%40ashlandcityfwb.org/public/basic.ics",
+    "geocode_suffix": ", Ashland City, TN",
+    "limit": 300,
+    "_metro": "Nashville, United States"
+  },
+  {
+    "name": "Templo Monte Horeb Asamblea de Dios",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://txlahispanic.org/events.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Austin Beerworks",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/austinbeerworks.com_dp5ecib6132j0v2ab39htj1edo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Infusion Dance and Event Center",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/775d1ccbd9c199a612cb31c33367f5c3ca46fb0c981f19152ea1de997b74f2ab%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pflugerville, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Veranda Room",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cljc6dllvopvdn1dnee6nfk8gc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Raymond E. Hartfield Performing Arts Center",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/roundrockisd.org_4n0j00a9i69s8k1qgja35si2hc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Mt Zion Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mtzion-baptist.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Dane's body shop",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40danesbodyshop.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Episcopal Church of the Resurrection",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/amp6qts8qd4n8n7rnt82af97t0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Transfiguration Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/priest%40transfiguration.org/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "First English Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_1b6af6d236a92750a8aa1811503d9a80cb5af5c766bf0aaf0e0e8c0b78bbf6fe%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Live Oak Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_52d3550d4fa34d4338c5dbcabad2a59f389d3d09794ba47db91dba1b5959889e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cedar Park, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "University Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_84d0454e391f7a77d078774cb78c0d5b68db04809fc6dd31acbda6f28cc3d622%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Bahá'í Faith of Austin, Texas",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ufschqih43sdh6rrtrs446mapk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Christian Life Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/clcaustin.com_e6o8im4h58nfqbi59bck81r0ic%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Holy Cross Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qs9pa6i4nt80fu005m1uroths4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Saint Paul Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_h16be97ds9m7ad3lj2llq0mo60%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Holy Vietnamese Martyrs Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3v2meqfrvs3q4qv8vlj1ulohgs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Saint Luke's On The Lake Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stlukesonthelake.org_rc3cr24qpvnc991q5nggakvgk4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
   }
 ]
