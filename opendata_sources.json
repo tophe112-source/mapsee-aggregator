@@ -162,7 +162,9 @@
     "url": "https://data.cityofchicago.org/resource/w22p-bfyb.json",
     "app_token": null,
     "category": "kids",
-    "where": "start_date_and_time > '{now}' AND org_name != 'Chicago Public Library'",
+    "where": "start_date_and_time > '{now}' AND start_date_and_time < '{now+21d}' AND org_name != 'Chicago Public Library'",
+    "timeout": 90,
+    "_why_timeout": "2026-11-10: the open-ended sorted read gave no answer in 150 s and failed the civic job 2026-11-07..09 (25 s x 3 tries); a 21-day window answered in 22.7 s and 10.5 s with all 453 rows. 90 s is headroom for a slow portal (one 1-row read took 16 s).",
     "order": "start_date_and_time",
     "limit": 1000,
     "map": {

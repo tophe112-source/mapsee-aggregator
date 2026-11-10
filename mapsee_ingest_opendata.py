@@ -39,7 +39,7 @@ import json
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 
 try:
@@ -345,20 +345,50 @@ def _dataset_page(api_url: Optional[str]) -> Optional[str]:
     return f"{m.group(1)}/d/{m.group(2)}" if m else None
 
 
+# A slow dataset says so in its own entry ("timeout": seconds); every other one
+# keeps the 25 s read that has always been enough. Chicago's w22p-bfyb answered
+# its filtered query in more than 25 s on all three tries three nights running
+# (2026-11-07..09), failing the civic job each time. Bounded: a typo cannot make
+# one source hold the job for longer than three 180 s reads.
+def _fill_where(where: str, now: datetime) -> str:
+    """{now} is the read's clock; {now+Nd} is N days later, so a dataset whose
+    open-ended sorted read never answers can be read as a bounded window.
+    Chicago's w22p-bfyb, 2026-11-10: start > now ordered by start gave no answer
+    in 150 s (twice, with or without its org_name filter), unordered answered in
+    7.8 s with 1,000 arbitrary rows out to 2054, and start in (now, now+21d)
+    ordered answered in 22.7 s then 10.5 s with all 453 rows (28 days: 59.6 s
+    then 28.1 s)."""
+    fmt = "%Y-%m-%dT%H:%M:%S"
+    where = re.sub(r"\{now\+(\d{1,3})d\}", lambda m: (now + timedelta(days=int(m.group(1)))).strftime(fmt), where)
+    return where.replace("{now}", now.strftime(fmt))
+
+
+DEFAULT_TIMEOUT_S = 25
+MAX_TIMEOUT_S = 180
+
+
+def _src_timeout(src: Dict[str, Any]) -> float:
+    try:
+        value = float(src.get("timeout", DEFAULT_TIMEOUT_S))
+    except (TypeError, ValueError):
+        return DEFAULT_TIMEOUT_S
+    return min(max(value, 1.0), MAX_TIMEOUT_S) if value == value else DEFAULT_TIMEOUT_S
+
+
 def ingest_socrata(store: EventStore, session, src: Dict[str, Any]) -> int:
     params: Dict[str, Any] = {"$limit": src.get("limit", 1000), "$order": src.get("order", ":id")}
     where = src.get("where")
     if where:
         # Floating timestamp columns are compared in the configured local zone.
         now = datetime.now(_src_tz(src.get("timezone")) or timezone.utc)
-        params["$where"] = where.replace("{now}", now.strftime("%Y-%m-%dT%H:%M:%S"))
+        params["$where"] = _fill_where(where, now)
     headers = {}
     if src.get("app_token"):
         headers["X-App-Token"] = src["app_token"]
     # Retry transient transport/service failures, never schema errors or refusals.
     for attempt in range(3):
         try:
-            resp = session.get(src["url"], params=params, headers=headers, timeout=25)
+            resp = session.get(src["url"], params=params, headers=headers, timeout=_src_timeout(src))
             if resp.status_code not in (429, 500, 502, 503, 504) or attempt == 2:
                 break
             resp.close()

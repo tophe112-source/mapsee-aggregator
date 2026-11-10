@@ -49,6 +49,25 @@ class OpenDataTests(TestCase):
             with self.assertRaises(requests.HTTPError):ingest.ingest_socrata(Mock(),session,self.src)
             self.assertEqual(session.get.call_count,1)
 
+    def test_a_slow_dataset_names_its_own_timeout(self):
+        # Chicago's w22p-bfyb read timed out at 25 s, three tries, 2026-11-07..09.
+        ok=Mock(status_code=200);ok.json.return_value=[]
+        for given,used in ((None,25),(120,120),('90',90),(10_000,180),(0,1),('x',25)):
+            src={**self.src}
+            if given is not None: src['timeout']=given
+            session=Mock();session.get.return_value=ok
+            ingest.ingest_socrata(Mock(),session,src)
+            self.assertEqual(session.get.call_args.kwargs['timeout'],used,given)
+        chicago=next(s for s in json.loads(Path('opendata_sources.json').read_text())
+                     if 'w22p-bfyb' in s['url'])
+        self.assertGreater(ingest._src_timeout(chicago),25)
+        # ...and it reads a bounded window: the open-ended sorted read never answered.
+        now=datetime(2026,11,10,12,0,0)
+        where=ingest._fill_where(chicago['where'],now)
+        self.assertIn("> '2026-11-10T12:00:00'",where)
+        self.assertIn("< '2026-12-01T12:00:00'",where)
+        self.assertNotIn('{',where)
+
     def test_query_clock_uses_source_zone(self):
         real=datetime
         class Clock(datetime):
