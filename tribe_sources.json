@@ -41767,6 +41767,574 @@
         "lon": -87.9174441
       },
       "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Urban Indian Center of Salt Lake City",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://uicsl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Urban Indian Center of Salt Lake City",
+        "address": "120 West 1300 South",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84115",
+        "lat": 40.7419004,
+        "lon": -111.894864
+      },
+      "_metro": "Salt Lake City, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Museum of Utah",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://history.utah.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Utah",
+        "address": "450 North State Street",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "lat": 40.7787738,
+        "lon": -111.8881562
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Hogle Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe",
+      "base_url": "https://www.hoglezoo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hogle Zoo",
+        "address": "2600 East Sunnyside Avenue",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84108",
+        "lat": 40.7495115,
+        "lon": -111.815949
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Pioneer Memorial Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://isdup.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pioneer Memorial Museum",
+        "address": "300 North Main Street",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84103",
+        "lat": 40.7766705,
+        "lon": -111.8911361
+      },
+      "_metro": "Salt Lake City, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Good Measure",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://goodmeasurenola.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Good Measure",
+        "address": "600 Carondelet Street",
+        "city": "New Orleans",
+        "region": "LA",
+        "postal_code": "70130",
+        "lat": 29.948321,
+        "lon": -90.071877
+      },
+      "_metro": "New Orleans, United States"
+    },
+    {
+      "name": "Grace Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://www.rncconline.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Christian Church",
+        "address": "6021 Louisburg Road",
+        "city": "Raleigh",
+        "postal_code": "27616",
+        "lat": 35.8785717,
+        "lon": -78.5366689
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "St. Michael the Archangel Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stmichaelcary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Michael the Archangel Catholic Church",
+        "address": "804 High House Road",
+        "city": "Cary",
+        "postal_code": "27513-3507",
+        "lat": 35.7863033,
+        "lon": -78.8211954
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.collegeparkministries.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "910 Twyla Road",
+        "lat": 35.8058375,
+        "lon": -78.8900719
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Oak City Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://oakcitybrewingcompany.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oak City Brewing Company",
+        "address": "616 North 1st Avenue",
+        "city": "Knightdale",
+        "region": "NC",
+        "postal_code": "27545",
+        "lat": 35.7939254,
+        "lon": -78.4767293
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Squeaky Wheel",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://squeaky.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Squeaky Wheel",
+        "address": "2495 Main Street",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14214",
+        "lat": 42.9359353,
+        "lon": -78.8421126
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "BriarBrothers Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event+ics",
+      "base_url": "https://briarbrothersbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BriarBrothers Brewing Company",
+        "lat": 42.8697314,
+        "lon": -78.8515534
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "North Tonawanda Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://ntlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Tonawanda Public Library",
+        "city": "North Tonawanda",
+        "region": "NY",
+        "postal_code": "14120",
+        "lat": 43.051671,
+        "lon": -78.8680408,
+        "street_hint": "505 Meadow Drive"
+      },
+      "_metro": "Buffalo, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Lancaster Opera House",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.lancasteropera.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lancaster Opera House",
+        "address": "21 Central Avenue",
+        "city": "Lancaster",
+        "region": "NY",
+        "postal_code": "14086",
+        "lat": 42.9011568,
+        "lon": -78.6700434
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Buffalo Iron Works",
+      "category": "music",
+      "_found": "osm:music_venue -> tribe+jsonld-event",
+      "base_url": "https://buffaloironworks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buffalo Iron Works",
+        "address": "49 Illinois Street",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14203",
+        "lat": 42.8745252,
+        "lon": -78.8747385
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Buffalo and Erie County Naval & Military Park Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://buffalonavalpark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buffalo and Erie County Naval & Military Park Museum",
+        "address": "1 Naval Park Cove",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14202",
+        "lat": 42.8773963,
+        "lon": -78.8796658
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Riviera Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://rivieratheatre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Riviera Theatre",
+        "address": "67 Webster Street",
+        "city": "North Tonawanda",
+        "region": "NY",
+        "postal_code": "14120",
+        "lat": 43.0235952,
+        "lon": -78.8769614
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Saint Leo the Great Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.stleothegreatamherst.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Leo the Great Catholic Church",
+        "address": "885 Sweet Home Road",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14226",
+        "lat": 42.9867976,
+        "lon": -78.8068678
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Museum of the American Printing House for the Blind",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://thedotexperience.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of the American Printing House for the Blind",
+        "address": "1839 Frankfort Avenue",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40206",
+        "lat": 38.2568795,
+        "lon": -85.7145659
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Louisville Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://louisvillezoo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Louisville Zoo",
+        "lat": 38.2053653,
+        "lon": -85.7056815
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Kentucky Shakespeare",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://kyshakespeare.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kentucky Shakespeare",
+        "address": "616 Myrtle Street",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40208",
+        "lat": 38.2303868,
+        "lon": -85.7655479
+      },
+      "_metro": "Louisville, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Waterfront Botanical Gardens",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://waterfrontgardens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Waterfront Botanical Gardens",
+        "address": "1435 Frankfort Avenue",
+        "region": "KY",
+        "postal_code": "40206",
+        "lat": 38.2640703,
+        "lon": -85.7222803
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Theatre Memphis",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theatrememphis.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theatre Memphis",
+        "address": "630 Perkins Extended",
+        "city": "Memphis",
+        "postal_code": "38117",
+        "lat": 35.1140981,
+        "lon": -89.9080743
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "Leftwich Tennis Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://tennismemphis.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leftwich Tennis Center",
+        "address": "4145 Southern Avenue",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38117",
+        "lat": 35.1148977,
+        "lon": -89.9229378
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "New Life Bible Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://nlbc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Life Bible Church",
+        "address": "3308 Broce Court",
+        "city": "Norman",
+        "postal_code": "73072",
+        "lat": 35.2535947,
+        "lon": -97.4900406
+      },
+      "_metro": "Oklahoma City, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Full Circle Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://fullcirclebooks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Full Circle Bookstore",
+        "address": "1900 Northwest Expressway",
+        "city": "Oklahoma City",
+        "region": "OK",
+        "postal_code": "73118",
+        "lat": 35.5222395,
+        "lon": -97.5452448
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "First Baptist Church of Edmond",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://fbcedmond.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Baptist Church of Edmond",
+        "lat": 35.6226219,
+        "lon": -97.4620783
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Science Museum Oklahoma",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.sciencemuseumok.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Science Museum Oklahoma",
+        "address": "2020 Remington Place",
+        "city": "Oklahoma City",
+        "region": "OK",
+        "postal_code": "73111",
+        "lat": 35.523203,
+        "lon": -97.4751795
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "St. Luke's United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stlukesokc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Luke's United Methodist Church",
+        "lat": 35.4841899,
+        "lon": -97.5169851
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Arcadia Round Barn",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://arcadiaroundbarn.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arcadia Round Barn",
+        "address": "107 East Edmond Road",
+        "city": "Arcadia",
+        "postal_code": "73007",
+        "lat": 35.6623532,
+        "lon": -97.3259819
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Friday Musicale Auditorium",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://fridaymusicale.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Friday Musicale Auditorium",
+        "address": "645 Oak Street",
+        "city": "Jacksonville",
+        "region": "FL",
+        "country": "US",
+        "lat": 30.3183388,
+        "lon": -81.6776358
+      },
+      "_metro": "Jacksonville, United States"
+    },
+    {
+      "name": "Church of the Crucifixion",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://dosafl.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Crucifixion",
+        "address": "3183 West Edgewood Avenue",
+        "city": "Jacksonville",
+        "region": "FL",
+        "postal_code": "32209",
+        "country": "US",
+        "lat": 30.3734209,
+        "lon": -81.719069
+      },
+      "_metro": "Jacksonville, United States"
+    },
+    {
+      "name": "Webb-Deane-Stevens Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://wdsmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Webb-Deane-Stevens Museum",
+        "region": "CT",
+        "lat": 41.7119304,
+        "lon": -72.6531295
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Walter Fyler House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.windsorhistoricalsociety.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Walter Fyler House Museum",
+        "region": "CT",
+        "lat": 41.8571105,
+        "lon": -72.6365743
+      },
+      "_metro": "Hartford, United States"
     }
   ],
   "_not_included": {

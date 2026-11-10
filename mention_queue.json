@@ -122,6 +122,27 @@
       "times_seen": 2,
       "venue": null
     },
+    "bealtaine festival": {
+      "dates": [],
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "name": "Bealtaine Festival",
+      "ref_keys": [
+        "7d5fa91d5a3d"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-12",
+          "title": "READINGS: Inspired by Objects – A Celebration of Creative Writing",
+          "url": "https://galwaycitymuseum.ie/event/readings-inspired-by-objects-a-celebration-of-creative-writing/"
+        }
+      ],
+      "sample": "Now in its third year, the course is delivered as part of the Bealtaine Festival programme and brings together aspiring writers of all abilities and background to explore the Museum’s collection through creative writing. Each week participants discover the stories behind objects form the Museum’s",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "brant fan fest": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -588,6 +609,58 @@
       "times_seen": 1,
       "venue": null
     },
+    "labor day festival": {
+      "dates": [],
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "name": "Labor Day Festival",
+      "ref_keys": [
+        "5aab69a6f604",
+        "5c0fb858be9a",
+        "65a3795c65fd",
+        "86094c0f94c3",
+        "af887ea7f49b",
+        "c6bb1de1d25e",
+        "d4766b307095",
+        "f899cfff97f7"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-17",
+          "title": "Artist in Residence: Open Studio with Susan Locke Charlesworth",
+          "url": "https://eiteljorg.org/eiteljorg-events/artist-in-residence-open-studio-with-susan-locke-charlesworth/2026-11-17/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-20",
+          "title": "Artist in Residence: Open Studio with Susan Locke Charlesworth",
+          "url": "https://eiteljorg.org/eiteljorg-events/artist-in-residence-open-studio-with-susan-locke-charlesworth/2026-11-20/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Artist in Residence: Basketry Workshop with Susan Locke Charlesworth",
+          "url": "https://eiteljorg.org/eiteljorg-events/artist-in-residence-basketry-workshop-with-susan-locke-charlesworth/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Artist in Residence: Corn Basket Workshop with Susan Locke Charlesworth",
+          "url": "https://eiteljorg.org/eiteljorg-events/artist-in-residence-corn-basket-workshop-with-susan-locke-charlesworth/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Artist in Residence: Open Studio with Susan Locke Charlesworth",
+          "url": "https://eiteljorg.org/eiteljorg-events/artist-in-residence-open-studio-with-susan-locke-charlesworth/2026-11-21/"
+        }
+      ],
+      "sample": "That same year, she entered her first baskets in the Choctaw Nation Annual Labor Day Festival and Art Show. Susan has continued to receive awards at multiple Native art markets, including the Eiteljorg Indian Market & Festival, the Art Under Oak’s Art Show, and the Choctaw National Art Show.",
+      "state": "pending",
+      "times_seen": 8,
+      "venue": null
+    },
     "laneway festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -675,10 +748,13 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-09",
+      "last_seen": "2026-11-10",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
+        "0ee3b10ee6da",
         "1016a24e9c88",
+        "33e7eba1bcea",
+        "6fbd7b8d2f83",
         "95520f3d7ef6",
         "bc6767d7ee5b",
         "cb0472f9248d"
@@ -707,11 +783,17 @@
           "start": "2026-11-11",
           "title": "Gender Defying Jazz 2026",
           "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
+        },
+        {
+          "source": "ics:university-of-melbourne-events-(melbourne)",
+          "start": "2026-11-12",
+          "title": "Gender Defying Jazz 2026",
+          "url": "https://events.unimelb.edu.au/finearts-music/event/51009-gender-defying-jazz-2026"
         }
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 4,
+      "times_seen": 7,
       "venue": null
     },
     "melt festival": {
@@ -825,6 +907,27 @@
         }
       ],
       "sample": "HOUSE MUSIC & DANCE CULTURE CELEBRATION ELEVATION JOUR & NUIT I DAY & NIGHT ELEVATION : MEET - DISCOVER - CELEBRATE MORE THAN A FESTIVAL : A COMMUNITY from AN HERITAGE to the FUTURE @club.in.europe https://clubineurope.eu/ [FR] ◙ FESTIVAL : Club in Europe, c’est le premier rendez-vous européen",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "ncaa division ii fall festival": {
+      "dates": [],
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "name": "NCAA Division II Fall Festival",
+      "ref_keys": [
+        "620de4418b70"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-03",
+          "title": "NCAA Div. II Women’s Volleyball Championship",
+          "url": "https://www.ncaa.com/sports/volleyball-women/d2"
+        }
+      ],
+      "sample": "Hosted as part of the 2026 NCAA Division II Fall Festival, the event joins a slate of national championships taking place across the Kansas City region and welcoming more than 900 student-athletes. Volleyball fans can experience championship-level competition inside Municipal Auditorium, an iconic",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -1448,6 +1551,27 @@
       "sample": "It all kicks off on January 15th, with a show at the storied City Recital Hall, as part of the Sydney Festival, continues onto Melbourne at Northcote Theatre the next night and wraps up at the Triffid in Brisbane on the 19th. Get tickets while you can – the full scale majesty of Wasia Project live i",
       "state": "pending",
       "times_seen": 2,
+      "venue": null
+    },
+    "texas holocaust remembrance week": {
+      "dates": [],
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "name": "Texas Holocaust Remembrance Week",
+      "ref_keys": [
+        "689f9eea10e2"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2027-02-07",
+          "title": "Shalom Austin Arts & Culture: Janusz & Stefa the Musical by Opera Leggara",
+          "url": "https://shalomaustin.org/event/shalom-austin-arts-culture-janusz-stefa-the-musical-by-opera-leggara/"
+        }
+      ],
+      "sample": "Janusz and Stefa was created in honor of the Texas Holocaust Remembrance Week, and it’s on tour all over the state. Registration information will be available soon!",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "ucb's new york comedy festival": {

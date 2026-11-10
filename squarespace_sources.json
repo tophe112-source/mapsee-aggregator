@@ -8991,6 +8991,248 @@
         "lon": -88.0567561
       },
       "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Golden Braid Books",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.goldenbraidslc.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Golden Braid Books",
+        "address": "151 South 500 East",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84102",
+        "lat": 40.7657211,
+        "lon": -111.8762449
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Oasis Vineyard Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.oasisvineyard.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Oasis Vineyard Church",
+        "address": "1750 West 4160 South",
+        "city": "Taylorsville",
+        "region": "UT",
+        "postal_code": "84129",
+        "lat": 40.6809086,
+        "lon": -111.9400144
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Salt Lake Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://saltlakeartmuseum.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Salt Lake Art Museum",
+        "address": "249 South 400 East",
+        "lat": 40.7638035,
+        "lon": -111.8791183
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "New Orleans African American Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.noaam.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Orleans African American Museum",
+        "address": "1418 Governor Nicholls Street",
+        "city": "New Orleans",
+        "region": "LA",
+        "postal_code": "70116",
+        "lat": 29.9665108,
+        "lon": -90.0679482
+      },
+      "_metro": "New Orleans, United States"
+    },
+    {
+      "name": "New Orleans Pharmacy Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://pharmacymuseum.org/special-tours-museum-events",
+      "max_events": 200,
+      "venue": {
+        "name": "New Orleans Pharmacy Museum",
+        "address": "514 Chartres Street",
+        "city": "New Orleans",
+        "region": "LA",
+        "postal_code": "70130",
+        "lat": 29.9560448,
+        "lon": -90.0648978
+      },
+      "_metro": "New Orleans, United States"
+    },
+    {
+      "name": "Blue Nile",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.bluenilelive.com/calendar-tickets-",
+      "max_events": 200,
+      "venue": {
+        "name": "Blue Nile",
+        "address": "532 Frenchmen Street",
+        "city": "New Orleans",
+        "region": "LA",
+        "postal_code": "70116",
+        "lat": 29.9631729,
+        "lon": -90.0578946
+      },
+      "_metro": "New Orleans, United States"
+    },
+    {
+      "name": "The Glass Jug Beer Lab",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.glass-jug.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Glass Jug Beer Lab",
+        "address": "5410 Apex Highway",
+        "postal_code": "27713",
+        "lat": 35.890112,
+        "lon": -78.8982026
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "The Rumman Room",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.rummanroom.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Rumman Room",
+        "address": "5104 Western Boulevard",
+        "lat": 35.7870359,
+        "lon": -78.7114431
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Longview Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.longviewbaptist.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Longview Baptist Church",
+        "address": "2308 New Hope Road",
+        "postal_code": "27604",
+        "lat": 35.8131223,
+        "lon": -78.5652281
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Road Less Traveled Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.roadlesstraveledproductions.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Road Less Traveled Theatre",
+        "address": "456 Main Street",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14202",
+        "lat": 42.8866579,
+        "lon": -78.8743926
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Blessed Sacrament Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.blessedsacramentbuffalo.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Blessed Sacrament Catholic Church",
+        "address": "1025 Delaware Avenue",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14209",
+        "lat": 42.9122398,
+        "lon": -78.8690604
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Union Avenue Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.unionavenue.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Union Avenue Baptist Church",
+        "address": "2181 Union Avenue",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38104",
+        "country": "US",
+        "lat": 35.1335323,
+        "lon": -89.9885508
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "Redeemer Presbyterian Church of Memphis",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.redeemermemphis.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Redeemer Presbyterian Church of Memphis",
+        "address": "651 South Cooper Street",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38104",
+        "lat": 35.1279849,
+        "lon": -89.9910929
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "The Grove at GPAC",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.gpacweb.com/event-list",
+      "max_events": 200,
+      "venue": {
+        "name": "The Grove at GPAC",
+        "address": "1801 Exeter Road",
+        "city": "Germantown",
+        "region": "TN",
+        "postal_code": "38138",
+        "lat": 35.1006365,
+        "lon": -89.804616
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "1515 Lincoln Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://1515lg.com/exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "1515 Lincoln Gallery",
+        "lat": 35.4843083,
+        "lon": -97.5037729
+      },
+      "_metro": "Oklahoma City, United States"
     }
   ],
   "_not_included": {

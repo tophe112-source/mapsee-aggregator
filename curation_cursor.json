@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "LT",
+  "country": "KR",
   "offset": 2140,
   "offsets": {
    "AE": 0,
@@ -19,7 +19,7 @@
    "IS": 157,
    "JM": 0,
    "JP": 400,
-   "KR": 120,
+   "KR": 235,
    "LT": 124,
    "MX": 240,
    "MY": 0,
@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 213,
-  "metro_key": "US:Milwaukee",
+  "metro": 222,
+  "metro_key": "US:Hartford",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -263,21 +263,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 300,
-  "events": 0,
+  "community events": 400,
+  "events": 100,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 200,
-  "parks events": 200,
+  "library programs": 0,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 200,
+  "recreation programs": 300,
   "road races": 0,
-  "special events": 200,
-  "volunteer": 200,
-  "wellness programs": 200,
-  "youth programs": 100
+  "special events": 0,
+  "volunteer": 300,
+  "wellness programs": 300,
+  "youth programs": 200
  }
 }

@@ -31832,6 +31832,446 @@
         "lon": -88.0372624
       },
       "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "The Depot",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.depotslc.com/shows"
+      ],
+      "link_pattern": "https://www\\.depotslc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Depot",
+        "address": "13 North 400 West",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84101",
+        "lat": 40.7696562,
+        "lon": -111.902967
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Storybook Nook",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.gardnervillage.com/events/gardner-village-events"
+      ],
+      "link_pattern": "https://www\\.gardnervillage\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Storybook Nook",
+        "address": "1100 West 7800 South",
+        "city": "West Jordan",
+        "region": "UT",
+        "postal_code": "84088",
+        "lat": 40.6103268,
+        "lon": -111.9227622
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Capital Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.capitalchurch.com/events/"
+      ],
+      "link_pattern": "https://www\\.capitalchurch\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capital Church",
+        "address": "1010 East 700 South",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84102",
+        "lat": 40.7537773,
+        "lon": -111.8618425
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Marigny Opera House",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://marignyoperahouse.org/upcoming-events/"
+      ],
+      "link_pattern": "https://marignyoperahouse\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Marigny Opera House",
+        "address": "725 Saint Ferdinand Street",
+        "city": "New Orleans",
+        "region": "LA",
+        "postal_code": "70117",
+        "lat": 29.9649833,
+        "lon": -90.049074
+      },
+      "_metro": "New Orleans, United States"
+    },
+    {
+      "name": "Artspace",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://artspacenc.org/calendar/"
+      ],
+      "link_pattern": "https://artspacenc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Artspace",
+        "lat": 35.7756164,
+        "lon": -78.6362669
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Village Church Rolesville",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.vcrolesville.org/news"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Village Church Rolesville",
+        "lat": 35.9159375,
+        "lon": -78.4708908
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Fable Books and Café",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.fablebooksandcafe.com/events"
+      ],
+      "link_pattern": "https://www\\.fablebooksandcafe\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fable Books and Café",
+        "address": "219 Raleigh Street",
+        "city": "Holly Springs",
+        "region": "NC",
+        "postal_code": "27540",
+        "lat": 35.6521173,
+        "lon": -78.8320325
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Ment Beverage Co.",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.mentbev.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ment Beverage Co.",
+        "address": "312 Blackwell Street",
+        "postal_code": "27701",
+        "lat": 35.9942323,
+        "lon": -78.9039657
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "The Cary Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://thecarytheater.com/event/fjord/the-cary/cary/"
+      ],
+      "link_pattern": "https://thecarytheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Cary Theater",
+        "address": "122 East Chatham Street",
+        "city": "Cary",
+        "region": "NC",
+        "lat": 35.7871564,
+        "lon": -78.7803939
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Movieland Wax Museum of Stars",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.cliftonhill.com/event/roch-voisine"
+      ],
+      "link_pattern": "https://www\\.cliftonhill\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Movieland Wax Museum of Stars",
+        "lat": 43.0909474,
+        "lon": -79.07398
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Fitz Books",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.fitzbooks.net/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Fitz Books",
+        "address": "1426 Main Street",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14209",
+        "lat": 42.9134407,
+        "lon": -78.865437
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Electric City",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://electriccity.com/events/"
+      ],
+      "link_pattern": "https://electriccity\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Electric City",
+        "address": "433 Pearl Street",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14202",
+        "lat": 42.8911629,
+        "lon": -78.8729619
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Town Ballroom",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://townballroom.com/event/saosin/town-ballroom/buffalo-new-york/"
+      ],
+      "link_pattern": "https://townballroom\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Town Ballroom",
+        "address": "681 Main St",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14203",
+        "lat": 42.892374,
+        "lon": -78.8716391
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "The Louisville Palace Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.louisvillepalace.com/shows"
+      ],
+      "link_pattern": "https://www\\.louisvillepalace\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Louisville Palace Theater",
+        "address": "623 South 4th Street",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40202",
+        "lat": 38.2480455,
+        "lon": -85.7578074
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "B’rit Hadasha Messianic Jewish Congregation",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.brithadasha.org/events-calendar/"
+      ],
+      "link_pattern": "https://www\\.brithadasha\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "B’rit Hadasha Messianic Jewish Congregation",
+        "address": "6320 North Quail Hollow Road",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38120",
+        "lat": 35.1049048,
+        "lon": -89.8522437
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "Hi Tone",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://hitonecafe.com/event/memphis-hates-you-fest-day-1/hi-tone-cafe/memphis-tennessee/"
+      ],
+      "link_pattern": "https://hitonecafe\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hi Tone",
+        "address": "282 North Cleveland Street",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38104",
+        "lat": 35.1464866,
+        "lon": -90.0144787
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "Alpha Omega Veterans Services",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.alphaomegaveterans.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Alpha Omega Veterans Services",
+        "address": "1463 War Memorial Drive",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38104",
+        "lat": 35.1393853,
+        "lon": -90.0124221
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "Woodruff-Fontaine House",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.woodruff-fontaine.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Woodruff-Fontaine House",
+        "lat": 35.1449144,
+        "lon": -90.0378607
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "Mycelium Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> wix",
+      "listing": [
+        "https://www.myceliumgallery.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mycelium Gallery",
+        "address": "2816 North Pennsylvania Avenue",
+        "postal_code": "73109",
+        "lat": 35.498025,
+        "lon": -97.5474428
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Water Stage",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://myriadgardens.org/calendar/"
+      ],
+      "link_pattern": "https://myriadgardens\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Water Stage",
+        "lat": 35.4651398,
+        "lon": -97.5183278
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Star Skate",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.starskate.com/copy-of-events-mwc"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Star Skate",
+        "address": "300 Bizzell Avenue",
+        "postal_code": "73110",
+        "lat": 35.455507,
+        "lon": -97.4041198
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Diamond Ballroom",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://diamondballroom.com/event/blade-rave-2/diamond-ballroom/oklahoma-city-oklahoma/"
+      ],
+      "link_pattern": "https://diamondballroom\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Diamond Ballroom",
+        "address": "8001 South Eastern Avenue",
+        "city": "Oklahoma City",
+        "region": "OK",
+        "postal_code": "73149",
+        "lat": 35.3863572,
+        "lon": -97.4785189
+      },
+      "_metro": "Oklahoma City, United States"
+    },
+    {
+      "name": "Saint Johns Episcopal Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wp-event-manager",
+      "listing": [
+        "https://www.jaxcathedral.org/events/"
+      ],
+      "link_pattern": "https://www\\.jaxcathedral\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Johns Episcopal Cathedral",
+        "address": "256 East Church Street",
+        "city": "Jacksonville",
+        "region": "FL",
+        "postal_code": "32202",
+        "lat": 30.3288708,
+        "lon": -81.653336
+      },
+      "_metro": "Jacksonville, United States"
     }
   ],
   "_not_included": {

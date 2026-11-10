@@ -68687,5 +68687,600 @@
     "geocode_suffix": ", Shorewood, WI",
     "limit": 300,
     "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "?",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/westminstercollege.edu_odfnnuopgb8tri6vtiih8gabuc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, United States",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saint Anna Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_43182b99f1a1b2672dd954bad2f5a2b35f0d3d57ead29a3e72e5930c5ec22930%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cottonwood Heights, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "The Ridge",
+    "category": "community",
+    "_found": "osm:social_facility -> event-organiser",
+    "url": "https://theridgeseniorliving.com/?feed=eo-events",
+    "geocode_suffix": ", Salt Lake City, United States",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "South Jordan Senior Center",
+    "category": "community",
+    "_found": "osm:social_facility -> civicplus",
+    "url": "https://www.sjc.utah.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+    "geocode_suffix": ", South Jordan, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Episcopal Church of the Rescurrection",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ecor.org/events.ics",
+    "geocode_suffix": ", Centerville, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Canyons Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40canyonschurch.com/public/basic.ics",
+    "geocode_suffix": ", Cottonwood Heights, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Mount Tabor Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8f3800f738b68fd4a0c23c4d95e6f0682a24e27f132bbdebb74ebb1a164e95cb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saint Paul's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2996551db350ea4051b2583820af4d9ea050f97a2f99fdc1b06837f08ee93757%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "The Commonwealth Room",
+    "category": "community",
+    "_found": "osm:events_venue -> ics",
+    "url": "https://thestateroompresents.com/index.php?option=com_dpcalendar&task=ical.download&id=15",
+    "geocode_suffix": ", South Salt Lake, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saint John's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/40c8496a276f4410058250ec2b5d78943e12fc12954dd5fac5228b3cfaaa640a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cottonwood Heights, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "First Unitarian Church of Salt Lake City",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40slcuu.org/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saint Thomas More Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.stmutah.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Cottonwood Heights, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "All Saints Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/24le370ppg6c4dufm4a7h86k6k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saints Peter and Paul Orthodox Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/od5tb275grsvqijq79441ub7p4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Hildegarde’s Food Pantry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmarksutah.org_rmojn8li6ilv78eppd15ljisak%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Our Lady of Perpetual Help Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5vv5q4l5pipo9eng4mndgl39e8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kearns, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saint Martin de Porres Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/04b31ea3bdbe479851f8f3722aa0b42a3955fc2579ada2280d882e0ebc306999%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Taylorsville, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Mountain West Gymnastics Academy",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lvia3hqk6rgtpo017fqtpt0s44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bountiful, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Bountiful Food Pantry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_66651c29b69242ed40ffc7a617d350603b9a5853010d9836a1ab20bcd8c72084%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bountiful, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Saint Philip Neri Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_305aeafd6dbb127f6262ab024a9988b25bb2827170a3cfdcd24e7b21f8814659%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Metairie, LA",
+    "limit": 300,
+    "_metro": "New Orleans, United States"
+  },
+  {
+    "name": "Premier School of Dance",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bcc602ed6794c0cddc18344795d0391cbfa24ff6a7fc0dbf3015482a66a23fdf%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", NC",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Sharp 9 Gallery Jazz Club",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rocovn10uf1ej49sqfrd5kf7do%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Durham, NC",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Deep River Brewing Company",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/deepriverbrewing.com_7elq0nvppft752hbngie1m18f0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Clayton",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "St. Raphael Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a6lde5phk4gmd45834seh9vls8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fuquay-Varina, NC",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Saint Paul's Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stpauls.net_ll2lanlh19h95q6us5id4bfbmk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Raleigh, NC",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Millbrook Masonic Lodge #97",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cdieq82b8ae7c4nji6pi68csjg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Raleigh, United States",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Cornerstone Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cornerstonecary.org_37mipfdugmca7kc0rg1spcu0u4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Raleigh, United States",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Sri Shirdi SaiBaba Mandir",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cfa1b77fa33e8325090691dbb8f5f9f92dbcadaa8319a64a3ff73a32fe5c33af%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cary, NC",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Babeville",
+    "category": "community",
+    "_found": "osm:events_venue -> events-manager",
+    "url": "https://babevillebuffalo.com/events/?ical=1",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Annunciation Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b0p9cvgrp2g3got9gn0pdrb5dc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Trinity Pantry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/trinitylancaster1%40roadrunner.com/public/basic.ics",
+    "geocode_suffix": ", Lancaster, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Saint Mary of the Assumption Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/baae6e76c47a9c77bee96ed5b971a7ae6f7580309d274559ab90de94d3c8c220%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lancaster, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Herschell Carrousel Factory Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e4514131a9622d84ae614a9dd98cf0cb2fb799d7185daecb33b2c41135a4c536%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", North Tonawanda, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Parkside Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://parksidelutheran.org/events.ics",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Temple Beth Tzedek",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/btzbuffalo.org_n94s9crbd2enfo9ldclv56jp30%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Resurrection Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/526d7ea031666ef60f522558f2c9c7dd9c78a6cf20228aaf05237ba3e2b71136%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "St. Andrews United Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.sainta.ca/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Niagara Falls",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Saint Rose Of Lima Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5224a00cc4eb9af5e27989b09a7bb8b31b8ed7f7bbd7d3a2c74c787ee5c46d4e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Saints Theodore Orthodox Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/frandrew%40ststheodore.org/public/basic.ics",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Saint Gabriel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mdlg7qo2usr7sn42g19k6fbpek%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Elma, NY",
+    "limit": 300,
+    "_metro": "Buffalo, United States"
+  },
+  {
+    "name": "Church of the Epiphany",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchofepiphany.com_9gueg54raienol399o0jtdgmpg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, United States",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Middletown First Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fbcmtown.org_ps1q4v72t8aahtaejn3nuu5ol8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Middletown, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint James Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f57b1f81b5723fb2a0fa99ec548dcdedc7123c95d43a07f1e426a9f6386e7fc2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint Therese of Lisieux Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/paxchristilou.org_rtit3cv3pn80kk6o8jbf43tmrg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Assumption Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/omcl7lhjenvdgpu267qnr78si8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyndon, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Church of the Ascension",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uj6v2b7nmdjtnhofbgllnj48t0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint Francis Xavier Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40sfxmw.info/public/basic.ics",
+    "geocode_suffix": ", Mount Washington, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stbernardlou.com_f75ouo8qeaplrt94s1fiu3tr00%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, United States",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint Gabriel the Archangel Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_89shhudqckfas88dfm1rthjk30%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, United States",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint John Paul II Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/m612kmtkdsreeulg0jskob6vhc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint Lawrence Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e45d88loh6nhpkapkr5ulo7emo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Our Lady of Lourdes Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3c148aebd2fa89540316fc7790cc75730e1f56a4aba3f9fe2b6846dbb28a62f6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", St Matthews, KY",
+    "limit": 300,
+    "_metro": "Louisville, United States"
+  },
+  {
+    "name": "Saint Lukes United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_03fmstc41vig6k8ffofvjgnshc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Memphis",
+    "limit": 300,
+    "_metro": "Memphis, United States"
+  },
+  {
+    "name": "Centenary United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://centenarymemphis.com/events.ics",
+    "geocode_suffix": ", Memphis",
+    "limit": 300,
+    "_metro": "Memphis, United States"
+  },
+  {
+    "name": "Crosspointe Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/k2eifmps0khmsostrdeleotc1t649rlv%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Millington, TN",
+    "limit": 300,
+    "_metro": "Memphis, United States"
+  },
+  {
+    "name": "St. John Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7fbh2a1q5c4t8p9ob2c8lnrdns%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Memphis, TN",
+    "limit": 300,
+    "_metro": "Memphis, United States"
+  },
+  {
+    "name": "St. Mary and St. Rouis Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40smsrchurch.org/public/basic.ics",
+    "geocode_suffix": ", Memphis, TN",
+    "limit": 300,
+    "_metro": "Memphis, United States"
+  },
+  {
+    "name": "Bartlett Woods Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.bartlettwoods.org/events.ics",
+    "geocode_suffix": ", Arlington, TN",
+    "limit": 300,
+    "_metro": "Memphis, United States"
+  },
+  {
+    "name": "Second Story Books",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cc76bf33c9ef24fab978181ac8ab5f213bd3c7906ca85edd9d8f35290b9dba5c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oklahoma City, OK",
+    "limit": 300,
+    "_metro": "Oklahoma City, United States"
+  },
+  {
+    "name": "First United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dqso12vllaunojtdssitum8ngo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oklahoma City, United States",
+    "limit": 300,
+    "_metro": "Oklahoma City, United States"
+  },
+  {
+    "name": "Holy Trinity Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_19g0jpu2sfhnq0ci3tc3hfl8vc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edmond",
+    "limit": 300,
+    "_metro": "Oklahoma City, United States"
+  },
+  {
+    "name": "Saint Mark the Evangelist Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/saintmarknorman.org_1ovma4o2j1crkepfmemsd0f4h8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Norman, OK",
+    "limit": 300,
+    "_metro": "Oklahoma City, United States"
+  },
+  {
+    "name": "San Jose Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sanjoseepiscopal.com_1knlojhss0n62174oi8ubo9rus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Jacksonville, United States",
+    "limit": 300,
+    "_metro": "Jacksonville, United States"
+  },
+  {
+    "name": "Joshua Christian Faith Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/faith.center%40joshuachristian.net/public/basic.ics",
+    "geocode_suffix": ", Jacksonville, FL",
+    "limit": 300,
+    "_metro": "Jacksonville, United States"
+  },
+  {
+    "name": "Veterans United Craft Brewery & Taproom",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eqj3st5n05f684o45okh695tus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Jacksonville",
+    "limit": 300,
+    "_metro": "Jacksonville, United States"
+  },
+  {
+    "name": "Buckman Bridge Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bbuuc.org_s2uk8nipso7rfhbrq3pkkfltu4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Jacksonville, FL",
+    "limit": 300,
+    "_metro": "Jacksonville, United States"
   }
 ]
