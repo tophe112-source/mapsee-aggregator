@@ -32272,6 +32272,775 @@
         "lon": -81.653336
       },
       "_metro": "Jacksonville, United States"
+    },
+    {
+      "name": "New England Civil War Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.newenglandcivilwarmuseum.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "New England Civil War Museum",
+        "address": "14 Park Place",
+        "city": "Vernon",
+        "region": "CT",
+        "postal_code": "06066",
+        "lat": 41.8676363,
+        "lon": -72.4487667
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "East Granby Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://egchurch.org/events-calendar/"
+      ],
+      "link_pattern": "https://egchurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "East Granby Congregational Church",
+        "address": "9 Rainbow Road",
+        "city": "East Granby",
+        "region": "CT",
+        "postal_code": "06026",
+        "lat": 41.9430523,
+        "lon": -72.7244635
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Christ Church Catherdral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.cccathedral.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Christ Church Catherdral",
+        "address": "45 Church Street",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06103",
+        "lat": 41.7683641,
+        "lon": -72.673592
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Center Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://centerchurchucc.org/84-2/"
+      ],
+      "link_pattern": "https://centerchurchucc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Center Congregational Church",
+        "lat": 41.7761901,
+        "lon": -72.5223735
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "North United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.numc-hartford.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "North United Methodist Church",
+        "address": "1205 Albany Avenue",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06112",
+        "lat": 41.7820256,
+        "lon": -72.6967422
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Flagg Road United Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://flaggroaducc.com/events/"
+      ],
+      "link_pattern": "https://flaggroaducc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Flagg Road United Church of Christ",
+        "address": "134 Flagg Road",
+        "city": "West Hartford",
+        "region": "CT",
+        "postal_code": "06117",
+        "lat": 41.7848693,
+        "lon": -72.7604536
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "First Congregational Church of Canton Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://cantoncenterchurch.org/calendar/"
+      ],
+      "link_pattern": "https://cantoncenterchurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "First Congregational Church of Canton Center",
+        "address": "184 Cherry Brook Road",
+        "city": "Canton",
+        "region": "CT",
+        "postal_code": "06019",
+        "lat": 41.8547097,
+        "lon": -72.9168131
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Power Tabernacle Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.pastornanafrimpong.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Power Tabernacle Church",
+        "address": "3 Bidwell Street",
+        "city": "East Hartford",
+        "region": "CT",
+        "postal_code": "06108",
+        "lat": 41.7776898,
+        "lon": -72.6256125
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "South Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.southucc.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "South Congregational Church",
+        "address": "1301 Forbes Street",
+        "city": "East Hartford",
+        "region": "CT",
+        "postal_code": "06118",
+        "lat": 41.7372318,
+        "lon": -72.6057523
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Wapping Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.wappingchurch.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Wapping Community Church",
+        "address": "1790 Ellington Road",
+        "city": "South Windsor",
+        "region": "CT",
+        "postal_code": "06074",
+        "lat": 41.8275419,
+        "lon": -72.5532042
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Bethany Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.blcwh.org/general-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bethany Lutheran Church",
+        "address": "1655 Boulevard",
+        "city": "West Hartford",
+        "region": "CT",
+        "postal_code": "06107",
+        "lat": 41.7558415,
+        "lon": -72.7434966
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Virginia Repertory Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://va-rep.org/events/"
+      ],
+      "link_pattern": "https://va\\-rep\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Virginia Repertory Theatre",
+        "address": "114 West Broad Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23220",
+        "lat": 37.5466791,
+        "lon": -77.4432661
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "New Light Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+gcal-embed",
+      "listing": [
+        "https://www.newlightbaptistchurch.org/event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "New Light Baptist Church",
+        "address": "2000 East Broad Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23223",
+        "lat": 37.5344662,
+        "lon": -77.4229706
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Fairfield Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://fairfieldpcusa.org/news-and-events/upcoming/"
+      ],
+      "link_pattern": "https://fairfieldpcusa\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fairfield Presbyterian Church",
+        "address": "6930 Cold Harbor Road",
+        "region": "VA",
+        "postal_code": "23111",
+        "lat": 37.5977348,
+        "lon": -77.3302768
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Knox Reformed Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://knoxreformedpres.org/events-calendar/"
+      ],
+      "link_pattern": "https://knoxreformedpres\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Knox Reformed Presbyterian Church",
+        "address": "4883 Southard Lane",
+        "city": "Mechanicsville",
+        "region": "VA",
+        "postal_code": "23116",
+        "lat": 37.6531278,
+        "lon": -77.2550621
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "GLC Live at 20 Monroe",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.glcliveat20monroe.com/shows"
+      ],
+      "link_pattern": "https://www\\.glcliveat20monroe\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "GLC Live at 20 Monroe",
+        "address": "20 Monroe Avenue Northwest",
+        "city": "Grand Rapids",
+        "region": "MI",
+        "postal_code": "49503",
+        "lat": 42.9636539,
+        "lon": -85.6723898
+      },
+      "_metro": "Grand Rapids, United States"
+    },
+    {
+      "name": "Frederik Meijer Gardens and Sculpture Park",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.meijergardens.org/calendar/"
+      ],
+      "link_pattern": "https://www\\.meijergardens\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Frederik Meijer Gardens and Sculpture Park",
+        "address": "1000 East Beltline Avenue Northeast",
+        "city": "Grand Rapids",
+        "region": "MI",
+        "postal_code": "49525",
+        "lat": 42.9790861,
+        "lon": -85.5836612
+      },
+      "_metro": "Grand Rapids, United States"
+    },
+    {
+      "name": "The Intersection",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://sectionlive.com/event/redferrin/elevation/grand-rapids-michigan/"
+      ],
+      "link_pattern": "https://sectionlive\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Intersection",
+        "address": "133 Cesar E Chavez Avenue Southwest",
+        "lat": 42.9599203,
+        "lon": -85.6740741
+      },
+      "_metro": "Grand Rapids, United States"
+    },
+    {
+      "name": "Meyer May House",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://meyermayhouse.steelcase.com/events/"
+      ],
+      "link_pattern": "https://meyermayhouse\\.steelcase\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Meyer May House",
+        "address": "450 Madison Avenue Southeast",
+        "city": "Grand Rapids",
+        "region": "MI",
+        "lat": 42.9541968,
+        "lon": -85.6587631
+      },
+      "_metro": "Grand Rapids, United States"
+    },
+    {
+      "name": "Mulberry Veteran Integration Center",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.nmvic.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mulberry Veteran Integration Center",
+        "address": "2701 Mulberry Street Southeast",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87106",
+        "lat": 35.0553432,
+        "lon": -106.6356562
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Anime33",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.anime33museum.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Anime33",
+        "address": "103 Rio Rancho Boulevard Northeast",
+        "city": "Rio Rancho",
+        "region": "NM",
+        "postal_code": "87124",
+        "lat": 35.2585943,
+        "lon": -106.6408212
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Explora",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.explora.us/events/"
+      ],
+      "link_pattern": "https://www\\.explora\\.us/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Explora",
+        "address": "1701 Mountain Road Northwest",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87104",
+        "lat": 35.0974737,
+        "lon": -106.6642912
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Sandia Speedway",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.suikacircuit.com/event-calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Sandia Speedway",
+        "lat": 35.0193181,
+        "lon": -106.859275
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "First United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://fumcomaha.org/events/"
+      ],
+      "link_pattern": "https://fumcomaha\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "First United Methodist Church",
+        "lat": 41.2644238,
+        "lon": -96.0206012
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "The Admiral",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://admiralomaha.com/event/panchiko/the-admiral/omaha-nebraska/"
+      ],
+      "link_pattern": "https://admiralomaha\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Admiral",
+        "address": "2234 South 13th Street",
+        "city": "Omaha",
+        "region": "NE",
+        "postal_code": "38108",
+        "lat": 41.2384371,
+        "lon": -95.9337412
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "Queen Emma Summer Palace",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://daughtersofhawaii.org/calendar/"
+      ],
+      "link_pattern": "https://daughtersofhawaii\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Queen Emma Summer Palace",
+        "address": "2913 Pali Highway",
+        "city": "Honolulu",
+        "region": "HI",
+        "postal_code": "96917",
+        "country": "US",
+        "lat": 21.3358254,
+        "lon": -157.8394682
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Hawaii Children's Discovery Center",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.discoverycenterhawaii.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hawaii Children's Discovery Center",
+        "address": "111 Ohe Street",
+        "city": "Honolulu",
+        "region": "HI",
+        "postal_code": "96813",
+        "lat": 21.2936916,
+        "lon": -157.8620735
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Hana Koa Brewing Company",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.hanakoabrewing.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hana Koa Brewing Company",
+        "address": "962 Kawaiahao Street",
+        "city": "Honolulu",
+        "region": "HI",
+        "postal_code": "96814",
+        "lat": 21.2971672,
+        "lon": -157.852923
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Byodo-In",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://byodo-in.com/events/"
+      ],
+      "link_pattern": "https://byodo\\-in\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Byodo-In",
+        "address": "47-200 Kahekili Highway",
+        "city": "Kaneohe",
+        "region": "HI",
+        "postal_code": "96744",
+        "country": "US",
+        "lat": 21.4307469,
+        "lon": -157.8322074
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Bernice Pauahi Bishop Museum",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.bishopmuseum.org/exhibits-and-programs/events/"
+      ],
+      "link_pattern": "https://www\\.bishopmuseum\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bernice Pauahi Bishop Museum",
+        "address": "1525 Bernice Street",
+        "city": "Honolulu",
+        "region": "HI",
+        "postal_code": "96817",
+        "lat": 21.3330683,
+        "lon": -157.8707527
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Kalihi Union Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://kalihiunion.org/youth/"
+      ],
+      "link_pattern": "https://kalihiunion\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kalihi Union Church",
+        "address": "2214 North King Street",
+        "city": "Honolulu",
+        "region": "HI",
+        "postal_code": "96819",
+        "lat": 21.3354373,
+        "lon": -157.8800938
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Fairbanks Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix+jsonld-event",
+      "listing": [
+        "https://www.fairbankschildrensmuseum.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Fairbanks Children's Museum",
+        "lat": 64.8424577,
+        "lon": -147.7214267
+      },
+      "_metro": "Fairbanks, United States"
+    },
+    {
+      "name": "Tucson Desert Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.tucsondart.org/museumevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Tucson Desert Art Museum",
+        "address": "7000 East Tanque Verde Road",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85715",
+        "lat": 32.2499355,
+        "lon": -110.8418881
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Children’s Museum Oro Valley",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://childrensmuseumtucson.org/event-calendar/"
+      ],
+      "link_pattern": "https://childrensmuseumtucson\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Children’s Museum Oro Valley",
+        "lat": 32.3380166,
+        "lon": -110.978941
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Musselman Honda Circuit",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://mhcircuit.com/event/"
+      ],
+      "link_pattern": "https://mhcircuit\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musselman Honda Circuit",
+        "address": "11800 South Harrison Road",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85747",
+        "country": "US",
+        "lat": 32.0355865,
+        "lon": -110.7939577
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "VFW Post 549",
+      "category": "community",
+      "_found": "osm:social_centre -> my-calendar+jsonld-event",
+      "listing": [
+        "https://vfw549.org/calendar/"
+      ],
+      "link_pattern": "https://vfw549\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "VFW Post 549",
+        "lat": 32.2201842,
+        "lon": -110.8128117,
+        "aliases": [
+          "Veterans of Foreign Wars of the United States"
+        ]
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Bookman's",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://bookmans.com/event-directory/"
+      ],
+      "link_pattern": "https://bookmans\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bookman's",
+        "address": "6230 East Speedway Boulevard",
+        "postal_code": "85712",
+        "lat": 32.2350944,
+        "lon": -110.8593621
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Postal History Foundation",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://nationalpostaleducationcenter.org/calendar/"
+      ],
+      "link_pattern": "https://nationalpostaleducationcenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Postal History Foundation",
+        "address": "920 North 1st Avenue",
+        "city": "Tucson",
+        "region": "AZ",
+        "lat": 32.2337172,
+        "lon": -110.9606984
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Save Mart Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> jsonld-event",
+      "listing": [
+        "https://www.savemartcenter.com/event/forever-tour/tm_g5vyz_c58uo_r/"
+      ],
+      "link_pattern": "https://www\\.savemartcenter\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Save Mart Center",
+        "address": "2650 East Shaw Avenue",
+        "city": "Fresno",
+        "region": "CA",
+        "postal_code": "93710",
+        "lat": 36.8096879,
+        "lon": -119.7385285
+      },
+      "_metro": "Fresno, United States"
     }
   ],
   "_not_included": {

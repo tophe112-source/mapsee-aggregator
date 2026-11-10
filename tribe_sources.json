@@ -42335,6 +42335,1045 @@
         "lon": -72.6365743
       },
       "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Connecticut Museum of Culture and History",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.connecticutmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Connecticut Museum of Culture and History",
+        "address": "1 Elizabeth Street",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06105",
+        "lat": 41.7729679,
+        "lon": -72.7050829
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Wethersfield Art Academy",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://wethersfieldarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wethersfield Art Academy",
+        "address": "431 Hartford Avenue",
+        "city": "Wethersfield",
+        "region": "CT",
+        "postal_code": "06109",
+        "lat": 41.7249824,
+        "lon": -72.6658911
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Repertory Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.connecticuttheatrecompany.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Repertory Theatre",
+        "address": "23 Norden Street",
+        "city": "New Britain",
+        "region": "CT",
+        "postal_code": "06051",
+        "lat": 41.6541942,
+        "lon": -72.7872049
+      },
+      "_metro": "Hartford, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Grace Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gracect.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Seventh-day Adventist Church",
+        "address": "870 Prospect Avenue",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06105",
+        "lat": 41.7744721,
+        "lon": -72.7144159
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "South Congregational Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://scchartford.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Congregational Church",
+        "address": "277 Main Street",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06106",
+        "lat": 41.7594448,
+        "lon": -72.6758265
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Charter Oak Cultural Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://charteroakcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Charter Oak Cultural Center",
+        "address": "21 Charter Oak Avenue",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06106",
+        "lat": 41.7592573,
+        "lon": -72.6743978
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Gurdwara Nanak Darbar",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ctsikhs.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gurdwara Nanak Darbar",
+        "address": "1610 West Street",
+        "city": "Southington",
+        "region": "CT",
+        "postal_code": "06489",
+        "lat": 41.6322188,
+        "lon": -72.9006653
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Unity of Greater Hartford",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://unityhartford.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unity of Greater Hartford",
+        "address": "919 Ellington Road",
+        "city": "South Windsor",
+        "region": "CT",
+        "postal_code": "06074",
+        "lat": 41.8191528,
+        "lon": -72.5873536
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Ski Sundown",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://skisundown.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ski Sundown",
+        "address": "126 Ratlum Road",
+        "city": "New Hartford",
+        "region": "CT",
+        "postal_code": "06057",
+        "lat": 41.8830184,
+        "lon": -72.9425859
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Klingberg Family Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://klingberg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Klingberg Family Center",
+        "address": "370 Linwood Street",
+        "city": "New Britain",
+        "region": "CT",
+        "postal_code": "06052",
+        "lat": 41.6499892,
+        "lon": -72.7885754
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Windsor Locks Senior Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://windsorlocksct.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Windsor Locks Senior Center",
+        "lat": 41.9313222,
+        "lon": -72.6634009
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Saint Johns Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://sjparish.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Johns Episcopal Church",
+        "address": "679 Farmington Avenue",
+        "city": "West Hartford",
+        "region": "CT",
+        "postal_code": "06119",
+        "lat": 41.764912,
+        "lon": -72.7175017
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "First Church of Christ, Congregational",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://firstnewbritain.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Church of Christ, Congregational",
+        "address": "830 Corbin Avenue",
+        "city": "New Britain",
+        "region": "CT",
+        "postal_code": "06052",
+        "lat": 41.6584233,
+        "lon": -72.8016071
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "The Doorways",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.thedoorways.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Doorways",
+        "address": "612 East Marshall Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.543132,
+        "lon": -77.4346549
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Mended Sparrow",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://mendedsparrow.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mended Sparrow",
+        "address": "1590 Old Church Road",
+        "city": "Mechanicsville",
+        "region": "VA",
+        "postal_code": "23111",
+        "lat": 37.629553,
+        "lon": -77.1579105
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Edgar Allan Poe Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://poemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edgar Allan Poe Museum",
+        "lat": 37.5321579,
+        "lon": -77.4260748
+      },
+      "_metro": "Richmond, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "White House of the Confederacy",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://acwm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "White House of the Confederacy",
+        "address": "1201 East Clay Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.540712,
+        "lon": -77.4296017
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "The Valentine",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://thevalentine.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Valentine",
+        "address": "1015 East Clay Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.5414946,
+        "lon": -77.4311182
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Virginia Holocaust Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vaholocaust.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Virginia Holocaust Museum",
+        "address": "2000 East Cary Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23223",
+        "lat": 37.5309061,
+        "lon": -77.4259638
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Coalition Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://rvacomedy.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Coalition Theater",
+        "address": "8 West Broad Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.5460861,
+        "lon": -77.4420065
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Richmond Ballet",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://richmondballet.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Richmond Ballet",
+        "address": "407 East Canal Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.5386591,
+        "lon": -77.4418847
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "John Marshall House",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://preservationvirginia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "John Marshall House",
+        "address": "818 East Marshall Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.5419234,
+        "lon": -77.433085
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Lewis Ginter Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lewisginter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lewis Ginter Botanical Garden",
+        "address": "1800 Lakeside Avenue",
+        "city": "Henrico",
+        "region": "VA",
+        "postal_code": "23228",
+        "lat": 37.6206291,
+        "lon": -77.4718127
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Truth Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.truthbaptistchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Truth Baptist Church",
+        "address": "8319 Lee-Davis Road",
+        "city": "Mechanicsville",
+        "region": "VA",
+        "postal_code": "23111",
+        "lat": 37.6327448,
+        "lon": -77.3398224
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Berea Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bereabaptistva.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Berea Church",
+        "address": "15421 Pouncey Tract Road",
+        "postal_code": "23146",
+        "lat": 37.7088787,
+        "lon": -77.637103
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Monarch Woods",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.betterhousingcoalition.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Monarch Woods",
+        "address": "6501 Jahnke Road",
+        "city": "Richmond",
+        "postal_code": "23225",
+        "lat": 37.5185972,
+        "lon": -77.5165193
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Henrico Sports & Events Center",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://henricosea.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Henrico Sports & Events Center",
+        "address": "11000 Telegraph Road",
+        "city": "Glen Allen",
+        "region": "VA",
+        "postal_code": "23059",
+        "lat": 37.6770635,
+        "lon": -77.4532486
+      },
+      "_metro": "Richmond, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Saint Paul's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stpaulsrva.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Paul's Episcopal Church",
+        "address": "815 East Grace Street",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23219",
+        "lat": 37.5399773,
+        "lon": -77.4352692
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Sovereign Grace United Reformed Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://sovereigngraceurc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sovereign Grace United Reformed Church",
+        "address": "62 Lamoreaux Drive Northeast",
+        "lat": 43.035863,
+        "lon": -85.6683041
+      },
+      "_metro": "Grand Rapids, United States"
+    },
+    {
+      "name": "Equest Center for Therapeutic Riding",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://equestcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Equest Center for Therapeutic Riding",
+        "address": "3777 Rector Avenue Northeast",
+        "city": "Rockford",
+        "region": "MI",
+        "postal_code": "49341",
+        "lat": 43.1544771,
+        "lon": -85.5762917
+      },
+      "_metro": "Grand Rapids, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Cathedral of Saint Andrew",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://grcathedral.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cathedral of Saint Andrew",
+        "address": "265 Sheldon Boulevard Southeast",
+        "city": "Grand Rapids",
+        "region": "MI",
+        "postal_code": "49503-4513",
+        "lat": 42.9581035,
+        "lon": -85.6671439
+      },
+      "_metro": "Grand Rapids, United States"
+    },
+    {
+      "name": "Sweet House Foundation",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe",
+      "base_url": "https://www.sweethousefoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sweet House Foundation",
+        "city": "Grand Rapids",
+        "region": "MI",
+        "postal_code": "49503",
+        "lat": 42.9627678,
+        "lon": -85.6621502,
+        "street_hint": "254 Fulton Street East"
+      },
+      "_metro": "Grand Rapids, United States",
+      "crawl_delay": 3.0
+    },
+    {
+      "name": "Blythefield Hills Baptist Church: Rockford Campus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://magnifychurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blythefield Hills Baptist Church: Rockford Campus",
+        "address": "6727 Kuttshill Drive Northeast",
+        "city": "Rockford",
+        "region": "MI",
+        "postal_code": "49341",
+        "lat": 43.086559,
+        "lon": -85.574964
+      },
+      "_metro": "Grand Rapids, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Heights Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://abqheights.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heights Seventh-day Adventist Church",
+        "address": "4920 Wyoming Boulevard Northeast",
+        "city": "Albuquerque",
+        "postal_code": "87191",
+        "lat": 35.1357995,
+        "lon": -106.5504095
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "University Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://artmuseum.unm.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "University Art Museum",
+        "address": "203 Cornell Drive Northeast",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87106",
+        "lat": 35.0824997,
+        "lon": -106.6201691
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Keshet Center for the Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://keshetarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Keshet Center for the Arts",
+        "address": "4121 Cutler Ave NE",
+        "lat": 35.1059533,
+        "lon": -106.6002659
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Brew Lab 101",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://brewlab101.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brew Lab 101",
+        "address": "3107 Eubank Boulevard Northeast",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87111",
+        "lat": 35.1174115,
+        "lon": -106.534902
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Central Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://abqcentral.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Central Seventh-Day Adventist Church",
+        "address": "2201 Estancia Drive Northwest",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87120-1367",
+        "lat": 35.1070159,
+        "lon": -106.7079899
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Corrales Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://corralesadventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Corrales Seventh-day Adventist Church",
+        "address": "20 Academy Drive",
+        "city": "Corrales",
+        "region": "NM",
+        "postal_code": "87048",
+        "lat": 35.2456609,
+        "lon": -106.6015465
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Hindu Temple Society of New Mexico",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://htsnm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hindu Temple Society of New Mexico",
+        "address": "8418 Zuni Road Southeast",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87108",
+        "lat": 35.0724954,
+        "lon": -106.5552134
+      },
+      "_metro": "Albuquerque, United States",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Rio Rancho Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rioranchonm.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rio Rancho Seventh-Day Adventist Church",
+        "address": "1351 Westside Boulevard Southeast",
+        "city": "Rio Rancho",
+        "region": "NM",
+        "postal_code": "87124",
+        "lat": 35.2257643,
+        "lon": -106.7093967
+      },
+      "_metro": "Albuquerque, United States"
+    },
+    {
+      "name": "Omaha Memorial Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://omahamemorialne.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Omaha Memorial Seventh-day Adventist Church",
+        "address": "840 North 72nd Street",
+        "city": "Omaha",
+        "region": "NE",
+        "postal_code": "68114",
+        "lat": 41.2681515,
+        "lon": -96.0244224
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "Sharon Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://omahasharonsda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sharon Seventh-day Adventist Church",
+        "address": "3336 Lake Street",
+        "city": "Omaha",
+        "postal_code": "68111",
+        "lat": 41.2817586,
+        "lon": -95.9634039
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "General Crook House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://douglascohistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "General Crook House Museum",
+        "region": "NE",
+        "lat": 41.3102521,
+        "lon": -95.9604792
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "Waikīkī Shell Amphitheater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://blaisdellcenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Waikīkī Shell Amphitheater",
+        "lat": 21.2682283,
+        "lon": -157.8193388
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Calvary Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://calvarychapelhonolulu.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calvary Chapel",
+        "address": "98-1016 Komo Mai Drive",
+        "city": "Aiea",
+        "region": "HI",
+        "postal_code": "96701",
+        "country": "US",
+        "lat": 21.3998714,
+        "lon": -157.947403
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Aiea Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://aieasdachurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aiea Seventh-Day Adventist Church",
+        "address": "99-005 Moanalua Road",
+        "city": "Aiea",
+        "region": "HI",
+        "postal_code": "96701",
+        "country": "US",
+        "lat": 21.3807419,
+        "lon": -157.9341758
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "Waipahu Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://waipahuhi.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Waipahu Seventh Day Adventist Church",
+        "address": "94-900 Awanei Street",
+        "city": "Waipahu",
+        "region": "HI",
+        "postal_code": "96797",
+        "country": "US",
+        "lat": 21.3818688,
+        "lon": -158.0018283
+      },
+      "_metro": "Honolulu, United States"
+    },
+    {
+      "name": "North Pole Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://northpoleak.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Pole Seventh-day Adventist Church",
+        "address": "Joan Avenue",
+        "postal_code": "99705",
+        "lat": 64.731711,
+        "lon": -147.2762783
+      },
+      "_metro": "Fairbanks, United States"
+    },
+    {
+      "name": "Fairbanks Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://fairbanksadventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fairbanks Seventh-day Adventist Church",
+        "address": "1811 Farmers Loop Road",
+        "city": "Fairbanks",
+        "region": "AK",
+        "postal_code": "99709",
+        "country": "US",
+        "lat": 64.8739789,
+        "lon": -147.8226753
+      },
+      "_metro": "Fairbanks, United States"
+    },
+    {
+      "name": "Tucson Expo Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tucsonexpocenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tucson Expo Center",
+        "address": "3750 East Irvington Rd.",
+        "city": "Tucson",
+        "region": "Arizona",
+        "postal_code": "85714",
+        "lat": 32.1614832,
+        "lon": -110.9122988
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Unscrewed Theater",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://unscrewedtheater.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unscrewed Theater",
+        "address": "4500 East Speedway Boulevard",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85712",
+        "lat": 32.2358294,
+        "lon": -110.8968142
+      },
+      "_metro": "Tucson, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "John P. Schaefer Center for Creative Photography",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://ccp.arizona.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "John P. Schaefer Center for Creative Photography",
+        "address": "1030 Olive Road",
+        "city": "Tucson",
+        "region": "AZ",
+        "lat": 32.235078,
+        "lon": -110.9545902
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "The Mini Time Machine Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://theminitimemachine.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Mini Time Machine Museum",
+        "address": "4455 East Camp Lowell Drive",
+        "lat": 32.2657321,
+        "lon": -110.8955336
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "La Posada",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://laposadapuschridge.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Posada",
+        "address": "11050 North Avenida Posada de Oro",
+        "city": "Oro Valley",
+        "region": "AZ",
+        "postal_code": "85737",
+        "lat": 32.4065911,
+        "lon": -110.9571135
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Tucson Military Vehicle Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.tucsonmilitaryvehicle.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tucson Military Vehicle Museum",
+        "address": "6000 East Valencia Road",
+        "region": "AZ",
+        "postal_code": "85756",
+        "lat": 32.1378627,
+        "lon": -110.8602286
+      },
+      "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Sikh Institute Fresno",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://fresnosikhs.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sikh Institute Fresno",
+        "address": "4827 North Parkway Drive",
+        "city": "Fresno",
+        "postal_code": "93722",
+        "lat": 36.8043861,
+        "lon": -119.8833426
+      },
+      "_metro": "Fresno, United States"
+    },
+    {
+      "name": "Dragonfly Golf Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://dragonflygolfclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dragonfly Golf Club",
+        "address": "43369 Avenue 12",
+        "postal_code": "93636",
+        "lat": 36.9272654,
+        "lon": -119.7605349
+      },
+      "_metro": "Fresno, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "EOC Sanctuary Transitional Living Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://fresnoeoc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EOC Sanctuary Transitional Living Center",
+        "address": "1046 T Street",
+        "city": "Fresno",
+        "region": "CA",
+        "postal_code": "93721",
+        "lat": 36.7420313,
+        "lon": -119.7804956
+      },
+      "_metro": "Fresno, United States"
     }
   ],
   "_not_included": {

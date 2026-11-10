@@ -69282,5 +69282,665 @@
     "geocode_suffix": ", Jacksonville, FL",
     "limit": 300,
     "_metro": "Jacksonville, United States"
+  },
+  {
+    "name": "Masonic Temple",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4e053cf84ff6c9f91684dca55b1c522fd585d6ed35ff72c696a153fbd8f769ca%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Newington, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Human Resources Agency of New Britain",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.hranbct.org/events/CalFeed.aspx",
+    "geocode_suffix": ", New Britain, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "The Next Chapter",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/whps.org_k8no33kq200pie3pe9g8l5nrng%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", West Hartford, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Farmington Avenue Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ctfabc.org_vbe5pbumb68rrlj9q3i8u9sdv4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", West Hartford, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Vinnie's Jump and Jive",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/chc1.com_e9r1bgtvm8onc3hms6sijbat8o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Middletown, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Congregational Church of East Hampton",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://cc-eh.org/events.ics",
+    "geocode_suffix": ", East Hampton, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "South United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cheryl%40southumc.com/public/basic.ics",
+    "geocode_suffix": ", Manchester, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "First Church of Christ Congregational 1652",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.firstchurch1652.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Hartford, United States",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Saint Bartholomew Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cca51faf75c015f6d26874448d28b418fde34e6795bd5890211f7983c92c9827%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Manchester, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "New Britain YMCA",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.nbbymca.org/events/CalFeed.aspx",
+    "geocode_suffix": ", New Britain, CT",
+    "limit": 300,
+    "venue": {
+      "name": "New Britain YMCA",
+      "city": "New Britain",
+      "region": "CT",
+      "postal_code": "06052",
+      "lat": 41.6685066,
+      "lon": -72.7857699,
+      "street_hint": "50 High Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "South Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.southchurch.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", New Britain, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Islamic Association of Greater Hartford Berlin Mosque",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/berlinmo%40berlinmosque.org/public/basic.ics",
+    "geocode_suffix": ", Berlin, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Wellspring Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3a62dff7e1146212e1cdf773e5fcb9fa27f7e32bd756f4234e268bdb17e62f14%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Holy Resurrection Armenian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rad5smga9tpopscnnenm5qbd8c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New Britain, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Berlin-Peck Memorial Library",
+    "category": "learning",
+    "_found": "osm:library -> events-manager",
+    "url": "https://berlinpeck.org/events/?ical=1",
+    "geocode_suffix": ", Berlin, CT",
+    "limit": 300,
+    "venue": {
+      "name": "Berlin-Peck Memorial Library",
+      "city": "Berlin",
+      "region": "CT",
+      "postal_code": "06037",
+      "lat": 41.6273685,
+      "lon": -72.774479,
+      "street_hint": "234 Kensington Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Lighthouse Tabernacle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://whlighthouse.com/events.ics",
+    "geocode_suffix": ", West Hartford, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Saint Francis of Assisi Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/41e776fcd3f2db058e8ad6e44d4932e650c56dac19e5a2d903af47a6343a459a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", South Windsor, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Manchester Church of the Nazarene",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/17asrcmcjgip4epcevue0t3dvc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Manchester, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Saint Patrick Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/94e0p2pi41h0vqgjdjvjk7nvgs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Canton, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Congregation Church of Plainville",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/churchoffice%40uccplainville.org/public/basic.ics",
+    "geocode_suffix": ", Hartford, United States",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "West Broad Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.wbchurchofchrist.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Richmond, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Grace and Holy Trinity Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40ghtc.org/public/basic.ics",
+    "geocode_suffix": ", Richmond, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Swift Creek Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/05ecdc020f8c1a85b1870028b93c837f67ec52de6ca57c29973a8e8639a5e80e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, United States",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Tikvat Israel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c85l2mjjg076kpctbjotgc6las%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, United States",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Saint Constantine and Helen Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40vagocathedral.org/public/basic.ics",
+    "geocode_suffix": ", Richmond, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "First Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tu4cicet3imhtjjabqttpq6s4o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, United States",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Immanuel Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9b24c2b2e7e7c14eb951d7b079bda28aca2d4949bbfb2168505206b130d40094%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mechanicsville, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Hanover Evangelical Friends Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/e39263ac239a466c18f3b84959837d8f959af14c69cef47ae3da073f12c74e3e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mechanicsville, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Pleasant Grove Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.pgbclifehanover.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Mechanicsville, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Glendale Ruritan Club",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ae7a652aa814a7d069663226d60fb0278b5ef91fc606c68f4c8cc6881d2c8e6b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, United States",
+    "limit": 300,
+    "venue": {
+      "name": "Glendale Ruritan Club",
+      "postal_code": "23231",
+      "lat": 37.446631,
+      "lon": -77.2297927,
+      "street_hint": "6188 Charles City Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Iron Bridge Recovery Center",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://ironbridgerecovery.com/events/?ical=1",
+    "geocode_suffix": ", Chester, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Washington and Henry Lodge No.344",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0fc9c51d542ba5ebbc6bbf91bb986e9f19f5d508eaca1f8bf644c9856f0e3dcf%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mechanicsville, VA",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Grace Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gbconline.org_srhvnv728cquhri6us648kotlc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, United States",
+    "limit": 300,
+    "_metro": "Richmond, United States"
+  },
+  {
+    "name": "Walker Ice and Fitness Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.walkericeandfitness.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Walker",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Name of Jesus Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_qd2vv1t1rtqu8o1c36u6efc3n4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wyoming, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Seventh Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hu8q4fgd0eqgoglum1tab21vtc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grand Rapids, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Boston Square Christian Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bostonsquarechurch.org_54v05ho7ifb7itbojoflmitr78%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grand Rapids",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Bauer Christian Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bauercrc.org_4iamaivnt1vc077d5h22jp0030%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hudsonville, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "St. Luke University Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lukespot.com_4a0u397hf1d30e0fj248ndddug%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Allendale, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Providence Reformed Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://providencereformed.org/events.ics",
+    "geocode_suffix": ", Grand Rapids, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Ahavas Israel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gdglrksrs0p37u7g9pr8fvnrpg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grand Rapids, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "St. Jude Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f23eacc272f25aa60386951be0df8899fffec0e3afba4e233b1b869199868689%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grand Rapids, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Holy Trinity Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40holytrinitygoc.org/public/basic.ics",
+    "geocode_suffix": ", Grand Rapids, MI",
+    "limit": 300,
+    "_metro": "Grand Rapids, United States"
+  },
+  {
+    "name": "Sandia Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sandiabaptist.org_6vanmjf1rgudfebm3ap4adq5h8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albuquerque",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "Metropolitan Community Church of Albuquerque",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.mccabq.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Albuquerque",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "The Wheels Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_8c005aaf6bb0f5508a63c5d1f33eaf742469121e06e698bb79443852c28e986b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albuquerque, United States",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "Shrine of Saint Kateri Tekakwitha",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://archdiosf.org/icalendar1.ics",
+    "geocode_suffix": ", Isleta Pueblo, NM",
+    "limit": 300,
+    "_metro": "Albuquerque, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Albuquerque Center for Spiritual Living",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.abqcsl.org/events.ics",
+    "geocode_suffix": ", Albuquerque, NM",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "Our Lady of Lavang Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ebb7f469b172fc682a43af9bf8713ff3cb807909acbfd275add98bd68eacf0b4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albuquerque, NM",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "Monterey Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://montereybaptist.church/events.ics",
+    "geocode_suffix": ", Albuquerque, NM",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "Immaculate Conception Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/public%40iccabq.org/public/basic.ics",
+    "geocode_suffix": ", Albuquerque, NM",
+    "limit": 300,
+    "_metro": "Albuquerque, United States"
+  },
+  {
+    "name": "Clair Memorial United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.cmumc.net/events.ics",
+    "geocode_suffix": ", Omaha",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "Candlewood Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a8r1tgg3jg1hksn5l0sj0dhk54%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Omaha, NE",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "St. Charles Borromeo Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/g8lqndhrvfokfubrbrr0rr0lko%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gretna, NE",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "Maplewood United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40maplewoodumc.com/public/basic.ics",
+    "geocode_suffix": ", Omaha, NE",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "New Horizon Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_140e6ed3d293955845cdcfd7b6049fde5a296218194ac945f5ab62d34f0469d8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Omaha, United States",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "Saint Robert Bellarmine Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tiei8bjfus67n84alkjc82l2qs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Omaha, NE",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "Saint Mary Antiochian Orthodox Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2kb6a28i3j4af64vlg1l75jef4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Omaha, NE",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "St. Joan of Arc Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5a2284b4aca86c2930191349d757895609c317f9a08275209ff61c48f0af2317%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Omaha, NE",
+    "limit": 300,
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "Oahu Taekwondo Cente",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/74tm145jukuajfoc2lrajsuvvc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aiea, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "Pacific Islands Ocean Exploration Center",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2ec12df59964f030bffcf9ed0e17a88b91605af845a338e92713b122eddc7785%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Honolulu, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "Moiliili Hongwanji Buddhist Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/86nbhc4hr84i0m6o95d278iv54%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Honolulu, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "St. Timothy's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/79067ac0d2bacff6bbb47a6788ef846fd21622c43169f58bcc89f93eeb4c5e21%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aiea, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "Rissho Kosei-kai Buddhist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/68j2dgb0musp0ss0rspbujt43k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pearl City, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "Bethany Assembly of God",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eucou46onv0c2rlb4bhdggl4dc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aiea, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "West Oahu Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j3k5rpujioja7bpvd7l0f6705g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waipahu, HI",
+    "limit": 300,
+    "_metro": "Honolulu, United States"
+  },
+  {
+    "name": "Congregation Anshei Isreal",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rmdbmma8m2m469pias12v8vhpc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tucson, United States",
+    "limit": 300,
+    "_metro": "Tucson, United States"
+  },
+  {
+    "name": "Redeemer Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.redeemerfresno.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Fresno",
+    "limit": 300,
+    "_metro": "Fresno, United States"
+  },
+  {
+    "name": "The Arts Annex",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_408badb97463fe190a732820f671f380a9d6a24c117c39c850c4bcaaca11ad03%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fresno, CA",
+    "limit": 300,
+    "_metro": "Fresno, United States"
+  },
+  {
+    "name": "Saint George Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d2960b4f91cb481951d24fb8df13944a502a5076cec5a586104890df53c0964b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fresno",
+    "limit": 300,
+    "_metro": "Fresno, United States"
   }
 ]

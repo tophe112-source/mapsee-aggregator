@@ -247,8 +247,8 @@
  },
  "mobilizon": {},
  "osm": {
-  "metro": 222,
-  "metro_key": "US:Hartford",
+  "metro": 230,
+  "metro_key": "US:Fresno",
   "stuck": {}
  },
  "osm|community_centre,library": {
