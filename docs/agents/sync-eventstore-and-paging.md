@@ -1012,3 +1012,41 @@
   adapters-and-sources.md). At build it had 44 and caught 15 mutations; a
   review then found that deleting the windowed sleep passed all 44, and the
   PAUSE_S case now fails it.
+
+- **THE URLLIB WALKERS READ THE DATABASE UNCOMPRESSED; TWO OF THE THREE ON A
+  SCHEDULE NOW ASK FOR GZIP AND PRINT WHAT THE WIRE CARRIED (2026-11-10).** `requests`
+  sends `Accept-Encoding: gzip, deflate` by default, so the sync, the janitor,
+  the spam purge and IndexNow always asked. The 10 scripts whose REST helper
+  is `urllib.request` never did, and 3 of them run on a schedule:
+  `mapsee_prune_cancelled.py` (14 runs a week), `mapsee_menu_links.py`
+  (Wednesdays) and `mapsee_retire_thin_artwork.py` (Sundays, inside
+  osm-amenities.yml). The first two now ask. The prune collect is the big one: 500-row pages of
+  `id,title,description,claimed_by,starts_at`, 41.5k-46.5k rows a near run
+  (the note in cancelled-events.md) plus a ~13.4k-row standing slice, and the
+  whole horizon on Sundays. Measured without a database, on the 228 distinct
+  rows the repo's own `to_row` builds while the `test_ingest_*.py` fixtures
+  run, as one page in those five columns: 173,396 bytes plain (761 a row; the
+  description is 78% of it, median 566 bytes) against 31,414 gzipped at level
+  6 (138 a row, -81.9%). At that row size a near run is about 42-46 MB plain
+  and 7.6-8.3 MB compressed; that is arithmetic on fixture rows, not a
+  production reading. `mapsee_standing.rest_text` decodes only when the
+  response says `Content-Encoding: gzip` and never sniffs, so a server that
+  ignores the header is read exactly as before, and a truncated gzip body
+  raises into the walker's existing page retry. UNMEASURED: whether the
+  database's edge compresses a PostgREST answer for this client at all, and
+  the real row size. Both are in every prune run's log from now on: `REST: N
+  request(s), X MB on the wire, Y MB decoded (K gzipped)`; "0 gzipped" means
+  the header was ignored and nothing was saved. This cuts response bytes
+  (egress), not buffers or statements: the same rows are read. The other 8
+  urllib walkers are unchanged: 7 are dispatch-only (reclassify, prune_links,
+  uncancel, four retire_* scripts), and retire_thin_artwork's `_req` looks
+  for 57014 in an error BODY, which would also have to be decoded before it
+  may ask. `rest_text` and `ACCEPT_GZIP` are there for them. `test_standing_pass.py` G1-G8, `test_prune_cancelled.py` (the real
+  `sb()` over a stubbed urlopen, 7 cases), `test_menu_links.py` (1 case).
+  Looked at in the same pass and left alone, each for a reason: the state
+  read's `Prefer: count=exact` (it is the fail-closed completeness check, and
+  its cost on a 100-id IN is unmeasured); folding skip-unchanged's read-back
+  into the state read on refresh runs (one lookup a stored row instead of two,
+  but it widens the read-to-compare window from seconds to the length of the
+  state read and holds every stored row in memory); the spam purge's and
+  link-series' whole-table walks (both already behind owner variables).

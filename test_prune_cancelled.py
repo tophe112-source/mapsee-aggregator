@@ -409,6 +409,63 @@ code, out = run(db, "--days", "2", "--url-index", path)
 check("a dry run writes nothing and says what the index would add",
       ([m for m, *_ in db.calls if m == "PATCH"], "far rows the URL index would hide: 1" in out), ([], True))
 
+# --------------------------------------------------------------------------- #
+# The REAL sb(), with only urlopen stubbed: it asks for gzip, decodes what the
+# server says it compressed, reads a plain answer as before, and counts bytes.
+# --------------------------------------------------------------------------- #
+import gzip
+
+
+class _Answer:
+    def __init__(self, body, headers):
+        self._body, self.headers = body, headers
+
+    def read(self):
+        return self._body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+page = json.dumps([row(n, 1, url=f"https://cal.test/{n}") for n in range(500)]).encode()
+packed = gzip.compress(page)
+sent = []
+
+
+def _gz_server(req, timeout=None):
+    sent.append(req)
+    return _Answer(packed, {"Content-Encoding": "gzip"})
+
+
+def _plain_server(req, timeout=None):
+    sent.append(req)
+    return _Answer(page, {})
+
+
+with patch.object(PRUNE, "SUPABASE_URL", "https://db.test"), patch.object(PRUNE, "SERVICE_KEY", "k"), \
+        patch.object(PRUNE, "REST_TALLY", {}):
+    with patch.object(PRUNE.urllib.request, "urlopen", _gz_server):
+        got = PRUNE.sb("events?select=id,title,description,claimed_by,starts_at&limit=500")
+    check("sb() asks our database for gzip", sent[-1].get_header("Accept-encoding"), "gzip")
+    check("...and a gzip page decodes to the same 500 rows", got, json.loads(page))
+    with patch.object(PRUNE.urllib.request, "urlopen", _plain_server):
+        got = PRUNE.sb("events?select=id&limit=500")
+    check("a server that ignores the header is read exactly as before", got, json.loads(page))
+    check("the run's tally: 2 requests, one compressed, wire bytes against decoded",
+          dict(PRUNE.REST_TALLY),
+          {"requests": 2, "wire": len(packed) + len(page), "decoded": 2 * len(page), "gzipped": 1})
+    check("a 500-row page of the collect's columns is under a third of its size on the wire",
+          len(packed) * 3 < len(page), True)
+    with patch.object(PRUNE.urllib.request, "urlopen", lambda req, timeout=None: _Answer(b"", {})):
+        check("an empty body (return=minimal) is still None", PRUNE.sb("events?id=in.(x)", "PATCH", {"a": 1}), None)
+
+db = week_later()
+code, out = run(db, "--days", "2")
+check("every run prints what its reads cost on the wire", "REST: " in out and "on the wire" in out, True)
+
 print()
 if FAILS:
     print(f"{len(FAILS)} FAILED: " + "; ".join(FAILS))

@@ -42,10 +42,57 @@ walker reaches a take-down, a cancellation or an organizer's removal here.
 
 Stdlib only, like the walkers that import it.
 """
+import gzip
 import time
 import uuid
 
 STANDING = "recurring_hours=not.is.null&hidden_at=is.null&pin_only=is.false"   # == events_standing_walk_idx
+
+# --------------------------------------------------------------------------- #
+# A WALKER'S READS TRAVEL COMPRESSED
+# --------------------------------------------------------------------------- #
+# urllib asks for no encoding, so every page a stdlib walker read crossed the
+# wire as plain JSON, and what a walker reads is mostly `description`: prose and
+# links, the most compressible thing in the table. `requests` (the sync, the
+# janitor, the spam purge) has always sent Accept-Encoding: gzip, deflate; the
+# urllib walkers never did. Measured on the 228 distinct rows the repo's own
+# to_row builds while the test_ingest_*.py fixtures run, as one page in the
+# prune collect's five columns: 173,396 bytes plain (761 a row, 78% of it
+# description), 31,414 gzipped at level 6 (138 a row, -81.9%).
+# What the database's edge actually answers is NOT measured here (no
+# credentials in the session that wrote this): a server that ignores the header
+# answers plain and rest_text() returns it as before, so the worst case is the
+# old one. mapsee_prune_cancelled prints the wire and decoded bytes of every
+# run, which is the number to read the real saving from.
+ACCEPT_GZIP = ("accept-encoding", "gzip")
+
+
+def rest_text(resp, tally=None) -> str:
+    """A urllib response's body as text, gunzipped when the server SAYS it
+    compressed it (Content-Encoding), never by sniffing. `tally`, when given,
+    counts requests, bytes on the wire and bytes after decoding. A response
+    with no headers (a test's stub) is plain."""
+    raw = resp.read()
+    wire = len(raw)
+    headers = getattr(resp, "headers", None)
+    encoding = (headers.get("Content-Encoding") or "") if headers is not None else ""
+    if encoding.strip().lower() == "gzip":
+        raw = gzip.decompress(raw)
+    if tally is not None:
+        tally["requests"] = tally.get("requests", 0) + 1
+        tally["wire"] = tally.get("wire", 0) + wire
+        tally["decoded"] = tally.get("decoded", 0) + len(raw)
+        if wire != len(raw):
+            tally["gzipped"] = tally.get("gzipped", 0) + 1
+    return raw.decode("utf-8", "replace")
+
+
+def tally_line(tally) -> str:
+    """'REST: 118 request(s), 6.1 MB on the wire, 38.4 MB decoded (117 gzipped)'."""
+    mb = lambda n: f"{n / 1e6:.1f} MB"                              # noqa: E731
+    return (f"REST: {tally.get('requests', 0)} request(s), {mb(tally.get('wire', 0))} on the wire, "
+            f"{mb(tally.get('decoded', 0))} decoded ({tally.get('gzipped', 0)} gzipped)")
+
 
 RETRY_PAUSE = 1.5        # seconds before the second ask of a page, twice that before the third
 

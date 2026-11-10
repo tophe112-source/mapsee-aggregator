@@ -858,6 +858,57 @@ except Exception as e:                                       # noqa: BLE001
     crashed("A10", e)
 
 
+# --------------------------------------------------------------------------- #
+# A walker's reads travel compressed (rest_text): decoded only when the server
+# SAYS gzip, plain otherwise, and the bytes are counted on both sides.
+# --------------------------------------------------------------------------- #
+try:
+    import gzip as _gzip
+    import json as _json
+
+    class _Raw:
+        def __init__(self, body, headers=None):
+            self._body = body
+            if headers is not None:
+                self.headers = headers
+
+        def read(self):
+            return self._body
+
+    page = _json.dumps([ev(uid("90", n), standing=True, title=f"Centre {n}",
+                           desc="Open weekdays. Tickets / info: https://centre.test/" + str(n))
+                        for n in range(500)]).encode()
+    packed = _gzip.compress(page)
+    tally = {}
+    check("G1: a gzip answer is decoded to the same text",
+          STD.rest_text(_Raw(packed, {"Content-Encoding": "gzip"}), tally) == page.decode(), True)
+    check("G1: ...and the tally holds the wire and decoded bytes of that request",
+          tally, {"requests": 1, "wire": len(packed), "decoded": len(page), "gzipped": 1})
+    check("G1: the header is matched whatever its case and padding",
+          STD.rest_text(_Raw(packed, {"Content-Encoding": " GZIP "})) == page.decode(), True)
+    check("G2: a server that ignores the header answers plain, and plain is returned as it was",
+          STD.rest_text(_Raw(page, {}), tally) == page.decode(), True)
+    check("G2: ...counted as a request that was not compressed",
+          tally, {"requests": 2, "wire": len(packed) + len(page), "decoded": 2 * len(page), "gzipped": 1})
+    check("G3: a stub with no headers at all is plain", STD.rest_text(_Raw(b'[{"id":1}]')), '[{"id":1}]')
+    check("G4: gzip bytes WITHOUT the header are never sniffed and decoded",
+          STD.rest_text(_Raw(packed, {})) == page.decode(), False)
+    try:
+        STD.rest_text(_Raw(packed[: len(packed) // 2], {"Content-Encoding": "gzip"}))
+        cut = "decoded"
+    except Exception as e:                                   # noqa: BLE001
+        cut = "raised"
+    check("G5: a truncated gzip body raises (a failed read the walker retries), never half a page", cut, "raised")
+    check("G6: the request header a walker adds", STD.ACCEPT_GZIP, ("accept-encoding", "gzip"))
+    check("G7: the log line names requests, wire, decoded and how many came compressed",
+          STD.tally_line({"requests": 118, "wire": 6_100_000, "decoded": 38_400_000, "gzipped": 117}),
+          "REST: 118 request(s), 6.1 MB on the wire, 38.4 MB decoded (117 gzipped)")
+    check("G8: this page's wire bytes, plain against gzip (500 rows of the collect's shape)",
+          len(packed) < len(page) // 3, True)
+except Exception as e:                                       # noqa: BLE001
+    crashed("G", e)
+
+
 print()
 if FAILS:
     print(f"{len(FAILS)} FAILED: " + "; ".join(FAILS))
