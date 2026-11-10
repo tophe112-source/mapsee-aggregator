@@ -203,6 +203,11 @@ for title, want, own in [
     ("ANNULÉ // La Louuve", "cancelled in the title", "La Louuve"),
     ("Cancelled, the Musical", None, None),
     ("Cancelled? A comedy night", None, None),
+    # Asbury Park, 2026-11-09: one board meeting called off by editing its page.
+    ("Wesley Lake Commission (No Meeting)", "cancelled in the title", "Wesley Lake Commission"),
+    ("Planning Board - NO MEETING", "cancelled in the title", "Planning Board"),
+    ("No Meeting Required: Open Studio", None, None),
+    ("Board meeting: no meeting this month", None, None),
 ]:
     check(f"notice_reason({title[:30]!r}) and the title it names",
           (ING.notice_reason(title), ING.strip_notice(title)), (want, own))

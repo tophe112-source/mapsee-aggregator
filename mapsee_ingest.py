@@ -371,9 +371,15 @@ _CLOSURE_TITLE_RX = re.compile(
 # block (arrows, dingbats, U+1F000-U+1FAFF): live 2026-10-23, 2 of 5,880 titles,
 # "🔴 Annulé 🔴 ☀️ PROMENADE..." and "ANNULÉ // La Louuve". Not punctuation in
 # general: "Cancelled, the Musical" and "Cancelled? A comedy night" are events.
+# "No Meeting" is how a town board calls one meeting off: Asbury Park edited
+# its Wesley Lake Commission page (calendar.aspx?EID=3496) to "Wesley Lake
+# Commission (No Meeting)", all day, and the stale 7 PM row stayed on the map
+# beside it (dedupe report, 2026-11-09). Like every off-word it counts only as
+# a leading word with its separator or a trailing/bracketed one, so "No Meeting
+# Required: Open Studio" is an event.
 _OFF_WORDS = (r"cancel+ed|postponed|abgesagt|entf[äa]llt|f[äa]llt\s+aus|verschoben|"
               r"annul[ée]e?s?|cancelad[oa]s?|suspendid[oa]s?|aplazad[oa]s?|geannuleerd|"
-              r"afgelast|annullat[oa]")
+              r"afgelast|annullat[oa]|no\s+meeting")
 _CANCELLED_TITLE_RX = re.compile(
     rf"^\W*(?:{_OFF_WORDS})\s*(?:$|[:\-–—|!)\]*/]|"
     r"[\u2190-\u21ff\u2300-\u23ff\u2460-\u27bf\u2900-\u2bff\U0001F000-\U0001FAFF])|"

@@ -715,6 +715,17 @@ treff_off["title"] = "Fällt aus: Offener Treff"
 check("'Fällt aus: ...' likewise, and 'verschoben' is a mark too",
       "c2" not in hidden_of([treff, treff_off]) and D.says_off({"title": "Verschoben: Offener Treff"}))
 
+# Production 2026-11-09: the all-day-copy rule would have hidden Asbury Park's
+# "(No Meeting)" row behind the stale 7 PM meeting on the same page.
+wlc = real("w1", "Wesley Lake Commission", "2026-11-18T00:00:00+00:00", "2026-11-18T02:00:00+00:00",
+           "2026-09-01T07:00:00+00:00", "cityofasburypark.com/calendar.aspx?EID=3496", "Asbury Park")
+wlc_off = real("w2", "Wesley Lake Commission (No Meeting)", "2026-11-17T05:00:00+00:00", None,
+               "2026-11-07T15:47:31+00:00", "cityofasburypark.com/calendar.aspx?EID=3496", "Asbury Park")
+check("'Wesley Lake Commission (No Meeting)' is not hidden behind the stale meeting row",
+      "w2" not in hidden_of([wlc, wlc_off]) and D.says_off(wlc_off))
+check("control: 'No Meeting Required: Open Studio' is not a cancel mark",
+      not D.says_off({"title": "No Meeting Required: Open Studio"}))
+
 print("\nthe kept row carries its copies' categories (every door, every category chip)")
 M = D.merged_categories
 check("no copies: the row's own value comes back as it is (the same list, in its order, or None)",

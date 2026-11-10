@@ -254,13 +254,14 @@ AUDIENCE_EXTRA = re.compile(
 # A title that says the event is off. Never hidden behind one that does not
 # say so: which is current is for a person (cancelled-events.md).
 # Matched against _ident_words (lower case, accents folded: 'inställt' is
-# 'installt'); 'Not cancelled - ...' is not a mark.
+# 'installt'); 'Not cancelled - ...' is not a mark. 'No meeting' is the import's
+# off-word for a town board's skipped meeting (Wesley Lake Commission, 2026-11-09).
 # The import's own off-words (mapsee_ingest._OFF_WORDS: 'Entfällt', 'Fällt
 # aus', 'verschoben') are here too, or the part rule keeps a stale 'Offener
 # Treff' over 'Entfällt: Offener Treff'.
 CANCEL_MARK = re.compile(r"(?<!\bnot )\b(cancel+ed|postponed|abgesagt|annulee?|aplazad[oa]|cancelad[oa]|"
                          r"suspendid[oa]|annullat[oa]|rinviat[oa]|afgelast|geannuleerd|aflyst|avlyst|"
-                         r"installt|peruttu|entfallt|verschoben|fallt aus)\b")
+                         r"installt|peruttu|entfallt|verschoben|fallt aus|no meeting(?! required))\b")
 COPY_OF = re.compile(r"^\W*copy of\b", re.I)
 PLACE_STOP = {"the", "de", "la", "le", "at", "of", "and", "a", "du", "des", "ny", "nyc", "co", "mo", "in", "on"}
 # Words that name the KIND of room, not which one: 'The Yard at Chicago
