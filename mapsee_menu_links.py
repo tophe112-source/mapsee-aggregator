@@ -45,7 +45,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
-from mapsee_standing import StandingWalkError, standing_pages, uuid_bound
+from mapsee_standing import ACCEPT_GZIP, StandingWalkError, rest_text, standing_pages, uuid_bound
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -403,14 +403,19 @@ def sb(path: str, method: str = "GET", body=None, prefer: str = ""):
         req.add_header("content-type", "application/json")
         if prefer:
             req.add_header("prefer", prefer)
+        req.add_header(*ACCEPT_GZIP)                    # see mapsee_standing.rest_text
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
-                raw = r.read().decode("utf-8", "replace")
+                raw = rest_text(r)
                 return json.loads(raw) if raw.strip() else None
         except urllib.error.HTTPError as ex:
             if ex.code < 500:
                 raise                                   # settled: our request is wrong
-            last = f"HTTP {ex.code}: {ex.read().decode('utf-8', 'replace')[:200]}"
+            try:
+                said = rest_text(ex)                    # an error page can come compressed too
+            except Exception:                           # noqa: BLE001 - the status is the news
+                said = ""
+            last = f"HTTP {ex.code}: {said[:200]}"
         except urllib.error.URLError as ex:
             last = f"{type(ex).__name__}: {ex.reason}"
         if attempt < SB_ATTEMPTS - 1:

@@ -119,7 +119,8 @@ import urllib.request
 from datetime import datetime, timezone
 
 import robots_txt   # stdlib only, like this file
-from mapsee_standing import StandingWalkError, parse_slice, slice_bounds, standing_pages
+from mapsee_standing import (ACCEPT_GZIP, StandingWalkError, parse_slice, rest_text, slice_bounds,
+                             standing_pages, tally_line)
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -149,6 +150,9 @@ _OFF = ("eventcancelled", "eventpostponed")
 UNVERIFIABLE_HOSTS = re.compile(r"(^|\.)(ticketmaster\.[a-z.]+|livenation\.[a-z.]+)$", re.I)
 
 
+REST_TALLY = {}          # requests, wire bytes, decoded bytes: printed once a run
+
+
 def sb(path, method="GET", body=None, prefer=""):
     req = urllib.request.Request(
         f"{SUPABASE_URL}/rest/v1/{path}", method=method,
@@ -158,8 +162,12 @@ def sb(path, method="GET", body=None, prefer=""):
     req.add_header("content-type", "application/json")
     if prefer:
         req.add_header("prefer", prefer)
+    # Compressed on the wire (mapsee_standing.rest_text): the collect's pages
+    # are 500 rows of `description` each, twice a day and a whole horizon on
+    # Sundays. Only our own database is asked this way; a venue's page is not.
+    req.add_header(*ACCEPT_GZIP)
     with urllib.request.urlopen(req, timeout=60) as r:
-        raw = r.read().decode("utf-8", "replace")
+        raw = rest_text(r, REST_TALLY)
         return json.loads(raw) if raw.strip() else None
 
 
@@ -779,6 +787,10 @@ def main():
         if std_skipped:
             print(f"  INCOMPLETE: the standing slice {k}/{n} was not read to its end")
             incomplete = True
+    # What the collect cost the database's edge, in bytes: the windows and the
+    # slice are every large read this run makes (the far read and the hides are
+    # a few ids each). "0 gzipped" means the server ignored Accept-Encoding.
+    print(f"  {tally_line(REST_TALLY)}")
     if not rows_by_url:
         print("  nothing to check.")
         return 1 if incomplete else 0

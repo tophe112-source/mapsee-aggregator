@@ -311,7 +311,7 @@ def main():
     # is transient and refuses to retry what is settled.
     failed += _sb_retry_cases()
 
-    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 5 + 4 + 4
+    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 5 + 4 + 5
     print(f"\n{total} cases, {failed} failed")
     return 1 if failed else 0
 
@@ -350,6 +350,23 @@ def _sb_retry_cases() -> int:
                 ("a transient 503 is retried until it answers", got == [{"id": 1}] and len(calls) == 3),):
             bad += 0 if cond else 1
             print(f"{'ok  ' if cond else 'FAIL'}  {label}")
+
+        import gzip
+        sent = []
+
+        class Gz(Body):
+            headers = {"Content-Encoding": "gzip"}
+            def __init__(s, t): s._t = gzip.compress(t.encode())
+
+        def packed(req, timeout=None):
+            sent.append(req)
+            return Gz('[{"id":2,"description":"Order: https://x.test/menu"}]')
+        M.urllib.request.urlopen = packed
+        got = M.sb("events?select=id,description")
+        c = got == [{"id": 2, "description": "Order: https://x.test/menu"}] \
+            and sent[0].get_header("Accept-encoding") == "gzip"
+        bad += 0 if c else 1
+        print(f"{'ok  ' if c else 'FAIL'}  sb() asks for gzip and decodes a page the server compressed")
 
         calls.clear()
 
