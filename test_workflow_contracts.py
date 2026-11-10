@@ -949,6 +949,71 @@ class WorkflowContracts(unittest.TestCase):
             self.assertNotIn('--url-index' if full else '--write-url-index', call, (context, dow))
 
     @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_spam_purge_reads_since_its_last_run_only_on_the_schedule_and_keeps_its_switch(self):
+        # A full walk read 744,093 rows to find 227 deletes. The SCHEDULED run
+        # passes --state (the rows created since its last complete run; the
+        # full walk weekly and when the rules change); a manual run never does,
+        # so a report or a one-off is the full walk and cannot move the state.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/spam-purge.yml').read_text(encoding='utf-8'))
+        job = workflow['jobs']['purge']
+        steps = job['steps']
+        # the switch and the place in the day are what they were
+        self.assertEqual(job['if'], "${{ github.event_name == 'workflow_dispatch' || vars.SPAM_PURGE_APPLY == 'true' }}")
+        self.assertEqual([c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']], ['40 7 * * *'])
+        purge = next(i for i, st in enumerate(steps) if 'mapsee_spam_purge.py' in (st.get('run') or ''))
+        tests = next(i for i, st in enumerate(steps) if (st.get('run') or '').strip() == 'python test_spam.py')
+        self.assertLess(tests, purge)
+        restore = [i for i, st in enumerate(steps) if st.get('uses') == 'actions/cache/restore@v4']
+        save = [i for i, st in enumerate(steps) if st.get('uses') == 'actions/cache/save@v4']
+        self.assertEqual((len(restore), len(save)), (1, 1))
+        r, w = steps[restore[0]], steps[save[0]]
+        self.assertLess(restore[0], purge)
+        self.assertGreater(save[0], purge)
+        path = 'spam_purge_state.json'
+        self.assertEqual((r['with']['path'], w['with']['path']), (path, path))
+        self.assertEqual(r['with']['key'], 'spam-purge-state-${{ github.run_id }}-${{ github.run_attempt }}')
+        self.assertEqual(r['with']['restore-keys'].split(), ['spam-purge-state-'])
+        self.assertEqual(w['with']['key'], "spam-purge-state-${{ hashFiles('spam_purge_state.json') }}")
+        self.assertIn("hashFiles('spam_purge_state.json') != ''", w['if'])
+        self.assertIn(f"steps.{r['id']}.outputs.cache-matched-key != "
+                      "format('spam-purge-state-{0}', hashFiles('spam_purge_state.json'))", w['if'])
+        self.assertIn(path, (ROOT / '.gitignore').read_text(encoding='utf-8').split())
+        step = steps[purge]
+
+        def calls(context):
+            def sub(text):
+                return re.sub(r'\$\{\{\s*(.*?)\s*\}\}', lambda m: str(context.get(m[1], '')), str(text))
+            with tempfile.TemporaryDirectory() as tmp:
+                stubs = Path(tmp, 'bin')
+                stubs.mkdir()
+                (stubs / 'python').write_text('#!/bin/sh\necho "CALL $*"\n')
+                (stubs / 'python').chmod(0o755)
+                env = dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}")
+                env.update({k: sub(v) for k, v in (step.get('env') or {}).items()})
+                out = subprocess.run(['bash', '--noprofile', '--norc', '-eo', 'pipefail', '-c', sub(step['run'])],
+                                     cwd=tmp, capture_output=True, text=True, env=env)
+                log = Path(tmp, 'purge.log').read_text()
+            return out.returncode, [line.split()[1:] for line in log.splitlines() if line.startswith('CALL')]
+
+        share = "inputs.max_share || '0.05'"
+        cases = [
+            ({'github.event.schedule': '40 7 * * *', 'steps.mode.outputs.mode': 'apply', share: '0.05'}, True, True),
+            ({'steps.mode.outputs.mode': 'apply', share: '0.05'}, False, True),      # a manual apply
+            ({'steps.mode.outputs.mode': 'report', share: '0.05'}, False, False),    # a manual report
+            ({'github.event.schedule': '40 7 * * *', 'steps.mode.outputs.mode': '', share: '0.05'}, True, False),
+        ]
+        for context, stateful, applies in cases:
+            code, got = calls(context)
+            self.assertEqual((code, len(got)), (0, 1), context)
+            call = got[0]
+            self.assertEqual(call[:5], ['mapsee_spam_purge.py', '--max-seconds', '1800', '--max-share', '0.05'], context)
+            self.assertEqual('--state' in call, stateful, context)
+            if stateful:
+                self.assertEqual(call[call.index('--state') + 1], path, context)
+            self.assertEqual('--apply' in call, applies, context)
+            self.assertNotIn('--full', call, context)
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
     def test_prune_cancelled_reads_each_standing_slice_once_a_week_and_dispatches_read_none(self):
         # R1: from ../mapsee 0248 a standing row's stored window is its anchor,
         # so the windows never meet one again. Each scheduled run reads one

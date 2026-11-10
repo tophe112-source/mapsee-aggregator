@@ -262,3 +262,63 @@
   `python test_discover_fedi.py` reads the real file and fails while either
   host is missing (123 cases, 0 failed). UNMEASURED: the spam share across
   the other 16 proposed Mobilizon and 125 Gancio candidates.
+
+- **THE DAILY PURGE WALKED THE WHOLE TABLE TO FIND WHAT ARRIVED YESTERDAY;
+  WITH --state IT READS WHAT ARRIVED, AND THE TABLE WEEKLY (2026-11-10).** The
+  full walk read 744,093 rows in 1,261 s on 2026-09-14 for 227 deletes, and
+  with `SPAM_PURGE_APPLY` on it ran every day. `EventStore.upsert`
+  (mapsee_ingest.py:1191 and :1253) applies the same `spam_reason` and
+  `implausible_end` before a record is stored, so a stored row can only match
+  later if the rules change, or if it is NEW and the gate knew an adapter the
+  purge has to infer from the link. The scheduled run now passes `--state
+  spam_purge_state.json` (its own Actions cache pair, `spam-purge-state-`,
+  the prune URL index's pattern; never committed). `plan_walk` chooses the
+  FULL walk when there is no believable state, when `predicate_hash` (sha256
+  of mapsee_spam.py + mapsee_spam_purge.py, CRLF read as LF) differs, when the
+  last complete full walk began 6.5 days ago or more, or with `--full`.
+  Otherwise it reads `external_source=eq.mapsee&hidden_at=is.null
+  &starts_at=gte.<the full walk's floor>&created_at=gte.<last complete run's
+  start - 3 h>&order=created_at.asc,id.asc`. What it may delete is a subset
+  of the full walk's: same predicate, same scope, same share ceiling, and the
+  starts_at floor keeps a new row that began before `--from-days-ago` out of
+  reach, as it is for the full walk.
+  THE INDEX, read from ../mapsee's migrations, not from a plan: `events` has
+  NO index on `updated_at` (and only `events_sync_geo` sets it, on insert or
+  an update that names lat/lon), and ONE on `created_at`: 0111's
+  `events_created_at_idx (created_at desc) where hidden_at is null`. That is
+  why the daily read asks `hidden_at=is.null`, and it is the shape
+  mapsee_indexnow already reads (0.4 s a page over 60 pages). No later
+  migration drops it (0243 does not name it; 0244 reads through it). The plan
+  for THIS query is UNMEASURED (no credentials here): if the read answers
+  57014, or never answers inside the client's 120 s, the same run does the full walk instead, with a `::warning::`, so the
+  worst case is the old one.
+  ON A FIXTURE (test_spam.py, `requests` stubbed, the clock pinned; 6,040
+  imported rows, 250-300 arriving a day, 8 days): day 2 read 340 rows where
+  the full walk read 6,326; the 6 incremental days read 1,590 against 41,671
+  (-96.2%); all 8 days 15,197 against 55,272 (-72.5%), with one more full
+  walk on day 8. The visible deletes and cleared ends were the full walk's
+  every day, and after day 8 the two tables were equal row for row.
+  PRODUCTION, AS ARITHMETIC ONLY: the janitor deleted a mean of 28,599 rows a
+  day (sync note, 10-26) from a table of roughly constant size, so about that
+  many arrive; a daily read with the 3 h overlap is then about 32k rows
+  against 744k (-96%), and a week about 0.94M against 5.2M (-82%). The real
+  number is each run's `read N row(s) (incremental walk)` line.
+  WHAT WAITS UP TO A WEEK, and only this: a new advert that is already hidden
+  (off the map: 6 on the fixture, all deleted on day 8); a stored row whose
+  description a refresh rewrote into something only the purge's inferred
+  source refuses (a new title is a new row: the title is in the fingerprint);
+  a row a re-key moved. THE CEILING IS TIGHTER: 5% of a day's arrivals, not
+  of the table, so a real spam wave can refuse a daily run (red, state
+  unmoved) until the weekly walk dilutes it. Under `--min-sample` (200 rows)
+  a share is still not evaluated, which a quiet day can now meet; a widened
+  RULE never does, because it changes the hash and meets the full walk first.
+  The state is written only by an `--apply` run that reached the end of the
+  table and whose writes landed: a report, a refusal, a cut-short walk or a
+  failed write leaves it. A manual run passes no `--state` and is the full
+  walk. NOT DONE: excluding `pin_only` furniture from the full walk. An OSM
+  pin links to openstreetmap.org, so its source is UNKNOWN and a number in its
+  title counts: the code cannot prove a pin is never deleted today, and
+  0113's index holds pins anyway. Nor fewer columns: the predicate reads all
+  five. `python test_spam.py` (32 new checks; of 6 mutations of the plan,
+  5 fail 4-9 checks each and the sixth, no fallback, crashes the script), `python test_workflow_contracts.py` (the schedule alone passes
+  --state; the switch, the cron and the test-before-purge order are pinned).

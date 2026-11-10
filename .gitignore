@@ -44,6 +44,10 @@ meetup_category_cache.json.tmp
 # near runs their far hides until the next full sweep, never a wrong hide.
 prune_url_index.json
 prune_url_index.json.tmp
+# What the last complete scheduled spam purge read (mapsee_spam_purge --state):
+# Actions cache only. Lost, it costs one full walk.
+spam_purge_state.json
+spam_purge_state.json.tmp
 feeds_events.json
 *.verified.json
 

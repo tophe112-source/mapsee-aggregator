@@ -394,6 +394,326 @@ check("...and nothing survives long enough to outlive mapsee_cleanup",
       MAX_SPAN_DAYS <= 800, MAX_SPAN_DAYS)
 check("exactly at the cap is still a fact", implausible_end("2026-01-01", None) is None)
 
+# --- the daily run reads what arrived, the weekly one reads the table --------
+# mapsee_spam_purge.main() over a fake PostgREST (requests stubbed, the clock
+# pinned): no network, no database. Every request is kept, so a test can count
+# the rows each run READ and ask what was sent.
+print()
+print("the purge's daily run reads what arrived since the last one")
+import contextlib
+import copy
+import io
+import json
+import re
+import tempfile
+from datetime import datetime, timedelta, timezone
+from urllib.parse import parse_qsl, urlsplit
+
+import mapsee_spam_purge as PURGE
+
+_T0 = datetime(2026, 11, 10, 7, 40, tzinfo=timezone.utc)
+
+
+def _iso(at):
+    return at.strftime("%Y-%m-%dT%H:%M:%S+00:00")
+
+
+def _norm(v):
+    return v.replace("Z", "+00:00") if isinstance(v, str) else v
+
+
+class _Resp:
+    def __init__(self, status=200, rows=None, text="", headers=None):
+        self.status_code, self._rows, self.text, self.headers = status, rows, text, headers or {}
+
+    def json(self):
+        return self._rows
+
+
+class _FakeDB:
+    """eq / is.null / gt / gte / in filters, order and limit over a list of rows."""
+
+    def __init__(self, rows):
+        self.rows = {r["id"]: r for r in rows}
+        self.gets, self.read, self.timeout_on, self.silent_on = [], 0, None, None
+
+    def _match(self, url):
+        out = list(self.rows.values())
+        order, limit = None, None
+        for k, v in parse_qsl(urlsplit(url).query, keep_blank_values=True):
+            if k == "select":
+                continue
+            if k == "order":
+                order = [c.split(".")[0] for c in v.split(",")]
+            elif k == "limit":
+                limit = int(v)
+            elif v == "is.null":
+                out = [r for r in out if r.get(k) is None]
+            elif v.startswith("in.("):
+                ids = set(v[4:-1].split(","))
+                out = [r for r in out if r[k] in ids]
+            else:
+                op, val = v.split(".", 1)
+                val = _norm(val)
+                test = {"eq": lambda x: x == val, "gt": lambda x: x is not None and x > val,
+                        "gte": lambda x: x is not None and x >= val}[op]
+                out = [r for r in out if test(r.get(k))]
+        if order:
+            out.sort(key=lambda r: tuple(r[c] for c in order))
+        return out[:limit] if limit else out
+
+    def get(self, url, headers=None, timeout=None):
+        self.gets.append(url)
+        if self.silent_on and self.silent_on in url:
+            raise type("ReadTimeout", (Exception,), {})("Read timed out. (read timeout=120)")
+        if self.timeout_on and self.timeout_on in url:
+            return _Resp(500, text='{"code":"57014","message":"canceling statement due to statement timeout"}')
+        rows = self._match(url)
+        self.read += len(rows)
+        return _Resp(200, copy.deepcopy(rows))
+
+    def delete(self, url, headers=None, timeout=None):
+        hit = self._match(url)
+        for r in hit:
+            del self.rows[r["id"]]
+        return _Resp(204, headers={"Content-Range": f"*/{len(hit)}"})
+
+    def patch(self, url, headers=None, json=None, timeout=None):
+        hit = self._match(url)
+        for r in hit:
+            self.rows[r["id"]].update(json)
+        return _Resp(204, headers={"Content-Range": f"*/{len(hit)}"})
+
+
+_AD_LINK = "Tickets / info: https://papafagla.com/x"
+
+
+def _row(i, created, start_days=10, *, ad=False, hidden=False, far_end=False, source="mapsee"):
+    start = _T0 + timedelta(days=start_days, minutes=i % 600)
+    return {"id": f"{i:08d}", "external_source": source,
+            "title": f"{_AD} {i}" if ad else f"Quiz night {i}",
+            "description": _AD_LINK if ad else "A quiz.\nTickets / info: https://www.meetup.com/x",
+            "starts_at": _iso(start), "ends_at": _iso(start + timedelta(days=900 if far_end else 0, hours=2)),
+            "created_at": _iso(created), "hidden_at": _iso(created) if hidden else None}
+
+
+def _table():
+    """6,000 imported rows that arrived 20-200 days ago, 40 in the hour before
+    the first run, 500 community rows: 14 adverts (2 hidden), 4 ends to clear,
+    one advert that began six years ago, one community 'advert'."""
+    rows = []
+    for i in range(6000):
+        rows.append(_row(i, _T0 - timedelta(days=20 + i % 180, minutes=i), start_days=-30 + i % 150,
+                         ad=i % 500 == 7, hidden=i % 20 == 3, far_end=i % 1500 == 11))
+    rows[3]["title"], rows[3]["description"] = f"{_AD} hidden", _AD_LINK          # i % 20 == 3: hidden
+    rows[23]["title"], rows[23]["description"] = f"{_AD} hidden too", _AD_LINK
+    rows[9] = _row(9, _T0 - timedelta(days=40), start_days=-6 * 365, ad=True)     # before the floor
+    rows += [_row(10000 + i, _T0 - timedelta(minutes=1 + i)) for i in range(40)]
+    rows += [_row(20000 + i, _T0 - timedelta(days=30), source=None, ad=i == 0) for i in range(500)]
+    return rows
+
+
+def _arrivals(day, n=300, ads=3):
+    """A day's imports, created between two runs: `ads` visible adverts, one
+    hidden advert, one end to clear, one advert that began six years ago and
+    five community rows."""
+    base = 100000 * day
+    at = lambda i: _T0 + timedelta(days=day - 2, hours=2, seconds=i * 60)       # noqa: E731
+    rows = [_row(base + i, at(i), ad=i < ads, far_end=i == 50) for i in range(n)]
+    rows.append(_row(base + n, at(n), ad=True, hidden=True))
+    rows.append(_row(base + n + 1, at(n + 1), start_days=-6 * 365, ad=True))
+    rows += [_row(base + n + 2 + i, at(n + 2 + i), source=None) for i in range(5)]
+    return rows
+
+
+def _purge(db, now, *argv, hash_=None):
+    """(exit code, output, distinct rows this run read: its own 'read N row(s)')."""
+    saved = (PURGE.requests, PURGE._now, PURGE.predicate_hash, sys.argv, dict(os.environ))
+    out = io.StringIO()
+    PURGE.requests, PURGE._now = db, (lambda: now)
+    if hash_:
+        PURGE.predicate_hash = lambda here=None: hash_
+    os.environ.update(SUPABASE_URL="https://db.test", SUPABASE_SERVICE_ROLE_KEY="k")
+    sys.argv = ["mapsee_spam_purge.py", *argv]
+    try:
+        with contextlib.redirect_stdout(out):
+            try:
+                code = PURGE.main()
+            except SystemExit as ex:
+                code = ex.code
+    finally:
+        PURGE.requests, PURGE._now, PURGE.predicate_hash, sys.argv = saved[:4]
+        os.environ.clear()
+        os.environ.update(saved[4])
+    said = re.search(r"read (\d+) row\(s\)", out.getvalue())
+    n = int(said.group(1)) if said else 0
+    db.total = getattr(db, "total", 0) + n
+    return code, out.getvalue(), n
+
+
+def _ads(db, visible_only=False):
+    """The adverts a full walk could still delete: imported, inside the floor."""
+    return sorted(r["id"] for r in db.rows.values() if r["title"].startswith(_AD)
+                  and r["external_source"] == "mapsee" and r["starts_at"] > "2022"
+                  and not (visible_only and r["hidden_at"]))
+
+
+def _never(db):
+    """Adverts no walk may touch: a community row, or one that began before the floor."""
+    return sorted(r["id"] for r in db.rows.values() if r["title"].startswith(_AD)
+                  and (r["external_source"] != "mapsee" or r["starts_at"] < "2022"))
+
+
+def _far_ends(db):
+    return sorted(r["id"] for r in db.rows.values()
+                  if r["ends_at"] and implausible_end(r["starts_at"], r["ends_at"]) is not None)
+
+
+_tmp = tempfile.mkdtemp()
+_state = os.path.join(_tmp, "spam_purge_state.json")
+_inc, _full = _FakeDB(_table()), _FakeDB(_table())       # --state every day / the full walk every day
+
+# Day 1: no state, so the first scheduled run is the walk every run used to be.
+_c1, _o1, _r1 = _purge(_inc, _T0, "--apply", "--state", _state)
+_cf, _of, _rf = _purge(_full, _T0, "--apply")
+check("no state: the first run is the FULL walk, and says why",
+      _c1 == 0 and "Walk: FULL - no state at" in _o1 and "(full walk)" in _o1, _o1[:300])
+check("day 1 reads the whole table either way (6,039 imported rows inside the floor)",
+      (_r1, _rf) == (6039, 6039) and "read 6039 row(s)" in _o1, (_r1, _rf))
+check("...deletes the same 14 adverts, hidden ones included, and clears the same 4 ends",
+      "Deleted 14 advertisement(s); cleared the end date on 4 row(s)" in _o1
+      and _inc.rows.keys() == _full.rows.keys() and _far_ends(_inc) == _far_ends(_full) == [], _o1[-400:])
+check("...and never the advert that began before the floor, nor a community row",
+      _ads(_inc) == [] and _never(_inc) == ["00000009", "00020000"], (_ads(_inc), _never(_inc)))
+_s1 = json.load(open(_state))
+check("a complete --apply run writes the state: both stamps are when it BEGAN",
+      (_s1["full_at"], _s1["watermark"], _s1["predicate"]) ==
+      ("2026-11-10T07:40:00Z", "2026-11-10T07:40:00Z", PURGE.predicate_hash()), _s1)
+
+# Day 2: 300 imports arrived. The daily run reads them; the old walk reads everything.
+for _db in (_inc, _full):
+    for _r in _arrivals(2):
+        _db.rows[_r["id"]] = copy.deepcopy(_r)
+_c2, _o2, _r2 = _purge(_inc, _T0 + timedelta(days=1), "--apply", "--state", _state)
+_cf, _of, _rf = _purge(_full, _T0 + timedelta(days=1), "--apply")
+check("day 2 is INCREMENTAL: rows created since the last run began, less 3 h",
+      _c2 == 0 and "Walk: INCREMENTAL - rows created since 2026-11-10T04:40:00Z" in _o2, _o2[:300])
+check("ROWS READ, day 2: 6,326 by the full walk, 340 by the daily run (300 new + the 40 of the overlap)",
+      (_rf, _r2) == (6326, 340), (_rf, _r2))
+_daily = [u for u in _inc.gets if "created_at=" in u][0]
+check("the daily read: scoped, visible rows only (events_created_at_idx's predicate), inside the floor, by created_at",
+      "?external_source=eq.mapsee&hidden_at=is.null&starts_at=gte.2021-11-" in _daily
+      and "&created_at=gte.2026-11-10T04%3A40%3A00Z&" in _daily
+      and "&select=id,title,description,starts_at,ends_at,created_at&order=created_at.asc,id.asc&limit=500" in _daily,
+      _daily)
+check("the daily run deletes the 3 new visible adverts and clears the new end, as the full walk does",
+      "Deleted 3 advertisement(s); cleared the end date on 1 row(s)" in _o2
+      and _ads(_inc, visible_only=True) == _ads(_full, visible_only=True) and _far_ends(_inc) == [], _o2[-300:])
+check("WHAT WAITS: the one new advert that is already hidden (off the map) is the only difference",
+      sorted(_inc.rows.keys() - _full.rows.keys()) == ["00200300"], sorted(_inc.rows.keys() - _full.rows.keys()))
+check("a newly imported advert that began before the floor is not reached by created_at either",
+      "00200301" in _inc.rows and "00200301" in _full.rows)
+_s2 = json.load(open(_state))
+check("the watermark moves, the full walk's stamp does not",
+      (_s2["full_at"], _s2["watermark"]) == ("2026-11-10T07:40:00Z", "2026-11-11T07:40:00Z"), _s2)
+
+# Days 3-7: the same, each day's arrivals.
+_reads = []
+for _d in range(3, 8):
+    for _db in (_inc, _full):
+        for _r in _arrivals(_d, n=250, ads=2):
+            _db.rows[_r["id"]] = copy.deepcopy(_r)
+    _c, _o, _r_inc = _purge(_inc, _T0 + timedelta(days=_d - 1), "--apply", "--state", _state)
+    _, _, _r_full = _purge(_full, _T0 + timedelta(days=_d - 1), "--apply")
+    _reads.append((_r_inc, _r_full, "INCREMENTAL" in _o, _ads(_inc, True) == _ads(_full, True)))
+check("days 3-7 stay incremental, 250 rows a day, with the full walk's visible deletes",
+      all(r[0] == 250 and r[2] and r[3] for r in _reads), _reads)
+check("...while the daily full walk keeps reading the table: 6,573 to 7,565 rows",
+      [r[1] for r in _reads] == [6573, 6821, 7069, 7317, 7565], [r[1] for r in _reads])
+
+# Day 8: a week after the last full walk.
+_c8, _o8, _r8 = _purge(_inc, _T0 + timedelta(days=7), "--apply", "--state", _state)
+_, _, _rf8 = _purge(_full, _T0 + timedelta(days=7), "--apply")
+check("day 8 is FULL again: the last complete full walk is 7.0 days old",
+      _c8 == 0 and "Walk: FULL - the last complete full walk began 2026-11-10T07:40:00Z, 7.0 days ago" in _o8
+      and (_r8, _rf8) == (7568, 7562), (_o8[:200], _r8, _rf8))
+check("...and it deletes the 6 hidden adverts the daily runs left: first full + daily + weekly == full every day",
+      "Deleted 6 advertisement(s)" in _o8 and _inc.rows == _full.rows, _o8[-300:])
+check("ROWS READ over the 8 days: 15,197 with --state against 55,272 by a daily full walk (-72.5%)",
+      (_inc.total, _full.total) == (15197, 55272), (_inc.total, _full.total))
+check("...and on the 6 incremental days: 1,590 against 41,671 (-96.2%)",
+      (_r2 + sum(r[0] for r in _reads), _rf + sum(r[1] for r in _reads)) == (1590, 41671),
+      (_r2 + sum(r[0] for r in _reads), _rf + sum(r[1] for r in _reads)))
+check("a full walk a day early would be too soon: 6.4 days is still incremental, 6.5 is full",
+      [PURGE.plan_walk(_s2, None, _s2["predicate"], _T0 + timedelta(days=d))[0] for d in (6.4, 6.5)]
+      == ["incremental", "full"])
+
+# The rules change: the next run is the full walk, whatever the state's age.
+_c9, _o9, _r9 = _purge(_inc, _T0 + timedelta(days=8), "--apply", "--state", _state, hash_="other-rules")
+check("a change to mapsee_spam.py or the purge is a FULL walk the next day, and the state takes the new rules",
+      "Walk: FULL - the rules changed" in _o9 and json.load(open(_state))["predicate"] == "other-rules", _o9[:200])
+check("predicate_hash reads exactly the two files that decide a delete, the same on CRLF and LF",
+      PURGE._PREDICATE_FILES == ("mapsee_spam.py", "mapsee_spam_purge.py") and len(PURGE.predicate_hash()) == 64)
+_hd = tempfile.mkdtemp()
+for _name, _body in (("mapsee_spam.py", b"a\nb\n"), ("mapsee_spam_purge.py", b"c\n")):
+    open(os.path.join(_hd, _name), "wb").write(_body)
+_h_lf = PURGE.predicate_hash(_hd)
+open(os.path.join(_hd, "mapsee_spam.py"), "wb").write(b"a\r\nb\r\n")
+_h_crlf = PURGE.predicate_hash(_hd)
+open(os.path.join(_hd, "mapsee_spam.py"), "wb").write(b"a\nB\n")
+check("...a CRLF checkout hashes as LF, and one changed byte is a different hash",
+      _h_lf == _h_crlf and PURGE.predicate_hash(_hd) != _h_lf)
+
+# What must NOT move the state, and what a bad state means.
+_before = open(_state).read()
+for _r in _arrivals(10, n=250, ads=2):
+    _inc.rows[_r["id"]] = copy.deepcopy(_r)
+_c, _o, _ = _purge(_inc, _T0 + timedelta(days=9), "--state", _state, hash_="other-rules")
+check("a REPORT follows the same plan, writes nothing and leaves the state alone",
+      _c == 0 and "INCREMENTAL" in _o and "Report only" in _o and open(_state).read() == _before
+      and len(_ads(_inc, True)) == 2, _o[:200])
+_c, _o, _ = _purge(_inc, _T0 + timedelta(days=9), "--apply", "--state", _state, "--max-seconds", "0", hash_="other-rules")
+check("a walk the budget cut short does not move the state", "State: NOT updated" in _o and open(_state).read() == _before, _o[-300:])
+_c, _o, _ = _purge(_inc, _T0 + timedelta(days=9), "--apply", "--state", _state, "--max-share", "0.001", hash_="other-rules")
+check("a run the share ceiling refuses exits 1, deletes nothing and does not move the state",
+      _c == 1 and "REFUSING TO WRITE" in _o and open(_state).read() == _before
+      and len(_ads(_inc, True)) == 2, _o[-300:])
+_inc.timeout_on = "created_at=gte."
+_c, _o, _r = _purge(_inc, _T0 + timedelta(days=9), "--apply", "--state", _state, hash_="other-rules")
+_inc.timeout_on = None
+check("a created_at read that times out (57014) falls back to the full walk in the same run, loudly",
+      _c == 0 and "::warning::Spam purge: the created_at read timed out" in _o and "(full walk)" in _o
+      and "Deleted 3 advertisement(s)" in _o and _ads(_inc) == [], _o[-400:])
+check("...which is recorded as the full walk it was",
+      json.load(open(_state))["full_at"] == "2026-11-19T07:40:00Z")
+for _r in _arrivals(11, n=250, ads=2):
+    _inc.rows[_r["id"]] = copy.deepcopy(_r)
+_inc.silent_on = "created_at=gte."
+_c, _o, _r = _purge(_inc, _T0 + timedelta(days=10), "--apply", "--state", _state, hash_="other-rules")
+_inc.silent_on = None
+check("...and so does one that never answers inside the client's 120 s",
+      _c == 0 and "the created_at read timed out" in _o and "(full walk)" in _o and _ads(_inc) == [], _o[-300:])
+_nostate = _FakeDB(_table())
+_c, _o, _r = _purge(_nostate, _T0, "--apply")
+check("without --state nothing changes: the full walk, no plan line, no file",
+      _c == 0 and "Walk:" not in _o and _r == 6039 and not os.path.exists(os.path.join(_tmp, "none.json")), _o[:200])
+_good = json.load(open(_state))
+_plan = lambda st, why=None, now=_T0 + timedelta(days=10), **kw: PURGE.plan_walk(  # noqa: E731
+    st, why, "other-rules", now, **kw)[0]
+check("--full walks the table whatever the state says", _plan(_good, force_full=True) == "full" and _plan(_good) == "incremental")
+check("a state stamped in the future, or whose watermark is before its full walk, is not believed",
+      _plan(dict(_good, watermark="2026-12-25T00:00:00Z")) == "full"
+      and _plan(dict(_good, watermark="2026-11-01T00:00:00Z")) == "full")
+_bad = os.path.join(_tmp, "bad.json")
+_whys = []
+for _body in ("{not json", "[]", json.dumps(dict(_good, version=0)), json.dumps(dict(_good, predicate="")),
+              json.dumps(dict(_good, watermark="yesterday")), json.dumps({k: v for k, v in _good.items() if k != "full_at"})):
+    open(_bad, "w").write(_body)
+    _whys.append(PURGE.load_state(_bad))
+check("an unreadable, wrong-version or incomplete state is None with a reason, never an exception",
+      all(st is None and why for st, why in _whys) and PURGE.load_state(os.path.join(_tmp, "absent.json"))[0] is None,
+      _whys)
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

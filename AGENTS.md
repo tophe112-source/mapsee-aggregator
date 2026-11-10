@@ -8,7 +8,7 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**Keep this map small.** The measured notes — 637 of them — live in
+**Keep this map small.** The measured notes — 638 of them — live in
 [`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
 then open ONE topic. Preserve each note's measurements.
 
@@ -135,7 +135,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/dates-and-timezones.md` | 22 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules, a wall clock stamped as UTC or a platform's default zone, days joined into one event |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
 | `docs/agents/geocoding-and-addresses.md` | 23 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere, the Events Calendar's comma LOCATION, a City point in another borough |
-| `docs/agents/spam-and-content.md` | 13 | the predicate, the purge, implausible end dates, safe scheduled deletes, a whole instance of adverts |
+| `docs/agents/spam-and-content.md` | 14 | the predicate, the purge, implausible end dates, safe scheduled deletes, a whole instance of adverts |
 | `docs/agents/state-fairs.md` | 9 | marketing-copy dates, towns vs venues, a one-day festival's prose date |
 | `docs/agents/health-and-monitoring.md` | 11 | `stats_snapshot_all`, baselines, a source with no retry, the audit's crash, FEED_DOWN's blind spot |
 | `docs/agents/libraries-bibliocommons.md` | 12 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |

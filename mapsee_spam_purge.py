@@ -4,6 +4,9 @@ mapsee_spam_purge.py — remove the advertisements that got in before the gate d
 
     python mapsee_spam_purge.py                     # report only, the default
     python mapsee_spam_purge.py --apply
+    python mapsee_spam_purge.py --apply --state spam_purge_state.json   # the schedule:
+                                    # rows created since the last complete run; the
+                                    # whole table weekly and when the rules change
 
 mapsee_spam.py stops new ones at ingest. It reaches nothing already stored, for
 the reason CLAUDE.md gives about classifier fixes: `--only-new` is the default in
@@ -52,6 +55,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import hashlib
 import json
 import os
 import re
@@ -165,7 +169,13 @@ def row_source(description, instances: dict):
     return None
 
 
-def window_query(root: str, scope: str, cursor: str, page: int, op: str = "gte") -> str:
+def _select(key: str) -> str:
+    """The five columns the predicate reads, plus the walk's key when it is not one of them."""
+    return "id,title,description,starts_at,ends_at" + ("" if key == "starts_at" else f",{key}")
+
+
+def window_query(root: str, scope: str, cursor: str, page: int, op: str = "gte",
+                 key: str = "starts_at") -> str:
     """The URL for one window of the walk, with the cursor QUOTED.
 
     PostgREST hands starts_at back as "2026-08-21T08:00:00+00:00", and in a query
@@ -180,21 +190,24 @@ def window_query(root: str, scope: str, cursor: str, page: int, op: str = "gte")
     are that instant's LOWEST ids - which is what lets walk() read the rest of
     an instant by id when it holds more than a page.
     """
-    return (f"{root}?{scope}&starts_at={op}.{urllib.parse.quote(cursor, safe='')}"
-            f"&select=id,title,description,starts_at,ends_at"
-            f"&order=starts_at.asc,id.asc&limit={page}")
+    return (f"{root}?{scope}&{key}={op}.{urllib.parse.quote(cursor, safe='')}"
+            f"&select={_select(key)}"
+            f"&order={key}.asc,id.asc&limit={page}")
 
 
-def instant_query(root: str, scope: str, at: str, after_id: str, page: int) -> str:
+def instant_query(root: str, scope: str, at: str, after_id: str, page: int,
+                  key: str = "starts_at") -> str:
     """The rest of ONE instant, by id, for an instant that holds more than a page."""
-    return (f"{root}?{scope}&starts_at=eq.{urllib.parse.quote(at, safe='')}"
+    return (f"{root}?{scope}&{key}=eq.{urllib.parse.quote(at, safe='')}"
             f"&id=gt.{urllib.parse.quote(after_id, safe='')}"
-            f"&select=id,title,description,starts_at,ends_at"
+            f"&select={_select(key)}"
             f"&order=id.asc&limit={page}")
 
 
-def walk(fetch_window, fetch_instant, cursor: str, page: int, out_of_time, visit):
-    """Visit every row from `cursor` forward in starts_at order; say how it ended.
+def walk(fetch_window, fetch_instant, cursor: str, page: int, out_of_time, visit,
+         key: str = "starts_at"):
+    """Visit every row from `cursor` forward in `key` order (starts_at for the
+    full walk, created_at for the daily one); say how it ended.
 
     fetch_window(op, at) returns up to `page` rows with starts_at `op` ("gte" or
     "gt") `at`, ordered by (starts_at, id). fetch_instant(at, after_id) returns
@@ -222,8 +235,8 @@ def walk(fetch_window, fetch_instant, cursor: str, page: int, out_of_time, visit
             visit(row)
         if len(rows) < page:
             return "end of the table", cursor
-        last = rows[-1]["starts_at"]
-        if rows[0]["starts_at"] != last:
+        last = rows[-1][key]
+        if rows[0][key] != last:
             # A WINDOW, NOT AN OFFSET. offset= re-walks everything before it on
             # each step, which is what turns a long table into a timeout.
             op, cursor = "gte", last
@@ -231,7 +244,7 @@ def walk(fetch_window, fetch_instant, cursor: str, page: int, out_of_time, visit
         after = rows[-1]["id"]
         while True:
             if out_of_time():
-                return (f"the time budget ran out inside starts_at {last}; "
+                return (f"the time budget ran out inside {key} {last}; "
                         "rows after it were NOT examined"), last
             more = fetch_instant(last, after)
             for row in more:
@@ -240,8 +253,148 @@ def walk(fetch_window, fetch_instant, cursor: str, page: int, out_of_time, visit
                 break
             after = more[-1]["id"]
         op, cursor = "gt", last
-    return (f"the time budget ran out at starts_at {cursor}; "
+    return (f"the time budget ran out at {key} {cursor}; "
             "rows after it were NOT examined"), cursor
+
+
+# --------------------------------------------------------------------------- #
+# THE DAILY RUN READS WHAT ARRIVED SINCE THE LAST ONE; THE WHOLE TABLE IS WEEKLY
+# --------------------------------------------------------------------------- #
+# A full walk read 744,093 rows in 1,261 s (2026-09-14) to find 227 deletes, and
+# once the switch is on it runs every day. Almost all of it re-judges rows the
+# same rules already passed the day before: the gate in EventStore.upsert
+# (mapsee_ingest) applies this same spam_reason and implausible_end to every
+# record before it is stored, so what the purge still finds is (a) rows older
+# than the gate or than a rule, and (b) new rows the gate let through because
+# it KNEW their adapter while the purge has to infer one from the link.
+#
+# (b) is only ever a NEW row. (a) needs the whole table only when the rules
+# change. So with --state PATH (the scheduled run; kept in the Actions cache):
+#
+#   * FULL walk, exactly the one above, when there is no believable state, when
+#     the rules changed (predicate_hash: this file and mapsee_spam.py), when the
+#     last complete full walk is FULL_EVERY_DAYS old, or with --full;
+#   * otherwise only rows CREATED since the last complete run began, less
+#     OVERLAP_HOURS, by created_at.
+#
+# The daily read asks hidden_at=is.null: that is the predicate of ../mapsee
+# 0111's events_created_at_idx ((created_at desc) where hidden_at is null), the
+# only index on created_at, and the one mapsee_indexnow's walk of the same shape
+# already uses. A new advert that is already hidden is off the map and waits for
+# the weekly walk. It also asks starts_at >= the full walk's own floor
+# (--from-days-ago), so the daily run can never reach a row the full walk
+# cannot: what it may delete is a SUBSET of what the full walk may.
+#
+# WHAT WAITS FOR THE WEEKLY WALK, and nothing else does: a stored row whose
+# description a refresh rewrote into something only the purge's inferred source
+# refuses (the title is in the fingerprint, so a new title is a new row), a row
+# a re-key moved, and hidden rows. A state that is missing, unreadable, from the
+# future or written under other rules means FULL: the default is today's walk.
+#
+# THE SHARE CEILING GETS TIGHTER, NEVER LOOSER: 5% of a day's arrivals is far
+# fewer rows than 5% of the table. Under --min-sample a share is still noise and
+# is not evaluated, which a 744k-row walk never met and a quiet day can; the
+# case the ceiling exists for, a widened rule, changes predicate_hash and so
+# always meets the full walk and the full sample first.
+#
+# The state is written only by an --apply run whose walk reached the end of the
+# table and whose writes all landed. A report, a refusal, a budget that ran out
+# or a failed write leaves it as it was, and the next run starts from the same
+# place. Without --state nothing here applies: a manual run is the full walk.
+STATE_VERSION = 1
+FULL_EVERY_DAYS = 7
+OVERLAP_HOURS = 3
+# A run is "a week later" on the same weekday even when the schedule starts it
+# hours early or late (this one has started 7 h late): half a day of slack.
+FULL_SLACK_HOURS = 12
+_PREDICATE_FILES = ("mapsee_spam.py", "mapsee_spam_purge.py")
+
+
+def _now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def _stamp(at: datetime) -> str:
+    return at.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _when(value):
+    try:
+        at = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return None
+    return at if at.tzinfo else None
+
+
+def predicate_hash(here: str = HERE) -> str:
+    """sha256 of the two files that decide what is deleted, line endings
+    normalised (this checkout is CRLF on Windows, LF on the runner). The source
+    configs are left out on purpose: a host added to mobilizon_sources.json
+    moves a row from UNKNOWN to an open-registration source, and phone_counts
+    answers the same for both."""
+    h = hashlib.sha256()
+    for name in _PREDICATE_FILES:
+        with open(os.path.join(here, name), "rb") as fh:
+            h.update(name.encode() + b"\0" + fh.read().replace(b"\r\n", b"\n") + b"\0")
+    return h.hexdigest()
+
+
+def load_state(path: str):
+    """(state, None) or (None, why it is not believed). Never raises: whatever
+    is wrong with the file, the answer is the full walk."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            doc = json.load(fh)
+    except FileNotFoundError:
+        return None, f"no state at {path}"
+    except (OSError, ValueError) as ex:
+        return None, f"state unreadable ({type(ex).__name__})"
+    if not isinstance(doc, dict) or doc.get("version") != STATE_VERSION:
+        return None, f"state is not version {STATE_VERSION}"
+    if not isinstance(doc.get("predicate"), str) or not doc["predicate"]:
+        return None, "state names no rules"
+    if _when(doc.get("full_at")) is None or _when(doc.get("watermark")) is None:
+        return None, "state has no believable full_at/watermark"
+    return doc, None
+
+
+def plan_walk(state, why_not, predicate: str, now: datetime, force_full: bool = False,
+              full_every_days: float = FULL_EVERY_DAYS, overlap_hours: float = OVERLAP_HOURS):
+    """("full", why, None) or ("incremental", why, the created_at to start from)."""
+    if force_full:
+        return "full", "--full was passed", None
+    if state is None:
+        return "full", why_not or "no state", None
+    if state["predicate"] != predicate:
+        return "full", "the rules changed since the last complete full walk (mapsee_spam.py or this file)", None
+    full_at, mark = _when(state["full_at"]), _when(state["watermark"])
+    if full_at > now + timedelta(hours=1) or mark > now + timedelta(hours=1):
+        return "full", "the state is stamped in the future", None
+    if mark < full_at:
+        return "full", "the state's watermark is older than its full walk", None
+    age = now - full_at
+    if age >= timedelta(days=full_every_days) - timedelta(hours=FULL_SLACK_HOURS):
+        return "full", (f"the last complete full walk began {state['full_at']}, "
+                        f"{age.total_seconds() / 86400:.1f} days ago (every {full_every_days:g})"), None
+    since = mark - timedelta(hours=overlap_hours)
+    return "incremental", (f"rows created since {_stamp(since)} (the last complete run began "
+                           f"{state['watermark']}, less {overlap_hours:g} h); the last full walk "
+                           f"began {state['full_at']}"), _stamp(since)
+
+
+def save_state(path: str, predicate: str, began: datetime, full: bool, previous) -> None:
+    doc = {"version": STATE_VERSION, "predicate": predicate,
+           "full_at": _stamp(began) if full or previous is None else previous["full_at"],
+           "watermark": _stamp(began)}
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(doc, fh, indent=1)
+        fh.write("\n")
+    os.replace(tmp, path)
+
+
+class ReadTimedOut(RuntimeError):
+    """A 57014 on a windowed read, or no answer inside the client's timeout."""
 
 
 def main() -> int:
@@ -287,6 +440,13 @@ def main() -> int:
     ap.add_argument("--min-sample", type=int, default=200,
                     help="Below this many rows read, --max-share is not evaluated: a "
                          "share off a handful of rows is noise (default 200).")
+    ap.add_argument("--state", default=None, metavar="PATH",
+                    help="Remember the last complete --apply run here (the Actions cache "
+                         "keeps it) and read only rows created since, with the full walk "
+                         f"every {FULL_EVERY_DAYS} days and whenever the rules change. "
+                         "Without it every run is the full walk.")
+    ap.add_argument("--full", action="store_true",
+                    help="With --state: walk the whole table this run whatever the state says.")
     a = ap.parse_args()
 
     url = os.environ.get("SUPABASE_URL")
@@ -301,8 +461,8 @@ def main() -> int:
     SCOPE = "external_source=eq.mapsee"
     assert "external_source=eq.mapsee" == SCOPE, "refusing an unscoped walk"
 
-    cursor = (datetime.now(timezone.utc) - timedelta(days=max(0, a.from_days_ago))
-              ).strftime("%Y-%m-%dT%H:%M:%SZ")
+    began = _now()
+    floor = _stamp(began - timedelta(days=max(0, a.from_days_ago)))
     started = time.monotonic()
     seen = 0
     seen_ids: set[str] = set()
@@ -311,20 +471,28 @@ def main() -> int:
     drained: dict[str, int] = {}                     # instant -> rows read past its first page
     instances = instance_hosts()                     # host -> "mobilizon" | "gancio"
 
+    # WHICH WALK (see plan_walk). No --state: the full walk, as it always was.
+    state, predicate, mode, since = None, None, "full", None
+    if a.state:
+        predicate = predicate_hash()
+        state, why_not = load_state(a.state)
+        mode, why, since = plan_walk(state, why_not, predicate, began, a.full)
+        print(f"Walk: {mode.upper()} - {why}.")
+
     def fetch(q: str) -> list:
-        r = requests.get(q, headers=auth, timeout=120)
+        try:
+            r = requests.get(q, headers=auth, timeout=120)
+        except Exception as ex:                       # noqa: BLE001
+            # No answer inside our own 120 s is the same condition as a 57014
+            # (the statement is still running); anything else is raised as it was.
+            if type(ex).__name__ == "ReadTimeout":
+                raise ReadTimedOut() from None
+            raise
         if _timed_out(r):
-            sys.exit("The windowed read timed out. Check migration 0113 "
-                     "(events_aggregator_cleanup_idx) is applied — it is what makes "
-                     "this walk index-backed.")
+            raise ReadTimedOut()
         if r.status_code >= 300:
             sys.exit(f"Read failed [{r.status_code}]: {r.text[:300]}")
         return r.json() or []
-
-    def fetch_instant(at: str, after: str) -> list:
-        rows = fetch(instant_query(root, SCOPE, at, after, PAGE))
-        drained[at] = drained.get(at, 0) + len(rows)
-        return rows
 
     def visit(row) -> None:
         # A "gte" window re-reads the instant it starts on, hence the set.
@@ -347,13 +515,50 @@ def main() -> int:
         if span is not None:
             unbounded.append((row["id"], span, (row.get("title") or "")[:70], label))
 
-    print(f"Walking aggregator events from {cursor} forward…")
-    # SAID OUT LOUD, because a walk that runs out of budget used to end exactly
-    # like one that reached the end of the table - and it starts five years back
-    # every day, so an unfinished walk never reaches the NEWEST rows at all.
-    ended, cursor = walk(lambda op, at: fetch(window_query(root, SCOPE, at, PAGE, op)),
-                         fetch_instant, cursor, PAGE,
-                         lambda: time.monotonic() - started >= a.max_seconds, visit)
+    def run_walk(scope: str, key: str, cursor: str):
+        def fetch_instant(at: str, after: str) -> list:
+            rows = fetch(instant_query(root, scope, at, after, PAGE, key))
+            drained[at] = drained.get(at, 0) + len(rows)
+            return rows
+        return walk(lambda op, at: fetch(window_query(root, scope, at, PAGE, op, key)),
+                    fetch_instant, cursor, PAGE,
+                    lambda: time.monotonic() - started >= a.max_seconds, visit, key)
+
+    ended = None
+    if mode == "incremental":
+        # hidden_at=is.null is events_created_at_idx's own predicate; the
+        # starts_at floor keeps this inside what the full walk can reach.
+        daily = (f"{SCOPE}&hidden_at=is.null"
+                 f"&starts_at=gte.{urllib.parse.quote(floor, safe='')}")
+        assert daily.startswith(SCOPE + "&"), "refusing an unscoped walk"
+        print(f"Walking aggregator events created since {since}…")
+        try:
+            ended, cursor = run_walk(daily, "created_at", since)
+        except ReadTimedOut:
+            # THE WORST CASE IS THE OLD ONE. If the planner will not take the
+            # created_at index, the daily read is no cheaper than the walk it
+            # replaces, so the run does that walk instead and says why. Nothing
+            # judged so far is kept: the full walk sees those rows again.
+            print("::warning::Spam purge: the created_at read timed out, so this run "
+                  "walks the whole table instead. Check ../mapsee 0111's events_created_at_idx "
+                  "exists and is valid; until it is, pass no --state.", flush=True)
+            # The clock is NOT restarted: --max-seconds is paired with the job's
+            # timeout-minutes, and the full walk gets what is left of it.
+            mode = "full"
+            seen = 0
+            seen_ids.clear(); doomed.clear(); unbounded.clear(); drained.clear()
+    if mode == "full":
+        print(f"Walking aggregator events from {floor} forward…")
+        # SAID OUT LOUD, because a walk that runs out of budget used to end exactly
+        # like one that reached the end of the table - and it starts five years back
+        # every time, so an unfinished walk never reaches the NEWEST rows at all.
+        try:
+            ended, cursor = run_walk(SCOPE, "starts_at", floor)
+        except ReadTimedOut:
+            sys.exit("The windowed read timed out. Check migration 0113 "
+                     "(events_aggregator_cleanup_idx) is applied — it is what makes "
+                     "this walk index-backed.")
+    complete = ended == "end of the table"
     ended = ended.replace("the time budget", f"the --max-seconds {a.max_seconds} budget")
     # Checked on DELETIONS only. Clearing an end date is reversible in the sense
     # that matters — the row stays, the sync refills it from the source on the
@@ -363,7 +568,7 @@ def main() -> int:
     share = (len(doomed) / seen) if seen else 0.0
     refuse = too_many(len(doomed), seen, a.max_share, a.min_sample)
 
-    print(f"read {seen} row(s); walk ended: {ended}")
+    print(f"read {seen} row(s) ({mode} walk); walk ended: {ended}")
     if drained:
         big = sorted(drained.items(), key=lambda kv: -kv[1])[:5]
         print(f"  {len(drained)} instant(s) held a full page or more; largest: "
@@ -433,6 +638,16 @@ def main() -> int:
 
     print(f"Deleted {deleted} advertisement(s); cleared the end date on {cleared} row(s). "
           f"The cleared ones leave on mapsee_cleanup.py's next run once their start is past.")
+    # LAST, and only here: every return and exit above leaves the state as it
+    # was, so a refusal, a failed write or a walk the budget cut short is
+    # repeated from the same place.
+    if a.state and complete:
+        save_state(a.state, predicate, began, mode == "full", state)
+        print(f"State: {a.state} now says this {mode} walk began {_stamp(began)}"
+              + ("" if mode == "full" else f" (the last full walk: {state['full_at']})") + ".")
+    elif a.state:
+        print(f"State: NOT updated (the walk did not reach the end); the next run starts "
+              f"where this one did.")
     return 0
 
 
