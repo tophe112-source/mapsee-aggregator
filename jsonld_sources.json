@@ -33633,6 +33633,596 @@
         "lon": -79.7801862
       },
       "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Museum of Botany & the Arts",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://selby.org/events/"
+      ],
+      "link_pattern": "https://selby\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum of Botany & the Arts",
+        "lat": 27.3281821,
+        "lon": -82.5401624
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "cove.",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://ilovecove.com/events"
+      ],
+      "link_pattern": "https://ilovecove\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "cove.",
+        "address": "104 Bridge Street",
+        "city": "Bradenton Beach",
+        "region": "FL",
+        "postal_code": "34217",
+        "lat": 27.4652408,
+        "lon": -82.6979951
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "The Bishop Museum of Science and Nature",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://bishopscience.org/events/"
+      ],
+      "link_pattern": "https://bishopscience\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Bishop Museum of Science and Nature",
+        "address": "201 10th Street West",
+        "city": "Bradenton",
+        "region": "FL",
+        "postal_code": "34205",
+        "lat": 27.4982549,
+        "lon": -82.5715411
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Mackay Mansion & Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.therealmackaymansion.com/event-calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mackay Mansion & Museum",
+        "address": "291 D Street",
+        "city": "Virginia City",
+        "region": "NV",
+        "postal_code": "89440",
+        "lat": 39.3066438,
+        "lon": -119.6500949
+      },
+      "_metro": "Reno, United States"
+    },
+    {
+      "name": "Pikes Peak Metropolitan Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ppmcc.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Pikes Peak Metropolitan Community Church",
+        "address": "1102 South 21st Street",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80904",
+        "lat": 38.8367474,
+        "lon": -104.8596815
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Rustic Hills Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.rustichillsbaptist.org/calendar/"
+      ],
+      "link_pattern": "https://www\\.rustichillsbaptist\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rustic Hills Baptist Church",
+        "address": "1927 North Murray Boulevard",
+        "region": "CO",
+        "postal_code": "80915",
+        "lat": 38.8607386,
+        "lon": -104.7474125
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Greek Orthodox Church of Saint Nicholas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.stnicholasep.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Greek Orthodox Church of Saint Nicholas",
+        "address": "124 South Festival Drive",
+        "city": "El Paso",
+        "region": "TX",
+        "lat": 31.8171521,
+        "lon": -106.5163939
+      },
+      "_metro": "El Paso, United States"
+    },
+    {
+      "name": "Tulsa Clubhouse",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.tulsaclubhouse.com/gallery"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Tulsa Clubhouse",
+        "address": "3220 East 21st Street South",
+        "city": "Tulsa",
+        "region": "OK",
+        "postal_code": "74114",
+        "lat": 36.1329972,
+        "lon": -95.9416621
+      },
+      "_metro": "Tulsa, United States"
+    },
+    {
+      "name": "Philbrook Museum of Art",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.philbrook.org/events/thank-you-veterans-37405"
+      ],
+      "link_pattern": "https://www\\.philbrook\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Philbrook Museum of Art",
+        "address": "2727 South Rockford Road",
+        "city": "Tulsa",
+        "region": "OK",
+        "postal_code": "74114",
+        "country": "US",
+        "lat": 36.1237842,
+        "lon": -95.969908
+      },
+      "_metro": "Tulsa, United States"
+    },
+    {
+      "name": "Bob Dylan Center",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.bobdylancenter.com/event/ten-songs-dec-2026"
+      ],
+      "link_pattern": "https://www\\.bobdylancenter\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bob Dylan Center",
+        "address": "116 East Reconciliation Way North",
+        "city": "Tulsa",
+        "region": "OK",
+        "postal_code": "74103",
+        "lat": 36.1587161,
+        "lon": -95.9915926
+      },
+      "_metro": "Tulsa, United States"
+    },
+    {
+      "name": "Circle Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> wix",
+      "listing": [
+        "https://www.circlecinema.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Circle Cinema",
+        "address": "10 South Lewis Avenue East",
+        "city": "Tulsa",
+        "region": "OK",
+        "postal_code": "74104",
+        "country": "US",
+        "lat": 36.1594656,
+        "lon": -95.9585437
+      },
+      "_metro": "Tulsa, United States"
+    },
+    {
+      "name": "Prairie Rose Chuckwagon Supper",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.prairieroseks.com/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Prairie Rose Chuckwagon Supper",
+        "address": "15231 Southwest Parallel Street",
+        "city": "Benton",
+        "region": "KS",
+        "postal_code": "67017",
+        "lat": 37.8240036,
+        "lon": -97.1191113
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "Wichita Oasis",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.wichitaoasis.org/events"
+      ],
+      "link_pattern": "https://www\\.wichitaoasis\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wichita Oasis",
+        "address": "2418 East 9th Street North",
+        "city": "Wichita",
+        "region": "KS",
+        "postal_code": "67214",
+        "lat": 37.7013985,
+        "lon": -97.3075127
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "Boulevard Theatres at Old Town",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://oldtown.blvdtheatres.com/home/"
+      ],
+      "link_pattern": "https://oldtown\\.blvdtheatres\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Boulevard Theatres at Old Town",
+        "address": "353 North Mead Street",
+        "city": "Wichita",
+        "region": "KS",
+        "postal_code": "67202",
+        "lat": 37.6911867,
+        "lon": -97.3293211
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "Ascension Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.ascension-lcms.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ascension Lutheran Church",
+        "address": "842 North Tyler Road",
+        "city": "Wichita",
+        "region": "KS",
+        "postal_code": "67212",
+        "lat": 37.6970216,
+        "lon": -97.443268
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "Madison Museum of Contemporary Art",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.mmoca.org/events/"
+      ],
+      "link_pattern": "https://www\\.mmoca\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Madison Museum of Contemporary Art",
+        "address": "227 State Street",
+        "city": "Madison",
+        "region": "WI",
+        "postal_code": "53703",
+        "lat": 43.0745214,
+        "lon": -89.3889084
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Saint Stephen's Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://ststephensmonona.org/events-page/"
+      ],
+      "link_pattern": "https://ststephensmonona\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Stephen's Lutheran Church",
+        "address": "5700 Pheasant Hill Road",
+        "city": "Monona",
+        "region": "WI",
+        "postal_code": "53716",
+        "lat": 43.0579526,
+        "lon": -89.3300953
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Art House 360",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.arthouse360.com/summer"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Art House 360",
+        "address": "401 West Verona Avenue",
+        "city": "Verona",
+        "region": "WI",
+        "postal_code": "53593",
+        "lat": 42.9892717,
+        "lon": -89.5380818
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Fine Print Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://fineprintbookshop.com/event/2026-11-12/wish-list-night"
+      ],
+      "link_pattern": "https://fineprintbookshop\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fine Print Bookshop",
+        "address": "109 East Michigan Avenue",
+        "city": "Saline",
+        "region": "MI",
+        "postal_code": "48176",
+        "lat": 42.1670121,
+        "lon": -83.7809894
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Mill Race Historic Village",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.millracenorthville.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mill Race Historic Village",
+        "address": "370 Rayson Street",
+        "city": "Northville",
+        "region": "MI",
+        "postal_code": "48167",
+        "lat": 42.4333905,
+        "lon": -83.479762
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Ann Arbor Assembly of God",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.a3og.com/rsvp"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ann Arbor Assembly of God",
+        "address": "2455 Washtenaw Avenue",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48104",
+        "lat": 42.260433,
+        "lon": -83.7120322
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "First Presbyterian Church of Ann Arbor",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.fpca2.org/calendaresp"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "First Presbyterian Church of Ann Arbor",
+        "address": "1432 Washtenaw Avenue",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48104",
+        "lat": 42.2736803,
+        "lon": -83.731076
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Big Springs Historical Museum",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.bigspringsmuseumcaledonia.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Big Springs Historical Museum",
+        "region": "NY",
+        "lat": 42.9739,
+        "lon": -77.8548
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Multi Use Community Cultural Center",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.muccc.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Multi Use Community Cultural Center",
+        "address": "142 Atlantic Avenue",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14607",
+        "lat": 43.1561687,
+        "lon": -77.5808427
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Greece Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.greecebaptistchurch.org/featured-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Greece Baptist Church",
+        "address": "1230 Long Pond Road",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14626",
+        "lat": 43.2118413,
+        "lon": -77.6939221
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Mullers Cider House",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.mullersciderhouse.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Mullers Cider House",
+        "address": "1344 University Avenue",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14607",
+        "lat": 43.1503493,
+        "lon": -77.5660772
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Katboocha",
+      "category": "community",
+      "_found": "osm:bar -> wix",
+      "listing": [
+        "https://www.katboocha.com/classes-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Katboocha",
+        "address": "106 Railroad Street",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14609",
+        "lat": 43.1635687,
+        "lon": -77.586815
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Hochstein School of Music & Dance",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://hochstein.org/events/"
+      ],
+      "link_pattern": "https://hochstein\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hochstein School of Music & Dance",
+        "address": "50 North Plymouth Avenue",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14614",
+        "lat": 43.1559048,
+        "lon": -77.6157274
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Blue Barn Cidery",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.bluebarncidery.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Blue Barn Cidery",
+        "address": "928 Manitou Road",
+        "city": "Hilton",
+        "region": "NY",
+        "postal_code": "14468",
+        "lat": 43.2719249,
+        "lon": -77.7486801
+      },
+      "_metro": "Rochester NY, United States"
     }
   ],
   "_not_included": {

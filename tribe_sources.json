@@ -44299,6 +44299,775 @@
         "lon": -81.1034799
       },
       "_metro": "Savannah, United States"
+    },
+    {
+      "name": "Sarasota Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.sarasotaartmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sarasota Art Museum",
+        "address": "1001 South Tamiami Trail",
+        "city": "Sarasota",
+        "region": "FL",
+        "postal_code": "34236",
+        "lat": 27.3256414,
+        "lon": -82.5290239
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Kadampa Meditation Center Florida",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://meditationinsarasota.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kadampa Meditation Center Florida",
+        "address": "730 Washington Boulevard",
+        "city": "Sarasota",
+        "region": "FL",
+        "postal_code": "34236",
+        "lat": 27.3425945,
+        "lon": -82.5306689
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Bradenton Motorsports Park",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://racebmp.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bradenton Motorsports Park",
+        "address": "21000 Manatee Avenue East",
+        "city": "Bradenton",
+        "region": "FL",
+        "postal_code": "34202",
+        "country": "US",
+        "lat": 27.4693355,
+        "lon": -82.3268533
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Mote Marine Laboratory & Aquarium",
+      "category": "outdoors",
+      "_found": "osm:aquarium -> tribe+jsonld-event+ics",
+      "base_url": "https://mote.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mote Marine Laboratory & Aquarium",
+        "address": "1600 Ken Thompson Parkway",
+        "city": "Sarasota",
+        "region": "FL",
+        "postal_code": "34236",
+        "country": "US",
+        "lat": 27.3328526,
+        "lon": -82.5774547
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Saint Barbara Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stbarbarasrq.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Barbara Greek Orthodox Church",
+        "address": "7671 Lockwood Ridge Road",
+        "city": "Sarasota",
+        "region": "FL",
+        "postal_code": "34243",
+        "lat": 27.4038502,
+        "lon": -82.5045832
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Terry Lee Wells Nevada Discovery Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://nvdm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Terry Lee Wells Nevada Discovery Museum",
+        "address": "490 South Center Street",
+        "city": "Reno",
+        "region": "NV",
+        "postal_code": "89501",
+        "lat": 39.5216997,
+        "lon": -119.8089596
+      },
+      "_metro": "Reno, United States"
+    },
+    {
+      "name": "Cerberus Brewing Company",
+      "category": "community",
+      "_found": "osm:restaurant -> tribe+jsonld-event",
+      "base_url": "https://cerberusbrewingco.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cerberus Brewing Company",
+        "address": "702 West Colorado Avenue",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80905",
+        "lat": 38.8330255,
+        "lon": -104.837423
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Charis Christian Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.charischristiancenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Charis Christian Center",
+        "address": "10285 Federal Drive",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80908",
+        "lat": 38.9832702,
+        "lon": -104.7897332
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Cheyenne Mountain Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cmzoo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cheyenne Mountain Zoo",
+        "address": "4250 Cheyenne Mountain Zoo Road Cheyenne Mountain Zoo Road",
+        "region": "CO",
+        "postal_code": "80906",
+        "lat": 38.7713646,
+        "lon": -104.8548581
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "National Museum of World War II Aviation",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.worldwariiaviation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Museum of World War II Aviation",
+        "address": "755 Aviation Way",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80916",
+        "lat": 38.8206763,
+        "lon": -104.7205046
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Event Center",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://50fss.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Event Center",
+        "address": "20 Falcon Parkway",
+        "city": "Schriever SFB",
+        "region": "CO",
+        "postal_code": "80912",
+        "lat": 38.8085284,
+        "lon": -104.5337293
+      },
+      "_metro": "Colorado Springs, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "U.S. Olympic and Paralympic Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://usopm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "U.S. Olympic and Paralympic Museum",
+        "address": "200 South Sierra Madre Street",
+        "region": "CO",
+        "lat": 38.8295071,
+        "lon": -104.8296242
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "International Museum of Art",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://internationalmuseumofart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "International Museum of Art",
+        "address": "1211 Montana Avenue",
+        "city": "El Paso",
+        "region": "TX",
+        "postal_code": "79902",
+        "lat": 31.7707545,
+        "lon": -106.4818533
+      },
+      "_metro": "El Paso, United States"
+    },
+    {
+      "name": "Montereau",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.montereau.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Montereau",
+        "address": "6800 South Granite Avenue",
+        "postal_code": "74136",
+        "lat": 36.0642146,
+        "lon": -95.9099538
+      },
+      "_metro": "Tulsa, United States",
+      "crawl_delay": 3.0
+    },
+    {
+      "name": "Hardesty Family Adaptive Sports Complex",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tulsacenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hardesty Family Adaptive Sports Complex",
+        "city": "Tulsa",
+        "region": "OK",
+        "postal_code": "74104",
+        "country": "US",
+        "lat": 36.1483393,
+        "lon": -95.966826,
+        "street_hint": "815 South Utica Avenue East"
+      },
+      "_metro": "Tulsa, United States"
+    },
+    {
+      "name": "Climb Tulsa",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://climbtulsa.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Climb Tulsa",
+        "address": "4923 East 32nd Street South",
+        "city": "Tulsa",
+        "region": "OK",
+        "postal_code": "74135",
+        "country": "US",
+        "lat": 36.1181113,
+        "lon": -95.9211413
+      },
+      "_metro": "Tulsa, United States"
+    },
+    {
+      "name": "Valley Center Community Center & Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://valleycenter.scklslibrary.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Valley Center Community Center & Library",
+        "city": "Valley Center",
+        "region": "KS",
+        "postal_code": "67147",
+        "lat": 37.8290478,
+        "lon": -97.3689484,
+        "street_hint": "314 East Clay Street"
+      },
+      "_metro": "Wichita, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Hope Mennonite Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hopemennonite.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hope Mennonite Church",
+        "address": "868 North Maize Road",
+        "city": "Wichita",
+        "region": "KS",
+        "postal_code": "67212",
+        "lat": 37.6985878,
+        "lon": -97.4618689
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "St. Vincent de Paul Food Pantry",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://svdpmadison.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Vincent de Paul Food Pantry",
+        "lat": 43.0431877,
+        "lon": -89.4034538
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Willy Street Pantry",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://socialjusticecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Willy Street Pantry",
+        "lat": 43.0833921,
+        "lon": -89.3644084
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Children's Theater of Madison",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://ctmtheater.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Children's Theater of Madison",
+        "lat": 43.0853024,
+        "lon": -89.3708699
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Snowflower Sangha",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://snowflower.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Snowflower Sangha",
+        "address": "1704 Roberts Court",
+        "lat": 43.0667034,
+        "lon": -89.4160891
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Madison Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://madisonchildrensmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Madison Children's Museum",
+        "address": "100 North Hamilton Street",
+        "city": "Madison",
+        "region": "WI",
+        "postal_code": "53703",
+        "lat": 43.0768154,
+        "lon": -89.3844709
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Peace Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://explorepeace.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Peace Lutheran Church",
+        "lat": 43.1857201,
+        "lon": -89.4611493
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Barrymore Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://barrymorelive.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Barrymore Theatre",
+        "address": "2090-2098 Atwood Avenue",
+        "city": "Madison",
+        "region": "WI",
+        "postal_code": "53704",
+        "lat": 43.0929747,
+        "lon": -89.3521777
+      },
+      "_metro": "Madison, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Saint Paul University Catholic Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://uwcatholic.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Paul University Catholic Center",
+        "address": "723 State Street",
+        "city": "Madison",
+        "postal_code": "53703",
+        "lat": 43.074654,
+        "lon": -89.3984006
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Saint Andrew Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://divinemercymadison.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Andrew Church",
+        "address": "301 North Main Street",
+        "city": "Verona",
+        "region": "WI",
+        "postal_code": "53593",
+        "lat": 42.9944885,
+        "lon": -89.5328036
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Bayview Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bayviewfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bayview Community Center",
+        "city": "Madison",
+        "region": "WI",
+        "postal_code": "53715",
+        "lat": 43.0663858,
+        "lon": -89.3975076,
+        "street_hint": "103 La Mariposa Lane"
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "The Ark",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://theark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Ark",
+        "address": "316 South Main Street",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48104",
+        "lat": 42.2791089,
+        "lon": -83.7488306
+      },
+      "_metro": "Ann Arbor, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Great White Buffalo Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://greatwhitebuffalobrewingco.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Great White Buffalo Brewing Co.",
+        "address": "101 West Main Street",
+        "city": "Northville",
+        "region": "MI",
+        "postal_code": "48167",
+        "lat": 42.4309721,
+        "lon": -83.4833887
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Blue LLama Jazz Club",
+      "category": "music",
+      "_found": "osm:music_venue -> tribe",
+      "base_url": "https://bluellamaclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blue LLama Jazz Club",
+        "address": "314 South Main Street",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48104",
+        "lat": 42.279055,
+        "lon": -83.7488338
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Michigan Flight Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://miflightmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Michigan Flight Museum",
+        "address": "47884 D Street",
+        "city": "Belleville",
+        "region": "MI",
+        "postal_code": "48111",
+        "lat": 42.2390505,
+        "lon": -83.5081873
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "First Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.fbca2.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Baptist Church",
+        "address": "517 East Washington Street",
+        "lat": 42.2808238,
+        "lon": -83.7424141
+      },
+      "_metro": "Ann Arbor, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Kempf House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.kempfhousemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kempf House Museum",
+        "address": "312 South Division Street",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48104",
+        "lat": 42.2789892,
+        "lon": -83.7443865
+      },
+      "_metro": "Ann Arbor, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Erratic Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://erraticale.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Erratic Brewing Company",
+        "address": "8080 Grand Street",
+        "lat": 42.3359638,
+        "lon": -83.8902325
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Ann Arbor Art Center",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.annarborartcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ann Arbor Art Center",
+        "address": "117 West Liberty Street",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48104",
+        "lat": 42.2793968,
+        "lon": -83.7495634
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Brecon Village",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ehmss.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brecon Village",
+        "address": "200 Brecon Drive",
+        "city": "Saline",
+        "region": "MI",
+        "postal_code": "48176",
+        "lat": 42.1730762,
+        "lon": -83.7876235
+      },
+      "_metro": "Ann Arbor, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "First United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://chelseaumc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First United Methodist Church",
+        "address": "128 Park Street",
+        "city": "Chelsea",
+        "region": "MI",
+        "lat": 42.3169525,
+        "lon": -84.0189558
+      },
+      "_metro": "Ann Arbor, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Susan B. Anthony House",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://susanb.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Susan B. Anthony House",
+        "address": "17 Madison Street",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14608",
+        "lat": 43.1532425,
+        "lon": -77.6280045
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Eisenhart Auditorium",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://rmsc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eisenhart Auditorium",
+        "address": "657 East Avenue",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14607",
+        "lat": 43.1517175,
+        "lon": -77.5884032
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Seneca Park Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://senecaparkzoo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seneca Park Zoo",
+        "lat": 43.2081979,
+        "lon": -77.621557
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Center Stage",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.perinton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Center Stage",
+        "address": "1100 Ayrault Road",
+        "city": "Fairport",
+        "region": "NY",
+        "postal_code": "14450",
+        "lat": 43.0828219,
+        "lon": -77.4293295
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Church of the Epiphany",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://coepiphany.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Epiphany",
+        "address": "3285 Buffalo Road",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14624",
+        "lat": 43.1496731,
+        "lon": -77.6895333
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "All Souls Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://holysepulchre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All Souls Chapel",
+        "address": "2461 Lake Avenue",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14612",
+        "lat": 43.2136843,
+        "lon": -77.6279153
+      },
+      "_metro": "Rochester NY, United States"
     }
   ],
   "_not_included": {

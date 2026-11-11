@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 239,
-  "metro_key": "US:Savannah",
+  "metro": 248,
+  "metro_key": "US:Rochester NY",
   "stuck": {}
  },
  "osm|community_centre,library": {

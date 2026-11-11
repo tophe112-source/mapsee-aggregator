@@ -9955,6 +9955,331 @@
         "lon": -79.9350979
       },
       "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Christ Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://christchurchsavannah.org/concerts",
+      "max_events": 200,
+      "venue": {
+        "name": "Christ Episcopal Church",
+        "address": "28 Bull Street",
+        "city": "Savannah",
+        "region": "GA",
+        "postal_code": "31401",
+        "lat": 32.0795346,
+        "lon": -81.0907769
+      },
+      "_metro": "Savannah, United States"
+    },
+    {
+      "name": "Davenport House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://davenporthousemuseum.org/public-programs",
+      "max_events": 200,
+      "venue": {
+        "name": "Davenport House Museum",
+        "address": "324 East State Street",
+        "city": "Savannah",
+        "region": "GA",
+        "postal_code": "31401",
+        "lat": 32.0772974,
+        "lon": -81.0880154
+      },
+      "_metro": "Savannah, United States"
+    },
+    {
+      "name": "Cornerstone Church Bluffton",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://gocornerstone.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Cornerstone Church Bluffton",
+        "address": "1300 May River Road",
+        "city": "Bluffton",
+        "region": "SC",
+        "postal_code": "29910",
+        "lat": 32.236807,
+        "lon": -80.8609823
+      },
+      "_metro": "Savannah, United States"
+    },
+    {
+      "name": "Laika Press",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.laikapress.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Laika Press",
+        "address": "136 Vesta Street",
+        "postal_code": "89502",
+        "lat": 39.5097722,
+        "lon": -119.8038827
+      },
+      "_metro": "Reno, United States"
+    },
+    {
+      "name": "Brewers Cabinet",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://thebrewerscabinet.com/all-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Brewers Cabinet",
+        "address": "475 South Arlington Avenue",
+        "city": "Reno",
+        "region": "NV",
+        "postal_code": "89501",
+        "country": "US",
+        "lat": 39.5205319,
+        "lon": -119.8172914
+      },
+      "_metro": "Reno, United States"
+    },
+    {
+      "name": "Peak City Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.peakcityco.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Peak City Church",
+        "address": "1710 Dublin Boulevard",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80918",
+        "lat": 38.9263642,
+        "lon": -104.796381
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Goat Patch Brewing Company",
+      "category": "community",
+      "_found": "osm:bar -> squarespace",
+      "collection": "https://www.goatpatchbrewing.com/events-food-trucks",
+      "max_events": 200,
+      "venue": {
+        "name": "Goat Patch Brewing Company",
+        "address": "2727 North Cascade Avenue",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80907",
+        "lat": 38.8715815,
+        "lon": -104.8225274
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Holy Apostles Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.holyapostlescc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Holy Apostles Catholic Church",
+        "address": "4925 North Carefree Circle",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80917",
+        "lat": 38.884899,
+        "lon": -104.7375245
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Miramont Castle",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://miramontcastle.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Miramont Castle",
+        "address": "9 Capitol Hill Avenue",
+        "region": "CO",
+        "postal_code": "80829",
+        "lat": 38.859329,
+        "lon": -104.9224618
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Incarnation Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.incarnationwichita.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Incarnation Anglican Church",
+        "address": "5221 East Elm Street",
+        "city": "Wichita",
+        "region": "KS",
+        "postal_code": "67208",
+        "lat": 37.6945213,
+        "lon": -97.2751102
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "Dance Life",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.madisondancelife.com/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Dance Life",
+        "lat": 43.0512913,
+        "lon": -89.4999836
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Textile Arts Center of Madison",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.textileartsmadison.org/exhibitions-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Textile Arts Center of Madison",
+        "address": "1702 South Park Street",
+        "lat": 43.0483342,
+        "lon": -89.3947928
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Atwood Music Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.theatwoodmusichall.com/shows",
+      "max_events": 200,
+      "venue": {
+        "name": "Atwood Music Hall",
+        "address": "1925 Winnebago Street",
+        "lat": 43.0909399,
+        "lon": -89.3556544
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Verona Area Community Theater",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.vact.org/auditions",
+      "max_events": 200,
+      "venue": {
+        "name": "Verona Area Community Theater",
+        "address": "103 Lincoln Street",
+        "city": "Verona",
+        "region": "WI",
+        "postal_code": "53593",
+        "lat": 42.9908998,
+        "lon": -89.5279858
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Myrtle Lodge No. 89",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.myrtle89.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Myrtle Lodge No. 89",
+        "address": "515 Main Street",
+        "city": "Belleville",
+        "region": "MI",
+        "postal_code": "48111",
+        "lat": 42.2092979,
+        "lon": -83.4924123
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Summit International Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.summitannarbor.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Summit International Church",
+        "address": "2118 Ann Arbor-Saline Road",
+        "lat": 42.2553039,
+        "lon": -83.7523406
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Salt Springs Brewery",
+      "category": "community",
+      "_found": "osm:restaurant -> squarespace",
+      "collection": "https://www.saltspringsbrewery.com/event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Salt Springs Brewery",
+        "address": "117 South Ann Arbor Street",
+        "city": "Saline",
+        "region": "MI",
+        "postal_code": "48176",
+        "lat": 42.165924,
+        "lon": -83.7804743
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Dixboro United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.dixborochurch.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Dixboro United Methodist Church",
+        "address": "5221 Church Road",
+        "city": "Ann Arbor",
+        "region": "MI",
+        "postal_code": "48105",
+        "lat": 42.3135423,
+        "lon": -83.6561043
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Calvary Chapel Center City",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.cccentercity.com/announcements",
+      "max_events": 200,
+      "venue": {
+        "name": "Calvary Chapel Center City",
+        "address": "1274 Penfield Center Road",
+        "city": "Penfield",
+        "region": "NY",
+        "postal_code": "14526",
+        "lat": 43.167635,
+        "lon": -77.4325563
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "First Unitarian Church of Rochester",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.rochesterunitarian.org/connection",
+      "max_events": 200,
+      "venue": {
+        "name": "First Unitarian Church of Rochester",
+        "address": "220 South Winton Road",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14610",
+        "lat": 43.1409988,
+        "lon": -77.5569637
+      },
+      "_metro": "Rochester NY, United States"
     }
   ],
   "_not_included": {

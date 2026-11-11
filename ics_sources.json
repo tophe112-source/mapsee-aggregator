@@ -70508,5 +70508,612 @@
     "geocode_suffix": ", Mount Pleasant, SC",
     "limit": 300,
     "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Independent Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ipcsav.org_1vm2bvtf4tnncqctrrid4gdgeg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Savannah",
+    "limit": 300,
+    "_metro": "Savannah, United States"
+  },
+  {
+    "name": "Lutheran Church of the Ascension",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ascensionsavannah.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Savannah, GA",
+    "limit": 300,
+    "_metro": "Savannah, United States"
+  },
+  {
+    "name": "Wilmington Island Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/05dq9lsqr45hi1mcgmi39q1b14%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Savannah, GA",
+    "limit": 300,
+    "_metro": "Savannah, United States"
+  },
+  {
+    "name": "Episcopal Church of St. Paul the Apostle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dada3dc79f107cd4dc7c2ec3a5e2e30322476cea9293201f5b8591ba2821a93b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Savannah, GA",
+    "limit": 300,
+    "_metro": "Savannah, United States"
+  },
+  {
+    "name": "Coffee N' Comics",
+    "category": "community",
+    "_found": "osm:cafe -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c3f44395cf9cdd913cfd3eed6ab29ca24d969aaae784167b582a3f11e59ec495%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Reno, United States",
+    "limit": 300,
+    "_metro": "Reno, United States"
+  },
+  {
+    "name": "Shepherd Of The Springs Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0derhpspr4dmoc7l2ie4cu7u40%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Colorado Springs, United States",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "VooDoo Leather",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://voodooleatherworks.com/calendar/?ical=1",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Theophany Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/priest%40theophany.org/public/basic.ics",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "Archangel Michael Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40amgoc.org/public/basic.ics",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "All Souls Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://asuuc.net/events.ics",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "First Congregational United Church of Christ of Colorado Springs",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://fcucc.org/events.ics",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "Saint Dominic Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mrb9jttc86ql12a7pdg3g99fg8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Security, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "St. John the Baptist Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/church%40stjohnscos.org/public/basic.ics",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300,
+    "_metro": "Colorado Springs, United States"
+  },
+  {
+    "name": "Saint Patrick Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f794063fcf86c1b11376da605b43a32386defff36405fcfc7342b1caec105850%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", El Paso, TX",
+    "limit": 300,
+    "_metro": "El Paso, United States"
+  },
+  {
+    "name": "Saint Catherine Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9p9f6hjth8jihdgn503hkevqdk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "South Heights Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.southheightsbaptist.com/events.ics",
+    "geocode_suffix": ", Sapulpa",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "South Tulsa Dance Co.",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_cf38ad5e056f45526f782e0c16c0f5fa3e32e1b84dfc392f16f6954182d1d487%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Harvest Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.harvestchurchba.com/events.ics",
+    "geocode_suffix": ", Broken Arrow, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Apostles Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0hpa3pi1uo93v7c6sod38pldpc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Broken Arrow",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Oklahoma Aquarium",
+    "category": "outdoors",
+    "_found": "osm:aquarium -> civicplus",
+    "url": "https://www.okaquarium.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Jenks, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Lutheran Ministry Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_99180fc618bdd87f05f4a54a4a04b25d642590fea1884e7cfae06d5a90ce1f75%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Saint Antony Orthodox Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bakangt327hgij9i2p5k9ssha4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Tulsa Hmong Alliance Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qgj6mqp20o31rr0earl254bc88%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Midtown Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/officeadmin%4029thandyale.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Immanuel Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kqueck%40immanuelba.org/public/basic.ics",
+    "geocode_suffix": ", Broken Arrow, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Heritage United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/heritageumc.net_po9rlt84bmint7ekfqko1fhdko%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Broken Arrow",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Memorial Drive United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7525045cf9b15a01bc8c45f99f6709365b827d776cfbaf291f482eb2d365dab0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Saint Monicas Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/oc846u57e03hfktq1s6h65sbqs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Southwood Bible Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_786aec7091671d69809878d40df34cb371805686c9c6f85c38082bd1c37f85d1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Fellowship Congregational Church UCC",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40ucctulsa.org/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "Mixed Use Space Tulsa",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hello%40mixedusetulsa.com/public/basic.ics",
+    "geocode_suffix": ", Tulsa, OK",
+    "limit": 300,
+    "_metro": "Tulsa, United States"
+  },
+  {
+    "name": "The Dwelling Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/58f63cd386720aec4c51da417e4726186c72a7f7318a8a8ce0d152b01957d087%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wichita, KS",
+    "limit": 300,
+    "_metro": "Wichita, United States"
+  },
+  {
+    "name": "Morningstar Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hbrr3fu37qjcf5cmlro9gggar8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wichita, KS",
+    "limit": 300,
+    "_metro": "Wichita, United States"
+  },
+  {
+    "name": "Saint Joseph Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stjosephwichita.com_3737393231323436313135%40resource.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Witchita",
+    "limit": 300,
+    "_metro": "Wichita, United States"
+  },
+  {
+    "name": "Holy Trinity Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1affe085a824939056297443c9e686ba701cb9bdc72bbda93c4faafbc8e86825%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wichita, KS",
+    "limit": 300,
+    "_metro": "Wichita, United States"
+  },
+  {
+    "name": "Country Acres Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.cabcwichita.com/events.ics",
+    "geocode_suffix": ", Wichita, KS",
+    "limit": 300,
+    "_metro": "Wichita, United States"
+  },
+  {
+    "name": "Saint Martin's Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_vmepeqsogim5qho95n4o1h6b58%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cross Plains",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "James Reeb Unitarian Universalist Congregation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_tln9bbnmgs5vu6ivpcul2r1o54%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "PhotoMidwest",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sharewithus%40photomidwest.org/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Muso Madison",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/music%40musomadison.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "St. Michael Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9d1a0298870aed4d5811c704304d902c269a8b954e31503b5397ee5488be7135%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "YMCA of Dane County - West",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ymcadanecounty.org_l8aro35jmmiq5lc3ek1ouhfub0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Westminster Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ojtfqmfmqmu4c4m8b1qni6ketk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, WI",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Bethany United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_d0752272906e04fcdd17730f61733697312ff200ff2cbad1d64dbc040b287cb1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Immanuel Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_281232290acf06f939280500138f76f8f88369722323c352bb7f8e1f8938ec38%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, WI",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Seminole Pool & Tennis Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gk3nv8vsl190mr7agjo47osb1s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Beth Israel Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/blapvrap2pd7v7ea4hkqf8rv0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Risen Savior Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/htj0mg4n1iefj9s629qaa5bol0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", McFarland, WI",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Saint Ignatius Orthodox Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/saintignatiuschurch.org_52in80s5up35namlmn4bk2vhbc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, WI",
+    "limit": 300,
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Verona Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.veronawi.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Verona, WI",
+    "limit": 300,
+    "venue": {
+      "name": "Verona Community Center",
+      "city": "Verona",
+      "region": "WI",
+      "postal_code": "53593",
+      "lat": 42.9935325,
+      "lon": -89.5330812,
+      "street_hint": "130 North Franklin Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Madison, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Planet Rock",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_524c74b9847e01bf2871cb82ee3743f8e8134f3f8e97d425eebf02d54e124e9e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, United States",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "The 109 Cultural Exchange",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tcfvll661ivgfe647b9f5jk2u0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saline, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Campus Chapel",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b9qehfmgejmrmopvkbpb9slgi4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, United States",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Peace Neighborhood Center",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40peaceneighborhoodcenter.org/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Beth Israel Congregation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5898501ab3f9bf894b56f05ed51407c2faeeba05229d4aaa18f61e725a7a459f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "New Hope Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dfpgd6o4106q0dl8d4006p4c5g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, United States",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "New Life Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://newlifea2.org/events.ics",
+    "geocode_suffix": ", Ann Arbor, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Faith Community Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40faithnovi.org/public/basic.ics",
+    "geocode_suffix": ", Novi, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Friends Meeting House",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_11bf156f93a7f0e79659491e98be4b5b9047926c6511631e3665a669063afde7%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, United States",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "First Presbyterian Church of Saline",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://salinepres.org/events.ics",
+    "geocode_suffix": ", Saline, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Risen Christ Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e6ea172nvcq1o8r37a1trbuekc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Plymouth, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "The Petting Farm at Domino's Farms",
+    "category": "outdoors",
+    "_found": "osm:zoo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pettingfarm.com_0hsoe8ue35h1kcfct47b7jmhq4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Sacred Heart Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sacredheart%40dor.org/public/basic.ics",
+    "geocode_suffix": ", Rochester, NY",
+    "limit": 300,
+    "_metro": "Rochester NY, United States"
+  },
+  {
+    "name": "Greece Historical Society",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar+jsonld-event",
+    "url": "https://greecehistoricalsociety.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Rochester, NY",
+    "limit": 300,
+    "_metro": "Rochester NY, United States"
+  },
+  {
+    "name": "United Methodist Church of North Chili",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c36ae37b7ddabc000ba19c5dce41fb7ecb6b3372db8bac734eeee31bb9e53263%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rochester, NY",
+    "limit": 300,
+    "_metro": "Rochester NY, United States"
+  },
+  {
+    "name": "Glacier Ridge Sports Park",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e0cmhc2aca7rugkn7mi7g96v48%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Spencerport, NY",
+    "limit": 300,
+    "_metro": "Rochester NY, United States"
   }
 ]
