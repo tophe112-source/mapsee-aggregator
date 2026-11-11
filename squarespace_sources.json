@@ -9582,6 +9582,379 @@
         "lon": -119.7511738
       },
       "_metro": "Fresno, United States"
+    },
+    {
+      "name": "Woodward Park Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "http://www.wpcoc.com/new-events-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Woodward Park Church of Christ",
+        "lat": 36.8510641,
+        "lon": -119.7650408
+      },
+      "_metro": "Fresno, United States"
+    },
+    {
+      "name": "Boise Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.boisebrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Boise Brewing",
+        "address": "521 West Broad Street",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83702",
+        "lat": 43.611843,
+        "lon": -116.203086
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "First Pentecostal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace+gcal-embed",
+      "collection": "https://www.tablerock.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Pentecostal Church",
+        "address": "1800 West Overland Road",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83705",
+        "lat": 43.5902078,
+        "lon": -116.2034457
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.lcboise.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Life Church",
+        "address": "3225 East Commercial Court",
+        "city": "Meridian",
+        "region": "ID",
+        "postal_code": "83642",
+        "lat": 43.6087965,
+        "lon": -116.353831
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.hopeeagle.org/upcoming",
+      "max_events": 200,
+      "venue": {
+        "name": "?",
+        "address": "331 North Linder Road",
+        "city": "Eagle",
+        "region": "ID",
+        "postal_code": "83616",
+        "lat": 43.6947838,
+        "lon": -116.4142368
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "Zion Christian Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.zionspokane.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Zion Christian Center",
+        "address": "545 East Wellesley Avenue",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99207",
+        "lat": 47.7010662,
+        "lon": -117.4022987
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "The Podium",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.thepodiumusa.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Podium",
+        "address": "511 West Dean Avenue",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99201",
+        "lat": 47.6660636,
+        "lon": -117.4191709
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Wildland Cooperative",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.wildland.coop/happenings",
+      "max_events": 200,
+      "venue": {
+        "name": "Wildland Cooperative",
+        "address": "8022 East Green Bluff Road",
+        "city": "Colbert",
+        "region": "WA",
+        "postal_code": "99005",
+        "lat": 47.823513,
+        "lon": -117.2969627
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Exile Brewing Company",
+      "category": "community",
+      "_found": "osm:bar -> squarespace",
+      "collection": "https://www.exilebrewing.com/exile-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Exile Brewing Company",
+        "address": "1514 Walnut Street",
+        "city": "Des Moines",
+        "postal_code": "50309",
+        "lat": 41.5830095,
+        "lon": -93.6370194
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "West Des Moines Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.wdmcc.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "West Des Moines Christian Church",
+        "address": "4501 Mills Civic Parkway",
+        "city": "West Des Moines",
+        "postal_code": "50265",
+        "lat": 41.5606915,
+        "lon": -93.7665543
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "The Cathedral Church of Saint Paul",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace+gcal-embed",
+      "collection": "https://www.stpaulsdm.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Cathedral Church of Saint Paul",
+        "address": "815 High Street",
+        "city": "Des Moines",
+        "region": "IA",
+        "postal_code": "50309",
+        "lat": 41.5880335,
+        "lon": -93.6289745
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Paper Hearts Bookstore",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.paperheartsbooks.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Paper Hearts Bookstore",
+        "address": "420 East 21st Street",
+        "city": "Little Rock",
+        "region": "AR",
+        "postal_code": "72206",
+        "lat": 34.7286596,
+        "lon": -92.2691695
+      },
+      "_metro": "Little Rock, United States"
+    },
+    {
+      "name": "Vestavia Hills Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.vhbc.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Vestavia Hills Baptist Church",
+        "address": "2600 Vestavia Drive",
+        "city": "Vestavia Hills",
+        "region": "AL",
+        "lat": 33.4626035,
+        "lon": -86.7688934
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Oak Mountain Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ompc.org/featured",
+      "max_events": 200,
+      "venue": {
+        "name": "Oak Mountain Presbyterian Church",
+        "lat": 33.3769504,
+        "lon": -86.7057608
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Valleydale Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.valleydale.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Valleydale Church",
+        "address": "2324 Valleydale Road",
+        "lat": 33.3673257,
+        "lon": -86.7646237
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "All Good Beverage Co.",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.allgoodbeverage.com/concertsandevents",
+      "max_events": 200,
+      "venue": {
+        "name": "All Good Beverage Co.",
+        "address": "3501 1st Avenue South",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35222",
+        "lat": 33.5213736,
+        "lon": -86.782402
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Birmingham District Brewing Co.",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.birminghamdistrictbrewing.com/event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Birmingham District Brewing Co.",
+        "address": "2201 2nd Alley South",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35233",
+        "lat": 33.5119386,
+        "lon": -86.8001278
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Knoxville Botanical Garden and Arboretum",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.knoxgarden.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Knoxville Botanical Garden and Arboretum",
+        "address": "2743 Wimpole Avenue",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37914",
+        "lat": 35.9817589,
+        "lon": -83.8813319
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "St. Mary Magdalene Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.smmcc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Mary Magdalene Catholic Church",
+        "address": "2252 Woodruff Road",
+        "city": "Simpsonville",
+        "lat": 34.8134557,
+        "lon": -82.2471161
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "First Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.fccgreenville.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Christian Church",
+        "address": "704 Edwards Road",
+        "city": "Greenville",
+        "postal_code": "29615",
+        "lat": 34.8822962,
+        "lon": -82.3468883
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "First Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.firstlyman.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "First Baptist Church",
+        "address": "80 Groce Road",
+        "city": "Lyman",
+        "postal_code": "29365",
+        "lat": 34.9487262,
+        "lon": -82.1223522
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Christian Assembly Upstate",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://caupstate.org/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Christian Assembly Upstate",
+        "address": "2416 Wade Hampton Boulevard",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29615",
+        "lat": 34.8915086,
+        "lon": -82.3449647
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Trio",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.triocharleston.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Trio",
+        "address": "139 Calhoun Street",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29401",
+        "lat": 32.7861656,
+        "lon": -79.9350979
+      },
+      "_metro": "Charleston SC, United States"
     }
   ],
   "_not_included": {

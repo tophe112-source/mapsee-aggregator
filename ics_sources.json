@@ -69995,5 +69995,518 @@
     "geocode_suffix": ", Fresno",
     "limit": 300,
     "_metro": "Fresno, United States"
+  },
+  {
+    "name": "River's Edge Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://recboise.com/events.ics",
+    "geocode_suffix": ", Boise, ID",
+    "limit": 300,
+    "_metro": "Boise, United States"
+  },
+  {
+    "name": "Holy Transfiguration Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/holytransfigurationboise.org_op6214br7d5v8raiikriclh0bk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Meridian, ID",
+    "limit": 300,
+    "_metro": "Boise, United States"
+  },
+  {
+    "name": "Changed Life Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://changedlifechurch.com/events.ics",
+    "geocode_suffix": ", Kuna, ID",
+    "limit": 300,
+    "_metro": "Boise, United States"
+  },
+  {
+    "name": "Boise Unitarian Universalist Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_446d0409fc808f036b55edae83e8fbe87c1bd9d091f4bfbdda960ba91be03bff%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Garden City, ID",
+    "limit": 300,
+    "_metro": "Boise, United States"
+  },
+  {
+    "name": "St. Luke Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sbehmanrbooi41ebe9ihq8vroo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chattaroy, WA",
+    "limit": 300,
+    "_metro": "Spokane, United States"
+  },
+  {
+    "name": "Holy Trinity Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_bfr7rnunc9ehmqj1uhrct8dcmc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Spokane, WA",
+    "limit": 300,
+    "_metro": "Spokane, United States"
+  },
+  {
+    "name": "Red Door Fencing",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vc62agsrkbdtulvskjnf79d5n8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Des Moines, IA",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "Resurrection Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_tbfmbbfsgp9phf5r65pcuh5rkk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ankeny, IA",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "Ankeny Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ankenycoc.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Ankeny, IA",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "Acanthus Lodge",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jeeuuipejqaarvdaif2pe2b4ig%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Des Moines",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "New Beginnings Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fccdm.org_ia64tf8mg23l8891avnq1sfb0g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Des Moines, United States",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "Lutheran Church of the Good Shepherd",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.goodshepherddsm.org/events.ics",
+    "geocode_suffix": ", Des Moines",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "Capitol Hill Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_bebddebf2ae9e765ee18f15fde66044e109d48fac36bea6129b391fbd0923ab0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Des Moines, IA",
+    "limit": 300,
+    "_metro": "Des Moines, United States"
+  },
+  {
+    "name": "Evangelist Temple Church of God in Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.etcogiclr.org/events.ics",
+    "geocode_suffix": ", Little Rock, AR",
+    "limit": 300,
+    "_metro": "Little Rock, United States"
+  },
+  {
+    "name": "Trinity Episcopal Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/arkansas.anglican.org_dh5l78gi407sck62ndpqhjl3pc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Little Rock, AR",
+    "limit": 300,
+    "_metro": "Little Rock, United States"
+  },
+  {
+    "name": "Central Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v9mpfhaqob1np6pe63ggkn8olc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Little Rock, United States",
+    "limit": 300,
+    "_metro": "Little Rock, United States"
+  },
+  {
+    "name": "Oak Forest United Methodist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5gfv1tt0mqtu3acdq19kre897c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Little Rock, AR",
+    "limit": 300,
+    "_metro": "Little Rock, United States"
+  },
+  {
+    "name": "Studio By the Tracks",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_hvqr58nv9vrsh749aejm848ihc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Irondale, AL",
+    "limit": 300,
+    "_metro": "Birmingham AL, United States"
+  },
+  {
+    "name": "Cahaba Brewing Company",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cahababrewing.com_3klg8osefbctleqqlh503j6k04%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Birmingham, AL",
+    "limit": 300,
+    "_metro": "Birmingham AL, United States"
+  },
+  {
+    "name": "Trussville Childrens Theater",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_56e31f18703a416f1bdf1aebd780bb90ec33736ef3f8e8a4fdc8872dc3f61a2d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Trussville, AL",
+    "limit": 300,
+    "_metro": "Birmingham AL, United States"
+  },
+  {
+    "name": "First United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/firstchurchbhm.com_hk5r0vr9fnuqk1ch4kmdtaj8ac%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Birmingham, AL",
+    "limit": 300,
+    "_metro": "Birmingham AL, United States"
+  },
+  {
+    "name": "Holy Trinity - Holy Cross Greek Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/holytrinity-holycross.org_m155k3i3effmtkel4ug7cmlif8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Birmingham, AL",
+    "limit": 300,
+    "_metro": "Birmingham AL, United States"
+  },
+  {
+    "name": "Baptist Church of the Covenant",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7593c575106ab5eb4de74a3124199d83a7a3351644874d26761532d1338abdfa%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Birmingham AL, United States",
+    "limit": 300,
+    "_metro": "Birmingham AL, United States"
+  },
+  {
+    "name": "Second Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.secondbaptistchurch.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Clinton, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "St Therese Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40saintthereseclinton.org/public/basic.ics",
+    "geocode_suffix": ", Clinton, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "Peace Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://peacelutheranknoxville.org/events/family-promises/2026-11-17.ics",
+    "geocode_suffix": ", Knoxville, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "Mabry-Hazen House",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_ba1a9aa481e28d89a6a2ca2ed860c7e736bb0dfca7c98cb8cff0d6e53b5856a9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Knoxville, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "Praise Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r6o9ve1gr7m9pb8cbu3ktd33p4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Maryville, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "CrossWalk Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ryan%40crosswalkepc.org/public/basic.ics",
+    "geocode_suffix": ", Knoxville, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "West View Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.westviewcommunitychurch.org/events.ics",
+    "geocode_suffix": ", Knoxville, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "Saint Elizabeth's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/st-elizabeth%40etdiocese.net/public/basic.ics",
+    "geocode_suffix": ", Knoxville, TN",
+    "limit": 300,
+    "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "Saint George Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e6d6fec9f0a9776f4fd0f0be0635cbecdca4fd45f4180c00f8a678c0cd64720f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Abner Creek Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/abnercreekbaptist.org_lkh4dh7gjh12canjpgcvps3qjg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greer, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Five Forks Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fdf573d9b98d80443fd3f48ffdb18079df081aa0124e12d1a2d77ff20572f903%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Simpsonville",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Morningside Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/morningside.org_prbb5l81a8pbdsm54ci1aog1a4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greenville",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "First Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/98ff6c9b97b284ce0e35e4c68c55462695f23a682856ae25aa48bd29fa8db05e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Piedmont",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Pleasant Grove Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/198elugcerpmfilah4kc8ptqc4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greer",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Reedy Fork Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://myreedyfork.com/events.ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Saint Giles Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40stgilespres.org/public/basic.ics",
+    "geocode_suffix": ", Greenville",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Duncan First Baptist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40duncanfirst.org/public/basic.ics",
+    "geocode_suffix": ", Duncan, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Hampton Heights Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://hhbc.org/events/pickleball--206/2026-11-17.ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Enoree Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.enoreebaptistchurch.com/events.ics",
+    "geocode_suffix": ", Travelers Rest, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Greenville Unitarian Universalist Fellowship",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jk6b003bo3t87iqqj5odomfo4g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "First Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40simpsonvillepres.com/public/basic.ics",
+    "geocode_suffix": ", Simpsonville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Duncan Event Center",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/de0v4o4696vu9v60baqmjptdd4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Duncan, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Guthrie Grove Church of God",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/ogoi0tvjkve8td3mksnjstorts%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pelzer, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Cross Roads Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.crossroadseasley.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Easley, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Choice Hills Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://choicehillsbaptist.church/events.ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Carolina Ballroom Dance Studio",
+    "category": "fitness",
+    "_found": "osm:dance -> my-calendar+jsonld-event",
+    "url": "https://carolinaballroom.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Greenville Associate Reformed Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5ce05351d6f0b950b2cca421ff8278683c06b0c0ab88d2580f8aa8b835d21179%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Greenville, SC",
+    "limit": 300,
+    "_metro": "Greenville SC, United States"
+  },
+  {
+    "name": "Good Shepherd Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/goodshepherdcharleston.org_pm7rqptu69c5ssqru5qcb7931o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mount Pleasant, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Bethel United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.bethelcharleston.com/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Charleston, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Greek Orthodox Church of the Holy Trinity",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l8bmipcjrspo16ni1h17m6p050%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Charleston, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Saint Paul's Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://saintpauls.online/events.ics",
+    "geocode_suffix": ", Mount Pleasant, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Providence Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/providencecharleston.org_uvrt6vom0btme9qe93ig05kp9o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Daniel Island, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Sullivans Island Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40sibc.church/public/basic.ics",
+    "geocode_suffix": ", Sullivan's Island, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "St. Benedict Roman Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stbenedictparish.org_9fc4e81dsvkgb3nm8n82bnm5vs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mount Pleasant, SC",
+    "limit": 300,
+    "_metro": "Charleston SC, United States"
   }
 ]

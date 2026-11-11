@@ -301,6 +301,218 @@
       "_metro": "Bonn, Germany",
       "_found": "manual:2026-10-23 gancio.org/instances list -> /api/events",
       "_note": "Gancio instance for Bonn. Not a copy of the configured bonn.jetzt: 1 of 31 title+start pairs shared (2026-10-23). 31 upcoming, 29 with coordinates (Kult 41, Alte VHS, Oscar-Romero-Haus). Book club, juggling, dice tournament, open art space for autistic people, a homelessness city walk, choir, improv, concerts; 5 are open plenaries of political groups. Mixed, so community. robots.txt Allow: /."
+    },
+    {
+      "name": "What's On Clonmel",
+      "base_url": "https://calendar.clonmel.town",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "backend.prikbord.page",
+      "base_url": "https://backend.prikbord.page",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "MKE Shows",
+      "base_url": "https://mkeshows.com",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "gancio.pl",
+      "base_url": "https://gancio.pl",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Poland",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Bachgau.Social",
+      "base_url": "https://wohin.bachgau.social",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "KulturKarte",
+      "base_url": "https://kulturkarte.servus.at",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Austria",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Calendari FeMuDaTraCa",
+      "base_url": "https://calendari.femudatraca.cat",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Spain",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "La Cartelera del Valle",
+      "base_url": "https://cartelera.calamuchita.net.ar",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Gmina Brwinów",
+      "base_url": "https://terminarz.brwinow.gmina.pl",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Poland",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Events@LTU",
+      "base_url": "https://events.ludd.ltu.se",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Sweden",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Ask a Punk Netherlands",
+      "base_url": "https://calendar.askapunk.nl",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Netherlands",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "gancio.cisti.org",
+      "base_url": "https://gancio.cisti.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "CellStoff",
+      "base_url": "https://cellstoff.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "CalendARTE",
+      "base_url": "https://calendarte.illustietor.com",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Koledar Kompot",
+      "base_url": "https://koledar.kompot.si",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Slovenia",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "warszawa.askapunk.net",
+      "base_url": "https://warszawa.askapunk.net",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Agenda des monts d'Arrée",
+      "base_url": "https://agenda.arree.bzh",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "PEX Calendar",
+      "base_url": "https://calendar.pex.coop",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "chefa.re",
+      "base_url": "https://chefa.re",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Fandomář",
+      "base_url": "https://fandomar.cz",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Czechia",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "actions.nyc",
+      "base_url": "https://actions.nyc",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "FuoriNellaNebbia",
+      "base_url": "https://fuorinellanebbia.it",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Italy",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Savedum",
+      "base_url": "https://savedum.it",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Italy",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Magandjin AAP",
+      "base_url": "https://brisbane.askapunk.au",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Australia",
+      "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "Evenemang i Norrbotten",
+      "base_url": "https://evenemang.inorrbotten.se",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Sweden",
+      "_found": "discover gancio:fedidb 2026-11-11"
     }
   ],
   "_tried_and_dead": {

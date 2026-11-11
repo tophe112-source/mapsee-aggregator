@@ -43379,6 +43379,926 @@
         "lon": -119.7804956
       },
       "_metro": "Fresno, United States"
+    },
+    {
+      "name": "Loška Dolina Municipality",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.loska-dolina.si",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Loška Dolina Municipality",
+      "default_region": null,
+      "default_country": "SI",
+      "_metro": "Loška Dolina Municipality, Slovenia"
+    },
+    {
+      "name": "Meux Home Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://meuxhomemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meux Home Museum",
+        "region": "CA",
+        "lat": 36.7397106,
+        "lon": -119.7825426
+      },
+      "_metro": "Fresno, United States"
+    },
+    {
+      "name": "Idaho Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://www.idahobotanicalgarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Idaho Botanical Garden",
+        "address": "2355 East Old Penitentiary Road",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83712",
+        "lat": 43.600929,
+        "lon": -116.1608389
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "Idaho Museum of Mining and Geology",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.idahomuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Idaho Museum of Mining and Geology",
+        "address": "2455 Old Penitentiary Road",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83712",
+        "lat": 43.6027701,
+        "lon": -116.161491
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "River of Life Men's Shelter",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://boiserm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "River of Life Men's Shelter",
+        "address": "575 South 13th Street",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83702",
+        "lat": 43.6155653,
+        "lon": -116.2144283
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "Garland Theater",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://garlandtheater.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Garland Theater",
+        "address": "924 West Garland Avenue",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99205",
+        "lat": 47.693834,
+        "lon": -117.425623
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Summit U-District",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://summitchurchnw.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Summit U-District",
+        "address": "1003 East Trent Avenue",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99202",
+        "lat": 47.6625807,
+        "lon": -117.3944575
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Art Room 509",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://artroom509.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Art Room 509",
+        "address": "5634 East Commerce Avenue",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99212-1307",
+        "lat": 47.6768372,
+        "lon": -117.3258534
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Unitarian Universalist Church of Spokane",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+events-manager+jsonld-event+ics",
+      "base_url": "https://uuspokane.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Church of Spokane",
+        "address": "4340 West Fort George Wright Drive",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99224",
+        "lat": 47.6728446,
+        "lon": -117.4749025
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "The Farmhouse on Green Bluff",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://thefarmhouseongreenbluff.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Farmhouse on Green Bluff",
+        "address": "8421 East Greenbluff Road",
+        "city": "Colbert",
+        "region": "WA",
+        "postal_code": "99005",
+        "lat": 47.8264164,
+        "lon": -117.2903003
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Philadelphia Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://philadelphiaia.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Philadelphia Seventh-day Adventist Church",
+        "address": "1639 Garfield Avenue",
+        "city": "Des Moines",
+        "postal_code": "50310",
+        "lat": 41.6027372,
+        "lon": -93.5941871
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Des Moines Art Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://desmoinesartcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Des Moines Art Center",
+        "address": "4700 Grand Avenue",
+        "city": "Des Moines",
+        "postal_code": "50312-2099",
+        "country": "US",
+        "lat": 41.583942,
+        "lon": -93.6811866
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Beaverdale Books",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://beaverdalebooks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beaverdale Books",
+        "address": "2629 Beaver Avenue",
+        "city": "Des Moines",
+        "postal_code": "50310",
+        "lat": 41.618831,
+        "lon": -93.6728452
+      },
+      "_metro": "Des Moines, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "The Venue",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://thevenuevj.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Venue",
+        "address": "209 5th Street",
+        "city": "West Des Moines",
+        "postal_code": "50265",
+        "lat": 41.5714913,
+        "lon": -93.7086411
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "The Harkin Institute",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://harkininstitute.drake.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Harkin Institute",
+        "lat": 41.6001674,
+        "lon": -93.65501
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Des Moines Intentional Eucharistic Community",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dmiec.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Des Moines Intentional Eucharistic Community",
+        "address": "3306 University Avenue",
+        "city": "Des Moines",
+        "region": "IA",
+        "postal_code": "50311",
+        "lat": 41.5999927,
+        "lon": -93.6619786
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Central Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://centralpresdsm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Central Presbyterian Church",
+        "address": "3829 Grand Avenue",
+        "city": "Des Moines",
+        "postal_code": "50312",
+        "lat": 41.5851805,
+        "lon": -93.6694111
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Children & Families of Iowa",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://cfiowa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Children & Families of Iowa",
+        "address": "1111 University Avenue",
+        "city": "Des Moines",
+        "postal_code": "50314",
+        "lat": 41.6007062,
+        "lon": -93.6323917
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Meadowview of Clive",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.meadowviewclive.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meadowview of Clive",
+        "lat": 41.6275443,
+        "lon": -93.8462117
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "St Andrew's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://saclr.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Andrew's Anglican Church",
+        "address": "8300 Kanis Road",
+        "city": "Little Rock",
+        "region": "AR",
+        "postal_code": "72204",
+        "lat": 34.7415275,
+        "lon": -92.3671006
+      },
+      "_metro": "Little Rock, United States"
+    },
+    {
+      "name": "Alabama Jazz Hall of Fame",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://jazzhall.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alabama Jazz Hall of Fame",
+        "address": "1631 4th Avenue North",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35203",
+        "lat": 33.5149735,
+        "lon": -86.8118508
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Alabama Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://alabamatheatre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alabama Theatre",
+        "address": "1817 3rd Avenue North",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35203",
+        "lat": 33.5148509,
+        "lon": -86.8091753
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Birmingham Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.birminghamzoo.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Birmingham Zoo",
+        "address": "2630 Cahaba Road",
+        "postal_code": "35223",
+        "lat": 33.4873034,
+        "lon": -86.7790025
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Vulcan Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://visitvulcan.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vulcan Museum",
+        "lat": 33.4917168,
+        "lon": -86.7960335
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Lyric Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://lyricbham.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lyric Theatre",
+        "address": "1800 3rd Avenue North",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35203",
+        "lat": 33.5153346,
+        "lon": -86.8096684
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Guiding Light Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.guidinglight.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Guiding Light Church",
+        "lat": 33.5640597,
+        "lon": -86.6669064
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Faith Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://faith-pca.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Faith Presbyterian Church",
+        "address": "4601 Valleydale Road",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35242",
+        "lat": 33.3828012,
+        "lon": -86.7341769
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Saint Francis Xavier Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://www.sfxbirmingham.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Francis Xavier Catholic Church",
+        "address": "2 Xavier Circle",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35213",
+        "lat": 33.5162532,
+        "lon": -86.7424185
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Birmingham Civil Rights Institute",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bcri.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Birmingham Civil Rights Institute",
+        "address": "520 16th Street North",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35203",
+        "lat": 33.5160263,
+        "lon": -86.8148134
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Yee-Haw Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event",
+      "base_url": "https://yeehawbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Yee-Haw Brewing",
+        "address": "745 North Broadway",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37917",
+        "lat": 35.9778776,
+        "lon": -83.9238319
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Trinity Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://tccknox.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trinity Community Church",
+        "address": "6706 Central Avenue Pike",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37912",
+        "lat": 36.0265966,
+        "lon": -83.9897596
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Peaceful Side Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://peacefulsidebrewery.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Peaceful Side Brewery",
+        "address": "106 Everett Avenue",
+        "postal_code": "37804",
+        "lat": 35.7620136,
+        "lon": -83.9656052
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Blount Mansion",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://blountmansion.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blount Mansion",
+        "address": "200 West Hill Avenue",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37902",
+        "lat": 35.9610968,
+        "lon": -83.9147849
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Knoxville Museum of Art",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://knoxart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Knoxville Museum of Art",
+        "address": "1050 Worlds Fair Park Drive",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37916",
+        "lat": 35.962448,
+        "lon": -83.9252242
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Shannondale",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://shannondaleknoxville.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shannondale",
+        "address": "801 Vanosdale Road",
+        "city": "Knoxville",
+        "region": "TN",
+        "lat": 35.9401599,
+        "lon": -84.0403985
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Rock Springs Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://rockspringsbaptist.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rock Springs Baptist Church",
+        "lat": 34.8240733,
+        "lon": -82.5501027
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "M.Judson Booksellers",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://mjudsonbooks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "M.Judson Booksellers",
+        "lat": 34.8486855,
+        "lon": -82.4002545
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "First Baptist Mauldin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://mauldinfirstbaptist.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Baptist Mauldin",
+        "address": "150 South Main Street",
+        "city": "Mauldin",
+        "region": "SC",
+        "postal_code": "29662",
+        "lat": 34.7759823,
+        "lon": -82.3097006
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "The Children's Museum of the Upstate",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://tcmupstate.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Children's Museum of the Upstate",
+        "address": "300 College Street",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29601",
+        "lat": 34.8558369,
+        "lon": -82.4004008
+      },
+      "_metro": "Greenville SC, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Powdersville First Baptist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://powdersvillefirst.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Powdersville First Baptist",
+        "address": "4212 Highway 153",
+        "city": "Easley",
+        "postal_code": "29642",
+        "lat": 34.797787,
+        "lon": -82.5083652
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "His Vineyard",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hisvineyard.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "His Vineyard",
+        "address": "656 Arlington Road",
+        "city": "Greer",
+        "region": "SC",
+        "postal_code": "29651",
+        "lat": 34.9530518,
+        "lon": -82.2087097
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Edwards Road Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://edwardsroad.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edwards Road Baptist Church",
+        "address": "1050 Edwards Road",
+        "city": "Greenville",
+        "lat": 34.8845186,
+        "lon": -82.3380183
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Brushy Creek Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://brushycreek.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brushy Creek Baptist Church",
+        "lat": 34.8909019,
+        "lon": -82.2982994
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Eastside Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://eastsidepres.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eastside Presbyterian Church",
+        "address": "830 Garlington Road",
+        "city": "Greenville",
+        "postal_code": "29615",
+        "lat": 34.8417152,
+        "lon": -82.2713828
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Covenant Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mycovenantpc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Covenant Presbyterian Church",
+        "address": "4500 Highway 86",
+        "city": "Easley",
+        "region": "SC",
+        "postal_code": "29642",
+        "lat": 34.7518881,
+        "lon": -82.5539764
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Maranatha Fellowship Seventh Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://greenvillemaranathafellowshipsc.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maranatha Fellowship Seventh Day Adventist Church",
+        "address": "106 Saluda Dam Road",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29611",
+        "lat": 34.8593183,
+        "lon": -82.466482
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Upcountry History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://upcountryhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Upcountry History Museum",
+        "address": "540 Buncombe Street",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29601",
+        "lat": 34.8571304,
+        "lon": -82.4029283
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Easley Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://easleypresbyterian.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Easley Presbyterian Church",
+        "address": "200 South 1st Street",
+        "city": "Easley",
+        "region": "SC",
+        "postal_code": "29640",
+        "lat": 34.8273255,
+        "lon": -82.6060715
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Our Lady of Mercy Community Outreach",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://olmoutreach.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Lady of Mercy Community Outreach",
+        "lat": 32.7970227,
+        "lon": -79.9367321
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Rose Pavilion",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.charlestonparksconservancy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rose Pavilion",
+        "address": "30 Mary Murray Drive",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29409",
+        "lat": 32.800339,
+        "lon": -79.9565312
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "JB Charleston - Weapons Station Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://jbcharleston.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JB Charleston - Weapons Station Library",
+        "city": "Goose Creek",
+        "region": "SC",
+        "postal_code": "29445",
+        "lat": 32.9685307,
+        "lon": -79.998773,
+        "street_hint": "106 West Maccaw Street"
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Citadel Square Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://citadelsquare.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Citadel Square Baptist Church",
+        "address": "328 Meeting Street",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29401",
+        "lat": 32.7874452,
+        "lon": -79.9340873
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Jepson Center for the Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.telfair.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jepson Center for the Arts",
+        "address": "207 West York Street",
+        "city": "Savannah",
+        "region": "GA",
+        "postal_code": "31401",
+        "country": "US",
+        "lat": 32.0780051,
+        "lon": -81.0950827
+      },
+      "_metro": "Savannah, United States"
+    },
+    {
+      "name": "Georgia State Railroad Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://chsgeorgia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Georgia State Railroad Museum",
+        "address": "655 Louisville Road",
+        "city": "Savannah",
+        "region": "GA",
+        "postal_code": "31401",
+        "lat": 32.0754936,
+        "lon": -81.1034799
+      },
+      "_metro": "Savannah, United States"
     }
   ],
   "_not_included": {

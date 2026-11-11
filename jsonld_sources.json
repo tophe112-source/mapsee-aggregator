@@ -33041,6 +33041,598 @@
         "lon": -119.7385285
       },
       "_metro": "Fresno, United States"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.newhopechurch.net/events/"
+      ],
+      "link_pattern": "https://www\\.newhopechurch\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "lat": 36.8527265,
+        "lon": -119.7000426
+      },
+      "_metro": "Fresno, United States"
+    },
+    {
+      "name": "Revel Eagle",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://revelcommunities.com/events/"
+      ],
+      "link_pattern": "https://revelcommunities\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Revel Eagle",
+        "address": "745 East Riverside Drive",
+        "city": "Eagle",
+        "region": "ID",
+        "postal_code": "83616",
+        "lat": 43.6870216,
+        "lon": -116.3450077
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "YMCA of the Inland Northwest - South Branch",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://ymcainw.org/events/"
+      ],
+      "link_pattern": "https://ymcainw\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "YMCA of the Inland Northwest - South Branch",
+        "address": "2921 East 57th Avenue",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99223",
+        "lat": 47.6030627,
+        "lon": -117.367507
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Broadway Court Estates",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://broadwaycourtestates.com/community-events/"
+      ],
+      "link_pattern": "https://broadwaycourtestates\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Broadway Court Estates",
+        "address": "13505 East Broadway Avenue",
+        "city": "Spokane Valley",
+        "region": "WA",
+        "postal_code": "99216",
+        "lat": 47.6652959,
+        "lon": -117.2224532
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Des Moines Community Playhouse",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://dmplayhouse.com/events/"
+      ],
+      "link_pattern": "https://dmplayhouse\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Des Moines Community Playhouse",
+        "address": "831 42nd Street",
+        "postal_code": "50312",
+        "lat": 41.5927019,
+        "lon": -93.6738559
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "The Varsity Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://varsitydesmoines.com/special-events/"
+      ],
+      "link_pattern": "https://varsitydesmoines\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Varsity Cinema",
+        "address": "1207 25th Street",
+        "city": "Des Moines",
+        "region": "IA",
+        "postal_code": "50311",
+        "lat": 41.6007717,
+        "lon": -93.6505907
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Vibrant Music Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.vibrantmusichall.com/shows"
+      ],
+      "link_pattern": "https://www\\.vibrantmusichall\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Vibrant Music Hall",
+        "address": "2938 Southeast Grand Prairie Parkway",
+        "city": "Waukee",
+        "region": "IA",
+        "postal_code": "50263",
+        "lat": 41.5803312,
+        "lon": -93.856718
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Irondale United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.irondaleumc.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Irondale United Methodist Church",
+        "address": "400 Deering Street",
+        "city": "Irondale",
+        "region": "AL",
+        "postal_code": "35210",
+        "lat": 33.5348684,
+        "lon": -86.7034066
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Vestavia Hills Civic Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://vhparksandrec.com/calendar-2/"
+      ],
+      "link_pattern": "https://vhparksandrec\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Vestavia Hills Civic Center",
+        "address": "1090 Montgomery Highway",
+        "city": "Vestavia Hills",
+        "region": "AL",
+        "postal_code": "35216",
+        "lat": 33.4370379,
+        "lon": -86.7908801
+      },
+      "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "The Bottom",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.thebottomknox.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Bottom",
+        "address": "2340 East Magnolia Avenue",
+        "lat": 35.9824715,
+        "lon": -83.8990775
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Orange Hat Brewing East",
+      "category": "food",
+      "_found": "osm:brewery -> wix",
+      "listing": [
+        "https://www.orangehatbrewing.com/eastevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Orange Hat Brewing East",
+        "address": "701 North Cherry Street",
+        "lat": 35.9890575,
+        "lon": -83.8970225
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Sandy Springs Orthodox Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://sandyspringschurch.org/events/"
+      ],
+      "link_pattern": "https://sandyspringschurch\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sandy Springs Orthodox Presbyterian Church",
+        "address": "1201 Montvale Station Road",
+        "city": "Maryville",
+        "region": "TN",
+        "postal_code": "37803",
+        "lat": 35.7379474,
+        "lon": -83.9754031
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "NewLife Gathering",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://newlifeknoxville.org/"
+      ],
+      "link_pattern": "https://newlifeknoxville\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "NewLife Gathering",
+        "address": "1300 Rocky Hill Road",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37919",
+        "lat": 35.9057932,
+        "lon": -84.020501
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "The Church of God of the Union Assembly",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.thechurchofgodknoxville.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Church of God of the Union Assembly",
+        "address": "3428 Keith Avenue",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37921",
+        "country": "US",
+        "lat": 35.9646209,
+        "lon": -83.9676791
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Birdhouse Neighborhood Center",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.fourthandgill.org/neighbor-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Birdhouse Neighborhood Center",
+        "address": "800 North 4th Avenue",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37917",
+        "lat": 35.9793582,
+        "lon": -83.9174619
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Messiah Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.messiahknoxville.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Messiah Lutheran Church",
+        "address": "6900 Kingston Pike",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37919",
+        "lat": 35.9319907,
+        "lon": -84.0191157
+      },
+      "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "The Comedy Zone",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://greenvillecomedyzone.com/shows/377990"
+      ],
+      "link_pattern": "https://greenvillecomedyzone\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Comedy Zone",
+        "address": "221 North Main Street",
+        "city": "Greenville",
+        "postal_code": "29601",
+        "lat": 34.8532072,
+        "lon": -82.3981441
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "The Radio Room",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://radioroomgreenville.com/event/ben-quad/radio-room/greenville-south-carolina/"
+      ],
+      "link_pattern": "https://radioroomgreenville\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Radio Room",
+        "address": "28 Liberty Lane",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29607",
+        "lat": 34.8426952,
+        "lon": -82.365108
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Seratonic",
+      "category": "music",
+      "_found": "osm:music_venue -> jsonld-event",
+      "listing": [
+        "https://seratoniclounge.com/event/earth-to-eve/seratonic-lounge/greenville-south-carolina/"
+      ],
+      "link_pattern": "https://seratoniclounge\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Seratonic",
+        "lat": 34.8461812,
+        "lon": -82.4008153
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Fourth Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.fourthpres.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Fourth Presbyterian Church",
+        "address": "703 East Washington Street",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29601",
+        "lat": 34.848765,
+        "lon": -82.3911725
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Long Branch Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.longbranchbaptistchurch.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Long Branch Baptist Church",
+        "address": "28 Bolt Street",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29605",
+        "lat": 34.8341294,
+        "lon": -82.4111941
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Fairview Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://fairviewpca.com/calendar/"
+      ],
+      "link_pattern": "https://fairviewpca\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fairview Presbyterian Church",
+        "address": "126 Fairview Church Road",
+        "city": "Fountain Inn",
+        "postal_code": "29644",
+        "lat": 34.644122,
+        "lon": -82.2517295
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "The Grand Holland Estate",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.grandholland.com/wellness"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Grand Holland Estate",
+        "address": "815 Holland Road",
+        "city": "Simpsonville",
+        "postal_code": "29681",
+        "lat": 34.7883,
+        "lon": -82.2763008
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "St John of the Ladder Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.sjotl.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St John of the Ladder Orthodox Church",
+        "address": "213 Roper Mountain Road Extension",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29615",
+        "lat": 34.8499366,
+        "lon": -82.3143254
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Saint Matthew United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://stmatthewumc.net/events-2/"
+      ],
+      "link_pattern": "https://stmatthewumc\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Matthew United Methodist Church",
+        "address": "701 Cleveland Street",
+        "city": "Greenville",
+        "region": "SC",
+        "postal_code": "29601",
+        "lat": 34.8363549,
+        "lon": -82.3869502
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Palmetto Hills Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://palmettohills.com/calendar/"
+      ],
+      "link_pattern": "https://palmettohills\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palmetto Hills Presbyterian Church",
+        "address": "2147 East Georgia Road",
+        "city": "Simpsonville",
+        "region": "SC",
+        "postal_code": "29681",
+        "lat": 34.7528023,
+        "lon": -82.192757
+      },
+      "_metro": "Greenville SC, United States"
+    },
+    {
+      "name": "Friends of Fisher House Charleston",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.friendsoffisherhousecharleston.org/symphony-of-service"
+      ],
+      "link_pattern": "https://www\\.friendsoffisherhousecharleston\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Friends of Fisher House Charleston",
+        "address": "150 Wentworth Street",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29401",
+        "lat": 32.7801364,
+        "lon": -79.9407936
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Saint Andrews Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://standrews.church/coming-events/"
+      ],
+      "link_pattern": "https://standrews\\.church/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Andrews Anglican Church",
+        "address": "440 Whilden Street",
+        "city": "Mount Pleasant",
+        "region": "SC",
+        "postal_code": "29464",
+        "lat": 32.7887803,
+        "lon": -79.8751692
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Children's Museum of the Lowcountry",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://explorecml.org/whats-happening/"
+      ],
+      "link_pattern": "https://explorecml\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Children's Museum of the Lowcountry",
+        "address": "25 Ann Street",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29403",
+        "lat": 32.7890937,
+        "lon": -79.9374513
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Lifepark",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://churchatlifepark.org/upcoming-events/"
+      ],
+      "link_pattern": "https://churchatlifepark\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lifepark",
+        "address": "1151 George Browder Boulevard",
+        "city": "Mount Pleasant",
+        "region": "SC",
+        "postal_code": "29466",
+        "lat": 32.8714013,
+        "lon": -79.7801862
+      },
+      "_metro": "Charleston SC, United States"
     }
   ],
   "_not_included": {
