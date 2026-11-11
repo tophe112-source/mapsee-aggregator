@@ -382,3 +382,26 @@
   them takes the nearest edge; addr:city still wins. Expect one settling write
   per market in an overlap, then up to ~750 fewer locality UPDATEs per sweep
   day.
+
+- **GSC'S SIX MISSING ADDRESSES WERE SOURCE GAPS; THREE MEETUP POSTCODES WERE
+  PLACEHOLDERS (2026-11-11).** The six Plansie examples had publisher LOCATION
+  and GEO but no PostalAddress. Four exact location rules across ALDIL,
+  Vaulx-en-Velin and Villeurbanne now retain their published street/locality/
+  postcode fields; the park publishes only 69100, so no street is guessed.
+  Manly Leagues' official `/contact-us/` supplies 563 Pittwater Road, Brookvale
+  NSW 2100. Its previously absent city stays absent because adding it would
+  change the Tribe fingerprint; Brookvale stays in the street text.
+  `clean_postal_code` drops only whole `meetup[0-9]+` values, case-insensitively,
+  at normalization and the sync write boundary, including visible address prose
+  from old stores. Five real international postcode formats survive.
+  The four source tests add 39 assertions covering the real production payload,
+  exact-match boundaries, identity, dates and coordinates. All four scripts
+  pass. The workflow's 108-script local gate passed 107 in 207.849 s; the sole
+  failure, `test_coverage_rows.py` rejecting the existing Holy Name of Jesus
+  Parish metro `Wyoming`, reproduces with both source catalogs restored to HEAD
+  through a read-only test fixture. It is not an address-repair regression.
+  Mapsee applied a guarded, all-or-nothing nine-row repair from
+  `backend/sql/2026-11-11_search_console_source_repairs.sql`; 18 live HTTP reads
+  (browser and crawler User-Agents) show all six addresses and no three bogus
+  postcodes. Event names, IDs, dates, pins and canonicals are unchanged. The
+  source rules prevent later refreshes from restoring those defects.

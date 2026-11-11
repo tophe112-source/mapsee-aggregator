@@ -1053,10 +1053,15 @@
       "category": "community",
       "_found": "osm:licensed_club -> tribe",
       "base_url": "https://www.manlyleagues.com.au",
+      "_address_note": "2026-11-11: official /contact-us/ publishes 563 Pittwater Road, Brookvale NSW 2100. Retain Brookvale in the street text: filling a previously absent city would change this adapter's fingerprints.",
       "within_days": 120,
       "max_pages": 10,
       "venue": {
         "name": "Manly Warringah Rugby League Club",
+        "address": "563 Pittwater Road, Brookvale",
+        "region": "NSW",
+        "postal_code": "2100",
+        "country": "AU",
         "lat": -33.7601539,
         "lon": 151.2777952
       },

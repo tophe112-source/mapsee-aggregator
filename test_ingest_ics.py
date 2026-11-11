@@ -1321,6 +1321,51 @@ with tempfile.TemporaryDirectory() as td:
 check("the published Trumba event page reaches the final Tickets/info line",
       f"Tickets / info: {TRUMBA_LINK}" in trumba_row["description"])
 
+# The November GSC samples already had a publisher LOCATION and GEO, but no
+# structured address. The exact source rules must enrich them without rekeying
+# their rows or replacing a different room's location.
+import json  # noqa: E402
+from mapsee_supabase_sync import to_row  # noqa: E402
+
+with open(os.path.join(os.path.dirname(__file__), "ics_sources.json"), encoding="utf-8") as f:
+    address_sources = {source["url"]: source for source in json.load(f)}
+address_cases = [
+    ("https://www.aldil.org/events.ics",
+     "CSC La Carnière, 4, montée de la Carnière, Saint-Priest, 69800, Auvergne-Rhone-Alpes, France",
+     ("4, montée de la Carnière", "Saint-Priest", "69800"), (45.6974345, 4.9429206)),
+    ("https://vaulx-en-velin.net/events.ics",
+     "MJC de Vaulx-en-Velin, 13 avenue Henri Barbusse, Vaulx-en-Velin, France",
+     ("13 avenue Henri Barbusse", "Vaulx-en-Velin", None), (45.7829897, 4.9171059)),
+    ("https://openagenda.com/agendas/49283376/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+     "Parc du centre - 69100", (None, "Villeurbanne", "69100"), (45.773144, 4.879325)),
+    ("https://openagenda.com/agendas/49283376/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+     "Maison du livre, de l'image et du son - 247 cours émile Zola, Villeurbanne",
+     ("247 cours émile Zola", "Villeurbanne", None), (45.768033, 4.887698)),
+]
+for source_url, location, expected, point in address_cases:
+    source = address_sources[source_url]
+    feed = ("BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:gsc-address-fixture\r\n"
+            "SUMMARY:Address fixture\r\nDTSTART:20991106T140000Z\r\nDTEND:20991106T160000Z\r\n"
+            f"LOCATION:{location}\r\nGEO:{point[0]};{point[1]}\r\n"
+            "END:VEVENT\r\nEND:VCALENDAR\r\n")
+    before, enriched = VenueStore(), VenueStore()
+    with patch.object(ICS, "_fetch_ics", return_value=(feed, "200")), redirect_stdout(io.StringIO()):
+        ICS.ingest_ics(before, None, {k: v for k, v in source.items() if k != "location_overrides"})
+        ICS.ingest_ics(enriched, None, source)
+    original, event = before.rows[0], enriched.rows[0]
+    check(f"GSC address: {location}: source postal fields survive",
+          (event.address, event.city, event.postal_code) == expected)
+    check(f"GSC address: {location}: identity, name, clock and pin stay unchanged",
+          (event.source_id, event.fingerprint, event.venue_name, event.start_utc,
+           event.latitude, event.longitude) ==
+          (original.source_id, original.fingerprint, original.venue_name, original.start_utc,
+           original.latitude, original.longitude))
+    row = to_row(event.as_record("now"), "fixture-host")
+    check(f"GSC address: {location}: fields reach the production write",
+          (row["street_address"], row["locality"], row["postal_code"]) == expected)
+    check(f"GSC address: {location}: another room gets no inferred address",
+          ICS._location_override(source, location + " - Other room") is None)
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")

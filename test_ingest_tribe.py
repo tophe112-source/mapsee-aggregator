@@ -1791,6 +1791,27 @@ hosts = {T._calendar_at(s["base_url"])[0] for s in LIVE_SITES}
 check("...and the four that the ics rows alone used to put on the map are still read, by their route",
       {"ajax.ca", "bairrobenfica.pt", "torrent.es", "teruel.es"} <= hosts)
 
+# The GSC address warning is a real source gap, not permission to alter the
+# venue/city fingerprint. The official club contact page supplies this address.
+manly = next(site for site in LIVE_SITES if site["base_url"] == "https://www.manlyleagues.com.au")
+manly_payload = {"id": 4242, "title": "Club fixture", "start_date": "2099-11-12 19:00:00",
+                 "venue": {"venue": "Manly Warringah Rugby League Club",
+                           "geo_lat": -33.7601539, "geo_lng": 151.2777952}}
+manly_old = deepcopy(manly)
+for field in ("address", "region", "postal_code", "country"):
+    manly_old["venue"].pop(field, None)
+original, enriched = T.to_event(manly_payload, manly_old), T.to_event(manly_payload, manly)
+check("Manly's source address reaches the listing without inventing a city key",
+      (enriched.address, enriched.region, enriched.postal_code, enriched.city) ==
+      ("563 Pittwater Road, Brookvale", "NSW", "2100", None))
+check("Manly's address repair keeps identity, venue name and pin",
+      (enriched.source_id, enriched.fingerprint, enriched.venue_name, enriched.latitude, enriched.longitude) ==
+      (original.source_id, original.fingerprint, original.venue_name, original.latitude, original.longitude))
+manly_written = to_row(enriched.as_record("now"), "fixture-host")
+check("Manly's address reaches the actual database payload",
+      (manly_written["street_address"], manly_written["region_name"], manly_written["postal_code"]) ==
+      ("563 Pittwater Road, Brookvale", "NSW", "2100"))
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

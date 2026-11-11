@@ -530,6 +530,17 @@ def normalize_agenda(items: Any, agenda_tz: Optional[str], start_utc: Optional[s
 # --------------------------------------------------------------------------- #
 # Normalized event model + deduplicating store
 # --------------------------------------------------------------------------- #
+def clean_postal_code(value):
+    """Drop the observed Meetup placeholder, without guessing a country's format.
+
+    GSC examples carried ``meetup1`` / ``meetup3`` into both PostalAddress and
+    the visible address line. Real international postcodes remain unchanged.
+    """
+    if isinstance(value, str) and re.fullmatch(r"meetup[0-9]+", value.strip(), re.I):
+        return None
+    return value
+
+
 @dataclass
 class NormalizedEvent:
     source: str
@@ -650,6 +661,7 @@ class NormalizedEvent:
     admission_publisher: Optional[str] = None
 
     def __post_init__(self) -> None:
+        self.postal_code = clean_postal_code(self.postal_code)
         if self.agenda is not None:
             self.agenda = normalize_agenda(self.agenda, self.agenda_tz, self.start_utc,
                                            self.end_utc, self.start_local, self.end_local)

@@ -114,6 +114,18 @@ check("conditional admission is visible before long prose is truncated",
       CONDITIONAL.description.startswith("Not a free public admission offer."), True)
 
 print()
+print("Meetup placeholders are not postal codes")
+for postal in ("meetup1", "meetup3", " MEETUP3 "):
+    normalized = to_event(node(venue={"postalCode": postal}))
+    check(f"{postal!r} is omitted", normalized.postal_code, None)
+    check(f"{postal!r} does not change the event's identity",
+          (normalized.source_id, normalized.fingerprint),
+          (WITHOUT_GROUP.source_id, WITHOUT_GROUP.fingerprint))
+for postal in ("542-0085", "2000", "SW1A 1AA", "H2Y 1C6", "1012 AB"):
+    check(f"real international postcode {postal!r} survives",
+          to_event(node(venue={"postalCode": postal})).postal_code, postal)
+
+print()
 print("a hybrid event has somewhere to turn up, and must stay on the map")
 HYBRID = [
     ("Sunday Sangha Night & Community Gathering: Online and In-Person",

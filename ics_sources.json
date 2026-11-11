@@ -20566,6 +20566,31 @@
   {
     "name": "Ville de Villeurbanne (Villeurbanne, France)",
     "url": "https://openagenda.com/agendas/49283376/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "location_overrides": [
+      {
+        "location": "Parc du centre - 69100",
+        "venue": {
+          "name": "Parc du centre - 69100",
+          "city": "Villeurbanne",
+          "region": "Auvergne-Rhône-Alpes",
+          "postal_code": "69100",
+          "country": "FR",
+          "lat": 45.773144,
+          "lon": 4.879325
+        }
+      },
+      {
+        "location": "Maison du livre, de l'image et du son - 247 cours émile Zola, Villeurbanne",
+        "venue": {
+          "name": "Maison du livre, de l'image et du son - 247 cours émile Zola, Villeurbanne",
+          "address": "247 cours émile Zola",
+          "city": "Villeurbanne",
+          "country": "FR",
+          "lat": 45.768033,
+          "lon": 4.887698
+        }
+      }
+    ],
     "category": "community",
     "geocode_suffix": ", Villeurbanne, France",
     "limit": 1400,
@@ -23484,6 +23509,19 @@
   {
     "name": "Vaulx-en-Velin - agenda de la ville (Vaulx-en-Velin, France)",
     "url": "https://vaulx-en-velin.net/events.ics",
+    "location_overrides": [
+      {
+        "location": "MJC de Vaulx-en-Velin, 13 avenue Henri Barbusse, Vaulx-en-Velin, France",
+        "venue": {
+          "name": "MJC de Vaulx-en-Velin, 13 avenue Henri Barbusse, Vaulx-en-Velin, France",
+          "address": "13 avenue Henri Barbusse",
+          "city": "Vaulx-en-Velin",
+          "country": "FR",
+          "lat": 45.7829897,
+          "lon": 4.9171059
+        }
+      }
+    ],
     "category": "community",
     "geocode_suffix": ", Vaulx-en-Velin, France",
     "limit": 150,
@@ -23628,6 +23666,21 @@
   {
     "name": "ALDIL - logiciel libre a Lyon (Lyon, France)",
     "url": "https://www.aldil.org/events.ics",
+    "location_overrides": [
+      {
+        "location": "CSC La Carnière, 4, montée de la Carnière, Saint-Priest, 69800, Auvergne-Rhone-Alpes, France",
+        "venue": {
+          "name": "CSC La Carnière, 4, montée de la Carnière, Saint-Priest, 69800, Auvergne-Rhone-Alpes, France",
+          "address": "4, montée de la Carnière",
+          "city": "Saint-Priest",
+          "region": "Auvergne-Rhone-Alpes",
+          "postal_code": "69800",
+          "country": "FR",
+          "lat": 45.6974345,
+          "lon": 4.9429206
+        }
+      }
+    ],
     "category": "community",
     "geocode_suffix": ", Lyon, France",
     "limit": 100,

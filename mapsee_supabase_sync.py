@@ -49,7 +49,7 @@ from zoneinfo import ZoneInfo
 from typing import Any, Dict, List, Optional, Tuple
 
 from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
-from mapsee_ingest import normalize_agenda
+from mapsee_ingest import clean_postal_code, normalize_agenda
 
 try:                                  # resolved against the REAL requests, once
     from requests.exceptions import RequestException as _TransportError
@@ -1762,7 +1762,8 @@ def _street_address(rec: Dict[str, Any]) -> Optional[str]:
     line1 = (rec.get("address") or "").strip().rstrip(".")
     if not line1:
         return None
-    state_zip = " ".join(p for p in (rec.get("region"), rec.get("postal_code")) if p)  # "WA 98101"
+    postal = clean_postal_code(_clean_text(rec.get("postal_code")))
+    state_zip = " ".join(p for p in (rec.get("region"), postal) if p)  # "WA 98101"
     return ", ".join(p for p in (line1, rec.get("city"), state_zip) if p)
 
 
@@ -2256,7 +2257,7 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         # using it would be a guess published as structured data.
         "locality": _clean_text(rec.get("city")),
         "region_name": _clean_text(rec.get("region")),      # state/province, when the source gives one
-        "postal_code": _clean_text(rec.get("postal_code")),
+        "postal_code": clean_postal_code(_clean_text(rec.get("postal_code"))),
         "street_address": _clean_text(rec.get("address")),  # line 1 only; may be None
         "host_name": _clean_text(_host_name(rec)),   # actual promoter when available, else "mapsee.me"
         "starts_at": starts_at,

@@ -25,6 +25,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import mapsee_ingest_squarespace as SQ
 import mapsee_ingest_luma as LU
+from mapsee_ingest import NormalizedEvent
+from mapsee_supabase_sync import to_row
 
 fails = []
 
@@ -34,6 +36,23 @@ def check(label, cond, detail=""):
     if not cond:
         fails.append(label)
 
+
+# --------------------------------------------------------------------------- #
+# Older stores bypass NormalizedEvent; the production write boundary must
+# clean both the structured column and the description it derives from it.
+for postal in ("meetup1", "meetup3", " MEETUP3 "):
+    event = NormalizedEvent(source="meetup", source_id="fixture", name="Fixture meetup",
+                            start_utc="2099-11-12T18:00:00Z", venue_name="Fixture Hall",
+                            latitude=45.0, longitude=-73.0, address="10 Fixture Street",
+                            city="Fixture City", postal_code="H2Y 1C6")
+    record = event.as_record("now")
+    record["postal_code"] = postal
+    row = to_row(record, "fixture-host")
+    check(f"old-store {postal!r}: no false postal column", row["postal_code"] is None)
+    check(f"old-store {postal!r}: no placeholder in the visitor address",
+          postal.strip().casefold() not in row["description"].casefold(), row["description"])
+    check(f"old-store {postal!r}: street and city survive",
+          "10 Fixture Street, Fixture City" in row["description"], row["description"])
 
 # --------------------------------------------------------------------------- #
 # Squarespace: the default pin must never become a location
