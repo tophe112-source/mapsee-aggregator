@@ -192,6 +192,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "brisasia festival": {
+      "dates": [],
+      "first_seen": "2026-11-12",
+      "last_seen": "2026-11-12",
+      "name": "BrisAsia Festival",
+      "ref_keys": [
+        "da8684b8ae8f"
+      ],
+      "referrers": [
+        {
+          "source": "ics:brisbane-creative-events-(brisbane,-australia)",
+          "start": "2027-02-13",
+          "title": "BrisAsia Comedy Gala",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290282"
+        }
+      ],
+      "sample": "Bookings required: Yes BrisAsia Comedy Gala is presented as part of BrisAsia Festival . Stories, surprises and seriously opinionated Aunties are taking over the stage for one unforgettable night! Discover multicultural and multilingual improv comedy inspired by real stories from Asian-Australian",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "cascadia nw arts and music festival": {
       "dates": [],
       "first_seen": "2026-11-09",
@@ -492,6 +513,48 @@
       "times_seen": 1,
       "venue": null
     },
+    "indian fair": {
+      "dates": [],
+      "first_seen": "2026-11-12",
+      "last_seen": "2026-11-12",
+      "name": "Indian Fair",
+      "ref_keys": [
+        "0bcd47d76c3d",
+        "131908d93219",
+        "76077f75e018",
+        "c78cfc43c213"
+      ],
+      "referrers": [
+        {
+          "source": "jsonld",
+          "start": "2026-11-12",
+          "title": "Native Arts in Miniature",
+          "url": "https://toyandminiaturemuseum.org/events/native-arts-in-miniature/"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-11-14",
+          "title": "Makers Workshop: Miniature Weaving Design with Barbara and Michael Teller Ornelas",
+          "url": "https://toyandminiaturemuseum.org/events/makers-workshop-with-barbara-and-michael-teller-ornelas/"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-11-14",
+          "title": "Meet the Maker: Barbara and Michael Teller Ornelas",
+          "url": "https://toyandminiaturemuseum.org/events/meet-the-maker-barbara-and-michael-teller-ornelas/"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-11-15",
+          "title": "Meet the Maker: Weaving Demonstration with Barbara and Michael Teller Ornelas",
+          "url": "https://toyandminiaturemuseum.org/events/meet-the-maker-weaving-demonstration-with-barbara-and-michael-teller-ornelas/"
+        }
+      ],
+      "sample": "Their award-winning rugs—full size and miniature—have been recognized at the Heard Museum’s annual Indian Fair + Market and the Santa Fe Indian Market, the largest and most prestigious art market for Native works in the world. Barbara Teller Ornelas has shared her work internationally through a",
+      "state": "pending",
+      "times_seen": 4,
+      "venue": null
+    },
     "international fly fishing film festival": {
       "dates": [],
       "first_seen": "2026-11-09",
@@ -748,7 +811,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-10",
+      "last_seen": "2026-11-12",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -756,7 +819,9 @@
         "33e7eba1bcea",
         "6fbd7b8d2f83",
         "95520f3d7ef6",
+        "b2332f16add5",
         "bc6767d7ee5b",
+        "c54b78eea10b",
         "cb0472f9248d"
       ],
       "referrers": [
@@ -793,7 +858,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 7,
+      "times_seen": 9,
       "venue": null
     },
     "melt festival": {
@@ -1070,12 +1135,19 @@
     "nyc jewelry week": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-12",
       "name": "NYC Jewelry Week",
       "ref_keys": [
-        "29f623311a76"
+        "29f623311a76",
+        "fbdb65b3a9d5"
       ],
       "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-18",
+          "title": "Worn Witness: Jewelry Presentation + Shopping Experience",
+          "url": "https://mocada.org/event/worn-witness-jewelry-presentation-shopping-experience/"
+        },
         {
           "source": "tribe",
           "start": "2026-11-19",
@@ -1085,7 +1157,7 @@
       ],
       "sample": "Rock the Jewel s is Black in Jewelry Coalition ’s annual fundraiser and signature celebration during NYC Jewelry Week . Presented by BIJC and NYC Jewelry Week, this high-energy evening brings together industry leaders, designers, retailers, manufacturers, museum curators, media, trade associations, ",
       "state": "covered",
-      "times_seen": 1,
+      "times_seen": 2,
       "venue": null
     },
     "one health festival": {
@@ -1451,7 +1523,7 @@
         "2026-11-05/2026-11-15"
       ],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-12",
       "name": "Spirit & Place Festival",
       "ref_keys": [
         "a12558e545ba",
@@ -1472,7 +1544,7 @@
         }
       ],
       "sample": "This event is part of the Spirit & Place Festival (Nov. 5–15). Learn more at spiritandplace.org. The Indianapolis Common Read Conversation is a Spirit & Place event.",
-      "state": "covered",
+      "state": "pending",
       "times_seen": 2,
       "venue": null
     },

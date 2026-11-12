@@ -34223,6 +34223,45 @@
         "lon": -77.7486801
       },
       "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Alice Moore Black Arts & Cultural Center",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix",
+      "listing": [
+        "https://www.alicemoorecenter.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Alice Moore Black Arts & Cultural Center",
+        "address": "135 South Pearl Street",
+        "city": "Albany",
+        "region": "NY",
+        "lat": 42.6456745,
+        "lon": -73.755013
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Saint Margaret's Center",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://cfdsny.org/events/"
+      ],
+      "link_pattern": "https://cfdsny\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Margaret's Center",
+        "address": "27 Hackett Boulevard",
+        "city": "Albany",
+        "postal_code": "12208",
+        "lat": 42.6477272,
+        "lon": -73.7807914
+      },
+      "_metro": "Albany NY, United States"
     }
   ],
   "_not_included": {

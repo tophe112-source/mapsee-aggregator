@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "SI",
+  "country": "PT",
   "offset": 2140,
   "offsets": {
    "AE": 0,
@@ -26,7 +26,7 @@
    "NL": 240,
    "NO": 240,
    "NZ": 140,
-   "PT": 120,
+   "PT": 240,
    "SE": 80,
    "SI": 240,
    "US": 2303,
@@ -248,9 +248,14 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 248,
-  "metro_key": "US:Rochester NY",
-  "stuck": {}
+  "metro": 251,
+  "metro_key": "US:Providence",
+  "stuck": {
+   "US:Providence": {
+    "day": 20261112,
+    "n": 1
+   }
+  }
  },
  "osm|community_centre,library": {
   "metro": 225,
@@ -264,21 +269,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 0,
-  "events": 200,
+  "community events": 100,
+  "events": 300,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 0,
+  "library programs": 200,
+  "parks events": 100,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 0,
+  "recreation programs": 100,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 100,
-  "wellness programs": 400,
-  "youth programs": 100
+  "special events": 200,
+  "volunteer": 200,
+  "wellness programs": 500,
+  "youth programs": 200
  }
 }

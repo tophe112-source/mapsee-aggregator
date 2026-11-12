@@ -45068,6 +45068,299 @@
         "lon": -77.6279153
       },
       "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Santiago do Cacém",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cm-santiagocacem.pt",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Santiago do Cacém",
+      "default_region": null,
+      "default_country": "PT",
+      "_metro": "Santiago do Cacém, Portugal"
+    },
+    {
+      "name": "Redhouse Arts Center",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theredhouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Redhouse Arts Center",
+        "lat": 43.046686,
+        "lon": -76.1524608
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "National Grid ExploraDome",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event",
+      "base_url": "https://www.most.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "National Grid ExploraDome",
+        "address": "South Franklin Street",
+        "city": "Syracuse",
+        "region": "NY",
+        "postal_code": "13152",
+        "lat": 43.0472664,
+        "lon": -76.155555
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Helio Health The Recovery Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.helio.health",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Helio Health The Recovery Center",
+        "address": "714 Hickory Street",
+        "city": "Syracuse",
+        "region": "NY",
+        "postal_code": "13203",
+        "lat": 43.0568726,
+        "lon": -76.1434893
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "FM Outdoors Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://fmoutdoorsclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FM Outdoors Club",
+        "address": "4545 Whetstone Road",
+        "city": "Manlius",
+        "region": "NY",
+        "postal_code": "13104",
+        "lat": 42.9924043,
+        "lon": -75.971356
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Meier's Creek Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.meierscreekbrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meier's Creek Brewing Company",
+        "address": "33 Rippleton Road",
+        "city": "Cazenovia",
+        "region": "NY",
+        "postal_code": "13035",
+        "lat": 42.9193594,
+        "lon": -75.8662074
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Exceptional Family Resources",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://indera.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Exceptional Family Resources",
+        "address": "1820 Lemoyne Avenue",
+        "city": "Syracuse",
+        "region": "NY",
+        "postal_code": "13208",
+        "country": "US",
+        "lat": 43.0864932,
+        "lon": -76.1450603
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Westvale Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+gcal-embed",
+      "base_url": "https://splitrocksda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westvale Church",
+        "address": "2511 West Genesee Street",
+        "city": "Syracuse",
+        "region": "NY",
+        "postal_code": "13219",
+        "country": "US",
+        "lat": 43.0467829,
+        "lon": -76.2062342
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Saint Elias Antiochian Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://sainteliasny.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Elias Antiochian Orthodox Church",
+        "address": "4988 Onondaga Road",
+        "city": "Syracuse",
+        "region": "NY",
+        "lat": 43.0132533,
+        "lon": -76.2038171
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Underground Railroad Education Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://undergroundrailroadhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Underground Railroad Education Center",
+        "address": "194 Livingston Avenue",
+        "city": "Albany",
+        "region": "NY",
+        "postal_code": "12210",
+        "lat": 42.6610686,
+        "lon": -73.7544496
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Schenectady History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://schenectadyhistorical.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schenectady History Museum",
+        "address": "32 Washington Avenue",
+        "city": "Schenectady",
+        "region": "NY",
+        "postal_code": "12305",
+        "lat": 42.817212,
+        "lon": -73.9493754
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Steamer No. 10 Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://steamer10theatre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Steamer No. 10 Theater",
+        "address": "500 Western Avenue",
+        "city": "Albany",
+        "region": "NY",
+        "postal_code": "12208",
+        "lat": 42.6659071,
+        "lon": -73.7907241
+      },
+      "_metro": "Albany NY, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Families Together In NYS Inc",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ftnys.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Families Together In NYS Inc",
+        "address": "737 Madison Avenue",
+        "city": "Albany",
+        "region": "NY",
+        "postal_code": "12208",
+        "lat": 42.6587869,
+        "lon": -73.7781223
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "The Sanctuary For Independent Media",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mediasanctuary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Sanctuary For Independent Media",
+        "address": "3361 6th Avenue",
+        "city": "Troy",
+        "region": "NY",
+        "postal_code": "12180",
+        "lat": 42.7533631,
+        "lon": -73.6815747
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Unitarian Universalist Society of Schenectady",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+events-manager+jsonld-event+ics",
+      "base_url": "https://uuschenectady.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Society of Schenectady",
+        "address": "1221 Wendell Avenue",
+        "city": "Schenectady",
+        "postal_code": "12308",
+        "lat": 42.8168941,
+        "lon": -73.9218741
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "The Pony Bar",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://junefarms.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Pony Bar",
+        "lat": 42.6280022,
+        "lon": -73.6279007
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Greater Albany Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://albanysdachurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Greater Albany Seventh-Day Adventist Church",
+        "address": "298 Saint Agnes Highway",
+        "city": "Cohoes",
+        "region": "NY",
+        "postal_code": "12047",
+        "lat": 42.76698,
+        "lon": -73.7324222
+      },
+      "_metro": "Albany NY, United States"
     }
   ],
   "_not_included": {

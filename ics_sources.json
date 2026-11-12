@@ -71115,5 +71115,196 @@
     "geocode_suffix": ", Spencerport, NY",
     "limit": 300,
     "_metro": "Rochester NY, United States"
+  },
+  {
+    "name": "Carnide",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://jf-carnide.pt/dados/agenda.ics",
+    "geocode_suffix": ", Carnide, Portugal",
+    "limit": 300,
+    "_metro": "Carnide, Portugal"
+  },
+  {
+    "name": "Holy Family Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_28b41efbad0f7d47448de292625f0143a4667dac3d0835f82f722c98a186b9f6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Syracuse, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "The Franciscan Place",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fggb46o6c8kffln5gnam4boia4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Syracuse, United States",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Fabius Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6fbpoidf3kavkn38eivnd1gatg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fabius, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "University United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://uumcsyracuse.org/events.ics",
+    "geocode_suffix": ", Syracuse, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Basilica of the Sacred Heart of Jesus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mslosberg%40syrdio.org/public/basic.ics",
+    "geocode_suffix": ", Syracuse, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Cascades Hall",
+    "category": "community",
+    "_found": "osm:events_venue -> civicplus",
+    "url": "https://www.madisoncounty.ny.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+    "geocode_suffix": ", Cazenovia, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Tsha’ Thoñ’nhes",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> my-calendar+jsonld-event",
+    "url": "https://www.onondagafieldhouse.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", Nedrow, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Messiah's Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ffuhr%40hotmail.com/public/basic.ics",
+    "geocode_suffix": ", Clay, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Syracuse Reformed Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.syracuserpchurch.org/events/?ical=1",
+    "geocode_suffix": ", Syracuse, NY",
+    "limit": 300,
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Albany Art Room",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/t06jeiqhji3jailmjec48et058%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albany NY, United States",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "St. Michael's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lgutq08g46frpcf2jpmfsfuh28%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albany, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Irish American Heritage Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e8b6d480917b6ea1532dcdf28c86041df3a827f0e5d7ad60bb2e7cd651193b86%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Albany",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Upstate Concert Hall",
+    "category": "music",
+    "_found": "osm:music_venue -> events-manager",
+    "url": "https://empirelivealbany.com/?ical=1",
+    "geocode_suffix": ", Albany, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Hoffman Recreation Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.albanyny.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Albany NY, United States",
+    "limit": 300,
+    "_metro": "Albany NY, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Calvary United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5186e4b185432df0747cd8cbe6ffbf517adf0bfebf164754892ac090e2ebfa44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Latham, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Loudonville Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hd802hibd92fh47l2i2kjmha820kg1r0%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Loudonville, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Saint Peter Armenian Apostolic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40stpeterarmenianchurch.org/public/basic.ics",
+    "geocode_suffix": ", Watervliet, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Van Rensselaer #87",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://ny.moriapp.com/connect/connect_groups/c70bad29d15920a6d7180a1dbdbe759e/calendar_events/019fe90f-3310-7f23-92ec-0b60b5bbdee4.ics",
+    "geocode_suffix": ", East Greenbush, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Scotia United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/663eb50257461b2e30d70cae6f1e26c73e23fde283e49362f348cf2869838374%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Scotia, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "First Reformed Church of Scotia",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40firstreformedscotia.org/public/basic.ics",
+    "geocode_suffix": ", Scotia, NY",
+    "limit": 300,
+    "_metro": "Albany NY, United States"
   }
 ]

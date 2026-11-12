@@ -10280,6 +10280,148 @@
         "lon": -77.5569637
       },
       "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "Palace Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> squarespace",
+      "collection": "https://www.palaceonjames.com/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Palace Theatre",
+        "address": "2384 James Street",
+        "city": "Syracuse",
+        "region": "NY",
+        "postal_code": "13206",
+        "country": "US",
+        "lat": 43.0683776,
+        "lon": -76.1129798
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Golden Bee Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.goldenbeebookshop.com/calendar/signupforevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Golden Bee Bookshop",
+        "address": "324 1st Street",
+        "city": "Liverpool",
+        "region": "NY",
+        "postal_code": "13088",
+        "lat": 43.1021892,
+        "lon": -76.2080394
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "St. David's Episcopal Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stdavidscny.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. David's Episcopal Church",
+        "address": "14 Jamar Drive",
+        "city": "Fayetteville",
+        "region": "NY",
+        "postal_code": "13066",
+        "lat": 43.0276671,
+        "lon": -76.0578933
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "East Woods Skate Plaza",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.eastwoodneighbor.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "East Woods Skate Plaza",
+        "lat": 43.0585627,
+        "lon": -76.1105029
+      },
+      "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "Cohoes Music Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.thecohoesmusichall.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Cohoes Music Hall",
+        "address": "58 Remsen Street",
+        "city": "Cohoes",
+        "region": "NY",
+        "postal_code": "12047",
+        "lat": 42.7756455,
+        "lon": -73.7017599
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "No Fun",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.nofuntroy.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "No Fun",
+        "lat": 42.7322231,
+        "lon": -73.6909899
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Noteworthy Resources of Albany, Inc.",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://www.nwralbany.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Noteworthy Resources of Albany, Inc.",
+        "lat": 42.6618973,
+        "lon": -73.7446579
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Brown's Revolution Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.brownsbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Brown's Revolution Hall",
+        "address": "425 River Street",
+        "city": "Troy",
+        "region": "NY",
+        "postal_code": "12180",
+        "lat": 42.7360084,
+        "lon": -73.6876092
+      },
+      "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Emmanuel Reformed Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://encountererc.com/whats-happening",
+      "max_events": 200,
+      "venue": {
+        "name": "Emmanuel Reformed Church",
+        "address": "1150 Maple Hill Road",
+        "city": "Castleton-on-Hudson",
+        "region": "NY",
+        "postal_code": "12033",
+        "lat": 42.5245885,
+        "lon": -73.7154118
+      },
+      "_metro": "Albany NY, United States"
     }
   ],
   "_not_included": {
