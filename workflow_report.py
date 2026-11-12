@@ -17,11 +17,27 @@ def report(steps, group):
     return '\n'.join(lines)
 
 
+def outstanding_failures(steps):
+    sync = steps.get('sync', {})
+    recovered = sync.get('outcome') == 'success' and sync.get('outputs', {}).get('synced_store') == 'true'
+    return [key for key, step in steps.items() if step.get('outcome') in {'failure', 'cancelled'}
+            and not (key == 'checkpoint' and recovered)]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('steps')
-    parser.add_argument('--group', required=True, choices=['ics', 'local', 'civic', 'rec'])
+    parser.add_argument('steps', nargs='?')
+    parser.add_argument('--group', choices=['ics', 'local', 'civic', 'rec'])
+    parser.add_argument('--check', action='store_true', help="Fail for outstanding step failures.")
     args = parser.parse_args()
+    if args.check:
+        failures = outstanding_failures(json.loads(os.environ['STEP_RESULTS']))
+        if failures:
+            raise SystemExit('Outstanding failures: ' + ', '.join(failures))
+        print('The final cumulative sync recovered the failed checkpoint.')
+        return
+    if not args.steps or not args.group:
+        parser.error('the report requires a steps file and --group')
     text = report(json.loads(Path(args.steps).read_text(encoding='utf-8')), args.group)
     print(text)
     if os.environ.get('GITHUB_STEP_SUMMARY'):

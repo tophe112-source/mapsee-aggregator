@@ -1478,6 +1478,7 @@ jobs:
           [ "${{ matrix.group }}" = "rec" ] && ABSENT="--retire-absent --manifest rec_absence_manifest.json"
           if [ -f feeds_events.json ]; then
             python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW $ABSENT --state-cache sync_state_${{ matrix.group }}.json
+            echo "synced_store=true" >> "$GITHUB_OUTPUT"
           else
             echo "no feeds ingested — nothing to sync"
           fi
@@ -1573,7 +1574,9 @@ jobs:
             feed-steps.json
       - name: Fail when an import or sync failed
         if: ${{ always() && contains(steps.*.outcome, 'failure') }}
-        run: exit 1
+        env:
+          STEP_RESULTS: ${{ toJSON(steps) }}
+        run: python workflow_report.py --check
 
   # RunSignup: the whole 'running' and 'fitness' supply.
   #
@@ -1924,7 +1927,7 @@ jobs:
           EVENTBRITE_API_TOKEN: ${{ secrets.EVENTBRITE_API_TOKEN }}
         run: |
           if [ -f eventbrite_organizers.json ]; then
-            python mapsee_ingest_eventbrite.py --config eventbrite_organizers.json --store eventbrite_events.json || true
+            python mapsee_ingest_eventbrite.py --config eventbrite_organizers.json --store eventbrite_events.json --organizations-only || true
           else
             echo "no eventbrite_organizers.json — skipping"
           fi

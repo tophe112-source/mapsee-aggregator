@@ -3699,6 +3699,16 @@ def _utc(value) -> Optional[datetime]:
     return d.astimezone(timezone.utc) if d.tzinfo else None
 
 
+def past_new_retention(row, state, cutoff):
+    """Apply the cleanup window only to missing, dated events in persistent stores."""
+    if row["external_id"] in state or row.get("recurring_hours") is not None or row.get("pin_only"):
+        return False
+    start = _utc(row.get("starts_at"))
+    end = _utc(row.get("ends_at"))
+    return (start is not None and start < cutoff
+            and (row.get("ends_at") is None or (end is not None and end < cutoff)))
+
+
 def import_cancelled(detail: Optional[Dict[str, Any]], now: Optional[datetime] = None) -> bool:
     """This pipeline cancelled the stored row, nothing has touched it since, and
     long enough ago to lift (see UNCANCEL_AFTER).
@@ -4809,6 +4819,9 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true", help="Print rows that WOULD be upserted; send nothing.")
     ap.add_argument("--only-new", action="store_true",
                     help="Skip events already in Supabase — upsert only new ones (much faster steady-state).")
+    ap.add_argument("--new-retention-days", type=int, metavar="DAYS",
+                    help="Skip missing dated events that already qualify for cleanup. "
+                         "Use with persistent stores. Stored corrections and cancellations still run.")
     ap.add_argument("--skip-unchanged", action="store_true",
                     help="Read each row back first and send only the ones that DIFFER. For an "
                          "adapter that must rewrite (every column derived from an upstream people "
@@ -4828,6 +4841,8 @@ def main() -> None:
                          "--only-new every id is read and the file is rebuilt from that read. "
                          "--dry-run never opens it.")
     a = ap.parse_args()
+    if a.new_retention_days is not None and a.new_retention_days < 1:
+        ap.error("--new-retention-days must be positive")
     if a.retire_absent and not a.manifest:
         raise SystemExit("--retire-absent needs --manifest PATH: absence is measured against the "
                          "last complete read, and without one there is nothing to compare.")
@@ -4859,6 +4874,8 @@ def main() -> None:
         store_data = None
 
     if a.dry_run:
+        if a.new_retention_days is not None:
+            print("Offline preview includes expired candidates because their database state is unknown.")
         rows = build_rows(a.store, host_id, store_data=store_data)  # preview: skip geocoding (no network)
         print(f"Prepared {len(rows)} event rows from {a.store}.")
         for row in rows[:3]:
@@ -5051,6 +5068,13 @@ def main() -> None:
         rows = [r for r in rows if r["external_id"] not in existing]
         if before != len(rows):                       # already done in keep_new, normally
             print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
+
+    if a.new_retention_days is not None:
+        cutoff = now - timedelta(days=a.new_retention_days)
+        before = len(rows)
+        rows = [r for r in rows if not past_new_retention(r, state, cutoff)]
+        print(f"Retention: skipped {before - len(rows)} missing events already outside "
+              f"the {a.new_retention_days}-day cleanup window.")
 
     terms = load_blocklist(geo, url, key) if rows else []  # no DB read for an empty write set
     moderated: set = set()

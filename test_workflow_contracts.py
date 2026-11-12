@@ -13,12 +13,23 @@ import unittest
 import warnings
 import yaml
 import mapsee_ingest_waterfront as waterfront
-from workflow_report import report
+from workflow_report import outstanding_failures, report
 
 ROOT = Path(__file__).resolve().parent
 
 
 class WorkflowContracts(unittest.TestCase):
+    def test_checkpoint_is_recovered_only_after_the_cumulative_store_was_synced(self):
+        steps = {'checkpoint': {'outcome': 'failure'}, 'sync': {'outcome': 'success'}}
+        self.assertEqual(outstanding_failures(steps), ['checkpoint'])
+        steps['sync']['outputs'] = {'synced_store': 'true'}
+        self.assertEqual(outstanding_failures(steps), [])
+        steps['ingest_local'] = {'outcome': 'failure'}
+        steps['upload'] = {'outcome': 'cancelled'}
+        self.assertEqual(outstanding_failures(steps), ['ingest_local', 'upload'])
+        steps['sync']['outcome'] = 'failure'
+        self.assertIn('checkpoint', outstanding_failures(steps))
+
     def test_all_workflows_parse_and_secret_jobs_never_accept_forks(self):
         for path in (ROOT / '.github/workflows').glob('*.yml'):
             text = path.read_text(encoding='utf-8')

@@ -321,6 +321,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import Eventbrite events (official API) into the Mapsee store.")
     ap.add_argument("--config", required=True)
     ap.add_argument("--store", default="mapsee_events.json")
+    ap.add_argument("--organizations-only", action="store_true",
+                    help="Import the token's organizations. The residential importer handles metro discovery.")
     a = ap.parse_args(argv)
 
     token = os.environ.get("EVENTBRITE_API_TOKEN", "").strip() or os.environ.get("EVENTBRITE_OAUTH_TOKEN", "").strip()
@@ -351,8 +353,10 @@ def main(argv=None) -> int:
 
     # 2) metro discovery (ids only) -> official-API hydration
     pages = int(cfg.get("pages", 1))
-    metros = cfg.get("metros") or []
-    if not metros:
+    metros = [] if a.organizations_only else cfg.get("metros") or []
+    if a.organizations_only:
+        print("[eventbrite] metro discovery runs on the residential importer.")
+    elif not metros:
         print("[eventbrite] no metros in config - nothing to discover.")
     seen: set = set()
     blocked = False

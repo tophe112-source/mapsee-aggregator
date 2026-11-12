@@ -1,13 +1,11 @@
 # Run the Eventbrite API import from THIS machine and sync it to Supabase.
 #
-# Eventbrite now runs via the OFFICIAL API (organizer feeds), which works fine
-# from CI too - so this local script is optional, handy for a quick manual run
-# or testing new organizer ids. It reads organizers from eventbrite_organizers.json.
+# This residential runner owns metro discovery. CI reads its token's organizations.
 #
 # ⚠️ This SYNCS TO PRODUCTION. Step 2 writes to live Supabase with the
 # service-role key, which bypasses every row-level-security policy, and anything
 # it inserts shows up on mapsee.me and every other door immediately.
-# `--only-new` keeps it to inserts (no updates, no deletes). To see what it
+# The sync can also apply time changes and source cancellations. To see what it
 # WOULD do first, run just the ingest line by hand and read eventbrite_local.json
 # before letting the sync run.
 #
@@ -79,7 +77,7 @@ if ($Unset) {
 python mapsee_ingest_eventbrite.py --config eventbrite_organizers.json --store eventbrite_local.json
 if ($LASTEXITCODE -ne 0) { Write-Host "ingest failed" -ForegroundColor Red; exit 1 }
 
-python mapsee_supabase_sync.py --store eventbrite_local.json --only-new
+python mapsee_supabase_sync.py --store eventbrite_local.json --only-new --new-retention-days 7 --state-cache eventbrite_sync_state.json
 if ($LASTEXITCODE -ne 0) { Write-Host "sync failed" -ForegroundColor Red; exit 1 }
 
 Write-Host "Eventbrite import synced." -ForegroundColor Green

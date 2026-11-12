@@ -21,11 +21,13 @@ ingest loop, so a loop that still upserts a cancelled listing, or cancels a
 live one, fails here too.
 """
 import io
+import json
 import os
 import sys
 import tempfile
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
+from unittest.mock import patch
 
 os.environ.setdefault("MAPSEE_TODAY", "20261005")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -177,6 +179,19 @@ def eb_run(store, ev):
 
 
 print("Eventbrite")
+with tempfile.TemporaryDirectory() as folder:
+    config, store_path = os.path.join(folder, "config.json"), os.path.join(folder, "store.json")
+    with open(config, "w", encoding="utf-8") as config_file:
+        json.dump({"include_my_organizations": True, "metros": [{"slug": "seattle"}]}, config_file)
+    with patch.dict(os.environ, {"EVENTBRITE_API_TOKEN": "test"}), \
+         patch.object(EB, "my_organization_ids", return_value=[{"id": "test-org"}]), \
+         patch.object(EB, "ingest_organization", return_value=1) as org, \
+         patch.object(EB, "discover_event_ids", return_value=[]) as discover:
+        quiet(EB.main, ["--config", config, "--store", store_path, "--organizations-only"])
+        check("  hosted discovery reads the token's organization and makes zero metro requests",
+              (org.call_count, discover.call_count), (1, 0))
+        quiet(EB.main, ["--config", config, "--store", store_path])
+        check("  residential discovery still reads metros", discover.call_count, 1)
 same_identity("  eventbrite canceled", eb_run, EBEV, dict(EBEV, status="canceled"), log_word=None)
 same_identity("  eventbrite canceled + retitled 'Sunset Salsa - CANCELLED'", eb_run, EBEV,
               dict(EBEV, status="canceled", name={"text": "Sunset Salsa - CANCELLED"}), log_word=None)

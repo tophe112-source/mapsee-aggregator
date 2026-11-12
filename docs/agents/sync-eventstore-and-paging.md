@@ -1,5 +1,15 @@
 # The sync, EventStore, upserts, paging, cursors, fingerprints and series
 
+- **Persistent Eventbrite imports respect the seven-day cleanup window.** On
+  2026-11-12 the residential sync wrote 10,632 rows. After scheduled cleanup,
+  a second live sync of the same store found 10,373 candidates. Of these,
+  10,331 were missing dated events already eligible for cleanup, 41 were
+  moderated, and one stored time correction was written. The opt-in
+  `--new-retention-days 7` uses the normalized start and end after the
+  ownership read. Stored corrections, ongoing events, recurring rows, pins
+  and source cancellations retain their usual paths. CI reads the token's
+  organizations and the residential job handles metro discovery.
+
 - **ONE SYNC RUN READS ONE ADAPTER SNAPSHOT.** Measured 2026-10-17 with
   production `main()` and a metadata-bearing fixture: the live path opened
   the same store **3** times (legacy identities, cancellations, event rows);

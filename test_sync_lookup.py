@@ -886,6 +886,28 @@ class CensusTests(unittest.TestCase):
             self.assertEqual(written, {"new": (40.0, -100.0)}, flags)
             self.assertIn("Census hold: 1 stored row(s) held back; 1 new or moved row(s) written", log)
 
+    def test_retention_skips_only_missing_events_that_cleanup_would_delete(self):
+        cutoff = sync._utc("2026-11-05T12:00:00Z")
+        old = {"external_id": "old", "starts_at": "2026-11-04T12:00:00Z", "ends_at": None}
+        self.assertTrue(sync.past_new_retention(old, {}, cutoff))
+        self.assertFalse(sync.past_new_retention(old, {"old": False}, cutoff))
+        for change in ({"starts_at": cutoff.isoformat()}, {"ends_at": cutoff.isoformat()},
+                       {"ends_at": "unknown"}, {"starts_at": None}, {"recurring_hours": {}},
+                       {"pin_only": True}):
+            self.assertFalse(sync.past_new_retention(dict(old, **change), {}, cutoff), change)
+        base = dict(source="test", start_utc="2020-11-01T18:00:00Z", latitude=40.0, longitude=-100.0)
+        recs = [at(1, fingerprint="stored", name="Corrected", source_details={"price": "free"}, **base),
+                at(2, fingerprint="expired", name="Expired", **base),
+                at(3, fingerprint="upcoming", name="Upcoming",
+                   **dict(base, start_utc="2090-01-01T18:00:00Z"))]
+        for flags in ((), ("--only-new",)):
+            written, log, _ = self.sync_main(recs, {"stored": None}, (*flags, "--new-retention-days", "7"),
+                                             answers={})
+            self.assertEqual(set(written), {"stored", "upcoming"})
+            self.assertIn("Retention: skipped 1 missing", log)
+        written, _, _ = self.sync_main(recs, {}, answers={})
+        self.assertIn("expired", written)
+
     def test_only_the_sync_run_keeps_answers(self):
         # A direct call (test_ics_venue_location's fake Census) keeps no file,
         # or its control would be answered from the last run's cache.
