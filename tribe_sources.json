@@ -45361,6 +45361,288 @@
         "lon": -73.7324222
       },
       "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Emmanuel Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://emmanuelri.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Emmanuel Seventh-day Adventist Church",
+        "address": "900 Admiral Street",
+        "city": "North Providence",
+        "region": "RI",
+        "postal_code": "02904",
+        "lat": 41.852652,
+        "lon": -71.4458616
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Museum of Work and Culture",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rihs.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Work and Culture",
+        "address": "42 South Main Street",
+        "city": "Woonsocket",
+        "postal_code": "02895",
+        "lat": 41.9992983,
+        "lon": -71.5161356
+      },
+      "_metro": "Providence, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Herreshoff Marine Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://herreshoff.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Herreshoff Marine Museum",
+        "address": "1 Burnside Street",
+        "city": "Bristol",
+        "region": "RI",
+        "postal_code": "02809",
+        "lat": 41.6634352,
+        "lon": -71.2717155
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Pawtuxet Rangers Armory",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pawtuxetrangers.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pawtuxet Rangers Armory",
+        "address": "59 Remington Street",
+        "city": "Warwick",
+        "region": "RI",
+        "postal_code": "02888",
+        "lat": 41.7620005,
+        "lon": -71.3907511
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Hunt House Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://ephist.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hunt House Museum",
+        "lat": 41.8279872,
+        "lon": -71.3461674
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "North Scituate Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "http://scituatelibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Scituate Public Library",
+        "city": "Scituate",
+        "region": "RI",
+        "postal_code": "2857-1421",
+        "lat": 41.8338437,
+        "lon": -71.5872109,
+        "street_hint": "606 West Greenville Road"
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Etz Chaim Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etzchaim-portland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Etz Chaim Synagogue",
+        "address": "267 Congress Street",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.6625092,
+        "lon": -70.2529818
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Victoria Mansion",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://victoriamansion.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Victoria Mansion",
+        "address": "109 Danforth Street",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.6515341,
+        "lon": -70.2607474
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Saint Pius X Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ladyofhopemaine.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Pius X Catholic Church",
+        "address": "492 Ocean Avenue",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04103",
+        "lat": 43.6848583,
+        "lon": -70.2711058
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "The Portland New Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mainecenterforsacredarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Portland New Church",
+        "address": "302 Stevens Avenue",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04103",
+        "lat": 43.6688335,
+        "lon": -70.2953256
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Portland Museum of Art",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.portlandmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Portland Museum of Art",
+        "address": "7 Congress Square",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.6537381,
+        "lon": -70.2622698
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Seashore Trolley Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://trolleymuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seashore Trolley Museum",
+        "address": "195 Log Cabin Road",
+        "city": "Kennebunkport",
+        "region": "ME",
+        "postal_code": "04046",
+        "country": "US",
+        "lat": 43.4296342,
+        "lon": -70.4860024
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Catamount Outdoor Family Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://catamountoutdoor.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Catamount Outdoor Family Center",
+        "lat": 44.4480027,
+        "lon": -73.0487347
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "ECHO Leahy Center for Lake Champlain",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.echovermont.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ECHO Leahy Center for Lake Champlain",
+        "address": "1 College Street",
+        "city": "Burlington",
+        "region": "VT",
+        "postal_code": "05401",
+        "lat": 44.4765081,
+        "lon": -73.221073
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Shelburne Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://shelburnemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shelburne Museum",
+        "city": "Shelburne",
+        "region": "VT",
+        "postal_code": "05482",
+        "country": "US",
+        "lat": 44.3737804,
+        "lon": -73.2318352
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Ohavi Zedek Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ohavizedek.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ohavi Zedek Synagogue",
+        "address": "188 North Prospect Street",
+        "city": "Burlington",
+        "region": "VT",
+        "postal_code": "05401",
+        "country": "US",
+        "lat": 44.4863598,
+        "lon": -73.2012236
+      },
+      "_metro": "Burlington VT, United States"
     }
   ],
   "_not_included": {

@@ -34262,6 +34262,125 @@
         "lon": -73.7807914
       },
       "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "The Met",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://themetri.com/event/lespecial/the-met-ri/pawtucket-rhode-island/"
+      ],
+      "link_pattern": "https://themetri\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Met",
+        "address": "1005 Main Street",
+        "lat": 41.8634492,
+        "lon": -71.3997522
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Electricity Social Club",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.electricitysocialclub.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Electricity Social Club",
+        "address": "122 Manton Avenue",
+        "postal_code": "01826",
+        "lat": 41.8192249,
+        "lon": -71.4471626
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Uptown Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.uptownpvd.com/events"
+      ],
+      "link_pattern": "https://www\\.uptownpvd\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Uptown Theater",
+        "address": "270 Broadway",
+        "city": "Providence",
+        "region": "RI",
+        "postal_code": "02907",
+        "country": "US",
+        "lat": 41.8201441,
+        "lon": -71.4262539
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Watuppa Rowing Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.watupparowingcenter.org/event-tix"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Watuppa Rowing Center",
+        "address": "994 Jefferson Street Extension",
+        "city": "Fall River",
+        "region": "MA",
+        "postal_code": "02721",
+        "lat": 41.6736954,
+        "lon": -71.1423224
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Mayo Street Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://mayostreetarts.org/"
+      ],
+      "link_pattern": "https://mayostreetarts\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mayo Street Arts",
+        "address": "10 Mayo Street",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.662808,
+        "lon": -70.2543864
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Saint Luke's Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.cathedralofsaintluke.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Saint Luke's Cathedral",
+        "address": "143 State Street",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.652334,
+        "lon": -70.264645
+      },
+      "_metro": "Portland ME, United States"
     }
   ],
   "_not_included": {

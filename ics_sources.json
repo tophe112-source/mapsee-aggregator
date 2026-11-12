@@ -71306,5 +71306,132 @@
     "geocode_suffix": ", Scotia, NY",
     "limit": 300,
     "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Haffenreffer Museum of Anthropology",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://events.brown.edu/live/ical/events/group/Haffenreffer%20Museum%20of%20Anthropology/header/Haffenreffer%20Museum%20of%20Anthropology%20Events",
+    "geocode_suffix": ", Providence, United States",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "The Dancing Feeling",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u2tvu431kv1fdh6qq1163jfnes%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Warwick, RI",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "WaterFire Arts Center",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_abac7353049370d1120804a7ed43360381966cf3cdad78c649175cd6a1d24afd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Providence",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Westminster Unitarian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.westminsteruu.org/events.ics",
+    "geocode_suffix": ", East Greenwich, RI",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Greenwich Club",
+    "category": "community",
+    "_found": "osm:social_centre -> event-organiser",
+    "url": "https://www.thegreenwichclub.org/?feed=eo-events",
+    "geocode_suffix": ", East Greenwich, RI",
+    "limit": 300,
+    "venue": {
+      "name": "Greenwich Club",
+      "city": "East Greenwich",
+      "region": "RI",
+      "postal_code": "02818",
+      "lat": 41.6459665,
+      "lon": -71.4621596,
+      "street_hint": "5426 Post Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "East Greenwich United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/church%40egumc.org/public/basic.ics",
+    "geocode_suffix": ", East Greenwich, RI",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "The Music Mansion",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40musicmansion.org/public/basic.ics",
+    "geocode_suffix": ", Providence, United States",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Saint Luke's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40stlukeseg.org/public/basic.ics",
+    "geocode_suffix": ", East Greenwich, RI",
+    "limit": 300,
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Allen Avenue Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://a2u2.org/calendar/public.ics",
+    "geocode_suffix": ", Portland, ME",
+    "limit": 300,
+    "_metro": "Portland ME, United States"
+  },
+  {
+    "name": "Common Floor Contra Dance",
+    "category": "fitness",
+    "_found": "osm:dance -> jsonld-event+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0d91bca8eebb5bf2b86e7ea2ef26a3f6f1729ee3c73b87985a0407204e00dbc4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland ME, United States",
+    "limit": 300,
+    "_metro": "Portland ME, United States"
+  },
+  {
+    "name": "Falmouth Congregational Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f3s43o1edikqq2gstd1spimvro%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Falmouth, ME",
+    "limit": 300,
+    "_metro": "Portland ME, United States"
+  },
+  {
+    "name": "Congregation Etz Chaim",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40etzchaimme.org/public/basic.ics",
+    "geocode_suffix": ", Biddeford, ME",
+    "limit": 300,
+    "_metro": "Portland ME, United States"
+  },
+  {
+    "name": "Ausable Brewing Company",
+    "category": "community",
+    "_found": "osm:pub -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jg44uj6guqj3e4qhhhe8iv9hm8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Keeseville, NY",
+    "limit": 300,
+    "_metro": "Burlington VT, United States"
   }
 ]

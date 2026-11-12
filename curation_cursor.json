@@ -248,10 +248,10 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 251,
-  "metro_key": "US:Providence",
+  "metro": 254,
+  "metro_key": "US:Anchorage",
   "stuck": {
-   "US:Providence": {
+   "US:Anchorage": {
     "day": 20261112,
     "n": 1
    }

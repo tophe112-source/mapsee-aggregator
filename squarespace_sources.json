@@ -10422,6 +10422,154 @@
         "lon": -73.7154118
       },
       "_metro": "Albany NY, United States"
+    },
+    {
+      "name": "Faith Fellowship AOG Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.faithfellowshipaog.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Faith Fellowship AOG Community Church",
+        "address": "1395 Nooseneck Hill Road",
+        "city": "Covnetry",
+        "region": "RI",
+        "postal_code": "02816",
+        "lat": 41.6757412,
+        "lon": -71.5929144
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "Children’s Museum of Greater Fall River",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.cmgfr.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Children’s Museum of Greater Fall River",
+        "address": "441 North Main Street",
+        "lat": 41.7080313,
+        "lon": -71.1539022
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "St. Lawrence Arts Center",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.thehillarts.me/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Lawrence Arts Center",
+        "address": "76 Congress Street",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.6671825,
+        "lon": -70.2460025
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "The Depot at Thompson's Point",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.thompsonspoint.com/eventscalendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Depot at Thompson's Point",
+        "address": "Thompsons Point Road",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04102",
+        "lat": 43.6499261,
+        "lon": -70.2912576
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Belleflower Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.belleflowerbrewing.com/taproomeventslist",
+      "max_events": 200,
+      "venue": {
+        "name": "Belleflower Brewing",
+        "address": "66 Cove Street",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04101",
+        "lat": 43.6682186,
+        "lon": -70.2566617
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Mast Landing Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.mastlandingbrewing.com/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Mast Landing Brewing Company",
+        "address": "920 Main Street",
+        "lat": 43.6764507,
+        "lon": -70.3695839
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Burlington Beer Company",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.burlingtonbeercompany.com/bbcoevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Burlington Beer Company",
+        "address": "160 Flynn Avenue",
+        "city": "Burlington",
+        "region": "VT",
+        "country": "US",
+        "lat": 44.4568827,
+        "lon": -73.2207048
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Congregation of Temple Sinai",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.templesinaivt.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Congregation of Temple Sinai",
+        "address": "500 Swift Street",
+        "city": "South Burlington",
+        "region": "VT",
+        "postal_code": "05403",
+        "country": "US",
+        "lat": 44.4438184,
+        "lon": -73.1778992
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "United Church of Underhill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.unitedchurchofunderhill.com/event",
+      "max_events": 200,
+      "venue": {
+        "name": "United Church of Underhill",
+        "address": "7 Park Street",
+        "city": "Underhill",
+        "region": "VT",
+        "postal_code": "05489",
+        "lat": 44.525234,
+        "lon": -72.9444
+      },
+      "_metro": "Burlington VT, United States"
     }
   ],
   "_not_included": {
