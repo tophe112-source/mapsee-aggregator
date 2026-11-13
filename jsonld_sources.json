@@ -34838,6 +34838,239 @@
         "lon": 10.1657293
       },
       "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Delfinerne, De blå spejdere i Skæring og Egå, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.delfinerne.dk/begivenhed/lederweekend-0"
+      ],
+      "link_pattern": "https://www\\.delfinerne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Delfinerne, De blå spejdere i Skæring og Egå, Det Danske Spejderkorps",
+        "lat": 56.2291082,
+        "lon": 10.2940727
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Skovspejderne, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.skovspejderne.dk/begivenhed/juletur-2026"
+      ],
+      "link_pattern": "https://www\\.skovspejderne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Skovspejderne, Det Danske Spejderkorps",
+        "lat": 56.2306442,
+        "lon": 10.1877799
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "1. Ryom Gruppe, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://1ryom.dk/begivenhed/17-nov-salg-af-lodsedler-2026"
+      ],
+      "link_pattern": "https://1ryom\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "1. Ryom Gruppe, Det Danske Spejderkorps",
+        "lat": 56.3799288,
+        "lon": 10.5087532
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Viby-Kongsvang pigespejdergruppe",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.viby-kongsvang.dk/begivenhed/klatring-junior"
+      ],
+      "link_pattern": "https://www\\.viby\\-kongsvang\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Viby-Kongsvang pigespejdergruppe",
+        "lat": 56.12854,
+        "lon": 10.1680127
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Holmespejderne",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.holmespejderne.dk/begivenhed/weekendtur"
+      ],
+      "link_pattern": "https://www\\.holmespejderne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Holmespejderne",
+        "lat": 56.1046412,
+        "lon": 10.1734725
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Associação Quebra-Dados",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://quebradados.com/eventos-espaco/"
+      ],
+      "link_pattern": "https://quebradados\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Associação Quebra-Dados",
+        "address": "82 Rua de Brito Capelo",
+        "lat": 41.1621578,
+        "lon": -8.6194995
+      },
+      "_metro": "Porto, Portugal"
+    },
+    {
+      "name": "دار دبي للأوبرا",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.dubaiopera.com/en/events/comedy/max-amini"
+      ],
+      "link_pattern": "https://www\\.dubaiopera\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "دار دبي للأوبرا",
+        "lat": 25.1956708,
+        "lon": 55.2719824
+      },
+      "_metro": "Dubai, United Arab Emirates"
+    },
+    {
+      "name": "Sellon kirjasto",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.espoo.fi/fi/tapahtumat/espooevents:agqnq3hz6y"
+      ],
+      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sellon kirjasto",
+        "city": "Espoo",
+        "postal_code": "02600",
+        "lat": 60.2175877,
+        "lon": 24.8096354,
+        "street_hint": "9 Leppävaarankatu",
+        "aliases": [
+          "Sello library",
+          "Bibliothèque de Sello",
+          "Sello biblioteket"
+        ]
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Espoon kulttuurikeskus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.espoo.fi/fi/tapahtumat/espooevents:agqoqc3ngm"
+      ],
+      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Espoon kulttuurikeskus",
+        "address": "2 Kulttuuriaukio",
+        "city": "Espoo",
+        "postal_code": "02100",
+        "country": "FI",
+        "lat": 60.1778999,
+        "lon": 24.804333
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Luontotalo Villa Elfvik",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.espoo.fi/fi/tapahtumat/espooevents:agoqlesw64"
+      ],
+      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Luontotalo Villa Elfvik",
+        "address": "4 Elfvikintie",
+        "city": "Espoo",
+        "postal_code": "02660",
+        "lat": 60.2016272,
+        "lon": 24.8223954
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Ilmailumuseo auditorio",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://ilmailumuseo.fi/tulevat-tapahtumat/"
+      ],
+      "link_pattern": "https://ilmailumuseo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ilmailumuseo auditorio",
+        "address": "12 Karhumäentie",
+        "city": "Vantaa",
+        "postal_code": "01530",
+        "lat": 60.3046755,
+        "lon": 24.9606949
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Näyttelykeskus WeeGee",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.espoo.fi/fi/tapahtumat/espooevents:agpspmdmly"
+      ],
+      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Näyttelykeskus WeeGee",
+        "address": "5 Ahertajantie",
+        "city": "Espoo",
+        "postal_code": "02100",
+        "lat": 60.1788086,
+        "lon": 24.7943382
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Leppävaaran uimahalli",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.espoo.fi/fi/tapahtumat/espooevents:agqb6f2ehe"
+      ],
+      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Leppävaaran uimahalli",
+        "address": "15 Veräjäpellonkatu",
+        "city": "Espoo",
+        "postal_code": "02650",
+        "lat": 60.226054,
+        "lon": 24.8030041
+      },
+      "_metro": "Helsinki, Finland"
     }
   ],
   "_not_included": {

@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 2,
-  "metro_key": "DK:Aarhus",
+  "metro": 10,
+  "metro_key": "FI:Tampere",
   "stuck": {}
  },
  "osm|community_centre,library": {

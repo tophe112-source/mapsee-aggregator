@@ -46158,6 +46158,169 @@
         "lon": -122.8966714
       },
       "_metro": "Olympia WA, United States"
+    },
+    {
+      "name": "Farre Forsamlingshus",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://farrefki.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Farre Forsamlingshus",
+        "lat": 56.2163997,
+        "lon": 9.8443884
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Rønde Idrætscenter",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://roendeic.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rønde Idrætscenter",
+        "lat": 56.3051984,
+        "lon": 10.4605795
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Palácio da Bolsa",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event",
+      "base_url": "https://cciporto.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palácio da Bolsa",
+        "address": "Rua da Alegria",
+        "city": "Porto",
+        "postal_code": "4000-041",
+        "lat": 41.1413204,
+        "lon": -8.6158563
+      },
+      "_metro": "Porto, Portugal"
+    },
+    {
+      "name": "Bla Bla",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://blabladubai.ae",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bla Bla",
+        "lat": 25.074698,
+        "lon": 55.1291399
+      },
+      "_metro": "Dubai, United Arab Emirates"
+    },
+    {
+      "name": "Porslahden venekerho",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.plvk.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Porslahden venekerho",
+        "address": "2 Laiturikuja",
+        "city": "Helsinki",
+        "postal_code": "00980",
+        "country": "FI",
+        "lat": 60.2080909,
+        "lon": 25.1781911
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Liesikappeli",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://liesikappeli.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Liesikappeli",
+        "address": "7 Liesikuja",
+        "city": "Vantaa",
+        "postal_code": "01600",
+        "lat": 60.2626737,
+        "lon": 24.8509125
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Polyteknikkojen kuoro",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://polyteknikkojenkuoro.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Polyteknikkojen kuoro",
+        "address": "2 Limokuja",
+        "city": "Espoo",
+        "postal_code": "02150",
+        "country": "FI",
+        "lat": 60.187304,
+        "lon": 24.8346301
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Fööni",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.xn--fni-snaa.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fööni",
+        "address": "5 Hermannin rantatie",
+        "city": "Helsinki",
+        "postal_code": "00580",
+        "lat": 60.1877422,
+        "lon": 24.9780554
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Punkmuseo",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.punkmuseo.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Punkmuseo",
+        "address": "3 Jaakonkatu",
+        "city": "Helsinki",
+        "postal_code": "00100",
+        "lat": 60.1696784,
+        "lon": 24.9315947
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Partiolippukunta Mesikämmenet",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "http://mesikammenet.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Partiolippukunta Mesikämmenet",
+        "address": "74 Soukan rantatie",
+        "city": "Espoo",
+        "postal_code": "02360",
+        "lat": 60.1248185,
+        "lon": 24.6729803
+      },
+      "_metro": "Helsinki, Finland"
     }
   ],
   "_not_included": {

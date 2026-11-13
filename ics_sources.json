@@ -71849,5 +71849,212 @@
     "geocode_suffix": ", Aarhus, Denmark",
     "limit": 300,
     "_metro": "Aarhus, Denmark"
+  },
+  {
+    "name": "Laurbjerg Hallen",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ueftqule6ru58a6ukonch2tskk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aarhus, Denmark",
+    "limit": 300,
+    "_metro": "Aarhus, Denmark"
+  },
+  {
+    "name": "BioDyk",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l74bdv05et509ttpo3bm6drinrsot7np%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aarhus, Denmark",
+    "limit": 300,
+    "_metro": "Aarhus, Denmark"
+  },
+  {
+    "name": "T.E.U. Lisboa",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ilf4khtrlpg5b6hhqc7dv6719k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lisbon, Portugal",
+    "limit": 300,
+    "_metro": "Lisbon, Portugal"
+  },
+  {
+    "name": "Semifinal",
+    "category": "music",
+    "_found": "osm:nightclub -> ics",
+    "url": "https://tavastiaklubi.fi/events/2026-11-26/roge/121193/?ical",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Tavastia Klubi",
+    "category": "music",
+    "_found": "osm:nightclub -> ics",
+    "url": "https://tavastiaklubi.fi/events/2027-01-29/sara/120427/?ical",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Helsingin Raamattu Puhuu -seurakunta",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/helsinki%40raamattupuhuu.fi/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Jaatisen Maja, Vammaisperheyhdistys Jaatinen ry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5u2nr2iemj1p4k5uq6cm2o27q8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Hollolan Hirvenhiihtäjät ry",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4sbtu7ubf1qhjuh334q5ev1j3k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Suomalainen pursiseura ry",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/o6h00hgusqejbhf88d28jb7a8h8cd2nc%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Jazz Factory",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tg4he66r1u630841soj1lcntm8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Vapaan Taiteen Tila",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://vapaantaiteentila.fi/events/?ical=1",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Partiolippukunta Jeanne d'Arc",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jda.fi_q7ri29usskgnesfa048e2jag94%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Oranssi",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8fvf4sui5gdtlnltplf17ai7o4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki, Finland",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Stop Huumeille ry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stophuumeille.fi_7guhrad0h2ulii585ah1b3u414%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Sipoon kanoottiklubi",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6qhbhci3ajh9n1vo76hv5kg49c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki, Finland",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Helsingin itsenäinen evankelisluterilainen seurakunta",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4j4gmb11b7m4afeq59gvjdcec0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Rock'n'Swing Dance Club Comets",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l9ba7gb5ld09p2rln35ht339hc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Narrin näyttämö",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uptm66ltggvkmh48gqqlrq5e5k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Niipperin Nuolihaukat, kolo",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4mrcjebghlca5vfumldbiisqc4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Espoo",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Toimen Pojat",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/k73716cla3eu67c431lgiqc4gs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kauniainen",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Allun mökki",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eemeli.kaartinen%40ku58.fi/public/basic.ics",
+    "geocode_suffix": ", Vantaa",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Folkhälsanhuset i Vanda",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lctnknbojv3bmplqevfl1qj71s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vantaa",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Petikon maastorata",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/73s0t39gm4qeispd0f5k94aj7o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki, Finland",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
   }
 ]
