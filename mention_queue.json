@@ -359,6 +359,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "detroit jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-13",
+      "last_seen": "2026-11-13",
+      "name": "Detroit Jazz Festival",
+      "ref_keys": [
+        "aac0439b622b"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-25",
+          "title": "William Hill III Trio",
+          "url": "https://bluellamaclub.com/event/william-hill-iii-trio-3/"
+        }
+      ],
+      "sample": "Hill has had the opportunity to perform at the 46th Annual Detroit Jazz Festival, 2026 Jazz Congress, Unity Jazz Festival, Winter Jazz Festival, Dizzy’s Club, Smalls Jazz Club, Mezzrow Jazz Club, Minton’s Playhouse, The Kennedy Center, Esplanade-Theaters on the Bay (Singapore), Blue Note Tokyo,",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "dhaatu international puppet festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -755,9 +776,10 @@
     "manchester literature festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-13",
       "name": "Manchester Literature Festival",
       "ref_keys": [
+        "5de88ce5b4c5",
         "64dab8065b7a",
         "d50a35eb4beb",
         "def707855b29"
@@ -780,11 +802,17 @@
           "start": "2026-12-25",
           "title": "Little Reads",
           "url": "https://hla.oldham.gov.uk/event/little-reads/2026-12-25/"
+        },
+        {
+          "source": "tribe",
+          "start": "2027-01-01",
+          "title": "Little Reads at Failsworth Library",
+          "url": "https://hla.oldham.gov.uk/event/little-reads-3/2027-01-01/"
         }
       ],
       "sample": "Perfect for under 4’s and their families in partnership with Manchester Literature Festival. No need to book, just come along. Oldham Libraries View Organiser Website Add to calendar Google Calendar iCalendar Outlook 365 Outlook Live",
       "state": "pending",
-      "times_seen": 3,
+      "times_seen": 4,
       "venue": null
     },
     "maryland stem fest": {
@@ -1130,6 +1158,27 @@
       "sample": "Presented as part of the 2026 New York Comedy Festival, and following an acclaimed 2023 run at the Edinburgh Fringe Festival, LOVE ME is the off-Broadway debut from Emmy-nominated comedian Drew Michael, directed by Peabody Award winner Prashanth Venkataramanujam. In this immersive and hilarious thea",
       "state": "pending",
       "times_seen": 17,
+      "venue": null
+    },
+    "north country festival of trees": {
+      "dates": [],
+      "first_seen": "2026-11-13",
+      "last_seen": "2026-11-13",
+      "name": "North Country Festival of Trees",
+      "ref_keys": [
+        "91e4a12c0fe9"
+      ],
+      "referrers": [
+        {
+          "source": "jsonld",
+          "start": "2026-11-27",
+          "title": "Festival of Trees",
+          "url": "https://cfdsny.org/events/festival-of-trees/"
+        }
+      ],
+      "sample": "35th Annual North Country Festival of Trees presented by Beacon Bank! November 27th-29th, 2026 at The Queensbury Hotel The downtown Glens Falls landmark Queensbury Hotel will be transformed into a holiday wonderland, with beautifully decorated trees, wreaths, and more all available to purchase at",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "nyc jewelry week": {
@@ -1826,7 +1875,7 @@
     "winter festival of lights": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-13",
       "name": "Winter Festival of Lights",
       "ref_keys": [
         "7146d3ac5196"
@@ -1840,7 +1889,7 @@
         }
       ],
       "sample": "d by running or walking through the beautiful Winter Festival of Lights! For more than 30 years, visitors to the annual Winter Festival of Lights have been dazzled by twinkling light displays as they drove through Watkins Regional Park. This year, register to walk or run through the almost three-mil",
-      "state": "covered",
+      "state": "pending",
       "times_seen": 1,
       "venue": null
     }

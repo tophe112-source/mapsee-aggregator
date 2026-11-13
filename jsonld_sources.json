@@ -34381,6 +34381,463 @@
         "lon": -70.264645
       },
       "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Nomad Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.nomadplayhouse.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Nomad Theatre",
+        "address": "1410 Quince Avenue",
+        "city": "Boulder",
+        "region": "CO",
+        "postal_code": "80304",
+        "lat": 40.0475252,
+        "lon": -105.2797999
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Pisgah Brewing Company",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event",
+      "listing": [
+        "https://pisgahbrewing.com/event/bluegrass-open-jam-17/taproom-stage/black-mountain-north-carolina/"
+      ],
+      "link_pattern": "https://pisgahbrewing\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pisgah Brewing Company",
+        "address": "2948 US-70",
+        "city": "Black Mountain",
+        "region": "NC",
+        "postal_code": "28711",
+        "lat": 35.6066065,
+        "lon": -82.3567049
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "The Orange Peel",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://theorangepeel.net/event/widow-anchor/pulp/asheville-north-carolina/"
+      ],
+      "link_pattern": "https://theorangepeel\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Orange Peel",
+        "address": "101 Biltmore Avenue",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28801",
+        "lat": 35.5914066,
+        "lon": -82.5511333
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Malvern Hills Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://mhpcasheville.org/calendar/"
+      ],
+      "link_pattern": "https://mhpcasheville\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Malvern Hills Presbyterian Church",
+        "address": "2 Bear Creek Road",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28806",
+        "lat": 35.5749867,
+        "lon": -82.6132188
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Santa Fe Opera",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.santafeopera.org/whats-on/turandot-2027/"
+      ],
+      "link_pattern": "https://www\\.santafeopera\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Santa Fe Opera",
+        "address": "301 Opera Dr",
+        "city": "Santa Fe",
+        "region": "NM",
+        "postal_code": "87106",
+        "lat": 35.7640397,
+        "lon": -105.9470483
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Collected Works Bookstore and Coffeehouse",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.collectedworksbookstore.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Collected Works Bookstore and Coffeehouse",
+        "address": "202 Galisteo Street",
+        "city": "Santa Fe",
+        "region": "NM",
+        "postal_code": "87501",
+        "lat": 35.6867503,
+        "lon": -105.941007
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Red Bank Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.redbankchurchofchrist.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Red Bank Church of Christ",
+        "address": "3600 Dayton Boulevard",
+        "city": "Chattanooga",
+        "postal_code": "37415",
+        "lat": 35.1144256,
+        "lon": -85.292151
+      },
+      "_metro": "Chattanooga, United States"
+    },
+    {
+      "name": "Chattanooga First Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.chattfirstsda.com/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Chattanooga First Seventh-day Adventist Church",
+        "address": "7450 Standifer Gap Road",
+        "lat": 35.0513658,
+        "lon": -85.141596
+      },
+      "_metro": "Chattanooga, United States"
+    },
+    {
+      "name": "Journey",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://journeyinbend.com/events"
+      ],
+      "link_pattern": "https://journeyinbend\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Journey",
+        "address": "70 Northwest Newport Avenue",
+        "city": "Bend",
+        "region": "OR",
+        "postal_code": "97703",
+        "lat": 44.0609571,
+        "lon": -121.3137111
+      },
+      "_metro": "Bend OR, United States"
+    },
+    {
+      "name": "Westminster Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.wpcoly.org/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Westminster Presbyterian Church",
+        "address": "1925 Boulevard Road Southeast",
+        "city": "Olympia",
+        "region": "WA",
+        "postal_code": "98501",
+        "lat": 47.0315144,
+        "lon": -122.8657596
+      },
+      "_metro": "Olympia WA, United States"
+    },
+    {
+      "name": "Copenhagen Contemporary",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://copenhagencontemporary.org/event/earth-tree-sessions-ovum"
+      ],
+      "link_pattern": "https://copenhagencontemporary\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Copenhagen Contemporary",
+        "lat": 55.6934116,
+        "lon": 12.6135976
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "4. Hvidovre Søspejdergruppe",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://sospejder.com/begivenhed/oerholm-2027"
+      ],
+      "link_pattern": "https://sospejder\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "4. Hvidovre Søspejdergruppe",
+        "lat": 55.6260147,
+        "lon": 12.4999827
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "Mjølner Gruppe",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.mjoelnerspejder.dk/begivenhed/surpricetur"
+      ],
+      "link_pattern": "https://www\\.mjoelnerspejder\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mjølner Gruppe",
+        "lat": 55.7814024,
+        "lon": 12.3722161
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "Søspejdergruppen Fribytterne",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://fribytterne.dk/begivenhed/ledermoede-13"
+      ],
+      "link_pattern": "https://fribytterne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Søspejdergruppen Fribytterne",
+        "lat": 55.6633635,
+        "lon": 12.6354002
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "Jacala-Stammen",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.jacala.dk/begivenhed/dinizuli"
+      ],
+      "link_pattern": "https://www\\.jacala\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jacala-Stammen",
+        "lat": 55.6425308,
+        "lon": 12.2902291
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "Wagandoo Gruppe",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.wagandoo.dk/begivenhed/juletur-kantara"
+      ],
+      "link_pattern": "https://www\\.wagandoo\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wagandoo Gruppe",
+        "lat": 55.6554664,
+        "lon": 12.3098442
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "Søspejdertroppen Gry",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.gryspejderne.dk/begivenhed/juletur-gry"
+      ],
+      "link_pattern": "https://www\\.gryspejderne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Søspejdertroppen Gry",
+        "lat": 55.718271,
+        "lon": 12.592174
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "Køge Søspejd - Ivar Huitfeldt Gruppe",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.ksspejd.dk/begivenhed/indmeldelsestartpakke"
+      ],
+      "link_pattern": "https://www\\.ksspejd\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Køge Søspejd - Ivar Huitfeldt Gruppe",
+        "lat": 55.4713735,
+        "lon": 12.197224
+      },
+      "_metro": "Copenhagen, Denmark"
+    },
+    {
+      "name": "12. Århus Gruppe, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://12aarhus.dk/begivenhed/juletur-2026"
+      ],
+      "link_pattern": "https://12aarhus\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "12. Århus Gruppe, Det Danske Spejderkorps",
+        "lat": 56.1762134,
+        "lon": 10.2077485
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Babylon Huset",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://babylon-huset.dk/koncerter-og-events"
+      ],
+      "link_pattern": "https://babylon\\-huset\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Babylon Huset",
+        "lat": 56.1110333,
+        "lon": 10.1075627
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Skanderborg Gruppe, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://skanderborgspejder.dk/begivenhed/gruppetur-2027"
+      ],
+      "link_pattern": "https://skanderborgspejder\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Skanderborg Gruppe, Det Danske Spejderkorps",
+        "lat": 56.0286996,
+        "lon": 9.957929
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "1. Galten Gruppe, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://1galtengruppe.dk/begivenhed/juleafslutning-0"
+      ],
+      "link_pattern": "https://1galtengruppe\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "1. Galten Gruppe, Det Danske Spejderkorps",
+        "lat": 56.1606276,
+        "lon": 9.9231081
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Stærkodder Gruppe, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://odderspejder.dk/begivenhed/grupperaadsmoede-2027-generalforsamling"
+      ],
+      "link_pattern": "https://odderspejder\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stærkodder Gruppe, Det Danske Spejderkorps",
+        "lat": 55.9680874,
+        "lon": 10.1456927
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "HadstenSpejderne, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.hadstenspejderne.dk/begivenhed/troldefaerd-2027"
+      ],
+      "link_pattern": "https://www\\.hadstenspejderne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "HadstenSpejderne, Det Danske Spejderkorps",
+        "lat": 56.3288175,
+        "lon": 10.0558143
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Hørning Gruppe, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://ddshorning.dk/begivenhed/julelejr-2026"
+      ],
+      "link_pattern": "https://ddshorning\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hørning Gruppe, Det Danske Spejderkorps",
+        "lat": 56.0779028,
+        "lon": 10.0301559
+      },
+      "_metro": "Aarhus, Denmark"
+    },
+    {
+      "name": "Gallerne, Det Danske Spejderkorps",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://gallerne.dk/begivenhed/julemaerkemarchen-2026"
+      ],
+      "link_pattern": "https://gallerne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gallerne, Det Danske Spejderkorps",
+        "lat": 56.154444,
+        "lon": 10.1657293
+      },
+      "_metro": "Aarhus, Denmark"
     }
   ],
   "_not_included": {

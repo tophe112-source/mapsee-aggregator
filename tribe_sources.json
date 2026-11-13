@@ -45643,6 +45643,521 @@
         "lon": -73.2012236
       },
       "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Arctic Oasis Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jberlife.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arctic Oasis Community Center",
+        "city": "JBER",
+        "region": "AK",
+        "postal_code": "99506",
+        "lat": 61.2448039,
+        "lon": -149.80743
+      },
+      "_metro": "Anchorage, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Mountain City Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mountaincity.church",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mountain City Church",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99504",
+        "lat": 61.1963092,
+        "lon": -149.7600168
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Alaska Samoan Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://samoanak.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alaska Samoan Seventh-day Adventist Church",
+        "city": "Anchorage",
+        "region": "AK",
+        "lat": 61.1797305,
+        "lon": -149.8539405
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Eagle River Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://eaglerivervalleyak.adventistchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eagle River Seventh-day Adventist Church",
+        "city": "Eagle River",
+        "region": "AK",
+        "postal_code": "99577",
+        "lat": 61.3114425,
+        "lon": -149.565625
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Hillside O'Malley Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://omalleysda.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hillside O'Malley Seventh-day Adventist Church",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99507",
+        "lat": 61.1225144,
+        "lon": -149.7702185
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Grossen Bart Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://grossenbart.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grossen Bart Brewery",
+        "address": "1025 Delaware Avenue",
+        "city": "Longmont",
+        "region": "CO",
+        "postal_code": "80501",
+        "lat": 40.1542297,
+        "lon": -105.1092105
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Backdoor Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://thebackdoortheatre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Backdoor Theatre",
+        "address": "243 West 4th Street",
+        "city": "Nederland",
+        "region": "CO",
+        "postal_code": "80466",
+        "lat": 39.9645398,
+        "lon": -105.5116488
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Silver Wings Arts Program",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://silverwingsartsprogram.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Silver Wings Arts Program",
+        "address": "908 Main Street",
+        "city": "Louisville",
+        "region": "CO",
+        "postal_code": "80027",
+        "lat": 39.9790205,
+        "lon": -105.1316735
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Unitarian Universalist Church of Boulder",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://uuchurchofboulder.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Church of Boulder",
+        "address": "5001 Pennsylvania Avenue",
+        "city": "Boulder",
+        "region": "CO",
+        "postal_code": "80303",
+        "lat": 40.0069207,
+        "lon": -105.2326517
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "The Dairy Arts Center",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://thedairy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Dairy Arts Center",
+        "address": "2590 Walnut Street",
+        "city": "Boulder",
+        "region": "CO",
+        "postal_code": "80302",
+        "lat": 40.0193998,
+        "lon": -105.2610377
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Avalon",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event",
+      "base_url": "https://boulderdance.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Avalon",
+        "address": "6185 Arapahoe Road",
+        "region": "CO",
+        "postal_code": "80301",
+        "lat": 40.0155228,
+        "lon": -105.2092679
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Guardian Angels Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://meadangels.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Guardian Angels Catholic Church",
+        "address": "109 3rd Street",
+        "city": "Mead",
+        "region": "CO",
+        "postal_code": "80542",
+        "lat": 40.2327404,
+        "lon": -104.9989658
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Flood Gallery Fine Art Center",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://floodgallery.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Flood Gallery Fine Art Center",
+        "address": "802 Fairview Road",
+        "lat": 35.5731818,
+        "lon": -82.5028028
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Dssolvr",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event+ics",
+      "base_url": "https://dssolvr.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dssolvr",
+        "address": "63 North Lexington Avenue",
+        "postal_code": "28801",
+        "lat": 35.5968847,
+        "lon": -82.5535803
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Asheville Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ashevilleart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Asheville Art Museum",
+        "address": "2 South Pack Square",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28801",
+        "lat": 35.5945454,
+        "lon": -82.5510334
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Asheville Yards",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ashevilleyards.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Asheville Yards",
+        "address": "75 Coxe Avenue",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28801",
+        "lat": 35.592062,
+        "lon": -82.5553872
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Manna Food Bank",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://mannafoodbank.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Manna Food Bank",
+        "address": "99 Broadpointe Drive",
+        "city": "Mills River",
+        "region": "NC",
+        "postal_code": "28759",
+        "lat": 35.4173239,
+        "lon": -82.5498597
+      },
+      "_metro": "Asheville, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Lake Hills Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://lakehillslife.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lake Hills Church",
+        "lat": 35.5263247,
+        "lon": -82.6588091
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Unitarian Universalist Congregation of Asheville",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://uuasheville.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Universalist Congregation of Asheville",
+        "address": "1 Edwin Place",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28801",
+        "lat": 35.6091915,
+        "lon": -82.5464245
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Asheville Museum of Science",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://ashevillescience.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Asheville Museum of Science",
+        "address": "43 Patton Avenue",
+        "postal_code": "28801",
+        "lat": 35.5949606,
+        "lon": -82.5535144
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Mount Pisgah Academy Seventh-day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mpasda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Pisgah Academy Seventh-day Adventist Church",
+        "address": "21 Academy Drive",
+        "city": "Candler",
+        "region": "NC",
+        "postal_code": "28715",
+        "lat": 35.5689866,
+        "lon": -82.6710781
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Mountain Cloud Zen Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.mountaincloud.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mountain Cloud Zen Center",
+        "address": "7241 Old Santa Fe Trail",
+        "city": "Santa Fe",
+        "postal_code": "87505",
+        "lat": 35.6383595,
+        "lon": -105.9170234
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Thaw Art History Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://sfai.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Thaw Art History Center",
+        "lat": 35.658079,
+        "lon": -105.979418
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "El Rancho de las Golondrinas",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://golondrinas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "El Rancho de las Golondrinas",
+        "address": "334 Los Pinos Road",
+        "city": "Santa Fe",
+        "region": "NM",
+        "postal_code": "87507",
+        "lat": 35.573584,
+        "lon": -106.111685
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Chuck Jones Studio Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://chuckjones.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chuck Jones Studio Gallery",
+        "lat": 35.6865482,
+        "lon": -105.940292
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Poeh Cultural Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://poehcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Poeh Cultural Center",
+        "address": "78 Cities of Gold Road",
+        "city": "Santa Fe",
+        "region": "NM",
+        "postal_code": "87506",
+        "lat": 35.8823306,
+        "lon": -106.0121016
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Pflueger",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://legaltenderlamy.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pflueger",
+        "address": "155 Old Lamy Trail",
+        "city": "Lamy",
+        "region": "NM",
+        "postal_code": "87540-9515",
+        "lat": 35.4811437,
+        "lon": -105.8807591
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Episcopal Church of the Good Shepherd",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gslookout.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Episcopal Church of the Good Shepherd",
+        "address": "211 Franklin Road",
+        "city": "Lookout Mountain",
+        "region": "TN",
+        "postal_code": "37350",
+        "lat": 34.9950858,
+        "lon": -85.3510273
+      },
+      "_metro": "Chattanooga, United States"
+    },
+    {
+      "name": "First Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.first4u.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Lutheran Church",
+        "address": "2800 McCallie Avenue",
+        "city": "Chattanooga",
+        "region": "TN",
+        "postal_code": "37404",
+        "lat": 35.0313899,
+        "lon": -85.2610687
+      },
+      "_metro": "Chattanooga, United States"
+    },
+    {
+      "name": "Hands On Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.hocm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hands On Children's Museum",
+        "address": "414 Jefferson Street Northeast",
+        "city": "Olympia",
+        "region": "WA",
+        "postal_code": "98501",
+        "lat": 47.0480478,
+        "lon": -122.8966714
+      },
+      "_metro": "Olympia WA, United States"
     }
   ],
   "_not_included": {

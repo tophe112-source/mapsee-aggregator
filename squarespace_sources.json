@@ -10570,6 +10570,250 @@
         "lon": -72.9444
       },
       "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Gloria Dei Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.gdlcanc.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Gloria Dei Lutheran Church",
+        "address": "8427 Jewel Lake Road",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99502",
+        "lat": 61.1441789,
+        "lon": -149.9504831
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Muldoon Community Assembly",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.mcaonline.org/mcaevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Muldoon Community Assembly",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99504",
+        "lat": 61.2102639,
+        "lon": -149.749082
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Awaken Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.awakenalaska.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Awaken Church",
+        "address": "5295 Juneau Street",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99518",
+        "lat": 61.172382,
+        "lon": -149.8628025
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Magnetic North Brewery",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://magneticnorthbrewingco.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Magnetic North Brewery",
+        "address": "8861 Golovin Street",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99507",
+        "lat": 61.1403433,
+        "lon": -149.8373669
+      },
+      "_metro": "Anchorage, United States"
+    },
+    {
+      "name": "Odd13 Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.odd13brewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Odd13 Brewing",
+        "lat": 39.998385,
+        "lon": -105.0878622
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Trident",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.tridentcafe.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Trident",
+        "lat": 40.0171508,
+        "lon": -105.2829245
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "St. Vrain Cidery",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.stvraincidery.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Vrain Cidery",
+        "address": "350 Terry Street",
+        "city": "Longmont",
+        "region": "CO",
+        "postal_code": "80501",
+        "lat": 40.1651693,
+        "lon": -105.104587
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Sombrero Marsh Environmental Center",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.thornenature.org/events-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Sombrero Marsh Environmental Center",
+        "address": "1466 63rd Street",
+        "city": "Boulder",
+        "region": "CO",
+        "postal_code": "80303",
+        "lat": 40.011815,
+        "lon": -105.2023765
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Boulder Museum of Contemporary Art",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.bmoca.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Boulder Museum of Contemporary Art",
+        "address": "1750 13th Street",
+        "city": "Boulder",
+        "region": "CO",
+        "postal_code": "80302",
+        "lat": 40.0151569,
+        "lon": -105.2772986
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Saint Francis Of Assisi Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://sfassisi.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Francis Of Assisi Catholic Church",
+        "address": "3791 Pike Road",
+        "city": "Longmont",
+        "region": "CO",
+        "postal_code": "80503",
+        "lat": 40.1372114,
+        "lon": -105.152186
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Saint Lukes Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stlukesavl.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Saint Lukes Church",
+        "address": "219 Chunns Cove Road",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28805",
+        "lat": 35.6021903,
+        "lon": -82.5312464
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Center for Contemporary Arts",
+      "category": "theater",
+      "_found": "osm:cinema -> squarespace",
+      "collection": "https://www.ccasantafe.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Center for Contemporary Arts",
+        "address": "1050 Old Pecos Trail",
+        "city": "Santa Fe",
+        "region": "NM",
+        "postal_code": "87505",
+        "lat": 35.6736544,
+        "lon": -105.938127
+      },
+      "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "The Signal",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.thesignaltn.com/tickets",
+      "max_events": 200,
+      "venue": {
+        "name": "The Signal",
+        "address": "21 Choo Choo Avenue",
+        "postal_code": "37402",
+        "lat": 35.0383755,
+        "lon": -85.3057273
+      },
+      "_metro": "Chattanooga, United States"
+    },
+    {
+      "name": "Rainier Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.rainierchapel.org/weekly-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Rainier Chapel",
+        "address": "204 Binghampton St E",
+        "city": "Rainier",
+        "region": "WA",
+        "postal_code": "98576-9001",
+        "lat": 46.8895022,
+        "lon": -122.6872808
+      },
+      "_metro": "Olympia WA, United States"
+    },
+    {
+      "name": "Capital Christian Center",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.go2ccc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Capital Christian Center",
+        "address": "4431 Martin Way East",
+        "city": "Olympia",
+        "region": "WA",
+        "postal_code": "98516",
+        "lat": 47.0472877,
+        "lon": -122.8262663
+      },
+      "_metro": "Olympia WA, United States"
     }
   ],
   "_not_included": {

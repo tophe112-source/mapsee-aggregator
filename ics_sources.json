@@ -71433,5 +71433,421 @@
     "geocode_suffix": ", Keeseville, NY",
     "limit": 300,
     "_metro": "Burlington VT, United States"
+  },
+  {
+    "name": "Civil Air Patrol Lake Hood Squadron",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_75583c8c00eb76ff1637fed2c16429075d58bc7039942a7a15e493e187f65817%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Anchorage, AK",
+    "limit": 300,
+    "_metro": "Anchorage, United States"
+  },
+  {
+    "name": "St. John Orthodox Cathedral",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0k3i98qf8faoh4893emkkhed7c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chugiak, AK",
+    "limit": 300,
+    "_metro": "Anchorage, United States"
+  },
+  {
+    "name": "Faith Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/faithanchorage.org_bbdid6bgfs02l0jl43q4g1prsc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Anchorage, AK",
+    "limit": 300,
+    "_metro": "Anchorage, United States"
+  },
+  {
+    "name": "Joy Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.joy-lutheran.com/events.ics",
+    "geocode_suffix": ", Eagle River, AK",
+    "limit": 300,
+    "_metro": "Anchorage, United States"
+  },
+  {
+    "name": "Saint Benedict Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stbenedictsak.com_iv80iesldavursqggvv3m9vuus%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Anchorage, AK",
+    "limit": 300,
+    "_metro": "Anchorage, United States"
+  },
+  {
+    "name": "Westview Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wview%40westviewpres.org/public/basic.ics",
+    "geocode_suffix": ", Boulder, United States",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Saint Johns Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4ec82bfb20fa850eb9b673121ee1103c6df6ddc9ec4b4febb0be054c0308f401%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boulder, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Longmont Buddhist Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/longmontbuddhism%40icloud.com/public/basic.ics",
+    "geocode_suffix": ", Longmont, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Erie Community Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.erieco.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+    "geocode_suffix": ", Erie, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Saint Mary of the Assumption Catholic Mission",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40godrushcatholic.org/public/basic.ics",
+    "geocode_suffix": ", Central City, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Saint Dimitrie the New Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_6bk18lioi750jnfap0rt6gilco%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Frederick, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Firestorm Books",
+    "category": "learning",
+    "_found": "osm:books -> ics",
+    "url": "http://firestorm.coop/calendar.ics",
+    "geocode_suffix": ", Asheville",
+    "limit": 300,
+    "_metro": "Asheville, United States"
+  },
+  {
+    "name": "Fletcher Seventh-day Adventist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/secretary%40fletchersda.org/public/basic.ics",
+    "geocode_suffix": ", Hendersonville",
+    "limit": 300,
+    "_metro": "Asheville, United States"
+  },
+  {
+    "name": "French Broad Brewery",
+    "category": "food",
+    "_found": "osm:brewery -> events-manager",
+    "url": "https://www.frenchbroadbrewery.com/events/?ical=1",
+    "geocode_suffix": ", Asheville, NC",
+    "limit": 300,
+    "_metro": "Asheville, United States",
+    "crawl_delay": 20.0
+  },
+  {
+    "name": "Holy Trinity Greek Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7ed4907746db3847426521c4e4ed617ca4db9b1fbf7eb4d4d0b9178d12c5491a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Asheville, NC",
+    "limit": 300,
+    "_metro": "Asheville, United States"
+  },
+  {
+    "name": "Nuckolls Brewing - Lamy Railyard",
+    "category": "community",
+    "_found": "osm:bar -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_e543c1a0d20ca394b823ff94e4fa8916d8d0bb9f35d1f3c95ef409c8f14b3a98%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Santa Fe, United States",
+    "limit": 300,
+    "_metro": "Santa Fe, United States"
+  },
+  {
+    "name": "Iglesia Ciudad",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ciudaddegracia.com/events.ics",
+    "geocode_suffix": ", Santa Fe, United States",
+    "limit": 300,
+    "_metro": "Santa Fe, United States"
+  },
+  {
+    "name": "Holy Trinity Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/8af33cafd05bcccaf223297308b1eb83293f86da7fecb3c2b4b95624f041fab1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Santa Fe, NM",
+    "limit": 300,
+    "_metro": "Santa Fe, United States"
+  },
+  {
+    "name": "Saint Timothy's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sttimothysignal.org_htfgobd5eej29uh991tjtnns3s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Signal Mountain, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "First Baptist Church Soddy Daisy",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://fbcsoddydaisy.com/events.ics",
+    "geocode_suffix": ", Soddy Daisy, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Hixson United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/paa7d1bbh446nutojhqa57lem8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hixson, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "B'nai Zion Congregation",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i39fj9sor4pm1a0bg5uqdn6hqo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chattanooga, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Christ Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b97go6sh3ge5rfntu9p7d1f12o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chattanooga, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Saint Gerard Majella Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_8629b63b961ceb623c391d84f4935e60f5ed06a0ddbae8ee20cf4a486db7d9c6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fort Oglethorpe, GA",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Cross of Christ Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cocluth.com_5u8fej84jok7a8nvel6b5lnlkk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chattanooga, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Ascension Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5fdd6da187de6fad9d4ec8d54d198953714ea9d69fcff4b6f186a8f29f91e8fe%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chattanooga, TN",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Grace Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_57db300883f661a9199482972425e98d81b42f9ff4b20ce39d5996ce80a9b9b5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chattanooga",
+    "limit": 300,
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "Bend First Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser",
+    "url": "https://bendfp.org/?feed=eo-events",
+    "geocode_suffix": ", Bend",
+    "limit": 300,
+    "_metro": "Bend OR, United States"
+  },
+  {
+    "name": "Bend Masonic Lodge #139",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c7u5ql9gic6u3gtt0qnmp64dlo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bend, OR",
+    "limit": 300,
+    "_metro": "Bend OR, United States"
+  },
+  {
+    "name": "Cascades Theatre",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_32bb2222a6dad17fe81326f28c0e6cae31029cce193935d2a7ea0c02085d8142%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bend, OR",
+    "limit": 300,
+    "_metro": "Bend OR, United States"
+  },
+  {
+    "name": "The Art Station",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f1lrnau7khev197tgj6tjcik0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bend, OR",
+    "limit": 300,
+    "_metro": "Bend OR, United States"
+  },
+  {
+    "name": "St Jacob Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/drapobdk2p2pnf7ut4medlnvro%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bend, OR",
+    "limit": 300,
+    "_metro": "Bend OR, United States"
+  },
+  {
+    "name": "DECAY",
+    "category": "community",
+    "_found": "osm:events_venue -> ics",
+    "url": "https://decay.events/events.ics",
+    "geocode_suffix": ", Olympia, WA",
+    "limit": 300,
+    "_metro": "Olympia WA, United States"
+  },
+  {
+    "name": "Evergreen Sportsmen's Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9iltdce0d62seumrjqt4hptj20%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Olympia, WA",
+    "limit": 300,
+    "_metro": "Olympia WA, United States"
+  },
+  {
+    "name": "St Mark Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/co%40stmarklacey.org/public/basic.ics",
+    "geocode_suffix": ", Lacey, WA",
+    "limit": 300,
+    "_metro": "Olympia WA, United States"
+  },
+  {
+    "name": "播道會太古城堂 EFCC Taikoo Shing Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6cnt3il781idm20n38jms2du0g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hong Kong, Hong Kong",
+    "limit": 300,
+    "_metro": "Hong Kong, Hong Kong"
+  },
+  {
+    "name": "the church in hong kong (causeway bay assembly hall)",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2cvre9b955ospnnhsi37nigkf0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hong Kong, Hong Kong",
+    "limit": 300,
+    "_metro": "Hong Kong, Hong Kong"
+  },
+  {
+    "name": "Faraos Cigarer",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j9l67avmsrmgsv5ogfsk885a5k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Maskine Maskine Amager",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar",
+    "url": "https://mmamager.dk/?feed=my-calendar-ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Kanoklubben PUST",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v5qkum0jr3pconh2drt9sf5gvs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Repair Cafe Herlev",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/210f05a68600d6b2fb474f5c11eee2338dc4b8a177ae5c30a45a9a5eae8b0372%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Taastrup Gruppe",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uprbto922qsp02c0610aro7hcc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Martinskirken",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.vivit.dk/martinskirken/kalender.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Sejlklubben Greve Strand",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/udlejning%40sgs-greve.dk/public/basic.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "HEP-Huset",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r89kkbp0om99cu1a5fvtgesc58%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "Open Space Aarhus",
+    "category": "community",
+    "_found": "osm:hackerspace -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/18vc4vdr0hr9h551agftdcoluk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aarhus, Denmark",
+    "limit": 300,
+    "_metro": "Aarhus, Denmark"
   }
 ]
