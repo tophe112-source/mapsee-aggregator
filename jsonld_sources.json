@@ -35390,6 +35390,250 @@
         "lon": 11.954223
       },
       "_metro": "Gothenburg, Sweden"
+    },
+    {
+      "name": "Nobels Fredssenter",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.nobelpeacecenter.org/arrangementer/poets-in-the-garden-2026"
+      ],
+      "link_pattern": "https://www\\.nobelpeacecenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nobels Fredssenter",
+        "lat": 59.911612,
+        "lon": 10.7304
+      },
+      "_metro": "Oslo, Norway"
+    },
+    {
+      "name": "Volkskundemuseum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.volkskundemuseum.at/kontext?event_id="
+      ],
+      "link_pattern": "https://www\\.volkskundemuseum\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Volkskundemuseum",
+        "address": "17 Laudongasse",
+        "city": "Wien",
+        "postal_code": "1080",
+        "country": "AT",
+        "lat": 48.2131498,
+        "lon": 16.3505518
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Buchhandlung List",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://buchhandlunglist.at/veranstaltungen/"
+      ],
+      "link_pattern": "https://buchhandlunglist\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Buchhandlung List",
+        "address": "36 Porzellangasse",
+        "postal_code": "1090",
+        "lat": 48.2221558,
+        "lon": 16.361188
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "BALANCE - Leben ohne Barrieren",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.balance.at/aktuelles/advent-event-am-fuchsenfeld"
+      ],
+      "link_pattern": "https://www\\.balance\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BALANCE - Leben ohne Barrieren",
+        "address": "1 Hochheimgasse",
+        "city": "Wien",
+        "postal_code": "1130",
+        "country": "AT",
+        "lat": 48.1739437,
+        "lon": 16.2970269
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Stadtbox",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://wienxtra.at/event/7090/"
+      ],
+      "link_pattern": "https://wienxtra\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbox",
+        "lat": 48.2296298,
+        "lon": 16.5093507
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "House Of Strauss",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://houseofstrauss.at/konzertkalender/"
+      ],
+      "link_pattern": "https://houseofstrauss\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "House Of Strauss",
+        "address": "76 Döblinger Hauptstraße",
+        "city": "Wien",
+        "postal_code": "1190",
+        "country": "AT",
+        "lat": 48.2402443,
+        "lon": 16.3553846
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://lerchenfelderstrasse.at/veranstaltungen/"
+      ],
+      "link_pattern": "https://lerchenfelderstrasse\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "city": "Wien",
+        "postal_code": "1070",
+        "lat": 48.208159,
+        "lon": 16.3400434,
+        "street_hint": "141 Lerchenfelder Straße"
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Wiener Konzerthaus",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://konzerthaus.at/de/programm-und-karten/mnozil-brass/63930"
+      ],
+      "link_pattern": "https://konzerthaus\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wiener Konzerthaus",
+        "address": "20 Lothringerstraße",
+        "city": "Wien",
+        "postal_code": "1030",
+        "country": "AT",
+        "lat": 48.2006286,
+        "lon": 16.3776425
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "82er Haus",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theater82erhaus.at/veranstaltung/cmt2uos9e0023amlpdrkl4ujl"
+      ],
+      "link_pattern": "https://www\\.theater82erhaus\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "82er Haus",
+        "address": "82 Linzer Straße",
+        "city": "Gablitz",
+        "postal_code": "3003",
+        "country": "AT",
+        "lat": 48.2296681,
+        "lon": 16.1532669
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Evang. Glaubenskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://glaubenskirche.at/termine/frauentreff/?lre_date=2026-11-20"
+      ],
+      "link_pattern": "https://glaubenskirche\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evang. Glaubenskirche",
+        "address": "22 Braunhubergasse",
+        "city": "Wien",
+        "postal_code": "1110",
+        "country": "AT",
+        "lat": 48.1699768,
+        "lon": 16.41415
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Seniorenschlössl Atzgersdorf",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.wiedaham.at/wien/seniorenschloessl-atzgersdorf/herzlich-willkommen/"
+      ],
+      "link_pattern": "https://www\\.wiedaham\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Seniorenschlössl Atzgersdorf",
+        "address": "19 Hödlgasse",
+        "city": "Wien",
+        "postal_code": "1230",
+        "lat": 48.1489204,
+        "lon": 16.2938871
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Haus der Geschichte Österreich",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://hdgoe.at/donnerstagabend"
+      ],
+      "link_pattern": "https://hdgoe\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Haus der Geschichte Österreich",
+        "lat": 48.2050731,
+        "lon": 16.3648021
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "SV Union LUV - Graz Wetzelsdorf / TC LUV Graz",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://sportunion.at/termine-events/"
+      ],
+      "link_pattern": "https://sportunion\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SV Union LUV - Graz Wetzelsdorf / TC LUV Graz",
+        "address": "11 Grottenhofstraße",
+        "city": "Graz",
+        "postal_code": "8053",
+        "country": "AT",
+        "lat": 47.0457008,
+        "lon": 15.4037857
+      },
+      "_metro": "Graz, Austria"
     }
   ],
   "_not_included": {

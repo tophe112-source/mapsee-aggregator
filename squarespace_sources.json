@@ -10831,6 +10831,19 @@
         "lon": 11.9630736
       },
       "_metro": "Gothenburg, Sweden"
+    },
+    {
+      "name": "Den Gröne Fabrikken",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.dengronefabrikken.no/arrangement",
+      "max_events": 200,
+      "venue": {
+        "name": "Den Gröne Fabrikken",
+        "lat": 60.573963,
+        "lon": 5.4763442
+      },
+      "_metro": "Bergen, Norway"
     }
   ],
   "_not_included": {

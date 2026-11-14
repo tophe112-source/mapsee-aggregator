@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 14,
-  "metro_key": "SE:Gothenburg",
+  "metro": 19,
+  "metro_key": "AT:Graz",
   "stuck": {}
  },
  "osm|community_centre,library": {

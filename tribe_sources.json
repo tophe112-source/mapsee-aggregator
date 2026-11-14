@@ -46415,6 +46415,107 @@
         "lon": 18.0804994
       },
       "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "Malmö konsthall",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://malmokonsthall.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Malmö konsthall",
+        "address": "7 Sankt Johannesgatan",
+        "postal_code": "20580",
+        "lat": 55.5952697,
+        "lon": 12.9992402
+      },
+      "_metro": "Malmo, Sweden"
+    },
+    {
+      "name": "Some Like It Hot",
+      "category": "community",
+      "_found": "osm:dancing_school -> tribe+gcal-embed",
+      "base_url": "https://somelikeithot.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Some Like It Hot",
+        "address": "9 Sechshauser Straße",
+        "city": "Wien",
+        "postal_code": "1150",
+        "country": "AT",
+        "lat": 48.1891333,
+        "lon": 16.335727
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Theater am Alsergrund",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.theateralsergrund.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater am Alsergrund",
+        "address": "5-7 Löblichgasse",
+        "city": "Wien",
+        "postal_code": "1090",
+        "country": "AT",
+        "lat": 48.2261072,
+        "lon": 16.3523167
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Fachschaft Doktorat der Technischen Universität Wien",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://fsdr.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fachschaft Doktorat der Technischen Universität Wien",
+        "address": "9 Getreidemarkt",
+        "city": "Wien",
+        "postal_code": "1060",
+        "lat": 48.2012181,
+        "lon": 16.3636326
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Schlossmuseum Vösendorf",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://voesendorf.gv.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schlossmuseum Vösendorf",
+        "lat": 48.1209006,
+        "lon": 16.34271
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "St. Erhard - Mauer",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pfarremauer.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Erhard - Mauer",
+        "address": "117 Endresstraße",
+        "city": "Wien",
+        "postal_code": "1230",
+        "country": "AT",
+        "lat": 48.1507643,
+        "lon": 16.269183
+      },
+      "_metro": "Vienna, Austria"
     }
   ],
   "_not_included": {

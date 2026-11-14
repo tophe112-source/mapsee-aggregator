@@ -72345,5 +72345,203 @@
     "geocode_suffix": ", Nödinge",
     "limit": 300,
     "_metro": "Gothenburg, Sweden"
+  },
+  {
+    "name": "Frivillighetshuset",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/miih5i4ii83sgpkc8e3h7d5tf8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oslo, Norway",
+    "limit": 300,
+    "_metro": "Oslo, Norway"
+  },
+  {
+    "name": "Stabekk Tennis",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nettskred.no_uiet18arueqrcvsjk88knqc7fg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oslo, Norway",
+    "limit": 300,
+    "_metro": "Oslo, Norway"
+  },
+  {
+    "name": "Tango abrazo",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l4ckr90ke5d4mqtsq9bgq9bf5o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bergen, Norway",
+    "limit": 300,
+    "_metro": "Bergen, Norway"
+  },
+  {
+    "name": "Pinsekirken Tabernaklet",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ppsui1168ju95v13nb3300vbvo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bergen, Norway",
+    "limit": 300,
+    "_metro": "Bergen, Norway"
+  },
+  {
+    "name": "Betania",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cqjqp9i01fd0f7fiie3nosmtg4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bergen, Norway",
+    "limit": 300,
+    "_metro": "Bergen, Norway"
+  },
+  {
+    "name": "Frekhaug Bedehus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4ik2uhg8n1hgsl6gh27lt7879o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bergen, Norway",
+    "limit": 300,
+    "_metro": "Bergen, Norway"
+  },
+  {
+    "name": "Pfarrkirche Don Bosco",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.pfarre-neuerdberg.at/events.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Porgy & Bess",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.porgy.at/events/export/calendar/13049.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "CIG - Christliche Internationale Gemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/51fc717d5b396e12ee4af4d5a57375dbd1535f4ecdbbdd61863aaa28c2b96b65%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Ballschule Wien",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/728ug42bhamt1tkg3a0s1c3gpg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Sociedade de Estudos Espíritas Joanna de Ângelis",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/13b514029f08c014b3f7c0e98bff49ab48ea7c9fe848074e1452af50602f923a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vienna, Austria",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Kulturzentrum Spittelberg",
+    "category": "arts",
+    "_found": "osm:arts_centre -> event-organiser",
+    "url": "https://amerlinghaus.at/?feed=eo-events",
+    "geocode_suffix": ", Vienna, Austria",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Soulrhythms",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6sltl0ahg9dhe75v0tpuhrgqc8rf92k6%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Pfadfinder:innengruppe 27 - Wien Donaustadt",
+    "category": "community",
+    "_found": "osm:club -> event-organiser",
+    "url": "https://pfadis.gruppe27.at/?feed=eo-events",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Education Lab",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_03a85191e47432e52ba76ba91e04d83c49c331254ab415a87532f1e55780c72f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "St. Nikolaus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d05ebff2310b9617e7dcc16cc0d0bc3e102483f85c2f8a8f7b83fa057f78f5ab%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "1. Wiener Fischereimuseum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nnigq8hmadifvesff3ql24m278%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Rosenkranz Kirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pfarre.hetzendorf%40katholischekirche.at/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Pfadfindergruppe Hinterbrühl",
+    "category": "community",
+    "_found": "osm:club -> event-organiser",
+    "url": "https://pfadfinder-hin.org/?feed=eo-events",
+    "geocode_suffix": ", Hinterbrühl",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Pfadfinder Biedermannsdorf",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8cckhor46btkjhitcou4fqgsoo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vienna, Austria",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Evang. Pauluskirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ffhn9la0sffbcb7el4ulj2t7ng%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Evang. Messiaskapelle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/095lkf9ujgaa4u1qmi4e2vf00k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
   }
 ]
