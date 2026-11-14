@@ -255,6 +255,34 @@
       "times_seen": 4,
       "venue": null
     },
+    "chillout festival": {
+      "dates": [],
+      "first_seen": "2026-11-14",
+      "last_seen": "2026-11-14",
+      "name": "Chillout Festival",
+      "ref_keys": [
+        "74144eedb10a",
+        "fce1fa6c6f9c"
+      ],
+      "referrers": [
+        {
+          "source": "ics:the-nomads-outdoors-group-(melbourne,-australia)",
+          "start": "2027-03-05",
+          "title": "Chillout Community Bushwalk - 2027",
+          "url": "https://nomads.org.au/public/schedule/events/89999-chillout-community-bushwalk-2027"
+        },
+        {
+          "source": "ics:the-nomads-outdoors-group-(melbourne,-australia)",
+          "start": "2027-03-05",
+          "title": "Labour Day Long Weekend – ChillOut Camping",
+          "url": "https://nomads.org.au/public/schedule/events/91696-labour-day-long-weekend-chillout-camping"
+        }
+      ],
+      "sample": "Join The Nomads for our annual morning walk as part of the Chillout Festival, along the Lerderderg Track and through the Wombat State Forest, and make new friends along the way. GRADE | LENGTH | TYPE: Choice of two circuit walks (graded according to the AWTGS: Australian Walking Tracks Grading",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
     "contemporanea film festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -355,6 +383,27 @@
         }
       ],
       "sample": "19u00 deuren open 19u30 inleiding 20u15 start film Vertoning in het kader van Dagen van de Sociale Film festival.",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "december's first friday artwalk": {
+      "dates": [],
+      "first_seen": "2026-11-14",
+      "last_seen": "2026-11-14",
+      "name": "December’s First Friday ArtWalk",
+      "ref_keys": [
+        "d43b8baff478"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-04",
+          "title": "Copper Beech Tree Lighting",
+          "url": "https://www.portlandmuseum.org/event/copper-beech-tree-lighting/"
+        }
+      ],
+      "sample": "Light Up the Night! Free for All Gather at the PMA for the annual lighting of the 100-year-old Copper Beech Tree during December’s First Friday ArtWalk, with cocoa from Side by Side Coffee Cart and seasonal music and sing-along carols from Classical Uprising.",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -773,6 +822,34 @@
       "times_seen": 2,
       "venue": null
     },
+    "lucidity festival": {
+      "dates": [],
+      "first_seen": "2026-11-14",
+      "last_seen": "2026-11-14",
+      "name": "Lucidity festival",
+      "ref_keys": [
+        "59edf94b9aa1",
+        "645721feceea"
+      ],
+      "referrers": [
+        {
+          "source": "moshtix",
+          "start": "2027-03-11",
+          "title": "CONVERGE Australia/New Zealand 2027 w/ guests EXTORTION & ENDS IN TRAGEDY + TERRITORY",
+          "url": "https://www.moshtix.com.au/v2/event/converge-australia-new-zealand-2027-w-guests-extortion-ends-in-tragedy-territory/202077"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-03-12",
+          "title": "CONVERGE Australia 2027",
+          "url": "https://www.moshtix.com.au/v2/event/converge-australia-2027/202087"
+        }
+      ],
+      "sample": "and revered hub of extreme creativity backed by a thorough DIY ethos, the tour follows the swiftly sold out inaugural Lucidity festival in Melbourne for which the band is the headlining. Also jumping across from the lineup to join them all around the nation are Australian powerviolence legends",
+      "state": "pending",
+      "times_seen": 2,
+      "venue": null
+    },
     "manchester literature festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -839,13 +916,14 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-12",
+      "last_seen": "2026-11-14",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
         "1016a24e9c88",
         "33e7eba1bcea",
         "6fbd7b8d2f83",
+        "75f0f4d0868c",
         "95520f3d7ef6",
         "b2332f16add5",
         "bc6767d7ee5b",
@@ -886,7 +964,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 9,
+      "times_seen": 10,
       "venue": null
     },
     "melt festival": {
@@ -1403,6 +1481,29 @@
       "times_seen": 3,
       "venue": null
     },
+    "salem film festival": {
+      "dates": [
+        "2026-11-21"
+      ],
+      "first_seen": "2026-11-14",
+      "last_seen": "2026-11-14",
+      "name": "Salem Film Festival",
+      "ref_keys": [
+        "23c352de704d"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Decibels Film Festival Presents: Tight & Nerdy – The Weird Al Burlesque Documentary",
+          "url": "https://decibels.eventive.org/schedule/6abd2508df893f49a346040d"
+        }
+      ],
+      "sample": "to “Weird Al” Yankovic, is poised to make its Massachusetts debut at the Decibels Film Festival, co-presented by the Salem Film Festival on Saturday, November 21 at 2 p.m. Tickets are available via TightAndNerdyMovie.com or Decibels.eventive.org This feature-length documentary follows the Tight &",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "san francisco silent film festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -1421,6 +1522,27 @@
       ],
       "sample": "This year's Festival is curated by Buxton's friend and frequent creative partner, John Ellis, in collaboration with the San Francisco Silent Film Festival. Individual Film Tickets: Member Price: $15 / Non-member Price: $18 Day Pass: Member Price: $45 / Non-member Price: $55 1:00 PM | Silent Comedy S",
       "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "scotland's human rights festival": {
+      "dates": [],
+      "first_seen": "2026-11-14",
+      "last_seen": "2026-11-14",
+      "name": "Scotland’s Human Rights Festival",
+      "ref_keys": [
+        "25f454108ce8"
+      ],
+      "referrers": [
+        {
+          "source": "squarespace",
+          "start": "2026-12-12",
+          "title": "Film Screening: This Home, This Voice by MIN",
+          "url": "https://www.mbht.org.uk/whats-on/2026/12/12/arxmdyxvrnlac97jdw9c13sala6ybo"
+        }
+      ],
+      "sample": "As part of Scotland’s Human Rights Festival 2026, MIN presents a screening of This Home, This Voice, a behind-the-scenes portrait of the vital work of community-building in Glasgow, by artist Helen McCrorie with members of MIN. MIN works alongside refugees, migrants, and people seeking asylum, with",
+      "state": "covered",
       "times_seen": 1,
       "venue": null
     },
@@ -1565,6 +1687,27 @@
       "sample": "The finished artworks will come together as part of a multi-disciplinary community art installation presented during Singapore Art Week 2027. Together, these works will form a collective portrait of the neighbourhood and the memories that live within its everyday spaces. No artmaking experience requ",
       "state": "pending",
       "times_seen": 2,
+      "venue": null
+    },
+    "spectacular week": {
+      "dates": [],
+      "first_seen": "2026-11-14",
+      "last_seen": "2026-11-14",
+      "name": "Spectacular week",
+      "ref_keys": [
+        "fcb540aae2f5"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-16",
+          "title": "No Wednesday Church",
+          "url": "https://mountaincity.church/events/no-wednesday-church-2/"
+        }
+      ],
+      "sample": "It’s Christmas Spectacular time! There will be no Wednesday night church service during Spectacular week. Instead, join us for the Christmas Spectacular, December 18–20! You can be part of the fun by volunteering or inviting a friend, family member, or coworker to come experience it with you. We",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "spirit and place festival": {
@@ -1791,10 +1934,12 @@
     "wellington heritage festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-14",
       "name": "Wellington Heritage Festival",
       "ref_keys": [
-        "1bbe606ee691"
+        "12a5154c41a2",
+        "1bbe606ee691",
+        "c4f8b9f98c0c"
       ],
       "referrers": [
         {
@@ -1802,11 +1947,23 @@
           "start": "2026-11-08",
           "title": "Georgina Beyer: Diamonds are Forever",
           "url": "https://WellingtonCityLibraries.trumba.com/Georgina-Beyer-Diamonds-are-Forever/E206673759"
+        },
+        {
+          "source": "ics:wellington-city-libraries-(wellington,-new-zealand)",
+          "start": "2026-11-14",
+          "title": "Exhibition: Ka Mua, Ka Muri - Te Motu Kairangi",
+          "url": "https://wellingtonheritagefestival.co.nz/event/ka-mua-ka-muri-te-motu-kairangi/"
+        },
+        {
+          "source": "ics:wellington-city-libraries-(wellington,-new-zealand)",
+          "start": "2026-11-15",
+          "title": "Exhibition: Ka Mua, Ka Muri - Te Motu Kairangi",
+          "url": "https://wellingtonheritagefestival.co.nz/event/ka-mua-ka-muri-te-motu-kairangi/"
         }
       ],
       "sample": "This talk is part of Wellington Heritage Festival. Location: Ngā Pou Ruahine (Level 2). Blending live storytelling, historic images, archival audio and personal memories, we'll explore Georgina's Wellington. Along the way, we’ll honour some of her heroes and listen to first-hand archival audio clips",
       "state": "pending",
-      "times_seen": 1,
+      "times_seen": 3,
       "venue": null
     },
     "westchester book festival": {
@@ -1875,7 +2032,7 @@
     "winter festival of lights": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-13",
+      "last_seen": "2026-11-14",
       "name": "Winter Festival of Lights",
       "ref_keys": [
         "7146d3ac5196"
@@ -1889,7 +2046,7 @@
         }
       ],
       "sample": "d by running or walking through the beautiful Winter Festival of Lights! For more than 30 years, visitors to the annual Winter Festival of Lights have been dazzled by twinkling light displays as they drove through Watkins Regional Park. This year, register to walk or run through the almost three-mil",
-      "state": "pending",
+      "state": "covered",
       "times_seen": 1,
       "venue": null
     }

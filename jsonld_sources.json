@@ -35071,6 +35071,325 @@
         "lon": 24.8030041
       },
       "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Hervannan Katukappeli",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix+jsonld-event",
+      "listing": [
+        "https://www.katukappeli.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Hervannan Katukappeli",
+        "address": "2 Pietilänkatu",
+        "city": "Tampere",
+        "postal_code": "33720",
+        "lat": 61.4507754,
+        "lon": 23.8501155
+      },
+      "_metro": "Tampere, Finland"
+    },
+    {
+      "name": "Teivon Ravikeskus",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.teivo.fi/events/"
+      ],
+      "link_pattern": "https://www\\.teivo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teivon Ravikeskus",
+        "address": "2 Velodromintie",
+        "city": "Tampere",
+        "postal_code": "33420",
+        "lat": 61.5307938,
+        "lon": 23.6261859
+      },
+      "_metro": "Tampere, Finland"
+    },
+    {
+      "name": "Modrá Vopice",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.modravopice.cz/program/"
+      ],
+      "link_pattern": "https://www\\.modravopice\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Modrá Vopice",
+        "address": "K Žižkovu",
+        "city": "Praha 9",
+        "postal_code": "190 00",
+        "lat": 50.099467,
+        "lon": 14.4938795
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "Edison Filmhub",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://edisonfilmhub.cz/program"
+      ],
+      "link_pattern": "https://edisonfilmhub\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Edison Filmhub",
+        "address": "1321/2 Jeruzalémská",
+        "postal_code": "11000",
+        "lat": 50.0848657,
+        "lon": 14.4313051
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "Tusculum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.petrohradskakolektiv.com/program/6593739b-3d18-415e-b0d2-4f263bb8598c"
+      ],
+      "link_pattern": "https://www\\.petrohradskakolektiv\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tusculum",
+        "lat": 50.1066658,
+        "lon": 14.4006255
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "Kino Přítomnost",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://kinopritomnost.cz/"
+      ],
+      "link_pattern": "https://kinopritomnost\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kino Přítomnost",
+        "address": "1839/1 Siwiecova",
+        "city": "Praha 3",
+        "postal_code": "13000",
+        "lat": 50.0845078,
+        "lon": 14.4430576
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "svatý Jakub Větší",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.farnostprahapetrovice.cz/"
+      ],
+      "link_pattern": "https://www\\.farnostprahapetrovice\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "svatý Jakub Větší",
+        "lat": 50.0338488,
+        "lon": 14.5552223
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "MeetFactory",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://meetfactory.cz/cs/"
+      ],
+      "link_pattern": "https://meetfactory\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MeetFactory",
+        "lat": 50.0532389,
+        "lon": 14.4081974
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "Knihovna Jiřího Mahena",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.kjm.cz/akce/adventni-bookstart"
+      ],
+      "link_pattern": "https://www\\.kjm\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Knihovna Jiřího Mahena",
+        "lat": 49.2322082,
+        "lon": 16.5900697
+      },
+      "_metro": "Brno, Czechia"
+    },
+    {
+      "name": "J. A. Komenského",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://cervenykostel.cz/udalosti/christmas-concert-from-17-00/"
+      ],
+      "link_pattern": "https://cervenykostel\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "J. A. Komenského",
+        "lat": 49.1976698,
+        "lon": 16.6032685
+      },
+      "_metro": "Brno, Czechia"
+    },
+    {
+      "name": "Dělnický dům",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.kulturablansko.cz/program"
+      ],
+      "link_pattern": "https://www\\.kulturablansko\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dělnický dům",
+        "address": "240/1 Hybešova",
+        "city": "Blansko",
+        "postal_code": "67801",
+        "country": "CZ",
+        "lat": 49.3592546,
+        "lon": 16.6475774
+      },
+      "_metro": "Brno, Czechia"
+    },
+    {
+      "name": "Konstakademien",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://konstakademien.se/pa-gang/"
+      ],
+      "link_pattern": "https://konstakademien\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Konstakademien",
+        "address": "27 Jakobsgatan",
+        "city": "Stockholm",
+        "postal_code": "111 52",
+        "country": "SE",
+        "lat": 59.3287664,
+        "lon": 18.0643695
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "SLM Stockholm",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://slmstockholm.se/events/2026-11-15-group-ff/"
+      ],
+      "link_pattern": "https://slmstockholm\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SLM Stockholm",
+        "lat": 59.3167371,
+        "lon": 18.0614786
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "Institut Français",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://ifsuede.com/events/"
+      ],
+      "link_pattern": "https://ifsuede\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Institut Français",
+        "lat": 59.3388958,
+        "lon": 18.0791249
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "Andetag",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.andetag.museum/en/stockholm/"
+      ],
+      "link_pattern": "https://www\\.andetag\\.museum/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Andetag",
+        "lat": 59.335395,
+        "lon": 18.063936
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "Mångkulturellt centrum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://mkcentrum.se/event/somayas-mammafika-6/"
+      ],
+      "link_pattern": "https://mkcentrum\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mångkulturellt centrum",
+        "address": "7 Värdshusvägen",
+        "postal_code": "14550",
+        "lat": 59.246689,
+        "lon": 17.86496
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "Gasometer",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.gasometer.se/events/lustra/"
+      ],
+      "link_pattern": "https://www\\.gasometer\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gasometer",
+        "address": "15 Gasverksvägen",
+        "postal_code": "115 43",
+        "lat": 59.3571124,
+        "lon": 18.0911187
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "Pustervik",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.pustervik.nu/evenemang/the-bowlines"
+      ],
+      "link_pattern": "https://www\\.pustervik\\.nu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pustervik",
+        "address": "12 Järntorgsgatan",
+        "city": "Göteborg",
+        "postal_code": "413 01",
+        "country": "SE",
+        "lat": 57.700447,
+        "lon": 11.954223
+      },
+      "_metro": "Gothenburg, Sweden"
     }
   ],
   "_not_included": {

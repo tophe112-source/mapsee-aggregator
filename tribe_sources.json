@@ -46321,6 +46321,100 @@
         "lon": 24.6729803
       },
       "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Arganil",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.cm-arganil.pt",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Arganil",
+      "default_region": null,
+      "default_country": "PT",
+      "_metro": "Arganil, Portugal"
+    },
+    {
+      "name": "Trancoso",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cm-trancoso.pt",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Trancoso",
+      "default_region": null,
+      "default_country": "PT",
+      "_metro": "Trancoso, Portugal"
+    },
+    {
+      "name": "Celorico da Beira",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cm-celoricodabeira.pt",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Celorico da Beira",
+      "default_region": null,
+      "default_country": "PT",
+      "_metro": "Celorico da Beira, Portugal"
+    },
+    {
+      "name": "PEXESO - Centrum pro rodiny",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.pexeso.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "PEXESO - Centrum pro rodiny",
+        "postal_code": "15600",
+        "lat": 49.9694435,
+        "lon": 14.3841231,
+        "street_hint": "1227 Žabovřeská"
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "Nová Spirála",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://novaspirala.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nová Spirála",
+        "lat": 50.1083693,
+        "lon": 14.4299235
+      },
+      "_metro": "Prague, Czechia"
+    },
+    {
+      "name": "Judiska muséet",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://judiskamuseet.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Judiska muséet",
+        "lat": 59.3238321,
+        "lon": 18.0730173
+      },
+      "_metro": "Stockholm, Sweden"
+    },
+    {
+      "name": "The English Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://bookshop.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The English Bookshop",
+        "lat": 59.3132961,
+        "lon": 18.0804994
+      },
+      "_metro": "Stockholm, Sweden"
     }
   ],
   "_not_included": {

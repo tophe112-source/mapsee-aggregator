@@ -10814,6 +10814,23 @@
         "lon": -122.8262663
       },
       "_metro": "Olympia WA, United States"
+    },
+    {
+      "name": "Unity Jazz",
+      "category": "community",
+      "_found": "osm:bar -> squarespace",
+      "collection": "https://www.unityjazz.se/program",
+      "max_events": 200,
+      "venue": {
+        "name": "Unity Jazz",
+        "address": "13 Kyrkogatan",
+        "city": "Göteborg",
+        "postal_code": "411 15",
+        "country": "SE",
+        "lat": 57.7044165,
+        "lon": 11.9630736
+      },
+      "_metro": "Gothenburg, Sweden"
     }
   ],
   "_not_included": {

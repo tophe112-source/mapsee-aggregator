@@ -72056,5 +72056,294 @@
     "geocode_suffix": ", Helsinki, Finland",
     "limit": 300,
     "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Valença",
+    "category": "community",
+    "_found": "civic:city -> events-manager",
+    "url": "https://cm-valenca.pt/arquivo-de-eventos/?ical=1",
+    "geocode_suffix": ", Valença, Portugal",
+    "limit": 300,
+    "_metro": "Valença, Portugal"
+  },
+  {
+    "name": "Tampereen lähetyskoti",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/613k1mck8neqbjakjhie0t5krs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Tanssikoulu Tanssis",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a18c5guj9pbn2jcmmgcsa1gu24%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Ohjaamo Tampere",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ohjaamo%40tampere.fi/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Tampereen Radioamatöörit ry OH3NE",
+    "category": "community",
+    "_found": "osm:club -> event-organiser",
+    "url": "https://oh3ne.fi/?feed=eo-events",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Tampereen Baptistiseurakunta",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pgfdbqktj1enrlpg7b1ekqjps8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Lentola Green Karting Park",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b27e80bd860cd4dda181e44f85d6621ddd8c9109c7581c8dcf8cf5fcef30b247%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kangasala",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Ylöjärven rauhanyhdistys",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a6tr66gl9fqc539hgei0v3hb1c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ylöjärvi",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "TamSK Koiraurheilukeskus",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tamsk.com_m2fqtr9ogqf6s9tnii1aqvocrc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere, Finland",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Tampereen itsenäinen evankelisluterilainen seurakunta",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ueqhvql44jlnel8pj0kf13rntg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Hrdličkovo muzeum člověka",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/natur.cuni.cz_ol3ggdt4hnh5pkq3omnt0fjcj0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Praha 2",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Wikimedia Česká republika",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/acpa1202m83kvonpae269t8p2o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Praha 7",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Chrám sv. Andělů a sv. Filareta Nového Vyznavače",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sova.biz_4kv345suslfisk4sfe0ddosl3o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Sokolovna",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/obecskvorec.cz_tu8k4gloa028ql55k5cbpvscqo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Za Sklem",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar",
+    "url": "https://www.zasklem.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "_metro": "Prague, Czechia",
+    "crawl_delay": 5.0
+  },
+  {
+    "name": "Skautské středisko Uragan Zbraslav",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stredisko21a.08%40skaut.cz/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "svatý Norbert",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l6ijj0ltc2gvck6ifqh10c77t4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_46a4939b491af2e721b79fa2f5e14fe84d8d15431e89cde63627688ab6c0ccd2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Praha 2",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "U Jákobova žebříku",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dsavokmqdl7dino4m71kqjdb1o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Praha 8",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Modlitebna Církve bratrské",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cb.cz_3tm2tp0vnt588f4se5v0gpfr7s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Černošice",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Skautské středisko Lípa Říčany",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40skaut-ricany.cz/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Skaut Křtiny",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_03febbe5eb7095bb5323106f4f590cad084ff9ff8ae3a117b94ec13bbe24b749%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brno, Czechia",
+    "limit": 300,
+    "_metro": "Brno, Czechia"
+  },
+  {
+    "name": "Orlovna Bosonohy",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2f21u3hjkpgv8k79jqa35sv64g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brno, Czechia",
+    "limit": 300,
+    "_metro": "Brno, Czechia"
+  },
+  {
+    "name": "Kuželna",
+    "category": "community",
+    "_found": "osm:bar -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5nrucrvp0cp03nclketp3sjeuc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rosice u Brna",
+    "limit": 300,
+    "_metro": "Brno, Czechia"
+  },
+  {
+    "name": "Dockteatern Tittut",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fb3cjp9t25otu2kmr41hqtmukc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stockholm, Sweden",
+    "limit": 300,
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Staffars serier",
+    "category": "learning",
+    "_found": "osm:books -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h90lp8dp6j4jof6862csgbfgi8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stockholm, Sweden",
+    "limit": 300,
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Botkyrka Pingstförsamling",
+    "category": "community",
+    "_found": "osm:place_of_worship -> event-organiser",
+    "url": "https://www.botkyrkapingst.se/?feed=eo-events",
+    "geocode_suffix": ", Stockholm, Sweden",
+    "limit": 300,
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Pingstkyrkan Upplands Väsby",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u06hnbtati1qnunvj0qt087fd0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Upplands Väsby",
+    "limit": 300,
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Allianskyrkan i Älta",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/74709b578b7ca5b78d2b3f6fedba58efba698b879bf603d17119b61d936409d6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Älta",
+    "limit": 300,
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Göteborgs Schacksällskap",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f4ii8v06te9b0qi880ekkiicnc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gothenburg, Sweden",
+    "limit": 300,
+    "_metro": "Gothenburg, Sweden"
+  },
+  {
+    "name": "Landala kapell",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c6c43c23359bfa9adb4cca27e05281b7523e8003954aad4f848a373f62c3ce8c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gothenburg, Sweden",
+    "limit": 300,
+    "_metro": "Gothenburg, Sweden"
+  },
+  {
+    "name": "Nol IK",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://cal.laget.se/NolIK.ics",
+    "geocode_suffix": ", Nödinge",
+    "limit": 300,
+    "_metro": "Gothenburg, Sweden"
   }
 ]
