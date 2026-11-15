@@ -91,6 +91,7 @@ What is pinned is what the first real sweeps got wrong:
 import json
 import re
 import sys
+from datetime import datetime, timedelta, timezone
 from urllib.parse import urljoin
 
 import catalog_discover_osm as osm
@@ -1955,7 +1956,9 @@ def centre_calendars(C):
           [e["name"] for e in cfg if e["name"] == "A curated club calendar"], ["A curated club calendar"])
 
     src = next(e for e in cfg if e["url"] == G.ical_url(PH_ID))
-    when = "20261114T030000Z"
+    # Placement is the contract here; keep the three events inside the reader's
+    # future window rather than letting a fixed date expire into its past filter.
+    when = (datetime.now(timezone.utc) + timedelta(days=3)).strftime("%Y%m%dT030000Z")
     feed = "\r\n".join([
         "BEGIN:VCALENDAR", "VERSION:2.0",
         "BEGIN:VEVENT", "DTSTART:" + when, "UID:bazaar@google.com", "SUMMARY:Polish Fall Bazaar", "END:VEVENT",

@@ -512,6 +512,17 @@ jobs:
       # civic read 165,899 ids to keep 15,435, ics 134,774 to keep 956, rec
       # 70,167 to keep 8,592 and local 29,109 to keep 7,450; the exact-detail
       # rows among those kept, and every new one, are still read each run.
+      # A full ICS refresh must settle work before reading ownership for the
+      # whole catalog. Keep its completed-value hashes separately: changing
+      # the state-cache path list would invalidate that cache's version.
+      - name: Restore unfinished ICS refresh progress
+        if: matrix.group == 'ics'
+        uses: actions/cache/restore@v4
+        with:
+          path: refresh_progress_ics.json
+          key: refresh-progress-ics-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            refresh-progress-ics-
       - name: Restore the import-state cache
         uses: actions/cache/restore@v4
         with:
@@ -610,8 +621,10 @@ jobs:
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
+          REFRESH=""
+          [ "${{ matrix.group }}" = "ics" ] && REFRESH="--refresh-batch-size 5000 --refresh-progress refresh_progress_ics.json"
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW --state-cache sync_state_${{ matrix.group }}.json
+            python mapsee_supabase_sync.py --store feeds_events.json $REFRESH --skip-unchanged $ONLY_NEW --state-cache sync_state_${{ matrix.group }}.json
           else
             echo "nothing ingested yet — nothing to checkpoint"
           fi
@@ -1476,8 +1489,10 @@ jobs:
           # it against the last complete read, behind a circuit breaker.
           ABSENT=""
           [ "${{ matrix.group }}" = "rec" ] && ABSENT="--retire-absent --manifest rec_absence_manifest.json"
+          REFRESH=""
+          [ "${{ matrix.group }}" = "ics" ] && REFRESH="--refresh-batch-size 5000 --refresh-progress refresh_progress_ics.json"
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW $ABSENT --state-cache sync_state_${{ matrix.group }}.json
+            python mapsee_supabase_sync.py --store feeds_events.json $REFRESH --skip-unchanged $ONLY_NEW $ABSENT --state-cache sync_state_${{ matrix.group }}.json
             echo "synced_store=true" >> "$GITHUB_OUTPUT"
           else
             echo "no feeds ingested — nothing to sync"
@@ -1542,6 +1557,12 @@ jobs:
             kct_cursor.json
             repaircafe_ch_cursor.json
           key: sync-answers-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Save unfinished ICS refresh progress
+        if: always() && matrix.group == 'ics'
+        uses: actions/cache/save@v4
+        with:
+          path: refresh_progress_ics.json
+          key: refresh-progress-ics-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Save the import-state cache
         if: always()
         uses: actions/cache/save@v4
@@ -1572,6 +1593,7 @@ jobs:
             rec_absence_manifest.json
             facility_hours_manifest.json
             feed-steps.json
+            refresh_progress_ics.json
       - name: Fail when an import or sync failed
         if: ${{ always() && contains(steps.*.outcome, 'failure') }}
         env:

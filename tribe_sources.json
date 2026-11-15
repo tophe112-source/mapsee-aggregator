@@ -46516,6 +46516,53 @@
         "lon": 16.269183
       },
       "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Hannesarholt (Reykjavik, Iceland)",
+      "base_url": "https://hannesarholt.is",
+      "category": "community",
+      "within_days": 45,
+      "max_pages": 1,
+      "per_page": 50,
+      "timezone": "Atlantic/Reykjavik",
+      "currency": "ISK",
+      "category_aliases": {
+        "tonleikar": "music",
+        "syngjum": "music",
+        "leikhus": "theater"
+      },
+      "skip_title": "^(?:EITTHVA\\u00d0/ANNA\\u00d0\\s|B\\u00f3kvit\\s+[\\u2013-]\\s+Benedikt B\\u00f3ka\\u00fatg\\u00e1fa$)",
+      "_skip_title_comment": "2026-11-15: API dates EITTHVAD/ANNAD 2027-01-14 but its prose says 14 November. API dates Bokvit - Benedikt Bokautgafa December5 13:00 but its prose says November21. Both exact titles held pending publisher correction; no invented date override.",
+      "_venue_comment": "Official Visit Iceland listing https://www.visiticeland.com/things-to-do/hannesarholt/ publishes name/address/country IS and GeoCoordinates 64.1442721,-21.935638117. Organizer REST venue id3218 and https://hannesarholt.is/stadsetning/hannesarholt/ give Grundarstigur10, Reykjavik. Fallback applies only to matching Hannesarholt venue.",
+      "venue": {
+        "name": "Hannesarholt",
+        "address": "Grundarstígur 10",
+        "city": "Reykjavík",
+        "postal_code": "101",
+        "country": "Iceland",
+        "lat": 64.1442721,
+        "lon": -21.935638117
+      },
+      "_metro": "Reykjavik, Iceland",
+      "_measured": "2026-11-15: one production-UA API page, 141976 body bytes plus 634 robots bytes; real reader/store/production row builder retain 15 physical events Nov 18-Dec 19 with 0 sync network calls. Two exact titles with contradictory prose/API dates are held by skip_title. No configured feed or ledger host duplicate."
+    },
+    {
+      "name": "Bacon Free Library (Natick, MA)",
+      "base_url": "https://baconfreelibrary.org",
+      "category": "learning",
+      "category_aliases": {
+        "kids-events": "kids"
+      },
+      "include_categories": [
+        "kids-events"
+      ],
+      "per_page": 50,
+      "max_pages": 1,
+      "within_days": 60,
+      "timezone": "America/New_York",
+      "crawl_delay": 10,
+      "_metro": "Natick, United States",
+      "_measured": "2026-11-15: one production-UA API page, 91803 body bytes; kids-events only. 21 reader records yield 14 physical rows Nov 16-Dec 29; seven Lapsit listings have no venue and are dropped, with no fallback. Source pin is 2857.7m wrong: production Census exact-matches 58 ELIOT ST NATICK MA 01760 at 42.271682188495,-71.316457761176 (one 135-byte batch response; warm replay 0 requests). Weather/accessibility restrictions survive the public prose cap. No duplicate host."
     }
   ],
   "_not_included": {
@@ -46634,6 +46681,8 @@
     "https://westdeptford.lib.nj.us": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (tribe at https://westdeptford.lib.nj.us/events/, which did not verify). West Deptford Library.",
     "https://corkartstheatre.com": "Retired 2026-11-01: robots.txt: Disallow: /wp-json/. The site's robots.txt is the publisher's rule and binds this feed (owner, 2026-09-30); nothing it disallows is fetched. The Cork Arts Theatre.",
     "https://pand-p.nl": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Pand P.",
-    "https://tripodia.nl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Tripodia."
+    "https://tripodia.nl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Tripodia.",
+    "https://theater-oberhausen.de/event/urbane-session-mit-dance-grounds/?ical=1": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 294 body bytes / one VEVENT dated 20261022, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list.",
+    "https://theater-oberhausen.de/event/lichter-basteln-mit-dem-open-haus-fuer-alle/?ical=1": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 309 body bytes / one VEVENT dated 20261026, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list."
   }
 }

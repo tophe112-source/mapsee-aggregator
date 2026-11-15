@@ -68,6 +68,7 @@ on:
       # is how a lead is declined, a site added, France's max raised, or an
       # advertising instance declined, and each has a test that must run.
       - "annual_sources.json"
+      - "program_sources.json"
       - "seeds.json"
       - "mention_queue.json"
       - "ods_sources.json"
@@ -123,6 +124,7 @@ on:
       # is how a lead is declined, a site added, France's max raised, or an
       # advertising instance declined, and each has a test that must run.
       - "annual_sources.json"
+      - "program_sources.json"
       - "seeds.json"
       - "mention_queue.json"
       - "ods_sources.json"
@@ -158,6 +160,7 @@ jobs:
       - name: Automation contracts and interrupted ICS recovery
         run: |
           python test_workflow_contracts.py
+          python test_sync_refresh_progress.py
           python test_health_issue.py
           python test_ingest_ics.py
           python test_ics_source_overrides.py

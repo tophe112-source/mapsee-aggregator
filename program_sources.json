@@ -1418,5 +1418,78 @@
       }
     ],
     "admission": 0
+  },
+  {
+    "name": "Bridgeport Art Center 2026 Third Friday Open Studios",
+    "category": "arts",
+    "url": "https://www.bridgeportart.com/exhibitions/open-studios/",
+    "timezone": "America/Chicago",
+    "season_start": "2026-11-20",
+    "season_end": "2026-12-18",
+    "days": "Friday",
+    "horizon_days": 42,
+    "title_prefix": "Third Friday Open Studios",
+    "blurb": "Meet artists and explore studios and galleries at Bridgeport Art Center, 19:00-22:00. Register through the official event page. Enter through the Atrium off Racine Street; free parking is in the north lot. These are the publisher's remaining 2026 dates; check the source for changes.",
+    "_measured": "2026-11-14: production User-Agent, robots allowed (Crawl-delay 3), 303837 body bytes. Publisher lists Nov 20 and Dec 18, 2026, 7-10 PM, at 1200 W. 35th Street. Only these two dates are configured; no extrapolation into 2027. The configured Chicago Maritime Museum calendar mentions this larger open-studio event but lists its own lecture separately.",
+    "sites": [
+      {
+        "name": "Bridgeport Art Center",
+        "address": "1200 W 35th Street, Chicago, IL 60609",
+        "city": "Chicago",
+        "region": "Illinois",
+        "country": "United States",
+        "lat": 41.831156,
+        "lon": -87.6567089,
+        "coords_exact": true,
+        "_coords": "Publisher's Google Maps place link on the event page: !3d41.831156!4d-87.6567089 (not the viewport centre), verified 2026-11-14.",
+        "season_start": "2026-11-20",
+        "season_end": "2026-11-20",
+        "start": "19:00",
+        "end": "22:00"
+      },
+      {
+        "name": "Bridgeport Art Center",
+        "address": "1200 W 35th Street, Chicago, IL 60609",
+        "city": "Chicago",
+        "region": "Illinois",
+        "country": "United States",
+        "lat": 41.831156,
+        "lon": -87.6567089,
+        "coords_exact": true,
+        "_coords": "Same publisher-linked place as the November session, verified 2026-11-14.",
+        "season_start": "2026-12-18",
+        "season_end": "2026-12-18",
+        "start": "19:00",
+        "end": "22:00"
+      }
+    ]
+  },
+  {
+    "name": "Handmade Arcade 2026 Holiday Market general admission",
+    "category": "market",
+    "url": "https://www.handmadearcade.org/calendar/2026-holiday-market",
+    "timezone": "America/New_York",
+    "season_start": "2026-12-06",
+    "season_end": "2026-12-06",
+    "days": "Sunday",
+    "horizon_days": 31,
+    "title_prefix": "Handmade Arcade Holiday Market - General Admission",
+    "blurb": "Shop work by more than 300 makers, with creative activities and demonstrations. General admission is 11:00-18:00 on December 5 and 6. Reserve a pay-what-you-can ticket through the official page; suggested prices are $5, $10 or $20, and free tickets are available when cost is a barrier. Friday's $30 preview, Saturday's $25 early bird and Sunday's 10:00-11:00 sensory-friendly session have separate admission times.",
+    "_measured": "2026-11-14/15: production User-Agent, robots allowed; event page 225958 body bytes. Official general admission is Dec 5 and 6, 11 AM-6 PM, at 1000 Fort Duquesne Boulevard. Public map review found an existing Meetup outing to the market Dec 5, 12-5 PM; admit Dec 6 only to avoid overlapping pins with different starts that nightly dedupe would retain. The collection's Dec 4-6 span includes overnight closures and differently priced sessions. One new dated session; zero ingestion feed or geocode requests.",
+    "sites": [
+      {
+        "name": "David L. Lawrence Convention Center",
+        "address": "1000 Fort Duquesne Boulevard, Pittsburgh, PA 15222",
+        "city": "Pittsburgh",
+        "region": "Pennsylvania",
+        "country": "United States",
+        "lat": 40.446474347949,
+        "lon": -79.996262015331,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current exact publisher-address match, 2026-11-14: 1000 FORT DUQUESNE BLVD, PITTSBURGH, PA, 15222; TIGER line 607718350, side R. Verified once during curation; no runtime geocode.",
+        "start": "11:00",
+        "end": "18:00"
+      }
+    ]
   }
 ]

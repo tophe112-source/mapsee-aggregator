@@ -8,7 +8,7 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**Keep this map small.** The measured notes — 640 of them — live in
+**Keep this map small.** The measured notes — 642 of them — live in
 [`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
 then open ONE topic. Preserve each note's measurements.
 
@@ -88,7 +88,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 108 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
+- **The 109 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -124,10 +124,10 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 156 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
+| `docs/agents/curation-and-discovery.md` | 157 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
 | `docs/agents/osm-amenities.md` | 35 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 26 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 50 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget, rotation, Crawl-delay and robots.txt, who pays for an adapter's rows, the gate's path filter |
+| `docs/agents/ci-and-jobs.md` | 51 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget, rotation, Crawl-delay and robots.txt, who pays for an adapter's rows, the gate's path filter |
 | `docs/agents/adapters-and-sources.md` | 71 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts, Mobilizon's order, OpenAgenda's windows, annual festivals |
 | `docs/agents/classification-and-categories.md` | 44 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 54 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |

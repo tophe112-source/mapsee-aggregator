@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import warnings
 import yaml
 import mapsee_ingest_waterfront as waterfront
@@ -498,6 +499,39 @@ class WorkflowContracts(unittest.TestCase):
             self.assertIsNone(re.search(r'mapsee_ingest_\w+\.py', run), name)
             if step is not sync:
                 self.assertNotIn('--store', run, name)
+
+    @unittest.skipUnless(shutil.which('bash'), 'requires bash')
+    def test_ics_refresh_resumes_in_both_sync_steps_without_changing_other_groups(self):
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['feeds']['steps']
+        pair = [s for s in steps if s.get('id') in ('checkpoint', 'sync')]
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {
+                'GITHUB_OUTPUT': str(Path(tmp, 'output'))}):
+            for group in ('ics', 'civic', 'local', 'rec'):
+                for step in pair:
+                    code, calls, _, stdout = self._sync_calls(step['run'], {
+                        'matrix.group': group, 'github.event.inputs.full_refresh': 'true'},
+                        {'feeds_events.json': '{"events": []}'}, None)
+                    self.assertEqual(code, 0, (group, step['id'], stdout))
+                    self.assertEqual(len(calls), 1)
+                    args = calls[0]
+                    self.assertNotIn('--only-new', args)
+                    if group == 'ics':
+                        self.assertEqual(self._flag(args, '--refresh-batch-size'), '5000')
+                        self.assertEqual(self._flag(args, '--refresh-progress'), 'refresh_progress_ics.json')
+                    else:
+                        self.assertNotIn('--refresh-batch-size', args)
+                        self.assertNotIn('--refresh-progress', args)
+        restore = next(s for s in steps if s.get('name') == 'Restore unfinished ICS refresh progress')
+        save = next(s for s in steps if s.get('name') == 'Save unfinished ICS refresh progress')
+        self.assertEqual(restore['with']['path'], save['with']['path'])
+        self.assertEqual(save['if'], "always() && matrix.group == 'ics'")
+        upload = next(s for s in steps if s.get('name') == 'Upload recovery data')
+        self.assertIn('refresh_progress_ics.json', upload['with']['path'].split())
+        # The existing daily import cache must remain addressable after rollout.
+        for step in steps:
+            if step.get('name') in ('Restore the import-state cache', 'Save the import-state cache'):
+                self.assertEqual(step['with']['path'], 'sync_state_${{ matrix.group }}.json')
 
     def test_feed_logs_are_unbuffered(self):
         # Block-buffered, the ics step printed its first line ~33 minutes in

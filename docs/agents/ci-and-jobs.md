@@ -3,6 +3,50 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a job that worked for an hour and lost its work, `timeout-minutes`, `always()`, `--only-new` in CI, the order of the daily jobs, secrets, a config file a job needs.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A FULL REFRESH MUST SETTLE BATCHES BEFORE READING THE WHOLE CATALOG'S OWNERSHIP (2026-11-14/15).**
+  November 11 run **43038621863**, ICS job **130584089071**, prepared **282,497**
+  rows. Its checkpoint read **276,559** stored IDs in **896.6 s**, then reached
+  the **20-minute** step cap before an upsert summary. Fallback rebuilt the same
+  snapshot, spent **830.0 s** reading ownership, and hit the same cap. Neither
+  had a confirmed write summary. API step conclusions said success because the
+  steps tolerate errors; raw logs and outcomes exposed the failure.
+  - ICS checkpoint and fallback now opt into **5,000-row** refresh batches and
+    `refresh_progress_ics.json`. At the existing **100-ID** ownership bound,
+    the first batch needs at most **50** ownership requests before compare/write,
+    versus **2,825** for the whole snapshot. Settled normalized-value hashes
+    persist in their own restore/save cache pair and recovery artifact. Adding
+    that path to the import-state pair would invalidate its cache version.
+  - Every unfinished or changed row gets fresh ownership checks. Progress is
+    scoped by database, host and store; malformed/missing progress adds reads,
+    never write permission. Completed cycles reset. Partial cycles can continue
+    across refresh attempts; Census-held candidates remain unfinished. The
+    existing daily state cache is carried forward only as read-only bookkeeping,
+    preserving entries for completed rows without authorizing writes.
+  - **13** focused regressions cover interruption, fresh claims, changed content,
+    partial/total write loss, cache retention, held geocodes, cancellation scope
+    and ordinary daily/dry-run behavior. A reviewer found a cost multiplier in
+    the first draft: **57** batches could repeat the global hidden-copy scan
+    **57** times. The production merge now shares **1** run-local snapshot;
+    copy-text reads remain batch-specific, and tests exercise the real merge.
+    Any lost writes stop the outer loop rather than restarting the upsert
+    outage breaker for another batch. All existing timeout/cadence limits stay.
+  - The read-only product canary answered **6/6 HTTP 200**, **0.11-0.23 s**
+    per request. Those samples and offline contracts are not a production
+    refresh benchmark or a billing measurement. Verify a scheduled full refresh
+    before claiming this rollout has completed that production pass.
+  - All **109** distinct gate scripts are green after targeted repairs. The
+    initial full local pass took **273.01 s**, with **106** passes and **3**
+    failed scripts: an expired November 14 fixture (**6** checks), Wyoming,
+    Michigan mistaken for a state-only metro (**1** check), and **3** state-cache
+    workflow placement assertions. Future-relative fixture dates and explicit
+    city/state evidence repair the first two; preserving the original cache
+    pair ordering and flag adjacency repairs the third without weakening its
+    **21-run** runtime invariants. Targeted reruns passed in **7.27 / 4.85 /
+    2.04 s**, and all **37** workflow contracts passed again in **57.51 s**.
+    Windows verification uses GNU Bash directly, LF disposable shell fixtures,
+    and the unchanged long shell script via stdin; the Git launcher/CRLF/`-c`
+    transport otherwise produced **8** harness failures before the full gate.
+
 - **A STEP BUDGET MUST ADVANCE THROUGH THE CATALOG, INCLUDING A PARTLY READ
   SOURCE.** Run 36131926531 on 2026-09-25 hit the ICS import's 250-minute
   step cap and the JSON-LD import's 60-minute cap (11:57:43–12:57:56 for the

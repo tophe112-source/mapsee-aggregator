@@ -34948,24 +34948,6 @@
     "_metro": "Essen, Germany"
   },
   {
-    "name": "Satellit der guten Hoffnung",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://theater-oberhausen.de/event/urbane-session-mit-dance-grounds/?ical=1",
-    "geocode_suffix": ", Oberhausen",
-    "limit": 300,
-    "venue": {
-      "name": "Satellit der guten Hoffnung",
-      "city": "Oberhausen",
-      "postal_code": "46045",
-      "lat": 51.4686331,
-      "lon": 6.8575901,
-      "street_hint": "119 Marktstraße",
-      "pin_unnamed": false
-    },
-    "_metro": "Essen, Germany"
-  },
-  {
     "name": "Änderei",
     "category": "community",
     "_found": "osm:community_centre -> ics",
@@ -56980,24 +56962,6 @@
     "url": "https://calendar.google.com/calendar/ical/08ca998cc87d1cda25c0206c6a4edcbc4bb1c8f7c293fdf7569718fbb7ba415a%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Gladbeck",
     "limit": 300,
-    "_metro": "Essen, Germany"
-  },
-  {
-    "name": "Satellit der guten Hoffnung",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://theater-oberhausen.de/event/lichter-basteln-mit-dem-open-haus-fuer-alle/?ical=1",
-    "geocode_suffix": ", Oberhausen",
-    "limit": 300,
-    "venue": {
-      "name": "Satellit der guten Hoffnung",
-      "city": "Oberhausen",
-      "postal_code": "46045",
-      "lat": 51.4686331,
-      "lon": 6.8575901,
-      "street_hint": "119 Marktstraße",
-      "pin_unnamed": false
-    },
     "_metro": "Essen, Germany"
   },
   {

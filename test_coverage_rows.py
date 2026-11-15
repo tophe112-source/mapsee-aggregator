@@ -263,12 +263,34 @@ def t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro():
         got = C._parse_place(suffix.strip(" ,"))
         check(f"'{suffix.strip()}' is {metro}, United States",
               got == (metro, "United States"), str(got))
+    def explicit_city(entry, metro):
+        venue = entry.get("venue") or {}
+        suffix = [p.strip() for p in entry.get("geocode_suffix", "").split(",") if p.strip()]
+        pairs = [(venue.get("city"), venue.get("region")), *zip(suffix, suffix[1:])]
+        return any(city == metro and region != metro
+                   and (region in C._US_STATE_NAMES or region in C._US_STATES)
+                   for city, region in pairs)
+
+    check("a city qualified by another state is not mistaken for the state",
+          explicit_city({"geocode_suffix": ", Wyoming, MI"}, "Wyoming")
+          and explicit_city({"venue": {"city": "Wyoming", "region": "Michigan"}}, "Wyoming"))
+    check("a lone state or a state's position after the city is still rejected",
+          not explicit_city({"geocode_suffix": ", Wyoming"}, "Wyoming")
+          and not explicit_city({"geocode_suffix": ", Eau Claire, Wisconsin"}, "Wisconsin")
+          and not explicit_city({"venue": {"city": "Eau Claire", "region": "Wisconsin"}}, "Wisconsin"))
+    entries = collections.defaultdict(list)
+    for typ, (fname, _key) in C.CONFIG.items():
+        path = os.path.join(C.HERE, fname)
+        if os.path.exists(path):
+            for entry in C._entries(fname, json.load(open(path, encoding="utf-8"))):
+                entries[typ, entry.get("name") or "?"].append(entry)
     rows = C._coverage_rows()
     # "New York" is the one name that is BOTH, and as a metro it is the right
     # answer — 11 rows, all of them New York City (Prospect Park Alliance,
     # Riverside Park Conservancy, Food Bank For New York City).
-    states = {m for _t, _n, m, c, _cat in rows
-              if c == "United States" and m in C._US_STATE_NAMES and m != "New York"}
+    states = {m for typ, name, m, c, _cat in rows
+              if c == "United States" and m in C._US_STATE_NAMES and m != "New York"
+              and not any(explicit_city(entry, m) for entry in entries[typ, name])}
     check("no US row has a STATE where its metro should be", not states,
           f"still states: {sorted(states)[:6]}")
 

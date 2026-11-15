@@ -1,5 +1,51 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **FOUR SMALL ADDITIONS RETAIN 32 DATED EVENTS WITHOUT ADDING DAILY FEED FETCHES (2026-11-14/15).**
+  Production-UA/robots verification and adapter -> EventStore -> real row builder
+  retain **32** rows across **4** cities; these are validation counts, not proof
+  that the next scheduled import has published them.
+  - Hannesarholt, Reykjavík: **15** rows, November 18-December 19; **45-day**
+    horizon, **1 page**, **50** requested records. API **141,976** body bytes,
+    robots **634** bytes, latest fetch **1.0 s**. Publisher names Grundarstígur 10;
+    official Visit Iceland publishes the matching place's **64.1442721,
+    -21.935638117** coordinate. The fallback matches this venue only. Sync makes
+    **0** geocode/enrichment calls. Exact title filters hold **2** listings whose
+    API dates contradict their own prose; no date is invented. Icelandic copy
+    remains intact; secondary categories carry **5 music / 3 theater** rows.
+  - Bacon Free Library, Natick: kids-events only, **60 days / 1 page / 50**
+    requested. **91,803** body bytes yield **21** reader records and **14**
+    physical storytimes, November 16-December 29, **10:00-10:30 EST**. Seven
+    locationless Lapsit records drop without a fallback. Crucially, an offline
+    `build_rows(..., geo_session=None)` replay did not prove production placement:
+    the publisher's native pin is **2,857.7 m** from its street. The production
+    path makes **1** free Census batch request (**135** response bytes, **0.7 s**)
+    and exact-matches **58 ELIOT ST, NATICK, MA 01760** at **42.271682188495,
+    -71.316457761176**. Warm-cache replay makes **0** requests and keeps identical
+    rows. Weather and accessibility restrictions survive the public prose cap.
+  - Bridgeport Art Center, Chicago: **2** publisher-listed open studios,
+    November 20 and December 18, **19:00-22:00**. Handmade Arcade, Pittsburgh:
+    **1** general-admission session, December 6, **11:00-18:00**. A public
+    **4-city / 4-request** map review found a Meetup outing to the same market
+    on December 5, **12:00-17:00**; the official **11:00-18:00** session would
+    overlap it with a different start that nightly dedupe would retain, so it
+    is not added. No proposed Hannesarholt, Natick or Chicago title was present.
+    The **4** map reads returned HTTP 200, **1-390** rows, **0.202-5.133 s**;
+    Chicago's cold read is not represented by the cheaper six-request canary.
+    Bounded
+    program configs expire after those dates, retain registration and admission
+    conditions, and make **0** ingestion or sync geocoding requests. Do not import
+    Handmade Arcade's continuous December 4-6 span: it includes overnight
+    closures, a **$30** preview and **$25** early shopping. The public general
+    sessions use reserved pay-what-you-can tickets, including a cost-barrier option.
+  - **2** Oberhausen single-event downloads are retired: **294 / 309** body
+    bytes, each **1** distinct VEVENT on October 22 / 26 and **0** upcoming.
+    They are not duplicate whole-site feeds. Their removal offsets the **2**
+    new one-page live feeds in the daily request count; no database rows are
+    deleted. Bytes, first inserts and storage still grow: fixed request counts
+    do not establish flat billing. No paid API, infrastructure, cadence or
+    runtime budget is added. Evidence is in `.catalog-probe/nov14-*` and
+    `.catalog-probe/cost-audit/`; the related refresh fix is in `ci-and-jobs.md`.
+
 - **A NEW CALENDAR CAN BE A DUPLICATE, AND ITS EVENT LINK CAN BE A DROPPED FIELD (2026-11-05).**
   This pass adds **1** source: Art Design Xchange's bare Squarespace `/events`
   collection in Portland. Production UA and robots allow the page; **1,017,313**

@@ -68635,6 +68635,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "baconfreelibrary.org": {
+    "checked": 20261114,
+    "name": "Bacon Free Library (Natick, MA)",
+    "reason": "36 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "baconlibrary.org": {
     "checked": 20261106,
     "name": "Bacon Memorial District Library",
@@ -417483,6 +417490,13 @@
     "reason": "osm probe: robots.txt Disallow: / (http://www.hannahstownparish.com/robots.txt)",
     "status": "refused",
     "type": "osm-venue"
+  },
+  "hannesarholt.is": {
+    "checked": 20261114,
+    "name": "Hannesarholt (Reykjavik, Iceland)",
+    "reason": "18 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "hannibal-mo.gov": {
     "checked": 20260913,
@@ -971258,16 +971272,16 @@
     "type": "osm-venue"
   },
   "theater-oberhausen.de/event/lichter-basteln-mit-dem-open-haus-fuer-alle/?ical=1": {
-    "checked": 20261101,
+    "checked": 20261115,
     "name": "Satellit der guten Hoffnung",
-    "reason": "1 vevents / 0 future",
+    "reason": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 309 body bytes / one VEVENT dated 20261026, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list.",
     "status": "empty",
     "type": "ics"
   },
   "theater-oberhausen.de/event/urbane-session-mit-dance-grounds/?ical=1": {
-    "checked": 20261101,
+    "checked": 20261115,
     "name": "Satellit der guten Hoffnung",
-    "reason": "1 vevents / 0 future",
+    "reason": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 294 body bytes / one VEVENT dated 20261022, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list.",
     "status": "empty",
     "type": "ics"
   },

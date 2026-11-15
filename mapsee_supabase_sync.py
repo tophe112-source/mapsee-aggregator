@@ -3415,7 +3415,8 @@ def counted_copies(primary: Optional[str], extras: Optional[List[str]], copies: 
 
 
 def merge_copy_categories(session, url: str, key: str, rows: List[Dict[str, Any]],
-                          detail: Dict[str, Dict[str, Any]], now: datetime) -> Optional[int]:
+                          detail: Dict[str, Dict[str, Any]], now: datetime,
+                          snapshot=None) -> Optional[int]:
     """Give each STORED row this run writes the categories of the copies the
     collapser hid behind it (merged_categories over counted_copies), in place.
     -> how many rows changed, or None when the copies could not be read: then
@@ -3429,7 +3430,15 @@ def merge_copy_categories(session, url: str, key: str, rows: List[Dict[str, Any]
             ids[str(rid)] = r
     if not ids:
         return 0
-    copies = read_hidden_copies(session, url, key, now)
+    # A batched refresh must not scan all hidden copies once per batch. The
+    # optional run-local snapshot also latches a failed scan for this run only;
+    # the next sync retries it, matching the ordinary one-call behavior.
+    if snapshot is None:
+        copies = read_hidden_copies(session, url, key, now)
+    else:
+        if 'copies' not in snapshot:
+            snapshot['copies'] = read_hidden_copies(session, url, key, now)
+        copies = snapshot['copies']
     if copies is None:
         return None
     need = {str(c["id"]) for rid, r in ids.items() for c in copies.get(rid, ())
@@ -4813,6 +4822,56 @@ def is_clean(text: str, terms) -> bool:
     return not any(re.search(r"\b" + re.escape(t) + r"\b", norm) for t in terms)
 
 
+
+class RefreshProgress:
+    """Completed refresh work, never cached permission to write a row.
+
+    A checkpoint killed after its first batches can skip those same normalized
+    values on retry. Changed values and every unfinished row still pass a fresh
+    ownership read. A partial cycle can survive later weekly snapshots; finished
+    cycles reset so the next full refresh checks the database again.
+    """
+    def __init__(self, path, scope, rows):
+        self.path, self.scope = path, scope
+        self.hashes = {r['external_id']: hashlib.sha256(json.dumps(
+            r, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode('utf-8')).hexdigest()
+            for r in rows}
+        self.done = {}
+        try:
+            with open(path, encoding='utf-8') as f:
+                data = json.load(f)
+            if data.get('version') == 1 and data.get('scope') == scope and isinstance(data.get('done'), dict):
+                self.done = {eid: digest for eid, digest in data['done'].items()
+                             if self.hashes.get(eid) == digest}
+        except (OSError, ValueError, TypeError, AttributeError):
+            pass                         # unusable progress only causes fresh reads
+
+    def pending(self, rows):
+        return [r for r in rows if self.done.get(r['external_id']) != self.hashes[r['external_id']]]
+
+    def save(self):
+        tmp = self.path + '.tmp'
+        try:
+            with open(tmp, 'w', encoding='utf-8') as f:
+                json.dump({'version': 1, 'scope': self.scope, 'done': self.done}, f,
+                          ensure_ascii=False, separators=(',', ':'))
+            os.replace(tmp, self.path)
+        except OSError as error:
+            print(f'::warning::Refresh progress was not saved ({type(error).__name__}); '
+                  'unfinished work will be read again.', flush=True)
+
+    def settled(self, rows, excluded=()):
+        for row in rows:
+            eid = row['external_id']
+            if eid not in excluded:
+                self.done[eid] = self.hashes[eid]
+        self.save()
+
+    def complete(self):
+        self.done.clear()
+        self.save()
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Upsert aggregated events into Mapsee's Supabase.")
     ap.add_argument("--store", default="mapsee_events.json")
@@ -4840,7 +4899,15 @@ def main() -> None:
                          "state_cache_must_read) and rewrites it after the cancellations. Without "
                          "--only-new every id is read and the file is rebuilt from that read. "
                          "--dry-run never opens it.")
+    ap.add_argument("--refresh-batch-size", type=int, default=0, metavar="ROWS",
+                    help="On full refreshes, check ownership, compare and write this many rows "
+                         "before reading the next batch. Requires --refresh-progress.")
+    ap.add_argument("--refresh-progress", metavar="PATH",
+                    help="Settled normalized rows in an unfinished refresh; retries read only "
+                         "unfinished/changed rows. Ignored under --only-new and --dry-run.")
     a = ap.parse_args()
+    if a.refresh_batch_size < 0 or bool(a.refresh_batch_size) != bool(a.refresh_progress):
+        ap.error("--refresh-batch-size must be positive and paired with --refresh-progress")
     if a.new_retention_days is not None and a.new_retention_days < 1:
         ap.error("--new-retention-days must be positive")
     if a.retire_absent and not a.manifest:
@@ -4926,6 +4993,12 @@ def main() -> None:
         print(f"State cache: {why}" + ("." if cache_rows is not None else
                                        "; every id is read and the cache is built from that read."),
               flush=True)
+    elif a.state_cache and a.refresh_batch_size:
+        # Carry forward prior read values for rows a completed refresh batch
+        # skips. They never authorize writes: every pending batch reads fresh.
+        cache_rows, why = load_state_cache(a.state_cache, cache_store)
+        print(f"State cache: {why}; carry-forward only during a resumable refresh "
+              "(every unfinished row is freshly read).", flush=True)
     elif a.state_cache:
         print(f"State cache: not read (no --only-new: every id is read); {a.state_cache} is "
               f"rebuilt from this run's read.", flush=True)
@@ -5036,102 +5109,152 @@ def main() -> None:
     if held:
         rows = [r for r in rows if r["external_id"] not in held]
     print(f"Prepared {len(rows)} event rows from {a.store}.")
-    if state is None:                                 # refresh day: build first, then read, as before
+    progress = None
+    if a.refresh_batch_size and not a.only_new:
+        scope = [url.rstrip('/'), host_id, os.path.basename(a.store)]
+        progress = RefreshProgress(a.refresh_progress, scope, rows)
+        total = len(rows)
+        rows = progress.pending(rows)
+        print(f"Refresh progress: {total - len(rows)} of {total} normalized rows already "
+              f"settled; {len(rows)} unfinished or changed, freshly checked in batches of "
+              f"{a.refresh_batch_size}.", flush=True)
+        state = {}
+    elif state is None:                              # ordinary refresh: existing behavior
         state = read_state([r["external_id"] for r in rows])
 
-    # A STORED row at an address Census has never answered, whose chunk failed,
-    # may hold Census's pin from an earlier run: it is not written this run
-    # (batch_geocode's hold, CENSUS_HOLD_HOURS at most). A NEW row has no pin to
-    # keep, and a moved one must be written: both go on the source's pin, so a
-    # failed chunk no longer keeps that day's new events off the map.
-    if census_held:
-        at = {r["external_id"] for r in rows if r["external_id"] in census_held}
-        wait = {eid for eid in at if eid in state and eid not in moved}
-        if wait:
-            rows = [r for r in rows if r["external_id"] not in wait]
-        print(f"Census hold: {len(wait)} stored row(s) held back; {len(at) - len(wait)} new or "
-              f"moved row(s) written on their source's pin.", flush=True)
+    blocklist = None
+    copy_snapshot = {} if progress else None
 
-    claimed = {eid for eid, is_claimed in state.items() if is_claimed}
-    if claimed:
-        before = len(rows)
-        rows = [r for r in rows if r["external_id"] not in claimed]
-        if before != len(rows):
-            print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
+    def sync_batch(rows):
+        nonlocal blocklist
+        # A STORED row at an address Census has never answered, whose chunk failed,
+        # may hold Census's pin from an earlier run: it is not written this run
+        # (batch_geocode's hold, CENSUS_HOLD_HOURS at most). A NEW row has no pin to
+        # keep, and a moved one must be written: both go on the source's pin, so a
+        # failed chunk no longer keeps that day's new events off the map.
+        if census_held:
+            at = {r["external_id"] for r in rows if r["external_id"] in census_held}
+            wait = {eid for eid in at if eid in state and eid not in moved}
+            if wait:
+                rows = [r for r in rows if r["external_id"] not in wait]
+            print(f"Census hold: {len(wait)} stored row(s) held back; {len(at) - len(wait)} new or "
+                  f"moved row(s) written on their source's pin.", flush=True)
 
-    if a.only_new:                                    # skip events already in the DB
-        # A moved row still has to be rewritten, and so does every stored row
-        # keep_new kept on purpose: this line used to drop those again, so the
-        # daily exact-detail refresh never reached the table.
-        existing = set(state) - moved - daily
-        before = len(rows)
-        rows = [r for r in rows if r["external_id"] not in existing]
-        if before != len(rows):                       # already done in keep_new, normally
-            print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
-
-    if a.new_retention_days is not None:
-        cutoff = now - timedelta(days=a.new_retention_days)
-        before = len(rows)
-        rows = [r for r in rows if not past_new_retention(r, state, cutoff)]
-        print(f"Retention: skipped {before - len(rows)} missing events already outside "
-              f"the {a.new_retention_days}-day cleanup window.")
-
-    terms = load_blocklist(geo, url, key) if rows else []  # no DB read for an empty write set
-    moderated: set = set()
-    if terms:
-        before = len(rows)
-        offered = {r["external_id"] for r in rows}
-        rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
-                                       for f in ("title", "description", "place_name", "host_name"))]
-        moderated = offered - {r["external_id"] for r in rows}
-        print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
-
-    # Before skip-unchanged, which drops an identical row from the WRITE but not
-    # from the fact that the source lists it live today.
-    relist = sorted(r["external_id"] for r in rows if import_cancelled(detail.get(r["external_id"]), now))
-
-    # A ROW THE COLLAPSER KEPT carries the categories of the copies it hid
-    # (merged_categories): without this a refresh writes the row back to its
-    # own categories and the event drops out of the copies' doors until the
-    # next dedupe pass, hours later. BEFORE skip-unchanged, so the comparison
-    # sees the merged value and a kept row is not rewritten every day.
-    merged = merge_copy_categories(geo, url, key, rows, detail, now) if rows else 0
-    if merged is None:
-        print("::warning::Hidden copies' categories could not be read: kept rows are written with "
-              "their own; mapsee_dedupe_events' nightly pass restores the union.", flush=True)
-    elif merged:
-        print(f"Kept rows: {merged} carry the categories of the copies hidden behind them.", flush=True)
-
-    # LAST, so nothing is read back for a row the filters above already dropped,
-    # and only a STORED row is read back at all (rows_to_compare): a new row is
-    # written whatever unchanged_ids would have said.
-    stored = rows_to_compare(rows, state) if a.skip_unchanged else []
-    if stored:
-        same = unchanged_ids(geo, url, key, stored)
-        fresh = len(rows) - len(stored)
-        if same:
+        claimed = {eid for eid, is_claimed in state.items() if is_claimed}
+        if claimed:
             before = len(rows)
-            rows = [r for r in rows if r["external_id"] not in same]
-            print(f"Skip-unchanged: {len(rows)} of {before} differ from what is stored "
-                  f"({len(same)} identical, not rewritten; {fresh} new, not read back).")
-        else:
-            print(f"Skip-unchanged: all {len(stored)} stored rows differ from what is stored "
-                  f"(or could not be read back — a refusal means write); {fresh} new, not read back.")
+            rows = [r for r in rows if r["external_id"] not in claimed]
+            if before != len(rows):
+                print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
 
-    sent = {r["external_id"] for r in rows}           # whatever the outcome: never kept in the cache
-    t0 = time.monotonic()
-    n, skipped, lost = upsert(rows, url, key)
-    print(f"Upsert phase: {len(rows)} row(s) in {time.monotonic() - t0:.1f}s.", flush=True)
-    # NOT NECESSARILY MODERATION. This used to assert the reason regardless of
-    # the status code, and it sent me looking for a content filter that was
-    # never involved: Tokyo's entire batch — all 114 rows — failed with
-    # "503 upstream connect error" and was reported as blocked content, while a
-    # handful elsewhere were 400s for an out-of-range timestamp. The per-row
-    # reasons are printed above; point at those instead of inventing one.
-    tail = f"; skipped {skipped} (see the per-row reasons above)" if skipped else ""
-    tail += f"; LOST {lost} to an unanswering database" if lost else ""
-    print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
-          f"They will now appear in events_near / the Nearby map.")
+        if a.only_new:                                    # skip events already in the DB
+            # A moved row still has to be rewritten, and so does every stored row
+            # keep_new kept on purpose: this line used to drop those again, so the
+            # daily exact-detail refresh never reached the table.
+            existing = set(state) - moved - daily
+            before = len(rows)
+            rows = [r for r in rows if r["external_id"] not in existing]
+            if before != len(rows):                       # already done in keep_new, normally
+                print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
+
+        if a.new_retention_days is not None:
+            cutoff = now - timedelta(days=a.new_retention_days)
+            before = len(rows)
+            rows = [r for r in rows if not past_new_retention(r, state, cutoff)]
+            print(f"Retention: skipped {before - len(rows)} missing events already outside "
+                  f"the {a.new_retention_days}-day cleanup window.")
+
+        if blocklist is None and rows:
+            blocklist = load_blocklist(geo, url, key)
+        terms = blocklist or []
+        moderated: set = set()
+        if terms:
+            before = len(rows)
+            offered = {r["external_id"] for r in rows}
+            rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
+                                           for f in ("title", "description", "place_name", "host_name"))]
+            moderated = offered - {r["external_id"] for r in rows}
+            print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
+
+        # Before skip-unchanged, which drops an identical row from the WRITE but not
+        # from the fact that the source lists it live today.
+        relist = sorted(r["external_id"] for r in rows if import_cancelled(detail.get(r["external_id"]), now))
+
+        # A ROW THE COLLAPSER KEPT carries the categories of the copies it hid
+        # (merged_categories): without this a refresh writes the row back to its
+        # own categories and the event drops out of the copies' doors until the
+        # next dedupe pass, hours later. BEFORE skip-unchanged, so the comparison
+        # sees the merged value and a kept row is not rewritten every day.
+        if rows and progress:
+            merged = merge_copy_categories(geo, url, key, rows, detail, now, snapshot=copy_snapshot)
+        else:
+            merged = merge_copy_categories(geo, url, key, rows, detail, now) if rows else 0
+        if merged is None:
+            print("::warning::Hidden copies' categories could not be read: kept rows are written with "
+                  "their own; mapsee_dedupe_events' nightly pass restores the union.", flush=True)
+        elif merged:
+            print(f"Kept rows: {merged} carry the categories of the copies hidden behind them.", flush=True)
+
+        # LAST, so nothing is read back for a row the filters above already dropped,
+        # and only a STORED row is read back at all (rows_to_compare): a new row is
+        # written whatever unchanged_ids would have said.
+        stored = rows_to_compare(rows, state) if a.skip_unchanged else []
+        if stored:
+            same = unchanged_ids(geo, url, key, stored)
+            fresh = len(rows) - len(stored)
+            if same:
+                before = len(rows)
+                rows = [r for r in rows if r["external_id"] not in same]
+                print(f"Skip-unchanged: {len(rows)} of {before} differ from what is stored "
+                      f"({len(same)} identical, not rewritten; {fresh} new, not read back).")
+            else:
+                print(f"Skip-unchanged: all {len(stored)} stored rows differ from what is stored "
+                      f"(or could not be read back — a refusal means write); {fresh} new, not read back.")
+
+        sent = {r["external_id"] for r in rows}           # whatever the outcome: never kept in the cache
+        t0 = time.monotonic()
+        n, skipped, lost = upsert(rows, url, key)
+        print(f"Upsert phase: {len(rows)} row(s) in {time.monotonic() - t0:.1f}s.", flush=True)
+        # NOT NECESSARILY MODERATION. This used to assert the reason regardless of
+        # the status code, and it sent me looking for a content filter that was
+        # never involved: Tokyo's entire batch — all 114 rows — failed with
+        # "503 upstream connect error" and was reported as blocked content, while a
+        # handful elsewhere were 400s for an out-of-range timestamp. The per-row
+        # reasons are printed above; point at those instead of inventing one.
+        tail = f"; skipped {skipped} (see the per-row reasons above)" if skipped else ""
+        tail += f"; LOST {lost} to an unanswering database" if lost else ""
+        print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
+              f"They will now appear in events_near / the Nearby map.")
+
+        return sent, relist, moderated, n, skipped, lost
+
+    batches = ([rows[i:i + a.refresh_batch_size] for i in range(0, len(rows), a.refresh_batch_size)]
+               if progress else [rows])
+    sent, relist, moderated = set(), [], set()
+    n = skipped = lost = 0
+    for batch_index, batch in enumerate(batches):
+        if progress:
+            state.update(read_state([r["external_id"] for r in batch]))
+        batch_sent, batch_relist, batch_moderated, count, rejected, missing = sync_batch(batch)
+        sent.update(batch_sent)
+        relist.extend(batch_relist)
+        moderated.update(batch_moderated)
+        n += count
+        skipped += rejected
+        lost += missing
+        if progress and not missing:
+            # A relist still owes its final guarded lift; a Census hold still
+            # owes a pin. Neither is settled merely because the upsert ran.
+            progress.settled(batch, census_held | set(batch_relist))
+        elif progress and missing:
+            # upsert's outage breaker must also bound the enclosing refresh:
+            # even after partial success, the next batch must not restart five
+            # unanswered-batch retries. Defer conservatively after any loss.
+            deferred = sum(len(rest) for rest in batches[batch_index + 1:])
+            print(f"::warning::Refresh stopped after a batch with unwritten rows; {deferred} "
+                  "further candidate(s) remain unfinished, with fresh ownership checks "
+                  "required on retry.", flush=True)
+            break
 
     # AFTER the upsert, so a failure here never costs the night's new rows, and
     # the rows a cancellation lifts are already current when they reappear.
@@ -5200,6 +5323,14 @@ def main() -> None:
             print(f"State cache: {len(rows_kept)} row(s) saved to {a.state_cache}; "
                   f"{len(evict & asked)} read this run but written, held, re-keyed, cancelled or "
                   f"lifted are left out, to be read again.", flush=True)
+    refresh_held = census_held & progress.hashes.keys() if progress else set()
+    if progress and not lost and not owed and not refresh_held:
+        progress.complete()
+        print("Refresh progress: this snapshot's full pass settled; the next full refresh "
+              "starts a new cycle.", flush=True)
+    elif progress and refresh_held:
+        print(f"Refresh progress: {len(refresh_held)} Census-held candidate(s) remain unfinished; "
+              "settled batches are kept for the next full refresh.", flush=True)
     if owed:
         # A WARNING, NOT A FAILURE. Every owed write is derived again next run (a
         # tombstone is the publisher's word re-read, absence compares with the
