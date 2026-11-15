@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "PT",
+  "country": "NO",
   "offset": 2140,
   "offsets": {
    "AE": 0,
@@ -24,12 +24,12 @@
    "MX": 240,
    "MY": 0,
    "NL": 240,
-   "NO": 240,
+   "NO": 360,
    "NZ": 140,
    "PT": 360,
    "SE": 80,
    "SI": 240,
-   "US": 2303,
+   "US": 2315,
    "ZA": 200
   },
   "visited": [
@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 19,
-  "metro_key": "AT:Graz",
+  "metro": 25,
+  "metro_key": "SG:Singapore",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -264,21 +264,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 300,
-  "events": 500,
+  "community events": 400,
+  "events": 600,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 100,
+  "library programs": 200,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 300,
+  "recreation programs": 400,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 0,
-  "wellness programs": 100,
-  "youth programs": 100
+  "special events": 200,
+  "volunteer": 100,
+  "wellness programs": 200,
+  "youth programs": 200
  }
 }

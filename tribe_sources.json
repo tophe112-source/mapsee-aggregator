@@ -46563,6 +46563,90 @@
       "crawl_delay": 10,
       "_metro": "Natick, United States",
       "_measured": "2026-11-15: one production-UA API page, 91803 body bytes; kids-events only. 21 reader records yield 14 physical rows Nov 16-Dec 29; seven Lapsit listings have no venue and are dropped, with no fallback. Source pin is 2857.7m wrong: production Census exact-matches 58 ELIOT ST NATICK MA 01760 at 42.271682188495,-71.316457761176 (one 135-byte batch response; warm replay 0 requests). Weather/accessibility restrictions survive the public prose cap. No duplicate host."
+    },
+    {
+      "name": "p.p.c.",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://popculture.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "p.p.c.",
+        "address": "6 Neubaugasse",
+        "city": "Graz",
+        "postal_code": "8020",
+        "country": "AT",
+        "lat": 47.0758422,
+        "lon": 15.4314436
+      },
+      "_metro": "Graz, Austria"
+    },
+    {
+      "name": "Pfadfindergruppe Salzburg Maxglan",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pfadfinder-maxglan.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pfadfindergruppe Salzburg Maxglan",
+        "address": "12 Karolingerstraße",
+        "city": "Salzburg",
+        "postal_code": "5020",
+        "country": "AT",
+        "lat": 47.7944611,
+        "lon": 13.0098343
+      },
+      "_metro": "Salzburg, Austria"
+    },
+    {
+      "name": "Schützengesellschaft Schönram e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sg-schoenram.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schützengesellschaft Schönram e.V.",
+        "address": "4 Englhamer Straße",
+        "city": "Petting",
+        "postal_code": "83367",
+        "lat": 47.8841127,
+        "lon": 12.8485977
+      },
+      "_metro": "Salzburg, Austria"
+    },
+    {
+      "name": "Centrum Tancerza – TLD",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://beatanawrot.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centrum Tancerza – TLD",
+        "address": "55 Stefana Czarnieckiego",
+        "city": "Warszawa",
+        "postal_code": "01-541",
+        "lat": 52.2685761,
+        "lon": 20.9911942
+      },
+      "_metro": "Warsaw, Poland"
+    },
+    {
+      "name": "Folwark Kultura",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://ckpir.zielonki.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Folwark Kultura",
+        "lat": 50.1725984,
+        "lon": 19.9152505
+      },
+      "_metro": "Krakow, Poland"
     }
   ],
   "_not_included": {

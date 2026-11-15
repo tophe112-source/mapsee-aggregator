@@ -35634,6 +35634,180 @@
         "lon": 15.4037857
       },
       "_metro": "Graz, Austria"
+    },
+    {
+      "name": "Edition Keiper",
+      "category": "learning",
+      "_found": "osm:books -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.editionkeiper.at/shop/"
+      ],
+      "link_pattern": "https://www\\.editionkeiper\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Edition Keiper",
+        "address": "17 Puchstraße",
+        "city": "Graz",
+        "postal_code": "8020",
+        "country": "AT",
+        "lat": 47.0514333,
+        "lon": 15.434267
+      },
+      "_metro": "Graz, Austria"
+    },
+    {
+      "name": "OFF Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.off.theater/totalimproffisiert"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "OFF Theater",
+        "address": "5 Eichstraße",
+        "city": "Salzburg",
+        "postal_code": "5020",
+        "lat": 47.8092612,
+        "lon": 13.0664672
+      },
+      "_metro": "Salzburg, Austria"
+    },
+    {
+      "name": "Die Bachschmiede - Kultur Museum Kunst",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.diebachschmiede.at/veranstaltung/17-walser-advent-kunsthandwerksmarkt"
+      ],
+      "link_pattern": "https://www\\.diebachschmiede\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Die Bachschmiede - Kultur Museum Kunst",
+        "address": "2 Jakob-Lechnerweg",
+        "city": "Wals-Siezenheim",
+        "postal_code": "5071",
+        "country": "AT",
+        "lat": 47.7907577,
+        "lon": 12.9643034
+      },
+      "_metro": "Salzburg, Austria"
+    },
+    {
+      "name": "Polonia",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.teatrpolonia.pl/event-data/5130/reniferek"
+      ],
+      "link_pattern": "https://www\\.teatrpolonia\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Polonia",
+        "address": "56 Marszałkowska",
+        "city": "Warszawa",
+        "lat": 52.2236311,
+        "lon": 21.0159249
+      },
+      "_metro": "Warsaw, Poland"
+    },
+    {
+      "name": "Progresja Music Zone",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://progresja.com/wydarzenie/"
+      ],
+      "link_pattern": "https://progresja\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Progresja Music Zone",
+        "address": "22 Fort Wola",
+        "city": "Warszawa",
+        "postal_code": "01-258",
+        "country": "PL",
+        "lat": 52.2247998,
+        "lon": 20.9288574
+      },
+      "_metro": "Warsaw, Poland"
+    },
+    {
+      "name": "Och-Teatr",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.ochteatr.com.pl/event-data/3882/lily"
+      ],
+      "link_pattern": "https://www\\.ochteatr\\.com\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Och-Teatr",
+        "address": "65 Grójecka",
+        "city": "Warszawa",
+        "postal_code": "02-094",
+        "lat": 52.214214,
+        "lon": 20.9802028
+      },
+      "_metro": "Warsaw, Poland"
+    },
+    {
+      "name": "Klub Szachowy Polonia",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://polonia.wroclaw.pl/akademia/"
+      ],
+      "link_pattern": "https://polonia\\.wroclaw\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Klub Szachowy Polonia",
+        "address": "7-9 Piaskowa",
+        "city": "Wrocław",
+        "postal_code": "50-158",
+        "lat": 51.1119409,
+        "lon": 17.0395611
+      },
+      "_metro": "Wroclaw, Poland"
+    },
+    {
+      "name": "Klub Sportów Walki Kame Gym Wrocław",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://kamegym.pl/wydarzenia"
+      ],
+      "link_pattern": "https://kamegym\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Klub Sportów Walki Kame Gym Wrocław",
+        "address": "61a Nyska",
+        "city": "Wrocław",
+        "postal_code": "50-505",
+        "lat": 51.085897,
+        "lon": 17.0515067
+      },
+      "_metro": "Wroclaw, Poland"
+    },
+    {
+      "name": "Church of Divine Mercy",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://new.divinemercy.sg/events/"
+      ],
+      "link_pattern": "https://new\\.divinemercy\\.sg/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Church of Divine Mercy",
+        "address": "19 Pasir Ris Street 72",
+        "city": "Singapore",
+        "postal_code": "518771",
+        "lat": 1.3803488,
+        "lon": 103.9360804
+      },
+      "_metro": "Singapore, Singapore"
     }
   ],
   "_not_included": {

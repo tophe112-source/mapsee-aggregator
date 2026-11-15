@@ -72507,5 +72507,172 @@
     "geocode_suffix": ", Wien",
     "limit": 300,
     "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Le Mars — Main Calendar",
+    "category": "community",
+    "url": "https://www.lemarsiowa.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Le Mars, Iowa",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Le Mars, Iowa",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Valley",
+    "category": "community",
+    "_found": "civic:city -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0pd3ul417bfnl7khsm5tvs4efg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Valley, Alabama",
+    "limit": 300,
+    "_metro": "Valley, Alabama"
+  },
+  {
+    "name": "Bellmead — Main Calendar",
+    "category": "community",
+    "url": "https://bellmeadtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Bellmead, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Bellmead, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bellmead — Intranet - Employee Calendar",
+    "category": "community",
+    "url": "https://bellmeadtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Bellmead, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Intranet - Employee Calendar]",
+    "_metro": "Bellmead, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bellmead — Police",
+    "category": "community",
+    "url": "https://bellmeadtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Bellmead, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Police]",
+    "_metro": "Bellmead, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bibliothek kunstGarten",
+    "category": "learning",
+    "_found": "osm:library -> events-manager",
+    "url": "https://kunstgarten.at/events/?ical=1",
+    "geocode_suffix": ", Graz",
+    "limit": 300,
+    "venue": {
+      "name": "Bibliothek kunstGarten",
+      "city": "Graz",
+      "postal_code": "8020",
+      "country": "AT",
+      "lat": 47.0517879,
+      "lon": 15.4221378,
+      "street_hint": "27 Payer-Weyprecht-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Graz, Austria"
+  },
+  {
+    "name": "Academia flamenca Las hermanas",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kmmgjdqv30g9fkl0qph0pqdpk8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Graz",
+    "limit": 300,
+    "_metro": "Graz, Austria"
+  },
+  {
+    "name": "realraum",
+    "category": "community",
+    "_found": "osm:hackerspace -> ics",
+    "url": "https://r3.at/all_events.ics",
+    "geocode_suffix": ", Graz",
+    "limit": 300,
+    "_metro": "Graz, Austria"
+  },
+  {
+    "name": "Kletterpark Salzburg",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2c6293bf279335a45cceb2de83b8d3d129e27d057239978c56879b630a1def37%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salzburg, Austria",
+    "limit": 300,
+    "_metro": "Salzburg, Austria"
+  },
+  {
+    "name": "Waldkletterweg Faistenau",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/86e21a6880c744b3870c4d86df544e0c567110d82c37d3d55c9edf06ad4e3941%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salzburg, Austria",
+    "limit": 300,
+    "_metro": "Salzburg, Austria"
+  },
+  {
+    "name": "Pfarrkirche Parsch \"Zum kostbaren Blut\"",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/47nup8qnjv6fb1oplc0k0ltvgc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salzburg",
+    "limit": 300,
+    "_metro": "Salzburg, Austria"
+  },
+  {
+    "name": "Stocksporthalle Aufham",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/560ljj5g77ekk5optkdatov99c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Anger",
+    "limit": 300,
+    "_metro": "Salzburg, Austria"
+  },
+  {
+    "name": "Teubermühle",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1166ecd55ae6356c7ca19c95f21aafe1a7b40faaf3cd1f536df39c66005f894c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Elsbethen",
+    "limit": 300,
+    "_metro": "Salzburg, Austria"
+  },
+  {
+    "name": "FireTrap.pl Training Academy",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tdm5f3pn5cb0925fhlfdamufoc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Warsaw, Poland",
+    "limit": 300,
+    "_metro": "Warsaw, Poland"
+  },
+  {
+    "name": "Ośrodek Sportu i Rekreacji \"Huragan\"",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hg7om5chpscnevd4l0fqm3ik4o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wołomin",
+    "limit": 300,
+    "_metro": "Warsaw, Poland"
+  },
+  {
+    "name": "Kościół pw. Świętego Wojciecha",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j84iffrf5l31u09au7utkd7iig%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gdańsk",
+    "limit": 300,
+    "_metro": "Gdansk, Poland"
+  },
+  {
+    "name": "Kościół pw. Świętego Alberta Wielkiego",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lftkk5s2kijjdkatvmr2m44kpk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wroclaw, Poland",
+    "limit": 300,
+    "_metro": "Wroclaw, Poland"
   }
 ]
