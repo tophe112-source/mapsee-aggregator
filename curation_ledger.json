@@ -205,6 +205,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "100mileclub.com": {
+    "checked": 20261115,
+    "name": "100 Mile Club - community run/walk meetups (Riverside County, CA)",
+    "reason": "119 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "100mostow.pl": {
     "checked": 20261115,
     "name": "Browar Stu Most\u00f3w",
@@ -11853,6 +11860,13 @@
     "status": "empty",
     "type": "tribe"
   },
+  "acreslandtrust.org": {
+    "checked": 20261115,
+    "name": "ACRES Land Trust - preserve hikes (Fort Wayne, IN)",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "acrhomes.com": {
     "checked": 20261106,
     "name": "ACR Homes",
@@ -14070,6 +14084,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "adkinsarboretum.org": {
+    "checked": 20261115,
+    "name": "Adkins Arboretum - walks, nature journaling and botanical art (Ridgely, MD)",
+    "reason": "23 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "adkulturverein.de": {
     "checked": 20261025,
@@ -18894,6 +18915,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ahplibrary.libcal.com/ical_subscribe.php?src=p&cid=20722": {
+    "checked": 20261115,
+    "name": "Auburn Hills Public Library (Auburn Hills, MI)",
+    "reason": "384 vevents / 320 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ahra.org.uk": {
     "checked": 20261009,
     "name": "Annadale Community Centre",
@@ -19730,6 +19758,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "aims-worldrunning.org/events.ics": {
+    "checked": 20261115,
+    "name": "AIMS - world marathon and distance race calendar",
+    "reason": "robots.txt: Disallow: /events (GET /events.ics)",
+    "status": "refused",
+    "type": "ics"
   },
   "aimzero.de": {
     "checked": 20261025,
@@ -24002,6 +24037,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "aldoleopoldnaturecenter.org": {
+    "checked": 20261115,
+    "name": "Aldo Leopold Nature Center (Monona, WI)",
+    "reason": "27 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "aldousbooks.co.uk": {
     "checked": 20261031,
@@ -36169,6 +36211,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "andovertrailrunning.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Andover Trail Running - trail marathon and half (Andover, Hampshire)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "andoy.kommune.no": {
     "checked": 20261020,
     "name": "And\u00f8y Municipality",
@@ -43680,6 +43729,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "aravaiparunning.com/races": {
+    "checked": 20261115,
+    "name": "Aravaipa Running - trail and ultra races (Phoenix / Arizona)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "araymond-museum.com/fr": {
     "checked": 20261028,
     "name": "ARHome",
@@ -49111,6 +49167,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "arocha.ca": {
+    "checked": 20261115,
+    "name": "A Rocha Canada - Brooksdale restoration Saturdays and volunteer days (Surrey, BC)",
+    "reason": "21 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "aroeirafitness.com": {
     "checked": 20261113,
@@ -61363,6 +61426,13 @@
     "reason": "http 404",
     "status": "fail",
     "type": "tribe"
+  },
+  "atwevents.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "ATW Events - running festivals, 5k/10k and half marathons (East of England)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "atxcardhouse.com": {
     "checked": 20261109,
@@ -80757,6 +80827,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bcas.org": {
+    "checked": 20261115,
+    "name": "Bucks County Audubon Society at Honey Hollow - bird walks (New Hope, PA)",
+    "reason": "11 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "bcatholic.com": {
     "cal_url": "https://www.bcatholic.com/special-events",
     "checked": 20261106,
@@ -81116,6 +81193,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "bclandtrust.org": {
+    "checked": 20261115,
+    "name": "Bolsa Chica Land Trust - Monday beach cleanups and habitat restoration (Huntington Beach, CA)",
+    "reason": "12 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "bclevallois.fr": {
     "checked": 20260830,
@@ -85341,6 +85425,13 @@
     "reason": "osm probe: found-but-unusable: ics-without-feed(libcal)",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "belleville.libcal.com/ical_subscribe.php?src=p&cid=19644": {
+    "checked": 20261115,
+    "name": "Belleville Area District Library (Belleville, MI)",
+    "reason": "307 vevents / 244 future",
+    "status": "ok",
+    "type": "ics"
   },
   "belleville.net/350/Library": {
     "cal_key": "belleville.net/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
@@ -95078,6 +95169,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bexaraudubon.org": {
+    "checked": 20261115,
+    "name": "Bexar Audubon Society (San Antonio, TX)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "bexarbibliotech.org/BiblioTechEast": {
     "checked": 20261109,
@@ -106467,6 +106565,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bigfeatevents.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Big Feat Events - trail series (UK)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "bigfunmuseum.com": {
     "checked": 20260915,
     "name": "Big Fun Museum",
@@ -106596,6 +106701,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "bigpeachrunningco.com": {
+    "checked": 20261115,
+    "name": "Big Peach Running Co. - store events (Atlanta)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "bigplanetcomics.com": {
     "checked": 20261104,
     "name": "Big Planet Comics",
@@ -106626,6 +106738,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "bigriverrunning.com": {
+    "checked": 20261115,
+    "name": "Big River Running - store group runs and trail excursions (St. Louis, MO)",
+    "reason": "43 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "bigsight.jp": {
     "cal_url": "https://www.bigsight.jp/visitor/event/",
@@ -108973,6 +109092,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "birminghamtrackclub.com/upcoming-races": {
+    "checked": 20261115,
+    "name": "Birmingham Track Club - upcoming races (Birmingham, AL)",
+    "reason": "16/16 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "birminghamzoo.com": {
     "checked": 20261115,
@@ -118385,6 +118511,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "boktowergardens.org": {
+    "checked": 20261115,
+    "name": "Bok Tower Gardens (Lake Wales, FL)",
+    "reason": "53 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "boku.ac.at/bib": {
     "cal_url": "https://boku.ac.at/bib/lehrveranstaltungen",
     "checked": 20261017,
@@ -120168,6 +120301,55 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11475": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Drouin Library (Drouin, Australia)",
+    "reason": "40 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11476": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Emerald Library (Emerald, Australia)",
+    "reason": "77 vevents / 50 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11480": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Leongatha Library (Leongatha, Australia)",
+    "reason": "33 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11483": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Pakenham Library (Pakenham, Australia)",
+    "reason": "223 vevents / 119 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11484": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Phillip Island Library (Cowes, Australia)",
+    "reason": "87 vevents / 46 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11487": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Warragul Library (Warragul, Australia)",
+    "reason": "154 vevents / 125 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bookings.myli.org.au/ical_subscribe.php?src=p&cid=11490": {
+    "checked": 20261115,
+    "name": "MYLI My Community Library - Wonthaggi Library (Wonthaggi, Australia)",
+    "reason": "110 vevents / 49 future",
+    "status": "ok",
+    "type": "ics"
   },
   "bookings.yourapl.ca/ical_subscribe.php?cid=8546": {
     "checked": 20261115,
@@ -129121,6 +129303,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "braswell-library.libcal.com/ical_subscribe.php?src=p&cid=5322": {
+    "checked": 20261115,
+    "name": "Braswell Memorial Library (Rocky Mount, NC)",
+    "reason": "157 vevents / 104 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "bratalbert.wroclaw.pl/?option=com_content&view=category&layout=blog&id=60&Itemid=83": {
     "checked": 20261115,
     "name": "Noclegownia \u015awi\u0119tego Brata Alberta",
@@ -133367,6 +133556,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bristolavonriverstrust.org": {
+    "checked": 20261115,
+    "name": "Bristol Avon Rivers Trust (Bristol, UK)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "bristolbrewing.com": {
     "checked": 20261111,
@@ -138901,6 +139097,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "btarboretum.org": {
+    "checked": 20261115,
+    "name": "Boyce Thompson Arboretum - bird walks and guided tours (Superior, AZ)",
+    "reason": "43 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "btb-ev.de/verein/anfahrt-zum-verein": {
     "cal_url": "https://www.btb-ev.de/termine-2026",
     "checked": 20261022,
@@ -144254,6 +144457,13 @@
     "reason": "9 vevents / 4 future",
     "status": "ok",
     "type": "ics"
+  },
+  "buffalobayou.org": {
+    "checked": 20261115,
+    "name": "Buffalo Bayou Partnership - park walks, cruises and workdays (Houston)",
+    "reason": "64 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "buffalocommunitycentre.co.uk": {
     "checked": 20261009,
@@ -151565,6 +151775,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "caguas.gov.pr/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261115,
+    "name": "Municipio de Caguas - eventos (Puerto Rico)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 404",
+    "status": "fail",
+    "type": "ics"
+  },
   "cahababrewing.com": {
     "cal_key": "calendar.google.com/calendar/ical/cahababrewing.com_3klg8osefbctleqqlh503j6k04%40group.calendar.google.com/public/basic.ics",
     "checked": 20261111,
@@ -152341,6 +152558,13 @@
     "reason": "5 events / 5 future instance(s)",
     "status": "ok",
     "type": "localist"
+  },
+  "calendar.fdlpl.org/ical_subscribe.php?src=p&cid=21497": {
+    "checked": 20261115,
+    "name": "Fond du Lac Public Library (Fond du Lac, WI)",
+    "reason": "447 vevents / 322 future",
+    "status": "ok",
+    "type": "ics"
   },
   "calendar.fiu.edu": {
     "checked": 20261115,
@@ -165888,6 +166112,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "calendar.hkust.edu.hk/events/ics": {
+    "checked": 20261115,
+    "name": "HKUST Calendar (Hong Kong)",
+    "reason": "1074 vevents / 671 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "calendar.kennesaw.edu": {
     "checked": 20261115,
     "name": "Kennesaw State University (Atlanta)",
@@ -168070,6 +168301,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "camarillolibrary.libcal.com/ical_subscribe.php?src=p&cid=11325": {
+    "checked": 20261115,
+    "name": "Camarillo Public Library (Camarillo, CA)",
+    "reason": "285 vevents / 179 future",
+    "status": "ok",
+    "type": "ics"
   },
   "camasliberty.com": {
     "checked": 20261107,
@@ -171622,6 +171860,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "capitalnature.org": {
+    "checked": 20261115,
+    "name": "Capital Nature - stewardship (Washington, DC)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
   },
   "capitalregionfarmersmarket.com.au/events/?ical=1": {
     "checked": 20261115,
@@ -176144,6 +176389,13 @@
     "reason": "osm probe: found ics",
     "status": "found",
     "type": "osm-venue"
+  },
+  "carpenternaturecenter.org": {
+    "checked": 20261115,
+    "name": "Carpenter Nature Center - bird hikes and banding (Hastings, MN / Hudson, WI)",
+    "reason": "10 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "carpenters-arms.org": {
     "cal_url": "https://carpenters-arms.org/programme/",
@@ -185146,6 +185398,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cdm.org": {
+    "checked": 20261115,
+    "name": "Children's Discovery Museum of San Jose (San Jose, CA)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
+  },
   "cdmae.cat": {
     "checked": 20260915,
     "name": "Museu de les Arts Esc\u00e8niques",
@@ -186955,6 +187214,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "centex.cultura.gob.cl": {
+    "checked": 20261115,
+    "name": "Centro de Extensi\u00f3n del Ministerio de las Culturas (Valpara\u00edso)",
+    "reason": "robots.txt unreachable (https://centex.cultura.gob.cl/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
   },
   "centibrooklyn.com": {
     "checked": 20261102,
@@ -192715,6 +192981,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "challenge-running.com/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Challenge Running - East Anglian ultras (Norfolk / Suffolk)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "challenged.co.jp": {
     "checked": 20260925,
     "name": "\u969c\u5bb3\u8005\u5c31\u52b4\u79fb\u884c\u652f\u63f4\u4e8b\u696d\u6240\u30c1\u30e3\u30ec\u30f3\u30b8\u30c9\u677f\u6a4b\u533a\u5f79\u6240\u524d",
@@ -194818,6 +195091,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "charmcityrun.com": {
+    "checked": 20261115,
+    "name": "Charm City Run - store group runs (Baltimore, Annapolis, Columbia, Bel Air, Frederick, MD)",
+    "reason": "209 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "charmontey.ch/salle-communautaire": {
     "checked": 20261018,
     "name": "Le Marronnier",
@@ -195748,6 +196028,13 @@
     "reason": "osm probe: found tribe",
     "status": "found",
     "type": "osm-venue"
+  },
+  "chattnaturecenter.org/events": {
+    "checked": 20261115,
+    "name": "Chattahoochee Nature Center (Roswell, GA)",
+    "reason": "17 events / 0 future; 6 link page(s) of 10: 6 fetched (1 answered 404)",
+    "status": "empty",
+    "type": "jsonld"
   },
   "chattzoo.org": {
     "cal_url": "https://www.chattzoo.org/events",
@@ -214246,6 +214533,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "circuitrunning.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Circuit Running - charity and challenge runs (York / Runnymede)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "circular.youthcoop.pt": {
     "cal_url": "https://circular.youthcoop.pt/brevemente/",
     "checked": 20261113,
@@ -218794,6 +219088,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "cityfestival.thisisathens.org": {
+    "checked": 20261115,
+    "name": "This is Athens City Festival (Athens, Greece)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "cityfit-clubs.com": {
     "checked": 20261024,
     "name": "CityFit",
@@ -219166,6 +219467,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "citymagazine.danas.rs": {
+    "checked": 20261115,
+    "name": "City Magazine (Danas) gig guide (Belgrade, Serbia)",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "citymission.org.nz": {
     "cal_url": "https://www.citymission.org.nz/mens-and-womans-day-programmes",
@@ -224536,6 +224844,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "claremontroadrunners.co.uk": {
+    "checked": 20261115,
+    "name": "Claremont Road Runners - club runs, intervals and races (Newcastle upon Tyne)",
+    "reason": "19 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "claremontrsl.org.au": {
     "cal_url": "https://www.claremontrsl.org.au/events-centre",
     "checked": 20261030,
@@ -225403,6 +225718,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cleancoasts.org": {
+    "checked": 20261115,
+    "name": "Clean Coasts (Ireland)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "cleanffm.de": {
     "cal_url": "https://www.cleanffm.de/events",
@@ -231260,6 +231582,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "cmany.org": {
+    "checked": 20261115,
+    "name": "Children's Museum of the Arts (New York)",
+    "reason": "robots.txt challenged (https://cmany.org/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
+  },
   "cmap.or.kr/page.php?cno=187": {
     "checked": 20261113,
     "name": "\uc2e0\ud3c9\uc911\uc559\uad50\ud68c",
@@ -231778,6 +232107,13 @@
     "name": "Children's Museum of Manhattan - drop-in programs and performances (New York)",
     "reason": "152 events, 10/10 on page 1 future",
     "status": "ok",
+    "type": "tribe"
+  },
+  "cmosc.org": {
+    "checked": 20261115,
+    "name": "Children's Museum of Sonoma County (Santa Rosa, CA)",
+    "reason": "robots.txt: Disallow: /*? (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
     "type": "tribe"
   },
   "cmp.smct.org.au": {
@@ -233092,6 +233428,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cob.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261115,
+    "name": "City of Bellingham - events (Bellingham, WA)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "cobaltstudios.co.uk": {
     "cal_url": "https://cobaltstudios.co.uk/whats-on/",
     "checked": 20261101,
@@ -233828,6 +234171,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "codrc.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "CODRC - trail half marathons and marathons (Shropshire Hills)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "codurhamclc.co.uk": {
     "checked": 20261101,
@@ -235974,6 +236324,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "columbiaslough.org/events": {
+    "checked": 20261115,
+    "name": "Columbia Slough Watershed Council (Portland, OR)",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "columbiaspacescience.org": {
     "cal_key": "columbiaspacescience.org/calendar",
     "checked": 20261103,
@@ -237798,6 +238155,13 @@
     "reason": "osm probe: robots.txt Disallow: / (https://communities.silvera.ca/robots.txt)",
     "status": "refused",
     "type": "osm-venue"
+  },
+  "communities.trailsisters.net": {
+    "checked": 20261115,
+    "name": "Trail Sisters communities - local group trail runs (US)",
+    "reason": "robots.txt challenged (https://communities.trailsisters.net/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
   },
   "community-compassion-services-inc.ueniweb.com": {
     "cal_url": "https://community-compassion-services-inc.ueniweb.com/services",
@@ -240524,6 +240888,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "conservancy.org": {
+    "checked": 20261115,
+    "name": "Conservancy of Southwest Florida - nature walks (Naples, FL)",
+    "reason": "38 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "conservancyforcvnp.org": {
     "checked": 20261115,
     "name": "Cuyahoga Valley / Conservancy, OH",
@@ -240593,6 +240964,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "conservationvolunteers.com.au": {
+    "checked": 20261115,
+    "name": "Conservation Volunteers Australia",
+    "reason": "robots.txt challenged (https://conservationvolunteers.com.au/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
+  },
   "conservatoire-du-littoral.fr/actualite/528/4-l-actualite.htm": {
     "checked": 20261028,
     "name": "Maison des \u00eeles et du littoral",
@@ -240633,6 +241011,20 @@
     "reason": "osm probe: found tribe",
     "status": "found",
     "type": "osm-venue"
+  },
+  "conservingcarolina.org": {
+    "checked": 20261115,
+    "name": "Conserving Carolina - hikes, preserve stewards and nature talks (Hendersonville, NC)",
+    "reason": "81 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "conservingindiana.org": {
+    "checked": 20261115,
+    "name": "Central Indiana Land Trust - preserve hikes (Indianapolis)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "consettafc.com": {
     "cal_url": "https://consettafc.com/event/18408/",
@@ -247549,6 +247941,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "crca.ca": {
+    "checked": 20261115,
+    "name": "Cataraqui Conservation (Kingston, ON)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "crccdn.org": {
     "checked": 20261029,
     "name": "Centre de Ressources Communautaires de C\u00f4te-des Neiges",
@@ -251541,6 +251940,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "crwc.org/events": {
+    "checked": 20261115,
+    "name": "Clinton River Watershed Council - watershed talks, Stonefly Search, Clinton Cleanup (Rochester Hills, MI)",
+    "reason": "15/45 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "crybaby.live": {
     "cal_url": "https://crybaby.live/events/",
     "checked": 20261105,
@@ -253924,6 +254330,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ctwoodlands.org": {
+    "checked": 20261115,
+    "name": "Connecticut Forest & Park Association - hikes and trail events (Middlefield, CT)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "ctz.ch/kalender": {
     "checked": 20261115,
     "name": "Christlicher Treffpunkt Zug",
@@ -254767,9 +255180,9 @@
     "type": "osm-venue"
   },
   "cultural.edu.pe/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20261004,
+    "checked": 20261115,
     "name": "Cultural Arequipa - Centro Cultural Peruano Norteamericano (Arequipa, Peru)",
-    "reason": "15 vevents / 13 future",
+    "reason": "12 vevents / 10 future",
     "status": "ok",
     "type": "ics"
   },
@@ -263473,6 +263886,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "davidsonlands.org": {
+    "checked": 20261115,
+    "name": "Davidson Lands Conservancy (Davidson, NC)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "davidstennis.com.br": {
     "checked": 20261004,
     "name": "David's Tennis School",
@@ -264895,6 +265315,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dcroadrunners.org": {
+    "checked": 20261115,
+    "name": "DC Road Runners - club races and runs (Arlington / Washington, DC)",
+    "reason": "9 events, 9/9 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "dcspaarndam.nl": {
     "cal_url": "https://dcspaarndam.nl/activiiteiten/",
@@ -282368,6 +282795,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "discoveryacton.org": {
+    "checked": 20261115,
+    "name": "The Discovery Museum (Acton, MA)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
+  },
   "discoverycenter.icr.org": {
     "cal_url": "https://discoverycenter.icr.org/special-events",
     "checked": 20261104,
@@ -285717,6 +286151,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "dodgenaturecenter.org": {
+    "checked": 20261115,
+    "name": "Dodge Nature Center - forest bathing, nature walks and farm programmes (West St. Paul, MN)",
+    "reason": "11 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "dodhyschildrenshome.co.uk": {
     "checked": 20261031,
@@ -297724,6 +298165,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dupagechildrens.org": {
+    "checked": 20261115,
+    "name": "DuPage Children's Museum (Naperville, IL)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "dupageforest.org/places-to-go/centers/fullerburg-woods-nature-education-center": {
     "checked": 20261104,
     "name": "Fullersburg Woods Nature Education Center",
@@ -298267,6 +298715,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "durhampubliclibrary.libcal.com/ical_subscribe.php?src=p&cid=21258": {
+    "checked": 20261115,
+    "name": "Durham Public Library (Durham, NH)",
+    "reason": "420 vevents / 343 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "durhamrccgsop.org": {
     "cal_url": "https://durhamrccgsop.org/events/",
     "checked": 20261101,
@@ -298496,6 +298951,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "duvalaudubon.org": {
+    "checked": 20261115,
+    "name": "Duval Audubon Society (Jacksonville, FL)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "duw.unibas.ch/de/departement/bibliotheken/bibliothek-geographie": {
     "checked": 20261018,
     "name": "UB Geographie",
@@ -298503,6 +298965,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "duwamishalive.org": {
+    "checked": 20261115,
+    "name": "Duwamish Alive Coalition (Seattle, WA)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "duwamishtribe.org/longhouse.html": {
     "checked": 20261106,
@@ -302127,6 +302596,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ebcpl.libcal.com/ical_subscribe.php?src=p&cid=10363": {
+    "checked": 20261115,
+    "name": "Ethelbert B. Crawford Public Library - Youth Programs (Monticello, NY)",
+    "reason": "53 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ebcsa.co.uk": {
     "cal_key": "ebcsa.co.uk/events",
     "checked": 20261031,
@@ -303805,6 +304281,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ecocentre.com": {
+    "checked": 20261115,
+    "name": "Port Phillip EcoCentre (Melbourne, Australia)",
+    "reason": "robots.txt: Disallow: / (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "ecocmilwaukee.com": {
     "checked": 20261109,
     "name": "Eastside Church of Christ",
@@ -304003,6 +304486,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ecomatters.org.nz": {
+    "checked": 20261115,
+    "name": "EcoMatters Environment Trust - stream care volunteer sessions (Auckland, New Zealand)",
+    "reason": "31 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ecomusee-foret.org": {
     "checked": 20261028,
@@ -311940,6 +312430,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "elculturalsanmartin.ar": {
+    "checked": 20261115,
+    "name": "El Cultural San Mart\u00edn (Buenos Aires)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "elcv.art.br/santoandre": {
     "checked": 20261004,
     "name": "Escola Livre de Cinema e V\u00eddeo de Santo Andr\u00e9",
@@ -318943,6 +319440,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "englewoodpl-co.libcal.com/ical_subscribe.php?src=p&cid=14780": {
+    "checked": 20261115,
+    "name": "Englewood Public Library (Englewood, CO)",
+    "reason": "227 vevents / 156 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "englewoodrec.org": {
     "checked": 20261107,
     "name": "Englewood Recreation Center",
@@ -319550,6 +320054,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "enriquebuenaventura.org": {
+    "checked": 20261115,
+    "name": "Teatro Experimental de Cali (TEC)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "enroll.nationalww2museum.org/rentals/malcolm-s-forbes-theater.html": {
     "checked": 20261110,
@@ -333280,6 +333791,13 @@
     "status": "ok",
     "type": "localist"
   },
+  "events.morleylibrary.org/ical_subscribe.php?src=p&cid=14772": {
+    "checked": 20261115,
+    "name": "Morley Library (Painesville, OH)",
+    "reason": "289 vevents / 208 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "events.mtroyal.ca/live/ical/events/category/Presentation": {
     "checked": 20261115,
     "name": "Mount Royal University Talks (Calgary)",
@@ -333709,6 +334227,13 @@
     "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "eventsingozo.com": {
+    "checked": 20261115,
+    "name": "Events in Gozo (Gozo, Malta)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
   },
   "ever-events.com": {
     "cal_url": "https://www.ever-events.com/rooftop/",
@@ -335873,6 +336398,13 @@
     "reason": "osm probe: found tribe",
     "status": "found",
     "type": "osm-venue"
+  },
+  "explorethedc.org": {
+    "checked": 20261115,
+    "name": "Discovery Center at Murfree Spring (Murfreesboro, TN)",
+    "reason": "79 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "explorisni.com": {
     "cal_url": "https://www.explorisni.com/category/whats-on/",
@@ -346948,6 +347480,20 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "farmvillelibrary.libcal.com/ical_subscribe.php?src=p&cid=22285": {
+    "checked": 20261115,
+    "name": "Farmville Public Library - Programs (Farmville, NC)",
+    "reason": "0 vevents / 0 future; a valid empty LibCal calendar, and a missing one answers 200 'invalid calendar id', so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "farmvillelibrary.libcal.com/ical_subscribe.php?src=p&cid=732": {
+    "checked": 20261115,
+    "name": "Farmville Public Library - Events & Classes (Farmville, NC)",
+    "reason": "0 vevents / 0 future; a valid empty LibCal calendar, and a missing one answers 200 'invalid calendar id', so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "farmwalktennis.net": {
     "checked": 20261031,
     "name": "Farm Walk Lawn Tennis Club",
@@ -351741,6 +352287,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fellrunner.org.uk/races": {
+    "checked": 20261115,
+    "name": "Fell Runners Association - fell race calendar (UK)",
+    "reason": "no schema.org Event blocks found; 6 link page(s) of 50: 6 fetched",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "felm.org": {
     "checked": 20261113,
     "name": "L\u00e4hetyskirkko",
@@ -354256,6 +354809,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "filarmonicabanatul.ro": {
+    "checked": 20261115,
+    "name": "Filarmonica Banatul (Timi\u0219oara, Romania)",
+    "reason": "28 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "filbertstreetgarden.org": {
     "cal_key": "calendar.google.com/calendar/ical/c_i6s4apg4aob4iu23fcooj5uhfk%40group.calendar.google.com/public/basic.ics",
@@ -359734,6 +360294,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "flandersnaturecenter.org": {
+    "checked": 20261115,
+    "name": "Flanders Nature Center & Land Trust (Woodbury, CT)",
+    "reason": "15 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "flapperscomedy.com": {
     "checked": 20261103,
@@ -373903,6 +374470,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "friendsoftheparks.org": {
+    "checked": 20261115,
+    "name": "Friends of the Parks (Chicago, IL)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "friendsofthepeak.org": {
     "checked": 20260928,
     "name": "friendsofthepeak.org",
@@ -378396,6 +378970,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fwas.org": {
+    "checked": 20261115,
+    "name": "Fort Worth Audubon Society - bird walks (Fort Worth, TX)",
+    "reason": "19 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "fwb.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261115,
     "name": "Fort Walton Beach \u2014 City Calendar",
@@ -378430,6 +379011,13 @@
     "reason": "5 vevents / 5 future",
     "status": "ok",
     "type": "ics"
+  },
+  "fwbg.org/events": {
+    "checked": 20261115,
+    "name": "Fort Worth Botanic Garden (Fort Worth, TX)",
+    "reason": "30/34 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "fwcenter.org": {
     "cal_url": "https://www.fwcenter.org/calendar",
@@ -379850,6 +380438,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "galeriasantafe.gov.co": {
+    "checked": 20261115,
+    "name": "Galer\u00eda Santa Fe (Bogot\u00e1)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "galeriascristobal.com": {
     "checked": 20261001,
@@ -386106,6 +386701,13 @@
     "reason": "13 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "gatecity.org": {
+    "checked": 20261115,
+    "name": "Gate City Striders - club races and runs (Nashua, NH)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "gateclubparis.com": {
     "checked": 20261027,
@@ -393519,6 +394121,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ghidlocal.com": {
+    "checked": 20261115,
+    "name": "Ghid Local Oradea (Oradea, Romania)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "ghk-neu-isenburg.de": {
     "cal_url": "https://www.ghk-neu-isenburg.de/veranstaltungen.htm",
     "checked": 20261025,
@@ -396047,6 +396656,13 @@
     "reason": "osm probe: http403",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "gkr.hr/api/events.ics": {
+    "checked": 20261115,
+    "name": "Gradska knji\u017enica Rijeka (Rijeka, Croatia)",
+    "reason": "30 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
   },
   "gkr.uni-leipzig.de/antikenmuseum/veranstaltungsdetail/termin/drink-draw-zeichenabend-20261119.ics": {
     "checked": 20261101,
@@ -400802,6 +401418,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "goga.si": {
+    "checked": 20261115,
+    "name": "Zalo\u017eba in knjigarna Goga - literary events (Novo mesto, Slovenia)",
+    "reason": "12 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "gogchurch.org": {
     "cal_key": "gogchurch.org/events",
@@ -408798,6 +409421,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "grassrootsecology.org/event-calendar": {
+    "checked": 20261115,
+    "name": "Grassroots Ecology - volunteer habitat restoration and planting days (Palo Alto, CA)",
+    "reason": "9/39 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "grassrootstribe.com": {
     "checked": 20260924,
     "name": "Grassroots",
@@ -409902,6 +410532,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "greatowlrunning.com/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Great Owl Running - Leeds and Ilkley trail races",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "greatparks.org/miami-whitewater-forest": {
     "cal_url": "https://www.greatparks.org/calendar",
     "checked": 20261108,
@@ -409948,6 +410585,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "greatswamp.org": {
+    "checked": 20261115,
+    "name": "Great Swamp Watershed Association (Morristown, NJ)",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "greatwhitebuffalobrewingco.com": {
     "checked": 20261115,
@@ -411032,6 +411676,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "greentrike.org": {
+    "checked": 20261115,
+    "name": "Green Trike - Children's Museum of Tacoma and Play to Learn playgroups (Tacoma, WA)",
+    "reason": "110 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "greentwp.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
     "checked": 20261115,
@@ -413679,6 +414330,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "groundwork.org.uk": {
+    "checked": 20261115,
+    "name": "Groundwork UK",
+    "reason": "robots.txt challenged (https://groundwork.org.uk/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
   },
   "groundworkhv.org/events/?ical=1": {
     "checked": 20260803,
@@ -416876,6 +417534,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "gulfwinds.org/race-calendar-2026": {
+    "checked": 20261115,
+    "name": "Gulf Winds Track Club - race calendar (Tallahassee, FL)",
+    "reason": "no schema.org Event blocks found; no link matches link_pattern",
+    "status": "fail",
+    "type": "jsonld"
   },
   "gullivigne.org": {
     "checked": 20261028,
@@ -423257,6 +423922,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "hamiltoncityhawks.co.nz": {
+    "checked": 20261115,
+    "name": "Hamilton City Hawks - club and inter-club races (Hamilton, NZ)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "hamiltoncounty.in.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
     "checked": 20261115,
@@ -435488,6 +436160,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "heinzetrust.org": {
+    "checked": 20261115,
+    "name": "Shirley Heinze Land Trust - preserve hikes and workdays (Northwest Indiana)",
+    "reason": "19 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "heinzhistorycenter.org": {
     "checked": 20261115,
@@ -453476,6 +454155,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "highparknaturecentre.com": {
+    "checked": 20261115,
+    "name": "High Park Nature Centre - nature walks and workshops (Toronto)",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "highparkzoo.ca": {
     "checked": 20261028,
     "name": "High Park Zoo",
@@ -454187,6 +454873,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hillcountryconservancy.org": {
+    "checked": 20261115,
+    "name": "Hill Country Conservancy - volunteer tree plantings and trail cleanups (Austin, TX)",
+    "reason": "7 events, 7/7 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "hillcountryrc.com": {
     "checked": 20261109,
@@ -456883,6 +457576,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "hitchcockcenter.org": {
+    "checked": 20261115,
+    "name": "Hitchcock Center for the Environment - children's and family programmes (Amherst, MA)",
+    "reason": "64 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "hitchinherts.com": {
     "checked": 20260927,
     "name": "Hitchin",
@@ -457476,6 +458176,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hkmaritimemuseum.org/all-exhibitions-and-events": {
+    "checked": 20261115,
+    "name": "Hong Kong Maritime Museum",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "hkmaritimemuseum.org/whats-on": {
     "checked": 20260831,
@@ -471206,6 +471913,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hsvbg.org": {
+    "checked": 20261115,
+    "name": "Huntsville Botanical Garden (Huntsville, AL)",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "hsvdekampioen.nl": {
     "cal_url": "https://www.hsvdekampioen.nl/wedstrijdkalender/",
     "checked": 20261016,
@@ -474335,6 +475049,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "huntsvilletrackclub.org": {
+    "checked": 20261115,
+    "name": "Huntsville Track Club (Huntsville, AL)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "huntsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
     "checked": 20261115,
     "name": "Huntsville \u2014 Library",
@@ -477460,6 +478181,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iceagetrail.org": {
+    "checked": 20261115,
+    "name": "Ice Age Trail Alliance - chapter hikes and trail stewardship (Wisconsin)",
+    "reason": "70 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "icearena.cz": {
     "checked": 20261114,
     "name": "Ice Arena",
@@ -479476,6 +480204,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ifi-id.com/events.ics": {
+    "checked": 20261115,
+    "name": "Institut Francais d'Indonesie (Jakarta)",
+    "reason": "robots.txt unreachable (https://www.ifi-id.com/robots.txt)",
+    "status": "fail",
+    "type": "ics"
   },
   "ifi.ie": {
     "cal_url": "https://ifi.ie/whats-on",
@@ -486081,6 +486816,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "indyrunners.org": {
+    "checked": 20261115,
+    "name": "Indy Runners - race calendar (Indianapolis, IN)",
+    "reason": "22 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "ine.es": {
     "checked": 20260916,
     "name": "\u00cdndice",
@@ -487361,6 +488103,13 @@
     "reason": "6 vevents / 5 future",
     "status": "ok",
     "type": "ics"
+  },
+  "insidetrail.com": {
+    "checked": 20261115,
+    "name": "Inside Trail Racing (California)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "insieme-zuerich.ch": {
     "cal_url": "https://insieme-zuerich.ch/treff/treffprogramm/",
@@ -489224,6 +489973,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "institutofrances.cl/eventos": {
+    "checked": 20261115,
+    "name": "Instituto Franc\u00e9s de Chile - agenda cultural (Providencia, Santiago)",
+    "reason": "9/9 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "institutoling.org.br": {
     "checked": 20261007,
@@ -494727,6 +495483,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "itsgrimupnorthrunning.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Its Grim Up North Running - canal and trail races (West Yorkshire)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "itshamilton.com": {
     "checked": 20261029,
     "name": "ITS Hamilton",
@@ -495226,6 +495989,13 @@
     "reason": "osm probe: http400",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "iwt.ie/events/?ical=1": {
+    "checked": 20261115,
+    "name": "Irish Wildlife Trust (Dublin)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 404",
+    "status": "fail",
+    "type": "ics"
   },
   "ixelles.be": {
     "checked": 20261010,
@@ -500179,6 +500949,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jenkinsarboretum.org": {
+    "checked": 20261115,
+    "name": "Jenkins Arboretum & Gardens - walks and garden programmes (Devon, PA)",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "jenkintownlibrary.org": {
     "checked": 20261010,
@@ -517324,6 +518101,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "kaunasjazz.lt": {
+    "checked": 20261115,
+    "name": "Kaunas Jazz (Kaunas, Lithuania)",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "kauniainen.fi/kulttuuri-ja-vapaa-aika/juhla-ja-kokoustilat/kasavuoren-koulukeskus": {
     "cal_url": "https://www.kauniainen.fi/tapahtumat/",
     "checked": 20261113,
@@ -517385,6 +518169,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kaunokulturoscentras.lt/?ical=1": {
+    "checked": 20261115,
+    "name": "Kauno kult\u016bros centras (Kaunas, Lithuania)",
+    "reason": "48 vevents / 47 future",
+    "status": "ok",
+    "type": "ics"
   },
   "kaupoille.fi": {
     "cal_url": "https://www.kaupoille.fi/?ObjectPath=/Shops/2017030203/Categories/Toimistotarvikkeet/Lukuvuosikalenteri",
@@ -517655,6 +518446,13 @@
     "reason": "civic probe: offsite:perfectmind.com",
     "status": "fail",
     "type": "civic-city"
+  },
+  "kawarthalandtrust.org": {
+    "checked": 20261115,
+    "name": "Kawartha Land Trust (Peterborough, ON)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "kawasaki-ac.jp": {
     "checked": 20260925,
@@ -519700,6 +520498,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "keepbrevardbeautiful.org": {
+    "checked": 20261115,
+    "name": "Keep Brevard Beautiful (Brevard County, FL)",
+    "reason": "robots.txt: Disallow: /*? (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "keepbritaintidy.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Keep Britain Tidy",
@@ -519812,6 +520617,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "keeptampabaybeautiful.org/upcoming-events-1": {
+    "checked": 20261115,
+    "name": "Keep Tampa Bay Beautiful - cleanups (Tampa, FL)",
+    "reason": "no schema.org Event blocks found; 5 link page(s) of 5: 5 fetched (5 answered 404)",
+    "status": "fail",
+    "type": "jsonld"
   },
   "keeptempebeautiful.org": {
     "checked": 20260928,
@@ -535961,6 +536773,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "kleventscalendar.my": {
+    "checked": 20261115,
+    "name": "KL Events Calendar (Kuala Lumpur)",
+    "reason": "36 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "klgg-eiche.de": {
     "cal_url": "https://www.klgg-eiche.de/?page_id=17",
     "checked": 20261026,
@@ -547264,6 +548083,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ktb.org/calendar-of-events": {
+    "checked": 20261115,
+    "name": "Keep Texas Beautiful - affiliate cleanups and Fall Sweep / Trash-Off days (Texas)",
+    "reason": "4/29 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "ktbam.co.uk": {
     "checked": 20261031,
     "name": "Kentish Town Baitul Aman Masjid",
@@ -554052,6 +554878,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kysciencecenter.org": {
+    "checked": 20261115,
+    "name": "Kentucky Science Center (Louisville, KY)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "kyshakespeare.com": {
     "checked": 20261115,
     "name": "Kentucky Shakespeare",
@@ -560292,6 +561125,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "laleggers.org": {
+    "checked": 20261115,
+    "name": "LA Leggers (Santa Monica, CA)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "laleluev.de": {
     "checked": 20261025,
     "name": "LaLeLu e.V. Kinderhospizarbeit",
@@ -560866,6 +561706,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lamakaan.com/events.ics": {
+    "checked": 20261115,
+    "name": "Lamakaan (Hyderabad, India)",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
   },
   "lamaletafilms.com": {
     "checked": 20260916,
@@ -561690,6 +562537,13 @@
     "reason": "108 vevents / 71 future",
     "status": "ok",
     "type": "ics"
+  },
+  "lancasterconservancy.org": {
+    "checked": 20261115,
+    "name": "Lancaster Conservancy (Lancaster, PA)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "lancasterny.gov/departments/senior-center.html": {
     "checked": 20261110,
@@ -562674,6 +563528,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "laneaudubon.org": {
+    "checked": 20261115,
+    "name": "Lane County Audubon Society (Eugene, OR)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "lanebuleuse.ch": {
     "checked": 20260920,
@@ -568540,6 +569401,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lawaterkeeper.org/events": {
+    "checked": 20261115,
+    "name": "LA Waterkeeper (Los Angeles, CA)",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "lawenforcementmuseum.org": {
     "checked": 20261104,
     "name": "National Law Enforcement Museum",
@@ -569307,6 +570175,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "lcfpd.org": {
+    "checked": 20261115,
+    "name": "Lake County Forest Preserves - restoration workdays (Libertyville, IL)",
+    "reason": "robots.txt challenged (https://www.lcfpd.org/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
   },
   "lcgs.net": {
     "cal_url": "https://lcgs.net/connect/calendar/",
@@ -581837,6 +582712,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lewisborolibrary.org": {
+    "checked": 20261115,
+    "name": "Lewisboro Library (South Salem, NY)",
+    "reason": "105 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "lewisburgtn.gov/events/?ical=1": {
     "checked": 20260919,
     "name": "Lewisburg",
@@ -588720,6 +589602,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "library.wsc.nsw.gov.au": {
+    "checked": 20261115,
+    "name": "Wingecarribee Libraries - Bowral, Mittagong and Moss Vale (Southern Highlands, Australia)",
+    "reason": "166 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "library.wto.org": {
     "checked": 20261018,
     "name": "Biblioth\u00e8que de l'OMC",
@@ -591295,6 +592184,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "life.org.uk": {
+    "checked": 20261115,
+    "name": "Life Science Centre (Newcastle upon Tyne, United Kingdom)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
   },
   "lifeadelaide.org": {
     "checked": 20261030,
@@ -602677,6 +603573,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "longplayerrunning.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Longplayer Running - themed timed runs (UK)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "longquan.nl": {
     "checked": 20261018,
     "name": "Longquan Tempel",
@@ -604918,6 +605821,13 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "lowcountrylandtrust.org": {
+    "checked": 20261115,
+    "name": "Lowcountry Land Trust (Charleston, SC)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "lowcountryrcflyers.com": {
     "cal_url": "https://www.lowcountryrcflyers.com/events",
@@ -607885,6 +608795,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "luskathleticclub.ie": {
+    "checked": 20261115,
+    "name": "Lusk Athletic Club (Lusk, Co. Dublin)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "luskparish.ie": {
     "checked": 20261020,
@@ -610984,6 +611901,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "mabrik.ee": {
+    "checked": 20261115,
+    "name": "MABRIK board game clubs (Tallinn and Tartu, Estonia)",
+    "reason": "71 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "mabryhazen.com": {
     "cal_key": "calendar.google.com/calendar/ical/c_ba1a9aa481e28d89a6a2ca2ed860c7e736bb0dfca7c98cb8cff0d6e53b5856a9%40group.calendar.google.com/public/basic.ics",
     "checked": 20261111,
@@ -611086,6 +612010,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "macamuseo.org/eventosmaca": {
+    "checked": 20261115,
+    "name": "MACA - Fundaci\u00f3n Pablo Atchugarry (Maldonado, Uruguay)",
+    "reason": "15/45 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "macamuseum.com": {
     "checked": 20261113,
@@ -611241,6 +612172,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "macclesfield-harriers.co.uk": {
+    "checked": 20261115,
+    "name": "Macclesfield Harriers - club races and fell handicaps (Macclesfield, Cheshire)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "macclesfieldconservativeclub.co.uk": {
     "checked": 20261031,
@@ -611617,6 +612555,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "maclima.pe": {
+    "checked": 20261115,
+    "name": "MAC Lima - Museo de Arte Contempor\u00e1neo (Barranco, Lima)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "macmillan.org.uk/cancer-information-and-support/get-help/macmillan-support-line": {
     "cal_url": "https://www.macmillan.org.uk/",
     "checked": 20261031,
@@ -611635,6 +612580,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "macnconicet.gob.ar": {
+    "checked": 20261115,
+    "name": "Museo Argentino de Ciencias Naturales Bernardino Rivadavia (Buenos Aires)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "macniteroi.com.br": {
     "checked": 20261005,
@@ -617744,6 +618696,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "malba.org.ar/?feed=eo-events": {
+    "checked": 20261115,
+    "name": "Malba - Museo de Arte Latinoamericano de Buenos Aires (Event Organiser feed)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "maldegem.be": {
     "checked": 20261028,
     "name": "Maldegem",
@@ -620810,6 +621769,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "map-india.org/events.ics": {
+    "checked": 20261115,
+    "name": "Museum of Art & Photography (MAP) Bengaluru",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "map-india.org/events/?ical=1": {
     "checked": 20261009,
     "name": "Museum of Art and Photography",
@@ -622154,6 +623120,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "marhaba.qa": {
+    "checked": 20261115,
+    "name": "Marhaba Qatar events (Doha)",
+    "reason": "73 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "maria-am-wasser.de/kirchen/maria-am-wasser-lv": {
     "checked": 20261027,
@@ -631107,6 +632080,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "mccpromotions.com/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "MCC Promotions - 10K and half marathon races (South-East London / Kent)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "mccroryseniorapartments.com": {
     "cal_url": "https://mccroryseniorapartments.com/index.php/schedule-a-tour/",
     "checked": 20261104,
@@ -631736,6 +632716,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "mcmc.org.au/get-involved/merri-events-calendar/eventdetail/172852/-/fomc-wednesday-volunteers": {
+    "checked": 20261115,
+    "name": "Merri Creek Management Committee - Merri events calendar (Melbourne, Australia)",
+    "reason": "robots.txt: Disallow: /get-involved/merri-events-calendar/* (GET /get-involved/merri-events-calendar/eventdetail/172852/-/fom)",
+    "status": "refused",
+    "type": "ics"
+  },
   "mcmenamins.com": {
     "cal_url": "https://www.mcmenamins.com/ToDo.aspx",
     "checked": 20261107,
@@ -632067,6 +633054,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mcsuk.org/beach-cleans": {
+    "checked": 20261115,
+    "name": "Marine Conservation Society - beach cleans (UK)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "jsonld"
   },
   "mcszabki.pl": {
     "checked": 20261115,
@@ -644641,6 +645635,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mhnpr.org/eventos": {
+    "checked": 20261115,
+    "name": "Museo de Historia Natural y Conservaci\u00f3n de Puerto Rico (Aguadilla)",
+    "reason": "24 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "mhnsw.au/stories/conservation/vaucluse-house-kitchen-garden": {
     "cal_url": "https://mhnsw.au/whats-on/",
     "checked": 20261030,
@@ -654941,6 +655942,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "mnbaneuquen.gob.ar": {
+    "checked": 20261115,
+    "name": "Museo Nacional de Bellas Artes Neuqu\u00e9n",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "mnbaq.org": {
     "cal_url": "https://www.mnbaq.org/programmation?page=1&amp;date=today",
     "checked": 20261029,
@@ -657135,6 +658143,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mohonkpreserve.org": {
+    "checked": 20261115,
+    "name": "Mohonk Preserve (New Paltz, NY)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "mohpg.org/monrovia-historical-museum.html": {
     "cal_url": "https://www.mohpg.org/slideshows",
@@ -662925,6 +663940,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "montshire.org": {
+    "checked": 20261115,
+    "name": "Montshire Museum of Science (Norwich, VT)",
+    "reason": "25 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "monty.be": {
     "cal_url": "https://monty.be/programma/",
     "checked": 20261115,
@@ -663944,6 +664966,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "morayroadrunners.com/calendar/?ical=1": {
+    "checked": 20261115,
+    "name": "Moray Road Runners - race and club calendar (Moray, Scotland)",
+    "reason": "448 vevents / 48 future",
+    "status": "ok",
+    "type": "ics"
   },
   "morchurch.org": {
     "checked": 20261101,
@@ -667268,6 +668297,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "mountainview.libcal.com/ical_subscribe.php?src=p&cid=8800": {
+    "checked": 20261115,
+    "name": "Mountain View Public Library (Mountain View, CA)",
+    "reason": "186 vevents / 123 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mountainviewfellowship.ca": {
     "cal_key": "mountainviewfellowship.ca/events.ics",
     "checked": 20261029,
@@ -669373,6 +670409,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mraweb.ca": {
+    "checked": 20261115,
+    "name": "Manitoba Runners' Association - race calendar (Winnipeg)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "mrbc.co.uk": {
     "checked": 20261031,
     "name": "Monnow Road Baptist Church",
@@ -669625,6 +670668,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mrvac.org": {
+    "checked": 20261115,
+    "name": "Minnesota River Valley Audubon - bird watching treks (Bloomington, MN)",
+    "reason": "9 events, 9/9 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "mrvacuumcleaner.co.uk": {
     "checked": 20261101,
@@ -670709,6 +671759,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mtcubacenter.org": {
+    "checked": 20261115,
+    "name": "Mt. Cuba Center - garden tours and workshops (Hockessin, DE)",
+    "reason": "29 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "mtdo.nl": {
     "cal_url": "https://www.mtdo.nl/index.php",
@@ -674530,6 +675587,13 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "mus.auth.gr": {
+    "checked": 20261115,
+    "name": "Aristotle University School of Music events (Thessaloniki, Greece)",
+    "reason": "robots.txt: Disallow: / (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "mus.suresnes.fr": {
     "checked": 20260830,
     "name": "Mus\u00e9e d'Histoire Urbaine et Sociale",
@@ -677190,6 +678254,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museoarteponce.org": {
+    "checked": 20261115,
+    "name": "Museo de Arte de Ponce (Ponce, Puerto Rico)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "museoartescienza.com": {
     "checked": 20260922,
     "name": "Museo d'arte e scienza",
@@ -677238,6 +678309,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "museobaburizza.cl": {
+    "checked": 20261115,
+    "name": "Museo Municipal de Bellas Artes de Valpara\u00edso (Palacio Baburizza)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "museobagattivalsecchi.org": {
     "checked": 20260921,
@@ -677382,6 +678460,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "museocostarica.go.cr": {
+    "checked": 20261115,
+    "name": "Museo Nacional de Costa Rica (San Jos\u00e9)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "museodeartedebayamon.com": {
     "checked": 20261115,
@@ -677739,6 +678824,13 @@
     "reason": "1 events / 0 future; no link matches link_pattern",
     "status": "empty",
     "type": "jsonld"
+  },
+  "museojuansantamaria.go.cr": {
+    "checked": 20261115,
+    "name": "Museo Hist\u00f3rico Cultural Juan Santamar\u00eda (Alajuela, Costa Rica)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "museokruunu.fi": {
     "checked": 20261113,
@@ -678117,6 +679209,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "museosdelbancocentral.org": {
+    "checked": 20261115,
+    "name": "Museos del Banco Central de Costa Rica (San Jos\u00e9)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "museospaziopubblico.it": {
     "checked": 20260923,
@@ -681256,6 +682355,13 @@
     "status": "empty",
     "type": "tribe"
   },
+  "museumofgoa.com/programs/?ical=1": {
+    "checked": 20261115,
+    "name": "Museum of Goa (Pilerne, Goa)",
+    "reason": "7 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "museumofhomelessness.org": {
     "cal_url": "https://museumofhomelessness.org/whats-on",
     "checked": 20261030,
@@ -683682,6 +684788,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "muzej-idrija-cerkno.si": {
+    "checked": 20261115,
+    "name": "Mestni muzej Idrija (Idrija, Slovenia)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "muzej-nz-ce.si": {
+    "checked": 20261115,
+    "name": "Muzej novej\u0161e zgodovine Celje and Otro\u0161ki muzej Hermanov brlog (Celje, Slovenia)",
+    "reason": "20 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "muzenval.nl/agenda": {
     "checked": 20261018,
     "name": "De Muzenval",
@@ -683695,6 +684815,13 @@
     "reason": "6 events / 0 future; 6 link page(s) of 14: 6 fetched",
     "status": "empty",
     "type": "jsonld"
+  },
+  "muzeulastra.ro": {
+    "checked": 20261115,
+    "name": "Muzeul ASTRA (Sibiu, Romania)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "muzeum-ak.pl": {
     "checked": 20261115,
@@ -687835,6 +688962,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mywcpl.libcal.com/ical_subscribe.php?src=p&cid=18907": {
+    "checked": 20261115,
+    "name": "Williams County Public Library - Bryan Main Library (Bryan, OH)",
+    "reason": "352 vevents / 242 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mywestminster.ca": {
     "cal_url": "https://mywestminster.ca/events/",
     "checked": 20261029,
@@ -688890,6 +690024,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "nafclibrary.libcal.com/ical_subscribe.php?src=p&cid=10014": {
+    "checked": 20261115,
+    "name": "New Albany-Floyd County Public Library - Central Branch (New Albany, IN)",
+    "reason": "197 vevents / 114 future",
+    "status": "ok",
+    "type": "ics"
   },
   "nafialce.cz": {
     "cal_url": "https://www.nafialce.cz/prednaskove-cykly",
@@ -690312,6 +691453,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nampalibrary.libcal.com/ical_subscribe.php?src=p&cid=9239": {
+    "checked": 20261115,
+    "name": "Nampa Public Library (Nampa, ID)",
+    "reason": "468 vevents / 392 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "namquangtemple.org/temple": {
     "checked": 20261108,
     "name": "Ch\u00f9a Nam-Quang",
@@ -690989,6 +692137,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "narodnimuzej.rs": {
+    "checked": 20261115,
+    "name": "\u041d\u0430\u0440\u043e\u0434\u043d\u0438 \u043c\u0443\u0437\u0435\u0458 \u0421\u0440\u0431\u0438\u0458\u0435 - National Museum of Serbia (Belgrade, Serbia)",
+    "reason": "9 events, 9/9 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "narodnimuzeumhracek.cz": {
     "checked": 20261114,
     "name": "Muzeum hra\u010dek",
@@ -691316,6 +692471,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nashualibrary.libcal.com/ical_subscribe.php?src=p&cid=18181": {
+    "checked": 20261115,
+    "name": "Nashua Public Library (Nashua, NH)",
+    "reason": "221 vevents / 144 future",
+    "status": "ok",
+    "type": "ics"
   },
   "nashville.brooklynbowl.com/shows": {
     "checked": 20261115,
@@ -693100,6 +694262,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "naturecalgary.com": {
+    "checked": 20261115,
+    "name": "Nature Calgary - bird walks and field trips (Calgary)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "naturefoundation.org.au": {
     "checked": 20260928,
     "name": "naturefoundation.org.au",
@@ -693138,6 +694307,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "naturenb.ca": {
+    "checked": 20261115,
+    "name": "Nature NB (New Brunswick)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
   },
   "naturenearby.org": {
     "checked": 20261115,
@@ -694474,6 +695650,13 @@
     "reason": "18 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "nbn.org.il/?mec-ical-feed=1": {
+    "checked": 20261115,
+    "name": "Nefesh B'Nefesh Israel Calendar (Israel)",
+    "reason": "1721 vevents / 79 future",
+    "status": "ok",
+    "type": "ics"
   },
   "nboachurches.co.uk/st-peters-monkton-farleigh": {
     "checked": 20261031,
@@ -702001,6 +703184,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "newtonplks.libcal.com/ical_subscribe.php?src=p&cid=21192": {
+    "checked": 20261115,
+    "name": "Newton Public Library (Newton, KS)",
+    "reason": "245 vevents / 183 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "newtonpres.org": {
     "checked": 20261105,
     "name": "Newton Presbyterian Church",
@@ -703771,6 +704961,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nhnature.org": {
+    "checked": 20261115,
+    "name": "Squam Lakes Natural Science Center - homeschool nature programmes (Holderness, NH)",
+    "reason": "15 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "nhpdx.org": {
     "checked": 20261107,
     "name": "Neighborhood House Food Pantry",
@@ -704061,6 +705258,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nice-work.org.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Nice Work - club and charity road and trail races (Kent / Sussex)",
+    "reason": "1/2 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "nice.demosphere.net/events.ics": {
     "checked": 20261115,
@@ -709775,6 +710979,13 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "norfolkbotanicalgarden.org": {
+    "checked": 20261115,
+    "name": "Norfolk Botanical Garden (Norfolk, VA)",
+    "reason": "48 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "norfolkmanor.ca": {
     "checked": 20261029,
     "name": "Norfolk Manor",
@@ -714076,6 +715287,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "novisad.travel": {
+    "checked": 20261115,
+    "name": "Novi Sad Tourism calendar (Novi Sad, Serbia)",
+    "reason": "http 401",
+    "status": "fail",
+    "type": "tribe"
+  },
   "novita-seniorenzentrum.de": {
     "checked": 20261027,
     "name": "NOVITA Seniorenzentrum Schwabach",
@@ -715116,6 +716334,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nrocrc.org": {
+    "checked": 20261115,
+    "name": "Nepean, Rideau and Osgoode Community Resource Centre - EarlyON (Ottawa, Canada)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
   },
   "nrpk.no": {
     "checked": 20261114,
@@ -717650,6 +718875,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nw-trail.org": {
+    "checked": 20261115,
+    "name": "Northwest Trail Runs (Portland, OR)",
+    "reason": "robots.txt challenged (https://nw-trail.org/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
   },
   "nw.krommeaar.nl": {
     "checked": 20261016,
@@ -723112,6 +724344,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "oceanrunningclub.org": {
+    "checked": 20261115,
+    "name": "Ocean Running Club (Seaside, OR)",
+    "reason": "http 403",
+    "status": "fail",
+    "type": "tribe"
   },
   "oceansgarden.jp/event": {
     "checked": 20261115,
@@ -731674,6 +732913,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "onlib-fayetteville.libcal.com/ical_subscribe.php?src=p&cid=19949": {
+    "checked": 20261115,
+    "name": "Fayetteville Free Library (Fayetteville, NY)",
+    "reason": "223 vevents / 141 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "onlib.org/locations/city-libraries/beauchamp-branch-library": {
     "checked": 20261112,
     "name": "Beauchamp Branch Library",
@@ -733490,6 +734736,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/13063995/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Culture Guadeloupe (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/13451012/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Bibliotheque municipale de Lille (OpenAgenda) (Lille, France)",
@@ -733525,10 +734778,24 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/18966627/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Maison de l'architecture de Guadeloupe (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/20324272/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Quartier Nantes Nord (Nantes, France)",
     "reason": "118 vevents / 90 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/20378280/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "GONm - Groupe Ornithologique Normand outings (OpenAgenda) (Normandy, France)",
+    "reason": "48 vevents / 43 future",
     "status": "ok",
     "type": "ics"
   },
@@ -733537,6 +734804,13 @@
     "name": "M\u00e9diath\u00e8ques de Talence (Talence, France)",
     "reason": "48 vevents / 48 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/2196350/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "conservatoire-botanique-national-du-massif-central (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/23890347/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -733595,11 +734869,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/33805762/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "sorties-nature-limousin (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/35574402/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Ville de Blagnac (Blagnac, France)",
     "reason": "38 vevents / 38 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/3605392/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "DRAJES Martinique (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/36779486/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -733637,11 +734925,39 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/46434076/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Education a l'environnement en Ile-de-France (OpenAgenda) (Paris region, France)",
+    "reason": "19 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/46460768/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Ville de Nantes - Nature et Jardins (OpenAgenda) (Nantes, France)",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "openagenda.com/agendas/46688663/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Biblioth\u00e8ques de Marseille (Marseille, France)",
     "reason": "323 vevents / 283 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/46716941/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "cbnsa (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/4745233/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "conservatoire-botanique-national-des-hauts-de-france-evenements (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/47938975/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -733679,6 +734995,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/52786211/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Agenda des sites culturels et patrimoniaux du d\u00e9partement de la Guadeloupe (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/53319507/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Quartier Breil-Barberie (Nantes, France)",
@@ -733711,6 +735034,27 @@
     "checked": 20261115,
     "name": "Librairie Kleber - rencontres (OpenAgenda) (Strasbourg, France)",
     "reason": "8 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/6389350/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "cbnbfc-ori (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/64503489/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "pays-de-la-loire-grandeur-nature (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/6498110/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "LPO Bretagne - sorties nature in Rennes Metropole (OpenAgenda) (Rennes, France)",
+    "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
@@ -733749,6 +735093,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/69404972/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "cjbn (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/69833185/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Adeochrono - upcoming races (Ile-de-France)",
@@ -733777,11 +735128,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/72869717/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Cistude Nature - balades nature (OpenAgenda) (Gironde, France)",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "openagenda.com/agendas/73292305/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Quartier Dervalli\u00e8res-Zola (Nantes, France)",
     "reason": "105 vevents / 73 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/75932924/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "M\u00e9diath\u00e8que - Ville du Lamentin Martinique (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/76061961/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -733819,6 +735184,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/78722796/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "M\u00e9diath\u00e8que municipale (Lamentin) (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/78820418/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Quartier Malakoff-Saint-Donatien (Nantes, France)",
@@ -733826,11 +735198,32 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/79115376/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Ville du Lamentin Martinique (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/80866281/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Saint-Jean - agenda (OpenAgenda) (Saint-Jean, France)",
     "reason": "76 vevents / 64 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/81663915/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "jardinthuret (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/82701900/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "agenda-nature-pyrenees-orientales (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/82840782/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -733875,11 +735268,53 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/86072577/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Agenda Guadeloupe (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/86995152/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "CAUE Martinique (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/8824178/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "ffrandonnee-nord (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/8920281/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Ville Lamentin (Guadeloupe) (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/89223282/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Espace mus\u00e9ographique Victor Schoelcher (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/90707514/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Quartier Nantes Sud (Nantes, France)",
     "reason": "158 vevents / 135 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/90943941/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "M\u00e9diath\u00e8que de la ville du Lamentin Martinique (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
     "type": "ics"
   },
   "openagenda.com/agendas/92095374/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
@@ -733903,6 +735338,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/9385512/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "Caravane sport jeunesse 2026 (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/93993811/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Ville de Vernier - agenda (OpenAgenda) (Vernier, Geneva, Switzerland)",
@@ -733917,10 +735359,31 @@
     "status": "ok",
     "type": "ics"
   },
+  "openagenda.com/agendas/97216542/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "jardin-des-cimes (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/97258461/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "aev-iledefrance-2019 (OpenAgenda)",
+    "reason": "0 vevents / 0 future; a valid empty OpenAgenda calendar, and a missing one answers 404, so this one exists",
+    "status": "empty",
+    "type": "ics"
+  },
   "openagenda.com/agendas/98629160/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
     "checked": 20261115,
     "name": "Villeneuve d'Ascq - Ateliers du developpement durable (OpenAgenda) (Villeneuve-d'Ascq, France)",
     "reason": "16 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "openagenda.com/agendas/99155778/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming": {
+    "checked": 20261115,
+    "name": "EcoNature - guided nature activities across France (OpenAgenda) (France)",
+    "reason": "1469 vevents / 608 future",
     "status": "ok",
     "type": "ics"
   },
@@ -734705,6 +736168,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "operacluj.ro": {
+    "checked": 20261115,
+    "name": "Opera Na\u021bional\u0103 Rom\u00e2n\u0103 Cluj-Napoca (Cluj-Napoca, Romania)",
+    "reason": "33 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "operadeparis.fr": {
     "checked": 20260830,
@@ -742984,6 +744454,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "outdoortown.uk": {
+    "checked": 20261115,
+    "name": "Outdoor Town Burnley - park friends groups, litter picks, walks (Burnley, UK)",
+    "reason": "206 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "outerplanetbrewing.com": {
     "checked": 20261106,
     "name": "Outer Planet Brewing",
@@ -743974,6 +745451,48 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "owwl.libcal.com/ical_subscribe.php?src=p&cid=12971": {
+    "checked": 20261115,
+    "name": "OWWL Library System - Williamson Free Public Library (Williamson, NY)",
+    "reason": "439 vevents / 375 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owwl.libcal.com/ical_subscribe.php?src=p&cid=13331": {
+    "checked": 20261115,
+    "name": "OWWL Library System - Palmyra Community Library (Palmyra, NY)",
+    "reason": "234 vevents / 169 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owwl.libcal.com/ical_subscribe.php?src=p&cid=13356": {
+    "checked": 20261115,
+    "name": "OWWL Library System - Avon Free Library (Avon, NY)",
+    "reason": "152 vevents / 109 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owwl.libcal.com/ical_subscribe.php?src=p&cid=13360": {
+    "checked": 20261115,
+    "name": "OWWL Library System - Livonia Public Library (Livonia, NY)",
+    "reason": "208 vevents / 153 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owwl.libcal.com/ical_subscribe.php?src=p&cid=13361": {
+    "checked": 20261115,
+    "name": "OWWL Library System - Macedon Public Library (Macedon, NY)",
+    "reason": "484 vevents / 387 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owwl.libcal.com/ical_subscribe.php?src=p&cid=15149": {
+    "checked": 20261115,
+    "name": "OWWL Library System - Wood Library (Canandaigua, NY)",
+    "reason": "78 vevents / 47 future",
+    "status": "ok",
+    "type": "ics"
   },
   "owwl.org/library/caledonia-library-association": {
     "checked": 20261111,
@@ -747549,6 +749068,13 @@
     "status": "empty",
     "type": "jsonld"
   },
+  "palaceofvarna.com": {
+    "checked": 20261115,
+    "name": "\u0414\u0432\u043e\u0440\u0435\u0446 \u043d\u0430 \u043a\u0443\u043b\u0442\u0443\u0440\u0430\u0442\u0430 \u0438 \u0441\u043f\u043e\u0440\u0442\u0430 - Palace of Culture and Sports (Varna, Bulgaria)",
+    "reason": "12 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "palaceonjames.com": {
     "cal_key": "palaceonjames.com/upcoming-events",
     "checked": 20261112,
@@ -749746,6 +751272,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "para-site.art": {
+    "checked": 20261115,
+    "name": "Para Site (Hong Kong)",
+    "reason": "3 events / 0 future",
+    "status": "empty",
+    "type": "tribe"
   },
   "para-site.org.hk": {
     "checked": 20261113,
@@ -755776,6 +757309,13 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "parksandpeople.org/events": {
+    "checked": 20261115,
+    "name": "Parks & People Foundation (Baltimore, MD)",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "parkscinema.com/site/namba": {
     "checked": 20260925,
     "name": "\u306a\u3093\u3070\u30d1\u30fc\u30af\u30b9\u30b7\u30cd\u30de",
@@ -755965,6 +757505,13 @@
     "reason": "osm probe: offsite:activecommunities.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "parkstacoma.gov": {
+    "checked": 20261115,
+    "name": "Metro Parks Tacoma - volunteer work parties (Tacoma, WA)",
+    "reason": "robots.txt challenged (https://www.parkstacoma.gov/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
   },
   "parkstoneplacenlr.com": {
     "cal_url": "https://www.parkstoneplacenlr.com/contact",
@@ -757461,6 +759008,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "parqueexplora.org/programate": {
+    "checked": 20261115,
+    "name": "Parque Explora - Progr\u00e1mate (Medell\u00edn, Colombia)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "parquefundidora.org": {
     "checked": 20261115,
@@ -760377,6 +761931,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "patten-lib.libcal.com/ical_subscribe.php?src=p&cid=19458": {
+    "checked": 20261115,
+    "name": "Patten Free Library (Bath, ME)",
+    "reason": "236 vevents / 176 future",
+    "status": "ok",
+    "type": "ics"
   },
   "pattensen.de": {
     "cal_url": "https://www.pattensen.de/Kultur-Freizeit/Veranstaltungskalender",
@@ -763783,6 +765344,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "peec.org": {
+    "checked": 20261115,
+    "name": "Pocono Environmental Education Center (Dingmans Ferry, PA)",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "peelenmaas.nl": {
     "checked": 20261101,
     "name": "Peel en Maas",
@@ -764078,6 +765646,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "pekinpubliclibrary.org": {
+    "checked": 20261115,
+    "name": "Pekin Public Library (Pekin, IL)",
+    "reason": "robots.txt: Disallow: /wp-json/ (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
   },
   "pelargos.nl": {
     "cal_url": "https://pelargos.nl/open-evenementen/",
@@ -765955,6 +767530,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "perrotlibrary.libcal.com/ical_subscribe.php?src=p&cid=20047": {
+    "checked": 20261115,
+    "name": "Perrot Memorial Library (Old Greenwich, CT)",
+    "reason": "168 vevents / 94 future",
+    "status": "ok",
+    "type": "ics"
   },
   "perroy.ch/bibliotheque": {
     "checked": 20261018,
@@ -772825,6 +774407,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "philippinestravelguides.com": {
+    "checked": 20261115,
+    "name": "Philippines Travel Guides events",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "philippsruhe.hanau.de/fuehrungen/index.html": {
     "cal_url": "https://www.hanau.de/freizeit/veranstaltungsorte/index.html",
     "checked": 20261025,
@@ -778851,6 +780440,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "pittsburghkids.org": {
+    "checked": 20261115,
+    "name": "Children's Museum of Pittsburgh (Pittsburgh, PA)",
+    "reason": "robots.txt: Disallow: /wp-json/ (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "pittsburghmennonite.org": {
     "cal_url": "https://www.pittsburghmennonite.org/calendar",
     "checked": 20261107,
@@ -782704,6 +784300,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "plymouthpubliclibrary.libcal.com/ical_subscribe.php?src=p&cid=14692": {
+    "checked": 20261115,
+    "name": "Plymouth Public Library (Plymouth, MA)",
+    "reason": "500 vevents / 400 future",
+    "status": "ok",
+    "type": "ics"
   },
   "plymouthspokane.com/index.html": {
     "checked": 20261111,
@@ -797992,6 +799595,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "puppettheatre.co.uk": {
+    "checked": 20261115,
+    "name": "Norwich Puppet Theatre (Norwich, United Kingdom)",
+    "reason": "robots.txt: Disallow: / (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "pupukeawaimea.org": {
     "checked": 20260928,
     "name": "pupukeawaimea.org",
@@ -802414,6 +804024,20 @@
     "status": "ok",
     "type": "tribe"
   },
+  "raceguide.ca": {
+    "checked": 20261115,
+    "name": "Race Guide Canada (Ontario race calendar)",
+    "reason": "robots.txt challenged (https://raceguide.ca/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "raceharborough.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Race Harborough - trail races and ultras (Market Harborough, Leicestershire)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "racentre.com": {
     "cal_url": "https://www.racentre.com/events.html",
     "checked": 20261029,
@@ -802422,6 +804046,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "racepenguin.com": {
+    "checked": 20261115,
+    "name": "Race Penguin - timed road races and turkey trots (Central Ohio)",
+    "reason": "23 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "racesandia.com": {
     "cal_key": "suikacircuit.com/event-calendar",
@@ -806466,6 +808097,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rcb.lv": {
+    "checked": 20261115,
+    "name": "R\u012bgas Centr\u0101l\u0101 bibliot\u0113ka - branch library events (Riga, Latvia)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "rcbc.org.nz": {
     "checked": 20260824,
@@ -822836,6 +824474,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rivercal.org": {
+    "checked": 20261115,
+    "name": "RiverCal - Siuslaw region community calendar (Florence, OR)",
+    "reason": "199 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "rivercanoeclub.org": {
     "checked": 20261030,
     "name": "River Canoe Club",
@@ -823260,6 +824905,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "riverrelief.org/event-calendar": {
+    "checked": 20261115,
+    "name": "Missouri River Relief - river cleanups (Missouri)",
+    "reason": "no schema.org Event blocks found; 2 link page(s) of 2: 2 fetched",
+    "status": "fail",
+    "type": "jsonld"
   },
   "riverrevitalizationfoundation.org": {
     "checked": 20261109,
@@ -835060,6 +836712,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "runable.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Runable - Calderdale road and trail races (Brighouse, West Yorkshire)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "runchcomics.at": {
     "checked": 20261114,
     "name": "Runch Comics",
@@ -835174,6 +836833,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "runireland.com": {
+    "checked": 20261115,
+    "name": "RunIreland - Irish race calendar (Ireland)",
+    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.runireland.com', port=443): Read timed o",
+    "status": "fail",
+    "type": "tribe"
+  },
   "runnersclublieshout.nl": {
     "cal_url": "https://www.runnersclublieshout.nl/agenda",
     "checked": 20261019,
@@ -835183,6 +836849,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "runnersroost.com": {
+    "checked": 20261115,
+    "name": "Runners Roost - store run clubs (Denver, Boulder, Aurora, Golden, Lakewood, CO)",
+    "reason": "149 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "runningblind.nl/regiogroepen/leiden": {
     "cal_url": "https://www.runningblind.nl/over-running-blind/inschrijven-gesponsorde-loopevents-nn-tcs/gesponsorde-loopevents",
     "checked": 20261017,
@@ -835191,6 +836864,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "runningcalendar.co.nz": {
+    "checked": 20261115,
+    "name": "Running Calendar New Zealand",
+    "reason": "robots.txt: Disallow: / (GET /)",
+    "status": "refused",
+    "type": "jsonld"
+  },
+  "runningcalendar.com.au/calendar": {
+    "checked": 20261115,
+    "name": "Running Calendar Australia",
+    "reason": "robots.txt: Disallow: / (GET /calendar/)",
+    "status": "refused",
+    "type": "jsonld"
   },
   "runningjunkies.nl": {
     "checked": 20261016,
@@ -835301,6 +836988,27 @@
   "runtowin.org/outreach": {
     "checked": 20261115,
     "name": "Run To Win",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "runuk.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Run UK - Kingston, Putney and Fulham road races (London)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "runwales.com/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Run Wales - North Wales road races (Bangor, Abergele, castles series)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "runwashington.com/events": {
+    "checked": 20261115,
+    "name": "RunWashington - DC-area races and group runs (Washington, DC)",
     "reason": "1/1 sampled events future",
     "status": "ok",
     "type": "jsonld"
@@ -836036,6 +837744,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "ruthbancroftgarden.org": {
+    "checked": 20261115,
+    "name": "Ruth Bancroft Garden (Walnut Creek, CA)",
+    "reason": "11 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "rutheckerdhall.com": {
     "cal_url": "https://www.rutheckerdhall.com/events",
@@ -855258,6 +856973,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saturnrunning.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Saturn Running - Thames-side and park races (UK)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "satvasdance.com": {
     "checked": 20261009,
     "name": "Satvas Dance Company",
@@ -855652,6 +857374,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "savemountdiablo.org/events/?ical=1": {
+    "checked": 20261115,
+    "name": "Save Mount Diablo (Walnut Creek, CA)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 404",
+    "status": "fail",
+    "type": "ics"
+  },
   "saveourcanyons.org": {
     "checked": 20260928,
     "name": "saveourcanyons.org",
@@ -855674,6 +857403,13 @@
     "reason": "probe 2026-09-28: Wix events page with no server-rendered event slugs; jsonld adapter reads nothing",
     "status": "fail",
     "type": "jsonld"
+  },
+  "saveourshores.org": {
+    "checked": 20261115,
+    "name": "Save Our Shores - beach cleanups (Santa Cruz, CA)",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "savesfbay.org/events/?ical=1": {
     "checked": 20261115,
@@ -866607,6 +868343,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "seaandsageaudubon.org/events": {
+    "checked": 20261115,
+    "name": "Sea and Sage Audubon - bird walks (Orange County, CA)",
+    "reason": "no schema.org Event blocks found; 6 link page(s) of 12: 6 fetched",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "seabreezebooks.com.sg/en": {
     "cal_url": "https://www.seabreezebooks.com.sg/en/products/wooden-postcard-perpetual-calendar-kopitiam-panda",
     "checked": 20261115,
@@ -873228,6 +874971,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "serpentine.org.uk/events": {
+    "checked": 20261115,
+    "name": "Serpentine Running Club - club runs and races (London)",
+    "reason": "9/12 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "serpentineroadfamilychurch.org.uk": {
     "checked": 20261031,
     "name": "Serpentine Road Family Church",
@@ -874000,6 +875750,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sevencanyonstrust.org/our-events": {
+    "checked": 20261115,
+    "name": "Seven Canyons Trust (Salt Lake City, UT)",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "sevendialsclub.com": {
     "checked": 20261009,
@@ -888162,6 +889919,13 @@
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "siwakorea.com": {
+    "checked": 20261115,
+    "name": "Seoul International Women's Association (Seoul)",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "siwakorea.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20261004,
@@ -913589,6 +915353,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "sspl.libcal.com/ical_subscribe.php?src=p&cid=10655": {
+    "checked": 20261115,
+    "name": "Saratoga Springs Public Library (Saratoga Springs, NY)",
+    "reason": "392 vevents / 236 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "sspp.org.au": {
     "cal_url": "https://melbcatholic.org/media/3a15f07a-3f24-5c92-9225-52681422c965/document.pdf",
     "checked": 20261030,
@@ -930692,6 +932463,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "stewardshipnetwork.org": {
+    "checked": 20261115,
+    "name": "The Stewardship Network - Michigan stewardship volunteer workdays",
+    "reason": "13 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "stewartonstcolumbas.org": {
     "checked": 20261115,
@@ -951382,6 +953160,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "strovolos.org.cy": {
+    "checked": 20261115,
+    "name": "\u0394\u03ae\u03bc\u03bf\u03c2 \u03a3\u03c4\u03c1\u03bf\u03b2\u03cc\u03bb\u03bf\u03c5 - Strovolos Municipality events (Nicosia, Cyprus)",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "strsdhstl.com": {
     "checked": 20261104,
@@ -985480,6 +987265,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "terrain-mag.com": {
+    "checked": 20261115,
+    "name": "Terrain Magazine - Missouri race calendar (St. Louis / Kansas City)",
+    "reason": "74 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "terramata.de": {
     "checked": 20261025,
     "name": "Atelier Fleischmann",
@@ -997052,6 +998844,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "thediscoverycentre.ca": {
+    "checked": 20261115,
+    "name": "Discovery Centre (Halifax, Canada)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "thedise.com": {
     "cal_url": "https://thedise.com/pages/events",
     "checked": 20261105,
@@ -1000012,6 +1001811,13 @@
     "name": "Islamic Center of Little Rock - West",
     "reason": "http 404",
     "status": "fail",
+    "type": "tribe"
+  },
+  "theicm.org": {
+    "checked": 20261115,
+    "name": "Iowa Children's Museum (Coralville, IA)",
+    "reason": "84 events, 10/10 on page 1 future",
+    "status": "ok",
     "type": "tribe"
   },
   "theilfordclub.wordpress.com": {
@@ -1008403,6 +1010209,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thewatershedproject.org": {
+    "checked": 20261115,
+    "name": "The Watershed Project - community planting days (Richmond, CA)",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "thewatersseniorliving.com/communities/oak-creek": {
     "checked": 20261109,
     "name": "The Waters of Oak Creek",
@@ -1015434,6 +1017247,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tms.si": {
+    "checked": 20261115,
+    "name": "Tehni\u0161ki muzej Slovenije - Bistra (Vrhnika, Slovenia)",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "tmsa.org.au": {
     "checked": 20261030,
     "name": "Tamborine Mountain Sports Centre",
@@ -1016238,6 +1018058,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tohonochul.org/events-activities": {
+    "checked": 20261115,
+    "name": "Tohono Chul - garden walks, bird and nature programmes (Tucson, AZ)",
+    "reason": "78/118 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "tohotheater.jp": {
     "checked": 20260924,
@@ -1022570,6 +1024397,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "trailblazingevents.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Trailblazing Events - headtorch and trail races (Lancashire / North Yorkshire)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "trailbreakercider.com": {
     "cal_url": "https://www.trailbreakercider.com/eventrez",
     "checked": 20261111,
@@ -1022592,6 +1024426,13 @@
     "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
     "status": "empty",
     "type": "tribe"
+  },
+  "trailoutlaws.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Trail Outlaws - Northumberland trail races and ultras",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "trailsandopenspaces.org": {
     "checked": 20260928,
@@ -1022616,6 +1024457,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "trailslibrary.org": {
+    "checked": 20261115,
+    "name": "Trails Regional Library - nine branches (Johnson and Lafayette counties, MO)",
+    "reason": "156 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "train.dk": {
     "cal_url": "https://train.dk/kalender",
@@ -1024077,6 +1025925,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "treesforhouston.org/event-calendar": {
+    "checked": 20261115,
+    "name": "Trees For Houston (Houston, TX)",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "treesidaho.org/events": {
     "checked": 20260928,
     "name": "treesidaho.org",
@@ -1025232,6 +1027087,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tricountiestrailrunning.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Tri Counties Trail Running - Dorset trail races",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "tricountycare.org": {
     "checked": 20261102,
@@ -1030921,6 +1032783,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "tucsonbotanical.org": {
+    "checked": 20261115,
+    "name": "Tucson Botanical Gardens (Tucson, AZ)",
+    "reason": "26 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "tucsonchinese.org/calendar": {
     "checked": 20261115,
     "name": "Tucson Chinese Cultural Center",
@@ -1035058,6 +1036927,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tylerarboretum.org/calendar/?ical=1": {
+    "checked": 20261115,
+    "name": "Tyler Arboretum (Media, PA)",
+    "reason": "robots.txt: Disallow: *ical=* (GET /calendar/?ical=1)",
+    "status": "refused",
+    "type": "ics"
+  },
   "tylerparkpresents.com": {
     "checked": 20261103,
     "name": "Tyler Park Presents",
@@ -1037775,6 +1039651,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "udep.edu.pe/centrocultural/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261115,
+    "name": "Centro Cultural UDEP (Lima / Piura)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 404",
+    "status": "fail",
+    "type": "ics"
+  },
   "udistrictfoodbank.org": {
     "cal_key": "udistrictfoodbank.org/communityconnector",
     "checked": 20261106,
@@ -1038221,6 +1040104,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ufmg.br/centrocultural/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261115,
+    "name": "Centro Cultural UFMG (Belo Horizonte)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 404",
+    "status": "fail",
+    "type": "ics"
   },
   "ufoart.gallery": {
     "cal_url": "https://ufoart.gallery/exhibitions-events/",
@@ -1039501,6 +1041391,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ukultra.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "UK Ultra - South Downs ultras and lapped events",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "ukunitarians.org.uk": {
     "checked": 20261031,
@@ -1045688,6 +1047585,13 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "uprc.edu/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261115,
+    "name": "UPR Carolina (Puerto Rico)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "ics"
+  },
   "uprrp.edu": {
     "checked": 20261115,
     "name": "Universidad de Puerto Rico, Recinto de R\u00edo Piedras - actividades (San Juan, Puerto Rico)",
@@ -1048420,6 +1050324,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "utech.edu.jm/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20261115,
+    "name": "University of Technology, Jamaica - events (Kingston)",
+    "reason": "http 200 / no VCALENDAR; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "ics"
   },
   "utep.edu/library": {
     "checked": 20261111,
@@ -1051490,6 +1053401,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "valleyforgeaudubon.org/events": {
+    "checked": 20261115,
+    "name": "Valley Forge Audubon Society - bird walks and hikes (Chester County, PA)",
+    "reason": "11/11 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "valleyforgedance.com": {
     "cal_url": "http://www.valleyforgedance.com/calendar.html",
@@ -1060052,6 +1061970,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "victorfarmingtonlibrary.libcal.com/ical_subscribe.php?src=p&cid=16412": {
+    "checked": 20261115,
+    "name": "Victor Farmington Library (Victor, NY)",
+    "reason": "500 vevents / 385 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "victoria-friedrichshain.com": {
     "checked": 20261022,
     "name": "BSV Victoria Friedrichshain e.V",
@@ -1067513,6 +1069438,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitbulgaria.com": {
+    "checked": 20261115,
+    "name": "Visit Bulgaria events (Bulgaria)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "visitcanberra.com.au": {
     "checked": 20261011,
     "name": "Canberra",
@@ -1067591,6 +1069523,13 @@
     "reason": "0 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "visitcyprus.com": {
+    "checked": 20261115,
+    "name": "Visit Cyprus events (Deputy Ministry of Tourism, Cyprus)",
+    "reason": "15 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "visitdublinohio.com": {
     "checked": 20260909,
@@ -1075177,6 +1077116,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vrr.org.au": {
+    "checked": 20261115,
+    "name": "Victorian Road Runners - Tan time trials and club races (Melbourne)",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "vrsa.lt": {
     "checked": 20260922,
     "name": "Vilnius District Municipality",
@@ -1080109,6 +1082055,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "warehouse.g5a.org/?mec-ical-feed=1": {
+    "checked": 20261115,
+    "name": "G5A Warehouse (Mumbai)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "warehouse421.ae": {
     "checked": 20261113,
     "name": "Warehouse 421",
@@ -1080822,6 +1082775,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "warwicklibrary.libcal.com/ical_subscribe.php?src=p&cid=18205": {
+    "checked": 20261115,
+    "name": "Warwick Public Library (Warwick, RI)",
+    "reason": "437 vevents / 314 future",
+    "status": "ok",
+    "type": "ics"
   },
   "warwicklibrary.org": {
     "checked": 20261112,
@@ -1088567,6 +1090527,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "wenatcheeoutdoors.org": {
+    "checked": 20261115,
+    "name": "Wenatchee Outdoors - Wenatchee Run Club (Wenatchee, WA)",
+    "reason": "robots.txt challenged (https://wenatcheeoutdoors.org/robots.txt)",
+    "status": "fail",
+    "type": "tribe"
+  },
   "wendelstein-evangelisch.de/unsere-gemeinde-0/arche-grossschwarzenlohe": {
     "cal_url": "https://www.wendelstein-evangelisch.de/veranstaltungen",
     "checked": 20261027,
@@ -1089699,6 +1091666,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "westallislibrary.libcal.com/ical_subscribe.php?src=p&cid=18857": {
+    "checked": 20261115,
+    "name": "West Allis Public Library (West Allis, WI)",
+    "reason": "230 vevents / 175 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "westalliswi.gov/204/Senior-Center": {
     "checked": 20261109,
     "name": "West Allis Senior Center",
@@ -1089916,6 +1091890,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "westchesterlandtrust.org": {
+    "checked": 20261115,
+    "name": "Westchester Land Trust (Bedford Hills, NY)",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "westchestermuslim.org": {
     "cal_url": "http://westchestermuslim.org/funeral-arrangements",
     "checked": 20261103,
@@ -1090038,6 +1092019,13 @@
     "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
+  },
+  "westcreek.org": {
+    "checked": 20261115,
+    "name": "West Creek Conservancy - native seed cleaning and packing volunteer sessions (Parma, OH)",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "westcroftcommunitycentre.org": {
     "checked": 20261009,
@@ -1097090,6 +1099078,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wilddeerevents.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Wild Deer Events - wild trail runs, castle and forest races (UK)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "wilde-huette.de": {
     "cal_url": "https://www.wilde-huette.de/wochenprogramm/",
@@ -1111387,6 +1113382,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "yewdellgardens.org": {
+    "checked": 20261115,
+    "name": "Yew Dell Botanical Gardens (Crestwood, KY)",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "yfccleveland.org": {
     "checked": 20261012,
     "name": "City Life Center",
@@ -1113954,6 +1115956,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "yorkknavesmireharriers.co.uk/?feed=my-calendar-ics": {
+    "checked": 20261115,
+    "name": "York Knavesmire Harriers - club calendar (York)",
+    "reason": "3 vevents / 0 future",
+    "status": "empty",
+    "type": "ics"
   },
   "yorkmills.tidalcrossfit.com": {
     "checked": 20261028,
@@ -1118575,6 +1120584,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "zigzagrunning.eventrac.co.uk/calendars/sport-events": {
+    "checked": 20261115,
+    "name": "Zig Zag Running - multi-lap challenge runs (Norfolk / Suffolk)",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "zik-ggmbh.de": {
     "checked": 20261021,

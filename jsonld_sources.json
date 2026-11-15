@@ -36034,6 +36034,476 @@
         "lon": 3.7321395
       },
       "_metro": "Ghent, Belgium"
+    },
+    {
+      "name": "Parque Explora - Prográmate (Medellín, Colombia)",
+      "category": "learning",
+      "listing": [
+        "https://www.parqueexplora.org/programate"
+      ],
+      "link_pattern": "(?<=href=\")/programate/[a-z0-9\\-]+",
+      "max_events": 100,
+      "skip_title": "\\bvirtual\\b|Casa de la Memoria",
+      "venue": {
+        "name": "Parque Explora",
+        "address": "Carrera 52 # 73-75",
+        "city": "Medellín",
+        "region": "Antioquia",
+        "country": "CO",
+        "lat": 6.2706212,
+        "lon": -75.5655752
+      },
+      "_metro": "Medellín, Colombia",
+      "_found": "search:latam (hand list of Medellín institutions, find_calendar) -> jsonld",
+      "_note": "Interactive science museum's programme. /programate lists event links (Next.js, no JSON-LD on the listing); each /programate/<slug> page carries one schema.org Event with its own place (2026-11-15: 'Concierto Tu Rockcito' 2026-11-28 at Parque Explora, 'Laboratorio Arquitecturas del sol' 2026-11-19 at the Exploratorio). skip_title drops the 'virtual' labs and workshops listed beside them, and the walk held at Museo Casa de la Memoria (its block names that place with no coordinates, so the venue fill would pin it on the park). Dry run (mapsee_ingest_jsonld.py, scratch store, 2026-11-15): kept 8 from 10 pages, all placed; dates are day-only in the publisher's JSON-LD. Venue point: OSM way 141166140 (Nominatim). The listing also links planetariomedellin.org/programate pages; the lookbehind keeps only this host's relative links."
+    },
+    {
+      "name": "Instituto Francés de Chile - agenda cultural (Providencia, Santiago)",
+      "category": "arts",
+      "listing": [
+        "https://www.institutofrances.cl/eventos/"
+      ],
+      "max_events": 60,
+      "venue": {
+        "name": "Instituto Francés de Chile",
+        "address": "Francisco Noguera 176",
+        "city": "Providencia",
+        "region": "Región Metropolitana",
+        "country": "CL",
+        "lat": -33.422556686,
+        "lon": -70.614362017
+      },
+      "_metro": "Santiago, Chile",
+      "_found": "search:latam (Wikidata cultural centres of Chile, P856, find_calendar) -> modern-events+jsonld-event",
+      "_note": "Modern Events Calendar listing that embeds its own Event JSON-LD: 9 upcoming on 2026-11-15 (Colette Magny listening workshop 11-19, natural-cosmetics workshop 11-21, jazz with Robinson Khoury 11-26, theatre-writing session 11-26, cine club 12-11, cartonera book workshop 12-12, author meeting 12-21, AMOUR|AMOR festival 2027-01-11). The blocks carry an empty location (name '', address ''), so the venue block places them; dates are day-only. robots.txt: Crawl-delay 10 for *, which the adapter honours. Venue point from Wikidata (Instituto Francés de Chile, P625). Dry run (mapsee_ingest_jsonld.py, scratch store, 2026-11-15): kept 9 from the listing alone (0 detail pages), all placed."
+    },
+    {
+      "name": "Hong Kong Maritime Museum",
+      "category": "arts",
+      "listing": [
+        "https://www.hkmaritimemuseum.org/all-exhibitions-and-events"
+      ],
+      "link_pattern": "event-details/([a-z0-9-]+)",
+      "url_template": "/event-details/{}",
+      "max_events": 50,
+      "venue": {
+        "name": "Hong Kong Maritime Museum",
+        "address": "Central Pier 8",
+        "city": "Hong Kong",
+        "lat": 22.2854998,
+        "lon": 114.1621014
+      },
+      "_metro": "Hong Kong, HK",
+      "_found": "search:meapac-2026-11-15 -> jsonld (Wix Events)",
+      "_note": "Wix Events listing with 8 event-details links (2026-11-15). Local verify passed on '1/1 sampled events future', but a separate fetch of one event page found 0 ld+json blocks and a display-text date ('28 & 29 Nov 2026'), so the yield per run may be very small: check the dry run's kept count before merging. Venue point is OSM relation 20260434."
+    },
+    {
+      "name": "Tohono Chul - garden walks, bird and nature programmes (Tucson, AZ)",
+      "category": "outdoors",
+      "listing": [
+        "https://tohonochul.org/events-activities/"
+      ],
+      "link_pattern": "https://tohonochul\\.org/event/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tohono Chul",
+        "address": "7366 N Paseo del Norte",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85704",
+        "country": "United States",
+        "lat": 32.3398422,
+        "lon": -110.9807511
+      },
+      "_found": "search:outdoors-worldwide -> jsonld (modern-events)",
+      "_metro": "Tucson, United States",
+      "_note": "Modern Events Calendar; listing prints 118 Event blocks and links 21 /event/ pages. Its MEC ical feed is switched off. skip_title drops the standing 'Tour: Discovering Tohono Chul' (21 of 78 future) and the daily rug-sale rows (15 of 78).",
+      "skip_title": "^Tour: Discovering Tohono Chul\\b|\\bRug Sale\\b"
+    },
+    {
+      "name": "Fort Worth Botanic Garden (Fort Worth, TX)",
+      "category": "outdoors",
+      "listing": [
+        "https://fwbg.org/events/"
+      ],
+      "link_pattern": "https://fwbg\\.org/events/(?!feed/)[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fort Worth Botanic Garden",
+        "address": "3220 Botanic Garden Blvd",
+        "city": "Fort Worth",
+        "region": "TX",
+        "postal_code": "76107",
+        "country": "United States",
+        "lat": 32.7382805,
+        "lon": -97.3636889
+      },
+      "_found": "search:outdoors-worldwide -> jsonld (modern-events)",
+      "_metro": "Dallas, United States",
+      "_note": "Modern Events Calendar; listing prints 34 Event blocks. robots.txt Crawl-delay 10. Ticketing on fwbg.ticketapp.org is not followed. skip_title drops members-only walks.",
+      "skip_title": "\\bMembers?[- ]Only\\b|^Member Exclusive\\b"
+    },
+    {
+      "name": "Valley Forge Audubon Society - bird walks and hikes (Chester County, PA)",
+      "category": "outdoors",
+      "listing": [
+        "https://valleyforgeaudubon.org/events/"
+      ],
+      "link_pattern": "https://valleyforgeaudubon\\.org/events/(?!feed/)[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_found": "search:outdoors-worldwide -> jsonld (modern-events)",
+      "_metro": "Philadelphia, United States",
+      "_note": "Modern Events Calendar; listing prints 11 Event blocks and links 12 event pages (Mill Grove birding tours, Evansburg State Park, Christmas Bird Count). Multi-site, so no venue block: each Event names its place."
+    },
+    {
+      "name": "RunWashington - DC-area races and group runs (Washington, DC)",
+      "category": "running",
+      "listing": [
+        "https://www.runwashington.com/events/"
+      ],
+      "link_pattern": "https://www\\.runwashington\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_metro": "Washington, United States",
+      "_found": "search:running -> jsonld (find_calendar on runwashington.com)",
+      "_note": "Measured 2026-11-15: Regional running magazine's events listing; schema.org Event on the listing itself."
+    },
+    {
+      "name": "Birmingham Track Club - upcoming races (Birmingham, AL)",
+      "category": "running",
+      "listing": [
+        "https://www.birminghamtrackclub.com/upcoming-races/"
+      ],
+      "link_pattern": "https://www\\.birminghamtrackclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_metro": "Birmingham, United States",
+      "_found": "search:running -> jsonld (find_calendar on birminghamtrackclub.com, Modern Events Calendar)",
+      "_note": "Measured 2026-11-15: Modern Events Calendar; verify sampled 16 of 16 Event blocks in the future."
+    },
+    {
+      "name": "Serpentine Running Club - club runs and races (London)",
+      "category": "running",
+      "listing": [
+        "https://www.serpentine.org.uk/events/"
+      ],
+      "link_pattern": "https://www\\.serpentine\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_metro": "London, United Kingdom",
+      "_found": "search:running -> jsonld (find_calendar on serpentine.org.uk, Modern Events Calendar)",
+      "_note": "Measured 2026-11-15: Modern Events Calendar; verify sampled 9 of 12 events in the future (club runs and races, Hyde Park)."
+    },
+    {
+      "name": "Wild Deer Events - wild trail runs, castle and forest races (UK)",
+      "category": "running",
+      "listing": [
+        "https://www.wilddeerevents.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Newcastle upon Tyne, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 83 listed: trail runs at castles, National Trust estates and forests across England, Wales and Scotland, plus some duathlons, swims and gravel rides the link_pattern and skip_title leave out. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Saturn Running - Thames-side and park races (UK)",
+      "category": "running",
+      "listing": [
+        "https://www.saturnrunning.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "London, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 80 listed: multi-lap timed runs (Christmas Day Cracker Run, Bank Holiday Madness) and themed races. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "ATW Events - running festivals, 5k/10k and half marathons (East of England)",
+      "category": "running",
+      "listing": [
+        "https://www.atwevents.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Bedford, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 86 listed: Bedford, St Albans, Grafham Water, Colchester Friday Night Runs, Stevenage; triathlons and children's triathlons excluded by link_pattern. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Its Grim Up North Running - canal and trail races (West Yorkshire)",
+      "category": "running",
+      "listing": [
+        "https://www.itsgrimupnorthrunning.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Leeds, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 59 listed: Bingley, Brighouse, Temple Newsam; event pages carry schema.org Event with geo. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Zig Zag Running - multi-lap challenge runs (Norfolk / Suffolk)",
+      "category": "running",
+      "listing": [
+        "https://zigzagrunning.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Norwich, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 38 listed: Great Barrow Challenge days, Thetford and Norfolk festivals of running, Turkey Trot. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Nice Work - club and charity road and trail races (Kent / Sussex)",
+      "category": "running",
+      "listing": [
+        "https://www.nice-work.org.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Maidstone, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 55 listed: Ashdown Forest, Bedgebury Forest, Ashford Striders Charing 10K and other club-hosted races Nice Work times. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "MCC Promotions - 10K and half marathon races (South-East London / Kent)",
+      "category": "running",
+      "listing": [
+        "https://www.mccpromotions.com/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "London, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 21 listed: Beddington Park 10K, Bexley 10K, Bromley 10K. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Run UK - Kingston, Putney and Fulham road races (London)",
+      "category": "running",
+      "listing": [
+        "https://www.runuk.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "London, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 18 listed: Kingston 10K, Kingston Half Marathon, Putney and Fulham Half Marathon. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Longplayer Running - themed timed runs (UK)",
+      "category": "running",
+      "listing": [
+        "https://www.longplayerrunning.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "London, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 13 listed. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Circuit Running - charity and challenge runs (York / Runnymede)",
+      "category": "running",
+      "listing": [
+        "https://www.circuitrunning.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "York, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 11 listed: Battle of Stamford Bridge Run (York), Boxing Day Challenge, Rhino Run (Runnymede). robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "CODRC - trail half marathons and marathons (Shropshire Hills)",
+      "category": "running",
+      "listing": [
+        "https://www.codrc.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Shrewsbury, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 26 listed: Battle of the Borders (Carding Mill Valley, Church Stretton) and other trail races. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Aravaipa Running - trail and ultra races (Phoenix / Arizona)",
+      "category": "running",
+      "listing": [
+        "https://www.aravaiparunning.com/races/"
+      ],
+      "link_pattern": "https://www\\.aravaiparunning\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_metro": "Phoenix, United States",
+      "_found": "search:running -> jsonld (county-park trail series search: Desert Runner Trail Series -> aravaiparunning.com)",
+      "_note": "Measured 2026-11-15: Trail and ultra race organiser; races in Maricopa County regional parks (Desert Runner Trail Series) and elsewhere in Arizona."
+    },
+    {
+      "name": "Race Harborough - trail races and ultras (Market Harborough, Leicestershire)",
+      "category": "running",
+      "listing": [
+        "https://raceharborough.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Leicester, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 14 listed: Battle of the Brampton Valley Way, Clipston Trail Races, Foxton Hound Ultra. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Trailblazing Events - headtorch and trail races (Lancashire / North Yorkshire)",
+      "category": "running",
+      "listing": [
+        "https://www.trailblazingevents.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Manchester, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 9 listed: Dalby Forest 5 Mile Headtorch Challenge, Race the Train (Bury to Rawtenstall), Roddlesworth Roller. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Andover Trail Running - trail marathon and half (Andover, Hampshire)",
+      "category": "running",
+      "listing": [
+        "https://andovertrailrunning.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Southampton, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 8 listed: Andover Trail Marathon, Bourne Valley Half, Collingbourne Races. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Challenge Running - East Anglian ultras (Norfolk / Suffolk)",
+      "category": "running",
+      "listing": [
+        "https://www.challenge-running.com/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Norwich, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 8 listed: Peddars Way Ultra, St Edmund Way Ultra, St Peters Way Ultra. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Tri Counties Trail Running - Dorset trail races",
+      "category": "running",
+      "listing": [
+        "https://tricountiestrailrunning.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Bournemouth, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 8 listed: Dark Dorset 10, Race Across Dorset, Race on the Chase. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Great Owl Running - Leeds and Ilkley trail races",
+      "category": "running",
+      "listing": [
+        "https://www.greatowlrunning.com/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Leeds, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 8 listed: Ilkley Skyline, Kirkstall Calverley Cutter and Kirkstall Bridge 10km, Leeds Country Way in a Day. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Run Wales - North Wales road races (Bangor, Abergele, castles series)",
+      "category": "running",
+      "listing": [
+        "https://www.runwales.com/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Bangor, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 8 listed: 4 Castles Series, Abergele 5K and 10K, Bangor City 10K and Half Marathon. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Trail Outlaws - Northumberland trail races and ultras",
+      "category": "running",
+      "listing": [
+        "https://trailoutlaws.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Newcastle upon Tyne, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 7 listed: Dark Skies Run (Wooler), Saint Cuthbert's Way Ultra. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "UK Ultra - South Downs ultras and lapped events",
+      "category": "running",
+      "listing": [
+        "https://ukultra.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Brighton, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 7 listed: Hibernal Hills, South Downs 100 mile. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Runable - Calderdale road and trail races (Brighouse, West Yorkshire)",
+      "category": "running",
+      "listing": [
+        "https://www.runable.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "Leeds, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 6 listed: Brighouse 10K, Man v Barge, The Descent. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Big Feat Events - trail series (UK)",
+      "category": "running",
+      "listing": [
+        "https://bigfeatevents.eventrac.co.uk/calendars/sport-events"
+      ],
+      "link_pattern": "/e/(?![a-z0-9\\-]*(?:triathlon|duathlon|aquathlon|swim|cycle|sportive|gravel|ride|event-pass|ambassador))[a-z0-9\\-]+-\\d+",
+      "max_events": 150,
+      "skip_title": "Triathlon|Duathlon|Aquathlon|Swim|Sportive|Gravel Ride|Cycle|Event Pass|Walks? \\(|Hike",
+      "_metro": "London, United Kingdom",
+      "_found": "search:running -> jsonld (Eventrac race-entry platform: www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on 224 organiser hosts; each /e/<slug>-<id> page carries schema.org Event with location.geo)",
+      "_note": "Measured 2026-11-15: 16 listed: BigBeyond Aether Trails, BigHeat Fire Trails, BigMud Earth Trails. robots.txt (the platform's stock file) disallows /admin/, /api/, /login and asset paths, not /calendars/ or /e/."
+    },
+    {
+      "name": "Keep Texas Beautiful - affiliate cleanups and Fall Sweep / Trash-Off days (Texas)",
+      "category": "volunteer",
+      "listing": [
+        "https://ktb.org/calendar-of-events/"
+      ],
+      "max_events": 80,
+      "skip_title": "Zoom|Information Session|Webinar|Regional Training|Conversation",
+      "venue": {
+        "region": "TX",
+        "country": "US"
+      },
+      "_metro": "Austin, United States",
+      "_found": "search:volunteer -> jsonld (Modern Events Calendar listing with inline Event JSON-LD)",
+      "_note": "Statewide calendar of Keep Texas Beautiful affiliates: on 2026-11-15 the listing carried 29 inline Events (Oct 28-Dec 2), most of them affiliate Fall Sweep cleanups with a park or civic-building location and a street address (Pearland Centennial Park, Lewisville Thrive Recreation Center, Bedford Library, Murphy City Hall Pond). Some addresses omit the town ('108 Pecan st.'), so those may not place. Zoom sessions and paid trainings are dropped by skip_title. Seasonal: the spring Trash-Off fills it."
     }
   ],
   "_not_included": {

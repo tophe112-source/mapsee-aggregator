@@ -46680,6 +46680,1395 @@
         "lon": 4.2234383
       },
       "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "Visit Cyprus events (Deputy Ministry of Tourism, Cyprus)",
+      "base_url": "https://www.visitcyprus.com",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Cyprus",
+      "_metro": "Nicosia, Cyprus",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "National tourism board's The Events Calendar. REST 2026-11-15: 15 events in 120 days (Larnaka marathon, Cyprus Symphony Orchestra, recitals, Tennis Europe U16), all timezone Asia/Nicosia, venues island-wide with street, town and postcode and no geo, so no venue block: StreetPlacer places each inside its own town. Cyprus had 0 curated sources."
+    },
+    {
+      "name": "Δήμος Στροβόλου - Strovolos Municipality events (Nicosia, Cyprus)",
+      "base_url": "https://www.strovolos.org.cy",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Cyprus",
+      "_metro": "Nicosia, Cyprus",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Municipal events calendar. REST 2026-11-15: 6 upcoming (Municipal Theatre concerts, a photo exhibition, an antiques and vintage market), every venue carrying its own geo_lat/geo_lng (Municipal Theatre 35.143943,33.343228; Cultural Centre 35.150126,33.343012)."
+    },
+    {
+      "name": "Kaunas Jazz (Kaunas, Lithuania)",
+      "base_url": "https://kaunasjazz.lt",
+      "category": "arts",
+      "within_days": 180,
+      "max_pages": 10,
+      "default_country": "LT",
+      "_metro": "Kaunas, Lithuania",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Festival organiser's concert calendar. REST 2026-11-15: 1 event in 120 days (Candy Dulfer, Žalgirio arena, Karaliaus Mindaugo pr.); the festival itself is in spring.",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Filarmonica Banatul (Timișoara, Romania)",
+      "base_url": "https://filarmonicabanatul.ro",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Romania",
+      "venue": {
+        "name": "Filarmonica Banatul - Sala Capitol",
+        "names": [
+          "Sala Capitol"
+        ],
+        "address": "Bulevardul Constantin Diaconovici Loga 2",
+        "city": "Timișoara",
+        "postal_code": "300022",
+        "country": "RO",
+        "lat": 45.750565,
+        "lon": 21.226218
+      },
+      "_metro": "Timișoara, Romania",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "State philharmonic. REST 2026-11-15: 28 events in 120 days, timezone Europe/Bucharest; 18 at Sala Capitol (street and town, no geo), 10 at other Timișoara halls with their own street. The venue block is restricted by `names` to Sala Capitol; its point is the OSM theatre 'Filarmonica Banatul' at Bd. C. D. Loga 2 (Photon). Romania had no curated arts feed."
+    },
+    {
+      "name": "Opera Națională Română Cluj-Napoca (Cluj-Napoca, Romania)",
+      "base_url": "https://operacluj.ro",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Romania",
+      "include_categories": [
+        "balet",
+        "opera",
+        "opereta",
+        "musical",
+        "recital",
+        "concert-vocal-simfonic",
+        "vizita-ghidata"
+      ],
+      "venue": {
+        "name": "Opera Națională Română Cluj-Napoca",
+        "address": "Piața Ștefan cel Mare",
+        "city": "Cluj-Napoca",
+        "country": "RO",
+        "lat": 46.770131,
+        "lon": 23.597494
+      },
+      "_metro": "Cluj-Napoca, Romania",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "National opera. REST 2026-11-15: 33 events in 120 days, none with a venue, so the block pins them at the opera house (OSM 'Teatrul Național Lucian Blaga - Opera Națională Română', Photon). WPML returns each show twice, Romanian and English, under different category slugs (balet/ballet, opera/opera-en, opereta/operetta, musical/musical-en, concert-vocal-simfonic/vocal-instrumental-concert); include_categories keeps the Romanian ones (18 of 33). REST timezone says 'UTC+0' over a wall clock (18:30 curtain), which the sync localises from the coordinates."
+    },
+    {
+      "name": "Muzej novejše zgodovine Celje and Otroški muzej Hermanov brlog (Celje, Slovenia)",
+      "base_url": "https://www.muzej-nz-ce.si",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Slovenia",
+      "_metro": "Celje, Slovenia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Museum of Recent History Celje with its children's museum. REST 2026-11-15: 20 events in 120 days, timezone Europe/Ljubljana; 13 at Fotohiša Pelikan (Razlagova ulica 5), 6 at Otroški muzej Hermanov brlog and 1 at the museum (both Prešernova ulica 17), every one with street, '3000 Celje' and country Slovenia, no geo, so StreetPlacer places them. Children's workshops ('To sem jaz') carry the kids lens. Slovenia had no curated arts or kids feed."
+    },
+    {
+      "name": "Mestni muzej Idrija (Idrija, Slovenia)",
+      "base_url": "https://www.muzej-idrija-cerkno.si",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Slovenia",
+      "venue": {
+        "name": "Mestni muzej Idrija - Grad Gewerkenegg",
+        "address": "Prelovčeva ulica 9",
+        "city": "Idrija",
+        "postal_code": "5280",
+        "country": "SI",
+        "lat": 46.000687,
+        "lon": 14.018924
+      },
+      "_metro": "Idrija, Slovenia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Idrija Municipal Museum. REST 2026-11-15: 2 events in 120 days ('Muzejski večeri' talks), neither with a venue; the block is Grad Gewerkenegg, the museum's seat (OSM historic=castle, Photon)."
+    },
+    {
+      "name": "Tehniški muzej Slovenije - Bistra (Vrhnika, Slovenia)",
+      "base_url": "https://www.tms.si",
+      "category": "kids",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Slovenia",
+      "venue": {
+        "name": "Tehniški muzej Slovenije",
+        "names": [
+          "TMS Bistra pri Vrhniki",
+          "TMS Bistra near Vrhnika",
+          "Tehniški muzej Slovenije"
+        ],
+        "address": "Bistra 6",
+        "city": "Borovnica",
+        "postal_code": "1353",
+        "country": "SI",
+        "lat": 45.946452,
+        "lon": 14.333285
+      },
+      "_metro": "Ljubljana, Slovenia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Technical Museum of Slovenia at the former Bistra charterhouse (address from the site's footer; point is OSM 'Kartuzija Bistra', Photon). REST 2026-11-15: 6 events in 120 days, all at 'TMS Bistra pri Vrhniki, Bistra 6, Borovnica': children's workshops (EUR 10), fairy-tale tours, Tesla demonstrations."
+    },
+    {
+      "name": "Založba in knjigarna Goga - literary events (Novo mesto, Slovenia)",
+      "base_url": "https://www.goga.si",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Slovenia",
+      "venue": {
+        "name": "Knjigarna in kavarna Goga",
+        "names": [
+          "Knjigarna in kavarna Goga",
+          "Goga"
+        ],
+        "address": "Glavni trg 6",
+        "city": "Novo mesto",
+        "postal_code": "8000",
+        "country": "SI",
+        "lat": 45.803946,
+        "lon": 15.170186
+      },
+      "_metro": "Novo mesto, Slovenia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Publisher and bookshop. REST 2026-11-15: 12 events in 120 days (book presentations, a bookshop quiz, talks at the Slovenian Book Fair in Ljubljana); 10 carry a street and town, the bookshop's own carries no address and the block (Glavni trg 6, from the site's footer; Photon house point) is restricted to it by `names`."
+    },
+    {
+      "name": "MABRIK board game clubs (Tallinn and Tartu, Estonia)",
+      "base_url": "https://mabrik.ee",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Estonia",
+      "_metro": "Tallinn, Estonia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Board game club with two club rooms. REST 2026-11-15: 71 events in 120 days, timezone Europe/Tallinn; first 50: 28 at 'Tuukri 50, Tallinn 10120' and 22 at 'Riia 26, Tartu 50405', country Estonia, no geo, so StreetPlacer places each in its own town. Game nights, TCG play days, painting workshops. Estonia had 1 curated source."
+    },
+    {
+      "name": "Rīgas Centrālā bibliotēka - branch library events (Riga, Latvia)",
+      "base_url": "https://www.rcb.lv",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Latvia",
+      "_metro": "Riga, Latvia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Riga Central Library. REST 2026-11-15: 3 events in 120 days (author meetings, a children's show), each at a named branch with street and 'Rīga', no geo and no country (hence default_country). Latvia had 0 curated sources outside Kuldīga."
+    },
+    {
+      "name": "Дворец на културата и спорта - Palace of Culture and Sports (Varna, Bulgaria)",
+      "base_url": "https://palaceofvarna.com",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Bulgaria",
+      "venue": {
+        "name": "Дворец на културата и спорта",
+        "address": "бул. Княз Борис I",
+        "city": "Варна",
+        "country": "BG",
+        "lat": 43.210804,
+        "lon": 27.931602
+      },
+      "_metro": "Varna, Bulgaria",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Municipal Palace of Culture and Sports. REST 2026-11-15: 12 events in 120 days (folk ensemble, ballet, concerts, comedy), all at venue 'Дворец на културата и спорта – Варна' whose address field repeats the name; the block's point is the OSM building of that name (Photon), street from the site's footer. REST timezone 'UTC+2' over a wall clock. Bulgaria had 0 curated sources."
+    },
+    {
+      "name": "Народни музеј Србије - National Museum of Serbia (Belgrade, Serbia)",
+      "base_url": "https://www.narodnimuzej.rs",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Serbia",
+      "venue": {
+        "name": "Народни музеј Србије",
+        "names": [
+          "Народни музеј Србије",
+          "Narodni muzej Srbije"
+        ],
+        "address": "Трг републике 1а",
+        "city": "Београд",
+        "country": "RS",
+        "lat": 44.816789,
+        "lon": 20.459645
+      },
+      "_metro": "Belgrade, Serbia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "REST 2026-11-15: 9 events in 120 days (concerts, a children's workshop, talks, adult workshops), venues by name only. The block (OSM museum, Photon) is restricted by `names` to the main building (6 of 9); the 3 at Muzej Vuka i Dositeja and the Petrović memorial museum stay unplaced. Serbia had 0 curated sources."
+    },
+    {
+      "name": "City Magazine (Danas) gig guide (Belgrade, Serbia)",
+      "base_url": "https://citymagazine.danas.rs",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_country": "Serbia",
+      "_metro": "Belgrade, Serbia",
+      "_found": "search:europe-east-south -> tribe",
+      "_note": "Daily Danas's city guide. REST 2026-11-15: 14 concerts in 120 days, timezone Europe/Belgrade. Dry run: StreetPlacer pinned mts dvorana's 'Dečanska 14' at 44.7707,20.4579, 4.7 km from the hall (Photon resolves the OSM Cyrillic 'Дечанска 14' at 44.81322,20.462629, OSM amenity=cinema 'МТС дворана'), so the block, restricted by `names`, carries that point for its 7 rows. Zappa Baza (Bulevar vojvode Bojovića 30a, 2 rows) and Hangar 1 Luka Beograd (no street, 4 rows) were left unplaced by the dry run; Zappa Barka is skipped (see _why_skip_title). Any new venue here is placed by StreetPlacer, which missed 2 of 2 Latin-script Belgrade streets: drop the source if that matters more than Serbia's first feed.",
+      "venue": {
+        "name": "mts dvorana",
+        "names": [
+          "mts dvorana",
+          "МТС дворана"
+        ],
+        "address": "Dečanska 14",
+        "city": "Beograd",
+        "country": "RS",
+        "lat": 44.81322,
+        "lon": 20.462629
+      },
+      "skip_title": "// Zappa Barka //",
+      "_why_skip_title": "2026-11-15 dry run: StreetPlacer put Zappa Barka's 'Nebojšina Kula, Beograd' at 44.8054,20.4467, about 2.4 km south of the boat under Nebojša Tower; 1 row. A pin in the wrong place is worse than none."
+    },
+    {
+      "name": "Green Trike - Children's Museum of Tacoma and Play to Learn playgroups (Tacoma, WA)",
+      "category": "kids",
+      "base_url": "https://greentrike.org",
+      "include_categories": [
+        "play-to-learn",
+        "inclusive-play-to-learn",
+        "steam-nights",
+        "museum-program",
+        "sparks-activity-cmt",
+        "sparks-workshop",
+        "storytime",
+        "museum-fun-days",
+        "special-event",
+        "workshop",
+        "gingerbread-jamboree"
+      ],
+      "skip_title": "JBLM|Wee Ones Weekly|^Monarch Diaper Bank",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 5,
+      "venue": {
+        "name": "Children's Museum of Tacoma",
+        "address": "1501 Pacific Avenue",
+        "city": "Tacoma",
+        "region": "WA",
+        "postal_code": "98402",
+        "country": "US",
+        "lat": 47.2490719,
+        "lon": -122.437251,
+        "names": [
+          "Children's Museum of Tacoma"
+        ]
+      },
+      "_metro": "Seattle, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): the listed categories return 110 events in the next 90 days. skip_title drops the Children's Museum at JBLM (on Joint Base Lewis-McChord, which needs base access), the members-only Wee Ones Weekly, and stand-alone Monarch Diaper Bank pickups (titles that START with it; a Play to Learn session that adds a diaper-bank stop is kept). Dry run (real tribe adapter, scratch store): kept 79 (26 title-filtered, 5 outside the configured categories), all kids: Play to Learn playgroups for ages 0-5 with a caregiver at Tacoma and Pierce County libraries, neighbourhood centres and a Boys & Girls Club, plus the museum's STEAM nights and workshops. Events name their venue with a street address and no coordinates; the block is the museum (OpenStreetMap N5653310718) and lists its name, so it fills only museum rows, and the library and centre rows keep their streets for the sync's Census pass. Virtual Play to Learn and members-only categories are not requested."
+    },
+    {
+      "name": "Discovery Center at Murfree Spring (Murfreesboro, TN)",
+      "category": "kids",
+      "base_url": "https://explorethedc.org",
+      "skip_title": "\\bClosed\\b|\\bclosing\\b|^Thanksgiving Day$|^Turkey Day$",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 4,
+      "venue": {
+        "name": "Discovery Center at Murfree Spring",
+        "address": "502 SE Broad Street",
+        "city": "Murfreesboro",
+        "region": "TN",
+        "postal_code": "37130",
+        "country": "US",
+        "lat": 35.8387063,
+        "lon": -86.3871485
+      },
+      "_metro": "Nashville, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 79 events in the next 90 days, 16 of them closure notices that skip_title drops (Closed Mondays x13, an early closing, Thanksgiving). Dry run (real tribe adapter, scratch store): kept 63, all at the museum, category kids. A children's science museum and wetland: Campfire Story Time, Turtle Talk, Tasty Tuesday, SPARK! days, homeschool labs, Creekkeepers. Every event names the museum (502 SE Broad Street) without coordinates; venue point OpenStreetMap W462504711 (tourism=museum)."
+    },
+    {
+      "name": "Iowa Children's Museum (Coralville, IA)",
+      "category": "kids",
+      "base_url": "https://theicm.org",
+      "skip_title": "Member Hour|Members[- ]Only|\\bClosed\\b|Closing Early|Museum Closed|Holiday Hours",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 4,
+      "venue": {
+        "name": "Iowa Children's Museum",
+        "address": "1451 Coral Ridge Avenue",
+        "city": "Coralville",
+        "region": "IA",
+        "postal_code": "52241",
+        "country": "US",
+        "lat": 41.6904735,
+        "lon": -91.6000181
+      },
+      "_metro": "Cedar Rapids, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 84 events in the next 90 days; 50 are the members-only Member Hour and 15 are closures or changed hours, which skip_title drops. Dry run (real tribe adapter, scratch store): kept 19, all pinned at the museum: Toddler Takeover, Discovery Days, Sensory Friendly Night, STEM Family Free Night, Reindeer Games, Kinder Club. Venue named on every event without coordinates; point OpenStreetMap N367089398 (tourism=museum, inside Coral Ridge Mall)."
+    },
+    {
+      "name": "Hitchcock Center for the Environment - children's and family programmes (Amherst, MA)",
+      "category": "kids",
+      "base_url": "https://hitchcockcenter.org",
+      "include_categories": [
+        "ages-3-5-or-grade-pre-k",
+        "ages-5-8-or-grades-k-3",
+        "ages-5-8-grades-k-3-or-ages-9-11-grades-4-6",
+        "ages-9-11-or-grades-4-6",
+        "ages-12-15-or-grades-7-9",
+        "family-and-learning-pod-programs",
+        "grades-1-6"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 4,
+      "venue": {
+        "name": "Hitchcock Center for the Environment",
+        "address": "845 West Street",
+        "city": "Amherst",
+        "region": "MA",
+        "postal_code": "01002",
+        "country": "US",
+        "lat": 42.3282554,
+        "lon": -72.5259215
+      },
+      "_metro": "Springfield MA, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 64 events in the next 90 days, 63 in the publisher's age-band and family categories requested here (the 64th is Adult Programs). Little Bear Nature Walks for toddlers, nature-play afterschool, preschool groups, Wild Children of the Woods. No event carries a venue; the block is the center's building, OpenStreetMap W712568828, address Census-matched. Programmes are fee-based with tiered pricing. Dry run (real tribe adapter, scratch store): kept 63, all at the center, category kids."
+    },
+    {
+      "name": "Montshire Museum of Science (Norwich, VT)",
+      "category": "learning",
+      "base_url": "https://montshire.org",
+      "skip_title": "\\bClosed\\b|Shop, Save",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 3,
+      "venue": {
+        "name": "Montshire Museum of Science",
+        "city": "Norwich",
+        "region": "VT",
+        "postal_code": "05055",
+        "country": "US",
+        "lat": 43.7002243,
+        "lon": -72.305182
+      },
+      "_metro": "Lebanon NH, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 25 events in the next 90 days; skip_title drops 2 closures and 5 shop-sale Sundays, leaving 18. Mostly children's: Science Story Time, Playgroup, the sensory hour, homeschool classes by age band; but the same 'program' category also holds two adult garden talks and an After Dark night, so the feed is learning and the sync's kids rule promotes the children's titles. Venue point OpenStreetMap W473685692 (tourism=museum); the Wonder Woods venue is on the museum grounds. Dry run (real tribe adapter, scratch store): kept 18, all at the museum point."
+    },
+    {
+      "name": "Lewisboro Library (South Salem, NY)",
+      "category": "learning",
+      "base_url": "https://lewisborolibrary.org",
+      "category_aliases": {
+        "child": "kids"
+      },
+      "skip_title": "\\(Virtual\\)|Library Closed|Holiday Closed|Board Meeting|^Cancelled|^CANCELLED|Postponed",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 4,
+      "venue": {
+        "name": "Lewisboro Library",
+        "address": "15 Main Street",
+        "city": "South Salem",
+        "region": "NY",
+        "postal_code": "10590",
+        "country": "US",
+        "lat": 41.276262,
+        "lon": -73.5555772
+      },
+      "_metro": "New York, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 105 events in the next 90 days; the publisher files children's programmes under 'child' (1,494 events all time), aliased here to kids: Family Storytime x12, Art & Science Storytime, STEAM, Ozobots, advanced crafts. Events carry no venue; block is the library, OpenStreetMap W480912821. skip_title drops virtual talks, closures and the board meeting. Dry run (real tribe adapter, scratch store): kept 98 at the library, 43 of them with kids as a second category."
+    },
+    {
+      "name": "Trails Regional Library - nine branches (Johnson and Lafayette counties, MO)",
+      "category": "learning",
+      "base_url": "https://www.trailslibrary.org",
+      "category_aliases": {
+        "children": "kids",
+        "storytime": "kids",
+        "preschool": "kids",
+        "pre-school": "kids",
+        "toddlers": "kids"
+      },
+      "skip_title": "\\bClosed\\b|Board Meeting",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 5,
+      "venue": {
+        "name": "Trails Regional Library - Warrensburg Branch",
+        "address": "432 North Holden Street",
+        "city": "Warrensburg",
+        "region": "MO",
+        "postal_code": "64093",
+        "country": "US",
+        "lat": 38.7672638,
+        "lon": -93.7403058,
+        "names": [
+          "Warrensburg Branch",
+          "Trails Regional Library"
+        ]
+      },
+      "_metro": "Kansas City, United States",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 156 events in the next 90 days across 9 branches (Warrensburg 50, Odessa 24, Holden 17, Knob Noster 16, Lexington 14, Waverly 13, Concordia 11, Corder 9, Leeton 1). 96 carry the publisher's children/kids categories (the 'kids' slug passes as a category of its own; children, storytime, preschool and toddlers are aliased). Each event's venue is its branch with a street address and no coordinates, placed by the StreetPlacer; the block is the Warrensburg branch, OpenStreetMap N4365391995, address Census-matched. The block lists its names, so it fills only Warrensburg rows and the one row with no venue. Dry run (real tribe adapter, scratch store): kept 151; 90 carry kids as a second category; the 105 rows at the other eight branches keep their street addresses for the sync's Census pass (the StreetPlacer places non-US rows only)."
+    },
+    {
+      "name": "Wingecarribee Libraries - Bowral, Mittagong and Moss Vale (Southern Highlands, Australia)",
+      "category": "learning",
+      "base_url": "https://library.wsc.nsw.gov.au",
+      "skip_title": "\\bClosed\\b|Closure",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 5,
+      "venue": {
+        "name": "Bowral Library",
+        "address": "16-24 Bendooley Street",
+        "city": "Bowral",
+        "region": "NSW",
+        "postal_code": "2576",
+        "country": "AU",
+        "lat": -34.4796388,
+        "lon": 150.4209162,
+        "names": [
+          "Bowral Library"
+        ]
+      },
+      "_metro": "Sydney, Australia",
+      "_found": "search:kids-worldwide -> tribe",
+      "_note": "Measured 2026-11-15 (production UA): 166 events in the next 90 days at Mittagong (71), Moss Vale (45) and Bowral (50); 125 carry the publisher's own 'kids' category, which passes as a category of its own: Preschool Storytime at all three, Baby Rhymetime, Move & Groove Toddler Time, Duplo, Lego, board-game clubs, Bilby's Weekend Tales. Events carry street addresses and no coordinates; the block is Bowral Library (OpenStreetMap N4370839011, amenity=library) and lists its name, so Mittagong and Moss Vale rows are placed from their own addresses. Dry run (real tribe adapter, scratch store): kept 166; the StreetPlacer placed the 116 Mittagong and Moss Vale rows from their streets (4 Photon lookups, 0 missed); 125 carry kids as a second category."
+    },
+    {
+      "name": "Seoul International Women's Association (Seoul)",
+      "base_url": "https://siwakorea.com",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Seoul",
+      "default_country": "KR",
+      "_metro": "Seoul, South Korea",
+      "_found": "search:meapac-2026-11-15 -> tribe (ledger had its ?ical=1 ok on 2026-10-04 and it was never configured)",
+      "_note": "Measured 2026-11-15: REST total 5 upcoming, all cost Free: Korean speaking club, coffee mornings open to newcomers, and kitchen volunteering shifts at Anna's House, Seongnam (meals for the homeless). Venues carry Korean street addresses and no geo_lat."
+    },
+    {
+      "name": "KL Events Calendar (Kuala Lumpur)",
+      "base_url": "https://kleventscalendar.my",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 5,
+      "crawl_delay": 10,
+      "default_city": "Kuala Lumpur",
+      "default_country": "MY",
+      "_metro": "Kuala Lumpur, Malaysia",
+      "_found": "search:meapac-2026-11-15 -> tribe (month view /events/month/2026-11/ in a search result)",
+      "_note": "City-wide Kuala Lumpur listing on The Events Calendar. 2026-11-15: REST answered total=36 upcoming once (per_page=5), then 503 on three later reads 10-60 s apart; robots.txt allows everything but /wp-admin/. A fragile shared host: hence crawl_delay 10. Local verify the same day failed with 'robots.txt unreachable': the host answered robots.txt 200 at first, then 503s and a dropped robots.txt. Re-verify from CI before deciding; do not retry hard."
+    },
+    {
+      "name": "Dodge Nature Center - forest bathing, nature walks and farm programmes (West St. Paul, MN)",
+      "category": "outdoors",
+      "base_url": "https://www.dodgenaturecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dodge Nature Center",
+        "address": "365 Marie Avenue W",
+        "city": "West St. Paul",
+        "region": "MN",
+        "postal_code": "55118",
+        "country": "United States",
+        "lat": 44.8911339,
+        "lon": -93.10017,
+        "names": [
+          "Dodge Nature Center",
+          "Main Property",
+          "Marie Property"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Minneapolis, United States",
+      "_note": "TEC REST 11 events in 120 days (2026-11-15); venues Main Property, Shepard Farm (Cottage Grove), Lilly Property each with a street. Block coords from OSM (Nominatim) and only fills events naming the main property or no venue. skip_title drops 3 'Offices Closed - Trails Open' notices.",
+      "skip_title": "\\bOffices Closed\\b"
+    },
+    {
+      "name": "Pocono Environmental Education Center (Dingmans Ferry, PA)",
+      "category": "outdoors",
+      "base_url": "https://peec.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pocono Environmental Education Center",
+        "address": "538 Emery Road",
+        "city": "Dingmans Ferry",
+        "region": "PA",
+        "postal_code": "18328",
+        "country": "United States",
+        "lat": 41.1713034,
+        "lon": -74.914024
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Scranton, United States",
+      "_note": "TEC REST 17 events in 120 days: star parties, winter survival, discovery room. Single campus inside Delaware Water Gap NRA; block address from the site's own venue record, coords from OSM."
+    },
+    {
+      "name": "Jenkins Arboretum & Gardens - walks and garden programmes (Devon, PA)",
+      "category": "outdoors",
+      "base_url": "https://jenkinsarboretum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jenkins Arboretum & Gardens",
+        "address": "631 Berwyn Baptist Road",
+        "city": "Devon",
+        "region": "PA",
+        "postal_code": "19333",
+        "country": "United States",
+        "lat": 40.0612685,
+        "lon": -75.4331367,
+        "names": [
+          "Jenkins Arboretum"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Philadelphia, United States",
+      "_note": "TEC REST 14 events in 120 days (photo walks, seasonal programmes, yoga). Some events name no venue; block (site's own venue address, OSM coords) fills those."
+    },
+    {
+      "name": "Mt. Cuba Center - garden tours and workshops (Hockessin, DE)",
+      "category": "outdoors",
+      "base_url": "https://mtcubacenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mt. Cuba Center",
+        "address": "3120 Barley Mill Road",
+        "city": "Hockessin",
+        "region": "DE",
+        "postal_code": "19707",
+        "country": "United States",
+        "lat": 39.7898011,
+        "lon": -75.6473828,
+        "names": [
+          "Mt Cuba",
+          "Mt. Cuba"
+        ]
+      },
+      "crawl_delay": 10,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Wilmington, United States",
+      "_note": "TEC REST 29 events in 120 days; robots.txt Crawl-delay 10. Off-site programmes (Unionville Serpentine Barrens, Haverford College) keep their own venue; block names restrict the fill."
+    },
+    {
+      "name": "Huntsville Botanical Garden (Huntsville, AL)",
+      "category": "outdoors",
+      "base_url": "https://hsvbg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Huntsville Botanical Garden",
+        "address": "4747 Bob Wallace Ave",
+        "city": "Huntsville",
+        "region": "AL",
+        "postal_code": "35805",
+        "country": "United States",
+        "lat": 34.7080919,
+        "lon": -86.6352669,
+        "names": [
+          "Huntsville Botanical Garden"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Huntsville, United States",
+      "_note": "TEC REST 17 events in 120 days (Galaxy of Lights runs, garden labs, workshops). Every venue record is a room at 4747 Bob Wallace Ave; block coords are OSM's point at that address."
+    },
+    {
+      "name": "Aldo Leopold Nature Center (Monona, WI)",
+      "category": "outdoors",
+      "base_url": "https://aldoleopoldnaturecenter.org",
+      "within_days": 120,
+      "max_pages": 3,
+      "venue": {
+        "name": "Aldo Leopold Nature Center",
+        "address": "330 Femrite Drive",
+        "city": "Monona",
+        "region": "WI",
+        "postal_code": "53716",
+        "country": "United States",
+        "lat": 43.0544793,
+        "lon": -89.3208831,
+        "names": [
+          "Aldo Leopold Nature Center"
+        ]
+      },
+      "crawl_delay": 90,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Madison, United States",
+      "_note": "TEC REST 27 events in 120 days (bird and nature adventures, storytimes, yoga); robots.txt asks Crawl-delay 90, so max_pages is 3. Nature-on-tap talks at Madison breweries keep their own venues."
+    },
+    {
+      "name": "Norfolk Botanical Garden (Norfolk, VA)",
+      "category": "outdoors",
+      "base_url": "https://norfolkbotanicalgarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Norfolk Botanical Garden",
+        "address": "6700 Azalea Garden Rd",
+        "city": "Norfolk",
+        "region": "VA",
+        "postal_code": "23518",
+        "country": "United States",
+        "lat": 36.905088,
+        "lon": -76.2001661
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Virginia Beach, United States",
+      "_note": "TEC REST 48 events in 120 days, almost none with a venue: one 175-acre garden, so the block (site's own single venue record, OSM coords) places them. Many are ticketed classes; titles carry SOLD OUT / Cancelled. skip_title drops 'Member Exclusive:' rows (11 of 48 in 120 days) and closure notices.",
+      "skip_title": "^Member(?:s)?[- ]Exclusive\\b|^Closed\\b"
+    },
+    {
+      "name": "Tucson Botanical Gardens (Tucson, AZ)",
+      "category": "outdoors",
+      "base_url": "https://tucsonbotanical.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tucson Botanical Gardens",
+        "address": "2150 N Alvernon Way",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85712",
+        "country": "United States",
+        "lat": 32.248394,
+        "lon": -110.9086146,
+        "names": [
+          "Tucson Botanical Gardens",
+          "TBG",
+          "Education Building",
+          "Yume Japanese Gardens",
+          "Xeriscape Garden",
+          "SAHBA Pavilion",
+          "Outdoor Galleries"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Tucson, United States",
+      "_note": "TEC REST 26 events in 120 days. Rooms (Education Building, greenhouse, pavilions) name no street, so block names list them; Zoom rows are left unfilled."
+    },
+    {
+      "name": "Squam Lakes Natural Science Center - homeschool nature programmes (Holderness, NH)",
+      "category": "kids",
+      "base_url": "https://nhnature.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Squam Lakes Natural Science Center",
+        "address": "23 Science Center Road",
+        "city": "Holderness",
+        "region": "NH",
+        "postal_code": "03245",
+        "country": "United States",
+        "lat": 43.7336676,
+        "lon": -71.5900813,
+        "names": [
+          "Squam Lakes Natural Science Center"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Concord NH, United States",
+      "_note": "TEC REST 15 events in 120 days, all 'Hands-on Learning for Homeschoolers' in the sample, hence kids. Trip venues (New Mexico, Scotland) have no street and are not filled."
+    },
+    {
+      "name": "Bucks County Audubon Society at Honey Hollow - bird walks (New Hope, PA)",
+      "category": "outdoors",
+      "base_url": "https://bcas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "New Hope",
+      "default_region": "PA",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Philadelphia, United States",
+      "_note": "TEC REST 11 events in 120 days; venues carry geo (Honey Hollow Nature Center 40.x). Some rows are titled 'Private Event:'; review whether to skip_rx them. skip_title drops the 7 of 11 rows titled 'Private Event: Horticultural Therapy' (measured 2026-11-15).",
+      "skip_title": "^Private Event\\b"
+    },
+    {
+      "name": "Adkins Arboretum - walks, nature journaling and botanical art (Ridgely, MD)",
+      "category": "outdoors",
+      "base_url": "https://adkinsarboretum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adkins Arboretum",
+        "address": "12610 Eveland Road",
+        "city": "Ridgely",
+        "region": "MD",
+        "postal_code": "21660",
+        "country": "United States",
+        "lat": 38.952019,
+        "lon": -75.9356924,
+        "names": [
+          "Adkins Arboretum"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Baltimore, United States",
+      "_note": "TEC REST 23 events in 120 days; off-site talks (Cadby Theatre, Wye Mills) keep their own venue."
+    },
+    {
+      "name": "Bok Tower Gardens (Lake Wales, FL)",
+      "category": "outdoors",
+      "base_url": "https://boktowergardens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bok Tower Gardens",
+        "address": "1151 Tower Blvd",
+        "city": "Lake Wales",
+        "region": "FL",
+        "postal_code": "33853",
+        "country": "United States",
+        "lat": 27.9360337,
+        "lon": -81.5758161
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Orlando, United States",
+      "_note": "TEC REST 53 events in 120 days and no venue records at all: one site, so the block (OSM coords) places every row. 'Closed for Thanksgiving' style notices are in the feed. skip_title drops 'Closed for ...' notices.",
+      "skip_title": "^Closed\\b"
+    },
+    {
+      "name": "Yew Dell Botanical Gardens (Crestwood, KY)",
+      "category": "outdoors",
+      "base_url": "https://yewdellgardens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Yew Dell Botanical Gardens",
+        "address": "6220 Old La Grange Road",
+        "city": "Crestwood",
+        "region": "KY",
+        "postal_code": "40014",
+        "country": "United States",
+        "lat": 38.3367738,
+        "lon": -85.462697,
+        "names": [
+          "Yew Dell"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Louisville, United States",
+      "_note": "TEC REST 8 events in 120 days (wreath workshops, garden events); OSM point is the garden's own car park."
+    },
+    {
+      "name": "Boyce Thompson Arboretum - bird walks and guided tours (Superior, AZ)",
+      "category": "outdoors",
+      "base_url": "https://btarboretum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boyce Thompson Arboretum",
+        "address": "37615 E Arboretum Way",
+        "city": "Superior",
+        "region": "AZ",
+        "postal_code": "85173",
+        "country": "United States",
+        "lat": 33.2783864,
+        "lon": -111.1563578,
+        "names": [
+          "Boyce Thompson Arboretum"
+        ]
+      },
+      "crawl_delay": 10,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Phoenix, United States",
+      "_note": "TEC REST 43 events in 120 days: weekly bird walks, cart tours, forest bathing. robots.txt Crawl-delay 10."
+    },
+    {
+      "name": "Ruth Bancroft Garden (Walnut Creek, CA)",
+      "category": "outdoors",
+      "base_url": "https://ruthbancroftgarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Ruth Bancroft Garden",
+        "address": "1552 Bancroft Road",
+        "city": "Walnut Creek",
+        "region": "CA",
+        "postal_code": "94598",
+        "country": "United States",
+        "lat": 37.9241519,
+        "lon": -122.0350747,
+        "names": [
+          "Ruth Bancroft Garden"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "San Francisco, United States",
+      "_note": "TEC REST 11 events in 120 days; webinars name no venue and the online rule keeps them off the block."
+    },
+    {
+      "name": "High Park Nature Centre - nature walks and workshops (Toronto)",
+      "category": "outdoors",
+      "base_url": "https://highparknaturecentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "High Park Nature Centre",
+        "address": "375 Colborne Lodge Dr",
+        "city": "Toronto",
+        "region": "Ontario",
+        "postal_code": "M6R 2Z3",
+        "country": "Canada",
+        "lat": 43.6512348,
+        "lon": -79.4636347,
+        "names": [
+          "High Park Nature Centre",
+          "HPNC",
+          "High Park Forest School"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Toronto, Canada",
+      "_note": "TEC REST 8 events in 120 days: Youth Rangers-led nature walks, turtle study talk, family events."
+    },
+    {
+      "name": "Carpenter Nature Center - bird hikes and banding (Hastings, MN / Hudson, WI)",
+      "category": "outdoors",
+      "base_url": "https://carpenternaturecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Carpenter Nature Center",
+        "address": "12805 St. Croix Trail S",
+        "city": "Hastings",
+        "region": "MN",
+        "postal_code": "55033",
+        "country": "United States",
+        "lat": 44.7709396,
+        "lon": -92.8132627,
+        "names": [
+          "Minnesota Campus"
+        ]
+      },
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Minneapolis, United States",
+      "_note": "TEC REST 10 events in 120 days: public bird banding, bird hikes, story time. Two campuses; the Wisconsin one is a separate venue record."
+    },
+    {
+      "name": "Minnesota River Valley Audubon - bird watching treks (Bloomington, MN)",
+      "category": "outdoors",
+      "base_url": "https://mrvac.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Bloomington",
+      "default_region": "MN",
+      "default_country": "United States",
+      "crawl_delay": 10,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Minneapolis, United States",
+      "_note": "TEC REST 9 events in 120 days: weekly bird treks at refuge trailheads, Christmas Bird Counts. Multi-site, so no venue block."
+    },
+    {
+      "name": "Duval Audubon Society (Jacksonville, FL)",
+      "category": "outdoors",
+      "base_url": "https://duvalaudubon.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Jacksonville",
+      "default_region": "FL",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Jacksonville, United States",
+      "_note": "TEC REST 3 events in 120 days: sanctuary open house and work day, workshops."
+    },
+    {
+      "name": "Fort Worth Audubon Society - bird walks (Fort Worth, TX)",
+      "category": "outdoors",
+      "base_url": "https://fwas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Fort Worth",
+      "default_region": "TX",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Dallas, United States",
+      "_note": "TEC REST 19 events in 120 days: local bird walks and park observations with street venues; virtual meetings say so."
+    },
+    {
+      "name": "Connecticut Forest & Park Association - hikes and trail events (Middlefield, CT)",
+      "category": "outdoors",
+      "base_url": "https://ctwoodlands.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Middlefield",
+      "default_region": "CT",
+      "default_country": "United States",
+      "crawl_delay": 10,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Hartford, United States",
+      "_note": "TEC REST 3 events in 120 days; venues carry geo."
+    },
+    {
+      "name": "Flanders Nature Center & Land Trust (Woodbury, CT)",
+      "category": "outdoors",
+      "base_url": "https://flandersnaturecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Woodbury",
+      "default_region": "CT",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Waterbury, United States",
+      "_note": "TEC REST 15 events in 120 days: gratitude hike, workshops, little explorers. Some rows (private wreath making 'at your location') name no venue and stay unplaced. skip_title drops private wreath parties held at the customer's location.",
+      "skip_title": "^Private\\b|\\bat Your Location\\b"
+    },
+    {
+      "name": "Great Swamp Watershed Association (Morristown, NJ)",
+      "category": "outdoors",
+      "base_url": "https://www.greatswamp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Morristown",
+      "default_region": "NJ",
+      "default_country": "United States",
+      "crawl_delay": 10,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "New York, United States",
+      "_note": "TEC REST 4 events in 120 days: solstice hike, briefings. robots.txt Crawl-delay 10."
+    },
+    {
+      "name": "Conserving Carolina - hikes, preserve stewards and nature talks (Hendersonville, NC)",
+      "category": "outdoors",
+      "base_url": "https://conservingcarolina.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Hendersonville",
+      "default_region": "NC",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Asheville, United States",
+      "_note": "TEC REST 81 events in 120 days, many stewardship workdays (Kudzu Warriors, Nature Preserve Stewards) the sync may promote to volunteer."
+    },
+    {
+      "name": "Conservancy of Southwest Florida - nature walks (Naples, FL)",
+      "category": "outdoors",
+      "base_url": "https://conservancy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Naples",
+      "default_region": "FL",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Naples, United States",
+      "_note": "TEC REST 38 events in 120 days: naturalist tours at Clam Pass and Gordon River Greenway, library talks."
+    },
+    {
+      "name": "Shirley Heinze Land Trust - preserve hikes and workdays (Northwest Indiana)",
+      "category": "outdoors",
+      "base_url": "https://heinzetrust.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Valparaiso",
+      "default_region": "IN",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Chicago, United States",
+      "_note": "TEC REST 19 events in 120 days: full moon hikes, Woody Wednesdays, preserve pickups at named nature preserves."
+    },
+    {
+      "name": "Central Indiana Land Trust - preserve hikes (Indianapolis)",
+      "category": "outdoors",
+      "base_url": "https://conservingindiana.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Indianapolis",
+      "default_region": "IN",
+      "default_country": "United States",
+      "crawl_delay": 60,
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Indianapolis, United States",
+      "_note": "TEC REST 2 events in 120 days (Black Friday hikes at nature preserves). robots.txt Crawl-delay 60."
+    },
+    {
+      "name": "Ice Age Trail Alliance - chapter hikes and trail stewardship (Wisconsin)",
+      "category": "outdoors",
+      "base_url": "https://iceagetrail.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Madison",
+      "default_region": "WI",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Madison, United States",
+      "_note": "TEC REST 70 events in 120 days: weekly chapter hikes at segment trailheads, land stewardship days. robots.txt disallows ?ical=1 but allows the REST route."
+    },
+    {
+      "name": "Buffalo Bayou Partnership - park walks, cruises and workdays (Houston)",
+      "category": "outdoors",
+      "base_url": "https://buffalobayou.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Houston",
+      "default_region": "TX",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Houston, United States",
+      "_note": "TEC REST 64 events in 120 days: wellness walks, bayou cruises, cistern events, volunteer workdays."
+    },
+    {
+      "name": "ACRES Land Trust - preserve hikes (Fort Wayne, IN)",
+      "category": "outdoors",
+      "base_url": "https://acreslandtrust.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Huntertown",
+      "default_region": "IN",
+      "default_country": "United States",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Fort Wayne, United States",
+      "_note": "TEC REST 14 events in 120 days: forest bathing, hikes and First Day Hike at named preserves."
+    },
+    {
+      "name": "Nature Calgary - bird walks and field trips (Calgary)",
+      "category": "outdoors",
+      "base_url": "https://naturecalgary.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Calgary",
+      "default_region": "Alberta",
+      "default_country": "Canada",
+      "_found": "search:outdoors-worldwide -> tribe",
+      "_metro": "Calgary, Canada",
+      "_note": "TEC REST 3 events in 120 days: park bird walks, Christmas Bird Count."
+    },
+    {
+      "name": "Claremont Road Runners - club runs, intervals and races (Newcastle upon Tyne)",
+      "category": "running",
+      "base_url": "https://www.claremontroadrunners.co.uk",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Newcastle upon Tyne",
+      "default_country": "GB",
+      "skip_title": "Annual General Meeting|Christmas Party|Committee",
+      "_metro": "Newcastle upon Tyne, United Kingdom",
+      "_found": "search:running -> tribe (claremontroadrunners.co.uk ?ical=1 in search results)",
+      "_note": "Measured 2026-11-15: 19 events inside 120 days (Europe/London): Monday club runs from Newcastle University Sports Centre, weekly interval sessions, NEHL cross country, road races; dry run kept 17 (2 title-filtered), 12 placed by a geocoded street. robots.txt allows /wp-json/."
+    },
+    {
+      "name": "Charm City Run - store group runs (Baltimore, Annapolis, Columbia, Bel Air, Frederick, MD)",
+      "category": "running",
+      "base_url": "https://charmcityrun.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "MD",
+      "default_country": "US",
+      "_metro": "Baltimore, United States",
+      "_found": "search:running -> tribe (running-store group-run search, charmcityrun.com/events/)",
+      "_note": "Measured 2026-11-15: 209 events inside 120 days, 49 of the first 50 with a street address: free store runs from the Annapolis, Bel Air, Fells Point, Columbia, Frederick and Rehoboth Beach shops (Rise and Run, Pub Run, Fun Run/Walk, Moms on the Move); dry run kept 209."
+    },
+    {
+      "name": "100 Mile Club - community run/walk meetups (Riverside County, CA)",
+      "category": "running",
+      "base_url": "https://100mileclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "CA",
+      "default_country": "US",
+      "_metro": "Riverside, United States",
+      "_found": "search:running -> tribe (road-runners calendar search, 100mileclub.com/events/category/local-meetup/)",
+      "_note": "Measured 2026-11-15: 119 events inside 120 days, 49 of the first 50 with an address: weekly community run/walk meetups at Riverside, Norco, Corona and Lake Elsinore parks (Monday Mile Madness, Dos Lagos meet-up), a turkey trot. A youth running nonprofit; meetups are open to families."
+    },
+    {
+      "name": "Hamilton City Hawks - club and inter-club races (Hamilton, NZ)",
+      "category": "running",
+      "base_url": "https://hamiltoncityhawks.co.nz",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Hamilton",
+      "default_country": "NZ",
+      "_metro": "Hamilton, New Zealand",
+      "_found": "search:running -> tribe (hamiltoncityhawks.co.nz/events/?ical=1 in search results)",
+      "_note": "Measured 2026-11-15: 2 events inside 120 days, both with a street (Round the Bridges, Garden Place; Trail Challenge Waihi). Thin, but one of very few New Zealand running feeds."
+    },
+    {
+      "name": "Macclesfield Harriers - club races and fell handicaps (Macclesfield, Cheshire)",
+      "category": "running",
+      "base_url": "https://macclesfield-harriers.co.uk",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_country": "GB",
+      "_metro": "Manchester, United Kingdom",
+      "_found": "search:running -> tribe (macclesfield-harriers.co.uk/events/month/?ical=1 in search results)",
+      "_note": "Measured 2026-11-15: 2 events inside 120 days with venues in Langley (Fell Handicap, Festive Run); WordPress timezone UTC, correct for winter UK."
+    },
+    {
+      "name": "DC Road Runners - club races and runs (Arlington / Washington, DC)",
+      "category": "running",
+      "base_url": "https://dcroadrunners.org",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_country": "US",
+      "skip_title": "Book Club|Brunch|Awards|Board Meeting",
+      "_metro": "Washington, United States",
+      "_found": "search:running -> tribe (find_calendar on dcroadrunners.org)",
+      "_note": "Measured 2026-11-15: 9 events inside 120 days, 7 with a street address: Alexandria Turkey Trot, Bread Run 10K, Founders Half Marathon, Christmas Tree Run, Predictions and Resolutions 5K, Al Lewis 10 and 5-Miler; skip_title drops the brunch, awards and book club."
+    },
+    {
+      "name": "Gate City Striders - club races and runs (Nashua, NH)",
+      "category": "running",
+      "base_url": "https://www.gatecity.org",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_region": "NH",
+      "default_country": "US",
+      "skip_title": "Awards Night|Board Meeting",
+      "_metro": "Nashua, United States",
+      "_found": "search:running -> tribe (gatecity.org/calendar in search results)",
+      "_note": "Measured 2026-11-15: 3 events inside 120 days (Novemberfest, Mill Cities Relay, awards night - skipped)."
+    },
+    {
+      "name": "Terrain Magazine - Missouri race calendar (St. Louis / Kansas City)",
+      "category": "running",
+      "base_url": "https://terrain-mag.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "default_region": "MO",
+      "default_country": "US",
+      "skip_title": "Cyclocross|River Trip|Warren Miller|Hiking|Volunteer Day|Adventure Race|Paddl|Camp|Climb|Bike|Gravel|Film",
+      "_metro": "St. Louis, United States",
+      "_found": "search:running -> tribe (terrain-mag.com/events-calendar/?ical=1 in trail-running search)",
+      "_note": "Measured 2026-11-15: 74 events inside 120 days across Missouri and Illinois: turkey trots, trail marathons, ultras, holiday 5Ks; most venues are a name with the street glued into it. robots.txt asks Crawl-delay 10. Dry run kept 64 (10 title-filtered: cyclocross, river trips, a film night, a hiking retreat)."
+    },
+    {
+      "name": "Indy Runners - race calendar (Indianapolis, IN)",
+      "category": "running",
+      "base_url": "https://indyrunners.org",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_country": "US",
+      "_metro": "Indianapolis, United States",
+      "_found": "search:running -> tribe (find_calendar on indyrunners.org, /race-calendar/)",
+      "_note": "Measured 2026-11-15: 22 races inside 120 days, 20 with a street address (Indianapolis-area turkey trots, Santa Classic 5K, Jackson County Ultras, a few Chicago-suburb races)."
+    },
+    {
+      "name": "Runners Roost - store run clubs (Denver, Boulder, Aurora, Golden, Lakewood, CO)",
+      "category": "running",
+      "base_url": "https://runnersroost.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "CO",
+      "default_country": "US",
+      "_metro": "Denver, United States",
+      "_found": "search:running -> tribe (running specialty-store sweep, runnersroost.com/community-room/)",
+      "_note": "Measured 2026-11-15: 149 events inside 120 days, 47 of the first 50 with an address: weekly store run clubs at the Central Park, Denver, Aurora, Boulder, Louisville, Golden, Lakewood and Lone Tree shops, plus the Wash Park Circuit and Pumpkin Pie 5K/10K; dry run kept 149."
+    },
+    {
+      "name": "Big River Running - store group runs and trail excursions (St. Louis, MO)",
+      "category": "running",
+      "base_url": "https://bigriverrunning.com",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_region": "MO",
+      "default_country": "US",
+      "_metro": "St. Louis, United States",
+      "_found": "search:running -> tribe (running specialty-store sweep, bigriverrunning.com/calendar/)",
+      "_note": "Measured 2026-11-15: 43 events inside 120 days, 37 with an address: Monday Night Group Runs from the South City (5352 Devonshire Ave) and University City (606 North and South Rd) stores, Unpaved Trail Excursions."
+    },
+    {
+      "name": "Victorian Road Runners - Tan time trials and club races (Melbourne)",
+      "category": "running",
+      "base_url": "https://www.vrr.org.au",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Melbourne",
+      "default_region": "VIC",
+      "default_country": "AU",
+      "_metro": "Melbourne, Australia",
+      "_found": "search:running -> tribe (Tan Time Trial search -> vrr.org.au/events/)",
+      "_note": "Measured 2026-11-15: 1 event inside 120 days (December Tan Time Trial at the Pillars of Wisdom, Melbourne); the monthly time trial is posted one at a time. WordPress timezone 'UTC+0'."
+    },
+    {
+      "name": "Race Penguin - timed road races and turkey trots (Central Ohio)",
+      "category": "running",
+      "base_url": "https://racepenguin.com",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_region": "OH",
+      "default_country": "US",
+      "_metro": "Columbus, United States",
+      "_found": "search:running -> tribe (racepenguin.com/events/category/running/5k/?ical=1 in road-race search)",
+      "_note": "Measured 2026-11-15: 23 races inside 120 days, 21 with a street address (Central Ohio turkey trots, Alley Trail Classic, Girls on the Run 5K); dry run kept 23."
+    },
+    {
+      "name": "Manitoba Runners' Association - race calendar (Winnipeg)",
+      "category": "running",
+      "base_url": "https://mraweb.ca",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Winnipeg",
+      "default_region": "MB",
+      "default_country": "CA",
+      "skip_title": "Awards|AGM|Annual General Meeting",
+      "_metro": "Winnipeg, Canada",
+      "_found": "search:running -> tribe (mraweb.ca/events/?ical=1 in group-run search)",
+      "_note": "Measured 2026-11-15: 2 events inside 120 days (Last Chance PR at St. Vital Park; the awards night is skipped)."
+    },
+    {
+      "name": "West Creek Conservancy - native seed cleaning and packing volunteer sessions (Parma, OH)",
+      "category": "volunteer",
+      "base_url": "https://westcreek.org",
+      "within_days": 120,
+      "max_pages": 3,
+      "skip_title": "Symposium",
+      "default_region": "OH",
+      "default_country": "US",
+      "_metro": "Cleveland, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 8 upcoming 2026-11-15, 7 of them 'Seed Cleaning'/'Seed Packing' hands-on volunteer sessions for its Native Seed Library at the Watershed Stewardship Center, 2277 West Ridgewood Drive, Parma (venue addressed on every row). The eighth is a $25 research symposium, dropped by skip_title."
+    },
+    {
+      "name": "EcoMatters Environment Trust - stream care volunteer sessions (Auckland, New Zealand)",
+      "category": "volunteer",
+      "base_url": "https://www.ecomatters.org.nz",
+      "include_categories": [
+        "nature"
+      ],
+      "skip_title": "Mornings by the Stream|Weed Bin",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Auckland",
+      "default_country": "NZ",
+      "_metro": "Auckland, New Zealand",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 31 upcoming 2026-11-15, 18 in publisher category 'nature': stream care volunteer sessions (Glendale Road, Birdwood Road, Avondale, Sunnyvale) each at a street address. 'Mornings by the Stream' asks people to RSVP to learn where to meet (venue 'Glen Eden Streams - TBC') and 'Weed Bin Weekend' is a drop-off, so skip_title removes both."
+    },
+    {
+      "name": "The Stewardship Network - Michigan stewardship volunteer workdays",
+      "category": "volunteer",
+      "base_url": "https://www.stewardshipnetwork.org",
+      "within_days": 120,
+      "max_pages": 3,
+      "skip_title": "TSNwebcast|Story Time|Skills Training",
+      "default_region": "MI",
+      "default_country": "US",
+      "_metro": "Ann Arbor, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST (the TSN Events Calendar for Michigan's stewardship clusters and CISMAs); 21 upcoming 2026-11-15: stewardship volunteer workdays at Independence Lake County Park (3200 Jennings Rd, geo on venue), seed collection processing at Waterford Oaks, monthly native garden maintenance at Clinton River Watershed Council (1115 W. Avon Road), invasive removal. Webcasts (no venue), a library story time and a skills class are dropped by skip_title."
+    },
+    {
+      "name": "A Rocha Canada - Brooksdale restoration Saturdays and volunteer days (Surrey, BC)",
+      "category": "volunteer",
+      "base_url": "https://arocha.ca",
+      "include_categories": [
+        "restoration-days",
+        "bc-volunteer-days"
+      ],
+      "within_days": 180,
+      "max_pages": 3,
+      "default_city": "Surrey",
+      "default_region": "BC",
+      "default_country": "CA",
+      "_metro": "Vancouver, Canada",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 28 upcoming on 2026-11-15 across A Rocha's centres, of which publisher categories restoration-days (Restoration Saturday, weekly) and bc-volunteer-days (monthly Volunteer Day, free) hold 13 public habitat-restoration volunteer mornings, all at A Rocha's Brooksdale Environmental Centre, 1620 192 St, Surrey BC. Day camps, brunches, open houses and paid retreats are left out by the category filter.",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Hill Country Conservancy - volunteer tree plantings and trail cleanups (Austin, TX)",
+      "category": "volunteer",
+      "base_url": "https://hillcountryconservancy.org",
+      "include_categories": [
+        "volunteer"
+      ],
+      "within_days": 180,
+      "max_pages": 2,
+      "default_region": "TX",
+      "default_country": "US",
+      "_metro": "Austin, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 7 upcoming on 2026-11-15, 2 in publisher category volunteer: a tree planting at the Violet Crown Trail Mile Zero trailhead (2212 William Barton Dr) and a trail cleanup at the Whirlpool trailhead, both free with venue coordinates. Paid hikes and photo walks are outside the category."
+    },
+    {
+      "name": "Outdoor Town Burnley - park friends groups, litter picks, walks (Burnley, UK)",
+      "category": "outdoors",
+      "base_url": "https://outdoortown.uk",
+      "skip_title": "parkrun",
+      "within_days": 90,
+      "max_pages": 10,
+      "default_city": "Burnley",
+      "default_country": "GB",
+      "_metro": "Manchester, United Kingdom",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 1,491 upcoming on 2026-11-15 (30 pages of 50): weekly Friends of Thompson Park / Ightenhill Park / Towneley Park gardening sessions, Padiham Litter Pickers, guided walks, glow walks, free cycling sessions, each at a named park in Burnley or Padiham. parkrun rows are dropped by skip_title (the parkrun adapter has them). The litter-pick and friends-group rows are volunteering; the rest is outdoors."
+    },
+    {
+      "name": "RiverCal - Siuslaw region community calendar (Florence, OR)",
+      "category": "community",
+      "base_url": "https://www.rivercal.org",
+      "skip_title": "Board of Directors Meeting|Board Meeting|Organizational Meeting|^MSD:",
+      "within_days": 60,
+      "max_pages": 10,
+      "default_city": "Florence",
+      "default_region": "OR",
+      "default_country": "US",
+      "_metro": "Eugene, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 1,597 upcoming on 2026-11-15 for Florence, Mapleton and Yachats: Siuslaw Public Library programmes, concerts, free community lunches, clubs, exhibitions, most with a venue address and coordinates. School-district internal rows (MSD:) carry no venue; skip_title drops them and board meetings."
+    },
+    {
+      "name": "Bolsa Chica Land Trust - Monday beach cleanups and habitat restoration (Huntington Beach, CA)",
+      "category": "volunteer",
+      "base_url": "https://bclandtrust.org",
+      "include_categories": [
+        "beach-clean-ups",
+        "restoration-volunteering"
+      ],
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Huntington Beach",
+      "default_region": "CA",
+      "default_country": "US",
+      "_metro": "Los Angeles, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST (bolsachicalandtrust.org redirects to bclandtrust.org); 12 upcoming on 2026-11-15, 11 of them volunteer shifts in publisher categories beach-clean-ups (weekly Monday Beach Clean Ups at Huntington City Beach, 100 Goldenwest) and restoration-volunteering (Bolsa Chica Stewards habitat restoration at the Bolsa Chica Ecological Reserve, 3842 Warner Ave). One restoration row (Nest Site 2) has no venue and drops. The free public tour is outside the filter."
+    },
+    {
+      "name": "The Watershed Project - community planting days (Richmond, CA)",
+      "category": "volunteer",
+      "base_url": "https://thewatershedproject.org",
+      "within_days": 120,
+      "max_pages": 2,
+      "default_city": "Richmond",
+      "default_region": "CA",
+      "default_country": "US",
+      "_metro": "San Francisco, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 4 upcoming on 2026-11-15, all volunteer: community planting days at Booker T. Anderson Community Center (960 S. 47th Street) and Shields-Reid Park (1410 Kelsey St), and two MLK Day of service events in Richmond (one with no venue, which drops)."
+    },
+    {
+      "name": "Save Our Shores - beach cleanups (Santa Cruz, CA)",
+      "category": "volunteer",
+      "base_url": "https://saveourshores.org",
+      "within_days": 120,
+      "max_pages": 2,
+      "default_region": "CA",
+      "default_country": "US",
+      "_metro": "San Jose, United States",
+      "_found": "search:volunteer -> tribe",
+      "_note": "The Events Calendar REST; 3 upcoming on 2026-11-15, all public beach cleanups in category beach-cleanup: Hidden Beach (660 Cliff Dr, Aptos), Corcoran Lagoon Beach (20th Ave, Santa Cruz), Scott Creek Beach (address is the Plus Code 2QQC+QR, which the place rules refuse). Small, but every row is a shift with a meeting place."
     }
   ],
   "_not_included": {

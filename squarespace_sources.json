@@ -10860,6 +10860,53 @@
         "lon": 21.0202474
       },
       "_metro": "Warsaw, Poland"
+    },
+    {
+      "name": "MACA - Fundación Pablo Atchugarry (Maldonado, Uruguay)",
+      "category": "arts",
+      "collection": "https://macamuseo.org/eventosmaca",
+      "max_events": 200,
+      "venue": {
+        "name": "Fundación Pablo Atchugarry",
+        "city": "Manantiales",
+        "region": "Maldonado",
+        "country": "UY",
+        "lat": -34.86452872316231,
+        "lon": -54.821020959350584
+      },
+      "_metro": "Punta del Este, Uruguay",
+      "_found": "search:latam (Wikidata museums of Uruguay, P856, find_calendar) -> squarespace",
+      "_note": "Museo de Arte Contemporáneo Atchugarry's events collection: 13 upcoming of 43 on 2026-11-15 (concerts, 'CINE: cortos para infancias', a ballet masterclass, an open drawing class, film screenings), every one at Fundación Pablo Atchugarry with the publisher's own map marker, which is the venue point used here. Uruguay had no curated source before this. Dry run (mapsee_ingest_squarespace.py, scratch store, 2026-11-15): kept 15 of 15 upcoming, tz America/Montevideo."
+    },
+    {
+      "name": "Grassroots Ecology - volunteer habitat restoration and planting days (Palo Alto, CA)",
+      "category": "volunteer",
+      "collection": "https://www.grassrootsecology.org/event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Grassroots Ecology",
+        "city": "Palo Alto",
+        "region": "CA",
+        "country": "US"
+      },
+      "_metro": "San Jose, United States",
+      "_found": "search:volunteer -> squarespace",
+      "_note": "Squarespace events collection; the bare page lists 9 upcoming on 2026-11-15, every one a public volunteer day at a named preserve (Byrne Preserve, McClellan Ranch, Redwood Grove, Foothills Nature Preserve, Bear Creek Redwoods, Shoreline marsh). Multi-site, so the venue block has no point: a row without its own address is dropped, not pinned at the office."
+    },
+    {
+      "name": "Clinton River Watershed Council - watershed talks, Stonefly Search, Clinton Cleanup (Rochester Hills, MI)",
+      "category": "learning",
+      "collection": "https://www.crwc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Clinton River Watershed Council",
+        "city": "Rochester Hills",
+        "region": "MI",
+        "country": "US"
+      },
+      "_metro": "Detroit, United States",
+      "_found": "search:volunteer -> squarespace",
+      "_note": "Squarespace events collection; verify 15/45 upcoming on 2026-11-15. Mostly free watershed and rain-garden presentations at libraries and township offices (learning), plus the Stonefly Search and the Clinton Cleanup volunteer days; the 'Master Rain Gardener - Live Online' rows have no place. Filed learning, not volunteer: most rows are talks."
     }
   ],
   "_not_included": {

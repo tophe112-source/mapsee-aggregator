@@ -6572,6 +6572,11 @@ _ISO_COUNTRY = {
     "RO": "Romania",
     # The 2026-10-23 targeted batch: Kuressaare kultuurikeskus (Saaremaa).
     "EE": "Estonia",
+    # The 2026-11-15 searched batch: the first curated sources in Peru
+    # (Arequipa), Colombia (Medellin), Uruguay (Maldonado), Bulgaria (Varna)
+    # and Serbia (Belgrade) declared these.
+    "PE": "Peru", "CO": "Colombia", "UY": "Uruguay", "BG": "Bulgaria",
+    "RS": "Serbia",
 }
 # The same table read the other way, for a suffix that spells the country out.
 # Built rather than written, so the two can never disagree.

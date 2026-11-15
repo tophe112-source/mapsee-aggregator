@@ -72935,5 +72935,4454 @@
     "geocode_suffix": ", Ghent, Belgium",
     "limit": 300,
     "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "Kauno kultūros centras (Kaunas, Lithuania)",
+    "url": "https://kaunokulturoscentras.lt/?ical=1",
+    "category": "arts",
+    "geocode_suffix": ", Kaunas, Lithuania",
+    "limit": 300,
+    "_metro": "Kaunas, Lithuania",
+    "_found": "search:europe-east-south -> ics",
+    "_note": "Municipal culture centre (Events Manager iCal). 2026-11-15: 48 VEVENTs, 47 future; 47 of 47 LOCATIONs 'Kauno kultūros centras (Vytauto pr. 79, Kaunas), Vytauto pr. 79' (Photon: 54.895057,23.924586). Theatre, comedy, children's shows. One title starts 'ATŠAUKTAS.' (cancelled). Lithuania had no curated arts feed."
+  },
+  {
+    "name": "Gradska knjižnica Rijeka (Rijeka, Croatia)",
+    "url": "https://gkr.hr/api/events.ics",
+    "category": "learning",
+    "geocode_suffix": ", Rijeka, Croatia",
+    "limit": 300,
+    "_metro": "Rijeka, Croatia",
+    "_found": "search:europe-east-south -> ics",
+    "_note": "Rijeka City Library's own iCal (linked from its site). 2026-11-15: 30 VEVENTs, 27 future, UTC times; 24 at 'Benčić, Viktora Cara Emina 1', others at branches (Čavle, Zamet) with street. Lectures, round tables, children's programmes. Croatia had 1 curated source."
+  },
+  {
+    "name": "Camarillo Public Library (Camarillo, CA)",
+    "url": "https://camarillolibrary.libcal.com/ical_subscribe.php?src=p&cid=11325",
+    "category": "learning",
+    "geocode_suffix": ", Camarillo, CA",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Homework Center",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Community Room",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Conference Room",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Literacy Center",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Children's Library",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Conference Room (Program)",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "YA Library",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Pirate Ship",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "YA Library, Conference Room",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "Library Lawn",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      },
+      {
+        "location": "2nd Floor Reference Desk",
+        "venue": {
+          "name": "Camarillo Public Library",
+          "address": "4101 Las Posas Road",
+          "city": "Camarillo",
+          "region": "CA",
+          "postal_code": "93010",
+          "country": "US",
+          "lat": 34.2432125,
+          "lon": -119.0138689
+        }
+      }
+    ],
+    "venue": {
+      "name": "Camarillo Public Library",
+      "address": "4101 Las Posas Road",
+      "city": "Camarillo",
+      "region": "CA",
+      "postal_code": "93010",
+      "country": "US",
+      "lat": 34.2432125,
+      "lon": -119.0138689
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://camarillolibrary.libcal.com/calendar",
+    "_metro": "Los Angeles, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 285 VEVENTs (under the 500 cap), 179 upcoming reaching 20271114; 129 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 11 room strings pinned to the library by location_overrides, 2 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W815568305 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 285 vevents / 179 future / 129 in 90 days / reach 20271114"
+  },
+  {
+    "name": "Belleville Area District Library (Belleville, MI)",
+    "url": "https://belleville.libcal.com/ical_subscribe.php?src=p&cid=19644",
+    "category": "learning",
+    "geocode_suffix": ", Belleville, MI",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Story Time Room",
+        "venue": {
+          "name": "Belleville Area District Library",
+          "address": "167 Fourth Street",
+          "city": "Belleville",
+          "region": "MI",
+          "postal_code": "48111",
+          "country": "US",
+          "lat": 42.2077106,
+          "lon": -83.4914911
+        }
+      },
+      {
+        "location": "Cozadd A and B",
+        "venue": {
+          "name": "Belleville Area District Library",
+          "address": "167 Fourth Street",
+          "city": "Belleville",
+          "region": "MI",
+          "postal_code": "48111",
+          "country": "US",
+          "lat": 42.2077106,
+          "lon": -83.4914911
+        }
+      },
+      {
+        "location": "Library Conference Room",
+        "venue": {
+          "name": "Belleville Area District Library",
+          "address": "167 Fourth Street",
+          "city": "Belleville",
+          "region": "MI",
+          "postal_code": "48111",
+          "country": "US",
+          "lat": 42.2077106,
+          "lon": -83.4914911
+        }
+      },
+      {
+        "location": "Local History Room",
+        "venue": {
+          "name": "Belleville Area District Library",
+          "address": "167 Fourth Street",
+          "city": "Belleville",
+          "region": "MI",
+          "postal_code": "48111",
+          "country": "US",
+          "lat": 42.2077106,
+          "lon": -83.4914911
+        }
+      },
+      {
+        "location": "Cozadd A",
+        "venue": {
+          "name": "Belleville Area District Library",
+          "address": "167 Fourth Street",
+          "city": "Belleville",
+          "region": "MI",
+          "postal_code": "48111",
+          "country": "US",
+          "lat": 42.2077106,
+          "lon": -83.4914911
+        }
+      },
+      {
+        "location": "Cozadd B",
+        "venue": {
+          "name": "Belleville Area District Library",
+          "address": "167 Fourth Street",
+          "city": "Belleville",
+          "region": "MI",
+          "postal_code": "48111",
+          "country": "US",
+          "lat": 42.2077106,
+          "lon": -83.4914911
+        }
+      }
+    ],
+    "venue": {
+      "name": "Belleville Area District Library",
+      "address": "167 Fourth Street",
+      "city": "Belleville",
+      "region": "MI",
+      "postal_code": "48111",
+      "country": "US",
+      "lat": 42.2077106,
+      "lon": -83.4914911
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://belleville.libcal.com/calendar",
+    "_metro": "Detroit, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 307 VEVENTs (under the 500 cap), 244 upcoming reaching 20271113; 134 in the next 90 days; 13 upcoming titles matched skip_title. LOCATION is a room name: 6 room strings pinned to the library by location_overrides, 40 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W989269272 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. Sumpter Media Center rows are another site and are left to the geocoder.",
+    "_measured": "2026-11-15: 307 vevents / 244 future / 134 in 90 days / reach 20271113"
+  },
+  {
+    "name": "Saratoga Springs Public Library (Saratoga Springs, NY)",
+    "url": "https://sspl.libcal.com/ical_subscribe.php?src=p&cid=10655",
+    "category": "learning",
+    "geocode_suffix": ", Saratoga Springs, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Dutcher Community Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Crawshaw Story Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Literacy Lab",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Susman Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Computer Lab",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Teen Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Glasby Room, Susman Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Children's Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Glasby Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Bollerud Board Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "New and Popular Reading Area",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      },
+      {
+        "location": "Susman Room, Crawshaw Story Room",
+        "venue": {
+          "name": "Saratoga Springs Public Library",
+          "address": "49 Henry Street",
+          "city": "Saratoga Springs",
+          "region": "NY",
+          "postal_code": "12866",
+          "country": "US",
+          "lat": 43.0810319,
+          "lon": -73.783116
+        }
+      }
+    ],
+    "venue": {
+      "name": "Saratoga Springs Public Library",
+      "address": "49 Henry Street",
+      "city": "Saratoga Springs",
+      "region": "NY",
+      "postal_code": "12866",
+      "country": "US",
+      "lat": 43.0810319,
+      "lon": -73.783116
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://sspl.libcal.com/calendar",
+    "_metro": "Albany, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 392 VEVENTs (under the 500 cap), 236 upcoming reaching 20271111; 192 in the next 90 days; 23 upcoming titles matched skip_title. LOCATION is a room name: 12 room strings pinned to the library by location_overrides, 76 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W122492528 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 392 vevents / 236 future / 192 in 90 days / reach 20271111"
+  },
+  {
+    "name": "Englewood Public Library (Englewood, CO)",
+    "url": "https://englewoodpl-co.libcal.com/ical_subscribe.php?src=p&cid=14780",
+    "category": "learning",
+    "geocode_suffix": ", Englewood, CO",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Storytime Room",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      },
+      {
+        "location": "Anderson Room",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      },
+      {
+        "location": "Perrin Room",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      },
+      {
+        "location": "Study Room 101",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      },
+      {
+        "location": "Teen Room",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      },
+      {
+        "location": "Study Room 103",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      },
+      {
+        "location": "Anderson Room, Tech Lab",
+        "venue": {
+          "name": "Englewood Public Library",
+          "address": "1000 Englewood Parkway",
+          "city": "Englewood",
+          "region": "CO",
+          "postal_code": "80110",
+          "country": "US",
+          "lat": 39.6546727,
+          "lon": -104.9991608
+        }
+      }
+    ],
+    "venue": {
+      "name": "Englewood Public Library",
+      "address": "1000 Englewood Parkway",
+      "city": "Englewood",
+      "region": "CO",
+      "postal_code": "80110",
+      "country": "US",
+      "lat": 39.6546727,
+      "lon": -104.9991608
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://englewoodpl-co.libcal.com/calendar",
+    "_metro": "Denver, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 227 VEVENTs (under the 500 cap), 156 upcoming reaching 20271116; 110 in the next 90 days; 3 upcoming titles matched skip_title. LOCATION is a room name: 7 room strings pinned to the library by location_overrides, 31 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N2104365946 (Englewood Civic Center, which houses the library at 1000 Englewood Parkway). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 227 vevents / 156 future / 110 in 90 days / reach 20271116"
+  },
+  {
+    "name": "Fayetteville Free Library (Fayetteville, NY)",
+    "url": "https://onlib-fayetteville.libcal.com/ical_subscribe.php?src=p&cid=19949",
+    "category": "learning",
+    "geocode_suffix": ", Fayetteville, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Community Room AB",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "Community Room C",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "Emma Beard Room",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "Makerspace",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "Teen Lounge",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "FFL Greenspace",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "Basement",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      },
+      {
+        "location": "Makerspace, Makerspace: Sewing Area",
+        "venue": {
+          "name": "Fayetteville Free Library",
+          "address": "300 Orchard Street",
+          "city": "Fayetteville",
+          "region": "NY",
+          "postal_code": "13066",
+          "country": "US",
+          "lat": 43.0257301,
+          "lon": -76.0068319
+        }
+      }
+    ],
+    "venue": {
+      "name": "Fayetteville Free Library",
+      "address": "300 Orchard Street",
+      "city": "Fayetteville",
+      "region": "NY",
+      "postal_code": "13066",
+      "country": "US",
+      "lat": 43.0257301,
+      "lon": -76.0068319
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://onlib-fayetteville.libcal.com/calendar",
+    "_metro": "Syracuse, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 223 VEVENTs (under the 500 cap), 141 upcoming reaching 20270602; 115 in the next 90 days; 10 upcoming titles matched skip_title. LOCATION is a room name: 8 room strings pinned to the library by location_overrides, 15 upcoming with no LOCATION take the venue block, 1 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N11242348134 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 223 vevents / 141 future / 115 in 90 days / reach 20270602"
+  },
+  {
+    "name": "West Allis Public Library (West Allis, WI)",
+    "url": "https://westallislibrary.libcal.com/ical_subscribe.php?src=p&cid=18857",
+    "category": "learning",
+    "geocode_suffix": ", West Allis, WI",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Children's Story Room",
+        "venue": {
+          "name": "West Allis Public Library",
+          "address": "7421 West National Avenue",
+          "city": "West Allis",
+          "region": "WI",
+          "postal_code": "53214",
+          "country": "US",
+          "lat": 43.0117901,
+          "lon": -88.0052586
+        }
+      },
+      {
+        "location": "Constitution Room",
+        "venue": {
+          "name": "West Allis Public Library",
+          "address": "7421 West National Avenue",
+          "city": "West Allis",
+          "region": "WI",
+          "postal_code": "53214",
+          "country": "US",
+          "lat": 43.0117901,
+          "lon": -88.0052586
+        }
+      },
+      {
+        "location": "Constitution",
+        "venue": {
+          "name": "West Allis Public Library",
+          "address": "7421 West National Avenue",
+          "city": "West Allis",
+          "region": "WI",
+          "postal_code": "53214",
+          "country": "US",
+          "lat": 43.0117901,
+          "lon": -88.0052586
+        }
+      },
+      {
+        "location": "Conference Room",
+        "venue": {
+          "name": "West Allis Public Library",
+          "address": "7421 West National Avenue",
+          "city": "West Allis",
+          "region": "WI",
+          "postal_code": "53214",
+          "country": "US",
+          "lat": 43.0117901,
+          "lon": -88.0052586
+        }
+      }
+    ],
+    "venue": {
+      "name": "West Allis Public Library",
+      "address": "7421 West National Avenue",
+      "city": "West Allis",
+      "region": "WI",
+      "postal_code": "53214",
+      "country": "US",
+      "lat": 43.0117901,
+      "lon": -88.0052586
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://westallislibrary.libcal.com/calendar",
+    "_metro": "Milwaukee, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 230 VEVENTs (under the 500 cap), 175 upcoming reaching 20271028; 119 in the next 90 days; 32 upcoming titles matched skip_title. LOCATION is a room name: 4 room strings pinned to the library by location_overrides, 28 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W663309201 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 230 vevents / 175 future / 119 in 90 days / reach 20271028"
+  },
+  {
+    "name": "Auburn Hills Public Library (Auburn Hills, MI)",
+    "url": "https://ahplibrary.libcal.com/ical_subscribe.php?src=p&cid=20722",
+    "category": "learning",
+    "geocode_suffix": ", Auburn Hills, MI",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Community Room",
+        "venue": {
+          "name": "Auburn Hills Public Library",
+          "address": "3400 East Seyburn Drive",
+          "city": "Auburn Hills",
+          "region": "MI",
+          "postal_code": "48326",
+          "country": "US",
+          "lat": 42.6710282,
+          "lon": -83.2228951
+        }
+      },
+      {
+        "location": "Activity Room",
+        "venue": {
+          "name": "Auburn Hills Public Library",
+          "address": "3400 East Seyburn Drive",
+          "city": "Auburn Hills",
+          "region": "MI",
+          "postal_code": "48326",
+          "country": "US",
+          "lat": 42.6710282,
+          "lon": -83.2228951
+        }
+      },
+      {
+        "location": "Small Conference Room",
+        "venue": {
+          "name": "Auburn Hills Public Library",
+          "address": "3400 East Seyburn Drive",
+          "city": "Auburn Hills",
+          "region": "MI",
+          "postal_code": "48326",
+          "country": "US",
+          "lat": 42.6710282,
+          "lon": -83.2228951
+        }
+      },
+      {
+        "location": "Technology Studio",
+        "venue": {
+          "name": "Auburn Hills Public Library",
+          "address": "3400 East Seyburn Drive",
+          "city": "Auburn Hills",
+          "region": "MI",
+          "postal_code": "48326",
+          "country": "US",
+          "lat": 42.6710282,
+          "lon": -83.2228951
+        }
+      },
+      {
+        "location": "Parking Lot",
+        "venue": {
+          "name": "Auburn Hills Public Library",
+          "address": "3400 East Seyburn Drive",
+          "city": "Auburn Hills",
+          "region": "MI",
+          "postal_code": "48326",
+          "country": "US",
+          "lat": 42.6710282,
+          "lon": -83.2228951
+        }
+      }
+    ],
+    "venue": {
+      "name": "Auburn Hills Public Library",
+      "address": "3400 East Seyburn Drive",
+      "city": "Auburn Hills",
+      "region": "MI",
+      "postal_code": "48326",
+      "country": "US",
+      "lat": 42.6710282,
+      "lon": -83.2228951
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://ahplibrary.libcal.com/calendar",
+    "_metro": "Detroit, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 384 VEVENTs (under the 500 cap), 320 upcoming reaching 20271113; 144 in the next 90 days; 25 upcoming titles matched skip_title. LOCATION is a room name: 5 room strings pinned to the library by location_overrides, 26 upcoming with no LOCATION take the venue block, 12 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W546489868 (amenity=library); address Census-matched. robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 384 vevents / 320 future / 144 in 90 days / reach 20271113"
+  },
+  {
+    "name": "Morley Library (Painesville, OH)",
+    "url": "https://events.morleylibrary.org/ical_subscribe.php?src=p&cid=14772",
+    "category": "learning",
+    "geocode_suffix": ", Painesville, OH",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Story Room",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Project Room",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Combined Room A & B",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Activity Room",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Meeting Room B",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Teen Corner",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Meeting Room C",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Morley Library",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Meeting Room D",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Board Room",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      },
+      {
+        "location": "Meeting Room A",
+        "venue": {
+          "name": "Morley Library",
+          "address": "184 Phelps Street",
+          "city": "Painesville",
+          "region": "OH",
+          "postal_code": "44077",
+          "country": "US",
+          "lat": 41.7276745,
+          "lon": -81.2428381
+        }
+      }
+    ],
+    "venue": {
+      "name": "Morley Library",
+      "address": "184 Phelps Street",
+      "city": "Painesville",
+      "region": "OH",
+      "postal_code": "44077",
+      "country": "US",
+      "lat": 41.7276745,
+      "lon": -81.2428381
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://events.morleylibrary.org/calendar",
+    "_metro": "Cleveland, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 289 VEVENTs (under the 500 cap), 208 upcoming reaching 20271115; 146 in the next 90 days; 7 upcoming titles matched skip_title. LOCATION is a room name: 11 room strings pinned to the library by location_overrides, 19 upcoming with no LOCATION take the venue block, 3 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W754359287 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 289 vevents / 208 future / 146 in 90 days / reach 20271115"
+  },
+  {
+    "name": "Plymouth Public Library (Plymouth, MA)",
+    "url": "https://plymouthpubliclibrary.libcal.com/ical_subscribe.php?src=p&cid=14692",
+    "category": "learning",
+    "geocode_suffix": ", Plymouth, MA",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Fehlow Meeting Room",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "Manomet Room (Branch)",
+        "venue": {
+          "name": "Manomet Branch Library",
+          "address": "12 Strand Avenue",
+          "city": "Plymouth",
+          "region": "MA",
+          "country": "US",
+          "lat": 41.9155217,
+          "lon": -70.553813
+        }
+      },
+      {
+        "location": "Craft Room",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "Nook Road Rooms",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "Boardroom",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "History Room",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "Front Lawn",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "Children's Room",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "Literacy Hallway",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      },
+      {
+        "location": "PPL Garden",
+        "venue": {
+          "name": "Plymouth Public Library",
+          "address": "132 South Street",
+          "city": "Plymouth",
+          "region": "MA",
+          "postal_code": "02360",
+          "country": "US",
+          "lat": 41.9428709,
+          "lon": -70.6569844
+        }
+      }
+    ],
+    "venue": {
+      "name": "Plymouth Public Library",
+      "address": "132 South Street",
+      "city": "Plymouth",
+      "region": "MA",
+      "postal_code": "02360",
+      "country": "US",
+      "lat": 41.9428709,
+      "lon": -70.6569844
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://plymouthpubliclibrary.libcal.com/calendar",
+    "_metro": "Boston, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 500 VEVENTs (at the 500 cap), 400 upcoming reaching 20270802; 181 in the next 90 days; 15 upcoming titles matched skip_title. LOCATION is a room name: 10 room strings pinned to the library by location_overrides, 31 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W215735672 (main) and W215720880 (Manomet branch). robots.txt: ok rule=None, Crawl-delay 10.0. At the 500 cap but sorted from today, so it still reaches about 260 days.",
+    "_measured": "2026-11-15: 500 vevents / 400 future / 181 in 90 days / reach 20270802"
+  },
+  {
+    "name": "Warwick Public Library (Warwick, RI)",
+    "url": "https://warwicklibrary.libcal.com/ical_subscribe.php?src=p&cid=18205",
+    "category": "learning",
+    "geocode_suffix": ", Warwick, RI",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Large Meeting Room",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Room 113",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Idea Studio",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Children's Program Room",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Apponaug Branch",
+        "venue": {
+          "name": "Apponaug Branch, Warwick Public Library",
+          "address": "3267 Post Road",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02886",
+          "country": "US",
+          "lat": 41.699279,
+          "lon": -71.4581725
+        }
+      },
+      {
+        "location": "Norwood Branch",
+        "venue": {
+          "name": "Norwood Branch, Warwick Public Library",
+          "address": "328 Pawtuxet Avenue",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02888",
+          "country": "US",
+          "lat": 41.7542711,
+          "lon": -71.4304529
+        }
+      },
+      {
+        "location": "Conimicut Branch",
+        "venue": {
+          "name": "Conimicut Branch, Warwick Public Library",
+          "address": "55 Beach Avenue",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7238617,
+          "lon": -71.3814489
+        }
+      },
+      {
+        "location": "Teenspace",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Room 112",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Small Meeting Room",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Children's Library",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Table in Lobby",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      },
+      {
+        "location": "Glass Room",
+        "venue": {
+          "name": "Warwick Public Library",
+          "address": "600 Sandy Lane",
+          "city": "Warwick",
+          "region": "RI",
+          "postal_code": "02889",
+          "country": "US",
+          "lat": 41.7107084,
+          "lon": -71.4026433
+        }
+      }
+    ],
+    "venue": {
+      "name": "Warwick Public Library",
+      "address": "600 Sandy Lane",
+      "city": "Warwick",
+      "region": "RI",
+      "postal_code": "02889",
+      "country": "US",
+      "lat": 41.7107084,
+      "lon": -71.4026433
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://warwicklibrary.libcal.com/calendar",
+    "_metro": "Providence, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 437 VEVENTs (under the 500 cap), 314 upcoming reaching 20271111; 191 in the next 90 days; 3 upcoming titles matched skip_title. LOCATION is a room name: 13 room strings pinned to the library by location_overrides, 1 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W145306048 (main), W385779517 (Apponaug), W143669770 (Norwood), W1341323845 (Conimicut). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 437 vevents / 314 future / 191 in 90 days / reach 20271111"
+  },
+  {
+    "name": "Fond du Lac Public Library (Fond du Lac, WI)",
+    "url": "https://calendar.fdlpl.org/ical_subscribe.php?src=p&cid=21497",
+    "category": "learning",
+    "geocode_suffix": ", Fond du Lac, WI",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Discovery Room, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "McLane Meeting Room, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Langdon Divers Gallery - Walls, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Langdon Divers Gallery - Room, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Seefeld Room, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Idea Studio - Kitchen, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Display 1st Floor - Across from Circulation, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Idea Studio - Shop, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Community Room, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Shared Office Space, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Seefeld Room",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Teen Area, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Idea Studio, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Display 1st Floor - Around the Stairwell, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Idea Studio - Recording Studio, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Shared Office Space",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "McLane Meeting Room",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      },
+      {
+        "location": "Children's Room, Main Library",
+        "venue": {
+          "name": "Fond du Lac Public Library",
+          "address": "32 Sheboygan Street",
+          "city": "Fond du Lac",
+          "region": "WI",
+          "postal_code": "54935",
+          "country": "US",
+          "lat": 43.7775899,
+          "lon": -88.4453717
+        }
+      }
+    ],
+    "venue": {
+      "name": "Fond du Lac Public Library",
+      "address": "32 Sheboygan Street",
+      "city": "Fond du Lac",
+      "region": "WI",
+      "postal_code": "54935",
+      "country": "US",
+      "lat": 43.7775899,
+      "lon": -88.4453717
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://calendar.fdlpl.org/calendar",
+    "_metro": "Milwaukee, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 447 VEVENTs (under the 500 cap), 322 upcoming reaching 20271115; 225 in the next 90 days; 64 upcoming titles matched skip_title. LOCATION is a room name: 19 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 43 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W431568439 (amenity=library); address Census-matched. robots.txt: ok rule=None, Crawl-delay 10.0. Buechel Branch, Chapter 52 and a bare Community Room are other sites (the calendar lists Community Site and Chapter 52 as separate locations) and are left to the geocoder.",
+    "_measured": "2026-11-15: 447 vevents / 322 future / 225 in 90 days / reach 20271115"
+  },
+  {
+    "name": "Williams County Public Library - Bryan Main Library (Bryan, OH)",
+    "url": "https://mywcpl.libcal.com/ical_subscribe.php?src=p&cid=18907",
+    "category": "learning",
+    "geocode_suffix": ", Bryan, OH",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Main Library - Children's Department, Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Carnegie, Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Jeff Yahraus Programming Room, Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Carnegie - East",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Main Library - Teen Spot, Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Carnegie - East, Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Main Library - Children's Department",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Jeff Yahraus Programming Room",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      },
+      {
+        "location": "Computer/Gaming Lab, Bryan Main",
+        "venue": {
+          "name": "Williams County Public Library",
+          "address": "107 East High Street",
+          "city": "Bryan",
+          "region": "OH",
+          "postal_code": "43506",
+          "country": "US",
+          "lat": 41.4749593,
+          "lon": -84.5500399
+        }
+      }
+    ],
+    "venue": {
+      "name": "Williams County Public Library",
+      "address": "107 East High Street",
+      "city": "Bryan",
+      "region": "OH",
+      "postal_code": "43506",
+      "country": "US",
+      "lat": 41.4749593,
+      "lon": -84.5500399
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://mywcpl.libcal.com/calendar",
+    "_metro": "Toledo, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 352 VEVENTs (under the 500 cap), 242 upcoming reaching 20270623; 212 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 10 room strings pinned to the library by location_overrides, 1 upcoming with no LOCATION take the venue block, 5 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W744970639 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. One LibCal calendar per branch; the six branch calendars (cids 18906, 18908-18912) are separate and not proposed here.",
+    "_measured": "2026-11-15: 352 vevents / 242 future / 212 in 90 days / reach 20270623"
+  },
+  {
+    "name": "Braswell Memorial Library (Rocky Mount, NC)",
+    "url": "https://braswell-library.libcal.com/ical_subscribe.php?src=p&cid=5322",
+    "category": "learning",
+    "geocode_suffix": ", Rocky Mount, NC",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Information Services, Braswell Memorial Library",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Computer Lab",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Story Time Room, Braswell Memorial Library",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Battle Room",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Warner Meeting Room, Wiley Conference Room",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Warner Meeting Room, Braswell Memorial Library",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Youth Services, Braswell Memorial Library",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Battle Room, Braswell Memorial Library",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Information Services",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Local History",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Bailey Branch",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Library Parking Lot, Youth Services",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      },
+      {
+        "location": "Braswell Memorial Library",
+        "venue": {
+          "name": "Braswell Memorial Library",
+          "address": "727 North Grace Street",
+          "city": "Rocky Mount",
+          "region": "NC",
+          "postal_code": "27804",
+          "country": "US",
+          "lat": 35.9490777,
+          "lon": -77.7961556
+        }
+      }
+    ],
+    "venue": {
+      "name": "Braswell Memorial Library",
+      "address": "727 North Grace Street",
+      "city": "Rocky Mount",
+      "region": "NC",
+      "postal_code": "27804",
+      "country": "US",
+      "lat": 35.9490777,
+      "lon": -77.7961556
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://braswell-library.libcal.com/calendar",
+    "_metro": "Raleigh, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 157 VEVENTs (under the 500 cap), 104 upcoming reaching 20270527; 86 in the next 90 days; 6 upcoming titles matched skip_title. LOCATION is a room name: 13 room strings pinned to the library by location_overrides, 4 upcoming with no LOCATION take the venue block, 4 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W1342696027 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. The system's other four libraries file their events as Outreach Events (cid 5324), not proposed.",
+    "_measured": "2026-11-15: 157 vevents / 104 future / 86 in 90 days / reach 20270527"
+  },
+  {
+    "name": "Newton Public Library (Newton, KS)",
+    "url": "https://newtonplks.libcal.com/ical_subscribe.php?src=p&cid=21192",
+    "category": "learning",
+    "geocode_suffix": ", Newton, KS",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Helen Claassen Room",
+        "venue": {
+          "name": "Newton Public Library",
+          "city": "Newton",
+          "region": "KS",
+          "postal_code": "67114",
+          "country": "US",
+          "lat": 38.0507512,
+          "lon": -97.3415317
+        }
+      },
+      {
+        "location": "Intrust Room West",
+        "venue": {
+          "name": "Newton Public Library",
+          "city": "Newton",
+          "region": "KS",
+          "postal_code": "67114",
+          "country": "US",
+          "lat": 38.0507512,
+          "lon": -97.3415317
+        }
+      },
+      {
+        "location": "Intrust Room",
+        "venue": {
+          "name": "Newton Public Library",
+          "city": "Newton",
+          "region": "KS",
+          "postal_code": "67114",
+          "country": "US",
+          "lat": 38.0507512,
+          "lon": -97.3415317
+        }
+      },
+      {
+        "location": "Study Room A",
+        "venue": {
+          "name": "Newton Public Library",
+          "city": "Newton",
+          "region": "KS",
+          "postal_code": "67114",
+          "country": "US",
+          "lat": 38.0507512,
+          "lon": -97.3415317
+        }
+      },
+      {
+        "location": "Intrust Room East",
+        "venue": {
+          "name": "Newton Public Library",
+          "city": "Newton",
+          "region": "KS",
+          "postal_code": "67114",
+          "country": "US",
+          "lat": 38.0507512,
+          "lon": -97.3415317
+        }
+      }
+    ],
+    "venue": {
+      "name": "Newton Public Library",
+      "city": "Newton",
+      "region": "KS",
+      "postal_code": "67114",
+      "country": "US",
+      "lat": 38.0507512,
+      "lon": -97.3415317
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://newtonplks.libcal.com/calendar",
+    "_metro": "Wichita, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 245 VEVENTs (under the 500 cap), 183 upcoming reaching 20271112; 85 in the next 90 days; 4 upcoming titles matched skip_title. LOCATION is a room name: 5 room strings pinned to the library by location_overrides, 7 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W769126304 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 245 vevents / 183 future / 85 in 90 days / reach 20271112"
+  },
+  {
+    "name": "Victor Farmington Library (Victor, NY)",
+    "url": "https://victorfarmingtonlibrary.libcal.com/ical_subscribe.php?src=p&cid=16412",
+    "category": "learning",
+    "geocode_suffix": ", Victor, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Malone Room",
+        "venue": {
+          "name": "Victor Farmington Library",
+          "address": "15 West Main Street",
+          "city": "Victor",
+          "region": "NY",
+          "postal_code": "14564",
+          "country": "US",
+          "lat": 42.982019,
+          "lon": -77.4111843
+        }
+      },
+      {
+        "location": "Small Meeting Room",
+        "venue": {
+          "name": "Victor Farmington Library",
+          "address": "15 West Main Street",
+          "city": "Victor",
+          "region": "NY",
+          "postal_code": "14564",
+          "country": "US",
+          "lat": 42.982019,
+          "lon": -77.4111843
+        }
+      },
+      {
+        "location": "Adult Media Tables",
+        "venue": {
+          "name": "Victor Farmington Library",
+          "address": "15 West Main Street",
+          "city": "Victor",
+          "region": "NY",
+          "postal_code": "14564",
+          "country": "US",
+          "lat": 42.982019,
+          "lon": -77.4111843
+        }
+      },
+      {
+        "location": "Adult Non-fiction Area",
+        "venue": {
+          "name": "Victor Farmington Library",
+          "address": "15 West Main Street",
+          "city": "Victor",
+          "region": "NY",
+          "postal_code": "14564",
+          "country": "US",
+          "lat": 42.982019,
+          "lon": -77.4111843
+        }
+      },
+      {
+        "location": "Victor Farmington Library",
+        "venue": {
+          "name": "Victor Farmington Library",
+          "address": "15 West Main Street",
+          "city": "Victor",
+          "region": "NY",
+          "postal_code": "14564",
+          "country": "US",
+          "lat": 42.982019,
+          "lon": -77.4111843
+        }
+      },
+      {
+        "location": "Library Reception Area",
+        "venue": {
+          "name": "Victor Farmington Library",
+          "address": "15 West Main Street",
+          "city": "Victor",
+          "region": "NY",
+          "postal_code": "14564",
+          "country": "US",
+          "lat": 42.982019,
+          "lon": -77.4111843
+        }
+      }
+    ],
+    "venue": {
+      "name": "Victor Farmington Library",
+      "address": "15 West Main Street",
+      "city": "Victor",
+      "region": "NY",
+      "postal_code": "14564",
+      "country": "US",
+      "lat": 42.982019,
+      "lon": -77.4111843
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://victorfarmingtonlibrary.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 500 VEVENTs (at the 500 cap), 385 upcoming reaching 20270512; 207 in the next 90 days; 14 upcoming titles matched skip_title. LOCATION is a room name: 6 room strings pinned to the library by location_overrides, 13 upcoming with no LOCATION take the venue block, 19 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W89571430 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. At the 500 cap but read from today, reaching about 180 days. Rows at a church, the town hall or in parks are other sites and are left to the geocoder.",
+    "_measured": "2026-11-15: 500 vevents / 385 future / 207 in 90 days / reach 20270512"
+  },
+  {
+    "name": "Nashua Public Library (Nashua, NH)",
+    "url": "https://nashualibrary.libcal.com/ical_subscribe.php?src=p&cid=18181",
+    "category": "learning",
+    "geocode_suffix": ", Nashua, NH",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Children's Room",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Theater",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Large Meeting Room",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Training Room",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Activity Room",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Chandler Performance Area",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Teen Room",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Library Plaza",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      },
+      {
+        "location": "Conference Room",
+        "venue": {
+          "name": "Nashua Public Library",
+          "address": "2 Court Street",
+          "city": "Nashua",
+          "region": "NH",
+          "postal_code": "03060",
+          "country": "US",
+          "lat": 42.7631629,
+          "lon": -71.4643957
+        }
+      }
+    ],
+    "venue": {
+      "name": "Nashua Public Library",
+      "address": "2 Court Street",
+      "city": "Nashua",
+      "region": "NH",
+      "postal_code": "03060",
+      "country": "US",
+      "lat": 42.7631629,
+      "lon": -71.4643957
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://nashualibrary.libcal.com/calendar",
+    "_metro": "Boston, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 221 VEVENTs (under the 500 cap), 144 upcoming reaching 20270828; 112 in the next 90 days; 2 upcoming titles matched skip_title. LOCATION is a room name: 9 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 2 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W32285517 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 221 vevents / 144 future / 112 in 90 days / reach 20270828"
+  },
+  {
+    "name": "Nampa Public Library (Nampa, ID)",
+    "url": "https://nampalibrary.libcal.com/ical_subscribe.php?src=p&cid=9239",
+    "category": "learning",
+    "geocode_suffix": ", Nampa, ID",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Multipurpose Room A & B (Entire Space), Nampa Public Library",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Multipurpose Room A & B (Entire Space)",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Children's Area",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Tween Area",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Board Room",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Community Corner",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Multipurpose Room - Side B",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Multipurpose Room - Side A",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Study Room 203 - Nampa Rotary Room",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Study Room 302",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Lobby",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Teen Area",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "1st Floor Information Desk",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Multipurpose Room - Side A, Nampa Public Library",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Local History Area - 3rd Floor, Nampa Smiles Terrace",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Lobby, Tween Area",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      },
+      {
+        "location": "Nampa Public Library",
+        "venue": {
+          "name": "Nampa Public Library",
+          "address": "215 12th Avenue South",
+          "city": "Nampa",
+          "region": "ID",
+          "postal_code": "83651",
+          "country": "US",
+          "lat": 43.5777476,
+          "lon": -116.5617927
+        }
+      }
+    ],
+    "venue": {
+      "name": "Nampa Public Library",
+      "address": "215 12th Avenue South",
+      "city": "Nampa",
+      "region": "ID",
+      "postal_code": "83651",
+      "country": "US",
+      "lat": 43.5777476,
+      "lon": -116.5617927
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://nampalibrary.libcal.com/calendar",
+    "_metro": "Boise, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 468 VEVENTs (under the 500 cap), 392 upcoming reaching 20271112; 188 in the next 90 days; 19 upcoming titles matched skip_title. LOCATION is a room name: 17 room strings pinned to the library by location_overrides, 10 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W762711142 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. The bookmobile has its own calendars (cids 17615, 9948), not proposed.",
+    "_measured": "2026-11-15: 468 vevents / 392 future / 188 in 90 days / reach 20271112"
+  },
+  {
+    "name": "Patten Free Library (Bath, ME)",
+    "url": "https://patten-lib.libcal.com/ical_subscribe.php?src=p&cid=19458",
+    "category": "learning",
+    "geocode_suffix": ", Bath, ME",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Community Room",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Children's Room",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Storytime Room",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Board Room",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Reading Room",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Library Park Gazebo",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Teen Space",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Library Park",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      },
+      {
+        "location": "Small Group Room",
+        "venue": {
+          "name": "Patten Free Library",
+          "address": "33 Summer Street",
+          "city": "Bath",
+          "region": "ME",
+          "postal_code": "04530",
+          "country": "US",
+          "lat": 43.9157426,
+          "lon": -69.8148546
+        }
+      }
+    ],
+    "venue": {
+      "name": "Patten Free Library",
+      "address": "33 Summer Street",
+      "city": "Bath",
+      "region": "ME",
+      "postal_code": "04530",
+      "country": "US",
+      "lat": 43.9157426,
+      "lon": -69.8148546
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://patten-lib.libcal.com/calendar",
+    "_metro": "Portland ME, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 236 VEVENTs (under the 500 cap), 176 upcoming reaching 20270616; 130 in the next 90 days; 7 upcoming titles matched skip_title. LOCATION is a room name: 9 room strings pinned to the library by location_overrides, 51 upcoming with no LOCATION take the venue block, 1 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W218117840 (amenity=library); Library Park is the library's own grounds. robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 236 vevents / 176 future / 130 in 90 days / reach 20270616"
+  },
+  {
+    "name": "New Albany-Floyd County Public Library - Central Branch (New Albany, IN)",
+    "url": "https://nafclibrary.libcal.com/ical_subscribe.php?src=p&cid=10014",
+    "category": "learning",
+    "geocode_suffix": ", New Albany, IN",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Applegate Meeting Room, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Auditorium, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Upper Level Open Area, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "The Gallery Meeting Room, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Central Branch - Cafe, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Central Branch - Teen Scene, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Indiana Room, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Central Branch - Children's Room, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Applegate Meeting Room",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Auditorium",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Applegate Meeting Room, Auditorium, Upper Level Open Area, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      },
+      {
+        "location": "Central Branch - Indiana History Room, New Albany Main Library",
+        "venue": {
+          "name": "New Albany-Floyd County Public Library",
+          "address": "180 West Spring Street",
+          "city": "New Albany",
+          "region": "IN",
+          "postal_code": "47150",
+          "country": "US",
+          "lat": 38.2855952,
+          "lon": -85.8261791
+        }
+      }
+    ],
+    "venue": {
+      "name": "New Albany-Floyd County Public Library",
+      "address": "180 West Spring Street",
+      "city": "New Albany",
+      "region": "IN",
+      "postal_code": "47150",
+      "country": "US",
+      "lat": 38.2855952,
+      "lon": -85.8261791
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://nafclibrary.libcal.com/calendar",
+    "_metro": "Louisville, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 197 VEVENTs (under the 500 cap), 114 upcoming reaching 20271115; 91 in the next 90 days; 8 upcoming titles matched skip_title. LOCATION is a room name: 13 room strings pinned to the library by location_overrides, 6 upcoming with no LOCATION take the venue block, 5 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W587535630 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. The Carnegie Cultural Arts Center (cid 10015) and the digital branch (cid 10017) are separate calendars, not proposed.",
+    "_measured": "2026-11-15: 197 vevents / 114 future / 91 in 90 days / reach 20271115"
+  },
+  {
+    "name": "Ethelbert B. Crawford Public Library - Youth Programs (Monticello, NY)",
+    "url": "https://ebcpl.libcal.com/ical_subscribe.php?src=p&cid=10363",
+    "category": "kids",
+    "geocode_suffix": ", Monticello, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Children's Room",
+        "venue": {
+          "name": "Ethelbert B. Crawford Public Library",
+          "city": "Monticello",
+          "region": "NY",
+          "postal_code": "12701",
+          "country": "US",
+          "lat": 41.6553665,
+          "lon": -74.6895765
+        }
+      },
+      {
+        "location": "Teen Room",
+        "venue": {
+          "name": "Ethelbert B. Crawford Public Library",
+          "city": "Monticello",
+          "region": "NY",
+          "postal_code": "12701",
+          "country": "US",
+          "lat": 41.6553665,
+          "lon": -74.6895765
+        }
+      },
+      {
+        "location": "RDN Community Room",
+        "venue": {
+          "name": "Ethelbert B. Crawford Public Library",
+          "city": "Monticello",
+          "region": "NY",
+          "postal_code": "12701",
+          "country": "US",
+          "lat": 41.6553665,
+          "lon": -74.6895765
+        }
+      }
+    ],
+    "venue": {
+      "name": "Ethelbert B. Crawford Public Library",
+      "city": "Monticello",
+      "region": "NY",
+      "postal_code": "12701",
+      "country": "US",
+      "lat": 41.6553665,
+      "lon": -74.6895765
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://ebcpl.libcal.com/calendar",
+    "_metro": "New York, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 53 VEVENTs (under the 500 cap), 22 upcoming reaching 20271111; 16 in the next 90 days; 8 upcoming titles matched skip_title. LOCATION is a room name: 3 room strings pinned to the library by location_overrides, 9 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N368050164 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. The library keeps youth and adult programmes as two LibCal calendars; this is the youth one (the adult one is cid 10393).",
+    "_measured": "2026-11-15: 53 vevents / 22 future / 16 in 90 days / reach 20271111"
+  },
+  {
+    "name": "Perrot Memorial Library (Old Greenwich, CT)",
+    "url": "https://perrotlibrary.libcal.com/ical_subscribe.php?src=p&cid=20047",
+    "category": "learning",
+    "geocode_suffix": ", Old Greenwich, CT",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Program Room, Radcliffe Children’s Library, Perrot Memorial Library",
+        "venue": {
+          "name": "Perrot Memorial Library",
+          "city": "Old Greenwich",
+          "region": "CT",
+          "postal_code": "06870",
+          "country": "US",
+          "lat": 41.0383624,
+          "lon": -73.5696961
+        }
+      },
+      {
+        "location": "Rand Room, Waid Building, Perrot Memorial Library",
+        "venue": {
+          "name": "Perrot Memorial Library",
+          "city": "Old Greenwich",
+          "region": "CT",
+          "postal_code": "06870",
+          "country": "US",
+          "lat": 41.0383624,
+          "lon": -73.5696961
+        }
+      },
+      {
+        "location": "Perrot Memorial Library",
+        "venue": {
+          "name": "Perrot Memorial Library",
+          "city": "Old Greenwich",
+          "region": "CT",
+          "postal_code": "06870",
+          "country": "US",
+          "lat": 41.0383624,
+          "lon": -73.5696961
+        }
+      },
+      {
+        "location": "Program Room, Radcliffe Children’s Library",
+        "venue": {
+          "name": "Perrot Memorial Library",
+          "city": "Old Greenwich",
+          "region": "CT",
+          "postal_code": "06870",
+          "country": "US",
+          "lat": 41.0383624,
+          "lon": -73.5696961
+        }
+      },
+      {
+        "location": "The Green, Youth Services Department, Perrot Memorial Library",
+        "venue": {
+          "name": "Perrot Memorial Library",
+          "city": "Old Greenwich",
+          "region": "CT",
+          "postal_code": "06870",
+          "country": "US",
+          "lat": 41.0383624,
+          "lon": -73.5696961
+        }
+      }
+    ],
+    "venue": {
+      "name": "Perrot Memorial Library",
+      "city": "Old Greenwich",
+      "region": "CT",
+      "postal_code": "06870",
+      "country": "US",
+      "lat": 41.0383624,
+      "lon": -73.5696961
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://perrotlibrary.libcal.com/calendar",
+    "_metro": "New York, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 168 VEVENTs (under the 500 cap), 94 upcoming reaching 20270706; 71 in the next 90 days; 11 upcoming titles matched skip_title. LOCATION is a room name: 5 room strings pinned to the library by location_overrides, 14 upcoming with no LOCATION take the venue block, 27 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W585770543 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. Outdoor rows at Tod's Point and Binney Park are other sites and are left to the geocoder.",
+    "_measured": "2026-11-15: 168 vevents / 94 future / 71 in 90 days / reach 20270706"
+  },
+  {
+    "name": "Mountain View Public Library (Mountain View, CA)",
+    "url": "https://mountainview.libcal.com/ical_subscribe.php?src=p&cid=8800",
+    "category": "learning",
+    "geocode_suffix": ", Mountain View, CA",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "1st Floor Program Room",
+        "venue": {
+          "name": "Mountain View Public Library",
+          "address": "585 Franklin Street",
+          "city": "Mountain View",
+          "region": "CA",
+          "postal_code": "94041",
+          "country": "US",
+          "lat": 37.3903196,
+          "lon": -122.08339
+        }
+      },
+      {
+        "location": "History Center",
+        "venue": {
+          "name": "Mountain View Public Library",
+          "address": "585 Franklin Street",
+          "city": "Mountain View",
+          "region": "CA",
+          "postal_code": "94041",
+          "country": "US",
+          "lat": 37.3903196,
+          "lon": -122.08339
+        }
+      },
+      {
+        "location": "2nd Floor Program Room",
+        "venue": {
+          "name": "Mountain View Public Library",
+          "address": "585 Franklin Street",
+          "city": "Mountain View",
+          "region": "CA",
+          "postal_code": "94041",
+          "country": "US",
+          "lat": 37.3903196,
+          "lon": -122.08339
+        }
+      },
+      {
+        "location": "Bike Fix-it Station (Outside Franklin St. Entrance)",
+        "venue": {
+          "name": "Mountain View Public Library",
+          "address": "585 Franklin Street",
+          "city": "Mountain View",
+          "region": "CA",
+          "postal_code": "94041",
+          "country": "US",
+          "lat": 37.3903196,
+          "lon": -122.08339
+        }
+      },
+      {
+        "location": "Children's Room",
+        "venue": {
+          "name": "Mountain View Public Library",
+          "address": "585 Franklin Street",
+          "city": "Mountain View",
+          "region": "CA",
+          "postal_code": "94041",
+          "country": "US",
+          "lat": 37.3903196,
+          "lon": -122.08339
+        }
+      },
+      {
+        "location": "Library-wide",
+        "venue": {
+          "name": "Mountain View Public Library",
+          "address": "585 Franklin Street",
+          "city": "Mountain View",
+          "region": "CA",
+          "postal_code": "94041",
+          "country": "US",
+          "lat": 37.3903196,
+          "lon": -122.08339
+        }
+      }
+    ],
+    "venue": {
+      "name": "Mountain View Public Library",
+      "address": "585 Franklin Street",
+      "city": "Mountain View",
+      "region": "CA",
+      "postal_code": "94041",
+      "country": "US",
+      "lat": 37.3903196,
+      "lon": -122.08339
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://mountainview.libcal.com/calendar",
+    "_metro": "San Francisco, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 186 VEVENTs (under the 500 cap), 123 upcoming reaching 20271111; 91 in the next 90 days; 2 upcoming titles matched skip_title. LOCATION is a room name: 6 room strings pinned to the library by location_overrides, 18 upcoming with no LOCATION take the venue block, 38 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W148259758 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. Pioneer Park rows are left to the geocoder; the bookmobile calendar (cid 8985) is not proposed.",
+    "_measured": "2026-11-15: 186 vevents / 123 future / 91 in 90 days / reach 20271111"
+  },
+  {
+    "name": "Durham Public Library (Durham, NH)",
+    "url": "https://durhampubliclibrary.libcal.com/ical_subscribe.php?src=p&cid=21258",
+    "category": "learning",
+    "geocode_suffix": ", Durham, NH",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Storytime or YA Room",
+        "venue": {
+          "name": "Durham Public Library",
+          "address": "49 Madbury Road",
+          "city": "Durham",
+          "region": "NH",
+          "postal_code": "03824",
+          "country": "US",
+          "lat": 43.1399371,
+          "lon": -70.9270833
+        }
+      },
+      {
+        "location": "Oyster River Room",
+        "venue": {
+          "name": "Durham Public Library",
+          "address": "49 Madbury Road",
+          "city": "Durham",
+          "region": "NH",
+          "postal_code": "03824",
+          "country": "US",
+          "lat": 43.1399371,
+          "lon": -70.9270833
+        }
+      },
+      {
+        "location": "Small Community Room",
+        "venue": {
+          "name": "Durham Public Library",
+          "address": "49 Madbury Road",
+          "city": "Durham",
+          "region": "NH",
+          "postal_code": "03824",
+          "country": "US",
+          "lat": 43.1399371,
+          "lon": -70.9270833
+        }
+      },
+      {
+        "location": "Medium Community Room",
+        "venue": {
+          "name": "Durham Public Library",
+          "address": "49 Madbury Road",
+          "city": "Durham",
+          "region": "NH",
+          "postal_code": "03824",
+          "country": "US",
+          "lat": 43.1399371,
+          "lon": -70.9270833
+        }
+      },
+      {
+        "location": "Heritage Room",
+        "venue": {
+          "name": "Durham Public Library",
+          "address": "49 Madbury Road",
+          "city": "Durham",
+          "region": "NH",
+          "postal_code": "03824",
+          "country": "US",
+          "lat": 43.1399371,
+          "lon": -70.9270833
+        }
+      }
+    ],
+    "venue": {
+      "name": "Durham Public Library",
+      "address": "49 Madbury Road",
+      "city": "Durham",
+      "region": "NH",
+      "postal_code": "03824",
+      "country": "US",
+      "lat": 43.1399371,
+      "lon": -70.9270833
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://durhampubliclibrary.libcal.com/calendar",
+    "_metro": "Portsmouth, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 420 VEVENTs (under the 500 cap), 343 upcoming reaching 20271110; 152 in the next 90 days; 15 upcoming titles matched skip_title. LOCATION is a room name: 5 room strings pinned to the library by location_overrides, 19 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W669986483 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. ",
+    "_measured": "2026-11-15: 420 vevents / 343 future / 152 in 90 days / reach 20271110"
+  },
+  {
+    "name": "MYLI My Community Library - Pakenham Library (Pakenham, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11483",
+    "category": "learning",
+    "geocode_suffix": ", Pakenham, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Pakenham Library Front Desk , Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Meeting Room, Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library Children's Area, Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library Study Area, Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library Children's Area",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library Hall, Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Clyde Public Hall, Railway Road, Clyde VIC, Australia",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library Supper Room, Pakenham Library",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      },
+      {
+        "location": "Pakenham Library Study Area",
+        "venue": {
+          "name": "Pakenham Library",
+          "city": "Pakenham",
+          "region": "VIC",
+          "postal_code": "3810",
+          "country": "AU",
+          "lat": -38.0757519,
+          "lon": 145.4835998
+        }
+      }
+    ],
+    "venue": {
+      "name": "Pakenham Library",
+      "city": "Pakenham",
+      "region": "VIC",
+      "postal_code": "3810",
+      "country": "AU",
+      "lat": -38.0757519,
+      "lon": 145.4835998
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 223 VEVENTs (under the 500 cap), 119 upcoming reaching 20270125; 119 in the next 90 days; 30 upcoming titles matched skip_title. LOCATION is a room name: 10 room strings pinned to the library by location_overrides, 1 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W148401066 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 223 vevents / 119 future / 119 in 90 days / reach 20270125"
+  },
+  {
+    "name": "MYLI My Community Library - Warragul Library (Warragul, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11487",
+    "category": "learning",
+    "geocode_suffix": ", Warragul, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Warragul Library Children's Area, Warragul Library",
+        "venue": {
+          "name": "Warragul Library",
+          "address": "75 Victoria Street",
+          "city": "Warragul",
+          "region": "VIC",
+          "postal_code": "3820",
+          "country": "AU",
+          "lat": -38.1596784,
+          "lon": 145.9293412
+        }
+      },
+      {
+        "location": "Meeting Room, Warragul Library",
+        "venue": {
+          "name": "Warragul Library",
+          "address": "75 Victoria Street",
+          "city": "Warragul",
+          "region": "VIC",
+          "postal_code": "3820",
+          "country": "AU",
+          "lat": -38.1596784,
+          "lon": 145.9293412
+        }
+      }
+    ],
+    "venue": {
+      "name": "Warragul Library",
+      "address": "75 Victoria Street",
+      "city": "Warragul",
+      "region": "VIC",
+      "postal_code": "3820",
+      "country": "AU",
+      "lat": -38.1596784,
+      "lon": 145.9293412
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 154 VEVENTs (under the 500 cap), 125 upcoming reaching 20271115; 43 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 2 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N824000930 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 154 vevents / 125 future / 43 in 90 days / reach 20271115"
+  },
+  {
+    "name": "MYLI My Community Library - Wonthaggi Library (Wonthaggi, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11490",
+    "category": "learning",
+    "geocode_suffix": ", Wonthaggi, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Wonthaggi Library",
+        "venue": {
+          "name": "Wonthaggi Library",
+          "address": "23-29 Murray Street",
+          "city": "Wonthaggi",
+          "region": "VIC",
+          "postal_code": "3995",
+          "country": "AU",
+          "lat": -38.6051716,
+          "lon": 145.5897083
+        }
+      },
+      {
+        "location": "Wonthaggi Library Film Area, Wonthaggi Library",
+        "venue": {
+          "name": "Wonthaggi Library",
+          "address": "23-29 Murray Street",
+          "city": "Wonthaggi",
+          "region": "VIC",
+          "postal_code": "3995",
+          "country": "AU",
+          "lat": -38.6051716,
+          "lon": 145.5897083
+        }
+      },
+      {
+        "location": "Wonthaggi Library Children's Area, Wonthaggi Library",
+        "venue": {
+          "name": "Wonthaggi Library",
+          "address": "23-29 Murray Street",
+          "city": "Wonthaggi",
+          "region": "VIC",
+          "postal_code": "3995",
+          "country": "AU",
+          "lat": -38.6051716,
+          "lon": 145.5897083
+        }
+      },
+      {
+        "location": "Wonthaggi Library Event Area, Wonthaggi Library",
+        "venue": {
+          "name": "Wonthaggi Library",
+          "address": "23-29 Murray Street",
+          "city": "Wonthaggi",
+          "region": "VIC",
+          "postal_code": "3995",
+          "country": "AU",
+          "lat": -38.6051716,
+          "lon": 145.5897083
+        }
+      },
+      {
+        "location": "Meeting Room, Wonthaggi Library",
+        "venue": {
+          "name": "Wonthaggi Library",
+          "address": "23-29 Murray Street",
+          "city": "Wonthaggi",
+          "region": "VIC",
+          "postal_code": "3995",
+          "country": "AU",
+          "lat": -38.6051716,
+          "lon": 145.5897083
+        }
+      }
+    ],
+    "venue": {
+      "name": "Wonthaggi Library",
+      "address": "23-29 Murray Street",
+      "city": "Wonthaggi",
+      "region": "VIC",
+      "postal_code": "3995",
+      "country": "AU",
+      "lat": -38.6051716,
+      "lon": 145.5897083
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 110 VEVENTs (under the 500 cap), 49 upcoming reaching 20270121; 49 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 5 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N3394722001 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 110 vevents / 49 future / 49 in 90 days / reach 20270121"
+  },
+  {
+    "name": "MYLI My Community Library - Emerald Library (Emerald, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11476",
+    "category": "learning",
+    "geocode_suffix": ", Emerald, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Meeting Room, Emerald Library",
+        "venue": {
+          "name": "Emerald Library",
+          "city": "Emerald",
+          "region": "VIC",
+          "postal_code": "3782",
+          "country": "AU",
+          "lat": -37.9291103,
+          "lon": 145.4456484
+        }
+      },
+      {
+        "location": "Emerald Library",
+        "venue": {
+          "name": "Emerald Library",
+          "city": "Emerald",
+          "region": "VIC",
+          "postal_code": "3782",
+          "country": "AU",
+          "lat": -37.9291103,
+          "lon": 145.4456484
+        }
+      },
+      {
+        "location": "Emerald Library Children's Area, Emerald Library",
+        "venue": {
+          "name": "Emerald Library",
+          "city": "Emerald",
+          "region": "VIC",
+          "postal_code": "3782",
+          "country": "AU",
+          "lat": -37.9291103,
+          "lon": 145.4456484
+        }
+      }
+    ],
+    "venue": {
+      "name": "Emerald Library",
+      "city": "Emerald",
+      "region": "VIC",
+      "postal_code": "3782",
+      "country": "AU",
+      "lat": -37.9291103,
+      "lon": 145.4456484
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 77 VEVENTs (under the 500 cap), 50 upcoming reaching 20270428; 45 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 3 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N612125551 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 77 vevents / 50 future / 45 in 90 days / reach 20270428"
+  },
+  {
+    "name": "MYLI My Community Library - Phillip Island Library (Cowes, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11484",
+    "category": "learning",
+    "geocode_suffix": ", Cowes, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Phillip Island Library Children's Area, Phillip Island Library",
+        "venue": {
+          "name": "Phillip Island Library",
+          "city": "Cowes",
+          "region": "VIC",
+          "postal_code": "3922",
+          "country": "AU",
+          "lat": -38.4514365,
+          "lon": 145.2393884
+        }
+      },
+      {
+        "location": "Phillip Island Library",
+        "venue": {
+          "name": "Phillip Island Library",
+          "city": "Cowes",
+          "region": "VIC",
+          "postal_code": "3922",
+          "country": "AU",
+          "lat": -38.4514365,
+          "lon": 145.2393884
+        }
+      },
+      {
+        "location": "Phillip Island Library Teen Area , Phillip Island Library",
+        "venue": {
+          "name": "Phillip Island Library",
+          "city": "Cowes",
+          "region": "VIC",
+          "postal_code": "3922",
+          "country": "AU",
+          "lat": -38.4514365,
+          "lon": 145.2393884
+        }
+      },
+      {
+        "location": "Phillip Island Library Local History Area, Phillip Island Library",
+        "venue": {
+          "name": "Phillip Island Library",
+          "city": "Cowes",
+          "region": "VIC",
+          "postal_code": "3922",
+          "country": "AU",
+          "lat": -38.4514365,
+          "lon": 145.2393884
+        }
+      }
+    ],
+    "venue": {
+      "name": "Phillip Island Library",
+      "city": "Cowes",
+      "region": "VIC",
+      "postal_code": "3922",
+      "country": "AU",
+      "lat": -38.4514365,
+      "lon": 145.2393884
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 87 VEVENTs (under the 500 cap), 46 upcoming reaching 20261223; 46 in the next 90 days; 16 upcoming titles matched skip_title. LOCATION is a room name: 4 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N7089811435 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 87 vevents / 46 future / 46 in 90 days / reach 20261223"
+  },
+  {
+    "name": "MYLI My Community Library - Drouin Library (Drouin, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11475",
+    "category": "learning",
+    "geocode_suffix": ", Drouin, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Drouin Library Children's Area, Drouin Library",
+        "venue": {
+          "name": "Drouin Library",
+          "address": "136 Princes Way",
+          "city": "Drouin",
+          "region": "VIC",
+          "postal_code": "3818",
+          "country": "AU",
+          "lat": -38.1338842,
+          "lon": 145.853674
+        }
+      },
+      {
+        "location": "Meeting Room, Drouin Library",
+        "venue": {
+          "name": "Drouin Library",
+          "address": "136 Princes Way",
+          "city": "Drouin",
+          "region": "VIC",
+          "postal_code": "3818",
+          "country": "AU",
+          "lat": -38.1338842,
+          "lon": 145.853674
+        }
+      },
+      {
+        "location": "Drouin Library",
+        "venue": {
+          "name": "Drouin Library",
+          "address": "136 Princes Way",
+          "city": "Drouin",
+          "region": "VIC",
+          "postal_code": "3818",
+          "country": "AU",
+          "lat": -38.1338842,
+          "lon": 145.853674
+        }
+      }
+    ],
+    "venue": {
+      "name": "Drouin Library",
+      "address": "136 Princes Way",
+      "city": "Drouin",
+      "region": "VIC",
+      "postal_code": "3818",
+      "country": "AU",
+      "lat": -38.1338842,
+      "lon": 145.853674
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 40 VEVENTs (under the 500 cap), 24 upcoming reaching 20270503; 21 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 3 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W771779695 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 40 vevents / 24 future / 21 in 90 days / reach 20270503"
+  },
+  {
+    "name": "MYLI My Community Library - Leongatha Library (Leongatha, Australia)",
+    "url": "https://bookings.myli.org.au/ical_subscribe.php?src=p&cid=11480",
+    "category": "learning",
+    "geocode_suffix": ", Leongatha, VIC, Australia",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$|Lawyers in Libraries|by Appointment|Passport (?:Application )?Assistance|Justice of the Peace|Support Service Drop-in",
+    "location_overrides": [
+      {
+        "location": "Leongatha Library Children's Area, Leongatha Library",
+        "venue": {
+          "name": "Leongatha Library",
+          "city": "Leongatha",
+          "region": "VIC",
+          "postal_code": "3953",
+          "country": "AU",
+          "lat": -38.474833,
+          "lon": 145.9451572
+        }
+      },
+      {
+        "location": "Leongatha Library Local History Room, Leongatha Library",
+        "venue": {
+          "name": "Leongatha Library",
+          "city": "Leongatha",
+          "region": "VIC",
+          "postal_code": "3953",
+          "country": "AU",
+          "lat": -38.474833,
+          "lon": 145.9451572
+        }
+      }
+    ],
+    "venue": {
+      "name": "Leongatha Library",
+      "city": "Leongatha",
+      "region": "VIC",
+      "postal_code": "3953",
+      "country": "AU",
+      "lat": -38.474833,
+      "lon": 145.9451572
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://bookings.myli.org.au/calendar",
+    "_metro": "Melbourne, Australia",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 33 VEVENTs (under the 500 cap), 17 upcoming reaching 20270111; 17 in the next 90 days; 3 upcoming titles matched skip_title. LOCATION is a room name: 2 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N11788868785 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. MYLI (Baw Baw, Bass Coast, Cardinia and South Gippsland) keeps one LibCal calendar per branch; every LOCATION names its branch. Mostly Story Time, Baby Rhyme Time and Toddler Time, plus tech help and craft; skip_title also drops lawyer, JP and passport appointments.",
+    "_measured": "2026-11-15: 33 vevents / 17 future / 17 in 90 days / reach 20270111"
+  },
+  {
+    "name": "OWWL Library System - Macedon Public Library (Macedon, NY)",
+    "url": "https://owwl.libcal.com/ical_subscribe.php?src=p&cid=13361",
+    "category": "learning",
+    "geocode_suffix": ", Macedon, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Community Room, Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      },
+      {
+        "location": "Macedon Public Library Meeting Room, Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      },
+      {
+        "location": "Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      },
+      {
+        "location": "Idea Factory, Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      },
+      {
+        "location": "Children's Area, Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      },
+      {
+        "location": "Long Table, Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      },
+      {
+        "location": "Digital Privacy Booth, Macedon Public Library",
+        "venue": {
+          "name": "Macedon Public Library",
+          "address": "30 Main Street",
+          "city": "Macedon",
+          "region": "NY",
+          "postal_code": "14502",
+          "country": "US",
+          "lat": 43.0669019,
+          "lon": -77.307283
+        }
+      }
+    ],
+    "venue": {
+      "name": "Macedon Public Library",
+      "address": "30 Main Street",
+      "city": "Macedon",
+      "region": "NY",
+      "postal_code": "14502",
+      "country": "US",
+      "lat": 43.0669019,
+      "lon": -77.307283
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://owwl.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 484 VEVENTs (under the 500 cap), 387 upcoming reaching 20271115; 174 in the next 90 days; 65 upcoming titles matched skip_title. LOCATION is a room name: 7 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N543615583 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. OWWL (Ontario, Wayne, Wyoming and Livingston counties) hosts one LibCal calendar per member library; this is one library's own calendar.",
+    "_measured": "2026-11-15: 484 vevents / 387 future / 174 in 90 days / reach 20271115"
+  },
+  {
+    "name": "OWWL Library System - Williamson Free Public Library (Williamson, NY)",
+    "url": "https://owwl.libcal.com/ical_subscribe.php?src=p&cid=12971",
+    "category": "learning",
+    "geocode_suffix": ", Williamson, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Large meeting room, Williamson Public Library",
+        "venue": {
+          "name": "Williamson Free Public Library",
+          "address": "6380 Route 21",
+          "city": "Williamson",
+          "region": "NY",
+          "postal_code": "14589",
+          "country": "US",
+          "lat": 43.2311596,
+          "lon": -77.1865678
+        }
+      },
+      {
+        "location": "Small meeting room, Williamson Public Library",
+        "venue": {
+          "name": "Williamson Free Public Library",
+          "address": "6380 Route 21",
+          "city": "Williamson",
+          "region": "NY",
+          "postal_code": "14589",
+          "country": "US",
+          "lat": 43.2311596,
+          "lon": -77.1865678
+        }
+      },
+      {
+        "location": "Williamson Public Library",
+        "venue": {
+          "name": "Williamson Free Public Library",
+          "address": "6380 Route 21",
+          "city": "Williamson",
+          "region": "NY",
+          "postal_code": "14589",
+          "country": "US",
+          "lat": 43.2311596,
+          "lon": -77.1865678
+        }
+      }
+    ],
+    "venue": {
+      "name": "Williamson Free Public Library",
+      "address": "6380 Route 21",
+      "city": "Williamson",
+      "region": "NY",
+      "postal_code": "14589",
+      "country": "US",
+      "lat": 43.2311596,
+      "lon": -77.1865678
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://owwl.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 439 VEVENTs (under the 500 cap), 375 upcoming reaching 20271115; 135 in the next 90 days; 16 upcoming titles matched skip_title. LOCATION is a room name: 3 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W137331842 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. OWWL (Ontario, Wayne, Wyoming and Livingston counties) hosts one LibCal calendar per member library; this is one library's own calendar.",
+    "_measured": "2026-11-15: 439 vevents / 375 future / 135 in 90 days / reach 20271115"
+  },
+  {
+    "name": "OWWL Library System - Livonia Public Library (Livonia, NY)",
+    "url": "https://owwl.libcal.com/ical_subscribe.php?src=p&cid=13360",
+    "category": "learning",
+    "geocode_suffix": ", Livonia, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Patterson Room, Livonia Public Library",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Fireplace Area, Livonia Public Library",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Livonia Public Library",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Fireplace Area, Patterson Room, Livonia Public Library",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Teen Area, Livonia Public Library",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Fireplace Area, Patterson Room",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Children's Area, Livonia Public Library",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      },
+      {
+        "location": "Patterson Room",
+        "venue": {
+          "name": "Livonia Public Library",
+          "address": "2 Washington Street",
+          "city": "Livonia",
+          "region": "NY",
+          "postal_code": "14487",
+          "country": "US",
+          "lat": 42.8220146,
+          "lon": -77.6675239
+        }
+      }
+    ],
+    "venue": {
+      "name": "Livonia Public Library",
+      "address": "2 Washington Street",
+      "city": "Livonia",
+      "region": "NY",
+      "postal_code": "14487",
+      "country": "US",
+      "lat": 42.8220146,
+      "lon": -77.6675239
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://owwl.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 208 VEVENTs (under the 500 cap), 153 upcoming reaching 20271111; 96 in the next 90 days; 18 upcoming titles matched skip_title. LOCATION is a room name: 8 room strings pinned to the library by location_overrides, 0 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N368050844 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. OWWL (Ontario, Wayne, Wyoming and Livingston counties) hosts one LibCal calendar per member library; this is one library's own calendar.",
+    "_measured": "2026-11-15: 208 vevents / 153 future / 96 in 90 days / reach 20271111"
+  },
+  {
+    "name": "OWWL Library System - Palmyra Community Library (Palmyra, NY)",
+    "url": "https://owwl.libcal.com/ical_subscribe.php?src=p&cid=13331",
+    "category": "learning",
+    "geocode_suffix": ", Palmyra, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Palmyra Community Library",
+        "venue": {
+          "name": "Palmyra Community Library",
+          "address": "402 East Main Street",
+          "city": "Palmyra",
+          "region": "NY",
+          "postal_code": "14522",
+          "country": "US",
+          "lat": 43.0630574,
+          "lon": -77.228277
+        }
+      }
+    ],
+    "venue": {
+      "name": "Palmyra Community Library",
+      "address": "402 East Main Street",
+      "city": "Palmyra",
+      "region": "NY",
+      "postal_code": "14522",
+      "country": "US",
+      "lat": 43.0630574,
+      "lon": -77.228277
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://owwl.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 234 VEVENTs (under the 500 cap), 169 upcoming reaching 20271111; 119 in the next 90 days; 15 upcoming titles matched skip_title. LOCATION is a room name: 1 room strings pinned to the library by location_overrides, 37 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N1642656493 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. OWWL (Ontario, Wayne, Wyoming and Livingston counties) hosts one LibCal calendar per member library; this is one library's own calendar.",
+    "_measured": "2026-11-15: 234 vevents / 169 future / 119 in 90 days / reach 20271111"
+  },
+  {
+    "name": "OWWL Library System - Avon Free Library (Avon, NY)",
+    "url": "https://owwl.libcal.com/ical_subscribe.php?src=p&cid=13356",
+    "category": "learning",
+    "geocode_suffix": ", Avon, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "location_overrides": [
+      {
+        "location": "Five Arch Bridge Meeting Room, Avon Free Library",
+        "venue": {
+          "name": "Avon Free Library",
+          "address": "143 Genesee Street",
+          "city": "Avon",
+          "region": "NY",
+          "postal_code": "14414",
+          "country": "US",
+          "lat": 42.9098105,
+          "lon": -77.7473375
+        }
+      },
+      {
+        "location": "Avon Free Library",
+        "venue": {
+          "name": "Avon Free Library",
+          "address": "143 Genesee Street",
+          "city": "Avon",
+          "region": "NY",
+          "postal_code": "14414",
+          "country": "US",
+          "lat": 42.9098105,
+          "lon": -77.7473375
+        }
+      },
+      {
+        "location": "Five Arch Bridge Meeting Room",
+        "venue": {
+          "name": "Avon Free Library",
+          "address": "143 Genesee Street",
+          "city": "Avon",
+          "region": "NY",
+          "postal_code": "14414",
+          "country": "US",
+          "lat": 42.9098105,
+          "lon": -77.7473375
+        }
+      }
+    ],
+    "venue": {
+      "name": "Avon Free Library",
+      "address": "143 Genesee Street",
+      "city": "Avon",
+      "region": "NY",
+      "postal_code": "14414",
+      "country": "US",
+      "lat": 42.9098105,
+      "lon": -77.7473375
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://owwl.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 152 VEVENTs (under the 500 cap), 109 upcoming reaching 20270628; 71 in the next 90 days; 5 upcoming titles matched skip_title. LOCATION is a room name: 3 room strings pinned to the library by location_overrides, 5 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap W248251389 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. OWWL (Ontario, Wayne, Wyoming and Livingston counties) hosts one LibCal calendar per member library; this is one library's own calendar.",
+    "_measured": "2026-11-15: 152 vevents / 109 future / 71 in 90 days / reach 20270628"
+  },
+  {
+    "name": "OWWL Library System - Wood Library (Canandaigua, NY)",
+    "url": "https://owwl.libcal.com/ical_subscribe.php?src=p&cid=15149",
+    "category": "learning",
+    "geocode_suffix": ", Canandaigua, NY",
+    "limit": 500,
+    "skip_title": "\\bSale\\b|Booksale|\\b(?:one|1)[- ]on[- ](?:one|1)s?\\b|\\bNotary\\b|Room Reservations?\\b|\\bclosed\\b|\\bClosure\\b|Board of Trustees|Trustees? Meeting|Board (?:Committee )?Meeting|(?:Staff|Manager|Department) Meeting|\\bStaff (?:Use|Hours?|Development)\\b|In[- ]Service Day|^Book an? (?:Librarian|Technology|Tech)\\b|\\bAppointments?\\b|Voting Location|Ballot Drop|^Voting$|^Reserved\\b|^(?!.*\\bReception\\b).*\\bExhibit(?:ion)?$",
+    "venue": {
+      "name": "Wood Library",
+      "address": "134 North Main Street",
+      "city": "Canandaigua",
+      "region": "NY",
+      "postal_code": "14424",
+      "country": "US",
+      "lat": 42.891802,
+      "lon": -77.2848786
+    },
+    "crawl_delay": 10.0,
+    "url_home": "https://owwl.libcal.com/calendar",
+    "_metro": "Rochester, United States",
+    "_found": "search:kids-worldwide -> ics (LibCal)",
+    "_note": "Measured 2026-11-15 (production UA): 78 VEVENTs (under the 500 cap), 47 upcoming reaching 20261231; 47 in the next 90 days; 0 upcoming titles matched skip_title. LOCATION is a room name: 0 room strings pinned to the library by location_overrides, 47 upcoming with no LOCATION take the venue block, 0 upcoming offsite/online left to the adapter. Venue point: OpenStreetMap N543615529 (amenity=library). robots.txt: ok rule=None, Crawl-delay 10.0. OWWL (Ontario, Wayne, Wyoming and Livingston counties) hosts one LibCal calendar per member library; this is one library's own calendar.",
+    "_measured": "2026-11-15: 78 vevents / 47 future / 47 in 90 days / reach 20261231"
+  },
+  {
+    "name": "Cultural Arequipa - Centro Cultural Peruano Norteamericano (Arequipa, Peru)",
+    "url": "https://cultural.edu.pe/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "arts",
+    "geocode_suffix": ", Arequipa, Peru",
+    "limit": 300,
+    "wall_clock_tzids": [
+      "America/New_York"
+    ],
+    "skip_title": "^BECA\\b|Thanksgiving|concurso|convocatoria",
+    "venue": {
+      "name": "Cultural Arequipa",
+      "city": "Arequipa",
+      "region": "Arequipa",
+      "country": "PE",
+      "lat": -16.395864,
+      "lon": -71.5334241,
+      "aliases": [
+        "Cultural Arequipa",
+        "Teatro del Cultural",
+        "Auditorio del Cultural",
+        "Biblioteca del Cultural"
+      ]
+    },
+    "_metro": "Arequipa, Peru",
+    "_found": "search:latam (search '\"ical=1\" eventos Lima centro cultural' surfaced cultural.edu.pe) -> The Events Calendar iCal",
+    "_note": "Binational centre's public programme: 12 VEVENTs on 2026-11-15, 10 upcoming (ballet 'Chopiniana' 11-20, La Mantequilla Big Band 11-21, brass recital 11-24, reading club, Mark Twain talk, musical storytelling 11-28, exhibitions), every LOCATION at Calle Melgar 109. The site exports its wall clock as TZID=America/New_York (Arequipa is America/Lima, UTC-5 all year), hence wall_clock_tzids. skip_title drops the scholarship notice ('BECA EE.UU.'), the Thanksgiving closure and calls for entries. Ledger had it ok (2026-10-04, 13 future) but it was never configured and no _not_included says why. Venue point: OSM node 3306023302 (Centro Cultural Peruano Norteamericano, Calle Mariano Melgar 109). Dry run (mapsee_ingest_ics.py, scratch store, 2026-11-15): kept 9 of 12 VEVENTs, 8 pinned to the venue by name, 1 by one Photon lookup, 2 title-filtered."
+  },
+  {
+    "name": "Nefesh B'Nefesh Israel Calendar (Israel)",
+    "url": "https://www.nbn.org.il/?mec-ical-feed=1",
+    "category": "community",
+    "geocode_suffix": ", Israel",
+    "limit": 300,
+    "_metro": "Tel Aviv, Israel",
+    "_found": "search:meapac-2026-11-15 -> ics (Modern Events Calendar feed, webcal link on nbn.org.il/israel-calendar/)",
+    "_note": "Measured 2026-11-15: 1,721 VEVENTs, 79 future, all TZID=Asia/Jerusalem. The community calendar for English-speaking immigrants across Israel: comedy nights, lectures, dance evenings, singles events, volleyball, networking, Hebrew workshops. LOCATION is a street address on most rows (Tel Aviv, Jerusalem, Netanya, Ramat Gan); 166 of 1,721 say Zoom/Virtual/Online and the adapter's online rule drops them. 2.4 MB feed."
+  },
+  {
+    "name": "Lamakaan (Hyderabad, India)",
+    "url": "https://www.lamakaan.com/events.ics",
+    "category": "community",
+    "geocode_suffix": ", Hyderabad, India",
+    "limit": 300,
+    "_metro": "Hyderabad, India",
+    "_found": "search:meapac-2026-11-15 -> ics (/events.ics linked from the homepage, which also carries Event JSON-LD)",
+    "_note": "Open cultural space in Banjara Hills: film screenings, readings, talks, workshops, mostly free. Measured 2026-11-15: 10 VEVENTs, 10 future (the feed is a rolling next-10 window; ?limit= is ignored), every LOCATION 'Lamakaan, Off Road No. 1, near GVK Mall, Banjara Hills, Hyderabad'. Venue point is OSM way 202655141.",
+    "venue": {
+      "name": "Lamakaan",
+      "address": "Off Road No. 1, Banjara Hills",
+      "city": "Hyderabad",
+      "country": "IN",
+      "lat": 17.4209144,
+      "lon": 78.4473634
+    }
+  },
+  {
+    "name": "Museum of Art & Photography (MAP) Bengaluru",
+    "url": "https://map-india.org/events.ics",
+    "category": "arts",
+    "geocode_suffix": ", Bengaluru, India",
+    "limit": 300,
+    "_metro": "Bengaluru, India",
+    "_found": "search:meapac-2026-11-15 -> ics (Events Manager /events.ics)",
+    "_note": "Measured 2026-11-15: 10 VEVENTs, 10 future (Events Manager's rolling next-10 window), no LOCATION on any row, so the block pins them. 2 of the 10 descriptions mention online (Image politic/s, On Seeing and Being Seen); the rest are talks, tours and performances at the museum. Venue point is OSM way 1124083558.",
+    "venue": {
+      "name": "Museum of Art & Photography",
+      "address": "22 Kasturba Road",
+      "city": "Bengaluru",
+      "country": "IN",
+      "lat": 12.9744743,
+      "lon": 77.5968712,
+      "pin_unnamed": true
+    }
+  },
+  {
+    "name": "HKUST Calendar (Hong Kong)",
+    "url": "https://calendar.hkust.edu.hk/events/ics",
+    "category": "learning",
+    "geocode_suffix": ", Hong Kong",
+    "limit": 300,
+    "_metro": "Hong Kong, HK",
+    "_found": "search:meapac-2026-11-15 -> ics (Drupal calendar; /events/ics found beside the academic-calendar export link on calendar.hkust.edu.hk)",
+    "_note": "Measured 2026-11-15: 1,074 VEVENTs, 671 future. LOCATION 'HKUST Campus' on 749, 'Library G/F Gallery' 111, 'Online' 91 (dropped by the adapter's online rule), plus off-campus venues (Hong Kong Museum of History, HKCEC, Peng Chau). Public seminars, lectures, exhibitions; also some student programmes (Connect ACE repeats). Venue point is OSM node 2445591253.",
+    "venue": {
+      "name": "HKUST Campus",
+      "city": "Hong Kong",
+      "country": "HK",
+      "lat": 22.3387418,
+      "lon": 114.2618713,
+      "aliases": [
+        "HKUST",
+        "Library G/F Gallery"
+      ],
+      "pin_unnamed": false
+    }
+  },
+  {
+    "name": "Museum of Goa (Pilerne, Goa)",
+    "url": "https://museumofgoa.com/programs/?ical=1",
+    "category": "arts",
+    "geocode_suffix": ", Goa, India",
+    "limit": 300,
+    "_metro": "Goa, India",
+    "_found": "search:meapac-2026-11-15 -> ics (The Events Calendar; robots.txt disallows /wp-json/ so the REST route is off limits, the list view's ?ical=1 is allowed)",
+    "_note": "Measured 2026-11-15: 7 VEVENTs, 2 future; LOCATION empty except 'Children's Art Studio' (inside the museum), so the block pins them. Talks, art classes, MOG Sundays. Venue point is OSM node 4288424613.",
+    "venue": {
+      "name": "Museum of Goa",
+      "address": "Betim Veren Saligao Road, Pilerne",
+      "city": "Pilerne",
+      "country": "IN",
+      "lat": 15.5256419,
+      "lon": 73.7953062,
+      "aliases": [
+        "MOG",
+        "Children's Art Studio"
+      ],
+      "pin_unnamed": true
+    }
+  },
+  {
+    "name": "Ville de Nantes - Nature et Jardins (OpenAgenda) (Nantes, France)",
+    "url": "https://openagenda.com/agendas/46460768/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "outdoors",
+    "geocode_suffix": ", Nantes, France",
+    "limit": 100,
+    "_found": "search:outdoors-worldwide -> ics (OpenAgenda)",
+    "_metro": "Nantes, France",
+    "_note": "Official agenda of the city's Nature and Gardens directorate (slug nature-et-jardins-ville-de-nantes). 10 VEVENTs, 10 future, all placeable (2026-11-15): tree-planting days, park events. OpenAgenda robots.txt allows all."
+  },
+  {
+    "name": "LPO Bretagne - sorties nature in Rennes Metropole (OpenAgenda) (Rennes, France)",
+    "url": "https://openagenda.com/agendas/6498110/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "outdoors",
+    "geocode_suffix": ", Rennes, France",
+    "limit": 100,
+    "_found": "search:outdoors-worldwide -> ics (OpenAgenda)",
+    "_metro": "Rennes, France",
+    "_note": "LPO bird and nature outings (slug les-sorties-nature-lpo-dans-la-metropole-de-rennes). 4 VEVENTs, 4 future, all placeable."
+  },
+  {
+    "name": "GONm - Groupe Ornithologique Normand outings (OpenAgenda) (Normandy, France)",
+    "url": "https://openagenda.com/agendas/20378280/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "outdoors",
+    "geocode_suffix": ", Normandie, France",
+    "limit": 200,
+    "_found": "search:outdoors-worldwide -> ics (OpenAgenda)",
+    "_metro": "Caen, France",
+    "_note": "Normandy ornithology society's public bird outings and animations (slug gonm). 48 VEVENTs, 43 future, all placeable."
+  },
+  {
+    "name": "Education a l'environnement en Ile-de-France (OpenAgenda) (Paris region, France)",
+    "url": "https://openagenda.com/agendas/46434076/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "outdoors",
+    "geocode_suffix": ", Île-de-France, France",
+    "limit": 100,
+    "_found": "search:outdoors-worldwide -> ics (OpenAgenda)",
+    "_metro": "Paris, France",
+    "_note": "Regional environmental-education agenda (slug l-agenda-de-l-education-a-l-environnement): bird observation at reserves, nature cleanups. 19 VEVENTs, 10 future, all placeable."
+  },
+  {
+    "name": "Cistude Nature - balades nature (OpenAgenda) (Gironde, France)",
+    "url": "https://openagenda.com/agendas/72869717/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "outdoors",
+    "geocode_suffix": ", Gironde, France",
+    "limit": 100,
+    "_found": "search:outdoors-worldwide -> ics (OpenAgenda)",
+    "_metro": "Bordeaux, France",
+    "_note": "Programme of Cistude Nature's guided nature walks (slug les-balades-de-cistude-nature). 1 future on 2026-11-15; the programme is seasonal."
+  },
+  {
+    "name": "Moray Road Runners - race and club calendar (Moray, Scotland)",
+    "category": "running",
+    "url": "https://morayroadrunners.com/calendar/?ical=1",
+    "geocode_suffix": ", Scotland, UK",
+    "limit": 300,
+    "_metro": "Inverness, United Kingdom",
+    "_found": "search:running -> ics (Events Manager feed, find_calendar on morayroadrunners.com)",
+    "_note": "Measured 2026-11-15: Events Manager iCal: 448 VEVENTs, 48 in the future, each LOCATION a full Scottish address with postcode.",
+    "crawl_delay": 2.0
   }
 ]
