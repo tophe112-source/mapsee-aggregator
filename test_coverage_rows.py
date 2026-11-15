@@ -206,6 +206,23 @@ def t_a_cctld_source_is_not_filed_under_unknown():
           unknown < len(rows) / 4, f"{unknown} of {len(rows)}")
 
 
+def t_a_nation_and_its_overseas_departments_are_one_source():
+    """OpenAgenda France reads MQ, GP, GF and RE beside FR (2026-11-15). As five
+    rows it put French Guiana, Guadeloupe and Reunion on the ranked target list
+    as thin countries, on 49 rows of national campaigns."""
+    rows = C._coverage_rows()
+    fr = [c for t, n, _m, c, _cat in rows if t == "ods" and n == "OpenAgenda France"]
+    check("OpenAgenda France counts once, under France", fr == ["France"], str(fr))
+    ods = json.load(open(os.path.join(C.HERE, "ods_sources.json"), encoding="utf-8"))
+    declared = next((e.get("countries") for e in C._entries("ods_sources.json", ods)
+                     if e.get("name") == "OpenAgenda France"), [])
+    check("...though it declares overseas codes (this test is vacuous without them)",
+          any(c in C._OVERSEAS_OF for c in declared), str(declared))
+    check("a department's own source still counts there",
+          any(c == "Martinique" for _t, _n, _m, c, _cat in rows),
+          "no Martinique row: Plakatak (ics_sources.json) has gone, or is folded too")
+
+
 def t_the_country_count_matches_the_rows():
     """coverage_history.jsonl's `countries` is what the growth story is told
     with; it must count places, not report artefacts."""
@@ -548,6 +565,7 @@ def main() -> int:
               t_no_country_is_a_bare_iso_code,
               t_every_iso_code_in_every_config_has_a_name,
               t_a_cctld_source_is_not_filed_under_unknown,
+              t_a_nation_and_its_overseas_departments_are_one_source,
               t_the_country_count_matches_the_rows,
               t_a_foreign_iso_code_in_a_suffix_is_a_country,
               t_a_country_spelled_out_is_a_country_too,

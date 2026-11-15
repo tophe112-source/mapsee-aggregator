@@ -169,3 +169,29 @@ read by `naive_is_utc`, but Tartu is held until its street-and-town rows get a
 town check. KČT's hiking calendar (1,057 future hikes, an inline FullCalendar
 array) has had its adapter since 2026-10-24 (`mapsee_ingest_kct.py`), as have
 the Natuurwerkdag and repair-cafe.ch.
+
+Running, volunteer, kids, outdoors, Latin America and the Caribbean, the
+Middle East and Asia-Pacific, and Eastern and Southern Europe, surveyed
+2026-11-15 by seven agents (production User-Agent, robots.txt read first,
+nothing retried after a refusal). What each input yielded is in
+`curation-and-discovery.md`; this is what a whole platform refused, and what
+one cannot give.
+
+| Platform | Result | What it means |
+|---|---|---|
+| GivePulse (`www.givepulse.com`) | **robots.txt answers 403** | 403 to `/robots.txt` for the production UA, so permission cannot be established on the whole platform. Keep Austin Beautiful's volunteer calendar is a GivePulse embed |
+| VolunteerHub (`<org>.volunteerhub.com`) | **robots.txt leaves no way in** | each tenant allows only `/Ics/`, `/events` and sign-in, and `/events` redirects to an OpenID login path robots.txt disallows, so the public list cannot be read and no per-event ICS can be enumerated (cityofannarbor) |
+| Timely | **export allowed, API host refused; no LOCATION** | `events.timely.fun/api/calendars/<id>/export?format=ics` sits under an empty Disallow; the API host `timelyapp.time.ly` is `Disallow: /`. Rock Creek Conservancy's export: 136 VEVENTs, 28 future, 26 tagged 'Volunteer Events', 0 with a LOCATION, and TZID America/Vancouver for a DC organisation. Not proposed: it needs per-title pins and a zone override |
+| Peatix (`peatix.com`) | **terms forbid redistribution** | robots.txt allows `/event/*` and `/group/*` with Crawl-delay 1, but the Terms of Service (about.peatix.com/en/tos) prohibit 'Unauthorized reproduction, transmission or distribution of all or part of provided information to third parties'. A terms refusal, like onePA |
+| KKTIX (Taiwan) | **blocked at robots.txt** | Cloudflare 'Sorry, you have been blocked' for `/robots.txt` to the production UA. With Peatix, Asia's two biggest community-ticketing platforms are closed to us |
+| Modern Events Calendar iCal (`/?mec-ical-feed=1`) | **off unless the owner turns it on** | it answered HTML, not VCALENDAR, on 12 of 12 MEC sites probed for outdoors, and at G5A Mumbai. Where it is on, it is the whole site: Nefesh B'Nefesh served 1,721 VEVENTs, 79 future, with street addresses. Detect MEC by the `wp-content/plugins/modern-events-calendar` asset path. The jsonld adapter on an MEC listing passed 3 of 6 (Chattahoochee Nature Center's listing blocks were all past; Sea and Sage's pages have no JSON-LD) |
+| Events Manager `/events.ics` | **a rolling window of the next 10** | it ignores `?limit=` and `?scope=` (Lamakaan and MAP Bengaluru: 10 of 10 future either way); ifi-id.com answered an empty 133-byte VCALENDAR; Surrey Hills had 48 future. Ticket-listing sites export no LOCATION: secrettelaviv.com 355 future VEVENTs with the venue only after ' @ ' in SUMMARY, OU Israel 11. A SUMMARY '@ venue' option would unlock about 355 Tel Aviv rows; not built |
+| EventON (`eventon/v1`) | **no feed** | 5 of 62 non-TEC WordPress sites; the plugin exposes nothing an adapter reads |
+| Squarespace calendar block | **0 articles; verify fails** | the stock robots.txt leaves only the bare collection page, and a page built with a calendar block renders 0 event articles (Columbia Slough, Seven Canyons Trust, Trees For Houston). A summary-list events page passes (Grassroots Ecology 9 of 39, Clinton River WC 15 of 45) |
+| e-voice.org.uk (UK community-group sites) | **robots.txt refuses the calendar** | `Disallow: /*/calendar/view*` (force.org.uk) |
+| Heylo, terminlista.kondis.no, athletics-canada.ca/en/calendar, runcalendar.com.au | **no Event markup** | rendered in the browser or no schema.org Event; no existing adapter reads them. Heylo (a UK run-club platform) allows everything in robots.txt |
+| fellrunner.org.uk (FRA fell race calendar) | **wants a small adapter** | about 50 races a listing page and robots.txt allows all, but no schema.org Event: an HTML definition list with venue, postcode and grid reference. The same pages print organisers' personal phone numbers and addresses, which an adapter must skip |
+| Eventrac (`www.eventrac.co.uk`, organiser white-label sites) | **WORKS, jsonld adapter** | 528 running events over 22 organisers; see `curation-and-discovery.md` |
+| Asian open-data portals | **refused or not event data** | data.go.th serves an 'Access Denied' page for `/robots.txt`; data.gov.il disallows `/api/`; data.bangkok.go.th reset the connection; data.gov.qa (OpenDataSoft) is statistical: q=event matched 2,082 datasets and none of the first 30 is an event calendar. CKAN_PORTALS has no Asian portal, and adding these would not help |
+| datos.gov.co (Colombia, Socrata) | **no event calendars** | 'agenda cultural', 'programacion cultural' and 'agenda de eventos' return 0 datasets; 'eventos' returns 298, nearly all public-health 'eventos' (epidemiological events). Translating DISCOVER_QUERIES would not help on this portal |
+| OpenAgenda in Guadeloupe and Martinique | **dead agendas** | 13 of 14 agendas found by the keyless search held 0 upcoming VEVENTs and 1 held one. The live overseas rows come from the ODS mirror under codes MQ, GP, GF and RE (`adapters-and-sources.md`) |

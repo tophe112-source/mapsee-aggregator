@@ -227,6 +227,160 @@ def _block_stands_in(v: Dict[str, Any], vd: Dict[str, Any]) -> bool:
     return not own or any(re.search(rf"\b{re.escape(_venue_key(n))}\b", own) for n in names)
 
 
+# ---- one point, several venues -------------------------------------------------
+# A POINT THAT SEVERAL VENUES SHARE IS NOT ANY ONE OF THEM. The plugin fills
+# geo_lat from a geocoder when the publisher saves a venue, and a venue saved with
+# no street gets the answer for whatever it was given: the country, or the town.
+# Marhaba Qatar (marhaba.qa, read 2026-11-15, 82 upcoming rows) gave 8 venue ids
+# with 7 different names (Aspire Zone, Doha Golf Club, Lusail International
+# Circuit, Katara Cultural Village, two hotels and the convention centre under
+# two ids) the point 25.354826,51.183884: Qatar's centroid, in the desert 35.7 km
+# west of Doha's own point, on 12 rows. The same read gave 4 ids the point
+# 25.2854473,51.5310398, Doha's own centroid: the exhibition centre under 3
+# spellings and one hotel.
+#
+# So, within one site's run, a point that SHARED_POINT_VENUES or more distinct
+# venues carry is dropped from each of them, and the row takes the path a venue
+# with no geo takes: the config's venue block where it stands in, then the
+# StreetPlacer (a non-US street and town), then the sync's Census pass (a US
+# street). A row with none of those is not pinned, which is better than a pin in
+# the desert.
+#
+# Distinct is by NAME, not id: one venue saved twice is one venue (the exhibition
+# centre's three ids), and so is a room of it ("Qatar National Convention
+# Centre, Auditorium 3"). Two names are one venue when the words of one are all
+# words of the other, after "&" is "and" and centre is center: a venue counts
+# only when its name is no other's subset. A venue with no name counts by its id.
+#
+# A CAMPUS IS ONE PLACE: when 2 or more of the venues at the point give a
+# street, and every street given there is one street, they are rooms of one
+# building, and keep it. The National Hispanic Cultural Center's four rooms
+# share one point and write "1701 4th St SW" three ways: 20 of its 29 rows. One
+# street is spelled one way (St is Street, Fourth is 4th, Saint is St) and may
+# carry a tail ("..., Suite 2", "..., Boulder, CO"): every street there begins
+# with the shortest. A town or a country in the address field is not a street:
+# Marhaba's venues were pinned on the centroid BECAUSE they gave no more than
+# that, so 7 venues and one "Lusail" is still nobody's point. A street is a
+# house number, or a kind of street (_STREET_TYPES) after the first word.
+#
+# WHY 3. Read live on 2026-11-15, 92 configured sites (5,575 rows) had 4 points
+# that 2 or more venue ids carry. Counted as above, one is the campus, two are 2
+# venues (a garden's two buildings on one street; a town's library on the town's
+# own point, beside a venue named for the town) and one is 1 (a room named for
+# its centre). So 3 changes 0 of those sites' rows and Marhaba's 12; 2 would
+# also take Marhaba's Doha point (7 rows) and Santiago do Cacem's 3, the town
+# venue's among them. That read is 99 of tribe_sources.json's 2,836 sites, 38 of
+# them with a venue block; 212 of the 2,836 have no block, where a drop loses
+# the pin outright. Shapes it would still take a right pin from, none of them
+# seen in that read: 3 or more rooms of one building that give no street or
+# differing ones, and one venue's rooms named "The Arts Centre - Room 1",
+# "- Room 2", "- Cafe". Notes: docs/agents/geocoding-and-addresses.md.
+#
+# IT REACHES WHAT IS WRITTEN NEXT, NOT WHAT IS ALREADY WRITTEN. A row the sync
+# stored yesterday with a shared point keeps it: a row that loses its point and
+# cannot be placed is dropped before the sync writes (an upsert cannot delete),
+# and one re-placed by the block, the StreetPlacer or Census reaches a stored row
+# only when the sync writes it again (`--only-new` is the CI default). A stored
+# centroid pin needs a backfill, or the event's own end and mapsee_cleanup.
+SHARED_POINT_VENUES = 3
+
+_SPELLING = {"centre": "center", "theatre": "theater", "saint": "st"}
+_SPELLING_DROP = frozenset({"and", "the", "of", "at"})
+# One street, three ways: the cultural centre's rooms give "1701 4th St SW",
+# "1701 4th street SW" and "1701 4th Street SW".
+_STREET_WORDS = {"street": "st", "avenue": "ave", "road": "rd", "boulevard": "blvd",
+                 "drive": "dr", "lane": "ln", "place": "pl", "court": "ct",
+                 "highway": "hwy", "parkway": "pkwy", "square": "sq", "north": "n",
+                 "south": "s", "east": "e", "west": "w", "saint": "st",
+                 "first": "1st", "second": "2nd", "third": "3rd", "fourth": "4th",
+                 "fifth": "5th", "sixth": "6th", "seventh": "7th", "eighth": "8th",
+                 "ninth": "9th", "tenth": "10th"}
+_STREET_TYPES = frozenset({"st", "ave", "rd", "blvd", "dr", "ln", "pl", "ct", "hwy",
+                           "pkwy", "sq"})
+# "St. Mary's" and "St Marys" are one name: an apostrophe joins, it does not split.
+_APOSTROPHE = re.compile(r"['\u2019]")
+
+
+def _name_words(name: Any) -> frozenset:
+    """The words of a venue's name, spelled one way ("&" is "and", centre is center,
+    Saint is St)."""
+    words = _venue_key(_APOSTROPHE.sub("", _clean(name) or "")).split()
+    return frozenset(_SPELLING.get(w, w) for w in words if w not in _SPELLING_DROP)
+
+
+def _street_key(address: Any) -> str:
+    """A venue's street, spelled one way; "" when it gives none."""
+    words = _venue_key(_APOSTROPHE.sub("", _clean(address) or "")).split()
+    return " ".join(_STREET_WORDS.get(w, w) for w in words)
+
+
+def _is_street(key: str) -> bool:
+    """A house number, or a kind of street after the first word ("al corniche st").
+    Not a town ("lusail"), a country, or "st marys" (a saint, not a street)."""
+    return any(c.isdigit() for c in key) or any(w in _STREET_TYPES for w in key.split()[1:])
+
+
+def _one_street(gave: Dict[frozenset, set]) -> bool:
+    """`gave` is {venue's name words: the streets it gives}. A campus: 2 or more
+    venues give a street, and every street given begins with the shortest one."""
+    found = [s.split() for ss in gave.values() for s in ss]
+    if not found:
+        return False
+    base = min(found, key=lambda w: (len(w), w))
+    if any(w[:len(base)] != base for w in found):
+        return False
+    givers = set(gave)
+    return sum(1 for w in givers if not any(w < other for other in givers)) >= 2
+
+
+def shared_points(rows: Any, at_least: Optional[int] = None) -> Dict[Tuple[float, float], int]:
+    """{(lat, lon): distinct venues} for every point `at_least` (SHARED_POINT_VENUES)
+    or more distinct venues carry, unless they are a campus (_one_street).
+
+    `rows` are one site's raw REST events. A row that is not an object, or a
+    venue with no geo_lat, is skipped: this never raises on a shape the plugin
+    sends (_obj)."""
+    at_least = SHARED_POINT_VENUES if at_least is None else at_least
+    names: Dict[Tuple[float, float], set] = {}
+    streets: Dict[Tuple[float, float], Dict[frozenset, set]] = {}
+    for ev in rows if isinstance(rows, list) else []:
+        if not isinstance(ev, dict):
+            continue
+        v = _obj(ev.get("venue"))
+        lat, lon = _f(v.get("geo_lat")), _f(v.get("geo_lng"))
+        if lat is None or lon is None:
+            continue
+        key = (lat, lon)
+        words = _name_words(v.get("venue")) or frozenset({f"#{v.get('id')}"})
+        names.setdefault(key, set()).add(words)
+        gave = streets.setdefault(key, {})
+        street = _street_key(v.get("address"))
+        if _is_street(street):
+            gave.setdefault(words, set()).add(street)
+    out: Dict[Tuple[float, float], int] = {}
+    for key, found in names.items():
+        if len(found) < at_least:
+            continue
+        distinct = sum(1 for w in found if not any(w < other for other in found))
+        if distinct < at_least:
+            continue
+        if _one_street(streets[key]):
+            continue                      # rooms of one building on its own street
+        out[key] = distinct
+    return out
+
+
+def without_shared_point(ev: Dict[str, Any], shared) -> Dict[str, Any]:
+    """`ev` as if its venue had no geo, when its point is one of `shared`; else `ev`."""
+    if not shared:
+        return ev
+    v = _obj(ev.get("venue"))
+    lat, lon = _f(v.get("geo_lat")), _f(v.get("geo_lng"))
+    if lat is None or lon is None or (lat, lon) not in shared:
+        return ev
+    return dict(ev, venue={k: x for k, x in v.items() if k not in ("geo_lat", "geo_lng")})
+
+
 # A ZOOM TALK IS NOT AT THE J. Peninsula JCC's "Let's Talk About It: Virtual
 # Discussion Group" (a Zoom link, 18 of its 200 rows on 2026-10-04) names no
 # venue, so the config's venue block pinned every one at the centre. A row that
@@ -701,10 +855,12 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
     admission_excluded = 0
     title_filtered = 0
     online = 0
+    shared_rows = 0
     placement: Dict[str, int] = {}
     cut = ""
     is_civic = str(site.get("_found", "")).startswith("civic:")
     refreshable_admission_ids = admission_ids if site.get("free_only") else frozenset()
+    pages: List[Any] = []
     for page in range(1, max_pages + 1):
         if page > 1:
             if deadline and time.time() + delay >= deadline:
@@ -742,12 +898,35 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
             rows = body.get("events") or []
             if not rows:
                 break
+            # Kept before total_pages is read, so a page whose total_pages
+            # cannot be read keeps its own rows, as it did when rows were
+            # written as they came. An events value that cannot be gone
+            # through (a number) ends the site here, as its TypeError did.
+            iter(rows)
+            pages.append(rows)
+            if page >= int(body.get("total_pages") or page):
+                break
+        except Exception as exc:                           # noqa: BLE001
+            _say(f"[tribe] {site.get('name')} p{page} unreadable page: "
+                 f"{type(exc).__name__}: {exc}"); break
+    # EVERY PAGE IS READ BEFORE ANY ROW IS MADE, because a point is judged by
+    # every venue the run saw: Marhaba's centroid carried 6 venue ids on page 1
+    # and 4 on page 2, two of them on page 2 alone (shared_points, above).
+    shared = shared_points([ev for rows in pages if isinstance(rows, list) for ev in rows])
+    for page, rows in enumerate(pages, 1):
+        # A page whose rows cannot be gone through still ends the site there,
+        # keeping the pages before it.
+        try:
             for ev in rows:
                 # Per EVENT, not per page: the page's own try would end the whole
                 # calendar at one unreadable record (see _obj), as main()'s did.
                 # Counted and printed rather than swallowed: a silent skip is how a
                 # shape change eats a source one record at a time.
+                moved = False
                 try:
+                    lone = without_shared_point(ev, shared)
+                    moved = lone is not ev
+                    ev = lone
                     if included is not None:
                         cats = ev.get("categories")
                         keys = {str(c[k]).strip().lower()
@@ -803,8 +982,7 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
                         placement[how] = placement.get(how, 0) + 1
                 if nev:
                     events.append(nev)
-            if page >= int(body.get("total_pages") or page):
-                break
+                    shared_rows += moved
         except Exception as exc:                           # noqa: BLE001
             _say(f"[tribe] {site.get('name')} p{page} unreadable page: "
                  f"{type(exc).__name__}: {exc}"); break
@@ -816,6 +994,9 @@ def ingest_site(session, site: Dict[str, Any], admission_ids=frozenset(),
          + (f" ({governance} town-hall row(s) refused)" if governance else "")
          + (f" ({title_filtered} title-filtered)" if title_filtered else "")
          + (f" ({online} online with no place refused)" if online else "")
+         + (f" ({shared_rows} row(s) on {len(shared)} point(s) shared by "
+            f"{'/'.join(str(n) for n in sorted(shared.values(), reverse=True))} venues: "
+            f"coordinates dropped)" if shared_rows else "")
          + (f" ({placed} {PLACED})" if placed else "")
          + (" (" + str(sum(placement.values())) + " not placed: "
             + ", ".join(f"{n} {why}" for why, n in sorted(placement.items(), key=lambda x: -x[1]))

@@ -3,6 +3,87 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: the Census geocoder, Photon, a source that hands wrong coordinates, the city in the address, a geocoder that answers everything.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A POINT THREE VENUES SHARE IS NOBODY'S, AND THE TRIBE ADAPTER NOW DROPS IT
+  (2026-11-15).** The Events Calendar fills a venue's geo_lat from a geocoder
+  when the publisher saves it, so a venue saved with no street gets the
+  country's or the town's point. Marhaba Qatar's REST read (marhaba.qa, 82
+  upcoming rows) gave 8 venue ids with 7 names (Aspire Zone, Doha Golf Club,
+  Lusail International Circuit, Katara Cultural Village, two hotels, the
+  convention centre under 2 ids) the point 25.354826,51.183884, Qatar's
+  centroid, 35.7 km west of Doha's own point, on 12 rows. It gave Doha's
+  centroid, 25.2854473,51.5310398, to 4 ids: the exhibition centre under 3
+  spellings and one hotel, 7 rows. `shared_points` in mapsee_ingest_tribe.py
+  now judges a point after every page of the site's run is read: a point that
+  3 (`SHARED_POINT_VENUES`) or more distinct venues carry is taken off those
+  venues, and each row goes the way a venue with no geo goes (the venue block
+  where it stands in, the StreetPlacer for a street abroad, the sync's Census
+  pass for a US street). Distinct is by name, not id: a name whose words are
+  all in another's ("Qatar National Convention Centre" inside "..., Auditorium
+  3") does not count, "&" is "and", centre is center, Saint is St, and an
+  apostrophe joins ("St. Mary's" is "St Marys"). A point is a campus and keeps
+  it when 2 or more of its venues give a street and every street given there
+  begins with the shortest (St is Street, Fourth is 4th, and a tail such as
+  ", Suite 2" or ", Boulder, CO" is the same street): the National Hispanic
+  Cultural Center (configured) has 4 rooms on one point writing "1701 4th St
+  SW" three ways, and without folding St and Street the guard took a right pin
+  off 20 of its 29 rows. A street is a house number or a kind of street after
+  the first word; a town or a country in the address field is not one,
+  because giving no more than that is how a venue reaches a centroid. In
+  review, "Lusail" written on 1 of Marhaba's 7 centroid venues made the first
+  version keep the desert point on all 10 of their rows in the 120-day read;
+  now 1 or 2 "Lusail"s, or one real street, still lose it. The 3 is measured:
+  a live read of 99 of tribe_sources.json's 2,836 sites on 2026-11-15 (38 of
+  the 99 have a venue block; 61 of the 212 sites with no block, where a
+  dropped point loses its pin outright, were in it. 92 answered with 5,575
+  rows; 3 were empty; librarieshawaii.org's REST answered 403; 3 had
+  robots.txt unreachable) found 4 points carried by 2 or more venue ids. Counted by name
+  they are the campus, two of 2 venues (Bellevue Botanical Garden's two
+  buildings on one street; Santiago do Cacém's library on its town's own point
+  beside a venue named for the town) and one of 1 (The Center on Colfax and
+  "Rainbow Alley (The Center on Colfax)"). At 3 the guard changes 0 of those
+  sites' 5,108 kept rows and Marhaba's 12; at 2 it would also take Doha's
+  point (7 rows) and Santiago's 3, the town venue's among them. A live
+  `main()` run into a scratch store, on Marhaba's held candidate (within_days
+  120) and 5 configured sites (NHCC 29 kept, Colfax 50, Bellevue 9,
+  Westchester County Parks 171, Santiago 14), dropped the point from 10 of
+  Marhaba's 73 rows and from nothing else. None of Marhaba's dropped rows
+  gives a street, so they leave the map (the sync drops a coordless row
+  outside the US), which is better than a pin in the desert. The guard leaves
+  Doha's own centroid on purpose (2 venues), so 6 of those 73 rows still sit
+  at 25.2854473,51.5310398, 3.8 km from the DECC (about 25.3197,51.5300): a
+  merge of the held candidate keeps them there unless an override moves them.
+  Shapes the folding does not cover, none of them in the 99-site read, would
+  lose a right pin: 3 or more rooms of one building that give no street or
+  differing ones (a building name before the street), and one venue's rooms
+  named "The Arts Centre - Room 1", "- Room 2", "- Cafe". The guard reaches
+  what the sync writes NEXT: a row stored with a shared point keeps it, since
+  a row that loses its point and cannot be placed is dropped before the write
+  (an upsert cannot delete), and a re-placed one reaches a stored row only
+  when the sync writes it again (`--only-new` in CI). A stored centroid pin
+  needs a backfill, or waits for its event to end. A
+  country-centroid list would be worse: it catches a venue alone on its
+  country's point (none in this read), but not Doha's town point, and every
+  geocoder and version answers with its own centroid, so the list is a few
+  hundred floats per provider that nobody keeps current. The Squarespace
+  default pin (the note on coordinates a source hands you, below) is one value
+  the platform writes itself, which is why that adapter can afford a one-point
+  check. `python test_ingest_tribe.py` (24 checks): taking out the guard, the
+  campus rule or any part of it (2 venues, a street's shape, a tail, St/Street,
+  Fourth/4th, Saint/St), the subset rule, the stop words, the apostrophe, the
+  centre/center spelling or the all-pages read each fails at least one.
+
+- **PHOTON MIS-PINS A BELGRADE STREET WRITTEN IN LATIN SCRIPT, BECAUSE OSM
+  NAMES IT IN CYRILLIC (2026-11-15).** In the Eastern and Southern Europe
+  batch the tribe StreetPlacer placed 2 of 2 Latin-script Belgrade streets
+  wrong: "Dečanska 14" landed 4.7 km away at 44.7707,20.4579, and "Nebojšina
+  Kula" 2.4 km south. A Photon search by the venue's name ("mts dvorana
+  Beograd") returned the right OSM point, "МТС дворана, Дечанска 14", at
+  44.81322,20.462629. Every other row placed in that batch's dry runs and
+  checked by eye was right: MABRIK 71 of 71 in Tallinn and Tartu, Celje 20 of
+  20, Goga 10 of 10, Riga 3 of 3, and 8 Timișoara streets. Until the placer
+  asks in both scripts, a Serbian venue is better placed by a venue block or
+  by its name than by its Latin-script street.
+
 - **A source that HANDS you coordinates can hand you the wrong ones, and nothing
   downstream will catch it.** Two live examples, both now covered by
   `test_ingest_places.py`. Squarespace ships a default map pin at

@@ -909,7 +909,9 @@ for label, second, want in (
         ("a total_pages that is not a number", {"events": [row(id=3, title="Ride 3")],
                                                 "total_pages": "3 pages"}, ["Ride 1", "Ride 2", "Ride 3"]),
         ("a body that is JSON null", None, ["Ride 1", "Ride 2"]),
-        ("a body that is a list", [row(id=3)], ["Ride 1", "Ride 2"])):
+        ("a body that is a list", [row(id=3)], ["Ride 1", "Ride 2"]),
+        ("an events value that is a number", {"events": 5, "total_pages": 3},
+         ["Ride 1", "Ride 2"])):
     session = _BodySession([first, second, {"events": [row(id=9, title="Ride 9")], "total_pages": 3}])
     with redirect_stdout(io.StringIO()) as buf:
         got = T.ingest_site(session, dict(SITE, crawl_delay=0))
@@ -1811,6 +1813,171 @@ manly_written = to_row(enriched.as_record("now"), "fixture-host")
 check("Manly's address reaches the actual database payload",
       (manly_written["street_address"], manly_written["region_name"], manly_written["postal_code"]) ==
       ("563 Pittwater Road, Brookvale", "NSW", "2100"))
+
+
+# --------------------------------------------------------------------------- #
+# a point several venues share is not any one venue's (2026-11-15)
+# --------------------------------------------------------------------------- #
+# Marhaba Qatar's REST read, as it came: 8 venue ids, 7 names (the convention
+# centre twice), all on Qatar's centroid with no street; and Doha's centroid
+# under the exhibition centre's three spellings and one hotel.
+QATAR, DOHA = ("25.354826", "51.183884"), ("25.2854473", "51.5310398")
+QA_SITE = {"name": "Marhaba", "base_url": "https://marhaba.example", "category": "community",
+           "default_city": "Doha", "default_country": "QA", "crawl_delay": 0}
+
+
+def qa(n, venue, point, **extra):
+    v = {"id": 1000 + n, "venue": venue, "country": "Qatar",
+         "geo_lat": point[0], "geo_lng": point[1]}
+    v.update(extra)
+    return {"id": n, "title": f"Show {n}", "start_date": "2026-12-01 19:00:00", "venue": v}
+
+
+centroid = [qa(1, "Aspire Zone", QATAR), qa(2, "Doha Golf Club", QATAR),
+            qa(3, "Qatar National Convention Centre", QATAR),
+            dict(qa(4, "Qatar National Convention Centre", QATAR), venue=dict(
+                qa(4, "Qatar National Convention Centre", QATAR)["venue"], id=999)),
+            qa(5, "Lusail International Circuit", QATAR), qa(6, "Katara Cultural Village", QATAR),
+            qa(7, "Grand Hyatt Doha Hotel", QATAR),
+            qa(8, "Sheraton Doha Resort &#038; Convention Hotel", QATAR)]
+spellings = [qa(11, "Doha Exhibition &#038; Convention Center (DECC)", DOHA),
+             qa(12, "Doha Exhibition and Convention Center (DECC)", DOHA),
+             qa(13, "Doha Exhibition and Convention Centre (DECC)", DOHA),
+             qa(14, "Hotel Park – Sheraton", DOHA)]
+own = qa(21, "Four Seasons Hotel Doha", ("25.2621282", "51.4649408"), address="Al Daibel Room")
+got = T.shared_points(centroid + spellings + [own])
+check("7 venues on one point with no street: the point is nobody's",
+      got == {(25.354826, 51.183884): 7}, got)
+check("one venue under three spellings and one more venue is 2, not 4: Doha's point stands at 3",
+      (25.2854473, 51.5310398) not in got and T.shared_points(spellings, at_least=2)
+      == {(25.2854473, 51.5310398): 2}, T.shared_points(spellings, at_least=2))
+room = [qa(31, "Qatar National Convention Centre", QATAR),
+        qa(32, "Qatar National Convention Centre, Auditorium 3", QATAR),
+        qa(33, "Katara Cultural Village", QATAR)]
+check("a room of a venue is that venue: 3 names, 2 venues", T.shared_points(room) == {},
+      T.shared_points(room))
+# The National Hispanic Cultural Center, Albuquerque (configured), 2026-11-15:
+# four rooms on one point, one street written three ways. 20 of its 29 rows.
+nhcc = [qa(41, "Roy E. Disney Center for Performing Arts: Albuquerque Journal Theatre", DOHA,
+           address="1701 4th St SW"),
+        qa(42, "NHCC Torreón", DOHA, address="1701 4th street SW"),
+        qa(43, "Visual Arts Corridor", DOHA, address="1701 4th Street SW"),
+        qa(44, "Roy E. Disney Center for Performing Arts: Wells Fargo Auditorium", DOHA,
+           address="")]
+check("a campus keeps its point: four rooms giving one street, however it is spelled",
+      T.shared_points(nhcc) == {}, T.shared_points(nhcc))
+apart = [dict(r, venue=dict(r["venue"], address=f"{n} Other Street"))
+         for n, r in enumerate(nhcc, 1)]
+check("...and the same four names on four streets do not",
+      T.shared_points(apart) == {(25.2854473, 51.5310398): 4}, T.shared_points(apart))
+odd = [None, "row", 7, {"venue": []}, {"venue": [qa(51, "A", QATAR)["venue"]]},
+       {"venue": {"venue": "B", "geo_lat": "0", "geo_lng": "0"}}, {"venue": False}]
+check("shared_points reads every shape the plugin sends without raising",
+      T.shared_points(odd) == {}, T.shared_points(odd))
+
+with redirect_stdout(io.StringIO()) as buf:
+    got = T.ingest_site(_SiteSession(centroid + spellings + [own]), QA_SITE)
+check("ingest_site drops the shared point from its 8 rows and keeps every row",
+      len(got) == 13 and [e.latitude for e in got[:8]] == [None] * 8, [e.latitude for e in got])
+check("...and leaves the spellings' point, and a venue's own, as they were",
+      [e.latitude for e in got[8:]] == [25.2854473] * 4 + [25.2621282], [e.latitude for e in got[8:]])
+check("...and its line says how many rows lost a point, and why",
+      "(8 row(s) on 1 point(s) shared by 7 venues: coordinates dropped)" in buf.getvalue(),
+      buf.getvalue())
+bare = deepcopy(centroid[0])
+for k in ("geo_lat", "geo_lng"):
+    bare["venue"].pop(k)
+check("a dropped row is the row the venue would make with no geo at all",
+      got[0].as_record("now") == T.to_event(bare, QA_SITE).as_record("now"),
+      (got[0].as_record("now"), T.to_event(bare, QA_SITE).as_record("now")))
+
+# A town or a country in the address field is what put these venues on the
+# centroid, so it does not make them a campus, from one venue or from two.
+lusail = [dict(r, venue=dict(r["venue"], address="Lusail")) if n < 2 else r
+          for n, r in enumerate(centroid)]
+check("7 venues on a centroid and 2 giving only a town ('Lusail') still lose the point",
+      T.shared_points(lusail) == {(25.354826, 51.183884): 7}, T.shared_points(lusail))
+saint_town = [dict(r, venue=dict(r["venue"], address="Saint-Denis")) if n < 2 else r
+              for n, r in enumerate(centroid)]
+check("...and so does a town named for a saint, though Saint and Street are both St",
+      T.shared_points(saint_town) == {(25.354826, 51.183884): 7}, T.shared_points(saint_town))
+one = [dict(r, venue=dict(r["venue"], address="1 Al Corniche Street")) if n == 0 else r
+       for n, r in enumerate(centroid)]
+check("...and a street that one venue of 7 gives is not a campus's",
+      T.shared_points(one) == {(25.354826, 51.183884): 7}, T.shared_points(one))
+two = [qa(61, "Children's Library", DOHA, address="1 Library Way"),
+       qa(62, "Teen Room", DOHA, address="1 Library Way"), qa(63, "Makerspace", DOHA)]
+check("two rooms giving one street and a third giving none are a campus",
+      T.shared_points(two) == {}, T.shared_points(two))
+for label, addresses in (
+        ("Fourth is 4th", ("1701 4th St SW", "1701 Fourth Street SW", "1701 4th St SW")),
+        ("Saint is St, and an apostrophe joins", ("10 St. Mary's Rd", "10 Saint Mary's Road",
+                                                  "10 St Marys Rd")),
+        ("a suite or a town after the street is the same street",
+         ("100 Arts Plaza", "100 Arts Plaza, Suite 2", "100 Arts Plaza, Boulder, CO"))):
+    rooms = [qa(70 + n, name, DOHA, address=a)
+             for n, (name, a) in enumerate(zip(("Main Stage", "Studio Theater", "Gallery"),
+                                               addresses))]
+    check(f"a campus keeps its point: {label}", T.shared_points(rooms) == {},
+          T.shared_points(rooms))
+saints = [qa(81, "St. Mary's Church", DOHA), qa(82, "Saint Mary's Church", DOHA),
+          qa(83, "St Marys Church", DOHA)]
+check("one church spelled three ways is one venue", T.shared_points(saints, at_least=2) == {},
+      T.shared_points(saints, at_least=2))
+museum = [qa(91, "Museum of Art", DOHA), qa(92, "The Art Museum Studio", DOHA),
+          qa(93, "The Art Museum Cafe", DOHA)]
+check("'the' and 'of' are not words of a name: three rooms of one museum are 2 venues",
+      T.shared_points(museum) == {}, T.shared_points(museum))
+
+# The address path, exactly as for a venue with no geo: the block where it
+# stands in, the StreetPlacer for a street abroad, Census for a US street.
+# A block with no `names` is a single-venue site's (_block_stands_in), so it
+# takes every coordless row: the expected outcome there, where the venues at
+# a dropped point are its rooms. On a many-venue site like this one it would
+# put Aspire Zone at Katara, which is why such a site's block lists `names`.
+blocked = dict(QA_SITE, venue={"name": "Katara", "lat": 25.3600, "lon": 51.5250})
+with redirect_stdout(io.StringIO()):
+    got = T.ingest_site(_SiteSession(centroid), blocked)
+check("a site's venue block stands in for a dropped point, as for a coordless venue",
+      [(e.latitude, e.longitude) for e in got] == [(25.36, 51.525)] * 8,
+      [(e.latitude, e.longitude) for e in got])
+WEST_BAY = (25.3209, 51.5310)
+streets = [dict(r, venue=dict(r["venue"], address=f"{n} Al Corniche Street", city="Doha"))
+           for n, r in enumerate(centroid[:3], 1)]
+qp = _Photon({"Doha, Qatar": (25.2854, 51.5310),
+              "1 Al Corniche Street, Doha, Qatar": WEST_BAY,
+              "2 Al Corniche Street, Doha, Qatar": WEST_BAY,
+              "3 Al Corniche Street, Doha, Qatar": WEST_BAY})
+with redirect_stdout(io.StringIO()) as buf:
+    got = T.ingest_site(_SiteSession(streets), QA_SITE, placer=qp.placer())
+check("a dropped point abroad with a street of its own goes to the StreetPlacer",
+      [(e.latitude, e.longitude) for e in got] == [WEST_BAY] * 3
+      and "(3 placed by a geocoded street)" in buf.getvalue(),
+      ([(e.latitude, e.longitude) for e in got], buf.getvalue()))
+us = [dict(r, venue=dict(r["venue"], address=f"{n} Main St", city="Boulder", country="United States"))
+      for n, r in enumerate(centroid[:3], 1)]
+with redirect_stdout(io.StringIO()):
+    got = T.ingest_site(_SiteSession(us), dict(QA_SITE, default_country="US"),
+                        placer=_Photon({}).placer())
+check("a dropped US point keeps its street and is left for the sync's Census pass",
+      [(e.latitude, e.address) for e in got] == [(None, "1 Main St"), (None, "2 Main St"),
+                                                (None, "3 Main St")]
+      and SYNC._census_parts(got[0].as_record("now")) is not None,
+      [(e.latitude, e.address) for e in got])
+
+# Every page is read before a point is judged: two venues on page 1 and the
+# third on page 2 are three.
+pages = _BodySession([{"events": centroid[:2], "total_pages": 2},
+                      {"events": centroid[4:5], "total_pages": 2}])
+with redirect_stdout(io.StringIO()):
+    got = T.ingest_site(pages, QA_SITE)
+check("a point is judged by every page the run read, not by the page it is on",
+      pages.asked == [1, 2] and [e.latitude for e in got] == [None] * 3,
+      (pages.asked, [e.latitude for e in got]))
+with redirect_stdout(io.StringIO()):
+    got = T.ingest_site(_SiteSession(centroid[:2]), QA_SITE)
+check("two venues on one point are below the bar: a town venue at its own town's point keeps it",
+      [e.latitude for e in got] == [25.354826] * 2, [e.latitude for e in got])
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

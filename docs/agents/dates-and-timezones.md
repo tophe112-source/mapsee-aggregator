@@ -3,6 +3,33 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an offset that belongs to the server, a bare date, a sentinel date, `starts_at`'s first ten characters, two dates on one listing, a year on the wrong side.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **OPENAGENDA'S OVERSEAS ROWS CARRY UTC INSTANTS, SO A CARIBBEAN OR INDIAN
+  OCEAN TIME NEEDS NO ZONE OF ITS OWN (2026-11-15).** The ODS mirror's
+  firstdate_begin reads `2026-11-16T12:00:00+00:00`.
+  mapsee_ingest_ods.to_event writes any value with a `+` or a `Z` as start_utc
+  and leaves start_local empty, and the sync's `_to_utc_if_naive` passes an
+  offset through untouched, so the stored instant is the publisher's; the
+  coordinates choose only the zone it is shown in. Measured on the 50 future
+  GF, GP, MQ and RE rows of 2026-11-15: 50 of 50 instants, read in
+  America/Cayenne, America/Guadeloupe, America/Martinique or Indian/Reunion,
+  give the clock of the row's own `timings` offset and of its `daterange_fr`
+  text ("Lundi 16 novembre, 09h00" for 12:00Z in Cayenne; "Samedi 21 novembre,
+  20h00" for 2026-11-22T00:00Z in Martinique, a day later in UTC). With
+  timezonefinder installed, `_tz_for` names the right one of those 4 zones for
+  50 of 50 coordinates; without it, the fallback says America/New_York for all
+  of them, which would matter only to a naive time, and these have none. The
+  dry run is the overseas-codes note in `adapters-and-sources.md`.
+
+- **THE EVENTS CALENDAR CAN EXPORT A LATIN AMERICAN WALL CLOCK UNDER A US ZONE
+  (2026-11-15).** cultural.edu.pe (Centro Cultural Peruano Norteamericano,
+  Arequipa) stamps every VEVENT `TZID=America/New_York` over Arequipa's local
+  digits: 12 VEVENTs, 10 future. `wall_clock_tzids: ["America/New_York"]` (the
+  option in the note on wall clocks below) kept 9 rows at the right local
+  times in the Latin America batch's dry run (2 dropped by skip_title).
+  Arequipa is UTC-5 all year and New York UTC-4 in summer, so read as New York
+  a summer row would show an hour early; in November the two agree, which is
+  why a look at one month's rows cannot clear such a feed.
+
 - **PORTO MARKET RECURRENCE AND BARCELONA RACE STARTS (2026-11-06).**
   Porto's Feira de Antiguidades e Velharias had 6 upcoming listings. Five fell
   outside the municipal schedule. Both OSM objects (node 13409166068 and way

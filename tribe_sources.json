@@ -48069,6 +48069,19 @@
       "_metro": "San Jose, United States",
       "_found": "search:volunteer -> tribe",
       "_note": "The Events Calendar REST; 3 upcoming on 2026-11-15, all public beach cleanups in category beach-cleanup: Hidden Beach (660 Cliff Dr, Aptos), Corcoran Lagoon Beach (20th Ave, Santa Cruz), Scott Creek Beach (address is the Plus Code 2QQC+QR, which the place rules refuse). Small, but every row is a shift with a meeting place."
+    },
+    {
+      "name": "Marhaba Qatar events (Doha)",
+      "base_url": "https://marhaba.qa",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Doha",
+      "default_country": "QA",
+      "_metro": "Doha, Qatar",
+      "_found": "search:meapac-2026-11-15 -> tribe (TEC URL shape /events/tag/<x>/day/<date>/ in a search result)",
+      "_note": "Qatar's information portal; the city-wide what's-on list. Measured 2026-11-15: REST total 83 upcoming (2 pages of 50): Katara Children's Festival, Doha Film Festival, art exhibitions, a night run, triathlon, concerts, and some trade/business events. 5 distinct venues (Katara, QNCC, Aspire Zone, Doha Golf Club, Lusail Circuit) carry geo 25.354826,51.183884, Qatar's country centroid; the shared-point guard in mapsee_ingest_tribe.py (2026-11-15) drops that point, so 12 of 82 replayed rows take the address path instead. 6 of 73 rows still sit at the Doha town point 25.2854473,51.5310398, about 3.8 km from the DECC.",
+      "crawl_delay": 15.0
     }
   ],
   "_not_included": {

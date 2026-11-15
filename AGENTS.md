@@ -8,7 +8,7 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**Keep this map small.** The measured notes — 642 of them — live in
+**Keep this map small.** The measured notes — 660 of them — live in
 [`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
 then open ONE topic. Preserve each note's measurements.
 
@@ -124,20 +124,20 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 157 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
+| `docs/agents/curation-and-discovery.md` | 167 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
 | `docs/agents/osm-amenities.md` | 35 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 26 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 51 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget, rotation, Crawl-delay and robots.txt, who pays for an adapter's rows, the gate's path filter |
-| `docs/agents/adapters-and-sources.md` | 71 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts, Mobilizon's order, OpenAgenda's windows, annual festivals |
+| `docs/agents/adapters-and-sources.md` | 75 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar through its API, exact source ticket and organizer facts, Mobilizon's order, OpenAgenda's windows, annual festivals |
 | `docs/agents/classification-and-categories.md` | 44 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 54 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
 | `docs/agents/sync-eventstore-and-paging.md` | 57 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, unhide walks, re-keyed rows, the collapser |
-| `docs/agents/dates-and-timezones.md` | 22 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules, a wall clock stamped as UTC or a platform's default zone, days joined into one event |
+| `docs/agents/dates-and-timezones.md` | 24 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules, a wall clock stamped as UTC or a platform's default zone, days joined into one event |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
-| `docs/agents/geocoding-and-addresses.md` | 24 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere, the Events Calendar's comma LOCATION, a City point in another borough |
+| `docs/agents/geocoding-and-addresses.md` | 26 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere, the Events Calendar's comma LOCATION, a City point in another borough |
 | `docs/agents/spam-and-content.md` | 14 | the predicate, the purge, implausible end dates, safe scheduled deletes, a whole instance of adverts |
 | `docs/agents/state-fairs.md` | 9 | marketing-copy dates, towns vs venues, a one-day festival's prose date |
-| `docs/agents/health-and-monitoring.md` | 11 | `stats_snapshot_all`, baselines, a source with no retry, the audit's crash, FEED_DOWN's blind spot |
+| `docs/agents/health-and-monitoring.md` | 12 | `stats_snapshot_all`, baselines, a source with no retry, the audit's crash, FEED_DOWN's blind spot |
 | `docs/agents/libraries-bibliocommons.md` | 12 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |
 | `docs/agents/community-centres.md` | 41 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield, RRULE timetables, a price line the sync cuts |
 | `docs/agents/running.md`, `credentials.md`, `platforms-probed.md` | — | the operational sections, verbatim |

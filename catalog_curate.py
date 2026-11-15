@@ -6577,7 +6577,18 @@ _ISO_COUNTRY = {
     # and Serbia (Belgrade) declared these.
     "PE": "Peru", "CO": "Colombia", "UY": "Uruguay", "BG": "Bulgaria",
     "RS": "Serbia",
+    # OpenAgenda France's overseas codes (ods_sources.json, 2026-11-15): the
+    # mirror files these departments under their own ISO codes, as it does MQ.
+    "GF": "French Guiana", "GP": "Guadeloupe", "RE": "Réunion",
+    # Marhaba Qatar (tribe, 2026-11-15), merged once the shared-point guard
+    # in mapsee_ingest_tribe.py dropped its country-centroid pins.
+    "QA": "Qatar",
 }
+# France's overseas departments and collectivities, under the codes the
+# OpenDataSoft mirror files them by (_coverage_rows counts them as France when
+# an entry declares France too).
+_OVERSEAS_OF = {code: "FR" for code in ("GF", "GP", "MQ", "RE", "YT", "PF", "NC", "PM",
+                                        "BL", "MF", "WF")}
 # The same table read the other way, for a suffix that spells the country out.
 # Built rather than written, so the two can never disagree.
 _ISO_COUNTRY_NAMES = {name.casefold(): name for name in _ISO_COUNTRY.values()}
@@ -7048,7 +7059,16 @@ def _coverage_rows():
             # as nothing). Emit one row per declared country instead.
             iso = _iso_countries(e.get("countries"))
             if iso:
-                for code in iso:
+                # ONE NATION'S ENTRY IS ONE SOURCE THERE, overseas departments
+                # and all. OpenAgenda France reads MQ, GP, GF and RE beside FR
+                # (2026-11-15: 49 rows of national campaigns between them), and
+                # as five rows it ranked French Guiana, Guadeloupe and Reunion
+                # as thin countries to broaden, pushing three real category gaps
+                # out of the 20-line target list. A code is folded only when
+                # the same entry also declares its nation, so a source of the
+                # department's own (Plakatak, Martinique) still counts there.
+                for code in dict.fromkeys(
+                        _OVERSEAS_OF[c] if _OVERSEAS_OF.get(c) in iso else c for c in iso):
                     rows.append((t, name, metro, _ISO_COUNTRY.get(code, code), cat))
                 continue
             # Last resort before "?": the source's own ccTLD. A .co.nz venue

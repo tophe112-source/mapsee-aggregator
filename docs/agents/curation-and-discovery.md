@@ -1,5 +1,185 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **SEVEN HAND-TARGETED CELLS ON 2026-11-15, AND WHAT EACH INPUT PAID.** Seven
+  agents, one thin cell each, production User-Agent, robots.txt first.
+  Candidates and local verify passes: running 68 and 41, volunteer 35 and 13,
+  kids 58 and 44, outdoors 69 and 40, Latin America and the Caribbean 36 and
+  4, Middle East and Asia-Pacific 13 and 8, Eastern and Southern Europe 23 and
+  16. Yield per input: `catalog_discover_osm.find_calendar` on club homepages
+  about 15% (US running clubs 51 hosts: 6 Tribe or jsonld and 5 Google; UK
+  clubs 27: 4; running stores 28: 2); 148 hand-picked volunteer and
+  conservation homepages gave 48 calendars and 10 volunteer feeds that pass
+  verify (61 had none, 6 linked offsite, mostly Eventbrite, 12 refused, 20
+  unreachable through the sandbox's proxy, 1 asked Crawl-delay 60); one Tribe
+  REST probe per host found upcoming events on 37 of 184 US nature-centre,
+  Audubon, land-trust and garden hosts (20%) and on 1 of 64 in Canada, the UK,
+  Australia, New Zealand and Ireland, so The Events Calendar is a US outdoor
+  platform; 51 children's-museum and science-centre homepages gave 5 with
+  upcoming events and 4 proposals, close to 2026-10-23's 8 of 85; 327 Latin
+  American institution homepages (Wikidata P856 for classes Q1329623, Q7075,
+  Q24354, Q33506, Q207694, plus hand lists) gave 39 fingerprints (12%) and 4
+  sources (1.2%), with 84 unreadable (60 robots.txt unanswered, 15 challenged,
+  6 refused); about 150 Middle East and Asian homepages gave about 8 (5%), and
+  about 25 hosts, most .ae government and culture sites, were unreachable from
+  the sandbox; guessed Eastern European institution homepages answered the
+  REST route with future events 3 of 64, about 3 of 68 and 0 of 24 times
+  (about 4%), and find_calendar on 20 capital-city institutions found 1 feed
+  (gkr.hr's `/api/events.ics`). About a third of running-club domains guessed
+  from memory did not resolve: take hosts from search results. Unreachable
+  through the proxy (CONNECT 502) is a fact about the sandbox, not a refusal,
+  and none was ledgered.
+
+- **SEARCH FOR THE EXPORT'S URL, NOT THE BUTTON'S WORDS (2026-11-15).** Search
+  engines index The Events Calendar's per-day and per-month `?ical=1` URLs.
+  Quoted `"?ical=1"` with a running phrase (run club, road runners, half
+  marathon, trail running, 5k road race, group run) found 10 of the 20 Tribe
+  running sites of the day; the same quote limited to a country (site:.si,
+  .ro, .lt, .bg, .ee, .cy) or paired with a city found 10 of Eastern and
+  Southern Europe's 16 passes. A result whose URL has the shape
+  `/events/tag/<x>/day/<date>/` or `/events/month/<yyyy-mm>/` found Marhaba
+  Qatar, KL Events Calendar and philippinestravelguides in 1 to 3 probes each.
+  What does not work: TEC's boilerplate ('Export Outlook .ics file', 'Events
+  Search and Views Navigation', 'Loading Events') gave 0 usable sites in 9
+  searches, its translated button ('Izvozi dogodke', 'Eksportēt pasākumus',
+  'Eksportuoti renginius', 'Exportă evenimente') 0 in 4, and 'Export .ics
+  file', 'Subscribe to calendar' and '/events/category/' almost only
+  aggregators. A domain-suffix filter ('com.my', 'org.il') with plain-language
+  queries did better than any phrase. Two cheap fingerprints: `GET
+  /wp-json/?_fields=namespaces` names a WordPress site's event plugin in one
+  request (62 sites without TEC: mec/v1 10, eventon/v1 5, events-manager/v1 2,
+  my-calendar/v1 1), and a Drupal university calendar can export everything as
+  one ICS: HKUST's `/events/ics` held 1,074 VEVENTs (671 future) beside the
+  linked `/events/ics?ics_mode=academic_calendar`, so look for an `ics_mode`
+  link and drop the parameter.
+
+- **LIBCAL IS FAR FROM SATURATED, AND ONE LIBCAL HOST CAN BE A WHOLE
+  CONSORTIUM (2026-11-15).** Configs and ledger held 125 LibCal hosts. 8
+  searches for a children's programme title plus 'libcal.com' ('Toddler
+  Storytime', 'Baby Storytime', 'Lego Club', 'Preschool Storytime', 'Family
+  Storytime', 'Wiggle') found 32 tenants in neither; 25 gave 36 feeds and 36
+  of 36 passed verify. Of the other 7, robots.txt refused 1 (johnjermain), 1
+  answered 404, 1 had 0 VEVENTs on both cids, 2 were capped (washcolib 500
+  rows reaching 32 days, forbeslibrary 500 reaching 55) and 2 were not built.
+  owwl.libcal.com lists 29 member libraries' calendars and
+  bookings.myli.org.au 17 branch calendars, each its own cid with its own
+  venue (OWWL gave 6 feeds of 47 to 387 upcoming, MYLI 7 of 17 to 125); the
+  `/calendar` page's select lists the calendar cids first and the campus ids
+  after them. A single library's LOCATION is a room (Camarillo: 78 'Homework
+  Center' and 35 'Community Room' of 179; Belleville: 76 'Story Time Room'),
+  and `location_overrides` built from every distinct LOCATION kept Warwick's
+  311 rows at the library with 0 Photon lookups; read the room list by eye,
+  because some rooms are other sites (Belleville's 'Sumpter Media Center',
+  FDLPL's 'Buechel Branch' and 'Chapter 52'). A tenant costs 2 requests plus 1
+  per cid, at Crawl-delay 10 where it asks. University LibCal tenants in the
+  UAE are student-facing and online (MBRU 11 of 14 rows online, Zayed
+  University CEI 32 of 32, HCT 0 future, NYUAD 1 with no LOCATION), and
+  cmu.libcal.com mixes Pittsburgh and Qatar rows under one cid.
+
+- **EVENTRAC SERVES 528 UK RUNNING EVENTS AS SCHEMA.ORG PAGES THE JSONLD
+  ADAPTER ALREADY READS (2026-11-15).**
+  www.eventrac.co.uk/calendars/sport-events/list links 1,071 event pages on
+  224 organiser hosts (white-label domains and `*.eventrac.co.uk`). Each
+  organiser's own `<host>/calendars/sport-events` lists only its own: 528
+  unique links over 22 running organisers, 0 shared between hosts (Saturn
+  Running 80, Wild Deer Events 61, Its Grim Up North 59, Nice Work 54, ATW
+  Events 49, Zig Zag 38). Every `/e/<slug>-<id>` page carries a schema.org
+  Event with location.geo and OfflineEventAttendanceMode, and the platform's
+  stock robots.txt allows `/calendars/` and `/e/`. A dry run on Saturn and ATW
+  placed 16 of 16 with coordinates and the right dates. A link_pattern with a
+  negative lookahead for triathlon, duathlon, swim, cycle, sportive, gravel,
+  ride and event-pass trims a mixed organiser before any page is fetched:
+  ATW's 86 links became 49.
+
+- **A TRIBE SITE'S OWN CATEGORIES MAKE A MIXED CALENDAR USABLE, BUT A
+  CATEGORY'S `count` IS ALL-TIME (2026-11-15).** `include_categories` kept 11
+  of 12 rows at Bolsa Chica Land Trust, 13 of 28 at A Rocha Canada, 18 of 31
+  at EcoMatters ('nature') and 2 of 7 at Hill Country Conservancy; without it
+  paid tours, day camps and retreats ride on the volunteer key. The
+  publisher's own 'kids' slug or a `category_aliases` entry (child to kids)
+  made kids a second category on 125 of 166 Wingecarribee rows, 90 of 151
+  Trails Regional Library rows and 43 of 98 Lewisboro rows, without a kids
+  primary. Montshire was not aliased because its 'program' category also holds
+  adult garden talks. SCHC Scarborough's 'earlyonchild' category shows count
+  1,035 and holds 0 events in the next 90 days and 1 since 2026-01-01: ask the
+  events route for upcoming rows before proposing a category.
+
+- **MEASURE skip_title OVER EVERY PAGE, AND ANCHOR A SKIP WORD THAT REAL
+  TITLES ALSO CONTAIN (2026-11-15).** Iowa Children's Museum's members-only
+  'Member Hour' was 24 of 50 rows on page 1 and 50 of 84 over the 90-day
+  window, so the dry run kept 19, not about 49; Discovery Center's 'Closed
+  Mondays' was 7 on page 1 and 13 in all. Green Trike's 'Diaper Bank' also
+  matched its 'Play to Learn | <library> | Monarch Diaper Bank on the Go'
+  playgroups, and anchoring it to '^Monarch Diaper Bank' raised the kept rows
+  from 68 to 79. Members-only rows ride in good feeds: Bucks County Audubon 7
+  of 11 'Private Event:', Norfolk Botanical Garden 11 of 48 'Member
+  Exclusive:'. Standing rows still need a look after verify passes: VINS (536
+  TEC events in 120 days, daily raptor shows), Naples Botanical Garden (589,
+  daily tours and exhibitions) and Environnement Calvados on OpenAgenda (34 of
+  38 future rows are one museum's opening days) were withheld.
+
+- **RUNNING STORES ARE THE DENSE RUNNING FEEDS, AND A THIRD OF CLUB CALENDARS
+  ARE GOOGLE'S (2026-11-15).** Specialty-store chains on The Events Calendar
+  gave the most rows with per-store streets: Charm City Run 209 and Runners
+  Roost 149 events in 120 days. Fleet Feet stores publish per-store Google
+  Calendars under personal addresses (held), and fleetfeet.com's robots.txt
+  disallows /feeds/. 10 of the 31 club and organiser sites with a calendar use
+  a Google group calendar, which verify skips without recording when
+  GOOGLE_CALENDAR_API_KEY is unset, so a running sweep without the key
+  under-reports. 4 of 9 jsonld finds on club homepages had events_evidence
+  False and to_candidate refused them (Gulf Winds on MEC, San Diego Track
+  Club, Orlando Runners Club, Bristol & West AC on Wix).
+
+- **A MULTI-SITE ORGANISATION OFTEN POSTS NO VENUE ON THE EVENT
+  (2026-11-15).** OzFish: 34 free volunteer days, every venue a state or
+  region name. TreesCharlotte: 31 upcoming, the TreeDays with no venue and 3
+  of the 4 addressed rows tree giveaways. WSU Extension Island: 11 weekly
+  beach cleanups with no venue. They pass verify and cannot be placed, so they
+  were left out. Multi-site outdoor organisations (Audubon chapters, land
+  trusts, trail alliances) got default_city, region and country and no venue
+  block, so each TEC venue is placed by its own street; a block went only on
+  single-site gardens and nature centres, with `names` where off-site venues
+  exist. The jsonld adapter fills a block's lat/lon into an event that names
+  its own venue without geo, so multi-site jsonld sources (Valley Forge, Sea
+  and Sage) carry no block. Guessing CivicPlus volunteer categories city by
+  city pays little: on 7 city sites, `/iCalendar.aspx` named one volunteer
+  category (Frisco's 'Environmental Services - Teens4Green', catID 83); Plano
+  and Chandler answered 404, Round Rock 403, McKinney challenged robots.txt. A
+  lead outside verify's types: sanantonioparks.galaxydigital.com (City of San
+  Antonio Parks) fits `mapsee_ingest_galaxydigital.py`'s city-department rule
+  but needs a hand-measured entry (robots, operator terms,
+  location_overrides).
+
+- **IN LATIN AMERICA THE EVENTS CALENDAR IS RESIDUE AND THE BIG AGENDAS ARE
+  CUSTOM-BUILT (2026-11-15).** 19 Tribe-labelled sites in AR, CL, CO, CR, PE,
+  PR, JM and BR returned 0 upcoming events from REST, or the route was off
+  (rest_no_route 404); 22 more UNAM culture and institute hosts answered no
+  TEC JSON at all. The national and municipal cultural agendas carry no
+  machine-readable events: 9 of 9 sampled detail pages had 0 Event blocks
+  (Biblioteca Nacional AR, Idartes, BibloRed, MIM, Británico, AF Lima, Museo
+  Moderno BA, Gran Teatro Nacional, M100). Probes are better spent on small
+  WordPress or Squarespace institutions; the 4 sources of the day were MACA
+  (Uruguay's first), Instituto Francés de Chile, Cultural Arequipa and Parque
+  Explora. query.wikidata.org answered 429 to 4 of 12 SPARQL queries even 45
+  to 105 s apart (the egress is shared), and Overpass reset (overpass-api.de),
+  timed out (kumi.systems) and answered 504 (maps.mail.ru), so no OSM venue
+  walk ran.
+
+- **OPENAGENDA'S HTML SEARCH NAMES AN AGENDA BY THE UID BEFORE ITS SLUG
+  (2026-11-15).** Seasonal calendars answered empty, not dead, as the notes
+  on a valid empty calendar and Edina's Braemar Arena (below) already say: in
+  November, cityfestival.thisisathens.org (the May festival), muzeulastra.ro,
+  ghidlocal.com and visitbulgaria.com answered the Tribe route 200 with 0
+  upcoming and were recorded as empty. On openagenda.com/fr/agendas?search=<q>
+  (robots.txt is an empty Disallow) the agenda id is the `"uid":N,"image"`
+  value just before the agenda's slug; the other uid beside it is not the
+  agenda. Of 26 nature, botanic and hiking agendas found that way, 8 had
+  future events in mid-November and 12 were valid empty calendars (the
+  conservatoires botaniques, sorties-nature-limousin and ffrandonnee-nord are
+  seasonal). Of 14 Guadeloupe and Martinique agendas found through the keyless
+  search API, 13 held 0 upcoming VEVENTs and 1 held one: the live French
+  Caribbean rows are national campaigns, read through the ODS mirror once the
+  France entry asks for their own country codes (`adapters-and-sources.md`).
+
 - **FOUR SMALL ADDITIONS RETAIN 32 DATED EVENTS WITHOUT ADDING DAILY FEED FETCHES (2026-11-14/15).**
   Production-UA/robots verification and adapter -> EventStore -> real row builder
   retain **32** rows across **4** cities; these are validation counts, not proof

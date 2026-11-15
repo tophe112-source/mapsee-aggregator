@@ -3,6 +3,65 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **THE OPENAGENDA FRANCE ENTRY NOW READS MQ, GP, GF AND RE, WHICH THE MIRROR
+  CODES AS COUNTRIES OF THEIR OWN (2026-11-15).** ods_sources.json asked
+  `location_countrycode in ('FR')`, and an overseas department's events carry
+  its own ISO code. A group_by on the mirror, rows starting in the entry's
+  90-day window: GF 30, MQ 7, RE 7, GP 5 (49). With no horizon there is one
+  more GP row, in July 2027. YT, PF, NC, PM, BL, MF and WF held 0 future rows,
+  so they are not in the list; measure before adding one. The Latin America
+  batch's "MQ 25, GP 7" counted some other way; these are the adapter's own
+  query. Lowercase 'fr' holds 14 future rows (13 France Travail appointments,
+  1 theatre show in Charleville-Mézières) and is not read. A dry run of
+  `ingest_source` on the four codes (scratch store, 2 requests): 49 rows read,
+  49 with coordinates, 42 records, because EventStore's fingerprint (title,
+  day, venue) folds two sessions of one factory visit on one day into one: GF
+  30 to 24, RE 7 to 6, GP 5, MQ 7. The rows are Semaine de l'industrie 2026,
+  except Réunion's 4 library sessions in Saint-Denis and Martinique's 6
+  Plakatak outings. 1 MQ row is a webinar (attendancemode 2) pinned at the
+  Technopôle, because the adapter does not read attendancemode: in the same
+  window FR and these four codes hold 601 online and 94 mixed rows of 26,350,
+  and the FR ones are written with a pin today. A separate ods candidate could
+  not add the codes, because the ledger and dedup key ignore countries. The
+  research sandbox's egress reset the first one or two connections to
+  public.opendatasoft.com after 10.3 s; a retry 15 s later answered 200 in 0.6
+  to 0.9 s, and no request failed three times. Times are in
+  `dates-and-timezones.md`. GF, GP and RE are now in
+  `catalog_curate._ISO_COUNTRY` (MQ already was): test_coverage_rows.py and
+  test_curate_coverage.py fail on a declared code with no country name, and
+  did on these three. `python test_ingest_ods.py` (60 cases) passes on the new
+  list. The coverage report then read the entry as 5 sources, one per code,
+  and ranked French Guiana, Guadeloupe and Réunion as thin countries to
+  broaden (targets 8, 9 and 13), Martinique 1 to 2 sources, and pushed the
+  United Arab Emirates, Slovenia and South Korea category gaps off the
+  20-line list. `_coverage_rows` now counts a code under its nation
+  (`_OVERSEAS_OF`) when the same entry declares that nation too, so the entry
+  is 1 row, France, and `catalog_curate.py coverage` prints what it printed
+  before the codes were added; Plakatak, Martinique's own ics source, still
+  counts there (test_coverage_rows.py).
+
+- **WPML AND THE EVENTS CALENDAR RETURN EVERY SHOW TWICE FROM ONE REST ROUTE,
+  ONE LANGUAGE A CATEGORY (2026-11-15).** operacluj.ro gave 33 rows: 18
+  Romanian and 15 English duplicates, each language under its own category
+  slugs (balet/ballet, opera/opera-en). The `/ro/wp-json` and `/en/wp-json`
+  prefixes are not routes (HTML, not JSON). `include_categories` with one
+  language's slugs removes the duplicates: 18 kept and 18 placed in the dry
+  run.
+
+- **`verify_jsonld` CAN PASS A SOURCE WHOSE startDate IS PROSE, AND THE
+  ADAPTER STORES THE PROSE (2026-11-15).** Teatro Municipal de Bahía Blanca
+  writes startDate as '21 noviembre, 2026 9:00 pm'. verify passed it (1 of 4
+  sampled events future), and mapsee_ingest_jsonld stored 5 rows whose
+  start_local is that string. It was dropped from the candidates (its events
+  were also at another hall, Auditorium Caronti). A jsonld candidate's dry
+  run, not its verify, shows whether the date was read.
+
+- **THE EVENTS CALENDAR'S start_date FILTER RETURNS EXHIBITIONS THAT OPENED
+  BEFORE IT (2026-11-15).** Para Site (Hong Kong) reported total 3 for a
+  start_date of today, and 0 of the 3 start in the future: the route matches
+  an event still running. verify counts future starts, so it correctly fails a
+  gallery whose calendar is only exhibitions.
+
 - **A SWAP CALENDAR'S DEFAULT CATEGORY MUST NOT TURN EVERY FUTURE EVENT INTO
   A MARKET (2026-10-28).** ReUse Depot's permitted Wix `/event-list` has **3**
   detail links; the existing JSON-LD adapter keeps **1** upcoming Fall Clothes
