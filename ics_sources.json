@@ -72674,5 +72674,266 @@
     "geocode_suffix": ", Wroclaw, Poland",
     "limit": 300,
     "_metro": "Wroclaw, Poland"
+  },
+  {
+    "name": "Church of the Holy Trinity",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/19449ff70a2163e7098401080bcde22f6ad3451960fb2afa0c29c9d8bd079a53%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Singapore",
+    "limit": 300,
+    "_metro": "Singapore, Singapore"
+  },
+  {
+    "name": "Tai Pei Yuen Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f69fdbca4939a63fe8ba824f9648003158ceaaeb24982e9e1530c981a4138748%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Singapore",
+    "limit": 300,
+    "_metro": "Singapore, Singapore"
+  },
+  {
+    "name": "Church of St Francis of Assisi",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/catholic.calendar%40catholic.org.sg/public/basic.ics",
+    "geocode_suffix": ", Singapore",
+    "limit": 300,
+    "_metro": "Singapore, Singapore"
+  },
+  {
+    "name": "25e de Ganshoren",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/scout25.be_gu77r1eull32v271s981p9hfe4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Hofstade Zeilclub",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_classroomb729bc32%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "WSKLuM Vilvoorde v.z.w.",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e4b27cd31ec393b43d9d5e3f04f46b57c6f3dd6336c175ae65fe63a431aa5d2e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Service Volontaire international",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/doq69jml2ghirecoupe7iu14do%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Olympia Schaarbeek vzw",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://olympiaschaarbeek.be/nl/agenda.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Le Camp de Base",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e38cb923799ca8a6a549509c148ecab07c7fb0414da3c1081b92354dd72edc3c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Les Voussettes",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/89s1ounc9jk2ekiucj4tq2c5446lmi8e%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Scouts Thila Coloma",
+    "category": "community",
+    "_found": "osm:club -> jsonld-event+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_0b7694ffe57801b2d61a0815a1138f0a1edf463dc0d5072490f1a10b9338aa7b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Klimax",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_12168c5d1271f0125a7a605ec6ff45db570d42b61f7161b7ffb1e6b55c869f5f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Église Saint-Étienne",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/63s5enfmucdjbldokstjogjcq4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "KCVV Elewijt",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://kcvvelewijt.be/api/calendar.ics?teamIds=1,2,5,11,7,10,8,22,36,14,20,18,27,21,33,37,28,34&amp;side=all&amp;events=1",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "All Saints’ Church Waterloo",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2nha9r512larh9509q3eioejek%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "'t Smisken",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/rein%40tsmiske.be/public/basic.ics",
+    "geocode_suffix": ", Asse",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Curling Club Zemst",
+    "category": "community",
+    "_found": "osm:sports_hall -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/curlingzemst.com_ui79f1qo670drukv54to3ud3tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Elewijt",
+    "limit": 300,
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Joggers Klein Willeboek VZW",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/db0731b797d5bbdba204f8fcf3a31dde592e30b2fa4968e6f3e4920eea96efd9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Klein Willebroek",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Koninklijke Boom Tennis Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ca3hi986s1ae1rvcopi6bc01bo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Antwerp, Belgium",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Scouts Schilde Bergen",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5gll1d8ipf972j395v9ucs0v14%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Schilde",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Het DansAteljee",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40hetdansateljee.be/public/basic.ics",
+    "geocode_suffix": ", Antwerp, Belgium",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Chiro JEZ",
+    "category": "community",
+    "_found": "osm:scout_camp -> ics",
+    "url": "https://calendar.google.com/calendar/ical/info%40chirojez.be/public/basic.ics",
+    "geocode_suffix": ", Antwerp, Belgium",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Jongenschiro",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40chiroheikant.be/public/basic.ics",
+    "geocode_suffix": ", Antwerp, Belgium",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Scouting Bornem",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_188aj2rl70nsehdmnjpi1fo2md2ak%40resource.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bornem",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Vlaamse Evangelische kerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/65b5cc5d32a46cb43c3bec59d5452643476310058108a3fca357b9a081747097%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Antwerpen",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Hervormde Gemeente 'De Rancke'",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7rl4hvm5mto1rsgvcsesgn5dvg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Krabbendijke",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Sint-Bonifaciuskerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40boniface.be/public/basic.ics",
+    "geocode_suffix": ", Antwerpen",
+    "limit": 300,
+    "_metro": "Antwerp, Belgium"
+  },
+  {
+    "name": "Tafeltennisclub Merelbeke",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/amj36frlm2fckd21vcpeht05uk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "FOS De Wouw",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1k99o7ha492sg380mod74ih6p0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
   }
 ]

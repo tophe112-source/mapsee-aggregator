@@ -35808,6 +35808,232 @@
         "lon": 103.9360804
       },
       "_metro": "Singapore, Singapore"
+    },
+    {
+      "name": "Art Outreach",
+      "category": "arts",
+      "_found": "osm:gallery -> wix",
+      "listing": [
+        "https://www.artoutreachsingapore.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Art Outreach",
+        "address": "5 Lock Road",
+        "lat": 1.277229,
+        "lon": 103.8037008
+      },
+      "_metro": "Singapore, Singapore"
+    },
+    {
+      "name": "POP — Centre culturel de Braine-l'Alleud",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://lepop.be/evenement/laube-des-bulles/"
+      ],
+      "link_pattern": "https://lepop\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "POP — Centre culturel de Braine-l'Alleud",
+        "lat": 50.6838231,
+        "lon": 4.372365
+      },
+      "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "Brüsel",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.brusel.com/agenda/"
+      ],
+      "link_pattern": "https://www\\.brusel\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Brüsel",
+        "lat": 50.8476755,
+        "lon": 4.3492476
+      },
+      "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "L'Atelier du web",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://atelierduweb.be/calendrier/"
+      ],
+      "link_pattern": "https://atelierduweb\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "L'Atelier du web",
+        "lat": 50.8286446,
+        "lon": 4.3425007
+      },
+      "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "BRONKS",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bronks.be/nl/event/gummi?type=VRIJE%20VOORSTELLING"
+      ],
+      "link_pattern": "https://www\\.bronks\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BRONKS",
+        "lat": 50.8530688,
+        "lon": 4.3463334
+      },
+      "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "Les Halles de Schaerbeek",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.halles.be/fr/ap/2111-le-shit-show-x-anal-pompidou"
+      ],
+      "link_pattern": "https://www\\.halles\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Les Halles de Schaerbeek",
+        "lat": 50.8600724,
+        "lon": 4.3699462
+      },
+      "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "Arenbergschouwburg",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.arenberg.be/nl/programma/rot/a0NP500000Y0q6HMAR"
+      ],
+      "link_pattern": "https://www\\.arenberg\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Arenbergschouwburg",
+        "address": "28 Arenbergstraat",
+        "lat": 51.2152454,
+        "lon": 4.4079628
+      },
+      "_metro": "Antwerp, Belgium"
+    },
+    {
+      "name": "The Villa",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://thevilla-antwerp.be/events/"
+      ],
+      "link_pattern": "https://thevilla\\-antwerp\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Villa",
+        "address": "1 Limbastraat",
+        "city": "Antwerpen",
+        "postal_code": "2030",
+        "country": "BE",
+        "lat": 51.2388111,
+        "lon": 4.4093212
+      },
+      "_metro": "Antwerp, Belgium"
+    },
+    {
+      "name": "Stadsschouwburg Antwerpen",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.stadsschouwburg-antwerpen.be/evenement/evita-a44f2a72"
+      ],
+      "link_pattern": "https://www\\.stadsschouwburg\\-antwerpen\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadsschouwburg Antwerpen",
+        "address": "1 Theaterplein",
+        "city": "Antwerpen",
+        "postal_code": "2000",
+        "lat": 51.215857,
+        "lon": 4.4098989
+      },
+      "_metro": "Antwerp, Belgium"
+    },
+    {
+      "name": "Schouwburg Noord",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.schouwburgnoord.be/nl/event/cula-mzansi"
+      ],
+      "link_pattern": "https://www\\.schouwburgnoord\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schouwburg Noord",
+        "address": "135;137 Nieuwdreef",
+        "city": "Merksem",
+        "postal_code": "2170",
+        "country": "BE",
+        "lat": 51.2504473,
+        "lon": 4.4379039
+      },
+      "_metro": "Antwerp, Belgium"
+    },
+    {
+      "name": "De Roma",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.deroma.be/nl/event/mahina"
+      ],
+      "link_pattern": "https://www\\.deroma\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Roma",
+        "address": "286 Turnhoutsebaan",
+        "lat": 51.2133721,
+        "lon": 4.4400702
+      },
+      "_metro": "Antwerp, Belgium"
+    },
+    {
+      "name": "OLT Rivierenhof",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.oltrivierenhof.be/nl/programma/blackwave/a0NP500000XstsXMAR"
+      ],
+      "link_pattern": "https://www\\.oltrivierenhof\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "OLT Rivierenhof",
+        "address": "246 Turnhoutsebaan",
+        "city": "Deurne",
+        "postal_code": "2100",
+        "lat": 51.2150963,
+        "lon": 4.4707324
+      },
+      "_metro": "Antwerp, Belgium"
+    },
+    {
+      "name": "Capitole",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.capitole-gent.be/evenement/han-solo-2d48971c"
+      ],
+      "link_pattern": "https://www\\.capitole\\-gent\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Capitole",
+        "lat": 51.0481106,
+        "lon": 3.7321395
+      },
+      "_metro": "Ghent, Belgium"
     }
   ],
   "_not_included": {

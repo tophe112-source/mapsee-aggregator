@@ -46647,6 +46647,39 @@
         "lon": 19.9152505
       },
       "_metro": "Krakow, Poland"
+    },
+    {
+      "name": "The Free Christian Church of Singapore",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://freecomchurch.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Free Christian Church of Singapore",
+        "address": "140 MacKenzie Road",
+        "city": "Singapore",
+        "lat": 1.3069437,
+        "lon": 103.8468358
+      },
+      "_metro": "Singapore, Singapore"
+    },
+    {
+      "name": "VC Den Boskant",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://vcdenboskantpeizegem.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VC Den Boskant",
+        "address": "7 Processiebaan",
+        "city": "Merchtem",
+        "postal_code": "1785",
+        "lat": 50.9864633,
+        "lon": 4.2234383
+      },
+      "_metro": "Brussels, Belgium"
     }
   ],
   "_not_included": {

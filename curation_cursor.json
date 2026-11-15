@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 25,
-  "metro_key": "SG:Singapore",
+  "metro": 28,
+  "metro_key": "BE:Ghent",
   "stuck": {}
  },
  "osm|community_centre,library": {
