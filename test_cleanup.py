@@ -145,7 +145,8 @@ def drive_main(request, calls, dry_run=False):
     C.time = types.SimpleNamespace(monotonic=lambda: 0, sleep=lambda _s: None)
     C.os.environ["SUPABASE_URL"] = "https://example.test"
     C.os.environ["SUPABASE_SERVICE_ROLE_KEY"] = "test-key"
-    sys.argv = ["mapsee_cleanup.py"] + (["--dry-run"] if dry_run else [])
+    extra = real_argv[1:] if real_argv[:1] == ["mapsee_cleanup.py"] else []
+    sys.argv = ["mapsee_cleanup.py"] + (["--dry-run"] if dry_run else []) + extra
     out = StringIO()
     try:
         with redirect_stdout(out):
@@ -241,6 +242,10 @@ def _cond(row, col, op):
         return v == op[3:]
     if op.startswith("lt."):
         return v is not None and v < op[3:]
+    if op.startswith("gte."):
+        return v is not None and v >= op[4:]
+    if op.startswith("gt."):
+        return v is not None and v > op[3:]
     if op.startswith("in.(") and op.endswith(")"):
         return v in op[4:-1].split(",")
     raise AssertionError(f"the table fake cannot read {col}={op}")
@@ -273,8 +278,23 @@ def _matches(row, query):
     return True
 
 
-def run_table(rows):
-    """Run main against `rows`, honouring each request's own filter, order and limit."""
+def _index_range(row, query):
+    """What events_cleanup_dated_idx (external_source, starts_at) WHERE external_source
+    IS NOT NULL AND recurring_hours IS NULL holds within the fetch's starts_at bounds:
+    the entries an index scan steps over before the heap refuses a running row."""
+    if row.get("external_source") is None or row.get("recurring_hours") is not None:
+        return False
+    for param in query.split("&"):
+        key, val = param.split("=", 1)
+        if key == "starts_at" and not _cond(row, key, val):
+            return False
+    return True
+
+
+def run_table(rows, argv=(), walked=None):
+    """Run main against `rows`, honouring each request's own filter, order and limit.
+    `walked`, a list, receives per fetch the ids the index scan stepped over (in
+    start order, until the limit was met) that the filter then refused."""
     table = [dict(r) for r in rows]
     calls = []
 
@@ -289,9 +309,20 @@ def run_table(rows):
         if "order=starts_at.asc" in query:
             hit.sort(key=lambda r: r["starts_at"])
         limit = int(query.split("&limit=")[-1]) if "&limit=" in query else len(hit)
-        return Resp(200, headers={}, body=[{"id": r["id"]} for r in hit[:limit]])
+        if walked is not None:
+            ranged = sorted((r for r in table if _index_range(r, query)), key=lambda r: r["starts_at"])
+            stop = hit[limit - 1]["starts_at"] if len(hit) >= limit else None
+            walked.append([r["id"] for r in ranged
+                           if (stop is None or r["starts_at"] <= stop) and r not in hit])
+        return Resp(200, headers={}, body=[{"id": r["id"], "starts_at": r["starts_at"]}
+                                           for r in hit[:limit]])
 
-    calls, output, result = drive_main(request, calls)
+    real_argv = sys.argv
+    try:
+        sys.argv = ["mapsee_cleanup.py"] + list(argv)
+        calls, output, result = drive_main(request, calls)
+    finally:
+        sys.argv = real_argv
     return {r["id"] for r in table}, calls, output, result
 
 
@@ -325,6 +356,63 @@ check("...while a past dated row goes, hidden or not (the retire scripts' promis
       and "Nothing left to delete." in output, (left, result, output))
 check("...and a running event and a community event are untouched",
       {"still-running", "community-past"} <= left, left)
+
+
+# --------------------------------------------------------------------------- #
+# THE NEXT PAGE STARTS WHERE THIS ONE ENDED. A run deletes from the oldest start
+# up; every row behind the current page is deleted or still running. Before the
+# keyset each fetch walked all of them again: 1,745 production scans of
+# events_cleanup_dated_idx read 105.7M entries and fetched 14.8M heap rows in
+# 82 h to delete 122,460 (2026-11-16 snapshot). A run with a band of running
+# rows at the oldest starts, ties on a page boundary and three pages of work.
+from datetime import datetime as _dt, timedelta as _td
+
+
+def _at(hours):
+    return (_dt(2020, 1, 1, 10) + _td(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+band = [dict(id=f"running-{i}", external_source="mapsee", starts_at=_at(0), ends_at=FUTURE,
+             recurring_hours=None, hidden_at=None) for i in range(3)]
+# 250 deletable rows, one an hour; rows 95..104 share one start, so page 1 ends inside a tie
+past = [dict(id=f"past-{i:03d}", external_source="mapsee", starts_at=_at(1 + min(i, 95) if i < 105 else 1 + i),
+             ends_at=_at(2 + min(i, 95) if i < 105 else 2 + i), recurring_hours=None, hidden_at=None)
+        for i in range(250)]
+walked = []
+left, calls, output, result = run_table(band + past, walked=walked)
+fetches = [call[1] for call in calls if call[0] == "GET"]
+check("every deletable row goes, the running band stays, and the run ends on an empty page",
+      result == 0 and left == {r["id"] for r in band} and "Nothing left to delete." in output,
+      (sorted(left)[:5], result, output[-200:]))
+check("the first fetch is unbounded below; each later one starts at the previous page's latest start",
+      "starts_at=gte." not in fetches[0]
+      and f"&starts_at=gte.{past[99]['starts_at']}" in fetches[1]
+      and all("&starts_at=gte." in u for u in fetches[1:]), fetches[:3])
+check("...and the bound sits before the order and the limit, which stays last",
+      all(-1 < u.find("&starts_at=gte.") < u.find("&order=starts_at.asc&limit=") for u in fetches[1:]), fetches[1:])
+check("the running band is stepped over once a run, not once a page",
+      sum(len(w) for w in walked) == len(band) and len(fetches) == 4, (walked, len(fetches)))
+check("a tie on the page boundary is not skipped (>=, not >)",
+      not any(r["id"] in left for r in past[95:105]), sorted(left))
+
+walked_old = []
+_floor = C._page_floor
+C._page_floor = lambda rows: None                  # the old loop: every fetch unbounded
+try:
+    left_old, calls_old, _o, _r = run_table(band + past, walked=walked_old)
+finally:
+    C._page_floor = _floor
+check("...which is what an unbounded fetch costs: the band on every fetch (4 here, 12 steps)",
+      left_old == left and len(walked_old) == 4
+      and sum(len(w) for w in walked_old) == len(band) * len(walked_old), walked_old)
+
+check("the floor is the page's latest start, in UTC, floored to the second",
+      C._page_floor([{"starts_at": "2026-11-08T19:00:00.75+01:00"},
+                     {"starts_at": "2026-11-08T17:59:59.999999Z"}]) == "2026-11-08T18:00:00Z")
+check("...and an unreadable or zoneless start leaves the next fetch unbounded (the old behaviour)",
+      C._page_floor([{"starts_at": "2026-11-08T19:00:00Z"}, {"starts_at": None}]) is None
+      and C._page_floor([{"starts_at": "2026-11-08T19:00:00"}]) is None
+      and C._page_floor([{"id": "x"}]) is None and C._page_floor([]) is None)
 
 # The safety rail this file must never lose: the delete is scoped, always.
 import inspect

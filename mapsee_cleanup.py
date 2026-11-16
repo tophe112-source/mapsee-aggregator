@@ -59,6 +59,24 @@ BATCH_MIN = 10                 # below this, a timeout is not about batch size
 TIMEOUT_CODE = "57014"         # postgres: canceling statement due to statement timeout
 
 
+def _page_floor(rows):
+    """The next candidate page's lower bound: the latest starts_at of this page,
+    floored to the whole second, as a UTC literal PostgREST reads unescaped.
+    None when any row lacks a readable start, so the next fetch is unbounded,
+    which is what it always was."""
+    latest = None
+    for row in rows:
+        try:
+            at = datetime.fromisoformat(str(row["starts_at"]).replace("Z", "+00:00"))
+        except (KeyError, TypeError, ValueError):
+            return None
+        if at.tzinfo is None:
+            return None
+        at = at.astimezone(timezone.utc).replace(microsecond=0)
+        latest = at if latest is None or at > latest else latest
+    return latest.strftime("%Y-%m-%dT%H:%M:%SZ") if latest else None
+
+
 def _timed_out(resp) -> bool:
     """A statement timeout, which is a signal to take smaller bites."""
     return resp.status_code >= 500 and TIMEOUT_CODE in (resp.text or "")
@@ -226,6 +244,22 @@ def main() -> int:
     batch = max(BATCH_MIN, a.batch)
     deleted = 0
     started = time.monotonic()
+    # THE NEXT PAGE STARTS WHERE THIS ONE ENDED. Every fetch used to walk
+    # events_cleanup_dated_idx from the oldest candidate start, so each page
+    # stepped again over (a) the entries of every row an earlier page deleted
+    # (dead until VACUUM; autovacuum did not run once in the 82 h to 2026-11-16)
+    # and (b) every still-running row (started before the cutoff, ending after
+    # it), which only the heap can refuse. 1,745 scans of that index read
+    # 105,738,866 entries and fetched 14,802,325 heap rows in those 82 h to
+    # delete 122,460: ~60k entries and ~8.5k heap rows per page of <=100
+    # (pg_stat_user_indexes, 2026-11-16 snapshot). Every row before this page's
+    # latest start is now either deleted or still running, so the next fetch
+    # asks for starts_at >= that start (>=, not >: a row sharing the boundary
+    # start may sit past this page's limit) and walks each of them once a run.
+    # A row that BECOMES deletable later, or arrives with an older start, waits
+    # for tomorrow's run, which starts unbounded. Only the fetch carries the
+    # bound; the delete keeps its own full scope.
+    floor = None
 
     while True:
         left = a.max_seconds - (time.monotonic() - started)
@@ -248,7 +282,8 @@ def main() -> int:
         # Incremental Sort that 10-10 EXPLAIN measured (limit cost 1,436.65 to
         # 1,456.77). It sits BEFORE &limit= because test_cleanup.py reads the
         # batch size off the end of the URL.
-        page = _req("GET", f"{base}&select=id&order=starts_at.asc&limit={batch}",
+        lower = f"&starts_at=gte.{floor}" if floor else ""
+        page = _req("GET", f"{base}{lower}&select=id,starts_at&order=starts_at.asc&limit={batch}",
                     headers=auth, timeout=min(120, max(10, int(left))))
         if _timed_out(page):
             if batch <= BATCH_MIN:
@@ -264,7 +299,8 @@ def main() -> int:
         if page.status_code >= 300:
             sys.exit(f"Couldn't list events to delete [{page.status_code}]: {page.text[:300]}")
 
-        ids = [r["id"] for r in (page.json() or []) if r.get("id")]
+        got_rows = page.json() or []
+        ids = [r["id"] for r in got_rows if r.get("id")]
         if not ids:
             print("Nothing left to delete.")
             break
@@ -295,6 +331,7 @@ def main() -> int:
             sys.exit(f"Fetched {len(ids)} ids but deleted none — the filters disagree with "
                      f"themselves. Stopping rather than spinning on the same page.")
         deleted += got
+        floor = _page_floor(got_rows)
         print(f"  deleted {deleted}…", flush=True)
 
     print(f"Deleted {deleted} past aggregator events.")

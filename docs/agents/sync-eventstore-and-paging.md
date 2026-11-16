@@ -1060,3 +1060,28 @@
   but it widens the read-to-compare window from seconds to the length of the
   state read and holds every stored row in memory); the spam purge's and
   link-series' whole-table walks (both already behind owner variables).
+
+- **THE JANITOR'S NEXT PAGE STARTS WHERE THE LAST ONE ENDED (2026-11-16).**
+  Every candidate fetch in `mapsee_cleanup.py` walked
+  `events_cleanup_dated_idx` (../mapsee 0241) from the oldest start. Each page
+  therefore stepped again over the entries of every row earlier pages had
+  deleted (dead until VACUUM; autovacuum did not run once in the 82 h to
+  2026-11-16 01:42Z) and over every still-running row, which only the heap can
+  refuse. From the owner's snapshot of that window: 1,745 scans read
+  105,738,866 entries and fetched 14,802,325 heap rows to delete 122,460 rows;
+  the window's 4 runs deleted 41,419 + 29,573 + 23,838 + 27,629 in 1,739 pages
+  (statement #30), about 60.6k entries and 8.5k heap rows per page of at most
+  100. The fetch after a successful page now asks for
+  `&starts_at=gte.<the page's latest start, floored to the second>`: `gte`, so
+  a tie on the boundary past the page's limit is not skipped. The DELETE keeps
+  its full scope. Each run walks the running band once, and a row that becomes
+  deletable behind the cursor (or arrives with an older start) waits for the
+  next day's run, which starts unbounded. Local PG16 A/B on two identical
+  clones, 43,486 deletes in 435 pages: fetch buffers 818,474 -> 58,726
+  (-92.8%), index entries read 1,072,829 -> 113,640, rows deleted identical.
+  The first fetch of a run is unchanged; it timed out on 11-14 and 11-15 and
+  halved the batch to 50 for the rest of those runs. Bounding it by `ends_at`
+  (only running rows hold one at or after the cutoff) is an untested
+  follow-up. `test_cleanup.py` drives the job against a table fake that counts
+  the index range each fetch walks; removing the floor fails 3 checks, `gt`
+  instead of `gte` fails 5.
