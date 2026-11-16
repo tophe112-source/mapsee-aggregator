@@ -77384,5 +77384,198 @@
     "_found": "search:running -> ics (Events Manager feed, find_calendar on morayroadrunners.com)",
     "_note": "Measured 2026-11-15: Events Manager iCal: 448 VEVENTs, 48 in the future, each LOCATION a full Scottish address with postcode.",
     "crawl_delay": 2.0
+  },
+  {
+    "name": "Pella — Parks, Rec & Art Calendar",
+    "category": "community",
+    "url": "https://www.cityofpella.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
+    "geocode_suffix": ", Pella, Iowa",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks, Rec & Art Calendar]",
+    "_metro": "Pella, Iowa",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Palatka — Community Events Calendar",
+    "category": "community",
+    "url": "https://palatka-fl.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Palatka, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events Calendar]",
+    "_metro": "Palatka, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Fountain Inn — City Calendar",
+    "category": "community",
+    "url": "https://www.fountaininn.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Fountain Inn, South Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Calendar]",
+    "_metro": "Fountain Inn, South Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Fountain Inn — Events",
+    "category": "community",
+    "url": "https://www.fountaininn.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Fountain Inn, South Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Fountain Inn, South Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Koetshuis",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/p0vcnqv1jv0fh2e5n05eockr80%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "Levend Water",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cc580c07a2081d5752180a73262f69646800742840f86d47abd34b1ab37eef3b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wetteren",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "De Spelosaurus - Spellenclub Zulte",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/29eebf048d3747019cae8a70cca62fbec95bc5d6df158c3ad713b17ae7ae74e3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zulte",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "Sint-Bernadette",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/verhuur%40sintbernadette.be/public/basic.ics",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hp63rk5rmid9gf7n1g3pn3ha5o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "BC De Pluimgewichten",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> event-organiser",
+    "url": "https://www.depluimgewichten.be/?feed=eo-events",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "Royal Mava Club Sauheid",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a8caf4edec3704146baeaa5868d6dd6be99c502ea4bf8434bc3bb174561f4375%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Liege, Belgium",
+    "limit": 300,
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "Pesthuys",
+    "category": "theater",
+    "_found": "osm:theatre -> event-organiser",
+    "url": "https://pesthuyspodium.nl/?feed=eo-events",
+    "geocode_suffix": ", Maastricht",
+    "limit": 300,
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "Fin du Nucléaire, asbl",
+    "category": "community",
+    "_found": "osm:ngo -> event-organiser",
+    "url": "https://www.amisdelaterre.be/?feed=eo-events",
+    "geocode_suffix": ", Ans",
+    "limit": 300,
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "Unité scoute 3ème Légia",
+    "category": "community",
+    "_found": "osm:club -> events-manager+ics",
+    "url": "https://3legia.be/events/categories/unite/ical/",
+    "geocode_suffix": ", Liège",
+    "limit": 300,
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "Parroquia de Santa Irene",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/m9scj8csmqv2ea97ld489sonj8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madrid, Spain",
+    "limit": 300,
+    "_metro": "Madrid, Spain"
+  },
+  {
+    "name": "Parroquia Santa María del Pinar",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s4li0nh0fl6f7399gcluepiqa4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madrid",
+    "limit": 300,
+    "_metro": "Madrid, Spain"
+  },
+  {
+    "name": "Castellers de la Vila de Gràcia",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40cvg.cat/public/basic.ics",
+    "geocode_suffix": ", Barcelona",
+    "limit": 300,
+    "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "Museu de Matemàtiques de Catalunya (MMACA)",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/m25mvvjhbabp82fei2k9cv2j9k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cornellà de Llobregat",
+    "limit": 300,
+    "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "St. Albertus Magnus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40kg-barcelona.de/public/basic.ics",
+    "geocode_suffix": ", Barcelona, Spain",
+    "limit": 300,
+    "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "Gimnàs Escola Pérez Sala",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/escolaperezsala.cat_92kou3g4850hmnr4u2bjmi5edo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vilassar de Mar",
+    "limit": 300,
+    "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "Associació d'Amics del Ferrocarril de l'Hospitalet de Llobregat",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cbb8234fd0b5916383d4f4f2b74c9f39161609055a6de8f7da13da363069d570%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", l'Hospitalet de Llobregat",
+    "limit": 300,
+    "_metro": "Barcelona, Spain"
   }
 ]

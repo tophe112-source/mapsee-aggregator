@@ -36504,6 +36504,167 @@
       "_metro": "Austin, United States",
       "_found": "search:volunteer -> jsonld (Modern Events Calendar listing with inline Event JSON-LD)",
       "_note": "Statewide calendar of Keep Texas Beautiful affiliates: on 2026-11-15 the listing carried 29 inline Events (Oct 28-Dec 2), most of them affiliate Fall Sweep cleanups with a park or civic-building location and a street address (Pearland Centennial Park, Lewisville Thrive Recreation Center, Bedford Library, Murphy City Hall Pond). Some addresses omit the town ('108 Pecan st.'), so those may not place. Zoom sessions and paid trainings are dropped by skip_title. Seasonal: the spring Trash-Off fills it."
+    },
+    {
+      "name": "Amai Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.amaicomedyclub.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Amai Comedy Club",
+        "lat": 51.0562306,
+        "lon": 3.7170039
+      },
+      "_metro": "Ghent, Belgium"
+    },
+    {
+      "name": "Jeugdhuis Den Uitvlucht",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.denuitvlucht.com/bunkeren"
+      ],
+      "link_pattern": "https://www\\.denuitvlucht\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jeugdhuis Den Uitvlucht",
+        "city": "Waregem",
+        "postal_code": "8790",
+        "lat": 50.8849701,
+        "lon": 3.4359443,
+        "street_hint": "47 Holstraat"
+      },
+      "_metro": "Ghent, Belgium"
+    },
+    {
+      "name": "De Muziekgieterij",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://muziekgieterij.nl/"
+      ],
+      "link_pattern": "https://muziekgieterij\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Muziekgieterij",
+        "lat": 50.8570178,
+        "lon": 5.6907465
+      },
+      "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "Teatro Victoria",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://teatrovictoria.madrid/calendario"
+      ],
+      "link_pattern": "https://teatrovictoria\\.madrid/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teatro Victoria",
+        "address": "17 Calle del Pez",
+        "city": "Madrid",
+        "postal_code": "28004",
+        "lat": 40.4237539,
+        "lon": -3.7055499
+      },
+      "_metro": "Madrid, Spain"
+    },
+    {
+      "name": "Ateneo La Maliciosa",
+      "category": "community",
+      "_found": "osm:social_centre -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://ateneomaliciosa.net/event/eventazo-ecobloco-6mar26/"
+      ],
+      "link_pattern": "https://ateneomaliciosa\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ateneo La Maliciosa",
+        "city": "Madrid",
+        "lat": 40.4034156,
+        "lon": -3.7044858,
+        "street_hint": "12 Calle de las Peñuelas"
+      },
+      "_metro": "Madrid, Spain"
+    },
+    {
+      "name": "Sala Apolo",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.sala-apolo.com/es/evento/empremtes-2026-renaldo-%26-clara-7320"
+      ],
+      "link_pattern": "https://www\\.sala\\-apolo\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sala Apolo",
+        "lat": 41.3743908,
+        "lon": 2.1695606
+      },
+      "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "El Pumarejo",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://elpumarejo.org/events/broke-af/"
+      ],
+      "link_pattern": "https://elpumarejo\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "El Pumarejo",
+        "postal_code": "08907",
+        "lat": 41.3614829,
+        "lon": 2.1133007
+      },
+      "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "Backstory English Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.backstorybookshop.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Backstory English Bookshop",
+        "address": "330 Carrer de Mallorca",
+        "city": "Barcelona",
+        "postal_code": "08037",
+        "lat": 41.3981649,
+        "lon": 2.168528
+      },
+      "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "Renoir Floridablanca",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.cinesrenoir.com/pelicula/club-kid/eventos/"
+      ],
+      "link_pattern": "https://www\\.cinesrenoir\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Renoir Floridablanca",
+        "address": "135, 139 Carrer de Floridablanca",
+        "city": "Barcelona",
+        "postal_code": "08015",
+        "lat": 41.3818603,
+        "lon": 2.162327
+      },
+      "_metro": "Barcelona, Spain"
     }
   ],
   "_not_included": {

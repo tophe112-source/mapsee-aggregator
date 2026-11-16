@@ -195,7 +195,7 @@
     "bridgeport art center's third friday open studios": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-16",
       "name": "Bridgeport Art Center's Third Friday Open Studios",
       "ref_keys": [
         "9fbdf789c881"
@@ -209,16 +209,17 @@
         }
       ],
       "sample": "This lecture is held in conjunction with Bridgeport Art Center's Third Friday Open Studios. Please consider joining CMM for an annual family membership of $35 to enjoy unlimited visits, access to the monthly newsletter and discounted tickets to special events. View Event →",
-      "state": "pending",
+      "state": "covered",
       "times_seen": 1,
       "venue": null
     },
     "brisasia festival": {
       "dates": [],
       "first_seen": "2026-11-12",
-      "last_seen": "2026-11-12",
+      "last_seen": "2026-11-16",
       "name": "BrisAsia Festival",
       "ref_keys": [
+        "3cb7e7650434",
         "da8684b8ae8f"
       ],
       "referrers": [
@@ -227,11 +228,17 @@
           "start": "2027-02-13",
           "title": "BrisAsia Comedy Gala",
           "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290282"
+        },
+        {
+          "source": "ods:Brisbane Creative Events (Brisbane)",
+          "start": "2027-02-13",
+          "title": "BrisAsia Comedy Gala",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290282"
         }
       ],
       "sample": "Bookings required: Yes BrisAsia Comedy Gala is presented as part of BrisAsia Festival . Stories, surprises and seriously opinionated Aunties are taking over the stage for one unforgettable night! Discover multicultural and multilingual improv comedy inspired by real stories from Asian-Australian",
       "state": "pending",
-      "times_seen": 1,
+      "times_seen": 2,
       "venue": null
     },
     "cascadia nw arts and music festival": {
@@ -868,11 +875,12 @@
     "lucidity festival": {
       "dates": [],
       "first_seen": "2026-11-14",
-      "last_seen": "2026-11-14",
+      "last_seen": "2026-11-16",
       "name": "Lucidity festival",
       "ref_keys": [
         "59edf94b9aa1",
-        "645721feceea"
+        "645721feceea",
+        "a57b2d47ffdc"
       ],
       "referrers": [
         {
@@ -886,11 +894,17 @@
           "start": "2027-03-12",
           "title": "CONVERGE Australia 2027",
           "url": "https://www.moshtix.com.au/v2/event/converge-australia-2027/202087"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-03-14",
+          "title": "CONVERGE Australia/New Zealand 2027",
+          "url": "https://www.moshtix.com.au/v2/event/converge-australia-new-zealand-2027/202081"
         }
       ],
       "sample": "and revered hub of extreme creativity backed by a thorough DIY ethos, the tour follows the swiftly sold out inaugural Lucidity festival in Melbourne for which the band is the headlining. Also jumping across from the lineup to join them all around the nation are Australian powerviolence legends",
       "state": "pending",
-      "times_seen": 2,
+      "times_seen": 3,
       "venue": null
     },
     "manchester literature festival": {

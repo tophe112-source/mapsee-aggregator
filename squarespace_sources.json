@@ -10907,6 +10907,19 @@
       "_metro": "Detroit, United States",
       "_found": "search:volunteer -> squarespace",
       "_note": "Squarespace events collection; verify 15/45 upcoming on 2026-11-15. Mostly free watershed and rain-garden presentations at libraries and township offices (learning), plus the Stonefly Search and the Clinton Cleanup volunteer days; the 'Master Rain Gardener - Live Online' rows have no place. Filed learning, not volunteer: most rows are talks."
+    },
+    {
+      "name": "SAJA La Fermette",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.apemt21.org/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "SAJA La Fermette",
+        "lat": 50.5581595,
+        "lon": 5.880186
+      },
+      "_metro": "Liege, Belgium"
     }
   ],
   "_not_included": {
