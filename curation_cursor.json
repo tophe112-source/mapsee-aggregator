@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 32,
-  "metro_key": "ES:Valencia",
+  "metro": 38,
+  "metro_key": "CH:Basel",
   "stuck": {}
  },
  "osm|community_centre,library": {

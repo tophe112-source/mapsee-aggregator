@@ -36665,6 +36665,468 @@
         "lon": 2.162327
       },
       "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "Roto Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://xceed.me/es/valencia/event/24-12-nochebuena-tba/251119/channel/redes-sociales-roto"
+      ],
+      "link_pattern": "https://xceed\\.me/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roto Club",
+        "address": "18 Av. d'Ausiàs March",
+        "lat": 39.4549799,
+        "lon": -0.3748692
+      },
+      "_metro": "Valencia, Spain"
+    },
+    {
+      "name": "Palau Alameda",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://palaualameda.com/eventos"
+      ],
+      "link_pattern": "https://palaualameda\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palau Alameda",
+        "address": "21 Passeig de l'Albereda",
+        "lat": 39.4726188,
+        "lon": -0.3628341
+      },
+      "_metro": "Valencia, Spain"
+    },
+    {
+      "name": "Odeon Multicines Plaza de Armas",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://odeonmulticines.com/odeon-plaza-de-armas/producto/el-gigante-mudo"
+      ],
+      "link_pattern": "https://odeonmulticines\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Odeon Multicines Plaza de Armas",
+        "address": "Centro Comercial Plaza de Armas",
+        "city": "Sevilla",
+        "postal_code": "41001",
+        "lat": 37.3918975,
+        "lon": -6.002412
+      },
+      "_metro": "Seville, Spain"
+    },
+    {
+      "name": "Sociedad Filarmónica de Bilbao",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.filarmonica.org/evento/"
+      ],
+      "link_pattern": "https://www\\.filarmonica\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sociedad Filarmónica de Bilbao",
+        "address": "2 Portuko Markesaren kalea",
+        "city": "Bilbao",
+        "postal_code": "48009",
+        "lat": 43.2632952,
+        "lon": -2.9331751
+      },
+      "_metro": "Bilbao, Spain"
+    },
+    {
+      "name": "Teatro del Soho",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://teatrodelsoho.com/evento/duck-pond-circa/"
+      ],
+      "link_pattern": "https://teatrodelsoho\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teatro del Soho",
+        "address": "13 Calle Córdoba",
+        "postal_code": "29001",
+        "lat": 36.7162369,
+        "lon": -4.4218448
+      },
+      "_metro": "Malaga, Spain"
+    },
+    {
+      "name": "Teatro Flamenco Málaga Club",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://teatroflamencomalaga.com/ciclo/zambomba-malagavidad"
+      ],
+      "link_pattern": "https://teatroflamencomalaga\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teatro Flamenco Málaga Club",
+        "address": "5 Calle Lazcano",
+        "postal_code": "29008",
+        "lat": 36.7224748,
+        "lon": -4.421312
+      },
+      "_metro": "Malaga, Spain"
+    },
+    {
+      "name": "Museo Jorge Rando",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://museojorgerando.org/es/eventos/details/concierto---mariposas-de-jorge-rando:5830"
+      ],
+      "link_pattern": "https://museojorgerando\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museo Jorge Rando",
+        "address": "12 Calle Cruz del Molinillo",
+        "postal_code": "29013",
+        "lat": 36.7266666,
+        "lon": -4.4237116
+      },
+      "_metro": "Malaga, Spain"
+    },
+    {
+      "name": "Schlosskino",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.kinoevent.ch/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.kinoevent\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schlosskino",
+        "address": "4 Fischmarktstrasse",
+        "city": "Rapperswil SG",
+        "postal_code": "8640",
+        "lat": 47.2257077,
+        "lon": 8.8163715
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Kaufleuten Klubsaal",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://kaufleuten.ch/events/"
+      ],
+      "link_pattern": "https://kaufleuten\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kaufleuten Klubsaal",
+        "address": "18 Pelikanstrasse",
+        "city": "Zürich",
+        "postal_code": "8001",
+        "country": "CH",
+        "lat": 47.37181,
+        "lon": 8.5364241
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Maag Music Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.maag-moments.ch/maag/de/events/event/detail/2027/cats.html"
+      ],
+      "link_pattern": "https://www\\.maag\\-moments\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maag Music Hall",
+        "address": "24 Zahnradstrasse",
+        "city": "Zürich",
+        "postal_code": "8005",
+        "lat": 47.3868557,
+        "lon": 8.5169154
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Naturmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://natur.winterthur.ch/veranstaltung/offenes-zeichnen"
+      ],
+      "link_pattern": "https://natur\\.winterthur\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Naturmuseum",
+        "address": "52 Museumstrasse",
+        "city": "Winterthur",
+        "postal_code": "8400",
+        "lat": 47.5015212,
+        "lon": 8.73008
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Kletterhalle 6a Plus",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event+ics",
+      "listing": [
+        "https://eventfrog.ch/de/p/gruppen/reel-rock-20-7517922110456520619.html"
+      ],
+      "link_pattern": "https://eventfrog\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kletterhalle 6a Plus",
+        "address": "17 Klosterstrasse",
+        "city": "Winterthur",
+        "postal_code": "8406",
+        "lat": 47.4889201,
+        "lon": 8.704661
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Karussell Familienzentrum",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.karussell-baden.ch/angebote/event/320/sinnes-reise/"
+      ],
+      "link_pattern": "https://www\\.karussell\\-baden\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Karussell Familienzentrum",
+        "city": "Baden",
+        "postal_code": "5400",
+        "lat": 47.4785975,
+        "lon": 8.3080792,
+        "street_hint": "6 Haselstrasse"
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Bruder Klaus Kapelle",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.kath-zollikon-zumikon.ch/veranstaltung/9719"
+      ],
+      "link_pattern": "https://www\\.kath\\-zollikon\\-zumikon\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bruder Klaus Kapelle",
+        "lat": 47.331846,
+        "lon": 8.6230147
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "St. Peter",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/meditation-in-der-kirche-st-peter-1349/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Peter",
+        "address": "1 St. Peterhofstatt",
+        "city": "Zürich",
+        "postal_code": "8001",
+        "country": "CH",
+        "lat": 47.3710878,
+        "lon": 8.540745
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Alterszentrum Sunnetal",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.sunnetal.ch/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Alterszentrum Sunnetal",
+        "address": "2a Sunnetalstrasse",
+        "city": "Fällanden",
+        "postal_code": "8117",
+        "lat": 47.3711215,
+        "lon": 8.6434522
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Kirche St. Peter",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.kath-ruemlang.ch/veranstaltung/3875"
+      ],
+      "link_pattern": "https://www\\.kath\\-ruemlang\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kirche St. Peter",
+        "address": "40 Rümelbachstrasse",
+        "city": "Rümlang",
+        "postal_code": "8153",
+        "lat": 47.4469352,
+        "lon": 8.5363424
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Fraumünster",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/orgelmusik-am-morgen-15581/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fraumünster",
+        "address": "2 Münsterhof",
+        "city": "Zürich",
+        "postal_code": "8001",
+        "country": "CH",
+        "lat": 47.3697135,
+        "lon": 8.5412029
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Kirche Unterstrass",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/lets-doc-filmabend-17232/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kirche Unterstrass",
+        "address": "47 Turnerstrasse",
+        "city": "Zürich",
+        "postal_code": "8006",
+        "country": "CH",
+        "lat": 47.3873786,
+        "lon": 8.5419463
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Wasserkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/ausstellung-intimacy-19300/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wasserkirche",
+        "address": "29 Limmatquai",
+        "city": "Zürich",
+        "postal_code": "8001",
+        "lat": 47.3696315,
+        "lon": 8.5431996
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Ortsmuseum Untersiggenthal",
+      "category": "arts",
+      "_found": "osm:museum -> wix",
+      "listing": [
+        "https://www.ortsmuseum-untersiggenthal.ch/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ortsmuseum Untersiggenthal",
+        "lat": 47.4996747,
+        "lon": 8.2641649
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Wagerenhof Uster",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event+ics",
+      "listing": [
+        "https://www.wagerenhof.ch/wagerenhof/aktuell/eventkalender/detail/adventsausstellung-2026/202611190000"
+      ],
+      "link_pattern": "https://www\\.wagerenhof\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wagerenhof Uster",
+        "lat": 47.3508471,
+        "lon": 8.7263121
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/gottesdienst-zum-2-advent-15809/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
+        "address": "1 Riedenhaldenstrasse",
+        "city": "Zürich",
+        "postal_code": "8046",
+        "country": "CH",
+        "lat": 47.414576,
+        "lon": 8.518637
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Holy Trinity Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.holytrinitygeneva.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Holy Trinity Church",
+        "lat": 46.2080759,
+        "lon": 6.1464182
+      },
+      "_metro": "Geneva, Switzerland"
+    },
+    {
+      "name": "Emmanuel Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.emmanuelchurch.ch/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Emmanuel Church",
+        "lat": 46.2098117,
+        "lon": 6.1498836
+      },
+      "_metro": "Geneva, Switzerland"
     }
   ],
   "_not_included": {

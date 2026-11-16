@@ -77577,5 +77577,104 @@
     "geocode_suffix": ", l'Hospitalet de Llobregat",
     "limit": 300,
     "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "Etxeandia Garardauak",
+    "category": "food",
+    "_found": "osm:brewery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s362tcd3q1le4dn2m12584b8uc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bilbao, Spain",
+    "limit": 300,
+    "_metro": "Bilbao, Spain"
+  },
+  {
+    "name": "Kafe Antzokia",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4ltbk4gde74tb6mp4kba37bo500phk1q%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bilbao",
+    "limit": 300,
+    "_metro": "Bilbao, Spain"
+  },
+  {
+    "name": "Circuito Permanente de Orientación Los Manantiales de Torremolinos",
+    "category": "community",
+    "_found": "osm:information -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tk8tf1te39uqgchelevefvc5d4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Malaga, Spain",
+    "limit": 300,
+    "_metro": "Malaga, Spain"
+  },
+  {
+    "name": "Club el Social",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a0a8901119ff990090ddefc291819892181ef01e81ac5235df430697c9c2bb04%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zürich",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Haus zur Sonne",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a8051076141b2e89be5df75ee42dcb7e932eccfa653f13afab9ab92a0b59a650%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Club Silbando",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nfrbv2aag6k6rj1rq3qr13oos8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Noël's Taekwondo",
+    "category": "community",
+    "_found": "osm:dojo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/juq5mq8gdfkl5qlgf8ha863dc8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rämismühle",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Schalthalle Quartiertreff Coworking",
+    "category": "community",
+    "_found": "osm:ngo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j30tdc4aa9vovim57oriej7cis%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Judo & Ju-Jitsu Club Winterthur Dojo (Trainingsraum)",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kalender%40jjcw.ch/public/basic.ics",
+    "geocode_suffix": ", Winterthur",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Velove UZH Zentrum",
+    "category": "community",
+    "_found": "osm:bicycle_repair_station -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/velove.ethz.ch_oblm600isf8sumbcj7r9k8r4p8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Tradinoi",
+    "category": "community",
+    "_found": "osm:events_venue -> events-manager",
+    "url": "https://www.tradinoi.ch/?ical=1",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
   }
 ]

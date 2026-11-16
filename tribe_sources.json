@@ -48149,6 +48149,66 @@
         "lon": 2.1469052
       },
       "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "Teatro de la Villa",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://teatrodelavilladeumbrete.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro de la Villa",
+        "address": "9 Calle Primero de Mayo",
+        "city": "Umbrete",
+        "postal_code": "41806",
+        "lat": 37.3711511,
+        "lon": -6.1558451
+      },
+      "_metro": "Seville, Spain"
+    },
+    {
+      "name": "Tentación Swinger Torremolinos",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://www.tentacionswinger.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tentación Swinger Torremolinos",
+        "lat": 36.6087537,
+        "lon": -4.513517
+      },
+      "_metro": "Malaga, Spain"
+    },
+    {
+      "name": "Ortsmuseum Sust",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://susthorgen.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ortsmuseum Sust",
+        "lat": 47.2611918,
+        "lon": 8.599536
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Centre sportif En Bord",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+modern-events+jsonld-event",
+      "base_url": "https://bouge.gland.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre sportif En Bord",
+        "lat": 46.4279501,
+        "lon": 6.2751427
+      },
+      "_metro": "Geneva, Switzerland",
+      "crawl_delay": 10.0
     }
   ],
   "_not_included": {
