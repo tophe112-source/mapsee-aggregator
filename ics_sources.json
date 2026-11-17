@@ -77706,5 +77706,88 @@
     "limit": 300,
     "_metro": "Arkadelphia, Arkansas",
     "crawl_delay": 10.0
+  },
+  {
+    "name": "Freibad am Rhein",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://schwoerstadt.de/site/Schwoerstadt_Internet/zmservice/1566946/ical/vevent.ics?zm.sid=zmpwfgzlwtd1",
+    "geocode_suffix": ", Basel, Switzerland",
+    "limit": 300,
+    "_metro": "Basel, Switzerland",
+    "crawl_delay": 30.0
+  },
+  {
+    "name": "BeJazz",
+    "category": "music",
+    "_found": "osm:nightclub -> ics",
+    "url": "https://www.bejazz.ch/de/bejazz.ics",
+    "geocode_suffix": ", Bern, Switzerland",
+    "limit": 300,
+    "_metro": "Bern, Switzerland"
+  },
+  {
+    "name": "Groupe scout du Gros-de-Vaud",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eeb285881dde7a5230aee35f35b1d9328161a940b2c213fdd4e4b292376b1a7f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lausanne, Switzerland",
+    "limit": 300,
+    "_metro": "Lausanne, Switzerland"
+  },
+  {
+    "name": "Village Mosaïque (Église évangélique méthodiste)",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c8a3eb6a81ea94432279255d4f1cbdfe83b827c07aa764c43d2304470e35334e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lausanne, Switzerland",
+    "limit": 300,
+    "_metro": "Lausanne, Switzerland"
+  },
+  {
+    "name": "Olimpia Centro Minibasket",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9ffbc130498bc85d5b5279b2973e20624c552fb5fafe448d0c4149d0752ab731%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Roma",
+    "limit": 300,
+    "_metro": "Rome, Italy"
+  },
+  {
+    "name": "CasaLarga",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.casalarga.it/wp/events/categories/musica/?ical=1",
+    "geocode_suffix": ", Bologna",
+    "limit": 300,
+    "venue": {
+      "name": "CasaLarga",
+      "city": "Bologna",
+      "postal_code": "40138",
+      "country": "IT",
+      "lat": 44.4994626,
+      "lon": 11.3878533,
+      "street_hint": "14 Via del Carpentiere",
+      "pin_unnamed": false
+    },
+    "_metro": "Bologna, Italy"
+  },
+  {
+    "name": "三菱一号館",
+    "category": "arts",
+    "_found": "osm:museum -> my-calendar",
+    "url": "https://mimt.jp/?feed=my-calendar-ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "特別養護老人ホーム さつき",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l8dciql9onp2cj3g1gj7a9vd0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", 海老名市, 神奈川県",
+    "limit": 300,
+    "_metro": "Yokohama, Japan"
   }
 ]

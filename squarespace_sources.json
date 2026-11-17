@@ -10920,6 +10920,23 @@
         "lon": 5.880186
       },
       "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "mod",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://shibasakimod.com/",
+      "max_events": 200,
+      "venue": {
+        "name": "mod",
+        "address": "2",
+        "city": "調布市",
+        "region": "東京都",
+        "postal_code": "182-0007",
+        "lat": 35.6555181,
+        "lon": 139.5674088
+      },
+      "_metro": "Tokyo, Japan"
     }
   ],
   "_not_included": {

@@ -248,14 +248,9 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 38,
-  "metro_key": "CH:Basel",
-  "stuck": {
-   "CH:Basel": {
-    "day": 20261117,
-    "n": 1
-   }
-  }
+  "metro": 51,
+  "metro_key": "JP:Nagoya",
+  "stuck": {}
  },
  "osm|community_centre,library": {
   "metro": 225,

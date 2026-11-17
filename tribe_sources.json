@@ -48209,6 +48209,21 @@
       },
       "_metro": "Geneva, Switzerland",
       "crawl_delay": 10.0
+    },
+    {
+      "name": "In cerca di guai Libreria e Atelier",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://incercadiguailibreria.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "In cerca di guai Libreria e Atelier",
+        "address": "3 Via Jacopo Palma",
+        "lat": 45.4647488,
+        "lon": 9.1414163
+      },
+      "_metro": "Milan, Italy"
     }
   ],
   "_not_included": {

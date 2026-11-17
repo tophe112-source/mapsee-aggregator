@@ -37127,6 +37127,516 @@
         "lon": 6.1498836
       },
       "_metro": "Geneva, Switzerland"
+    },
+    {
+      "name": "Offline, Oekumenisches Zentrum für Meditation und Seelsorge",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.offline-basel.ch/veranstaltung/233755"
+      ],
+      "link_pattern": "https://www\\.offline\\-basel\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Offline, Oekumenisches Zentrum für Meditation und Seelsorge",
+        "address": "75 Im tiefen Boden",
+        "postal_code": "4059",
+        "lat": 47.5299579,
+        "lon": 7.5928613
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Maison de l'autisme",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.maisonautismemulhouse.org/planning"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Maison de l'autisme",
+        "lat": 47.7588819,
+        "lon": 7.3477721
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Frenkenbündten",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.frenkenbuendten.ch/agenda/lotto-2"
+      ],
+      "link_pattern": "https://www\\.frenkenbuendten\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Frenkenbündten",
+        "lat": 47.4431976,
+        "lon": 7.7356118
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Bibliothek Frauenverein Muttenz",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.frauenverein-muttenz.ch/eventleser/433.html"
+      ],
+      "link_pattern": "https://www\\.frauenverein\\-muttenz\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothek Frauenverein Muttenz",
+        "city": "Muttenz",
+        "postal_code": "4132",
+        "country": "CH",
+        "lat": 47.5271481,
+        "lon": 7.6464047,
+        "street_hint": "3 Brühlweg"
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Druckereihalle",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.druckereihalle.ch/events-leser/bondar-2"
+      ],
+      "link_pattern": "https://www\\.druckereihalle\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Druckereihalle",
+        "lat": 47.5629368,
+        "lon": 7.5842418
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Wehrkirche St. Arbogast",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.ref-muttenz.ch/veranstaltung/9666"
+      ],
+      "link_pattern": "https://www\\.ref\\-muttenz\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wehrkirche St. Arbogast",
+        "address": "1 Kirchplatz",
+        "city": "Muttenz",
+        "postal_code": "4132",
+        "country": "CH",
+        "lat": 47.5223004,
+        "lon": 7.6455437
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Kulturhalle Sägegasse",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.saegegasse.ch/programm/event/257-kofi-woodi"
+      ],
+      "link_pattern": "https://www\\.saegegasse\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturhalle Sägegasse",
+        "lat": 47.0550565,
+        "lon": 7.630525
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Saints-Pierre-et-Paul",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.paroisse.ch/patrimoine/marly/eglise-saints-pierre-et-paul"
+      ],
+      "link_pattern": "https://www\\.paroisse\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saints-Pierre-et-Paul",
+        "address": "1 Chemin des Épinettes",
+        "city": "Marly",
+        "postal_code": "1723",
+        "lat": 46.774927,
+        "lon": 7.1587492
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Haus der Religionen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://haus-der-religionen.ch/news/veranstaltungen/"
+      ],
+      "link_pattern": "https://haus\\-der\\-religionen\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Haus der Religionen",
+        "address": "1 Europaplatz",
+        "city": "Bern",
+        "postal_code": "3008",
+        "lat": 46.9435864,
+        "lon": 7.4058338
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Musée romain de Lausanne-Vidy",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.lausanne.ch/agenda-et-actualites/agenda/evenement/a-vos-manettes"
+      ],
+      "link_pattern": "https://www\\.lausanne\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée romain de Lausanne-Vidy",
+        "lat": 46.5189571,
+        "lon": 6.5986725
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "La Feltrinelli",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.lafeltrinelli.it/eventi/CO40-00031/como/lf-como"
+      ],
+      "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Feltrinelli",
+        "address": "72/M-N Viale Eritrea",
+        "city": "Roma",
+        "postal_code": "00199",
+        "lat": 41.9274155,
+        "lon": 12.5159118
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Museo delle Civiltà",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.museodellecivilta.it/agenda-new-a-2/"
+      ],
+      "link_pattern": "https://www\\.museodellecivilta\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museo delle Civiltà",
+        "address": "14 Piazza Guglielmo Marconi",
+        "city": "Roma",
+        "postal_code": "00144",
+        "lat": 41.8325467,
+        "lon": 12.4718151
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Nuovo Cinema Aquila",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://cinemaaquila.it/eventi/"
+      ],
+      "link_pattern": "https://cinemaaquila\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nuovo Cinema Aquila",
+        "address": "68 Via L'Aquila",
+        "city": "Roma",
+        "postal_code": "00176",
+        "lat": 41.890419,
+        "lon": 12.5255786
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Teatro Verdi",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.teatrodelburatto.com/calendario"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Teatro Verdi",
+        "address": "16 Via Pastrengo",
+        "city": "Milano",
+        "postal_code": "20159",
+        "lat": 45.4867884,
+        "lon": 9.1858606
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Librosteria",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.librosteria.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Librosteria",
+        "address": "7 Via Cesare Cesariano",
+        "city": "Milano",
+        "postal_code": "20154",
+        "lat": 45.4782279,
+        "lon": 9.176977
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Circolo ARCI Lato B",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.latobmilano.it/programmazione/"
+      ],
+      "link_pattern": "https://www\\.latobmilano\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Circolo ARCI Lato B",
+        "postal_code": "20154",
+        "lat": 45.4820261,
+        "lon": 9.1830725,
+        "street_hint": "14 Viale Pasubio"
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Bloom",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://bloomnet.org/calendario/2641/venerd-11-dicembre-2026-zizzu"
+      ],
+      "link_pattern": "https://bloomnet\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bloom",
+        "city": "Mezzago",
+        "postal_code": "20883",
+        "lat": 45.6310178,
+        "lon": 9.4419631,
+        "street_hint": "39 Via Eugenio Curiel",
+        "aliases": [
+          "Cooperativa Sociale Il Visconte di Mezzago"
+        ]
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Chiesa parrocchiale di San Filippo Neri",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events",
+      "listing": [
+        "https://www.psfn.it/eventi/"
+      ],
+      "link_pattern": "https://www\\.psfn\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chiesa parrocchiale di San Filippo Neri",
+        "lat": 45.5143343,
+        "lon": 9.1580009
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Chiesa di Santa Maria del Carmine",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event+ics",
+      "listing": [
+        "https://www.chiesadelcarmine.net/agenda/"
+      ],
+      "link_pattern": "https://www\\.chiesadelcarmine\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chiesa di Santa Maria del Carmine",
+        "lat": 45.4704529,
+        "lon": 9.1860185
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Teatro Civico Roberto De Silva",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.teatrocivicorho.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Teatro Civico Roberto De Silva",
+        "address": "1 Piazza Jannacci",
+        "city": "Rho",
+        "postal_code": "20017",
+        "lat": 45.5274534,
+        "lon": 9.0459246
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "La Feltrinelli Express",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.lafeltrinelli.it/eventi/FI503-00063/napoli/ls-napoli"
+      ],
+      "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Feltrinelli Express",
+        "address": "Piazza Giuseppe Garibaldi",
+        "city": "Napoli",
+        "postal_code": "80142",
+        "lat": 40.8520352,
+        "lon": 14.2723098
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Libreria Tamu",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.tamulibri.com/eventi-2"
+      ],
+      "link_pattern": "https://www\\.tamulibri\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Libreria Tamu",
+        "address": "10h Via Santa Chiara",
+        "city": "Napoli",
+        "lat": 40.8468467,
+        "lon": 14.2535366
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "La Feltrinelli",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.lafeltrinelli.it/eventi/BO3-00064/napoli/ms-napoli"
+      ],
+      "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Feltrinelli",
+        "address": "23 Via Santa Caterina",
+        "city": "Napoli",
+        "postal_code": "80133",
+        "lat": 40.8345962,
+        "lon": 14.2423469
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Chille de la balanza",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://chille.it/eventi/"
+      ],
+      "link_pattern": "https://chille\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chille de la balanza",
+        "lat": 43.7710703,
+        "lon": 11.289598
+      },
+      "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Viper Theatre",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.viperclub.eu/events/"
+      ],
+      "link_pattern": "https://www\\.viperclub\\.eu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Viper Theatre",
+        "lat": 43.792679,
+        "lon": 11.1758149
+      },
+      "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Womb",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.womb.co.jp/ja/events/111726"
+      ],
+      "link_pattern": "https://www\\.womb\\.co\\.jp/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Womb",
+        "address": "16",
+        "city": "渋谷区",
+        "region": "東京都",
+        "postal_code": "150-0044",
+        "lat": 35.6584259,
+        "lon": 139.6950494
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "南多摩総合ホール",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.moshimo.net/event/"
+      ],
+      "link_pattern": "https://www\\.moshimo\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "南多摩総合ホール",
+        "lat": 35.6042021,
+        "lon": 139.3859021
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Forestlimit",
+      "category": "music",
+      "_found": "osm:nightclub -> wix+jsonld-event",
+      "listing": [
+        "https://www.forestlimit.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Forestlimit",
+        "address": "2",
+        "city": "渋谷区",
+        "region": "東京都",
+        "lat": 35.6781193,
+        "lon": 139.6770622
+      },
+      "_metro": "Tokyo, Japan"
     }
   ],
   "_not_included": {
