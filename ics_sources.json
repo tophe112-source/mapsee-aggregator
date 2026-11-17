@@ -77676,5 +77676,35 @@
     "geocode_suffix": ", Zurich, Switzerland",
     "limit": 300,
     "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Bonham — Community Events",
+    "category": "community",
+    "url": "https://www.cityofbonham.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Bonham, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Bonham, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Bonham — Visitor Center Calendar - Events",
+    "category": "community",
+    "url": "https://www.cityofbonham.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+    "geocode_suffix": ", Bonham, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Visitor Center Calendar - Events]",
+    "_metro": "Bonham, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Arkadelphia",
+    "category": "community",
+    "_found": "civic:city -> civicplus",
+    "url": "https://www.arkadelphia.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Arkadelphia, Arkansas",
+    "limit": 300,
+    "_metro": "Arkadelphia, Arkansas",
+    "crawl_delay": 10.0
   }
 ]

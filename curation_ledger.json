@@ -6134,6 +6134,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aanekoski.fi": {
+    "checked": 20261117,
+    "name": "\u00c4\u00e4nekoski",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "aaniwalli.fi": {
     "checked": 20260920,
     "name": "\u00c4\u00e4niwalli",
@@ -21351,6 +21358,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "akaa.fi": {
+    "checked": 20261117,
+    "name": "Akaa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "akabedezonnepinkers.be": {
     "checked": 20261115,
@@ -48299,6 +48313,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "arkadelphia.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20261117,
+    "name": "Arkadelphia",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
   },
   "arkaden-buchhandlung.de": {
     "cal_url": "https://www.arkaden-buchhandlung.de/index.php/aktuelles/stormarner-adventskalender-2026",
@@ -153042,6 +153063,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cadillacmichigan.com": {
+    "checked": 20261117,
+    "name": "Cadillac (visitcadillac.com)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "cadl.libcal.com/ical_subscribe.php?src=p&cid=19174&cam=8278,8288,8282": {
     "checked": 20261115,
     "name": "Capital Area District Libraries - Aurelius, Leslie, Williamston (Lansing, MI)",
@@ -223719,6 +223747,20 @@
     "reason": "osm probe: offsite:myvscloud.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cityofbonham.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20261117,
+    "name": "Bonham \u2014 Community Events",
+    "reason": "13 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofbonham.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20261117,
+    "name": "Bonham \u2014 Visitor Center Calendar - Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cityofbonitasprings.org": {
     "checked": 20260908,
@@ -372628,6 +372670,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "forssa.fi/pa-svenska": {
+    "checked": 20261117,
+    "name": "Forssa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "forstadsmuseet.dk": {
     "cal_key": "forstadsmuseet.dk/?ical=1",
     "checked": 20261113,
@@ -431007,6 +431056,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hamina.fi": {
+    "checked": 20261117,
+    "name": "Hamina",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hamina.fi/en": {
     "checked": 20261021,
@@ -505597,6 +505653,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "janakkala.fi": {
+    "checked": 20261117,
+    "name": "Janakkala",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "jananderson.nl": {
     "checked": 20261017,
     "name": "Streekmuseum Jan Anderson",
@@ -529479,6 +529542,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kemi.fi/sv": {
+    "checked": 20261117,
+    "name": "Kemi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kemlu.go.id/berlin/lc": {
     "checked": 20261020,
     "name": "Haus der Indonesischen Kulturen",
@@ -529495,6 +529565,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kempele.fi": {
+    "checked": 20261117,
+    "name": "Kempele",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kempen.de/de/inhalt/jugendtreffs": {
     "checked": 20261026,
@@ -551079,6 +551156,13 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "kontiolahti.fi": {
+    "checked": 20261117,
+    "name": "Kontiolahti",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kontor16-berlin.com": {
     "checked": 20261021,
     "name": "Kontor",
@@ -561756,6 +561840,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "kurikka.fi": {
+    "checked": 20261117,
+    "name": "Kurikka",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kurinchikumaran.org.nz": {
     "checked": 20261013,
     "name": "Kurinji Kumaran Temple",
@@ -562215,6 +562306,13 @@
     "reason": "23 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "kuusamo.fi/en": {
+    "checked": 20261117,
+    "name": "Kuusamo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kuvittajat.fi/galleriakuvitus": {
     "cal_url": "https://kuvittajat.fi/tapahtumat/",
@@ -574774,6 +574872,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "lapua.fi/sv": {
+    "checked": 20261117,
+    "name": "Lapua",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lapuente.org": {
     "checked": 20260913,
     "name": "La Puente",
@@ -577323,6 +577428,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "laukaa.fi/en": {
+    "checked": 20261117,
+    "name": "Laukaa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "laulumaja.indecs.fi": {
     "checked": 20261114,
@@ -611988,6 +612100,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "loimaa.fi": {
+    "checked": 20261117,
+    "name": "Loimaa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "loire-atlantique.fr/44/culture-et-patrimoine/musee-de-la-chanson-francaise/c_1344150": {
     "cal_url": "https://www.loire-atlantique.fr/44/l-agenda-des-sorties-et-loisirs/que-faire-en-loire-atlantique-les-idees-de-sorties/c_1272219",
     "checked": 20261028,
@@ -615569,6 +615688,13 @@
     "reason": "30 vevents / 26 future",
     "status": "ok",
     "type": "ics"
+  },
+  "loviisa.fi/sv": {
+    "checked": 20261117,
+    "name": "Loviisa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lovingthunder.com": {
     "cal_url": "https://lovingthunder.org/upcoming-events/",
@@ -695721,6 +695847,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mustasaari.fi": {
+    "checked": 20261117,
+    "name": "Korsholm",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "musunnah.com": {
     "checked": 20261031,
     "name": "Markaz Us-Sunnah",
@@ -700699,6 +700832,13 @@
     "reason": "2/32 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "naantali.fi/sv": {
+    "checked": 20261117,
+    "name": "Naantali",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "naas.ie": {
     "checked": 20260927,
@@ -750612,6 +750752,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "orimattila.fi": {
+    "checked": 20261117,
+    "name": "Orimattila",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "orindalodge.org": {
     "cal_key": "calendar.google.com/calendar/ical/calendar%40orindalodge.org/public/basic.ics",
     "checked": 20261105,
@@ -765578,6 +765725,13 @@
     "reason": "osm probe: robots.txt Crawl-delay: 60 (https://www.parets.cat/robots.txt)",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "pargas.fi/sv": {
+    "checked": 20261117,
+    "name": "Pargas",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "pariolitheatreclub.it": {
     "checked": 20260920,
@@ -789163,6 +789317,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "pietarsaari.fi": {
+    "checked": 20261117,
+    "name": "Jakobstad",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "pieterbrueghelhuis.nl": {
     "cal_url": "https://pieterbrueghelhuis.nl/wat-doen-wij/programma/",
@@ -895550,6 +895711,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sheltonwa.gov": {
+    "checked": 20261117,
+    "name": "Shelton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "shemcreekpresbyterian.org": {
     "checked": 20261111,
     "name": "Shem Creek Presbyterian Church",
@@ -910746,6 +910914,13 @@
     "reason": "osm probe: found ics",
     "status": "found",
     "type": "osm-venue"
+  },
+  "smithvillemo.org": {
+    "checked": 20261117,
+    "name": "Smithville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "smithyheritagecentre.org.uk": {
     "cal_url": "https://smithyheritagecentre.org.uk/whats-on/",
@@ -1068095,6 +1068270,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "uusikaupunki.fi/en": {
+    "checked": 20261117,
+    "name": "Uusikaupunki",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "uusm.org": {
     "checked": 20261115,
     "name": "Unitarian Universalist Community Church of Santa Monica",
@@ -1072439,6 +1072621,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "varkaus.fi": {
+    "checked": 20261117,
+    "name": "Varkaus",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "varldskulturmuseerna.se/varldskulturmuseet": {
     "checked": 20261114,
@@ -1088696,6 +1088885,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitloviisa.fi": {
+    "checked": 20261117,
+    "name": "Loviisa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitlund.se": {
     "checked": 20261009,
     "name": "Lund",
@@ -1089415,6 +1089611,13 @@
     "reason": "osm probe: found tribe",
     "status": "found",
     "type": "osm-venue"
+  },
+  "visituusikaupunki.fi": {
+    "checked": 20261117,
+    "name": "Uusikaupunki",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
   },
   "visituvalde.com": {
     "checked": 20260913,
@@ -1131139,6 +1131342,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ylivieska.fi": {
+    "checked": 20261117,
+    "name": "Ylivieska",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "ylojarvi.fi": {
     "checked": 20261115,

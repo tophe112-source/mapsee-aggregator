@@ -437,6 +437,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "defiance christmas festival": {
+      "dates": [],
+      "first_seen": "2026-11-17",
+      "last_seen": "2026-11-17",
+      "name": "Defiance Christmas Festival",
+      "ref_keys": [
+        "d27ad36ffa58"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-05",
+          "title": "Dashing through Defiance",
+          "url": "https://www.mseracing.com/dashing-through-defiance"
+        }
+      ],
+      "sample": "Jingle all the way through our Dashing Through Defiance Run in conjunction with the 17th annual Defiance Christmas Festival ! Lace up your sneakers, bundle up, and get ready to dash through the charming little town of Defiance, twinkling with holiday lights and lined with cheering neighbors. Whether",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "detroit jazz festival": {
       "dates": [],
       "first_seen": "2026-11-13",
@@ -629,6 +650,27 @@
         }
       ],
       "sample": "ng towers, too, eventually become romantic relics of a bygone era also worthy of preservation? Presented as part of the Head On Photo Festival. (Pictured: Idyllic Industrial 7, Kym McDowell)",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "imaginasia children's program brisasia festival": {
+      "dates": [],
+      "first_seen": "2026-11-17",
+      "last_seen": "2026-11-17",
+      "name": "ImaginAsia Children's Program.BrisAsia Festival",
+      "ref_keys": [
+        "8ba0b28fb655"
+      ],
+      "referrers": [
+        {
+          "source": "ods:Brisbane City Council Library Events (Brisbane)",
+          "start": "2027-02-14",
+          "title": "Sing and sway: A Thai music adventure with Siamaura",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213363907"
+        }
+      ],
+      "sample": "Eventbrite or call the library.Explore the sounds of Thailand in this joyful, immersive family workshop, part of the ImaginAsia Children's Program.BrisAsia Festival presents this joyful, interactive family workshop, part of the ImaginAsia Children's Program. Children will discover traditional",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -973,20 +1015,23 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-17",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
         "1016a24e9c88",
         "33e7eba1bcea",
         "3933167fe8cf",
+        "45fa3cbe39f7",
         "6fbd7b8d2f83",
         "75f0f4d0868c",
+        "8915a0d5396d",
         "95520f3d7ef6",
         "b2332f16add5",
         "bc6767d7ee5b",
         "c54b78eea10b",
-        "cb0472f9248d"
+        "cb0472f9248d",
+        "e3f105cce684"
       ],
       "referrers": [
         {
@@ -1022,7 +1067,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 11,
+      "times_seen": 14,
       "venue": null
     },
     "melt festival": {
