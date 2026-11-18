@@ -37688,6 +37688,223 @@
         "lon": -47.9983919
       },
       "_metro": "Brasília, Brazil"
+    },
+    {
+      "name": "National Centre for the Performing Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.ncpamumbai.com/event/crosstalk/"
+      ],
+      "link_pattern": "https://www\\.ncpamumbai\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "National Centre for the Performing Arts",
+        "lat": 18.9253759,
+        "lon": 72.819831
+      },
+      "_metro": "Mumbai, India"
+    },
+    {
+      "name": "Klein Duimpje",
+      "category": "food",
+      "_found": "osm:brewery -> jsonld-event",
+      "listing": [
+        "https://kleinduimpje.nl/"
+      ],
+      "link_pattern": "https://kleinduimpje\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Klein Duimpje",
+        "address": "2A Hyacinthenlaan",
+        "city": "Hillegom",
+        "postal_code": "2182DE",
+        "lat": 52.2791191,
+        "lon": 4.5700614
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Kanovereniging De Trekvogels",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.kv-trekvogels.nl/activiteiten/455/filmavond"
+      ],
+      "link_pattern": "https://www\\.kv\\-trekvogels\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kanovereniging De Trekvogels",
+        "address": "25 Spaarndamseweg",
+        "city": "Haarlem",
+        "postal_code": "2022EG",
+        "lat": 52.4053633,
+        "lon": 4.6565302
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Vooruitgang Zij Ons Streven",
+      "category": "community",
+      "_found": "osm:community_centre -> my-calendar+jsonld-event",
+      "listing": [
+        "https://www.hbsvzos.nl/vzos-agenda/"
+      ],
+      "link_pattern": "https://www\\.hbsvzos\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Vooruitgang Zij Ons Streven",
+        "city": "Santpoort-Noord",
+        "postal_code": "2071CX",
+        "lat": 52.4421385,
+        "lon": 4.6400084,
+        "street_hint": "79 Kerkpad",
+        "aliases": [
+          "Handboogschietvereniging Vooruitgang Zij Ons Streven",
+          "V.Z.O.S."
+        ]
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Beurs van Berlage",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://beursvanberlage.com/events/global-forum-on-gu-oncology/"
+      ],
+      "link_pattern": "https://beursvanberlage\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Beurs van Berlage",
+        "city": "Amsterdam",
+        "postal_code": "1012ZJ",
+        "lat": 52.3753201,
+        "lon": 4.8962311,
+        "street_hint": "243 Damrak"
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Filmhallen",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmhallen.nl/films/the-truman-show/"
+      ],
+      "link_pattern": "https://filmhallen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmhallen",
+        "address": "12 Hannie Dankbaarpassage",
+        "city": "Amsterdam",
+        "postal_code": "1053RT",
+        "lat": 52.3668213,
+        "lon": 4.8685964
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "WSV Noord Zuid",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.noordzuidnieuwkoop.nl/activiteiten/684/k-zeilen"
+      ],
+      "link_pattern": "https://www\\.noordzuidnieuwkoop\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "WSV Noord Zuid",
+        "lat": 52.1513333,
+        "lon": 4.7848868
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging Weesp",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.rvweesp.nl/activiteiten/904/inlooproeiersmaaltijd"
+      ],
+      "link_pattern": "https://www\\.rvweesp\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Weesp",
+        "lat": 52.3030845,
+        "lon": 5.0516059
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Paradiso",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.paradiso.nl:443/programma/ares/2898554"
+      ],
+      "link_pattern": "https://www\\.paradiso\\.nl:443/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paradiso",
+        "address": "6–8 Weteringschans",
+        "postal_code": "1017SG",
+        "lat": 52.3621851,
+        "lon": 4.8838199
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "De Purmaryn",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://depurmaryn.nl/agenda/seizoen-2026-2027/celtic-steps/"
+      ],
+      "link_pattern": "https://depurmaryn\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Purmaryn",
+        "lat": 52.5098755,
+        "lon": 4.9474023
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Sint-Bavokerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.heiligefamilie.nl/activiteiten"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Sint-Bavokerk",
+        "address": "88 Herenweg",
+        "city": "Heemstede",
+        "postal_code": "2101MP",
+        "lat": 52.3519378,
+        "lon": 4.6131947
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging De Hoop",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://karzvdehoop.nl/activiteiten/agenda/849/algemene-ledenvergadering"
+      ],
+      "link_pattern": "https://karzvdehoop\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging De Hoop",
+        "lat": 52.3541403,
+        "lon": 4.9084975
+      },
+      "_metro": "Amsterdam, Netherlands"
     }
   ],
   "_not_included": {

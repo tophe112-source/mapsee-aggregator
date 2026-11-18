@@ -77894,5 +77894,83 @@
     "geocode_suffix": ", São Bernardo do Campo",
     "limit": 300,
     "_metro": "São Paulo, Brazil"
+  },
+  {
+    "name": "Saint Mary by the Sea Anglican",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stmary.co.nz_q4j5o9busoo0c1bnd6vtgdd510%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Auckland",
+    "limit": 300,
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Rowan Muir Community Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3efe16c8bee78427e037eba5e581a6cde53fdbef65234243d35710f171f46c16%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Auckland, New Zealand",
+    "limit": 300,
+    "venue": {
+      "name": "Rowan Muir Community Centre",
+      "lat": -36.8812209,
+      "lon": 175.0417545,
+      "pin_unnamed": false
+    },
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Gladstone Tennis Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c311pda8gohhi5ff0h76uoo1co%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Auckland, New Zealand",
+    "limit": 300,
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Wellington Buddhist Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://wellingtonbuddhistcentre.org/classes-2/open-night--.ics",
+    "geocode_suffix": ", Wellington, New Zealand",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "Wellington Bridge Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_4a9485a07b59d8c32d63db09a45de70e06ef2c0f1caa7cb00d48cf0d7c48c283%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wellington",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "The Rehearsal Studio",
+    "category": "community",
+    "_found": "osm:events_venue -> ics",
+    "url": "https://thepiano.makemedia.nz/media/calendar-events/3427.ics",
+    "geocode_suffix": ", Christchurch, New Zealand",
+    "limit": 300,
+    "_metro": "Christchurch, New Zealand"
+  },
+  {
+    "name": "Orthodoxe Parochie van de Heilige Johannes",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2a9b05eacf6861affd16a0bd7865508e7274548c8496b600048beaccee57d7bc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Woudsoord",
+    "category": "community",
+    "_found": "osm:social_facility -> event-organiser",
+    "url": "https://www.wijdezorg.com/?feed=eo-events",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
   }
 ]

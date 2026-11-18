@@ -48241,6 +48241,97 @@
         "lon": -46.8724246
       },
       "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Royal Akarana Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://rayc.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Akarana Yacht Club",
+        "lat": -36.8498812,
+        "lon": 174.8107414
+      },
+      "_metro": "Auckland, New Zealand",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Uxbridge Arts & Culture",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://uxbridge.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Uxbridge Arts & Culture",
+        "lat": -36.8942193,
+        "lon": 174.9339098
+      },
+      "_metro": "Auckland, New Zealand"
+    },
+    {
+      "name": "Comedy Café",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.comedycafe.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Comedy Café",
+        "address": "89 IJdok",
+        "city": "Amsterdam",
+        "postal_code": "1013MM",
+        "lat": 52.3844164,
+        "lon": 4.8948797
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Jeannette Noëlhuis",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://noelhuis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jeannette Noëlhuis",
+        "city": "Amsterdam",
+        "postal_code": "1102ZR",
+        "lat": 52.3255892,
+        "lon": 4.9494022,
+        "street_hint": "202 Dantestraat"
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Opstandingskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kolenkitkerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Opstandingskerk",
+        "lat": 52.3776345,
+        "lon": 4.842754
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Oudshoornse Kerk (PKN)",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://oudshoornsekerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oudshoornse Kerk (PKN)",
+        "lat": 52.1422991,
+        "lon": 4.6592595
+      },
+      "_metro": "Amsterdam, Netherlands"
     }
   ],
   "_not_included": {

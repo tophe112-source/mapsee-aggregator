@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 86,
-  "metro_key": "IN:Mumbai",
+  "metro": 104,
+  "metro_key": "NL:Rotterdam",
   "stuck": {}
  },
  "osm|community_centre,library": {
