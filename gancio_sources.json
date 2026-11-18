@@ -513,6 +513,213 @@
       "max": 500,
       "default_country": "Sweden",
       "_found": "discover gancio:fedidb 2026-11-11"
+    },
+    {
+      "name": "www.SthlmPunk.party",
+      "base_url": "https://sthlmpunk.party",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Andemo",
+      "base_url": "https://andemo.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:gancio.org/instances 2026-11-18"
+    },
+    {
+      "name": "kviriem.lv",
+      "base_url": "https://kviriem.lv",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Meh!",
+      "base_url": "https://meh.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:gancio.org/instances 2026-11-18"
+    },
+    {
+      "name": "calndr.de",
+      "base_url": "https://calndr.de",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Germany",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "RezoneK",
+      "base_url": "https://rezonek.fr",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "France",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Agenda des Luttes Rouen",
+      "base_url": "https://agenda.rouen-luttes.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Acontece en Compostela",
+      "base_url": "https://compostela.acontece.gal",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Termine: linXXnet & INTERIM",
+      "base_url": "https://termine.linxxnet.de",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Germany",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Eventos Murcia",
+      "base_url": "https://eventosmurcia.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "ASK A PUNK.info",
+      "base_url": "https://askapunk.info",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Frontrange Events",
+      "base_url": "https://organize.frontrange.co",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Acontece en Vigo",
+      "base_url": "https://vigo.acontece.gal",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Community Calendar by CyberLadies",
+      "base_url": "https://akce.cyberladies.cz",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Czechia",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Akiba Party Events",
+      "base_url": "https://events.akiba.party",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Manuel Maag GSC - Veranstaltungen",
+      "base_url": "https://events.manuelmaag.de",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Germany",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Events",
+      "base_url": "https://events.wundernas.ch",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Switzerland",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Acontece en Pontevedra",
+      "base_url": "https://pontevedra.acontece.gal",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Tricity Dance",
+      "base_url": "https://tricity.dance",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "gancio.graz.events",
+      "base_url": "https://gancio.graz.events",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "GENZIANA",
+      "base_url": "https://genziana.xyz",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Vamos Juntes",
+      "base_url": "https://vamosjuntes.com.ar",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Convoca-la Alacant",
+      "base_url": "https://alc.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Kaurna Yerta AAP",
+      "base_url": "https://adelaide.askapunk.au",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Australia",
+      "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "Events @ Birkenhack",
+      "base_url": "https://agenda.birkenhack.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-18"
     }
   ],
   "_tried_and_dead": {

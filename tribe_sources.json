@@ -48224,6 +48224,23 @@
         "lon": 9.1414163
       },
       "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Templo Odsal Ling",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.odsalling.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Templo Odsal Ling",
+        "address": "1461 Rua dos Agrimensores",
+        "city": "Cotia",
+        "postal_code": "06715-580",
+        "lat": -23.6210705,
+        "lon": -46.8724246
+      },
+      "_metro": "São Paulo, Brazil"
     }
   ],
   "_not_included": {

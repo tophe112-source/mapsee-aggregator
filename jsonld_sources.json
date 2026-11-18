@@ -37637,6 +37637,57 @@
         "lon": 139.6770622
       },
       "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Monopoly The Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.monopolytheclub.co.za/"
+      ],
+      "link_pattern": "https://www\\.monopolytheclub\\.co\\.za/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Monopoly The Club",
+        "address": "198 Oxford Road",
+        "lat": -26.1306655,
+        "lon": 28.0498305
+      },
+      "_metro": "Johannesburg, South Africa"
+    },
+    {
+      "name": "Rondebosh Sports Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.rondeboschsportsclub.co.za/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Rondebosh Sports Club",
+        "lat": -33.9607291,
+        "lon": 18.4912377
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "Nacionaes Moto Clube",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.nacionaes.com/eventos"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/informa-es-do-evento-e-registro/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Nacionaes Moto Clube",
+        "lat": -15.8757175,
+        "lon": -47.9983919
+      },
+      "_metro": "Brasília, Brazil"
     }
   ],
   "_not_included": {

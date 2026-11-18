@@ -216,13 +216,20 @@
     "brisasia festival": {
       "dates": [],
       "first_seen": "2026-11-12",
-      "last_seen": "2026-11-16",
+      "last_seen": "2026-11-18",
       "name": "BrisAsia Festival",
       "ref_keys": [
         "3cb7e7650434",
+        "88f7183722c0",
         "da8684b8ae8f"
       ],
       "referrers": [
+        {
+          "source": "ods:Brisbane City Council Music Events (Brisbane)",
+          "start": "2027-02-06",
+          "title": "Lunar New Year in Chinatown",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213210333"
+        },
         {
           "source": "ics:brisbane-creative-events-(brisbane,-australia)",
           "start": "2027-02-13",
@@ -238,7 +245,7 @@
       ],
       "sample": "Bookings required: Yes BrisAsia Comedy Gala is presented as part of BrisAsia Festival . Stories, surprises and seriously opinionated Aunties are taking over the stage for one unforgettable night! Discover multicultural and multilingual improv comedy inspired by real stories from Asian-Australian",
       "state": "pending",
-      "times_seen": 2,
+      "times_seen": 3,
       "venue": null
     },
     "cascadia nw arts and music festival": {
@@ -335,7 +342,7 @@
     "copenhagen jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-18",
       "name": "Copenhagen Jazz Festival",
       "ref_keys": [
         "0a6b63126c7f",
@@ -351,6 +358,7 @@
         "b67ed9b39fe9",
         "b83edf0eb605",
         "b87276c51737",
+        "c73731b84ac4",
         "cef0c8d537f6",
         "e8962bcc0cc2",
         "eae34179c144",
@@ -392,7 +400,7 @@
       ],
       "sample": "Our Sunday services are also an integral part of the annual Copenhagen Jazz Festival. We welcome everyone equally, regardless of nationality, denomination, gender or sexuality. Pastor: Maria Fihl Music Morten Kjær – vokal Claus Waidtløw – tenorsax Olivier Antunes – piano 8 November 2026 1 pm – 2 pm ",
       "state": "pending",
-      "times_seen": 19,
+      "times_seen": 20,
       "venue": null
     },
     "dagen van de sociale film festival": {
@@ -650,6 +658,27 @@
         }
       ],
       "sample": "ng towers, too, eventually become romantic relics of a bygone era also worthy of preservation? Presented as part of the Head On Photo Festival. (Pictured: Idyllic Industrial 7, Kym McDowell)",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "holiday heap craft fair": {
+      "dates": [],
+      "first_seen": "2026-11-18",
+      "last_seen": "2026-11-18",
+      "name": "HOLIDAY HEAP Craft Fair",
+      "ref_keys": [
+        "a117a20a545b"
+      ],
+      "referrers": [
+        {
+          "source": "squarespace",
+          "start": "2026-12-12",
+          "title": "Charm City Craft Mafia's Holiday Heap",
+          "url": "https://www.2640space.net/events/2026/12/12/charm-city-craft-mafias-holiday-heap"
+        }
+      ],
+      "sample": "Come Join 50+ amazing artists/makers for the 20th annual HOLIDAY HEAP Craft Fair presented by the Charm City Craft Mafia! Shop handmade and local for all your holiday needs. FREE and family-friendly! More details to follow as we get closer to the event or visit http://charmcitycraftmafia.com for",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -1139,11 +1168,14 @@
     "miami art week": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-18",
       "name": "Miami Art Week",
       "ref_keys": [
         "2c3a5636a685",
-        "513dacda7b86"
+        "513dacda7b86",
+        "66186a12edf1",
+        "92ba667cb352",
+        "9c3a5b6e5fce"
       ],
       "referrers": [
         {
@@ -1154,6 +1186,24 @@
         },
         {
           "source": "tribe",
+          "start": "2026-12-01",
+          "title": "Opening of the Exhibition: Andy Warhol’s Icons from the Herbert Brito Collection",
+          "url": "https://coralgablesmuseum.org/project/andy-warhol-icons-from-the-herbert-brito-collection/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-01",
+          "title": "Opening of the Exhibition: Masterpieces in Private Hands: Volume I",
+          "url": "https://coralgablesmuseum.org/project/masterpieces-in-private-hands/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-01",
+          "title": "Opening of the Exhibition: Oskar Kokoschka’s The Odyssey",
+          "url": "https://coralgablesmuseum.org/project/oskar-kokoschkas-the-odyssey"
+        },
+        {
+          "source": "tribe",
           "start": "2026-12-05",
           "title": "Cafecito Conversations—Littlest Art Fair",
           "url": "https://museumofmiami.org/event/cafecito-conversations-littlest-art-fair/"
@@ -1161,7 +1211,7 @@
       ],
       "sample": "t Rockaway Beach in New York City, Public Art Fund will bring a new presentation of Between Tides to Miami Beach during Miami Art Week and Art Basel Miami Beach. From November 29 through December 6, 2026, six playable sculptural ping-pong tables by Moko Fukuyama, Ilana Harris-Babou, Las Hermanas Igl",
       "state": "covered",
-      "times_seen": 2,
+      "times_seen": 5,
       "venue": null
     },
     "more than a festival": {
@@ -1890,6 +1940,27 @@
       "sample": " Ave, Poughkeepsie, NY, United States Open to the Public The Growing STEMz Foundation will be hosting it's first annual STEMz Fest at the Northside Hub! This day will feature an exploration of science, technology, engineering, arts, math as well […] Tue 17 Northside Collaborative Meeting November 17",
       "state": "covered",
       "times_seen": 5,
+      "venue": null
+    },
+    "sun valley music festival": {
+      "dates": [],
+      "first_seen": "2026-11-18",
+      "last_seen": "2026-11-18",
+      "name": "Sun Valley Music Festival",
+      "ref_keys": [
+        "4d6deeb5ebfc"
+      ],
+      "referrers": [
+        {
+          "source": "ics:the-community-library-(ketchum,-id)",
+          "start": "2027-03-10",
+          "title": "Upbeat with Alasdair",
+          "url": "https://thecommunitylibrary.libcal.com/event/17950661"
+        }
+      ],
+      "sample": "In partnership with the Sun Valley Music Festival. More information coming soon!",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "sydney festival": {

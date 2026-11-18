@@ -77789,5 +77789,110 @@
     "geocode_suffix": ", 海老名市, 神奈川県",
     "limit": 300,
     "_metro": "Yokohama, Japan"
+  },
+  {
+    "name": "Alpine — Main Calendar",
+    "category": "community",
+    "url": "https://www.alpineut.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Alpine, Utah",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Alpine, Utah",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "DuPont — City of DuPont Calendar",
+    "category": "community",
+    "url": "https://www.dupontwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", DuPont, Washington",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City of DuPont Calendar]",
+    "_metro": "DuPont, Washington",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "DuPont — Community Calendar",
+    "category": "community",
+    "url": "https://www.dupontwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", DuPont, Washington",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Calendar]",
+    "_metro": "DuPont, Washington",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Snohomish — Community Resources",
+    "category": "community",
+    "url": "https://www.snohomishwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Snohomish, Washington",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Resources]",
+    "_metro": "Snohomish, Washington",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Snohomish — Community Events",
+    "category": "community",
+    "url": "https://www.snohomishwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Snohomish, Washington",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Snohomish, Washington",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Snohomish — City Events",
+    "category": "community",
+    "url": "https://www.snohomishwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Snohomish, Washington",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Events]",
+    "_metro": "Snohomish, Washington",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "興正寺",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.koushoji.or.jp/?ical=1",
+    "geocode_suffix": ", Nagoya, Japan",
+    "limit": 300,
+    "_metro": "Nagoya, Japan"
+  },
+  {
+    "name": "Origins Centre",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.wits.ac.za/events-archive/2026/event-3969298.ics",
+    "geocode_suffix": ", Johannesburg, South Africa",
+    "limit": 300,
+    "_metro": "Johannesburg, South Africa"
+  },
+  {
+    "name": "Rainbow Puppet Theatre",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3c43fb93351081e4751587fbadf284a24b2ba8229bf75ffb8343faf95bb8dff9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cape Town, South Africa",
+    "limit": 300,
+    "_metro": "Cape Town, South Africa"
+  },
+  {
+    "name": "Igreja de Nossa Senhora do Brasil",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40nossasenhoradobrasil.com.br/public/basic.ics",
+    "geocode_suffix": ", São Paulo",
+    "limit": 300,
+    "_metro": "São Paulo, Brazil"
+  },
+  {
+    "name": "Igreja Pentagonal da Bíblia",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ipbiblia.com.br/calendario_ipbiblia_2027.ics",
+    "geocode_suffix": ", São Bernardo do Campo",
+    "limit": 300,
+    "_metro": "São Paulo, Brazil"
   }
 ]
