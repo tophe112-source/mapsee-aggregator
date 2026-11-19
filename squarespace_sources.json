@@ -10953,6 +10953,22 @@
         "lon": 174.7774513
       },
       "_metro": "Wellington, New Zealand"
+    },
+    {
+      "name": "Chi Chi",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://www.chichiutrecht.nl/eventkalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Chi Chi",
+        "address": "53A Ruigenhoeksedijk",
+        "city": "Groenekan",
+        "postal_code": "3737MP",
+        "lat": 52.1218265,
+        "lon": 5.1382905
+      },
+      "_metro": "Utrecht, Netherlands"
     }
   ],
   "_not_included": {

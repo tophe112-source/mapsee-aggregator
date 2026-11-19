@@ -48344,6 +48344,37 @@
       "default_region": null,
       "default_country": "ES",
       "_metro": "Aldaia, Spain"
+    },
+    {
+      "name": "De Rijstuin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+modern-events+jsonld-event",
+      "base_url": "https://www.woudtsekerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Rijstuin",
+        "lat": 51.9994379,
+        "lon": 4.3286138
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Best Life Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bestlifechurch.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Best Life Church",
+        "address": "126 Meerndijk",
+        "city": "De Meern",
+        "postal_code": "3454HV",
+        "lat": 52.07458,
+        "lon": 5.0325375
+      },
+      "_metro": "Utrecht, Netherlands"
     }
   ],
   "_not_included": {

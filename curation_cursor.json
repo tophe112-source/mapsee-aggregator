@@ -248,14 +248,9 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 104,
-  "metro_key": "NL:Rotterdam",
-  "stuck": {
-   "NL:Rotterdam": {
-    "day": 20261119,
-    "n": 1
-   }
-  }
+  "metro": 107,
+  "metro_key": "NL:Eindhoven",
+  "stuck": {}
  },
  "osm|community_centre,library": {
   "metro": 225,

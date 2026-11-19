@@ -77982,5 +77982,59 @@
     "_found": "civic:city -> civicplus[Events]",
     "_metro": "Rockport, Texas",
     "crawl_delay": 10.0
+  },
+  {
+    "name": "C.K.V. Oranje Wit",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://ckvoranjewit.nl/wp-content/uploads/activiteit-13363.ics",
+    "geocode_suffix": ", Dordrecht",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Evangeliegemeente De Deur",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/paialu8fs254sdephe1cgqvc0o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rijswijk",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Sanctus Virgilius Tennis Vereniging Tenniphil",
+    "category": "community",
+    "_found": "osm:club -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2n0reguq6lf1c0tg2cjsk5dc28%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Delft",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Waterscouting Cornelis de Houtman & Kastanujo",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://waterscoutinggouda.nl/kalender/event/6084.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Roeivereniging Hemus",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hemus%40hemus.nl/public/basic.ics",
+    "geocode_suffix": ", Amersfoort",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Meierijsche Museumboerderij",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.museumboerderij.nl/agenda/?ical=1",
+    "geocode_suffix": ", Heeswijk-Dinther",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
   }
 ]

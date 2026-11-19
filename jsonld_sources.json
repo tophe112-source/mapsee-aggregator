@@ -37905,6 +37905,212 @@
         "lon": 4.9084975
       },
       "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Paagman",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.paagman.nl/agenda/2026/nov/jan-brokken"
+      ],
+      "link_pattern": "https://www\\.paagman\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paagman",
+        "address": "35 Lange Tiendeweg",
+        "city": "Gouda",
+        "postal_code": "2801KE",
+        "lat": 52.0117026,
+        "lon": 4.7132884
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging Rijnland",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.rvrijnland.nl/activiteitenlijst/2408/alv"
+      ],
+      "link_pattern": "https://www\\.rvrijnland\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Rijnland",
+        "address": "63 Oostvlietweg",
+        "city": "Leidschendam",
+        "postal_code": "2266GN",
+        "lat": 52.1246182,
+        "lon": 4.4615515
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Wijkberaad Vruchtenbuurt",
+      "category": "community",
+      "_found": "osm:social_facility -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://www.wijkberaad-vruchtenbuurt.nl/evenement/spelletjesmiddag-101/"
+      ],
+      "link_pattern": "https://www\\.wijkberaad\\-vruchtenbuurt\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wijkberaad Vruchtenbuurt",
+        "address": "207 Abrikozenstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2564VP",
+        "lat": 52.0680768,
+        "lon": 4.2546727
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Maas",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.de-maas.nl/activiteiten/1786/experience-klassiek-koffieconcert"
+      ],
+      "link_pattern": "https://www\\.de\\-maas\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Maas",
+        "address": "121 Kralingse Plaslaan",
+        "city": "Rotterdam",
+        "postal_code": "3062CD",
+        "lat": 51.9331157,
+        "lon": 4.5058042
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Kano Club Rotterdam",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.kanoclubrotterdam.nl/activiteiten/13/kanotriatlon"
+      ],
+      "link_pattern": "https://www\\.kanoclubrotterdam\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kano Club Rotterdam",
+        "address": "133 Kralingse Plaslaan",
+        "city": "Rotterdam",
+        "postal_code": "3062CD",
+        "lat": 51.933256,
+        "lon": 4.5053332
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "windsurfvereniging Vlietland",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.windsurfverenigingleidschendam.nl/activiteiten/1359/karten"
+      ],
+      "link_pattern": "https://www\\.windsurfverenigingleidschendam\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "windsurfvereniging Vlietland",
+        "lat": 52.1205788,
+        "lon": 4.4572842
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Oude Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://oudekerkvoorburg.nl/agenda/"
+      ],
+      "link_pattern": "https://oudekerkvoorburg\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Oude Kerk",
+        "address": "77 Herenstraat",
+        "city": "Voorburg",
+        "country": "NL",
+        "lat": 52.0679473,
+        "lon": 4.36416
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Buurthuis In de 3 Krone",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://buurthuisinde3krone.nl/"
+      ],
+      "link_pattern": "https://buurthuisinde3krone\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Buurthuis In de 3 Krone",
+        "city": "Utrecht",
+        "postal_code": "3511NJ",
+        "lat": 52.0876808,
+        "lon": 5.1213699,
+        "street_hint": "227A Oudegracht"
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Villa Concordia",
+      "category": "theater",
+      "_found": "osm:theatre -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://villaconcordia.nl/agenda/cozy-queer-x-mas/"
+      ],
+      "link_pattern": "https://villaconcordia\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Villa Concordia",
+        "address": "67A Concordiastraat",
+        "city": "Utrecht",
+        "postal_code": "3551EM",
+        "lat": 52.099809,
+        "lon": 5.0973031
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Stadsschouwburg",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://stadsschouwburg-utrecht.nl/agenda/seizoen-2026-2027/energy-introdans"
+      ],
+      "link_pattern": "https://stadsschouwburg\\-utrecht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadsschouwburg",
+        "address": "24 Lucasbolwerk",
+        "city": "Utrecht",
+        "postal_code": "3512EJ",
+        "lat": 52.0933912,
+        "lon": 5.1274954
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Studentensportcentrum Eindhoven",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://ssceindhoven.tue.nl/evenementen/08-03-2027-wellbeing-week-2027"
+      ],
+      "link_pattern": "https://ssceindhoven\\.tue\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Studentensportcentrum Eindhoven",
+        "address": "1 Onze Lieve Vrouwestraat",
+        "city": "Eindhoven",
+        "postal_code": "5612AW",
+        "lat": 51.4516822,
+        "lon": 5.4894131
+      },
+      "_metro": "Eindhoven, Netherlands"
     }
   ],
   "_not_included": {
