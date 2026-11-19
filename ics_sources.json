@@ -77972,5 +77972,15 @@
     "geocode_suffix": ", Amsterdam, Netherlands",
     "limit": 300,
     "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Rockport — Events",
+    "category": "community",
+    "url": "https://www.rockporttx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Rockport, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Rockport, Texas",
+    "crawl_delay": 10.0
   }
 ]

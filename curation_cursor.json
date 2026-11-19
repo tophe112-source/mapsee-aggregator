@@ -1,6 +1,6 @@
 {
  "civic": {
-  "country": "IE",
+  "country": "ES",
   "offset": 2140,
   "offsets": {
    "AE": 0,
@@ -11,7 +11,7 @@
    "CH": 400,
    "DE": 216,
    "DK": 137,
-   "ES": 190,
+   "ES": 230,
    "FI": 600,
    "GB": 240,
    "IE": 0,
@@ -29,7 +29,7 @@
    "PT": 360,
    "SE": 80,
    "SI": 240,
-   "US": 2363,
+   "US": 2370,
    "ZA": 200
   },
   "visited": [
@@ -250,7 +250,12 @@
  "osm": {
   "metro": 104,
   "metro_key": "NL:Rotterdam",
-  "stuck": {}
+  "stuck": {
+   "NL:Rotterdam": {
+    "day": 20261119,
+    "n": 1
+   }
+  }
  },
  "osm|community_centre,library": {
   "metro": 225,
@@ -264,21 +269,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 200,
-  "events": 900,
+  "community events": 300,
+  "events": 1000,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 200,
-  "parks events": 0,
+  "library programs": 0,
+  "parks events": 100,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 300,
+  "recreation programs": 400,
   "road races": 0,
-  "special events": 200,
-  "volunteer": 100,
-  "wellness programs": 500,
-  "youth programs": 0
+  "special events": 0,
+  "volunteer": 200,
+  "wellness programs": 0,
+  "youth programs": 100
  }
 }

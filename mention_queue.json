@@ -683,6 +683,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "holiday tree lighting festival": {
+      "dates": [],
+      "first_seen": "2026-11-19",
+      "last_seen": "2026-11-19",
+      "name": "Holiday Tree Lighting Festival",
+      "ref_keys": [
+        "aab447f9b2c3"
+      ],
+      "referrers": [
+        {
+          "source": "bibliocommons",
+          "start": "2026-12-05",
+          "title": "Sugar Plum Story Time",
+          "url": "https://denton.bibliocommons.com/events/6afcd57b4653e9002c38d66c"
+        }
+      ],
+      "sample": "Join us to celebrate the festive season with a special Nutcracker-themed outdoor Story Time, in partnership with the Holiday Tree Lighting Festival. For children ages 1-5 and their caregivers. For the full event schedule: https://www.dentonholidaylight...",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "imaginasia children's program brisasia festival": {
       "dates": [],
       "first_seen": "2026-11-17",
@@ -1044,7 +1065,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-17",
+      "last_seen": "2026-11-19",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -1059,7 +1080,9 @@
         "b2332f16add5",
         "bc6767d7ee5b",
         "c54b78eea10b",
+        "c9faf81ffa64",
         "cb0472f9248d",
+        "d4597d62d50a",
         "e3f105cce684"
       ],
       "referrers": [
@@ -1096,7 +1119,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 14,
+      "times_seen": 16,
       "venue": null
     },
     "melt festival": {

@@ -48332,6 +48332,18 @@
         "lon": 4.6592595
       },
       "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Aldaia",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://aldaia.es",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Aldaia",
+      "default_region": null,
+      "default_country": "ES",
+      "_metro": "Aldaia, Spain"
     }
   ],
   "_not_included": {

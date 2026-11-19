@@ -19188,6 +19188,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "aguimes.es": {
+    "checked": 20261119,
+    "name": "Ag\u00fcimes",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "agumc.org": {
     "checked": 20261110,
     "name": "Aldersgate United Methodist Church",
@@ -21666,6 +21673,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ajciutadella.org": {
+    "checked": 20261119,
+    "name": "Ciutadella",
+    "reason": "civic probe: robots.txt Disallow: / (http://www.ajciutadella.org/robots.txt)",
+    "status": "refused",
+    "type": "civic-city"
+  },
   "ajdovscina.si": {
     "checked": 20260923,
     "name": "Ajdov\u0161\u010dina Municipality",
@@ -21744,6 +21758,13 @@
     "name": "Ajman",
     "reason": "civic probe: no-calendar",
     "status": "fail",
+    "type": "civic-city"
+  },
+  "ajmao.org": {
+    "checked": 20261119,
+    "name": "Ma\u00f3",
+    "reason": "civic probe: robots.txt Disallow: / (http://www.ajmao.org/robots.txt)",
+    "status": "refused",
     "type": "civic-city"
   },
   "ajonc.org": {
@@ -25058,6 +25079,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "aldaia.es": {
+    "checked": 20261119,
+    "name": "Aldaia",
+    "reason": "7 events, 7/7 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "aldarull.org": {
     "checked": 20261116,
@@ -29422,6 +29450,13 @@
   "almelo.nl": {
     "checked": 20261008,
     "name": "Almelo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "almendralejo.es": {
+    "checked": 20261119,
+    "name": "Almendralejo",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -38263,6 +38298,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "andujar.es": {
+    "checked": 20261119,
+    "name": "And\u00fajar",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "andyherod.com": {
     "checked": 20261113,
@@ -72114,6 +72156,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "ayto-coriadelrio.es": {
+    "checked": 20261119,
+    "name": "Coria del R\u00edo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ayto-fuenlabrada.es/index.do?MP=2&MS=15&MN=2&TR=C&IDR=175": {
     "checked": 20261116,
     "name": "Biblioteca Municipal Jos\u00e9 Manuel Caballero Bonald",
@@ -72122,9 +72171,23 @@
     "status": "probed",
     "type": "osm-venue"
   },
+  "ayto-navalcarnero.com": {
+    "checked": 20261119,
+    "name": "Navalcarnero",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ayto-sanfernando.com": {
     "checked": 20261025,
     "name": "San Fernando de Henares",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ayto-sesena.org": {
+    "checked": 20261119,
+    "name": "Sese\u00f1a",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -72707,6 +72770,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "azuqueca.es": {
+    "checked": 20261119,
+    "name": "Azuqueca de Henares",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "azuraliving.com": {
     "checked": 20261115,
@@ -139105,6 +139175,13 @@
     "status": "found",
     "type": "osm-venue"
   },
+  "brioco.net": {
+    "checked": 20261119,
+    "name": "brioco.net",
+    "reason": "discover mobilizon: robots.txt http 403, a refusal; not asked again for 90 days",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "briodancestudio.com": {
     "cal_url": "https://www.briodancestudio.com/classes-2",
     "checked": 20261112,
@@ -187320,6 +187397,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "castro-urdiales.net": {
+    "checked": 20261119,
+    "name": "Castro Urdiales",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "castrop-rauxel.de/inhalte/stadtinformation_kultur_freizeit/kultur/buergerhaus/index.php": {
     "cal_url": "https://www.castrop-rauxel.de/wirtschaft_events",
     "checked": 20261026,
@@ -187678,6 +187762,13 @@
     "reason": "osm probe: found tribe",
     "status": "found",
     "type": "osm-venue"
+  },
+  "catarroja.es": {
+    "checked": 20261119,
+    "name": "Catarroja",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "catarroja.es/va/pagina/biblioteca-publica-municipal-ramon-guillem": {
     "checked": 20260922,
@@ -231520,6 +231611,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cityofhowell.org": {
+    "checked": 20261119,
+    "name": "Howell",
+    "reason": "civic probe: robots.txt Disallow: / (http://www.cityofhowell.org/robots.txt)",
+    "status": "refused",
+    "type": "civic-city"
+  },
   "cityofhumbletx.gov/events/?ical=1": {
     "checked": 20260913,
     "name": "Humble",
@@ -260992,6 +261090,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "crevillent.es": {
+    "checked": 20261119,
+    "name": "Crevillent",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "crew-leichlingen.de": {
     "cal_url": "https://crew-leichlingen.de/veranstaltungen",
@@ -296406,6 +296511,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "discoverlagrange.org": {
+    "checked": 20261119,
+    "name": "La Grange",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "discoverlifegate.com/locations/west-dodge-campus": {
     "checked": 20261110,
     "name": "Lifegate Church",
@@ -326767,6 +326879,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "elcampello.es": {
+    "checked": 20261119,
+    "name": "El Campello",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "elcampodetiro.com": {
     "checked": 20261116,
@@ -506420,6 +506539,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "incaciutat.com": {
+    "checked": 20261119,
+    "name": "Inca",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "incarnatewordelca.org": {
     "checked": 20261111,
     "name": "The Lutheran Church of the Incarnate Word",
@@ -584200,6 +584326,14 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "lagrangeky.net": {
+    "checked": 20261119,
+    "name": "La Grange",
+    "offsite_url": "https://lagrangeky.myrec.com/info/default.aspx",
+    "reason": "civic probe: offsite:myrec.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lagrangelibrary.org": {
     "checked": 20261010,
     "name": "La Grange Public Library",
@@ -593658,6 +593792,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lavallduixo.es": {
+    "checked": 20261119,
+    "name": "La Vall d'Uix\u00f3",
+    "reason": "civic probe: robots.txt Disallow: / (http://www.lavallduixo.es/robots.txt)",
+    "status": "refused",
+    "type": "civic-city"
+  },
   "lavallee.brussels": {
     "checked": 20260912,
     "name": "LaVall\u00e9e",
@@ -601023,6 +601164,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "leioa.net": {
+    "checked": 20261119,
+    "name": "Leioa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "leioa.net/es/vive_la_ciudad/gaztegunea/Aterpe+Leioa+Gaztegunea.html": {
     "cal_url": "https://www.leioa.net/es/vive_la_ciudad/agenda21/Agenda+Local+21.html",
@@ -658522,6 +658670,13 @@
     "reason": "144 vevents / 142 future",
     "status": "ok",
     "type": "ics"
+  },
+  "mazarron.es": {
+    "checked": 20261119,
+    "name": "Mazarr\u00f3n",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mazda.com/ja/experience/museum": {
     "checked": 20260929,
@@ -737303,6 +737458,13 @@
     "reason": "osm probe: found ics",
     "status": "found",
     "type": "osm-venue"
+  },
+  "nijar.es": {
+    "checked": 20261119,
+    "name": "Q1110355",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "nijkerk.eu": {
     "checked": 20261101,
@@ -833951,6 +834113,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "puertodelacruz.es": {
+    "checked": 20261119,
+    "name": "Puerto de la Cruz",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "puertodelrosario.org": {
     "checked": 20261025,
     "name": "Puerto del Rosario",
@@ -864924,6 +865093,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rockporttx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20261119,
+    "name": "Rockport \u2014 Events",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "rockquest.com": {
     "cal_url": "https://rockquest.com/belayclasses",
     "checked": 20261108,
@@ -866691,9 +866867,9 @@
     "type": "osm-venue"
   },
   "rollenspiel.events": {
-    "checked": 20260808,
-    "name": "Rollenspiel Events",
-    "reason": "0 future events",
+    "checked": 20261119,
+    "name": "rollenspiel.events",
+    "reason": "discover mobilizon: robots.txt http 403, a refusal; not asked again for 90 days",
     "status": "fail",
     "type": "mobilizon"
   },
@@ -892464,6 +892640,13 @@
     "reason": "187 vevents / 88 future",
     "status": "ok",
     "type": "ics"
+  },
+  "sanroque.es": {
+    "checked": 20261119,
+    "name": "San Roque",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "sans-logis.be": {
     "cal_url": "https://www.sans-logis.be/je-suis-donateur-ou-benevole/",
@@ -930433,6 +930616,13 @@
     "reason": "1 events, 1/1 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "sjdespi.cat": {
+    "checked": 20261119,
+    "name": "Sant Joan Desp\u00ed",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "sjecarmichael.org": {
     "cal_url": "https://www.sjecarmichael.org/weekly-bulletin",
@@ -1066558,6 +1066748,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "totana.es": {
+    "checked": 20261119,
+    "name": "Totana",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "totcomic.clm": {
     "checked": 20261116,
     "name": "Tot Comic",
@@ -1084019,6 +1084216,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ubeda.es": {
+    "checked": 20261119,
+    "name": "\u00dabeda",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "uber-arena.de": {
     "cal_url": "https://www.uber-arena.de/events-tickets",
     "checked": 20261022,
@@ -1097899,6 +1098103,13 @@
     "reason": "osm probe: found jsonld",
     "status": "found",
     "type": "osm-venue"
+  },
+  "va.ajxabia.com": {
+    "checked": 20261119,
+    "name": "X\u00e0bia",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "va.gov": {
     "checked": 20261110,
@@ -1114010,6 +1114221,13 @@
     "reason": "osm probe: http404",
     "status": "probed",
     "type": "osm-venue"
+  },
+  "villena.es": {
+    "checked": 20261119,
+    "name": "Villena",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "villenavedornon.fr/famille-jeunesse-seniors/hebergement-personnes-agees-seniors/ehpad-home-marie-curie": {
     "cal_url": "https://www.villenavedornon.fr/14/sortir-s-epanouir/agenda.htm",
@@ -1156019,6 +1156237,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "wpnet.org": {
+    "checked": 20261119,
+    "name": "West Point",
+    "reason": "0 events / 0 future; The Events Calendar REST answers 200 with 0 upcoming",
+    "status": "empty",
+    "type": "tribe"
+  },
   "wpneu.diakoniestation-schoeneberg.de": {
     "checked": 20261021,
     "name": "Diakoniestation Sch\u00f6neberg",
@@ -1159657,6 +1159882,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "xativa.es": {
+    "checked": 20261119,
+    "name": "X\u00e0tiva",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "xaveriusamersfoort.nl": {
     "checked": 20261018,
     "name": "Sint-Franciscus-Xaveriuskerk",
@@ -1159872,6 +1160104,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "xirivella.es/va": {
+    "checked": 20261119,
+    "name": "Xirivella",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "xlane.de": {
     "checked": 20261021,
