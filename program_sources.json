@@ -1491,5 +1491,547 @@
         "end": "18:00"
       }
     ]
+  },
+  {
+    "name": "Food Drive Volunteer Shift: Sort Food (Lakewood, 2026)",
+    "category": "volunteer",
+    "url": "https://lcac.info/volunteer/",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-20",
+    "season_end": "2026-12-18",
+    "days": "Friday",
+    "title_prefix": "Food Drive Volunteer Shift: Sort Food",
+    "blurb": "Help Lakewood Charitable Assistance Corp sort groceries for its holiday food deliveries. The organizer welcomes volunteers for any portion of the shift.",
+    "sites": [
+      {
+        "name": "Lakewood Masonic Temple",
+        "address": "15300 Detroit Avenue, Lakewood, OH 44107",
+        "city": "Lakewood",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.485092852415,
+        "lon": -81.803099671487,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 15300 DETROIT RD, LAKEWOOD, OH, 44107; TIGER 61100155 R (2026-11-19).",
+        "season_start": "2026-11-20",
+        "season_end": "2026-11-20",
+        "start": "10:00",
+        "end": "15:00"
+      },
+      {
+        "name": "Lakewood Masonic Temple",
+        "address": "15300 Detroit Avenue, Lakewood, OH 44107",
+        "city": "Lakewood",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.485092852415,
+        "lon": -81.803099671487,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 15300 DETROIT RD, LAKEWOOD, OH, 44107; TIGER 61100155 R (2026-11-19).",
+        "season_start": "2026-12-18",
+        "season_end": "2026-12-18",
+        "start": "10:00",
+        "end": "15:00"
+      }
+    ]
+  },
+  {
+    "name": "Food Drive Volunteer Shift: Bag Pantry Items (Lakewood, 2026)",
+    "category": "volunteer",
+    "url": "https://lcac.info/volunteer/",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-20",
+    "season_end": "2026-12-18",
+    "days": "Friday",
+    "title_prefix": "Food Drive Volunteer Shift: Bag Pantry Items",
+    "blurb": "Help Lakewood Charitable Assistance Corp bag nonperishable groceries for its holiday food deliveries. The organizer welcomes volunteers for any portion of the shift.",
+    "sites": [
+      {
+        "name": "Lakewood Masonic Temple",
+        "address": "15300 Detroit Avenue, Lakewood, OH 44107",
+        "city": "Lakewood",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.485092852415,
+        "lon": -81.803099671487,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 15300 DETROIT RD, LAKEWOOD, OH, 44107; TIGER 61100155 R (2026-11-19).",
+        "season_start": "2026-11-20",
+        "season_end": "2026-11-20",
+        "start": "18:00",
+        "end": "20:00"
+      },
+      {
+        "name": "Lakewood Masonic Temple",
+        "address": "15300 Detroit Avenue, Lakewood, OH 44107",
+        "city": "Lakewood",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.485092852415,
+        "lon": -81.803099671487,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 15300 DETROIT RD, LAKEWOOD, OH, 44107; TIGER 61100155 R (2026-11-19).",
+        "season_start": "2026-12-18",
+        "season_end": "2026-12-18",
+        "start": "18:00",
+        "end": "20:00"
+      }
+    ]
+  },
+  {
+    "name": "Food Drive Volunteer Shift: Pack and Deliver (Lakewood, 2026)",
+    "category": "volunteer",
+    "url": "https://lcac.info/volunteer/",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-21",
+    "season_end": "2026-12-19",
+    "days": "Saturday",
+    "title_prefix": "Food Drive Volunteer Shift: Pack and Deliver",
+    "blurb": "Help Lakewood Charitable Assistance Corp bag perishable groceries and deliver food to neighbors. The organizer welcomes volunteers for any portion of the shift.",
+    "sites": [
+      {
+        "name": "Lakewood Masonic Temple",
+        "address": "15300 Detroit Avenue, Lakewood, OH 44107",
+        "city": "Lakewood",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.485092852415,
+        "lon": -81.803099671487,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 15300 DETROIT RD, LAKEWOOD, OH, 44107; TIGER 61100155 R (2026-11-19).",
+        "season_start": "2026-11-21",
+        "season_end": "2026-11-21",
+        "start": "09:00",
+        "end": "12:00"
+      },
+      {
+        "name": "Lakewood Masonic Temple",
+        "address": "15300 Detroit Avenue, Lakewood, OH 44107",
+        "city": "Lakewood",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.485092852415,
+        "lon": -81.803099671487,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 15300 DETROIT RD, LAKEWOOD, OH, 44107; TIGER 61100155 R (2026-11-19).",
+        "season_start": "2026-12-19",
+        "season_end": "2026-12-19",
+        "start": "09:00",
+        "end": "12:00"
+      }
+    ]
+  },
+  {
+    "name": "Thanksgiving Food Giveaway Volunteer Shift (Detroit, 2026)",
+    "category": "volunteer",
+    "url": "https://www.kdf1975.org/event-details/7th-annual-thanksgiving-community-service-project",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-21",
+    "season_end": "2026-11-21",
+    "days": "Saturday",
+    "title_prefix": "Thanksgiving Food Giveaway Volunteer Shift",
+    "blurb": "Sign up with the Kappa Detroit Foundation to prepare and distribute holiday groceries. The organizer asks volunteers to arrive at 9 a.m. and serve through 1 p.m. Public food distribution begins at 10 a.m.",
+    "sites": [
+      {
+        "name": "Kappa Detroit Foundation Development Center",
+        "address": "6900 Sylvester Street, Detroit, MI 48207",
+        "city": "Detroit",
+        "region": "Michigan",
+        "country": "United States",
+        "lat": 42.3657918046,
+        "lon": -83.016830217804,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 6900 SYLVESTER ST, DETROIT, MI, 48207; TIGER 95483715 R (2026-11-19).",
+        "start": "09:00",
+        "end": "13:00"
+      }
+    ]
+  },
+  {
+    "name": "Thankful Together Community Resource Fair (Philadelphia, 2026)",
+    "category": "community",
+    "url": "https://www.phila.gov/2026-11-18-free-turkeys-coats-and-holiday-support-across-philly-parks-rec-sites/",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-21",
+    "season_end": "2026-11-21",
+    "days": "Saturday",
+    "title_prefix": "Thankful Together Community Resource Fair",
+    "blurb": "Find Thanksgiving turkeys, winter coats, gently used clothing, and local resources. Philadelphia Parks & Recreation recommends preregistering through the representative's office using the link on the city notice.",
+    "sites": [
+      {
+        "name": "Morris Estate Recreation Center",
+        "address": "1610 West Chelten Avenue, Philadelphia, PA 19126",
+        "city": "Philadelphia",
+        "region": "Pennsylvania",
+        "country": "United States",
+        "lat": 40.05087012731,
+        "lon": -75.145081631454,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 1610 CHELTEN AVE, PHILADELPHIA, PA, 19126; TIGER 131413848 L (2026-11-19).",
+        "start": "10:00",
+        "end": "12:00"
+      }
+    ]
+  },
+  {
+    "name": "Community Thanksgiving Dinner (Philadelphia, 2026)",
+    "category": "community",
+    "url": "https://www.phila.gov/2026-11-18-free-turkeys-coats-and-holiday-support-across-philly-parks-rec-sites/",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-24",
+    "season_end": "2026-11-24",
+    "days": "Tuesday",
+    "title_prefix": "Community Thanksgiving Dinner",
+    "blurb": "Join neighbors for Thanksgiving dinner, games, music, and local resources. Use the city's notice to RSVP or find out how to help with the dinner.",
+    "sites": [
+      {
+        "name": "Martin Luther King Jr. Recreation Center",
+        "address": "2101 Cecil B. Moore Avenue, Philadelphia, PA 19121",
+        "city": "Philadelphia",
+        "region": "Pennsylvania",
+        "country": "United States",
+        "lat": 39.98022138572,
+        "lon": -75.16934767,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 2101 CECIL B MOORE AVE, PHILADELPHIA, PA, 19121; TIGER 131405729 R (2026-11-19).",
+        "start": "17:00",
+        "end": "19:30"
+      }
+    ]
+  },
+  {
+    "name": "Thanksgiving Lunch & Donation Drive (Philadelphia, 2026)",
+    "category": "community",
+    "url": "https://ledcphiladelphia.org/events/annual-puerto-rican-parade-zhr2g-7c88d-ycet4-letc3-5z8ge",
+    "timezone": "America/New_York",
+    "season_start": "2026-11-25",
+    "season_end": "2026-11-25",
+    "days": "Wednesday",
+    "title_prefix": "Thanksgiving Lunch & Donation Drive",
+    "blurb": "All are welcome for a warm lunch, groceries, and winter coats. Bring gently used coats or shelf-stable food to donate, or use the organizer's form to help prepare or serve food.",
+    "admission": 0,
+    "categories": [
+      "volunteer"
+    ],
+    "sites": [
+      {
+        "name": "Taller Puertorriqueño",
+        "address": "2600 North 5th Street, Philadelphia, PA 19133",
+        "city": "Philadelphia",
+        "region": "Pennsylvania",
+        "country": "United States",
+        "lat": 39.990563944951,
+        "lon": -75.140604466051,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 2600 N 5TH ST, PHILADELPHIA, PA, 19133; TIGER 131419244 L (2026-11-19).",
+        "start": "12:00",
+        "end": "15:00"
+      }
+    ]
+  },
+  {
+    "name": "Philly Fixers Guild Repair Fair (Philadelphia, 2026)",
+    "category": "community",
+    "url": "https://phillyfixersguild.org/event/repair-fair-2026dec/",
+    "timezone": "America/New_York",
+    "season_start": "2026-12-10",
+    "season_end": "2026-12-10",
+    "days": "Thursday",
+    "title_prefix": "Philly Fixers Guild Repair Fair",
+    "blurb": "Bring a broken item and learn to troubleshoot it with a fixer. The free fair has one-hour slots and recommends signing up. The organizer opens reservations one week before the event.",
+    "admission": 0,
+    "categories": [
+      "learning"
+    ],
+    "sites": [
+      {
+        "name": "NextFab North Philadelphia",
+        "address": "1800 North American Street, Philadelphia, PA 19122",
+        "city": "Philadelphia",
+        "region": "Pennsylvania",
+        "country": "United States",
+        "lat": 39.97849479829059,
+        "lon": -75.13965472936543,
+        "coords_exact": true,
+        "_coords": "City of Philadelphia AIS exact match for 1800 N AMERICAN ST (2026-11-19).",
+        "start": "18:00",
+        "end": "20:00"
+      }
+    ]
+  },
+  {
+    "name": "Fixit Clinic (Boston, 2026)",
+    "category": "community",
+    "url": "https://www.boston.gov/calendar/fixit-clinic-boston-building-resources-0",
+    "timezone": "America/New_York",
+    "season_start": "2026-12-12",
+    "season_end": "2026-12-12",
+    "days": "Saturday",
+    "title_prefix": "Fixit Clinic",
+    "blurb": "Register a broken item and work through a repair alongside a coach at this free, family-friendly clinic. The city also has a form for people who want to coach, help with check-in, or observe.",
+    "admission": 0,
+    "categories": [
+      "learning",
+      "volunteer"
+    ],
+    "sites": [
+      {
+        "name": "Boston Building Resources",
+        "address": "100 Terrace Street, Roxbury, MA 02120",
+        "city": "Boston",
+        "region": "Massachusetts",
+        "country": "United States",
+        "lat": 42.328622545735,
+        "lon": -71.098039472252,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current: 100 TERRACE ST, ROXBURY, MA, 02120; TIGER 85699033 L (2026-11-19).",
+        "start": "13:00",
+        "end": "16:00"
+      }
+    ]
+  },
+  {
+    "name": "Habitat Restoration Work Party (Seattle, 2026)",
+    "category": "volunteer",
+    "url": "https://seattle.greencitypartnerships.org/event/45309/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-11-21",
+    "season_end": "2026-11-21",
+    "days": "Saturday",
+    "title_prefix": "Habitat Restoration Work Party",
+    "blurb": "Sign up to weed, mulch, and remove invasive blackberry with Green Seattle Partnership. All ages are welcome, and tools and gloves are provided. Unaccompanied participants under 18 need a signed waiver.",
+    "sites": [
+      {
+        "name": "South Woodland Park",
+        "address": "South Woodland Park, Seattle, WA",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "United States",
+        "lat": 47.666513,
+        "lon": -122.343489,
+        "coords_exact": true,
+        "_coords": "Coordinates in the organizer's Where to Meet map link (2026-11-19).",
+        "start": "10:00",
+        "end": "12:00"
+      }
+    ]
+  },
+  {
+    "name": "Trees for Salmon (Seattle, 2026)",
+    "category": "learning",
+    "url": "https://www.earthcorps.org/volunteer/event/a0EUh000007TqnBMAS/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-11-21",
+    "season_end": "2026-11-21",
+    "days": "Saturday",
+    "title_prefix": "Trees for Salmon",
+    "blurb": "Explore how trees protect salmon habitat through crafts and a nursery tour. Sign up on the EarthCorps page. A shuttle connects the nursery with the Salmon Celebration at Carkeek Park.",
+    "categories": [
+      "community"
+    ],
+    "sites": [
+      {
+        "name": "Cedar City Tree Care Facility",
+        "address": "711 NW 100th Street, Seattle, WA 98177",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "United States",
+        "lat": 47.701448331765,
+        "lon": -122.364869590482,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current match at the address published by EarthCorps and Seattle Public Utilities (2026-11-19).",
+        "start": "11:00",
+        "end": "14:00"
+      }
+    ]
+  },
+  {
+    "name": "Rainier Beach Turkey Giveaway (Seattle, 2026)",
+    "category": "community",
+    "url": "https://parkways.seattle.gov/2026/11/17/join-the-12th-annual-turkey-bowl-week/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-11-24",
+    "season_end": "2026-11-24",
+    "days": "Tuesday",
+    "title_prefix": "Rainier Beach Turkey Giveaway",
+    "blurb": "Seattle Parks and Recreation and Byrd Barr Place are distributing free turkeys while supplies last, on a first-come, first-served basis.",
+    "admission": 0,
+    "sites": [
+      {
+        "name": "Rainier Beach Community Center",
+        "address": "8825 Rainier Avenue S, Seattle, WA",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "United States",
+        "lat": 47.5245062,
+        "lon": -122.270284,
+        "coords_exact": true,
+        "_coords": "Venue map pin linked by Seattle Parks and Recreation in the event notice (2026-11-19).",
+        "start": "10:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "name": "Rainier Beach Community Dinner and Day of Service (Seattle, 2026)",
+    "category": "community",
+    "url": "https://parkways.seattle.gov/2026/11/17/join-the-12th-annual-turkey-bowl-week/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-11-25",
+    "season_end": "2026-11-25",
+    "days": "Wednesday",
+    "title_prefix": "Rainier Beach Community Dinner and Day of Service",
+    "blurb": "Join the free community dinner and coat giveaway. Help assemble hygiene and cold-weather kits or pack lunches from 3:30 to 5:30 p.m. The city notice has the volunteer contact.",
+    "admission": 0,
+    "categories": [
+      "volunteer"
+    ],
+    "sites": [
+      {
+        "name": "Rainier Beach High School Football Field",
+        "address": "8815 Seward Park Avenue S, Seattle, WA",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "United States",
+        "lat": 47.525406225513464,
+        "lon": -122.26820901895603,
+        "coords_exact": true,
+        "_coords": "Seattle Parks Football Fields open GIS data, object 4310, WGS84 (2026-11-19).",
+        "start": "15:30",
+        "end": "18:30"
+      }
+    ]
+  },
+  {
+    "name": "Green Lake Renovation Public Meeting (Seattle, 2026)",
+    "category": "community",
+    "url": "https://parkways.seattle.gov/2026/11/18/seattle-parks-and-recreation-provides-update-for-green-lake-community-center-pool-and-play-area-renovation-project-2/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-12-02",
+    "season_end": "2026-12-02",
+    "days": "Wednesday",
+    "title_prefix": "Green Lake Renovation Public Meeting",
+    "blurb": "See the updated design for the Green Lake Community Center, pool, and play area in the center's gym. Seattle Parks will present the plans and take questions.",
+    "sites": [
+      {
+        "name": "Green Lake Community Center",
+        "address": "7201 E Green Lake Drive N, Seattle, WA",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "United States",
+        "lat": 47.6802687,
+        "lon": -122.3285063,
+        "coords_exact": true,
+        "_coords": "Existing facility_hours_sources.json pin: OSM building, within 19 m of the city's facility point.",
+        "start": "17:30",
+        "end": "19:30"
+      }
+    ]
+  },
+  {
+    "name": "Green Lake Renovation Open House (Seattle, 2026)",
+    "category": "community",
+    "url": "https://parkways.seattle.gov/2026/11/18/seattle-parks-and-recreation-provides-update-for-green-lake-community-center-pool-and-play-area-renovation-project-2/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-12-12",
+    "season_end": "2026-12-12",
+    "days": "Saturday",
+    "title_prefix": "Green Lake Renovation Open House",
+    "blurb": "Drop in at the Seattle Parks tent next to the community center during Pathway of Lights. Ask the project team about the proposed design for the community center, pool, and play area.",
+    "sites": [
+      {
+        "name": "Green Lake Community Center",
+        "address": "7201 E Green Lake Drive N, Seattle, WA",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "United States",
+        "lat": 47.6802687,
+        "lon": -122.3285063,
+        "coords_exact": true,
+        "_coords": "Existing facility_hours_sources.json pin: OSM building, within 19 m of the city's facility point.",
+        "start": "16:30",
+        "end": "19:30"
+      }
+    ]
+  },
+  {
+    "name": "Hedron Repair Café (Portland, 2026)",
+    "category": "community",
+    "url": "https://www.portland.gov/bps/sustainability/resourcefulpdx/events/2026/11/28/hedron-repair-cafe-hosted-repair-pdx-and-hedron",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-11-28",
+    "season_end": "2026-11-28",
+    "days": "Saturday",
+    "title_prefix": "Hedron Repair Café",
+    "blurb": "Bring a broken tool, electronic device, or small appliance, or bring clean clothes for mending. Repair PDX and Hedron Hackerspace volunteers will help with repairs at this free event.",
+    "admission": 0,
+    "sites": [
+      {
+        "name": "Hedron Hackerspace",
+        "address": "2020 SE Bush Street, Portland, OR 97202",
+        "city": "Portland",
+        "region": "Oregon",
+        "country": "United States",
+        "lat": 45.495564695786,
+        "lon": -122.644915264549,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current exact address match; TIGER 157571123 R (2026-11-19).",
+        "start": "12:00",
+        "end": "15:00"
+      }
+    ]
+  },
+  {
+    "name": "Repair PDX Repair Café (Portland, 2026)",
+    "category": "community",
+    "url": "https://www.portland.gov/bps/sustainability/resourcefulpdx/events/2026/12/12/repair-cafe-leaven-community-hosted-repair-pdx",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-12-12",
+    "season_end": "2026-12-12",
+    "days": "Saturday",
+    "title_prefix": "Repair PDX Repair Café",
+    "blurb": "Repair PDX volunteers can help fix small appliances, bikes, and clothing for free. Tell the organizers what you plan to bring using the optional form, or drop in.",
+    "admission": 0,
+    "sites": [
+      {
+        "name": "Leaven Community",
+        "address": "5431 NE 20th Avenue, Portland, OR 97211",
+        "city": "Portland",
+        "region": "Oregon",
+        "country": "United States",
+        "lat": 45.562288131308,
+        "lon": -122.644891043278,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current exact address match; TIGER 157505651 L (2026-11-19).",
+        "start": "12:00",
+        "end": "15:00"
+      }
+    ]
+  },
+  {
+    "name": "December Community Dinner Party (Portland, 2026)",
+    "category": "community",
+    "url": "https://brentwood-darlington.org/event/december-community-dinner-party/",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-12-17",
+    "season_end": "2026-12-17",
+    "days": "Thursday",
+    "title_prefix": "December Community Dinner Party",
+    "blurb": "Join the Brentwood-Darlington Neighborhood Association and meet neighbors at its December community dinner.",
+    "sites": [
+      {
+        "name": "Brentwood-Darlington Community Center",
+        "address": "7211 SE 62nd Avenue, Portland, OR 97206",
+        "city": "Portland",
+        "region": "Oregon",
+        "country": "United States",
+        "lat": 45.470418681907,
+        "lon": -122.599668523001,
+        "coords_exact": true,
+        "_coords": "US Census Public_AR_Current exact address match; TIGER 157517148 R (2026-11-19).",
+        "start": "18:30",
+        "end": "20:30"
+      }
+    ]
   }
 ]

@@ -1,5 +1,36 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **TWENTY-ONE DATED WAYS TO TAKE PART WITHOUT RECURRING FEED REQUESTS (2026-11-19).**
+  Thirteen organizer and city pages returned HTTP 200 with the production UA
+  after robots checks (17,345–1,153,463 body bytes, one-time review). Eighteen
+  date-bounded program entries yield **21** occurrences from November 20 to
+  December 19 across six cities. Lakewood has **6** food-drive shifts, Seattle **6** listings,
+  Philadelphia **4**, Portland **3**, Detroit **1**, and Boston **1**.
+  The public map returned **32** rows in **19** date-and-venue windows
+  (242–357 ms, HTTP 200, no stale responses). None matched the proposals.
+  The existing Carkeek cleanup is a different shift from the nursery tour.
+  Lakewood's daytime sorting and evening bagging have separate titles and
+  IDs on the same date and at the same venue.
+  - Pin Rainier Beach's field at Seattle Parks GIS object **4310**. The
+    school street-address geocode is about **306 m** east. Census returned
+    **0** matches for NextFab's street address, while Philadelphia's AIS
+    returned **1** exact match at **39.9784948, -75.1396547**.
+  - The Green Lake project calendar gives the December 2 presentation and Q&A's
+    **17:30–19:30** hours. The city post gives the gym and the separate
+    December 12 drop-in at the Parks tent.
+  - The real program reader, EventStore, and sync row builder keep **21**
+    unique rows after two upserts each, about **22.7 KB** of compact UTF-8
+    JSON. They retain local times, exact pins, source links, and participation
+    details. Primary categories are **11** community, **9** volunteer,
+    and **1** learning. On December 20 the reader emits **0** of those rows.
+  - These entries add **0** runtime feed or geocoding requests in replay
+    and **0** jobs. The scheduled import still has to write new rows. The
+    replay measures the new database payload in isolation.
+    Seattle's public-safety survey and Philadelphia2050 feedback have deadlines
+    but no single event venue. The Long Beach Public Works calendar has **4/4**
+    UIDs already in the configured city feed.
+    Evidence is in `.catalog-probe/nov19-community/`.
+
 - **SEVEN HAND-TARGETED CELLS ON 2026-11-15, AND WHAT EACH INPUT PAID.** Seven
   agents, one thin cell each, production User-Agent, robots.txt first.
   Candidates and local verify passes: running 68 and 41, volunteer 35 and 13,
