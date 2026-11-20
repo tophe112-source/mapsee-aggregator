@@ -1,5 +1,22 @@
 # The sync, EventStore, upserts, paging, cursors, fingerprints and series
 
+- **Localist edits keep the event's identity (2026-11-19).** Seattle
+  University's API returned ID `53541560544801` for the reported Fireside
+  Chat. Localist now uses the calendar hostname plus the publisher's event ID
+  for its key. The title, venue, URL and date can change independently. It still
+  imports the first occurrence in the window for each publisher event.
+  The sync adopts the old title/date/venue key only when the stored row has
+  the same event page, exactly one matching successor and no `duplicate_of`.
+  It keeps the row UUID and holds a conflicting or failed move rather than
+  inserting a copy. A Seattle University 30-day preview found 25 matches
+  among 26 listings, with 0 held. The live pilot moved all 25 in 1.19 s,
+  including read-back, with every UUID and visibility state preserved.
+  Stable IDs also carry source cancellations.
+  Cancellations under an old shared key require the exact URL. This does not
+  identify pre-existing copies that already have a different legacy key. The
+  58 configured Localist hosts had no exact hostname overlap in the other
+  `*_sources.json` catalogs. Independent publishers can still cross-post.
+
 - **A matching rule cannot hide a copy while automatic dedupe is off.** On
   2026-11-19, Seattle University's Fireside Chat appeared twice: the shorter
   August title and the longer October title had different fingerprints but

@@ -49,7 +49,7 @@ from zoneinfo import ZoneInfo
 from typing import Any, Dict, List, Optional, Tuple
 
 from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
-from mapsee_ingest import clean_postal_code, normalize_agenda
+from mapsee_ingest import clean_postal_code, normalize_agenda, LOCALIST_FINGERPRINT_PREFIX
 
 try:                                  # resolved against the REAL requests, once
     from requests.exceptions import RequestException as _TransportError
@@ -3491,6 +3491,76 @@ def legacy_pairs(store_path: str, store_data=None) -> Dict[str, List[str]]:
             if isinstance(r, dict) and r.get("fingerprint") and r.get("legacy_fingerprints")}
 
 
+def adopt_localist_ids(session, url: str, key: str, records, pairs):
+    """Move an existing Localist listing to its source key, keeping its UUID.
+
+    The old key could have been shared by another adapter. Require the same
+    event URL and exactly one successor, and never hide a collision here.
+    """
+    from requests import RequestException
+
+    if not pairs:
+        return set(), set()
+    by_old = {}
+    links = {}
+    for rec in records:
+        fp = rec.get("fingerprint")
+        if fp not in pairs:
+            continue
+        links[fp] = {canonical_link(f"Tickets / info: {ref['url']}")
+                     for ref in rec.get("sources", [])
+                     if str(ref.get("source", "")).startswith("localist:") and ref.get("url")}
+        for old in pairs[fp]:
+            by_old.setdefault(old, set()).add(fp)
+    detail = {}
+    try:
+        old_state = fetch_import_state(session, url, key, by_old,
+                                       fields=("id", "description", "updated_at", "duplicate_of"), detail=detail)
+        stored = fetch_import_state(session, url, key, {fp for old in old_state for fp in by_old[old]})
+    except RuntimeError:
+        print("::warning::Localist legacy lookup failed; holding these imports for the next sync.", flush=True)
+        return set(), set(pairs)
+
+    held = set()
+    candidates = {}
+    for old in old_state:
+        row = detail[old]
+        link = canonical_link(row.get("description"))
+        possible = by_old[old]
+        eligible = {fp for fp in possible if link and link in links[fp]}
+        if len(eligible) == 1 and row.get("id") and row.get("updated_at") and "duplicate_of" in row and not row["duplicate_of"]:
+            fp = next(iter(eligible))
+            if fp not in stored:
+                candidates.setdefault(fp, []).append((old, row))
+            held.update(possible - eligible)
+        else:
+            held.update(possible)
+
+    base = url.rstrip("/") + "/rest/v1/events"
+    headers = {"apikey": key, "Authorization": f"Bearer {key}", "Prefer": "return=representation"}
+
+    def move(job):
+        fp, old, row = job
+        filters = {"external_source": "eq.mapsee", "id": f"eq.{row['id']}", "external_id": f"eq.{old}",
+                   "updated_at": f"eq.{row['updated_at']}", "duplicate_of": "is.null", "select": "id,external_id"}
+        try:
+            response = session.patch(base, headers=headers, params=filters, json={"external_id": fp}, timeout=30)
+            return fp, response.status_code == 200 and response.json() == [{"id": row["id"], "external_id": fp}]
+        except (RequestException, ValueError):
+            return fp, False
+
+    moved = set()
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        for fp, ok in pool.map(move, ((fp, *old[0]) for fp, old in candidates.items() if len(old) == 1)):
+            if ok:
+                moved.add(fp)
+    held |= candidates.keys() - moved
+    held -= stored.keys() | moved
+    if old_state:
+        print(f"Localist identity: {len(moved)} existing listing(s) adopted, {len(held)} held.", flush=True)
+    return moved, held
+
+
 def rekey_legacy(session, url: str, key: str, pairs: Dict[str, List[str]]):
     """Move rows still filed under a legacy fingerprint to their new one.
 
@@ -4445,8 +4515,13 @@ def owned_tombstones(inputs: Dict[str, Any]) -> Dict[str, str]:
     from mapsee_spam import source_family
     out = {}
     for fp, tomb in inputs["tombstones"].items():
-        if source_family(tomb.get("source")) in OWN_ONLY_CANCEL_SOURCES and tomb.get("url"):
-            for eid in [fp] + list(tomb.get("legacy") or []):
+        legacy = list(tomb.get("legacy") or [])
+        if source_family(tomb.get("source")) in OWN_ONLY_CANCEL_SOURCES:
+            legacy.insert(0, fp)
+        elif not fp.startswith(LOCALIST_FINGERPRINT_PREFIX):
+            continue
+        if tomb.get("url"):
+            for eid in legacy:
                 out.setdefault(eid, str(tomb["url"]))
     return out
 
@@ -4463,7 +4538,10 @@ def cancellation_targets(inputs: Dict[str, Any], absent: Dict[str, str]) -> Dict
     for fp, tomb in inputs["tombstones"].items():
         if source_family(tomb.get("source")) in OWN_ONLY_CANCEL_SOURCES and not tomb.get("url"):
             continue
-        for eid in [fp] + list(tomb.get("legacy") or []):
+        legacy = tomb.get("legacy") or []
+        if fp.startswith(LOCALIST_FINGERPRINT_PREFIX) and not tomb.get("url"):
+            legacy = []
+        for eid in [fp] + list(legacy):
             targets.setdefault(eid, str(tomb.get("source") or "?"))
     for fp, unit in absent.items():
         targets.setdefault(fp, f"absent:{unit}")
@@ -5027,7 +5105,12 @@ def main() -> None:
     # fingerprint moves to its new one first, or --only-new would call the clean
     # record new and insert it beside the garbled row. See rekey_legacy.
     pairs = legacy_pairs(a.store, store_data=store_data)
+    localist_pairs = {fp: pairs.pop(fp) for fp in list(pairs) if fp.startswith(LOCALIST_FINGERPRINT_PREFIX)}
     moved, held = rekey_legacy(geo, url, key, pairs)
+    if localist_pairs:
+        adopted, deferred = adopt_localist_ids(geo, url, key, store_data["events"], localist_pairs)
+        moved |= adopted
+        held |= deferred
     # Absence is read off the store and the manifest, so it is known now; a gone
     # session that is only renamed or re-timed moves to its new key here, before
     # the upsert would insert it beside the old row (see absent_successors).
