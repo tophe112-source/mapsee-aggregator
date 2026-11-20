@@ -48405,6 +48405,91 @@
         "street_hint": "74 Merrion Square South"
       },
       "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Bürgertreff Saarmund",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://buergertreff-saarmund.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bürgertreff Saarmund",
+        "city": "Nuthetal",
+        "postal_code": "14558",
+        "country": "DE",
+        "lat": 52.3139028,
+        "lon": 13.1229653,
+        "street_hint": "45 Nuthestraße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Zen Zentrum Berlin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kwanumzen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zen Zentrum Berlin",
+        "address": "4 Gottschedstraße",
+        "city": "Berlin",
+        "postal_code": "13357",
+        "country": "DE",
+        "lat": 52.5498509,
+        "lon": 13.3698805
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Panda Platforma",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+events-manager",
+      "base_url": "https://panda-platforma.berlin",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Panda Platforma",
+        "address": "97 Knaackstraße",
+        "city": "Berlin",
+        "postal_code": "10435",
+        "lat": 52.5398077,
+        "lon": 13.4133001
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BIONALES – Bürger für regionale Landwirtschaft und Ernährung e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://bionales.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BIONALES – Bürger für regionale Landwirtschaft und Ernährung e.V.",
+        "lat": 50.1280418,
+        "lon": 8.6818595
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "TV Eschersheim e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://turnverein-eschersheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TV Eschersheim e.V.",
+        "address": "14 Maybachstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60433",
+        "country": "DE",
+        "lat": 50.1587118,
+        "lon": 8.6550288
+      },
+      "_metro": "Frankfurt, Germany"
     }
   ],
   "_not_included": {

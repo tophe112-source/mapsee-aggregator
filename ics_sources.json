@@ -78122,5 +78122,240 @@
     "geocode_suffix": ", Berlin",
     "limit": 300,
     "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Ulme 35",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://interkulturanstalten.de/programm/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "Ulme 35",
+      "city": "Berlin",
+      "postal_code": "14050",
+      "country": "DE",
+      "lat": 52.517968,
+      "lon": 13.2675681,
+      "street_hint": "35 Ulmenallee",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "mittendrin",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://stz-koellnische-heide.de/events/events.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "mittendrin",
+      "city": "Berlin",
+      "postal_code": "12057",
+      "country": "DE",
+      "lat": 52.4654641,
+      "lon": 13.4727003,
+      "street_hint": "319 Sonnenallee",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Tischtennisverein Einheit Potsdam",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://data.ttve.eu/ttve.ics",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Bundesverband Trans*",
+    "category": "community",
+    "_found": "osm:ngo -> my-calendar",
+    "url": "https://www.bundesverband-trans.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Arsenal",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://www.arsenal-berlin.de/kino/filmreihe/icalendar/der-kleine-nick-erzaehlt-vom-glueck-6004/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Friedrich-Ebert-Stiftung",
+    "category": "community",
+    "_found": "osm:ngo -> ics",
+    "url": "https://www.fes.de/veranstaltungen/veranstaltungsdetail/291220.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Klein-Glienicker Kapelle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.klein-glienicker-kapelle.de/jahresprogramm/?ical=1",
+    "geocode_suffix": ", Potsdam",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Verein für Kanusport Berlin e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d721280bddbac0e99c266bfbbc585735cdbf854f839e1970b4979372df0ec1a3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Theater am Park",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.tap-biesdorf.de/events/154/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Münchner Kammerspiele",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.muenchner-kammerspiele.de/en/programm/51812-schubert-in-paradise/53909.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "FeG München-Ost - Freie evangelische Gemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://feg-mo.de/?ical=1",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Kulturhaus III&70",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.dreiundsiebzig.de/programm/termine.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "street art school",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://www.street-art-school.de/termine/?ical=1",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Bucerius Kunst Forum",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://www.buceriuskunstforum.de/uploads/tx_bucerius/1795712400_4a4173354d4121e60b61e3b400bdaa2a.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "JazzHall",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.jazzhall.de/ics/jazz-heroes-michael-mayo-mit-mai-linh-dang.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "F&W Fördern & Wohnen AöR",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.foerdernundwohnen.de/ueber-fw/veranstaltungen/feedback-sprechstunde.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Hamburgische Staatsoper",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.die-hamburgische-staatsoper.de/de/programm/konzert/3149-croissant-mit-omer/297960.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "St. Nikolai",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/f650ed3b-78d1-4995-9292-b49c1a76cb0c.ics",
+    "geocode_suffix": ", Borstel",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Museum Ludwig",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.museum-ludwig.de/de/besuch/veranstaltungen/kalender/55049-5-jahre-medienprojekt-koeln-e-v-filmpremiere2-seiten-und-1-im-rampenlicht-des-lebens-fassade-aus-glas.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Stadthalle Hitdorf",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://lust-auf-leverkusen.de/veranstaltungsort/stadthalle-hitdorf/ical/",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Stadthalle Hitdorf",
+      "postal_code": "51371",
+      "lat": 51.0586148,
+      "lon": 6.9225736,
+      "street_hint": "113 Hitdorfer Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Wassersportfreunde Neptun e. V. Köln-Mülheim",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://wsf-neptun-koeln.de/?ical=1",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "DLRG Kreisgruppe Usinger Land e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://usinger-land.dlrg.de/die-ortsgruppe/termine/kalenderabo-ical/?tx_dlrgterminkalender_pi1%5Bcontroller%5D=Terminkalender&amp;cHash=3df9d00e696e06f6fb833317844362e6",
+    "geocode_suffix": ", Usingen",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Heliand-Pfadfinderschaft Stamm 1",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.heliand-pfadfinderschaft.de/termine/hp-busstagstreffen-2026/?ical=1",
+    "geocode_suffix": ", Frankfurt, Germany",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
   }
 ]

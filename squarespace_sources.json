@@ -10969,6 +10969,22 @@
         "lon": 5.1382905
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Kunstverein Gastgarten",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://gastgarten.eu/ausstellungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Kunstverein Gastgarten",
+        "address": "53 Nordkanalstraße",
+        "city": "Hamburg",
+        "postal_code": "20087",
+        "lat": 53.551043,
+        "lon": 10.0243892
+      },
+      "_metro": "Hamburg, Germany"
     }
   ],
   "_not_included": {

@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 115,
-  "metro_key": "DE:Berlin",
+  "metro": 119,
+  "metro_key": "DE:Frankfurt",
   "stuck": {}
  },
  "osm|community_centre,library": {
