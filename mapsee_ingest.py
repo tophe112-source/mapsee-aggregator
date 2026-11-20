@@ -76,7 +76,9 @@ import math
 import os
 import random
 import re
+import shutil
 import sys
+import tempfile
 import time
 import urllib.parse
 from dataclasses import dataclass, field
@@ -1021,14 +1023,23 @@ class EventStore:
             "_meta": {"version": 1, "updated": iso_now(), "count": len(self.records)},
             "events": list(self.records.values()),
         }
-        # Only when used, so a store nothing cancelled is byte-for-byte what it was.
+        # Preserve the original store shape when no adapter used these fields.
         if self.tombstones:
             payload["tombstones"] = [dict(fingerprint=fp, **t) for fp, t in self.tombstones.items()]
         if self.complete_reads:
             payload["complete_reads"] = self.complete_reads
         if self.seen:
             payload["seen"] = sorted(self.seen)
-        self.path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+        # Sync can read the last complete batch even if this write runs out of
+        # disk or is interrupted. Stage on the same filesystem for atomic replace.
+        target = self.path.resolve()
+        with tempfile.TemporaryDirectory(prefix=".event-store-", dir=target.parent) as scratch:
+            staged = Path(scratch) / target.name
+            with staged.open("w", encoding="utf-8") as stream:
+                json.dump(payload, stream, ensure_ascii=False, separators=(",", ":"))
+            if target.exists():
+                shutil.copymode(target, staged)
+            os.replace(staged, target)
         log.info("Saved %d events to %s", len(self.records), self.path)
         if self.stats["rejected"]:
             log.info("Refused %d row(s) as advertisements: %s", self.stats["rejected"],

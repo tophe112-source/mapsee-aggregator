@@ -26,6 +26,7 @@ import tempfile
 from argparse import Namespace
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from unittest.mock import patch
 from urllib.parse import parse_qs, unquote, urlsplit
 
@@ -117,6 +118,21 @@ plain.upsert(ev("Lane Swim", "p"))
 plain.save()
 check("a store nothing cancelled saves no new keys",
       sorted(json.load(open(store_path("plain.json"), encoding="utf-8"))), ["_meta", "events"])
+previous_store = plain.path.read_bytes()
+files_before = set(Path(TMP.name).iterdir())
+plain.upsert(ev("After-school Chess", "late"))
+try:
+    with patch("os.replace", side_effect=OSError("interrupted save")):
+        plain.save()
+except OSError:
+    raised = True
+else:
+    raised = False
+check("a failed save propagates to the adapter", raised, True)
+check("an interrupted save preserves the last complete store", plain.path.read_bytes() == previous_store, True)
+check("a failed replacement leaves no temporary files", set(Path(TMP.name).iterdir()), files_before)
+plain.save()
+check("a retry writes both events", len(EventStore(str(plain.path)).records), 2)
 check("no fingerprint, no tombstone", EventStore(store_path("n.json")).cancel(
       NormalizedEvent(source="ics:t", source_id="1", name="Y"), "c"), "unkeyed")
 

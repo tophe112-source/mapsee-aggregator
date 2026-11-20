@@ -1,5 +1,13 @@
 # The sync, EventStore, upserts, paging, cursors, fingerprints and series
 
+- **An EventStore save publishes a complete snapshot in one replacement.**
+  On Python 3.12, saving 4,000 synthetic normalized events with Unicode
+  titles took 4,047,023 bytes on disk and 47,840,239 bytes of peak traced
+  allocations inside `save()`. Streaming compact JSON to a sibling
+  temporary directory took 2,614,982 bytes and 99,946 bytes respectively.
+  `test_cancellations.py` interrupts the final replacement, reads the
+  previous snapshot, then retries and reloads both events.
+
 - **Persistent Eventbrite imports respect the seven-day cleanup window.** On
   2026-11-12 the residential sync wrote 10,632 rows. After scheduled cleanup,
   a second live sync of the same store found 10,373 candidates. Of these,
