@@ -75,6 +75,31 @@ check("same-page", edges == {("5ec4afa8", "36d74bf7"): "same-page"})
 check("keeps the newest import (the source's current title)", p[0]["survivor"] == "36d74bf7")
 check("hides the old title", p[0]["hide"] == [("5ec4afa8", "same-page")])
 
+print("\nthe reported Seattle University rename (2026-11-19)")
+pratt_link = "events.seattleu.edu/event/fireside-chat-with-dr-tia-noelle-pratt-and-fr-lucas-sharma"
+pratt_old = row("33ed89b9-b0c7-4013-b369-77fb72bd4dd7", "Fireside Chat with Dr. Tia Noelle Pratt",
+                "2026-11-20T00:00:00+00:00", "2026-11-20T01:30:00+00:00", 47.610752, -122.318706,
+                "2026-08-24T13:35:47.594219+00:00", pratt_link, category="community",
+                place_name="Sinegal Center for Science and Innovation")
+pratt_new = row("b9875fc4-a546-4702-9a18-29d43469fc3e",
+                "Fireside Chat with Dr. Tia Noelle Pratt & Fr. Lucas Sharma, S.J.",
+                "2026-11-20T00:00:00+00:00", "2026-11-20T01:30:00+00:00", 47.610450342764, -122.316865913726,
+                "2026-10-26T18:52:53.399799+00:00", pratt_link, category="community",
+                place_name="Sinegal Center for Science and Innovation")
+check("the two measured coordinates are 142 m apart, inside the existing radius",
+      141 < D.metres(pratt_old, pratt_new) < 143)
+edges, p = decide([pratt_old, pratt_new])
+check("same source page and time match despite title and coordinate changes",
+      edges == {(pratt_old["id"], pratt_new["id"]): "same-page"})
+check("the current full title survives; only the old shorter title is hidden",
+      len(p) == 1 and p[0]["survivor"] == pratt_new["id"]
+      and p[0]["hide"] == [(pratt_old["id"], "same-page")] and not p[0]["left"])
+check("an RSVP on the older listing preserves that listing",
+      decide([pratt_old, pratt_new], rsvp=[pratt_old["id"]])[1][0]["survivor"] == pratt_old["id"])
+check("a later occurrence on the same page stays separate",
+      D.match(pratt_old, dict(pratt_new, starts_at="2026-11-21T00:00:00+00:00",
+                             ends_at="2026-11-21T01:30:00+00:00"), NO_LINKS) is None)
+
 print("\nkinds the census measured")
 cpl = "chipublib.bibliocommons.com/events/6a985ed760ccaf01c022dbce"
 a = row("5f394f03", "Mindful Yoga", "2026-10-13T15:30:00+00:00", "2026-10-13T16:30:00+00:00", 41.903937, -87.636761, "2026-09-15T13:11:39+00:00", cpl)
