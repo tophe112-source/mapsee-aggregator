@@ -1,5 +1,17 @@
 # The sync, EventStore, upserts, paging, cursors, fingerprints and series
 
+- **A matching rule cannot hide a copy while automatic dedupe is off.** On
+  2026-11-19, Seattle University's Fireside Chat appeared twice: the shorter
+  August title and the longer October title had different fingerprints but
+  the same event page, 00:00-01:30Z slot and venue. Their coordinates were
+  141.96 m apart, within the existing 150 m radius; `match()` already returned
+  `same-page`. `DEDUPE_APPLY` was unset. A bounded repair through the existing
+  planner/writer hid exactly 1 older, unclaimed copy, with 0 RSVPs, keeping
+  `b9875fc4-a546-4702-9a18-29d43469fc3e` visible. No scheduler or global switch
+  changed. `ops/2026-11-19_pratt_event_duplicate.json` records the before/after
+  IDs, stamp and reversal. The exact pair plus RSVP and separate-occurrence
+  guards now pass in `test_dedupe_events.py`: 241 checks, 0 failures.
+
 - **Persistent Eventbrite imports respect the seven-day cleanup window.** On
   2026-11-12 the residential sync wrote 10,632 rows. After scheduled cleanup,
   a second live sync of the same store found 10,373 candidates. Of these,
