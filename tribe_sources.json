@@ -48375,6 +48375,36 @@
         "lon": 5.0325375
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Gevangenismuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://gevangenismuseum.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gevangenismuseum",
+        "lat": 53.041262,
+        "lon": 6.3903434
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Central Catholic Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.catholiclibrary.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Central Catholic Library",
+        "city": "Dublin",
+        "lat": 53.3389939,
+        "lon": -6.2504719,
+        "street_hint": "74 Merrion Square South"
+      },
+      "_metro": "Dublin, Ireland"
     }
   ],
   "_not_included": {

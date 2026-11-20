@@ -967,9 +967,11 @@
     "lucidity festival": {
       "dates": [],
       "first_seen": "2026-11-14",
-      "last_seen": "2026-11-16",
+      "last_seen": "2026-11-20",
       "name": "Lucidity festival",
       "ref_keys": [
+        "3366492a3fee",
+        "48986b45ed25",
         "59edf94b9aa1",
         "645721feceea",
         "a57b2d47ffdc"
@@ -992,11 +994,23 @@
           "start": "2027-03-14",
           "title": "CONVERGE Australia/New Zealand 2027",
           "url": "https://www.moshtix.com.au/v2/event/converge-australia-new-zealand-2027/202081"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-03-17",
+          "title": "CONVERGE | SYDNEY w/ guests EXTORTION & ENDS IN TRAGEDY + LO!",
+          "url": "https://www.moshtix.com.au/v2/event/converge-sydney-w-guests-extortion-ends-in-tragedy-lo-/202128"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-03-18",
+          "title": "CONVERGE Australia/New Zealand 2027 w/ guests EXTORTION & ENDS IN TRAGEDY + NERVE DAMAGE",
+          "url": "https://www.moshtix.com.au/v2/event/converge-australia-new-zealand-2027-w-guests-extortion-ends-in-tragedy-nerve-damage/202152"
         }
       ],
       "sample": "and revered hub of extreme creativity backed by a thorough DIY ethos, the tour follows the swiftly sold out inaugural Lucidity festival in Melbourne for which the band is the headlining. Also jumping across from the lineup to join them all around the nation are Australian powerviolence legends",
       "state": "pending",
-      "times_seen": 3,
+      "times_seen": 5,
       "venue": null
     },
     "manchester literature festival": {
@@ -2245,6 +2259,48 @@
       "sample": "d by running or walking through the beautiful Winter Festival of Lights! For more than 30 years, visitors to the annual Winter Festival of Lights have been dazzled by twinkling light displays as they drove through Watkins Regional Park. This year, register to walk or run through the almost three-mil",
       "state": "covered",
       "times_seen": 1,
+      "venue": null
+    },
+    "winter wonder week": {
+      "dates": [],
+      "first_seen": "2026-11-20",
+      "last_seen": "2026-11-20",
+      "name": "Winter Wonder Week",
+      "ref_keys": [
+        "2ed74daf8fec",
+        "717642ce1eb6",
+        "d33b20b0ec78",
+        "efd4291bee05"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-26",
+          "title": "Mini Clay Winter Sculptures",
+          "url": "https://madisonchildrensmuseum.org/event/mini-clay-winter-sculptures/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-30",
+          "title": "Pipe Cleaner Snowflakes",
+          "url": "https://madisonchildrensmuseum.org/event/pipe-cleaner-snowflakes/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-31",
+          "title": "Button Making",
+          "url": "https://madisonchildrensmuseum.org/event/button-making/"
+        },
+        {
+          "source": "tribe",
+          "start": "2027-01-02",
+          "title": "Gelli Prints",
+          "url": "https://madisonchildrensmuseum.org/event/gelli-prints/"
+        }
+      ],
+      "sample": "Discover how simple shapes and small details can bring your imagination to life during Winter Wonder Week!",
+      "state": "covered",
+      "times_seen": 4,
       "venue": null
     }
   }

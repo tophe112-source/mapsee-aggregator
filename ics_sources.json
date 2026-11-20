@@ -78036,5 +78036,91 @@
     "geocode_suffix": ", Heeswijk-Dinther",
     "limit": 300,
     "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Struthers",
+    "category": "community",
+    "_found": "civic:city -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qvo8n3h2bd5u6qif9cv9aa3rk4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Struthers, Ohio",
+    "limit": 300,
+    "_metro": "Struthers, Ohio"
+  },
+  {
+    "name": "Cody — Home",
+    "category": "community",
+    "url": "https://www.codywy.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cody, Wyoming",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Home]",
+    "_metro": "Cody, Wyoming",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cody — Rec, Aquatics, and Facilities (Special Events)",
+    "category": "fitness",
+    "url": "https://www.codywy.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Cody, Wyoming",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Rec, Aquatics, and Facilities (Special Events)]",
+    "_metro": "Cody, Wyoming",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cody — Recreation, Aquatics and Facilities (ALL)",
+    "category": "fitness",
+    "url": "https://www.codywy.gov/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar",
+    "geocode_suffix": ", Cody, Wyoming",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Recreation, Aquatics and Facilities (ALL)]",
+    "_metro": "Cody, Wyoming",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Ellisville — Home Page Calendar",
+    "category": "community",
+    "url": "https://www.ellisville.mo.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Ellisville, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Home Page Calendar]",
+    "_metro": "Ellisville, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Ellisville — Parks and Recreation",
+    "category": "community",
+    "url": "https://www.ellisville.mo.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Ellisville, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks and Recreation]",
+    "_metro": "Ellisville, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "JCES Kinjin",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2f8474aff283a922082296eb46556eb07d0cc5e8b67abe19e790fcf8e590abfa%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Eindhoven",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Sint-Jan de Doper Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7f98c77014657500cda73883d47faefe0a35ffe53042e4cc8542847a1b8aee60%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waalwijk",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Aufnahmewohnheim Rankestraße",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.internationaler-bund.de/presse-themen/events-im-ib/events.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
   }
 ]
