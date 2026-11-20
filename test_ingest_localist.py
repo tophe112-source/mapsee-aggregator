@@ -308,7 +308,7 @@ check("...and asks for nothing after it", flaky.asked == [1, 2, 3, 4], flaky.ask
 
 # --------------------------------------------------------------------------- #
 # 8. distinct or not, the row is the same: the earliest occurrence, keyed on
-#    the event's own first_date (the collapse stays for a server that ignores
+#    the publisher's event ID (the collapse stays for a server that ignores
 #    the parameter)
 # --------------------------------------------------------------------------- #
 filler = hikes(1, 100)[0]
@@ -326,6 +326,24 @@ check("two occurrence wraps on two pages collapse to the one distinct=true retur
       _bird(s_occ) == _bird(s_one) and len(_bird(s_one)) == 1, (_bird(s_occ), _bird(s_one)))
 check("...on its November date", _bird(s_one) and _bird(s_one)[0][1] == "2026-11-02T09:00:00-05:00",
       _bird(s_one))
+
+before = L.to_event(BIRD_HIKE_NOV, DNCR)
+edit = copy.deepcopy(BIRD_HIKE_DEC)
+edit["event"].update(title="Bird Hike with a Park Ranger", location_name="New trailhead",
+                     first_date="2026-12-07", localist_url="https://events.dncr.nc.gov/event/new-slug")
+after = L.to_event(edit, DNCR)
+check("a title, venue, date and URL edit share the publisher's stable ID",
+      before.fingerprint == after.fingerprint and before.legacy_fingerprints != after.legacy_fingerprints)
+check("two tenants with the same numeric ID keep separate event identities",
+      L.to_event(edit, dict(DNCR, base_url="https://other.example")).fingerprint != before.fingerprint)
+edit["event"]["status"] = "canceled"
+dead = L.to_event(edit, DNCR, tombstone=True)
+check("a cancellation after the edit still targets the same stable ID", dead.fingerprint == before.fingerprint)
+notice = copy.deepcopy(BIRD_HIKE_NOV)
+notice["event"]["title"] = "CANCELLED: Bird Hike"
+_, canceled, _, _ = run(DNCR, Tenant([[notice]]))
+check("a title cancellation targets the stable ID and retains the old key for transition",
+      not canceled.records and canceled.tombstones[before.fingerprint]["legacy"] == before.legacy_fingerprints)
 
 # --------------------------------------------------------------------------- #
 # 9. the config: every max_pages is a whole number of pages, and every tenant

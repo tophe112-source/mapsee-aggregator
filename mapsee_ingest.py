@@ -827,6 +827,7 @@ def norm_categories(primary: Optional[str], *extras: Any) -> List[str]:
 # --------------------------------------------------------------------------- #
 
 OWN_ONLY_CANCEL_SOURCES = frozenset({"meetup", "eventbrite", "luma"})
+LOCALIST_FINGERPRINT_PREFIX = "localist-v1:"
 
 _STAMP_FMT = "%Y-%m-%dT%H:%M:%SZ"
 
@@ -1389,6 +1390,8 @@ class EventStore:
             tomb["notice"] = True
         if own_only:
             tomb["url"] = ev.ticket_url.strip()          # the sync hides only the row that links here
+        elif fp.startswith(LOCALIST_FINGERPRINT_PREFIX) and ev.ticket_url:
+            tomb["url"] = ev.ticket_url.strip()          # proof for the old, shared fingerprint only
         self.tombstones[fp] = tomb
         self.stats["cancelled"] += 1
         self.cancelled_by_source[ev.source] = self.cancelled_by_source.get(ev.source, 0) + 1

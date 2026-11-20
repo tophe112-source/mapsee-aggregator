@@ -25,12 +25,14 @@ pages, rounded up to five; test_ingest_localist.py fails if one outgrows it.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
 import time
 from collections import Counter
 from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urlsplit
 
 try:
     import requests
@@ -39,7 +41,7 @@ except ImportError:  # pragma: no cover
 
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
-                           notice_reason, strip_notice, USER_AGENT)
+                           notice_reason, strip_notice, LOCALIST_FINGERPRINT_PREFIX, USER_AGENT)
 
 # Event.status values that take an event off the map. Measured 2026-10-05 on the
 # first page (days=90, pp=100) of all 56 sources: 5,410 "live", 4 "soldout", 3
@@ -303,8 +305,8 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any], *,
              tombstone: bool = False) -> Optional[NormalizedEvent]:
     """The live row, or with tombstone=True the record of an event Localist marks
     canceled (for EventStore.cancel); None for the other kind. One builder, so
-    the tombstone carries the stored row's fingerprint: title | first_date |
-    place. The status is the EVENT's, so it covers every occurrence."""
+    the tombstone carries the same key as the live row. The status is the
+    EVENT's, so it covers every occurrence."""
     event = wrap.get("event") or {}
     title = (event.get("title") or "").strip()
     if not title:
@@ -328,26 +330,8 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any], *,
         lon = float(geo.get("longitude"))
     except (TypeError, ValueError):
         return None                                        # no coordinates -> can't map it
-    # IDENTITY IS THE EVENT'S OWN FIRST DATE, not the occurrence this wrap
-    # happens to carry. That distinction is the whole bug.
-    #
-    # `days=90` is a ROLLING window, so which occurrences come back depends on
-    # the day the job runs. Every wrap of one event shares a source_id (the
-    # Localist id) but produced a DIFFERENT fingerprint here, so EventStore
-    # re-keyed the record once per wrap and the survivor was whichever occurrence
-    # happened to be processed last. Move the window and that survivor changes,
-    # so the fingerprint changed on nearly every run — a new external_id, a new
-    # database row, and the old one left behind because the sync upserts on
-    # (external_source, external_id). Meanwhile _fill_missing kept the FIRST
-    # start_local it saw, which is why the duplicates all carried an identical
-    # starts_at and different ids: the visible field was stable and the identity
-    # underneath it was not.
-    #
-    # first_date is a property of the event, so it does not move with the window.
-    # Measured on UT Dallas: 311 of 315 single-occurrence events already have
-    # first_date == their instance date, so their identity is UNCHANGED and the
-    # catalog is not mass re-keyed. The 4 that differ are recurring events whose
-    # earlier dates have passed - exactly the unstable ones this is fixing.
+    # Reproduce the old key for in-place adoption. Its date was the event's
+    # first date, independent of the first occurrence in today's window.
     date_key = str(event.get("first_date") or start)[:10]
     desc = (event.get("description_text") or "").strip() or None
     if desc:
@@ -358,9 +342,14 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any], *,
     if line:
         desc = f"{line}\n\n{desc}" if desc else line
     place = event.get("location_name") or geo.get("street")
+    old_key = make_fingerprint(title, date_key, place)
+    host = urlsplit(src.get("base_url") or "").hostname
+    event_id = str(event.get("id") or "").strip()
+    stable = (LOCALIST_FINGERPRINT_PREFIX + hashlib.sha1(f"{host}\n{event_id}".encode()).hexdigest()
+              if host and event_id.isascii() and event_id.isdecimal() else None)
     nev = NormalizedEvent(
         source="localist:" + src["name"].lower().replace(" ", "-"),
-        source_id=str(event.get("id") or make_fingerprint(title, date_key, place)),
+        source_id=event_id or old_key,
         name=title,
         description=desc,
         start_local=start,
@@ -372,8 +361,9 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any], *,
         **dict(zip(("category", "categories"), _categories(event, src.get("category")))),
         poster_image_url=event.get("photo_url") or None,
         ticket_url=event.get("localist_url") or event.get("url") or None,
+        legacy_fingerprints=[old_key] if stable else [],
     )
-    nev.fingerprint = make_fingerprint(title, date_key, place)
+    nev.fingerprint = stable or old_key
     return nev
 
 
@@ -505,6 +495,19 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
         dead = dead_status(best[key])
         nev = to_event(best[key], src, tombstone=bool(dead))
         if not nev:
+            continue
+        notice = notice_reason(nev.name) if nev.fingerprint.startswith(LOCALIST_FINGERPRINT_PREFIX) else None
+        if notice and not dead:
+            # The notice still has the event's own stable ID. The old title key
+            # can be targeted too, subject to the sync's source URL guard.
+            title = strip_notice(nev.name)
+            if title:
+                event = best[key]["event"]
+                date_key = str(event.get("first_date") or nev.start_local)[:10]
+                nev.legacy_fingerprints = [make_fingerprint(title, date_key, nev.venue_name)]
+                nev.name = title
+                if store.cancel(nev, notice, notice=True) == "cancelled":
+                    cancelled += 1
             continue
         if dead:
             # Refused, it stayed on the map if an earlier run stored it. Not

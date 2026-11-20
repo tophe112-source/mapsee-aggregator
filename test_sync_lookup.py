@@ -436,6 +436,57 @@ class LookupTests(unittest.TestCase):
         self.assertIn("Upserted 1 events", out.getvalue())
 
 
+class LocalistIdentityTests(unittest.TestCase):
+    def test_adoption_moves_only_a_verified_existing_listing_and_preserves_its_uuid(self):
+        from unittest.mock import Mock
+
+        stable = sync.LOCALIST_FINGERPRINT_PREFIX + "a" * 40
+        link = "https://events.seattleu.edu/event/talk"
+        rec = {"fingerprint": stable, "sources": [{"source": "localist:seattle", "url": link}]}
+        old = {"id": "kept-uuid", "description": "Tickets / info: " + link,
+               "updated_at": "2026-11-19T00:00:00Z", "duplicate_of": None}
+        for row, already_adopted, reply, outcome in (
+            (old, False, [{"id": "kept-uuid", "external_id": stable}], ({stable}, set())),
+            (old, False, [], (set(), {stable})),  # changed after the read
+            (dict(old, description="Tickets / info: https://another.example/event/talk"), False, None,
+             (set(), {stable})),
+            (dict(old, duplicate_of="another-uuid"), False, None, (set(), {stable})),
+            (old, True, None, (set(), set())),
+        ):
+            with self.subTest(row=row, already_adopted=already_adopted, reply=reply):
+                session = Mock()
+                session.patch.return_value.status_code = 200
+                session.patch.return_value.json.return_value = reply
+
+                def read(_session, _url, _key, ids, fields=(), detail=None):
+                    if detail is not None:
+                        self.assertEqual(set(ids), {"legacy"})
+                        detail["legacy"] = row
+                        return {"legacy": False}
+                    self.assertEqual(set(ids), {stable})
+                    return {stable: False} if already_adopted else {}
+
+                with patch.object(sync, "fetch_import_state", side_effect=read), redirect_stdout(io.StringIO()):
+                    self.assertEqual(sync.adopt_localist_ids(session, "https://db.example", "key",
+                                                            [rec], {stable: ["legacy"]}), outcome)
+                if reply is None:
+                    session.patch.assert_not_called()
+                else:
+                    params = session.patch.call_args.kwargs["params"]
+                    self.assertEqual(params["id"], "eq.kept-uuid")
+                    self.assertEqual(params["updated_at"], "eq." + old["updated_at"])
+                    self.assertEqual(session.patch.call_args.kwargs["json"], {"external_id": stable})
+
+    def test_cancellation_requires_url_ownership_only_for_the_legacy_key(self):
+        fp = sync.LOCALIST_FINGERPRINT_PREFIX + "a" * 40
+        tomb = {"source": "localist:seattle", "legacy": ["legacy"]}
+        inputs = {"tombstones": {fp: tomb}, "live": set()}
+        self.assertEqual(set(sync.cancellation_targets(inputs, {})), {fp})
+        tomb["url"] = "https://events.seattleu.edu/event/talk"
+        self.assertEqual(set(sync.cancellation_targets(inputs, {})), {fp, "legacy"})
+        self.assertEqual(sync.owned_tombstones(inputs), {"legacy": tomb["url"]})
+
+
 class Writable(Store):
     """Store that also answers PATCH, moving or hiding a row as PostgREST would."""
     def __init__(self, rows, fail_patch=False, **kw):
@@ -925,6 +976,7 @@ class CensusTests(unittest.TestCase):
 def run():
     loader = unittest.defaultTestLoader
     suite = unittest.TestSuite([loader.loadTestsFromTestCase(LookupTests),
+                                loader.loadTestsFromTestCase(LocalistIdentityTests),
                                 loader.loadTestsFromTestCase(LegacyRekeyTests),
                                 loader.loadTestsFromTestCase(CensusTests)])
     result = unittest.TextTestRunner(verbosity=2).run(suite)
