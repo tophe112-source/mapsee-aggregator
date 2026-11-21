@@ -250,7 +250,12 @@
  "osm": {
   "metro": 128,
   "metro_key": "DE:Nuremberg",
-  "stuck": {}
+  "stuck": {
+   "DE:Nuremberg": {
+    "day": 20261121,
+    "n": 1
+   }
+  }
  },
  "osm|community_centre,library": {
   "metro": 225,
