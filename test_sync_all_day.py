@@ -210,6 +210,30 @@ def main():
     checks.append((S.time_changed(rec, {"starts_at": r["starts_at"], "ends_at": r["ends_at"]}) is False,
                    "the club night is unchanged on both sides"))
 
+    # ---- 10. AN ADDRESS-ONLY RECORD IS ZONED BY THE ROW IT WOULD REPLACE. The
+    # geocoder runs after the daily state read, so a record with a street and
+    # no coordinates had no instant to compare and waited for Wednesday; the
+    # stored row's own lat/lon come with that read (STATE_FIELDS).
+    stored = {"starts_at": "2026-11-22T08:00:00Z", "ends_at": "2026-11-22T10:00:00Z",
+              "lat": SEATTLE[0], "lon": SEATTLE[1]}
+    bare = {"name": "Food Drive", "category": "community", "fingerprint": "fp",
+            "address": "400 Fairview Ave N", "city": "Seattle", "start_local": "2026-11-22"}
+    checks.append((S.time_changed(bare, stored) is True,
+                   "a coordless day against a stored 12:00 AM -> 2:00 AM is a time change, zoned by the stored pin"))
+    checks.append((S.time_changed(bare, {"starts_at": "2026-11-22T08:00:00Z",
+                                         "ends_at": "2026-11-23T07:59:59Z",
+                                         "lat": SEATTLE[0], "lon": SEATTLE[1]}) is False,
+                   "...and once stored as its day it is not one"))
+    checks.append((S.time_changed(dict(bare, start_local="2026-11-22T20:00:00"), stored) is True
+                   and S.time_changed(dict(bare, start_local="2026-11-22T00:00:00"), stored) is True,
+                   "a coordless naive clock is compared too (8pm, and a midnight the rule reads as a day)"))
+    checks.append((S.time_changed(bare, {k: v for k, v in stored.items() if k not in ("lat", "lon")}) is False
+                   and S.time_changed(bare, dict(stored, lat=None, lon=None)) is False,
+                   "no pin on either side is still no instant: left to Wednesday"))
+    checks.append((S.time_changed(dict(bare, start_local="2026-11-22T09:00:00",
+                                       latitude=BERLIN[0], longitude=BERLIN[1]), stored) is False,
+                   "the record's own coordinates win: 9:00 in Berlin IS the stored 08:00Z"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

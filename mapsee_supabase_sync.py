@@ -3717,7 +3717,13 @@ def rekey_legacy(session, url: str, key: str, pairs: Dict[str, List[str]]):
 
 # The import-state read also returns these, in the same bounded chunks (no
 # extra request): what a daily run needs to see a time change or a cancellation.
-STATE_FIELDS = ("starts_at", "ends_at", "hidden_at", "cancelled_at")
+# lat/lon are the STORED ROW'S OWN PIN, for time_changed: an adapter that knows
+# only a street address writes a naive local time with no coordinates, the
+# geocoder runs after this read, and without a place a wall clock is not an
+# instant. See PLACE_FIELDS.
+STATE_FIELDS = ("starts_at", "ends_at", "hidden_at", "cancelled_at", "lat", "lon")
+# The STATE_FIELDS that are numbers, not stamps (the state cache checks types).
+PLACE_FIELDS = ("lat", "lon")
 # ...and the row's id, so a stored row the collapser KEPT can be found among the
 # copies' duplicate_of (merge_copy_categories). Same read, no extra request.
 ID_FIELD = ("id",)
@@ -3873,9 +3879,10 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
     Before build_rows, on purpose: it decides whether an --only-new run keeps a
     stored row, so it must cost no geocoding and no extra read. It FAILS TOWARD
     KEEPING NOTHING: a value either side cannot turn into an instant (a naive
-    time with no coordinates yet, a missing column) means "leave it to
-    Wednesday", because the opposite default would rewrite every stored row
-    daily. A standing row's window is rolled by the database (skip_cols)."""
+    time with no coordinates on the record OR on the stored row, a missing
+    column) means "leave it to Wednesday", because the opposite default would
+    rewrite every stored row daily. A standing row's window is rolled by the
+    database (skip_cols)."""
     if not detail or "starts_at" not in detail or rec.get("recurring_days"):
         return False
     start = rec.get("start_utc") or rec.get("start_local")
@@ -3883,8 +3890,19 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
     if not start:
         return False
     lat, lon = rec.get("latitude"), rec.get("longitude")
+    if lat is None or lon is None:
+        # NOT PLACED YET, BUT THE ROW IT WOULD REPLACE IS. The geocoder runs
+        # after this (it is what an --only-new run is saving), so a record that
+        # carries a street address and no coordinates had no zone here, read as
+        # "leave it to Wednesday", and that was every row of every address-only
+        # adapter: on 2026-11-21 a corrected Discover SLU clock reached the NEW
+        # row of a day (A New Brain, 8:00 PM) and none of the stored ones (Food
+        # Drive, still 12:00 AM -> 2:00 AM). The stored row's pin is where the
+        # geocoder put this same address last time; it comes with the state
+        # read (STATE_FIELDS), so it costs no request and no geocoding.
+        lat, lon = detail.get("lat"), detail.get("lon")
     if (_utc(start) is None or (end and _utc(end) is None)) and (lat is None or lon is None):
-        return False                                  # the geocoder places it later
+        return False                                  # nowhere yet: the geocoder places it later
     start, end = _row_window(rec, lat, lon)           # what to_row would write
     ours, theirs = _utc(start), _utc(detail.get("starts_at"))
     if ours is None or theirs is None:
@@ -3977,8 +3995,14 @@ def _state_cache_entry_ok(entry) -> bool:
     n = len(STATE_FIELDS)
     if not isinstance(entry, list) or len(entry) != n + 2 or not isinstance(entry[n], bool):
         return False
-    if any(v is not None and not isinstance(v, str) for v in entry[:n]):
-        return False
+    for field, v in zip(STATE_FIELDS, entry[:n]):
+        if v is None:
+            continue
+        if field in PLACE_FIELDS:
+            if isinstance(v, bool) or not isinstance(v, (int, float)):
+                return False
+        elif not isinstance(v, str):
+            return False
     try:
         return len(entry[n + 1]) == 10 and datetime.fromisoformat(entry[n + 1]) is not None
     except (TypeError, ValueError):

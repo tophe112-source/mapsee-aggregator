@@ -145,9 +145,11 @@ def store_id(store, cache):
     return f"{os.path.basename(store)}|{os.path.basename(cache)}"
 
 
-def entry(starts_at=None, ends_at=None, hidden_at=None, cancelled_at=None, claimed=False, days_ago=1):
+def entry(starts_at=None, ends_at=None, hidden_at=None, cancelled_at=None, claimed=False, days_ago=1,
+          lat=None, lon=None):
     """A cache entry in STATE_FIELDS order, as a read of `days_ago` days back left it."""
-    vals = dict(starts_at=starts_at, ends_at=ends_at, hidden_at=hidden_at, cancelled_at=cancelled_at)
+    vals = dict(starts_at=starts_at, ends_at=ends_at, hidden_at=hidden_at, cancelled_at=cancelled_at,
+                lat=lat, lon=lon)
     return [vals[f] for f in sync.STATE_FIELDS] + [claimed, (TODAY - timedelta(days=days_ago)).isoformat()]
 
 
@@ -266,8 +268,8 @@ check("the file keeps what was skipped, unchanged, and what was read and not wri
        "claimed_moved": TODAY.isoformat(), "ours_hid_again": TODAY.isoformat()})
 check("  ...holding the read's own values for a row it re-read (the take-down on top, the claim)",
       (saved["ours_hid_again"][:N], saved["claimed_moved"][N]),
-      ([dict(starts_at=stamp(T), ends_at=None, hidden_at=YOUNG, cancelled_at=OLD)[f] for f in sync.STATE_FIELDS],
-       True))
+      ([dict(starts_at=stamp(T), ends_at=None, hidden_at=YOUNG, cancelled_at=OLD, lat=None, lon=None)[f]
+        for f in sync.STATE_FIELDS], True))
 check("  ...and never a value no read returned", only_read_values(WARM, saved, db.served), {})
 check("  ...nor anything written this run, whatever the read said", sorted(set(written) & set(saved)), [])
 
@@ -452,6 +454,78 @@ check("an existing one is neither opened nor changed", (dry in opened, open(dry,
       (False, True))
 
 print()
+print("An address-only record has no zone of its own: the stored row's pin supplies it")
+# Discover SLU, Tribe, most ics feeds: a street address and a naive local clock,
+# no coordinates until the geocoder runs - which is AFTER the state read. Read
+# as "no instant, leave it to Wednesday", a corrected clock reached new rows
+# the same day and stored ones up to a week later (2026-11-21: A New Brain's
+# new 8:00 PM row was right, the stored Food Drive rows still 12:00 AM -> 2:00
+# AM). lat/lon now ride the state read, so the stored row says where it is.
+from zoneinfo import ZoneInfo                              # noqa: E402
+PACIFIC = ZoneInfo("America/Los_Angeles")
+DAY = (TODAY + timedelta(days=5)).isoformat()
+SLU_ADDR = dict(address="400 Fairview Ave N", city="Seattle", region="WA", country="US")
+SLU_PIN = dict(lat=47.6222, lon=-122.3340)
+
+
+def at(clock):
+    """A wall clock on DAY in Seattle, as the UTC stamp the database holds."""
+    return stamp(datetime.fromisoformat(f"{DAY}T{clock}").replace(tzinfo=PACIFIC).astimezone(timezone.utc))
+
+
+def slu(fp, start_local, **kw):
+    return rec(fp, source="discoverslu", start_utc=None, start_local=start_local, latitude=None,
+               longitude=None, coords_exact=False, category="community", **dict(SLU_ADDR, **kw))
+
+
+def census(_session, addrs, **_kw):
+    return sync.CensusAnswers({a: (SLU_PIN["lat"], SLU_PIN["lon"]) for a in addrs})
+
+
+astore = write_store("address_only.json", [
+    slu("drive", DAY),                                   # was a midnight clock, now the day
+    slu("show", f"{DAY}T20:00:00"),                      # was midnight, now its stated 8pm
+    slu("steady", f"{DAY}T19:00:00"),                    # nothing to say
+    slu("nowhere", f"{DAY}T20:00:00")])                  # a stored row with no pin: as before
+arows = {"drive": dict(starts_at=at("00:00:00"), ends_at=at("02:00:00"), **SLU_PIN),
+         "show": dict(starts_at=at("00:00:00"), ends_at=at("03:00:00"), **SLU_PIN),
+         "steady": dict(starts_at=at("19:00:00"), ends_at=at("21:00:00"), **SLU_PIN),
+         "nowhere": dict(starts_at=at("00:00:00"), ends_at=at("03:00:00"))}
+awarm = {fp: entry(**row) for fp, row in arows.items()}
+with patch.object(sync, "state_cache_sampled", return_value=False):
+    adb_plain = FakeDB(arows)
+    aplain, _, _ = run_sync("address-only, no cache", astore, adb_plain, ["--only-new"], geocode=census)
+    acache = path("address_only_cache.json")
+    write_cache(acache, astore, awarm)
+    adb = FakeDB(arows)
+    awritten, alog, _ = run_sync("address-only, warm", astore, adb, ["--only-new"], acache, geocode=census)
+check("a daily run writes the stored rows whose clock changed, and only those",
+      sorted(aplain), ["drive", "show"])
+check("  ...the same with a warm cache, which reads exactly those two", (sorted(awritten), adb.reads),
+      (["drive", "show"], [["drive", "show"]]))
+check("  ...the show at its stated 8pm where the venue is",
+      sync._utc(adb.rows["show"]["starts_at"]), sync._utc(at("20:00:00")))
+check("  ...the drive as its whole local day, no longer two hours after midnight",
+      (sync._utc(adb.rows["drive"]["starts_at"]), sync._utc(adb.rows["drive"]["ends_at"])),
+      (sync._utc(at("00:00:00")), sync._utc(at("23:59:59"))))
+check("a stored row with no pin is left to Wednesday, as before", "nowhere" in aplain or "nowhere" in awritten, False)
+check("a pin is a number in the file, and anything else there refuses the file",
+      (sync._state_cache_entry_ok(entry(stamp(T), **SLU_PIN)), sync._state_cache_entry_ok(entry(stamp(T), lat=47)),
+       sync._state_cache_entry_ok(entry(stamp(T), lat="47.6", lon=-122.3)),
+       sync._state_cache_entry_ok(entry(stamp(T), lat=True, lon=-122.3)),
+       sync._state_cache_entry_ok(entry(47.6))), (True, True, False, False, False))
+OLD_VERSION = f"{sync.STATE_CACHE_VERSION}:starts_at,ends_at,hidden_at,cancelled_at"
+write_cache(acache, astore, {fp: e[:4] + e[N:] for fp, e in awarm.items()}, version=OLD_VERSION)
+old_rows, old_why = sync.load_state_cache(acache, store_id(astore, acache))
+check("a cache written before the pin rode the read is another version, so it decides nothing",
+      (old_rows, OLD_VERSION in old_why, sync.state_cache_version() != OLD_VERSION), (None, True, True))
+moved_pin = dict(arows["steady"], lat=47.7, claimed_at=None)
+check("a sampled row whose pin moved differs from the cache; the same pin does not",
+      (sync.state_cache_differs(awarm["steady"], False, moved_pin),
+       sync.state_cache_differs(awarm["steady"], False, dict(arows["steady"], hidden_at=None, cancelled_at=None))),
+      (True, False))
+
+print()
 print("The must-read rules, one at a time")
 when = NOW
 r0 = rec("z")
@@ -498,11 +572,14 @@ check("  ...and a different 1% the next day",
 check("next_state_cache adds only a read's values, drops what a read did not find, and evicts",
       sync.next_state_cache({"kept": ok, "gone": ok, "evicted": ok, "old": entry(stamp(T), days_ago=9)},
                             {"read": False, "evicted": False}, {"read": {"starts_at": "S", "ends_at": None,
-                                                                         "hidden_at": None, "cancelled_at": None},
+                                                                         "hidden_at": None, "cancelled_at": None,
+                                                                         "lat": 47.62, "lon": -122.33},
                                                                 "evicted": {"starts_at": "E", "ends_at": None,
-                                                                            "hidden_at": None, "cancelled_at": None}},
+                                                                            "hidden_at": None, "cancelled_at": None,
+                                                                            "lat": None, "lon": None}},
                             {"read", "gone", "evicted", "unread_new"}, {"evicted"}, NOW),
-      {"kept": ok, "read": [dict(starts_at="S", ends_at=None, hidden_at=None, cancelled_at=None)[f]
+      {"kept": ok, "read": [dict(starts_at="S", ends_at=None, hidden_at=None, cancelled_at=None,
+                                 lat=47.62, lon=-122.33)[f]
                             for f in sync.STATE_FIELDS] + [False, TODAY.isoformat()]})
 
 print()

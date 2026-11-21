@@ -1114,3 +1114,29 @@
   follow-up. `test_cleanup.py` drives the job against a table fake that counts
   the index range each fetch walks; removing the floor fails 3 checks, `gt`
   instead of `gte` fails 5.
+
+- **A DAILY TIME CHANGE NEEDED A ZONE, AND AN ADDRESS-ONLY RECORD HAS NONE
+  UNTIL THE GEOCODER RUNS (2026-11-21).** `time_changed` decides before
+  `build_rows` geocodes (that order is what an `--only-new` run saves), and a
+  naive local time with no coordinates is not an instant, so it returned False:
+  "leave it to Wednesday". That was every stored row of every adapter that
+  knows a street and no point (Discover SLU, most Tribe and ics venues). The
+  run on `12c4708` (14:42-19:50 UTC) showed it: A New Brain's NEW 8:00 PM row
+  was written, and the five stored Food Drive days stayed 12:00 AM → 2:00 AM.
+  The stored row already has a pin, the one the geocoder gave this address
+  last time, so `lat`/`lon` joined `STATE_FIELDS` (same bounded read, no extra
+  request) and `time_changed` falls back to them when the record has none; the
+  record's own coordinates still win, and no pin on either side is still
+  "leave it to Wednesday". Measured against the live map that evening, SLU's
+  feed through `to_events` and each row's stored times and pin from
+  `/api/near`: of 80 matched rows, **52** of 58 the site shows no time for
+  read as a time change (0 before), and **0** of 22 timed rows did, before or
+  after. The state cache carries the two numbers (`PLACE_FIELDS`;
+  `_state_cache_entry_ok` wants a number there and a string elsewhere), and
+  its version is derived from `STATE_FIELDS`, so every file written before is
+  refused once and each store's next `--only-new` run reads every id, as a
+  first run does. A sampled row whose pin moved counts as drift, like a moved
+  time. A kept row is geocoded like any other; one the geocoder cannot place
+  is dropped by `build_rows`, unwritten, and is kept again the next day (read
+  from the code, not yet seen in a run). Two mutants (no fallback, pin type unchecked) fail 4 and 1
+  cases of `test_sync_state_cache.py`; `test_sync_all_day.py` section 10.
