@@ -17,7 +17,7 @@ python test_menu_links.py           # what may be called an "Order pickup" link
 python test_osm_food.py             # opening hours we may act on, and the ones we must refuse
 python test_prune_links.py          # what a description must look like after a dead link is cut
 python test_sweep_global.py         # the international sweep's argv, below the equator
-python test_ingest_slu.py           # occurrence vs series start; end_time vs end_date
+python test_ingest_slu.py           # occurrence vs series start; end_time vs end_date; a time the site hides
 python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
 python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
 python test_ingest_runsignup.py     # street2 for the geocoder, no race dated before today or by its gala, a capped state split by date, cause races on community
