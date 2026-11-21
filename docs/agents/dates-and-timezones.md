@@ -401,7 +401,10 @@
   bare day `_anchor_all_day` brackets; standing rows and `pin_only` are
   skipped, and a row with no zone passes through. `to_row` and `time_changed`
   both go through `_row_window`, so a stored "12:00 AM → 3:00 AM" row is
-  rewritten once, on the next daily run that still lists it, and never again.
+  rewritten once and never again: on the next daily run when the record
+  carries coordinates, and, since the stored row's pin joined the state read,
+  when it carries only an address too (sync-eventstore-and-paging.md, the
+  2026-11-21 note; that day's run corrected no stored SLU row).
   Without timezonefinder `_tz_at` falls back to US longitudes, so the Berlin
   and Vienna cases fail locally and pass in CI. Three sync mutants (rule off,
   real end ignored, `time_changed` not sharing it) fail 8, 1 and 3 of 40
