@@ -48490,6 +48490,135 @@
         "lon": 8.6550288
       },
       "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Sportanlage SKV Mörfelden",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://skvmoerfelden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sportanlage SKV Mörfelden",
+        "lat": 49.9719462,
+        "lon": 8.5456397
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kulturwerkstatt KAOS",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kaos-leipzig.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturwerkstatt KAOS",
+        "address": "18 Wasserstraße",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "country": "DE",
+        "lat": 51.3431565,
+        "lon": 12.3347924
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "wunderbar",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://wunderbar-plagwitz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "wunderbar",
+        "address": "18 Gießerstraße",
+        "city": "Leipzig",
+        "postal_code": "04229",
+        "lat": 51.3274423,
+        "lon": 12.3276946
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Capa-Haus",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://capa-haus.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Capa-Haus",
+        "address": "61 Jahnallee",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "country": "DE",
+        "lat": 51.3381706,
+        "lon": 12.3421221
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "AKL Stuttgart e.V. - Hilfe in Lebenskrisen und bei Selbsttötungsgefahr",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://akleben-stuttgart.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "AKL Stuttgart e.V. - Hilfe in Lebenskrisen und bei Selbsttötungsgefahr",
+        "address": "32 Römerstraße",
+        "postal_code": "70180",
+        "lat": 48.7650049,
+        "lon": 9.1728647
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Modellflugclub Rossendorf",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.mfc-rossendorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Modellflugclub Rossendorf",
+        "lat": 51.0641829,
+        "lon": 13.9412935
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Schwarz-Gelbe Hilfe e.V. - Fanhilfe SG Dynamo Dresden",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.schwarz-gelbe-hilfe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schwarz-Gelbe Hilfe e.V. - Fanhilfe SG Dynamo Dresden",
+        "address": "26 Grunaer Straße",
+        "city": "Dresden",
+        "postal_code": "01069",
+        "lat": 51.0455097,
+        "lon": 13.7531595
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Aktiv DabeiSein e.V.",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://aktiv-dabeisein-mit-behinderungen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aktiv DabeiSein e.V.",
+        "address": "20-22 Baumschulenallee",
+        "lat": 52.384125,
+        "lon": 9.8182668
+      },
+      "_metro": "Hannover, Germany"
     }
   ],
   "_not_included": {

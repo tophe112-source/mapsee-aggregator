@@ -1,10 +1,10 @@
 {
  "civic": {
-  "country": "NZ",
+  "country": "AT",
   "offset": 2140,
   "offsets": {
    "AE": 0,
-   "AT": 240,
+   "AT": 360,
    "AU": 203,
    "BE": 227,
    "CA": 240,
@@ -29,7 +29,7 @@
    "PT": 360,
    "SE": 80,
    "SI": 240,
-   "US": 2387,
+   "US": 2401,
    "ZA": 200
   },
   "visited": [
@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 119,
-  "metro_key": "DE:Frankfurt",
+  "metro": 128,
+  "metro_key": "DE:Nuremberg",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -264,21 +264,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 400,
-  "events": 1100,
+  "community events": 0,
+  "events": 1200,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 0,
+  "library programs": 200,
+  "parks events": 100,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 0,
+  "recreation programs": 100,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 300,
-  "wellness programs": 100,
-  "youth programs": 200
+  "special events": 200,
+  "volunteer": 0,
+  "wellness programs": 200,
+  "youth programs": 0
  }
 }

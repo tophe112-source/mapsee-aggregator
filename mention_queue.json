@@ -599,6 +599,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "evergy festival of lights": {
+      "dates": [],
+      "first_seen": "2026-11-21",
+      "last_seen": "2026-11-21",
+      "name": "Evergy Festival of Lights",
+      "ref_keys": [
+        "ede99d3db9b3"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Winter Tea at Powell Gardens",
+          "url": "https://powellgardens.org/event/winter-tea/"
+        }
+      ],
+      "sample": "Powell Gardens, where thousands of twinkling lights transform the landscape into a magical winter wonderland during Evergy Festival of Lights. Whether you’re gathering with loved ones or seeking a peaceful moment of seasonal joy, this event offers the perfect blend of comfort, community, and",
+      "state": "covered",
+      "times_seen": 1,
+      "venue": null
+    },
     "feast festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -1079,14 +1100,16 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-19",
+      "last_seen": "2026-11-21",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
         "1016a24e9c88",
         "33e7eba1bcea",
         "3933167fe8cf",
+        "3b5e9269f555",
         "45fa3cbe39f7",
+        "53f3d138558c",
         "6fbd7b8d2f83",
         "75f0f4d0868c",
         "8915a0d5396d",
@@ -1133,7 +1156,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 16,
+      "times_seen": 18,
       "venue": null
     },
     "melt festival": {

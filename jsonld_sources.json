@@ -39002,6 +39002,396 @@
         "street_hint": "112a Messeler Straße"
       },
       "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Das Rind",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://dasrind.de/event-detail/2026-11-21-introducing-nepumuk/"
+      ],
+      "link_pattern": "https://dasrind\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Rind",
+        "address": "11 Mainstraße",
+        "city": "Rüsselsheim am Main",
+        "postal_code": "65428",
+        "country": "DE",
+        "lat": 49.9959851,
+        "lon": 8.4119093
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://zwenkau.nak-nordost.de/db/637324/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://zwenkau\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+        "address": "1 Marktstraße",
+        "city": "Zwenkau",
+        "postal_code": "04442",
+        "country": "DE",
+        "lat": 51.2164189,
+        "lon": 12.3241488
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "ZiMMT e.V.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://zimmt.net/programm/"
+      ],
+      "link_pattern": "https://zimmt\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "ZiMMT e.V.",
+        "address": "80 Torgauer Straße",
+        "city": "Leipzig",
+        "postal_code": "04318",
+        "lat": 51.3477677,
+        "lon": 12.4204822
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Omas for Future",
+      "category": "community",
+      "_found": "osm:ngo -> modern-events+jsonld-event",
+      "listing": [
+        "https://omasforfuture.de/kalender/"
+      ],
+      "link_pattern": "https://omasforfuture\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Omas for Future",
+        "address": "7 Henricistraße",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "lat": 51.3375856,
+        "lon": 12.3362537
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://wurzen.nak-nordost.de/db/637289/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://wurzen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "address": "17 Muldengasse",
+        "city": "Wurzen",
+        "postal_code": "04808",
+        "country": "DE",
+        "lat": 51.3714653,
+        "lon": 12.7329632
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Borna",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://borna.nak-nordost.de/db/637292/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://borna\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Borna",
+        "address": "9 Oststraße",
+        "city": "Borna",
+        "postal_code": "04552",
+        "country": "DE",
+        "lat": 51.1245071,
+        "lon": 12.5083519
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Stadtbücherei Nürtingen - Zweigstelle Roßdorf",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.stadtbuecherei-nuertingen.de/das-gibts/veranstaltungen/12376/lesestart/termin-10944761"
+      ],
+      "link_pattern": "https://www\\.stadtbuecherei\\-nuertingen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbücherei Nürtingen - Zweigstelle Roßdorf",
+        "lat": 48.6056634,
+        "lon": 9.3407089
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Kultur- und Kongresszentrum Sängerhalle",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://saengerhalle-stuttgart.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://saengerhalle\\-stuttgart\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kultur- und Kongresszentrum Sängerhalle",
+        "address": "29 Lindenschulstraße",
+        "city": "Stuttgart",
+        "postal_code": "70327",
+        "country": "DE",
+        "lat": 48.7767209,
+        "lon": 9.2498796
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "zakk",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://zakk.de/event-detail?event=15555"
+      ],
+      "link_pattern": "https://zakk\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "zakk",
+        "city": "Düsseldorf",
+        "postal_code": "40233",
+        "country": "DE",
+        "lat": 51.2167906,
+        "lon": 6.8105003,
+        "street_hint": "40 Fichtenstraße"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadtbibliothek Neukirchen",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.stadtbuecherei-neukirchen-vluyn.de/veranstaltungen/2977860/2026/11/26/vorlesepaten"
+      ],
+      "link_pattern": "https://www\\.stadtbuecherei\\-neukirchen\\-vluyn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbibliothek Neukirchen",
+        "city": "Neukirchen-Vluyn",
+        "postal_code": "47506",
+        "country": "DE",
+        "lat": 51.4510773,
+        "lon": 6.579238,
+        "street_hint": "5 Missionshof"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Sankt Stephan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://heilig-geist-krefeld.de/Aktuell/veranstaltungen/a-event/Adventbasar-00002/?instancedate=1795255200000"
+      ],
+      "link_pattern": "https://heilig\\-geist\\-krefeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sankt Stephan",
+        "address": "50 Luisenstraße",
+        "city": "Krefeld",
+        "postal_code": "47799",
+        "country": "DE",
+        "lat": 51.3301147,
+        "lon": 6.5700358
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadt- und Landesbibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_142073.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadt- und Landesbibliothek",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5165234,
+        "lon": 7.4608722,
+        "street_hint": "1-3 Max-von-der-Grün-Platz",
+        "aliases": [
+          "Zentralbibliothek"
+        ]
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Museum für Kunst und Kulturgeschichte",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_126364.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum für Kunst und Kulturgeschichte",
+        "address": "3 Hansastraße",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5166724,
+        "lon": 7.4630051
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Stadtteilbibliothek Scharnhorst",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_149489.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtteilbibliothek Scharnhorst",
+        "city": "Dortmund",
+        "postal_code": "44328",
+        "lat": 51.5512153,
+        "lon": 7.5451592,
+        "street_hint": "15 Mackenrothweg"
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Tückinger Schützenverein 1872 e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://tsv1872.de/termine"
+      ],
+      "link_pattern": "https://tsv1872\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tückinger Schützenverein 1872 e.V.",
+        "address": "33a Tückingstraße",
+        "city": "Hagen",
+        "postal_code": "58135",
+        "country": "DE",
+        "lat": 51.3646985,
+        "lon": 7.4329064
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "SV Wacker Mohorn e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.sv-wacker-mohorn.de/veranstaltungen/2960302/2026/11/21/kegeln-maenner-kreis-liga"
+      ],
+      "link_pattern": "https://www\\.sv\\-wacker\\-mohorn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SV Wacker Mohorn e.V.",
+        "address": "2 Am Tharandter Wald",
+        "city": "Wilsdruff",
+        "postal_code": "01723",
+        "lat": 50.9982268,
+        "lon": 13.4756143
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Teilhabeberatung",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.stadt-ag-dresden.de/veranstaltungen/3003578/2026/11/25/dresdner-trialog"
+      ],
+      "link_pattern": "https://www\\.stadt\\-ag\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teilhabeberatung",
+        "address": "21 Hoyerswerdaer Straße",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "country": "DE",
+        "lat": 51.0608458,
+        "lon": 13.7522572
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Hetzdorfer SV 1990 e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.hetzdorfer-sv.de/veranstaltungen/2637912/2026/11/28/33.-freiberger-adventslauf"
+      ],
+      "link_pattern": "https://www\\.hetzdorfer\\-sv\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hetzdorfer SV 1990 e.V.",
+        "city": "Halsbrücke",
+        "postal_code": "09633",
+        "lat": 50.9677763,
+        "lon": 13.4623531,
+        "street_hint": "18 Am Bergschlößchen"
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Tiergarten Höckendorfer Heide",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://www.gemeinde-klingenberg.de/veranstaltungen/2891309/2026/12/04/amtsblatt-dezember"
+      ],
+      "link_pattern": "https://www\\.gemeinde\\-klingenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tiergarten Höckendorfer Heide",
+        "lat": 50.9242802,
+        "lon": 13.5924714
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Das Andere Kino e.V.",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.das-andere-kino.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.das\\-andere\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Andere Kino e.V.",
+        "address": "26A Sedanplatz",
+        "city": "Lehrte",
+        "postal_code": "31275",
+        "country": "DE",
+        "lat": 52.3740305,
+        "lon": 9.9776033
+      },
+      "_metro": "Hannover, Germany"
     }
   ],
   "_not_included": {
