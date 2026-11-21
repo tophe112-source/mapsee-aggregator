@@ -140,6 +140,76 @@ def main():
     checks.append((S.time_changed(rec, {"starts_at": "2026-10-28T02:30:00Z", "ends_at": "2026-10-28T04:30:00Z"}) is True,
                    "a REAL end after the start that moved is still a time change"))
 
+    # ---- 9. MIDNIGHT WITH NO END IS A DATE IN A TIMESTAMP COLUMN. Cornish's
+    # A New Brain (2pm and 8pm) arrived from a feed whose unset time is
+    # "12:00 am" and reached a phone as "12:00 AM -> 3:00 AM", off the map
+    # eleven hours before its matinee. Measured 2026-11-21 over 17,513
+    # upcoming rows in 26 metros: 36 start at local midnight with no end of
+    # their own, from at least three adapters, and none reads as a midnight
+    # event.
+    def day_of(r, tz):
+        lo, hi = local_day(r["starts_at"], tz), local_day(r["ends_at"], tz)
+        return (lo.strftime("%Y-%m-%d %H:%M:%S"), hi.strftime("%Y-%m-%d %H:%M:%S"))
+
+    r = row(name="A New Brain", category="theater", start_local="2026-11-21T00:00:00")
+    checks.append((day_of(r, "America/Los_Angeles") == ("2026-11-21 00:00:00", "2026-11-21 23:59:59"),
+                   f"a naive local midnight with no end is that whole day, not +3 h ({r['starts_at']} -> {r['ends_at']})"))
+    r = row(start_utc="2026-11-21T08:00:00Z")
+    checks.append((day_of(r, "America/Los_Angeles") == ("2026-11-21 00:00:00", "2026-11-21 23:59:59"),
+                   f"...and so is a UTC instant that IS midnight where the event is ({r['ends_at']})"))
+    r = row(start_utc="2026-11-22T05:00:00Z", end_utc="2026-11-22T05:00:00Z",
+            latitude=43.6955, longitude=-79.4243)
+    checks.append((day_of(r, "America/Toronto") == ("2026-11-22 00:00:00", "2026-11-22 23:59:59"),
+                   f"a zero-length stamp at midnight (a synagogue's calendar date) has no end either ({r['ends_at']})"))
+    r = row(start_local="2026-11-22T00:00:00", latitude=BERLIN[0], longitude=BERLIN[1])
+    checks.append((day_of(r, "Europe/Berlin") == ("2026-11-22 00:00:00", "2026-11-22 23:59:59"),
+                   f"east of Greenwich it is the same local day ({r['starts_at']})"))
+    r = row(start_local="2026-11-22T00:00:00", latitude=28.6139, longitude=77.2090)
+    checks.append((r["starts_at"] == "2026-11-21T18:30:00Z" and r["ends_at"] == "2026-11-22T18:29:59Z",
+                   f"a half-hour zone's midnight is still midnight ({r['starts_at']} -> {r['ends_at']})"))
+
+    # What it must NOT touch.
+    r = row(category="party", start_local="2026-11-22T00:00:00", end_local="2026-11-22T05:00:00")
+    checks.append((r["starts_at"] == "2026-11-22T08:00:00Z" and r["ends_at"] == "2026-11-22T13:00:00Z",
+                   f"a club night from midnight to 5:00 has a real end and keeps its clock ({r['ends_at']})"))
+    r = row(start_utc="2026-11-22T00:00:00Z")
+    checks.append((r["starts_at"] == "2026-11-22T00:00:00Z" and r["ends_at"] == "2026-11-22T03:00:00Z",
+                   f"midnight UTC is 4pm in Seattle: an ordinary timed row ({r['ends_at']})"))
+    r = row(start_local="2026-11-22T00:30:00")
+    checks.append((r["starts_at"] == "2026-11-22T08:30:00Z" and r["ends_at"] == "2026-11-22T11:30:00Z",
+                   f"12:30 AM is a time somebody typed ({r['ends_at']})"))
+    r = row(start_utc="2026-11-22T08:00:00Z", latitude=None, longitude=None)
+    checks.append((r["starts_at"] == "2026-11-22T08:00:00Z" and r["ends_at"] == "2026-11-22T11:00:00Z",
+                   "a row with no coordinates has no local midnight to find and passes through"))
+    r = row(start_local="2026-11-22T00:00:00", recurring_days={"6": ["00:00", "06:00"]})
+    checks.append((r["starts_at"] == "2026-11-22T08:00:00Z",
+                   f"a standing row's window is its opening hours, not an occasion ({r['starts_at']})"))
+    r = row(start_local="2026-11-22T00:00:00", pin_only=True)
+    checks.append((r["starts_at"] == "2026-11-22T08:00:00Z",
+                   "furniture is not an occasion either"))
+
+    # ONE RULE, TWO READERS, again: a row stored by the rule is not a new time
+    # tomorrow, and the row stored BEFORE the rule is one - once - which is how
+    # the fix reaches what is already in the table.
+    for label, rec in [
+        ("a naive midnight", {"start_local": "2026-11-21T00:00:00"}),
+        ("a UTC midnight-in-Seattle", {"start_utc": "2026-11-21T08:00:00Z"}),
+        ("a zero-length midnight", {"start_utc": "2026-11-21T08:00:00Z", "end_utc": "2026-11-21T08:00:00Z"}),
+    ]:
+        rec = dict({"name": "x", "category": "theater", "latitude": SEATTLE[0],
+                    "longitude": SEATTLE[1], "fingerprint": "fp"}, **rec)
+        r = S.to_row(rec, HOST)
+        checks.append((S.time_changed(rec, {"starts_at": r["starts_at"], "ends_at": r["ends_at"]}) is False,
+                       f"{label}, stored as its day, is not a time change on the next run"))
+        checks.append((S.time_changed(rec, {"starts_at": "2026-11-21T08:00:00Z",
+                                            "ends_at": "2026-11-21T11:00:00Z"}) is True,
+                       f"...and the same row stored as 12:00 AM -> 3:00 AM is rewritten"))
+    rec = {"name": "x", "category": "party", "latitude": SEATTLE[0], "longitude": SEATTLE[1],
+           "fingerprint": "fp", "start_local": "2026-11-22T00:00:00", "end_local": "2026-11-22T05:00:00"}
+    r = S.to_row(rec, HOST)
+    checks.append((S.time_changed(rec, {"starts_at": r["starts_at"], "ends_at": r["ends_at"]}) is False,
+                   "the club night is unchanged on both sides"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

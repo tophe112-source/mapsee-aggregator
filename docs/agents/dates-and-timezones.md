@@ -365,3 +365,46 @@
   "<p>Saturday, October 31</p><p>&#8211; Saturday, November 7, 2026</p>" was
   one range through RANGE_RX. Three mutants (no neighbour rule, a chain across
   a line, a RANGE_RX match across a line) each fail 1 or 2 of 295 cases.
+
+- **MIDNIGHT WITH NO END IS A DATE IN A TIMESTAMP COLUMN, AND A CLOCK THE SITE
+  WILL NOT SHOW IS NOT A CLOCK (2026-11-21).** Reported from a phone: Cornish's
+  A New Brain, curtain 2pm and 8pm, read "Tomorrow, 12:00 AM → 3:00 AM" and was
+  off the map eleven hours before its matinee. Discover SLU's feed puts
+  `12:00 am` in `date_time` when the editor set no time and says so with
+  `dont_display_time: 1`; the site's own front-end returns an empty time label
+  for that flag (`Kv` in its calendar bundle) and its event page prints the
+  dates alone. **230** of 327 rows carry the flag: **93** are `12:00 am`, and
+  **137** hide another hour. Checked against each listing's own words, **114**
+  of the 137 are wrong (three gallery shows at their opening reception's hour
+  on every weekday they hang, 111 rows) and 23 agree. So `mapsee_ingest_slu`
+  reads a flagged row as a bare date unless the publisher states the hour where
+  it can be checked against the row's own date: a line of `long_description`
+  that BEGINS with that date and is otherwise all clocks ("November 21st – 2pm
+  and 8pm", "Thursday, Dec 3: 10:00 am to 4:00 pm"; weekday and year must
+  agree; a line that opens with a label, "Opening Reception: Nov 12 from
+  6-8pm", is not read), or an hour range printed at the tail of
+  `custom_date_display_text` ("…, 12 - 5 pm"). On the live feed: 158 rows a
+  day, 10 from prose, 15 from the printed range, and 3 days with two
+  performances. A day's second performance is its own row with a clock-widened
+  fingerprint (`later_fingerprint`); the first keeps `make_fingerprint`'s, so
+  the stored row is corrected by `time_changed` rather than orphaned. Cost,
+  known: Monday trivia (6 rows, hidden 5:00 pm, true) is now all day.
+  THE NET IS IN THE SYNC, because SLU is not alone. Over **17,513** upcoming
+  rows in 26 metros (`/api/near`, 14 days), **44** start at exactly local
+  midnight; **36** end exactly a category default later, which is no end of
+  their own, and none of the 36 reads as a midnight event (SLU 7, a
+  Ticketmaster museum day ticket 3, a Tribe synagogue's Hebrew dates stamped
+  00:00 → 00:00 with `all_day: false` 3, kickoff-less football, clinics). The
+  **8** with a real end (a club night to 5:00, a four-day congress) are
+  untouched. `_midnight_names_a_day` in mapsee_supabase_sync.py turns a start
+  at 00:00:00 where the event is, with no real end (`_real_end`), into the
+  bare day `_anchor_all_day` brackets; standing rows and `pin_only` are
+  skipped, and a row with no zone passes through. `to_row` and `time_changed`
+  both go through `_row_window`, so a stored "12:00 AM → 3:00 AM" row is
+  rewritten once, on the next daily run that still lists it, and never again.
+  Without timezonefinder `_tz_at` falls back to US longitudes, so the Berlin
+  and Vienna cases fail locally and pass in CI. Three sync mutants (rule off,
+  real end ignored, `time_changed` not sharing it) fail 8, 1 and 3 of 40
+  cases; two adapter mutants (flag ignored, no widened key) fail
+  `test_ingest_slu.py`. `python test_sync_all_day.py` section 9, `python
+  test_ingest_slu.py`.

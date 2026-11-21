@@ -49,6 +49,28 @@ SERIES start and `occurrence_date_time` is the row's own date, so reading
 first Saturday in June and lose the rest. `occurrence_date_time or date_time`,
 which is what the site's own front-end does, is the only correct read.
 
+A CLOCK THE SITE WILL NOT SHOW IS NOT A CLOCK
+---------------------------------------------
+Every row carries a `date_time`, and 230 of 327 (2026-11-21) also carry
+`dont_display_time: 1`. The site's own front-end returns an empty time label
+for those and prints the date alone, because the editor never set a time: 93
+of them are the form's `12:00 am`, and the other 137 are whatever the form
+held (an exhibition's opening-reception hour on every weekday it hangs).
+Read as a clock, A New Brain - a musical at 2pm and 8pm - reached the map as
+"12:00 AM to 3:00 AM", and was off it eleven hours before its matinee.
+
+So a row the site shows no time for names a DAY (a bare date; the sync
+brackets it where the venue is), unless the publisher states the hour in
+words this adapter can check against the row's own date:
+
+    November 21st - 2pm and 8pm          in `long_description`: a line that
+    Thursday, Dec 3: 10:00 am to 4:00 pm  BEGINS with this row's date
+    Wed - Sat, ..., 12 - 5 pm             the tail of `custom_date_display_text`
+
+Two clocks on one day are two performances, and each is its own row (see
+`occasions`). A line that begins with a label ("Opening Reception: Sat, Nov 7
+from 4-6pm") is somebody else's hour and is not read.
+
 PLACING THEM
 ------------
 The feed carries a street address on all but a handful of rows, so unlike
@@ -60,11 +82,12 @@ to the geocoder.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html as html_mod
 import json
 import re
 import sys
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
 try:
@@ -140,6 +163,133 @@ def parse_end(row: Dict[str, Any], start: str) -> Optional[str]:
     return end if end > start else None      # "10 am - 1 am" would run backwards
 
 
+# --------------------------------------------------------------------------- #
+# a row the site shows no time for - see the module docstring
+# --------------------------------------------------------------------------- #
+_BREAK = re.compile(r"<br\s*/?>|</(?:p|li|div|h[1-6]|tr)\s*>", re.I)
+_MONTHS = {m: i + 1 for i, m in enumerate(
+    ("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"))}
+_WEEKDAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
+# "November 21st - 2pm and 8pm", "Friday, November 6th at 8 p.m.",
+# "Thursday, Dec 3: 10:00 am to 4:00 pm". The DATE LEADS: a line that opens
+# with a label names another occasion's hour, not this row's.
+_DATED_LINE = re.compile(
+    r"^(?:(?P<wd>mon|tue|wed|thu|fri|sat|sun)[a-z]*\.?,?\s+)?"
+    r"(?P<mon>jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|"
+    r"sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?\s+"
+    r"(?P<day>\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(?P<year>\d{4}))?"
+    r"\s*(?:[-\u2013\u2014:@|]|\bat\b|\bfrom\b)\s*(?P<rest>.+?)\s*$", re.I)
+_HOUR = r"(\d{1,2})(?::(\d{2}))?"
+_HALF = r"([ap])\.?\s?m\.?"
+_ONE_CLOCK = re.compile(rf"^{_HOUR}\s*{_HALF}$", re.I)
+_RANGE = re.compile(rf"^(?:from\s+)?{_HOUR}\s*(?:{_HALF})?\s*(?:[-\u2013\u2014]|to|until)\s*{_HOUR}\s*{_HALF}$", re.I)
+_AND = re.compile(r"\s*(?:,|&|\+|\band\b)\s*", re.I)
+
+
+def _minute(hh: str, mm: Optional[str], half: str) -> Optional[int]:
+    h, m = int(hh), int(mm or 0)
+    if not (1 <= h <= 12 and 0 <= m <= 59):
+        return None
+    return _h24(h, half) * 60 + m
+
+
+def _times(text: str) -> List[Tuple[int, Optional[int]]]:
+    """[(start, end-or-None)] in minutes of the day, or [] unless ALL of `text`
+    is clocks: one range ("10:00 am to 4:00 pm", "12 - 5 pm") or a list of
+    starts ("2pm and 8pm"). Anything else on the line - a price, a room, an
+    "or" - and nothing is read, because half a line is a guess."""
+    text = re.sub(r"\s+", " ", text or "").strip().rstrip(".;,").strip()
+    if not text:
+        return []
+    m = _RANGE.match(text)
+    if m:
+        h1, m1, half1, h2, m2, half2 = m.groups()
+        end = _minute(h2, m2, half2)
+        start = _minute(h1, m1, half1 or half2)
+        if start is not None and end is not None and not half1 and start >= end:
+            start = _minute(h1, m1, "a")              # "11 - 1 pm" opens in the morning
+        return [(start, end)] if start is not None and end is not None and start < end else []
+    out: List[Tuple[int, Optional[int]]] = []
+    for part in _AND.split(text):
+        c = _ONE_CLOCK.match(part.strip().rstrip("."))
+        minute = _minute(*c.groups()) if c else None
+        if minute is None or (out and minute <= out[-1][0]):
+            return []
+        out.append((minute, None))
+    return out
+
+
+def showtimes(long_description: Optional[str], day: str) -> List[Tuple[int, Optional[int]]]:
+    """What the listing's own prose says happens on `day` (YYYY-MM-DD).
+
+    Only a line that BEGINS with that date, whose stated weekday and year (when
+    it has them) agree with it, and whose whole remainder is clocks. Two such
+    lines for one day that disagree are no answer."""
+    try:
+        d = date.fromisoformat(day)
+    except (TypeError, ValueError):
+        return []
+    text = html_mod.unescape(html_mod.unescape(_TAG.sub(" ", _BREAK.sub("\n", str(long_description or "")))))
+    found: List[List[Tuple[int, Optional[int]]]] = []
+    for line in text.replace("\xa0", " ").split("\n"):
+        m = _DATED_LINE.match(line.strip())
+        if not m:
+            continue
+        if _MONTHS[m.group("mon")[:3].lower()] != d.month or int(m.group("day")) != d.day:
+            continue
+        if m.group("year") and int(m.group("year")) != d.year:
+            continue
+        if m.group("wd") and _WEEKDAYS.index(m.group("wd").lower()) != d.weekday():
+            continue                                  # the line is about another year's date
+        times = _times(m.group("rest"))
+        if times and times not in found:
+            found.append(times)
+    return found[0] if len(found) == 1 else []
+
+
+def shown_hours(row: Dict[str, Any]) -> List[Tuple[int, Optional[int]]]:
+    """Hours the site PRINTS in place of its time label: the tail of
+    `custom_date_display_text` ("Wed - Sat, Nov 13 - Dec 18, 2026, 12 - 5 pm").
+    One range only; a date range has no am/pm and is not one."""
+    tail = str(row.get("custom_date_display_text") or "").rsplit(",", 1)[-1]
+    times = _times(tail)
+    return times if len(times) == 1 and times[0][1] is not None else []
+
+
+def has_clock(row: Dict[str, Any]) -> bool:
+    """False when the site itself shows no time for this row."""
+    return str(row.get("dont_display_time") or "0").strip().lower() in ("", "0", "false")
+
+
+def _stamp(day: str, minute: int) -> str:
+    return f"{day}T{minute // 60:02d}:{minute % 60:02d}:00"
+
+
+def occasions(row: Dict[str, Any]) -> List[Tuple[str, Optional[str]]]:
+    """[(start_local, end_local)] for one feed row: usually one, none when the
+    row has no readable date, several when the listing states several
+    performances for the day. A start that is a bare YYYY-MM-DD claims the day
+    and no hour."""
+    start = parse_start(row)
+    if not start:
+        return []
+    if has_clock(row):
+        return [(start, parse_end(row, start))]
+    day = start[:10]
+    stated = showtimes(row.get("long_description"), day) or shown_hours(row)
+    if not stated:
+        return [(day, None)]
+    return [(_stamp(day, s), _stamp(day, e) if e is not None else None) for s, e in stated]
+
+
+def later_fingerprint(base: str, start_local: str) -> str:
+    """The second performance of a day. make_fingerprint is date-keyed, so an
+    8pm show would otherwise merge into its own 2pm matinee and vanish
+    (sync-eventstore-and-paging.md). Only the LATER ones are widened: the
+    day's first keeps the key its row has always had in the database."""
+    return hashlib.sha1(f"{base}|{start_local[11:16]}".encode("utf-8")).hexdigest()
+
+
 def place(row: Dict[str, Any], site: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     """Address off the row, else the config's book, else nothing - and nothing
     means SKIP, because the sync drops a street-less row anyway and does it
@@ -173,44 +323,58 @@ def categories(row: Dict[str, Any], site: Dict[str, Any]) -> Tuple[str, List[str
     return primary, norm_categories(primary, keys[1:])
 
 
-def to_event(row: Dict[str, Any], site: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], str]:
-    """(event, reason-if-skipped). The reason is returned rather than printed so
-    the caller can keep the quiet skips quiet and shout about the rest."""
+def to_events(row: Dict[str, Any], site: Dict[str, Any]) -> Tuple[List[NormalizedEvent], str]:
+    """(events, reason-if-skipped). One event per performance (`occasions`).
+    The reason is returned rather than printed so the caller can keep the quiet
+    skips quiet and shout about the rest."""
     if (row.get("post_status") or "publish") != "publish":
-        return None, ""
+        return [], ""
     name = _clean(row.get("title"))
-    start = parse_start(row)
+    when = occasions(row)
     venue = _clean(row.get("location_name"))
-    if not name or not start:
-        return None, f"incomplete (name={name!r} start={start!r})"
+    if not name or not when:
+        return [], f"incomplete (name={name!r} start={parse_start(row)!r})"
     if venue.lower() in {v.lower() for v in (site.get("skip_venues") or [])}:
-        return None, ""                       # not a place; see _skip_venues in the config
+        return [], ""                         # not a place; see _skip_venues in the config
     loc = place(row, site)
     if not loc:
-        return None, (f"unplaceable venue, skipped: {venue!r} ({name}) - "
-                      f"add it to `venues` in the config")
+        return [], (f"unplaceable venue, skipped: {venue!r} ({name}) - "
+                    f"add it to `venues` in the config")
     primary, extra = categories(row, site)
     permalink = (row.get("permalink") or "").strip() or None
-    nev = NormalizedEvent(
-        source="discoverslu",
-        # The occurrence, not the event: a weekly market is one row per week and
-        # they must not collapse onto each other in the store.
-        source_id=f"{row.get('event_id')}:{start[:10]}",
-        name=name,
-        description=_clean(row.get("description")) or _clean(row.get("excerpt")) or None,
-        start_local=start,
-        end_local=parse_end(row, start),
-        venue_name=venue or None,
-        address=loc.get("address"), city=loc.get("city"),
-        region=loc.get("region"), country=loc.get("country"),
-        postal_code=loc.get("postal_code"),
-        category=primary,
-        categories=extra,
-        poster_image_url=(row.get("image_src") or "").strip() or None,
-        ticket_url=permalink,
-    )
-    nev.fingerprint = make_fingerprint(name, start[:10], venue)
-    return nev, ""
+    out: List[NormalizedEvent] = []
+    for n, (start, end) in enumerate(when):
+        day = start[:10]
+        nev = NormalizedEvent(
+            source="discoverslu",
+            # The occurrence, not the event: a weekly market is one row per week
+            # and they must not collapse onto each other in the store. A day's
+            # second performance adds its clock; the first keeps the old id.
+            source_id=f"{row.get('event_id')}:{day}" + (f":{start[11:13]}{start[14:16]}" if n else ""),
+            name=name,
+            description=_clean(row.get("description")) or _clean(row.get("excerpt")) or None,
+            start_local=start,
+            end_local=end,
+            venue_name=venue or None,
+            address=loc.get("address"), city=loc.get("city"),
+            region=loc.get("region"), country=loc.get("country"),
+            postal_code=loc.get("postal_code"),
+            category=primary,
+            categories=list(extra) if extra else extra,
+            poster_image_url=(row.get("image_src") or "").strip() or None,
+            ticket_url=permalink,
+        )
+        nev.fingerprint = make_fingerprint(name, day, venue)
+        if n:
+            nev.fingerprint = later_fingerprint(nev.fingerprint, start)
+        out.append(nev)
+    return out, ""
+
+
+def to_event(row: Dict[str, Any], site: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], str]:
+    """The row's first (usually only) event; see to_events."""
+    events, why = to_events(row, site)
+    return (events[0] if events else None), why
 
 
 def fetch(session, site: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -261,16 +425,22 @@ def fetch(session, site: Dict[str, Any]) -> List[Dict[str, Any]]:
 def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     rows = fetch(session, site)
     kept = skipped = 0
+    days = 0
     for row in rows:
-        nev, why = to_event(row, site)
-        if not nev:
+        events, why = to_events(row, site)
+        if not events:
             skipped += 1
             if why:
                 print(f"[slu] {why}")
             continue
-        store.upsert(nev)
-        kept += 1
-    print(f"[slu] {site.get('name','?')}: kept {kept}, skipped {skipped}, of {len(rows)} rows")
+        for nev in events:
+            store.upsert(nev)
+            kept += 1
+            days += len(nev.start_local) == 10
+    # Counted so a feed that stops setting times, or a reader that stops finding
+    # them, shows as a number in the log rather than as a quieter evening.
+    print(f"[slu] {site.get('name','?')}: kept {kept} ({days} with no time shown, as a day), "
+          f"skipped {skipped}, of {len(rows)} rows")
     return kept
 
 
