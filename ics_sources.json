@@ -78509,5 +78509,134 @@
     "geocode_suffix": ", Algermissen",
     "limit": 300,
     "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Thomaston — Community Events",
+    "category": "community",
+    "url": "https://www.cityofthomaston.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Thomaston, Georgia",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Thomaston, Georgia",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Jesup — City Events",
+    "category": "community",
+    "url": "https://www.jesupga.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Jesup, Georgia",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Events]",
+    "_metro": "Jesup, Georgia",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Green Cove Springs — Events",
+    "category": "community",
+    "url": "https://www.greencovesprings.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Green Cove Springs, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Green Cove Springs, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Green Cove Springs — Main Calendar",
+    "category": "community",
+    "url": "https://www.greencovesprings.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Green Cove Springs, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Green Cove Springs, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Roanoke — Public Safety",
+    "category": "community",
+    "url": "https://www.roanoketexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Roanoke, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Public Safety]",
+    "_metro": "Roanoke, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Roanoke — Events",
+    "category": "community",
+    "url": "https://www.roanoketexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Roanoke, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Roanoke, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Musée d'Histoire de la Médecine",
+    "category": "arts",
+    "_found": "osm:museum -> libcal+event-organiser",
+    "url": "https://u-paris.fr/?feed=eo-events",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Comédie Tour Eiffel",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1tggn6a9dajf3ugred7q4175uc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Église Saint-Joseph-Artisan",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8e4ro783g7vv2cqb9ruv49bojc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Église Passage National",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4a2c4404f50a722318f86617ab623d9ac6f53db671ab3a18f949d611d79e742c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Maison du Rugby",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dc9cd3f2394c6069440ff6f4dc38993c18341037508bf7aff165a1cd54ed0ab8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toulouse, France",
+    "limit": 300,
+    "venue": {
+      "name": "Maison du Rugby",
+      "lat": 43.5467327,
+      "lon": 1.4830093,
+      "pin_unnamed": false
+    },
+    "_metro": "Toulouse, France"
+  },
+  {
+    "name": "Club Léo Lagrange",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.cll310.com/evenements.ics",
+    "geocode_suffix": ", Bordeaux, France",
+    "limit": 300,
+    "_metro": "Bordeaux, France"
+  },
+  {
+    "name": "Galerie RDV",
+    "category": "arts",
+    "_found": "osm:gallery -> ics",
+    "url": "https://galerierdv.com/media/pages/expositions/elephantart-memoires-d-elephants/597687d0c3-1793800302/exposition.ics",
+    "geocode_suffix": ", Nantes, France",
+    "limit": 300,
+    "_metro": "Nantes, France"
   }
 ]

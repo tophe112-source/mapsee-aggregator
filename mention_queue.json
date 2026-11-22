@@ -342,7 +342,7 @@
     "copenhagen jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-18",
+      "last_seen": "2026-11-22",
       "name": "Copenhagen Jazz Festival",
       "ref_keys": [
         "0a6b63126c7f",
@@ -358,6 +358,7 @@
         "b67ed9b39fe9",
         "b83edf0eb605",
         "b87276c51737",
+        "c5dca9c8d372",
         "c73731b84ac4",
         "cef0c8d537f6",
         "e8962bcc0cc2",
@@ -400,7 +401,7 @@
       ],
       "sample": "Our Sunday services are also an integral part of the annual Copenhagen Jazz Festival. We welcome everyone equally, regardless of nationality, denomination, gender or sexuality. Pastor: Maria Fihl Music Morten Kjær – vokal Claus Waidtløw – tenorsax Olivier Antunes – piano 8 November 2026 1 pm – 2 pm ",
       "state": "pending",
-      "times_seen": 20,
+      "times_seen": 21,
       "venue": null
     },
     "dagen van de sociale film festival": {
@@ -1100,7 +1101,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-21",
+      "last_seen": "2026-11-22",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -1110,6 +1111,7 @@
         "3b5e9269f555",
         "45fa3cbe39f7",
         "53f3d138558c",
+        "65b459ee18ec",
         "6fbd7b8d2f83",
         "75f0f4d0868c",
         "8915a0d5396d",
@@ -1156,7 +1158,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 18,
+      "times_seen": 19,
       "venue": null
     },
     "melt festival": {

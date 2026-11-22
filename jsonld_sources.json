@@ -39392,6 +39392,180 @@
         "lon": 9.9776033
       },
       "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "La Table des Matières",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.latabledesmatieres.org/agenda/lutter-par-les-mots/"
+      ],
+      "link_pattern": "https://www\\.latabledesmatieres\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Table des Matières",
+        "address": "51 Rue de l'Abbé Carton",
+        "city": "Paris",
+        "postal_code": "75014",
+        "lat": 48.8291268,
+        "lon": 2.3177166
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "galerie charlot",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://www.galeriecharlot.com/foires/videopolis-concert-av-antoine-schmitt-2026"
+      ],
+      "link_pattern": "https://www\\.galeriecharlot\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "galerie charlot",
+        "lat": 48.8632397,
+        "lon": 2.3628679
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Américaine",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.tickettailor.com/events/americanchurchinparis/2528487"
+      ],
+      "link_pattern": "https://www\\.tickettailor\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Américaine",
+        "lat": 48.8621157,
+        "lon": 2.3068946
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Notre-Dame",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://notredameversailles.fr/actualites/evenements/"
+      ],
+      "link_pattern": "https://notredameversailles\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Notre-Dame",
+        "lat": 48.8079846,
+        "lon": 2.1290581
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Luthérienne de l'Ascension",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://ascension.epudf.org/evenements/nouveau-catechese-adulte-en-visio/"
+      ],
+      "link_pattern": "https://ascension\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Luthérienne de l'Ascension",
+        "address": "47 Rue Dulong",
+        "city": "Paris",
+        "postal_code": "75017",
+        "lat": 48.8855199,
+        "lon": 2.3157231
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Musée de Montmartre",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.museedemontmartre.fr/fr/agenda/spectacle-pied-de-nez"
+      ],
+      "link_pattern": "https://www\\.museedemontmartre\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée de Montmartre",
+        "address": "12 Rue Cortot",
+        "lat": 48.8880489,
+        "lon": 2.3407601
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Grande Mosquée de Paris",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.grandemosqueedeparis.fr/evenements"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Grande Mosquée de Paris",
+        "address": "2 bis Place du Puits de l'Ermite",
+        "city": "Paris",
+        "postal_code": "75005",
+        "lat": 48.8420708,
+        "lon": 2.3551205
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Lugdunum Musée et Théâtres Romains",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://lugdunum.grandlyon.com/fr/pages-hors-menu/agenda/evenements/dans-la-cuisine-du-chef2"
+      ],
+      "link_pattern": "https://lugdunum\\.grandlyon\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lugdunum Musée et Théâtres Romains",
+        "lat": 45.760294,
+        "lon": 4.8204842
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Médiathèque Simone de Beauvoir",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mediatheque.ramonville.fr/agenda/a-venir"
+      ],
+      "link_pattern": "https://mediatheque\\.ramonville\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Médiathèque Simone de Beauvoir",
+        "lat": 43.5488499,
+        "lon": 1.4783944
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Temple protestant de la Bastide",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bordeauxrivedroite.epudf.org/evenements/culte/4/"
+      ],
+      "link_pattern": "https://bordeauxrivedroite\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple protestant de la Bastide",
+        "address": "18 Rue de Tresses",
+        "city": "Bordeaux",
+        "postal_code": "33100",
+        "lat": 44.844965,
+        "lon": -0.5485475
+      },
+      "_metro": "Bordeaux, France"
     }
   ],
   "_not_included": {

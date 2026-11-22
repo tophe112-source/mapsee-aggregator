@@ -10985,6 +10985,19 @@
         "lon": 10.0243892
       },
       "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "La Passerelle",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.lapasserelle11.com/evenements",
+      "max_events": 200,
+      "venue": {
+        "name": "La Passerelle",
+        "lat": 48.8645595,
+        "lon": 2.3698497
+      },
+      "_metro": "Paris, France"
     }
   ],
   "_not_included": {
