@@ -48619,6 +48619,263 @@
         "lon": 9.8182668
       },
       "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Musée Würth",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musee-wurth.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Würth",
+        "lat": 48.4179236,
+        "lon": 7.6295869
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Temple Sinai",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://templesinai.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Sinai",
+        "address": "210 Wilson Avenue",
+        "city": "North York",
+        "postal_code": "M5M 3B1",
+        "lat": 43.7396265,
+        "lon": -79.425652
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Women's Art Association",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://womensartofcanada.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Women's Art Association",
+        "city": "Toronto",
+        "lat": 43.6693387,
+        "lon": -79.3962667,
+        "street_hint": "23 Prince Arthur Avenue"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Christ Church St. James Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.christchurchstjames.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Church St. James Anglican Church",
+        "address": "194 Park Lawn Road",
+        "city": "Etobicoke",
+        "lat": 43.6299197,
+        "lon": -79.4911666
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Associacao Migrante De Barcelos",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://acapo.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Associacao Migrante De Barcelos",
+        "lat": 43.6873645,
+        "lon": -79.4465176,
+        "street_hint": "2079 Dufferin Street"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Latin Groove",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://latingroove.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Latin Groove",
+        "address": "372 Rue Sainte-Catherine Ouest",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3B 1A2",
+        "lat": 45.5057539,
+        "lon": -73.5672123
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Islamique Badr",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://centrebadr.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Islamique Badr",
+        "address": "8625 Boulevard Langelier",
+        "postal_code": "H1P 2C6",
+        "lat": 45.598881,
+        "lon": -73.59095
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Down Syndrome Resource Foundation",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://dsrf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Down Syndrome Resource Foundation",
+        "lat": 49.271232,
+        "lon": -122.9648607
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Hargrove",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.coastaljazz.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Hargrove",
+        "address": "150 East 3rd Avenue",
+        "lat": 49.2680937,
+        "lon": -123.1012474
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Unitarian Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vanu.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Church of Vancouver",
+        "address": "949 West 49th Avenue",
+        "city": "Vancouver",
+        "postal_code": "V5Z 2T1",
+        "lat": 49.226953,
+        "lon": -123.127497
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Satguru Ram Singh Satsang, Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.srssglobal.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Satguru Ram Singh Satsang, Vancouver",
+        "address": "5588 Joyce Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V5R4H6",
+        "lat": 49.2330567,
+        "lon": -123.0364925
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Calgary Catholic Immigration Society (CCIS)",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ccisab.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calgary Catholic Immigration Society (CCIS)",
+        "address": "1111 11 Avenue SW",
+        "city": "Calgary",
+        "postal_code": "T2R 0G5",
+        "lat": 51.042854,
+        "lon": -114.0867199
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Balzac United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://balzacunitedchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Balzac United Church",
+        "lat": 51.2128388,
+        "lon": -114.0084375
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "YWCA Edmonton",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ywcaofedmonton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YWCA Edmonton",
+        "address": "10402 124 Street NW",
+        "city": "Edmonton",
+        "region": "Alberta",
+        "postal_code": "T5N 1R5",
+        "lat": 53.5463434,
+        "lon": -113.5361687
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Charleswood Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://charleswoodhistoricalsociety.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Charleswood Museum",
+        "address": "5006 Roblin Boulevard",
+        "city": "Winnipeg",
+        "postal_code": "R3R 0G7",
+        "lat": 49.8574782,
+        "lon": -97.2850103
+      },
+      "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Heritage Victoria Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heritageviccc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heritage Victoria Community Centre",
+        "lat": 49.8913417,
+        "lon": -97.278977,
+        "street_hint": "950 Sturgeon Road"
+      },
+      "_metro": "Winnipeg, Canada"
     }
   ],
   "_not_included": {

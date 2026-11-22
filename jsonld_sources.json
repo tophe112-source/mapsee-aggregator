@@ -39566,6 +39566,339 @@
         "lon": -0.5485475
       },
       "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "KT-Halle",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://kehler-turnerschaft.de/termine"
+      ],
+      "link_pattern": "https://kehler\\-turnerschaft\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "KT-Halle",
+        "address": "11 Oberländerstraße",
+        "city": "Kehl",
+        "postal_code": "77694",
+        "country": "DE",
+        "lat": 48.5735086,
+        "lon": 7.8157552
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Concertzaal De Kreun",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.wildewesten.be/nl/event/axelle-red"
+      ],
+      "link_pattern": "https://www\\.wildewesten\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Concertzaal De Kreun",
+        "address": "1 Conservatoriumplein",
+        "city": "Kortrijk",
+        "postal_code": "8500",
+        "lat": 50.8249284,
+        "lon": 3.2617192
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Musée de Bretagne",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.leschampslibres.fr/au-programme/ceci-est-mon-corps/50231"
+      ],
+      "link_pattern": "https://www\\.leschampslibres\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée de Bretagne",
+        "lat": 48.1051325,
+        "lon": -1.674684
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Bibliothèque Hélène-Charbonneau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/impression-3d-117395"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Hélène-Charbonneau",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.553483,
+        "lon": -73.6626049,
+        "street_hint": "10300 Rue Lajeunesse"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Charleroi",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/les-bougeottes-118813"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Charleroi",
+        "city": "Montréal",
+        "postal_code": "H1H 1V2",
+        "lat": 45.5965067,
+        "lon": -73.6315415,
+        "street_hint": "4740 Rue De Charleroi"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Éliane-Labastrou",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lego-village-de-noel-120634"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Éliane-Labastrou",
+        "lat": 45.4886567,
+        "lon": -73.8823134
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Quai 5160 - Maison de la culture de Verdun",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tisse-serre-harrison-houde-121925"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Quai 5160 - Maison de la culture de Verdun",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H4H 1N8",
+        "lat": 45.4535631,
+        "lon": -73.5650821,
+        "street_hint": "5160 Boulevard LaSalle"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rosemont",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cine-club-118070"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rosemont",
+        "city": "Montréal",
+        "postal_code": "H1Y 1M4",
+        "lat": 45.5519275,
+        "lon": -73.582342,
+        "street_hint": "3131 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Robert-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/depannage-informatique-116857"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Robert-Bourassa",
+        "city": "Outremont",
+        "region": "QC",
+        "lat": 45.5178839,
+        "lon": -73.6084316,
+        "street_hint": "41 Avenue Saint-Just"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Mordecai-Richler",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/mieux-vivre-la-menopause-114086"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Mordecai-Richler",
+        "postal_code": "H2V 4G7",
+        "lat": 45.5216337,
+        "lon": -73.6017018,
+        "street_hint": "5434 Avenue du Parc"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marc-Favreau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tricot-collectif-118686"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marc-Favreau",
+        "city": "Montréal",
+        "postal_code": "H2S 0C4",
+        "lat": 45.5318321,
+        "lon": -73.5971276,
+        "street_hint": "500 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.rockyviewalliance.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "?",
+        "address": "6927 Rundlehorn Drive NE",
+        "lat": 51.0810525,
+        "lon": -113.9423423
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Arbour Lake Residents Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.arbourlake.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Arbour Lake Residents Hall",
+        "lat": 51.1330944,
+        "lon": -114.20257
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "St. Mary's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://stmarysottawa.ca/calendar/"
+      ],
+      "link_pattern": "https://stmarysottawa\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Mary's",
+        "address": "100 Young Street",
+        "postal_code": "K1Y 3P7",
+        "lat": 45.400651,
+        "lon": -75.7163645
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Blessed Sacrament Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://blessedsacrament.ca/calendar/"
+      ],
+      "link_pattern": "https://blessedsacrament\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Blessed Sacrament Catholic Church",
+        "address": "194 Fourth Avenue",
+        "postal_code": "K1S 2L6",
+        "lat": 45.400055,
+        "lon": -75.692966
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Canada Agriculture and Food Museum",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://ingenium.ca/en/events/2025-2026-annual-public-meeting/"
+      ],
+      "link_pattern": "https://ingenium\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Canada Agriculture and Food Museum",
+        "address": "901 Prince Of Wales Drive",
+        "postal_code": "K2C 3K1",
+        "lat": 45.3880581,
+        "lon": -75.7097701
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Leefield Community League",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.leefield.ca/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Leefield Community League",
+        "city": "Edmonton",
+        "region": "AB",
+        "postal_code": "T6K 1H7",
+        "lat": 53.4691081,
+        "lon": -113.4541086,
+        "street_hint": "7910 36 Avenue NW"
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Forest Terrace Heights Community League",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.forestterrace.org/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Forest Terrace Heights Community League",
+        "city": "Edmonton",
+        "lat": 53.5429916,
+        "lon": -113.4514294,
+        "street_hint": "10150 80 Street NW"
+      },
+      "_metro": "Edmonton, Canada"
     }
   ],
   "_not_included": {

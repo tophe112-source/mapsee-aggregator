@@ -78638,5 +78638,135 @@
     "geocode_suffix": ", Nantes, France",
     "limit": 300,
     "_metro": "Nantes, France"
+  },
+  {
+    "name": "Schützenverein Goldscheuer e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fa6f71db4747d2a4ae33fb4a6ef8d1400f66bbe49f5245e3cdf2b0a7c6828f2e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Strasbourg, France",
+    "limit": 300,
+    "_metro": "Strasbourg, France"
+  },
+  {
+    "name": "Centre de documentation de l’IAE",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://iaelille.fr/wp-content/themes/essentiel/tmp/event_1795368379.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "venue": {
+      "name": "Centre de documentation de l’IAE",
+      "lat": 50.6463685,
+      "lon": 3.061983,
+      "pin_unnamed": false
+    },
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "Glencairn Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40glencairn.church/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Gloria Dei Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gloriadei.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Heritage Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fvlqsucs47q0k11bq4l2vbbmrc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "Heritage Hall",
+      "lat": 49.2572829,
+      "lon": -123.1008245,
+      "street_hint": "3102 Main Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Ling Yen Mountain Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/h7h0ed3k0u5taie320hmqi8ph8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fort Edmonton Park",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.fortedmontonpark.ca//public/ics/8082",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada",
+    "crawl_delay": 1.0
+  },
+  {
+    "name": "Art Gallery of Alberta",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.youraga.ca//public/ics/8567",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "_metro": "Edmonton, Canada",
+    "crawl_delay": 1.0
+  },
+  {
+    "name": "Millwoods Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/office%40mcchurch.ca/public/basic.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Millwoods Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stutay%25telus.net%40gtempaccount.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Sokol",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "http://sokolstboniface.ca/?feed=my-calendar-ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "Sokol",
+      "lat": 49.8831854,
+      "lon": -97.1019297,
+      "street_hint": "523 Doucet Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Manitoba Eastern Star Chalet",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar+jsonld-event",
+    "url": "https://oesmanitoba.ca/manitoba-eastern-star-chalet/?feed=my-calendar-ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
   }
 ]

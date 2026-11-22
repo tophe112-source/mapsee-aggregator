@@ -248,9 +248,14 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 135,
-  "metro_key": "FR:Nice",
-  "stuck": {}
+  "metro": 150,
+  "metro_key": "CA:Hamilton",
+  "stuck": {
+   "CA:Hamilton": {
+    "day": 20261122,
+    "n": 1
+   }
+  }
  },
  "osm|community_centre,library": {
   "metro": 225,
