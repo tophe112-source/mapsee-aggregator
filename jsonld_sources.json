@@ -40160,6 +40160,278 @@
         "lon": -2.3227101
       },
       "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Holcombe Brook Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.hbtennis.co.uk/dates-for-the-diary/"
+      ],
+      "link_pattern": "https://www\\.hbtennis\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Holcombe Brook Tennis Club",
+        "address": "Hazel Hall Lane",
+        "city": "Bury",
+        "postal_code": "BL0 9FS",
+        "lat": 53.623036,
+        "lon": -2.3256344
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Lichfield Garrick",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.lichfieldgarrick.com/events/robin-hood-2026"
+      ],
+      "link_pattern": "https://www\\.lichfieldgarrick\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lichfield Garrick",
+        "lat": 52.6824728,
+        "lon": -1.826387
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Transformation Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.transformationchurch.co.uk/events/"
+      ],
+      "link_pattern": "https://www\\.transformationchurch\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Transformation Church",
+        "address": "1 Station Road",
+        "postal_code": "B65 0LJ",
+        "lat": 52.4781173,
+        "lon": -2.0345565
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "National Museum of Rural Life",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.nms.ac.uk/events/tractor-tots"
+      ],
+      "link_pattern": "https://www\\.nms\\.ac\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "National Museum of Rural Life",
+        "address": "Philipshill Road",
+        "city": "East Kilbride",
+        "postal_code": "G76 9HR",
+        "lat": 55.7754219,
+        "lon": -4.2211941
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "Guild Church of St. Peter",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.chesterstpeter.org.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Guild Church of St. Peter",
+        "address": "Watergate Street",
+        "city": "Chester",
+        "postal_code": "CH1 2LA",
+        "lat": 53.1904464,
+        "lon": -2.8915897
+      },
+      "_metro": "Liverpool, United Kingdom"
+    },
+    {
+      "name": "Helsby Community Sports Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.helsbysports.co.uk/whatson"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Helsby Community Sports Club",
+        "address": "Callender Way, Helsby",
+        "city": "Frodsham",
+        "postal_code": "WA6 0FX",
+        "lat": 53.2677573,
+        "lon": -2.7779596
+      },
+      "_metro": "Liverpool, United Kingdom"
+    },
+    {
+      "name": "Pregnancy and Parents Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.pregnancyandparents.org.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Pregnancy and Parents Centre",
+        "city": "Edinburgh",
+        "postal_code": "EH8 9RT",
+        "lat": 55.9443523,
+        "lon": -3.1806813,
+        "street_hint": "188 Pleasance"
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Granton:hub",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.grantonhub.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Granton:hub",
+        "city": "Edinburgh",
+        "postal_code": "EH5 1HS",
+        "lat": 55.9804458,
+        "lon": -3.232833
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Grace North Edinburgh",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.grace-edinburgh.com/our-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Grace North Edinburgh",
+        "address": "64 Logie Green Road",
+        "city": "Edinburgh",
+        "postal_code": "EH7 4HQ",
+        "country": "GB",
+        "lat": 55.9650486,
+        "lon": -3.1970152
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "St Mary's Episcopal Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.cathedral.net/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St Mary's Episcopal Cathedral",
+        "address": "23 Palmerston Place",
+        "city": "Edinburgh",
+        "lat": 55.9486116,
+        "lon": -3.2162847
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "National Museum of Scotland",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.nms.ac.uk/events/find-out-fridays"
+      ],
+      "link_pattern": "https://www\\.nms\\.ac\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "National Museum of Scotland",
+        "address": "Chambers Street",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1JF",
+        "lat": 55.9470579,
+        "lon": -3.1895339
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Dar Ul-Isra",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event+ics",
+      "listing": [
+        "https://darulisra.org.uk/programmes-events/"
+      ],
+      "link_pattern": "https://darulisra\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dar Ul-Isra",
+        "address": "21,23 Wyeverne Road",
+        "city": "Cardiff",
+        "postal_code": "CF24 4BG",
+        "lat": 51.4895769,
+        "lon": -3.1753031
+      },
+      "_metro": "Cardiff, United Kingdom"
+    },
+    {
+      "name": "Dance Street",
+      "category": "fitness",
+      "_found": "osm:dance -> wix",
+      "listing": [
+        "https://www.dancestreet.us/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Dance Street",
+        "address": "2295 East Colorado Boulevard",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91107",
+        "lat": 34.1462511,
+        "lon": -118.1030628
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Creative Arts Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://bfcacc.org/calendar/"
+      ],
+      "link_pattern": "https://bfcacc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Creative Arts Community Center",
+        "city": "Culver City",
+        "postal_code": "90232",
+        "lat": 34.0271921,
+        "lon": -118.3908028,
+        "street_hint": "3814 Willat Avenue",
+        "aliases": [
+          "CACC"
+        ]
+      },
+      "_metro": "Los Angeles, United States"
     }
   ],
   "_not_included": {

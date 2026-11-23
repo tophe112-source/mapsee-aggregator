@@ -78905,5 +78905,84 @@
     "geocode_suffix": ", London, United Kingdom",
     "limit": 300,
     "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Sir John Moore Museum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.johnmooremuseum.org/events/?ical=1",
+    "geocode_suffix": ", Tewkesbury",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "St John the Baptist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bp11gjqu0u4remk470gc99g2cg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bristol",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Charfield Christian Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/117f1be93e5e4fffcebff373352c48a15f8848c9051cdc5e10ca35d31374a7d8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wotton-under-Edge",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Kadampa Meditation Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_87b3d3e7c3b05cf3858e0664c1688f9920c237c8af177ce57666d40d1b7b4827%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Leeds",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "Childwall Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/g5ek34s3elat974vg1il615atc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Liverpool, United Kingdom",
+    "limit": 300,
+    "venue": {
+      "name": "Childwall Library",
+      "postal_code": "L15 6UT",
+      "lat": 53.3978335,
+      "lon": -2.897797,
+      "pin_unnamed": false
+    },
+    "_metro": "Liverpool, United Kingdom"
+  },
+  {
+    "name": "Fisherrow Yacht Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jgvtpmj9qkn7gr1lbjte2ppfh4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edinburgh, United Kingdom",
+    "limit": 300,
+    "_metro": "Edinburgh, United Kingdom"
+  },
+  {
+    "name": "Friendship Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40pfbchurch.net/public/basic.ics",
+    "geocode_suffix": ", Pasadena, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Saint Stephen Martyr Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f427g3cu9kagt012b66oaia3v8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
   }
 ]

@@ -49160,6 +49160,473 @@
         "lon": -0.1047441
       },
       "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Cathedral Church of Saint Philip",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://birminghamcathedral.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cathedral Church of Saint Philip",
+        "address": "Colmore Row",
+        "city": "Birmingham",
+        "postal_code": "B3 2QB",
+        "lat": 52.4811787,
+        "lon": -1.8989032
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Birmingham Central Mosque",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://centralmosque.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Birmingham Central Mosque",
+        "address": "180 Belgrave Middleway",
+        "city": "Birmingham",
+        "postal_code": "B12 0XS",
+        "lat": 52.4645947,
+        "lon": -1.8905789
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Highbury Little Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://highburytheatre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Highbury Little Theatre",
+        "address": "Sheffield Road",
+        "city": "Sutton Coldfield",
+        "postal_code": "B73 5HD",
+        "lat": 52.5380264,
+        "lon": -1.8341323
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "1st Solihull Scouts",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://1stsolihull.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "1st Solihull Scouts",
+        "address": "Lode Lane",
+        "city": "Solihull",
+        "postal_code": "B91 2HZ",
+        "lat": 52.4301852,
+        "lon": -1.7811478
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Oldbury Ecclesial Hall",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+modern-events+jsonld-event+ics",
+      "base_url": "https://thechristadelphian.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oldbury Ecclesial Hall",
+        "address": "8 Brades Road",
+        "lat": 52.5042306,
+        "lon": -2.0281494
+      },
+      "_metro": "Birmingham, United Kingdom",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Ebenezer Evangelical Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://airdrieebenezer.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ebenezer Evangelical Church",
+        "address": "Aitchison Street",
+        "city": "Airdrie",
+        "postal_code": "ML6 0DG",
+        "lat": 55.864729,
+        "lon": -3.9929251
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "Church of the Immaculate Conception",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.immaculateconception.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Immaculate Conception",
+        "address": "2049 Maryhill Road",
+        "city": "Glasgow",
+        "postal_code": "G20 0AA",
+        "lat": 55.8984409,
+        "lon": -4.3030247
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "Houston & Killellan Kirk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://houstonkillellankirk.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Houston & Killellan Kirk",
+        "address": "Main Street",
+        "city": "Johnstone",
+        "postal_code": "PA6 7EL",
+        "lat": 55.8677708,
+        "lon": -4.5507028
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "The Drill Hall",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://drillhallchepstow.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Drill Hall",
+        "address": "Lower Church Street",
+        "city": "Chepstow",
+        "postal_code": "NP16 5HJ",
+        "lat": 51.6442635,
+        "lon": -2.6711523
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bath Royal Literary & Scientific Institution",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brlsi.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bath Royal Literary & Scientific Institution",
+        "address": "16-18 Queen Square",
+        "city": "Bath",
+        "postal_code": "BA1 2HN",
+        "lat": 51.3833202,
+        "lon": -2.3643691
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The Swannery",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://wellspringsettlement.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Swannery",
+        "city": "Bristol",
+        "postal_code": "BS5 9NB",
+        "lat": 51.4562712,
+        "lon": -2.5634123,
+        "street_hint": "11-13 Morley Street"
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bath Abbey",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bathabbey.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bath Abbey",
+        "address": "Abbey Churchyard",
+        "city": "Bath",
+        "postal_code": "BA1 1LT",
+        "country": "GB",
+        "lat": 51.3814276,
+        "lon": -2.3588482
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bristol Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bristol-cathedral.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bristol Cathedral",
+        "address": "College Green",
+        "city": "Bristol",
+        "postal_code": "BS1 5TJ",
+        "country": "GB",
+        "lat": 51.4516577,
+        "lon": -2.6006695
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "University Botanic Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://botanic-garden.bristol.ac.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "University Botanic Garden",
+        "address": "Stoke Park Road",
+        "city": "Bristol",
+        "postal_code": "BS9 1JG",
+        "country": "GB",
+        "lat": 51.4776061,
+        "lon": -2.62566
+      },
+      "_metro": "Bristol, United Kingdom",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Delamere Manor",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://delameremanor.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Delamere Manor",
+        "address": "Cuddington Lane",
+        "postal_code": "CW8 2TE",
+        "lat": 53.2365501,
+        "lon": -2.6245043
+      },
+      "_metro": "Liverpool, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Woodside Drive-In",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event",
+      "base_url": "https://woodsidedrivein.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Woodside Drive-In",
+        "lat": 53.3939077,
+        "lon": -3.0116349
+      },
+      "_metro": "Liverpool, United Kingdom"
+    },
+    {
+      "name": "Old St Paul’s Church Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.osp.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old St Paul’s Church Hall",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1DH",
+        "lat": 55.95115,
+        "lon": -3.1871244,
+        "street_hint": "63 Jeffrey Street"
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Museum of Scottish Fire Heritage",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museumofscottishfireheritage.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Scottish Fire Heritage",
+        "address": "1A Dryden Terrace",
+        "city": "Edinburgh",
+        "postal_code": "EH7 4NB",
+        "lat": 55.9637837,
+        "lon": -3.1838357
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Potter's Tropical Village",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://lanchestergardencentre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Potter's Tropical Village",
+        "lat": 54.8033856,
+        "lon": -1.7436323
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Congregation Beth El",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bethelnj.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Beth El",
+        "address": "222 Irvington Avenue",
+        "city": "South Orange",
+        "postal_code": "07079",
+        "lat": 40.7423232,
+        "lon": -74.2554246
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "New York Zendō Shobo-ji",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://zenstudies.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New York Zendō Shobo-ji",
+        "address": "223 East 67th Street",
+        "postal_code": "10065",
+        "lat": 40.7661591,
+        "lon": -73.9614182
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Howl! Happening",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.howlarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Howl! Happening",
+        "lat": 40.7247539,
+        "lon": -73.9916906
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Prospect Park Tennis Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://www.prospectpark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Prospect Park Tennis Center",
+        "lat": 40.6512602,
+        "lon": -73.9702657
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Park East Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://parkeastsynagogue.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Park East Synagogue",
+        "address": "163 East 67th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10065",
+        "lat": 40.7669961,
+        "lon": -73.9633664
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Unitarian Church of All Souls",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://allsoulsnyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Church of All Souls",
+        "address": "1157 Lexington Avenue",
+        "city": "New York",
+        "postal_code": "10075",
+        "lat": 40.7753259,
+        "lon": -73.9581923
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Transfiguration of Christ Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://transfigurationcorona.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Transfiguration of Christ Greek Orthodox Church",
+        "address": "38-05 98th Street",
+        "city": "Corona",
+        "region": "NY",
+        "postal_code": "11368",
+        "lat": 40.7500966,
+        "lon": -73.8676043
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Greenway Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brooklyngreenway.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Greenway Botanical Garden",
+        "lat": 40.6991998,
+        "lon": -73.9630443
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Midnight Mission",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.midnightmission.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Midnight Mission",
+        "address": "601 South San Pedro Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90013",
+        "lat": 34.0422522,
+        "lon": -118.2459831
+      },
+      "_metro": "Los Angeles, United States"
     }
   ],
   "_not_included": {

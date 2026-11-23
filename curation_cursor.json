@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 166,
-  "metro_key": "GB:Manchester",
+  "metro": 180,
+  "metro_key": "US:Los Angeles",
   "stuck": {}
  },
  "osm|community_centre,library": {

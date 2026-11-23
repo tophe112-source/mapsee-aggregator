@@ -11071,6 +11071,40 @@
         "lon": -0.2136394
       },
       "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Every Thing Goes Book Cafe",
+      "category": "community",
+      "_found": "osm:cafe -> squarespace",
+      "collection": "https://www.etgstores.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Every Thing Goes Book Cafe",
+        "address": "208 Bay Street",
+        "city": "Staten Island",
+        "region": "NY",
+        "postal_code": "10301",
+        "lat": 40.636934,
+        "lon": -74.076656
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Secret Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.secrettheatre.com/shows-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Secret Theatre",
+        "address": "44-02 23rd Street",
+        "city": "Long Island City",
+        "region": "NY",
+        "postal_code": "11101",
+        "lat": 40.7488051,
+        "lon": -73.9449809
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {
