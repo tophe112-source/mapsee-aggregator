@@ -1255,9 +1255,10 @@ with tempfile.TemporaryDirectory() as tmp:
     original_keys = {r["name"]: k for k, r in st.records.items()}
     updated = _horizon_feed([("Near event", 1, geo), ("Ignored", 3, "LOCATION:Never geocode\r\n"),
                              ("Book Club", 7, east + "STATUS:CANCELLED\r\n"), ("West Book Club", 7, west),
-                             ("Chess", 8, geo), ("Storytime", 9, geo + "STATUS:CANCELLED\r\n"),
+                             ("Chess", 8, geo), ("Chess notice", 8, geo),
+                             ("Storytime", 9, geo + "STATUS:CANCELLED\r\n"),
                              ("replacement", 9, geo)])
-    updated = updated.replace("SUMMARY:Chess", "SUMMARY:CANCELLED - Chess").replace(
+    updated = updated.replace("SUMMARY:Chess notice", "SUMMARY:CANCELLED - Chess").replace(
         "SUMMARY:replacement", "SUMMARY:Storytime").replace("SUMMARY:West Book Club", "SUMMARY:Book Club")
     with patch.object(ICS, "_fetch_ics", return_value=(updated, "200")), \
          patch.object(ICS, "make_location_geocoder", return_value=lambda *_: 1 / 0):

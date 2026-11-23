@@ -1142,12 +1142,18 @@ def _capped_feed_cancellations(events):
     UID or start. A missing/placeholder location can resolve to the venue fallback.
     This also works when a checkpoint resumes in the middle of a feed.
     """
+    safe = set()
     candidates = {}
     by_day_title = {}
     for index, ev in enumerate(events):
         title = _summary(ev)
         status = ev.get("STATUS", ("", {}))[0].strip().upper()
-        if status != "CANCELLED" and not strip_notice(title):
+        if status != "CANCELLED":
+            # A standalone "Cancelled - Chess" notice names another listing
+            # and normally has a different UID. EventStore gives that notice
+            # precedence over the original, even if the source still lists it.
+            if strip_notice(title) and "DTSTART" in ev:
+                safe.add(index)
             continue
         title = strip_notice(title) if notice_reason(title) else title
         if title and "DTSTART" in ev:
@@ -1155,7 +1161,7 @@ def _capped_feed_cancellations(events):
             candidates[index] = key
             by_day_title.setdefault(key, set())
     if not candidates:
-        return set(), set()
+        return safe, set()
 
     def place_key(ev):
         loc = _location(ev)
@@ -1169,7 +1175,6 @@ def _capped_feed_cancellations(events):
         key = (_start_key(ev)[:8], normalize_text(_summary(ev)))
         if key in by_day_title and ev.get("STATUS", ("", {}))[0].strip().upper() != "CANCELLED":
             by_day_title[key].add((place_key(ev), ev.get("UID", ("", {}))[0], _start_key(ev)))
-    safe = set()
     for index, key in candidates.items():
         uid = events[index].get("UID", ("", {}))[0]
         place = place_key(events[index])
