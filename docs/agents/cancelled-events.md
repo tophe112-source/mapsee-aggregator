@@ -1,5 +1,14 @@
 # Cancelled events: the half an upsert cannot reach
 
+- **A full iCalendar listing limit used to discard later cancellations (2026-11-22).**
+  With one live slot and three previously stored programs, the fixture now
+  retires two original fingerprints (one explicit status and one title notice)
+  and preserves the third, which has a live replacement under another UID.
+  Repeating the read from a saved offset produces the same two tombstones.
+  The adapter inspects the downloaded calendar after the cap without fetching
+  detail pages or geocoding more listings. An explicit cancellation also
+  reaches a row hidden from new imports by a later title filter.
+
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an event on the map that is not happening, a source that says cancelled and a row that does not, what counts as evidence before a row comes off the map.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
