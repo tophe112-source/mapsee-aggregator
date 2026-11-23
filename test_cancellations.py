@@ -507,6 +507,14 @@ check("  ...and the row listed again is un-cancelled with BOTH exact stamps and 
       [(f"eq.{old}", f"eq.{old}", "is.null", {"cancelled_at": None, "hidden_at": None}, ["back"])])
 check("  ...so it is back on the map, and the young one is not",
       (db.rows["back"]["hidden_at"], db.rows["young"]["hidden_at"] is not None), (None, True))
+db = FakeDB({"back": {"starts_at": stamp(T), "cancelled_at": old, "hidden_at": old,
+                      "page_cancelled_at": old}})
+run_sync(p, db, ["--only-new"])
+check("a complete stale feed cannot reopen the individual page's confirmed cancellation",
+      (db.rows["back"]["hidden_at"], db.rows["back"]["cancelled_at"], db.rows["back"]["page_cancelled_at"],
+       any(c.get("page_cancelled_at") == "is.null" for c, _, _ in db.patches),
+       any("page_cancelled_at" in unquote(query) for query in db.gets)),
+      (old, old, old, True, False))
 
 print()
 print("Only a source read WHOLE this run may lift a cancellation")
@@ -560,14 +568,16 @@ p = write_store("tomb.json", [rec("live", T)],
                             {"fingerprint": "takedown", "source": "ics:lib"},
                             {"fingerprint": "theirs", "source": "ics:lib"},
                             {"fingerprint": "missing", "source": "ics:lib"}])
-db = FakeDB({"live": {"starts_at": stamp(T)}, "gone": {"starts_at": stamp(T)},
-             "again": {"cancelled_at": old, "hidden_at": old}, "takedown": {"hidden_at": old},
+db = FakeDB({"live": {"starts_at": stamp(T)}, "gone": {"starts_at": stamp(T), "page_cancelled_at": old},
+             "again": {"cancelled_at": old, "hidden_at": old, "page_cancelled_at": old}, "takedown": {"hidden_at": old},
              "theirs": {"claimed_at": "2026-09-01"}})
 written, log, code = run_sync(p, db, ["--only-new"])
 check("a tombstoned row is cancelled AND hidden", (db.rows["gone"]["cancelled_at"] is not None,
                                                   db.rows["gone"]["hidden_at"] is not None), (True, True))
 check("one we already cancelled is left exactly as it is (re-stamping one column would break the "
       "equal stamps a lift matches)", (db.rows["again"]["cancelled_at"], db.rows["again"]["hidden_at"]), (old, old))
+check("a fresh feed cancellation clears a stale marker while an already page-confirmed row keeps its evidence",
+      (db.rows["gone"]["page_cancelled_at"], db.rows["again"]["page_cancelled_at"]), (None, old))
 check("a taken-down row is NOT given cancelled_at (that would make it liftable)",
       db.rows["takedown"]["cancelled_at"], None)
 check("a claimed row is not touched", (db.rows["theirs"]["cancelled_at"], db.rows["theirs"]["hidden_at"]), (None, None))
@@ -602,12 +612,15 @@ check("  ...and a single 503 is absorbed by the retry: the row is cancelled, not
 print()
 print("Ours, un-hidden since, while the publisher still says cancelled")
 p = write_store("rehide.json", [], tombstones=[{"fingerprint": "unhid", "source": "ics:lib"}])
-db = FakeDB({"unhid": {"cancelled_at": old, "hidden_at": None}, "plain": {"hidden_at": None}})
+db = FakeDB({"unhid": {"cancelled_at": old, "hidden_at": None, "page_cancelled_at": old},
+             "plain": {"hidden_at": None}})
 written, log, code = run_sync(p, db, ["--only-new"])
 check("a row we cancelled that a retire script's --unhide put back is hidden again",
       (db.rows["unhid"]["hidden_at"] is not None, db.rows["unhid"]["cancelled_at"] > old), (True, True))
 check("  ...with both stamps written as one, so it stays ours to lift later",
       db.rows["unhid"]["hidden_at"] == db.rows["unhid"]["cancelled_at"], True)
+check("  ...and a new feed cancellation clears the preceding cancellation's page marker",
+      db.rows["unhid"]["page_cancelled_at"], None)
 
 print()
 print("A take-down (hidden_at alone) is never lifted by a live listing")
@@ -945,17 +958,23 @@ class FakeREST:
             if getattr(self, "fail_patch", False):
                 raise OSError("503")
             ids = q["id"][0][4:-1].split(",")
-            hit = [r for r in keep if str(r["id"]) in ids]
+            if getattr(self, "confirm_before_patch", False):
+                for r in keep:
+                    r["page_cancelled_at"] = r["cancelled_at"]
+            hit = [r for r in keep if str(r["id"]) in ids
+                   and all(FakeDB._match(r, field, condition)
+                           for field in ("cancelled_at", "hidden_at", "page_cancelled_at")
+                           for condition in q[field] if not condition.startswith("gte."))]
             for r in hit:
                 r.update(body)
             return [{"id": r["id"]} for r in hit]
         return [dict(id=r["id"], title=r["title"], starts_at=r["starts_at"], cancelled_at=r["cancelled_at"],
-                     hidden_at=r.get("hidden_at"))
+                     hidden_at=r.get("hidden_at"), page_cancelled_at=r.get("page_cancelled_at"))
                 for r in keep][int(q["offset"][0]):int(q["offset"][0]) + 500] if q["starts_at"][0] <= "gte." + stamp(NOW) else []
 
 
 _c1, _c2 = stamp(NOW - timedelta(hours=3)), stamp(NOW - timedelta(days=9))
-rows = [dict(id=1, title="Lane Swim", starts_at=stamp(T), cancelled_at=_c1, hidden_at=_c1),
+rows = [dict(id=1, title="Lane Swim", starts_at=stamp(T), cancelled_at=_c1, hidden_at=_c1, page_cancelled_at=_c1),
         dict(id=2, title="Older", starts_at=stamp(T), cancelled_at=_c2, hidden_at=_c2),
         dict(id=3, title="Claimed", starts_at=stamp(T), cancelled_at=stamp(NOW), claimed_at="y", hidden_at=stamp(NOW)),
         dict(id=4, title="Taken down on top", starts_at=stamp(T), cancelled_at=_c1,
@@ -968,6 +987,8 @@ check("dry run: lists the cancellations since --since, writes nothing",
       (sum(1 for m, _, _ in api.calls if m == "PATCH"), rows[0]["cancelled_at"] is not None,
        any("2 imported row(s)" in line for line in out),
        any("1 of them were hidden again since by someone else" in line for line in out)), (0, True, True, True))
+check("the preview counts eligible page-confirmed cancellations",
+      any("1 eligible row(s) had a cancellation confirmed by the event page" in line for line in out), True)
 rc = UNC.run(UNC.parse_args(["--since", stamp(NOW - timedelta(days=1)), "--days", "8", "--apply"]), sb=api,
              now=NOW.timestamp(), out=out.append)
 check("  ...counts the rows the database changed, and exits 0 when the sweep was whole",
@@ -982,6 +1003,14 @@ check("a row hidden again on top of our cancellation (a take-down that left canc
       (rows[3]["cancelled_at"], rows[3]["hidden_at"]) != (None, None), True)
 check("an older cancellation and a claimed row are left alone",
       (rows[1]["cancelled_at"] is not None, rows[2]["cancelled_at"] is not None), (True, True))
+check("explicit manual undo compares the observed page stamp and clears it",
+      (rows[0]["page_cancelled_at"], parse_qs(urlsplit(patches[0][0]).query)["page_cancelled_at"]),
+      (None, ["eq." + _c1]))
+race = FakeREST([dict(id=9, title="Workshop", starts_at=stamp(T), cancelled_at=_c1, hidden_at=_c1)])
+race.confirm_before_patch = True
+UNC.run(UNC.parse_args(["--since", _c1, "--days", "8", "--apply"]), sb=race, now=NOW.timestamp(), out=out.append)
+check("an individual page confirmation arriving after the manual read prevents undoing newer evidence",
+      (race.rows[0]["cancelled_at"], race.rows[0]["hidden_at"], race.rows[0]["page_cancelled_at"]), (_c1, _c1, _c1))
 bad = FakeREST([dict(id=4, title="Swim", starts_at=stamp(T), cancelled_at=stamp(NOW), hidden_at=stamp(NOW))])
 bad.fail_patch = True
 out = []

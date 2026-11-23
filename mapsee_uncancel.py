@@ -13,15 +13,15 @@ absence has a circuit breaker rather than a review. If a source glitch slips
 under the breaker, or a rule turns out wrong, this puts the rows back NOW.
 
 WHAT IT TOUCHES, and why that is safe: rows with external_source 'mapsee',
-claimed_at null, and cancelled_at at or after --since. cancelled_at on an
-unclaimed import is only ever written by this pipeline: mapsee_prune_cancelled,
-the retire_* scripts, the sync's legacy re-key and an organizer take-down set
-hidden_at ALONE. And the sync writes BOTH stamps with one value and never
+claimed_at null, and cancelled_at at or after --since. An explicit cancellation
+on an individual page sets page_cancelled_at, cancelled_at and hidden_at to one
+stamp. A feed cancellation sets the latter two. The pipeline never
 re-stamps either, so a row whose hidden_at no longer equals its cancelled_at was
 hidden again by someone else on top of our cancellation (a take-down, a prune):
 it is listed, counted, and never lifted here. The exact stamps travel in the
-PATCH filter with the ownership conditions, so a row claimed or hidden between
-the read and the write is left alone by the database itself.
+PATCH filter with the ownership conditions and the observed page marker, so a
+row claimed, hidden or newly confirmed between the read and write is left alone.
+An explicit undo clears all three fields, including any page confirmation.
 
 A ROW WHOSE SOURCE STILL SAYS CANCELLED COMES BACK OFF at the next sync, as it
 should. Fix the rule first (or park the source), then run this.
@@ -97,6 +97,7 @@ def ours(since):
 def run(args, sb=sb, now=None, out=print):
     since = since_stamp(args.since)
     written, failed, rehidden = [0], [0], [0]
+    page_confirmed = 0
 
     def flush(rows):
         if not rows or not args.apply:
@@ -104,18 +105,24 @@ def run(args, sb=sb, now=None, out=print):
         done = 0
         by_stamp = {}
         for r in rows:
-            by_stamp.setdefault(str(r.get("cancelled_at")), []).append(str(r["id"]))
-        for st, ids in sorted(by_stamp.items()):
+            stamps = (str(r["cancelled_at"]), r.get("page_cancelled_at") or "")
+            by_stamp.setdefault(stamps, []).append(str(r["id"]))
+        for (st, page_at), ids in sorted(by_stamp.items()):
             q_st = urllib.parse.quote(st, safe="")
+            page_guard = "eq." + urllib.parse.quote(page_at, safe="") if page_at else "is.null"
             for i in range(0, len(ids), PATCH_IDS):
                 chunk = ids[i:i + PATCH_IDS]
                 try:
                     # return=representation: count the rows the database actually
                     # changed (one claimed or re-hidden in between is not one lifted).
                     got = sb(f"events?id=in.({','.join(chunk)})&{ours(since)}"
-                             f"&cancelled_at=eq.{q_st}&hidden_at=eq.{q_st}&select=id", "PATCH",
-                             {"cancelled_at": None, "hidden_at": None}, prefer="return=representation")
-                    n = len(got) if isinstance(got, list) else len(chunk)
+                             f"&cancelled_at=eq.{q_st}&hidden_at=eq.{q_st}"
+                             f"&page_cancelled_at={page_guard}&select=id", "PATCH",
+                             {"cancelled_at": None, "hidden_at": None, "page_cancelled_at": None},
+                             prefer="return=representation")
+                    if not isinstance(got, list):
+                        raise ValueError("PATCH returned no row count")
+                    n = len(got)
                     written[0] += n
                     done += n
                 except Exception as e:                # noqa: BLE001
@@ -130,7 +137,7 @@ def run(args, sb=sb, now=None, out=print):
     while t < end and pages < args.max_pages:
         w_a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t))
         w_b = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(min(t + step, end)))
-        q = (f"events?select=id,title,starts_at,cancelled_at,hidden_at&{ours(since)}"
+        q = (f"events?select=id,title,starts_at,cancelled_at,hidden_at,page_cancelled_at&{ours(since)}"
              f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc,id.asc&limit={PAGE}")
         offset = 0
         while True:
@@ -152,6 +159,8 @@ def run(args, sb=sb, now=None, out=print):
             # Ours and untouched: both stamps the same instant (see the header).
             mine = [r for r in rows if _same_instant(r.get("cancelled_at"), r.get("hidden_at"))]
             rehidden[0] += len(rows) - len(mine)
+            page_confirmed += sum(_same_instant(r.get("page_cancelled_at"), r["cancelled_at"])
+                                  for r in mine)
             for r in rows[:max(0, 30 - len(examples))]:
                 examples.append((str(r.get("starts_at"))[:16], str(r.get("cancelled_at"))[:16],
                                  r.get("title") or "?"))
@@ -166,6 +175,8 @@ def run(args, sb=sb, now=None, out=print):
         t += step
 
     out(f"\n  {found} imported row(s) cancelled by the pipeline since {since}")
+    if page_confirmed:
+        out(f"  {page_confirmed} eligible row(s) had a cancellation confirmed by the event page")
     if rehidden[0]:
         out(f"  {rehidden[0]} of them were hidden again since by someone else (a take-down, a "
             f"prune): left alone")
@@ -178,7 +189,7 @@ def run(args, sb=sb, now=None, out=print):
     if not args.apply:
         out("\n  DRY RUN - nothing written. Read the list above, then re-run with --apply.")
         return 1 if skipped else 0
-    out(f"\n  un-cancelled {written[0]} row(s) (cancelled_at and hidden_at cleared)"
+    out(f"\n  un-cancelled {written[0]} row(s) (cancellation, hide and page confirmation cleared)"
         + (f"; {failed[0]} FAILED to write" if failed[0] else ""))
     # Non-zero when the sweep was not whole or a write failed: an escape hatch
     # that reports success after lifting half is how a misfire stays half-fixed.
