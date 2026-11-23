@@ -280,16 +280,83 @@ class _Robots:
         return {"allowed": True, "crawl_delay": None}
 
 
-def run(db, *argv, verdicts=VERDICTS):
+def run(db, *argv, verdicts=VERDICTS, probe=None):
     """main() with the database, the probe and robots.txt faked -> (exit, stdout)."""
     out = io.StringIO()
     with patch.object(PRUNE, "sb", db), patch.object(PRUNE, "SUPABASE_URL", "https://db.test"), \
             patch.object(PRUNE, "SERVICE_KEY", "k"), patch.object(PRUNE.robots_txt, "Robots", _Robots), \
-            patch.object(PRUNE, "cancellation_verdict", lambda u, robots=None, **k: verdicts.get(u, "live")), \
+            patch.object(PRUNE, "cancellation_verdict", probe or (lambda u, robots=None, **k: verdicts.get(u, "live"))), \
             patch.object(sys, "argv", ["mapsee_prune_cancelled.py", "--delay", "0", *argv]), \
             contextlib.redirect_stdout(out), contextlib.redirect_stderr(io.StringIO()):
         code = PRUNE.main()
     return code, out.getvalue()
+
+
+# Use the real probe, collect and write. One public page names exactly one
+# occurrence, even when a second stored row shares its ticket URL.
+page_url = "https://www.meetup.com/a-group/events/316949185/"
+match = row(901, 1, page_url)
+later = row(902, 1, page_url, frac=0.25)
+page_event = {"@type": "LiteraryEvent", "eventStatus": "https://schema.org/EventCancelled",
+              "startDate": match["starts_at"], "url": page_url}
+page_bytes = ('<script type="application/ld+json">' + json.dumps(page_event) + '</script>').encode()
+
+
+def page_run(database, *args, body=page_bytes):
+    with patch.object(PRUNE.urllib.request, "urlopen") as fetch:
+        response = fetch.return_value.__enter__.return_value
+        response.headers = {"content-type": "text/html"}
+        response.geturl.return_value = page_url
+        response.read.return_value = body
+        result = run(database, "--days", "2", *args, probe=PRUNE.cancellation_verdict)
+        check("the whole run fetches the shared listing once", fetch.call_count, 1)
+        return result
+
+
+db = FakeDB([match, later])
+page_run(db)
+check("report mode makes no cancellation or hide writes", [c for c in db.calls if c[0] == "PATCH"], [])
+code, _ = page_run(db, "--apply")
+marked = db.rows[match["id"]]
+check("one matching occurrence gets all three identical stamps",
+      (code, bool(marked["cancelled_at"]), marked["cancelled_at"] == marked["hidden_at"] == marked["page_cancelled_at"]),
+      (0, True, True))
+check("another start on that URL stays visible",
+      (db.rows[later["id"]]["hidden_at"], db.rows[later["id"]].get("cancelled_at")), (None, None))
+
+far_match, far_other = row(910, 10, page_url), row(911, 11, page_url)
+far_rows = [match, far_match, far_other]
+far_event = dict(page_event, startDate=far_match["starts_at"])
+far_body = ('<script type="application/ld+json">' + json.dumps(far_event) + '</script>').encode()
+with tempfile.TemporaryDirectory() as tmp_index:
+    index_path = os.path.join(tmp_index, "index.json")
+    PRUNE.write_url_index(index_path, {page_url: far_rows}, NOW)
+    db = FakeDB(far_rows)
+    code, _ = page_run(db, "--url-index", index_path, "--apply", body=far_body)
+    check("only the matching indexed occurrence gets marked; both other dates stay visible",
+          (code, bool(db.rows[far_match["id"]].get("page_cancelled_at")),
+           db.rows[match["id"]]["hidden_at"], db.rows[far_other["id"]]["hidden_at"]), (0, True, None, None))
+
+for edit in ({"description": "Tickets / info: https://elsewhere.test"}, {"starts_at": at(3)},
+             {"claimed_at": at(-1)}, {"is_private": True}, {"hidden_at": at(-1)}):
+    db = FakeDB([match])
+    def edit_before_write(path, method="GET", body=None, prefer=""):
+        if method == "PATCH":
+            db.rows[match["id"]].update(edit)
+        return db(path, method, body, prefer)
+    code, _ = page_run(edit_before_write, "--apply")
+    changed = db.rows[match["id"]]
+    check(f"a concurrent {next(iter(edit))} edit wins over the page",
+          (code, changed.get("cancelled_at"), changed["hidden_at"]), (0, None, edit.get("hidden_at")))
+
+db = FakeDB([match])
+def fail_page_write(path, method="GET", body=None, prefer=""):
+    if method == "PATCH" and "page_cancelled_at" in body:
+        raise RuntimeError("simulated write failure")
+    return db(path, method, body, prefer)
+code, _ = page_run(fail_page_write, "--apply")
+check("a failed cancellation exits nonzero and does not fall back to a plain hide",
+      (code, db.rows[match["id"]]["hidden_at"]), (1, None))
 
 
 tmp = tempfile.mkdtemp()

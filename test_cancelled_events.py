@@ -22,6 +22,7 @@ There are two halves to this and they fail differently:
   pinned here is mostly what it must REFUSE to act on.
 """
 import os
+import json
 import sys
 from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
@@ -466,6 +467,41 @@ with patch.object(PRUNE.urllib.request, "urlopen", lambda req, timeout=20: _Resp
     check("no robots given (a direct call) reads the page as it always did",
           PRUNE.cancellation_verdict("https://www.meetup.com/g/events/1/"), "cancelled")
 
+meetup_url = "https://www.meetup.com/writing-through-the-year/events/316949185/"
+other_url = "https://www.meetup.com/writing-through-the-year/events/316949186/"
+event = {"@type": "LiteraryEvent", "eventStatus": "https://schema.org/EventCancelled",
+         "url": meetup_url, "startDate": "2026-11-17T18:15:00+01:00"}
+instant = datetime(2026, 11, 17, 17, 15, tzinfo=timezone.utc)
+
+def linked_data(data):
+    return '<script type="application/ld+json">' + json.dumps(data) + '</script>'
+
+check("the November 17 LiteraryEvent's source offset resolves to the stored UTC occurrence",
+      PRUNE.meetup_cancelled_start(meetup_url, meetup_url, linked_data({"@graph": [event]})), instant)
+without_url = {k: v for k, v in event.items() if k != "url"}
+check("the Event's explicit numeric identifier can establish the Meetup identity",
+      PRUNE.meetup_cancelled_start(meetup_url, meetup_url, linked_data(dict(without_url, identifier=316949185))),
+      instant)
+for label, requested, landed, markup in (
+    ("a different Meetup event after a redirect", meetup_url, other_url, linked_data(event)),
+    ("a link that only resembles Meetup", meetup_url, meetup_url.replace("meetup.com", "meetup.com.example"), linked_data(event)),
+    ("the Event's own different identity", meetup_url, meetup_url, linked_data(dict(event, url=other_url))),
+    ("conflicting Event identities", meetup_url, meetup_url, linked_data(dict(event, identifier=99))),
+    ("an all-day date", meetup_url, meetup_url, linked_data(dict(event, startDate="2026-11-17"))),
+    ("a floating wall clock", meetup_url, meetup_url, linked_data(dict(event, startDate="2026-11-17T17:15:00"))),
+    ("a postponement", meetup_url, meetup_url, linked_data(dict(event, eventStatus="https://schema.org/EventPostponed"))),
+    ("a mixed calendar including another event without status", meetup_url, meetup_url,
+     linked_data([event, {"@type": "Event", "url": other_url}])),
+    ("an EventSeries", meetup_url, meetup_url, linked_data(dict(event, **{"@type": "EventSeries"}))),
+    ("a made-up type ending in Event", meetup_url, meetup_url, linked_data(dict(event, **{"@type": "FictionalEvent"}))),
+    ("a status in page state outside linked data", meetup_url, meetup_url, '<script>' + json.dumps(event) + '</script>'),
+    ("a status on an Organization", meetup_url, meetup_url, linked_data(dict(event, **{"@type": "Organization"}))),
+    ("a comment masquerading as a script", meetup_url, meetup_url, '<!--' + linked_data(event) + '-->'),
+    ("a page without a Meetup event ID", meetup_url.rsplit("events/", 1)[0], meetup_url, linked_data(event)),
+):
+    check(f"{label} cannot label a stored row cancelled",
+          PRUNE.meetup_cancelled_start(requested, landed, markup), None)
+
 print("  ...and the stdlib session it asks through answers the way RFC 9309 reads it")
 import io
 import urllib.error
@@ -481,6 +517,13 @@ def _serve(answer):
 
 def _http_error(code, body=b""):
     return urllib.error.HTTPError("https://h.test/robots.txt", code, "x", {}, io.BytesIO(body))
+
+
+for status in (404, 410):
+    confirmed = {}
+    with patch.object(PRUNE.urllib.request, "urlopen", side_effect=_http_error(status)):
+        verdict = PRUNE.cancellation_verdict(meetup_url, confirmed=confirmed)
+    check(f"a {status} at a real Meetup event URL supplies no cancellation stamp", (verdict, confirmed), ("gone", {}))
 
 
 CHALLENGE = b"<html><title>Just a moment...</title>Checking your browser</html>"
