@@ -25,6 +25,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import mapsee_ingest_bibliocommons as BC
 import mapsee_ingest as shared_ingest
+import mapsee_supabase_sync as sync
 
 fails = []
 
@@ -85,11 +86,11 @@ def evt(eid="e1", title="Computer Basics", start="2026-09-04T09:30",
 
 
 # ---------------------------------------------------- 1. times are LOCAL
-print("the clock time is a clock time, not an instant")
+print("library clocks and gateway index instants")
 e = BC.to_event(evt(), ent(), SITE)
 check("start goes to start_local with seconds", e.start_local == "2026-09-04T09:30:00", e.start_local)
-check("...and start_utc stays None, or a 10:00 storytime is served at 03:00",
-      e.start_utc is None, e.start_utc)
+check("the source's branch timezone resolves a clock without an index",
+      (e.start_utc, e.end_utc) == ("2026-09-04T14:30:00Z", "2026-09-04T16:00:00Z"))
 check("the end is treated the same", e.end_local == "2026-09-04T11:00:00", e.end_local)
 check("the branch's IANA zone is carried", e.timezone == "America/Chicago", e.timezone)
 check("an end at or before the start is dropped",
@@ -100,6 +101,46 @@ check("an offset that IS present is left alone, not reinterpreted",
 check("...including a numeric offset",
       BC._iso_local("2026-09-04T09:30:00+01:00") == "2026-09-04T09:30:00+01:00")
 check("garbage is None, not a guess", BC._iso_local("next Tuesday") is None)
+
+venue_zone = copy.deepcopy(ent())
+venue_zone["locations"]["48"]["mapLocation"]["timeZone"] = "America/New_York"
+eastern = BC.to_event(evt(), venue_zone, SITE)
+eastern_row = sync.to_row(eastern.as_record("2026-09-01T00:00:00Z"), "fixture-host")
+check("the published venue zone reaches the sync even where the pin resolves to another zone",
+      (eastern_row["starts_at"], eastern_row["ends_at"]) ==
+      ("2026-09-04T13:30:00Z", "2026-09-04T15:00:00Z"))
+fold = dict(evt(start="2026-11-01T01:45", end="2026-11-01T01:15"),
+            indexStart="2026-11-01T06:45:00Z", indexEnd="2026-11-01T07:15:00Z")
+crossing = BC.to_event(fold, ent(), SITE)
+stored = sync.to_row(crossing.as_record("2026-10-31T00:00:00Z"), "fixture-host")
+check("a half-hour session crossing Chicago's repeated hour keeps both instants in the sync row",
+      (stored["starts_at"], stored["ends_at"]) == (fold["indexStart"], fold["indexEnd"]))
+cancel = copy.deepcopy(fold)
+cancel["definition"]["isCancelled"] = True
+check("UTC enrichment preserves the local slot key for cancellations",
+      BC.to_event(cancel, ent(), SITE, tombstone=True).fingerprint ==
+      crossing.fingerprint == BC.to_event({"id": fold["id"], "definition": fold["definition"]},
+                                          ent(), SITE).fingerprint)
+stale = dict(evt(), indexStart="2026-09-04T09:30:00Z", indexEnd="stale")
+check("a conflicting or malformed index falls back to the published Chicago clock",
+      BC.to_event(stale, ent(), SITE).start_utc == e.start_utc and
+      BC.to_event(stale, ent(), SITE).end_utc == e.end_utc)
+no_zone = copy.deepcopy(ent())
+no_zone["locations"]["48"]["mapLocation"]["timeZone"] = "unknown"
+indexed = dict(evt(), indexStart="2026-09-04T14:30:00Z", indexEnd="2026-09-04T16:00:00Z")
+check("an explicit gateway instant survives when its venue has no usable timezone",
+      BC.to_event(indexed, no_zone, SITE).start_utc == indexed["indexStart"])
+check("a timezone-less index supplies no instant without a valid venue timezone",
+      BC.to_event(dict(evt(), indexStart="2026-09-04T09:30"), no_zone, SITE).start_utc is None)
+offset = dict(evt(start="2026-09-04T09:30:00-04:00"), indexStart="2026-09-04T09:30:00Z")
+check("an explicit offset on the definition itself is authoritative",
+      BC.to_event(offset, ent(), SITE).start_utc == "2026-09-04T13:30:00Z")
+day = BC.to_event(dict(evt(start="2026-11-01", end="2026-11-02"),
+                       indexStart="2026-11-01T05:00:00Z", indexEnd="2026-11-03T05:59:59Z"),
+                  ent(), SITE)
+check("all-day definitions stay date-only despite the gateway's timed index boundaries",
+      (day.start_local, day.end_local, day.start_utc, day.end_utc) ==
+      ("2026-11-01", "2026-11-02", None, None))
 
 # ---------------------------------------------- 2. the coordinate is the fact
 print()
