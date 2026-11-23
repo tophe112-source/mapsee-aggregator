@@ -48884,6 +48884,282 @@
         "street_hint": "950 Sturgeon Road"
       },
       "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Westdale Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://thewestdale.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westdale Theatre",
+        "lat": 43.262316,
+        "lon": -79.9056156
+      },
+      "_metro": "Hamilton, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Neighbour 2 Neighbour - Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://www.n2ncentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Neighbour 2 Neighbour - Community Garden",
+        "lat": 43.2237517,
+        "lon": -79.8937307
+      },
+      "_metro": "Hamilton, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "McIntyre Performing Arts Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://mcintyrepac.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "McIntyre Performing Arts Centre",
+        "address": "135 Fennell Avenue West",
+        "city": "Hamilton",
+        "region": "ON",
+        "postal_code": "L9C 0E5",
+        "lat": 43.2377862,
+        "lon": -79.8858157
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Burlington Performing Arts Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://burlingtonpac.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burlington Performing Arts Centre",
+        "address": "440 Locust Street",
+        "city": "Burlington",
+        "region": "On",
+        "postal_code": "L7S 1T7",
+        "lat": 43.3242592,
+        "lon": -79.7986309
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Port Wallis United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://portwallisunitedchurch.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Port Wallis United Church",
+        "address": "263 Waverley Road",
+        "city": "Dartmouth",
+        "region": "Nova Scotia",
+        "postal_code": "B2X 2C8",
+        "lat": 44.6996697,
+        "lon": -63.5481374
+      },
+      "_metro": "Halifax, Canada",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Extend-A-Family Waterloo Region",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.eafwr.on.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Extend-A-Family Waterloo Region",
+        "address": "91 Moore Avenue",
+        "postal_code": "N2H 3S4",
+        "lat": 43.4578998,
+        "lon": -80.5032872
+      },
+      "_metro": "Kitchener, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Old Treasury Building Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.oldtreasurybuilding.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old Treasury Building Museum",
+        "address": "20 Spring Street",
+        "region": "VIC",
+        "postal_code": "3002",
+        "lat": -37.8131993,
+        "lon": 144.9743546
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Nicholas Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://greekorthodox.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Nicholas Greek Orthodox Church",
+        "address": "5 Murray Street",
+        "region": "VIC",
+        "postal_code": "3013",
+        "lat": -37.8159616,
+        "lon": 144.8915741
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Cambridge Scout and Girl Guide Hall",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://scoutswa.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cambridge Scout and Girl Guide Hall",
+        "lat": -31.9420901,
+        "lon": 115.7852152
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Mount Barker Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.adelaidehillschurch.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Barker Presbyterian Church",
+        "lat": -35.0670522,
+        "lon": 138.8600858
+      },
+      "_metro": "Adelaide, Australia"
+    },
+    {
+      "name": "Presbyterian Church of Saint Andrew",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.standrewscanberra.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Presbyterian Church of Saint Andrew",
+        "address": "1 State Circle",
+        "lat": -35.3120131,
+        "lon": 149.1277434
+      },
+      "_metro": "Canberra, Australia"
+    },
+    {
+      "name": "Kingborough Sports Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.kingborough.tas.gov.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kingborough Sports Centre",
+        "address": "10 Kingston View Drive",
+        "lat": -42.9720438,
+        "lon": 147.2861572
+      },
+      "_metro": "Hobart, Australia"
+    },
+    {
+      "name": "Bentley Priory Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://bentleypriorymuseum.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bentley Priory Museum",
+        "lat": 51.6264811,
+        "lon": -0.3333653
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Freud Museum London",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.freud.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freud Museum London",
+        "address": "20 Maresfield Gardens",
+        "city": "London",
+        "postal_code": "NW3 5SX",
+        "lat": 51.5483111,
+        "lon": -0.1773927
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Ashford Table Tennis Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.ashfordttc.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ashford Table Tennis Club",
+        "address": "Woodthorpe Road",
+        "city": "Ashford",
+        "postal_code": "TW15 3JX",
+        "lat": 51.4342215,
+        "lon": -0.4785583
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Cinema Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://cinemamuseum.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Cinema Museum",
+        "address": "2 Dugard Way",
+        "city": "London",
+        "postal_code": "SE11 4TH",
+        "lat": 51.4923804,
+        "lon": -0.1050422
+      },
+      "_metro": "London, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Palmers Green Mosque",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mcec.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palmers Green Mosque",
+        "city": "London",
+        "postal_code": "N13 5JL",
+        "lat": 51.6152975,
+        "lon": -0.1047441
+      },
+      "_metro": "London, United Kingdom"
     }
   ],
   "_not_included": {

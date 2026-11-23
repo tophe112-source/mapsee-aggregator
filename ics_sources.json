@@ -78768,5 +78768,142 @@
     "geocode_suffix": ", Winnipeg, Canada",
     "limit": 300,
     "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Morehead City — Library",
+    "category": "learning",
+    "url": "https://www.moreheadcitync.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Morehead City, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Library]",
+    "_metro": "Morehead City, North Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Morehead City — Events",
+    "category": "community",
+    "url": "https://www.moreheadcitync.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Morehead City, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Morehead City, North Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Morehead City — Parks and Recreation",
+    "category": "community",
+    "url": "https://www.moreheadcitync.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Morehead City, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks and Recreation]",
+    "_metro": "Morehead City, North Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Playhouse Cinema",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://playhousecinema.ca/princess.ics",
+    "geocode_suffix": ", Hamilton, Canada",
+    "limit": 300,
+    "_metro": "Hamilton, Canada",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Burlington Rifle and Revolver Club House",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f8ul57qsrupbfpbrcgcvddqr2g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Burlington",
+    "limit": 300,
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "Colby Shooting Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f4eujsb0k2gg4i9lt2jnbkt3hg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener, Canada",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "The Russian Orthodox Most Holy Mother of God Cathedral (and School)",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iu0p2t3tco0nttl8dlq4d7blmg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Archangel Michael & St Anthony's Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40oakleighcopts.org/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Maylands Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://maylands.cofc.org.au/?feed=my-calendar-ics",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300,
+    "_metro": "Adelaide, Australia"
+  },
+  {
+    "name": "UniMovies",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "http://unimovies.org/dec.ics",
+    "geocode_suffix": ", Wollongong, Australia",
+    "limit": 300,
+    "_metro": "Wollongong, Australia"
+  },
+  {
+    "name": "Helensburgh-Stanwell Park Surf Life Saving Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stanwellparksurfclub.com_3ia4sdt36a1k2cfq8393o1ki98%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wollongong, Australia",
+    "limit": 300,
+    "_metro": "Wollongong, Australia"
+  },
+  {
+    "name": "Rush Green Community Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://rushgreencommunity.org/index.php?option=com_dpcalendar&task=ical.download&id=18",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "venue": {
+      "name": "Rush Green Community Centre",
+      "postal_code": "RM7 0LB",
+      "lat": 51.5651809,
+      "lon": 0.1707094,
+      "pin_unnamed": false
+    },
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Campaign For Nuclear Disarmament Office",
+    "category": "community",
+    "_found": "osm:ngo -> events-manager",
+    "url": "https://cnduk.org/events/?ical=1",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Biggin Hill Memorial Museum",
+    "category": "arts",
+    "_found": "osm:museum -> event-organiser",
+    "url": "https://bigginhillmuseum.com/?feed=eo-events",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
   }
 ]

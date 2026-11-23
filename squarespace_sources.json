@@ -11042,6 +11042,35 @@
         "lon": -75.6864053
       },
       "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "PACT Centre for Emerging Artists",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.pact.net.au/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "PACT Centre for Emerging Artists",
+        "lat": -33.8990367,
+        "lon": 151.1873189
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Kindred Studios",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.kindredstudios.co.uk/kindred-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Kindred Studios",
+        "address": "326 Kensal Road",
+        "city": "London",
+        "postal_code": "W10 5BZ",
+        "lat": 51.5264458,
+        "lon": -0.2136394
+      },
+      "_metro": "London, United Kingdom"
     }
   ],
   "_not_included": {

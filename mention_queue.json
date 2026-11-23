@@ -1617,6 +1617,29 @@
       "times_seen": 2,
       "venue": null
     },
+    "philly loves bowie week": {
+      "dates": [
+        "2027-01-09"
+      ],
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "name": "Philly Loves Bowie week",
+      "ref_keys": [
+        "c6dbd630ecce"
+      ],
+      "referrers": [
+        {
+          "source": "jsonld",
+          "start": "2027-01-10",
+          "title": "Bowie & Prince Dance Party",
+          "url": "https://www.tixr.com/groups/undergroundarts/events/underground-arts-bowie-prince-dance-party-215490"
+        }
+      ],
+      "sample": "The 2nd Annual Bowie & Prince Dance Party at Underground Arts > Featuring: DJ Riot Meg + DJ Jawn Cena > Part of Philly Loves Bowie week > Dance to tons of Bowie and Prince with some similar artists mixed in! > Themed drink specials and visuals! > At least $1 per ticket is being donated to",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "photonola festival": {
       "dates": [
         "2026-12-02/2026-12-06"

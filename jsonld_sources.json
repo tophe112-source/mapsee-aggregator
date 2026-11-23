@@ -39899,6 +39899,267 @@
         "street_hint": "10150 80 Street NW"
       },
       "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Lighthouse Tabernacle Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://ltab.ca/upcoming-events/"
+      ],
+      "link_pattern": "https://ltab\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lighthouse Tabernacle Church",
+        "address": "342 Sherin Drive",
+        "city": "Oakville",
+        "region": "ON",
+        "postal_code": "L6L 4J3",
+        "lat": 43.4151744,
+        "lon": -79.7038068
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Alderney Landing",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.alderneylanding.com/events-directory/"
+      ],
+      "link_pattern": "https://www\\.alderneylanding\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Alderney Landing",
+        "city": "Dartmouth",
+        "region": "Nova Scotia",
+        "postal_code": "B2Y 1C9",
+        "lat": 44.6644011,
+        "lon": -63.5701399,
+        "street_hint": "2 Ochterloney Street"
+      },
+      "_metro": "Halifax, Canada"
+    },
+    {
+      "name": "Water Street Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.waterstreetchurch.ca/events-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Water Street Church",
+        "address": "287 Water Street",
+        "city": "Guelph",
+        "postal_code": "N1G 1B6",
+        "lat": 43.5301419,
+        "lon": -80.2542318
+      },
+      "_metro": "Kitchener, Canada"
+    },
+    {
+      "name": "Bobbin Head Cruising Club",
+      "category": "community",
+      "_found": "osm:club -> wix",
+      "listing": [
+        "https://www.bhcc.org.au/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Bobbin Head Cruising Club",
+        "lat": -33.662004,
+        "lon": 151.1619457
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "The Christian Reformed Church of Gosnells",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://gosnellsreformed.church/?ctc_event=sunday-services"
+      ],
+      "link_pattern": "https://gosnellsreformed\\.church/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Christian Reformed Church of Gosnells",
+        "address": "55 Mills Road West",
+        "region": "WA",
+        "postal_code": "6110",
+        "lat": -32.0675372,
+        "lon": 116.0031006
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Watkins Books",
+      "category": "learning",
+      "_found": "osm:books -> wix",
+      "listing": [
+        "https://www.watkinsbooks.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Watkins Books",
+        "address": "19 Cecil Court",
+        "city": "London",
+        "postal_code": "WC2N 4EZ",
+        "lat": 51.51067,
+        "lon": -0.1278384
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "V&A East Storehouse",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.vam.ac.uk/event/LPpg2WzoY7/poster-for-peace-dec-2026"
+      ],
+      "link_pattern": "https://www\\.vam\\.ac\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "V&A East Storehouse",
+        "address": "Parkes Street",
+        "city": "London",
+        "postal_code": "E20 3AX",
+        "lat": 51.5464368,
+        "lon": -0.0211827
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Uniting Friends",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.unitingfriends.org.uk/open-to-all"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Uniting Friends",
+        "lat": 51.5769649,
+        "lon": 0.0601308,
+        "street_hint": "94 Beehive Lane"
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Rosetrees",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://jewishcare.org/events"
+      ],
+      "link_pattern": "https://jewishcare\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rosetrees",
+        "address": "Asher Loftus Way",
+        "city": "London",
+        "postal_code": "N11 3ND",
+        "lat": 51.611675,
+        "lon": -0.1529442
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Saint Michael and All Angels Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wp-event-manager",
+      "listing": [
+        "https://smaaa.org.uk/events/"
+      ],
+      "link_pattern": "https://smaaa\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Saint Michael and All Angels Church",
+        "lat": 51.4960404,
+        "lon": -0.2547354
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Wohl Enterprise Hub",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://theworkavenue.org.uk/events/"
+      ],
+      "link_pattern": "https://theworkavenue\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wohl Enterprise Hub",
+        "address": "Redbourne Avenue",
+        "city": "London",
+        "postal_code": "N3 2BS",
+        "lat": 51.602778,
+        "lon": -0.1908887
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Place",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://theplace.org.uk/events/autumn-26-starchitects/"
+      ],
+      "link_pattern": "https://theplace\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Place",
+        "address": "17 Duke's Road",
+        "city": "London",
+        "postal_code": "WC1H 9PY",
+        "lat": 51.5274371,
+        "lon": -0.1287334
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Making Connections",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.barnardos.org.uk/events/london-landmarks-half-marathon"
+      ],
+      "link_pattern": "https://www\\.barnardos\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Making Connections",
+        "city": "London",
+        "postal_code": "E13 8RD",
+        "lat": 51.5264751,
+        "lon": 0.0245594,
+        "street_hint": "140 Balaam Street"
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Northern Light",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.tnlcinemasale.co.uk/home/"
+      ],
+      "link_pattern": "https://www\\.tnlcinemasale\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Northern Light",
+        "lat": 53.4240283,
+        "lon": -2.3227101
+      },
+      "_metro": "Manchester, United Kingdom"
     }
   ],
   "_not_included": {
