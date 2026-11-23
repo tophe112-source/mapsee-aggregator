@@ -1337,8 +1337,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # ...and the bare holiday, which is how a city says "we are shut" without
         # using a single governance word. Same anchored match the feed-level rule
         # uses, so "Christmas Day" goes and "Christmas Tree Lighting" stays.
-        if is_civic and not is_cancelled and (CIVIC_TITLE_RX.search(title)
-                         or CIVIC_HOLIDAY_RX.match(title.strip())):
+        if is_civic and (CIVIC_TITLE_RX.search(title) or CIVIC_HOLIDAY_RX.match(title.strip())) and not is_cancelled:
             governance += 1
             continue
         start_value, start_params = _wall_clock(src, *ev["DTSTART"])

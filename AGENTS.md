@@ -8,7 +8,7 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**Keep this map small.** The measured notes — 665 of them — live in
+**Keep this map small.** The measured notes — 669 of them — live in
 [`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
 then open ONE topic. Preserve each note's measurements.
 
@@ -46,7 +46,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | What is on at a community centre (drop-in timetables) | the `rec` feed group: `mapsee_ingest_toronto_rec.py`, `_perfectmind.py` (18 cities), `_linkedevents.py` (Helsinki, Espoo), `_montreal_loisirs.py`, `_phl_parks.py` (Philadelphia), `_drupal_fullcalendar.py` (Fairfax County, OC Parks), `_revize.py` (Manassas + 3 towns), `_glenecho.py` (Glen Echo Park's dances), `_barcelona.py`, `_lcsd.py` (Hong Kong); `docs/agents/community-centres.md`, and `platforms-probed.md` for the booking platforms that refuse |
 | When a community or seniors' centre is OPEN (not events) | `mapsee_ingest_facility_hours.py` — city open data (Seattle, NYC, Chicago, Cleveland, Phoenix), one standing row per centre; `osm_amenities` skips the OSM centres it writes (`claimed_osm_refs`) |
 | Walks for a cause, volksmarches | `mapsee_ingest_luminate.py`, `_rallybound.py`, `_ava.py`; `_CAUSE_WALK_RX` |
-| North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - 44 systems, every row carrying its branch's surveyed coordinate. No backend discovers a BiblioCommons tenant; they are added by hand |
+| North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - 69 systems, with publisher-supplied branch or offsite coordinates and times. BiblioCommons tenants are added by hand |
 | Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter: most pools on earth are in back gardens |
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. `platforms-probed.md` is the durable half |
 | Whether robots.txt lets us read a feed | `robots_txt.py` (RFC 9309). The owner's line (2026-09-30): robots.txt binds a publisher's own pages and feeds, which `verify` refuses (ledger status `refused`) before fetching. A documented public API used within its usage policy is exempt (`DOCUMENTED_API_TYPES` in `catalog_curate.py`). A Gancio or Mobilizon host whose robots.txt refuses its whole site binds even the API (2026-10-05). `python catalog_curate.py robots` reports what a host refuses and changes nothing; the 76 it refused on 2026-09-30 were retired into `_not_included`. Re-run it: a challenge can refuse on the next fetch |
@@ -127,10 +127,10 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/curation-and-discovery.md` | 168 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
 | `docs/agents/osm-amenities.md` | 35 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 26 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 51 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget, rotation, Crawl-delay and robots.txt, who pays for an adapter's rows, the gate's path filter |
+| `docs/agents/ci-and-jobs.md` | 52 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget, rotation, Crawl-delay and robots.txt, who pays for an adapter's rows, the gate's path filter |
 | `docs/agents/adapters-and-sources.md` | 75 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar through its API, exact source ticket and organizer facts, Mobilizon's order, OpenAgenda's windows, annual festivals |
 | `docs/agents/classification-and-categories.md` | 44 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
-| `docs/agents/cancelled-events.md` | 54 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
+| `docs/agents/cancelled-events.md` | 55 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
 | `docs/agents/sync-eventstore-and-paging.md` | 58 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, unhide walks, re-keyed rows, the collapser |
 | `docs/agents/dates-and-timezones.md` | 25 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules, a wall clock stamped as UTC or a platform's default zone, days joined into one event |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
@@ -138,7 +138,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/spam-and-content.md` | 14 | the predicate, the purge, implausible end dates, safe scheduled deletes, a whole instance of adverts |
 | `docs/agents/state-fairs.md` | 9 | marketing-copy dates, towns vs venues, a one-day festival's prose date |
 | `docs/agents/health-and-monitoring.md` | 12 | `stats_snapshot_all`, baselines, a source with no retry, the audit's crash, FEED_DOWN's blind spot |
-| `docs/agents/libraries-bibliocommons.md` | 12 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |
+| `docs/agents/libraries-bibliocommons.md` | 13 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |
 | `docs/agents/community-centres.md` | 41 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield, RRULE timetables, a price line the sync cuts |
 | `docs/agents/running.md`, `credentials.md`, `platforms-probed.md` | — | the operational sections, verbatim |
 | `docs/agents/INDEX.md` | all | every headline, generated — grep it first |
