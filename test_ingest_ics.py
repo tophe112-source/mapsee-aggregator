@@ -458,7 +458,7 @@ check("'CANCELLED - Seminar' at 'On Zoom', no STATUS, tombstones the 'Seminar' r
       and tomb["reason"] == "cancelled in the title" and len(tstore.tombstones) == 1,
       (stored_before, tstore.tombstones))
 check("...without a geocode; the live sibling and the bare 'CANCELLED' are counted online",
-      geocode_calls == [] and "1 online and cancelled in the title, tombstoned" in out.getvalue()
+      geocode_calls == [] and "1 cancelled in the title, tombstoned" in out.getvalue()
       and "2 online (a virtual room, not a place)" in out.getvalue(), (geocode_calls, out.getvalue()))
 
 
@@ -1239,6 +1239,46 @@ HORIZON_ICS = _horizon_feed([                     # newest first, as CivicPlus w
     ("near-30", 30, "GEO:47.6;-122.3\r\n"),
     ("past", -3, "GEO:47.6;-122.3\r\n"),
 ])
+
+# Store the events while live, then replay a capped feed with cancellations,
+# a new near event and a same-day relisting under a new UID.
+with tempfile.TemporaryDirectory() as tmp:
+    st = _OnlineStore(os.path.join(tmp, "store.json"))
+    src = {"name": "Capped Library", "url": "x"}
+    geo = "GEO:47.6;-122.3\r\n"
+    east = geo + "LOCATION:East Branch\r\n"
+    west = geo + "LOCATION:West Branch\r\n"
+    live = [("Book Club", 7, east), ("Chess", 8, geo), ("Storytime", 9, geo)]
+    body = _horizon_feed(live)
+    with patch.object(ICS, "_fetch_ics", return_value=(body, "200")):
+        ICS.ingest_ics(st, None, src)
+    original_keys = {r["name"]: k for k, r in st.records.items()}
+    updated = _horizon_feed([("Near event", 1, geo), ("Ignored", 3, "LOCATION:Never geocode\r\n"),
+                             ("Book Club", 7, east + "STATUS:CANCELLED\r\n"), ("West Book Club", 7, west),
+                             ("Chess", 8, geo), ("Chess notice", 8, geo),
+                             ("Storytime", 9, geo + "STATUS:CANCELLED\r\n"),
+                             ("replacement", 9, geo)])
+    updated = updated.replace("SUMMARY:Chess notice", "SUMMARY:CANCELLED - Chess").replace(
+        "SUMMARY:replacement", "SUMMARY:Storytime").replace("SUMMARY:West Book Club", "SUMMARY:Book Club")
+    with patch.object(ICS, "_fetch_ics", return_value=(updated, "200")), \
+         patch.object(ICS, "make_location_geocoder", return_value=lambda *_: 1 / 0):
+        kept = ICS.ingest_ics(st, None, dict(src, limit=1, skip_title="^Book Club$"))
+        resumed = ICS.ingest_ics(st, None, dict(src, limit=1), start_offset=2, start_kept=1)
+    check("a full or resumed cap tombstones both stored cancellations under their original keys",
+          set(st.tombstones) == {original_keys["Book Club"], original_keys["Chess"]}, st.tombstones)
+    check("a cap preserves the relisted event and spends its only live slot on the near event",
+          kept == 1 and resumed == 0 and {r["name"] for r in st.records.values()} == {"Near event", "Storytime"})
+
+    before_cap = _horizon_feed([("Storytime", 9, geo + "STATUS:CANCELLED\r\n"),
+                                ("Morning lecture", 9, geo), ("reissued", 9, geo)])
+    before_cap = before_cap.replace("SUMMARY:reissued", "SUMMARY:Storytime")
+    for hour in ("090000", "093000", "100000"):
+        before_cap = before_cap.replace(f"DTSTART;VALUE=DATE:{_day(9)}",
+                                        f"DTSTART:{_day(9)}T{hour}Z", 1)
+    with patch.object(ICS, "_fetch_ics", return_value=(before_cap, "200")):
+        ICS.ingest_ics(st, None, dict(src, limit=1))
+    check("a cancellation before the cap cannot hide its live replacement after the cap",
+          original_keys["Storytime"] in st.records and original_keys["Storytime"] not in st.tombstones)
 far_geocodes = []
 
 

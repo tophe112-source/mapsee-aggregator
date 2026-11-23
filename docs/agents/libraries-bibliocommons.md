@@ -3,6 +3,16 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: geocoding cost, an ignored date filter, the date-granular fingerprint, stock image tiles.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **Two verified library calendars added 1,678 public programs at 32 venues (2026-11-22).**
+  Fort Vancouver Regional Libraries supplied 1,586 and Lake Forest Library supplied
+  92. Ten duplicate publisher pairs merged. Fifty-four branch/start slots had
+  distinct concurrent programs. All 3,376 stored start and end values matched
+  the publishers' indexed instants. A second production sync wrote 0 rows.
+  A 500 m check at 33 distinct coordinates found 46 visible dated imports before
+  the sync and 1,724 after it. Comparing titles and event links found 0 further
+  duplicate candidates in the 90-day import. The 18 explicit cancellations
+  had no prior database row and never appeared as active listings.
+
 - **A BRANCH APPEARS ONCE PER PAGE, AND ITS LOCATION WAS PARSED FOR EVERY EVENT.**
   On 2026-10-01 the production adapter fixture in
   `test_ingest_bibliocommons.py` returned 204 events across two pages, with

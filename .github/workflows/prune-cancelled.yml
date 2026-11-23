@@ -2,9 +2,9 @@ name: Prune cancelled events
 
 # Re-probes UPCOMING aggregator rows at their own source URL and hides the ones
 # the source has since called off — schema.org EventCancelled/EventPostponed, or
-# a 404/410 on the listing. Every other cancellation check in this repo runs at
-# ingest and so protects only rows not written yet; an upsert cannot delete, and
-# --only-new means a scheduled run can only ADD. This is the other half.
+# a 404/410 on the listing. Individual Meetup pages with matching event ID,
+# explicit EventCancelled status and exact start time also mark that occurrence
+# cancelled for attendees. A feed that still lists it cannot undo this evidence.
 #
 # Measured 2026-09-13 over 502 Meetup-sourced rows sampled from the live
 # sitemaps: 47 cancelled, 18 deleted — 12.9% of the Meetup events on the map.

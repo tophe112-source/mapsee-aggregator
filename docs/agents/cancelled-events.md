@@ -3,6 +3,26 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an event on the map that is not happening, a source that says cancelled and a row that does not, what counts as evidence before a row comes off the map.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **An individual Meetup cancellation reaches the shared event link (2026-11-22).**
+  In 14 sweeps from November 16–22, 17,688 URL verdicts included 204 gone
+  listings and one page marked cancelled or postponed. That page was Meetup
+  occurrence 316949185. Its LiteraryEvent identified the event by URL, explicitly
+  reported EventCancelled and gave 18:15 +01:00, matching the stored 17:15 UTC.
+  The November 17 sweep hid it at 17:41:23 UTC. The verified repair preserved
+  that stamp and UUID, and its public link now says “Event cancelled”.
+  Future matches carry `page_cancelled_at` so a stale feed cannot reopen them.
+  A missing page alone leaves the cancellation status unset.
+  [November 17 sweep](https://github.com/tophe112-source/mapsee-aggregator/actions/runs/44133246765)
+
+- **A full iCalendar listing limit used to discard later cancellations (2026-11-22).**
+  With one live slot and three previously stored programs, the fixture now
+  retires two original fingerprints (one explicit status and one title notice)
+  and preserves the third, which has a live replacement under another UID.
+  Repeating the read from a saved offset produces the same two tombstones.
+  The adapter inspects the downloaded calendar after the cap without fetching
+  detail pages or geocoding more listings. An explicit cancellation also
+  reaches a row excluded from new imports by a later title filter.
+
 - **AN INCOMPLETE PRUNE MUST FINISH ITS SAFE WORK AND STILL FAIL THE RUN (2026-11-04).**
   The R1 rollout audit found **2** successful Actions conclusions hiding
   failed standing reads: run **41547870896** (November 2, slice **1/14**,

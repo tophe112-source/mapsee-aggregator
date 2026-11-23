@@ -4534,12 +4534,15 @@ def apply_cancellations(session, url: str, key: str, targets: Dict[str, str], no
     # the publisher still says cancelled: cancel it again, both stamps anew.
     # Without this the row kept cancelled_at, sat on the map, and nothing could
     # ever lift or re-hide it. claimed_at=is.null still guards it.
+    # Both writes create a new feed cancellation. A marker from an earlier
+    # cancellation must never make this one look like a page confirmation.
+    feed_cancellation = {"cancelled_at": stamp, "hidden_at": stamp, "page_cancelled_at": None}
     rehidden, failed3 = patch_imports(session, url, key, targets,
                                       {"cancelled_at": "not.is.null", "hidden_at": "is.null"},
-                                      {"cancelled_at": stamp, "hidden_at": stamp})
+                                      feed_cancellation)
     new, failed2 = patch_imports(session, url, key, targets,
                                  {"cancelled_at": "is.null", "hidden_at": "is.null"},
-                                 {"cancelled_at": stamp, "hidden_at": stamp})
+                                 feed_cancellation)
     return new | rehidden, set(), failed2 | failed3
 
 
@@ -4560,8 +4563,11 @@ def lift_cancellations(session, url: str, key: str, ids, now: datetime,
             by_stamp.setdefault(str(st), []).append(eid)
     lifted, failed = set(), set()
     for st, group in sorted(by_stamp.items()):
+        # A stale feed can list an event whose individual page confirmed its
+        # cancellation. Test the page marker atomically, even on a cached read.
         got, bad = patch_imports(session, url, key, group,
-                                 {"cancelled_at": f"eq.{st}", "hidden_at": f"eq.{st}"},
+                                 {"cancelled_at": f"eq.{st}", "hidden_at": f"eq.{st}",
+                                  "page_cancelled_at": "is.null"},
                                  {"cancelled_at": None, "hidden_at": None})
         lifted |= got
         failed |= bad

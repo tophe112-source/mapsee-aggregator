@@ -663,6 +663,33 @@
       "_metro": "Lansing, United States",
       "_found": "manual:2026-10-25 BiblioCommons partner news + search results -> slug probe (gateway.bibliocommons.com/v2/libraries/<slug>/events?limit=1, production UA) -> bibliocommons gateway",
       "_note": "Dry run 2026-10-25 of mapsee_ingest_bibliocommons.py with per-site skip_title/skip_types applied (branch wt/r3-bibliocommons; production UA, 90-day horizon, scratch store, every gateway request >= 1.1 s apart): kept 185, 184 stored after the store's fingerprint merge; skipped 0 past, 252 beyond the horizon, 0 unplaceable. Starts 2026-10-26..2027-01-23. 2 distinct venues; all 184 stored rows placed by the gateway's own centrePoint (bbox lat 42.744..42.748, lon -84.483..-84.482). Gateway has no robots.txt (404); the tenant's elpl.bibliocommons.com/robots.txt is the stock 'Allow: /*' file (Crawl-delay 120, the adapter never reads that host). Not configured under any other host: elpl.org, the slug and the library's name appear in no *_sources.json; the ledger has no entry for elpl.org; 'East Lansing - Events' in ics_sources.json is the city's CivicPlus catID=48, which on 2026-10-25 held 23 VEVENTs, all 'City Offices Closed' notices and none at the library. Review 2026-10-25: kept, no fix."
+    },
+    {
+      "name": "Fort Vancouver Regional Libraries",
+      "slug": "fvrlibraries",
+      "city": "Vancouver WA",
+      "country": "US",
+      "category": "learning",
+      "measured_2026_11_22": 1586,
+      "horizon_days": 90,
+      "max_pages": 40,
+      "skip_types": ["Holidays, Closures, & Special Hours", "Board of Trustees Meeting"],
+      "skip_title": "^Friends of Yacolt Library Express Meeting$",
+      "_found": "https://www.fvrl.org/",
+      "_note": "90-day adapter read on November 22 produced 1,586 distinct active programmes at 29 venues and 18 explicit cancellations. Ten duplicate listings shared the title, branch and clock of another listing. The Yacolt Friends group asks visitors to call for its offsite location."
+    },
+    {
+      "name": "Lake Forest Library",
+      "slug": "lakeforestlibrary",
+      "city": "Lake Forest IL",
+      "country": "US",
+      "category": "learning",
+      "measured_2026_11_22": 92,
+      "horizon_days": 90,
+      "max_pages": 40,
+      "skip_title": "\\bReg ['’]n['’] Go\\b",
+      "_found": "https://www.lakeforestlibrary.org/",
+      "_note": "90-day adapter read on November 22 produced 92 distinct active programmes at 3 venues. Reg 'n' Go is a take-home kit pickup (7 listings). The in-person book groups also offer Zoom."
     }
   ],
   "_not_included": {

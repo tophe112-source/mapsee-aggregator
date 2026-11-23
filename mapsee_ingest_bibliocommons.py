@@ -38,10 +38,10 @@ FIVE THINGS MEASURED THE HARD WAY
    Re-geocoding them would be the Renton restaurant all over again (CLAUDE.md:
    a hub's city name plus a street name moved a pin eleven miles).
 
-3. THE TIMES ARE NAIVE LOCAL CLOCK TIMES - `"start": "2026-09-04T09:30"`, no
-   offset, no Z. They go in `start_local` and `start_utc` stays None, and the
-   sync resolves the zone from the coordinates. Stamping them UTC would serve a
-   10:00 storytime at 03:00.
+3. THE DEFINITION GIVES THE LOCAL CLOCK. The event also carries UTC indexStart
+   and indexEnd, and the branch or off-site place names its timezone. Keep the
+   local clock for identity and check the instant against it. An all-day
+   programme has a bare date even when its index fields contain midnight.
 
 4. AN EVENT CAN BE OFF-SITE. `branchLocationId` points into `entities.locations`;
    `nonBranchLocationId` points into `entities.places`, which is a community
@@ -94,6 +94,7 @@ import sys
 import time
 from datetime import date, datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 try:
     import requests
@@ -245,6 +246,41 @@ def _iso_local(s: Optional[str]) -> Optional[str]:
     return (m.group(1) + (m.group(2) or ":00")) if m else None
 
 
+def _source_instant(local: Optional[str], indexed: Any, tz: Optional[str]) -> Optional[datetime]:
+    """Read a timed definition using its own offset, index instant or venue zone."""
+    if not local or len(local) == 10:
+        return None
+    try:
+        clock = datetime.fromisoformat(local.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if clock.tzinfo is not None:
+        return clock.astimezone(timezone.utc)
+    instant = None
+    if isinstance(indexed, str):
+        try:
+            parsed = datetime.fromisoformat(indexed.replace("Z", "+00:00"))
+            if parsed.tzinfo is not None:
+                instant = parsed.astimezone(timezone.utc)
+        except ValueError:
+            pass
+    try:
+        zone = ZoneInfo(tz) if isinstance(tz, str) and tz else None
+    except (ValueError, ZoneInfoNotFoundError):
+        zone = None
+    if zone is None:
+        return instant
+    # The round trip also selects the publisher's side of a repeated DST hour.
+    if instant is not None and instant.astimezone(zone).replace(tzinfo=None) == clock:
+        return instant
+    # A stale or missing index cannot override the displayed local clock. Leave
+    # ambiguous or nonexistent times to the existing local-time fallback.
+    first = clock.replace(tzinfo=zone)
+    if first.utcoffset() == clock.replace(tzinfo=zone, fold=1).utcoffset():
+        return first.astimezone(timezone.utc)
+    return None
+
+
 def _address(place: Dict[str, Any]) -> Dict[str, Optional[str]]:
     a = place.get("address") or {}
     number, street = _clean(a.get("number"), 20), _clean(a.get("street"), 120)
@@ -382,15 +418,20 @@ def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any],
 
     slug = site["slug"]
     end = _iso_local(dfn.get("end"))
+    start_utc = _source_instant(start, ev.get("indexStart"), tz)
+    end_utc = _source_instant(end, ev.get("indexEnd"), tz)
+    # A programme can cross the fall-back hour and end earlier by the wall
+    # clock. Compare resolved instants whenever the source supplied both.
+    valid_end = end_utc > start_utc if start_utc and end_utc else bool(end and end > start)
     nev = NormalizedEvent(
         source="bibliocommons",
         source_id=f"{slug}:{ev.get('id')}",
         name=name,
         description=_clean(dfn.get("description")),
         start_local=start,
-        # An end at or before the start is a typo, not a negative event - the
-        # same refusal mapsee_ingest_mapasculturais makes.
-        end_local=end if (end and end > start) else None,
+        start_utc=start_utc.isoformat().replace("+00:00", "Z") if start_utc else None,
+        end_local=end if valid_end else None,
+        end_utc=end_utc.isoformat().replace("+00:00", "Z") if valid_end and end_utc else None,
         timezone=tz,
         venue_name=venue_name,
         latitude=lat, longitude=lon,

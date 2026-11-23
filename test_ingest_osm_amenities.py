@@ -17,6 +17,7 @@ somebody standing at a locked door holding an empty bag.
 Run: python test_ingest_osm_amenities.py
 """
 import sys
+from unittest.mock import patch
 
 # This suite prints the Kind glyphs it is asserting on — 🚰, 🚻, 🛝 — and a glyph
 # is the thing under test, so it cannot simply not print them. On the Windows
@@ -41,6 +42,14 @@ def ev(tags, ident=1):
 
 def main():
     checks = []
+
+    with patch("urllib.request.urlopen") as opened:
+        opened.return_value.__enter__.return_value.read.return_value = b'{"elements": []}'
+        area = {"name": "Small fixture", "bbox": [0, 0, 0.01, 0.01]}
+        elements, complete = A.overpass(area, delay=0, deadline=A.time.time() + 3)
+        checks.append((complete and not elements and opened.call_count == 1
+                       and 0 < opened.call_args.kwargs["timeout"] <= 3,
+                       "the civic tile's HTTP timeout is capped by the remaining sweep budget"))
 
     # ------------------------------------------------- FURNITURE: the default
     #
@@ -607,7 +616,7 @@ def main():
          "tags": {"amenity": "bench"}},                                # not ours
     ]
     _real_sweep, _real_cursor = A.sweep_tiles, A.CURSOR_PATH
-    A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (_fake, True)
+    A.sweep_tiles = lambda cells, fetch_one, label, **kwargs: (_fake, True)
     # THE CURSOR FILE IN THE REPO IS PRODUCTION STATE — it holds every metro's
     # position in its candidate list, committed by the workflow's cursor job.
     # An earlier version of this test removed it in its `finally`, which was
@@ -660,7 +669,7 @@ def main():
     _cc = [{"type": "way", "id": 53589225, "lat": 47.66, "lon": -122.38,
             "tags": {"amenity": "community_centre", "name": "Green Lake Community Center"}}]
     _real = (A.sweep_tiles, A.CURSOR_PATH, A.CLAIMED_BY_FACILITY_HOURS)
-    A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (_cc, True)
+    A.sweep_tiles = lambda cells, fetch_one, label, **kwargs: (_cc, True)
     _cursor_dir = _tempfile.mkdtemp()
     A.CURSOR_PATH = _os.path.join(_cursor_dir, "cursor.json")
     try:
@@ -698,10 +707,10 @@ def main():
     _ten = [{"type": "node", "id": i, "lat": 47.6 + i / 1000, "lon": -122.3,
              "tags": {"amenity": "drinking_water"}} for i in range(1, 11)]
 
-    def _run(args, cursor=None, frontier=None, raw_frontier=None, elements=_ten):
+    def _run(args, cursor=None, frontier=None, raw_frontier=None, elements=_ten, complete=True):
         """(rc, ids written, cursor after, the area lines printed, error)."""
         real = (A.sweep_tiles, A.CURSOR_PATH)
-        A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (elements, True)
+        A.sweep_tiles = lambda cells, fetch_one, label, **kwargs: (elements, complete)
         out, rc, err = _io.StringIO(), None, None
         with _tempfile.TemporaryDirectory() as tmp:
             A.CURSOR_PATH = _os.path.join(tmp, "cursor.json")
@@ -734,6 +743,11 @@ def main():
         return [l for l in lines if l.startswith(f"[osm-amenity] {name}:")]
 
     seattle4 = ["--only", "Seattle", "--max-places", "4"]
+    rc, ids, cur, lines, err = _run(seattle4 + ["--max-minutes", "25"],
+                                    cursor={"Seattle": 1}, elements=_ten[:3], complete=False)
+    checks.append((rc == 0 and ids == [1, 2, 3] and cur == {"Seattle": 1}
+                   and any("partial tile results used, cursor held" in line for line in lines),
+                   "a partial read saves the usable rows and holds the full-list cursor"))
     # THE CONTROL: without a frontier, the walk from cursor 4 reaches 5-8. If
     # it did not, nothing below could tell a hold from a fixture that never
     # reached past index 4.

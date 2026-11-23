@@ -79,16 +79,12 @@ hiding is durable against re-import: fetch_import_state does not filter on
 hidden_at, so a hidden row still counts as existing and `--only-new` will not
 put it back.
 
-HIDDEN ONLY, NEVER cancelled_at, though the sync's own cancellations set both
-(2026-10-05). cancelled_at on an unclaimed import is the sync's marker for "WE
-cancelled this, so a live listing may lift it": mapsee_supabase_sync un-cancels
-a row a source that read its whole timetable lists live again (both stamps
-still equal). This sweep's evidence is a PAGE, and a feed
-lags its pages: a Meetup group's feed still lists an event its own page calls
-cancelled (the 30-for-30 ACTIVE sweep in docs/agents/cancelled-events.md). Set
-cancelled_at here and the next sync would lift every such hide, and this sweep
-would put it back, twice a day. A 404 is not a cancellation either, and
-../mapsee labels a cancelled_at row "Cancelled" to the people who RSVP'd.
+An individual Meetup page can also confirm a cancellation to attendees.
+Its structured Event must identify the requested Meetup event, explicitly
+say EventCancelled, and name the stored occurrence's exact start. That
+guarded write sets hidden_at, cancelled_at and page_cancelled_at together.
+The last stamp protects the page's evidence from a stale feed. Other verdicts
+that warrant hiding, including a 404 and postponement, set hidden_at alone.
 
 HOW BIG THE SWEEP ACTUALLY IS, measured on the first live run 2026-09-13:
 **88,128 rows and 25,311 distinct source URLs inside a three-day window.** At
@@ -117,6 +113,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
+from functools import partial
+from html.parser import HTMLParser
 
 import robots_txt   # stdlib only, like this file
 from mapsee_standing import (ACCEPT_GZIP, StandingWalkError, parse_slice, rest_text, slice_bounds,
@@ -143,6 +141,13 @@ _MICRO_STATUS = re.compile(
     re.I)
 
 _OFF = ("eventcancelled", "eventpostponed")
+
+# Schema.org Event and its individual event types. Meetup uses LiteraryEvent
+# for its November 17 poetry listing. An EventSeries is never one occurrence.
+_EVENT_TYPES = set("""Event BusinessEvent ChildrensEvent ComedyEvent ConferenceEvent CourseInstance
+    DanceEvent DeliveryEvent EducationEvent ExhibitionEvent Festival FoodEvent Hackathon LiteraryEvent
+    MusicEvent PerformingArtsEvent PublicationEvent SaleEvent ScreeningEvent SocialEvent SportsEvent
+    TheaterEvent VisualArtsEvent BroadcastEvent OnDemandEvent""".split())
 
 # Hosts proven to refuse a plain HTTP client, so their pages are never evidence.
 # Kept deliberately short: a host belongs here only once a run has shown it
@@ -171,6 +176,12 @@ def sb(path, method="GET", body=None, prefer=""):
         return json.loads(raw) if raw.strip() else None
 
 
+def _page_statuses(html):
+    found = _LD_STATUS.findall(html or "")
+    found += [(a or b) for a, b in _MICRO_STATUS.findall(html or "")]
+    return [f.strip().rsplit("/", 1)[-1].lower() for f in found if f.strip()]
+
+
 def page_verdict(html: str) -> str:
     """"cancelled" | "live" | "unknown", from a page we actually fetched.
 
@@ -182,9 +193,7 @@ def page_verdict(html: str) -> str:
     as not running. Absence of a cancellation is the normal state of the world;
     only a POSITIVE marker acts, and that is what keeps this fail-open.
     """
-    found = [m for m in _LD_STATUS.findall(html or "")]
-    found += [(a or b) for a, b in _MICRO_STATUS.findall(html or "")]
-    found = [f.strip().rsplit("/", 1)[-1].lower() for f in found if f and f.strip()]
+    found = _page_statuses(html)
     if not found:
         return "live"
     off = [f for f in found if f in _OFF]
@@ -195,6 +204,94 @@ def page_verdict(html: str) -> str:
     # A calendar page listing many events, one of them cancelled. We cannot tell
     # which one is ours, so we say so.
     return "unknown"
+
+
+class _LinkedData(HTMLParser):
+    """Read only real linked-data script elements. This scheduled job uses the standard library."""
+
+    def __init__(self):
+        super().__init__()
+        self.in_script = False
+        self.documents = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "script":
+            self.in_script = (dict(attrs).get("type") or "").strip().lower() == "application/ld+json"
+
+    def handle_data(self, data):
+        if self.in_script:
+            self.documents.append(json.loads(data))
+
+    def handle_endtag(self, tag):
+        if tag == "script":
+            self.in_script = False
+
+
+def _meetup_id(url):
+    if not isinstance(url, str):
+        return None
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme != "https" or parsed.netloc.lower() not in ("meetup.com", "www.meetup.com"):
+        return None
+    path = re.fullmatch(r"(?:/[a-z]{2}(?:-[A-Za-z]{2})?)?/[^/]+/events/([1-9][0-9]*)/?", parsed.path)
+    return path[1] if path else None
+
+
+def _aware_start(value):
+    if not isinstance(value, str):
+        return None
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return dt.astimezone(timezone.utc) if dt.tzinfo is not None else None
+    except (ValueError, OverflowError):
+        return None
+
+
+def meetup_cancelled_start(url, landed, html):
+    """Return the explicitly cancelled occurrence's instant on a single Meetup event page."""
+    try:
+        event_id = _meetup_id(url)
+        if not event_id or _meetup_id(landed) != event_id or set(_page_statuses(html)) != {"eventcancelled"}:
+            return None
+        parser = _LinkedData()
+        parser.feed(html)
+        parser.close()
+        if parser.in_script:
+            return None
+        nodes, events = parser.documents, []
+        while nodes:
+            node = nodes.pop()
+            if isinstance(node, list):
+                nodes.extend(node)
+            elif isinstance(node, dict):
+                types = node.get("@type", [])
+                types = types if isinstance(types, list) else [types]
+                names = {re.sub(r"^https?://schema\.org/", "", t) for t in types if isinstance(t, str)}
+                if "EventSeries" in names:
+                    return None
+                if names & _EVENT_TYPES:
+                    events.append(node)
+                elif "startDate" in node or "eventStatus" in node:
+                    # An unrecognized dated object could be a second occurrence.
+                    return None
+                nodes.extend(node.values())
+        if len(events) != 1:
+            return None
+        event = events[0]
+        if event.get("eventStatus") not in ("EventCancelled", "https://schema.org/EventCancelled",
+                                            "http://schema.org/EventCancelled"):
+            return None
+        # Require an identity on the Event itself; a canonical link on the
+        # enclosing page cannot identify a nested card. Conflicting IDs refuse.
+        ids = [_meetup_id(event[k]) for k in ("url", "@id") if k in event]
+        identifier = event.get("identifier")
+        if isinstance(identifier, (str, int)) and re.fullmatch(r"[1-9][0-9]*", str(identifier)):
+            ids.append(str(identifier))
+        if not ids or any(i != event_id for i in ids):
+            return None
+        return _aware_start(event.get("startDate"))
+    except (ValueError, RecursionError):
+        return None
 
 
 class _RobotsSession:
@@ -220,7 +317,7 @@ class _RobotsSession:
             return self._Answer(e.code, body)
 
 
-def cancellation_verdict(url: str, timeout: int = 20, robots=None) -> str:
+def cancellation_verdict(url: str, timeout: int = 20, robots=None, confirmed=None) -> str:
     """"cancelled" | "gone" | "live" | "unknown" | "robots". Only the first two
     act. `robots` (a robots_txt.Robots) is asked first when given: a page it
     does not plainly allow is never fetched."""
@@ -238,7 +335,14 @@ def cancellation_verdict(url: str, timeout: int = 20, robots=None) -> str:
             ct = (r.headers.get("content-type") or "").lower()
             if "html" not in ct and "json" not in ct and "text" not in ct:
                 return "unknown"
-            return page_verdict(r.read(600_000).decode("utf-8", "replace"))
+            body = r.read(600_000)
+            html = body.decode("utf-8", "replace")
+            verdict = page_verdict(html)
+            if confirmed is not None and verdict == "cancelled" and len(body) < 600_000:
+                start = meetup_cancelled_start(url, r.geturl(), html)
+                if start is not None:
+                    confirmed[url] = start
+            return verdict
     except urllib.error.HTTPError as e:
         # The listing is gone. Everything else — 403 bot-block, 429, 5xx — is us
         # being refused, which is not the same as the event being off.
@@ -688,6 +792,27 @@ def hide(ids, stamp: str):
     return hidden, failed
 
 
+def mark_page_cancellations(rows, stamp):
+    """Write all three stamps atomically while the exact observed link and start still hold."""
+    marked, failed = [], 0
+    for rid, (row, url) in rows.items():
+        description = row.get("description") or ""
+        link = TICKETS_LINE.search(description)
+        if not link or link.group(1) != url:
+            continue
+        params = urllib.parse.urlencode({"id": "eq." + rid, "description": "eq." + description})
+        path = (f"events?{params}{LISTED}{UNCLAIMED}&starts_at=eq.{_ts(row['starts_at'])}"
+                "&cancelled_at=is.null&page_cancelled_at=is.null&select=id")
+        try:
+            changed = sb(path, "PATCH", {"hidden_at": stamp, "cancelled_at": stamp, "page_cancelled_at": stamp},
+                         prefer="return=representation") or []
+            marked.extend(r["id"] for r in changed)
+        except Exception as e:
+            failed += 1
+            print(f"    page cancellation of {rid} failed: {e}", file=sys.stderr)
+    return marked, failed
+
+
 # A majority, not unanimity — mapsee_prune_links learned that demanding 100%
 # disarms the guard on the very host it was written for, because one live
 # listing among fifteen dead ones is enough to break a unanimity test.
@@ -821,7 +946,9 @@ def main():
         order = order[:args.max_checks]
 
     robots = robots_txt.Robots(_RobotsSession())      # one robots.txt per host per run
-    verdicts, budget_hit, paced = probe_all(order, robots, args.delay, args.max_seconds, began)
+    confirmed_starts = {}
+    verdicts, budget_hit, paced = probe_all(order, robots, args.delay, args.max_seconds, began,
+                                            verdict=partial(cancellation_verdict, confirmed=confirmed_starts))
     if budget_hit:
         print(f"  BUDGET: stopped after {args.max_seconds}s with {budget_hit} URL(s) "
               f"unprobed; they are left for the next run")
@@ -851,10 +978,14 @@ def main():
         print("  nothing to hide.")
         return 1 if incomplete else 0
 
+    def applies(row, url):
+        return url not in confirmed_starts or _aware_start(row.get("starts_at")) == confirmed_starts[url]
+
     affected = {}
     for u in off:
         for row in rows_by_url[u]:
-            affected[row["id"]] = (row, off[u], u)
+            if applies(row, u):
+                affected[row["id"]] = (row, off[u], u)
 
     # The far rows the index holds for each listing found off, read back now.
     far_ids = {}
@@ -863,6 +994,7 @@ def main():
             if rid not in affected:
                 far_ids.setdefault(rid, u)
     far = read_far(far_ids, began - args.back * 86400) if far_ids else {}
+    far = {rid: (row, url) for rid, (row, url) in far.items() if applies(row, url)}
 
     print(f"\n  CALLED OFF at the source ({len(off)} listings, {len(affected)} rows):")
     for rid, (row, verdict, u) in list(affected.items())[:30]:
@@ -873,31 +1005,40 @@ def main():
     if far_ids:
         print(f"\n  FROM THE URL INDEX: {len(far)} later row(s) of {len({u for _, u in far.values()})} "
               f"of those listings still carry the dead link ({len(far_ids) - len(far)} of the "
-              f"{len(far_ids)} it held are gone, hidden, claimed, started or re-linked):")
+              f"{len(far_ids)} it held are gone, hidden, claimed, started, re-linked or a different occurrence):")
         for rid, (row, u) in list(far.items())[:10]:
             print(f"    {off[u]:<10} {str(row.get('starts_at'))[:10]}  "
                   f"{(row.get('title') or '?')[:46]:<48} {u[:58]}")
         if len(far) > 10:
             print(f"    … and {len(far) - 10} more")
 
+    confirmed_rows = {rid: (row, url) for rid, (row, _, url) in affected.items() if url in confirmed_starts}
+    confirmed_rows.update({rid: pair for rid, pair in far.items() if pair[1] in confirmed_starts})
+    print(f"  matching Meetup page cancellations: {len(confirmed_rows)} row(s)")
     if not args.apply:
         if args.url_index:
             print(f"\n  far rows the URL index would hide: {len(far)}")
         print("\n  DRY RUN — nothing written. Read the table above, then re-run with --apply.")
         return 1 if incomplete else 0
 
-    # ONE hide path for both: batched, and carrying the collect's filters, so a
-    # row hidden or claimed since it was read keeps the state it has now.
     stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    hidden, failed = hide(list(affected), stamp)
+    marked, mark_failed = mark_page_cancellations(confirmed_rows, stamp)
+    print(f"  marked cancelled from the source page: {len(marked)} row(s)"
+          + (f" · {mark_failed} failed" if mark_failed else ""))
+    # Never fall back to an unguarded hide after a concurrent edit or a failed
+    # cancellation write. The row must be eligible for a later, fresh probe.
+    hidden, failed = hide([rid for rid in affected if rid not in confirmed_rows], stamp)
+    hidden.extend(rid for rid in marked if rid in affected)
     print(f"\n  hidden {len(hidden)} row(s) (hidden_at set; not deleted, and reversible)"
           + (f" · {failed} failed" if failed else ""))
     if args.url_index:
         done = set(hidden)
-        far_hidden, far_failed = hide([rid for rid in far if rid not in done], stamp)
+        far_hidden, far_failed = hide([rid for rid in far if rid not in done and rid not in confirmed_rows], stamp)
+        far_hidden.extend(rid for rid in marked if rid in far)
+        incomplete = incomplete or bool(far_failed)
         print(f"  far rows hidden from the URL index: {len(far_hidden)}"
               + (f" · {far_failed} failed" if far_failed else ""))
-    return 1 if incomplete else 0
+    return 1 if incomplete or failed or mark_failed else 0
 
 
 if __name__ == "__main__":

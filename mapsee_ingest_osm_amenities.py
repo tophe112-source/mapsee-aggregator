@@ -135,7 +135,6 @@ import re
 import sys
 import time
 import urllib.parse
-import urllib.request
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -146,11 +145,10 @@ from mapsee_menu_links import NOT_A_VENUE_SITE
 # guards the original.
 from mapsee_ingest_osm_food import (
     parse_opening_hours, area_bbox, tiles, cache_path,
-    load_cursor, save_cursor, clean_public_phone, window_at, sweep_tiles,
+    load_cursor, save_cursor, clean_public_phone, window_at, sweep_tiles, fetch_overpass_query,
 )
 
 UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM civic amenity discovery)"
-OVERPASS = "https://overpass-api.de/api/interpreter"
 CURSOR_PATH = "osm_amenity_cursor.json"
 
 # The OSM community centres whose row mapsee_ingest_facility_hours writes (its
@@ -1010,31 +1008,17 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
 # ---------------------------------------------------------------------------
 # Overpass
 # ---------------------------------------------------------------------------
-def _overpass_one(bbox, delay=2.0, tries=4):
+def _overpass_one(bbox, delay=2.0, tries=4, deadline=0):
     """One tile. Backs off rather than re-asking harder, and RAISES when it
     finally cannot answer — sweep_tiles is what turns that into a lost cell and
     a second pass, and returning [] instead would report an unread tile as an
     empty one. That conflation cost nine metros for 78 runs.
     """
     query = f"[out:json][timeout:180];({selector(*bbox)});out tags center;"
-    last = None
-    for attempt in range(tries):
-        try:
-            req = urllib.request.Request(
-                OVERPASS, data=urllib.parse.urlencode({"data": query}).encode(),
-                headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=240) as r:
-                data = json.loads(r.read().decode("utf-8", "replace"))
-            time.sleep(delay)
-            return data.get("elements", [])
-        except Exception as exc:                     # noqa: BLE001
-            last = exc
-            if attempt < tries - 1:
-                time.sleep(delay * (3 ** attempt))
-    raise last
+    return fetch_overpass_query(query, UA, delay, tries, deadline)
 
 
-def overpass(area, delay=2.0, tries=4):
+def overpass(area, delay=2.0, tries=4, deadline=0):
     """(elements, complete), exactly as osm_food's does.
 
     `complete` is what decides whether the answer may be CACHED. A partial
@@ -1043,8 +1027,8 @@ def overpass(area, delay=2.0, tries=4):
     healthy.
     """
     cells = tiles(area_bbox(area), max_deg=TILE_DEG)
-    return sweep_tiles(cells, lambda c: _overpass_one(c, delay=delay, tries=tries),
-                       f"[osm-amenity] {area['name']}", delay=delay)
+    return sweep_tiles(cells, lambda c: _overpass_one(c, delay=delay, tries=tries, deadline=deadline),
+                       f"[osm-amenity] {area['name']}", delay=delay, deadline=deadline)
 
 
 # WHAT THE CACHE WAS ASKED FOR. A cached tile answers the query that built
@@ -1147,6 +1131,8 @@ def main(argv=None):
     ap.add_argument("--ignore-cursor", action="store_true")
     ap.add_argument("--places-cache", default="osm_amenity_cache")
     ap.add_argument("--cache-days", type=float, default=30.0)
+    ap.add_argument("--max-minutes", type=float, default=0,
+                    help="stop Overpass reads after this many minutes and process the tiles received")
     ap.add_argument("--radius-miles", type=float)
     ap.add_argument("--warm-cache", action="store_true")
     ap.add_argument("--delay", type=float, default=2.0)
@@ -1156,6 +1142,8 @@ def main(argv=None):
                          "(the fill hold, osm_amenity_frontier.json). Ignored under --kinds; "
                          "a missing or unreadable file holds nothing and says so.")
     a = ap.parse_args(argv)
+    deadline = time.time() + a.max_minutes * 60 if a.max_minutes > 0 else 0
+    warning = "::warning::" if os.environ.get("GITHUB_ACTIONS") == "true" else ""
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
     only = (a.only or "").strip().lower()
@@ -1195,9 +1183,9 @@ def main(argv=None):
             cached, _ = load_places(a.places_cache, area, a.cache_days, bbox)
             if cached is not None:
                 continue
-            elements, complete = overpass(area, a.delay)
+            elements, complete = overpass(area, a.delay, deadline=deadline)
             if not complete:
-                print(f"[osm-amenity] {area['name']}: INCOMPLETE, not cached", flush=True)
+                print(f"{warning}[osm-amenity] {area['name']}: INCOMPLETE, not cached", flush=True)
                 continue
             save_places(a.places_cache, area, elements, bbox)
         return 0
@@ -1208,15 +1196,15 @@ def main(argv=None):
 
     for area in areas:
         bbox = area_bbox(area)
-        elements, from_cache = load_places(a.places_cache, area, a.cache_days, bbox)
+        elements, complete = load_places(a.places_cache, area, a.cache_days, bbox)
         if elements is None:
-            elements, complete = overpass(area, a.delay)
+            elements, complete = overpass(area, a.delay, deadline=deadline)
             if not elements and not complete:
                 # UNREAD, not empty. The cursor must not move past a box nobody
                 # managed to read at all — that conflation lost nine metros for
                 # 78 runs. A PARTIAL answer is still used (below); it is simply
                 # never cached.
-                print(f"[osm-amenity] {area['name']}: UNREAD this run, cursor held",
+                print(f"{warning}[osm-amenity] {area['name']}: UNREAD this run, cursor held",
                       flush=True)
                 continue
             if complete:
@@ -1273,7 +1261,12 @@ def main(argv=None):
         print(f"[osm-amenity] {area['name']}: {n_all} candidate(s), "
               f"{area_listings} listing(s) + {area_furniture} furniture from "
               f"{len(window)} examined", flush=True)
-        if not a.ignore_cursor:
+        if not complete:
+            # An offset in the partial list cannot identify the next position
+            # in the full list on a later visit.
+            print(f"{warning}[osm-amenity] {area['name']}: partial tile results used, cursor held",
+                  flush=True)
+        elif not a.ignore_cursor:
             cursor[area["name"]] = next_start
 
     if store is not None:
