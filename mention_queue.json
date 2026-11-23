@@ -342,7 +342,7 @@
     "copenhagen jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-18",
+      "last_seen": "2026-11-22",
       "name": "Copenhagen Jazz Festival",
       "ref_keys": [
         "0a6b63126c7f",
@@ -358,6 +358,7 @@
         "b67ed9b39fe9",
         "b83edf0eb605",
         "b87276c51737",
+        "c5dca9c8d372",
         "c73731b84ac4",
         "cef0c8d537f6",
         "e8962bcc0cc2",
@@ -400,7 +401,7 @@
       ],
       "sample": "Our Sunday services are also an integral part of the annual Copenhagen Jazz Festival. We welcome everyone equally, regardless of nationality, denomination, gender or sexuality. Pastor: Maria Fihl Music Morten Kjær – vokal Claus Waidtløw – tenorsax Olivier Antunes – piano 8 November 2026 1 pm – 2 pm ",
       "state": "pending",
-      "times_seen": 20,
+      "times_seen": 21,
       "venue": null
     },
     "dagen van de sociale film festival": {
@@ -596,6 +597,27 @@
       ],
       "sample": "poè-te-tesse qui est en vous, réalisez un glaçage poétique et écrivez même sur un support gourmand ! Dans le cadre des Escales du Lille Poésie Festival, organisées par la Maison de la Poésie, en lien avec Escales des lettres et l'association des éditeurs. Event data: OpenAgenda (openagenda.com),",
       "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "evergy festival of lights": {
+      "dates": [],
+      "first_seen": "2026-11-21",
+      "last_seen": "2026-11-21",
+      "name": "Evergy Festival of Lights",
+      "ref_keys": [
+        "ede99d3db9b3"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-21",
+          "title": "Winter Tea at Powell Gardens",
+          "url": "https://powellgardens.org/event/winter-tea/"
+        }
+      ],
+      "sample": "Powell Gardens, where thousands of twinkling lights transform the landscape into a magical winter wonderland during Evergy Festival of Lights. Whether you’re gathering with loved ones or seeking a peaceful moment of seasonal joy, this event offers the perfect blend of comfort, community, and",
+      "state": "covered",
       "times_seen": 1,
       "venue": null
     },
@@ -967,9 +989,11 @@
     "lucidity festival": {
       "dates": [],
       "first_seen": "2026-11-14",
-      "last_seen": "2026-11-16",
+      "last_seen": "2026-11-20",
       "name": "Lucidity festival",
       "ref_keys": [
+        "3366492a3fee",
+        "48986b45ed25",
         "59edf94b9aa1",
         "645721feceea",
         "a57b2d47ffdc"
@@ -992,11 +1016,23 @@
           "start": "2027-03-14",
           "title": "CONVERGE Australia/New Zealand 2027",
           "url": "https://www.moshtix.com.au/v2/event/converge-australia-new-zealand-2027/202081"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-03-17",
+          "title": "CONVERGE | SYDNEY w/ guests EXTORTION & ENDS IN TRAGEDY + LO!",
+          "url": "https://www.moshtix.com.au/v2/event/converge-sydney-w-guests-extortion-ends-in-tragedy-lo-/202128"
+        },
+        {
+          "source": "moshtix",
+          "start": "2027-03-18",
+          "title": "CONVERGE Australia/New Zealand 2027 w/ guests EXTORTION & ENDS IN TRAGEDY + NERVE DAMAGE",
+          "url": "https://www.moshtix.com.au/v2/event/converge-australia-new-zealand-2027-w-guests-extortion-ends-in-tragedy-nerve-damage/202152"
         }
       ],
       "sample": "and revered hub of extreme creativity backed by a thorough DIY ethos, the tour follows the swiftly sold out inaugural Lucidity festival in Melbourne for which the band is the headlining. Also jumping across from the lineup to join them all around the nation are Australian powerviolence legends",
       "state": "pending",
-      "times_seen": 3,
+      "times_seen": 5,
       "venue": null
     },
     "manchester literature festival": {
@@ -1065,14 +1101,17 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-19",
+      "last_seen": "2026-11-22",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
         "1016a24e9c88",
         "33e7eba1bcea",
         "3933167fe8cf",
+        "3b5e9269f555",
         "45fa3cbe39f7",
+        "53f3d138558c",
+        "65b459ee18ec",
         "6fbd7b8d2f83",
         "75f0f4d0868c",
         "8915a0d5396d",
@@ -1119,7 +1158,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 16,
+      "times_seen": 19,
       "venue": null
     },
     "melt festival": {
@@ -2245,6 +2284,48 @@
       "sample": "d by running or walking through the beautiful Winter Festival of Lights! For more than 30 years, visitors to the annual Winter Festival of Lights have been dazzled by twinkling light displays as they drove through Watkins Regional Park. This year, register to walk or run through the almost three-mil",
       "state": "covered",
       "times_seen": 1,
+      "venue": null
+    },
+    "winter wonder week": {
+      "dates": [],
+      "first_seen": "2026-11-20",
+      "last_seen": "2026-11-20",
+      "name": "Winter Wonder Week",
+      "ref_keys": [
+        "2ed74daf8fec",
+        "717642ce1eb6",
+        "d33b20b0ec78",
+        "efd4291bee05"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-26",
+          "title": "Mini Clay Winter Sculptures",
+          "url": "https://madisonchildrensmuseum.org/event/mini-clay-winter-sculptures/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-30",
+          "title": "Pipe Cleaner Snowflakes",
+          "url": "https://madisonchildrensmuseum.org/event/pipe-cleaner-snowflakes/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-31",
+          "title": "Button Making",
+          "url": "https://madisonchildrensmuseum.org/event/button-making/"
+        },
+        {
+          "source": "tribe",
+          "start": "2027-01-02",
+          "title": "Gelli Prints",
+          "url": "https://madisonchildrensmuseum.org/event/gelli-prints/"
+        }
+      ],
+      "sample": "Discover how simple shapes and small details can bring your imagination to life during Winter Wonder Week!",
+      "state": "covered",
+      "times_seen": 4,
       "venue": null
     }
   }

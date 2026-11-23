@@ -3,6 +3,21 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **VOLUNTEER LISTINGS NEED THE ORGANIZER'S FINISH AND MEETING POINT (2026-11-22).**
+  Richmond Audubon's December 5 Meetup published 07:30–12:00 EST. Dropping
+  `endTime` made the three-hour volunteer fallback end the listing at 10:30.
+  The adapter passes through the published offset. At Churchill Valley Greenway,
+  Allegheny Land Trust's Tribe venue 33885 had a street and no coordinates.
+  Its own [directions](https://alleghenylandtrust.org/green-space/churchill-valley-greenway/)
+  pin the Beulah Road entrance at 40.449717, -79.844138. Only that venue ID
+  gets the fallback. All three workdays (Nov 28, Dec 12, Dec 19) then retained
+  the trailhead, 10:00–13:00 EST, registration link and under-18 guidance
+  through EventStore and to_row. The Nov 28 source had put the adult requirement
+  past the 800-character excerpt. On publisher-tagged volunteer events the
+  adapter moves paragraphs that require registration or an accompanying adult
+  ahead of the body. The three previously absent public IDs were verified
+  individually and on the Pittsburgh volunteer page.
+
 - **THE OPENAGENDA FRANCE ENTRY NOW READS MQ, GP, GF AND RE, WHICH THE MIRROR
   CODES AS COUNTRIES OF THEIR OWN (2026-11-15).** ods_sources.json asked
   `location_countrycode in ('FR')`, and an overseas department's events carry

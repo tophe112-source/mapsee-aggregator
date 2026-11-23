@@ -9381,6 +9381,14 @@
     },
     {
       "name": "Allegheny Land Trust (Pittsburgh)",
+      "venue": {
+        "tribe_id": 33885,
+        "name": "Churchill Valley Greenway",
+        "coords_exact": true,
+        "lat": 40.449717,
+        "lon": -79.844138,
+        "_source": "Directions on https://alleghenylandtrust.org/green-space/churchill-valley-greenway/ link to https://goo.gl/maps/gp21K29ywytkAkzj7 at the Beulah Road entrance."
+      },
       "category": "outdoors",
       "base_url": "https://alleghenylandtrust.org",
       "within_days": 365,
@@ -48375,6 +48383,507 @@
         "lon": 5.0325375
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Gevangenismuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://gevangenismuseum.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gevangenismuseum",
+        "lat": 53.041262,
+        "lon": 6.3903434
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Central Catholic Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.catholiclibrary.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Central Catholic Library",
+        "city": "Dublin",
+        "lat": 53.3389939,
+        "lon": -6.2504719,
+        "street_hint": "74 Merrion Square South"
+      },
+      "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Bürgertreff Saarmund",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://buergertreff-saarmund.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bürgertreff Saarmund",
+        "city": "Nuthetal",
+        "postal_code": "14558",
+        "country": "DE",
+        "lat": 52.3139028,
+        "lon": 13.1229653,
+        "street_hint": "45 Nuthestraße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Zen Zentrum Berlin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kwanumzen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zen Zentrum Berlin",
+        "address": "4 Gottschedstraße",
+        "city": "Berlin",
+        "postal_code": "13357",
+        "country": "DE",
+        "lat": 52.5498509,
+        "lon": 13.3698805
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Panda Platforma",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+events-manager",
+      "base_url": "https://panda-platforma.berlin",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Panda Platforma",
+        "address": "97 Knaackstraße",
+        "city": "Berlin",
+        "postal_code": "10435",
+        "lat": 52.5398077,
+        "lon": 13.4133001
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BIONALES – Bürger für regionale Landwirtschaft und Ernährung e.V.",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://bionales.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BIONALES – Bürger für regionale Landwirtschaft und Ernährung e.V.",
+        "lat": 50.1280418,
+        "lon": 8.6818595
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "TV Eschersheim e.V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://turnverein-eschersheim.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TV Eschersheim e.V.",
+        "address": "14 Maybachstraße",
+        "city": "Frankfurt am Main",
+        "postal_code": "60433",
+        "country": "DE",
+        "lat": 50.1587118,
+        "lon": 8.6550288
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Sportanlage SKV Mörfelden",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://skvmoerfelden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sportanlage SKV Mörfelden",
+        "lat": 49.9719462,
+        "lon": 8.5456397
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Kulturwerkstatt KAOS",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kaos-leipzig.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturwerkstatt KAOS",
+        "address": "18 Wasserstraße",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "country": "DE",
+        "lat": 51.3431565,
+        "lon": 12.3347924
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "wunderbar",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://wunderbar-plagwitz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "wunderbar",
+        "address": "18 Gießerstraße",
+        "city": "Leipzig",
+        "postal_code": "04229",
+        "lat": 51.3274423,
+        "lon": 12.3276946
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Capa-Haus",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://capa-haus.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Capa-Haus",
+        "address": "61 Jahnallee",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "country": "DE",
+        "lat": 51.3381706,
+        "lon": 12.3421221
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "AKL Stuttgart e.V. - Hilfe in Lebenskrisen und bei Selbsttötungsgefahr",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://akleben-stuttgart.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "AKL Stuttgart e.V. - Hilfe in Lebenskrisen und bei Selbsttötungsgefahr",
+        "address": "32 Römerstraße",
+        "postal_code": "70180",
+        "lat": 48.7650049,
+        "lon": 9.1728647
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Modellflugclub Rossendorf",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.mfc-rossendorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Modellflugclub Rossendorf",
+        "lat": 51.0641829,
+        "lon": 13.9412935
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Schwarz-Gelbe Hilfe e.V. - Fanhilfe SG Dynamo Dresden",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.schwarz-gelbe-hilfe.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schwarz-Gelbe Hilfe e.V. - Fanhilfe SG Dynamo Dresden",
+        "address": "26 Grunaer Straße",
+        "city": "Dresden",
+        "postal_code": "01069",
+        "lat": 51.0455097,
+        "lon": 13.7531595
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Aktiv DabeiSein e.V.",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://aktiv-dabeisein-mit-behinderungen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aktiv DabeiSein e.V.",
+        "address": "20-22 Baumschulenallee",
+        "lat": 52.384125,
+        "lon": 9.8182668
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Musée Würth",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musee-wurth.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Würth",
+        "lat": 48.4179236,
+        "lon": 7.6295869
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Temple Sinai",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://templesinai.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Sinai",
+        "address": "210 Wilson Avenue",
+        "city": "North York",
+        "postal_code": "M5M 3B1",
+        "lat": 43.7396265,
+        "lon": -79.425652
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Women's Art Association",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://womensartofcanada.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Women's Art Association",
+        "city": "Toronto",
+        "lat": 43.6693387,
+        "lon": -79.3962667,
+        "street_hint": "23 Prince Arthur Avenue"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Christ Church St. James Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.christchurchstjames.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Church St. James Anglican Church",
+        "address": "194 Park Lawn Road",
+        "city": "Etobicoke",
+        "lat": 43.6299197,
+        "lon": -79.4911666
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Associacao Migrante De Barcelos",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://acapo.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Associacao Migrante De Barcelos",
+        "lat": 43.6873645,
+        "lon": -79.4465176,
+        "street_hint": "2079 Dufferin Street"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Latin Groove",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://latingroove.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Latin Groove",
+        "address": "372 Rue Sainte-Catherine Ouest",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3B 1A2",
+        "lat": 45.5057539,
+        "lon": -73.5672123
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Islamique Badr",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://centrebadr.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Islamique Badr",
+        "address": "8625 Boulevard Langelier",
+        "postal_code": "H1P 2C6",
+        "lat": 45.598881,
+        "lon": -73.59095
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Down Syndrome Resource Foundation",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://dsrf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Down Syndrome Resource Foundation",
+        "lat": 49.271232,
+        "lon": -122.9648607
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Hargrove",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.coastaljazz.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Hargrove",
+        "address": "150 East 3rd Avenue",
+        "lat": 49.2680937,
+        "lon": -123.1012474
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Unitarian Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vanu.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Church of Vancouver",
+        "address": "949 West 49th Avenue",
+        "city": "Vancouver",
+        "postal_code": "V5Z 2T1",
+        "lat": 49.226953,
+        "lon": -123.127497
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Satguru Ram Singh Satsang, Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.srssglobal.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Satguru Ram Singh Satsang, Vancouver",
+        "address": "5588 Joyce Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V5R4H6",
+        "lat": 49.2330567,
+        "lon": -123.0364925
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Calgary Catholic Immigration Society (CCIS)",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ccisab.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calgary Catholic Immigration Society (CCIS)",
+        "address": "1111 11 Avenue SW",
+        "city": "Calgary",
+        "postal_code": "T2R 0G5",
+        "lat": 51.042854,
+        "lon": -114.0867199
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Balzac United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://balzacunitedchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Balzac United Church",
+        "lat": 51.2128388,
+        "lon": -114.0084375
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "YWCA Edmonton",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ywcaofedmonton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YWCA Edmonton",
+        "address": "10402 124 Street NW",
+        "city": "Edmonton",
+        "region": "Alberta",
+        "postal_code": "T5N 1R5",
+        "lat": 53.5463434,
+        "lon": -113.5361687
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Charleswood Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://charleswoodhistoricalsociety.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Charleswood Museum",
+        "address": "5006 Roblin Boulevard",
+        "city": "Winnipeg",
+        "postal_code": "R3R 0G7",
+        "lat": 49.8574782,
+        "lon": -97.2850103
+      },
+      "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Heritage Victoria Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heritageviccc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heritage Victoria Community Centre",
+        "lat": 49.8913417,
+        "lon": -97.278977,
+        "street_hint": "950 Sturgeon Road"
+      },
+      "_metro": "Winnipeg, Canada"
     }
   ],
   "_not_included": {

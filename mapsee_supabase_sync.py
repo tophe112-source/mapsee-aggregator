@@ -2017,6 +2017,71 @@ def _anchor_all_day(starts_at, end_src, lat, lon):
     return starts_at, end_src
 
 
+# ---- MIDNIGHT WITH NO END IS A DATE IN A TIMESTAMP COLUMN -------------------
+#
+# A source that never set a time still has to put something in a datetime
+# field, and what it puts is 00:00. Read as a clock, that is an event that
+# starts at midnight and - once _compute_end adds a category's two or three
+# hours - is over before breakfast: Cornish's A New Brain (curtain 2pm and 8pm)
+# reached a phone in Seattle as "12:00 AM -> 3:00 AM" and had left the map
+# eleven hours before its matinee.
+#
+# Measured 2026-11-21 over 17,513 upcoming rows in 26 metros (/api/near, 14
+# days): 44 start at exactly local midnight, and 36 of those end exactly a
+# category default (2 or 3 h) later, which is a row with no end of its own.
+# None of the 36 reads as a midnight event: a food drive, a museum's day
+# ticket, a synagogue's Hebrew calendar dates (00:00 -> 00:00), a college
+# football game with no kickoff yet, a street-medic clinic; discoverslu,
+# Ticketmaster and Tribe among the adapters. The other 8 have a real end (a
+# club night until 5:00, a four-day congress) and are left exactly as they
+# are, which is what the end test is for.
+#
+# So: a start at exactly 00:00:00 where the EVENT is, with no real end, names
+# the day and no hour, and _anchor_all_day brackets it. A real midnight event
+# with no published end becomes "all day" on its own date, which is vague and
+# true; the placeholder read as a clock is precise and false. Standing rows
+# carry opening hours and furniture is not an occasion, so neither is touched.
+# Adapters that know a source's own no-time flag should still say so
+# themselves (mapsee_ingest_slu: `dont_display_time`); this is the net.
+def _midnight_names_a_day(rec: Dict[str, Any], starts_at, end_src, lat, lon):
+    """(starts_at, end_src), with a start at exactly local midnight and no real
+    end collapsed to the bare YYYY-MM-DD it names. Everything else, and every
+    row whose zone cannot be found, passes through untouched."""
+    if not starts_at or rec.get("recurring_days") or rec.get("pin_only"):
+        return starts_at, end_src
+    s = str(starts_at).strip()
+    if len(s) <= 10 or _real_end(s, end_src):
+        return starts_at, end_src
+    try:
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        return starts_at, end_src
+    # Every zone's offset is a whole quarter hour, so an odd minute is refused
+    # before the timezone lookup; the lookup itself is cached per point (_tz_at).
+    if dt.tzinfo is None or dt.second or dt.microsecond or dt.minute % 15:
+        return starts_at, end_src
+    tz = _tz_for(lat, lon)
+    if tz is None:
+        return starts_at, end_src
+    local = dt.astimezone(tz)
+    if local.hour or local.minute:
+        return starts_at, end_src
+    return local.date().isoformat(), None
+
+
+def _row_window(rec: Dict[str, Any], lat, lon):
+    """(starts_at, end_src) as to_row writes them. ONE RULE, TWO READERS:
+    time_changed compares a stored row with exactly this, or every row a rule
+    here moves reads as a new time on every daily --only-new run."""
+    # Normalize naive local times (e.g. NPS "2026-07-20T10:00:00") to real UTC via
+    # the event's coordinates, so no source is stored offset by its UTC offset.
+    starts_at = _to_utc_if_naive(rec.get("start_utc") or rec.get("start_local"), lat, lon)
+    end_src = _to_utc_if_naive(rec.get("end_utc") or rec.get("end_local"), lat, lon)
+    starts_at, end_src = _midnight_names_a_day(rec, starts_at, end_src, lat, lon)
+    # A bare date means "all day HERE", not "midnight in London" — see _day_bounds.
+    return _anchor_all_day(starts_at, end_src, lat, lon)
+
+
 # Typical event length by category (hours) — used to synthesize an end time when
 # the source doesn't provide one, so every event gets a sensible ends_at instead
 # of the app falling back to a flat +6h.
@@ -2233,12 +2298,9 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         description = re.sub(r"Approx\. price:\s*[^\n·]*(?:\s*·\s*)?", "", description)
         description = re.sub(r"\n{3,}", "\n\n", description).strip() or None
     lat, lon = rec.get("latitude"), rec.get("longitude")
-    # Normalize naive local times (e.g. NPS "2026-07-20T10:00:00") to real UTC via
-    # the event's coordinates, so no source is stored offset by its UTC offset.
-    starts_at = _to_utc_if_naive(rec.get("start_utc") or rec.get("start_local"), lat, lon)
-    end_src = _to_utc_if_naive(rec.get("end_utc") or rec.get("end_local"), lat, lon)
-    # A bare date means "all day HERE", not "midnight in London" — see _day_bounds.
-    starts_at, end_src = _anchor_all_day(starts_at, end_src, lat, lon)
+    # Naive times zoned, a midnight placeholder read as its day, a bare day
+    # bracketed where the event is — see _row_window.
+    starts_at, end_src = _row_window(rec, lat, lon)
     row = {
         "title": _clean_text(rec.get("name")),
         "description": description,
@@ -3821,11 +3883,9 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
     if not start:
         return False
     lat, lon = rec.get("latitude"), rec.get("longitude")
-    if _utc(start) is None or (end and _utc(end) is None):
-        if lat is None or lon is None:
-            return False                              # the geocoder places it later
-        start, end = _to_utc_if_naive(start, lat, lon), _to_utc_if_naive(end, lat, lon)
-        start, end = _anchor_all_day(start, end, lat, lon)
+    if (_utc(start) is None or (end and _utc(end) is None)) and (lat is None or lon is None):
+        return False                                  # the geocoder places it later
+    start, end = _row_window(rec, lat, lon)           # what to_row would write
     ours, theirs = _utc(start), _utc(detail.get("starts_at"))
     if ours is None or theirs is None:
         return False

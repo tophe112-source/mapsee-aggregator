@@ -78036,5 +78036,737 @@
     "geocode_suffix": ", Heeswijk-Dinther",
     "limit": 300,
     "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Struthers",
+    "category": "community",
+    "_found": "civic:city -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qvo8n3h2bd5u6qif9cv9aa3rk4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Struthers, Ohio",
+    "limit": 300,
+    "_metro": "Struthers, Ohio"
+  },
+  {
+    "name": "Cody — Home",
+    "category": "community",
+    "url": "https://www.codywy.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cody, Wyoming",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Home]",
+    "_metro": "Cody, Wyoming",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cody — Rec, Aquatics, and Facilities (Special Events)",
+    "category": "fitness",
+    "url": "https://www.codywy.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Cody, Wyoming",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Rec, Aquatics, and Facilities (Special Events)]",
+    "_metro": "Cody, Wyoming",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Cody — Recreation, Aquatics and Facilities (ALL)",
+    "category": "fitness",
+    "url": "https://www.codywy.gov/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar",
+    "geocode_suffix": ", Cody, Wyoming",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Recreation, Aquatics and Facilities (ALL)]",
+    "_metro": "Cody, Wyoming",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Ellisville — Home Page Calendar",
+    "category": "community",
+    "url": "https://www.ellisville.mo.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Ellisville, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Home Page Calendar]",
+    "_metro": "Ellisville, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Ellisville — Parks and Recreation",
+    "category": "community",
+    "url": "https://www.ellisville.mo.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Ellisville, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks and Recreation]",
+    "_metro": "Ellisville, Missouri",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "JCES Kinjin",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2f8474aff283a922082296eb46556eb07d0cc5e8b67abe19e790fcf8e590abfa%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Eindhoven",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Sint-Jan de Doper Museum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7f98c77014657500cda73883d47faefe0a35ffe53042e4cc8542847a1b8aee60%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Waalwijk",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Aufnahmewohnheim Rankestraße",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.internationaler-bund.de/presse-themen/events-im-ib/events.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Ulme 35",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://interkulturanstalten.de/programm/?ical=1",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "Ulme 35",
+      "city": "Berlin",
+      "postal_code": "14050",
+      "country": "DE",
+      "lat": 52.517968,
+      "lon": 13.2675681,
+      "street_hint": "35 Ulmenallee",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "mittendrin",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://stz-koellnische-heide.de/events/events.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "mittendrin",
+      "city": "Berlin",
+      "postal_code": "12057",
+      "country": "DE",
+      "lat": 52.4654641,
+      "lon": 13.4727003,
+      "street_hint": "319 Sonnenallee",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Tischtennisverein Einheit Potsdam",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://data.ttve.eu/ttve.ics",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Bundesverband Trans*",
+    "category": "community",
+    "_found": "osm:ngo -> my-calendar",
+    "url": "https://www.bundesverband-trans.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Arsenal",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://www.arsenal-berlin.de/kino/filmreihe/icalendar/der-kleine-nick-erzaehlt-vom-glueck-6004/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Friedrich-Ebert-Stiftung",
+    "category": "community",
+    "_found": "osm:ngo -> ics",
+    "url": "https://www.fes.de/veranstaltungen/veranstaltungsdetail/291220.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Klein-Glienicker Kapelle",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.klein-glienicker-kapelle.de/jahresprogramm/?ical=1",
+    "geocode_suffix": ", Potsdam",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Verein für Kanusport Berlin e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d721280bddbac0e99c266bfbbc585735cdbf854f839e1970b4979372df0ec1a3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Theater am Park",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.tap-biesdorf.de/events/154/calendar.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Münchner Kammerspiele",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.muenchner-kammerspiele.de/en/programm/51812-schubert-in-paradise/53909.ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "FeG München-Ost - Freie evangelische Gemeinde",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://feg-mo.de/?ical=1",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Kulturhaus III&70",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.dreiundsiebzig.de/programm/termine.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "street art school",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager",
+    "url": "https://www.street-art-school.de/termine/?ical=1",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Bucerius Kunst Forum",
+    "category": "arts",
+    "_found": "osm:arts_centre -> ics",
+    "url": "https://www.buceriuskunstforum.de/uploads/tx_bucerius/1795712400_4a4173354d4121e60b61e3b400bdaa2a.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "JazzHall",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.jazzhall.de/ics/jazz-heroes-michael-mayo-mit-mai-linh-dang.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "F&W Fördern & Wohnen AöR",
+    "category": "community",
+    "_found": "osm:social_facility -> ics",
+    "url": "https://www.foerdernundwohnen.de/ueber-fw/veranstaltungen/feedback-sprechstunde.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Hamburgische Staatsoper",
+    "category": "theater",
+    "_found": "osm:theatre -> ics",
+    "url": "https://www.die-hamburgische-staatsoper.de/de/programm/konzert/3149-croissant-mit-omer/297960.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "St. Nikolai",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.termine-e.de/api/events/f650ed3b-78d1-4995-9292-b49c1a76cb0c.ics",
+    "geocode_suffix": ", Borstel",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Museum Ludwig",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.museum-ludwig.de/de/besuch/veranstaltungen/kalender/55049-5-jahre-medienprojekt-koeln-e-v-filmpremiere2-seiten-und-1-im-rampenlicht-des-lebens-fassade-aus-glas.ics",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Stadthalle Hitdorf",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://lust-auf-leverkusen.de/veranstaltungsort/stadthalle-hitdorf/ical/",
+    "geocode_suffix": ", Cologne, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Stadthalle Hitdorf",
+      "postal_code": "51371",
+      "lat": 51.0586148,
+      "lon": 6.9225736,
+      "street_hint": "113 Hitdorfer Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Wassersportfreunde Neptun e. V. Köln-Mülheim",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://wsf-neptun-koeln.de/?ical=1",
+    "geocode_suffix": ", Köln",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "DLRG Kreisgruppe Usinger Land e.V.",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://usinger-land.dlrg.de/die-ortsgruppe/termine/kalenderabo-ical/?tx_dlrgterminkalender_pi1%5Bcontroller%5D=Terminkalender&amp;cHash=3df9d00e696e06f6fb833317844362e6",
+    "geocode_suffix": ", Usingen",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Heliand-Pfadfinderschaft Stamm 1",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.heliand-pfadfinderschaft.de/termine/hp-busstagstreffen-2026/?ical=1",
+    "geocode_suffix": ", Frankfurt, Germany",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Radenthein",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://calendar.google.com/calendar/ical/qe9eou93r3liudvh7dujdvbgdg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Radenthein, Austria",
+    "limit": 300,
+    "_metro": "Radenthein, Austria"
+  },
+  {
+    "name": "DeRidder — Main Calendar",
+    "category": "community",
+    "url": "https://www.cityofderidder.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", DeRidder, Louisiana",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "DeRidder, Louisiana",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Stamm der Vaganten",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://stammdervaganten.de/kalender/termine.ics",
+    "geocode_suffix": ", Schwalbach am Taunus",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Deutsches Buch- und Schriftmuseum",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.dnb.de/DE/Kulturell/Veranstaltungskalender/Einzel/20261121Livres_event.ics?view=dnbwebicsdownload",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Jugendwerk der AWO Württemberg e.V.",
+    "category": "community",
+    "_found": "osm:ngo -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/429f55da72514362a5b29da2ff3cc4fb@jugendwerk24.de/689d090052f44d2dbe75bf629425bac15627898968592250837/calendar.ics",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Württembergische Landesbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/default-baaf7b674a2ad84948e1a02bf2e990b4.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "venue": {
+      "name": "Württembergische Landesbibliothek",
+      "city": "Stuttgart",
+      "postal_code": "70173",
+      "country": "DE",
+      "lat": 48.777267,
+      "lon": 9.1852171,
+      "street_hint": "8 Konrad-Adenauer-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "casa nostra",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.casanostra-bb.de/termine/event/termin/fitness-im-casa-1-20261123-20261123-1730-1900-3.ics",
+    "geocode_suffix": ", Böblingen",
+    "limit": 300,
+    "venue": {
+      "name": "casa nostra",
+      "city": "Böblingen",
+      "postal_code": "71034",
+      "country": "DE",
+      "lat": 48.6838811,
+      "lon": 9.0024456,
+      "street_hint": "4 Calwer Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Train of Hope Dortmund",
+    "category": "community",
+    "_found": "osm:social_facility -> events-manager",
+    "url": "https://trainofhope-do.de/?ical=1",
+    "geocode_suffix": ", Dortmund",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Atelierhaus Roter Hahn I Galerie",
+    "category": "arts",
+    "_found": "osm:arts_centre -> my-calendar+jsonld-event",
+    "url": "https://kultur-vor-ort.com/?feed=my-calendar-ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "ApfelKULTURparadies",
+    "category": "outdoors",
+    "_found": "osm:garden -> my-calendar+jsonld-event",
+    "url": "https://kultur-vor-ort.com/apfelkulturparadies/?feed=my-calendar-ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://lkg-bremen.de/events/adventsfeier-4/?ical=1",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "venue": {
+      "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+      "city": "Bremen",
+      "postal_code": "28219",
+      "country": "DE",
+      "lat": 53.1049417,
+      "lon": 8.7819284,
+      "street_hint": "197 Waller Heerstraße",
+      "aliases": [
+        "LKG Bremen, EGZ Walle"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Städtische Galerie Dresden",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://galerie-dresden.de/programm/kalender/powered-by-painting-3.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Heimatmuseum",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/puv340urntc8it60ejufl1jsvs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Algermissen",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Thomaston — Community Events",
+    "category": "community",
+    "url": "https://www.cityofthomaston.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Thomaston, Georgia",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Thomaston, Georgia",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Jesup — City Events",
+    "category": "community",
+    "url": "https://www.jesupga.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Jesup, Georgia",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Events]",
+    "_metro": "Jesup, Georgia",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Green Cove Springs — Events",
+    "category": "community",
+    "url": "https://www.greencovesprings.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Green Cove Springs, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Green Cove Springs, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Green Cove Springs — Main Calendar",
+    "category": "community",
+    "url": "https://www.greencovesprings.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Green Cove Springs, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Green Cove Springs, Florida",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Roanoke — Public Safety",
+    "category": "community",
+    "url": "https://www.roanoketexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Roanoke, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Public Safety]",
+    "_metro": "Roanoke, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Roanoke — Events",
+    "category": "community",
+    "url": "https://www.roanoketexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Roanoke, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Roanoke, Texas",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Musée d'Histoire de la Médecine",
+    "category": "arts",
+    "_found": "osm:museum -> libcal+event-organiser",
+    "url": "https://u-paris.fr/?feed=eo-events",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Comédie Tour Eiffel",
+    "category": "theater",
+    "_found": "osm:theatre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1tggn6a9dajf3ugred7q4175uc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Église Saint-Joseph-Artisan",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8e4ro783g7vv2cqb9ruv49bojc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Église Passage National",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4a2c4404f50a722318f86617ab623d9ac6f53db671ab3a18f949d611d79e742c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Paris, France",
+    "limit": 300,
+    "_metro": "Paris, France"
+  },
+  {
+    "name": "Maison du Rugby",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dc9cd3f2394c6069440ff6f4dc38993c18341037508bf7aff165a1cd54ed0ab8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Toulouse, France",
+    "limit": 300,
+    "venue": {
+      "name": "Maison du Rugby",
+      "lat": 43.5467327,
+      "lon": 1.4830093,
+      "pin_unnamed": false
+    },
+    "_metro": "Toulouse, France"
+  },
+  {
+    "name": "Club Léo Lagrange",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.cll310.com/evenements.ics",
+    "geocode_suffix": ", Bordeaux, France",
+    "limit": 300,
+    "_metro": "Bordeaux, France"
+  },
+  {
+    "name": "Galerie RDV",
+    "category": "arts",
+    "_found": "osm:gallery -> ics",
+    "url": "https://galerierdv.com/media/pages/expositions/elephantart-memoires-d-elephants/597687d0c3-1793800302/exposition.ics",
+    "geocode_suffix": ", Nantes, France",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "Schützenverein Goldscheuer e.V.",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fa6f71db4747d2a4ae33fb4a6ef8d1400f66bbe49f5245e3cdf2b0a7c6828f2e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Strasbourg, France",
+    "limit": 300,
+    "_metro": "Strasbourg, France"
+  },
+  {
+    "name": "Centre de documentation de l’IAE",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://iaelille.fr/wp-content/themes/essentiel/tmp/event_1795368379.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "venue": {
+      "name": "Centre de documentation de l’IAE",
+      "lat": 50.6463685,
+      "lon": 3.061983,
+      "pin_unnamed": false
+    },
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "Glencairn Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40glencairn.church/public/basic.ics",
+    "geocode_suffix": ", Toronto, Canada",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Gloria Dei Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gloriadei.ca/events.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Heritage Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fvlqsucs47q0k11bq4l2vbbmrc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "Heritage Hall",
+      "lat": 49.2572829,
+      "lon": -123.1008245,
+      "street_hint": "3102 Main Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Ling Yen Mountain Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/h7h0ed3k0u5taie320hmqi8ph8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Richmond, BC",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Fort Edmonton Park",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.fortedmontonpark.ca//public/ics/8082",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada",
+    "crawl_delay": 1.0
+  },
+  {
+    "name": "Art Gallery of Alberta",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.youraga.ca//public/ics/8567",
+    "geocode_suffix": ", Edmonton",
+    "limit": 300,
+    "_metro": "Edmonton, Canada",
+    "crawl_delay": 1.0
+  },
+  {
+    "name": "Millwoods Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/office%40mcchurch.ca/public/basic.ics",
+    "geocode_suffix": ", Edmonton, Canada",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Millwoods Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stutay%25telus.net%40gtempaccount.com/public/basic.ics",
+    "geocode_suffix": ", Edmonton, AB",
+    "limit": 300,
+    "_metro": "Edmonton, Canada"
+  },
+  {
+    "name": "Sokol",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "http://sokolstboniface.ca/?feed=my-calendar-ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "venue": {
+      "name": "Sokol",
+      "lat": 49.8831854,
+      "lon": -97.1019297,
+      "street_hint": "523 Doucet Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Manitoba Eastern Star Chalet",
+    "category": "community",
+    "_found": "osm:social_facility -> my-calendar+jsonld-event",
+    "url": "https://oesmanitoba.ca/manitoba-eastern-star-chalet/?feed=my-calendar-ics",
+    "geocode_suffix": ", Winnipeg, Canada",
+    "limit": 300,
+    "_metro": "Winnipeg, Canada"
   }
 ]

@@ -10969,6 +10969,79 @@
         "lon": 5.1382905
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Kunstverein Gastgarten",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://gastgarten.eu/ausstellungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Kunstverein Gastgarten",
+        "address": "53 Nordkanalstraße",
+        "city": "Hamburg",
+        "postal_code": "20087",
+        "lat": 53.551043,
+        "lon": 10.0243892
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "La Passerelle",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.lapasserelle11.com/evenements",
+      "max_events": 200,
+      "venue": {
+        "name": "La Passerelle",
+        "lat": 48.8645595,
+        "lon": 2.3698497
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Banff Trail Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.banfftrailcommunity.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Banff Trail Community Centre",
+        "postal_code": "T2M 1J1",
+        "lat": 51.0703131,
+        "lon": -114.1090227,
+        "street_hint": "2115 20 Avenue NW"
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Kingsland Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.kingslandcommunity.ca/whats-going-on/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kingsland Community Centre",
+        "lat": 50.9829716,
+        "lon": -114.0740218,
+        "street_hint": "505 78 Avenue SW"
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Ottawa Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.ottawatennisclub.ca/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Ottawa Tennis Club",
+        "address": "176 Cameron Avenue",
+        "postal_code": "K1S 0X5",
+        "lat": 45.3882425,
+        "lon": -75.6864053
+      },
+      "_metro": "Ottawa, Canada"
     }
   ],
   "_not_included": {

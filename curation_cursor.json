@@ -1,16 +1,16 @@
 {
  "civic": {
-  "country": "ES",
+  "country": "DK",
   "offset": 2140,
   "offsets": {
    "AE": 0,
-   "AT": 240,
+   "AT": 360,
    "AU": 203,
    "BE": 227,
    "CA": 240,
    "CH": 400,
    "DE": 216,
-   "DK": 137,
+   "DK": 0,
    "ES": 230,
    "FI": 600,
    "GB": 240,
@@ -25,11 +25,11 @@
    "MY": 0,
    "NL": 240,
    "NO": 360,
-   "NZ": 140,
+   "NZ": 0,
    "PT": 360,
    "SE": 80,
    "SI": 240,
-   "US": 2370,
+   "US": 2432,
    "ZA": 200
   },
   "visited": [
@@ -248,9 +248,14 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 107,
-  "metro_key": "NL:Eindhoven",
-  "stuck": {}
+  "metro": 150,
+  "metro_key": "CA:Hamilton",
+  "stuck": {
+   "CA:Hamilton": {
+    "day": 20261122,
+    "n": 1
+   }
+  }
  },
  "osm|community_centre,library": {
   "metro": 225,
@@ -264,21 +269,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 300,
-  "events": 1000,
+  "community events": 100,
+  "events": 1300,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
   "library programs": 0,
-  "parks events": 100,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 400,
+  "recreation programs": 200,
   "road races": 0,
   "special events": 0,
-  "volunteer": 200,
-  "wellness programs": 0,
+  "volunteer": 100,
+  "wellness programs": 300,
   "youth programs": 100
  }
 }

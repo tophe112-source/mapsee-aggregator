@@ -38111,6 +38111,1794 @@
         "lon": 5.4894131
       },
       "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Oosterpoort",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.spotgroningen.nl/programma/"
+      ],
+      "link_pattern": "https://www\\.spotgroningen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Oosterpoort",
+        "address": "27 Trompsingel",
+        "city": "Groningen",
+        "postal_code": "9724DA",
+        "lat": 53.2142393,
+        "lon": 6.5759285
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "EM2",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://em2groningen.nl/event/de-hardheid-jammah-tammah/"
+      ],
+      "link_pattern": "https://em2groningen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "EM2",
+        "address": "6 Suikerlaan",
+        "city": "Groningen",
+        "postal_code": "9743DA",
+        "lat": 53.2104732,
+        "lon": 6.5391945
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Immanuëlkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://ngkmarum.nl/nieuws/agenda/"
+      ],
+      "link_pattern": "https://ngkmarum\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Immanuëlkerk",
+        "lat": 53.1454034,
+        "lon": 6.2636332
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Design Museum Den Bosch",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://designmuseum.nl/activiteiten/saved-14/"
+      ],
+      "link_pattern": "https://designmuseum\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Design Museum Den Bosch",
+        "address": "4 De Mortel",
+        "city": "'s-Hertogenbosch",
+        "postal_code": "5211HV",
+        "lat": 51.6857426,
+        "lon": 5.3041697
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Poppodium 013",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.013.nl/programma/162777/k3"
+      ],
+      "link_pattern": "https://www\\.013\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Poppodium 013",
+        "address": "44 Veemarktstraat",
+        "city": "Tilburg",
+        "postal_code": "5038CV",
+        "lat": 51.5577376,
+        "lon": 5.0928392
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Studio Schimmel",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.studioschimmel.com/event-2026-11-21-hyfen.html"
+      ],
+      "link_pattern": "https://www\\.studioschimmel\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Studio Schimmel",
+        "address": "20e Piushaven",
+        "city": "Tilburg",
+        "postal_code": "5017AN",
+        "lat": 51.5526767,
+        "lon": 5.0945947
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "DublinTown",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event",
+      "listing": [
+        "https://www.dublintown.ie/whats-on-events/1000-mods/"
+      ],
+      "link_pattern": "https://www\\.dublintown\\.ie/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "DublinTown",
+        "address": "43-45 Middle Abbey Street",
+        "city": "Dublin",
+        "postal_code": "D01 X8R2",
+        "lat": 53.3478712,
+        "lon": -6.2632052
+      },
+      "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Volksbühne im Prater",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.volksbuehne-berlin.de/produktionen/berliner-roma-sinti-supertalent-show/20261219-1900/"
+      ],
+      "link_pattern": "https://www\\.volksbuehne\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Volksbühne im Prater",
+        "address": "7-9 Kastanienallee",
+        "city": "Berlin",
+        "postal_code": "10435",
+        "country": "DE",
+        "lat": 52.5398598,
+        "lon": 13.4107279
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Gutshaus Altlandsberg",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.altlandsberg.de/leben-wohnen/kultur-freizeit/veranstaltungen/nachtwaechter-rundgang-11/"
+      ],
+      "link_pattern": "https://www\\.altlandsberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gutshaus Altlandsberg",
+        "city": "Altlandsberg",
+        "postal_code": "15345",
+        "lat": 52.5678655,
+        "lon": 13.7274595,
+        "street_hint": "1 Krummenseestraße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Gemeindebibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.nuthetal.de/veranstaltungen/2995108/2026/11/20/810-jahre-saarmund"
+      ],
+      "link_pattern": "https://www\\.nuthetal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindebibliothek",
+        "lat": 52.3496628,
+        "lon": 13.1026797
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Gemeindezentrum Langerwisch",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.michendorf.de/veranstaltungen/2984298/2026/12/12/28.-langerwischer-weihnachtsmarkt"
+      ],
+      "link_pattern": "https://www\\.michendorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindezentrum Langerwisch",
+        "city": "Michendorf",
+        "postal_code": "14552",
+        "country": "DE",
+        "lat": 52.3163069,
+        "lon": 13.0647301,
+        "street_hint": "26 Neu-Langerwisch"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kulturhaus \"Johannes R. Becher\"",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "http://www.fv-kulturhaus-jrbecher.de/veranstaltungen/2217406/2026/12/16/beratertag-lotsendienst"
+      ],
+      "link_pattern": "https://www\\.fv\\-kulturhaus\\-jrbecher\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kulturhaus \"Johannes R. Becher\"",
+        "address": "67 Havelländer Weg",
+        "city": "Falkensee",
+        "postal_code": "14612",
+        "country": "DE",
+        "lat": 52.5803643,
+        "lon": 13.0744186
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Gemeindebibliothek Dallgow-Döberitz",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dallgow.de/veranstaltungen/2999740/2026/11/28/weihnachtsmarkt"
+      ],
+      "link_pattern": "https://www\\.dallgow\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindebibliothek Dallgow-Döberitz",
+        "city": "Dallgow-Döberitz",
+        "postal_code": "14624",
+        "country": "DE",
+        "lat": 52.5434001,
+        "lon": 13.0586234,
+        "street_hint": "151 Bahnhofstraße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Bibliothek Leegebruch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.leegebruch.de/veranstaltungen/2931305/2026/11/20/lesen-am-lagerfeuer"
+      ],
+      "link_pattern": "https://www\\.leegebruch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothek Leegebruch",
+        "lat": 52.725361,
+        "lon": 13.1936188
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Tanzclub Bernau",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://www.tanzclub-bernau.de/veranstaltungen/2875787/2026/11/28/tanzball-mit-liveband-weihnachten-tanzclub-bernau"
+      ],
+      "link_pattern": "https://www\\.tanzclub\\-bernau\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tanzclub Bernau",
+        "address": "3 Weinbergstraße",
+        "city": "Bernau bei Berlin",
+        "postal_code": "16321",
+        "lat": 52.6766668,
+        "lon": 13.5817449
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Helle Panke e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.helle-panke.de/de/topic/3.termine.html?id=4127"
+      ],
+      "link_pattern": "https://www\\.helle\\-panke\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Helle Panke e.V.",
+        "city": "Berlin",
+        "postal_code": "10437",
+        "lat": 52.5489907,
+        "lon": 13.4107278,
+        "street_hint": "9 Kopenhagener Straße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.lkg-woltersdorf.de/veranstaltungen/2896896/2026/11/20/jugendkreis"
+      ],
+      "link_pattern": "https://www\\.lkg\\-woltersdorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Landeskirchliche Gemeinschaft (LKG) Woltersdorf",
+        "address": "9 Werderstraße",
+        "city": "Woltersdorf",
+        "postal_code": "15569",
+        "lat": 52.4470663,
+        "lon": 13.7602482
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Das Amt",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.club-amt.berlin/event/substation-5"
+      ],
+      "link_pattern": "https://www\\.club\\-amt\\.berlin/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Amt",
+        "address": "114",
+        "lat": 52.5203588,
+        "lon": 13.4131105
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Bar jeder Vernunft",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.bar-jeder-vernunft.de/"
+      ],
+      "link_pattern": "https://www\\.bar\\-jeder\\-vernunft\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bar jeder Vernunft",
+        "address": "24 Schaperstraße",
+        "city": "Berlin",
+        "postal_code": "10719",
+        "lat": 52.4980087,
+        "lon": 13.3295864
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Neuapostolische Gemeinde Berlin-Tegel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://berlin-tegel.nak-nordost.de/db/637285/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://berlin\\-tegel\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Gemeinde Berlin-Tegel",
+        "address": "39 Medebacher Weg",
+        "city": "Berlin",
+        "postal_code": "13507",
+        "country": "DE",
+        "lat": 52.5894342,
+        "lon": 13.2781511
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Gemeindezentrum Wilhelmshorst",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.michendorf.de/veranstaltungen/2941861/2026/11/28/wilhelmshorster-weihnachtsmarkt"
+      ],
+      "link_pattern": "https://www\\.michendorf\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindezentrum Wilhelmshorst",
+        "city": "Michendorf",
+        "postal_code": "14552",
+        "country": "DE",
+        "lat": 52.3298097,
+        "lon": 13.0639,
+        "street_hint": "9-11 Dr.-Albert-Schweitzer-Straße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Tipi am Kanzleramt",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.tipi-am-kanzleramt.de/"
+      ],
+      "link_pattern": "https://www\\.tipi\\-am\\-kanzleramt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tipi am Kanzleramt",
+        "address": "Große Querallee",
+        "postal_code": "10557",
+        "lat": 52.5184091,
+        "lon": 13.3672452
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Philharmonie",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.berliner-philharmoniker.de/konzerte/kalender/57073/"
+      ],
+      "link_pattern": "https://www\\.berliner\\-philharmoniker\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Philharmonie",
+        "address": "1 Herbert-von-Karajan-Straße",
+        "city": "Berlin",
+        "postal_code": "10785",
+        "country": "DE",
+        "lat": 52.5099913,
+        "lon": 13.3695934
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Pacha",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.pacha-muenchen.de/programm/event839/index_ger.html"
+      ],
+      "link_pattern": "https://www\\.pacha\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pacha",
+        "address": "5 Maximiliansplatz",
+        "city": "München",
+        "postal_code": "80333",
+        "country": "DE",
+        "lat": 48.142124,
+        "lon": 11.5697566
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Greenpeace",
+      "category": "community",
+      "_found": "osm:ngo -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://www.greenpeace-muenchen.de/veranstaltung/tag-des-offenen-heizungskellers-2/"
+      ],
+      "link_pattern": "https://www\\.greenpeace\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Greenpeace",
+        "address": "14 Frohschammerstraße",
+        "city": "München",
+        "postal_code": "80807",
+        "country": "DE",
+        "lat": 48.1789021,
+        "lon": 11.5687966
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "LeZ",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.lez-muenchen.de/aktuell-im-lez/event-details/wiederstand.html"
+      ],
+      "link_pattern": "https://www\\.lez\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LeZ",
+        "city": "München",
+        "postal_code": "80469",
+        "country": "DE",
+        "lat": 48.131591,
+        "lon": 11.5716757,
+        "street_hint": "26 Müllerstraße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Familienzentrum Parkstadt Schwabing - Vorläuferprojekt",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.fzparkstadtschwabing.de/termine/details/essensausgabe.html"
+      ],
+      "link_pattern": "https://www\\.fzparkstadtschwabing\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Familienzentrum Parkstadt Schwabing - Vorläuferprojekt",
+        "lat": 48.1830803,
+        "lon": 11.5910813,
+        "street_hint": "17 Wilhelm-Wagenfeld-Straße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Museum Brandhorst",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://www.museum-brandhorst.de/events/kids-factory-bilder-bewegen/?t=17952696001600"
+      ],
+      "link_pattern": "https://www\\.museum\\-brandhorst\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Brandhorst",
+        "address": "35a Theresienstraße",
+        "city": "München",
+        "postal_code": "80333",
+        "country": "DE",
+        "lat": 48.1481178,
+        "lon": 11.5740913
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Boogie-Bären München",
+      "category": "fitness",
+      "_found": "osm:dance -> jsonld-event",
+      "listing": [
+        "https://www.boogie-baeren.de/eventleser/spielenachmittag-16"
+      ],
+      "link_pattern": "https://www\\.boogie\\-baeren\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Boogie-Bären München",
+        "address": "16 Gneisenaustraße",
+        "city": "München",
+        "postal_code": "80992",
+        "lat": 48.1785061,
+        "lon": 11.5318162
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Heimathaus Wolfschneiderhof",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.wolfschneiderhof.de/veranstaltungen.html?day=20261108"
+      ],
+      "link_pattern": "https://www\\.wolfschneiderhof\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heimathaus Wolfschneiderhof",
+        "address": "12 Münchener Straße",
+        "city": "Taufkirchen",
+        "postal_code": "82024",
+        "country": "DE",
+        "lat": 48.0463266,
+        "lon": 11.6174797
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Jugendtreff A12",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.jugendtreff-a12.de/veranstaltungen/2994266/2026/11/26/cozy-girls-club"
+      ],
+      "link_pattern": "https://www\\.jugendtreff\\-a12\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jugendtreff A12",
+        "city": "Oberhaching",
+        "postal_code": "82041",
+        "country": "DE",
+        "lat": 48.0240091,
+        "lon": 11.5905512,
+        "street_hint": "12 Alpenstraße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reinbek.nak-nordost.de/db/643059/Termine/Ue60-Gottesdienst"
+      ],
+      "link_pattern": "https://reinbek\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "38 Jahnstraße",
+        "city": "Reinbek",
+        "postal_code": "21465",
+        "lat": 53.5132714,
+        "lon": 10.2467194
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Pulverfass Travestie Cabaret",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://pulverfasscabaret.de/tickets/?show=santas-pink-secret"
+      ],
+      "link_pattern": "https://pulverfasscabaret\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pulverfass Travestie Cabaret",
+        "address": "147 Reeperbahn",
+        "city": "Hamburg",
+        "postal_code": "20359",
+        "country": "DE",
+        "lat": 53.5493537,
+        "lon": 9.9585925
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Europa-Union Hamburg e.V.",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event+ics",
+      "listing": [
+        "https://europa-union-hamburg.de/de/event/765"
+      ],
+      "link_pattern": "https://europa\\-union\\-hamburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Europa-Union Hamburg e.V.",
+        "address": "1 Adolphsplatz",
+        "city": "Hamburg",
+        "postal_code": "20457",
+        "country": "DE",
+        "lat": 53.5495682,
+        "lon": 9.9915066
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Christuskirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.kirchengemeinde-eidelstedt.de/termine/1474851-hoffnungscafe"
+      ],
+      "link_pattern": "https://www\\.kirchengemeinde\\-eidelstedt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Christuskirche",
+        "address": "22 Halstenbeker Weg",
+        "city": "Hamburg",
+        "postal_code": "22523",
+        "country": "DE",
+        "lat": 53.6149134,
+        "lon": 9.8904232
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hamburg-lurup.nak-nordost.de/db/637873/Termine/Weihnachtsfeier"
+      ],
+      "link_pattern": "https://hamburg\\-lurup\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "238 Rugenbarg",
+        "city": "Hamburg",
+        "postal_code": "22549",
+        "country": "DE",
+        "lat": 53.5858153,
+        "lon": 9.8701115
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Burg Seevetal",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.burg-seevetal.de/portal/veranstaltungen/nachtflohmarkt-in-der-burg-seevetal-13614-10.html"
+      ],
+      "link_pattern": "https://www\\.burg\\-seevetal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Burg Seevetal",
+        "lat": 53.3868858,
+        "lon": 9.9799922
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://hamburg-barmbek.nak-nordost.de/db/632401/Termine/Gottesdienst-fuer-Hamburg-Ost-mit-dem-Bezirksapostel"
+      ],
+      "link_pattern": "https://hamburg\\-barmbek\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche",
+        "address": "2 Schwalbenstraße",
+        "city": "Hamburg",
+        "postal_code": "22305",
+        "country": "DE",
+        "lat": 53.5888729,
+        "lon": 10.0471898
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Buchholz",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://nordheide.nak-nordost.de/db/611916/Termine/Bezirksaustausch-aus-Barmbek"
+      ],
+      "link_pattern": "https://nordheide\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Buchholz",
+        "address": "1 Mittelstraße",
+        "city": "Buchholz in der Nordheide",
+        "postal_code": "21244",
+        "country": "DE",
+        "lat": 53.3357704,
+        "lon": 9.8785506
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Theater Zeppelin",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://hoheluftschiff.de/stueck/engel-maxi/"
+      ],
+      "link_pattern": "https://hoheluftschiff\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Theater Zeppelin",
+        "address": "27 Kaiser-Friedrich-Ufer",
+        "city": "Hamburg",
+        "postal_code": "20253",
+        "lat": 53.5776234,
+        "lon": 9.9741707
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Museum Altes Land",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.jork.de/regional/veranstaltungen/irischer-kneipenabend-in-der-brueggerei-904012290-20380.html"
+      ],
+      "link_pattern": "https://www\\.jork\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum Altes Land",
+        "address": "49 Westerjork",
+        "city": "Jork",
+        "postal_code": "21635",
+        "country": "DE",
+        "lat": 53.5343972,
+        "lon": 9.6721416
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Schützenverein Rönneburg und Umgegend von 1897 e. V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "http://www.schuetzenverein-roenneburg.de/veranstaltungen/2976890/2026/12/04/weihnachtsfeier-der-oldies"
+      ],
+      "link_pattern": "https://www\\.schuetzenverein\\-roenneburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Schützenverein Rönneburg und Umgegend von 1897 e. V.",
+        "address": "15 Küstersweg",
+        "city": "Hamburg",
+        "postal_code": "21079",
+        "lat": 53.4366846,
+        "lon": 10.0039507
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Zentralbibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.bonn.de/veranstaltungskalender/veranstaltungen/hauptkalender/stadtbibliothek/mint-basteln-in-der-zentralbibliothek.php"
+      ],
+      "link_pattern": "https://www\\.bonn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zentralbibliothek",
+        "lat": 50.7344063,
+        "lon": 7.0972485
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Freiraum Salon",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://freiraum-salon.de/programm/"
+      ],
+      "link_pattern": "https://freiraum\\-salon\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Freiraum Salon",
+        "address": "116 a Gottesweg",
+        "city": "Köln",
+        "postal_code": "50939",
+        "lat": 50.9154963,
+        "lon": 6.9284938
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Verklärung Christi",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event+ics",
+      "listing": [
+        "https://bistummainz.de/region-oberhessen/pfarrei/taunusblick/aktuell/veranstaltungen/m-event-ext/Nunc-Dimittis-2026.11.23/?instancedate=1795460400000"
+      ],
+      "link_pattern": "https://bistummainz\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Verklärung Christi",
+        "lat": 50.1716206,
+        "lon": 8.7310114
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Städel Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.staedelmuseum.de/de/programm/ueberblicksfuehrung-maria-magdalena/2026-11-20/14-30"
+      ],
+      "link_pattern": "https://www\\.staedelmuseum\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Städel Museum",
+        "address": "63 Schaumainkai",
+        "city": "Frankfurt am Main",
+        "postal_code": "60596",
+        "lat": 50.1032949,
+        "lon": 8.6738582
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Muckerhaus",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.muckerhaus.de/veranstaltungen/2408487/2026/11/24/wohlfuehlmalen"
+      ],
+      "link_pattern": "https://www\\.muckerhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Muckerhaus",
+        "city": "Darmstadt",
+        "postal_code": "64291",
+        "country": "DE",
+        "lat": 49.9124791,
+        "lon": 8.6661926,
+        "street_hint": "112a Messeler Straße"
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Das Rind",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://dasrind.de/event-detail/2026-11-21-introducing-nepumuk/"
+      ],
+      "link_pattern": "https://dasrind\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Rind",
+        "address": "11 Mainstraße",
+        "city": "Rüsselsheim am Main",
+        "postal_code": "65428",
+        "country": "DE",
+        "lat": 49.9959851,
+        "lon": 8.4119093
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://zwenkau.nak-nordost.de/db/637324/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://zwenkau\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Gemeinde Zwenkau",
+        "address": "1 Marktstraße",
+        "city": "Zwenkau",
+        "postal_code": "04442",
+        "country": "DE",
+        "lat": 51.2164189,
+        "lon": 12.3241488
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "ZiMMT e.V.",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://zimmt.net/programm/"
+      ],
+      "link_pattern": "https://zimmt\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "ZiMMT e.V.",
+        "address": "80 Torgauer Straße",
+        "city": "Leipzig",
+        "postal_code": "04318",
+        "lat": 51.3477677,
+        "lon": 12.4204822
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Omas for Future",
+      "category": "community",
+      "_found": "osm:ngo -> modern-events+jsonld-event",
+      "listing": [
+        "https://omasforfuture.de/kalender/"
+      ],
+      "link_pattern": "https://omasforfuture\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Omas for Future",
+        "address": "7 Henricistraße",
+        "city": "Leipzig",
+        "postal_code": "04177",
+        "lat": 51.3375856,
+        "lon": 12.3362537
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://wurzen.nak-nordost.de/db/637289/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://wurzen\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "address": "17 Muldengasse",
+        "city": "Wurzen",
+        "postal_code": "04808",
+        "country": "DE",
+        "lat": 51.3714653,
+        "lon": 12.7329632
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Neuapostolische Kirche Borna",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://borna.nak-nordost.de/db/637292/Termine/Gottesdienst"
+      ],
+      "link_pattern": "https://borna\\.nak\\-nordost\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Neuapostolische Kirche Borna",
+        "address": "9 Oststraße",
+        "city": "Borna",
+        "postal_code": "04552",
+        "country": "DE",
+        "lat": 51.1245071,
+        "lon": 12.5083519
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Stadtbücherei Nürtingen - Zweigstelle Roßdorf",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.stadtbuecherei-nuertingen.de/das-gibts/veranstaltungen/12376/lesestart/termin-10944761"
+      ],
+      "link_pattern": "https://www\\.stadtbuecherei\\-nuertingen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbücherei Nürtingen - Zweigstelle Roßdorf",
+        "lat": 48.6056634,
+        "lon": 9.3407089
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Kultur- und Kongresszentrum Sängerhalle",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://saengerhalle-stuttgart.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://saengerhalle\\-stuttgart\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kultur- und Kongresszentrum Sängerhalle",
+        "address": "29 Lindenschulstraße",
+        "city": "Stuttgart",
+        "postal_code": "70327",
+        "country": "DE",
+        "lat": 48.7767209,
+        "lon": 9.2498796
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "zakk",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://zakk.de/event-detail?event=15555"
+      ],
+      "link_pattern": "https://zakk\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "zakk",
+        "city": "Düsseldorf",
+        "postal_code": "40233",
+        "country": "DE",
+        "lat": 51.2167906,
+        "lon": 6.8105003,
+        "street_hint": "40 Fichtenstraße"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadtbibliothek Neukirchen",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.stadtbuecherei-neukirchen-vluyn.de/veranstaltungen/2977860/2026/11/26/vorlesepaten"
+      ],
+      "link_pattern": "https://www\\.stadtbuecherei\\-neukirchen\\-vluyn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbibliothek Neukirchen",
+        "city": "Neukirchen-Vluyn",
+        "postal_code": "47506",
+        "country": "DE",
+        "lat": 51.4510773,
+        "lon": 6.579238,
+        "street_hint": "5 Missionshof"
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Sankt Stephan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://heilig-geist-krefeld.de/Aktuell/veranstaltungen/a-event/Adventbasar-00002/?instancedate=1795255200000"
+      ],
+      "link_pattern": "https://heilig\\-geist\\-krefeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sankt Stephan",
+        "address": "50 Luisenstraße",
+        "city": "Krefeld",
+        "postal_code": "47799",
+        "country": "DE",
+        "lat": 51.3301147,
+        "lon": 6.5700358
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadt- und Landesbibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_142073.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadt- und Landesbibliothek",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5165234,
+        "lon": 7.4608722,
+        "street_hint": "1-3 Max-von-der-Grün-Platz",
+        "aliases": [
+          "Zentralbibliothek"
+        ]
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Museum für Kunst und Kulturgeschichte",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_126364.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum für Kunst und Kulturgeschichte",
+        "address": "3 Hansastraße",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5166724,
+        "lon": 7.4630051
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Stadtteilbibliothek Scharnhorst",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_149489.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtteilbibliothek Scharnhorst",
+        "city": "Dortmund",
+        "postal_code": "44328",
+        "lat": 51.5512153,
+        "lon": 7.5451592,
+        "street_hint": "15 Mackenrothweg"
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Tückinger Schützenverein 1872 e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://tsv1872.de/termine"
+      ],
+      "link_pattern": "https://tsv1872\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tückinger Schützenverein 1872 e.V.",
+        "address": "33a Tückingstraße",
+        "city": "Hagen",
+        "postal_code": "58135",
+        "country": "DE",
+        "lat": 51.3646985,
+        "lon": 7.4329064
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "SV Wacker Mohorn e.V.",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.sv-wacker-mohorn.de/veranstaltungen/2960302/2026/11/21/kegeln-maenner-kreis-liga"
+      ],
+      "link_pattern": "https://www\\.sv\\-wacker\\-mohorn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "SV Wacker Mohorn e.V.",
+        "address": "2 Am Tharandter Wald",
+        "city": "Wilsdruff",
+        "postal_code": "01723",
+        "lat": 50.9982268,
+        "lon": 13.4756143
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Teilhabeberatung",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://www.stadt-ag-dresden.de/veranstaltungen/3003578/2026/11/25/dresdner-trialog"
+      ],
+      "link_pattern": "https://www\\.stadt\\-ag\\-dresden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teilhabeberatung",
+        "address": "21 Hoyerswerdaer Straße",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "country": "DE",
+        "lat": 51.0608458,
+        "lon": 13.7522572
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Hetzdorfer SV 1990 e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.hetzdorfer-sv.de/veranstaltungen/2637912/2026/11/28/33.-freiberger-adventslauf"
+      ],
+      "link_pattern": "https://www\\.hetzdorfer\\-sv\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hetzdorfer SV 1990 e.V.",
+        "city": "Halsbrücke",
+        "postal_code": "09633",
+        "lat": 50.9677763,
+        "lon": 13.4623531,
+        "street_hint": "18 Am Bergschlößchen"
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Tiergarten Höckendorfer Heide",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://www.gemeinde-klingenberg.de/veranstaltungen/2891309/2026/12/04/amtsblatt-dezember"
+      ],
+      "link_pattern": "https://www\\.gemeinde\\-klingenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tiergarten Höckendorfer Heide",
+        "lat": 50.9242802,
+        "lon": 13.5924714
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Das Andere Kino e.V.",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.das-andere-kino.de/programm?filter=today"
+      ],
+      "link_pattern": "https://www\\.das\\-andere\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Das Andere Kino e.V.",
+        "address": "26A Sedanplatz",
+        "city": "Lehrte",
+        "postal_code": "31275",
+        "country": "DE",
+        "lat": 52.3740305,
+        "lon": 9.9776033
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "La Table des Matières",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.latabledesmatieres.org/agenda/lutter-par-les-mots/"
+      ],
+      "link_pattern": "https://www\\.latabledesmatieres\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Table des Matières",
+        "address": "51 Rue de l'Abbé Carton",
+        "city": "Paris",
+        "postal_code": "75014",
+        "lat": 48.8291268,
+        "lon": 2.3177166
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "galerie charlot",
+      "category": "arts",
+      "_found": "osm:gallery -> jsonld-event",
+      "listing": [
+        "https://www.galeriecharlot.com/foires/videopolis-concert-av-antoine-schmitt-2026"
+      ],
+      "link_pattern": "https://www\\.galeriecharlot\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "galerie charlot",
+        "lat": 48.8632397,
+        "lon": 2.3628679
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Américaine",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.tickettailor.com/events/americanchurchinparis/2528487"
+      ],
+      "link_pattern": "https://www\\.tickettailor\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Américaine",
+        "lat": 48.8621157,
+        "lon": 2.3068946
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Notre-Dame",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://notredameversailles.fr/actualites/evenements/"
+      ],
+      "link_pattern": "https://notredameversailles\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Notre-Dame",
+        "lat": 48.8079846,
+        "lon": 2.1290581
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Église Luthérienne de l'Ascension",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://ascension.epudf.org/evenements/nouveau-catechese-adulte-en-visio/"
+      ],
+      "link_pattern": "https://ascension\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Église Luthérienne de l'Ascension",
+        "address": "47 Rue Dulong",
+        "city": "Paris",
+        "postal_code": "75017",
+        "lat": 48.8855199,
+        "lon": 2.3157231
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Musée de Montmartre",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.museedemontmartre.fr/fr/agenda/spectacle-pied-de-nez"
+      ],
+      "link_pattern": "https://www\\.museedemontmartre\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée de Montmartre",
+        "address": "12 Rue Cortot",
+        "lat": 48.8880489,
+        "lon": 2.3407601
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Grande Mosquée de Paris",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.grandemosqueedeparis.fr/evenements"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Grande Mosquée de Paris",
+        "address": "2 bis Place du Puits de l'Ermite",
+        "city": "Paris",
+        "postal_code": "75005",
+        "lat": 48.8420708,
+        "lon": 2.3551205
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Lugdunum Musée et Théâtres Romains",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://lugdunum.grandlyon.com/fr/pages-hors-menu/agenda/evenements/dans-la-cuisine-du-chef2"
+      ],
+      "link_pattern": "https://lugdunum\\.grandlyon\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lugdunum Musée et Théâtres Romains",
+        "lat": 45.760294,
+        "lon": 4.8204842
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Médiathèque Simone de Beauvoir",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mediatheque.ramonville.fr/agenda/a-venir"
+      ],
+      "link_pattern": "https://mediatheque\\.ramonville\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Médiathèque Simone de Beauvoir",
+        "lat": 43.5488499,
+        "lon": 1.4783944
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Temple protestant de la Bastide",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://bordeauxrivedroite.epudf.org/evenements/culte/4/"
+      ],
+      "link_pattern": "https://bordeauxrivedroite\\.epudf\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Temple protestant de la Bastide",
+        "address": "18 Rue de Tresses",
+        "city": "Bordeaux",
+        "postal_code": "33100",
+        "lat": 44.844965,
+        "lon": -0.5485475
+      },
+      "_metro": "Bordeaux, France"
+    },
+    {
+      "name": "KT-Halle",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://kehler-turnerschaft.de/termine"
+      ],
+      "link_pattern": "https://kehler\\-turnerschaft\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "KT-Halle",
+        "address": "11 Oberländerstraße",
+        "city": "Kehl",
+        "postal_code": "77694",
+        "country": "DE",
+        "lat": 48.5735086,
+        "lon": 7.8157552
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Concertzaal De Kreun",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.wildewesten.be/nl/event/axelle-red"
+      ],
+      "link_pattern": "https://www\\.wildewesten\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Concertzaal De Kreun",
+        "address": "1 Conservatoriumplein",
+        "city": "Kortrijk",
+        "postal_code": "8500",
+        "lat": 50.8249284,
+        "lon": 3.2617192
+      },
+      "_metro": "Lille, France"
+    },
+    {
+      "name": "Musée de Bretagne",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.leschampslibres.fr/au-programme/ceci-est-mon-corps/50231"
+      ],
+      "link_pattern": "https://www\\.leschampslibres\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Musée de Bretagne",
+        "lat": 48.1051325,
+        "lon": -1.674684
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Bibliothèque Hélène-Charbonneau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/impression-3d-117395"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Hélène-Charbonneau",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.553483,
+        "lon": -73.6626049,
+        "street_hint": "10300 Rue Lajeunesse"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Charleroi",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/les-bougeottes-118813"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Charleroi",
+        "city": "Montréal",
+        "postal_code": "H1H 1V2",
+        "lat": 45.5965067,
+        "lon": -73.6315415,
+        "street_hint": "4740 Rue De Charleroi"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Éliane-Labastrou",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/lego-village-de-noel-120634"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Éliane-Labastrou",
+        "lat": 45.4886567,
+        "lon": -73.8823134
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Quai 5160 - Maison de la culture de Verdun",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tisse-serre-harrison-houde-121925"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Quai 5160 - Maison de la culture de Verdun",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H4H 1N8",
+        "lat": 45.4535631,
+        "lon": -73.5650821,
+        "street_hint": "5160 Boulevard LaSalle"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rosemont",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cine-club-118070"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rosemont",
+        "city": "Montréal",
+        "postal_code": "H1Y 1M4",
+        "lat": 45.5519275,
+        "lon": -73.582342,
+        "street_hint": "3131 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Robert-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/depannage-informatique-116857"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Robert-Bourassa",
+        "city": "Outremont",
+        "region": "QC",
+        "lat": 45.5178839,
+        "lon": -73.6084316,
+        "street_hint": "41 Avenue Saint-Just"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Mordecai-Richler",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/mieux-vivre-la-menopause-114086"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Mordecai-Richler",
+        "postal_code": "H2V 4G7",
+        "lat": 45.5216337,
+        "lon": -73.6017018,
+        "street_hint": "5434 Avenue du Parc"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marc-Favreau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tricot-collectif-118686"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marc-Favreau",
+        "city": "Montréal",
+        "postal_code": "H2S 0C4",
+        "lat": 45.5318321,
+        "lon": -73.5971276,
+        "street_hint": "500 Boulevard Rosemont"
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.rockyviewalliance.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "?",
+        "address": "6927 Rundlehorn Drive NE",
+        "lat": 51.0810525,
+        "lon": -113.9423423
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Arbour Lake Residents Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.arbourlake.com/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Arbour Lake Residents Hall",
+        "lat": 51.1330944,
+        "lon": -114.20257
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "St. Mary's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://stmarysottawa.ca/calendar/"
+      ],
+      "link_pattern": "https://stmarysottawa\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Mary's",
+        "address": "100 Young Street",
+        "postal_code": "K1Y 3P7",
+        "lat": 45.400651,
+        "lon": -75.7163645
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Blessed Sacrament Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://blessedsacrament.ca/calendar/"
+      ],
+      "link_pattern": "https://blessedsacrament\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Blessed Sacrament Catholic Church",
+        "address": "194 Fourth Avenue",
+        "postal_code": "K1S 2L6",
+        "lat": 45.400055,
+        "lon": -75.692966
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Canada Agriculture and Food Museum",
+      "category": "outdoors",
+      "_found": "osm:zoo -> jsonld-event",
+      "listing": [
+        "https://ingenium.ca/en/events/2025-2026-annual-public-meeting/"
+      ],
+      "link_pattern": "https://ingenium\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Canada Agriculture and Food Museum",
+        "address": "901 Prince Of Wales Drive",
+        "postal_code": "K2C 3K1",
+        "lat": 45.3880581,
+        "lon": -75.7097701
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Leefield Community League",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.leefield.ca/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Leefield Community League",
+        "city": "Edmonton",
+        "region": "AB",
+        "postal_code": "T6K 1H7",
+        "lat": 53.4691081,
+        "lon": -113.4541086,
+        "street_hint": "7910 36 Avenue NW"
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Forest Terrace Heights Community League",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.forestterrace.org/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Forest Terrace Heights Community League",
+        "city": "Edmonton",
+        "lat": 53.5429916,
+        "lon": -113.4514294,
+        "street_hint": "10150 80 Street NW"
+      },
+      "_metro": "Edmonton, Canada"
     }
   ],
   "_not_included": {

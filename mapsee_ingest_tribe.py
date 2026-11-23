@@ -93,6 +93,21 @@ def _clean(s: Optional[str]) -> Optional[str]:
     return s or None
 
 
+def _volunteer_description(source_html):
+    """Keep the organizer's participation instructions visible in the map excerpt."""
+    instructions = []
+
+    def collect(paragraph):
+        text = _clean(paragraph.group())
+        if text and re.search(r"\b(?:registration is required|must be accompanied by an adult)\b", text, re.I):
+            instructions.append(paragraph.group())
+            return " "
+        return paragraph.group()
+
+    rest = re.sub(r"<p\b[^>]*>.*?</p\s*>", collect, source_html or "", flags=re.I | re.S)
+    return _clean(" ".join(instructions + [rest]))
+
+
 def _f(v) -> Optional[float]:
     try:
         f = float(v)
@@ -220,6 +235,10 @@ def _block_stands_in(v: Dict[str, Any], vd: Dict[str, Any]) -> bool:
     Ottawa, and 336 coordless events in that sample differed from their block's
     city that way, almost all of them the same place.
     """
+    # A multi-venue calendar can identify one trailhead by the publisher's ID.
+    # An unnamed or different venue on that calendar must never inherit it.
+    if vd and vd.get("tribe_id") is not None:
+        return str(v.get("id")) == str(vd["tribe_id"])
     names = vd.get("names") if vd else None
     if not names:
         return True
@@ -717,7 +736,8 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     vd = site.get("venue") or {}
     if not _block_stands_in(v, vd):
         vd = {}                                   # not its coordinates, and not its street either
-    if lat is None or lon is None:
+    filled_from_block = lat is None or lon is None
+    if filled_from_block:
         lat, lon = _f(vd.get("lat")), _f(vd.get("lon"))
     # The plugin's own taxonomy, folded in alongside the configured default so a
     # site that files things usefully (a running club tagging "volunteer") lands
@@ -731,7 +751,8 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     # meaning local to that site and preserve recognized categories first.
     aliases = site.get("category_aliases") or {}
     extras = norm_categories(primary, labels, [aliases.get(label) for label in labels])
-    description = _clean(ev.get("description"))
+    description = (_volunteer_description(ev.get("description")) if "volunteer" in labels
+                   else _clean(ev.get("description")))
     # `website` is the organiser's free text, and a link without a scheme is no
     # link: 7 of BCUT Timisoara's 8 rows said "www.bcut.ro" and 26 of Trekanten's
     # "www.makerspace0220.dk" (2026-10-04). The event's own page is always whole.
@@ -752,6 +773,8 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
         timezone=ev.get("timezone") or None,
         venue_name=_clean(v.get("venue")) or site.get("venue_name") or vd.get("name"),
         latitude=lat, longitude=lon,
+        coords_exact=bool(filled_from_block and vd.get("coords_exact")
+                          and lat is not None and lon is not None),
         address=_clean(v.get("address")) or vd.get("address"),
         city=_clean(v.get("city")) or site.get("default_city") or vd.get("city"),
         region=(_clean(v.get("state") or v.get("stateprovince") or v.get("province"))
