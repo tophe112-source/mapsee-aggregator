@@ -1133,18 +1133,18 @@ def _start_key(ev) -> str:
     return (digits + "000000")[:14] if len(digits) >= 8 else "99999999999999"
 
 
-def _cancellations_after_limit(events, offset):
-    """Find named cancellations in the unread tail without placing more live rows.
+def _capped_feed_cancellations(events):
+    """Return the safe and ambiguous cancellation offsets in a potentially capped feed.
 
     A cancellation and a replacement can share the same date-granular
     fingerprint. The replacement may itself be past the limit. Withhold the
-    tombstone if the feed lists that day's title under another UID or start.
+    tombstone if the feed lists that day's title at the same place under another
+    UID or start. A missing/placeholder location can resolve to the venue fallback.
     This also works when a checkpoint resumes in the middle of a feed.
     """
     candidates = {}
     by_day_title = {}
-    for index in range(offset, len(events)):
-        ev = events[index]
+    for index, ev in enumerate(events):
         title = _summary(ev)
         status = ev.get("STATUS", ("", {}))[0].strip().upper()
         if status != "CANCELLED" and not strip_notice(title):
@@ -1155,18 +1155,29 @@ def _cancellations_after_limit(events, offset):
             candidates[index] = key
             by_day_title.setdefault(key, set())
     if not candidates:
-        return set()
+        return set(), set()
+
+    def place_key(ev):
+        loc = _location(ev)
+        if (not loc or PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)
+                or _all_placeholder_lines(_location_lines(ev))):
+            return ""
+        # Placing or geocoding a named LOCATION preserves this fingerprint text.
+        return normalize_text(loc)
+
     for ev in events:
         key = (_start_key(ev)[:8], normalize_text(_summary(ev)))
         if key in by_day_title and ev.get("STATUS", ("", {}))[0].strip().upper() != "CANCELLED":
-            by_day_title[key].add((ev.get("UID", ("", {}))[0], _start_key(ev)))
+            by_day_title[key].add((place_key(ev), ev.get("UID", ("", {}))[0], _start_key(ev)))
     safe = set()
     for index, key in candidates.items():
         uid = events[index].get("UID", ("", {}))[0]
-        live = by_day_title[key]
+        place = place_key(events[index])
+        live = {(other_uid, start) for other_place, other_uid, start in by_day_title[key]
+                if not place or not other_place or place == other_place}
         if not live or (uid and live == {(uid, _start_key(events[index]))}):
             safe.add(index)
-    return safe
+    return safe, candidates.keys() - safe
 
 
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
@@ -1256,18 +1267,15 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # seen twice on one date keeps one key, and the fingerprint merges it.
     uid_dates: Dict[str, Dict[str, str]] = {}
     keyed_by_date = 0
-    tail_cancellations = None
+    cancellation_offsets = None
     for offset in range(start_offset, len(events)):
         if deadline is not None and time.monotonic() >= deadline:
             raise BudgetExpired(offset, kept)
         if kept >= limit:
-            if tail_cancellations is None:
-                tail_cancellations = _cancellations_after_limit(events, offset)
-            if not tail_cancellations:
-                break
-            if offset not in tail_cancellations:
+            if cancellation_offsets is None:
+                cancellation_offsets = _capped_feed_cancellations(events)
+            if offset not in cancellation_offsets[0]:
                 continue
-            tail_cancellations.remove(offset)
         ev = events[offset]
         title = _summary(ev)
         if not title or "DTSTART" not in ev:
@@ -1286,6 +1294,14 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # lot of municipal software publishes everything, and it is not a
         # cancellation.
         is_cancelled = (ev.get("STATUS", ("", {}))[0] or "").strip().upper() == "CANCELLED"
+        named_notice = strip_notice(title)
+        # The replacement may land on the far side of the live-row cap even
+        # when the cancelled entry is first in the file.
+        if (is_cancelled or named_notice) and len(events) > limit:
+            if cancellation_offsets is None:
+                cancellation_offsets = _capped_feed_cancellations(events)
+            if offset in cancellation_offsets[1]:
+                continue
         # A TITLE THAT SAYS IT IS OFF, AT A LOCATION THAT IS ONLY A CALL. Anywhere
         # else the store's notice rule reads "CANCELLED - Seminar" in upsert and
         # tombstones "Seminar"; the online skip below runs before upsert, so with
@@ -1294,7 +1310,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # 3fc7a38). So it is a cancellation here, made the way that rule makes
         # one: the event's own title, notice=True. A listing beyond the live
         # cap likewise reaches cancel without a geocode or an upsert.
-        title_notice = (not is_cancelled and bool(strip_notice(title))
+        title_notice = (not is_cancelled and bool(named_notice)
                         and (kept >= limit or bool(ONLINE_LOC_RX.search(_location(ev) or ""))))
         is_cancelled = is_cancelled or title_notice
         # A publisher that flips STATUS often renames the event too ("CANCELLED -
