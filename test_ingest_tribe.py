@@ -634,6 +634,25 @@ check("and so does its own venue name and street",
       (rev.venue_name, rev.address))
 
 # --- a block that names itself fills only its own events ----------------------
+trailhead = dict(SITE, venue={"tribe_id": 33885, "coords_exact": True,
+                            "lat": 40.449717, "lon": -79.844138})
+for venue, expected in [({"id": 33885}, True), ({"id": "33885"}, True),
+                        ({"id": 35757}, False), ({}, False)]:
+    placed = T.to_event(dict(bare, venue=venue), trailhead)
+    check("place only the configured Pittsburgh venue ID " + str(venue),
+          (placed.latitude, placed.coords_exact) == (40.449717 if expected else None, expected),
+          (placed.latitude, placed.coords_exact))
+check("a missing block keeps the existing stand-in contract",
+      T._block_stands_in({}, None) and T._block_stands_in({}, {}), None)
+intro = "<p>" + "We care for our greenway. " * 40 + "</p>"
+rules = "<p>Volunteers under 18 must be accompanied by an adult.</p><p>Registration is required.</p>"
+workday = dict(bare, categories=[{"slug": "volunteer"}], description=intro + rules)
+placed = T.to_event(workday, trailhead)
+check("the long volunteer listing keeps the full publisher instructions ahead of the excerpt cutoff",
+      placed.description.startswith("Volunteers under 18 must be accompanied by an adult. Registration is required."), placed.description[:95])
+check("the general calendar keeps the publisher's original order",
+      T.to_event(dict(workday, categories=[]), trailhead).description.startswith("We care"), None)
+
 # UMFA's off-site trips name "Rozel Point" with no address, beside rows that say
 # only "UMFA"; a Tampere centre lists events in Oulu. With `names`, the block
 # fills what is plainly its own and nothing else - coordinates OR street, since a

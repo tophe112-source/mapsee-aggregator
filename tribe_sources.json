@@ -9381,6 +9381,14 @@
     },
     {
       "name": "Allegheny Land Trust (Pittsburgh)",
+      "venue": {
+        "tribe_id": 33885,
+        "name": "Churchill Valley Greenway",
+        "coords_exact": true,
+        "lat": 40.449717,
+        "lon": -79.844138,
+        "_source": "Directions on https://alleghenylandtrust.org/green-space/churchill-valley-greenway/ link to https://goo.gl/maps/gp21K29ywytkAkzj7 at the Beulah Road entrance."
+      },
       "category": "outdoors",
       "base_url": "https://alleghenylandtrust.org",
       "within_days": 365,
