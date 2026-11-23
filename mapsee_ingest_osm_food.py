@@ -415,17 +415,23 @@ def _overpass_one(bbox, delay=2.0, tries=4, deadline=0,
     parts = "".join(
         f'nwr["amenity"="{a}"]["name"]({s},{w},{n},{e});' for a in AMENITIES)
     q = f"[out:json][timeout:180];({parts});out tags center;"
+    return fetch_overpass_query(q, UA, delay, tries, deadline, clock, sleep)
+
+
+def fetch_overpass_query(query, user_agent, delay, tries, deadline=0,
+                         clock=time.time, sleep=time.sleep):
+    """Read one tile within the sweep's remaining request and retry budget."""
     last = None
     for attempt in range(tries):
         remaining = (deadline - clock()) if deadline else 240.0
         if deadline and remaining <= 0:
             raise TimeoutError("wall-clock budget exhausted")
         try:
-            req = urllib.request.Request(OVERPASS, data=urllib.parse.urlencode({"data": q}).encode(),
-                                         headers={"User-Agent": UA})
+            req = urllib.request.Request(OVERPASS, data=urllib.parse.urlencode({"data": query}).encode(),
+                                         headers={"User-Agent": user_agent})
             # A nominal 40-minute sweep budget is not a bound if one request may
             # still use its old 240-second timeout after the clock expires.
-            with urllib.request.urlopen(req, timeout=min(240.0, max(0.1, remaining))) as r:
+            with urllib.request.urlopen(req, timeout=min(240.0, remaining)) as r:
                 data = json.loads(r.read().decode("utf-8", "replace"))
             pause = min(delay, max(0.0, deadline - clock())) if deadline else delay
             if pause:
@@ -493,17 +499,17 @@ def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep,
         return lost
 
     lost = pass_over(cells, "")
-    if lost:
+    retry_pause = delay * 5
+    if lost and (not deadline or clock() + retry_pause < deadline):
         print(f"{label} {len(lost)} of {len(cells)} tiles did not answer — "
               f"second pass in a moment", flush=True)
-        if not deadline or clock() < deadline:
-            sleep(delay * 5)
-            lost = pass_over(lost, " [retry]")
+        sleep(retry_pause)
+        lost = pass_over(lost, " [retry]")
     if lost:
         # STILL the old rule, and it is the important one: a partial answer is
         # fine to USE and never fine to KEEP. Caching one for thirty days hides
         # the gap behind a run that reports itself healthy.
-        print(f"{label} {len(lost)} of {len(cells)} tiles did not answer TWICE — "
+        print(f"{label} {len(lost)} of {len(cells)} tiles remain unread — "
               f"this area is INCOMPLETE this run and will NOT be cached", flush=True)
     return out, not lost
 

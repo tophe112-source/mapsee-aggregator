@@ -203,6 +203,11 @@ class WorkflowContracts(unittest.TestCase):
         fill = wf.get('on', wf.get(True))['workflow_dispatch']['inputs']['fill']
         self.assertEqual((fill['type'], fill['default']), ('boolean', False))
         pull = next(s for s in wf['jobs']['pull']['steps'] if str(s.get('name', '')).startswith('Pull '))
+        self.assertEqual(wf['jobs']['pull']['needs'], 'plan')
+        self.assertIn('--max-minutes 25', pull['run'])
+        for script in ('test_ingest_osm_amenities.py', 'test_osm_food.py'):
+            self.assertIn(script, str(wf['jobs']['plan']['steps']))
+            self.assertNotIn(script, str(wf['jobs']['pull']['steps']))
         exprs = [e for e in re.findall(r'\$\{\{\s*(.*?)\s*\}\}', pull['run']) if '--frontier' in e]
         self.assertEqual(len(exprs), 1, exprs)
         held = '--frontier osm_amenity_frontier.json'

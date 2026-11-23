@@ -936,3 +936,15 @@
   workflow, so the filter matters for a person's commits only.
   `test_workflow_contracts.py` pins the seven in both lists. When a gate script
   starts reading a file, add the file to both lists in the same commit.
+
+- **The civic amenity matrix budgets 25 minutes for Overpass before syncing.**
+  On 2026-11-15 and 11-22, four city jobs reached the 60-minute runner limit
+  ([November 15](https://github.com/tophe112-source/mapsee-aggregator/actions/runs/43716324810),
+  [November 22](https://github.com/tophe112-source/mapsee-aggregator/actions/runs/45028119240)).
+  Bern and Portland each spent over 18 minutes on a single unreachable tile.
+  Fresno and Mumbai finished in 37 minutes each with zero tiles read. The
+  other 98 of 104 city jobs finished within four minutes. The civic and food
+  adapters now share the remaining-time limit on each HTTP request and retry.
+  A partial civic read saves usable rows for sync and holds the full-list
+  cursor until a complete read. The two fixture-based checks gate the matrix
+  in the plan job, once per run instead of once in each of the 52 cities.
