@@ -1,12 +1,12 @@
 {
  "civic": {
-  "country": "SE",
+  "country": "BE",
   "offset": 2140,
   "offsets": {
    "AE": 0,
    "AT": 360,
    "AU": 203,
-   "BE": 227,
+   "BE": 342,
    "CA": 240,
    "CH": 400,
    "DE": 216,
@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 180,
-  "metro_key": "US:Los Angeles",
+  "metro": 188,
+  "metro_key": "US:San Francisco",
   "stuck": {}
  },
  "osm|community_centre,library": {
@@ -264,21 +264,21 @@
  },
  "socrata": {
   "art events": 0,
-  "community events": 200,
-  "events": 0,
+  "community events": 300,
+  "events": 100,
   "farmers markets": 0,
   "festivals": 0,
   "fitness classes": 0,
   "library events": 0,
-  "library programs": 100,
-  "parks events": 100,
+  "library programs": 200,
+  "parks events": 0,
   "races permits": 0,
   "recreation classes": 0,
-  "recreation programs": 300,
+  "recreation programs": 400,
   "road races": 0,
-  "special events": 100,
-  "volunteer": 200,
-  "wellness programs": 400,
-  "youth programs": 200
+  "special events": 200,
+  "volunteer": 300,
+  "wellness programs": 500,
+  "youth programs": 0
  }
 }

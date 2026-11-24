@@ -78984,5 +78984,95 @@
     "geocode_suffix": ", Los Angeles, United States",
     "limit": 300,
     "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Zen Buddhist Temple of Chicago",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7e7f79254d13f6dbff0ce43ea1588f141e86cb286dfb052153396bf67d85c292%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Evanston, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Anita Willets Burnham Log House",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.winnetkahistory.org/virtual-programs/?ical=1",
+    "geocode_suffix": ", Winnetka, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "First Baptist Church Farmers Branch",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/813e80f34f8fbc08a7f9ad235d57c34854e48b04efcd219c85eb1065907a9f61%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Farmers Branch, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Episcopal Church of the Atonement",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eihsbg8sh1ag5akt7ght9u9400%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Arlington Forest Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> event-organiser",
+    "url": "https://www.arlingtonforestclub.org/?feed=eo-events",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Georgia Tech RoboJackets",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2aaa885d21da5118ec199eb45af2ad4e79d17294de319d1e42ee937e366abe47%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "St. Mary of Egypt Orthodox Church Parish Hall",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q08c09pub1grn7pfmeaucku01k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Norcross, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Saint Patrick Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0q4c2jjvc04fppobouoag0h794%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Norcross, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://uumedford.org/event-calendar/?ical=1",
+    "geocode_suffix": ", Medford",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Grace Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gracemedford.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Medford",
+    "limit": 300,
+    "_metro": "Boston, United States"
   }
 ]

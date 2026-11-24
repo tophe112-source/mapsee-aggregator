@@ -49627,6 +49627,138 @@
         "lon": -118.2459831
       },
       "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Chaudfontaine",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chaudfontaine.be",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Chaudfontaine",
+      "default_region": null,
+      "default_country": "BE",
+      "_metro": "Chaudfontaine, Belgium"
+    },
+    {
+      "name": "Chicago History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chicagohistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chicago History Museum",
+        "address": "1601 North Clark Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60614",
+        "country": "US",
+        "lat": 41.9119908,
+        "lon": -87.6315209
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Franklin Park Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.fppld.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Franklin Park Public Library",
+        "city": "Franklin Park",
+        "region": "IL",
+        "postal_code": "60131",
+        "lat": 41.9296444,
+        "lon": -87.882819,
+        "street_hint": "10311 West Grand Avenue"
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Catholic Charities of the Archdiocese of Chicago",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.catholiccharities.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Catholic Charities of the Archdiocese of Chicago",
+        "address": "721 North LaSalle Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60654",
+        "lat": 41.8952197,
+        "lon": -87.6321593
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "StillFire Brewing Smyrna",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://stillfirebrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "StillFire Brewing Smyrna",
+        "address": "2725 King Street Southeast",
+        "lat": 33.8862693,
+        "lon": -84.5155945
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "John Canot House and Visitor Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://historicbeverly.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "John Canot House and Visitor Center",
+        "address": "117 Cabot Street",
+        "city": "Beverly",
+        "region": "MA",
+        "lat": 42.5458835,
+        "lon": -70.8799401
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Loring-Greenough House",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://loring-greenough.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Loring-Greenough House",
+        "address": "12 South Street",
+        "city": "Jamaica Plain",
+        "region": "MA",
+        "postal_code": "02130",
+        "lat": 42.3095548,
+        "lon": -71.1148872
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Needham History Center & Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://needhamhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Needham History Center & Museum",
+        "address": "1147 Central Avenue",
+        "lat": 42.2819849,
+        "lon": -71.2539998
+      },
+      "_metro": "Boston, United States"
     }
   ],
   "_not_included": {

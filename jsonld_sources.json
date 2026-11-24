@@ -40432,6 +40432,118 @@
         ]
       },
       "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Huntington Bank Pavilion at Northerly Island",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.northerlyislandamphitheater.com/events/"
+      ],
+      "link_pattern": "https://www\\.northerlyislandamphitheater\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Huntington Bank Pavilion at Northerly Island",
+        "address": "1300 South Lynn White Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60605",
+        "lat": 41.8631892,
+        "lon": -87.6086861
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Irving Convention Center at Las Colinas",
+      "category": "community",
+      "_found": "osm:conference_centre -> jsonld-event",
+      "listing": [
+        "https://www.irvingtexas.com/event/mining-disrupt/41506/"
+      ],
+      "link_pattern": "https://www\\.irvingtexas\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Irving Convention Center at Las Colinas",
+        "address": "500 West Las Colinas Boulevard",
+        "city": "Irving",
+        "region": "TX",
+        "postal_code": "75039",
+        "lat": 32.8780082,
+        "lon": -96.9431886
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "Ukraine House",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.ukrainehouse.us/news-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Ukraine House",
+        "lat": 38.9179149,
+        "lon": -77.0493704,
+        "street_hint": "2134 Kalorama Road Northwest"
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Cowart Family YMCA",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.ymcaatlanta.org:443/events/breakfast-santa-0"
+      ],
+      "link_pattern": "https://www\\.ymcaatlanta\\.org:443/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cowart Family YMCA",
+        "address": "3692 Ashford Dunwoody Road Northeast",
+        "lat": 33.8990024,
+        "lon": -84.3333204
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "East Lake YMCA",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.ymcaatlanta.org/events/breakfast-santa-0"
+      ],
+      "link_pattern": "https://www\\.ymcaatlanta\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "East Lake YMCA",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30317",
+        "lat": 33.7460871,
+        "lon": -84.3151195,
+        "street_hint": "275 Eva Davis Way Southeast"
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Metropolitan Council for Educational Opportunity, Inc (METCO)",
+      "category": "community",
+      "_found": "osm:ngo -> wix+jsonld-event",
+      "listing": [
+        "https://www.metcoinc.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Metropolitan Council for Educational Opportunity, Inc (METCO)",
+        "lat": 42.3192737,
+        "lon": -71.0967989
+      },
+      "_metro": "Boston, United States"
     }
   ],
   "_not_included": {

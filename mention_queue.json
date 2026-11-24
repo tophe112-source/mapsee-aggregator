@@ -216,14 +216,50 @@
     "brisasia festival": {
       "dates": [],
       "first_seen": "2026-11-12",
-      "last_seen": "2026-11-18",
+      "last_seen": "2026-11-24",
       "name": "BrisAsia Festival",
       "ref_keys": [
+        "0b9c44f312ae",
+        "0e0519d4cf47",
+        "1237cc32a57f",
+        "1250e4ca016d",
+        "15a6781699d3",
+        "18c4af52ef8c",
+        "22981baca62c",
+        "27bc87a2eb96",
         "3cb7e7650434",
+        "7d0ebd02f1f9",
+        "8483e81fd7e1",
         "88f7183722c0",
-        "da8684b8ae8f"
+        "96fc8d3b1ac3",
+        "9cfe592769b9",
+        "adab3aca01b0",
+        "b36fe16fd9b2",
+        "b4af08290a4d",
+        "d30c6f63a458",
+        "d6842e5704a9",
+        "d72a89483ce1",
+        "d96546b2ef38",
+        "da491e39054a",
+        "da8684b8ae8f",
+        "de886b95795d",
+        "f74b98a0e47c",
+        "fc7329b96805",
+        "fd3bed4bd29f"
       ],
       "referrers": [
+        {
+          "source": "ics:brisbane-creative-events-(brisbane,-australia)",
+          "start": "2027-01-29",
+          "title": "Vietnamese Lunar New Year Festival",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290285"
+        },
+        {
+          "source": "ods:Brisbane Creative Events (Brisbane)",
+          "start": "2027-01-29",
+          "title": "Vietnamese Lunar New Year Festival",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290285"
+        },
         {
           "source": "ods:Brisbane City Council Music Events (Brisbane)",
           "start": "2027-02-06",
@@ -245,7 +281,7 @@
       ],
       "sample": "Bookings required: Yes BrisAsia Comedy Gala is presented as part of BrisAsia Festival . Stories, surprises and seriously opinionated Aunties are taking over the stage for one unforgettable night! Discover multicultural and multilingual improv comedy inspired by real stories from Asian-Australian",
       "state": "pending",
-      "times_seen": 3,
+      "times_seen": 27,
       "venue": null
     },
     "cascadia nw arts and music festival": {
@@ -421,6 +457,27 @@
         }
       ],
       "sample": "19u00 deuren open 19u30 inleiding 20u15 start film Vertoning in het kader van Dagen van de Sociale Film festival.",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "day one film festival": {
+      "dates": [],
+      "first_seen": "2026-11-24",
+      "last_seen": "2026-11-24",
+      "name": "Day One Film Festival",
+      "ref_keys": [
+        "04f32576b0b9"
+      ],
+      "referrers": [
+        {
+          "source": "ics:wellington-city-libraries-(wellington,-new-zealand)",
+          "start": "2026-12-04",
+          "title": "Since Day One Screening",
+          "url": "https://WellingtonCityLibraries.trumba.com/Since-Day-One-Screening/E214323319"
+        }
+      ],
+      "sample": "Dir: Conor Bowden This screening is part of the Day One Film Festival . This event is for film aficionados aged 16+. Please note that some films shown will have an M rating.",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -1101,7 +1158,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-22",
+      "last_seen": "2026-11-24",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -1111,6 +1168,7 @@
         "3b5e9269f555",
         "45fa3cbe39f7",
         "53f3d138558c",
+        "5f9e3039ac8a",
         "65b459ee18ec",
         "6fbd7b8d2f83",
         "75f0f4d0868c",
@@ -1158,7 +1216,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 19,
+      "times_seen": 20,
       "venue": null
     },
     "melt festival": {
@@ -1681,6 +1739,27 @@
       ],
       "sample": "A community screening of The River Runs On (2023, NR, 55 min) as part of the 2027 Richmond Environmental Film Festival. This documentary film follows conservationists throughout Southern Appalachia as they struggle to manage two of the most important national forest in America- the Pisgah and Nantah",
       "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "richmond poetry fest": {
+      "dates": [],
+      "first_seen": "2026-11-24",
+      "last_seen": "2026-11-24",
+      "name": "Richmond Poetry Fest",
+      "ref_keys": [
+        "2f353ab99a03"
+      ],
+      "referrers": [
+        {
+          "source": "ics:richmond-public-library-(richmond,-va)",
+          "start": "2027-03-26",
+          "title": "Poetry in Motion: A Screening of Poetic Short Films",
+          "url": "https://rvalibrary.libcal.com/event/17945043"
+        }
+      ],
+      "sample": "audience members will vote on the winner in this first-ever Richmond Poetry Festival poetic short film contest! Part of Richmond Poetry Fest: Richmond Poetry Fest hosted by the Visual Arts Center of Richmond is an event co-created by VisArts staff and a group of former and current",
+      "state": "covered",
       "times_seen": 1,
       "venue": null
     },
