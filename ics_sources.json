@@ -79074,5 +79074,141 @@
     "geocode_suffix": ", Medford",
     "limit": 300,
     "_metro": "Boston, United States"
+  },
+  {
+    "name": "Gethsemane Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40urbanfaith.org/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Rainy Day Collective",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8bbf88579abb8c6236068582bb258b56ed88db852f1b1303b9b26907990d5a17%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis",
+    "limit": 300,
+    "venue": {
+      "name": "Rainy Day Collective",
+      "city": "Minneapolis",
+      "lat": 44.9485358,
+      "lon": -93.2168909,
+      "street_hint": "3820 East Lake Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "TU Dance Center",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tudance.org_tc8s8fbosdji0rcdppujkr1a44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Paul, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Slavic Baptist Church of Shakopee",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4eki52lme2gotnif3j41mo5e7o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Shakopee, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Saint Gregory the Great Catholic Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9cd7v7fcsi25gtbdt7uuu607tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Apostolic Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_hkg5180mjrjt23gljqbpquhtp8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aurora",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Crossroads Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.visitcrossroads.com/feeds/events.ics?EventCategory=b4e90612-12cf-48e2-874a-7f75ce15aa45&amp;startTime=2026-11-24T20%3A49%3A12.005Z&amp;recurrence=true",
+    "geocode_suffix": ", Parker, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "The Shop at MATTER",
+    "category": "learning",
+    "_found": "osm:books -> libcal+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/morematter.com_qv6rjpnbkdm8q0t494ein8i4dk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Denver, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Saint Anne Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8pagcevrv93lfq4i7550l5qrt8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arvada, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Cultural Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://hallandalebeachfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+    "geocode_suffix": ", Hallandale Beach, FL",
+    "limit": 300,
+    "venue": {
+      "name": "Cultural Community Center",
+      "city": "Hallandale Beach",
+      "region": "FL",
+      "postal_code": "33009",
+      "lat": 25.9813667,
+      "lon": -80.1437533,
+      "street_hint": "410 Southeast 3rd Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Miami, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Center Grove Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j56b85s9rkvkuq442kirupaqs0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edwardsville, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "North Hills Community Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nhcbc.com_633f1rnshaehvlpabdnpf8hskc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, United States",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Bible Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/biblebaptistministries.org_f8g44s38eomeq1t9k5d2j1g198%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Matthews, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
   }
 ]

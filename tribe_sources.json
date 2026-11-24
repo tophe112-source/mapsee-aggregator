@@ -49759,6 +49759,276 @@
         "lon": -71.2539998
       },
       "_metro": "Boston, United States"
+    },
+    {
+      "name": "Seattle Buddhist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://seattlebetsuin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seattle Buddhist Church",
+        "address": "1427 South Main Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98144",
+        "lat": 47.5997688,
+        "lon": -122.3129675
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Highline Heritage Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://highlinemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Highline Heritage Museum",
+        "address": "819 Southwest 152nd Street",
+        "city": "Burien",
+        "region": "WA",
+        "postal_code": "98166",
+        "lat": 47.466535,
+        "lon": -122.3454283
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Adventures in Dance",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.adventuresindance.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adventures in Dance",
+        "address": "1500 West Littleton Boulevard",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80120",
+        "lat": 39.6115285,
+        "lon": -105.0049355
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Bridgeway Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://bridgeway.us",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bridgeway Church",
+        "address": "5201 East Warren Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80222",
+        "lat": 39.6770135,
+        "lon": -104.9270896
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Science Discovery Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://zootampa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Science Discovery Center",
+        "lat": 28.012569,
+        "lon": -82.471464
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Great Explorations Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://greatex.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Great Explorations Children's Museum",
+        "address": "1925 4th Street North",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33704",
+        "country": "US",
+        "lat": 27.7903578,
+        "lon": -82.6379044
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Studio@620",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://thestudioat620.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Studio@620",
+        "address": "620 1st Avenue South",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "lat": 27.7700191,
+        "lon": -82.6422264
+      },
+      "_metro": "Tampa, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Florida Museum of Photographic Arts",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fmopa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Florida Museum of Photographic Arts",
+        "address": "1630 East 7th Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33605",
+        "lat": 27.9604911,
+        "lon": -82.4406997
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "South Tampa Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stfchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Tampa Fellowship",
+        "address": "97 Biscayne Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33606",
+        "lat": 27.9259963,
+        "lon": -82.4547458
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Saint Petersburg Museum of History",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://historystpete.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Petersburg Museum of History",
+        "address": "2nd Avenue Northeast",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "country": "US",
+        "lat": 27.7739878,
+        "lon": -82.6305956
+      },
+      "_metro": "Tampa, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Mead Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://meadgarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mead Botanical Garden",
+        "address": "1300 South Denning Drive",
+        "city": "Winter Park",
+        "region": "FL",
+        "postal_code": "32789",
+        "lat": 28.5843818,
+        "lon": -81.3583405
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "The Park Expo & Conference Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://theparkexponc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Park Expo & Conference Center",
+        "address": "800 Briar Creek Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28205",
+        "lat": 35.206037,
+        "lon": -80.7992208
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Myers Park United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://myersparkumc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Myers Park United Methodist Church",
+        "address": "1501 Queens Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28207",
+        "lat": 35.1946221,
+        "lon": -80.8270274
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "U.S. National Whitewater Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://whitewater.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "U.S. National Whitewater Center",
+        "address": "5000 Whitewater Center Parkway",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28214",
+        "lat": 35.2787711,
+        "lon": -80.9950096
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Sullenberger Aviation Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sullenbergeraviation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sullenberger Aviation Museum",
+        "address": "4108 Minuteman Way",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28208",
+        "lat": 35.2248389,
+        "lon": -80.9331256
+      },
+      "_metro": "Charlotte, United States"
     }
   ],
   "_not_included": {

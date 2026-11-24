@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 188,
-  "metro_key": "US:San Francisco",
+  "metro": 201,
+  "metro_key": "US:Portland OR",
   "stuck": {}
  },
  "osm|community_centre,library": {

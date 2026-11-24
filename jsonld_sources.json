@@ -40544,6 +40544,65 @@
         "lon": -71.0967989
       },
       "_metro": "Boston, United States"
+    },
+    {
+      "name": "Mic Drop Comedy Detroit",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.micdropcomedydetroit.com/shows/384160"
+      ],
+      "link_pattern": "https://www\\.micdropcomedydetroit\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mic Drop Comedy Detroit",
+        "address": "2301 Woodward Avenue",
+        "city": "Detroit",
+        "region": "MI",
+        "postal_code": "48201",
+        "lat": 42.3389156,
+        "lon": -83.0527709
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Frederica S. Wilson Regional Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17480923"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Frederica S. Wilson Regional Library",
+        "city": "Miami Gardens",
+        "region": "FL",
+        "postal_code": "33056",
+        "lat": 25.9417736,
+        "lon": -80.2427282,
+        "street_hint": "2455 Northwest 183rd Street"
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Orlando North Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://orlandonorth.com/events2/"
+      ],
+      "link_pattern": "https://orlandonorth\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Orlando North Community Church",
+        "address": "1021 Douglas Avenue",
+        "city": "Altamonte Springs",
+        "postal_code": "32714",
+        "lat": 28.684512,
+        "lon": -81.389436
+      },
+      "_metro": "Orlando, United States"
     }
   ],
   "_not_included": {

@@ -11105,6 +11105,66 @@
         "lon": -73.9449809
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "queer/bar",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://thequeerbar.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "queer/bar",
+        "address": "1518 11th Avenue",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98122",
+        "lat": 47.6147799,
+        "lon": -122.3179499
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Gambit Brewing",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://gambitbrewingco.com/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Gambit Brewing",
+        "address": "141 4th Street East",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55101",
+        "lat": 44.947066,
+        "lon": -93.0894472
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Elm Creek Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.elmcreekbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Elm Creek Brewing",
+        "lat": 45.1625107,
+        "lon": -93.3903945
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Bauhaus Brew Labs",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.bauhausbrewlabs.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bauhaus Brew Labs",
+        "lat": 45.0007944,
+        "lon": -93.2447193
+      },
+      "_metro": "Minneapolis, United States"
     }
   ],
   "_not_included": {
