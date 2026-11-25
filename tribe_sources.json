@@ -50029,6 +50029,25 @@
         "lon": -80.9331256
       },
       "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Sierra 2 Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://sierra2.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sierra 2 Center",
+        "city": "Sacramento",
+        "region": "CA",
+        "postal_code": "95818",
+        "lat": 38.5531522,
+        "lon": -121.4830519,
+        "street_hint": "2791 24th Street"
+      },
+      "_metro": "Sacramento, United States",
+      "crawl_delay": 10.0
     }
   ],
   "_not_included": {

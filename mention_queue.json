@@ -720,6 +720,48 @@
       "times_seen": 1,
       "venue": null
     },
+    "freepsy festival": {
+      "dates": [],
+      "first_seen": "2026-11-25",
+      "last_seen": "2026-11-25",
+      "name": "FreePsy festival",
+      "ref_keys": [
+        "643867466e2a"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-29",
+          "title": "Freud’s Afternoon Session – Free Clinics, past, present and future",
+          "url": "https://www.freud.org.uk/event/freuds-afternoon-session-free-clinics-past-present-and-future/"
+        }
+      ],
+      "sample": "For this event, held in conjunction with the FreePsy festival at the Freud Museum, Professor Raluca Soreanu will be in conversation with the Freud Museum Research Manager Tom DeRose to discuss the history of free psychoanalytic clinics, starting with Freud’s famous ‘Budapest address’ of 1918, and",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "grand organ festival": {
+      "dates": [],
+      "first_seen": "2026-11-25",
+      "last_seen": "2026-11-25",
+      "name": "Grand Organ Festival",
+      "ref_keys": [
+        "f6f7e65ba27f"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-28",
+          "title": "New Bristol Sinfonia",
+          "url": "https://bristol-cathedral.co.uk/event/new-bristol-sinfonia/"
+        }
+      ],
+      "sample": "Part of The Grand Organ Festival, this concert marks an exciting moment in the life of the Cathedral’s newly restored organ, bringing together musicians from across Bristol for a performance of some of the most inspiring works ever written for the instrument. The evening opens with Widor’s",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "head on photo festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -1158,7 +1200,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-24",
+      "last_seen": "2026-11-25",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -1166,6 +1208,7 @@
         "33e7eba1bcea",
         "3933167fe8cf",
         "3b5e9269f555",
+        "417078755836",
         "45fa3cbe39f7",
         "53f3d138558c",
         "5f9e3039ac8a",
@@ -1180,6 +1223,7 @@
         "c9faf81ffa64",
         "cb0472f9248d",
         "d4597d62d50a",
+        "e2a599ee48cd",
         "e3f105cce684"
       ],
       "referrers": [
@@ -1216,7 +1260,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 20,
+      "times_seen": 22,
       "venue": null
     },
     "melt festival": {
@@ -1286,12 +1330,15 @@
       "venue": null
     },
     "miami art week": {
-      "dates": [],
+      "dates": [
+        "2026-12-04"
+      ],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-18",
+      "last_seen": "2026-11-25",
       "name": "Miami Art Week",
       "ref_keys": [
         "2c3a5636a685",
+        "4941f0ccbaf7",
         "513dacda7b86",
         "66186a12edf1",
         "92ba667cb352",
@@ -1331,7 +1378,7 @@
       ],
       "sample": "t Rockaway Beach in New York City, Public Art Fund will bring a new presentation of Between Tides to Miami Beach during Miami Art Week and Art Basel Miami Beach. From November 29 through December 6, 2026, six playable sculptural ping-pong tables by Moko Fukuyama, Ilana Harris-Babou, Las Hermanas Igl",
       "state": "covered",
-      "times_seen": 5,
+      "times_seen": 6,
       "venue": null
     },
     "more than a festival": {
@@ -1717,6 +1764,27 @@
         }
       ],
       "sample": "During the 2026 PhotoNOLA Festival (December 2 – 6, 2026), admission to NOMA is free with presentation of a PhotoNOLA participant pass at the admissions desk. Schedule of Events 5:30-6:15 PM | Zita and Luther Templeman Galleries, Second Floor Gallery Talk with Brian Piper, NOMA’s Freeman Family Cura",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "rebalance bath festival of wellbeing drawing": {
+      "dates": [],
+      "first_seen": "2026-11-25",
+      "last_seen": "2026-11-25",
+      "name": "ReBalance Bath Festival of Wellbeing Drawing",
+      "ref_keys": [
+        "2236eda6b620"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2027-02-02",
+          "title": "The art of mindfulness",
+          "url": "https://www.brlsi.org/whatson/the-art-of-mindfulness/"
+        }
+      ],
+      "sample": "Part of the ReBalance Bath Festival of Wellbeing Drawing, Colour and the Present Moment Join artist and drawing tutor Jane Hildreth for a creative three-hour workshop exploring how drawing can become a way of slowing down, looking more closely and being present. We will explore the relationship",
       "state": "pending",
       "times_seen": 1,
       "venue": null

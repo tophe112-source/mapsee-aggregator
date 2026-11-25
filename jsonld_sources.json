@@ -40603,6 +40603,47 @@
         "lon": -81.389436
       },
       "_metro": "Orlando, United States"
+    },
+    {
+      "name": "Museum of Wisconsin Art On The Lake",
+      "category": "arts",
+      "_found": "osm:gallery -> modern-events+jsonld-event",
+      "listing": [
+        "https://wisconsinart.org/events/"
+      ],
+      "link_pattern": "https://wisconsinart\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Museum of Wisconsin Art On The Lake",
+        "address": "1800 North Prospect Avenue",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53202",
+        "lat": 43.0532162,
+        "lon": -87.8896264
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Elevated Acre",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.cropsontopurbanfarm.com/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Elevated Acre",
+        "address": "3700 North Fratney Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53212",
+        "lat": 43.0840635,
+        "lon": -87.901009
+      },
+      "_metro": "Milwaukee, United States"
     }
   ],
   "_not_included": {

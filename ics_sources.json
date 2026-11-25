@@ -79210,5 +79210,57 @@
     "geocode_suffix": ", Matthews, NC",
     "limit": 300,
     "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Sharonville Community Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.sharonville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Cross Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b7cgkd2c2fdi11essjinnubdg0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Austin Zen Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/inconceivablejoy%40austinzencenter.org/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Unity Church of Austin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_bafc05b16eaa3c374ccfe99f1d36d50ce014c4163bba5edb75bc03da6a71851c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "The Milwaukee Turners",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/membership%40milwaukeeturners.org/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "venue": {
+      "name": "The Milwaukee Turners",
+      "lat": 43.0437045,
+      "lon": -87.9155779,
+      "pin_unnamed": false
+    },
+    "_metro": "Milwaukee, United States"
   }
 ]
