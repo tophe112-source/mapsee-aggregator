@@ -79262,5 +79262,50 @@
       "pin_unnamed": false
     },
     "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "First Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f6246aae4d5ea3742b7d44c6ecccfceb912b87821bbd07c7a5572d369af06fcd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hartford, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Covenant Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cpcbarn.org_jjvdscetgb4vmsv2if5joqoui4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Simsbury, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Our Lady of Mount Carmel Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ourladyqueenofangels.net_vf0rj03s7tl44h88e9parfd75g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Meriden, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Portland Historical Society",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/370ef20eel0pjnm5aitsm57fog%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Saint Joseph Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dl3ti37ifonm3oal14o69l8ji0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Windsor, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
   }
 ]

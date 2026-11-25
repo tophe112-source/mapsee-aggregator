@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 214,
-  "metro_key": "US:Salt Lake City",
+  "metro": 233,
+  "metro_key": "US:Des Moines",
   "stuck": {}
  },
  "osm|community_centre,library": {

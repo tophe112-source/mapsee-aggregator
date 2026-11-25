@@ -40644,6 +40644,86 @@
         "lon": -87.901009
       },
       "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Planet of the Tapes",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.planetofthetapes.biz/shows/390712"
+      ],
+      "link_pattern": "https://www\\.planetofthetapes\\.biz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Planet of the Tapes",
+        "address": "640 Barret Avenue",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40204",
+        "lat": 38.2461252,
+        "lon": -85.733507
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Unitarian Univeralist Church of Jacksonville",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://uucj.org/events/"
+      ],
+      "link_pattern": "https://uucj\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Unitarian Univeralist Church of Jacksonville",
+        "address": "7405 Arlington Expressway Service Road",
+        "city": "Jacksonville",
+        "region": "FL",
+        "postal_code": "32211",
+        "lat": 30.3282179,
+        "lon": -81.5808239
+      },
+      "_metro": "Jacksonville, United States"
+    },
+    {
+      "name": "Second Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://secondbaptistrva.org/events/"
+      ],
+      "link_pattern": "https://secondbaptistrva\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Second Baptist Church",
+        "address": "9614 River Road",
+        "city": "Richmond",
+        "region": "VA",
+        "postal_code": "23229",
+        "lat": 37.5842488,
+        "lon": -77.6022297
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "Joslyn Art Museum",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://joslyn.org/events/art-cart-6/"
+      ],
+      "link_pattern": "https://joslyn\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Joslyn Art Museum",
+        "address": "2200 Dodge Street",
+        "city": "Omaha",
+        "region": "NE",
+        "postal_code": "68102-1292",
+        "lat": 41.2604599,
+        "lon": -95.9457345
+      },
+      "_metro": "Omaha, United States"
     }
   ],
   "_not_included": {
