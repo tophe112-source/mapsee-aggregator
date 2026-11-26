@@ -73,6 +73,25 @@
         "lon": -122.295347
       },
       "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Dazzle Jazz Restaurant & Lounge",
+      "category": "music",
+      "_found": "osm:music_venue -> venuepilot",
+      "account_ids": [
+        15
+      ],
+      "within_days": 120,
+      "venue": {
+        "name": "Dazzle Jazz Restaurant & Lounge",
+        "address": "1080 14th Street",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80202",
+        "lat": 39.7456916,
+        "lon": -104.9980657
+      },
+      "_metro": "Denver, United States"
     }
   ],
   "_not_included": {

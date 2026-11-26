@@ -720,6 +720,212 @@
       "within_days": 180,
       "max": 500,
       "_found": "discover gancio:fedidb 2026-11-18"
+    },
+    {
+      "name": "BALTIMORE ASK A PUNK",
+      "base_url": "https://baltimore.askapunk.net",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "LA MANIFESTIVE 68",
+      "base_url": "https://lamanifestive.fr",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "France",
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Convócala Extremadura",
+      "base_url": "https://extremadura.giskara.net",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "BMorePunk Events",
+      "base_url": "https://events.bmorepunk.social",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "gancio.invegendo.org",
+      "base_url": "https://gancio.invegendo.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Zaragoza",
+      "base_url": "https://zgz.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "PoPoPo ~ Pontino PoPolare",
+      "base_url": "https://popopo.soon.it",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Italy",
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Agenda infogauchO",
+      "base_url": "https://agenda.info-gaucho.fr",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "France",
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "c'ami fa?",
+      "base_url": "https://camifa.net",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "ЗВО Манифестације",
+      "base_url": "https://manifestacije.zvo.hr",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "gancio.daghe",
+      "base_url": "https://gancio.daghe.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Ask A Punk Aotearoa",
+      "base_url": "https://askapunk.nz",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "New Zealand",
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Dresden Beer Friends",
+      "base_url": "https://dresden.beer",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Plan Undernet",
+      "base_url": "https://plan.undernet.uy",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Actividades de A Mariña",
+      "base_url": "https://actividades.amarinha.gal",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Backbord",
+      "base_url": "https://backbord-hl.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Eventos Exactas",
+      "base_url": "https://cartelera.inexactas.ar",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Fem Comboi",
+      "base_url": "https://femcomboi.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "live-siegen",
+      "base_url": "https://live-siegen.de",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Germany",
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Scruscio",
+      "base_url": "https://scruscio.org",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Gadigal AAP",
+      "base_url": "https://sydney.askapunk.au",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "Australia",
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Event Nemo Earth",
+      "base_url": "https://event.nemo.earth",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "NU31-Events",
+      "base_url": "https://events.nu31.space",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Acontece en Ferrol",
+      "base_url": "https://ferrol.acontece.gal",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
+    },
+    {
+      "name": "Acontece en Lugo",
+      "base_url": "https://lugo.acontece.gal",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "_found": "discover gancio:fedidb 2026-11-25"
     }
   ],
   "_tried_and_dead": {

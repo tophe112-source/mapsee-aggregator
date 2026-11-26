@@ -88,7 +88,7 @@ try:
 except ImportError:  # pragma: no cover
     ZoneInfo = None
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, normalize_text, notice_reason, strip_notice
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 import mapsee_gcal
 
@@ -1133,6 +1133,58 @@ def _start_key(ev) -> str:
     return (digits + "000000")[:14] if len(digits) >= 8 else "99999999999999"
 
 
+def _capped_feed_cancellations(events):
+    """Return the safe and ambiguous cancellation offsets in a potentially capped feed.
+
+    A cancellation and a replacement can share the same date-granular
+    fingerprint. The replacement may itself be past the limit. Withhold the
+    tombstone if the feed lists that day's title at the same place under another
+    UID or start. A missing/placeholder location can resolve to the venue fallback.
+    This also works when a checkpoint resumes in the middle of a feed.
+    """
+    safe = set()
+    candidates = {}
+    by_day_title = {}
+    for index, ev in enumerate(events):
+        title = _summary(ev)
+        status = ev.get("STATUS", ("", {}))[0].strip().upper()
+        if status != "CANCELLED":
+            # A standalone "Cancelled - Chess" notice names another listing
+            # and normally has a different UID. EventStore gives that notice
+            # precedence over the original, even if the source still lists it.
+            if strip_notice(title) and "DTSTART" in ev:
+                safe.add(index)
+            continue
+        title = strip_notice(title) if notice_reason(title) else title
+        if title and "DTSTART" in ev:
+            key = (_start_key(ev)[:8], normalize_text(title))
+            candidates[index] = key
+            by_day_title.setdefault(key, set())
+    if not candidates:
+        return safe, set()
+
+    def place_key(ev):
+        loc = _location(ev)
+        if (not loc or PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)
+                or _all_placeholder_lines(_location_lines(ev))):
+            return ""
+        # Placing or geocoding a named LOCATION preserves this fingerprint text.
+        return normalize_text(loc)
+
+    for ev in events:
+        key = (_start_key(ev)[:8], normalize_text(_summary(ev)))
+        if key in by_day_title and ev.get("STATUS", ("", {}))[0].strip().upper() != "CANCELLED":
+            by_day_title[key].add((place_key(ev), ev.get("UID", ("", {}))[0], _start_key(ev)))
+    for index, key in candidates.items():
+        uid = events[index].get("UID", ("", {}))[0]
+        place = place_key(events[index])
+        live = {(other_uid, start) for other_place, other_uid, start in by_day_title[key]
+                if not place or not other_place or place == other_place}
+        if not live or (uid and live == {(uid, _start_key(events[index]))}):
+            safe.add(index)
+    return safe, candidates.keys() - safe
+
+
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
     started, photon = time.perf_counter(), _photon_count()
     details_reader = None
@@ -1220,11 +1272,15 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # seen twice on one date keeps one key, and the fingerprint merges it.
     uid_dates: Dict[str, Dict[str, str]] = {}
     keyed_by_date = 0
+    cancellation_offsets = None
     for offset in range(start_offset, len(events)):
-        if kept >= limit:
-            break
         if deadline is not None and time.monotonic() >= deadline:
             raise BudgetExpired(offset, kept)
+        if kept >= limit:
+            if cancellation_offsets is None:
+                cancellation_offsets = _capped_feed_cancellations(events)
+            if offset not in cancellation_offsets[0]:
+                continue
         ev = events[offset]
         title = _summary(ev)
         if not title or "DTSTART" not in ev:
@@ -1243,17 +1299,24 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # lot of municipal software publishes everything, and it is not a
         # cancellation.
         is_cancelled = (ev.get("STATUS", ("", {}))[0] or "").strip().upper() == "CANCELLED"
+        named_notice = strip_notice(title)
+        # The replacement may land on the far side of the live-row cap even
+        # when the cancelled entry is first in the file.
+        if (is_cancelled or named_notice) and len(events) > limit:
+            if cancellation_offsets is None:
+                cancellation_offsets = _capped_feed_cancellations(events)
+            if offset in cancellation_offsets[1]:
+                continue
         # A TITLE THAT SAYS IT IS OFF, AT A LOCATION THAT IS ONLY A CALL. Anywhere
         # else the store's notice rule reads "CANCELLED - Seminar" in upsert and
         # tombstones "Seminar"; the online skip below runs before upsert, so with
         # no STATUS the row written before ONLINE_LOC_RX knew "On Zoom" stayed live
         # (review, 2026-10-24: a scratch feed tombstoned it at 87a2832 and not at
         # 3fc7a38). So it is a cancellation here, made the way that rule makes
-        # one: the event's own title, notice=True. Only for an online LOCATION: a
-        # placed one still takes the store's path, and a closure notice or a bare
-        # "CANCELLED" names no event and stays an online skip.
-        title_notice = (not is_cancelled and bool(strip_notice(title))
-                        and bool(ONLINE_LOC_RX.search(_location(ev) or "")))
+        # one: the event's own title, notice=True. A listing beyond the live
+        # cap likewise reaches cancel without a geocode or an upsert.
+        title_notice = (not is_cancelled and bool(named_notice)
+                        and (kept >= limit or bool(ONLINE_LOC_RX.search(_location(ev) or ""))))
         is_cancelled = is_cancelled or title_notice
         # A publisher that flips STATUS often renames the event too ("CANCELLED -
         # Family Storytime"); the row it cancels was stored as "Family
@@ -1266,7 +1329,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             if not title:
                 cancelled_unnamed += 1
                 continue
-        if skip_title and skip_title.search(title):
+        if skip_title and skip_title.search(title) and not is_cancelled:
             skipped_title += 1
             continue
         # A CITY CALENDAR IS TWO CALENDARS SHARING A FEED. The discovery side
@@ -1279,8 +1342,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         # ...and the bare holiday, which is how a city says "we are shut" without
         # using a single governance word. Same anchored match the feed-level rule
         # uses, so "Christmas Day" goes and "Christmas Tree Lighting" stays.
-        if is_civic and (CIVIC_TITLE_RX.search(title)
-                         or CIVIC_HOLIDAY_RX.match(title.strip())):
+        if is_civic and (CIVIC_TITLE_RX.search(title) or CIVIC_HOLIDAY_RX.match(title.strip())) and not is_cancelled:
             governance += 1
             continue
         start_value, start_params = _wall_clock(src, *ev["DTSTART"])
@@ -1516,7 +1578,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if cancelled_unnamed:
             note += f", {cancelled_unnamed} more naming no event"
     if cancelled_title:
-        note += f"; {cancelled_title} online and cancelled in the title, tombstoned"
+        note += f"; {cancelled_title} cancelled in the title, tombstoned"
     if online:
         note += f"; {online} online (a virtual room, not a place)"
     if skipped_title:

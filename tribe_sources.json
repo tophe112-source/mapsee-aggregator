@@ -9381,6 +9381,14 @@
     },
     {
       "name": "Allegheny Land Trust (Pittsburgh)",
+      "venue": {
+        "tribe_id": 33885,
+        "name": "Churchill Valley Greenway",
+        "coords_exact": true,
+        "lat": 40.449717,
+        "lon": -79.844138,
+        "_source": "Directions on https://alleghenylandtrust.org/green-space/churchill-valley-greenway/ link to https://goo.gl/maps/gp21K29ywytkAkzj7 at the Beulah Road entrance."
+      },
       "category": "outdoors",
       "base_url": "https://alleghenylandtrust.org",
       "within_days": 365,
@@ -48619,6 +48627,1617 @@
         "lon": 9.8182668
       },
       "_metro": "Hannover, Germany"
+    },
+    {
+      "name": "Musée Würth",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musee-wurth.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Würth",
+        "lat": 48.4179236,
+        "lon": 7.6295869
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "Temple Sinai",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://templesinai.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Temple Sinai",
+        "address": "210 Wilson Avenue",
+        "city": "North York",
+        "postal_code": "M5M 3B1",
+        "lat": 43.7396265,
+        "lon": -79.425652
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Women's Art Association",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://womensartofcanada.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Women's Art Association",
+        "city": "Toronto",
+        "lat": 43.6693387,
+        "lon": -79.3962667,
+        "street_hint": "23 Prince Arthur Avenue"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Christ Church St. James Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.christchurchstjames.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Church St. James Anglican Church",
+        "address": "194 Park Lawn Road",
+        "city": "Etobicoke",
+        "lat": 43.6299197,
+        "lon": -79.4911666
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Associacao Migrante De Barcelos",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://acapo.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Associacao Migrante De Barcelos",
+        "lat": 43.6873645,
+        "lon": -79.4465176,
+        "street_hint": "2079 Dufferin Street"
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Latin Groove",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://latingroove.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Latin Groove",
+        "address": "372 Rue Sainte-Catherine Ouest",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3B 1A2",
+        "lat": 45.5057539,
+        "lon": -73.5672123
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Islamique Badr",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://centrebadr.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Islamique Badr",
+        "address": "8625 Boulevard Langelier",
+        "postal_code": "H1P 2C6",
+        "lat": 45.598881,
+        "lon": -73.59095
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Down Syndrome Resource Foundation",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://dsrf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Down Syndrome Resource Foundation",
+        "lat": 49.271232,
+        "lon": -122.9648607
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "The Hargrove",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.coastaljazz.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Hargrove",
+        "address": "150 East 3rd Avenue",
+        "lat": 49.2680937,
+        "lon": -123.1012474
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Unitarian Church of Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vanu.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Church of Vancouver",
+        "address": "949 West 49th Avenue",
+        "city": "Vancouver",
+        "postal_code": "V5Z 2T1",
+        "lat": 49.226953,
+        "lon": -123.127497
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Satguru Ram Singh Satsang, Vancouver",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.srssglobal.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Satguru Ram Singh Satsang, Vancouver",
+        "address": "5588 Joyce Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V5R4H6",
+        "lat": 49.2330567,
+        "lon": -123.0364925
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Calgary Catholic Immigration Society (CCIS)",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ccisab.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calgary Catholic Immigration Society (CCIS)",
+        "address": "1111 11 Avenue SW",
+        "city": "Calgary",
+        "postal_code": "T2R 0G5",
+        "lat": 51.042854,
+        "lon": -114.0867199
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "Balzac United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://balzacunitedchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Balzac United Church",
+        "lat": 51.2128388,
+        "lon": -114.0084375
+      },
+      "_metro": "Calgary, Canada"
+    },
+    {
+      "name": "YWCA Edmonton",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ywcaofedmonton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YWCA Edmonton",
+        "address": "10402 124 Street NW",
+        "city": "Edmonton",
+        "region": "Alberta",
+        "postal_code": "T5N 1R5",
+        "lat": 53.5463434,
+        "lon": -113.5361687
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Charleswood Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://charleswoodhistoricalsociety.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Charleswood Museum",
+        "address": "5006 Roblin Boulevard",
+        "city": "Winnipeg",
+        "postal_code": "R3R 0G7",
+        "lat": 49.8574782,
+        "lon": -97.2850103
+      },
+      "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Heritage Victoria Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heritageviccc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heritage Victoria Community Centre",
+        "lat": 49.8913417,
+        "lon": -97.278977,
+        "street_hint": "950 Sturgeon Road"
+      },
+      "_metro": "Winnipeg, Canada"
+    },
+    {
+      "name": "Westdale Theatre",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://thewestdale.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westdale Theatre",
+        "lat": 43.262316,
+        "lon": -79.9056156
+      },
+      "_metro": "Hamilton, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Neighbour 2 Neighbour - Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://www.n2ncentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Neighbour 2 Neighbour - Community Garden",
+        "lat": 43.2237517,
+        "lon": -79.8937307
+      },
+      "_metro": "Hamilton, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "McIntyre Performing Arts Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://mcintyrepac.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "McIntyre Performing Arts Centre",
+        "address": "135 Fennell Avenue West",
+        "city": "Hamilton",
+        "region": "ON",
+        "postal_code": "L9C 0E5",
+        "lat": 43.2377862,
+        "lon": -79.8858157
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Burlington Performing Arts Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://burlingtonpac.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burlington Performing Arts Centre",
+        "address": "440 Locust Street",
+        "city": "Burlington",
+        "region": "On",
+        "postal_code": "L7S 1T7",
+        "lat": 43.3242592,
+        "lon": -79.7986309
+      },
+      "_metro": "Hamilton, Canada"
+    },
+    {
+      "name": "Port Wallis United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://portwallisunitedchurch.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Port Wallis United Church",
+        "address": "263 Waverley Road",
+        "city": "Dartmouth",
+        "region": "Nova Scotia",
+        "postal_code": "B2X 2C8",
+        "lat": 44.6996697,
+        "lon": -63.5481374
+      },
+      "_metro": "Halifax, Canada",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Extend-A-Family Waterloo Region",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.eafwr.on.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Extend-A-Family Waterloo Region",
+        "address": "91 Moore Avenue",
+        "postal_code": "N2H 3S4",
+        "lat": 43.4578998,
+        "lon": -80.5032872
+      },
+      "_metro": "Kitchener, Canada",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Old Treasury Building Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.oldtreasurybuilding.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old Treasury Building Museum",
+        "address": "20 Spring Street",
+        "region": "VIC",
+        "postal_code": "3002",
+        "lat": -37.8131993,
+        "lon": 144.9743546
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "St Nicholas Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://greekorthodox.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Nicholas Greek Orthodox Church",
+        "address": "5 Murray Street",
+        "region": "VIC",
+        "postal_code": "3013",
+        "lat": -37.8159616,
+        "lon": 144.8915741
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Cambridge Scout and Girl Guide Hall",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://scoutswa.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cambridge Scout and Girl Guide Hall",
+        "lat": -31.9420901,
+        "lon": 115.7852152
+      },
+      "_metro": "Perth, Australia"
+    },
+    {
+      "name": "Mount Barker Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.adelaidehillschurch.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mount Barker Presbyterian Church",
+        "lat": -35.0670522,
+        "lon": 138.8600858
+      },
+      "_metro": "Adelaide, Australia"
+    },
+    {
+      "name": "Presbyterian Church of Saint Andrew",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.standrewscanberra.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Presbyterian Church of Saint Andrew",
+        "address": "1 State Circle",
+        "lat": -35.3120131,
+        "lon": 149.1277434
+      },
+      "_metro": "Canberra, Australia"
+    },
+    {
+      "name": "Kingborough Sports Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.kingborough.tas.gov.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kingborough Sports Centre",
+        "address": "10 Kingston View Drive",
+        "lat": -42.9720438,
+        "lon": 147.2861572
+      },
+      "_metro": "Hobart, Australia"
+    },
+    {
+      "name": "Bentley Priory Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://bentleypriorymuseum.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bentley Priory Museum",
+        "lat": 51.6264811,
+        "lon": -0.3333653
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Freud Museum London",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.freud.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freud Museum London",
+        "address": "20 Maresfield Gardens",
+        "city": "London",
+        "postal_code": "NW3 5SX",
+        "lat": 51.5483111,
+        "lon": -0.1773927
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Ashford Table Tennis Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.ashfordttc.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ashford Table Tennis Club",
+        "address": "Woodthorpe Road",
+        "city": "Ashford",
+        "postal_code": "TW15 3JX",
+        "lat": 51.4342215,
+        "lon": -0.4785583
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Cinema Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://cinemamuseum.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Cinema Museum",
+        "address": "2 Dugard Way",
+        "city": "London",
+        "postal_code": "SE11 4TH",
+        "lat": 51.4923804,
+        "lon": -0.1050422
+      },
+      "_metro": "London, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Palmers Green Mosque",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://mcec.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palmers Green Mosque",
+        "city": "London",
+        "postal_code": "N13 5JL",
+        "lat": 51.6152975,
+        "lon": -0.1047441
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Cathedral Church of Saint Philip",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://birminghamcathedral.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cathedral Church of Saint Philip",
+        "address": "Colmore Row",
+        "city": "Birmingham",
+        "postal_code": "B3 2QB",
+        "lat": 52.4811787,
+        "lon": -1.8989032
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Birmingham Central Mosque",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://centralmosque.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Birmingham Central Mosque",
+        "address": "180 Belgrave Middleway",
+        "city": "Birmingham",
+        "postal_code": "B12 0XS",
+        "lat": 52.4645947,
+        "lon": -1.8905789
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Highbury Little Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://highburytheatre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Highbury Little Theatre",
+        "address": "Sheffield Road",
+        "city": "Sutton Coldfield",
+        "postal_code": "B73 5HD",
+        "lat": 52.5380264,
+        "lon": -1.8341323
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "1st Solihull Scouts",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://1stsolihull.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "1st Solihull Scouts",
+        "address": "Lode Lane",
+        "city": "Solihull",
+        "postal_code": "B91 2HZ",
+        "lat": 52.4301852,
+        "lon": -1.7811478
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Oldbury Ecclesial Hall",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+modern-events+jsonld-event+ics",
+      "base_url": "https://thechristadelphian.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oldbury Ecclesial Hall",
+        "address": "8 Brades Road",
+        "lat": 52.5042306,
+        "lon": -2.0281494
+      },
+      "_metro": "Birmingham, United Kingdom",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Ebenezer Evangelical Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://airdrieebenezer.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ebenezer Evangelical Church",
+        "address": "Aitchison Street",
+        "city": "Airdrie",
+        "postal_code": "ML6 0DG",
+        "lat": 55.864729,
+        "lon": -3.9929251
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "Church of the Immaculate Conception",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.immaculateconception.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Immaculate Conception",
+        "address": "2049 Maryhill Road",
+        "city": "Glasgow",
+        "postal_code": "G20 0AA",
+        "lat": 55.8984409,
+        "lon": -4.3030247
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "Houston & Killellan Kirk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://houstonkillellankirk.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Houston & Killellan Kirk",
+        "address": "Main Street",
+        "city": "Johnstone",
+        "postal_code": "PA6 7EL",
+        "lat": 55.8677708,
+        "lon": -4.5507028
+      },
+      "_metro": "Glasgow, United Kingdom"
+    },
+    {
+      "name": "The Drill Hall",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://drillhallchepstow.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Drill Hall",
+        "address": "Lower Church Street",
+        "city": "Chepstow",
+        "postal_code": "NP16 5HJ",
+        "lat": 51.6442635,
+        "lon": -2.6711523
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bath Royal Literary & Scientific Institution",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brlsi.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bath Royal Literary & Scientific Institution",
+        "address": "16-18 Queen Square",
+        "city": "Bath",
+        "postal_code": "BA1 2HN",
+        "lat": 51.3833202,
+        "lon": -2.3643691
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The Swannery",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://wellspringsettlement.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Swannery",
+        "city": "Bristol",
+        "postal_code": "BS5 9NB",
+        "lat": 51.4562712,
+        "lon": -2.5634123,
+        "street_hint": "11-13 Morley Street"
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bath Abbey",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bathabbey.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bath Abbey",
+        "address": "Abbey Churchyard",
+        "city": "Bath",
+        "postal_code": "BA1 1LT",
+        "country": "GB",
+        "lat": 51.3814276,
+        "lon": -2.3588482
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Bristol Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bristol-cathedral.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bristol Cathedral",
+        "address": "College Green",
+        "city": "Bristol",
+        "postal_code": "BS1 5TJ",
+        "country": "GB",
+        "lat": 51.4516577,
+        "lon": -2.6006695
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "University Botanic Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://botanic-garden.bristol.ac.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "University Botanic Garden",
+        "address": "Stoke Park Road",
+        "city": "Bristol",
+        "postal_code": "BS9 1JG",
+        "country": "GB",
+        "lat": 51.4776061,
+        "lon": -2.62566
+      },
+      "_metro": "Bristol, United Kingdom",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Delamere Manor",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://delameremanor.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Delamere Manor",
+        "address": "Cuddington Lane",
+        "postal_code": "CW8 2TE",
+        "lat": 53.2365501,
+        "lon": -2.6245043
+      },
+      "_metro": "Liverpool, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Woodside Drive-In",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event",
+      "base_url": "https://woodsidedrivein.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Woodside Drive-In",
+        "lat": 53.3939077,
+        "lon": -3.0116349
+      },
+      "_metro": "Liverpool, United Kingdom"
+    },
+    {
+      "name": "Old St Paul’s Church Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.osp.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old St Paul’s Church Hall",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1DH",
+        "lat": 55.95115,
+        "lon": -3.1871244,
+        "street_hint": "63 Jeffrey Street"
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Museum of Scottish Fire Heritage",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museumofscottishfireheritage.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Scottish Fire Heritage",
+        "address": "1A Dryden Terrace",
+        "city": "Edinburgh",
+        "postal_code": "EH7 4NB",
+        "lat": 55.9637837,
+        "lon": -3.1838357
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Potter's Tropical Village",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://lanchestergardencentre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Potter's Tropical Village",
+        "lat": 54.8033856,
+        "lon": -1.7436323
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Congregation Beth El",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bethelnj.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregation Beth El",
+        "address": "222 Irvington Avenue",
+        "city": "South Orange",
+        "postal_code": "07079",
+        "lat": 40.7423232,
+        "lon": -74.2554246
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "New York Zendō Shobo-ji",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://zenstudies.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New York Zendō Shobo-ji",
+        "address": "223 East 67th Street",
+        "postal_code": "10065",
+        "lat": 40.7661591,
+        "lon": -73.9614182
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Howl! Happening",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://www.howlarts.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Howl! Happening",
+        "lat": 40.7247539,
+        "lon": -73.9916906
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Prospect Park Tennis Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://www.prospectpark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Prospect Park Tennis Center",
+        "lat": 40.6512602,
+        "lon": -73.9702657
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Park East Synagogue",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://parkeastsynagogue.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Park East Synagogue",
+        "address": "163 East 67th Street",
+        "city": "New York",
+        "region": "NY",
+        "postal_code": "10065",
+        "lat": 40.7669961,
+        "lon": -73.9633664
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Unitarian Church of All Souls",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://allsoulsnyc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Unitarian Church of All Souls",
+        "address": "1157 Lexington Avenue",
+        "city": "New York",
+        "postal_code": "10075",
+        "lat": 40.7753259,
+        "lon": -73.9581923
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Transfiguration of Christ Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://transfigurationcorona.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Transfiguration of Christ Greek Orthodox Church",
+        "address": "38-05 98th Street",
+        "city": "Corona",
+        "region": "NY",
+        "postal_code": "11368",
+        "lat": 40.7500966,
+        "lon": -73.8676043
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Greenway Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brooklyngreenway.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Greenway Botanical Garden",
+        "lat": 40.6991998,
+        "lon": -73.9630443
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Midnight Mission",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.midnightmission.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Midnight Mission",
+        "address": "601 South San Pedro Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90013",
+        "lat": 34.0422522,
+        "lon": -118.2459831
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Chaudfontaine",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chaudfontaine.be",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Chaudfontaine",
+      "default_region": null,
+      "default_country": "BE",
+      "_metro": "Chaudfontaine, Belgium"
+    },
+    {
+      "name": "Chicago History Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chicagohistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chicago History Museum",
+        "address": "1601 North Clark Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60614",
+        "country": "US",
+        "lat": 41.9119908,
+        "lon": -87.6315209
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Franklin Park Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.fppld.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Franklin Park Public Library",
+        "city": "Franklin Park",
+        "region": "IL",
+        "postal_code": "60131",
+        "lat": 41.9296444,
+        "lon": -87.882819,
+        "street_hint": "10311 West Grand Avenue"
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Catholic Charities of the Archdiocese of Chicago",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.catholiccharities.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Catholic Charities of the Archdiocese of Chicago",
+        "address": "721 North LaSalle Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60654",
+        "lat": 41.8952197,
+        "lon": -87.6321593
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "StillFire Brewing Smyrna",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://stillfirebrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "StillFire Brewing Smyrna",
+        "address": "2725 King Street Southeast",
+        "lat": 33.8862693,
+        "lon": -84.5155945
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "John Canot House and Visitor Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://historicbeverly.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "John Canot House and Visitor Center",
+        "address": "117 Cabot Street",
+        "city": "Beverly",
+        "region": "MA",
+        "lat": 42.5458835,
+        "lon": -70.8799401
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Loring-Greenough House",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://loring-greenough.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Loring-Greenough House",
+        "address": "12 South Street",
+        "city": "Jamaica Plain",
+        "region": "MA",
+        "postal_code": "02130",
+        "lat": 42.3095548,
+        "lon": -71.1148872
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Needham History Center & Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://needhamhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Needham History Center & Museum",
+        "address": "1147 Central Avenue",
+        "lat": 42.2819849,
+        "lon": -71.2539998
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Seattle Buddhist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://seattlebetsuin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seattle Buddhist Church",
+        "address": "1427 South Main Street",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98144",
+        "lat": 47.5997688,
+        "lon": -122.3129675
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Highline Heritage Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://highlinemuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Highline Heritage Museum",
+        "address": "819 Southwest 152nd Street",
+        "city": "Burien",
+        "region": "WA",
+        "postal_code": "98166",
+        "lat": 47.466535,
+        "lon": -122.3454283
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Adventures in Dance",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.adventuresindance.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adventures in Dance",
+        "address": "1500 West Littleton Boulevard",
+        "city": "Littleton",
+        "region": "CO",
+        "postal_code": "80120",
+        "lat": 39.6115285,
+        "lon": -105.0049355
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Bridgeway Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://bridgeway.us",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bridgeway Church",
+        "address": "5201 East Warren Avenue",
+        "city": "Denver",
+        "region": "CO",
+        "postal_code": "80222",
+        "lat": 39.6770135,
+        "lon": -104.9270896
+      },
+      "_metro": "Denver, United States"
+    },
+    {
+      "name": "Science Discovery Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://zootampa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Science Discovery Center",
+        "lat": 28.012569,
+        "lon": -82.471464
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Great Explorations Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://greatex.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Great Explorations Children's Museum",
+        "address": "1925 4th Street North",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33704",
+        "country": "US",
+        "lat": 27.7903578,
+        "lon": -82.6379044
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Studio@620",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://thestudioat620.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Studio@620",
+        "address": "620 1st Avenue South",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "lat": 27.7700191,
+        "lon": -82.6422264
+      },
+      "_metro": "Tampa, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Florida Museum of Photographic Arts",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fmopa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Florida Museum of Photographic Arts",
+        "address": "1630 East 7th Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33605",
+        "lat": 27.9604911,
+        "lon": -82.4406997
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "South Tampa Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stfchurch.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Tampa Fellowship",
+        "address": "97 Biscayne Avenue",
+        "city": "Tampa",
+        "region": "FL",
+        "postal_code": "33606",
+        "lat": 27.9259963,
+        "lon": -82.4547458
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "Saint Petersburg Museum of History",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://historystpete.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Petersburg Museum of History",
+        "address": "2nd Avenue Northeast",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33701",
+        "country": "US",
+        "lat": 27.7739878,
+        "lon": -82.6305956
+      },
+      "_metro": "Tampa, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Mead Botanical Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://meadgarden.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mead Botanical Garden",
+        "address": "1300 South Denning Drive",
+        "city": "Winter Park",
+        "region": "FL",
+        "postal_code": "32789",
+        "lat": 28.5843818,
+        "lon": -81.3583405
+      },
+      "_metro": "Orlando, United States"
+    },
+    {
+      "name": "The Park Expo & Conference Center",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://theparkexponc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Park Expo & Conference Center",
+        "address": "800 Briar Creek Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28205",
+        "lat": 35.206037,
+        "lon": -80.7992208
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Myers Park United Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://myersparkumc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Myers Park United Methodist Church",
+        "address": "1501 Queens Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28207",
+        "lat": 35.1946221,
+        "lon": -80.8270274
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "U.S. National Whitewater Center",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://whitewater.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "U.S. National Whitewater Center",
+        "address": "5000 Whitewater Center Parkway",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28214",
+        "lat": 35.2787711,
+        "lon": -80.9950096
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Sullenberger Aviation Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sullenbergeraviation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sullenberger Aviation Museum",
+        "address": "4108 Minuteman Way",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28208",
+        "lat": 35.2248389,
+        "lon": -80.9331256
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Sierra 2 Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://sierra2.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sierra 2 Center",
+        "city": "Sacramento",
+        "region": "CA",
+        "postal_code": "95818",
+        "lat": 38.5531522,
+        "lon": -121.4830519,
+        "street_hint": "2791 24th Street"
+      },
+      "_metro": "Sacramento, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Longue Vue House and Gardens",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://longuevue.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Longue Vue House and Gardens",
+        "address": "7 Bamboo Road",
+        "city": "New Orleans",
+        "region": "LA",
+        "lat": 29.9769401,
+        "lon": -90.1236258
+      },
+      "_metro": "New Orleans, United States"
+    },
+    {
+      "name": "Providence Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pray.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Providence Church",
+        "address": "6339 Glenwood Avenue",
+        "city": "Raleigh",
+        "region": "NC",
+        "postal_code": "27612",
+        "lat": 35.8567518,
+        "lon": -78.706436
+      },
+      "_metro": "Raleigh, United States"
+    },
+    {
+      "name": "Roycroft Campus",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.roycroftcampuscorporation.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roycroft Campus",
+        "lat": 42.7672189,
+        "lon": -78.6182026
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Buffalo RiverWorks",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://buffaloriverworks.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buffalo RiverWorks",
+        "address": "359 Ganson Street",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14203",
+        "lat": 42.8693152,
+        "lon": -78.8725075
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Broadway Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://www.grassrootsgardens.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Broadway Community Garden",
+        "lat": 42.8883564,
+        "lon": -78.8594185
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "The Temple Congregation Adath Israel Brith Sholom",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+gcal-embed",
+      "base_url": "https://www.thetemplelouky.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Temple Congregation Adath Israel Brith Sholom",
+        "address": "5101 U S Highway 42",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40241",
+        "lat": 38.2911826,
+        "lon": -85.6302314
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Saint George Greek Orthodox Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stgeorgenb.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint George Greek Orthodox Church",
+        "address": "301 West Main Street",
+        "city": "New Britain",
+        "region": "CT",
+        "postal_code": "06052",
+        "lat": 41.6660512,
+        "lon": -72.7913568
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Saint Pauls Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stpaulswethersfield.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Pauls Lutheran Church",
+        "address": "371 Wolcott Hill Road",
+        "city": "Wethersfield",
+        "region": "CT",
+        "postal_code": "06109",
+        "lat": 41.709704,
+        "lon": -72.6693707
+      },
+      "_metro": "Hartford, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Ridgetop Recreation Association",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ridgetop.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ridgetop Recreation Association",
+        "address": "901 Franklin Road",
+        "city": "Henrico",
+        "region": "VA",
+        "postal_code": "23229",
+        "lat": 37.5876696,
+        "lon": -77.535202
+      },
+      "_metro": "Richmond, United States"
+    },
+    {
+      "name": "First Presbyterian Church of Omaha",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://fpcomaha.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "First Presbyterian Church of Omaha",
+        "address": "216 South 34th Street",
+        "city": "Omaha",
+        "region": "NE",
+        "postal_code": "68131",
+        "lat": 41.2580577,
+        "lon": -95.9633455
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "Linda Ronstadt Music Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+ics",
+      "base_url": "https://www.tucsonsymphony.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Linda Ronstadt Music Hall",
+        "address": "260 South Church Avenue",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85701",
+        "lat": 32.2198788,
+        "lon": -110.9745231
+      },
+      "_metro": "Tucson, United States"
     }
   ],
   "_not_included": {

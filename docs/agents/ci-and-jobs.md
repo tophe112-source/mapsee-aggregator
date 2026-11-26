@@ -936,3 +936,47 @@
   workflow, so the filter matters for a person's commits only.
   `test_workflow_contracts.py` pins the seven in both lists. When a gate script
   starts reading a file, add the file to both lists in the same commit.
+
+- **The civic amenity matrix budgets 25 minutes for Overpass before syncing.**
+  On 2026-11-15 and 11-22, four city jobs reached the 60-minute runner limit
+  ([November 15](https://github.com/tophe112-source/mapsee-aggregator/actions/runs/43716324810),
+  [November 22](https://github.com/tophe112-source/mapsee-aggregator/actions/runs/45028119240)).
+  Bern and Portland each spent over 18 minutes on a single unreachable tile.
+  Fresno and Mumbai finished in 37 minutes each with zero tiles read. The
+  other 98 of 104 city jobs finished within four minutes. The civic and food
+  adapters now share the remaining-time limit on each HTTP request and retry.
+  A partial civic read saves usable rows for sync and holds the full-list
+  cursor until a complete read. The two fixture-based checks gate the matrix
+  in the plan job, once per run instead of once in each of the 52 cities.
+
+- **A STEP CANCELLED AT `timeout-minutes` LEAVES ITS PYTHON RUNNING, AND ON
+  2026-11-25 THAT PROCESS RESET THE REFRESH UNDER THE STEP THAT REPLACED IT.**
+  Run **45662961531**, ICS job **139377416037**, failed with "Outstanding
+  failures: checkpoint, sync"; the Wednesday before (run 44338827314, job
+  134922834655) passed. Both logs show the leftover. On 11-18 the checkpoint's
+  log ends at its 20 minutes with **39** batches (195,000 rows, 24.7 s each),
+  and the final sync, 4 minutes later, found **239,994** of 274,218 settled and
+  printed "Refresh progress was not saved (FileNotFoundError)" four times: two
+  processes racing one `os.replace`. It finished the last 7 batches. On 11-25
+  the store held **328,092** rows (66 batches); the checkpoint had logged
+  **54** at 17.2 s when it was cancelled at 20:44:35, the final sync spent 4.5
+  minutes building and at 20:49:06 read "0 of 328092 normalized rows already
+  settled", then was cancelled at **59**. The 12 batches the checkpoint still
+  owed take 206 s, so it ended the pass at about 20:48 and `complete()`
+  cleared the file a minute before it was read. That last step is arithmetic:
+  a cancelled step's output is not logged. A pass also no longer fits two
+  20-minute steps that each rebuild (66 batches at 17.2 s is 18.9 min after a
+  4.5 min build). Three changes. `--refresh-max-seconds` starts no batch once
+  the run is that old, keeps what settled, never calls `complete()`, and exits
+  non-zero so `steps.checkpoint.outcome` still sends the final sync in; the
+  first batch always runs. The checkpoint passes 900 (cap 20 min), the final
+  sync 1800 with its ics cap raised to **35** (220 + 20 + 35 inside the job's
+  300; test_workflow_contracts.py pins that sum and a 300 s margin under each
+  cap). And `take_over_refresh` writes the run's pid beside the progress file
+  and stops whoever is still there before it builds, only when `/proc` says
+  that pid is this script. At the two measured rates the checkpoint settles
+  25-37 batches and the final sync 61-89 more. Six mutants (progress reset
+  when out of time, exit 0 when unfinished, any pid signalled, budget ignored,
+  no budget on the checkpoint, a budget 100 s under its cap) each fail
+  `test_sync_refresh_progress.py` or `test_workflow_contracts.py`. Not yet
+  seen on a Wednesday: verify the 12-02 ICS job before calling it fixed.

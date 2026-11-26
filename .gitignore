@@ -51,6 +51,7 @@ spam_purge_state.json.tmp
 feeds_events.json
 refresh_progress_ics.json
 refresh_progress_ics.json.tmp
+refresh_progress_ics.json.pid
 *.verified.json
 
 # CI artifact: source-health.yml writes this for the issue body, and running the

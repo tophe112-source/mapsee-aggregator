@@ -106,6 +106,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
+      # Both checks use fixtures and the shared checkout. Run them before
+      # starting the matrix so every city is gated by the same result.
+      - name: Check civic listings and opening hours
+        run: |
+          python test_ingest_osm_amenities.py
+          python test_osm_food.py
       # A SHARD PER RUN, BECAUSE A MATRIX IS CAPPED AT 256 JOBS and the config
       # now holds every metro mapsee sweeps for events. 260 areas would not
       # merely be slow, it would fail to start.
@@ -222,17 +228,6 @@ jobs:
           restore-keys: |
             osm-amenity-v3-${{ matrix.area }}-
 
-      # THE SPLIT IS THE RISK IN THIS ADAPTER. Marking a real listing as
-      # furniture makes its opening hours unreachable; marking furniture as a
-      # listing puts every bench in the metro in somebody's Nearby list. Both
-      # are silent. The hours test is osm-food's, because that is whose parser
-      # this imports — and refusing an unreadable string matters most of all
-      # rules, because ignoring "shut" advertises a place as open.
-      - name: The listing/furniture split, and the hours we may act on
-        run: |
-          python test_ingest_osm_amenities.py
-          python test_osm_food.py
-
       # THE ONE ORDERING THIS JOB CANNOT SURVIVE. ../mapsee 0194 adds
       # events.pin_only, and it is what keeps furniture OUT of events_near and
       # out of the Nearby list. Run this against a database that has not had
@@ -297,6 +292,7 @@ jobs:
           python mapsee_ingest_osm_amenities.py \
             --config osm_amenity_sources.json --store feeds_events.json \
             --only "${{ matrix.area }}" \
+            --max-minutes 25 \
             --max-places ${{ github.event.inputs.max_places || 4000 }} \
             ${{ github.event.inputs.kinds && format('--kinds {0}', github.event.inputs.kinds) || '' }} \
             ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \

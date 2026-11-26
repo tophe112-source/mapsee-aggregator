@@ -739,7 +739,7 @@ try:
     code, out = run_main(PC, ["--delay", "0", "--max-seconds", "1"], budgetdb,
                          [patch.object(PC, "collect", return_value=(1, {"https://tix.test/partial": [partial]}, [])),
                           patch.object(PC.robots_txt, "Robots", _Robots),
-                          patch.object(PC, "probe_all", lambda *a: ({}, 1, PC.collections.Counter()))])
+                          patch.object(PC, "probe_all", return_value=({}, 1, PC.collections.Counter()))])
     check("A6: a normal budget-limited pass remains successful",
           (code, "BUDGET:" in out, patched_ids(budgetdb)), (0, True, []))
     # The probe queue: the slice's own URLs take every other place from the front.

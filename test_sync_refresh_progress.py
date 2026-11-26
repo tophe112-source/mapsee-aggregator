@@ -3,6 +3,8 @@ import copy
 import io
 import json
 import os
+import subprocess
+import sys
 import tempfile
 import unittest
 from contextlib import ExitStack, redirect_stdout
@@ -28,9 +30,11 @@ class RefreshTests(unittest.TestCase):
         self.written_rows = []
 
     def run_main(self, rows=None, stop_on_call=None, lost_on_call=None, extra=(), unchanged=False,
-                 total_outage=False, census_held=(), real_merge=False):
+                 total_outage=False, census_held=(), real_merge=False, batch_seconds=None,
+                 build_seconds=0):
         rows = copy.deepcopy(self.rows if rows is None else rows)
         calls = 0
+        clock = [1000.0]                 # a fake monotonic clock: only work moves it
 
         def state(_session, _url, _key, ids, fields=(), detail=None):
             ids = list(ids)
@@ -43,6 +47,7 @@ class RefreshTests(unittest.TestCase):
         def build(*_args, **kwargs):
             if kwargs.get('census_held') is not None:
                 kwargs['census_held'].update(census_held)
+            clock[0] += build_seconds
             return rows
 
         def upsert(batch, *_args):
@@ -52,6 +57,7 @@ class RefreshTests(unittest.TestCase):
                 raise RuntimeError('simulated process termination')
             self.writes.append([r['external_id'] for r in batch])
             self.written_rows.extend(copy.deepcopy(batch))
+            clock[0] += batch_seconds or 0
             lost = (len(batch) if total_outage else 1) if calls == lost_on_call else 0
             return len(batch) - lost, 0, lost
 
@@ -65,6 +71,8 @@ class RefreshTests(unittest.TestCase):
             stack.enter_context(patch.dict(os.environ, {'MAPSEE_HOST_PROFILE_ID': 'host',
                 'SUPABASE_URL': 'https://db.example', 'SUPABASE_SERVICE_ROLE_KEY': 'unused'}))
             stack.enter_context(patch('sys.argv', args))
+            if batch_seconds is not None:
+                stack.enter_context(patch('time.monotonic', side_effect=lambda: clock[0]))
             stack.enter_context(patch.object(sync, 'wait_for_database'))
             stack.enter_context(patch.object(sync, 'build_rows', side_effect=build))
             stack.enter_context(patch.object(sync, 'rekey_legacy', return_value=(set(), set())))
@@ -120,6 +128,85 @@ class RefreshTests(unittest.TestCase):
         self.reads.clear()
         self.run_main()
         self.assertEqual(self.reads, [['0', '1'], ['2', '3'], ['4', '5']])
+
+    # A step cancelled by timeout-minutes leaves this process running: on
+    # 2026-11-25 the cancelled checkpoint finished the pass unseen and reset the
+    # progress, so the fallback began again at 0 of 328,092 and was cancelled
+    # too. The run bounds itself instead, and says it did not finish.
+    def test_time_budget_stops_before_the_next_batch_and_keeps_what_settled(self):
+        with self.assertRaises(SystemExit) as stopped:
+            self.run_main(extra=('--refresh-max-seconds', '100'), batch_seconds=60)
+        self.assertNotIn(stopped.exception.code, (0, None))      # the fallback runs on outcome != success
+        self.assertIn('2 refresh candidate(s)', str(stopped.exception.code))
+        self.assertEqual(self.writes, [['0', '1'], ['2', '3']])  # 0 s, 60 s; the third would start at 120 s
+        self.assertEqual(self.reads, [['0', '1'], ['2', '3']])   # the unreached batch is not even read
+        self.assertEqual(set(json.loads(Path(self.progress).read_text())['done']), {'0', '1', '2', '3'})
+        self.reads.clear()
+        self.run_main(extra=('--refresh-max-seconds', '100'), batch_seconds=60)
+        self.assertEqual(self.reads, [['4', '5']])               # the next attempt takes up where it stopped
+        self.assertEqual(json.loads(Path(self.progress).read_text())['done'], {})   # and only now is the pass over
+
+    def test_a_build_slower_than_the_budget_still_settles_one_batch(self):
+        with self.assertRaises(SystemExit):
+            self.run_main(extra=('--refresh-max-seconds', '100'), batch_seconds=1, build_seconds=500)
+        self.assertEqual(self.writes, [['0', '1']])
+        self.assertEqual(set(json.loads(Path(self.progress).read_text())['done']), {'0', '1'})
+
+    def test_a_pass_inside_its_budget_ends_as_it_always_did(self):
+        self.run_main(extra=('--refresh-max-seconds', '100'), batch_seconds=10)
+        self.assertEqual(self.writes, [['0', '1'], ['2', '3'], ['4', '5']])
+        self.assertEqual(json.loads(Path(self.progress).read_text())['done'], {})
+
+    def test_the_budget_needs_a_batched_refresh(self):
+        for argv in (['sync', '--refresh-max-seconds', '100'],
+                     ['sync', '--refresh-batch-size', '2', '--refresh-progress', self.progress,
+                      '--refresh-max-seconds', '-1']):
+            with patch('sys.argv', argv), redirect_stdout(io.StringIO()), \
+                    patch('sys.stderr', io.StringIO()), self.assertRaises(SystemExit) as refused:
+                sync.main()
+            self.assertEqual(refused.exception.code, 2, argv)
+
+    # ...and when a step IS cancelled, the next refresh on the same progress
+    # file stops what it left behind before building anything.
+    def _sleeper(self, *argv):
+        child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)', *argv])
+        self.addCleanup(lambda: (child.poll() is None and child.kill(), child.wait()))
+        return child
+
+    @unittest.skipUnless(os.path.isdir(f'/proc/{os.getpid()}'), 'needs /proc')
+    def test_a_refresh_left_running_by_a_cancelled_step_is_stopped_by_the_next(self):
+        left = self._sleeper('mapsee_supabase_sync.py', '--refresh-progress', self.progress)
+        Path(self.progress + '.pid').write_text(str(left.pid))
+        with redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(sync.take_over_refresh(self.progress, wait_seconds=5), left.pid)
+        self.assertIsNotNone(left.wait(timeout=5))                # it is gone, not merely signalled
+        self.assertIn('outlived its step', out.getvalue())
+        self.assertEqual(Path(self.progress + '.pid').read_text(), str(os.getpid()))
+
+    @unittest.skipUnless(os.path.isdir(f'/proc/{os.getpid()}'), 'needs /proc')
+    def test_a_recycled_pid_that_is_not_this_script_is_never_signalled(self):
+        stranger = self._sleeper('somebody_elses_job.py')
+        Path(self.progress + '.pid').write_text(str(stranger.pid))
+        with redirect_stdout(io.StringIO()):
+            self.assertIsNone(sync.take_over_refresh(self.progress, wait_seconds=1))
+        self.assertIsNone(stranger.poll())                        # still running
+        self.assertEqual(Path(self.progress + '.pid').read_text(), str(os.getpid()))
+
+    def test_no_pid_file_a_malformed_one_or_our_own_pid_is_nothing_to_stop(self):
+        with redirect_stdout(io.StringIO()):
+            self.assertIsNone(sync.take_over_refresh(self.progress))
+            Path(self.progress + '.pid').write_text('not a pid')
+            self.assertIsNone(sync.take_over_refresh(self.progress))
+            Path(self.progress + '.pid').write_text(str(os.getpid()))
+            self.assertIsNone(sync.take_over_refresh(self.progress))
+
+    def test_a_refresh_records_itself_and_other_modes_do_not(self):
+        self.run_main(extra=('--only-new',))
+        self.assertFalse(Path(self.progress + '.pid').exists())
+        self.run_main(extra=('--dry-run',))
+        self.assertFalse(Path(self.progress + '.pid').exists())
+        self.run_main()
+        self.assertEqual(Path(self.progress + '.pid').read_text(), str(os.getpid()))
 
     def test_progress_is_scoped_and_malformed_progress_only_adds_reads(self):
         progress = sync.RefreshProgress(self.progress, ['database', 'host', 'store'], self.rows)

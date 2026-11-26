@@ -438,6 +438,24 @@ def main():
         checks.append((request_timeouts == [3.0],
                        f"one in-flight tile is capped by remaining budget "
                        f"({request_timeouts})"))
+
+        now = [100.0]
+        request_timeouts.clear()
+        def advance(pause):
+            now[0] += pause
+
+        def stalled(req, timeout):
+            request_timeouts.append(timeout)
+            advance(timeout)
+            raise TimeoutError("test tile timed out")
+        m.urllib.request.urlopen = stalled
+        try:
+            m._overpass_one((0, 0, 1, 1), deadline=103, clock=lambda: now[0],
+                            sleep=advance)
+        except TimeoutError:
+            pass
+        checks.append((request_timeouts == [3.0] and now[0] == 103.0,
+                       "a tile that exhausts the budget triggers no backoff or retry request"))
     finally:
         m.urllib.request.urlopen = _real_urlopen
 

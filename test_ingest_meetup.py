@@ -68,6 +68,11 @@ def node(**kw):
 
 
 print("the reported row, exactly as Meetup serves it")
+check("a publisher's noon finish survives the Richmond 07:30 volunteer outing",
+      to_event(node(dateTime="2026-12-05T07:30:00-05:00", endTime="2026-12-05T12:00:00-05:00")).end_local,
+      "2026-12-05T12:00:00-05:00")
+check("an unpublished end still uses the sync's duration fallback", to_event(node()).end_local, None)
+
 REPORTED = node(
     title="Seattle Gay Online Speed Dating",
     description=("💕 Seattle Gay Virtual Speed Dating on Zoom Join from home and meet real "
