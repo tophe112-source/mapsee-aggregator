@@ -79316,5 +79316,32 @@
     "geocode_suffix": ", Ann Arbor, MI",
     "limit": 300,
     "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Firehouse Art Center",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r5a1ofr4s6d7mvuicgvq36l6tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Longmont, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "II Igreja Evangélica Batista do Barreiro",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sd5llk98ond12v6idnlrsdjed8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Barreiro",
+    "limit": 300,
+    "_metro": "Lisbon, Portugal"
+  },
+  {
+    "name": "Vantaan A-kilta ry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e62c9476e9c4ce49a5c4b55fdee9335dc22966e035ac02a3c9935159c81b6e0c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vantaa",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
   }
 ]

@@ -40724,6 +40724,26 @@
         "lon": -95.9457345
       },
       "_metro": "Omaha, United States"
+    },
+    {
+      "name": "Black Mountain United Methodist",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://blackmountainumc.org/mec-cal/"
+      ],
+      "link_pattern": "https://blackmountainumc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Black Mountain United Methodist",
+        "address": "101 Church Street",
+        "city": "Black Mountain",
+        "region": "NC",
+        "postal_code": "28711",
+        "lat": 35.6169069,
+        "lon": -82.3217706
+      },
+      "_metro": "Asheville, United States"
     }
   ],
   "_not_included": {

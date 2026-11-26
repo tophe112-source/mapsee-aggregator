@@ -50308,6 +50308,57 @@
         "lon": -76.152614
       },
       "_metro": "Syracuse, United States"
+    },
+    {
+      "name": "pARTiculars Art Gallery and Teaching Studio",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://particularsart.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "pARTiculars Art Gallery and Teaching Studio",
+        "lat": 39.9948552,
+        "lon": -105.0906318
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Boulder Valley Unitarian Universalist Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bvuuf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boulder Valley Unitarian Universalist Fellowship",
+        "address": "1241 Ceres Drive",
+        "city": "Lafayette",
+        "region": "CO",
+        "postal_code": "80026",
+        "lat": 39.9888509,
+        "lon": -105.1139113
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Museum of Boulder at Tebo Center",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://museumofboulder.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum of Boulder at Tebo Center",
+        "address": "2205 Broadway",
+        "city": "Boulder",
+        "region": "CO",
+        "postal_code": "80302",
+        "lat": 40.0201046,
+        "lon": -105.281171
+      },
+      "_metro": "Boulder, United States",
+      "crawl_delay": 10.0
     }
   ],
   "_not_included": {

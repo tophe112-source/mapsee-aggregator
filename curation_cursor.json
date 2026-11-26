@@ -248,8 +248,8 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 251,
-  "metro_key": "US:Providence",
+  "metro": 12,
+  "metro_key": "CZ:Brno",
   "stuck": {}
  },
  "osm|community_centre,library": {
