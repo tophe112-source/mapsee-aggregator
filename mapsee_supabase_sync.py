@@ -5040,6 +5040,58 @@ class RefreshProgress:
         self.save()
 
 
+def _refresh_process(pid: int) -> bool:
+    """A live process that is this script (its /proc command line says so). No
+    /proc (macOS, Windows): unknown, which is read as no."""
+    try:
+        with open(f"/proc/{pid}/cmdline", "rb") as fh:
+            return b"mapsee_supabase_sync" in fh.read()
+    except OSError:
+        return False
+
+
+def take_over_refresh(progress_path: str, wait_seconds: float = 15.0) -> Optional[int]:
+    """ONE REFRESH PER PROGRESS FILE. Returns the pid it stopped, or None.
+
+    A step the runner cancels at timeout-minutes leaves its python running
+    (see --refresh-max-seconds in main's batch loop for the two Wednesdays
+    that showed it). Two refreshes on one progress file write the same rows
+    twice, race each other's os.replace (four "not saved (FileNotFoundError)"
+    warnings on 2026-11-18), and the first to finish resets the file under the
+    other. So a refresh records its pid beside the progress file, and the next
+    one stops whoever is still there before it builds anything. Only a process
+    whose command line is this script is ever signalled: a recycled pid is
+    somebody else's. Stopping it mid-batch costs nothing: progress is written
+    whole after each batch, and an upsert is idempotent."""
+    import signal
+    pid_path = progress_path + ".pid"
+    stopped = None
+    try:
+        with open(pid_path, encoding="utf-8") as fh:
+            old = int(fh.read().strip())
+    except (OSError, ValueError):
+        old = None
+    if old and old != os.getpid() and _refresh_process(old):
+        try:
+            os.kill(old, signal.SIGTERM)
+            deadline = time.monotonic() + wait_seconds
+            while _refresh_process(old) and time.monotonic() < deadline:
+                time.sleep(0.2)
+            if _refresh_process(old):
+                os.kill(old, signal.SIGKILL)
+            stopped = old
+            print(f"::warning::Refresh: stopped an earlier refresh still running on "
+                  f"{progress_path} (pid {old}); it outlived its step.", flush=True)
+        except OSError:
+            pass                                      # gone between the read and the signal
+    try:
+        with open(pid_path, "w", encoding="utf-8") as fh:
+            fh.write(str(os.getpid()))
+    except OSError:
+        pass                                          # no pid file only means no takeover next time
+    return stopped
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Upsert aggregated events into Mapsee's Supabase.")
     ap.add_argument("--store", default="mapsee_events.json")
@@ -5073,9 +5125,16 @@ def main() -> None:
     ap.add_argument("--refresh-progress", metavar="PATH",
                     help="Settled normalized rows in an unfinished refresh; retries read only "
                          "unfinished/changed rows. Ignored under --only-new and --dry-run.")
+    ap.add_argument("--refresh-max-seconds", type=float, default=0, metavar="SECONDS",
+                    help="Start no new refresh batch once the run is this old; the rest stay "
+                         "unfinished in --refresh-progress and the run exits non-zero. Set it "
+                         "under the step's timeout-minutes: a step the runner cancels leaves "
+                         "this process running. Requires --refresh-batch-size.")
     a = ap.parse_args()
     if a.refresh_batch_size < 0 or bool(a.refresh_batch_size) != bool(a.refresh_progress):
         ap.error("--refresh-batch-size must be positive and paired with --refresh-progress")
+    if a.refresh_max_seconds < 0 or (a.refresh_max_seconds and not a.refresh_batch_size):
+        ap.error("--refresh-max-seconds must be positive and needs --refresh-batch-size")
     if a.new_retention_days is not None and a.new_retention_days < 1:
         ap.error("--new-retention-days must be positive")
     if a.retire_absent and not a.manifest:
@@ -5138,6 +5197,9 @@ def main() -> None:
         sys.exit("Set MAPSEE_HOST_PROFILE_ID to the aggregator's profiles.id (used as created_by).")
 
     import requests, time                             # batch-geocode venue addresses (TM coords imprecise)
+    run_started = time.monotonic()                    # --refresh-max-seconds counts from here
+    if a.refresh_batch_size and not a.only_new:
+        take_over_refresh(a.refresh_progress)         # before the build: it must not finish under us
     geo = requests.Session()
     geo.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
     # A database that is not answering is waited out, within a budget, before
@@ -5405,7 +5467,25 @@ def main() -> None:
                if progress else [rows])
     sent, relist, moderated = set(), [], set()
     n = skipped = lost = 0
+    # A REFRESH THAT OUTLIVES ITS STEP IS NOT STOPPED BY IT. timeout-minutes
+    # cancels the step, and this process went on: on 2026-11-18 the fallback
+    # sync found 239,994 rows settled where the cancelled checkpoint's log ends
+    # at 195,000, and on 2026-11-25 the checkpoint (54 of 66 batches logged at
+    # its 20 minutes, 17.2 s a batch) finished the pass unseen, reset the
+    # progress, and the fallback began again at "0 of 328092 settled" and was
+    # cancelled at 59. So the run bounds itself: no new batch after
+    # --refresh-max-seconds, the rest stay unfinished, and it exits non-zero so
+    # the fallback still runs. The first batch always runs, or a slow build
+    # would settle nothing forever.
+    out_of_time = 0
     for batch_index, batch in enumerate(batches):
+        if (progress and a.refresh_max_seconds and batch_index
+                and time.monotonic() - run_started >= a.refresh_max_seconds):
+            out_of_time = sum(len(rest) for rest in batches[batch_index:])
+            print(f"::warning::Refresh stopped at its time budget ({a.refresh_max_seconds:.0f} s) "
+                  f"after {batch_index} batch(es); {out_of_time} candidate(s) remain unfinished, "
+                  "settled batches are kept.", flush=True)
+            break
         if progress:
             state.update(read_state([r["external_id"] for r in batch]))
         batch_sent, batch_relist, batch_moderated, count, rejected, missing = sync_batch(batch)
@@ -5497,10 +5577,13 @@ def main() -> None:
                   f"{len(evict & asked)} read this run but written, held, re-keyed, cancelled or "
                   f"lifted are left out, to be read again.", flush=True)
     refresh_held = census_held & progress.hashes.keys() if progress else set()
-    if progress and not lost and not owed and not refresh_held:
+    if progress and not lost and not owed and not refresh_held and not out_of_time:
         progress.complete()
         print("Refresh progress: this snapshot's full pass settled; the next full refresh "
               "starts a new cycle.", flush=True)
+    elif progress and out_of_time:
+        print(f"Refresh progress: {out_of_time} candidate(s) not reached inside the time budget; "
+              "settled batches are kept for the next attempt.", flush=True)
     elif progress and refresh_held:
         print(f"Refresh progress: {len(refresh_held)} Census-held candidate(s) remain unfinished; "
               "settled batches are kept for the next full refresh.", flush=True)
@@ -5521,6 +5604,12 @@ def main() -> None:
     # verdict, and re-running will not change it.
     if lost:
         sys.exit(f"{lost} row(s) never reached Supabase — unwritten, not rejected.")
+    if out_of_time:
+        # Non-zero ON PURPOSE: the ics fallback sync runs only when the
+        # checkpoint's outcome is not success, and an unfinished refresh that
+        # looked finished is the failure this budget exists to prevent.
+        sys.exit(f"{out_of_time} refresh candidate(s) not reached inside the time budget — "
+                 "unfinished, to be continued from the saved progress.")
 
 
 if __name__ == "__main__":

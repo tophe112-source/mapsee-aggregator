@@ -125,14 +125,17 @@ class WorkflowContracts(unittest.TestCase):
         self.assertTrue(any(s.get('id') == 'sync' for s in steps))
         # The rec group's first sync of ~103,600 rows ran out 20 minutes
         # (2026-10-04), and so did civic's Wednesday refresh of 143,128 events
-        # (2026-09-30); both keep a longer cap, and ics and local keep 20.
+        # (2026-09-30); both keep a longer cap, and local keeps 20. ics has 35
+        # since one Wednesday pass (66 batches at 17.2 s after a 4.5 min
+        # build, 2026-11-25) stopped fitting two 20-minute steps.
         # civic has 105 since OpenAgenda France is read past the ODS offset cap
         # and Mobilizon reads the coming months (2026-11-08): a first run on a
         # Wednesday projects to 95.4 min with both (test_ingest_ods.py does the
         # arithmetic against this line).
         sync = next(s for s in steps if s.get('id') == 'sync')
         self.assertEqual(sync['timeout-minutes'],
-                         "${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || 20 }}")
+                         "${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 "
+                         "|| matrix.group == 'ics' && 35 || 20 }}")
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
 
     def test_rec_timetables_retire_absent_sessions_against_a_cached_manifest(self):
@@ -524,9 +527,30 @@ class WorkflowContracts(unittest.TestCase):
                     if group == 'ics':
                         self.assertEqual(self._flag(args, '--refresh-batch-size'), '5000')
                         self.assertEqual(self._flag(args, '--refresh-progress'), 'refresh_progress_ics.json')
+                        # THE REFRESH STOPS ITSELF INSIDE ITS STEP. A step cancelled at
+                        # timeout-minutes leaves its python running, and on 2026-11-25
+                        # that process reset the progress under the final sync. Five
+                        # minutes inside the cap: a last batch (17-25 s) and the
+                        # cancellation, lift and cache writes after the loop.
+                        cap = {'checkpoint': step['timeout-minutes'], 'sync': 35}[step['id']]
+                        self.assertIsInstance(cap, int)
+                        budget = int(self._flag(args, '--refresh-max-seconds'))
+                        self.assertGreater(budget, 0)
+                        self.assertLessEqual(budget + 300, cap * 60, step['id'])
                     else:
                         self.assertNotIn('--refresh-batch-size', args)
                         self.assertNotIn('--refresh-progress', args)
+                        self.assertNotIn('--refresh-max-seconds', args)
+        sync_step = next(s for s in steps if s.get('id') == 'sync')
+        self.assertIn("matrix.group == 'ics' && 35", sync_step['timeout-minutes'])
+        # The import bounds itself (--max-minutes), so the three long steps of an
+        # ics Wednesday must fit the job: import + checkpoint + final sync.
+        ics_import = next(s for s in steps if '--max-minutes' in (s.get('run') or '')
+                          and 'mapsee_ingest_ics.py' in s['run'])
+        ics_minutes = int(re.search(r'mapsee_ingest_ics\.py.*--max-minutes (\d+)', ics_import['run']).group(1))
+        checkpoint = next(s for s in steps if s.get('id') == 'checkpoint')
+        self.assertLess(ics_minutes + checkpoint['timeout-minutes'] + 35,
+                        workflow['jobs']['feeds']['timeout-minutes'])
         restore = next(s for s in steps if s.get('name') == 'Restore unfinished ICS refresh progress')
         save = next(s for s in steps if s.get('name') == 'Save unfinished ICS refresh progress')
         self.assertEqual(restore['with']['path'], save['with']['path'])
