@@ -50238,6 +50238,76 @@
         "lon": -110.9745231
       },
       "_metro": "Tucson, United States"
+    },
+    {
+      "name": "Wichita South Foursquare Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.foursquare.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wichita South Foursquare Church",
+        "address": "5828 South Broadway Avenue",
+        "city": "Wichita",
+        "region": "KS",
+        "postal_code": "67216-3734;67216",
+        "lat": 37.5890761,
+        "lon": -97.3334885
+      },
+      "_metro": "Wichita, United States"
+    },
+    {
+      "name": "Bethel Lutheran Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bethel-madison.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bethel Lutheran Church",
+        "address": "312 Wisconsin Avenue",
+        "city": "Madison",
+        "region": "WI",
+        "postal_code": "53703",
+        "lat": 43.0768234,
+        "lon": -89.3877777
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Second Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://sbcaa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Second Baptist Church",
+        "lat": 42.2897208,
+        "lon": -83.7598385
+      },
+      "_metro": "Ann Arbor, United States",
+      "crawl_delay": 20.0
+    },
+    {
+      "name": "Landmark Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://landmarktheatre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Landmark Theatre",
+        "address": "362 South Salina Street",
+        "city": "Syracuse",
+        "region": "NY",
+        "postal_code": "13202",
+        "country": "US",
+        "lat": 43.0473075,
+        "lon": -76.152614
+      },
+      "_metro": "Syracuse, United States"
     }
   ],
   "_not_included": {

@@ -94,6 +94,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "atom jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Atom Jazz Festival",
+      "ref_keys": [
+        "311d67a004a8"
+      ],
+      "referrers": [
+        {
+          "source": "venuepilot",
+          "start": "2027-01-21",
+          "title": "Alex Loran Septet",
+          "url": "https://tickets.venuepilot.com/e/alex-loran-septet-2027-01-21-dazzle-the-arts-complex-denver-4b2814"
+        }
+      ],
+      "sample": "Her septet is her newest project, originally coming together to perform at the inaugural Atom Jazz Festival in August 2026. This group, featuring some of Colorado’s brightest young artists, brings creative energy and collaboration to Alex’s original music. As a composer, Alex strives to keep",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "aurora biennial": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -849,10 +870,11 @@
     "indian fair": {
       "dates": [],
       "first_seen": "2026-11-12",
-      "last_seen": "2026-11-12",
+      "last_seen": "2026-11-26",
       "name": "Indian Fair",
       "ref_keys": [
         "0bcd47d76c3d",
+        "124c46e39552",
         "131908d93219",
         "76077f75e018",
         "c78cfc43c213"
@@ -881,11 +903,17 @@
           "start": "2026-11-15",
           "title": "Meet the Maker: Weaving Demonstration with Barbara and Michael Teller Ornelas",
           "url": "https://toyandminiaturemuseum.org/events/meet-the-maker-weaving-demonstration-with-barbara-and-michael-teller-ornelas/"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-11-26",
+          "title": "Native Arts in Miniature",
+          "url": "https://toyandminiaturemuseum.org/events/native-arts-in-miniature/"
         }
       ],
       "sample": "Their award-winning rugs—full size and miniature—have been recognized at the Heard Museum’s annual Indian Fair + Market and the Santa Fe Indian Market, the largest and most prestigious art market for Native works in the world. Barbara Teller Ornelas has shared her work internationally through a",
       "state": "pending",
-      "times_seen": 4,
+      "times_seen": 5,
       "venue": null
     },
     "international fly fishing film festival": {
@@ -1379,6 +1407,69 @@
       "sample": "t Rockaway Beach in New York City, Public Art Fund will bring a new presentation of Between Tides to Miami Beach during Miami Art Week and Art Basel Miami Beach. From November 29 through December 6, 2026, six playable sculptural ping-pong tables by Moko Fukuyama, Ilana Harris-Babou, Las Hermanas Igl",
       "state": "covered",
       "times_seen": 6,
+      "venue": null
+    },
+    "miami beach classical music festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Miami Beach Classical Music Festival",
+      "ref_keys": [
+        "6584b3710983",
+        "76c2ff3154b0",
+        "8839e5bb5b47",
+        "dec6e0045b9d"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-12",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-12/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-13",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-13/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-19",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-19/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-20",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-20/"
+        }
+      ],
+      "sample": "Presented by the Miami Beach Classical Music Festival and produced by Artistic Director Michael Rossi, the performances use projection-mapping technology to synchronize light and imagery with the music. Holiday food and beverages and Ocean Drive’s 20-foot Christmas tree add to the surrounding",
+      "state": "pending",
+      "times_seen": 4,
+      "venue": null
+    },
+    "midsumma festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Midsumma Festival",
+      "ref_keys": [
+        "a2a394cd7125"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2027-01-27",
+          "title": "Queer History Walking Tour – St Kilda",
+          "url": "https://www.midsumma.org.au/whats-on/events/queer-history-walking-tour-st-kilda/"
+        }
+      ],
+      "sample": "Queer Archives and Thorne Harbour Health for a vibrant journey through St Kilda’s LGBTQIA+ history as part of Midsumma Festival! Guided by a fabulous local queer historian Nick Henderson, this immersive walking tour explores the landmarks, venues, and stories that shaped St Kilda’s queer",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "more than a festival": {
@@ -2240,6 +2331,27 @@
         }
       ],
       "sample": "Janusz and Stefa was created in honor of the Texas Holocaust Remembrance Week, and it’s on tour all over the state. Registration information will be available soon!",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "trance blues festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Trance Blues Festival",
+      "ref_keys": [
+        "15ec0148e748"
+      ],
+      "referrers": [
+        {
+          "source": "venuepilot",
+          "start": "2026-12-30",
+          "title": "Otis Taylor",
+          "url": "https://tickets.venuepilot.com/e/otis-taylor-one-of-these-nights-2026-12-30-dazzle-the-arts-complex-denver-419d87"
+        }
+      ],
+      "sample": "A resident of Boulder since 1967, Taylor gives back to his community with the annual Trance Blues Festival in Boulder, where he invites a diverse cast of musicians as guest artists for an all-ages workshop and concert. And he and his wife Carol created a blues in the schools program called \"Writing",
       "state": "pending",
       "times_seen": 1,
       "venue": null

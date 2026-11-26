@@ -79307,5 +79307,14 @@
     "geocode_suffix": ", Windsor, CT",
     "limit": 300,
     "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Jewel Heart",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/programs%40jewelheart.org/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
   }
 ]
