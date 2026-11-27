@@ -78768,5 +78768,662 @@
     "geocode_suffix": ", Winnipeg, Canada",
     "limit": 300,
     "_metro": "Winnipeg, Canada"
+  },
+  {
+    "name": "Morehead City — Library",
+    "category": "learning",
+    "url": "https://www.moreheadcitync.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Morehead City, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Library]",
+    "_metro": "Morehead City, North Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Morehead City — Events",
+    "category": "community",
+    "url": "https://www.moreheadcitync.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Morehead City, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Morehead City, North Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Morehead City — Parks and Recreation",
+    "category": "community",
+    "url": "https://www.moreheadcitync.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Morehead City, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks and Recreation]",
+    "_metro": "Morehead City, North Carolina",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Playhouse Cinema",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "https://playhousecinema.ca/princess.ics",
+    "geocode_suffix": ", Hamilton, Canada",
+    "limit": 300,
+    "_metro": "Hamilton, Canada",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Burlington Rifle and Revolver Club House",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f8ul57qsrupbfpbrcgcvddqr2g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Burlington",
+    "limit": 300,
+    "_metro": "Hamilton, Canada"
+  },
+  {
+    "name": "Colby Shooting Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f4eujsb0k2gg4i9lt2jnbkt3hg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kitchener, Canada",
+    "limit": 300,
+    "_metro": "Kitchener, Canada"
+  },
+  {
+    "name": "The Russian Orthodox Most Holy Mother of God Cathedral (and School)",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iu0p2t3tco0nttl8dlq4d7blmg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Archangel Michael & St Anthony's Coptic Orthodox Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/calendar%40oakleighcopts.org/public/basic.ics",
+    "geocode_suffix": ", Melbourne, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia"
+  },
+  {
+    "name": "Maylands Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar",
+    "url": "https://maylands.cofc.org.au/?feed=my-calendar-ics",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300,
+    "_metro": "Adelaide, Australia"
+  },
+  {
+    "name": "UniMovies",
+    "category": "theater",
+    "_found": "osm:cinema -> ics",
+    "url": "http://unimovies.org/dec.ics",
+    "geocode_suffix": ", Wollongong, Australia",
+    "limit": 300,
+    "_metro": "Wollongong, Australia"
+  },
+  {
+    "name": "Helensburgh-Stanwell Park Surf Life Saving Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stanwellparksurfclub.com_3ia4sdt36a1k2cfq8393o1ki98%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wollongong, Australia",
+    "limit": 300,
+    "_metro": "Wollongong, Australia"
+  },
+  {
+    "name": "Rush Green Community Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://rushgreencommunity.org/index.php?option=com_dpcalendar&task=ical.download&id=18",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "venue": {
+      "name": "Rush Green Community Centre",
+      "postal_code": "RM7 0LB",
+      "lat": 51.5651809,
+      "lon": 0.1707094,
+      "pin_unnamed": false
+    },
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Campaign For Nuclear Disarmament Office",
+    "category": "community",
+    "_found": "osm:ngo -> events-manager",
+    "url": "https://cnduk.org/events/?ical=1",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Biggin Hill Memorial Museum",
+    "category": "arts",
+    "_found": "osm:museum -> event-organiser",
+    "url": "https://bigginhillmuseum.com/?feed=eo-events",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Sir John Moore Museum",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.johnmooremuseum.org/events/?ical=1",
+    "geocode_suffix": ", Tewkesbury",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "St John the Baptist",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bp11gjqu0u4remk470gc99g2cg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bristol",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Charfield Christian Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/117f1be93e5e4fffcebff373352c48a15f8848c9051cdc5e10ca35d31374a7d8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wotton-under-Edge",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Kadampa Meditation Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_87b3d3e7c3b05cf3858e0664c1688f9920c237c8af177ce57666d40d1b7b4827%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Leeds",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "Childwall Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/g5ek34s3elat974vg1il615atc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Liverpool, United Kingdom",
+    "limit": 300,
+    "venue": {
+      "name": "Childwall Library",
+      "postal_code": "L15 6UT",
+      "lat": 53.3978335,
+      "lon": -2.897797,
+      "pin_unnamed": false
+    },
+    "_metro": "Liverpool, United Kingdom"
+  },
+  {
+    "name": "Fisherrow Yacht Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jgvtpmj9qkn7gr1lbjte2ppfh4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edinburgh, United Kingdom",
+    "limit": 300,
+    "_metro": "Edinburgh, United Kingdom"
+  },
+  {
+    "name": "Friendship Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40pfbchurch.net/public/basic.ics",
+    "geocode_suffix": ", Pasadena, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Saint Stephen Martyr Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f427g3cu9kagt012b66oaia3v8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Zen Buddhist Temple of Chicago",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7e7f79254d13f6dbff0ce43ea1588f141e86cb286dfb052153396bf67d85c292%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Evanston, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Anita Willets Burnham Log House",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.winnetkahistory.org/virtual-programs/?ical=1",
+    "geocode_suffix": ", Winnetka, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "First Baptist Church Farmers Branch",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/813e80f34f8fbc08a7f9ad235d57c34854e48b04efcd219c85eb1065907a9f61%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Farmers Branch, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Episcopal Church of the Atonement",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eihsbg8sh1ag5akt7ght9u9400%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Washington DC, United States",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Arlington Forest Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> event-organiser",
+    "url": "https://www.arlingtonforestclub.org/?feed=eo-events",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 300,
+    "_metro": "Washington DC, United States"
+  },
+  {
+    "name": "Georgia Tech RoboJackets",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_2aaa885d21da5118ec199eb45af2ad4e79d17294de319d1e42ee937e366abe47%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Atlanta, United States",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "St. Mary of Egypt Orthodox Church Parish Hall",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q08c09pub1grn7pfmeaucku01k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Norcross, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Saint Patrick Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0q4c2jjvc04fppobouoag0h794%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Norcross, GA",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Unitarian Universalist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://uumedford.org/event-calendar/?ical=1",
+    "geocode_suffix": ", Medford",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Grace Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.gracemedford.org/gencal.cfm?event_category=All&target=apple",
+    "geocode_suffix": ", Medford",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Gethsemane Lutheran Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/admin%40urbanfaith.org/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Rainy Day Collective",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8bbf88579abb8c6236068582bb258b56ed88db852f1b1303b9b26907990d5a17%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis",
+    "limit": 300,
+    "venue": {
+      "name": "Rainy Day Collective",
+      "city": "Minneapolis",
+      "lat": 44.9485358,
+      "lon": -93.2168909,
+      "street_hint": "3820 East Lake Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "TU Dance Center",
+    "category": "fitness",
+    "_found": "osm:dance -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tudance.org_tc8s8fbosdji0rcdppujkr1a44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint Paul, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Slavic Baptist Church of Shakopee",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4eki52lme2gotnif3j41mo5e7o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Shakopee, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Saint Gregory the Great Catholic Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9cd7v7fcsi25gtbdt7uuu607tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "San Diego, United States"
+  },
+  {
+    "name": "Apostolic Christian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_hkg5180mjrjt23gljqbpquhtp8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aurora",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Crossroads Community Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.visitcrossroads.com/feeds/events.ics?EventCategory=b4e90612-12cf-48e2-874a-7f75ce15aa45&amp;startTime=2026-11-24T20%3A49%3A12.005Z&amp;recurrence=true",
+    "geocode_suffix": ", Parker, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "The Shop at MATTER",
+    "category": "learning",
+    "_found": "osm:books -> libcal+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/morematter.com_qv6rjpnbkdm8q0t494ein8i4dk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Denver, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Saint Anne Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8pagcevrv93lfq4i7550l5qrt8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Arvada, CO",
+    "limit": 300,
+    "_metro": "Denver, United States"
+  },
+  {
+    "name": "Cultural Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://hallandalebeachfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+    "geocode_suffix": ", Hallandale Beach, FL",
+    "limit": 300,
+    "venue": {
+      "name": "Cultural Community Center",
+      "city": "Hallandale Beach",
+      "region": "FL",
+      "postal_code": "33009",
+      "lat": 25.9813667,
+      "lon": -80.1437533,
+      "street_hint": "410 Southeast 3rd Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Miami, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Center Grove Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/j56b85s9rkvkuq442kirupaqs0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Edwardsville, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "North Hills Community Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nhcbc.com_633f1rnshaehvlpabdnpf8hskc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, United States",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Bible Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/biblebaptistministries.org_f8g44s38eomeq1t9k5d2j1g198%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Matthews, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "Sharonville Community Center",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> civicplus",
+    "url": "https://www.sharonville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Holy Cross Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b7cgkd2c2fdi11essjinnubdg0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Austin Zen Center",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/inconceivablejoy%40austinzencenter.org/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Unity Church of Austin",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_bafc05b16eaa3c374ccfe99f1d36d50ce014c4163bba5edb75bc03da6a71851c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "The Milwaukee Turners",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/membership%40milwaukeeturners.org/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, United States",
+    "limit": 300,
+    "venue": {
+      "name": "The Milwaukee Turners",
+      "lat": 43.0437045,
+      "lon": -87.9155779,
+      "pin_unnamed": false
+    },
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "First Church of Christ",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f6246aae4d5ea3742b7d44c6ecccfceb912b87821bbd07c7a5572d369af06fcd%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hartford, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Covenant Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cpcbarn.org_jjvdscetgb4vmsv2if5joqoui4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Simsbury, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Our Lady of Mount Carmel Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ourladyqueenofangels.net_vf0rj03s7tl44h88e9parfd75g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Meriden, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Portland Historical Society",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/370ef20eel0pjnm5aitsm57fog%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Saint Joseph Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dl3ti37ifonm3oal14o69l8ji0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Windsor, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Jewel Heart",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/programs%40jewelheart.org/public/basic.ics",
+    "geocode_suffix": ", Ann Arbor, MI",
+    "limit": 300,
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Firehouse Art Center",
+    "category": "arts",
+    "_found": "osm:gallery -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/r5a1ofr4s6d7mvuicgvq36l6tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Longmont, CO",
+    "limit": 300,
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "II Igreja Evangélica Batista do Barreiro",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sd5llk98ond12v6idnlrsdjed8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Barreiro",
+    "limit": 300,
+    "_metro": "Lisbon, Portugal"
+  },
+  {
+    "name": "Vantaan A-kilta ry",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e62c9476e9c4ce49a5c4b55fdee9335dc22966e035ac02a3c9935159c81b6e0c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vantaa",
+    "limit": 300,
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Berlin — Berlin Events",
+    "category": "community",
+    "url": "https://www.berlinnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Berlin, New Hampshire",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Berlin Events]",
+    "_metro": "Berlin, New Hampshire",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Spelens Hus",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e6074269731b838dc24e244e4f4ee0604dfd4144b388a47c66de76a805daab13%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Malmö",
+    "limit": 300,
+    "_metro": "Malmo, Sweden"
+  },
+  {
+    "name": "DMF",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/styrelsen%40dmfonline.se/public/basic.ics",
+    "geocode_suffix": ", Lund",
+    "limit": 300,
+    "_metro": "Malmo, Sweden"
+  },
+  {
+    "name": "Trelleborgs Motorklubb",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40trelleborgsmk.se/public/basic.ics",
+    "geocode_suffix": ", Trelleborg",
+    "limit": 300,
+    "_metro": "Malmo, Sweden"
+  },
+  {
+    "name": "Pinsekirken Sandvika",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l5d1f58qmgpkk5dpjeidf6ba4s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oslo, Norway",
+    "limit": 300,
+    "_metro": "Oslo, Norway"
+  },
+  {
+    "name": "Holy Riders MC",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/onliiglqecl5evr7fcvm3218ps%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oslo, Norway",
+    "limit": 300,
+    "_metro": "Oslo, Norway"
+  },
+  {
+    "name": "Allerheiligenkirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kanzlei%40paz.at/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Philemons Garten",
+    "category": "outdoors",
+    "_found": "osm:garden -> ics",
+    "url": "https://www.philemons-garten.at/?glv_ical=1",
+    "geocode_suffix": ", Graz, Austria",
+    "limit": 300,
+    "_metro": "Graz, Austria"
+  },
+  {
+    "name": "De Speye",
+    "category": "music",
+    "_found": "osm:nightclub -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0c56382e2e5c9cba6379333ee22390fe036185c121486805eb2c051a5da3ac42%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sas van Gent",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
   }
 ]

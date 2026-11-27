@@ -94,6 +94,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "atom jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Atom Jazz Festival",
+      "ref_keys": [
+        "311d67a004a8"
+      ],
+      "referrers": [
+        {
+          "source": "venuepilot",
+          "start": "2027-01-21",
+          "title": "Alex Loran Septet",
+          "url": "https://tickets.venuepilot.com/e/alex-loran-septet-2027-01-21-dazzle-the-arts-complex-denver-4b2814"
+        }
+      ],
+      "sample": "Her septet is her newest project, originally coming together to perform at the inaugural Atom Jazz Festival in August 2026. This group, featuring some of Colorado’s brightest young artists, brings creative energy and collaboration to Alex’s original music. As a composer, Alex strives to keep",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "aurora biennial": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -216,14 +237,50 @@
     "brisasia festival": {
       "dates": [],
       "first_seen": "2026-11-12",
-      "last_seen": "2026-11-18",
+      "last_seen": "2026-11-24",
       "name": "BrisAsia Festival",
       "ref_keys": [
+        "0b9c44f312ae",
+        "0e0519d4cf47",
+        "1237cc32a57f",
+        "1250e4ca016d",
+        "15a6781699d3",
+        "18c4af52ef8c",
+        "22981baca62c",
+        "27bc87a2eb96",
         "3cb7e7650434",
+        "7d0ebd02f1f9",
+        "8483e81fd7e1",
         "88f7183722c0",
-        "da8684b8ae8f"
+        "96fc8d3b1ac3",
+        "9cfe592769b9",
+        "adab3aca01b0",
+        "b36fe16fd9b2",
+        "b4af08290a4d",
+        "d30c6f63a458",
+        "d6842e5704a9",
+        "d72a89483ce1",
+        "d96546b2ef38",
+        "da491e39054a",
+        "da8684b8ae8f",
+        "de886b95795d",
+        "f74b98a0e47c",
+        "fc7329b96805",
+        "fd3bed4bd29f"
       ],
       "referrers": [
+        {
+          "source": "ics:brisbane-creative-events-(brisbane,-australia)",
+          "start": "2027-01-29",
+          "title": "Vietnamese Lunar New Year Festival",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290285"
+        },
+        {
+          "source": "ods:Brisbane Creative Events (Brisbane)",
+          "start": "2027-01-29",
+          "title": "Vietnamese Lunar New Year Festival",
+          "url": "https://www.brisbane.qld.gov.au/trumba?trumbaEmbed=view%3Devent%26eventid%3D213290285"
+        },
         {
           "source": "ods:Brisbane City Council Music Events (Brisbane)",
           "start": "2027-02-06",
@@ -245,7 +302,7 @@
       ],
       "sample": "Bookings required: Yes BrisAsia Comedy Gala is presented as part of BrisAsia Festival . Stories, surprises and seriously opinionated Aunties are taking over the stage for one unforgettable night! Discover multicultural and multilingual improv comedy inspired by real stories from Asian-Australian",
       "state": "pending",
-      "times_seen": 3,
+      "times_seen": 27,
       "venue": null
     },
     "cascadia nw arts and music festival": {
@@ -421,6 +478,27 @@
         }
       ],
       "sample": "19u00 deuren open 19u30 inleiding 20u15 start film Vertoning in het kader van Dagen van de Sociale Film festival.",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "day one film festival": {
+      "dates": [],
+      "first_seen": "2026-11-24",
+      "last_seen": "2026-11-24",
+      "name": "Day One Film Festival",
+      "ref_keys": [
+        "04f32576b0b9"
+      ],
+      "referrers": [
+        {
+          "source": "ics:wellington-city-libraries-(wellington,-new-zealand)",
+          "start": "2026-12-04",
+          "title": "Since Day One Screening",
+          "url": "https://WellingtonCityLibraries.trumba.com/Since-Day-One-Screening/E214323319"
+        }
+      ],
+      "sample": "Dir: Conor Bowden This screening is part of the Day One Film Festival . This event is for film aficionados aged 16+. Please note that some films shown will have an M rating.",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -663,6 +741,48 @@
       "times_seen": 1,
       "venue": null
     },
+    "freepsy festival": {
+      "dates": [],
+      "first_seen": "2026-11-25",
+      "last_seen": "2026-11-25",
+      "name": "FreePsy festival",
+      "ref_keys": [
+        "643867466e2a"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-29",
+          "title": "Freud’s Afternoon Session – Free Clinics, past, present and future",
+          "url": "https://www.freud.org.uk/event/freuds-afternoon-session-free-clinics-past-present-and-future/"
+        }
+      ],
+      "sample": "For this event, held in conjunction with the FreePsy festival at the Freud Museum, Professor Raluca Soreanu will be in conversation with the Freud Museum Research Manager Tom DeRose to discuss the history of free psychoanalytic clinics, starting with Freud’s famous ‘Budapest address’ of 1918, and",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "grand organ festival": {
+      "dates": [],
+      "first_seen": "2026-11-25",
+      "last_seen": "2026-11-25",
+      "name": "Grand Organ Festival",
+      "ref_keys": [
+        "f6f7e65ba27f"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-28",
+          "title": "New Bristol Sinfonia",
+          "url": "https://bristol-cathedral.co.uk/event/new-bristol-sinfonia/"
+        }
+      ],
+      "sample": "Part of The Grand Organ Festival, this concert marks an exciting moment in the life of the Cathedral’s newly restored organ, bringing together musicians from across Bristol for a performance of some of the most inspiring works ever written for the instrument. The evening opens with Widor’s",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "head on photo festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -750,10 +870,11 @@
     "indian fair": {
       "dates": [],
       "first_seen": "2026-11-12",
-      "last_seen": "2026-11-12",
+      "last_seen": "2026-11-26",
       "name": "Indian Fair",
       "ref_keys": [
         "0bcd47d76c3d",
+        "124c46e39552",
         "131908d93219",
         "76077f75e018",
         "c78cfc43c213"
@@ -782,11 +903,17 @@
           "start": "2026-11-15",
           "title": "Meet the Maker: Weaving Demonstration with Barbara and Michael Teller Ornelas",
           "url": "https://toyandminiaturemuseum.org/events/meet-the-maker-weaving-demonstration-with-barbara-and-michael-teller-ornelas/"
+        },
+        {
+          "source": "jsonld",
+          "start": "2026-11-26",
+          "title": "Native Arts in Miniature",
+          "url": "https://toyandminiaturemuseum.org/events/native-arts-in-miniature/"
         }
       ],
       "sample": "Their award-winning rugs—full size and miniature—have been recognized at the Heard Museum’s annual Indian Fair + Market and the Santa Fe Indian Market, the largest and most prestigious art market for Native works in the world. Barbara Teller Ornelas has shared her work internationally through a",
       "state": "pending",
-      "times_seen": 4,
+      "times_seen": 5,
       "venue": null
     },
     "international fly fishing film festival": {
@@ -1101,7 +1228,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-22",
+      "last_seen": "2026-11-27",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -1109,19 +1236,24 @@
         "33e7eba1bcea",
         "3933167fe8cf",
         "3b5e9269f555",
+        "417078755836",
         "45fa3cbe39f7",
         "53f3d138558c",
+        "5f9e3039ac8a",
         "65b459ee18ec",
         "6fbd7b8d2f83",
         "75f0f4d0868c",
         "8915a0d5396d",
         "95520f3d7ef6",
+        "a93ad3eae2f6",
         "b2332f16add5",
         "bc6767d7ee5b",
+        "be92c7e1eb1e",
         "c54b78eea10b",
         "c9faf81ffa64",
         "cb0472f9248d",
         "d4597d62d50a",
+        "e2a599ee48cd",
         "e3f105cce684"
       ],
       "referrers": [
@@ -1158,7 +1290,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 19,
+      "times_seen": 24,
       "venue": null
     },
     "melt festival": {
@@ -1228,12 +1360,15 @@
       "venue": null
     },
     "miami art week": {
-      "dates": [],
+      "dates": [
+        "2026-12-04"
+      ],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-18",
+      "last_seen": "2026-11-25",
       "name": "Miami Art Week",
       "ref_keys": [
         "2c3a5636a685",
+        "4941f0ccbaf7",
         "513dacda7b86",
         "66186a12edf1",
         "92ba667cb352",
@@ -1273,7 +1408,70 @@
       ],
       "sample": "t Rockaway Beach in New York City, Public Art Fund will bring a new presentation of Between Tides to Miami Beach during Miami Art Week and Art Basel Miami Beach. From November 29 through December 6, 2026, six playable sculptural ping-pong tables by Moko Fukuyama, Ilana Harris-Babou, Las Hermanas Igl",
       "state": "covered",
-      "times_seen": 5,
+      "times_seen": 6,
+      "venue": null
+    },
+    "miami beach classical music festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Miami Beach Classical Music Festival",
+      "ref_keys": [
+        "6584b3710983",
+        "76c2ff3154b0",
+        "8839e5bb5b47",
+        "dec6e0045b9d"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-12-12",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-12/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-13",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-13/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-19",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-19/"
+        },
+        {
+          "source": "tribe",
+          "start": "2026-12-20",
+          "title": "Miami Beach Holiday Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/miami-beach-holiday-festival-of-lights/2026-12-20/"
+        }
+      ],
+      "sample": "Presented by the Miami Beach Classical Music Festival and produced by Artistic Director Michael Rossi, the performances use projection-mapping technology to synchronize light and imagery with the music. Holiday food and beverages and Ocean Drive’s 20-foot Christmas tree add to the surrounding",
+      "state": "pending",
+      "times_seen": 4,
+      "venue": null
+    },
+    "midsumma festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Midsumma Festival",
+      "ref_keys": [
+        "a2a394cd7125"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2027-01-27",
+          "title": "Queer History Walking Tour – St Kilda",
+          "url": "https://www.midsumma.org.au/whats-on/events/queer-history-walking-tour-st-kilda/"
+        }
+      ],
+      "sample": "Queer Archives and Thorne Harbour Health for a vibrant journey through St Kilda’s LGBTQIA+ history as part of Midsumma Festival! Guided by a fabulous local queer historian Nick Henderson, this immersive walking tour explores the landmarks, venues, and stories that shaped St Kilda’s queer",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "more than a festival": {
@@ -1617,6 +1815,29 @@
       "times_seen": 2,
       "venue": null
     },
+    "philly loves bowie week": {
+      "dates": [
+        "2027-01-09"
+      ],
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "name": "Philly Loves Bowie week",
+      "ref_keys": [
+        "c6dbd630ecce"
+      ],
+      "referrers": [
+        {
+          "source": "jsonld",
+          "start": "2027-01-10",
+          "title": "Bowie & Prince Dance Party",
+          "url": "https://www.tixr.com/groups/undergroundarts/events/underground-arts-bowie-prince-dance-party-215490"
+        }
+      ],
+      "sample": "The 2nd Annual Bowie & Prince Dance Party at Underground Arts > Featuring: DJ Riot Meg + DJ Jawn Cena > Part of Philly Loves Bowie week > Dance to tons of Bowie and Prince with some similar artists mixed in! > Themed drink specials and visuals! > At least $1 per ticket is being donated to",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "photonola festival": {
       "dates": [
         "2026-12-02/2026-12-06"
@@ -1640,6 +1861,27 @@
       "times_seen": 1,
       "venue": null
     },
+    "rebalance bath festival of wellbeing drawing": {
+      "dates": [],
+      "first_seen": "2026-11-25",
+      "last_seen": "2026-11-25",
+      "name": "ReBalance Bath Festival of Wellbeing Drawing",
+      "ref_keys": [
+        "2236eda6b620"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2027-02-02",
+          "title": "The art of mindfulness",
+          "url": "https://www.brlsi.org/whatson/the-art-of-mindfulness/"
+        }
+      ],
+      "sample": "Part of the ReBalance Bath Festival of Wellbeing Drawing, Colour and the Present Moment Join artist and drawing tutor Jane Hildreth for a creative three-hour workshop exploring how drawing can become a way of slowing down, looking more closely and being present. We will explore the relationship",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "richmond environmental film festival": {
       "dates": [],
       "first_seen": "2026-11-08",
@@ -1658,6 +1900,27 @@
       ],
       "sample": "A community screening of The River Runs On (2023, NR, 55 min) as part of the 2027 Richmond Environmental Film Festival. This documentary film follows conservationists throughout Southern Appalachia as they struggle to manage two of the most important national forest in America- the Pisgah and Nantah",
       "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "richmond poetry fest": {
+      "dates": [],
+      "first_seen": "2026-11-24",
+      "last_seen": "2026-11-24",
+      "name": "Richmond Poetry Fest",
+      "ref_keys": [
+        "2f353ab99a03"
+      ],
+      "referrers": [
+        {
+          "source": "ics:richmond-public-library-(richmond,-va)",
+          "start": "2027-03-26",
+          "title": "Poetry in Motion: A Screening of Poetic Short Films",
+          "url": "https://rvalibrary.libcal.com/event/17945043"
+        }
+      ],
+      "sample": "audience members will vote on the winner in this first-ever Richmond Poetry Festival poetic short film contest! Part of Richmond Poetry Fest: Richmond Poetry Fest hosted by the Visual Arts Center of Richmond is an event co-created by VisArts staff and a group of former and current",
+      "state": "covered",
       "times_seen": 1,
       "venue": null
     },
@@ -1904,6 +2167,27 @@
       "times_seen": 2,
       "venue": null
     },
+    "sobe jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "name": "SoBe Jazz Festival",
+      "ref_keys": [
+        "6ae6267b4434"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-29",
+          "title": "Normandy Fountain Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/normandy-fountain-festival-of-lights/"
+        }
+      ],
+      "sample": "Presented in partnership with SoBe Jazz Festival, the event also features live performances by acclaimed vocalist Ari Reinoso and Broadway, television and film performer Lindsey Alley, making her Normandy Fountain debut. This free community celebration brings residents and visitors together to kick",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
     "spectacular week": {
       "dates": [],
       "first_seen": "2026-11-14",
@@ -2070,6 +2354,27 @@
         }
       ],
       "sample": "Janusz and Stefa was created in honor of the Texas Holocaust Remembrance Week, and it’s on tour all over the state. Registration information will be available soon!",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "trance blues festival": {
+      "dates": [],
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "name": "Trance Blues Festival",
+      "ref_keys": [
+        "15ec0148e748"
+      ],
+      "referrers": [
+        {
+          "source": "venuepilot",
+          "start": "2026-12-30",
+          "title": "Otis Taylor",
+          "url": "https://tickets.venuepilot.com/e/otis-taylor-one-of-these-nights-2026-12-30-dazzle-the-arts-complex-denver-419d87"
+        }
+      ],
+      "sample": "A resident of Boulder since 1967, Taylor gives back to his community with the annual Trance Blues Festival in Boulder, where he invites a diverse cast of musicians as guest artists for an all-ages workshop and concert. And he and his wife Carol created a blues in the schools program called \"Writing",
       "state": "pending",
       "times_seen": 1,
       "venue": null

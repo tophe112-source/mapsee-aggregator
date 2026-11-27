@@ -613,6 +613,15 @@ jobs:
       # Safe to run twice: the sync upserts on (external_source, external_id), so
       # the final sync re-offering these rows is a no-op, and --only-new skips
       # them before they are even built.
+      #
+      # THE ICS REFRESH STOPS ITSELF, 5 MINUTES INSIDE THIS STEP'S 20. A step
+      # cancelled at timeout-minutes leaves its python running: on 2026-11-25
+      # the cancelled checkpoint (54 of 66 batches logged) finished the pass
+      # unseen and reset the progress about a minute before the final sync
+      # read it, which then began again at "0 of 328092 settled" and was
+      # cancelled at 59 batches. --refresh-max-seconds starts no batch after
+      # 900 s and exits non-zero, so the final sync still runs
+      # (`steps.checkpoint.outcome`) and continues from the saved progress.
       - name: Checkpoint — sync what has landed so far (a later timeout must not discard it)
         id: checkpoint
         continue-on-error: true
@@ -622,7 +631,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           REFRESH=""
-          [ "${{ matrix.group }}" = "ics" ] && REFRESH="--refresh-batch-size 5000 --refresh-progress refresh_progress_ics.json"
+          [ "${{ matrix.group }}" = "ics" ] && REFRESH="--refresh-batch-size 5000 --refresh-progress refresh_progress_ics.json --refresh-max-seconds 900"
           if [ -f feeds_events.json ]; then
             python mapsee_supabase_sync.py --store feeds_events.json $REFRESH --skip-unchanged $ONLY_NEW --state-cache sync_state_${{ matrix.group }}.json
           else
@@ -1474,11 +1483,21 @@ jobs:
       # or ran out its 20 minutes must still be followed by this sync. A
       # cancellation write the checkpoint could not deliver (it warns and exits
       # 0) is no longer retried here; it waits for the next read of its feed.
+      #
+      # ics: 35, WITH THE REFRESH STOPPING ITSELF AT 30 (1800 s below). One
+      # Wednesday pass was 66 batches of 5,000 at 17.2 s after a 4.5 min build
+      # on 2026-11-25 (55 at 24.7 s on 11-18, when the store held 274,218
+      # rows; 328,092 a week later), which no longer fits two 20-minute steps
+      # that each rebuild. At those rates the checkpoint settles 25-37 batches
+      # and this step 61-89 more. The import above bounds itself at 220 min,
+      # so 220 + 20 + 35 stays inside the job's 300. A refresh the checkpoint
+      # left running is stopped by this one (take_over_refresh) before it
+      # builds.
       - name: Sync feeds to Supabase (batch-geocoded)
         id: sync
         if: matrix.group != 'ics' || steps.checkpoint.outcome != 'success'
         continue-on-error: true
-        timeout-minutes: ${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || 20 }}
+        timeout-minutes: ${{ matrix.group == 'civic' && 105 || matrix.group == 'rec' && 60 || matrix.group == 'ics' && 35 || 20 }}
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
@@ -1490,7 +1509,7 @@ jobs:
           ABSENT=""
           [ "${{ matrix.group }}" = "rec" ] && ABSENT="--retire-absent --manifest rec_absence_manifest.json"
           REFRESH=""
-          [ "${{ matrix.group }}" = "ics" ] && REFRESH="--refresh-batch-size 5000 --refresh-progress refresh_progress_ics.json"
+          [ "${{ matrix.group }}" = "ics" ] && REFRESH="--refresh-batch-size 5000 --refresh-progress refresh_progress_ics.json --refresh-max-seconds 1800"
           if [ -f feeds_events.json ]; then
             python mapsee_supabase_sync.py --store feeds_events.json $REFRESH --skip-unchanged $ONLY_NEW $ABSENT --state-cache sync_state_${{ matrix.group }}.json
             echo "synced_store=true" >> "$GITHUB_OUTPUT"

@@ -11042,6 +11042,144 @@
         "lon": -75.6864053
       },
       "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "PACT Centre for Emerging Artists",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.pact.net.au/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "PACT Centre for Emerging Artists",
+        "lat": -33.8990367,
+        "lon": 151.1873189
+      },
+      "_metro": "Sydney, Australia"
+    },
+    {
+      "name": "Kindred Studios",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.kindredstudios.co.uk/kindred-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Kindred Studios",
+        "address": "326 Kensal Road",
+        "city": "London",
+        "postal_code": "W10 5BZ",
+        "lat": 51.5264458,
+        "lon": -0.2136394
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Every Thing Goes Book Cafe",
+      "category": "community",
+      "_found": "osm:cafe -> squarespace",
+      "collection": "https://www.etgstores.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Every Thing Goes Book Cafe",
+        "address": "208 Bay Street",
+        "city": "Staten Island",
+        "region": "NY",
+        "postal_code": "10301",
+        "lat": 40.636934,
+        "lon": -74.076656
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Secret Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.secrettheatre.com/shows-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Secret Theatre",
+        "address": "44-02 23rd Street",
+        "city": "Long Island City",
+        "region": "NY",
+        "postal_code": "11101",
+        "lat": 40.7488051,
+        "lon": -73.9449809
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "queer/bar",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://thequeerbar.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "queer/bar",
+        "address": "1518 11th Avenue",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98122",
+        "lat": 47.6147799,
+        "lon": -122.3179499
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Gambit Brewing",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://gambitbrewingco.com/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Gambit Brewing",
+        "address": "141 4th Street East",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55101",
+        "lat": 44.947066,
+        "lon": -93.0894472
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Elm Creek Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.elmcreekbrewing.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Elm Creek Brewing",
+        "lat": 45.1625107,
+        "lon": -93.3903945
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Bauhaus Brew Labs",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.bauhausbrewlabs.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bauhaus Brew Labs",
+        "lat": 45.0007944,
+        "lon": -93.2447193
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Singapore Indian Fine Arts Society",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.sifas.org/events-1-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Singapore Indian Fine Arts Society",
+        "address": "250 Middle Road",
+        "postal_code": "188983",
+        "lat": 1.3014701,
+        "lon": 103.8506356
+      },
+      "_metro": "Singapore, Singapore"
     }
   ],
   "_not_included": {
