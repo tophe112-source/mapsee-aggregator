@@ -40744,6 +40744,97 @@
         "lon": -82.3217706
       },
       "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Pentecost International, Lund",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event+ics",
+      "listing": [
+        "https://www.pentecostinternational.se/events-resources/"
+      ],
+      "link_pattern": "https://www\\.pentecostinternational\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pentecost International, Lund",
+        "address": "25 Stora Södergatan",
+        "city": "Lund",
+        "postal_code": "22223",
+        "country": "SE",
+        "lat": 55.7001847,
+        "lon": 13.1919909
+      },
+      "_metro": "Malmo, Sweden"
+    },
+    {
+      "name": "Science Village Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://sciencevillagehall.se/event/lille-prinsen-pa-is/?cd=20270303"
+      ],
+      "link_pattern": "https://sciencevillagehall\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Science Village Hall",
+        "lat": 55.7301081,
+        "lon": 13.2433663
+      },
+      "_metro": "Malmo, Sweden"
+    },
+    {
+      "name": "RundPunkt 11",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://rundpunkt11.at/mec-kalender-uebersicht/"
+      ],
+      "link_pattern": "https://rundpunkt11\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "RundPunkt 11",
+        "address": "11 Gaußplatz",
+        "city": "Wien",
+        "postal_code": "1200",
+        "lat": 48.2268582,
+        "lon": 16.3700283
+      },
+      "_metro": "Vienna, Austria"
+    },
+    {
+      "name": "Salzburg Arena",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event+ics",
+      "listing": [
+        "https://www.salzburgarena.at/de/events-tickets/symphoniacs-1033/"
+      ],
+      "link_pattern": "https://www\\.salzburgarena\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Salzburg Arena",
+        "address": "1 Am Messezentrum",
+        "city": "Salzburg",
+        "postal_code": "5020",
+        "country": "AT",
+        "lat": 47.8253096,
+        "lon": 13.0279441
+      },
+      "_metro": "Salzburg, Austria"
+    },
+    {
+      "name": "Tipi Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.tipi-bookshop.be/pages/events/lancement-de-el-rey-blanco-by-maximiliano-tineo"
+      ],
+      "link_pattern": "https://www\\.tipi\\-bookshop\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tipi Bookshop",
+        "lat": 50.827338,
+        "lon": 4.3450907
+      },
+      "_metro": "Brussels, Belgium"
     }
   ],
   "_not_included": {

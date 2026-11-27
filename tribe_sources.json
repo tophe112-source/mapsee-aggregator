@@ -50371,6 +50371,98 @@
       "default_region": "Illinois",
       "default_country": "US",
       "_metro": "Rochelle, Illinois"
+    },
+    {
+      "name": "Equmeniakyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://equmeniakyrkanjonsered.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Equmeniakyrkan",
+        "address": "11 Jonseredsvägen",
+        "city": "Jonsered",
+        "postal_code": "433 75",
+        "country": "SE",
+        "lat": 57.7439479,
+        "lon": 12.1706817
+      },
+      "_metro": "Gothenburg, Sweden",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Klubben Cyklisten Malmö",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.klubbencyklisten.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Klubben Cyklisten Malmö",
+        "address": "92 Husie Kyrkoväg",
+        "city": "Malmö",
+        "postal_code": "21238",
+        "lat": 55.5790117,
+        "lon": 13.0824635
+      },
+      "_metro": "Malmo, Sweden"
+    },
+    {
+      "name": "Malmö Orienteringsklubb",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mok.nu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Malmö Orienteringsklubb",
+        "lat": 55.5989057,
+        "lon": 13.0642942
+      },
+      "_metro": "Malmo, Sweden"
+    },
+    {
+      "name": "Det internasjonale barnekunstmuseet",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://barnekunst.no",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Det internasjonale barnekunstmuseet",
+        "lat": 59.9357546,
+        "lon": 10.7115263
+      },
+      "_metro": "Oslo, Norway"
+    },
+    {
+      "name": "The Good Knight",
+      "category": "community",
+      "_found": "osm:bar -> tribe+jsonld-event+ics",
+      "base_url": "https://goodknight.no",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Good Knight",
+        "lat": 59.916241,
+        "lon": 10.750901
+      },
+      "_metro": "Oslo, Norway"
+    },
+    {
+      "name": "Kleszczowskie Centrum Kultury",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://sckipgz.zabierzow.org.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kleszczowskie Centrum Kultury",
+        "lat": 50.1037809,
+        "lon": 19.7416785
+      },
+      "_metro": "Krakow, Poland"
     }
   ],
   "_not_included": {

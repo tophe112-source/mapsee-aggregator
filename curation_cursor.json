@@ -248,14 +248,9 @@
  "gancio": {},
  "mobilizon": {},
  "osm": {
-  "metro": 12,
-  "metro_key": "CZ:Brno",
-  "stuck": {
-   "CZ:Brno": {
-    "day": 20261127,
-    "n": 1
-   }
-  }
+  "metro": 29,
+  "metro_key": "BE:Liege",
+  "stuck": {}
  },
  "osm|community_centre,library": {
   "metro": 225,

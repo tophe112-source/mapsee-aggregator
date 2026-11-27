@@ -11165,6 +11165,21 @@
         "lon": -93.2447193
       },
       "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Singapore Indian Fine Arts Society",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.sifas.org/events-1-1",
+      "max_events": 200,
+      "venue": {
+        "name": "Singapore Indian Fine Arts Society",
+        "address": "250 Middle Road",
+        "postal_code": "188983",
+        "lat": 1.3014701,
+        "lon": 103.8506356
+      },
+      "_metro": "Singapore, Singapore"
     }
   ],
   "_not_included": {

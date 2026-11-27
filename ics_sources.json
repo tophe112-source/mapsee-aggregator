@@ -79353,5 +79353,77 @@
     "_found": "civic:city -> civicplus[Berlin Events]",
     "_metro": "Berlin, New Hampshire",
     "crawl_delay": 10.0
+  },
+  {
+    "name": "Spelens Hus",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e6074269731b838dc24e244e4f4ee0604dfd4144b388a47c66de76a805daab13%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Malmö",
+    "limit": 300,
+    "_metro": "Malmo, Sweden"
+  },
+  {
+    "name": "DMF",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/styrelsen%40dmfonline.se/public/basic.ics",
+    "geocode_suffix": ", Lund",
+    "limit": 300,
+    "_metro": "Malmo, Sweden"
+  },
+  {
+    "name": "Trelleborgs Motorklubb",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40trelleborgsmk.se/public/basic.ics",
+    "geocode_suffix": ", Trelleborg",
+    "limit": 300,
+    "_metro": "Malmo, Sweden"
+  },
+  {
+    "name": "Pinsekirken Sandvika",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l5d1f58qmgpkk5dpjeidf6ba4s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oslo, Norway",
+    "limit": 300,
+    "_metro": "Oslo, Norway"
+  },
+  {
+    "name": "Holy Riders MC",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/onliiglqecl5evr7fcvm3218ps%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oslo, Norway",
+    "limit": 300,
+    "_metro": "Oslo, Norway"
+  },
+  {
+    "name": "Allerheiligenkirche",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kanzlei%40paz.at/public/basic.ics",
+    "geocode_suffix": ", Wien",
+    "limit": 300,
+    "_metro": "Vienna, Austria"
+  },
+  {
+    "name": "Philemons Garten",
+    "category": "outdoors",
+    "_found": "osm:garden -> ics",
+    "url": "https://www.philemons-garten.at/?glv_ical=1",
+    "geocode_suffix": ", Graz, Austria",
+    "limit": 300,
+    "_metro": "Graz, Austria"
+  },
+  {
+    "name": "De Speye",
+    "category": "music",
+    "_found": "osm:nightclub -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0c56382e2e5c9cba6379333ee22390fe036185c121486805eb2c051a5da3ac42%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sas van Gent",
+    "limit": 300,
+    "_metro": "Ghent, Belgium"
   }
 ]
