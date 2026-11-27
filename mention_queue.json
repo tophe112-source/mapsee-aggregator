@@ -1228,7 +1228,7 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-25",
+      "last_seen": "2026-11-27",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
@@ -1245,8 +1245,10 @@
         "75f0f4d0868c",
         "8915a0d5396d",
         "95520f3d7ef6",
+        "a93ad3eae2f6",
         "b2332f16add5",
         "bc6767d7ee5b",
+        "be92c7e1eb1e",
         "c54b78eea10b",
         "c9faf81ffa64",
         "cb0472f9248d",
@@ -1288,7 +1290,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 22,
+      "times_seen": 24,
       "venue": null
     },
     "melt festival": {
@@ -2163,6 +2165,27 @@
       "sample": "The finished artworks will come together as part of a multi-disciplinary community art installation presented during Singapore Art Week 2027. Together, these works will form a collective portrait of the neighbourhood and the memories that live within its everyday spaces. No artmaking experience requ",
       "state": "pending",
       "times_seen": 2,
+      "venue": null
+    },
+    "sobe jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "name": "SoBe Jazz Festival",
+      "ref_keys": [
+        "6ae6267b4434"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2026-11-29",
+          "title": "Normandy Fountain Festival of Lights",
+          "url": "https://events.miamibeachfl.gov/event/normandy-fountain-festival-of-lights/"
+        }
+      ],
+      "sample": "Presented in partnership with SoBe Jazz Festival, the event also features live performances by acclaimed vocalist Ari Reinoso and Broadway, television and film performer Lindsey Alley, making her Normandy Fountain debut. This free community celebration brings residents and visitors together to kick",
+      "state": "pending",
+      "times_seen": 1,
       "venue": null
     },
     "spectacular week": {

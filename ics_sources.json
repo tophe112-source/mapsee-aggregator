@@ -79343,5 +79343,15 @@
     "geocode_suffix": ", Vantaa",
     "limit": 300,
     "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Berlin — Berlin Events",
+    "category": "community",
+    "url": "https://www.berlinnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Berlin, New Hampshire",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Berlin Events]",
+    "_metro": "Berlin, New Hampshire",
+    "crawl_delay": 10.0
   }
 ]

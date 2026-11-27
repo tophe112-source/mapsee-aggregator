@@ -50359,6 +50359,18 @@
       },
       "_metro": "Boulder, United States",
       "crawl_delay": 10.0
+    },
+    {
+      "name": "Rochelle",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cityofrochelle.net",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Rochelle",
+      "default_region": "Illinois",
+      "default_country": "US",
+      "_metro": "Rochelle, Illinois"
     }
   ],
   "_not_included": {
