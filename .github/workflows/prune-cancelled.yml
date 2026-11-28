@@ -124,16 +124,6 @@ on:
         description: "Also hide already-imported events whose listing says they are online only"
         type: boolean
         default: false
-      # THE SAME SHAPE, for the import's other refusal: a Ticketmaster product
-      # sold beside a show ("... Amplified Access: <act> (Not an Event Ticket)",
-      # "Parking permit <act>"). Refused at import since 2026-10-23; the rows
-      # written before stay until their date passes (2026-11-28: 39 live in the
-      # next 10 days, 2 of them in Seattle's next 24 hours). Opt-in, a
-      # backfill; dry_run reports.
-      retire_ticket_addons:
-        description: "Also hide already-imported Ticketmaster add-on rows (not an event ticket, parking)"
-        type: boolean
-        default: false
 
 concurrency:
   group: prune-cancelled
@@ -265,14 +255,3 @@ jobs:
           pip install --quiet requests
           if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
           python mapsee_retire_online_events.py $APPLY
-
-      # always(), for the reason above: it reads only our own table. Its
-      # --unhide --stamp <the "Mode: APPLY (hidden_at=...)" line> reverses a run.
-      - name: Backfill — hide already-imported Ticketmaster add-on rows
-        if: ${{ always() && inputs.retire_ticket_addons == true }}
-        env:
-          DRY_RUN: ${{ inputs.dry_run }}
-        run: |
-          pip install --quiet -r requirements.txt
-          if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
-          python mapsee_retire_ticket_addons.py $APPLY

@@ -85,7 +85,18 @@ check("a product somebody RSVPed to is left", fake.events[IDS[0]]["hidden_at"] i
       and fake.events[IDS[3]]["hidden_at"] and "2 left" in out)
 fake = T.FakeRest(rows(), hook=lambda m, u, n: T.Resp(500, {"message": "boom"}) if "and=(starts_at" in u or "starts_at=gte" in u else None)
 code, out = run(fake, "--apply", "--days", "3")
-check("a listing that fails hides nothing and exits 1", code == 1 and T.patches(fake) == [])
+check("a listing that fails everywhere hides nothing and exits 1", code == 1 and T.patches(fake) == [] and "OWED" in out)
+
+
+def one_day_down(m, u, n):
+    if "and=(starts_at" in u and "2026-11-30" in u.split("and=(")[1][:60]:
+        return T.Resp(500, {"message": "boom"})
+
+
+fake = T.FakeRest(rows(), hook=one_day_down)
+code, out = run(fake, "--apply", "--days", "3")
+check("one day that cannot be listed costs only its own rows: the others are hidden, and the run still exits 1",
+      code == 1 and fake.events[IDS[0]]["hidden_at"] and "2026-11-30 was not listed whole" in out)
 
 print(f"\n{ok} passed, {fail} failed")
 raise SystemExit(1 if fail else 0)

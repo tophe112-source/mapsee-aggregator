@@ -1,0 +1,87 @@
+name: Retire Ticketmaster add-on rows (manual)
+
+# mapsee_retire_ticket_addons.py by hand: hide the stored Ticketmaster rows that
+# are a product sold beside a show ("... Amplified Access: <act> (Not an Event
+# Ticket)", "Parking permit <act>"). The import has refused them since
+# 2026-10-23; an upsert cannot delete, so the rows written before stay until
+# their date passes. A BACKFILL: once it has run, running it again finds only
+# what a later widening of the import's rule left behind.
+#
+# ITS OWN WORKFLOW, NOT A STEP OF prune-cancelled.yml. It was one for an hour
+# (2026-11-28): a dispatch there first spends the prune sweep's whole budget
+# probing other people's servers, and this script's listing (95 days, 293 s
+# measured that day) then has what is left of that job's 45 minutes.
+#
+# workflow_dispatch ONLY. Never add a pull_request trigger: this repo is public
+# and that would expose SUPABASE_SERVICE_ROLE_KEY to fork code.
+#
+# MODES
+#   report         list the rows it would hide; write nothing (the default)
+#   apply          hide them (hidden_at alone; never a claimed or engaged row)
+#   unhide-report  list the rows one run hid (needs `stamp`, from that run's
+#                  log: "Mode: APPLY (hidden_at=...)")
+#   unhide         put them back
+#
+# Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "report | apply | unhide-report | unhide"
+        type: choice
+        options: [report, apply, unhide-report, unhide]
+        default: report
+      stamp:
+        description: "unhide modes: the hidden_at stamp of the run to reverse, e.g. 2026-11-28T15:40:07+00:00"
+        type: string
+        default: ""
+
+concurrency:
+  group: retire-ticket-addons
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: The rule about to be applied still passes its own tests
+        run: python test_retire_ticket_addons.py
+      - name: Run
+        shell: bash
+        env:
+          MODE: ${{ inputs.mode }}
+          STAMP: ${{ inputs.stamp }}
+        run: |
+          # Inputs reach the shell through env, never pasted into `run:`.
+          # --max-seconds 900 is inside timeout-minutes 25 with the checkout,
+          # pip and the test step to spare. Move one, move the other.
+          case "$MODE" in
+            report) ARGS=(--max-seconds 900) ;;
+            apply)  ARGS=(--apply --max-seconds 900) ;;
+            unhide-report|unhide)
+              if [ -z "$STAMP" ]; then
+                echo "::error::the unhide modes need the stamp of the run to reverse"
+                exit 2
+              fi
+              ARGS=(--unhide --stamp "$STAMP")
+              if [ "$MODE" = "unhide" ]; then ARGS+=(--apply); fi ;;
+            *) echo "::error::unknown mode '$MODE'"; exit 2 ;;
+          esac
+          echo "MODE: $MODE"
+          python -u mapsee_retire_ticket_addons.py "${ARGS[@]}"
