@@ -6922,6 +6922,19 @@ def _rows_recitals(data):
     return rows
 
 
+def _rows_scms(data):
+    """One row per presenter's calendar, filed under its first configured venue.
+    SCMS also plays Bellevue, Vashon and Bainbridge Island; one calendar is
+    still one source, so it is not counted once per town."""
+    rows = []
+    for entry in data.get("sources", []):
+        venue = (entry.get("venues") or [{}])[0]
+        rows.append((entry.get("name") or "?", venue.get("city") or "?",
+                     _country_named(venue.get("country")) or "?",
+                     entry.get("category") or "music"))
+    return rows
+
+
 def _rows_waterfront(data):
     """One public calendar, with explicitly declared city and country."""
     return [(entry.get("name") or "?", entry.get("city") or "?",
@@ -6960,6 +6973,7 @@ EXTRA_CONFIG = {
     "openactive": ("openactive_sources.json", _rows_openactive),
     "bibliocommons": ("bibliocommons_sources.json", _rows_bibliocommons),
     "recitals": ("recital_sources.json", _rows_recitals),
+    "scms": ("scms_sources.json", _rows_scms),
     "waterfront": ("waterfront_sources.json", _rows_waterfront),
     "mapasculturais": ("mapasculturais_sources.json", _rows_mapasculturais),
 }

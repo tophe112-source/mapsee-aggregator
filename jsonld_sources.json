@@ -40931,6 +40931,31 @@
         "lon": 8.4468688
       },
       "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Phoenix Chamber Music Society (Phoenixville, PA)",
+      "category": "music",
+      "_found": "chamber-music presenter https://www.phoenixchambermusic.org/ -> wix",
+      "listing": [
+        "https://www.phoenixchambermusic.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "_metro": "Philadelphia, PA",
+      "_note": "2026-11-28: concerts at The Colonial Theatre, Phoenixville, Pennsylvania; each event page names its place."
+    },
+    {
+      "name": "Vancouver Recital Society",
+      "category": "music",
+      "listing": [
+        "https://vanrecital.com/"
+      ],
+      "link_pattern": "https://vanrecital\\.com/concert/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_found": "chamber-music presenter https://vanrecital.com/ -> jsonld (listing corrected by hand 2026-11-28: the probe proposed one concert page)",
+      "_metro": "Vancouver, BC",
+      "_note": "2026-11-28: 8 recitals with full street addresses at the Chan Centre, the Roy Barnett Recital Hall (UBC) and the Vancouver Playhouse."
     }
   ],
   "_not_included": {

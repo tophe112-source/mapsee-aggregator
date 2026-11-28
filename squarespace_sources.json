@@ -11180,6 +11180,25 @@
         "lon": 103.8506356
       },
       "_metro": "Singapore, Singapore"
+    },
+    {
+      "name": "Music Toronto",
+      "category": "music",
+      "_found": "chamber-music presenter https://music-toronto.com/ -> squarespace",
+      "collection": "https://music-toronto.com/2026-27-concerts",
+      "max_events": 200,
+      "_metro": "Toronto, ON",
+      "venue": {
+        "name": "Jane Mallett Theatre",
+        "address": "27 Front Street East",
+        "city": "Toronto",
+        "region": "ON",
+        "postal_code": "M5E 1B4",
+        "country": "CA",
+        "lat": 43.6473546,
+        "lon": -79.375174
+      },
+      "_venue_source": "OpenStreetMap way 59259490 (St. Lawrence Centre for the Arts, which houses the Jane Mallett Theatre) via Photon, 2026-11-28. Every one of the 8 upcoming 2026-27 concerts names the Jane Mallett Theatre."
     }
   ],
   "_not_included": {
@@ -11187,6 +11206,7 @@
     "https://www.goldeneagleaudubon.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Golden Eagle Audubon Society (Boise): 0 of 15 upcoming placeable - field trips and restoration days across the Treasure Valley, none with an address.",
     "https://www.ktmb.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Keep Truckee Meadows Beautiful (Reno): 0 of 3 upcoming placeable - clean-ups at sites the posts do not name.",
     "https://www.fronteralandalliance.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Frontera Land Alliance (El Paso): 1 of 20 upcoming placeable - preserve walks across the county.",
-    "https://polariscentre.ca/upcoming-events": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (ics at https://www.polariscentre.ca/event-insurance, which did not verify). The Polaris Theatre."
+    "https://polariscentre.ca/upcoming-events": "Retired 2026-11-01: http 404. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered ok (ics at https://www.polariscentre.ca/event-insurance, which did not verify). The Polaris Theatre.",
+    "https://www.miamichambermusic.org/events": "Declined 2026-11-28: verified (7 upcoming), but 0 of 7 placeable: the page's map links end 'Coral Gables, Florida, 33146 United States', which _split_maplink does not split into a street, and the series plays three halls (two in Coral Gables, one in Miami), so a pinned venue block would put some concerts at the wrong hall. Friends of Chamber Music of Miami."
   }
 }

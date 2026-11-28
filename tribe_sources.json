@@ -50563,6 +50563,64 @@
         "lon": -4.4169288
       },
       "_metro": "Malaga, Spain"
+    },
+    {
+      "name": "Schubert Club (Saint Paul)",
+      "category": "music",
+      "_found": "chamber-music presenter https://schubert.org/ -> tribe+jsonld-event+ics",
+      "base_url": "https://schubert.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Saint Paul",
+      "default_region": "MN",
+      "default_country": "US",
+      "_metro": "Minneapolis-Saint Paul, MN",
+      "_note": "2026-11-28: chamber recitals and the free Courtroom Concerts at Landmark Center (75 W 5th St, whose rows name no city), Ordway, Westminster Hall and Walker Art Center; default_city places the city-less rows in Saint Paul."
+    },
+    {
+      "name": "Chamber Music Hawaii (Honolulu)",
+      "category": "music",
+      "_found": "chamber-music presenter https://www.chambermusichawaii.org/ -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chambermusichawaii.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Honolulu",
+      "default_region": "HI",
+      "default_country": "US",
+      "_metro": "Honolulu, HI",
+      "_note": "2026-11-28: 6 concerts, every row with a full street address (Orvis Auditorium, Paliku Theatre, Cathedral of St. Andrew)."
+    },
+    {
+      "name": "Savannah Music Festival",
+      "category": "music",
+      "_found": "chamber-music presenter https://www.savannahmusicfestival.org/ -> tribe+jsonld-event",
+      "base_url": "https://www.savannahmusicfestival.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Savannah",
+      "default_region": "GA",
+      "default_country": "US",
+      "_metro": "Savannah, GA",
+      "_note": "2026-11-28: 2 winter events listed; the spring festival's concerts publish through the same calendar."
+    },
+    {
+      "name": "Victoria Conservatory of Music (Victoria, BC)",
+      "category": "music",
+      "_found": "chamber-music presenter https://vcm.bc.ca/ -> tribe",
+      "base_url": "https://vcm.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 30.0,
+      "include_categories": [
+        "school-performances",
+        "vcm-events",
+        "workshops"
+      ],
+      "default_city": "Victoria",
+      "default_region": "BC",
+      "default_country": "CA",
+      "_metro": "Victoria, BC",
+      "_note": "2026-11-28: the conservatory's own Faculty and Student Performances, VCM Concerts and Events, and Masterclasses and Workshops. Independent Concerts (72, hall rentals: an escape-room show, a cabaret, Fever's Candlelight) and Building Closure (7) are left out by include_categories."
     }
   ],
   "_not_included": {
@@ -50683,6 +50741,7 @@
     "https://pand-p.nl": "Retired 2026-11-01: http 500. Audited on the GitHub runner and rechecked from a second network; the homepage probe answered unreachable. Pand P.",
     "https://tripodia.nl": "Retired 2026-11-01: HTTP 403 under the production User-Agent, on the weekly audit (GitHub runner) and on a recheck from a second network the same day. A refusal, not an obstacle (AGENTS.md): the way back in is to ask the operator. Tripodia.",
     "https://theater-oberhausen.de/event/urbane-session-mit-dance-grounds/?ical=1": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 294 body bytes / one VEVENT dated 20261022, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list.",
-    "https://theater-oberhausen.de/event/lichter-basteln-mit-dem-open-haus-fuer-alle/?ical=1": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 309 body bytes / one VEVENT dated 20261026, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list."
+    "https://theater-oberhausen.de/event/lichter-basteln-mit-dem-open-haus-fuer-alle/?ical=1": "Retired 2026-11-15: single-event download, not a continuing calendar; production User-Agent and robots allowed, HTTP 200 / 309 body bytes / one VEVENT dated 20261026, zero future events. The two event exports have different UIDs, so they are not duplicate whole-site calendars. No stored events deleted. Recorded here because ics_sources.json is a bare list.",
+    "https://www.chambermusiccharleston.org": "Declined 2026-11-28: verified (11 future events on page 1), but none of the 11 names a venue or an address, and several are house concerts, so the adapter can place none of them. Chamber Music Charleston. Reconsider if its events start naming their halls."
   }
 }

@@ -29,6 +29,8 @@ on:
       - "festival_sources.json"
       - "festival_sources.benaroya-snapshot.json"
       - "recital_sources.json"
+      - "scms_sources.json"
+      - "fixtures/scms-events-*.html"
       - "waterfront_sources.json"
       - "fixtures/waterfront/**"
       - "fixtures/benaroya-open-house.html"
@@ -85,6 +87,8 @@ on:
       - "festival_sources.json"
       - "festival_sources.benaroya-snapshot.json"
       - "recital_sources.json"
+      - "scms_sources.json"
+      - "fixtures/scms-events-*.html"
       - "waterfront_sources.json"
       - "fixtures/waterfront/**"
       - "fixtures/benaroya-open-house.html"
@@ -178,6 +182,7 @@ jobs:
           python test_festival_pdf.py
           python test_ingest_festivals.py
           python test_ingest_recitals.py
+          python test_ingest_scms.py
           python test_ingest_waterfront.py
           python test_discover_festivals.py
 

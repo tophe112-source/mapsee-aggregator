@@ -65564,6 +65564,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "atlantachamberplayers.com": {
+    "checked": 20261128,
+    "name": "Atlanta Chamber Players",
+    "reason": "robots.txt: Disallow: /*? (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "atlantachristianchurch.org": {
     "cal_url": "https://atlantachristianchurch.org/events",
     "checked": 20261105,
@@ -209534,6 +209541,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chambermusiccharleston.org": {
+    "checked": 20261128,
+    "name": "Chamber Music Charleston",
+    "reason": "11 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "chambermusicdetroit.org/2025-26": {
+    "checked": 20261128,
+    "name": "Chamber Music Society of Detroit",
+    "reason": "9 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
+  "chambermusichawaii.org": {
+    "checked": 20261128,
+    "name": "Chamber Music Hawaii",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "chambery.be": {
     "checked": 20261122,
     "name": "Chamb\u00e9ry",
@@ -226730,6 +226758,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cincychamber.org/26-27-season-schedule": {
+    "checked": 20261128,
+    "name": "Chamber Music Cincinnati",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "cincychurch.org": {
     "checked": 20261125,
@@ -701372,6 +701407,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "miamichambermusic.org/events": {
+    "checked": 20261128,
+    "name": "Friends of Chamber Music of Miami",
+    "reason": "7/22 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "miamichildrensmuseum.org": {
     "cal_url": "https://www.miamichildrensmuseum.org/upcoming-events",
     "checked": 20261107,
@@ -742314,6 +742356,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "music-toronto.com/2026-27-concerts": {
+    "checked": 20261128,
+    "name": "Music Toronto",
+    "reason": "8/13 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "music.sydney.edu.au/about/hire-scm-venues/verbrugghen-hall": {
     "cal_url": "https://www.sydney.edu.au/music/news-and-events.html",
     "checked": 20261030,
@@ -742578,6 +742627,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "musicofremembrance.org/show-details": {
+    "checked": 20261128,
+    "name": "Music of Remembrance",
+    "reason": "no schema.org Event blocks found; no link matches link_pattern",
+    "status": "fail",
+    "type": "jsonld"
   },
   "musicstation.pt": {
     "checked": 20261113,
@@ -840916,6 +840972,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "phoenixchambermusic.org/event-list": {
+    "checked": 20261128,
+    "name": "Phoenix Chamber Music Society",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "phoenixcm.net": {
     "cal_url": "https://phoenixcm.net/program-construction-management/",
     "checked": 20261103,
@@ -930234,6 +930297,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "savannahmusicfestival.org": {
+    "checked": 20261128,
+    "name": "Savannah Music Festival",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "savannahorthodox.com": {
     "checked": 20261111,
     "name": "St. Mary Magdalene Orthodox Church",
@@ -936148,6 +936218,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "schubert.org": {
+    "checked": 20261128,
+    "name": "Schubert Club",
+    "reason": "27 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "schubertkino.at": {
     "cal_url": "https://schubertkino.at/kino-mieten/",
@@ -1143815,6 +1143892,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vanrecital.com": {
+    "checked": 20261128,
+    "name": "Vancouver Recital Society",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "vanrecital.com/concert/concert-1-paul-lewis": {
+    "checked": 20261128,
+    "name": "Vancouver Recital Society",
+    "reason": "1 events / 0 future; no link matches link_pattern",
+    "status": "empty",
+    "type": "jsonld"
+  },
   "vanrietschoten.nl": {
     "cal_url": "https://www.vanrietschoten.nl/9789043944892/hanneke-de-zoete/de-zoete-zusjes-stelen-de-show/",
     "checked": 20261017,
@@ -1145855,6 +1145946,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "vcm.bc.ca": {
+    "checked": 20261128,
+    "name": "Victoria Conservatory Chamber Series",
+    "reason": "39 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "vcmb.fr": {
     "checked": 20261122,

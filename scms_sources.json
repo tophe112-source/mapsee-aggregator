@@ -1,0 +1,117 @@
+{
+  "_readme": "Seattle Chamber Music Society's own calendar, read by mapsee_ingest_scms.py. Each card's venue label must match a venue below (name or alias, compared without case, spacing or dash style); a card at any other venue is reported in the job log and skipped, never geocoded from the label. The venue labels are the eleven the publisher's own Venues filter listed on 2026-11-28. Points are OpenStreetMap features found through Photon on 2026-11-28. Categories map the publisher's own taxonomy slug (events-categories-*); anything unmapped is music.",
+  "sources": [
+    {
+      "id": "seattle-chamber-music-society",
+      "name": "Seattle Chamber Music Society",
+      "url": "https://www.seattlechambermusic.org/events/",
+      "timezone": "America/Los_Angeles",
+      "currency": "USD",
+      "crawl_delay": 10,
+      "category": "music",
+      "categories": {
+        "education": {"category": "learning", "categories": ["music"]},
+        "azure": {"category": "music", "categories": ["kids"]}
+      },
+      "_categories_note": "2026-11-28: Education holds the composer lectures and the public masterclasses. The Azure page says its concerts are free performances tailored to children and young adults on the autism spectrum, for families to enjoy together, hence kids beside music. Academy (Youth Academy showcases), Signature Series, Winter and Summer Festival, Concerts at the Center and Community stay music.",
+      "skip_venues": {
+        "Private Home": "a private residence is not a place the public can go",
+        "SCMS Virtual Concert Hall": "online only"
+      },
+      "venues": [
+        {
+          "name": "Center for Chamber Music",
+          "aliases": ["Center for Chamber Music - Lower Level", "New Center for Chamber Music"],
+          "address": "601 Union Street, Suite 220",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98101",
+          "lat": 47.6104516,
+          "lon": -122.332097,
+          "coordinate_source": "OpenStreetMap way 331281880 (Two Union Square, 601 Union Street) via Photon, verified 2026-11-28; the publisher's footer gives 601 Union St, STE 220, Seattle, WA 98101"
+        },
+        {
+          "name": "Nordstrom Recital Hall at Benaroya Hall",
+          "aliases": ["Nordstrom Recital Hall", "Benaroya Hall"],
+          "address": "200 University Street",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98101",
+          "lat": 47.6081167,
+          "lon": -122.3369704,
+          "coordinate_source": "OpenStreetMap way 69273374 (Benaroya Hall, amenity=theatre) via Photon, verified 2026-11-28; the recital hall is inside it"
+        },
+        {
+          "name": "Town Hall Seattle",
+          "address": "1119 8th Avenue",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98101",
+          "lat": 47.6090191,
+          "lon": -122.3299377,
+          "coordinate_source": "OpenStreetMap way 140675988 (Town Hall Seattle) via Photon, verified 2026-11-28"
+        },
+        {
+          "name": "Meydenbauer Center",
+          "aliases": ["Meydenbauer Convention Center"],
+          "address": "11100 NE 6th Street",
+          "city": "Bellevue",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98004",
+          "lat": 47.6158804,
+          "lon": -122.1918774,
+          "coordinate_source": "OpenStreetMap way 33725931 (Meydenbauer Convention Center) via Photon, verified 2026-11-28; street address and postcode from meydenbauer.com's own JSON-LD"
+        },
+        {
+          "name": "Vashon Center for the Arts",
+          "address": "19600 Vashon Highway SW",
+          "city": "Vashon",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98070",
+          "lat": 47.4287555,
+          "lon": -122.4601317,
+          "coordinate_source": "OpenStreetMap way 529250365 (Vashon Center for the Arts, amenity=arts_centre) via Photon, verified 2026-11-28"
+        },
+        {
+          "name": "Bainbridge Performing Arts - Hodges Hall",
+          "aliases": ["Bainbridge Performing Arts", "Hodges Hall"],
+          "address": "200 Madison Avenue North",
+          "city": "Bainbridge Island",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98110",
+          "lat": 47.6261039,
+          "lon": -122.5185003,
+          "coordinate_source": "OpenStreetMap way 204486830 (The Buxton Center for Bainbridge Performing Arts, amenity=theatre) via Photon, verified 2026-11-28"
+        },
+        {
+          "name": "The Triple Door",
+          "address": "216 Union Street",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98101",
+          "lat": 47.6086439,
+          "lon": -122.337685,
+          "coordinate_source": "OpenStreetMap node 2404249354 (The Triple Door, amenity=theatre) via Photon, verified 2026-11-28"
+        },
+        {
+          "name": "Volunteer Park",
+          "address": "1247 15th Avenue East",
+          "city": "Seattle",
+          "region": "Washington",
+          "country": "US",
+          "postal_code": "98112",
+          "lat": 47.6295663,
+          "lon": -122.3156138,
+          "coordinate_source": "OpenStreetMap way 13800188 (Volunteer Park, leisure=park) via Photon, verified 2026-11-28; a park anchor, not the stage, which Photon does not index"
+        }
+      ]
+    }
+  ]
+}

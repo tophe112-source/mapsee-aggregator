@@ -177,6 +177,35 @@
   four paid performances retain **USD 48/38** source offers; its Requiem stays
   unknown. All **83** CI scripts passed locally in **23.5 s**.
 
+- **SEATTLE CHAMBER MUSIC SOCIETY'S CARDS PRINT NO YEAR; ITS CALENDAR BLOCK
+  DOES, BY POST ID (2026-11-28).** seattlechambermusic.org is a bespoke
+  WordPress/Elementor theme. Its `events` post type answers
+  `/wp-json/wp/v2/events`, but with `acf: []` and empty content, so the REST
+  record has no date, clock or venue. The listing does: `/events/` (**12**
+  cards) and `/events/page/2/` (**5**) print month, day, clock, venue label,
+  the publisher's category and `events-tags-*` per card, and one embedded
+  `<div class='events_info_s'>` JSON block dates all **17** upcoming post ids
+  `MM/DD/YYYY`. `mapsee_ingest_scms.py` joins the two by post id and skips a
+  card whose month/day disagree. robots.txt allows everything and puts
+  `Crawl-delay: 10` ABOVE its `User-agent` line, where Python's
+  RobotFileParser ignores it, so `scms_sources.json` configures the 10 s: the
+  live read took **20.3 s** (robots.txt plus 2 pages), 17 of 17 events, 0
+  problems. Of the **11** venue labels in the publisher's own filter, **8** are
+  pinned (Seattle, Bellevue, Vashon, Bainbridge Island), each **0.0 m** from the
+  OSM feature it cites by a Nominatim id lookup, and **2** are skipped by name
+  (Private Home, the online Virtual Concert Hall). An unknown label is a
+  warning and a skip, never a geocode. The key is sha1(host + post id), so a
+  re-dated concert moves instead of leaving a stale copy. The `free` tag (**5**
+  of 17: 2 lectures, 2 masterclasses, 1 Azure concert) gives "Free to attend."
+  and 0227's `free` offer; an untagged card sends `{}` with `admission_checked`,
+  which clears an earlier claim. Education is learning plus music; Azure, which
+  its page says is "tailored to children and young adults ... on the autism
+  spectrum", is music plus kids. The sync appends the address and the
+  "Tickets / info" link, so the description carries only the programme (a
+  first draft repeated both). A read in which every upcoming card is refused
+  fails the step instead of passing on warnings. 7 of 7 mutations fail
+  `test_ingest_scms.py`.
+
 - **Optional search fields need source facts, including negative admission facts.**
   The 2026-10-02 GSC audit checked 40 public URLs / 39 distinct listings. Meetup
   group names were being emitted as people with no public URL; retain the native

@@ -774,6 +774,20 @@ jobs:
           python mapsee_ingest_recitals.py --config recital_sources.json --store recital_events.json --max-seconds 60
           # A tiny complete series read: refresh dates and admission daily.
           python mapsee_supabase_sync.py --store recital_events.json --skip-unchanged
+      # Seattle Chamber Music Society's own calendar: two listing pages, read
+      # 10 s apart as its robots.txt asks (live 2026-11-28: 17 events in 20 s).
+      # Each row is keyed by the publisher's post id, so a re-dated concert is
+      # rewritten in place; no --only-new, so dates and free tags refresh daily.
+      - name: Import Seattle Chamber Music Society's calendar
+        id: ingest_scms
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          MAPSEE_DB_WAIT_SECONDS: "30"
+        run: |
+          python mapsee_ingest_scms.py --config scms_sources.json --store scms_events.json --max-seconds 120
+          python mapsee_supabase_sync.py --store scms_events.json --skip-unchanged
       # The publisher's robots.txt asks for Crawl-delay: 600 (read 2026-11-01;
       # none when the adapter landed on 10-27), and the adapter waits it out
       # before its one listing request, so the budget holds the wait. With 60 s

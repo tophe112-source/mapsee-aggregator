@@ -1,5 +1,32 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **CHAMBER-MUSIC PRESENTERS: 81 HOMEPAGES, 15 CANDIDATES, 7 PLACEABLE
+  CALENDARS (2026-11-28).** Asked for Seattle Chamber Music Society's "related
+  events in all cities", a hand list of **91** presenters (US, Canada, UK,
+  Ireland, Australia, New Zealand, continental Europe) went through
+  `osm.find_calendar` and `to_candidate` on the `discover osm` session (per-host
+  gap, one robots.txt per origin, response cache). **10** were configured or
+  failed recently in the ledger. The other **81** took **3 min 55 s** at 4
+  workers: **38** no calendar, **4** offsite (Facebook, Instagram), **16** with an
+  unreadable robots.txt (some guessed domains have no DNS; others resolve and
+  the session's egress proxy answered 502), **5** challenged, **1** `Disallow: /`
+  (Shriver Hall), **17** fingerprinted and **15** shaped. Two were Google
+  calendars and were left out. `verify` passed **8** of **13** (Atlanta Chamber
+  Players' robots.txt refuses `/*?`), plus the Vancouver Recital Society once its
+  listing was moved from one concert page to the homepage's `/concert/<slug>/`
+  links. Running each ADAPTER on its entry before merging changed **3** answers.
+  Chamber Music Charleston (**11** future events, none naming a venue) and Friends
+  of Chamber Music of Miami (**0** of 7 placeable: its map links end "Coral
+  Gables, Florida, 33146", which `_split_maplink` does not split, and it plays
+  three halls) went to `_not_included`. The Victoria Conservatory's TEC carried
+  **72** "Independent Concerts" hall rentals, so `include_categories` keeps its
+  own three. Merged: Schubert Club (Saint Paul), Chamber Music Hawaii, Savannah
+  Music Festival and the conservatory (TEC); Phoenix Chamber Music Society
+  (Phoenixville, PA, not Arizona) and the VRS (JSON-LD); Music Toronto
+  (Squarespace). The trial reads gave **78** unique events. Presenters play
+  several halls, so no entry keeps the probe's venue block unless every listed
+  concert names one hall (Music Toronto: **8** of 8 at the Jane Mallett Theatre).
+
 - **TWENTY-ONE DATED WAYS TO TAKE PART WITHOUT RECURRING FEED REQUESTS (2026-11-19).**
   Thirteen organizer and city pages returned HTTP 200 with the production UA
   after robots checks (17,345–1,153,463 body bytes, one-time review). Eighteen

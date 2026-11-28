@@ -8,7 +8,7 @@ The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
-**Keep this map small.** The measured notes — 676 of them — live in
+**Keep this map small.** The measured notes — 678 of them — live in
 [`docs/agents/`](docs/agents/). Grep `docs/agents/INDEX.md` for the symptom,
 then open ONE topic. Preserve each note's measurements.
 
@@ -19,7 +19,7 @@ the Worker this pipeline feeds), `../Fish/fishsie-repo` (the game),
 ## The shape of it
 
 ```
-62 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+63 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -37,7 +37,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | A festival whose date is only prose on its own site | `mapsee_ingest_annual.py` + `annual_sources.json` (hand-checked); `catalog_mentions.py` finds leads in ingested rows (`mention_queue.json`); `seeds.json` + `test_seeds.py`: reported misses, each fixed for its kind |
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter; four at once, never two on one host, every request inside robots.txt |
 | US state fairs, as the fair itself | `mapsee_ingest_fairs.py` + `fair_sources.json` — 48 fairs, one multi-day event each. Identity and coordinates are curated; the DATES are scraped every run and never stored |
-| Music schedules | `mapsee_ingest_festivals.py`, `mapsee_ingest_recitals.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` |
+| Music schedules | `mapsee_ingest_festivals.py`, `mapsee_ingest_recitals.py`, `mapsee_ingest_scms.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` |
 | Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US alone), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one. Countries rotate, thinnest catalog first (`CITY_CLASSES`, `_civic_next_country` in `catalog_curate.py`) |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
@@ -89,7 +89,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 110 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
+- **The 111 `test_*.py` scripts in tests.yml are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -125,11 +125,11 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 168 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
+| `docs/agents/curation-and-discovery.md` | 169 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's arithmetic, the per-door census, row-level review, LibCal, Communico, Google Sites calendars, retiring what robots.txt refuses, empty calendars by platform, CivicPlus's lowercase Disallow, Mobilizon and Gancio discovery, named-event mentions, reported misses |
 | `docs/agents/osm-amenities.md` | 35 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 26 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 53 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped, the weekly audit's budget, rotation, Crawl-delay and robots.txt, who pays for an adapter's rows, the gate's path filter |
-| `docs/agents/adapters-and-sources.md` | 75 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar through its API, exact source ticket and organizer facts, Mobilizon's order, OpenAgenda's windows, annual festivals |
+| `docs/agents/adapters-and-sources.md` | 77 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar through its API, exact source ticket and organizer facts, Mobilizon's order, OpenAgenda's windows, annual festivals |
 | `docs/agents/classification-and-categories.md` | 44 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 56 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
 | `docs/agents/sync-eventstore-and-paging.md` | 65 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, unhide walks, re-keyed rows, the collapser, other sellers |
@@ -148,10 +148,10 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 108 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # a gate script; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```
 
-`timezonefinder` has no Windows wheel above 6.0.1; it is a lazy optional import
-with a fallback, so the tests run without it.
+`timezonefinder` has no Windows wheel above 6.0.1; it is a lazy import
+with a fallback, but 7 cases in 2 gate scripts need it.
