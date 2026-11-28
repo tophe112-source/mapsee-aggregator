@@ -50463,6 +50463,106 @@
         "lon": 19.7416785
       },
       "_metro": "Krakow, Poland"
+    },
+    {
+      "name": "Barnet",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://lovebarnet.co.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Barnet",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Barnet, United Kingdom"
+    },
+    {
+      "name": "Banbury",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://banbury.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Banbury",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Banbury, United Kingdom"
+    },
+    {
+      "name": "Trowbridge",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://trowbridge.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Trowbridge",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Trowbridge, United Kingdom"
+    },
+    {
+      "name": "Bicester",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bicester.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Bicester",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Bicester, United Kingdom",
+      "crawl_delay": 2.0
+    },
+    {
+      "name": "Chippenham",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chippenham.gov.uk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Chippenham",
+      "default_region": null,
+      "default_country": "GB",
+      "_metro": "Chippenham, United Kingdom"
+    },
+    {
+      "name": "Salle Saint-Éloi",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.artsetcouleurs.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salle Saint-Éloi",
+        "city": "Theux",
+        "postal_code": "4910",
+        "lat": 50.5035113,
+        "lon": 5.7878527,
+        "street_hint": "24 Becco Village",
+        "aliases": [
+          "Salle Saint-Elois",
+          "Salle de Becco",
+          "Salle Saint-Éloi de Becco"
+        ]
+      },
+      "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "Cine Albéniz",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://cinealbeniz.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cine Albéniz",
+        "address": "10 Calle Alcazabilla",
+        "city": "Málaga",
+        "postal_code": "29015",
+        "lat": 36.7218907,
+        "lon": -4.4169288
+      },
+      "_metro": "Malaga, Spain"
     }
   ],
   "_not_included": {

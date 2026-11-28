@@ -79425,5 +79425,88 @@
     "geocode_suffix": ", Sas van Gent",
     "limit": 300,
     "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "Exmouth",
+    "category": "community",
+    "_found": "civic:city -> events-manager+jsonld-event",
+    "url": "https://exmouth.gov.uk/calendar/planning-283/?ical=1",
+    "geocode_suffix": ", Exmouth, United Kingdom",
+    "limit": 300,
+    "_metro": "Exmouth, United Kingdom"
+  },
+  {
+    "name": "Hyrum",
+    "category": "community",
+    "_found": "civic:city -> civicplus",
+    "url": "https://www.hyrumcity.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Hyrum, Utah",
+    "limit": 300,
+    "_metro": "Hyrum, Utah",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "St. Anthony",
+    "category": "community",
+    "_found": "civic:city -> civicplus",
+    "url": "https://www.savmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", St. Anthony, Minnesota",
+    "limit": 300,
+    "_metro": "St. Anthony, Minnesota",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Église Notre-Dame et Saint-Jacques",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ad952c6206a5ef13e72256226ea8a67cb0a098971f6e15fbda20fc3fba27fee7%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Theux",
+    "limit": 300,
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "ALEA",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/social%40alea-winterthur.ch/public/basic.ics",
+    "geocode_suffix": ", Winterthur",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Pfadiheim Torlen",
+    "category": "community",
+    "_found": "osm:hostel -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5ev1ecunj4ocvprog2b75lpc0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stäfa",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Ortsmuseum Bellikon",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.ortsmuseum-bellikon.ch/jahresprogramm.ics",
+    "geocode_suffix": ", Bellikon",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Schützenhaus SV Altikon",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lo5mp9a11kv5lannkb8fsa3o44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Pfad",
+    "category": "community",
+    "_found": "osm:events_venue -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/4d4bc33a4b4c085e18d8f49852753f8fd838e98543b4c808c0f8ba34e3deb6a3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "_metro": "Zurich, Switzerland"
   }
 ]

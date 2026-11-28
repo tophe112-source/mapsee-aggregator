@@ -1228,11 +1228,12 @@
     "melbourne women's international jazz festival": {
       "dates": [],
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-27",
+      "last_seen": "2026-11-28",
       "name": "Melbourne Women's International Jazz Festival",
       "ref_keys": [
         "0ee3b10ee6da",
         "1016a24e9c88",
+        "27700bda9ef5",
         "33e7eba1bcea",
         "3933167fe8cf",
         "3b5e9269f555",
@@ -1290,7 +1291,7 @@
       ],
       "sample": "The workshop series culminates in a live performance at the Jazzlab, as part of the Melbourne Women's International Jazz Festival in December. Registration The program is designed as a series of five workshops culminating in a live concert - please note that bookings for individual workshops are not",
       "state": "pending",
-      "times_seen": 24,
+      "times_seen": 25,
       "venue": null
     },
     "melt festival": {
@@ -2006,7 +2007,7 @@
     "scotland's human rights festival": {
       "dates": [],
       "first_seen": "2026-11-14",
-      "last_seen": "2026-11-14",
+      "last_seen": "2026-11-28",
       "name": "Scotland’s Human Rights Festival",
       "ref_keys": [
         "25f454108ce8"
@@ -2020,7 +2021,7 @@
         }
       ],
       "sample": "As part of Scotland’s Human Rights Festival 2026, MIN presents a screening of This Home, This Voice, a behind-the-scenes portrait of the vital work of community-building in Glasgow, by artist Helen McCrorie with members of MIN. MIN works alongside refugees, migrants, and people seeking asylum, with",
-      "state": "covered",
+      "state": "pending",
       "times_seen": 1,
       "venue": null
     },
@@ -2111,6 +2112,29 @@
         }
       ],
       "sample": "The attendance for this event was over 3 thousand plus people in attendance for the City of Chicago annual Senior Citizen Fest of 2025 sponsored by the Mayor’s office of Special Event. Opened for The Chi-Lites - UIC Forum - Annual Fundraiser Benefit for Veterans of Chicago Dorothy's heart swelled",
+      "state": "pending",
+      "times_seen": 1,
+      "venue": null
+    },
+    "serendipity arts festival": {
+      "dates": [
+        "2026-12-17/2026-12-20"
+      ],
+      "first_seen": "2026-11-28",
+      "last_seen": "2026-11-28",
+      "name": "Serendipity Arts Festival",
+      "ref_keys": [
+        "aa4af7dea863"
+      ],
+      "referrers": [
+        {
+          "source": "ics:museum-of-goa-(pilerne,-goa)",
+          "start": "2026-12-01",
+          "title": "December 2026",
+          "url": "https://museumofgoa.com/program/december-2026/"
+        }
+      ],
+      "sample": "We will also be part of the Serendipity Arts Festival on 14th, 17th and 20th December, bringing creative experiences and activities for children. December also features two special workshops: a Gingerbread House Baking Class on 20th December and a Foil Embossing Workshop on 27th December, where",
       "state": "pending",
       "times_seen": 1,
       "venue": null
@@ -2377,6 +2401,34 @@
       "sample": "A resident of Boulder since 1967, Taylor gives back to his community with the annual Trance Blues Festival in Boulder, where he invites a diverse cast of musicians as guest artists for an all-ages workshop and concert. And he and his wife Carol created a blues in the schools program called \"Writing",
       "state": "pending",
       "times_seen": 1,
+      "venue": null
+    },
+    "tucson jazz festival": {
+      "dates": [],
+      "first_seen": "2026-11-28",
+      "last_seen": "2026-11-28",
+      "name": "Tucson Jazz Festival",
+      "ref_keys": [
+        "91f31e5cb82a",
+        "ae9c81ddf6fe"
+      ],
+      "referrers": [
+        {
+          "source": "tribe",
+          "start": "2027-01-16",
+          "title": "Rhapsody in Blue: George Gershwin and the Jazz Age",
+          "url": "https://www.tucsonsymphony.org/event/rhapsody-in-blue-george-gershwin-and-the-jazz-age/2027-01-16/"
+        },
+        {
+          "source": "tribe",
+          "start": "2027-01-17",
+          "title": "Rhapsody in Blue: George Gershwin and the Jazz Age",
+          "url": "https://www.tucsonsymphony.org/event/rhapsody-in-blue-george-gershwin-and-the-jazz-age/2027-01-17/"
+        }
+      ],
+      "sample": "Grant Jackson, NPR In partnership with the Tucson Jazz Festival. Sponsored by Plan Your Visit This concert is available as part of a Create Your Own Subscription or as an add-on after purchase of any other subscription series . Linda Ronstadt Music Hall has a clear bag policy. Read more about this",
+      "state": "pending",
+      "times_seen": 2,
       "venue": null
     },
     "ucb's new york comedy festival": {

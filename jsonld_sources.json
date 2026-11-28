@@ -40835,6 +40835,102 @@
         "lon": 4.3450907
       },
       "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "Gran Teatre de la Passió d'Olesa",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.lapassio.cat/agenda/"
+      ],
+      "link_pattern": "https://www\\.lapassio\\.cat/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gran Teatre de la Passió d'Olesa",
+        "address": "109 Carrer de Josep Anselm Clavé",
+        "postal_code": "08640",
+        "lat": 41.5426475,
+        "lon": 1.8945919
+      },
+      "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "Predigerkirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/eucharistiefeier-10642/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Predigerkirche",
+        "address": "1 Predigerplatz",
+        "city": "Zürich",
+        "postal_code": "8001",
+        "country": "CH",
+        "lat": 47.3738902,
+        "lon": 8.545494
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Grossmünster",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://reformiert-zuerich.ch/event/gottesdienst-am-1-advent-14429/"
+      ],
+      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grossmünster",
+        "address": "Grossmünsterplatz",
+        "city": "Zürich",
+        "postal_code": "8001",
+        "country": "CH",
+        "lat": 47.3701027,
+        "lon": 8.5439722
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Kirche Erlenbach",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.ref-erlenbach.ch/veranstaltung/7620"
+      ],
+      "link_pattern": "https://www\\.ref\\-erlenbach\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kirche Erlenbach",
+        "address": "86a Seestrasse",
+        "city": "Erlenbach ZH",
+        "postal_code": "8703",
+        "lat": 47.3021573,
+        "lon": 8.5915171
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Heuboden",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://heuboden.ch/events"
+      ],
+      "link_pattern": "https://heuboden\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heuboden",
+        "address": "1 Heuboden",
+        "city": "Holzhäusern ZG",
+        "postal_code": "6343",
+        "lat": 47.1556389,
+        "lon": 8.4468688
+      },
+      "_metro": "Zurich, Switzerland"
     }
   ],
   "_not_included": {
