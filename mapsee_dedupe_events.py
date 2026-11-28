@@ -20,7 +20,8 @@ the copy.
     that halve on a statement timeout (list_window). --max-seconds covers the
     listing, the reads and the writes.
   • Two rows are one event when they are at most RADIUS_M apart, neither title
-    is a ticket add-on, and one of three rules holds (match()):
+    is a ticket add-on (or both are the SAME add-on, title for title), and one
+    of three rules holds (match()):
       same-page     the same event page ("Tickets / info:" link that names an
                     event, not a listing page), the same start instant, similar
                     titles, and rows created at least TOGETHER_H apart (one read
@@ -51,7 +52,8 @@ the copy.
     a row whose link is its own page (not another date's), then the whole event
     over a part of it on another page or a package sold beside it ('...
     Courtside Experience') and over a row whose link is another event's undated
-    page, then the newest import (the source's current title); an exact
+    page, then the box office's row over a resale marketplace's (RESALE), then
+    the newest import (the source's current title); an exact
     creation tie goes to not a 'Copy of', then to the fewer title words, then
     id. Only a member that matched the survivor DIRECTLY, is unclaimed, has
     nobody on it and does not say the event is off when the survivor does not
@@ -74,6 +76,13 @@ the copy.
     still counts as existing to fetch_import_state, so --only-new never brings
     it back; to_row writes neither column, so Wednesday's refresh leaves it; the
     sync lifts only its own cancellation (cancelled_at == hidden_at).
+  • THE KEPT ROW NAMES ITS OTHER SELLERS (seller_links_pass, 2026-11-28): one
+    last paragraph, "🎫 Also on — SeatGeek: <url>  ·  TicketWeb: <url>", for
+    the publishers its hidden copies link to that are not its own, which
+    ../mapsee draws as one chip per seller. Recomputed from the copies still
+    hidden at the end of every run, written only with --apply and only to an
+    unclaimed, visible row that has not moved since it was read; the sync
+    carries the stored line forward when it rewrites the row (carry_also_on).
   • REPORT ONLY unless --apply, and --apply is refused (a report, exit 1) while
     events.duplicate_of does not exist. In CI the switch is the repository
     variable DEDUPE_APPLY: unset = report; 'bounded' = the nightly job reports
@@ -202,6 +211,9 @@ from mapsee_supabase_sync import adds_categories, categories_cover, copy_counts,
 # ...and how a row's own link is read: the union leaves out a copy whose link is
 # another event's page (copy_counts), and the survivor terms use the same tests.
 from mapsee_supabase_sync import _LEAF_DROP, _STRONG_ID, canonical_link, link_names_row, link_ok
+# ...and the one line a kept row carries for the other publishers its hidden
+# copies link to (seller_links_pass): the sync carries the same line forward.
+from mapsee_supabase_sync import also_on_line, link_url, read_also_on, seller_key, with_also_on
 
 PAGE = 1000                    # rows per listing page
 ID_BATCH = 100                 # ids per id=in.(...) read or write
@@ -233,6 +245,15 @@ NOT_AN_EVENT = re.compile(r"not an? (?:[a-z]+ ){0,2}ticket|not an event|\badd[ -
 STOP = {"the", "a", "an", "and", "at", "vs", "v", "versus", "with", "w", "featuring", "feat",
         "ft", "presents", "live", "in", "of", "de", "la", "le"}
 ARMS = ("same-page", "same-slot", "all-day-copy")
+# A marketplace that lists other sellers' shows: beside the box office's own
+# row (Ticketmaster, the venue) its row is the copy, whichever was imported
+# last. Measured 2026-11-28 over three UTC days: of 475 planned hides between a
+# seatgeek.com row and a ticketmaster.com one, 'newest import' kept SeatGeek's
+# in 308, whose title carries a city suffix ('Hadestown - New York' beside
+# 'Hadestown') and whose text has no blurb, genre or streaming line. It still
+# survives when it is the only row, and is named on the kept row's 'Also on'
+# line when it is not.
+RESALE = {"seatgeek"}
 
 # One host, many publishers: two groups on it are two publishers, so "made in
 # one read" says nothing about one venue (see two_venues).
@@ -591,7 +612,13 @@ def why_not(a: Dict[str, Any], b: Dict[str, Any], titles_by_link: Dict[str, Set[
 
 
 def _decide(a, b, titles_by_link) -> Tuple[Optional[str], Optional[str]]:
-    if NOT_AN_EVENT.search(a.get("title") or "") or NOT_AN_EVENT.search(b.get("title") or ""):
+    na, nb = NOT_AN_EVENT.search(a.get("title") or ""), NOT_AN_EVENT.search(b.get("title") or "")
+    if (na or nb) and not (na and nb and title_relation(a.get("title") or "", b.get("title") or "")["eq"]):
+        # An add-on never matches the show it is sold beside. Two rows of ONE
+        # add-on, under one title, are still one row twice (2026-11-28: 'WAMU
+        # Theater Amplified Access: Steve Lacy (Not an Event Ticket)' listed
+        # twice in Seattle's next 24 h, one Ticketmaster page, made 23.9 h
+        # apart under two fingerprints): those go on to the rules below.
         return None, "ticket add-on"
     if a.get("lat") is None or b.get("lat") is None or metres(a, b) > RADIUS_M:
         return None, "distance"
@@ -684,10 +711,13 @@ def survivor_key(r: Dict[str, Any], rsvp_ids: Set[str], now: datetime, part: boo
     broken by id alone kept 'Nourish Moves at the Market Square Farmers Market'
     over the market and a club-seating upsell over the concert. It counts only
     across same-slot edges: on one page, the newer title is the one the source
-    still emits."""
+    still emits. The resale term (RESALE) sits before age for the reason the
+    clock term does: age says which of ONE publisher's titles is current, and
+    nothing about which of two publishers' rows to keep."""
     made = utc(r["created_at"]) if r.get("created_at") else _EPOCH
     title = r.get("title") or ""
     return (bool(r.get("claimed_at")), engaged(r, rsvp_ids, now), not is_all_day(r), link_ok(r), not part,
+            seller_key(r.get("link")) not in RESALE,
             made, not COPY_OF.match(title), -len(_ident_words(title).split()), r["id"])
 
 
@@ -766,6 +796,15 @@ def plan(rows: Dict[str, Dict[str, Any]], edges: Dict[Tuple[str, str], str],
                     "categories": cats if hide and cats != k.get("categories") else None,
                     "was": (k.get("category"), k.get("categories"))})
     return out
+
+
+def other_sellers(rows: Dict[str, Dict[str, Any]], p: Dict[str, Any]) -> Set[str]:
+    """The publishers this plan's hides link to that the kept row does not:
+    what seller_links_pass will name on it once they are hidden (the report's
+    count; the pass itself reads the stored text)."""
+    own = seller_key(rows[p["survivor"]].get("link"))
+    return {k for k in (seller_key(rows[h].get("link")) for h, _ in p["hide"] if copy_counts(rows[h]))
+            if k and k != own}
 
 
 def candidate_pairs(rows: List[Dict[str, Any]], carry: Iterable[Dict[str, Any]] = ()
@@ -1287,6 +1326,126 @@ def kept_rows_pass(db: Db, now: datetime, apply: bool, budget) -> Optional[Dict[
     return res
 
 
+def hidden_copies(db: Db, now: datetime, budget, only: Optional[Iterable[str]] = None
+                  ) -> Optional[Dict[str, List[str]]]:
+    """{kept row's id: [copy ids]} for the copies this job hid that ended no
+    more than a day ago: the keyset kept_rows_pass uses, or, with `only`, just
+    those kept rows' copies (100 ids a request). None when a read failed or
+    the budget ran out."""
+    lo = Z(now - timedelta(days=1))
+    out: Dict[str, List[str]] = defaultdict(list)
+    scope = f"{db.base}&duplicate_of=not.is.null&hidden_at=not.is.null&ends_at=gte.{lo}&select=id,duplicate_of"
+    if only is not None:
+        for chunk in _chunks(only):
+            if budget():
+                return None
+            resp = db.get(f"{scope}&duplicate_of=in.({','.join(chunk)})")
+            if not _ok(resp):
+                _p(f"  hidden copies read failed: {_why(resp)}")
+                return None
+            for r in resp.json() or []:
+                out[str(r["duplicate_of"])].append(str(r["id"]))
+        return out
+    after: Optional[Tuple[str, str]] = None
+    while True:
+        if budget():
+            return None
+        more = (f"&and=(duplicate_of.gte.{after[0]},or(duplicate_of.gt.{after[0]},id.gt.{after[1]}))"
+                if after else "")
+        resp = db.get(f"{scope}&order=duplicate_of.asc,id.asc&limit={PAGE}{more}")
+        if not _ok(resp):
+            _p(f"  hidden copies read failed: {_why(resp)}")
+            return None
+        got = resp.json() or []
+        for r in got:
+            out[str(r["duplicate_of"])].append(str(r["id"]))
+        if len(got) < PAGE:
+            return out
+        nxt = (str(got[-1]["duplicate_of"]), str(got[-1]["id"]))
+        if after is not None and nxt <= after:
+            _p("  hidden copies read failed: the keyset did not advance")
+            return None
+        after = nxt
+
+
+def seller_links_pass(db: Db, now: datetime, apply: bool, budget,
+                      only: Optional[Iterable[str]] = None) -> Optional[Dict[str, Any]]:
+    """Give every kept row one line naming the OTHER publishers its hidden
+    copies link to ('🎫 Also on — SeatGeek: <url>'), and take the line off a
+    kept row whose copies no longer say so. LAST in a run, after the hides, so
+    a copy hidden tonight is on its kept row's line tonight.
+
+    A copy counts when its link is its own page (copy_counts: not another
+    date's, not a slug naming another event) on a publisher that is not the
+    kept row's (seller_key); also_on_line picks at most ALSO_ON_MAX, listed
+    sellers first, and gives the same bytes for the same copies. A claimed
+    kept row is never written (its text is its organiser's), and a kept row
+    another writer has hidden is skipped. `only` limits the pass to these kept
+    rows, including ones with no copy left (--unhide: their line goes).
+
+    Reads: the copies (hidden_copies), the kept rows' text and the copies'
+    text, 100 ids a request. Writes only with --apply, one PATCH per kept row
+    whose line changed, filtered on the updated_at it was read with: a row the
+    sync rewrote in between is left for the next run. -> counts, or None when
+    a read failed or the budget ran out before the reads were done."""
+    copies = hidden_copies(db, now, budget, only)
+    if copies is None:
+        return None
+    for sid in (only or ()):
+        copies.setdefault(str(sid), [])
+    res: Dict[str, Any] = {"kept_rows": 0, "with_line": 0, "to_write": 0, "written": 0, "changed": 0,
+                           "owed": 0, "examples": []}
+    kept: Dict[str, Dict[str, Any]] = {}
+    for chunk in _chunks(copies):
+        if budget():
+            return None
+        resp = db.get(f"{db.base}&hidden_at=is.null&claimed_at=is.null&select=id,description,updated_at"
+                      f"&id=in.({','.join(chunk)})")
+        if not _ok(resp):
+            _p(f"  kept rows' text read failed: {_why(resp)}")
+            return None
+        for r in resp.json() or []:
+            kept[str(r["id"])] = r
+    text: Dict[str, Dict[str, Any]] = {}
+    for chunk in _chunks(c for sid in kept for c in copies[sid]):
+        if budget():
+            return None
+        resp = db.get(f"{db.base}&select=id,description,title,place_name,starts_at&id=in.({','.join(chunk)})")
+        if not _ok(resp):
+            _p(f"  hidden copies' links read failed: {_why(resp)}")
+            return None
+        for r in resp.json() or []:
+            text[str(r["id"])] = r
+    res["kept_rows"] = len(kept)
+    fixes = []
+    for sid, k in sorted(kept.items()):
+        urls = [link_url(text[c].get("description")) for c in copies[sid] if c in text and copy_counts(text[c])]
+        line = also_on_line(link_url(k.get("description")), urls)
+        res["with_line"] += bool(line)
+        if line != read_also_on(k.get("description")):
+            fixes.append((sid, k, line))
+            if len(res["examples"]) < 20:
+                res["examples"].append({"kept": sid, "line": line})
+    res["to_write"] = len(fixes)
+    if not apply:
+        return res
+    for sid, k, line in fixes:
+        if budget():
+            res["owed"] += 1
+            continue
+        resp = db.patch(f"{db.base}&id=eq.{sid}&claimed_at=is.null&hidden_at=is.null"
+                        f"{_is('updated_at', k.get('updated_at'))}&select=id",
+                        {"description": with_also_on(k.get("description"), line)})
+        if not _ok(resp):
+            _p(f"  seller line for {sid} failed: {_why(resp)}")
+            res["owed"] += 1
+        elif resp.json() or []:
+            res["written"] += 1
+        else:
+            res["changed"] += 1                        # moved since this read: the next run
+    return res
+
+
 def unhide(db: Db, stamp: Optional[str], ids: List[str], apply: bool, show: int) -> int:
     """Put back what one run hid (--stamp), or named rows (--id). Only rows this
     job hid (duplicate_of set) and nobody cancelled since."""
@@ -1324,6 +1483,15 @@ def unhide(db: Db, stamp: Optional[str], ids: List[str], apply: bool, show: int)
             owed += len(chunk)
             _p(f"  un-hide failed for {len(chunk)} row(s): {_why(resp)}")
     _p(f"Un-hid {done} row(s) (hidden_at and duplicate_of cleared).")
+    # The rows they were hidden behind still name them as another seller: the
+    # line is recomputed from the copies each kept row has left.
+    sellers = seller_links_pass(db, _now(), True, lambda: False,
+                                only={str(r["duplicate_of"]) for r in rows if r.get("duplicate_of")})
+    if sellers is None or sellers["owed"]:
+        owed += 1
+        _p("OWED: the kept rows' seller lines could not be recomputed; the next dedupe run does it.")
+    elif sellers["written"]:
+        _p(f"Kept rows whose seller line was recomputed: {sellers['written']}")
     if owed:
         _p(f"OWED: {owed} row(s) not un-hidden; re-run the same command.")
     return 1 if owed else 0
@@ -1503,7 +1671,8 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
         totals.update(candidates=len(pairs), links_read=len(need), matched=len(edges), clusters=len(plans),
                       hide=n, left=left, kept_rows_given_categories=sum(1 for p in plans if p.get("categories")),
                       left_no_room=sum(len(p["no_room"]) for p in plans),
-                      not_counted=sum(len(p["not_counted"]) for p in plans if p["hide"]))
+                      not_counted=sum(len(p["not_counted"]) for p in plans if p["hide"]),
+                      kept_rows_other_sellers=sum(1 for p in plans if other_sellers(by_id, p)))
         by_arm.update(arms)
         near.update(w_near)
         for p in plans:
@@ -1552,6 +1721,10 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
                      + (f", OWED {res['owed']}" if res["owed"] else ""))
         _p(line)
 
+    # LAST: the kept rows' seller lines, over every copy still hidden, tonight's
+    # included. Its reads are inside the same budget; a pass the budget or a
+    # failed read stopped is owed, like the kept rows' categories.
+    sellers = seller_links_pass(db, now, apply, budget) if has_col else None
     _p("")
     _p(f"Rows listed: {totals['rows']} | candidates {totals['candidates']} | links read {totals['links_read']} "
        f"| matched pairs {totals['matched']} | clusters {totals['clusters']}")
@@ -1577,6 +1750,14 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
               if totals["left_no_room"] else "")
            + (f"; copies hidden WITHOUT their categories, because their link is another event's page: "
               f"{totals['not_counted']}" if totals["not_counted"] else ""))
+    if totals["kept_rows_other_sellers"]:
+        _p(f"Kept rows whose copies are on another seller (each gets an 'Also on' line once they are "
+           f"hidden): {totals['kept_rows_other_sellers']}")
+    if sellers is not None:
+        _p(f"Seller lines: {sellers['with_line']} of {sellers['kept_rows']} kept row(s) name another seller; "
+           + (f"written {sellers['written']}" if apply else f"to write {sellers['to_write']}")
+           + (f", moved since the read {sellers['changed']}" if sellers["changed"] else "")
+           + (f", OWED {sellers['owed']}" if sellers["owed"] else ""))
     # A PATCH WHOSE FILTER MATCHES NOTHING MUST NOT PASS. Every planned hide that
     # reaches the database comes back skipped only if its filter no longer
     # matches (a claim, a chat message since the listing): rare. Half of them
@@ -1591,6 +1772,10 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     kept_failed = bool(apply and has_col and kept is None)
     if kept_failed:
         _p("OWED: the kept rows' categories could not be checked (read failed); tomorrow's run does it")
+    sellers_failed = bool(apply and has_col and sellers is None)
+    if sellers_failed:
+        _p("OWED: the kept rows' seller lines could not be checked (a read failed or the budget ran out); "
+           "tomorrow's run does it")
     for day in backlog:
         _p(f"BACKLOG: {day} not reached inside {a.max_seconds}s")
     for day in owed_windows:
@@ -1600,14 +1785,15 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     if owed:
         _p(f"OWED: {owed} copies not hidden this run (write failures or the budget)")
     code = 1 if (backlog or owed_windows or refused or owed or (a.apply and not has_col) or filter_broke
-                 or kept_failed or (kept and kept["owed"])) else 0
+                 or kept_failed or (kept and kept["owed"]) or sellers_failed
+                 or (sellers and sellers["owed"])) else 0
     _p(f"Requests: {dict(db.calls)} | {_clock() - started:.0f}s | exit {code}")
     if a.report:
         with open(a.report, "w", encoding="utf-8") as fh:
             json.dump({"now": now.isoformat(), "stamp": stamp if apply else None,
                        "mode": "apply" if apply else "report", "duplicate_of_column": has_col,
                        "args": vars(a), "totals": dict(totals), "hidden_by_arm": dict(by_arm),
-                       "near_misses": dict(near), "kept_rows": kept,
+                       "near_misses": dict(near), "kept_rows": kept, "seller_lines": sellers,
                        "orphaned_copies": kept["orphaned"] if kept else None, "backlog": backlog,
                        "owed_windows": owed_windows, "refused": refused, "owed": owed, "exit": code,
                        "requests": dict(db.calls), "windows": windows, "hidden": hidden_out,

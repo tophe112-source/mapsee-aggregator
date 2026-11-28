@@ -565,6 +565,41 @@ check("a stored NULL description against ours is written",
       not quiet_same(weekly(None), weekly(OPEN_NEW + body)))
 
 from test_sync_lookup import run as run_lookup_checks
+# --- a kept row's "Also on" line is the collapser's, and the sync carries it ---
+# mapsee_dedupe_events.seller_links_pass writes one last paragraph naming the
+# other sellers of an event whose copies it hid; to_row never writes it. Without
+# the carry, every refresh rewrote the kept row without the line and the
+# collapser put it back the next night.
+_TM = "A show.\n\nTickets / info: https://www.ticketmaster.com/x/event/0E00AbCd"
+_ALSO = "\U0001F3AB Also on — SeatGeek: https://seatgeek.com/x-tickets/1"
+ours = row(description=_TM)
+check("a stored row that differs only by the collapser's seller line is not rewritten",
+      m.unchanged_ids(Stub([row(description=_TM + "\n\n" + _ALSO)]), "https://x", "k", [ours])
+      == {ours["external_id"]})
+check("...and the row we hold now carries the line, so a write for another reason keeps it",
+      ours["description"] == _TM + "\n\n" + _ALSO)
+ours = row(description=_TM, title="Renamed")
+check("a kept row rewritten for its title is written WITH the stored line",
+      m.unchanged_ids(Stub([row(description=_TM + "\n\n" + _ALSO)]), "https://x", "k", [ours]) == set()
+      and ours["description"] == _TM + "\n\n" + _ALSO)
+ours = row(description=_TM.replace("A show.", "A better show."))
+check("a changed blurb is still written, line and all",
+      m.unchanged_ids(Stub([row(description=_TM + "\n\n" + _ALSO)]), "https://x", "k", [ours]) == set()
+      and ours["description"].endswith("\n\n" + _ALSO) and ours["description"].startswith("A better show."))
+ours = row(description=_TM)
+check("a stored row with no line leaves ours alone",
+      m.unchanged_ids(Stub([row(description=_TM)]), "https://x", "k", [ours]) == {ours["external_id"]}
+      and ours["description"] == _TM)
+ours = row(description=None)
+check("a row we write with no description at all still carries the line",
+      m.carry_also_on(ours, {"description": _ALSO}) and ours["description"] == _ALSO)
+check("to_row writes no seller line of its own (only the table knows what was hidden behind a row)",
+      m.read_also_on(m.to_row({"name": "Men Without Hats", "fingerprint": "f" * 40, "start_utc": "2026-12-01T03:00:00Z",
+                               "latitude": 33.8, "longitude": -84.4, "venue_name": "Buckhead Theatre",
+                               "sources": [{"source": "ticketmaster", "source_id": "1", "url": "https://www.ticketmaster.com/e/1"},
+                                           {"source": "seatgeek", "source_id": "2", "url": "https://seatgeek.com/e/2"}]},
+                              "00000000-0000-4000-8000-000000000000").get("description")) is None)
+
 FAILS += run_lookup_checks()
 
 print()

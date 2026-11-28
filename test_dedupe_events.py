@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from urllib.parse import parse_qsl, unquote, urlsplit
 
 import mapsee_dedupe_events as D
+import mapsee_supabase_sync as S
 
 ok = fail = 0
 
@@ -44,6 +45,7 @@ def row(i, title, start, end, lat, lon, made, link=None, **kw):
 
 NOW = datetime(2026, 10, 13, 16, tzinfo=timezone.utc)
 NO_LINKS = {}
+mkrow = row                    # `row` is reused as a loop variable further down
 
 
 def decide(rows, titles_by_link=NO_LINKS, rsvp=()):
@@ -132,7 +134,10 @@ tm = row("548e7596", "Digable Planets", "2026-10-21T03:00:00+00:00", "2026-10-21
 s1 = row("c3cfe55c", "Digable Planets", "2026-10-21T03:00:00+00:00", "2026-10-21T06:00:00+00:00", 47.661217046479, -122.314182641848, "2026-09-07T18:45:35+00:00", sg)
 s2 = row("d3df6659", "Digable Planets with Supreme La Rock", "2026-10-21T03:00:00+00:00", "2026-10-21T06:00:00+00:00", 47.661217046479, -122.314182641848, "2026-10-12T21:47:04+00:00", sg)
 edges, p = decide([tm, s1, s2])
-check("three rows, one show: one survivor, two hidden", len(p) == 1 and p[0]["survivor"] == "d3df6659" and len(p[0]["hide"]) == 2)
+# Since 2026-11-28 the survivor is Ticketmaster's row, not SeatGeek's newest
+# (RESALE): the box office's row is kept and the marketplace's two are hidden.
+check("three rows, one show: one survivor (the box office's, not the marketplace's newest), two hidden",
+      len(p) == 1 and p[0]["survivor"] == "548e7596" and len(p[0]["hide"]) == 2)
 rs = "runsignup.com/race/wa/seattle/greenlake5kandwellnessfestival"
 a = row("61798044", "2026 Greenlake 5K and Wellness Festival", "2026-10-24T15:30:00+00:00", "2026-10-24T18:30:00+00:00", 47.681136735505, -122.326798279627, "2026-08-10T08:11:53+00:00", rs)
 b = row("4dd31a12", "2026 Green Lake 5K & Wellness Festival", "2026-10-24T15:30:00+00:00", "2026-10-24T18:30:00+00:00", 47.681136735505, -122.326798279627, "2026-10-07T13:33:05+00:00", rs)
@@ -778,10 +783,13 @@ bv_tm = real("8431e506", "Buena Vista Social Club", "2026-10-15T23:00:00+00:00",
              "ticketmaster.com/buena-vista-social-club-new-york-new-york-10-15-2026/event/z1r9uzruzqgz1avz6at",
              bv, 40.758551626649, -73.987100705462, category="theater", categories=None)
 _, p = decide([bv_sg, bv_mu, bv_tm])
-check("production 10-15: Broadway's 'Buena Vista Social Club' kept as SeatGeek's 'music' row carries 'theater' "
-      "from the two copies, so plansie.com keeps the show",
-      p[0]["survivor"] == "7b45a950" and len(p[0]["hide"]) == 2 and p[0]["categories"] == ["theater"]
-      and p[0]["was"] == ("music", None))
+# On 10-15 the kept row was SeatGeek's 'music' row carrying 'theater'. Since
+# 2026-11-28 (RESALE) it is Ticketmaster's 'theater' row carrying 'music': the
+# other row, the same two doors, which is what the union is for.
+check("production 10-15: Broadway's 'Buena Vista Social Club', kept as Ticketmaster's 'theater' row, carries "
+      "'music' from SeatGeek's copy, so the show stays in both doors",
+      p[0]["survivor"] == "8431e506" and len(p[0]["hide"]) == 2 and p[0]["categories"] == ["music"]
+      and p[0]["was"] == ("theater", None))
 tv = "Sherwood Public Library"
 keep_ = real("35413982", "Teen Volunteer Club", "2026-10-15T23:00:00+00:00", "2026-10-16T00:00:00+00:00",
              "2026-10-02T14:46:29.771222+00:00", "sherwoodoregon.gov/events_detail/teen-volunteer-club-5/2026-10-15", tv,
@@ -1280,8 +1288,11 @@ covered = cat_rows(keep_cats=["kids"])
 covered[0].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=SLU_NEW)
 fake = FakeRest(covered)
 code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+# ...by the categories pass, whose select this is. seller_links_pass (below)
+# reads every copy's link, which is its whole job, under its own select.
 check("a covered copy costs no text read",
-      code == 0 and not any("description" in u for m, u, _ in fake.calls) and rep["kept_rows"]["short"] == 0)
+      code == 0 and not any("select=id,title,place_name,starts_at,description" in u for m, u, _ in fake.calls)
+      and rep["kept_rows"]["short"] == 0)
 mkt_kept = cat_rows(keep_cats=["food"], copy_cat="food")
 mkt_kept[1].update(category="market")
 mkt_kept[0].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=SLU_NEW)
@@ -1654,6 +1665,155 @@ got = [(h["id"][-1], h["survivor"][-1], h["arm"], h["day"]) for h in rep["hidden
 check("a Sydney one-day row in window d matches its timed twin in window d+1",
       got == [("1", "2", "all-day-copy", "2026-10-14")])
 
+print("\none add-on listed twice (2026-11-28, Seattle's next 24 h)")
+AMP = "WAMU Theater Amplified Access: Steve Lacy (Not an Event Ticket)"
+amp_link = "ticketmaster.com/wamu-theater-amplified-access-steve-lacy-seattle-washington-11-28-2026/event/0F006505CBF9342A"
+amp1 = mkrow("5ef8fb31", AMP, "2026-11-29T04:00:00+00:00", "2026-11-29T07:00:00+00:00", 47.59605, -122.33319,
+           "2026-09-30T12:56:00+00:00", amp_link)
+amp2 = mkrow("557ee105", AMP, "2026-11-29T04:00:00+00:00", "2026-11-29T07:00:00+00:00", 47.59605, -122.33319,
+           "2026-09-29T13:03:00+00:00", amp_link)
+show = mkrow("41b48ca4", "Steve Lacy: Oh yeah? Tour", "2026-11-29T04:00:00+00:00", "2026-11-29T07:00:00+00:00",
+           47.59605, -122.33319, "2026-09-29T13:03:13+00:00",
+           "ticketmaster.com/steve-lacy-oh-yeah-tour-seattle-washington-11-28-2026/event/0F006505934273DF")
+check("two rows of one add-on, one page, made a day apart, are one row twice",
+      D.match(amp1, amp2, NO_LINKS) == "same-page" and D.match(amp2, amp1, NO_LINKS) == "same-page")
+check("...and neither matches the show it is sold beside",
+      D.why_not(amp1, show, NO_LINKS) == "ticket add-on" and D.why_not(show, amp2, NO_LINKS) == "ticket add-on")
+other_amp = dict(amp2, id="0a0a0a0a", title="WAMU Theater Amplified Access: Tape B (Not an Event Ticket)")
+check("two DIFFERENT add-ons at one slot stay two", D.why_not(amp1, other_amp, NO_LINKS) == "ticket add-on")
+edges, p = decide([amp1, amp2, show])
+check("the plan hides one add-on row behind the other and leaves the show alone",
+      len(p) == 1 and p[0]["survivor"] == "5ef8fb31" and p[0]["hide"] == [("557ee105", "same-page")])
+
+print("\nthe kept row names its other sellers (seller_links_pass)")
+TM_ID, SG_ID, TW_ID, TM_OLD = ("aaaaaaaa-0000-4000-8000-00000000000%d" % n for n in (1, 2, 3, 4))
+TM_URL = "https://www.ticketmaster.com/men-without-hats-atlanta-georgia-10-13-2026/event/0E00AbCd12345678"
+SG_URL = "https://seatgeek.com/men-without-hats-tickets/atlanta-georgia-buckhead-theatre-2026-10-13-8-pm/concert/17654321"
+TW_URL = "https://www.ticketweb.com/event/men-without-hats-buckhead-theatre-tickets/13988765"
+
+
+def seller_rows():
+    def one(i, made, url, title="Men Without Hats"):
+        e = ev(i, title, "2026-10-14T00:00:00+00:00", "2026-10-14T03:00:00+00:00", 33.8390, -84.3800, made)
+        e.update(description=f"A show.\n\nTickets / info: {url}\n\n\U0001F50E More on this show: https://www.google.com/search?q=x",
+                 updated_at=made, category="music")
+        return e
+    return [one(TM_ID, "2026-09-20T07:00:00+00:00", TM_URL), one(SG_ID, "2026-09-10T07:00:00+00:00", SG_URL),
+            one(TW_ID, "2026-09-11T07:00:00+00:00", TW_URL),
+            one(TM_OLD, "2026-09-01T07:00:00+00:00", TM_URL, "Men Without Hats - 2026 Tour")]
+
+
+ALSO = f"\U0001F3AB Also on — SeatGeek: {SG_URL}  ·  TicketWeb: {TW_URL}"
+check("the line names each other publisher once, listed sellers first, and never the kept row's own",
+      S.also_on_line(TM_URL, [TW_URL, SG_URL, TM_URL.replace("0E00AbCd12345678", "0E00FFFF")]) == ALSO
+      and S.also_on_line(TM_URL, [TM_URL]) is None and S.also_on_line(None, []) is None)
+check("ticketmaster.co.uk beside ticketmaster.com is one seller; a venue's own box office is named by its host",
+      S.also_on_line(TM_URL, ["https://www.ticketmaster.co.uk/x/event/1"]) is None
+      and S.also_on_line(TM_URL, ["https://order.pnb.org/events?k=nutcracker"])
+      == "\U0001F3AB Also on — order.pnb.org: https://order.pnb.org/events?k=nutcracker")
+check("at most three, and the same bytes whatever order the copies were read in",
+      S.also_on_line(TM_URL, ["https://a.example/1", "https://b.example/1", SG_URL, TW_URL]).count(": https://") == 3
+      and S.also_on_line(TM_URL, [SG_URL, TW_URL]) == S.also_on_line(TM_URL, [TW_URL, SG_URL]))
+d0 = seller_rows()[0]["description"]
+check("the line is the description's last paragraph, set once, replaced in place and removable",
+      S.with_also_on(d0, ALSO) == d0 + "\n\n" + ALSO and S.with_also_on(S.with_also_on(d0, ALSO), ALSO) == d0 + "\n\n" + ALSO
+      and S.with_also_on(d0 + "\n\n" + ALSO, None) == d0 and S.read_also_on(d0 + "\n\n" + ALSO) == ALSO
+      and S.read_also_on(d0) is None)
+check("the link is read as written: a Ticketmaster id keeps its case", S.link_url(d0) == TM_URL)
+
+newer_sg = seller_rows()
+newer_sg[1].update(created_at="2026-10-01T07:00:00+00:00")          # SeatGeek's row is the newest import
+fake = FakeRest(newer_sg[:2])
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+check("the box office's row is kept over a resale marketplace's newer one, and names it",
+      code == 0 and fake.events[SG_ID]["duplicate_of"] == TM_ID and fake.events[TM_ID]["hidden_at"] is None
+      and fake.events[TM_ID]["description"].endswith(f"\U0001F3AB Also on — SeatGeek: {SG_URL}"))
+rsvped = seller_rows()[:2]
+fake = FakeRest(rsvped, rsvps=[SG_ID])
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+check("...but a row people are on still outranks it: the SeatGeek row with an RSVP is kept, and names Ticketmaster",
+      fake.events[TM_ID]["duplicate_of"] == SG_ID and fake.events[SG_ID]["hidden_at"] is None
+      and fake.events[SG_ID]["description"].endswith(f"\U0001F3AB Also on — Ticketmaster: {TM_URL}"))
+
+fake = FakeRest(seller_rows())
+code, out, rep = run(fake, "--days", "2", "--lookback", "1")
+check("a report writes nothing and counts the kept rows whose copies are on another seller",
+      code == 0 and patches(fake) == [] and rep["totals"]["kept_rows_other_sellers"] == 1
+      and "on another seller" in out)
+fake = FakeRest(seller_rows())
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+desc = fake.events[TM_ID]["description"]
+check("--apply hides the three copies and the kept Ticketmaster row ends with one line naming SeatGeek and TicketWeb",
+      code == 0 and all(fake.events[i]["hidden_at"] and fake.events[i]["duplicate_of"] == TM_ID
+                        for i in (SG_ID, TW_ID, TM_OLD))
+      and desc == d0 + "\n\n" + ALSO and rep["seller_lines"]["written"] == 1 and rep["seller_lines"]["with_line"] == 1)
+line_patch = [(u, b) for m, u, b in fake.calls if m == "PATCH" and b and "description" in b]
+check("that PATCH names the row, unclaimed, visible and unmoved since it was read, and writes the description only",
+      len(line_patch) == 1 and f"id=eq.{TM_ID}" in line_patch[0][0] and "claimed_at=is.null" in line_patch[0][0]
+      and "hidden_at=is.null" in line_patch[0][0] and "updated_at=eq.2026-09-20T07%3A00%3A00%2B00%3A00" in line_patch[0][0]
+      and "external_source=eq.mapsee" in line_patch[0][0] and set(line_patch[0][1]) == {"description"})
+before = len(patches(fake))
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+check("the next run writes nothing: the line already says what the copies say",
+      code == 0 and len(patches(fake)) == before and rep["seller_lines"]["to_write"] == 0)
+# The sync rewrote the kept row from to_row and lost the line (its read failed):
+fake.events[TM_ID]["description"] = d0
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("a kept row the sync rewrote without its line gets it back, even with no window listed ('bounded')",
+      code == 0 and fake.events[TM_ID]["description"] == d0 + "\n\n" + ALSO)
+# A copy that was un-hidden is no longer another seller of the kept row.
+fake.events[TW_ID].update(hidden_at=None, duplicate_of=None)
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("a copy no longer hidden leaves the line",
+      fake.events[TM_ID]["description"] == d0 + f"\n\n\U0001F3AB Also on — SeatGeek: {SG_URL}")
+rows = seller_rows()
+rows[0].update(claimed_at="2026-10-01T00:00:00+00:00")
+rows[1].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=TM_ID)
+fake = FakeRest(rows)
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("a claimed kept row is never written: its text is its organiser's",
+      fake.events[TM_ID]["description"] == d0 and not [1 for m, u, b in fake.calls if m == "PATCH" and "description" in (b or {})])
+rows = seller_rows()
+rows[1].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=TM_ID,
+               description="Tickets / info: https://www.pgparks.com/event_list/get-fit-mobile-fitness-on-the-fly/2026-09-24")
+fake = FakeRest(rows)
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("a copy whose link is another event's page is not a seller of this one",
+      fake.events[TM_ID]["description"] == d0 and rep["seller_lines"]["with_line"] == 0)
+rows = seller_rows()
+rows[1].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=TM_ID)
+
+
+def moved(method, url, n):
+    if method == "PATCH" and "description" not in url and f"id=eq.{TM_ID}" in url:
+        fake.events[TM_ID]["updated_at"] = "2026-10-13T11:59:00+00:00"     # the sync wrote it meanwhile
+
+
+fake = FakeRest(rows, hook=moved)
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("a kept row that moved between the read and the write is left for the next run, and is not owed",
+      code == 0 and fake.events[TM_ID]["description"] == d0 and rep["seller_lines"]["changed"] == 1
+      and rep["seller_lines"]["owed"] == 0)
+
+
+def refuse(method, url, n):
+    if method == "GET" and "select=id,description,title,place_name,starts_at" in url:
+        return Resp(500, {"message": "boom"})
+
+
+fake = FakeRest(rows, hook=refuse)
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("a failed read of the copies' links is owed: exit 1, nothing written",
+      code == 1 and rep["seller_lines"] is None and "seller lines could not be checked" in out
+      and fake.events[TM_ID]["description"] == d0)
+rows = seller_rows()
+rows[0].update(description=d0 + "\n\n" + ALSO)
+rows[1].update(hidden_at="2026-10-13T12:00:00+00:00", duplicate_of=TM_ID)
+fake = FakeRest(rows)
+code, out, _ = run(fake, "--unhide", "--stamp", "2026-10-13T12:00:00+00:00", "--apply")
+check("--unhide puts the copy back and takes its name off the row it was hidden behind",
+      code == 0 and fake.events[SG_ID]["hidden_at"] is None and fake.events[TM_ID]["description"] == d0)
+
 print("\nunhide")
 STAMP = "2026-10-13T12:00:00+00:00"
 hid = slu_rows()
@@ -1690,4 +1850,5 @@ except SystemExit as exc:
     check("--unhide without --stamp or --id refuses", "never un-hides everything" in str(exc))
 
 print(f"\n{ok} passed, {fail} failed")
-raise SystemExit(1 if fail else 0)
+if __name__ == "__main__":                 # test_retire_ticket_addons imports this file for FakeRest
+    raise SystemExit(1 if fail else 0)

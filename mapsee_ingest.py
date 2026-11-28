@@ -1575,9 +1575,20 @@ def _tm_for_children(raw: Dict[str, Any]) -> bool:
 # Chicago Theatre x2, Brooklyn Bowl, a RAI Theater "VIP Upgrade". The narrow half
 # of mapsee_dedupe_events.NOT_AN_EVENT, plus parking, which is safe in code that
 # reads only Ticketmaster (Moshtix has a band called "4 HR PARKING").
+#
+# WIDENED 2026-11-28, from the rows still arriving. Over the next 10 UTC days of
+# live rows on a Ticketmaster link (39 products), 11 got past the rule above and
+# 7 of them were made after it shipped: "<show> | Parking ticket" x4
+# (ticketmaster.cz), "JUNHEE VIP-Add on" / "VVIP Add-on" / "Selfi Add-on",
+# "... VIP Pre-show Tour Add-on", "Add-on For Combined ... M&G", "K_Parking
+# Permit De Mega Sint Show", "Ohio State Football Single Game Parking". So:
+# parking + ticket/permit wherever it sits (an underscore before it too) and
+# "add-on" / "add on" as words. NOT a title that merely ends in "parking": that
+# is the band "4 HR PARKING", and it costs the one "Single Game Parking" row.
+# Stored rows are mapsee_retire_ticket_addons.py's.
 _TM_NOT_A_TICKET_RX = re.compile(
     r"not an? (?:\w+ ){0,2}ticket|not an event|\bvip upgrade\b|^\s*parking\b|"
-    r"\bparking\s+(?:pass|lot|garage|voucher)\b", re.I)
+    r"(?<![a-z])parking\s+(?:pass|lot|garage|voucher|ticket|permit)\b|\badd[- ]on\b", re.I)
 
 
 def _fmt_price(price_ranges) -> Optional[str]:

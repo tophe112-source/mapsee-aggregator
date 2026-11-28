@@ -46,7 +46,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
 from mapsee_ingest import clean_postal_code, normalize_agenda, LOCALIST_FINGERPRINT_PREFIX
@@ -1226,6 +1226,135 @@ def adds_categories(primary: Optional[str], extras: Optional[List[str]], categor
     a copy's link decides anything (copy_counts), so only its text is read."""
     kept = {primary or DEFAULT_CATEGORY_KEY, DEFAULT_CATEGORY_KEY} | set(extras or [])
     return bool(({category or DEFAULT_CATEGORY_KEY} | set(categories or [])) - kept)
+
+
+# ONE EVENT, EVERY SELLER (2026-11-28). The collapser hides the second row of an
+# event two ticket sites list, and until now the hidden row's link went with it:
+# a show sold on Ticketmaster and SeatGeek kept whichever link its kept row had.
+# Measured that day over three UTC days of live rows (50,596 listed, report
+# only): 1,669 copies to hide, 475 of them a seatgeek.com row beside a
+# ticketmaster.com one, 27 SeatGeek beside TicketWeb. The kept row now carries
+# one line naming the OTHER publishers its hidden copies link to, which
+# ../mapsee turns into one chip per seller:
+#
+#     🎫 Also on — SeatGeek: https://seatgeek.com/...  ·  TicketWeb: https://...
+#
+# Written by mapsee_dedupe_events.seller_links_pass and by nothing else: to_row
+# never writes it, because only the table knows which rows were hidden behind
+# which. So the sync CARRIES a stored row's line onto the row it is about to
+# write (carry_also_on, from unchanged_ids' own read: no extra request), or
+# every refresh would rewrite the row without it and the collapser would put it
+# back the next night, two non-HOT writes a week per kept row for nothing.
+# The line is the description's LAST paragraph, after "Tickets / info:", so
+# every reader that cuts the machine tail at its first marker drops it too.
+# 🎫 U+1F3AB, not 🎟 U+1F39F: the latter is written with and without a
+# variation selector, and a marker a regex must find has one spelling.
+ALSO_ON_MARK = "\U0001F3AB Also on — "
+ALSO_ON_RX = re.compile(r"(?:\n\n|^)\U0001F3AB Also on — [^\n]*(?=\n\n|$)")
+ALSO_ON_MAX = 3                     # other sellers named on one kept row
+_RAW_LINK_RX = re.compile(r"Tickets / info: (https?://[^\s]+)")
+# Registrable name -> what a person calls the seller. A host not listed here is
+# named by itself ('order.pnb.org'): a venue's own box office is a seller too.
+SELLER_NAMES = {
+    "ticketmaster": "Ticketmaster", "livenation": "Live Nation", "seatgeek": "SeatGeek", "axs": "AXS",
+    "dice": "DICE", "ticketweb": "TicketWeb", "universe": "Universe", "tixr": "Tixr",
+    "eventbrite": "Eventbrite", "etix": "Etix", "seetickets": "See Tickets", "eventim": "Eventim",
+    "ticketek": "Ticketek", "moshtix": "Moshtix", "humanitix": "Humanitix", "showclix": "ShowClix",
+    "feverup": "Fever", "gofevo": "Fevo", "meetup": "Meetup", "luma": "Luma", "lu": "Luma",
+    "openagenda": "OpenAgenda", "facebook": "Facebook", "ra": "Resident Advisor",
+}
+_SECOND_LEVEL = {"co", "com", "org", "net", "gov", "ac", "edu"}     # ticketmaster.co.uk, moshtix.com.au
+
+
+def link_url(description: Optional[str]) -> Optional[str]:
+    """The row's own 'Tickets / info:' URL as it was written (canonical_link
+    lower-cases the path, and a Ticketmaster event id is case-sensitive)."""
+    m = _RAW_LINK_RX.search(description or "")
+    return m.group(1).rstrip(".,)") if m else None
+
+
+def seller_key(link: Optional[str]) -> Optional[str]:
+    """Who publishes this link: the registrable label of its host
+    ('ticketmaster' for www.ticketmaster.com and ticketmaster.co.uk alike), so
+    one seller's two country sites are one seller. None for no host."""
+    if not link:
+        return None
+    try:
+        host = urllib.parse.urlparse(link if "://" in link else "https://" + link).netloc.lower()
+    except ValueError:
+        return None
+    host = host.split("@")[-1].split(":")[0]
+    labels = [x for x in host.split(".") if x]
+    if len(labels) < 2:
+        return None
+    if len(labels) >= 3 and labels[-2] in _SECOND_LEVEL and len(labels[-1]) == 2:
+        return labels[-3]
+    return labels[-2]
+
+
+def seller_name(link: Optional[str]) -> Optional[str]:
+    """'SeatGeek' for a seatgeek.com link; an unlisted host is named by itself
+    without 'www.'. Never contains ':' or '·', the line's own separators."""
+    key = seller_key(link)
+    if not key:
+        return None
+    if key in SELLER_NAMES:
+        return SELLER_NAMES[key]
+    host = urllib.parse.urlparse(link if "://" in link else "https://" + link).netloc.lower()
+    host = host.split("@")[-1].split(":")[0]
+    host = host[4:] if host.startswith("www.") else host
+    return host if re.fullmatch(r"[a-z0-9.-]+", host) else None
+
+
+def also_on_line(kept_url: Optional[str], copy_urls: Iterable[str]) -> Optional[str]:
+    """The kept row's line for these hidden copies' links, or None when no copy
+    is on another publisher or the kept row has no link of its own. One entry per publisher that is not the kept
+    row's own (a re-keyed Ticketmaster row beside a Ticketmaster row adds
+    nothing), listed sellers first, then by name; at most ALSO_ON_MAX. The
+    same inputs give the same bytes whatever order the copies were read in."""
+    own = seller_key(kept_url)
+    if not own:
+        # A kept row with no link of its own gets no line: the line must sit
+        # AFTER "Tickets / info:", which is where ../mapsee 0227 and every
+        # other tail cut stop reading (a seller's URL slug is not prose).
+        return None
+    best: Dict[str, Tuple[str, str]] = {}
+    for u in sorted(set(x for x in copy_urls if x)):
+        key, name = seller_key(u), seller_name(u)
+        if not key or not name or key == own or not re.match(r"https?://\S+$", u) or "·" in u:
+            continue
+        best.setdefault(key, (name, u))
+    picked = sorted(best.items(), key=lambda kv: (kv[0] not in SELLER_NAMES, kv[1][0].lower(), kv[1][1]))
+    if not picked:
+        return None
+    return ALSO_ON_MARK + "  ·  ".join(f"{name}: {u}" for _, (name, u) in picked[:ALSO_ON_MAX])
+
+
+def read_also_on(description: Optional[str]) -> Optional[str]:
+    """The stored line, without its paragraph break, or None."""
+    m = ALSO_ON_RX.search(description or "")
+    return m.group(0).strip() if m else None
+
+
+def with_also_on(description: Optional[str], line: Optional[str]) -> Optional[str]:
+    """`description` with exactly this line as its last paragraph (None: with
+    no such line). Idempotent: with_also_on(with_also_on(d, l), l) is the same."""
+    body = ALSO_ON_RX.sub("", description or "").strip("\n")
+    if not line:
+        return body or None
+    return f"{body}\n\n{line}" if body else line
+
+
+def carry_also_on(want: Dict[str, Any], stored: Dict[str, Any]) -> bool:
+    """Put the STORED row's seller line on the row about to be written, in
+    place, when ours has none (to_row never writes one). True when it did.
+    The collapser alone decides what the line says and when it goes: a row it
+    no longer keeps loses the line on its next pass, not here."""
+    line = read_also_on(stored.get("description"))
+    if not line or "description" not in want or read_also_on(want.get("description")):
+        return False
+    want["description"] = with_also_on(want.get("description"), line)
+    return True
 
 
 # "workout" is a live metaphor and the classifier kept believing it. A glass-
@@ -4910,6 +5039,9 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
             want = mine.get(eid)
             if not want:
                 continue
+            # A kept row's "Also on" line is the collapser's, not to_row's: the
+            # row we write carries the stored one, compared or rewritten alike.
+            carry_also_on(want, row)
             compared += 1
             ours, theirs = _norm_rh(want, row)
             read_as = _retired_lines(ours, theirs)

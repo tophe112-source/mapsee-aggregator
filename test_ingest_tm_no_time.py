@@ -155,9 +155,15 @@ products = [product("amp", "WAMU Theater Amplified Access: MONSTA X (Not an Even
             product("vip", "Akaash Singh - Generational Triumph Tour | VIP Upgrade"),
             product("park", "Parking: Hamilton"),
             product("pass", "Taylor Swift Parking Pass"),
+            # 2026-11-28: the shapes still arriving after the first rule shipped.
+            product("cz", "HC Sparta Praha x HC Škoda Plzeň | Parking ticket"),
+            product("nl", "K_Parking Permit De Mega Sint Show 2026"),
+            product("addon", "JUNHEE VVIP Add-on"), product("addon2", "JUNHEE VIP-Add on"),
+            product("tour", "Cirque Musica Holiday Wonderland - VIP Pre-show Tour Add-on"),
             product("gone", "WAMU Theater Amplified Access: Chuy (Not an Event Ticket)", "canceled")]
 shows = [product("show", "MONSTA X"), product("band", "4 HR PARKING"),
-         product("event", "An Evening with the Not Ticketed Choir")]
+         product("event", "An Evening with the Not Ticketed Choir"),
+         product("addons", "The Addons: Farewell Tour")]
 page = {"_embedded": {"events": products + shows}, "page": {"totalPages": 1, "number": 0}}
 mi.http_get = lambda *a, **k: FakeResp(page)
 mi.build_tm_params = lambda args, key: {"apikey": key}
@@ -167,7 +173,7 @@ try:
 finally:
     mi.http_get, mi.build_tm_params = real_get, real_params
 same("the loop stores the shows and none of the products",
-     [ev.source_id for ev in store.rows], ["show", "band", "event"])
+     [ev.source_id for ev in store.rows], ["show", "band", "event", "addons"])
 same("  ...and a product's cancellation tombstones nothing (it can share the show's fingerprint)",
      store.cancelled, [])
 

@@ -211,6 +211,13 @@ jobs:
       - name: Duplicate imported events (which rows are one event, what is hidden)
         run: python test_dedupe_events.py
 
+      # The other half of the import's "a product, not a show" rule: the stored
+      # Ticketmaster add-on rows (a lounge upgrade, a parking permit) it hides,
+      # what it must never touch (the show, a meet-up, a claimed or engaged
+      # row), and that one run can be reversed. Imports the collapser's fake.
+      - name: Ticketmaster add-on rows already stored (what is retired, what is left)
+        run: python test_retire_ticket_addons.py
+
       # The alarm, not the pipeline. source-health.yml failed its first eight
       # runs against a retired RPC and reported it as sources going quiet; both
       # halves of that — which endpoint is called, and whether the server's own

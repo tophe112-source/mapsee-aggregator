@@ -1,5 +1,63 @@
 # The sync, EventStore, upserts, paging, cursors, fingerprints and series
 
+- **ONE EVENT, EVERY SELLER: THE KEPT ROW NAMES THE SELLERS OF THE COPIES HIDDEN
+  BEHIND IT (2026-11-28).** A report over three UTC days of live rows (50,331
+  listed, 148 GETs, 29 s, read-only) planned 1,667 hides, 475 of them a
+  seatgeek.com row beside a ticketmaster.com one (all same-slot), 27 SeatGeek
+  beside TicketWeb. Read by hand, 45 of those 475 sampled: 45 the same show, 0
+  wrong. Hiding the copy used to drop its link. Now `seller_links_pass` (last
+  in every collapser run, and after `--unhide`) writes one last paragraph on
+  the kept row, `🎫 Also on — SeatGeek: <url>  ·  TicketWeb: <url>`: one entry
+  per publisher that is not the kept row's own (`seller_key`: ticketmaster.com
+  and ticketmaster.co.uk are one), listed sellers first, at most 3, the same
+  bytes for the same copies. 673 kept rows in those three days would carry
+  one. A copy whose link is another event's page (`copy_counts`) is never
+  named; a claimed kept row is never written; a kept row with no link of its
+  own gets no line, so the line always sits after "Tickets / info:", where
+  ../mapsee 0227 and every tail cut stop reading. The PATCH is filtered on the
+  `updated_at` the row was read with. `to_row` never writes the line: the
+  sync's `carry_also_on` puts the STORED line on the row it compares and
+  writes (inside `unchanged_ids`' own read, no extra request), so a refresh
+  neither rewrites a kept row for the line nor loses it. A write that skips
+  that read loses the line until the collapser's next run. ../mapsee draws one
+  chip per seller (`parseImportedDesc`, `extActionsHtml`); land that first, or
+  an old shell shows the line as text. `test_dedupe_events.py` (263 checks),
+  `test_skip_unchanged.py`. The repo's own SeatGeek docstring says its terms
+  forbid showing other sellers' listings; the terms could not be fetched that
+  day (403), so whether a SeatGeek chip may sit beside another seller's is the
+  owner's call, not a measured fact.
+
+- **BESIDE THE BOX OFFICE'S ROW, A RESALE MARKETPLACE'S ROW IS THE COPY
+  (2026-11-28).** `survivor_key` chose the newest import among equals, which
+  says which of ONE publisher's titles is current and nothing about two
+  publishers. Of the 475 planned Ticketmaster/SeatGeek hides above it kept
+  SeatGeek's row in 308: a city suffix in the title ('Hadestown - New York'
+  beside 'Hadestown') and no blurb, genre or 📺 line. `RESALE = {"seatgeek"}`
+  now ranks after the whole-over-part term and before age. Claimed, engaged,
+  clock and own-link terms still outrank it: a SeatGeek row with an RSVP is
+  kept and names Ticketmaster. Two pinned cases moved with it (Digable
+  Planets, Buena Vista Social Club): the other row is kept, the same doors.
+
+- **TWO ROWS OF ONE TICKET ADD-ON ARE ONE ROW TWICE, AND THE STORED ADD-ONS HAVE
+  THEIR OWN RETIREMENT (2026-11-28).** Seattle's next 24 hours listed 'WAMU
+  Theater Amplified Access: Steve Lacy (Not an Event Ticket)' twice beside the
+  concert: one Ticketmaster page, two fingerprints, made 23.9 h apart, and
+  `NOT_AN_EVENT` refused every pair with an add-on in it. Two add-ons with the
+  SAME title now go on to the ordinary rules (that pair: same-page); an add-on
+  still never matches its show, and two different add-ons stay two. The rows
+  themselves are products the import has refused since 10-23: over the next 10
+  UTC days (189,403 rows listed) 39 were still live on a Ticketmaster link, 28
+  by the import's rule and 11 by shapes it missed, 7 of those made after it
+  shipped ('<show> | Parking ticket' x4 on ticketmaster.cz, 'JUNHEE VVIP
+  Add-on'). `_TM_NOT_A_TICKET_RX` now takes parking + ticket/permit anywhere
+  and 'add-on' / 'add on'; not a title that only ends in 'parking' (the band
+  '4 HR PARKING'). The same titles on meetup.com (12) are real meet-ups, so
+  `mapsee_retire_ticket_addons.py` (report by default; `--apply`; `--unhide
+  --stamp`) hides a stored row only when its own link is Ticketmaster's or
+  Live Nation's, with `hidden_at` alone, never a claimed or engaged row. It is
+  the opt-in `retire_ticket_addons` input on prune-cancelled.yml.
+  `test_retire_ticket_addons.py`: 8 checks.
+
 - **Localist edits keep the event's identity (2026-11-19).** Seattle
   University's API returned ID `53541560544801` for the reported Fireside
   Chat. Localist now uses the calendar hostname plus the publisher's event ID
