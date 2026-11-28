@@ -54,9 +54,14 @@
   '4 HR PARKING'). The same titles on meetup.com (12) are real meet-ups, so
   `mapsee_retire_ticket_addons.py` (report by default; `--apply`; `--unhide
   --stamp`) hides a stored row only when its own link is Ticketmaster's or
-  Live Nation's, with `hidden_at` alone, never a claimed or engaged row. It is
-  the opt-in `retire_ticket_addons` input on prune-cancelled.yml.
-  `test_retire_ticket_addons.py`: 8 checks.
+  Live Nation's, with `hidden_at` alone, never a claimed or engaged row. It
+  runs from retire-ticket-addons.yml (dispatch only), not as a step of
+  prune-cancelled.yml, where it sat for an hour: there it waited behind the
+  prune sweep's whole budget inside one 45-minute job. Its listing is the
+  collapser's, unfiltered: 95 days in 293 s (121 rows found, anon key), while
+  one `or=(title.ilike...)` statement over a day's ~20,000 rows hit the
+  statement timeout on day +3. A day that cannot be listed costs only its own
+  rows. `test_retire_ticket_addons.py`: 9 checks.
 
 - **Localist edits keep the event's identity (2026-11-19).** Seattle
   University's API returned ID `53541560544801` for the reported Fireside

@@ -37,6 +37,7 @@ hidden at that stamp, with no duplicate_of and no cancelled_at, that still
 match the predicate.
 
 Env:  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY; MAPSEE_TODAY=YYYYMMDD fixes now.
+In CI: retire-ticket-addons.yml (dispatch only: report | apply | unhide).
 Run:  python mapsee_retire_ticket_addons.py                 # report
       python mapsee_retire_ticket_addons.py --apply
       python mapsee_retire_ticket_addons.py --unhide --stamp 2026-11-29T07:10:00+00:00 --apply
@@ -59,35 +60,46 @@ from mapsee_supabase_sync import seller_key
 
 SELLERS = {"ticketmaster", "livenation"}
 
-
 def is_addon(title: Optional[str], link: Optional[str]) -> bool:
     """The stored row is a Ticketmaster product: the import's own title rule,
     on a row whose link is Ticketmaster's or Live Nation's."""
     return bool(_TM_NOT_A_TICKET_RX.search(title or "")) and seller_key(link) in SELLERS
 
 
-def find(db: "D.Db", now, days: int, budget) -> Optional[List[Dict[str, Any]]]:
+def find(db: "D.Db", now, days: int, budget):
     """Live imported rows of the next `days` UTC days (and yesterday's still
-    running) that are add-ons, each with its link. None when a read failed."""
+    running) that are add-ons, each with its link, and the days that could not
+    be listed whole. Each row is judged on its own, so a day that failed costs
+    only its own rows: what was read is still acted on, and the run exits 1.
+    -> (rows, owed days), or (None, owed) when the links could not be read.
+
+    The listing is the collapser's, unfiltered, on purpose: a title filter
+    pushed into the query (or=(title.ilike...)) made one day's read a single
+    statement over ~20,000 rows and it hit the statement timeout on the anon
+    key (2026-11-28, day +3 of 120), where 1,000-row pages of the same day do
+    not."""
     midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
     hits: Dict[str, Dict[str, Any]] = {}
+    owed: List[str] = []
     for off in range(-1, days):
         lo = midnight + timedelta(days=off)
+        if budget():
+            owed.append(f"{lo.date()} onward (budget)")
+            break
         rows, missed, _ = D.list_window(db, lo, lo + timedelta(days=1), now, budget)
         if missed:
-            D._p(f"  {lo.date()}: {len(missed)} part(s) of the day could not be listed")
-            return None
+            owed.append(str(lo.date()))
         for r in rows:
             if _TM_NOT_A_TICKET_RX.search(r.get("title") or ""):
                 hits[r["id"]] = r
     links = D.read_links(db, hits) if hits else {}
     if links is None:
-        return None
+        return None, owed
     out = []
     for i, r in sorted(hits.items()):
         if is_addon(r.get("title"), links.get(i)) and not r.get("claimed_at"):
             out.append(dict(r, link=links.get(i)))
-    return out
+    return out, owed
 
 
 def unhide(db: "D.Db", stamp: str, apply: bool) -> int:
@@ -120,7 +132,7 @@ def unhide(db: "D.Db", stamp: str, apply: bool) -> int:
 def main(argv: Optional[List[str]] = None, http=None) -> int:
     ap = argparse.ArgumentParser(description="Hide Ticketmaster product rows (report unless --apply).")
     ap.add_argument("--apply", action="store_true")
-    ap.add_argument("--days", type=int, default=120, help="Forward horizon in UTC days (default 120).")
+    ap.add_argument("--days", type=int, default=95, help="Forward horizon in UTC days (default 95: Ticketmaster is read 90 ahead).")
     ap.add_argument("--max-seconds", type=int, default=900)
     ap.add_argument("--unhide", action="store_true", help="Reverse one run; needs --stamp.")
     ap.add_argument("--stamp", default=None)
@@ -138,15 +150,17 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     budget = lambda: D._clock() - started > a.max_seconds   # noqa: E731
     stamp = now.replace(microsecond=0).isoformat()
     D._p(f"Mode: {'APPLY (hidden_at=' + stamp + ')' if a.apply else 'REPORT ONLY'}; {a.days} days ahead")
-    rows = find(db, now, a.days, budget)
+    rows, owed_days = find(db, now, a.days, budget)
     if rows is None:
-        D._p("OWED: the listing was not read whole; nothing hidden. Run it again.")
+        D._p("OWED: the rows' links could not be read; nothing hidden. Run it again.")
         return 1
+    for day in owed_days:
+        D._p(f"OWED: {day} was not listed whole; its rows wait for the next run")
     D._p(f"Ticketmaster product rows still visible: {len(rows)}")
     for r in rows[:60]:
         D._p(f"  {r['id']}  {str(r.get('starts_at') or '')[:16]}  {r.get('title')!r}")
     if not a.apply or not rows:
-        return 0
+        return 1 if owed_days else 0
     rsvp = D.read_rsvp_ids(db, [r["id"] for r in rows])
     if rsvp is None:
         D._p("OWED: RSVPs could not be read; nothing hidden.")
@@ -164,7 +178,7 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
             D._p(f"  hide failed for {len(chunk)} row(s): {D._why(resp)}")
     D._p(f"Hidden {hidden} of {len(rows)} ({len(rows) - len(todo)} left: somebody is on them)."
          + (f" OWED {owed}." if owed else ""))
-    return 1 if owed else 0
+    return 1 if (owed or owed_days) else 0
 
 
 if __name__ == "__main__":
